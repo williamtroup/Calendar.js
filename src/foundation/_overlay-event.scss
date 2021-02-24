@@ -1,0 +1,48 @@
+@import "styles";
+
+div.expired {
+    opacity: $event-expired-opacity;
+}
+
+div.all-day-event {
+    background-color: $event-color-all-day-event !important;
+}
+
+div.event,
+div.event-no-hover {
+    @include word-wrap-with-new-lines;
+    border-radius: $border-view-radius;
+    background-color: $event-color;
+    padding: 8px;
+    color: $light-color;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-left: $event-left-border;
+
+    div {
+        margin-bottom: 3px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    div.title {
+        font-weight: 900;
+    }
+    
+    div.date,
+    div.description {
+        font-size: smaller;
+        font-weight: 300;
+    }
+}
+
+div.event:hover {
+    @include opacity-hover-effect;
+}
+
+&:last-child {
+    margin-bottom: 0;
+}

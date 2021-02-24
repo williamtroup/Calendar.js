@@ -1,0 +1,745 @@
+/*
+ * Calender.js Library v0.1.0
+ *
+ * Copyright 2021 Bunoon
+ * Released under the GNU AGPLv3 license
+ */
+
+
+@import "foundation/styles";
+
+div.calendar,
+div.calender-event-editor-dialog,
+div.calender-event-editor-dialog input,
+div.calender-event-editor-dialog textarea {
+    font-family: 'Montserrat', sans-serif;
+
+    @media screen and (min-width: 321px) {
+        font-size: 0.9rem !important;
+    }
+    
+    @media screen and (max-width: 320px) {
+        font-size: 0.7rem !important;
+    }
+
+    div.overlay-shown {
+        top: 0 !important;
+        visibility: visible !important;
+    }
+}
+
+ 
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    @include no-selection-allowed;
+    border-radius: $border-view-radius;
+    overflow: hidden;
+    width: 100%;
+    border: 1px solid $dark-color;
+    position: relative;
+    overflow: hidden;
+
+    sup {
+        font-size: xx-small;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+    
+    span.day-muted {
+        opacity: 0.3;
+    }
+    
+    div.header-days {
+        font-weight: 900 !important;
+        background-color: $day-names-color !important;
+        color: $dark-color !important;
+        text-transform: uppercase;
+    }
+    
+    div.row {
+        border-bottom: 1px solid $dark-color;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        font-weight: 300;
+        background-color: $light-color;
+        color: $dark-color;
+
+        div.cell {
+            width: 14.285714285714285714285714285714%;
+            display: inline-block;
+            text-align: center;
+            padding: 10px;
+            border-right: 1px solid $dark-color;
+            position: relative;
+            overflow: hidden;
+            color: $dark-color;
+
+            &:last-child {
+                border-right: none;
+            }
+
+            &:hover div.expand-day {
+                display: block;
+            }
+        }
+        
+        div.today {
+            background-color: $day-names-color;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+    
+    div.expand-day {
+        @include fade-in-effect-animation;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        height: 6px;
+        width: 6px;
+        border: 3px solid $event-color;
+        border-radius: $border-view-radius;
+        display: none;
+
+        &:hover {
+            @include opacity-hover-effect;
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Date Header
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {  
+    div.header-date {
+        font-weight: 900;
+        background-color: $dark-color;
+        color: $light-color;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+
+        span {
+            &:hover {
+                @include opacity-hover-effect();
+            }
+        }
+
+        div {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        div.years-drop-down {
+            position: absolute;
+            width: 240px;
+            height: 200px;
+            border: 1px solid $dark-color;
+            left: 45%;
+            top: calc(20px + 0.9rem);
+            transform: translate(-45%);
+            background-color: $light-color;
+            border-radius: $border-view-radius;
+            z-index: 1500;
+            display: none;
+            overflow: hidden;
+
+            div.contents {
+                @include word-wrap-with-new-lines();
+                overflow-x: hidden;
+                overflow-y: auto;
+                width: inherit;
+                height: inherit;
+                margin-left: 0;
+                margin-right: 0;
+
+                div {
+                    display: inline-block;
+                    color: $dark-color;
+                    font-size: 0.75rem;
+                    margin-right: 5px;
+                    width: calc(25% - 17px);
+                    text-align: center;
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    border-radius: $border-view-radius;
+                    padding: 3px;
+    
+                    &:hover {
+                        background-color: $dark-color;
+                        color: $light-color;
+                        cursor: pointer;
+                        transition: $transition;
+                    }
+                }
+            }
+        }
+
+        div.arrow {
+            border-top: $header-date-toolbar-button-border;
+            border-right: $header-date-toolbar-button-border;
+            width: 8px;
+            height: 8px;
+            border-radius: $border-view-radius;
+            display: inline;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+        }
+        
+        div.next-month {
+            @include transform(rotate(45deg));
+            float: right;
+
+        }
+        
+        div.previous-month {
+            @include transform(rotate(-135deg));
+            float: left;
+        }
+
+        div.previous-month,
+        div.next-month {
+            margin-top: 2px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        @import "foundation/export-events-button";
+        @import "foundation/add-event-button";
+
+        div.list-all-events {
+            display: inline;
+            width: 16px;
+            height: 8px;
+            border-top: $header-date-toolbar-button-border;
+            border-bottom: $header-date-toolbar-button-border;
+            border-radius: $border-circle-radius;
+            float: right;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+        }
+
+        div.today {
+            width: 18px;
+            height: 12px;
+            float: left;
+            border-top: $header-date-toolbar-button-border;
+            border-radius: .25rem;
+            position: relative;
+
+            &:before,
+            &:after {
+                position: absolute;
+                content: "";
+                background-color: $light-color;
+                width: 4px;
+                left: 50%;
+                transform: translate(-50%);
+            }
+
+            &:before {
+                height: calc(100% - 6px);
+                border-bottom-left-radius: .25rem;
+                border-bottom-right-radius: .25rem;
+            }
+    
+            &:after {
+                height: 4px;
+                bottom: 0;
+                border-radius: .25rem;
+            }
+
+            &:hover {
+                @include opacity-hover-effect;
+            }
+        }
+
+        div.list-week-events {
+            display: inline;
+            width: 16px;
+            height: 9px;
+            border-top: $header-date-toolbar-button-small-border;
+            border-bottom: $header-date-toolbar-button-small-border;
+            float: right;
+            position: relative;
+            margin-top: 1px;
+            border-radius: $border-view-radius;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 3px;
+                left: 0px;
+                height: 3px;
+                width: 100%;
+                background: $light-color;
+              }
+        }
+
+        div.refresh {
+            width: 18px;
+            height: 14px;
+            float: left;
+            position: relative;
+            margin-top: 1px;
+
+            &::before,
+            &::after {
+                position: absolute;
+                content: "";
+                width: 8px;
+                height: 10px;
+                border-radius: .25rem;
+            }
+
+            &::before {
+                border-top: $header-date-toolbar-button-border;
+                border-left: $header-date-toolbar-button-border;
+                left: 0;
+            }
+    
+            &::after {
+                border-bottom: $header-date-toolbar-button-border;
+                border-right: $header-date-toolbar-button-border;
+                left: 6px;
+            }
+
+            &:hover {
+                @include opacity-hover-effect;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Day Events
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.row {
+        div.cell {
+            div.event,
+            div.event-no-hover {
+                border-radius: $border-view-radius;
+                background-color: $event-color;
+                font-size: 0.7rem !important;
+                padding: 3px;
+                color: $light-color;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                border-left: $event-left-border;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                @media screen and (min-width: 321px) {
+                    font-size: 0.7rem !important;
+                }
+                
+                @media screen and (max-width: 320px) {
+                    font-size: 0.5rem !important;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            div.event:hover {
+                @include opacity-hover-effect;
+            }
+            
+            div.expired {
+                opacity: $event-expired-opacity;
+            }
+
+            div.all-day-event {
+                background-color: $event-color-all-day-event !important;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Full Day View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.full-day-view {
+        @include full-size-view-display;
+
+        @import "foundation/overlay-title-bar";
+        
+        div.contents {
+            @include overlay-contents;
+
+            @import "foundation/overlay-event";
+
+            div.event,
+            div.event-no-hover {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - All Events View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.list-all-events-view {
+        @include full-size-view-display;
+
+        @import "foundation/overlay-title-bar";
+
+        div.contents {
+            @include overlay-contents;
+
+            div.month {
+                border-radius: $border-view-radius;
+                border: 1px solid $dark-color;
+                overflow: hidden;
+                margin-bottom: 10px;
+
+                div.header {
+                    background-color: $dark-color;
+                    color: $light-color;
+                    padding: 10px;
+                }
+
+                div.events {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+
+                    @import "foundation/overlay-event";
+                }
+
+                &:last-child {
+                    margin-bottom: 0 !important;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - All Week Events View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.list-all-week-events-view {
+        @include full-size-view-display;
+
+        @import "foundation/overlay-title-bar";
+
+        div.contents {
+            @include overlay-contents;
+
+            div.day {
+                border-radius: $border-view-radius;
+                border: 1px solid $dark-color;
+                overflow: hidden;
+                margin-bottom: 10px;
+
+                div.header {
+                    background-color: $dark-color;
+                    color: $light-color;
+                    padding: 10px;
+                }
+
+                div.events {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+
+                    @import "foundation/overlay-event";
+                }
+
+                &:last-child {
+                    margin-bottom: 0 !important;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Event Editor Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.disabled-background {
+    @include full-size-view;
+    z-index: 1000;
+    position: fixed;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+div.calender-event-editor-dialog {
+    width: calc(100% - 20px);
+    max-width: 370px;
+    border-radius: $border-view-radius;
+    background-color: $light-color;
+    border: 1px solid $dark-color;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 1500;
+
+    div.title-bar {
+        @include no-selection-allowed;
+        background-color: $dark-color;
+        color: $light-color;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    div.contents {
+        padding: 10px;
+    }
+    
+    input:not([type="button"]),
+    textarea {
+        color: $dark-color;
+        width: 100%;
+        padding: .375rem .75rem;
+        border: 1px solid $input-border-color;
+        border-radius: $border-view-radius;
+        outline-color: $dark-color !important;
+        margin-bottom: 10px;
+        background-color: $input-background-color;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:-moz-focusring {
+            outline: none;
+        }
+    }
+
+    input:disabled {
+        background-color: $light-color;
+    }
+
+    textarea {
+        height: 100px;
+        resize: none;
+        margin-bottom: 20px !important;
+    }
+    
+    div.split {
+        input {
+            width: calc(50% - 5px);
+            margin-right: 5px;
+            margin-left: 5px;
+    
+            &:first-child {
+                margin-left: 0;
+            }
+            
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    
+    p {
+        @include no-selection-allowed;
+        margin: 0;
+        margin-bottom: 8px;
+
+        &.error {
+            color: $alert-color;
+            display: none;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Event Editor Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+
+div.calender-event-editor-dialog {
+    input[type="button"] {
+        @include no-selection-allowed;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        border: none;
+        padding: .255rem .55rem;
+        line-height: 1.8;
+        border-radius: $border-view-radius;
+        outline: 0;
+        cursor: pointer;
+
+        &.ok {
+            color: $light-color;
+            background-color: #289345;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+        }
+
+        &.cancel {
+            color: $light-color;
+            background-color: $alert-color;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+        }
+
+        &.remove {
+            color: $light-color;
+            background-color: $dark-color;
+            margin-top: 10px;
+            width: 100%;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+        }
+    }
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Event Editor Dialog - CheckBox
+    -------------------------------------------------------------------------
+*/
+
+div.calender-event-editor-dialog {
+    label.checkbox {
+        @include no-selection-allowed();
+        display: block;
+        position: relative;
+        padding-left: 25px;
+        padding-top: 1px;
+        margin-bottom: 12px;
+        color: $dark-color;
+
+        input {
+            display: none;
+
+            &:checked ~ span.check-mark {
+                background-color: $dark-color !important;
+                border: 1px solid $dark-color;
+            }
+
+            &:checked ~ span.check-mark:after {
+                display: block;
+            }
+        }
+
+        span.check-mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 15px;
+            width: 15px;
+            background-color: $input-background-color;
+            border-radius: $border-view-radius;
+            border: 1px solid $input-border-color;
+
+            &:after {
+                @include transform(rotate(45deg));
+                content: "";
+                position: absolute;
+                display: none;
+                left: 4px;
+                top: 1px;
+                width: 4px;
+                height: 7px;
+                border: solid $light-color;
+                border-width: 0 3px 3px 0;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Custom Scroll Bar
+    -------------------------------------------------------------------------
+*/
+
+.custom-scroll-bars {
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: $scroll-bar-border-style;
+        box-shadow: $scroll-bar-border-style;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: $scroll-bar-border-style;
+        box-shadow: $scroll-bar-border-style;
+        background: $light-color;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Effects
+    -------------------------------------------------------------------------
+*/
+
+@keyframes fade-in-effect {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
