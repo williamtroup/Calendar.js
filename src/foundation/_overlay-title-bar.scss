@@ -1,0 +1,24 @@
+@import "styles";
+
+div.title-bar {
+    width: calc(100% - 20px);
+    display: inline-block;
+    padding: 10px;
+    background-color: $dark-color;
+    color: $light-color;
+
+    div {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    div.title {
+        font-weight: 900 !important;
+        float: left;
+        margin-left: 0;
+    }
+
+    @import "close-button";
+    @import "export-events-button";
+    @import "add-event-button";
+}
