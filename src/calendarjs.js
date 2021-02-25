@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.2.0
+ * Calendar.js Library v0.1.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
