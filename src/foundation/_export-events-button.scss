@@ -35,4 +35,8 @@ div.export-events {
     &:hover {
         @include opacity-hover-effect;
     }
+
+    &:active {
+        @include opacity-active-effect;
+    }
 }

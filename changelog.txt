@@ -1,2 +1,6 @@
+v0.1.1:
+- Added active CSS effects for all clickable elements.
+- Minor documentation corrections.
+
 v0.1.0:
 - Everything :)

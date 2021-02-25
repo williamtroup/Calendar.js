@@ -1,5 +1,5 @@
 /*
- * Calender.js Library v0.1.0
+ * Calender.js Library v0.1.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -115,6 +115,10 @@ div.calendar {
         &:hover {
             @include opacity-hover-effect;
         }
+
+        &:active {
+            @include opacity-active-effect;
+        }
     }
 }
 
@@ -136,7 +140,11 @@ div.calendar {
 
         span {
             &:hover {
-                @include opacity-hover-effect();
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
             }
         }
 
@@ -186,6 +194,10 @@ div.calendar {
                         cursor: pointer;
                         transition: $transition;
                     }
+
+                    &:active {
+                        @include opacity-active-effect;
+                    }
                 }
             }
         }
@@ -200,6 +212,10 @@ div.calendar {
     
             &:hover {
                 @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
             }
         }
         
@@ -236,6 +252,10 @@ div.calendar {
             &:hover {
                 @include opacity-hover-effect;
             }
+
+            &:active {
+                @include opacity-active-effect;
+            }
         }
 
         div.today {
@@ -271,6 +291,10 @@ div.calendar {
             &:hover {
                 @include opacity-hover-effect;
             }
+
+            &:active {
+                @include opacity-active-effect;
+            }
         }
 
         div.list-week-events {
@@ -286,6 +310,10 @@ div.calendar {
     
             &:hover {
                 @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
             }
 
             &:after {
@@ -330,6 +358,10 @@ div.calendar {
             &:hover {
                 @include opacity-hover-effect;
             }
+
+            &:active {
+                @include opacity-active-effect;
+            }
         }
     }
 }
@@ -373,6 +405,10 @@ div.calendar {
 
             div.event:hover {
                 @include opacity-hover-effect;
+            }
+            
+            div.event:active {
+                @include opacity-active-effect;
             }
             
             div.expired {
@@ -625,6 +661,10 @@ div.calender-event-editor-dialog {
             &:hover {
                 @include opacity-hover-effect;
             }
+
+            &:active {
+                @include opacity-active-effect;
+            }
         }
 
         &.cancel {
@@ -633,6 +673,10 @@ div.calender-event-editor-dialog {
     
             &:hover {
                 @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
             }
         }
 
@@ -644,6 +688,10 @@ div.calender-event-editor-dialog {
     
             &:hover {
                 @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
             }
         }
     }

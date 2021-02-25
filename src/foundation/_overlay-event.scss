@@ -43,6 +43,10 @@ div.event:hover {
     @include opacity-hover-effect;
 }
 
+div.event:active {
+    @include opacity-active-effect;
+}
+
 &:last-child {
     margin-bottom: 0;
 }
