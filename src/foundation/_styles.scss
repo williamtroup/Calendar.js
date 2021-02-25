@@ -39,6 +39,12 @@ $fade-in-effect-type: fade-in-effect ease 2s;
     opacity: 0.6;
 }
 
+@mixin opacity-active-effect {
+    transition: all .2s;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
 @mixin word-wrap-with-new-lines {
     white-space: pre-line;
     -ms-word-break: break-all;

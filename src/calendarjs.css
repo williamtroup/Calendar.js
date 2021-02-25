@@ -1,5 +1,5 @@
 /*
- * Calender.js Library v0.1.0
+ * Calender.js Library v0.2.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -137,6 +137,13 @@ div.calendar div.expand-day:hover {
   opacity: 0.6;
 }
 
+div.calendar div.expand-day:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Layout - Date Header
@@ -156,6 +163,13 @@ div.calendar div.header-date span:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.header-date span:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.header-date div {
@@ -212,6 +226,13 @@ div.calendar div.header-date div.years-drop-down div.contents div:hover {
   transition: all 0.3s;
 }
 
+div.calendar div.header-date div.years-drop-down div.contents div:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.header-date div.arrow {
   border-top: 4px solid #F5F5F5;
   border-right: 4px solid #F5F5F5;
@@ -226,6 +247,13 @@ div.calendar div.header-date div.arrow:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.header-date div.arrow:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.header-date div.next-month {
@@ -288,6 +316,13 @@ div.calendar div.header-date div.export-events:hover {
   opacity: 0.6;
 }
 
+div.calendar div.header-date div.export-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.header-date div.add-event {
   width: 16px;
   height: 16px;
@@ -326,6 +361,13 @@ div.calendar div.header-date div.add-event:hover {
   opacity: 0.6;
 }
 
+div.calendar div.header-date div.add-event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.header-date div.list-all-events {
   display: inline;
   width: 16px;
@@ -341,6 +383,13 @@ div.calendar div.header-date div.list-all-events:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.header-date div.list-all-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.header-date div.today {
@@ -381,6 +430,13 @@ div.calendar div.header-date div.today:hover {
   opacity: 0.6;
 }
 
+div.calendar div.header-date div.today:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.header-date div.list-week-events {
   display: inline;
   width: 16px;
@@ -398,6 +454,13 @@ div.calendar div.header-date div.list-week-events:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.header-date div.list-week-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.header-date div.list-week-events:after {
@@ -445,6 +508,13 @@ div.calendar div.header-date div.refresh:hover {
   opacity: 0.6;
 }
 
+div.calendar div.header-date div.refresh:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Day Events
@@ -489,6 +559,13 @@ div.calendar div.row div.cell div.event:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.row div.cell div.event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.row div.cell div.expired {
@@ -573,6 +650,13 @@ div.calendar div.full-day-view div.title-bar div.close:hover {
   opacity: 0.6;
 }
 
+div.calendar div.full-day-view div.title-bar div.close:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.full-day-view div.title-bar div.export-events {
   width: 12px;
   height: 16px;
@@ -614,6 +698,13 @@ div.calendar div.full-day-view div.title-bar div.export-events:hover {
   opacity: 0.6;
 }
 
+div.calendar div.full-day-view div.title-bar div.export-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.full-day-view div.title-bar div.add-event {
   width: 16px;
   height: 16px;
@@ -650,6 +741,13 @@ div.calendar div.full-day-view div.title-bar div.add-event:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.full-day-view div.title-bar div.add-event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.full-day-view div.contents {
@@ -713,6 +811,13 @@ div.calendar div.full-day-view div.contents div.event:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.full-day-view div.contents div.event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.full-day-view div.contents:last-child {
@@ -799,6 +904,13 @@ div.calendar div.list-all-events-view div.title-bar div.close:hover {
   opacity: 0.6;
 }
 
+div.calendar div.list-all-events-view div.title-bar div.close:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.list-all-events-view div.title-bar div.export-events {
   width: 12px;
   height: 16px;
@@ -840,6 +952,13 @@ div.calendar div.list-all-events-view div.title-bar div.export-events:hover {
   opacity: 0.6;
 }
 
+div.calendar div.list-all-events-view div.title-bar div.export-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.list-all-events-view div.title-bar div.add-event {
   width: 16px;
   height: 16px;
@@ -876,6 +995,13 @@ div.calendar div.list-all-events-view div.title-bar div.add-event:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.list-all-events-view div.title-bar div.add-event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.list-all-events-view div.contents {
@@ -957,6 +1083,13 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.list-all-events-view div.contents div.month div.events div.event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events:last-child {
@@ -1041,6 +1174,13 @@ div.calendar div.list-all-week-events-view div.title-bar div.close:hover {
   opacity: 0.6;
 }
 
+div.calendar div.list-all-week-events-view div.title-bar div.close:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.list-all-week-events-view div.title-bar div.export-events {
   width: 12px;
   height: 16px;
@@ -1082,6 +1222,13 @@ div.calendar div.list-all-week-events-view div.title-bar div.export-events:hover
   opacity: 0.6;
 }
 
+div.calendar div.list-all-week-events-view div.title-bar div.export-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar div.list-all-week-events-view div.title-bar div.add-event {
   width: 16px;
   height: 16px;
@@ -1118,6 +1265,13 @@ div.calendar div.list-all-week-events-view div.title-bar div.add-event:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.list-all-week-events-view div.title-bar div.add-event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.list-all-week-events-view div.contents {
@@ -1199,6 +1353,13 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events:last-child {
@@ -1352,6 +1513,13 @@ div.calender-event-editor-dialog input[type="button"].ok:hover {
   opacity: 0.6;
 }
 
+div.calender-event-editor-dialog input[type="button"].ok:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calender-event-editor-dialog input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
@@ -1362,6 +1530,13 @@ div.calender-event-editor-dialog input[type="button"].cancel:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calender-event-editor-dialog input[type="button"].cancel:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calender-event-editor-dialog input[type="button"].remove {
@@ -1376,6 +1551,13 @@ div.calender-event-editor-dialog input[type="button"].remove:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
+}
+
+div.calender-event-editor-dialog input[type="button"].remove:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 /*
