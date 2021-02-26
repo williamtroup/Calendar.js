@@ -464,7 +464,7 @@ div.calendar div.header-date div.list-week-events:active {
 }
 
 div.calendar div.header-date div.list-week-events:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 3px;
   left: 0px;
