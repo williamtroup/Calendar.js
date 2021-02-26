@@ -130,6 +130,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
+        _element_EventEditorDialog_DisabledArea = null,
         _element_EventEditorDialog_TitleBar = null,
         _element_EventEditorDialog_DateFrom = null,
         _element_EventEditorDialog_TimeFrom = null,
@@ -1365,13 +1366,21 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog.className = "calender-event-editor-dialog";
             _document.body.appendChild( _element_EventEditorDialog );
 
+            var view = createElement( "div" );
+            view.className = "view";
+            _element_EventEditorDialog.appendChild( view );
+
+            _element_EventEditorDialog_DisabledArea = createElement( "div" );
+            _element_EventEditorDialog_DisabledArea.className = "disabled-area";
+            view.appendChild( _element_EventEditorDialog_DisabledArea );
+
             _element_EventEditorDialog_TitleBar = createElement( "div" );
             _element_EventEditorDialog_TitleBar.className = "title-bar";
-            _element_EventEditorDialog.appendChild( _element_EventEditorDialog_TitleBar );
+            view.appendChild( _element_EventEditorDialog_TitleBar );
 
             var contents = createElement( "div" );
             contents.className = "contents";
-            _element_EventEditorDialog.appendChild( contents );
+            view.appendChild( contents );
 
             var textFrom = createElement( "p" );
             textFrom.innerText = _options.fromText;
@@ -1595,21 +1604,20 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function eventDialogEvent_Remove() {
-        _element_EventEditorDialog.style.display = "none";
+        _element_EventEditorDialog_DisabledArea.style.display = "block";
+
+        var onNoEvent = function() {
+            _element_EventEditorDialog_DisabledArea.style.display = "none";
+        };
 
         var onYesEvent = function() {
-            _element_EventEditorDialog.style.display = "block";
-
+            onNoEvent();
             eventDialogEvent_Cancel();
 
             if ( _element_EventEditorDialog_EventDetails !== null ) {
                 _this.removeEvent( _element_EventEditorDialog_EventDetails.id, true );
                 refreshOpenedViews();
             }
-        };
-
-        var onNoEvent = function() {
-            _element_EventEditorDialog.style.display = "block";
         };
 
         showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );

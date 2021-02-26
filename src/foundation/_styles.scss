@@ -113,3 +113,11 @@ $fade-in-effect-type: fade-in-effect ease 2s;
     outline: 0;
     cursor: pointer;
 }
+
+@mixin disabled-area($position) {
+    @include full-size-view;
+    z-index: 1000;
+    position: $position;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.5);
+}

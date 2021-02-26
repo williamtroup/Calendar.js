@@ -60,6 +60,18 @@ div.disabled-background {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+div.disabled-area {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  position: absolute;
+  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Layout
@@ -1413,7 +1425,11 @@ div.calender-event-editor-dialog {
   z-index: 1500;
 }
 
-div.calender-event-editor-dialog div.title-bar {
+div.calender-event-editor-dialog div.view {
+  position: relative;
+}
+
+div.calender-event-editor-dialog div.view div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1425,12 +1441,12 @@ div.calender-event-editor-dialog div.title-bar {
   text-align: center;
 }
 
-div.calender-event-editor-dialog div.contents {
+div.calender-event-editor-dialog div.view div.contents {
   padding: 10px;
 }
 
-div.calender-event-editor-dialog input:not([type="button"]),
-div.calender-event-editor-dialog textarea {
+div.calender-event-editor-dialog div.view input:not([type="button"]),
+div.calender-event-editor-dialog div.view textarea {
   color: #282828;
   width: 100%;
   padding: .375rem .75rem;
@@ -1441,41 +1457,41 @@ div.calender-event-editor-dialog textarea {
   background-color: #FFFFFF;
 }
 
-div.calender-event-editor-dialog input:not([type="button"]):last-child,
-div.calender-event-editor-dialog textarea:last-child {
+div.calender-event-editor-dialog div.view input:not([type="button"]):last-child,
+div.calender-event-editor-dialog div.view textarea:last-child {
   margin-bottom: 0;
 }
 
-div.calender-event-editor-dialog input:not([type="button"]):-moz-focusring,
-div.calender-event-editor-dialog textarea:-moz-focusring {
+div.calender-event-editor-dialog div.view input:not([type="button"]):-moz-focusring,
+div.calender-event-editor-dialog div.view textarea:-moz-focusring {
   outline: none;
 }
 
-div.calender-event-editor-dialog input:disabled {
+div.calender-event-editor-dialog div.view input:disabled {
   background-color: #F5F5F5;
 }
 
-div.calender-event-editor-dialog textarea {
+div.calender-event-editor-dialog div.view textarea {
   height: 100px;
   resize: none;
   margin-bottom: 20px !important;
 }
 
-div.calender-event-editor-dialog div.split input {
+div.calender-event-editor-dialog div.view div.split input {
   width: calc(50% - 5px);
   margin-right: 5px;
   margin-left: 5px;
 }
 
-div.calender-event-editor-dialog div.split input:first-child {
+div.calender-event-editor-dialog div.view div.split input:first-child {
   margin-left: 0;
 }
 
-div.calender-event-editor-dialog div.split input:last-child {
+div.calender-event-editor-dialog div.view div.split input:last-child {
   margin-right: 0;
 }
 
-div.calender-event-editor-dialog p {
+div.calender-event-editor-dialog div.view p {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1485,7 +1501,7 @@ div.calender-event-editor-dialog p {
   margin-bottom: 8px;
 }
 
-div.calender-event-editor-dialog p.error {
+div.calender-event-editor-dialog div.view p.error {
   color: #C60000;
   display: none;
   margin-bottom: 20px;
