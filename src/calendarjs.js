@@ -1481,6 +1481,7 @@ function calendarJs( id, options, startDateTime ) {
         _document.body.appendChild( _element_DisabledBackground );
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
+        _element_EventEditorDialog_DateFrom.focus();
 
         clearAutoRefreshTimer();
 

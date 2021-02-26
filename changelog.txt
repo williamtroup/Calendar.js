@@ -1,4 +1,5 @@
 v0.2.0:
+- The from "Date" field is now focused when the Event Editor is opened.
 - 
 
 v0.1.1:
