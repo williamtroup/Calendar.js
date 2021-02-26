@@ -396,13 +396,13 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function triggerOptionsEvent( name ) {
-        if ( _options !== null && isDefined( _options[ name ] ) && isFunction( _options[ name ] ) ) {
+        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
             _options[ name ]();
         }
     }
 
     function triggerOptionsEventWithEventData( name, event ) {
-        if ( _options !== null && isDefined( _options[ name ] ) && isFunction( _options[ name ] ) ) {
+        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
             _options[ name ]( event );
         }
     }
@@ -1595,14 +1595,24 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function eventDialogEvent_Remove() {
-        showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, function() {
+        _element_EventEditorDialog.style.display = "none";
+
+        var onYesEvent = function() {
+            _element_EventEditorDialog.style.display = "block";
+
             eventDialogEvent_Cancel();
 
             if ( _element_EventEditorDialog_EventDetails !== null ) {
                 _this.removeEvent( _element_EventEditorDialog_EventDetails.id, true );
                 refreshOpenedViews();
             }
-        } );
+        };
+
+        var onNoEvent = function() {
+            _element_EventEditorDialog.style.display = "block";
+        };
+
+        showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
     }
 
     function toFormattedDate( date ) {
@@ -1679,17 +1689,22 @@ function calendarJs( id, options, startDateTime ) {
             _element_ConfirmationDialog_NoButton.className = "no";
             _element_ConfirmationDialog_NoButton.type = "button";
             _element_ConfirmationDialog_NoButton.value = _options.noText;
-            _element_ConfirmationDialog_NoButton.onclick = hideConfirmationDialog;
             buttonsSplitContainer.appendChild( _element_ConfirmationDialog_NoButton );
         }
     }
 
-    function showConfirmationDialog( title, message, yesEvent ) {
+    function showConfirmationDialog( title, message, onYesEvent, onNoEvent ) {
         _element_ConfirmationDialog.style.display = "block";
         _element_ConfirmationDialog_TitleBar.innerHTML = title;
         _element_ConfirmationDialog_Message.innerHTML = message;
         _element_ConfirmationDialog_YesButton.onclick = hideConfirmationDialog;
-        _element_ConfirmationDialog_YesButton.addEventListener( "click", yesEvent );
+        _element_ConfirmationDialog_NoButton.onclick = hideConfirmationDialog;
+        _element_ConfirmationDialog_YesButton.addEventListener( "click", onYesEvent );
+
+        if ( isDefinedFunction( onNoEvent ) ) {
+            
+            _element_ConfirmationDialog_NoButton.addEventListener( "click", onNoEvent );
+        }
     }
 
     function hideConfirmationDialog() {
@@ -1813,6 +1828,10 @@ function calendarJs( id, options, startDateTime ) {
 
     function isFunction( object ) {
         return typeof object === "function";
+    }
+
+    function isDefinedFunction( object ) {
+        return isDefined( object ) && isFunction( object );
     }
 
 
