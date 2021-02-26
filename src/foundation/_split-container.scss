@@ -1,0 +1,15 @@
+div.split {
+    input {
+        width: calc(50% - 5px);
+        margin-right: 5px;
+        margin-left: 5px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+        
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}

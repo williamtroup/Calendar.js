@@ -7,7 +7,10 @@
 div.calendar,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
-div.calender-event-editor-dialog textarea {
+div.calender-event-editor-dialog textarea,
+div.calender-confirmation-dialog,
+div.calender-confirmation-dialog input,
+div.calender-confirmation-dialog textarea {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -15,7 +18,10 @@ div.calender-event-editor-dialog textarea {
   div.calendar,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
-  div.calender-event-editor-dialog textarea {
+  div.calender-event-editor-dialog textarea,
+  div.calender-confirmation-dialog,
+  div.calender-confirmation-dialog input,
+  div.calender-confirmation-dialog textarea {
     font-size: 0.9rem !important;
   }
 }
@@ -24,7 +30,10 @@ div.calender-event-editor-dialog textarea {
   div.calendar,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
-  div.calender-event-editor-dialog textarea {
+  div.calender-event-editor-dialog textarea,
+  div.calender-confirmation-dialog,
+  div.calender-confirmation-dialog input,
+  div.calender-confirmation-dialog textarea {
     font-size: 0.7rem !important;
   }
 }
@@ -32,9 +41,23 @@ div.calender-event-editor-dialog textarea {
 div.calendar div.overlay-shown,
 div.calender-event-editor-dialog div.overlay-shown,
 div.calender-event-editor-dialog input div.overlay-shown,
-div.calender-event-editor-dialog textarea div.overlay-shown {
+div.calender-event-editor-dialog textarea div.overlay-shown,
+div.calender-confirmation-dialog div.overlay-shown,
+div.calender-confirmation-dialog input div.overlay-shown,
+div.calender-confirmation-dialog textarea div.overlay-shown {
   top: 0 !important;
   visibility: visible !important;
+}
+
+div.disabled-background {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  position: fixed;
+  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /*
@@ -1375,17 +1398,6 @@ div.calendar div.list-all-week-events-view div.contents div.day:last-child {
     Calendar.js - Event Editor Dialog
     -------------------------------------------------------------------------
 */
-div.disabled-background {
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1000;
-  position: fixed;
-  background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 div.calender-event-editor-dialog {
   width: calc(100% - 20px);
   max-width: 370px;
@@ -1615,6 +1627,120 @@ div.calender-event-editor-dialog label.checkbox span.check-mark:after {
   height: 7px;
   border: solid #F5F5F5;
   border-width: 0 3px 3px 0;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Confirmation Dialog
+    -------------------------------------------------------------------------
+*/
+div.calender-confirmation-dialog {
+  width: calc(100% - 20px);
+  max-width: 330px;
+  border-radius: 0.25rem;
+  background-color: #F5F5F5;
+  border: 1px solid #282828;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+  z-index: 1500;
+}
+
+div.calender-confirmation-dialog div.title-bar {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-color: #282828;
+  color: #F5F5F5;
+  padding: 10px;
+  text-align: center;
+}
+
+div.calender-confirmation-dialog div.contents {
+  padding: 10px;
+}
+
+div.calender-confirmation-dialog div.contents div.message {
+  margin-bottom: 20px;
+}
+
+div.calender-confirmation-dialog div.split input {
+  width: calc(50% - 5px);
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+div.calender-confirmation-dialog div.split input:first-child {
+  margin-left: 0;
+}
+
+div.calender-confirmation-dialog div.split input:last-child {
+  margin-right: 0;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Confirmation Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+div.calender-confirmation-dialog input[type="button"] {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: .255rem .55rem;
+  line-height: 1.8;
+  border-radius: 0.25rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+div.calender-confirmation-dialog input[type="button"].yes {
+  color: #F5F5F5;
+  background-color: #289345;
+}
+
+div.calender-confirmation-dialog input[type="button"].yes:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.calender-confirmation-dialog input[type="button"].yes:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.calender-confirmation-dialog input[type="button"].no {
+  color: #F5F5F5;
+  background-color: #C60000;
+}
+
+div.calender-confirmation-dialog input[type="button"].no:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.calender-confirmation-dialog input[type="button"].no:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 /*

@@ -92,6 +92,8 @@
  * @property    {string}   andFinishesAtText                            The text that should be displayed for the "and finishes at" label.
  * @property    {string}   toTimeText                                   The text that should be displayed for the "to" label.
  * @property    {number}   autoRefreshTimerDelay                        The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
+ * @property    {string}   confirmEventRemoveTitle                      The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
+ * @property    {string}   confirmEventRemoveMessage                    The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  */
 
 
@@ -117,6 +119,8 @@ function calendarJs( id, options, startDateTime ) {
         _elementID = null,
         _initialized = false,
         _events = {},
+        _timer_RefreshMainDisplay = null,
+        _eventDetails_Dragged = null,
         _elementID_DayElement = "calendar-day-",
         _elementClassName_Row = "row",
         _elementClassName_Cell = "cell",
@@ -138,7 +142,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_EventDetails = null,
         _element_EventEditorDialog_OKButton = null,
         _element_EventEditorDialog_RemoveButton = null,
-        _eventDetails_Dragged = null,
         _element_FullDayView = null,
         _element_FullDayView_Title = null,
         _element_FullDayView_Contents = null,
@@ -152,7 +155,11 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_ExportEventsButton = null,
         _element_ListAllWeekEventsView_Contents = null,
         _element_ListAllWeekEventsView_EventsShown = [],
-        _timer_RefreshMainDisplay = null;
+        _element_ConfirmationDialog = null,
+        _element_ConfirmationDialog_TitleBar = null,
+        _element_ConfirmationDialog_Message = null,
+        _element_ConfirmationDialog_YesButton = null,
+        _element_ConfirmationDialog_NoButton = null;
 
 
     /*
@@ -181,7 +188,9 @@ function calendarJs( id, options, startDateTime ) {
 
         buildNextMonthDays( lastDayFilled );
         buildDayEvents();
+        buildDisabledBackground();
         buildEventEditingDialog();
+        buildConfirmationDialog();
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
     }
@@ -1332,15 +1341,26 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Disabled Background
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildDisabledBackground() {
+        if ( _element_DisabledBackground === null ) {
+            _element_DisabledBackground = createElement( "div" );
+            _element_DisabledBackground.className = "disabled-background";
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Build Event Editing Dialog
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
     function buildEventEditingDialog() {
         if ( _element_EventEditorDialog === null ) {
-            _element_DisabledBackground = createElement( "div" );
-            _element_DisabledBackground.className = "disabled-background";
-
             _element_EventEditorDialog = createElement( "div" );
             _element_EventEditorDialog.className = "calender-event-editor-dialog";
             _document.body.appendChild( _element_EventEditorDialog );
@@ -1478,12 +1498,12 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showEventDialog( eventDetails, overrideTodayDate ) {
-        _document.body.appendChild( _element_DisabledBackground );
+        addNode( _document.body, _element_DisabledBackground );
+        clearAutoRefreshTimer();
+
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
         _element_EventEditorDialog_DateFrom.focus();
-
-        clearAutoRefreshTimer();
 
         if ( isDefined( eventDetails ) ) {
             _element_EventEditorDialog_OKButton.value = _options.updateText;
@@ -1568,19 +1588,21 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function eventDialogEvent_Cancel() {
-        _document.body.removeChild( _element_DisabledBackground );
         _element_EventEditorDialog.style.display = "none";
 
+        removeNode( _document.body, _element_DisabledBackground );
         startAutoRefreshTimer();
     }
 
     function eventDialogEvent_Remove() {
-        eventDialogEvent_Cancel();
+        showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, function() {
+            eventDialogEvent_Cancel();
 
-        if ( _element_EventEditorDialog_EventDetails !== null ) {
-            _this.removeEvent( _element_EventEditorDialog_EventDetails.id, true );
-            refreshOpenedViews();
-        }
+            if ( _element_EventEditorDialog_EventDetails !== null ) {
+                _this.removeEvent( _element_EventEditorDialog_EventDetails.id, true );
+                refreshOpenedViews();
+            }
+        } );
     }
 
     function toFormattedDate( date ) {
@@ -1616,6 +1638,62 @@ function calendarJs( id, options, startDateTime ) {
         updateFullDayViewFromEventEdit();
         updateViewAllEventsViewFromEventEdit();
         updateViewAllWeekEventsViewFromEventEdit();
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Confirmation Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildConfirmationDialog() {
+        if ( _element_ConfirmationDialog === null ) {
+            _element_ConfirmationDialog = createElement( "div" );
+            _element_ConfirmationDialog.className = "calender-confirmation-dialog";
+            _document.body.appendChild( _element_ConfirmationDialog );
+
+            _element_ConfirmationDialog_TitleBar = createElement( "div" );
+            _element_ConfirmationDialog_TitleBar.className = "title-bar";
+            _element_ConfirmationDialog.appendChild( _element_ConfirmationDialog_TitleBar );
+
+            var contents = createElement( "div" );
+            contents.className = "contents";
+            _element_ConfirmationDialog.appendChild( contents );
+
+            _element_ConfirmationDialog_Message = createElement( "div" );
+            _element_ConfirmationDialog_Message.className = "message";
+            contents.appendChild( _element_ConfirmationDialog_Message );
+
+            var buttonsSplitContainer = createElement( "div" );
+            buttonsSplitContainer.className = "split";
+            contents.appendChild( buttonsSplitContainer );
+
+            _element_ConfirmationDialog_YesButton = createElement( "input" );
+            _element_ConfirmationDialog_YesButton.className = "yes";
+            _element_ConfirmationDialog_YesButton.type = "button";
+            _element_ConfirmationDialog_YesButton.value = _options.yesText;
+            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_YesButton );
+
+            _element_ConfirmationDialog_NoButton = createElement( "input" );
+            _element_ConfirmationDialog_NoButton.className = "no";
+            _element_ConfirmationDialog_NoButton.type = "button";
+            _element_ConfirmationDialog_NoButton.value = _options.noText;
+            _element_ConfirmationDialog_NoButton.onclick = hideConfirmationDialog;
+            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_NoButton );
+        }
+    }
+
+    function showConfirmationDialog( title, message, yesEvent ) {
+        _element_ConfirmationDialog.style.display = "block";
+        _element_ConfirmationDialog_TitleBar.innerHTML = title;
+        _element_ConfirmationDialog_Message.innerHTML = message;
+        _element_ConfirmationDialog_YesButton.onclick = hideConfirmationDialog;
+        _element_ConfirmationDialog_YesButton.addEventListener( "click", yesEvent );
+    }
+
+    function hideConfirmationDialog() {
+        _element_ConfirmationDialog.style.display = "none";
     }
 
 
@@ -1699,6 +1777,22 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return _elements[ id ];
+    }
+
+    function addNode( parent, node ) {
+        try {
+            parent.appendChild( node );
+        } catch ( e ) {
+            console.warn( e.message );
+        }
+    }
+
+    function removeNode( parent, node ) {
+        try {
+            parent.removeChild( node );
+        } catch ( e ) {
+            console.warn( e.message );
+        }
     }
 
     function cancelBubble( e ) {
@@ -2323,6 +2417,14 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.autoRefreshTimerDelay ) ) {
             _options.autoRefreshTimerDelay = 5000;
+        }
+
+        if ( !isDefined( _options.confirmEventRemoveTitle ) ) {
+            _options.confirmEventRemoveTitle = "Confirm Event Removal";
+        }
+
+        if ( !isDefined( _options.confirmEventRemoveMessage ) ) {
+            _options.confirmEventRemoveMessage = "Removing this event cannot be undone.  Do you want to continue?";
         }
     };
 

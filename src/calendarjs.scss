@@ -11,7 +11,10 @@
 div.calendar,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
-div.calender-event-editor-dialog textarea {
+div.calender-event-editor-dialog textarea,
+div.calender-confirmation-dialog,
+div.calender-confirmation-dialog input,
+div.calender-confirmation-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: 321px) {
@@ -26,6 +29,14 @@ div.calender-event-editor-dialog textarea {
         top: 0 !important;
         visibility: visible !important;
     }
+}
+
+div.disabled-background {
+    @include full-size-view;
+    z-index: 1000;
+    position: fixed;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
  
@@ -542,26 +553,8 @@ div.calendar {
     -------------------------------------------------------------------------
 */
 
-div.disabled-background {
-    @include full-size-view;
-    z-index: 1000;
-    position: fixed;
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
 div.calender-event-editor-dialog {
-    width: calc(100% - 20px);
-    max-width: 370px;
-    border-radius: $border-view-radius;
-    background-color: $light-color;
-    border: 1px solid $dark-color;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    z-index: 1500;
+    @include dialog-styles(370px);
 
     div.title-bar {
         @include no-selection-allowed;
@@ -604,22 +597,8 @@ div.calender-event-editor-dialog {
         resize: none;
         margin-bottom: 20px !important;
     }
-    
-    div.split {
-        input {
-            width: calc(50% - 5px);
-            margin-right: 5px;
-            margin-left: 5px;
-    
-            &:first-child {
-                margin-left: 0;
-            }
-            
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    }
+
+    @import "foundation/split-container";
     
     p {
         @include no-selection-allowed;
@@ -643,20 +622,11 @@ div.calender-event-editor-dialog {
 
 div.calender-event-editor-dialog {
     input[type="button"] {
-        @include no-selection-allowed;
-        display: inline-block;
-        text-align: center;
-        vertical-align: middle;
-        border: none;
-        padding: .255rem .55rem;
-        line-height: 1.8;
-        border-radius: $border-view-radius;
-        outline: 0;
-        cursor: pointer;
+        @include dialog-button-styles;
 
         &.ok {
             color: $light-color;
-            background-color: #289345;
+            background-color: $ok-color;
     
             &:hover {
                 @include opacity-hover-effect;
@@ -696,6 +666,7 @@ div.calender-event-editor-dialog {
         }
     }
 }
+
 
 /*
     -------------------------------------------------------------------------
@@ -747,6 +718,74 @@ div.calender-event-editor-dialog {
                 height: 7px;
                 border: solid $light-color;
                 border-width: 0 3px 3px 0;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Confirmation Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.calender-confirmation-dialog {
+    @include dialog-styles(330px);
+
+    div.title-bar {
+        @include no-selection-allowed;
+        background-color: $dark-color;
+        color: $light-color;
+        padding: 10px;
+        text-align: center;
+    }
+
+    div.contents {
+        padding: 10px;
+
+        div.message {
+            margin-bottom: 20px;
+        }
+    }
+    
+    @import "foundation/split-container";
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Confirmation Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+
+div.calender-confirmation-dialog {
+    input[type="button"] {
+        @include dialog-button-styles;
+
+        &.yes {
+            color: $light-color;
+            background-color: $ok-color;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
+            }
+        }
+
+        &.no {
+            color: $light-color;
+            background-color: $alert-color;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
             }
         }
     }

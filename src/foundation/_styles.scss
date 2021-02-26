@@ -4,6 +4,7 @@ $border-view-radius: 0.25rem;
 $border-circle-radius: 50%;
 $alert-color: #C60000;
 $event-color: #484848;
+$ok-color: #289345;
 $event-expired-opacity: 0.7;
 $event-color-all-day-event: #1b3752;
 $day-names-color: #D0D0D0;
@@ -84,4 +85,31 @@ $fade-in-effect-type: fade-in-effect ease 2s;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+@mixin dialog-styles($width) {
+    width: calc(100% - 20px);
+    max-width: $width;
+    border-radius: $border-view-radius;
+    background-color: $light-color;
+    border: 1px solid $dark-color;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 1500;
+}
+
+@mixin dialog-button-styles {
+    @include no-selection-allowed;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    padding: .255rem .55rem;
+    line-height: 1.8;
+    border-radius: $border-view-radius;
+    outline: 0;
+    cursor: pointer;
 }
