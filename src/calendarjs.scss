@@ -328,7 +328,7 @@ div.calendar {
                 @include opacity-active-effect;
             }
 
-            &:after {
+            &:before {
                 content: "";
                 position: absolute;
                 top: 3px;
@@ -346,8 +346,8 @@ div.calendar {
             position: relative;
             margin-top: 1px;
 
-            &::before,
-            &::after {
+            &:before,
+            &:after {
                 position: absolute;
                 content: "";
                 width: 8px;
@@ -355,13 +355,13 @@ div.calendar {
                 border-radius: .25rem;
             }
 
-            &::before {
+            &:before {
                 border-top: $header-date-toolbar-button-border;
                 border-left: $header-date-toolbar-button-border;
                 left: 0;
             }
     
-            &::after {
+            &:after {
                 border-bottom: $header-date-toolbar-button-border;
                 border-right: $header-date-toolbar-button-border;
                 left: 6px;
@@ -697,7 +697,7 @@ div.calender-event-editor-dialog {
                 border: 1px solid $dark-color;
             }
 
-            &:checked ~ span.check-mark:after {
+            &:checked ~ span.check-mark:before {
                 display: block;
             }
         }
@@ -712,7 +712,7 @@ div.calender-event-editor-dialog {
             border-radius: $border-view-radius;
             border: 1px solid $input-border-color;
 
-            &:after {
+            &:before {
                 @include transform(rotate(45deg));
                 content: "";
                 position: absolute;
