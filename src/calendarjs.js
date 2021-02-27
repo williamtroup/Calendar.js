@@ -68,7 +68,7 @@
  * @property    {string}   monthNames                                   The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
  * @property    {boolean}  showDayNumberOrdinals                        States if the day ordinal values should be shown (defaults to true).  
  * @property    {boolean}  dragAndDropForEventsEnabled                  States if dragging and dropping events around the days of the month is enabled (defaults to true).
- * @property    {string}   csvStartFilename                             The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
+ * @property    {string}   exportStartFilename                          The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
  * @property    {string}   fromTimeErrorMessage                         The error message shown for the "Please select a valid 'From' time." label.
  * @property    {string}   toTimeErrorMessage                           The error message shown for the "Please select a valid 'To' time." label.
  * @property    {string}   toSmallerThanFromErrorMessage                The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label.
@@ -1845,6 +1845,171 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Export Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function exportEvents( events, type ) {
+        type = isDefined( type ) ? type : "csv";
+
+        var contents = "",
+            contentsEvents = getExportEvents( events );
+
+        if ( type === "csv" ) {
+            contents = getCsvContents( contentsEvents );
+        } else if ( type === "xml" ) {
+            contents = getXmlContents( contentsEvents );
+        }
+
+        if ( contents !== "" ) {
+            var tempLink = createElement( "a" );
+            tempLink.style.display = "none";
+            tempLink.setAttribute( "target", "_blank" );
+            tempLink.setAttribute( "href", "data:text/" + type + ";charset=utf-8," + encodeURIComponent( contents ) );
+            tempLink.setAttribute( "download", getExportDownloadFilename( type ) );
+    
+            _document.body.appendChild( tempLink );
+            tempLink.click();
+            _document.body.removeChild( tempLink );
+    
+            triggerOptionsEvent( "onEventsExported" );
+        }
+    }
+
+    function getExportEvents( events ) {
+        var csvOrderedEvents = [];
+
+        if ( isDefined( events ) ) {
+            var eventsLength = events.length;
+            
+            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                csvOrderedEvents.push( events[ eventIndex ] );
+            }
+        } else {
+
+            for ( var storageDate in _events ) {
+                if ( _events.hasOwnProperty( storageDate ) ) {
+                    for ( var storageGuid in _events[ storageDate ] ) {
+                        if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
+                            csvOrderedEvents.push( _events[ storageDate ][ storageGuid ] );
+                        }
+                    }
+                }
+            }
+        }
+
+        csvOrderedEvents.sort( function( a, b ) {
+            return a.from - b.from;
+        });
+
+        return csvOrderedEvents;
+    }
+
+    function getExportDownloadFilename( type ) {
+        var date = new Date(),
+            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() ) + "-" + date.getFullYear(),
+            timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
+
+        return _options.exportStartFilename + datePart + "_" + timePart + "." + type;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To CSV
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getCsvContents( csvOrderedEvents ) {
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText ],
+            headersLength = headers.length,
+            csvHeaders = [],
+            csvContents = [];
+
+        for ( var headerIndex = 0; headerIndex < headersLength; headerIndex++ ) {
+            csvHeaders.push( getCsvValue( headers[ headerIndex ] ) );
+        }
+        
+        csvContents.push( getCsvValueLine( csvHeaders ) );
+
+        var csvOrderedEventLength = csvOrderedEvents.length;
+        for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
+            storeCsvData( csvContents, csvOrderedEvents[ csvOrderedEventIndex ] );
+        }
+
+        return csvContents.join( "\n" );
+    }
+
+    function storeCsvData( csvContents, eventDetails ) {
+        var eventContents = [];
+
+        eventContents.push( getCsvValue( getCsvDateTime( eventDetails.from ) ) );
+        eventContents.push( getCsvValue( getCsvDateTime( eventDetails.to ) ) );
+        eventContents.push( getCsvValue( getCsvYesNoFromBoolean( eventDetails.isAllDayEvent ) ) );
+        eventContents.push( getCsvValue( eventDetails.title.toString() ) );
+        eventContents.push( getCsvValue( eventDetails.description.toString() ) );
+
+        csvContents.push( getCsvValueLine( eventContents ) );
+    }
+
+    function getCsvYesNoFromBoolean( flag ) {
+        return flag ? _options.yesText : _options.noText;
+    }
+
+    function getCsvValue( text ) {
+        text = text.replace( /(\r\n|\n|\r)/gm, '' ).replace( /(\s\s)/gm, ' ' );
+        text = text.replace( /"/g, '""' );
+        text = '"' + text + '"';
+
+        return text;
+    }
+
+    function getCsvValueLine( csvValues ) {
+        return csvValues.join( ',' );
+    }
+
+    function getCsvDateTime( eventDate ) {
+        var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
+            time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
+
+        return date + " " + time;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To XML
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getXmlContents( csvOrderedEvents ) {
+        var xmlContents = [];
+        xmlContents.push( "<?xml version=\"1.0\" ?>" );
+        xmlContents.push( "<events>" );
+
+        var csvOrderedEventLength = csvOrderedEvents.length;
+        for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
+            var orderEvent = csvOrderedEvents[ csvOrderedEventIndex ];
+
+            xmlContents.push( "<event>" );
+
+            for ( var propertyName in orderEvent ) {
+                if ( orderEvent.hasOwnProperty( propertyName ) ) {
+                    xmlContents.push( "<" + propertyName + ">" + orderEvent[ propertyName ] + "</" + propertyName + ">" );
+                }
+            }
+    
+            xmlContents.push( "</event>" );
+        }
+
+        xmlContents.push( "</events>" );
+
+        return xmlContents.join( "\n" );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Navigation, Exporting and Refreshing (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -1889,10 +2054,12 @@ function calendarJs( id, options, startDateTime ) {
      * Exports all the events into a CSV download.
      * 
      * @fires onEventsExported
+     * 
+     * @param       {string}    type                                        The data type to export to (defaults to "csv").
      */
-    this.exportAllEvents = function() {
+    this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
-            exportEvents();
+            exportEvents( null, type );
         }
     };
 
@@ -1926,106 +2093,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveToday() {
         build();
         triggerOptionsEvent( "onToday" );
-    }
-
-    function exportEvents( events ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText ],
-            headersLength = headers.length,
-            csvHeaders = [],
-            csvContents = [],
-            csvOrderedEvents = [];
-
-        for ( var headerIndex = 0; headerIndex < headersLength; headerIndex++ ) {
-            csvHeaders.push( getCsvValue( headers[ headerIndex ] ) );
-        }
-        
-        csvContents.push( getCsvValueLine( csvHeaders ) );
-
-        if ( isDefined( events ) ) {
-            var eventsLength = events.length;
-            
-            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                csvOrderedEvents.push( events[ eventIndex ] );
-            }
-        } else {
-
-            for ( var storageDate in _events ) {
-                if ( _events.hasOwnProperty( storageDate ) ) {
-                    for ( var storageGuid in _events[ storageDate ] ) {
-                        if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                            csvOrderedEvents.push( _events[ storageDate ][ storageGuid ] );
-                        }
-                    }
-                }
-            }
-        }
-
-        csvOrderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
-
-        var csvOrderedEventLength = csvOrderedEvents.length;
-            
-        for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
-            storeCsvData( csvContents, csvOrderedEvents[ csvOrderedEventIndex ] );
-        }
-
-        var exportedCsvEvents = csvContents.join( "\n" ),
-            tempLink = createElement( "a" );
-
-        tempLink.style.display = "none";
-        tempLink.setAttribute( "target", "_blank" );
-        tempLink.setAttribute( "href", "data:text/csv;charset=utf-8," + encodeURIComponent( exportedCsvEvents ) );
-        tempLink.setAttribute( "download", getCsvFilename() );
-
-        _document.body.appendChild( tempLink );
-        tempLink.click();
-        _document.body.removeChild( tempLink );
-
-        triggerOptionsEvent( "onEventsExported" );
-    }
-
-    function storeCsvData( csvContents, eventDetails ) {
-        var eventContents = [];
-
-        eventContents.push( getCsvValue( getCsvDateTime( eventDetails.from ) ) );
-        eventContents.push( getCsvValue( getCsvDateTime( eventDetails.to ) ) );
-        eventContents.push( getCsvValue( getCsvYesNoFromBoolean( eventDetails.isAllDayEvent ) ) );
-        eventContents.push( getCsvValue( eventDetails.title.toString() ) );
-        eventContents.push( getCsvValue( eventDetails.description.toString() ) );
-
-        csvContents.push( getCsvValueLine( eventContents ) );
-    }
-
-    function getCsvYesNoFromBoolean( flag ) {
-        return flag ? _options.yesText : _options.noText;
-    }
-
-    function getCsvFilename() {
-        var date = new Date(),
-            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() ) + "-" + date.getFullYear(),
-            timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
-
-        return _options.csvStartFilename + datePart + "_" + timePart + ".csv";
-    }
-
-    function getCsvValue( text ) {
-        text = text.replace( /(\r\n|\n|\r)/gm, '' ).replace( /(\s\s)/gm, ' ' );
-        text = text.replace( /"/g, '""' );
-        text = '"' + text + '"';
-
-        return text;
-    }
-
-    function getCsvValueLine( csvValues ) {
-        return csvValues.join( ',' );
-    }
-
-    function getCsvDateTime( eventDate ) {
-        var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
-            time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
-
-        return date + " " + time;
     }
 
 
@@ -2350,8 +2417,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.dragAndDropForEventsEnabled = true;
         }
 
-        if ( !isDefined( _options.csvStartFilename ) ) {
-            _options.csvStartFilename = "exported_events_";
+        if ( !isDefined( _options.exportStartFilename ) ) {
+            _options.exportStartFilename = "exported_events_";
         }
 
         if ( !isDefined( _options.fromTimeErrorMessage ) ) {
