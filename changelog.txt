@@ -1,6 +1,8 @@
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
-- 
+- A confirmation dialog is now shown when removing an event.
+- Added "Select Export Type" dialog, with CSV, XML, JSON and TEXT support.
+- exportAllEvents() now takes a type parameter (accepts csv (default), xml, json and text).
 
 v0.1.1:
 - Added active CSS effects for all clickable elements.

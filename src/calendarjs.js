@@ -2250,6 +2250,8 @@ function calendarJs( id, options, startDateTime ) {
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
+            type = !isDefined( type ) ? "csv" : type;
+
             exportEvents( null, type );
         }
     };
