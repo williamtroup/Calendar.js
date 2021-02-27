@@ -228,34 +228,34 @@ div.calendar div.header-date {
   position: relative;
 }
 
-div.calendar div.header-date span:hover {
+div.calendar div.header-date div.title-container {
+  display: inline;
+  position: relative;
+}
+
+div.calendar div.header-date div.title-container span:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calendar div.header-date span:active {
+div.calendar div.header-date div.title-container span:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calendar div.header-date div {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-div.calendar div.header-date div.years-drop-down {
+div.calendar div.header-date div.title-container div.years-drop-down {
   position: absolute;
   width: 240px;
   height: 200px;
   border: 1px solid #282828;
-  left: 45%;
-  top: calc(20px + 0.9rem);
-  -webkit-transform: translate(-45%);
-          transform: translate(-45%);
+  left: 50%;
+  top: calc(10px + 0.9rem);
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
   background-color: #F5F5F5;
   border-radius: 0.25rem;
   z-index: 1500;
@@ -263,7 +263,7 @@ div.calendar div.header-date div.years-drop-down {
   overflow: hidden;
 }
 
-div.calendar div.header-date div.years-drop-down div.contents {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents {
   white-space: pre-line;
   -ms-word-break: break-all;
   word-break: break-all;
@@ -275,7 +275,7 @@ div.calendar div.header-date div.years-drop-down div.contents {
   margin-right: 0;
 }
 
-div.calendar div.header-date div.years-drop-down div.contents div {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div {
   display: inline-block;
   color: #282828;
   font-size: 0.75rem;
@@ -288,7 +288,7 @@ div.calendar div.header-date div.years-drop-down div.contents div {
   padding: 3px;
 }
 
-div.calendar div.header-date div.years-drop-down div.contents div:hover {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div:hover {
   background-color: #282828;
   color: #F5F5F5;
   cursor: pointer;
@@ -296,11 +296,16 @@ div.calendar div.header-date div.years-drop-down div.contents div:hover {
   transition: all 0.3s;
 }
 
-div.calendar div.header-date div.years-drop-down div.contents div:active {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
+}
+
+div.calendar div.header-date div {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 div.calendar div.header-date div.arrow {

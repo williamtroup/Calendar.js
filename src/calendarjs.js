@@ -224,7 +224,6 @@ function calendarJs( id, options, startDateTime ) {
             buildListAllWeekEventsView( element );
             buildFullDayView( element );
             buildDateHeader( element );
-            buildYearSelectorDropDown();
             buildDayNamesHeader( element );
             buildDayRows( element );
             
@@ -298,12 +297,18 @@ function calendarJs( id, options, startDateTime ) {
         listWeekEventsButton.title = _options.listWeekEventsTooltipText;
         listWeekEventsButton.onclick = showListAllWeekEventsView;
         _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
+
+        var titleContainer = createElement( "div" );
+        titleContainer.className = "title-container";
+        _element_HeaderDateDisplay.appendChild( titleContainer );
         
         _element_HeaderDateDisplay_Text = createElement( "span" );
-        _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_Text );
+        titleContainer.appendChild( _element_HeaderDateDisplay_Text );
+
+        buildYearSelectorDropDown( titleContainer );
     }
 
-    function buildYearSelectorDropDown() {
+    function buildYearSelectorDropDown( container ) {
         if ( _element_HeaderDateDisplay_YearSelector === null ) {
             var date = new Date( 1900, 1, 1 ),
                 dateCurrent = new Date(),
@@ -311,7 +316,7 @@ function calendarJs( id, options, startDateTime ) {
 
             _element_HeaderDateDisplay_YearSelector = createElement( "div" );
             _element_HeaderDateDisplay_YearSelector.className = "years-drop-down";
-            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_YearSelector );
+            container.appendChild( _element_HeaderDateDisplay_YearSelector );
 
             var contents = createElement( "div" );
             contents.className = "contents custom-scroll-bars";

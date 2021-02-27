@@ -173,68 +173,73 @@ div.calendar {
         padding: 10px;
         position: relative;
 
-        span {
-            &:hover {
-                @include opacity-hover-effect;
+        div.title-container {
+            display: inline;
+            position: relative;
+
+            span {
+                &:hover {
+                    @include opacity-hover-effect;
+                }
+    
+                &:active {
+                    @include opacity-active-effect;
+                }
             }
 
-            &:active {
-                @include opacity-active-effect;
+            div.years-drop-down {
+                position: absolute;
+                width: 240px;
+                height: 200px;
+                border: 1px solid $dark-color;
+                left: 50%;
+                top: calc(10px + 0.9rem);
+                transform: translate(-50%);
+                background-color: $light-color;
+                border-radius: $border-view-radius;
+                z-index: 1500;
+                display: none;
+                overflow: hidden;
+    
+                div.contents {
+                    @include word-wrap-with-new-lines();
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    width: inherit;
+                    height: inherit;
+                    margin-left: 0;
+                    margin-right: 0;
+    
+                    div {
+                        display: inline-block;
+                        color: $dark-color;
+                        font-size: 0.75rem;
+                        margin-right: 5px;
+                        width: calc(25% - 17px);
+                        text-align: center;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                        border-radius: $border-view-radius;
+                        padding: 3px;
+        
+                        &:hover {
+                            background-color: $dark-color;
+                            color: $light-color;
+                            cursor: pointer;
+                            transition: $transition;
+                        }
+    
+                        &:active {
+                            @include opacity-active-effect;
+                        }
+                    }
+                }
             }
         }
 
         div {
             margin-left: 5px;
             margin-right: 5px;
-        }
-
-        div.years-drop-down {
-            position: absolute;
-            width: 240px;
-            height: 200px;
-            border: 1px solid $dark-color;
-            left: 45%;
-            top: calc(20px + 0.9rem);
-            transform: translate(-45%);
-            background-color: $light-color;
-            border-radius: $border-view-radius;
-            z-index: 1500;
-            display: none;
-            overflow: hidden;
-
-            div.contents {
-                @include word-wrap-with-new-lines();
-                overflow-x: hidden;
-                overflow-y: auto;
-                width: inherit;
-                height: inherit;
-                margin-left: 0;
-                margin-right: 0;
-
-                div {
-                    display: inline-block;
-                    color: $dark-color;
-                    font-size: 0.75rem;
-                    margin-right: 5px;
-                    width: calc(25% - 17px);
-                    text-align: center;
-                    margin-top: 5px;
-                    margin-bottom: 5px;
-                    border-radius: $border-view-radius;
-                    padding: 3px;
-    
-                    &:hover {
-                        background-color: $dark-color;
-                        color: $light-color;
-                        cursor: pointer;
-                        transition: $transition;
-                    }
-
-                    &:active {
-                        @include opacity-active-effect;
-                    }
-                }
-            }
         }
 
         div.arrow {

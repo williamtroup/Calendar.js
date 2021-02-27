@@ -5,6 +5,7 @@ v0.2.0:
 - exportAllEvents() now takes a type parameter (accepts csv (default), xml, json and text).
 - Added support for screen mode (double click the main title bar) with optional on/off setting.
 - Fixed "click" and "resize" events in the document/window being overridden;
+- Fixed a fault that prevent the year drop down menu being centered correctly.
 
 v0.1.1:
 - Added active CSS effects for all clickable elements.
