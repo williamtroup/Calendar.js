@@ -168,6 +168,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_CSV = null,
         _element_SelectExportTypeDialog_Option_XML = null,
         _element_SelectExportTypeDialog_Option_JSON = null,
+        _element_SelectExportTypeDialog_Option_TEXT = null,
         _element_SelectExportTypeDialog_ExportEvents = null;
 
 
@@ -1753,6 +1754,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( contents, "CSV", "ExportType" );
             _element_SelectExportTypeDialog_Option_XML = buildRadioButton( contents, "XML", "ExportType" );
             _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( contents, "JSON", "ExportType" );
+            _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( contents, "TEXT", "ExportType" );
 
             var buttonsSplitContainer = createElement( "div" );
             buttonsSplitContainer.className = "split";
@@ -1813,6 +1815,8 @@ function calendarJs( id, options, startDateTime ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "xml" );
         } else if ( _element_SelectExportTypeDialog_Option_JSON.checked ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "json" );
+        } else if ( _element_SelectExportTypeDialog_Option_TEXT.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "text" );
         }
     }
 
@@ -1958,14 +1962,19 @@ function calendarJs( id, options, startDateTime ) {
             contents = getXmlContents( contentsEvents );
         } else if ( type === "json" ) {
             contents = getJsonContents( contentsEvents );
+        } else if ( type === "text" ) {
+            contents = getTextContents( contentsEvents );
         }
 
         if ( contents !== "" ) {
-            var tempLink = createElement( "a" );
+            var tempLink = createElement( "a" ),
+                mimeType = type === "text" ? "plain" : type,
+                extension = type === "text" ? "txt" : type;
+
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", "data:text/" + type + ";charset=utf-8," + encodeURIComponent( contents ) );
-            tempLink.setAttribute( "download", getExportDownloadFilename( type ) );
+            tempLink.setAttribute( "href", "data:text/" + mimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
+            tempLink.setAttribute( "download", getExportDownloadFilename( extension ) );
     
             _document.body.appendChild( tempLink );
             tempLink.click();
@@ -2004,12 +2013,12 @@ function calendarJs( id, options, startDateTime ) {
         return csvOrderedEvents;
     }
 
-    function getExportDownloadFilename( type ) {
+    function getExportDownloadFilename( extension ) {
         var date = new Date(),
             datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() ) + "-" + date.getFullYear(),
             timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
 
-        return _options.exportStartFilename + datePart + "_" + timePart + "." + type;
+        return _options.exportStartFilename + datePart + "_" + timePart + "." + extension;
     }
 
     function getYesNoFromBoolean( flag ) {
@@ -2023,6 +2032,10 @@ function calendarJs( id, options, startDateTime ) {
         return date + " " + time;
     }
 
+    function gerPropertyName( value ) {
+        return value.charAt( 0 ).toUpperCase() + value.slice( 1 );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2030,7 +2043,7 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getCsvContents( csvOrderedEvents ) {
+    function getCsvContents( orderedEvents ) {
         var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText ],
             headersLength = headers.length,
             csvHeaders = [],
@@ -2042,9 +2055,9 @@ function calendarJs( id, options, startDateTime ) {
         
         csvContents.push( getCsvValueLine( csvHeaders ) );
 
-        var csvOrderedEventLength = csvOrderedEvents.length;
-        for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
-            storeCsvData( csvContents, csvOrderedEvents[ csvOrderedEventIndex ] );
+        var orderedEventLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            storeCsvData( csvContents, orderedEvents[ orderedEventIndex ] );
         }
 
         return csvContents.join( "\n" );
@@ -2081,16 +2094,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getXmlContents( csvOrderedEvents ) {
+    function getXmlContents( orderedEvents ) {
         var xmlContents = [];
         xmlContents.push( "<?xml version=\"1.0\" ?>" );
-        xmlContents.push( "<events>" );
+        xmlContents.push( "<Events>" );
 
-        var csvOrderedEventLength = csvOrderedEvents.length;
-        for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
-            var orderedEvent = csvOrderedEvents[ csvOrderedEventIndex ];
+        var orderedEventLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
 
-            xmlContents.push( "<event>" );
+            xmlContents.push( "<Event>" );
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
@@ -2102,14 +2115,14 @@ function calendarJs( id, options, startDateTime ) {
                         value = getStringFromDateTime( value );
                     }
 
-                    xmlContents.push( "<" + propertyName + ">" + value + "</" + propertyName + ">" );
+                    xmlContents.push( "<" + gerPropertyName( propertyName ) + ">" + value + "</" + propertyName + ">" );
                 }
             }
     
-            xmlContents.push( "</event>" );
+            xmlContents.push( "</Event>" );
         }
 
-        xmlContents.push( "</events>" );
+        xmlContents.push( "</Events>" );
 
         return xmlContents.join( "\n" );
     }
@@ -2121,14 +2134,14 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getJsonContents( csvOrderedEvents ) {
+    function getJsonContents( orderedEvents ) {
         var jsonContents = [];
         jsonContents.push( "{" );
         jsonContents.push( "\"events:\": [" );
 
-        var csvOrderedEventLength = csvOrderedEvents.length;
-        for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
-            var orderedEvent = csvOrderedEvents[ csvOrderedEventIndex ];
+        var orderedEventLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
             
             jsonContents.push( "{" );
 
@@ -2157,6 +2170,42 @@ function calendarJs( id, options, startDateTime ) {
         jsonContents.push( "}" );
 
         return jsonContents.join( "\n" );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To TEXT
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getTextContents( orderedEvents ) {
+        var textContents = [];
+
+        var orderedEventLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
+
+            for ( var propertyName in orderedEvent ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) ) {
+                    var value = orderedEvent[ propertyName ];
+
+                    if ( typeof value === "boolean" ) {
+                        value = getYesNoFromBoolean( value );
+                    } else if ( typeof value === "object" ) {
+                        value = getStringFromDateTime( value );
+                    }
+
+                    textContents.push( gerPropertyName( propertyName ) + ": " + value );
+                }
+            }
+    
+            textContents.push( "" );
+        }
+
+        textContents.pop();
+
+        return textContents.join( "\n" );
     }
 
 
