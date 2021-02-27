@@ -1859,6 +1859,8 @@ function calendarJs( id, options, startDateTime ) {
             contents = getCsvContents( contentsEvents );
         } else if ( type === "xml" ) {
             contents = getXmlContents( contentsEvents );
+        } else if ( type === "json" ) {
+            contents = getJsonContents( contentsEvents );
         }
 
         if ( contents !== "" ) {
@@ -1989,13 +1991,13 @@ function calendarJs( id, options, startDateTime ) {
 
         var csvOrderedEventLength = csvOrderedEvents.length;
         for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
-            var orderEvent = csvOrderedEvents[ csvOrderedEventIndex ];
+            var orderedEvent = csvOrderedEvents[ csvOrderedEventIndex ];
 
             xmlContents.push( "<event>" );
 
-            for ( var propertyName in orderEvent ) {
-                if ( orderEvent.hasOwnProperty( propertyName ) ) {
-                    xmlContents.push( "<" + propertyName + ">" + orderEvent[ propertyName ] + "</" + propertyName + ">" );
+            for ( var propertyName in orderedEvent ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) ) {
+                    xmlContents.push( "<" + propertyName + ">" + orderedEvent[ propertyName ] + "</" + propertyName + ">" );
                 }
             }
     
@@ -2005,6 +2007,43 @@ function calendarJs( id, options, startDateTime ) {
         xmlContents.push( "</events>" );
 
         return xmlContents.join( "\n" );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To JSON
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getJsonContents( csvOrderedEvents ) {
+        var jsonContents = [];
+        jsonContents.push( "{" );
+        jsonContents.push( "\"events:\": [" );
+
+        var csvOrderedEventLength = csvOrderedEvents.length;
+        for ( var csvOrderedEventIndex = 0; csvOrderedEventIndex < csvOrderedEventLength; csvOrderedEventIndex++ ) {
+            var orderedEvent = csvOrderedEvents[ csvOrderedEventIndex ];
+            
+            jsonContents.push( "{" );
+
+            for ( var propertyName in orderedEvent ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) ) {
+                    jsonContents.push( "\"" + propertyName + "\":\"" + orderedEvent[ propertyName ] + "\"," );
+                }
+            }
+
+            var lastJsonEntry = jsonContents[ jsonContents.length - 1 ];
+            jsonContents[ jsonContents.length - 1 ] = lastJsonEntry.substring( 0, lastJsonEntry.length - 1 );
+    
+            jsonContents.push( "}," );
+        }
+
+        jsonContents[ jsonContents.length - 1 ] = "}";
+        jsonContents.push( "]" );
+        jsonContents.push( "}" );
+
+        return jsonContents.join( "\n" );
     }
 
 
