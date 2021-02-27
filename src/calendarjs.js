@@ -94,6 +94,8 @@
  * @property    {number}   autoRefreshTimerDelay                        The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
  * @property    {string}   confirmEventRemoveTitle                      The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
  * @property    {string}   confirmEventRemoveMessage                    The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
+ * @property    {string}   okText                                       The text that should be displayed for the "OK" button.
+ * @property    {string}   selectExportTypeTitle                        The text that should be displayed for the "Select Export Type" label.
  */
 
 
@@ -160,7 +162,13 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfirmationDialog_TitleBar = null,
         _element_ConfirmationDialog_Message = null,
         _element_ConfirmationDialog_YesButton = null,
-        _element_ConfirmationDialog_NoButton = null;
+        _element_ConfirmationDialog_NoButton = null,
+        _element_SelectExportTypeDialog = null,
+        _element_SelectExportTypeDialog_TitleBar = null,
+        _element_SelectExportTypeDialog_Option_CSV = null,
+        _element_SelectExportTypeDialog_Option_XML = null,
+        _element_SelectExportTypeDialog_Option_JSON = null,
+        _element_SelectExportTypeDialog_ExportEvents = null;
 
 
     /*
@@ -192,6 +200,7 @@ function calendarJs( id, options, startDateTime ) {
         buildDisabledBackground();
         buildEventEditingDialog();
         buildConfirmationDialog();
+        buildSelectExportTypeDialog();
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
     }
@@ -261,11 +270,12 @@ function calendarJs( id, options, startDateTime ) {
             _element_HeaderDateDisplay_ExportEventsButton = createElement( "div" );
             _element_HeaderDateDisplay_ExportEventsButton.className = "export-events";
             _element_HeaderDateDisplay_ExportEventsButton.title = _options.exportEventsTooltipText;
-            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_ExportEventsButton );
-
+            
+            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_ExportEventsButton ); 
+            
             _element_HeaderDateDisplay_ExportEventsButton.onclick = function() {
-                exportEvents();
-            };            
+                showSelectExportTypeDialog();
+            };
         }
 
         var listAllEventsButton = createElement( "div" );
@@ -650,7 +660,7 @@ function calendarJs( id, options, startDateTime ) {
                 titleBar.appendChild( _element_FullDayView_ExportEventsButton );
 
                 _element_FullDayView_ExportEventsButton.onclick = function() {
-                    exportEvents( _element_FullDayView_EventsShown );
+                    showSelectExportTypeDialog( _element_FullDayView_EventsShown );
                 };
             }
 
@@ -822,7 +832,7 @@ function calendarJs( id, options, startDateTime ) {
                 titleBar.appendChild( _element_ListAllEventsView_ExportEventsButton );
 
                 _element_ListAllEventsView_ExportEventsButton.onclick = function() {
-                    exportEvents();
+                    showSelectExportTypeDialog();
                 };                
             }
 
@@ -983,7 +993,7 @@ function calendarJs( id, options, startDateTime ) {
                 titleBar.appendChild( _element_ListAllWeekEventsView_ExportEventsButton );
 
                 _element_ListAllWeekEventsView_ExportEventsButton.onclick = function() {
-                    exportEvents( _element_ListAllWeekEventsView_EventsShown );
+                    showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
                 };                
             }
 
@@ -1721,6 +1731,94 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Select Export Type Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildSelectExportTypeDialog() {
+        if ( _element_SelectExportTypeDialog === null ) {
+            _element_SelectExportTypeDialog = createElement( "div" );
+            _element_SelectExportTypeDialog.className = "calender-select-export-type-dialog";
+            _document.body.appendChild( _element_SelectExportTypeDialog );
+
+            _element_SelectExportTypeDialog_TitleBar = createElement( "div" );
+            _element_SelectExportTypeDialog_TitleBar.className = "title-bar";
+            _element_SelectExportTypeDialog_TitleBar.innerHTML = _options.selectExportTypeTitle;
+            _element_SelectExportTypeDialog.appendChild( _element_SelectExportTypeDialog_TitleBar );
+
+            var contents = createElement( "div" );
+            contents.className = "contents";
+            _element_SelectExportTypeDialog.appendChild( contents );
+
+            _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( contents, "CSV", "ExportType" );
+            _element_SelectExportTypeDialog_Option_XML = buildRadioButton( contents, "XML", "ExportType" );
+            _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( contents, "JSON", "ExportType" );
+
+            var buttonsSplitContainer = createElement( "div" );
+            buttonsSplitContainer.className = "split";
+            contents.appendChild( buttonsSplitContainer );
+
+            var okButton = createElement( "input" );
+            okButton.className = "ok";
+            okButton.type = "button";
+            okButton.value = _options.okText;
+            okButton.onclick = exportEventsFromOptionSelected;
+            buttonsSplitContainer.appendChild( okButton );
+
+            var cancelButton = createElement( "input" );
+            cancelButton.className = "cancel";
+            cancelButton.type = "button";
+            cancelButton.value = _options.cancelText;
+            cancelButton.onclick = hideSelectExportTypeDialog;
+            buttonsSplitContainer.appendChild( cancelButton );
+        }
+    }
+
+    function buildRadioButton( container, labelText, groupName ) {
+        var label = createElement( "label" );
+        label.className = "radioButton";
+        label.innerText = labelText;
+        container.appendChild( label );
+
+        var input = createElement( "input" );
+        input.type = "radio";
+        input.name = groupName;
+        label.appendChild( input );
+
+        var labelSpan = createElement( "span" );
+        labelSpan.className = "check-mark";
+        label.appendChild( labelSpan );
+
+        return input;
+    }
+
+    function showSelectExportTypeDialog( events ) {
+        addNode( _document.body, _element_DisabledBackground );
+        _element_SelectExportTypeDialog.style.display = "block";
+        _element_SelectExportTypeDialog_ExportEvents = events;
+        _element_SelectExportTypeDialog_Option_CSV.checked = true;
+    }
+
+    function hideSelectExportTypeDialog() {
+        removeNode( _document.body, _element_DisabledBackground );
+        _element_SelectExportTypeDialog.style.display = "none";
+    }
+
+    function exportEventsFromOptionSelected() {
+        hideSelectExportTypeDialog();
+
+        if ( _element_SelectExportTypeDialog_Option_CSV.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "csv" );
+        } else if ( _element_SelectExportTypeDialog_Option_XML.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "xml" );
+        } else if ( _element_SelectExportTypeDialog_Option_JSON.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "json" );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Auto-Refresh Timer
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -1914,6 +2012,17 @@ function calendarJs( id, options, startDateTime ) {
         return _options.exportStartFilename + datePart + "_" + timePart + "." + type;
     }
 
+    function getYesNoFromBoolean( flag ) {
+        return flag ? _options.yesText : _options.noText;
+    }
+
+    function getStringFromDateTime( eventDate ) {
+        var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
+            time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
+
+        return date + " " + time;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1944,17 +2053,13 @@ function calendarJs( id, options, startDateTime ) {
     function storeCsvData( csvContents, eventDetails ) {
         var eventContents = [];
 
-        eventContents.push( getCsvValue( getCsvDateTime( eventDetails.from ) ) );
-        eventContents.push( getCsvValue( getCsvDateTime( eventDetails.to ) ) );
-        eventContents.push( getCsvValue( getCsvYesNoFromBoolean( eventDetails.isAllDayEvent ) ) );
+        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.from ) ) );
+        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.to ) ) );
+        eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDayEvent ) ) );
         eventContents.push( getCsvValue( eventDetails.title.toString() ) );
         eventContents.push( getCsvValue( eventDetails.description.toString() ) );
 
         csvContents.push( getCsvValueLine( eventContents ) );
-    }
-
-    function getCsvYesNoFromBoolean( flag ) {
-        return flag ? _options.yesText : _options.noText;
     }
 
     function getCsvValue( text ) {
@@ -1967,13 +2072,6 @@ function calendarJs( id, options, startDateTime ) {
 
     function getCsvValueLine( csvValues ) {
         return csvValues.join( ',' );
-    }
-
-    function getCsvDateTime( eventDate ) {
-        var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
-            time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
-
-        return date + " " + time;
     }
 
 
@@ -1996,7 +2094,15 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    xmlContents.push( "<" + propertyName + ">" + orderedEvent[ propertyName ] + "</" + propertyName + ">" );
+                    var value = orderedEvent[ propertyName ];
+
+                    if ( typeof value === "boolean" ) {
+                        value = getYesNoFromBoolean( value );
+                    } else if ( typeof value === "object" ) {
+                        value = getStringFromDateTime( value );
+                    }
+
+                    xmlContents.push( "<" + propertyName + ">" + value + "</" + propertyName + ">" );
                 }
             }
     
@@ -2028,7 +2134,15 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    jsonContents.push( "\"" + propertyName + "\":\"" + orderedEvent[ propertyName ] + "\"," );
+                    var value = orderedEvent[ propertyName ];
+
+                    if ( typeof value === "boolean" ) {
+                        value = getYesNoFromBoolean( value );
+                    } else if ( typeof value === "object" ) {
+                        value = getStringFromDateTime( value );
+                    }
+
+                    jsonContents.push( "\"" + propertyName + "\":\"" + value + "\"," );
                 }
             }
 
@@ -2557,6 +2671,14 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.confirmEventRemoveMessage ) ) {
             _options.confirmEventRemoveMessage = "Removing this event cannot be undone.  Do you want to continue?";
+        }
+
+        if ( !isDefined( _options.okText ) ) {
+            _options.okText = "OK";
+        }
+
+        if ( !isDefined( _options.selectExportTypeTitle ) ) {
+            _options.selectExportTypeTitle = "Select Export Type";
         }
     };
 

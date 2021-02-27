@@ -14,7 +14,10 @@ div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
 div.calender-confirmation-dialog,
 div.calender-confirmation-dialog input,
-div.calender-confirmation-dialog textarea {
+div.calender-confirmation-dialog textarea,
+div.calender-select-export-type-dialog,
+div.calender-select-export-type-dialog input,
+div.calender-select-export-type-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: 321px) {
@@ -791,6 +794,130 @@ div.calender-confirmation-dialog {
 
             &:active {
                 @include opacity-active-effect;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.calender-select-export-type-dialog {
+    @include dialog-styles(300px);
+
+    div.title-bar {
+        @include no-selection-allowed;
+        background-color: $dark-color;
+        color: $light-color;
+        padding: 10px;
+        text-align: center;
+    }
+
+    div.contents {
+        padding: 10px;
+    }
+    
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: 20px;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+
+div.calender-select-export-type-dialog {
+    input[type="button"] {
+        @include dialog-button-styles;
+
+        &.ok {
+            color: $light-color;
+            background-color: $ok-color;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
+            }
+        }
+
+        &.cancel {
+            color: $light-color;
+            background-color: $alert-color;
+    
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog - Radio Button
+    -------------------------------------------------------------------------
+*/
+
+div.calender-select-export-type-dialog {
+    label.radioButton {
+        @include no-selection-allowed();
+        display: block;
+        position: relative;
+        padding-left: 25px;
+        padding-top: 1px;
+        margin-bottom: 12px;
+        color: $dark-color;
+
+        input {
+            display: none;
+
+            &:checked ~ span.check-mark {
+                background-color: $dark-color !important;
+                border: 1px solid $dark-color;
+            }
+
+            &:checked ~ span.check-mark:before {
+                display: block;
+            }
+        }
+
+        span.check-mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 15px;
+            width: 15px;
+            background-color: $input-background-color;
+            border-radius: 50%;
+            border: 1px solid $input-border-color;
+
+            &:before {
+                @include transform(rotate(45deg));
+                content: "";
+                position: absolute;
+                display: none;
+                left: 4px;
+                top: 4px;
+                width: 7px;
+                height: 7px;
+                background-color: $light-color;
+                border-radius: 50%;
             }
         }
     }

@@ -10,7 +10,10 @@ div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
 div.calender-confirmation-dialog,
 div.calender-confirmation-dialog input,
-div.calender-confirmation-dialog textarea {
+div.calender-confirmation-dialog textarea,
+div.calender-select-export-type-dialog,
+div.calender-select-export-type-dialog input,
+div.calender-select-export-type-dialog textarea {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -21,7 +24,10 @@ div.calender-confirmation-dialog textarea {
   div.calender-event-editor-dialog textarea,
   div.calender-confirmation-dialog,
   div.calender-confirmation-dialog input,
-  div.calender-confirmation-dialog textarea {
+  div.calender-confirmation-dialog textarea,
+  div.calender-select-export-type-dialog,
+  div.calender-select-export-type-dialog input,
+  div.calender-select-export-type-dialog textarea {
     font-size: 0.9rem !important;
   }
 }
@@ -33,7 +39,10 @@ div.calender-confirmation-dialog textarea {
   div.calender-event-editor-dialog textarea,
   div.calender-confirmation-dialog,
   div.calender-confirmation-dialog input,
-  div.calender-confirmation-dialog textarea {
+  div.calender-confirmation-dialog textarea,
+  div.calender-select-export-type-dialog,
+  div.calender-select-export-type-dialog input,
+  div.calender-select-export-type-dialog textarea {
     font-size: 0.7rem !important;
   }
 }
@@ -44,7 +53,10 @@ div.calender-event-editor-dialog input div.overlay-shown,
 div.calender-event-editor-dialog textarea div.overlay-shown,
 div.calender-confirmation-dialog div.overlay-shown,
 div.calender-confirmation-dialog input div.overlay-shown,
-div.calender-confirmation-dialog textarea div.overlay-shown {
+div.calender-confirmation-dialog textarea div.overlay-shown,
+div.calender-select-export-type-dialog div.overlay-shown,
+div.calender-select-export-type-dialog input div.overlay-shown,
+div.calender-select-export-type-dialog textarea div.overlay-shown {
   top: 0 !important;
   visibility: visible !important;
 }
@@ -1757,6 +1769,177 @@ div.calender-confirmation-dialog input[type="button"].no:active {
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog
+    -------------------------------------------------------------------------
+*/
+div.calender-select-export-type-dialog {
+  width: calc(100% - 20px);
+  max-width: 300px;
+  border-radius: 0.25rem;
+  background-color: #F5F5F5;
+  border: 1px solid #282828;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+  z-index: 1500;
+}
+
+div.calender-select-export-type-dialog div.title-bar {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-color: #282828;
+  color: #F5F5F5;
+  padding: 10px;
+  text-align: center;
+}
+
+div.calender-select-export-type-dialog div.contents {
+  padding: 10px;
+}
+
+div.calender-select-export-type-dialog div.split input {
+  width: calc(50% - 5px);
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+div.calender-select-export-type-dialog div.split input:first-child {
+  margin-left: 0;
+}
+
+div.calender-select-export-type-dialog div.split input:last-child {
+  margin-right: 0;
+}
+
+div.calender-select-export-type-dialog div.split {
+  margin-top: 20px;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+div.calender-select-export-type-dialog input[type="button"] {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: .255rem .55rem;
+  line-height: 1.8;
+  border-radius: 0.25rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+div.calender-select-export-type-dialog input[type="button"].ok {
+  color: #F5F5F5;
+  background-color: #289345;
+}
+
+div.calender-select-export-type-dialog input[type="button"].ok:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.calender-select-export-type-dialog input[type="button"].ok:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.calender-select-export-type-dialog input[type="button"].cancel {
+  color: #F5F5F5;
+  background-color: #C60000;
+}
+
+div.calender-select-export-type-dialog input[type="button"].cancel:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.calender-select-export-type-dialog input[type="button"].cancel:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog - Radio Button
+    -------------------------------------------------------------------------
+*/
+div.calender-select-export-type-dialog label.radioButton {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  padding-top: 1px;
+  margin-bottom: 12px;
+  color: #282828;
+}
+
+div.calender-select-export-type-dialog label.radioButton input {
+  display: none;
+}
+
+div.calender-select-export-type-dialog label.radioButton input:checked ~ span.check-mark {
+  background-color: #282828 !important;
+  border: 1px solid #282828;
+}
+
+div.calender-select-export-type-dialog label.radioButton input:checked ~ span.check-mark:before {
+  display: block;
+}
+
+div.calender-select-export-type-dialog label.radioButton span.check-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  border: 1px solid #A8A8A8;
+}
+
+div.calender-select-export-type-dialog label.radioButton span.check-mark:before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  content: "";
+  position: absolute;
+  display: none;
+  left: 4px;
+  top: 4px;
+  width: 7px;
+  height: 7px;
+  background-color: #F5F5F5;
+  border-radius: 50%;
 }
 
 /*
