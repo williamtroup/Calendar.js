@@ -446,7 +446,7 @@ function calendarJs( id, options, startDateTime ) {
         if ( element.className.indexOf( " full-screen-view" ) <= 0 ) {
             element.className += " full-screen-view";
             _cachedStyles = element.style.cssText;
-            element.style = "";
+            element.removeAttribute( "style" );
         } else {
             element.className = element.className.replace( " full-screen-view", "" );
             element.style.cssText = _cachedStyles;
