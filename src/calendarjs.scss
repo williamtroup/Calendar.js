@@ -959,7 +959,8 @@ div.calender-select-export-type-dialog {
 
 div.calender-event-tooltip {
     position: absolute;
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     border: 1px solid $dark-color;
     border-radius: $border-view-radius;
     background-color: rgb(238,232,170);

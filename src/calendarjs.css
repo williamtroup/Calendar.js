@@ -1982,7 +1982,8 @@ div.calender-select-export-type-dialog label.radioButton span.check-mark:before 
 */
 div.calender-event-tooltip {
   position: absolute;
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   border: 1px solid #282828;
   border-radius: 0.25rem;
   background-color: palegoldenrod;
