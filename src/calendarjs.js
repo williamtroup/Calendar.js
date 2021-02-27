@@ -1710,7 +1710,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfirmationDialog_YesButton.addEventListener( "click", onYesEvent );
 
         if ( isDefinedFunction( onNoEvent ) ) {
-            
             _element_ConfirmationDialog_NoButton.addEventListener( "click", onNoEvent );
         }
     }
@@ -1850,7 +1849,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function exportEvents( events, type ) {
-        type = isDefined( type ) ? type : "csv";
+        type = isDefined( type ) ? type.toLowerCase() : "csv";
 
         var contents = "",
             contentsEvents = getExportEvents( events );
