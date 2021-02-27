@@ -9,6 +9,7 @@
 @import "foundation/styles";
 
 div.calendar,
+div.calender-event-tooltip,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
@@ -946,6 +947,42 @@ div.calender-select-export-type-dialog {
                 border-radius: 50%;
             }
         }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Event Tooltip
+    -------------------------------------------------------------------------
+*/
+
+div.calender-event-tooltip {
+    position: absolute;
+    width: 300px;
+    border: 1px solid $dark-color;
+    border-radius: $border-view-radius;
+    background-color: rgb(238,232,170);
+    color: $dark-color;
+    padding: 10px;
+    display: none;
+    z-index: 2000;
+
+    div {
+        margin-bottom: 3px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    div.title {
+        font-weight: 900;
+    }
+
+    div.date,
+    div.description {
+        font-size: smaller;
     }
 }
 

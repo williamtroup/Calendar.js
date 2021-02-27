@@ -97,6 +97,7 @@
  * @property    {string}   okText                                       The text that should be displayed for the "OK" button.
  * @property    {string}   selectExportTypeTitle                        The text that should be displayed for the "Select Export Type" label.
  * @property    {boolean}  fullScreenModeEnabled                        States if double click on the main title bar activates full screen mode (defaults to true).
+ * @property    {number}   eventTooltipDelay                            The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
  */
 
 
@@ -171,7 +172,12 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_XML = null,
         _element_SelectExportTypeDialog_Option_JSON = null,
         _element_SelectExportTypeDialog_Option_TEXT = null,
-        _element_SelectExportTypeDialog_ExportEvents = null;
+        _element_SelectExportTypeDialog_ExportEvents = null,
+        _element_EventTooltip = null,
+        _element_EventTooltip_Title = null,
+        _element_EventTooltip_Date = null,
+        _element_EventTooltip_Description = null,
+        _element_EventTooltip_ShowTimer = null;
 
 
     /*
@@ -204,6 +210,7 @@ function calendarJs( id, options, startDateTime ) {
         buildEventEditingDialog();
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
+        buildEventTooltip();
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
     }
@@ -536,9 +543,12 @@ function calendarJs( id, options, startDateTime ) {
                 }
 
                 event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
-                event.title = eventTitle;
                 event.innerHTML = eventTitle;
                 elementDay.appendChild( event );
+
+                event.onmousemove = function( e ) {
+                    showEventTooltip( e, eventDetails );
+                };
     
                 if ( eventDetails.to < new Date() ) {
                     event.className += " expired";
@@ -1201,6 +1211,8 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDateTimeToDateTimeDisplay( container, fromDate, toDate ) {
+        container.innerHTML = "";
+
         var startText = createElement( "span" );
         startText.innerText = _options.startsAtText + " ";
         container.appendChild( startText );
@@ -1865,6 +1877,102 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Event Tooltip
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildEventTooltip() {
+        if ( _element_EventTooltip === null ) {
+            _element_EventTooltip = createElement( "div" );
+            _element_EventTooltip.className = "calender-event-tooltip";
+            _document.body.appendChild( _element_EventTooltip );
+
+            _element_EventTooltip_Title = createElement( "div" );
+            _element_EventTooltip_Title.className = "title";
+            _element_EventTooltip.appendChild( _element_EventTooltip_Title );
+
+            _element_EventTooltip_Date = createElement( "div" );
+            _element_EventTooltip_Date.className = "date";
+            _element_EventTooltip.appendChild( _element_EventTooltip_Date );
+
+            _element_EventTooltip_Description = createElement( "div" );
+            _element_EventTooltip_Description.className = "description";
+
+            document.body.addEventListener( "mousemove", hideEventTooltip );
+        }
+    }
+
+    function showEventTooltip( e, eventDetails ) {
+        cancelBubble( e );
+        clearEventTooltipTimer();
+
+        if ( _element_EventTooltip.style.display !== "block" ) {
+            _element_EventTooltip_ShowTimer = setTimeout( function() {
+                _element_EventTooltip.style.display = "block";
+                _element_EventTooltip_Title.innerHTML = eventDetails.title;
+
+                if ( eventDetails.description !== "" ) {
+                    _element_EventTooltip_Description.innerHTML = eventDetails.description;
+                    _element_EventTooltip.appendChild( _element_EventTooltip_Description );
+                } else {
+                    _element_EventTooltip_Description.innerHTML = "";
+                    _element_EventTooltip.removeChild( _element_EventTooltip_Description );
+                }
+
+                if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                    if ( eventDetails.isAllDayEvent ) {
+                        _element_EventTooltip_Date.innerHTML = _options.allDayEventText;
+                    } else {
+                        _element_EventTooltip_Date.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                    }
+                } else {
+                    buildDateTimeToDateTimeDisplay( _element_EventTooltip_Date, eventDetails.from, eventDetails.to );
+                }
+
+                var left = e.clientX,
+                    top = e.clientY;
+
+                if ( left + _element_EventTooltip.offsetWidth > _window.innerWidth ) {
+                    left -= _element_EventTooltip.offsetWidth;
+                } else {
+                    left++;
+                }
+
+                if ( top + _element_EventTooltip.offsetHeight > _window.innerHeight ) {
+                    top -= _element_EventTooltip.offsetHeight;
+                } else {
+                    top++;
+                }
+                
+                _element_EventTooltip.style.left = left + "px";
+                _element_EventTooltip.style.top = top + "px";
+
+            }, _options.eventTooltipDelay );
+        }
+    }
+
+    function hideEventTooltip() {
+        clearEventTooltipTimer();
+
+        if ( _element_EventTooltip.style.display !== "none" ) {
+            _element_EventTooltip.style.display = "none";
+        }
+    }
+
+    function clearEventTooltipTimer() {
+        if ( _element_EventTooltip_ShowTimer !== null ) {
+            clearTimeout( _element_EventTooltip_ShowTimer );
+            _element_EventTooltip_ShowTimer = null;
+        }
+    }
+
+    function isEventTooltipVisible() {
+        return _element_EventTooltip.style.display === "block" || _element_EventTooltip_ShowTimer !== null;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Auto-Refresh Timer
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -1885,8 +1993,10 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function refreshViews() {
-        refreshOpenedViews();
-        buildDayEvents();
+        if ( !isEventTooltipVisible() ) {
+            refreshOpenedViews();
+            buildDayEvents();
+        }
     }
 
     
@@ -2766,6 +2876,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.fullScreenModeEnabled ) ) {
             _options.fullScreenModeEnabled = true;
+        }
+
+        if ( !isDefined( _options.eventTooltipDelay ) ) {
+            _options.eventTooltipDelay = 1000;
         }
     };
 

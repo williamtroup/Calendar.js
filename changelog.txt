@@ -7,6 +7,7 @@ v0.2.0:
 - Fixed "click" and "resize" events in the document/window being overridden;
 - Fixed a fault that prevent the year drop down menu being centered correctly.
 - The "Expand Day" button is now less intrusive and indicates what it will do.
+- Added a styled tooltip for the events in the main display (with new settings).
 
 v0.1.1:
 - Added active CSS effects for all clickable elements.

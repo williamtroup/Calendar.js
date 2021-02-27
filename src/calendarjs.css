@@ -5,6 +5,7 @@
  * Released under the GNU AGPLv3 license
  */
 div.calendar,
+div.calender-event-tooltip,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
@@ -19,6 +20,7 @@ div.calender-select-export-type-dialog textarea {
 
 @media screen and (min-width: 321px) {
   div.calendar,
+  div.calender-event-tooltip,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -34,6 +36,7 @@ div.calender-select-export-type-dialog textarea {
 
 @media screen and (max-width: 320px) {
   div.calendar,
+  div.calender-event-tooltip,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -48,6 +51,7 @@ div.calender-select-export-type-dialog textarea {
 }
 
 div.calendar div.overlay-shown,
+div.calender-event-tooltip div.overlay-shown,
 div.calender-event-editor-dialog div.overlay-shown,
 div.calender-event-editor-dialog input div.overlay-shown,
 div.calender-event-editor-dialog textarea div.overlay-shown,
@@ -1969,6 +1973,40 @@ div.calender-select-export-type-dialog label.radioButton span.check-mark:before 
   height: 7px;
   background-color: #F5F5F5;
   border-radius: 50%;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Event Tooltip
+    -------------------------------------------------------------------------
+*/
+div.calender-event-tooltip {
+  position: absolute;
+  width: 300px;
+  border: 1px solid #282828;
+  border-radius: 0.25rem;
+  background-color: palegoldenrod;
+  color: #282828;
+  padding: 10px;
+  display: none;
+  z-index: 2000;
+}
+
+div.calender-event-tooltip div {
+  margin-bottom: 3px;
+}
+
+div.calender-event-tooltip div:last-child {
+  margin-bottom: 0;
+}
+
+div.calender-event-tooltip div.title {
+  font-weight: 900;
+}
+
+div.calender-event-tooltip div.date,
+div.calender-event-tooltip div.description {
+  font-size: smaller;
 }
 
 /*
