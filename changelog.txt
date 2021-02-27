@@ -6,6 +6,7 @@ v0.2.0:
 - Added support for screen mode (double click the main title bar) with optional on/off setting.
 - Fixed "click" and "resize" events in the document/window being overridden;
 - Fixed a fault that prevent the year drop down menu being centered correctly.
+- The "Expand Day" button is now less intrusive and indicates what it will do.
 
 v0.1.1:
 - Added active CSS effects for all clickable elements.
