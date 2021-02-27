@@ -331,8 +331,8 @@ function calendarJs( id, options, startDateTime ) {
                 }
             };
 
-            _document.body.onclick = hideYearSelectorDropDown;
-            _window.onresize = hideYearSelectorDropDown;
+            _document.body.addEventListener( "click", hideYearSelectorDropDown );
+            _window.addEventListener( "resize", hideYearSelectorDropDown );
         }
     }
 
