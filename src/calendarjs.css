@@ -84,6 +84,29 @@ div.disabled-area {
   display: none;
 }
 
+div.full-screen-view {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 500;
+  position: fixed !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+div.full-screen-view div.row {
+  height: 14.8%;
+}
+
+div.full-screen-view div.header-days {
+  height: auto !important;
+}
+
+div.full-screen-view div.cell {
+  height: calc(100% - 20px);
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Layout

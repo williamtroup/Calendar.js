@@ -96,6 +96,7 @@
  * @property    {string}   confirmEventRemoveMessage                    The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  * @property    {string}   okText                                       The text that should be displayed for the "OK" button.
  * @property    {string}   selectExportTypeTitle                        The text that should be displayed for the "Select Export Type" label.
+ * @property    {boolean}  fullScreenModeEnabled                        States if double click on the main title bar activates full screen mode (defaults to true).
  */
 
 
@@ -123,6 +124,7 @@ function calendarJs( id, options, startDateTime ) {
         _events = {},
         _timer_RefreshMainDisplay = null,
         _eventDetails_Dragged = null,
+        _cachedStyles = null,
         _elementID_DayElement = "calendar-day-",
         _elementClassName_Row = "row",
         _elementClassName_Cell = "cell",
@@ -234,6 +236,12 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay = createElement( "div" );
         _element_HeaderDateDisplay.className = "header-date";
         element.appendChild( _element_HeaderDateDisplay );
+
+        if ( _options.fullScreenModeEnabled ) {
+            _element_HeaderDateDisplay.ondblclick = function() {
+                headerDoubleClick( element );
+            };
+        }
 
         var previousMonthButton = createElement( "div" );
         previousMonthButton.className = "arrow previous-month";
@@ -434,6 +442,17 @@ function calendarJs( id, options, startDateTime ) {
         return result.join( "" );
     }
 
+    function headerDoubleClick( element ) {
+        if ( element.className.indexOf( " full-screen-view" ) <= 0 ) {
+            element.className += " full-screen-view";
+            _cachedStyles = element.style.cssText;
+            element.style = "";
+        } else {
+            element.className = element.className.replace( " full-screen-view", "" );
+            element.style.cssText = _cachedStyles;
+        }
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -632,6 +651,12 @@ function calendarJs( id, options, startDateTime ) {
             titleBar.className = "title-bar";
             _element_FullDayView.appendChild( titleBar );
 
+            if ( _options.fullScreenModeEnabled ) {
+                titleBar.ondblclick = function() {
+                    headerDoubleClick( element );
+                };
+            }
+
             _element_FullDayView_Title = createElement( "div" );
             _element_FullDayView_Title.className = "title";
             titleBar.appendChild( _element_FullDayView_Title );
@@ -804,6 +829,12 @@ function calendarJs( id, options, startDateTime ) {
             titleBar.className = "title-bar";
             _element_ListAllEventsView.appendChild( titleBar );
 
+            if ( _options.fullScreenModeEnabled ) {
+                titleBar.ondblclick = function() {
+                    headerDoubleClick( element );
+                };
+            }
+
             var title = createElement( "div" );
             title.className = "title";
             title.innerHTML = _options.allEventsText;
@@ -964,6 +995,12 @@ function calendarJs( id, options, startDateTime ) {
             var titleBar = createElement( "div" );
             titleBar.className = "title-bar";
             _element_ListAllWeekEventsView.appendChild( titleBar );
+
+            if ( _options.fullScreenModeEnabled ) {
+                titleBar.ondblclick = function() {
+                    headerDoubleClick( element );
+                };
+            }
 
             var title = createElement( "div" );
             title.className = "title";
@@ -2720,6 +2757,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.selectExportTypeTitle ) ) {
             _options.selectExportTypeTitle = "Select Export Type";
+        }
+
+        if ( !isDefined( _options.fullScreenModeEnabled ) ) {
+            _options.fullScreenModeEnabled = true;
         }
     };
 

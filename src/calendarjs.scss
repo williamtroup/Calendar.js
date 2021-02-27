@@ -43,6 +43,26 @@ div.disabled-area {
     display: none;
 }
 
+div.full-screen-view {
+    @include full-size-view;
+    z-index: 500;
+    position: fixed !important;
+    border-radius: 0 !important;
+    border: none !important;
+
+    div.row {
+        height: 14.8%;
+    }
+
+    div.header-days {
+        height: auto !important;
+    }
+
+    div.cell {
+        height: calc(100% - 20px);
+    }
+}
+
  
 /*
     -------------------------------------------------------------------------
