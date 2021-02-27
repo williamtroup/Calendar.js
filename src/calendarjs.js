@@ -2032,8 +2032,20 @@ function calendarJs( id, options, startDateTime ) {
         return date + " " + time;
     }
 
-    function gerPropertyName( value ) {
-        return value.charAt( 0 ).toUpperCase() + value.slice( 1 );
+    function getPropertyName( name ) {
+        return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
+    }
+
+    function getPropertyValue( value ) {
+        var result = value;
+
+        if ( typeof value === "boolean" ) {
+            result = getYesNoFromBoolean( value );
+        } else if ( typeof value === "object" ) {
+            result = getStringFromDateTime( value );
+        }
+
+        return result;
     }
 
 
@@ -2107,15 +2119,9 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    var value = orderedEvent[ propertyName ];
-
-                    if ( typeof value === "boolean" ) {
-                        value = getYesNoFromBoolean( value );
-                    } else if ( typeof value === "object" ) {
-                        value = getStringFromDateTime( value );
-                    }
-
-                    xmlContents.push( "<" + gerPropertyName( propertyName ) + ">" + value + "</" + propertyName + ">" );
+                    var newPropertyName = getPropertyName( propertyName );
+                    
+                    xmlContents.push( "<" + newPropertyName + ">" + getPropertyValue( orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
                 }
             }
     
@@ -2147,15 +2153,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    var value = orderedEvent[ propertyName ];
-
-                    if ( typeof value === "boolean" ) {
-                        value = getYesNoFromBoolean( value );
-                    } else if ( typeof value === "object" ) {
-                        value = getStringFromDateTime( value );
-                    }
-
-                    jsonContents.push( "\"" + propertyName + "\":\"" + value + "\"," );
+                    jsonContents.push( "\"" + propertyName + "\":\"" + getPropertyValue( orderedEvent[ propertyName ] ) + "\"," );
                 }
             }
 
@@ -2188,15 +2186,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    var value = orderedEvent[ propertyName ];
-
-                    if ( typeof value === "boolean" ) {
-                        value = getYesNoFromBoolean( value );
-                    } else if ( typeof value === "object" ) {
-                        value = getStringFromDateTime( value );
-                    }
-
-                    textContents.push( gerPropertyName( propertyName ) + ": " + value );
+                    textContents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( orderedEvent[ propertyName ] ) );
                 }
             }
     
