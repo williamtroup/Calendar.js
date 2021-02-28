@@ -13,20 +13,14 @@ div.event-no-hover {
     @include word-wrap-with-new-lines;
     border-radius: $border-view-radius;
     background-color: $event-color;
-    padding: 8px;
+    padding: $spacing;
     color: $light-color;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-bottom: $spacing;
+    margin-left: $spacing;
+    margin-right: $spacing;
     border-left: $event-left-border;
 
-    div {
-        margin-bottom: 3px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
+    @include div-label-spacing;
 
     div.title {
         font-weight: 900;

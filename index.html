@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js v0.1.1</title>
+        <title>Calendar.js v0.2.0</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="src/calendarjs.css" />
         <script src="src/calendarjs.js"></script>
@@ -18,6 +18,12 @@
         <br />
         <br />
         <a href="index_minified_files.html" target="_self">Minimized Version</a>
+        <br />
+        <br />
+        <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
+        <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
+        <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
+        <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
     </body>
 
     <script>

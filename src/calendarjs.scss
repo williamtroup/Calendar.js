@@ -1,5 +1,5 @@
 /*
- * Calender.js Library v0.1.1
+ * Calender.js Library v0.2.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -9,22 +9,68 @@
 @import "foundation/styles";
 
 div.calendar,
+div.calender-event-tooltip,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
-div.calender-event-editor-dialog textarea {
+div.calender-event-editor-dialog textarea,
+div.calender-confirmation-dialog,
+div.calender-confirmation-dialog input,
+div.calender-confirmation-dialog textarea,
+div.calender-select-export-type-dialog,
+div.calender-select-export-type-dialog input,
+div.calender-select-export-type-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
-    @media screen and (min-width: 321px) {
-        font-size: 0.9rem !important;
+    @media screen and (min-width: $minimum-width) {
+        font-size: $large-font-size !important;
     }
     
-    @media screen and (max-width: 320px) {
-        font-size: 0.7rem !important;
+    @media screen and (max-width: $maximum-width) {
+        font-size: $small-font-size !important;
     }
 
     div.overlay-shown {
         top: 0 !important;
         visibility: visible !important;
+    }
+}
+
+div.disabled-background {
+    @include disabled-area(fixed);
+}
+
+div.disabled-area {
+    @include disabled-area(absolute);
+    display: none;
+}
+
+div.full-screen-view {
+    @include full-size-view;
+    z-index: 500;
+    position: fixed !important;
+    border-radius: 0 !important;
+    border: none !important;
+
+    div.row {
+        @media screen and (min-width: $minimum-width) {
+            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$large-font-size} * 2)))) / 6);
+        }
+        
+        @media screen and (max-width: $maximum-width) {
+            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$small-font-size} * 2)))) / 6);
+        }
+
+        div.cell {
+            height: calc(100% - (#{$spacing} * 2));
+        }
+    }
+
+    div.header-days {
+        height: auto !important;
+
+        div.cell {
+            height: auto !important;
+        }
     }
 }
 
@@ -40,7 +86,7 @@ div.calendar {
     border-radius: $border-view-radius;
     overflow: hidden;
     width: 100%;
-    border: 1px solid $dark-color;
+    border: $standard-border-size solid $dark-color;
     position: relative;
     overflow: hidden;
 
@@ -64,7 +110,7 @@ div.calendar {
     }
     
     div.row {
-        border-bottom: 1px solid $dark-color;
+        border-bottom: $standard-border-size solid $dark-color;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
@@ -74,11 +120,11 @@ div.calendar {
         color: $dark-color;
 
         div.cell {
-            width: 14.285714285714285714285714285714%;
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
             display: inline-block;
             text-align: center;
-            padding: 10px;
-            border-right: 1px solid $dark-color;
+            padding: $spacing;
+            border-right: $standard-border-size solid $dark-color;
             position: relative;
             overflow: hidden;
             color: $dark-color;
@@ -102,13 +148,14 @@ div.calendar {
     }
     
     div.expand-day {
-        @include fade-in-effect-animation;
+        @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
         top: 5px;
-        height: 6px;
-        width: 6px;
-        border: 3px solid $event-color;
+        height: 9px;
+        width: 9px;
+        border-top: 3px solid $event-color;
+        border-right: 3px solid $event-color;
         border-radius: $border-view-radius;
         display: none;
 
@@ -135,71 +182,83 @@ div.calendar {
         background-color: $dark-color;
         color: $light-color;
         text-align: center;
-        padding: 10px;
+        padding: $spacing;
         position: relative;
 
-        span {
-            &:hover {
-                @include opacity-hover-effect;
+        div.title-container {
+            display: inline;
+            position: relative;
+
+            span {
+                &:hover {
+                    @include opacity-hover-effect;
+                }
+    
+                &:active {
+                    @include opacity-active-effect;
+                }
             }
 
-            &:active {
-                @include opacity-active-effect;
+            div.years-drop-down {
+                position: absolute;
+                width: 240px;
+                height: 200px;
+                border: $standard-border-size solid $dark-color;
+                left: 50%;
+                transform: translate(-50%);
+                background-color: $light-color;
+                border-radius: $border-view-radius;
+                z-index: 1500;
+                display: none;
+                overflow: hidden;
+
+                @media screen and (min-width: $minimum-width) {
+                    top: calc(#{$spacing} + #{$large-font-size});
+                }
+                
+                @media screen and (max-width: $maximum-width) {
+                    top: calc(#{$spacing} + #{$small-font-size});
+                }
+    
+                div.contents {
+                    @include word-wrap-with-new-lines();
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    width: inherit;
+                    height: inherit;
+                    margin-left: 0;
+                    margin-right: 0;
+    
+                    div {
+                        display: inline-block;
+                        color: $dark-color;
+                        font-size: 0.75rem;
+                        margin-right: 5px;
+                        width: calc(25% - 17px);
+                        text-align: center;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                        border-radius: $border-view-radius;
+                        padding: 3px;
+        
+                        &:hover {
+                            background-color: $dark-color;
+                            color: $light-color;
+                            cursor: pointer;
+                            transition: $transition;
+                        }
+    
+                        &:active {
+                            @include opacity-active-effect;
+                        }
+                    }
+                }
             }
         }
 
         div {
             margin-left: 5px;
             margin-right: 5px;
-        }
-
-        div.years-drop-down {
-            position: absolute;
-            width: 240px;
-            height: 200px;
-            border: 1px solid $dark-color;
-            left: 45%;
-            top: calc(20px + 0.9rem);
-            transform: translate(-45%);
-            background-color: $light-color;
-            border-radius: $border-view-radius;
-            z-index: 1500;
-            display: none;
-            overflow: hidden;
-
-            div.contents {
-                @include word-wrap-with-new-lines();
-                overflow-x: hidden;
-                overflow-y: auto;
-                width: inherit;
-                height: inherit;
-                margin-left: 0;
-                margin-right: 0;
-
-                div {
-                    display: inline-block;
-                    color: $dark-color;
-                    font-size: 0.75rem;
-                    margin-right: 5px;
-                    width: calc(25% - 17px);
-                    text-align: center;
-                    margin-top: 5px;
-                    margin-bottom: 5px;
-                    border-radius: $border-view-radius;
-                    padding: 3px;
-    
-                    &:hover {
-                        background-color: $dark-color;
-                        color: $light-color;
-                        cursor: pointer;
-                        transition: $transition;
-                    }
-
-                    &:active {
-                        @include opacity-active-effect;
-                    }
-                }
-            }
         }
 
         div.arrow {
@@ -316,8 +375,8 @@ div.calendar {
                 @include opacity-active-effect;
             }
 
-            &:after {
-                content: '';
+            &:before {
+                content: "";
                 position: absolute;
                 top: 3px;
                 left: 0px;
@@ -334,8 +393,8 @@ div.calendar {
             position: relative;
             margin-top: 1px;
 
-            &::before,
-            &::after {
+            &:before,
+            &:after {
                 position: absolute;
                 content: "";
                 width: 8px;
@@ -343,13 +402,13 @@ div.calendar {
                 border-radius: .25rem;
             }
 
-            &::before {
+            &:before {
                 border-top: $header-date-toolbar-button-border;
                 border-left: $header-date-toolbar-button-border;
                 left: 0;
             }
     
-            &::after {
+            &:after {
                 border-bottom: $header-date-toolbar-button-border;
                 border-right: $header-date-toolbar-button-border;
                 left: 6px;
@@ -390,11 +449,11 @@ div.calendar {
                 overflow: hidden;
                 text-overflow: ellipsis;
 
-                @media screen and (min-width: 321px) {
+                @media screen and (min-width: $minimum-width) {
                     font-size: 0.7rem !important;
                 }
                 
-                @media screen and (max-width: 320px) {
+                @media screen and (max-width: $maximum-width) {
                     font-size: 0.5rem !important;
                 }
 
@@ -467,19 +526,19 @@ div.calendar {
 
             div.month {
                 border-radius: $border-view-radius;
-                border: 1px solid $dark-color;
+                border: $standard-border-size solid $dark-color;
                 overflow: hidden;
-                margin-bottom: 10px;
+                margin-bottom: $spacing;
 
                 div.header {
                     background-color: $dark-color;
                     color: $light-color;
-                    padding: 10px;
+                    padding: $spacing;
                 }
 
                 div.events {
-                    margin-top: 10px;
-                    margin-bottom: 10px;
+                    margin-top: $spacing;
+                    margin-bottom: $spacing;
 
                     @import "foundation/overlay-event";
                 }
@@ -510,19 +569,19 @@ div.calendar {
 
             div.day {
                 border-radius: $border-view-radius;
-                border: 1px solid $dark-color;
+                border: $standard-border-size solid $dark-color;
                 overflow: hidden;
-                margin-bottom: 10px;
+                margin-bottom: $spacing;
 
                 div.header {
                     background-color: $dark-color;
                     color: $light-color;
-                    padding: 10px;
+                    padding: $spacing;
                 }
 
                 div.events {
-                    margin-top: 10px;
-                    margin-bottom: 10px;
+                    margin-top: $spacing;
+                    margin-bottom: $spacing;
 
                     @import "foundation/overlay-event";
                 }
@@ -542,94 +601,66 @@ div.calendar {
     -------------------------------------------------------------------------
 */
 
-div.disabled-background {
-    @include full-size-view;
-    z-index: 1000;
-    position: fixed;
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
 div.calender-event-editor-dialog {
-    width: calc(100% - 20px);
-    max-width: 370px;
-    border-radius: $border-view-radius;
-    background-color: $light-color;
-    border: 1px solid $dark-color;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    z-index: 1500;
+    @include dialog-styles(370px);
 
-    div.title-bar {
-        @include no-selection-allowed;
-        background-color: $dark-color;
-        color: $light-color;
-        padding: 10px;
-        text-align: center;
-    }
-    
-    div.contents {
-        padding: 10px;
-    }
-    
-    input:not([type="button"]),
-    textarea {
-        color: $dark-color;
-        width: 100%;
-        padding: .375rem .75rem;
-        border: 1px solid $input-border-color;
-        border-radius: $border-view-radius;
-        outline-color: $dark-color !important;
-        margin-bottom: 10px;
-        background-color: $input-background-color;
+    div.view {
+        position: relative;
 
-        &:last-child {
-            margin-bottom: 0;
+        div.title-bar {
+            @include no-selection-allowed;
+            background-color: $dark-color;
+            color: $light-color;
+            padding: $spacing;
+            text-align: center;
         }
-
-        &:-moz-focusring {
-            outline: none;
+        
+        div.contents {
+            padding: $spacing;
         }
-    }
-
-    input:disabled {
-        background-color: $light-color;
-    }
-
-    textarea {
-        height: 100px;
-        resize: none;
-        margin-bottom: 20px !important;
-    }
+        
+        input:not([type="button"]),
+        textarea {
+            color: $dark-color;
+            width: 100%;
+            padding: .375rem .75rem;
+            border: 1px solid $input-border-color;
+            border-radius: $border-view-radius;
+            outline-color: $dark-color !important;
+            margin-bottom: $spacing;
+            background-color: $input-background-color;
     
-    div.split {
-        input {
-            width: calc(50% - 5px);
-            margin-right: 5px;
-            margin-left: 5px;
-    
-            &:first-child {
-                margin-left: 0;
-            }
-            
             &:last-child {
-                margin-right: 0;
+                margin-bottom: 0;
+            }
+    
+            &:-moz-focusring {
+                outline: none;
             }
         }
-    }
     
-    p {
-        @include no-selection-allowed;
-        margin: 0;
-        margin-bottom: 8px;
-
-        &.error {
-            color: $alert-color;
-            display: none;
-            margin-bottom: 20px;
+        input:disabled {
+            background-color: $light-color;
+        }
+    
+        textarea {
+            height: 100px;
+            resize: none;
+            margin-bottom: 20px !important;
+        }
+    
+        @import "foundation/split-container";
+        
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+    
+            &.error {
+                color: $alert-color;
+                display: none;
+                margin-bottom: 20px;
+            }
         }
     }
 }
@@ -643,59 +674,18 @@ div.calender-event-editor-dialog {
 
 div.calender-event-editor-dialog {
     input[type="button"] {
-        @include no-selection-allowed;
-        display: inline-block;
-        text-align: center;
-        vertical-align: middle;
-        border: none;
-        padding: .255rem .55rem;
-        line-height: 1.8;
-        border-radius: $border-view-radius;
-        outline: 0;
-        cursor: pointer;
-
-        &.ok {
-            color: $light-color;
-            background-color: #289345;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        &.cancel {
-            color: $light-color;
-            background-color: $alert-color;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+        @include button(remove, $light-color, $dark-color);
 
         &.remove {
-            color: $light-color;
-            background-color: $dark-color;
-            margin-top: 10px;
+            margin-top: $spacing;
             width: 100%;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
         }
     }
 }
+
 
 /*
     -------------------------------------------------------------------------
@@ -721,7 +711,7 @@ div.calender-event-editor-dialog {
                 border: 1px solid $dark-color;
             }
 
-            &:checked ~ span.check-mark:after {
+            &:checked ~ span.check-mark:before {
                 display: block;
             }
         }
@@ -736,7 +726,7 @@ div.calender-event-editor-dialog {
             border-radius: $border-view-radius;
             border: 1px solid $input-border-color;
 
-            &:after {
+            &:before {
                 @include transform(rotate(45deg));
                 content: "";
                 position: absolute;
@@ -749,6 +739,182 @@ div.calender-event-editor-dialog {
                 border-width: 0 3px 3px 0;
             }
         }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Confirmation Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.calender-confirmation-dialog {
+    @include dialog-styles(330px);
+
+    div.title-bar {
+        @include no-selection-allowed;
+        background-color: $dark-color;
+        color: $light-color;
+        padding: $spacing;
+        text-align: center;
+    }
+
+    div.contents {
+        padding: $spacing;
+
+        div.message {
+            margin-bottom: 20px;
+        }
+    }
+    
+    @import "foundation/split-container";
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Confirmation Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+
+div.calender-confirmation-dialog {
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(yes, $light-color, $ok-color);
+        @include button(no, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.calender-select-export-type-dialog {
+    @include dialog-styles(300px);
+
+    div.title-bar {
+        @include no-selection-allowed;
+        background-color: $dark-color;
+        color: $light-color;
+        padding: $spacing;
+        text-align: center;
+    }
+
+    div.contents {
+        padding: $spacing;
+    }
+    
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: 20px;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+
+div.calender-select-export-type-dialog {
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Select Export Type Dialog - Radio Button
+    -------------------------------------------------------------------------
+*/
+
+div.calender-select-export-type-dialog {
+    label.radioButton {
+        @include no-selection-allowed();
+        display: block;
+        position: relative;
+        padding-left: 25px;
+        padding-top: 1px;
+        margin-bottom: 12px;
+        color: $dark-color;
+
+        input {
+            display: none;
+
+            &:checked ~ span.check-mark {
+                background-color: $dark-color !important;
+                border: 1px solid $dark-color;
+            }
+
+            &:checked ~ span.check-mark:before {
+                display: block;
+            }
+        }
+
+        span.check-mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 15px;
+            width: 15px;
+            background-color: $input-background-color;
+            border-radius: 50%;
+            border: 1px solid $input-border-color;
+
+            &:before {
+                @include transform(rotate(45deg));
+                content: "";
+                position: absolute;
+                display: none;
+                left: 4px;
+                top: 4px;
+                width: 7px;
+                height: 7px;
+                background-color: $light-color;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Event Tooltip
+    -------------------------------------------------------------------------
+*/
+
+div.calender-event-tooltip {
+    @include fade-in-effect-animation(1s);
+    position: absolute;
+    max-width: 300px;
+    width: 100%;
+    border: $standard-border-size solid $dark-color;
+    border-radius: $border-view-radius;
+    background-color: rgb(238,232,170);
+    color: $dark-color;
+    padding: $spacing;
+    display: none;
+    z-index: 2000;
+
+    @include div-label-spacing;
+
+    div.title {
+        font-weight: 900;
+    }
+
+    div.date,
+    div.description {
+        font-size: smaller;
     }
 }
 
