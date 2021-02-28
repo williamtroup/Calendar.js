@@ -1,6 +1,8 @@
 v0.3.0:
 - Added the custom scroll-bar to the textarea on the "Event Editor" dialog.
 - The custom scroll-bar now has :hover and :active selectors.
+- Added support to use the custom tooltip for every tooltip throughout the views.
+- Fixed a fault that prevented the custom tooltips from hiding when the mouse is moved again.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.

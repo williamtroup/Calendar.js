@@ -173,11 +173,11 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_JSON = null,
         _element_SelectExportTypeDialog_Option_TEXT = null,
         _element_SelectExportTypeDialog_ExportEvents = null,
-        _element_EventTooltip = null,
-        _element_EventTooltip_Title = null,
-        _element_EventTooltip_Date = null,
-        _element_EventTooltip_Description = null,
-        _element_EventTooltip_ShowTimer = null;
+        _element_Tooltip = null,
+        _element_Tooltip_Title = null,
+        _element_Tooltip_Date = null,
+        _element_Tooltip_Description = null,
+        _element_Tooltip_ShowTimer = null;
 
 
     /*
@@ -210,7 +210,7 @@ function calendarJs( id, options, startDateTime ) {
         buildEventEditingDialog();
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
-        buildEventTooltip();
+        buildTooltip();
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
     }
@@ -251,42 +251,47 @@ function calendarJs( id, options, startDateTime ) {
 
         var previousMonthButton = createElement( "div" );
         previousMonthButton.className = "arrow previous-month";
-        previousMonthButton.title = _options.previousMonthTooltipText;
         previousMonthButton.onclick = moveBackMonth;
         _element_HeaderDateDisplay.appendChild( previousMonthButton );
 
+        addToolTip( previousMonthButton, _options.previousMonthTooltipText );
+
         var todayButton = createElement( "div" );
         todayButton.className = "today";
-        todayButton.title = _options.todayTooltipText;
         todayButton.onclick = moveToday;
         _element_HeaderDateDisplay.appendChild( todayButton );
 
+        addToolTip( todayButton, _options.todayTooltipText );
+
         var refreshButton = createElement( "div" );
         refreshButton.className = "refresh";
-        refreshButton.title = _options.refreshTooltipText;
         refreshButton.onclick = refreshViews;
         _element_HeaderDateDisplay.appendChild( refreshButton );
 
+        addToolTip( refreshButton, _options.refreshTooltipText );
+
         var nextMonthButton = createElement( "div" );
         nextMonthButton.className = "arrow next-month";
-        nextMonthButton.title = _options.nextMonthTooltipText;
         nextMonthButton.onclick = moveForwardMonth;
         _element_HeaderDateDisplay.appendChild( nextMonthButton );
+
+        addToolTip( nextMonthButton, _options.nextMonthTooltipText );
 
         if ( _options.manualEditingEnabled ) {
             var addEventButton = createElement( "div" );
             addEventButton.className = "add-event";
-            addEventButton.title = _options.addEventTooltipText;
             addEventButton.onclick = addNewEvent;
             _element_HeaderDateDisplay.appendChild( addEventButton );
+
+            addToolTip( addEventButton, _options.addEventTooltipText );
         }
 
         if ( _options.exportEventsEnabled ) {
             _element_HeaderDateDisplay_ExportEventsButton = createElement( "div" );
             _element_HeaderDateDisplay_ExportEventsButton.className = "export-events";
-            _element_HeaderDateDisplay_ExportEventsButton.title = _options.exportEventsTooltipText;
-            
-            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_ExportEventsButton ); 
+            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_ExportEventsButton );
+
+            addToolTip( _element_HeaderDateDisplay_ExportEventsButton, _options.exportEventsTooltipText );
             
             _element_HeaderDateDisplay_ExportEventsButton.onclick = function() {
                 showSelectExportTypeDialog();
@@ -295,15 +300,17 @@ function calendarJs( id, options, startDateTime ) {
 
         var listAllEventsButton = createElement( "div" );
         listAllEventsButton.className = "list-all-events";
-        listAllEventsButton.title = _options.listAllEventsTooltipText;
         listAllEventsButton.onclick = showListAllEventsView;
         _element_HeaderDateDisplay.appendChild( listAllEventsButton );
 
+        addToolTip( listAllEventsButton, _options.listAllEventsTooltipText );
+
         var listWeekEventsButton = createElement( "div" );
         listWeekEventsButton.className = "list-week-events";
-        listWeekEventsButton.title = _options.listWeekEventsTooltipText;
         listWeekEventsButton.onclick = showListAllWeekEventsView;
         _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
+
+        addToolTip( listWeekEventsButton, _options.listWeekEventsTooltipText );
 
         var titleContainer = createElement( "div" );
         titleContainer.className = "title-container";
@@ -547,7 +554,7 @@ function calendarJs( id, options, startDateTime ) {
                 elementDay.appendChild( event );
 
                 event.onmousemove = function( e ) {
-                    showEventTooltip( e, eventDetails );
+                    showTooltip( e, eventDetails );
                 };
     
                 if ( eventDetails.to < new Date() ) {
@@ -678,8 +685,9 @@ function calendarJs( id, options, startDateTime ) {
 
             var closeButton = createElement( "div" );
             closeButton.className = "close";
-            closeButton.title = _options.closeTooltipText;
             titleBar.appendChild( closeButton );
+
+            addToolTip( closeButton, _options.closeTooltipText );
 
             closeButton.onclick = function() {
                 hideOverlay( _element_FullDayView );
@@ -689,16 +697,18 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.manualEditingEnabled ) {
                 var addEventButton = createElement( "div" );
                 addEventButton.className = "add-event";
-                addEventButton.title = _options.addEventTooltipText;
                 addEventButton.onclick = addNewEvent;
                 titleBar.appendChild( addEventButton );
+
+                addToolTip( addEventButton, _options.addEventTooltipText );
             }
 
             if ( _options.exportEventsEnabled ) {
                 _element_FullDayView_ExportEventsButton = createElement( "div" );
                 _element_FullDayView_ExportEventsButton.className = "export-events";
-                _element_FullDayView_ExportEventsButton.title = _options.exportEventsTooltipText;
                 titleBar.appendChild( _element_FullDayView_ExportEventsButton );
+
+                addToolTip( _element_FullDayView_ExportEventsButton, _options.exportEventsTooltipText );
 
                 _element_FullDayView_ExportEventsButton.onclick = function() {
                     showSelectExportTypeDialog( _element_FullDayView_EventsShown );
@@ -857,8 +867,9 @@ function calendarJs( id, options, startDateTime ) {
 
             var closeButton = createElement( "div" );
             closeButton.className = "close";
-            closeButton.title = _options.closeTooltipText;
             titleBar.appendChild( closeButton );
+
+            addToolTip( closeButton, _options.closeTooltipText );
 
             closeButton.onclick = function() {
                 hideOverlay( _element_ListAllEventsView );
@@ -867,16 +878,18 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.manualEditingEnabled ) {
                 var addEventButton = createElement( "div" );
                 addEventButton.className = "add-event";
-                addEventButton.title = _options.addEventTooltipText;
                 addEventButton.onclick = addNewEvent;
                 titleBar.appendChild( addEventButton );
+
+                addToolTip( addEventButton, _options.addEventTooltipText );
             }
 
             if ( _options.exportEventsEnabled ) {
                 _element_ListAllEventsView_ExportEventsButton = createElement( "div" );
                 _element_ListAllEventsView_ExportEventsButton.className = "export-events";
-                _element_ListAllEventsView_ExportEventsButton.title = _options.exportEventsTooltipText;
                 titleBar.appendChild( _element_ListAllEventsView_ExportEventsButton );
+
+                addToolTip( _element_ListAllEventsView_ExportEventsButton, _options.exportEventsTooltipText );
 
                 _element_ListAllEventsView_ExportEventsButton.onclick = function() {
                     showSelectExportTypeDialog();
@@ -1024,8 +1037,9 @@ function calendarJs( id, options, startDateTime ) {
 
             var closeButton = createElement( "div" );
             closeButton.className = "close";
-            closeButton.title = _options.closeTooltipText;
             titleBar.appendChild( closeButton );
+
+            addToolTip( closeButton, _options.closeTooltipText );
 
             closeButton.onclick = function() {
                 hideOverlay( _element_ListAllWeekEventsView );
@@ -1034,16 +1048,18 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.manualEditingEnabled ) {
                 var addEventButton = createElement( "div" );
                 addEventButton.className = "add-event";
-                addEventButton.title = _options.addEventTooltipText;
                 addEventButton.onclick = addNewEvent;
                 titleBar.appendChild( addEventButton );
+
+                addToolTip( addEventButton, _options.addEventTooltipText );
             }
 
             if ( _options.exportEventsEnabled ) {
                 _element_ListAllWeekEventsView_ExportEventsButton = createElement( "div" );
                 _element_ListAllWeekEventsView_ExportEventsButton.className = "export-events";
-                _element_ListAllWeekEventsView_ExportEventsButton.title = _options.exportEventsTooltipText;
                 titleBar.appendChild( _element_ListAllWeekEventsView_ExportEventsButton );
+
+                addToolTip( _element_ListAllWeekEventsView_ExportEventsButton, _options.exportEventsTooltipText );
 
                 _element_ListAllWeekEventsView_ExportEventsButton.onclick = function() {
                     showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
@@ -1337,8 +1353,9 @@ function calendarJs( id, options, startDateTime ) {
         if ( _options.fullDayViewEnabled ) {
             var expandDayButton = createElement( "div" );
             expandDayButton.className = "expand-day";
-            expandDayButton.title = _options.expandDayTooltipText;
             dayElement.appendChild( expandDayButton );
+
+            addToolTip( expandDayButton, _options.expandDayTooltipText );
     
             expandDayButton.onclick = function() {
                 showFullDayView( new Date( year, month, actualDay ) );
@@ -1880,99 +1897,115 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Event Tooltip
+     * Tooltip
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildEventTooltip() {
-        if ( _element_EventTooltip === null ) {
-            _element_EventTooltip = createElement( "div" );
-            _element_EventTooltip.className = "calender-event-tooltip";
-            _document.body.appendChild( _element_EventTooltip );
+    function buildTooltip() {
+        if ( _element_Tooltip === null ) {
+            _element_Tooltip = createElement( "div" );
+            _document.body.appendChild( _element_Tooltip );
 
-            _element_EventTooltip_Title = createElement( "div" );
-            _element_EventTooltip_Title.className = "title";
-            _element_EventTooltip.appendChild( _element_EventTooltip_Title );
+            _element_Tooltip_Title = createElement( "div" );
+            _element_Tooltip_Title.className = "title";
 
-            _element_EventTooltip_Date = createElement( "div" );
-            _element_EventTooltip_Date.className = "date";
-            _element_EventTooltip.appendChild( _element_EventTooltip_Date );
+            _element_Tooltip_Date = createElement( "div" );
+            _element_Tooltip_Date.className = "date";
 
-            _element_EventTooltip_Description = createElement( "div" );
-            _element_EventTooltip_Description.className = "description";
+            _element_Tooltip_Description = createElement( "div" );
+            _element_Tooltip_Description.className = "description";
 
-            document.body.addEventListener( "mousemove", hideEventTooltip );
+            document.body.addEventListener( "mousemove", hideTooltip );
         }
     }
 
-    function showEventTooltip( e, eventDetails ) {
+    function showTooltip( e, eventDetails, text ) {
         cancelBubble( e );
-        clearEventTooltipTimer();
+        clearTooltipTimer();
+        hideTooltip();
 
-        if ( _element_EventTooltip.style.display !== "block" ) {
-            _element_EventTooltip_ShowTimer = setTimeout( function() {
+        if ( _element_Tooltip.style.display !== "block" ) {
+            _element_Tooltip_ShowTimer = setTimeout( function() {
                 if ( !isDisabledBackgroundDisplayed() ) {
-                    _element_EventTooltip.style.display = "block";
-                    _element_EventTooltip_Title.innerHTML = eventDetails.title;
-    
-                    if ( eventDetails.description !== "" ) {
-                        _element_EventTooltip_Description.innerHTML = eventDetails.description;
-                        _element_EventTooltip.appendChild( _element_EventTooltip_Description );
+                    text = isDefined( text ) ? text : "";
+
+                    _element_Tooltip.className = text === "" ? "calender-tooltip-event" : "calender-tooltip";
+                    _element_Tooltip.style.display = "block";
+
+                    if ( text !== "" ) {
+                        _element_Tooltip.innerHTML = text;
                     } else {
-                        _element_EventTooltip_Description.innerHTML = "";
-                        _element_EventTooltip.removeChild( _element_EventTooltip_Description );
-                    }
+
+                        _element_Tooltip.innerHTML = "";
+                        _element_Tooltip.appendChild( _element_Tooltip_Title );
+                        _element_Tooltip.appendChild( _element_Tooltip_Date );
+                        _element_Tooltip_Title.innerHTML = eventDetails.title;
     
-                    if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                        if ( eventDetails.isAllDayEvent ) {
-                            _element_EventTooltip_Date.innerHTML = _options.allDayEventText;
+                        if ( eventDetails.description !== "" ) {
+                            _element_Tooltip_Description.innerHTML = eventDetails.description;
+                            _element_Tooltip.appendChild( _element_Tooltip_Description );
                         } else {
-                            _element_EventTooltip_Date.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                            _element_Tooltip_Description.innerHTML = "";
+                            _element_Tooltip.removeChild( _element_Tooltip_Description );
                         }
-                    } else {
-                        buildDateTimeToDateTimeDisplay( _element_EventTooltip_Date, eventDetails.from, eventDetails.to );
+        
+                        if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                            if ( eventDetails.isAllDayEvent ) {
+                                _element_Tooltip_Date.innerHTML = _options.allDayEventText;
+                            } else {
+                                _element_Tooltip_Date.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                            }
+                        } else {
+                            buildDateTimeToDateTimeDisplay( _element_Tooltip_Date, eventDetails.from, eventDetails.to );
+                        }
                     }
-    
+
                     var left = e.clientX,
                         top = e.clientY;
     
-                    if ( left + _element_EventTooltip.offsetWidth > _window.innerWidth ) {
-                        left -= _element_EventTooltip.offsetWidth;
+                    if ( left + _element_Tooltip.offsetWidth > _window.innerWidth ) {
+                        left -= _element_Tooltip.offsetWidth;
                     } else {
                         left++;
                     }
     
-                    if ( top + _element_EventTooltip.offsetHeight > _window.innerHeight ) {
-                        top -= _element_EventTooltip.offsetHeight;
+                    if ( top + _element_Tooltip.offsetHeight > _window.innerHeight ) {
+                        top -= _element_Tooltip.offsetHeight;
                     } else {
                         top++;
                     }
                     
-                    _element_EventTooltip.style.left = left + "px";
-                    _element_EventTooltip.style.top = top + "px";
+                    _element_Tooltip.style.left = left + "px";
+                    _element_Tooltip.style.top = top + "px";
                 }
 
             }, _options.eventTooltipDelay );
         }
     }
 
-    function hideEventTooltip() {
-        clearEventTooltipTimer();
+    function hideTooltip() {
+        clearTooltipTimer();
 
-        if ( _element_EventTooltip.style.display !== "none" ) {
-            _element_EventTooltip.style.display = "none";
+        if ( _element_Tooltip.style.display !== "none" ) {
+            _element_Tooltip.style.display = "none";
         }
     }
 
-    function clearEventTooltipTimer() {
-        if ( _element_EventTooltip_ShowTimer !== null ) {
-            clearTimeout( _element_EventTooltip_ShowTimer );
-            _element_EventTooltip_ShowTimer = null;
+    function clearTooltipTimer() {
+        if ( _element_Tooltip_ShowTimer !== null ) {
+            clearTimeout( _element_Tooltip_ShowTimer );
+            _element_Tooltip_ShowTimer = null;
         }
     }
 
-    function isEventTooltipVisible() {
-        return _element_EventTooltip.style.display === "block" || _element_EventTooltip_ShowTimer !== null;
+    function isTooltipVisible() {
+        return _element_Tooltip.style.display === "block" || _element_Tooltip_ShowTimer !== null;
+    }
+
+    function addToolTip( element, text ) {
+        element.onmousemove = function( e ) {
+            showTooltip( e, null, text );
+        };
     }
 
 
@@ -1998,7 +2031,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function refreshViews() {
-        if ( !isEventTooltipVisible() && !isDisabledBackgroundDisplayed() ) {
+        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() ) {
             refreshOpenedViews();
             buildDayEvents();
         }

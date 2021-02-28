@@ -5,7 +5,8 @@
  * Released under the GNU AGPLv3 license
  */
 div.calendar,
-div.calender-event-tooltip,
+div.calender-tooltip,
+div.calender-tooltip-event,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
@@ -20,7 +21,8 @@ div.calender-select-export-type-dialog textarea {
 
 @media screen and (min-width: 321px) {
   div.calendar,
-  div.calender-event-tooltip,
+  div.calender-tooltip,
+  div.calender-tooltip-event,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -36,7 +38,8 @@ div.calender-select-export-type-dialog textarea {
 
 @media screen and (max-width: 320px) {
   div.calendar,
-  div.calender-event-tooltip,
+  div.calender-tooltip,
+  div.calender-tooltip-event,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -51,7 +54,8 @@ div.calender-select-export-type-dialog textarea {
 }
 
 div.calendar div.overlay-shown,
-div.calender-event-tooltip div.overlay-shown,
+div.calender-tooltip div.overlay-shown,
+div.calender-tooltip-event div.overlay-shown,
 div.calender-event-editor-dialog div.overlay-shown,
 div.calender-event-editor-dialog input div.overlay-shown,
 div.calender-event-editor-dialog textarea div.overlay-shown,
@@ -2036,18 +2040,17 @@ div.calender-select-export-type-dialog label.radioButton span.check-mark:before 
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Tooltip
+    Calendar.js - Tooltip
     -------------------------------------------------------------------------
 */
-div.calender-event-tooltip {
+div.calender-tooltip,
+div.calender-tooltip-event {
   animation: fade-in-effect ease 1s;
   -webkit-animation: fade-in-effect ease 1s;
   -moz-animation: fade-in-effect ease 1s;
   -o-animation: fade-in-effect ease 1s;
   -ms-animation: fade-in-effect ease 1s;
   position: absolute;
-  max-width: 300px;
-  width: 100%;
   border: 1px solid #282828;
   border-radius: 0.25rem;
   background-color: palegoldenrod;
@@ -2057,21 +2060,35 @@ div.calender-event-tooltip {
   z-index: 2000;
 }
 
-div.calender-event-tooltip div {
+div.calender-tooltip div,
+div.calender-tooltip-event div {
   margin-bottom: 5px;
 }
 
-div.calender-event-tooltip div:last-child {
+div.calender-tooltip div:last-child,
+div.calender-tooltip-event div:last-child {
   margin-bottom: 0;
 }
 
-div.calender-event-tooltip div.title {
+div.calender-tooltip div.title,
+div.calender-tooltip-event div.title {
   font-weight: 900;
 }
 
-div.calender-event-tooltip div.date,
-div.calender-event-tooltip div.description {
+div.calender-tooltip div.date,
+div.calender-tooltip div.description,
+div.calender-tooltip-event div.date,
+div.calender-tooltip-event div.description {
   font-size: smaller;
+}
+
+div.calender-tooltip {
+  font-size: smaller !important;
+}
+
+div.calender-tooltip-event {
+  max-width: 300px;
+  width: 100%;
 }
 
 /*
