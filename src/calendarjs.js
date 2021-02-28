@@ -84,12 +84,11 @@
  * @property    {number}   extraSelectableYearsAhead                    The number of extra years ahead that are selectable in the drop down (defaults to 51).
  * @property    {string}   allDayEventText                              The text that should be displayed for the "All Day Event" label.
  * @property    {string}   allEventsText                                The text that should be displayed for the "All Events" label.
- * @property    {string}   allWeekEventsText                            The text that should be displayed for the "All Week Events" label.
  * @property    {boolean}  exportEventsEnabled                          States if exporting events is enabled (defaults to true).
  * @property    {boolean}  manualEditingEnabled                         States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}  showTimesInMainCalendarEvents                States if the time should be shown on the main calendar view events (defaults to false).
- * @property    {string}   startsAtText                                 The text that should be displayed for the "Starts at" label.
- * @property    {string}   andFinishesAtText                            The text that should be displayed for the "and finishes at" label.
+ * @property    {string}   startsOnText                                 The text that should be displayed for the "Starts on" label.
+ * @property    {string}   andFinishesOnText                            The text that should be displayed for the "and finishes on" label.
  * @property    {string}   toTimeText                                   The text that should be displayed for the "to" label.
  * @property    {number}   autoRefreshTimerDelay                        The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
  * @property    {string}   confirmEventRemoveTitle                      The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
@@ -158,6 +157,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllEventsView_ExportEventsButton = null,
         _element_ListAllEventsView_Contents = null,
         _element_ListAllWeekEventsView = null,
+        _element_ListAllWeekEventsView_Title = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
         _element_ListAllWeekEventsView_Contents = null,
         _element_ListAllWeekEventsView_EventsShown = [],
@@ -1030,10 +1030,9 @@ function calendarJs( id, options, startDateTime ) {
                 };
             }
 
-            var title = createElement( "div" );
-            title.className = "title";
-            title.innerHTML = _options.allWeekEventsText;
-            titleBar.appendChild( title );
+            _element_ListAllWeekEventsView_Title = createElement( "div" );
+            _element_ListAllWeekEventsView_Title.className = "title";
+            titleBar.appendChild( _element_ListAllWeekEventsView_Title );
 
             var closeButton = createElement( "div" );
             closeButton.className = "close";
@@ -1080,13 +1079,16 @@ function calendarJs( id, options, startDateTime ) {
 
         var orderedEvents = [],
             currentDate = new Date(),
-            firstDayNumber = currentDate.getDate() - currentDate.getDay() + 1,
+            day = currentDate.getDay() === 0 ? 7 : currentDate.getDay(),
+            firstDayNumber = currentDate.getDate() - day + 1,
             lastDayNumber = firstDayNumber + 6,
             weekStartDate = new Date( currentDate.setDate( firstDayNumber ) ),
             weekEndDate = new Date( currentDate.setDate( lastDayNumber) );
 
-        weekStartDate.setHours(0, 0, 0, 0);
-        weekEndDate.setHours(0, 0, 0, 0);
+        weekStartDate.setHours( 0, 0, 0, 0 );
+        weekEndDate.setHours( 23, 59, 59, 99) ;
+
+        setAllWeekEventsViewTitle( weekStartDate, weekEndDate );
 
         for ( var storageDate in _events ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
@@ -1131,6 +1133,33 @@ function calendarJs( id, options, startDateTime ) {
             } else {
                 _element_ListAllWeekEventsView_ExportEventsButton.style.display = "block";
             }
+        }
+    }
+
+    function setAllWeekEventsViewTitle( weekStartDate, weekEndDate ) {
+        _element_ListAllWeekEventsView_Title.innerHTML = "";
+        
+        if ( weekStartDate.getFullYear() === weekEndDate.getFullYear() ) {
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, false );
+
+            var dash1 = createElement( "span" );
+            dash1.innerHTML = " - ";
+            _element_ListAllWeekEventsView_Title.appendChild( dash1 );
+
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, false );
+
+            var year = createElement( "span" );
+            year.innerHTML = ", " + weekStartDate.getFullYear();
+            _element_ListAllWeekEventsView_Title.appendChild( year );
+
+        } else {
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, true );
+
+            var dash2 = createElement( "span" );
+            dash2.innerHTML = " - ";
+            _element_ListAllWeekEventsView_Title.appendChild( dash2 );
+
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, true );
         }
     }
 
@@ -1230,26 +1259,33 @@ function calendarJs( id, options, startDateTime ) {
         container.innerHTML = "";
 
         var startText = createElement( "span" );
-        startText.innerText = _options.startsAtText + " ";
+        startText.innerText = _options.startsOnText + " ";
         container.appendChild( startText );
 
         buildDateTimeDisplay( container, fromDate );
 
         var finishesText = createElement( "span" );
-        finishesText.innerText = " " + _options.andFinishesAtText + " ";
+        finishesText.innerText = " " + _options.andFinishesOnText + " ";
         container.appendChild( finishesText );
 
         buildDateTimeDisplay( container, toDate );
     }
 
-    function buildDateTimeDisplay( container, date, addTime ) {
+    function buildDateTimeDisplay( container, date, addTime, addYear ) {
         addTime = !isDefined( addTime ) ? true : addTime;
+        addYear = !isDefined( addYear ) ? true : addYear;
 
         buildDayDisplay( container, date );
 
-        var dateEnd = createElement( "span" );
-        dateEnd.innerText = " " + _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
-        container.appendChild( dateEnd );
+        var month = createElement( "span" );
+        month.innerText = " " + _options.monthNames[ date.getMonth() ];
+        container.appendChild( month );
+
+        if ( addYear ) {
+            var year = createElement( "span" );
+            year.innerText = " " + date.getFullYear();
+            container.appendChild( year );
+        }
 
         if ( addTime ) {
             var end = createElement( "span" );
@@ -2863,10 +2899,6 @@ function calendarJs( id, options, startDateTime ) {
             _options.allEventsText = "All Events";
         }
 
-        if ( !isDefined( _options.allWeekEventsText ) ) {
-            _options.allWeekEventsText = "All Week Events";
-        }
-
         if ( !isDefined( _options.exportEventsEnabled ) ) {
             _options.exportEventsEnabled = true;
         }
@@ -2879,12 +2911,12 @@ function calendarJs( id, options, startDateTime ) {
             _options.showTimesInMainCalendarEvents = false;
         }
 
-        if ( !isDefined( _options.startsAtText ) ) {
-            _options.startsAtText = "Starts at";
+        if ( !isDefined( _options.startsOnText ) ) {
+            _options.startsOnText = "Starts on the";
         }
 
-        if ( !isDefined( _options.andFinishesAtText ) ) {
-            _options.andFinishesAtText = "and finishes at";
+        if ( !isDefined( _options.andFinishesOnText ) ) {
+            _options.andFinishesOnText = "and finishes on the";
         }
 
         if ( !isDefined( _options.toTimeText ) ) {

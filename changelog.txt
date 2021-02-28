@@ -3,6 +3,9 @@ v0.3.0:
 - The custom scroll-bar now has :hover and :active selectors.
 - Added support to use the custom tooltip for every tooltip throughout the views.
 - Fixed a fault that prevented the custom tooltips from hiding when the mouse is moved again.
+- Fixed a fault that caused the wrong week to be shown when using the calendar on a Sunday.
+- Fixed a fault that caused events to not show in the Weekly View when their times are greater than 00:00.
+- The Weekly View now shows the From/To dates in the title bar instead of static text (option text removed).
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
