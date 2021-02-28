@@ -16,7 +16,6 @@ $header-date-toolbar-button-small-border: 3px solid $light-color;
 $header-toolbar-button-border: 4px solid $light-color;
 $scroll-bar-border-style: inset 0 0 6px gray;
 $event-left-border: 7px solid $dark-color;
-$fade-in-effect-type: fade-in-effect ease 2s;
 $standard-border-size: 1px;
 $spacing: 10px;
 $large-font-size: 0.9rem;
@@ -24,12 +23,12 @@ $small-font-size: 0.7rem;
 $maximum-width: 320px;
 $minimum-width: $maximum-width + 1;
 
-@mixin fade-in-effect-animation {
-    animation: $fade-in-effect-type;
-    -webkit-animation: $fade-in-effect-type;
-    -moz-animation: $fade-in-effect-type;
-    -o-animation: $fade-in-effect-type;
-    -ms-animation: $fade-in-effect-type;
+@mixin fade-in-effect-animation($seconds) {
+    animation: fade-in-effect ease $seconds;
+    -webkit-animation: fade-in-effect ease $seconds;
+    -moz-animation: fade-in-effect ease $seconds;
+    -o-animation: fade-in-effect ease $seconds;
+    -ms-animation: fade-in-effect ease $seconds;
 }
 
 @mixin no-selection-allowed {

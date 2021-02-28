@@ -148,7 +148,7 @@ div.calendar {
     }
     
     div.expand-day {
-        @include fade-in-effect-animation;
+        @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
         top: 5px;
@@ -894,6 +894,7 @@ div.calender-select-export-type-dialog {
 */
 
 div.calender-event-tooltip {
+    @include fade-in-effect-animation(1s);
     position: absolute;
     max-width: 300px;
     width: 100%;

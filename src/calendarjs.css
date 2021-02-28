@@ -2040,6 +2040,11 @@ div.calender-select-export-type-dialog label.radioButton span.check-mark:before 
     -------------------------------------------------------------------------
 */
 div.calender-event-tooltip {
+  animation: fade-in-effect ease 1s;
+  -webkit-animation: fade-in-effect ease 1s;
+  -moz-animation: fade-in-effect ease 1s;
+  -o-animation: fade-in-effect ease 1s;
+  -ms-animation: fade-in-effect ease 1s;
   position: absolute;
   max-width: 300px;
   width: 100%;
