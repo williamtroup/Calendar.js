@@ -120,7 +120,7 @@ div.calendar {
         color: $dark-color;
 
         div.cell {
-            width: 14.285714285714285714285714285714%;
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
             display: inline-block;
             text-align: center;
             padding: $spacing;
