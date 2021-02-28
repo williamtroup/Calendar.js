@@ -900,7 +900,7 @@ div.calender-event-tooltip {
     width: 100%;
     border: $standard-border-size solid $dark-color;
     border-radius: $border-view-radius;
-    background-color: rgb(238,232,170);
+    background-color: rgb(238, 232, 170);
     color: $dark-color;
     padding: $spacing;
     display: none;
@@ -939,6 +939,14 @@ div.calender-event-tooltip {
         -webkit-box-shadow: $scroll-bar-border-style;
         box-shadow: $scroll-bar-border-style;
         background: $light-color;
+
+        &:hover {
+            background-color: #DCDCDC;
+        }
+
+        &:active {
+            background-color: #C0C0C0;
+        }
     }
 }
 

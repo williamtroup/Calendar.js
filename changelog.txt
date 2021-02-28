@@ -1,5 +1,6 @@
 v0.3.0:
-- 
+- Added the custom scroll-bar to the textarea on the "Event Editor" dialog.
+- The custom scroll-bar now has :hover and :active selectors.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.

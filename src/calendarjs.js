@@ -1515,6 +1515,7 @@ function calendarJs( id, options, startDateTime ) {
             contents.appendChild( textDescription );
 
             _element_EventEditorDialog_Description = createElement( "textarea" );
+            _element_EventEditorDialog_Description.className = "custom-scroll-bars";
             contents.appendChild( _element_EventEditorDialog_Description );
 
             _element_EventEditorDialog_ErrorMessage = createElement( "p" );

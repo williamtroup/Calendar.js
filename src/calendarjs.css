@@ -2094,6 +2094,14 @@ div.calender-event-tooltip div.description {
   background: #F5F5F5;
 }
 
+.custom-scroll-bars::-webkit-scrollbar-thumb:hover {
+  background-color: #DCDCDC;
+}
+
+.custom-scroll-bars::-webkit-scrollbar-thumb:active {
+  background-color: #C0C0C0;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Effects
