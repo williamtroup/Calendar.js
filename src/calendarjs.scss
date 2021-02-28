@@ -630,6 +630,7 @@ div.calender-event-editor-dialog {
             outline-color: $dark-color !important;
             margin-bottom: $spacing;
             background-color: $input-background-color;
+            transition: $transition;
     
             &:last-child {
                 margin-bottom: 0;
@@ -726,6 +727,7 @@ div.calender-event-editor-dialog {
             background-color: $input-background-color;
             border-radius: $border-view-radius;
             border: 1px solid $input-border-color;
+            transition: $transition;
 
             &:before {
                 @include transform(rotate(45deg));
@@ -870,6 +872,7 @@ div.calender-select-export-type-dialog {
             background-color: $input-background-color;
             border-radius: 50%;
             border: 1px solid $input-border-color;
+            transition: $transition;
 
             &:before {
                 @include transform(rotate(45deg));
