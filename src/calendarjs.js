@@ -1418,6 +1418,10 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function isDisabledBackgroundDisplayed() {
+        return _document.body.contains( _element_DisabledBackground );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1908,44 +1912,46 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _element_EventTooltip.style.display !== "block" ) {
             _element_EventTooltip_ShowTimer = setTimeout( function() {
-                _element_EventTooltip.style.display = "block";
-                _element_EventTooltip_Title.innerHTML = eventDetails.title;
-
-                if ( eventDetails.description !== "" ) {
-                    _element_EventTooltip_Description.innerHTML = eventDetails.description;
-                    _element_EventTooltip.appendChild( _element_EventTooltip_Description );
-                } else {
-                    _element_EventTooltip_Description.innerHTML = "";
-                    _element_EventTooltip.removeChild( _element_EventTooltip_Description );
-                }
-
-                if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                    if ( eventDetails.isAllDayEvent ) {
-                        _element_EventTooltip_Date.innerHTML = _options.allDayEventText;
+                if ( !isDisabledBackgroundDisplayed() ) {
+                    _element_EventTooltip.style.display = "block";
+                    _element_EventTooltip_Title.innerHTML = eventDetails.title;
+    
+                    if ( eventDetails.description !== "" ) {
+                        _element_EventTooltip_Description.innerHTML = eventDetails.description;
+                        _element_EventTooltip.appendChild( _element_EventTooltip_Description );
                     } else {
-                        _element_EventTooltip_Date.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                        _element_EventTooltip_Description.innerHTML = "";
+                        _element_EventTooltip.removeChild( _element_EventTooltip_Description );
                     }
-                } else {
-                    buildDateTimeToDateTimeDisplay( _element_EventTooltip_Date, eventDetails.from, eventDetails.to );
+    
+                    if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                        if ( eventDetails.isAllDayEvent ) {
+                            _element_EventTooltip_Date.innerHTML = _options.allDayEventText;
+                        } else {
+                            _element_EventTooltip_Date.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                        }
+                    } else {
+                        buildDateTimeToDateTimeDisplay( _element_EventTooltip_Date, eventDetails.from, eventDetails.to );
+                    }
+    
+                    var left = e.clientX,
+                        top = e.clientY;
+    
+                    if ( left + _element_EventTooltip.offsetWidth > _window.innerWidth ) {
+                        left -= _element_EventTooltip.offsetWidth;
+                    } else {
+                        left++;
+                    }
+    
+                    if ( top + _element_EventTooltip.offsetHeight > _window.innerHeight ) {
+                        top -= _element_EventTooltip.offsetHeight;
+                    } else {
+                        top++;
+                    }
+                    
+                    _element_EventTooltip.style.left = left + "px";
+                    _element_EventTooltip.style.top = top + "px";
                 }
-
-                var left = e.clientX,
-                    top = e.clientY;
-
-                if ( left + _element_EventTooltip.offsetWidth > _window.innerWidth ) {
-                    left -= _element_EventTooltip.offsetWidth;
-                } else {
-                    left++;
-                }
-
-                if ( top + _element_EventTooltip.offsetHeight > _window.innerHeight ) {
-                    top -= _element_EventTooltip.offsetHeight;
-                } else {
-                    top++;
-                }
-                
-                _element_EventTooltip.style.left = left + "px";
-                _element_EventTooltip.style.top = top + "px";
 
             }, _options.eventTooltipDelay );
         }
