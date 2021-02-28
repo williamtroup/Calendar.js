@@ -899,7 +899,7 @@ div.calendar div.full-day-view div.contents div.event-no-hover {
 
 div.calendar div.full-day-view div.contents div.event div,
 div.calendar div.full-day-view div.contents div.event-no-hover div {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 div.calendar div.full-day-view div.contents div.event div:last-child,
@@ -1182,7 +1182,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div:last-child,
@@ -1463,7 +1463,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div:last-child,
@@ -2050,7 +2050,7 @@ div.calender-event-tooltip {
 }
 
 div.calender-event-tooltip div {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 div.calender-event-tooltip div:last-child {

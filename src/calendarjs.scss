@@ -986,13 +986,7 @@ div.calender-event-tooltip {
     display: none;
     z-index: 2000;
 
-    div {
-        margin-bottom: 3px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
+    @include div-label-spacing;
 
     div.title {
         font-weight: 900;

@@ -135,3 +135,13 @@ $minimum-width: $maximum-width + 1;
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+@mixin div-label-spacing {
+    div {
+        margin-bottom: $spacing / 2;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

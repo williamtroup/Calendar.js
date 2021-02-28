@@ -20,13 +20,7 @@ div.event-no-hover {
     margin-right: $spacing;
     border-left: $event-left-border;
 
-    div {
-        margin-bottom: 3px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
+    @include div-label-spacing;
 
     div.title {
         font-weight: 900;
