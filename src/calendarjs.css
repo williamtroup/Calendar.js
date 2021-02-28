@@ -868,13 +868,13 @@ div.calendar div.full-day-view div.contents {
 
 @media screen and (min-width: 321px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem));
+    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
 @media screen and (max-width: 320px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem));
+    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
 }
 
@@ -1133,13 +1133,13 @@ div.calendar div.list-all-events-view div.contents {
 
 @media screen and (min-width: 321px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem));
+    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
 @media screen and (max-width: 320px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem));
+    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
 }
 
@@ -1414,13 +1414,13 @@ div.calendar div.list-all-week-events-view div.contents {
 
 @media screen and (min-width: 321px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem));
+    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
 @media screen and (max-width: 320px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem));
+    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
 }
 

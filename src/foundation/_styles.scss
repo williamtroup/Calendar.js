@@ -88,11 +88,11 @@ $minimum-width: $maximum-width + 1;
     width: calc(100% - (#{$spacing} * 2));
 
     @media screen and (min-width: $minimum-width) {
-        height: calc(100% - ((#{$spacing} * 4) + #{$large-font-size}));
+        height: calc(100% - ((#{$spacing} * 4) + #{$large-font-size}) - #{$standard-border-size} * 2);
     }
     
     @media screen and (max-width: $maximum-width) {
-        height: calc(100% - ((#{$spacing} * 4) + #{$small-font-size}));
+        height: calc(100% - ((#{$spacing} * 4) + #{$small-font-size}) - #{$standard-border-size} * 2);
     }
 
     position: relative;
