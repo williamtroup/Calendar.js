@@ -526,7 +526,7 @@ div.calendar {
 
             div.month {
                 border-radius: $border-view-radius;
-                border: 1px solid $dark-color;
+                border: $standard-border-size solid $dark-color;
                 overflow: hidden;
                 margin-bottom: $spacing;
 
@@ -569,7 +569,7 @@ div.calendar {
 
             div.day {
                 border-radius: $border-view-radius;
-                border: 1px solid $dark-color;
+                border: $standard-border-size solid $dark-color;
                 overflow: hidden;
                 margin-bottom: $spacing;
 
