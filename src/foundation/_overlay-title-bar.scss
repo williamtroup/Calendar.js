@@ -1,15 +1,15 @@
 @import "styles";
 
 div.title-bar {
-    width: calc(100% - 20px);
+    width: calc(100% - (#{$spacing} * 2));
     display: inline-block;
-    padding: 10px;
+    padding: $spacing;
     background-color: $dark-color;
     color: $light-color;
 
     div {
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: $spacing / 2;
+        margin-right: $spacing / 2;
     }
 
     div.title {

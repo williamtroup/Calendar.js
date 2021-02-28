@@ -21,11 +21,11 @@ div.calender-select-export-type-dialog input,
 div.calender-select-export-type-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
-    @media screen and (min-width: 321px) {
+    @media screen and (min-width: $minimum-width) {
         font-size: $large-font-size !important;
     }
     
-    @media screen and (max-width: 320px) {
+    @media screen and (max-width: $maximum-width) {
         font-size: $small-font-size !important;
     }
 
@@ -52,16 +52,16 @@ div.full-screen-view {
     border: none !important;
 
     div.row {
-        @media screen and (min-width: 321px) {
+        @media screen and (min-width: $minimum-width) {
             height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$large-font-size} * 2)))) / 6);
         }
         
-        @media screen and (max-width: 320px) {
+        @media screen and (max-width: $maximum-width) {
             height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$small-font-size} * 2)))) / 6);
         }
 
         div.cell {
-            height: calc(100% - 20px);
+            height: calc(100% - (#{$spacing} * 2));
         }
     }
 
@@ -212,11 +212,11 @@ div.calendar {
                 display: none;
                 overflow: hidden;
 
-                @media screen and (min-width: 321px) {
+                @media screen and (min-width: $minimum-width) {
                     top: calc(#{$spacing} + #{$large-font-size});
                 }
                 
-                @media screen and (max-width: 320px) {
+                @media screen and (max-width: $maximum-width) {
                     top: calc(#{$spacing} + #{$small-font-size});
                 }
     
@@ -449,11 +449,11 @@ div.calendar {
                 overflow: hidden;
                 text-overflow: ellipsis;
 
-                @media screen and (min-width: 321px) {
+                @media screen and (min-width: $minimum-width) {
                     font-size: 0.7rem !important;
                 }
                 
-                @media screen and (max-width: 320px) {
+                @media screen and (max-width: $maximum-width) {
                     font-size: 0.5rem !important;
                 }
 

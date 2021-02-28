@@ -15,9 +15,9 @@ div.event-no-hover {
     background-color: $event-color;
     padding: 8px;
     color: $light-color;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-bottom: $spacing;
+    margin-left: $spacing;
+    margin-right: $spacing;
     border-left: $event-left-border;
 
     div {

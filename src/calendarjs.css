@@ -112,7 +112,7 @@ div.full-screen-view {
 }
 
 div.full-screen-view div.row div.cell {
-  height: calc(100% - 20px);
+  height: calc(100% - (10px * 2));
 }
 
 div.full-screen-view div.header-days {
@@ -698,7 +698,7 @@ div.calendar div.full-day-view {
 }
 
 div.calendar div.full-day-view div.title-bar {
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   display: inline-block;
   padding: 10px;
   background-color: #282828;
@@ -856,11 +856,22 @@ div.calendar div.full-day-view div.title-bar div.add-event:active {
 div.calendar div.full-day-view div.contents {
   display: inline-block;
   padding: 10px;
-  height: calc(100% - 56px);
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+@media screen and (min-width: 321px) {
+  div.calendar div.full-day-view div.contents {
+    height: calc(100% - ((10px * 4) + 0.9rem));
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.calendar div.full-day-view div.contents {
+    height: calc(100% - ((10px * 4) + 0.7rem));
+  }
 }
 
 div.calendar div.full-day-view div.contents div.expired {
@@ -952,7 +963,7 @@ div.calendar div.list-all-events-view {
 }
 
 div.calendar div.list-all-events-view div.title-bar {
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   display: inline-block;
   padding: 10px;
   background-color: #282828;
@@ -1110,11 +1121,22 @@ div.calendar div.list-all-events-view div.title-bar div.add-event:active {
 div.calendar div.list-all-events-view div.contents {
   display: inline-block;
   padding: 10px;
-  height: calc(100% - 56px);
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+@media screen and (min-width: 321px) {
+  div.calendar div.list-all-events-view div.contents {
+    height: calc(100% - ((10px * 4) + 0.9rem));
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.calendar div.list-all-events-view div.contents {
+    height: calc(100% - ((10px * 4) + 0.7rem));
+  }
 }
 
 div.calendar div.list-all-events-view div.contents div.month {
@@ -1222,7 +1244,7 @@ div.calendar div.list-all-week-events-view {
 }
 
 div.calendar div.list-all-week-events-view div.title-bar {
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   display: inline-block;
   padding: 10px;
   background-color: #282828;
@@ -1380,11 +1402,22 @@ div.calendar div.list-all-week-events-view div.title-bar div.add-event:active {
 div.calendar div.list-all-week-events-view div.contents {
   display: inline-block;
   padding: 10px;
-  height: calc(100% - 56px);
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+@media screen and (min-width: 321px) {
+  div.calendar div.list-all-week-events-view div.contents {
+    height: calc(100% - ((10px * 4) + 0.9rem));
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.calendar div.list-all-week-events-view div.contents {
+    height: calc(100% - ((10px * 4) + 0.7rem));
+  }
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day {
@@ -1479,7 +1512,7 @@ div.calendar div.list-all-week-events-view div.contents div.day:last-child {
     -------------------------------------------------------------------------
 */
 div.calender-event-editor-dialog {
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   max-width: 370px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1546,7 +1579,7 @@ div.calender-event-editor-dialog div.view textarea {
 }
 
 div.calender-event-editor-dialog div.view div.split input {
-  width: calc(50% - 5px);
+  width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
 }
@@ -1719,7 +1752,7 @@ div.calender-event-editor-dialog label.checkbox span.check-mark:before {
     -------------------------------------------------------------------------
 */
 div.calender-confirmation-dialog {
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   max-width: 330px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1754,7 +1787,7 @@ div.calender-confirmation-dialog div.contents div.message {
 }
 
 div.calender-confirmation-dialog div.split input {
-  width: calc(50% - 5px);
+  width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
 }
@@ -1833,7 +1866,7 @@ div.calender-confirmation-dialog input[type="button"].no:active {
     -------------------------------------------------------------------------
 */
 div.calender-select-export-type-dialog {
-  width: calc(100% - 20px);
+  width: calc(100% - (10px * 2));
   max-width: 300px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1864,7 +1897,7 @@ div.calender-select-export-type-dialog div.contents {
 }
 
 div.calender-select-export-type-dialog div.split input {
-  width: calc(50% - 5px);
+  width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
 }
