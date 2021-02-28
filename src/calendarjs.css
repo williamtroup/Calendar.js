@@ -889,7 +889,7 @@ div.calendar div.full-day-view div.contents div.event-no-hover {
   word-break: break-all;
   border-radius: 0.25rem;
   background-color: #484848;
-  padding: 8px;
+  padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -1172,7 +1172,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   word-break: break-all;
   border-radius: 0.25rem;
   background-color: #484848;
-  padding: 8px;
+  padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -1453,7 +1453,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   word-break: break-all;
   border-radius: 0.25rem;
   background-color: #484848;
-  padding: 8px;
+  padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
   margin-left: 10px;

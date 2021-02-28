@@ -96,7 +96,6 @@ $minimum-width: $maximum-width + 1;
         height: calc(100% - ((#{$spacing} * 4) + #{$small-font-size}));
     }
 
-
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;

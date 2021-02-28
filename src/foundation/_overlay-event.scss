@@ -13,7 +13,7 @@ div.event-no-hover {
     @include word-wrap-with-new-lines;
     border-radius: $border-view-radius;
     background-color: $event-color;
-    padding: 8px;
+    padding: $spacing;
     color: $light-color;
     margin-bottom: $spacing;
     margin-left: $spacing;
