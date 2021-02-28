@@ -1,9 +1,12 @@
+v0.3.0:
+- 
+
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
 - A confirmation dialog is now shown when removing an event.
 - Added "Select Export Type" dialog, with CSV, XML, JSON and TEXT support now available.
 - exportAllEvents() now takes a type parameter (accepts csv (default), xml, json and text).
-- Added support for screen mode (double click the main title bar) with optional on/off setting.
+- Added support for full screen mode (double click the main title bar) with optional on/off setting.
 - Fixed "click" and "resize" events in the document/window being overridden.
 - Fixed a fault that prevented the year drop down menu being centered correctly.
 - The "Expand Day" button is now less intrusive and indicates what it will do.
