@@ -1577,7 +1577,6 @@ function calendarJs( id, options, startDateTime ) {
 
     function showEventDialog( eventDetails, overrideTodayDate ) {
         addNode( _document.body, _element_DisabledBackground );
-        clearAutoRefreshTimer();
 
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
@@ -1669,7 +1668,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog.style.display = "none";
 
         removeNode( _document.body, _element_DisabledBackground );
-        startAutoRefreshTimer();
     }
 
     function eventDialogEvent_Remove() {
@@ -1999,7 +1997,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function refreshViews() {
-        if ( !isEventTooltipVisible() ) {
+        if ( !isEventTooltipVisible() && !isDisabledBackgroundDisplayed() ) {
             refreshOpenedViews();
             buildDayEvents();
         }
