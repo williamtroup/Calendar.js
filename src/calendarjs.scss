@@ -675,46 +675,13 @@ div.calender-event-editor-dialog {
 div.calender-event-editor-dialog {
     input[type="button"] {
         @include dialog-button-styles;
-
-        &.ok {
-            color: $light-color;
-            background-color: $ok-color;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        &.cancel {
-            color: $light-color;
-            background-color: $alert-color;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+        @include button(remove, $light-color, $dark-color);
 
         &.remove {
-            color: $light-color;
-            background-color: $dark-color;
             margin-top: $spacing;
             width: 100%;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
         }
     }
 }
@@ -814,32 +781,8 @@ div.calender-confirmation-dialog {
 div.calender-confirmation-dialog {
     input[type="button"] {
         @include dialog-button-styles;
-
-        &.yes {
-            color: $light-color;
-            background-color: $ok-color;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        &.no {
-            color: $light-color;
-            background-color: $alert-color;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
+        @include button(yes, $light-color, $ok-color);
+        @include button(no, $light-color, $alert-color);
     }
 }
 
@@ -882,32 +825,8 @@ div.calender-select-export-type-dialog {
 div.calender-select-export-type-dialog {
     input[type="button"] {
         @include dialog-button-styles;
-
-        &.ok {
-            color: $light-color;
-            background-color: $ok-color;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        &.cancel {
-            color: $light-color;
-            background-color: $alert-color;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
     }
 }
 

@@ -1671,8 +1671,6 @@ div.calender-event-editor-dialog input[type="button"].cancel:active {
 div.calender-event-editor-dialog input[type="button"].remove {
   color: #F5F5F5;
   background-color: #282828;
-  margin-top: 10px;
-  width: 100%;
 }
 
 div.calender-event-editor-dialog input[type="button"].remove:hover {
@@ -1687,6 +1685,11 @@ div.calender-event-editor-dialog input[type="button"].remove:active {
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
+}
+
+div.calender-event-editor-dialog input[type="button"].remove {
+  margin-top: 10px;
+  width: 100%;
 }
 
 /*

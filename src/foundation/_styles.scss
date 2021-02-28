@@ -145,3 +145,18 @@ $minimum-width: $maximum-width + 1;
         }
     }
 }
+
+@mixin button($name, $color, $background-color) {
+    &.#{$name} {
+        color: $color;
+        background-color: $background-color;
+
+        &:hover {
+            @include opacity-hover-effect;
+        }
+
+        &:active {
+            @include opacity-active-effect;
+        }
+    }
+}
