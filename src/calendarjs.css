@@ -99,16 +99,28 @@ div.full-screen-view {
   border: none !important;
 }
 
-div.full-screen-view div.row {
-  height: 14.8%;
+@media screen and (min-width: 321px) {
+  div.full-screen-view div.row {
+    height: calc((100% - ((1px * 10) + ((10px * 4) + (0.9rem * 2)))) / 6);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.full-screen-view div.row {
+    height: calc((100% - ((1px * 10) + ((10px * 4) + (0.7rem * 2)))) / 6);
+  }
+}
+
+div.full-screen-view div.row div.cell {
+  height: calc(100% - 20px);
 }
 
 div.full-screen-view div.header-days {
   height: auto !important;
 }
 
-div.full-screen-view div.cell {
-  height: calc(100% - 20px);
+div.full-screen-view div.header-days div.cell {
+  height: auto !important;
 }
 
 /*
@@ -258,7 +270,6 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   height: 200px;
   border: 1px solid #282828;
   left: 50%;
-  top: calc(10px + 0.9rem);
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
   background-color: #F5F5F5;
@@ -266,6 +277,18 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   z-index: 1500;
   display: none;
   overflow: hidden;
+}
+
+@media screen and (min-width: 321px) {
+  div.calendar div.header-date div.title-container div.years-drop-down {
+    top: calc(10px + 0.9rem);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.calendar div.header-date div.title-container div.years-drop-down {
+    top: calc(10px + 0.7rem);
+  }
 }
 
 div.calendar div.header-date div.title-container div.years-drop-down div.contents {

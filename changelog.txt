@@ -8,6 +8,7 @@ v0.2.0:
 - Fixed a fault that prevented the year drop down menu being centered correctly.
 - The "Expand Day" button is now less intrusive and indicates what it will do.
 - Added a styled tooltip for the events in the main display (with new settings).
+- Improved SASS support for font-sizes, spacing and border sizes.
 
 v0.1.1:
 - Added active CSS effects for all clickable elements.

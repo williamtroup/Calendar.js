@@ -2366,7 +2366,6 @@ function calendarJs( id, options, startDateTime ) {
      */
     this.moveToPreviousMonth = function() {
         moveBackMonth();
-        
     };
 
     /**

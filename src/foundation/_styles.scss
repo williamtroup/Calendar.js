@@ -17,6 +17,10 @@ $header-toolbar-button-border: 4px solid $light-color;
 $scroll-bar-border-style: inset 0 0 6px gray;
 $event-left-border: 7px solid $dark-color;
 $fade-in-effect-type: fade-in-effect ease 2s;
+$standard-border-size: 1px;
+$spacing: 10px;
+$large-font-size: 0.9rem;
+$small-font-size: 0.7rem;
 
 @mixin fade-in-effect-animation {
     animation: $fade-in-effect-type;
@@ -79,7 +83,7 @@ $fade-in-effect-type: fade-in-effect ease 2s;
 
 @mixin overlay-contents {
     display: inline-block;
-    padding: 10px;
+    padding: $spacing;
     height: calc(100% - 56px);
     width: calc(100% - 20px);
     position: relative;

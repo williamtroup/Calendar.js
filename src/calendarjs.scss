@@ -22,11 +22,11 @@ div.calender-select-export-type-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: 321px) {
-        font-size: 0.9rem !important;
+        font-size: $large-font-size !important;
     }
     
     @media screen and (max-width: 320px) {
-        font-size: 0.7rem !important;
+        font-size: $small-font-size !important;
     }
 
     div.overlay-shown {
@@ -52,15 +52,25 @@ div.full-screen-view {
     border: none !important;
 
     div.row {
-        height: 14.8%;
+        @media screen and (min-width: 321px) {
+            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$large-font-size} * 2)))) / 6);
+        }
+        
+        @media screen and (max-width: 320px) {
+            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$small-font-size} * 2)))) / 6);
+        }
+
+        div.cell {
+            height: calc(100% - 20px);
+        }
     }
 
     div.header-days {
         height: auto !important;
-    }
 
-    div.cell {
-        height: calc(100% - 20px);
+        div.cell {
+            height: auto !important;
+        }
     }
 }
 
@@ -76,7 +86,7 @@ div.calendar {
     border-radius: $border-view-radius;
     overflow: hidden;
     width: 100%;
-    border: 1px solid $dark-color;
+    border: $standard-border-size solid $dark-color;
     position: relative;
     overflow: hidden;
 
@@ -100,7 +110,7 @@ div.calendar {
     }
     
     div.row {
-        border-bottom: 1px solid $dark-color;
+        border-bottom: $standard-border-size solid $dark-color;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
@@ -113,8 +123,8 @@ div.calendar {
             width: 14.285714285714285714285714285714%;
             display: inline-block;
             text-align: center;
-            padding: 10px;
-            border-right: 1px solid $dark-color;
+            padding: $spacing;
+            border-right: $standard-border-size solid $dark-color;
             position: relative;
             overflow: hidden;
             color: $dark-color;
@@ -172,7 +182,7 @@ div.calendar {
         background-color: $dark-color;
         color: $light-color;
         text-align: center;
-        padding: 10px;
+        padding: $spacing;
         position: relative;
 
         div.title-container {
@@ -193,15 +203,22 @@ div.calendar {
                 position: absolute;
                 width: 240px;
                 height: 200px;
-                border: 1px solid $dark-color;
+                border: $standard-border-size solid $dark-color;
                 left: 50%;
-                top: calc(10px + 0.9rem);
                 transform: translate(-50%);
                 background-color: $light-color;
                 border-radius: $border-view-radius;
                 z-index: 1500;
                 display: none;
                 overflow: hidden;
+
+                @media screen and (min-width: 321px) {
+                    top: calc(#{$spacing} + #{$large-font-size});
+                }
+                
+                @media screen and (max-width: 320px) {
+                    top: calc(#{$spacing} + #{$small-font-size});
+                }
     
                 div.contents {
                     @include word-wrap-with-new-lines();
@@ -511,17 +528,17 @@ div.calendar {
                 border-radius: $border-view-radius;
                 border: 1px solid $dark-color;
                 overflow: hidden;
-                margin-bottom: 10px;
+                margin-bottom: $spacing;
 
                 div.header {
                     background-color: $dark-color;
                     color: $light-color;
-                    padding: 10px;
+                    padding: $spacing;
                 }
 
                 div.events {
-                    margin-top: 10px;
-                    margin-bottom: 10px;
+                    margin-top: $spacing;
+                    margin-bottom: $spacing;
 
                     @import "foundation/overlay-event";
                 }
@@ -554,17 +571,17 @@ div.calendar {
                 border-radius: $border-view-radius;
                 border: 1px solid $dark-color;
                 overflow: hidden;
-                margin-bottom: 10px;
+                margin-bottom: $spacing;
 
                 div.header {
                     background-color: $dark-color;
                     color: $light-color;
-                    padding: 10px;
+                    padding: $spacing;
                 }
 
                 div.events {
-                    margin-top: 10px;
-                    margin-bottom: 10px;
+                    margin-top: $spacing;
+                    margin-bottom: $spacing;
 
                     @import "foundation/overlay-event";
                 }
@@ -594,12 +611,12 @@ div.calender-event-editor-dialog {
             @include no-selection-allowed;
             background-color: $dark-color;
             color: $light-color;
-            padding: 10px;
+            padding: $spacing;
             text-align: center;
         }
         
         div.contents {
-            padding: 10px;
+            padding: $spacing;
         }
         
         input:not([type="button"]),
@@ -610,7 +627,7 @@ div.calender-event-editor-dialog {
             border: 1px solid $input-border-color;
             border-radius: $border-view-radius;
             outline-color: $dark-color !important;
-            margin-bottom: 10px;
+            margin-bottom: $spacing;
             background-color: $input-background-color;
     
             &:last-child {
@@ -688,7 +705,7 @@ div.calender-event-editor-dialog {
         &.remove {
             color: $light-color;
             background-color: $dark-color;
-            margin-top: 10px;
+            margin-top: $spacing;
             width: 100%;
     
             &:hover {
@@ -772,12 +789,12 @@ div.calender-confirmation-dialog {
         @include no-selection-allowed;
         background-color: $dark-color;
         color: $light-color;
-        padding: 10px;
+        padding: $spacing;
         text-align: center;
     }
 
     div.contents {
-        padding: 10px;
+        padding: $spacing;
 
         div.message {
             margin-bottom: 20px;
@@ -840,12 +857,12 @@ div.calender-select-export-type-dialog {
         @include no-selection-allowed;
         background-color: $dark-color;
         color: $light-color;
-        padding: 10px;
+        padding: $spacing;
         text-align: center;
     }
 
     div.contents {
-        padding: 10px;
+        padding: $spacing;
     }
     
     @import "foundation/split-container";
@@ -961,11 +978,11 @@ div.calender-event-tooltip {
     position: absolute;
     max-width: 300px;
     width: 100%;
-    border: 1px solid $dark-color;
+    border: $standard-border-size solid $dark-color;
     border-radius: $border-view-radius;
     background-color: rgb(238,232,170);
     color: $dark-color;
-    padding: 10px;
+    padding: $spacing;
     display: none;
     z-index: 2000;
 
