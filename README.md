@@ -11,7 +11,7 @@ Features include:
 - Fully styled in CSS/SASS (including the buttons).
 - Custom events for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON and TEXT.
-- Full screen mode.
+- Full-screen mode.
 
 To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
 
