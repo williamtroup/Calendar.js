@@ -14,6 +14,7 @@ v0.3.0:
 - Added context menu support for days (Add Event, Expand Day).
 - Renamed tooltip "View Week Events" to "View Current Week Events".
 - Fixed the tooltip text being selectable.
+- Fixed some of the dialogs text being selectable.
 - Added support to view any weeks events (available in the new day context menu as "View Current Week Events").
 - Fixed the Weekly Events view jumping around dates when auto-updating.
 

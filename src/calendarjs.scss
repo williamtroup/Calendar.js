@@ -768,6 +768,7 @@ div.calender-confirmation-dialog {
         padding: $spacing;
 
         div.message {
+            @include no-selection-allowed;
             margin-bottom: 20px;
         }
     }

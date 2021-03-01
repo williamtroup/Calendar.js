@@ -1798,6 +1798,11 @@ div.calender-confirmation-dialog div.contents {
 }
 
 div.calender-confirmation-dialog div.contents div.message {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   margin-bottom: 20px;
 }
 
