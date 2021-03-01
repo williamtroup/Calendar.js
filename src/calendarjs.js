@@ -252,6 +252,7 @@ function calendarJs( id, options, startDateTime ) {
         var previousMonthButton = createElement( "div" );
         previousMonthButton.className = "arrow previous-month";
         previousMonthButton.onclick = moveBackMonth;
+        previousMonthButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( previousMonthButton );
 
         addToolTip( previousMonthButton, _options.previousMonthTooltipText );
@@ -259,6 +260,7 @@ function calendarJs( id, options, startDateTime ) {
         var todayButton = createElement( "div" );
         todayButton.className = "today";
         todayButton.onclick = moveToday;
+        todayButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( todayButton );
 
         addToolTip( todayButton, _options.todayTooltipText );
@@ -266,6 +268,7 @@ function calendarJs( id, options, startDateTime ) {
         var refreshButton = createElement( "div" );
         refreshButton.className = "refresh";
         refreshButton.onclick = refreshViews;
+        refreshButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( refreshButton );
 
         addToolTip( refreshButton, _options.refreshTooltipText );
@@ -273,6 +276,7 @@ function calendarJs( id, options, startDateTime ) {
         var nextMonthButton = createElement( "div" );
         nextMonthButton.className = "arrow next-month";
         nextMonthButton.onclick = moveForwardMonth;
+        nextMonthButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( nextMonthButton );
 
         addToolTip( nextMonthButton, _options.nextMonthTooltipText );
@@ -281,6 +285,7 @@ function calendarJs( id, options, startDateTime ) {
             var addEventButton = createElement( "div" );
             addEventButton.className = "add-event";
             addEventButton.onclick = addNewEvent;
+            addEventButton.ondblclick = cancelBubble;
             _element_HeaderDateDisplay.appendChild( addEventButton );
 
             addToolTip( addEventButton, _options.addEventTooltipText );
@@ -289,6 +294,7 @@ function calendarJs( id, options, startDateTime ) {
         if ( _options.exportEventsEnabled ) {
             _element_HeaderDateDisplay_ExportEventsButton = createElement( "div" );
             _element_HeaderDateDisplay_ExportEventsButton.className = "export-events";
+            _element_HeaderDateDisplay_ExportEventsButton.ondblclick = cancelBubble;
             _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_ExportEventsButton );
 
             addToolTip( _element_HeaderDateDisplay_ExportEventsButton, _options.exportEventsTooltipText );
@@ -301,6 +307,7 @@ function calendarJs( id, options, startDateTime ) {
         var listAllEventsButton = createElement( "div" );
         listAllEventsButton.className = "list-all-events";
         listAllEventsButton.onclick = showListAllEventsView;
+        listAllEventsButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( listAllEventsButton );
 
         addToolTip( listAllEventsButton, _options.listAllEventsTooltipText );
@@ -308,6 +315,7 @@ function calendarJs( id, options, startDateTime ) {
         var listWeekEventsButton = createElement( "div" );
         listWeekEventsButton.className = "list-week-events";
         listWeekEventsButton.onclick = showListAllWeekEventsView;
+        listWeekEventsButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
 
         addToolTip( listWeekEventsButton, _options.listWeekEventsTooltipText );
@@ -317,6 +325,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay.appendChild( titleContainer );
         
         _element_HeaderDateDisplay_Text = createElement( "span" );
+        _element_HeaderDateDisplay_Text.ondblclick = cancelBubble;
         titleContainer.appendChild( _element_HeaderDateDisplay_Text );
 
         buildYearSelectorDropDown( titleContainer );
@@ -685,6 +694,7 @@ function calendarJs( id, options, startDateTime ) {
 
             var closeButton = createElement( "div" );
             closeButton.className = "close";
+            closeButton.ondblclick = cancelBubble;
             titleBar.appendChild( closeButton );
 
             addToolTip( closeButton, _options.closeTooltipText );
@@ -698,6 +708,7 @@ function calendarJs( id, options, startDateTime ) {
                 var addEventButton = createElement( "div" );
                 addEventButton.className = "add-event";
                 addEventButton.onclick = addNewEvent;
+                addEventButton.ondblclick = cancelBubble;
                 titleBar.appendChild( addEventButton );
 
                 addToolTip( addEventButton, _options.addEventTooltipText );
@@ -706,6 +717,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.exportEventsEnabled ) {
                 _element_FullDayView_ExportEventsButton = createElement( "div" );
                 _element_FullDayView_ExportEventsButton.className = "export-events";
+                _element_FullDayView_ExportEventsButton.ondblclick = cancelBubble;
                 titleBar.appendChild( _element_FullDayView_ExportEventsButton );
 
                 addToolTip( _element_FullDayView_ExportEventsButton, _options.exportEventsTooltipText );
@@ -855,6 +867,7 @@ function calendarJs( id, options, startDateTime ) {
 
             var closeButton = createElement( "div" );
             closeButton.className = "close";
+            closeButton.ondblclick = cancelBubble;
             titleBar.appendChild( closeButton );
 
             addToolTip( closeButton, _options.closeTooltipText );
@@ -867,6 +880,7 @@ function calendarJs( id, options, startDateTime ) {
                 var addEventButton = createElement( "div" );
                 addEventButton.className = "add-event";
                 addEventButton.onclick = addNewEvent;
+                addEventButton.ondblclick = cancelBubble;
                 titleBar.appendChild( addEventButton );
 
                 addToolTip( addEventButton, _options.addEventTooltipText );
@@ -875,6 +889,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.exportEventsEnabled ) {
                 _element_ListAllEventsView_ExportEventsButton = createElement( "div" );
                 _element_ListAllEventsView_ExportEventsButton.className = "export-events";
+                _element_ListAllEventsView_ExportEventsButton.ondblclick = cancelBubble;
                 titleBar.appendChild( _element_ListAllEventsView_ExportEventsButton );
 
                 addToolTip( _element_ListAllEventsView_ExportEventsButton, _options.exportEventsTooltipText );
@@ -1024,6 +1039,7 @@ function calendarJs( id, options, startDateTime ) {
 
             var closeButton = createElement( "div" );
             closeButton.className = "close";
+            closeButton.ondblclick = cancelBubble;
             titleBar.appendChild( closeButton );
 
             addToolTip( closeButton, _options.closeTooltipText );
@@ -1036,6 +1052,7 @@ function calendarJs( id, options, startDateTime ) {
                 var addEventButton = createElement( "div" );
                 addEventButton.className = "add-event";
                 addEventButton.onclick = addNewEvent;
+                addEventButton.ondblclick = cancelBubble;
                 titleBar.appendChild( addEventButton );
 
                 addToolTip( addEventButton, _options.addEventTooltipText );
@@ -1044,6 +1061,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.exportEventsEnabled ) {
                 _element_ListAllWeekEventsView_ExportEventsButton = createElement( "div" );
                 _element_ListAllWeekEventsView_ExportEventsButton.className = "export-events";
+                _element_ListAllWeekEventsView_ExportEventsButton.ondblclick = cancelBubble;
                 titleBar.appendChild( _element_ListAllWeekEventsView_ExportEventsButton );
 
                 addToolTip( _element_ListAllWeekEventsView_ExportEventsButton, _options.exportEventsTooltipText );
