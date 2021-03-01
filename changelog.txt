@@ -17,7 +17,7 @@ v0.3.0:
 - Fixed some of the dialogs text being selectable.
 - Added support to view any weeks events (available in the new day context menu as "View Current Week Events").
 - Fixed the Weekly Events view jumping around dates when auto-updating.
-- Fixed the current day being highlighted twice (one being wrong).
+- Fixed the current day being highlighted twice (for example, 1st this month, and then 1st in the next month).
 - Added support to highlight the current day in the previous month/next month days.
 
 v0.2.0:
