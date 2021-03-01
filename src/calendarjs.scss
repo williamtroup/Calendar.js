@@ -1,5 +1,5 @@
 /*
- * Calender.js Library v0.2.0
+ * Calender.js Library v0.3.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -9,7 +9,9 @@
 @import "foundation/styles";
 
 div.calendar,
-div.calender-event-tooltip,
+div.calender-tooltip,
+div.calender-tooltip-event,
+div.calender-drop-down-menu,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
@@ -251,6 +253,11 @@ div.calendar {
                         &:active {
                             @include opacity-active-effect;
                         }
+                    }
+
+                    div.current-year-selected {
+                        background-color: $dark-color;
+                        color: $light-color;
                     }
                 }
             }
@@ -626,16 +633,18 @@ div.calender-event-editor-dialog {
             padding: .375rem .75rem;
             border: 1px solid $input-border-color;
             border-radius: $border-view-radius;
-            outline-color: $dark-color !important;
+            outline: none;
             margin-bottom: $spacing;
             background-color: $input-background-color;
+            transition: $transition;
     
             &:last-child {
                 margin-bottom: 0;
             }
-    
-            &:-moz-focusring {
-                outline: none;
+
+            &:focus {
+                border: 1px solid $dark-color;
+                box-shadow: 0 0 1pt 1pt $dark-color;
             }
         }
     
@@ -695,7 +704,7 @@ div.calender-event-editor-dialog {
 
 div.calender-event-editor-dialog {
     label.checkbox {
-        @include no-selection-allowed();
+        @include no-selection-allowed;
         display: block;
         position: relative;
         padding-left: 25px;
@@ -725,6 +734,7 @@ div.calender-event-editor-dialog {
             background-color: $input-background-color;
             border-radius: $border-view-radius;
             border: 1px solid $input-border-color;
+            transition: $transition;
 
             &:before {
                 @include transform(rotate(45deg));
@@ -764,6 +774,7 @@ div.calender-confirmation-dialog {
         padding: $spacing;
 
         div.message {
+            @include no-selection-allowed;
             margin-bottom: 20px;
         }
     }
@@ -839,7 +850,7 @@ div.calender-select-export-type-dialog {
 
 div.calender-select-export-type-dialog {
     label.radioButton {
-        @include no-selection-allowed();
+        @include no-selection-allowed;
         display: block;
         position: relative;
         padding-left: 25px;
@@ -869,6 +880,7 @@ div.calender-select-export-type-dialog {
             background-color: $input-background-color;
             border-radius: 50%;
             border: 1px solid $input-border-color;
+            transition: $transition;
 
             &:before {
                 @include transform(rotate(45deg));
@@ -889,18 +901,18 @@ div.calender-select-export-type-dialog {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Tooltip
+    Calendar.js - Tooltip
     -------------------------------------------------------------------------
 */
 
-div.calender-event-tooltip {
+div.calender-tooltip,
+div.calender-tooltip-event {
     @include fade-in-effect-animation(1s);
+    @include no-selection-allowed;
     position: absolute;
-    max-width: 300px;
-    width: 100%;
     border: $standard-border-size solid $dark-color;
     border-radius: $border-view-radius;
-    background-color: rgb(238,232,170);
+    background-color: rgb(238, 232, 170);
     color: $dark-color;
     padding: $spacing;
     display: none;
@@ -915,6 +927,58 @@ div.calender-event-tooltip {
     div.date,
     div.description {
         font-size: smaller;
+    }
+}
+
+div.calender-tooltip {
+    font-size: smaller !important;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div.calender-tooltip-event {
+    max-width: 300px;
+    width: 100%;
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Drop-Down Menu
+    -------------------------------------------------------------------------
+*/
+
+div.calender-drop-down-menu {
+    @include no-selection-allowed;
+    background-color: #DCDCDC;
+    border: $standard-border-size solid $dark-color;
+    color: $dark-color;
+    border-radius: $border-view-radius;
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    display: none;
+    cursor: pointer !important;
+    font-size: smaller !important;;
+    z-index: 1000;
+
+    div.item {
+        padding: $spacing;
+        padding-right: $spacing * 3;
+
+        &:hover {
+            background-color: $dark-color;
+            color: $light-color;
+            transition: $transition;
+        }
+
+        &:active {
+            @include opacity-active-effect;
+        }
+    }
+
+    div.separator {
+        border-bottom: $standard-border-size solid $dark-color;
     }
 }
 
@@ -939,6 +1003,14 @@ div.calender-event-tooltip {
         -webkit-box-shadow: $scroll-bar-border-style;
         box-shadow: $scroll-bar-border-style;
         background: $light-color;
+
+        &:hover {
+            background-color: #DCDCDC;
+        }
+
+        &:active {
+            background-color: #C0C0C0;
+        }
     }
 }
 

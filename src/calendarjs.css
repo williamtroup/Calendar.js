@@ -1,11 +1,13 @@
 /*
- * Calender.js Library v0.2.0
+ * Calender.js Library v0.3.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
  */
 div.calendar,
-div.calender-event-tooltip,
+div.calender-tooltip,
+div.calender-tooltip-event,
+div.calender-drop-down-menu,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
@@ -20,7 +22,9 @@ div.calender-select-export-type-dialog textarea {
 
 @media screen and (min-width: 321px) {
   div.calendar,
-  div.calender-event-tooltip,
+  div.calender-tooltip,
+  div.calender-tooltip-event,
+  div.calender-drop-down-menu,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -36,7 +40,9 @@ div.calender-select-export-type-dialog textarea {
 
 @media screen and (max-width: 320px) {
   div.calendar,
-  div.calender-event-tooltip,
+  div.calender-tooltip,
+  div.calender-tooltip-event,
+  div.calender-drop-down-menu,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -51,7 +57,9 @@ div.calender-select-export-type-dialog textarea {
 }
 
 div.calendar div.overlay-shown,
-div.calender-event-tooltip div.overlay-shown,
+div.calender-tooltip div.overlay-shown,
+div.calender-tooltip-event div.overlay-shown,
+div.calender-drop-down-menu div.overlay-shown,
 div.calender-event-editor-dialog div.overlay-shown,
 div.calender-event-editor-dialog input div.overlay-shown,
 div.calender-event-editor-dialog textarea div.overlay-shown,
@@ -329,6 +337,11 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
+}
+
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.current-year-selected {
+  background-color: #282828;
+  color: #F5F5F5;
 }
 
 div.calendar div.header-date div {
@@ -864,13 +877,13 @@ div.calendar div.full-day-view div.contents {
 
 @media screen and (min-width: 321px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem));
+    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
 @media screen and (max-width: 320px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem));
+    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
 }
 
@@ -1129,13 +1142,13 @@ div.calendar div.list-all-events-view div.contents {
 
 @media screen and (min-width: 321px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem));
+    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
 @media screen and (max-width: 320px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem));
+    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
 }
 
@@ -1410,13 +1423,13 @@ div.calendar div.list-all-week-events-view div.contents {
 
 @media screen and (min-width: 321px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem));
+    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
 @media screen and (max-width: 320px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem));
+    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
 }
 
@@ -1553,9 +1566,11 @@ div.calender-event-editor-dialog div.view textarea {
   padding: .375rem .75rem;
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
-  outline-color: #282828 !important;
+  outline: none;
   margin-bottom: 10px;
   background-color: #FFFFFF;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 div.calender-event-editor-dialog div.view input:not([type="button"]):last-child,
@@ -1563,9 +1578,11 @@ div.calender-event-editor-dialog div.view textarea:last-child {
   margin-bottom: 0;
 }
 
-div.calender-event-editor-dialog div.view input:not([type="button"]):-moz-focusring,
-div.calender-event-editor-dialog div.view textarea:-moz-focusring {
-  outline: none;
+div.calender-event-editor-dialog div.view input:not([type="button"]):focus,
+div.calender-event-editor-dialog div.view textarea:focus {
+  border: 1px solid #282828;
+  -webkit-box-shadow: 0 0 1pt 1pt #282828;
+          box-shadow: 0 0 1pt 1pt #282828;
 }
 
 div.calender-event-editor-dialog div.view input:disabled {
@@ -1733,6 +1750,8 @@ div.calender-event-editor-dialog label.checkbox span.check-mark {
   background-color: #FFFFFF;
   border-radius: 0.25rem;
   border: 1px solid #A8A8A8;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 div.calender-event-editor-dialog label.checkbox span.check-mark:before {
@@ -1786,6 +1805,11 @@ div.calender-confirmation-dialog div.contents {
 }
 
 div.calender-confirmation-dialog div.contents div.message {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   margin-bottom: 20px;
 }
 
@@ -2018,6 +2042,8 @@ div.calender-select-export-type-dialog label.radioButton span.check-mark {
   background-color: #FFFFFF;
   border-radius: 50%;
   border: 1px solid #A8A8A8;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 div.calender-select-export-type-dialog label.radioButton span.check-mark:before {
@@ -2036,18 +2062,22 @@ div.calender-select-export-type-dialog label.radioButton span.check-mark:before 
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Tooltip
+    Calendar.js - Tooltip
     -------------------------------------------------------------------------
 */
-div.calender-event-tooltip {
+div.calender-tooltip,
+div.calender-tooltip-event {
   animation: fade-in-effect ease 1s;
   -webkit-animation: fade-in-effect ease 1s;
   -moz-animation: fade-in-effect ease 1s;
   -o-animation: fade-in-effect ease 1s;
   -ms-animation: fade-in-effect ease 1s;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   position: absolute;
-  max-width: 300px;
-  width: 100%;
   border: 1px solid #282828;
   border-radius: 0.25rem;
   background-color: palegoldenrod;
@@ -2057,21 +2087,84 @@ div.calender-event-tooltip {
   z-index: 2000;
 }
 
-div.calender-event-tooltip div {
+div.calender-tooltip div,
+div.calender-tooltip-event div {
   margin-bottom: 5px;
 }
 
-div.calender-event-tooltip div:last-child {
+div.calender-tooltip div:last-child,
+div.calender-tooltip-event div:last-child {
   margin-bottom: 0;
 }
 
-div.calender-event-tooltip div.title {
+div.calender-tooltip div.title,
+div.calender-tooltip-event div.title {
   font-weight: 900;
 }
 
-div.calender-event-tooltip div.date,
-div.calender-event-tooltip div.description {
+div.calender-tooltip div.date,
+div.calender-tooltip div.description,
+div.calender-tooltip-event div.date,
+div.calender-tooltip-event div.description {
   font-size: smaller;
+}
+
+div.calender-tooltip {
+  font-size: smaller !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+div.calender-tooltip-event {
+  max-width: 300px;
+  width: 100%;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Drop-Down Menu
+    -------------------------------------------------------------------------
+*/
+div.calender-drop-down-menu {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-color: #DCDCDC;
+  border: 1px solid #282828;
+  color: #282828;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: none;
+  cursor: pointer !important;
+  font-size: smaller !important;
+  z-index: 1000;
+}
+
+div.calender-drop-down-menu div.item {
+  padding: 10px;
+  padding-right: 30px;
+}
+
+div.calender-drop-down-menu div.item:hover {
+  background-color: #282828;
+  color: #F5F5F5;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+div.calender-drop-down-menu div.item:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.calender-drop-down-menu div.separator {
+  border-bottom: 1px solid #282828;
 }
 
 /*
@@ -2092,6 +2185,14 @@ div.calender-event-tooltip div.description {
   -webkit-box-shadow: inset 0 0 6px gray;
   box-shadow: inset 0 0 6px gray;
   background: #F5F5F5;
+}
+
+.custom-scroll-bars::-webkit-scrollbar-thumb:hover {
+  background-color: #DCDCDC;
+}
+
+.custom-scroll-bars::-webkit-scrollbar-thumb:active {
+  background-color: #C0C0C0;
 }
 
 /*

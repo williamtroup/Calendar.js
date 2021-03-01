@@ -1,11 +1,42 @@
+v0.3.0:
+- Added the custom scrollbar to the textarea on the "Event Editor" dialog.
+- The custom scroll-bar now has :hover and :active selectors.
+- Added support to use the custom tooltip for every tooltip throughout the views.
+- Fixed a fault that prevented the custom tooltips from hiding when the mouse is moved again.
+- Fixed a fault that caused the wrong week to be shown when using the calendar on a Sunday.
+- Fixed a fault that caused events to not show in the Weekly View when their times are greater than 00:00.
+- The Weekly View now shows the From/To dates in the title bar instead of static text (option text removed).
+- Fixed the full view content sizes being a few pixels off in height.
+- Added transition effects to disabled inputs and check-marks.
+- Renamed some of the settings to reflect the default text changes for dates shown on events (starts from, finishes, etc).
+- The day name (Monday-Sunday) is now shown on the full day view.
+- Fixed a fault that caused the full screen mode to activate when double clicking on buttons and the year selector.
+- Added context menu support for days (Add Event, Expand Day).
+- Renamed tooltip "View Week Events" to "View Current Week Events".
+- Fixed the tooltip text being selectable.
+- Fixed some of the dialogs text being selectable.
+- Added support to view any week’s events (available in the new day context menu as "View Current Week Events").
+- Fixed the Weekly Events view jumping around dates when auto-updating.
+- Fixed the current day being highlighted twice (for example, 1st this month, and then 1st in the next month).
+- Added support to highlight the current day in the previous month/next month days.
+- Fixed a fault that caused the dates to be shown in the wrong format for the Event Editor in Safari and Internet Explorer.
+- Invalid dates entered in Safari and Internet Explorer via the Event Editor are now added to today date.
+- Auto-update no longer runs when the Year Selector drop-down is visible.
+- Fixed the tooltips being shown when a drop-down menu (Years, Context) is visible.
+- The Year Selector drop-down menu now highlights the current year.
+- Fixed outline issues when focusing on a input/textarea.  They now work in all browsers and have a transition effect.
+- Event "id" property values are now maintained when editing or moving the event.
+- Fixed an error removing the description from a tooltip when it's not required.
+- Safer node adding/removing across the core code.
+
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
 - A confirmation dialog is now shown when removing an event.
 - Added "Select Export Type" dialog, with CSV, XML, JSON and TEXT support now available.
 - exportAllEvents() now takes a type parameter (accepts csv (default), xml, json and text).
-- Added support for screen mode (double click the main title bar) with optional on/off setting.
+- Added support for full screen mode (double click the main title bar) with optional on/off setting.
 - Fixed "click" and "resize" events in the document/window being overridden.
-- Fixed a fault that prevented the year drop down menu being centered correctly.
+- Fixed a fault that prevented the year drop down menu being cantered correctly.
 - The "Expand Day" button is now less intrusive and indicates what it will do.
 - Added a styled tooltip for the events in the main display (with new settings).
 - Improved SASS support for font-sizes, spacing, cell sizes, and border sizes.
