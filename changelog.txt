@@ -8,6 +8,8 @@ v0.3.0:
 - The Weekly View now shows the From/To dates in the title bar instead of static text (option text removed).
 - Fixed the full view content sizes being a few pixels off in height.
 - Added transition effects to disabled inputs and check-marks.
+- Renamed some of the settings to reflect the default text changes for dates shown on events (starts from, finishes, etc).
+- The day name (Monday-Sunday) is now shown on the full day view.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.

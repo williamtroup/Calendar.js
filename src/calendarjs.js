@@ -735,7 +735,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_DateSelected = date;
         _element_FullDayView_EventsShown = [];
 
-        buildDateTimeDisplay( _element_FullDayView_Title, date, false );
+        buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
 
         for ( var storageDate in _events ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
@@ -1198,7 +1198,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildListAllEventsDay( date ) {
-        var weekDayNumber = date.getDay() - 1 < 0 ? 6 : date.getDay() - 1,
+        var weekDayNumber = getWeekdayNumber( date ),
             dayContentsID = "day-" + weekDayNumber,
             dayContents = getElementByID( dayContentsID );
         
@@ -1226,6 +1226,10 @@ function calendarJs( id, options, startDateTime ) {
         if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
             showListAllWeekEventsView();
         }
+    }
+
+    function getWeekdayNumber( date ) {
+        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
     }
 
 
@@ -1259,9 +1263,18 @@ function calendarJs( id, options, startDateTime ) {
         buildDateTimeDisplay( container, toDate );
     }
 
-    function buildDateTimeDisplay( container, date, addTime, addYear ) {
+    function buildDateTimeDisplay( container, date, addTime, addYear, addDayName ) {
         addTime = !isDefined( addTime ) ? true : addTime;
         addYear = !isDefined( addYear ) ? true : addYear;
+        addDayName = !isDefined( addDayName ) ? false : addDayName;
+
+        if ( addDayName ) {
+            var weekDayNumber = getWeekdayNumber( date ),
+                weekDay = createElement( "span" );
+
+            weekDay.innerText = _options.dayNames[ weekDayNumber ] + ", ";
+            container.appendChild( weekDay );
+        }
 
         buildDayDisplay( container, date );
 
