@@ -1412,7 +1412,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDay( actualDay, elementDayNumber, month, year, isMuted ) {
         var today = new Date(),
-            dayIsToday = actualDay === today.getDate() && _currentDate.getFullYear() === today.getFullYear() && _currentDate.getMonth() === today.getMonth(),
+            dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
             dayElement = getElementByID( _elementID_DayElement + elementDayNumber ),
             dayText = createElement( "span" );
 
