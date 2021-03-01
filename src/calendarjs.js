@@ -2145,10 +2145,10 @@ function calendarJs( id, options, startDateTime ) {
     
                         if ( eventDetails.description !== "" ) {
                             _element_Tooltip_Description.innerHTML = eventDetails.description;
-                            _element_Tooltip.appendChild( _element_Tooltip_Description );
+                            addNode( _element_Tooltip, _element_Tooltip_Description );
                         } else {
                             _element_Tooltip_Description.innerHTML = "";
-                            _element_Tooltip.removeChild( _element_Tooltip_Description );
+                            removeNode( _element_Tooltip, _element_Tooltip_Description );
                         }
         
                         if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
