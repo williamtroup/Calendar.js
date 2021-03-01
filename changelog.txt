@@ -19,6 +19,8 @@ v0.3.0:
 - Fixed the Weekly Events view jumping around dates when auto-updating.
 - Fixed the current day being highlighted twice (for example, 1st this month, and then 1st in the next month).
 - Added support to highlight the current day in the previous month/next month days.
+- Fixed a fault that caused the dates to be shown in the wrong format for the Event Editor in Safari and Internet Explorer.
+- Invalid dates entered in Safari and Internet Explorer via the Event Editor are now added to today date.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.

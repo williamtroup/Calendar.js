@@ -1754,9 +1754,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_RemoveButton.style.display = "block";
             _element_EventEditorDialog_TitleBar.innerHTML = _options.editEventTitle;
             _element_EventEditorDialog_EventDetails = eventDetails;
-            _element_EventEditorDialog_DateFrom.value = toFormattedDate( eventDetails.from );
+            _element_EventEditorDialog_DateFrom.value = toFormattedDate( eventDetails.from, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
-            _element_EventEditorDialog_DateTo.value = toFormattedDate( eventDetails.to );
+            _element_EventEditorDialog_DateTo.value = toFormattedDate( eventDetails.to, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
             _element_EventEditorDialog_IsAllDayEvent.checked = eventDetails.isAllDayEvent;
             _element_EventEditorDialog_Title.value = eventDetails.title;
@@ -1774,9 +1774,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_RemoveButton.style.display = "none";
             _element_EventEditorDialog_TitleBar.innerHTML = _options.addEventTitle;
             _element_EventEditorDialog_EventDetails = null;
-            _element_EventEditorDialog_DateFrom.value = toFormattedDate( today );
+            _element_EventEditorDialog_DateFrom.value = toFormattedDate( today, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
-            _element_EventEditorDialog_DateTo.value = toFormattedDate( today );
+            _element_EventEditorDialog_DateTo.value = toFormattedDate( today, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
             _element_EventEditorDialog_IsAllDayEvent.checked = false;
             _element_EventEditorDialog_Title.value = "";
@@ -1787,8 +1787,8 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function eventDialogEvent_OK() {
-        var fromDate = new Date( _element_EventEditorDialog_DateFrom.value ),
-            toDate = new Date( _element_EventEditorDialog_DateTo.value ),
+        var fromDate = getSelectedDate( _element_EventEditorDialog_DateFrom ),
+            toDate = getSelectedDate( _element_EventEditorDialog_DateTo ),
             fromTime = _element_EventEditorDialog_TimeFrom.value.split( ":" ),
             toTime = _element_EventEditorDialog_TimeTo.value.split( ":" ),
             title = trimString( _element_EventEditorDialog_Title.value ),
@@ -1831,6 +1831,26 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function getSelectedDate( input ) {
+        var result = new Date();
+
+        if ( input.type === "date" ) {
+            result = new Date( input.value );
+        } else {
+
+            var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
+            if ( match ) {
+
+                var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ] );
+                if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                    result = newDate;
+                }
+            }
+        }
+
+        return result;
+    }
+
     function eventDialogEvent_Cancel() {
         _element_EventEditorDialog.style.display = "none";
 
@@ -1857,10 +1877,16 @@ function calendarJs( id, options, startDateTime ) {
         showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
     }
 
-    function toFormattedDate( date ) {
+    function toFormattedDate( date, inputType ) {
         var day = ( "0" + date.getDate() ).slice( -2 ),
             month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 ),
+            formatted = null;
+
+        if ( inputType === "date" ) {
             formatted = date.getFullYear() + "-" + month + "-" + day;
+        } else {
+            formatted = day + "/" + month + "/" + date.getFullYear();
+        }
 
         return formatted;
     }
