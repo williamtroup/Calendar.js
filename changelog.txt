@@ -1,6 +1,6 @@
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
-- 
+- Removed unneeded class variables.
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
