@@ -126,6 +126,7 @@ function calendarJs( id, options, startDateTime ) {
         _eventDetails_Dragged = null,
         _cachedStyles = null,
         _elementID_DayElement = "calendar-day-",
+        _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
         _elementClassName_Cell = "cell",
         _element_HeaderDateDisplay = null,
@@ -358,28 +359,18 @@ function calendarJs( id, options, startDateTime ) {
                 date.setFullYear( date.getFullYear() + 1 );
             }
 
-            _element_HeaderDateDisplay_Text.onclick = function( e ) {
-                if ( _element_HeaderDateDisplay_YearSelector.style.display !== "block" ) {
-                    cancelBubble( e );
+            _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
 
-                    _element_HeaderDateDisplay_YearSelector.style.display = "block";
-                }
-            };
-
-            var bodyEvents = function() {
-                hideDayDropDownMenu();
-                hideYearSelectorDropDown();
-            };
-
-            _document.body.addEventListener( "click", bodyEvents );
-            _document.body.addEventListener( "contextmenu", bodyEvents );
-            _window.addEventListener( "resize", bodyEvents );
+            _document.body.addEventListener( "click", hideAllDropDowns );
+            _document.body.addEventListener( "contextmenu", hideAllDropDowns );
+            _window.addEventListener( "resize", hideAllDropDowns );
         }
     }
 
     function buildYearSelectorDropDownYear( contents, actualYear ) {
         var year = createElement( "div" );
         year.innerText = actualYear.toString();
+        year.id = _elementID_YearSelected + actualYear.toString();
         contents.appendChild( year );
 
         year.onclick = function() {
@@ -444,10 +435,36 @@ function calendarJs( id, options, startDateTime ) {
         return differenceDays;
     }
 
+    function showYearSelectorDropDownMenu( e ) {
+        if ( _element_HeaderDateDisplay_YearSelector.style.display !== "block" ) {
+            cancelBubble( e );
+
+            var yearSelected = _element_HeaderDateDisplay_YearSelector.getElementsByClassName( "current-year-selected" );
+            if ( yearSelected !== null && yearSelected.length >= 1 ) {
+
+                var yearSelectedLength = yearSelected.length;
+                for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
+                    yearSelected[ yearsSelectedIndex ].removeAttribute( "class" );
+                }
+            }
+
+            var year = getElementByID( _elementID_YearSelected + _currentDate.getFullYear() );
+            if ( year !== null ) {
+                year.className = "current-year-selected";
+            }
+
+            _element_HeaderDateDisplay_YearSelector.style.display = "block";
+        }
+    }
+
     function hideYearSelectorDropDown() {
-        if ( _element_HeaderDateDisplay_YearSelector !== null && _element_HeaderDateDisplay_YearSelector.style.display !== "none" ) {
+        if ( isYearSelectorDropDownVisible() ) {
             _element_HeaderDateDisplay_YearSelector.style.display = "none";
         }
+    }
+
+    function isYearSelectorDropDownVisible() {
+        return _element_HeaderDateDisplay_YearSelector !== null && _element_HeaderDateDisplay_YearSelector.style.display === "block";
     }
 
     function isDateToday( date ) {
@@ -492,6 +509,12 @@ function calendarJs( id, options, startDateTime ) {
             element.className = element.className.replace( " full-screen-view", "" );
             element.style.cssText = _cachedStyles;
         }
+    }
+
+    function hideAllDropDowns() {
+        hideDayDropDownMenu();
+        hideYearSelectorDropDown();
+        hideTooltip();
     }
 
 
@@ -1560,14 +1583,19 @@ function calendarJs( id, options, startDateTime ) {
     function showDayDropDownMenu( e, date ) {
         _element_DropDownMenu_DateSelected = date;
 
+        hideAllDropDowns();
         cancelBubble( e );
         showElementAtMousePosition( e, _element_DropDownMenu_Day );
     }
 
     function hideDayDropDownMenu() {
-        if ( _element_DropDownMenu_Day.style.display !== "none" ) {
+        if ( isDayDropDownMenuVisible() ) {
             _element_DropDownMenu_Day.style.display = "none";
         }
+    }
+
+    function isDayDropDownMenuVisible() {
+        return _element_DropDownMenu_Day.style.display === "block";
     }
 
 
@@ -2101,7 +2129,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _element_Tooltip.style.display !== "block" ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( !isDisabledBackgroundDisplayed() ) {
+                if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calender-tooltip-event" : "calender-tooltip";
@@ -2189,7 +2217,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function refreshViews() {
-        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() ) {
+        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
             refreshOpenedViews();
             buildDayEvents();
         }

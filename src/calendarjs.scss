@@ -254,6 +254,11 @@ div.calendar {
                             @include opacity-active-effect;
                         }
                     }
+
+                    div.current-year-selected {
+                        background-color: $dark-color;
+                        color: $light-color;
+                    }
                 }
             }
         }

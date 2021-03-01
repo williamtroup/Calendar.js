@@ -21,6 +21,9 @@ v0.3.0:
 - Added support to highlight the current day in the previous month/next month days.
 - Fixed a fault that caused the dates to be shown in the wrong format for the Event Editor in Safari and Internet Explorer.
 - Invalid dates entered in Safari and Internet Explorer via the Event Editor are now added to today date.
+- Auto-update no longer runs when the Year Selector drop-down is visible.
+- Fixed the tooltips being shown when a drop down menu (Years, Context) is visible.
+- The Year Selector drop-down menu now highlights the current year.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
