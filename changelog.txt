@@ -1,4 +1,5 @@
 v0.4.0:
+- The Year Selector drop-down now auto-scrolls to the selected year.
 - 
 
 v0.3.0:

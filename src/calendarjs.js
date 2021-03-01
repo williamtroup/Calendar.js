@@ -132,6 +132,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay = null,
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
+        _element_HeaderDateDisplay_YearSelector_Contents = null,
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
@@ -349,12 +350,12 @@ function calendarJs( id, options, startDateTime ) {
             _element_HeaderDateDisplay_YearSelector.className = "years-drop-down";
             container.appendChild( _element_HeaderDateDisplay_YearSelector );
 
-            var contents = createElement( "div" );
-            contents.className = "contents custom-scroll-bars";
-            _element_HeaderDateDisplay_YearSelector.appendChild( contents );
+            _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div" );
+            _element_HeaderDateDisplay_YearSelector_Contents.className = "contents custom-scroll-bars";
+            _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
 
             for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
-                buildYearSelectorDropDownYear( contents, date.getFullYear() );
+                buildYearSelectorDropDownYear( date.getFullYear() );
 
                 date.setFullYear( date.getFullYear() + 1 );
             }
@@ -367,11 +368,11 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildYearSelectorDropDownYear( contents, actualYear ) {
+    function buildYearSelectorDropDownYear( actualYear ) {
         var year = createElement( "div" );
         year.innerText = actualYear.toString();
         year.id = _elementID_YearSelected + actualYear.toString();
-        contents.appendChild( year );
+        _element_HeaderDateDisplay_YearSelector_Contents.appendChild( year );
 
         year.onclick = function() {
             _currentDate.setFullYear( actualYear );
@@ -454,6 +455,7 @@ function calendarJs( id, options, startDateTime ) {
             }
 
             _element_HeaderDateDisplay_YearSelector.style.display = "block";
+            _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - ( _element_HeaderDateDisplay_YearSelector.offsetHeight / 2 );
         }
     }
 
