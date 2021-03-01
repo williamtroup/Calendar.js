@@ -48,7 +48,7 @@
  * @property    {string}   closeTooltipText                             The tooltip text that should be used for for the "Close" button.
  * @property    {string}   exportEventsTooltipText                      The tooltip text that should be used for for the "Export Events" button.
  * @property    {string}   listAllEventsTooltipText                     The tooltip text that should be used for for the "View All Events" button.
- * @property    {string}   listWeekEventsTooltipText                    The tooltip text that should be used for for the "View Week Events" button.
+ * @property    {string}   listWeekEventsTooltipText                    The tooltip text that should be used for for the "View Current Week Events" button.
  * @property    {string}   todayTooltipText                             The tooltip text that should be used for for the "Today" button.
  * @property    {string}   refreshTooltipText                           The tooltip text that should be used for for the "Refresh" button.
  * @property    {string}   expandDayTooltipText                         The tooltip text that should be used for for the "Expand Day" button.
@@ -2844,7 +2844,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.listWeekEventsTooltipText ) ) {
-            _options.listWeekEventsTooltipText = "View Week Events";
+            _options.listWeekEventsTooltipText = "View Current Week Events";
         }
 
         if ( !isDefined( _options.dayHeaderNames ) ) {

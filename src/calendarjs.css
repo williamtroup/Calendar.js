@@ -2094,6 +2094,8 @@ div.calender-tooltip-event div.description {
 
 div.calender-tooltip {
   font-size: smaller !important;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 div.calender-tooltip-event {
