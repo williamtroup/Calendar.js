@@ -698,7 +698,7 @@ div.calender-event-editor-dialog {
 
 div.calender-event-editor-dialog {
     label.checkbox {
-        @include no-selection-allowed();
+        @include no-selection-allowed;
         display: block;
         position: relative;
         padding-left: 25px;
@@ -843,7 +843,7 @@ div.calender-select-export-type-dialog {
 
 div.calender-select-export-type-dialog {
     label.radioButton {
-        @include no-selection-allowed();
+        @include no-selection-allowed;
         display: block;
         position: relative;
         padding-left: 25px;
@@ -901,6 +901,7 @@ div.calender-select-export-type-dialog {
 div.calender-tooltip,
 div.calender-tooltip-event {
     @include fade-in-effect-animation(1s);
+    @include no-selection-allowed;
     position: absolute;
     border: $standard-border-size solid $dark-color;
     border-radius: $border-view-radius;
@@ -941,6 +942,7 @@ div.calender-tooltip-event {
 */
 
 div.calender-drop-down-menu {
+    @include no-selection-allowed;
     background-color: #DCDCDC;
     border: $standard-border-size solid $dark-color;
     color: $dark-color;

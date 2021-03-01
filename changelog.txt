@@ -12,7 +12,10 @@ v0.3.0:
 - The day name (Monday-Sunday) is now shown on the full day view.
 - Fixed a fault that caused the full screen mode to activate when double clicking on buttons and the year selector.
 - Added context menu support for days (Add Event, Expand Day).
-- Renamed tooltip "View Week Events" to "View Current Week Events";
+- Renamed tooltip "View Week Events" to "View Current Week Events".
+- Fixed the tooltip text being selectable.
+- Added support to view any weeks events (available in the new day context menu as "View Current Week Events").
+- Fixed the Weekly Events view jumping around dates when auto-updating.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.

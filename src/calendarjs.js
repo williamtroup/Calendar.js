@@ -161,6 +161,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_ExportEventsButton = null,
         _element_ListAllWeekEventsView_Contents = null,
         _element_ListAllWeekEventsView_EventsShown = [],
+        _element_ListAllWeekEventsView_DateSelected = null,
         _element_ConfirmationDialog = null,
         _element_ConfirmationDialog_TitleBar = null,
         _element_ConfirmationDialog_Message = null,
@@ -317,9 +318,12 @@ function calendarJs( id, options, startDateTime ) {
 
         var listWeekEventsButton = createElement( "div" );
         listWeekEventsButton.className = "list-week-events";
-        listWeekEventsButton.onclick = showListAllWeekEventsView;
         listWeekEventsButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
+
+        listWeekEventsButton.onclick = function() {
+            showListAllWeekEventsView();
+        };
 
         addToolTip( listWeekEventsButton, _options.listWeekEventsTooltipText );
 
@@ -1086,22 +1090,17 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function showListAllWeekEventsView() {
+    function showListAllWeekEventsView( weekDate ) {
         showOverlay( _element_ListAllWeekEventsView );
 
         _element_ListAllWeekEventsView_Contents.innerHTML = "";
         _element_ListAllWeekEventsView_EventsShown = [];
+        _element_ListAllWeekEventsView_DateSelected = weekDate;
 
         var orderedEvents = [],
-            currentDate = new Date(),
-            day = currentDate.getDay() === 0 ? 7 : currentDate.getDay(),
-            firstDayNumber = currentDate.getDate() - day + 1,
-            lastDayNumber = firstDayNumber + 6,
-            weekStartDate = new Date( currentDate.setDate( firstDayNumber ) ),
-            weekEndDate = new Date( currentDate.setDate( lastDayNumber) );
-
-        weekStartDate.setHours( 0, 0, 0, 0 );
-        weekEndDate.setHours( 23, 59, 59, 99) ;
+            weekStartEndDates = getWeekStartEndDates( weekDate ),
+            weekStartDate = weekStartEndDates[ 0 ],
+            weekEndDate = weekStartEndDates[ 1 ];
 
         setAllWeekEventsViewTitle( weekStartDate, weekEndDate );
 
@@ -1251,12 +1250,29 @@ function calendarJs( id, options, startDateTime ) {
 
     function updateViewAllWeekEventsViewFromEventEdit() {
         if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
-            showListAllWeekEventsView();
+            showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected );
         }
     }
 
     function getWeekdayNumber( date ) {
         return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
+    }
+
+    function getWeekStartEndDates( date ) {
+        date = isDefined( date ) ? date : new Date();
+
+        var day = date.getDay() === 0 ? 7 : date.getDay(),
+            firstDayNumber = ( date.getDate() - day ) + 1,
+            lastDayNumber = firstDayNumber + 6,
+            weekStartDate = new Date( date ),
+            weekEndDate = new Date( date );
+
+        weekStartDate.setDate( firstDayNumber );
+        weekStartDate.setHours( 0, 0, 0, 0 );
+        weekEndDate.setDate( lastDayNumber);
+        weekEndDate.setHours( 23, 59, 59, 99 );
+        
+        return [ weekStartDate, weekEndDate ];
     }
 
 
@@ -1525,6 +1541,19 @@ function calendarJs( id, options, startDateTime ) {
 
         expandDay.onclick = function() {
             showFullDayView( _element_DropDownMenu_DateSelected );
+        };
+
+        var separator2 = createElement( "div" );
+        separator2.className = "separator";
+        _element_DropDownMenu_Day.appendChild( separator2 );
+
+        var viewCurrentWeekEvents = createElement( "div" );
+        viewCurrentWeekEvents.className = "item";
+        viewCurrentWeekEvents.innerHTML = _options.listWeekEventsTooltipText;
+        _element_DropDownMenu_Day.appendChild( viewCurrentWeekEvents );
+
+        viewCurrentWeekEvents.onclick = function() {
+            showListAllWeekEventsView( _element_DropDownMenu_DateSelected );
         };
     }
 

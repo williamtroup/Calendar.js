@@ -2060,6 +2060,11 @@ div.calender-tooltip-event {
   -moz-animation: fade-in-effect ease 1s;
   -o-animation: fade-in-effect ease 1s;
   -ms-animation: fade-in-effect ease 1s;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   position: absolute;
   border: 1px solid #282828;
   border-radius: 0.25rem;
@@ -2109,6 +2114,11 @@ div.calender-tooltip-event {
     -------------------------------------------------------------------------
 */
 div.calender-drop-down-menu {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   background-color: #DCDCDC;
   border: 1px solid #282828;
   color: #282828;
