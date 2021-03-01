@@ -735,19 +735,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_DateSelected = date;
         _element_FullDayView_EventsShown = [];
 
-        var dayNumber = createElement( "span" );
-        dayNumber.innerText = date.getDate();
-        _element_FullDayView_Title.appendChild( dayNumber );
-
-        if ( _options.showDayNumberOrdinals ) {
-            var sup = createElement( "sup" );
-            sup.innerText = getDayOrdinal( date.getDate() );
-            _element_FullDayView_Title.appendChild( sup );
-        }
-
-        var dateEnd = createElement( "span" );
-        dateEnd.innerText = " " + _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
-        _element_FullDayView_Title.appendChild( dateEnd );
+        buildDateTimeDisplay( _element_FullDayView_Title, date, false );
 
         for ( var storageDate in _events ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
