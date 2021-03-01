@@ -11,6 +11,7 @@
 div.calendar,
 div.calender-tooltip,
 div.calender-tooltip-event,
+div.calender-drop-down-menu,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
@@ -928,6 +929,46 @@ div.calender-tooltip {
 div.calender-tooltip-event {
     max-width: 300px;
     width: 100%;
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Drop-Down Menu
+    -------------------------------------------------------------------------
+*/
+
+div.calender-drop-down-menu {
+    background-color: #DCDCDC;
+    border: $standard-border-size solid $dark-color;
+    color: $dark-color;
+    border-radius: $border-view-radius;
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    display: none;
+    cursor: pointer !important;
+    font-size: smaller !important;;
+    z-index: 1000;
+
+    div.item {
+        padding: $spacing;
+        padding-right: $spacing * 3;
+
+        &:hover {
+            background-color: $dark-color;
+            color: $light-color;
+            transition: $transition;
+        }
+
+        &:active {
+            @include opacity-active-effect;
+        }
+    }
+
+    div.separator {
+        border-bottom: $standard-border-size solid $dark-color;
+    }
 }
 
 

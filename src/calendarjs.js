@@ -177,7 +177,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
         _element_Tooltip_Description = null,
-        _element_Tooltip_ShowTimer = null;
+        _element_Tooltip_ShowTimer = null,
+        _element_DropDownMenu_Day = null,
+        _element_DropDownMenu_DateSelected = null;
 
 
     /*
@@ -211,6 +213,7 @@ function calendarJs( id, options, startDateTime ) {
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
         buildTooltip();
+        buildDropDownMenus();
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
     }
@@ -359,8 +362,14 @@ function calendarJs( id, options, startDateTime ) {
                 }
             };
 
-            _document.body.addEventListener( "click", hideYearSelectorDropDown );
-            _window.addEventListener( "resize", hideYearSelectorDropDown );
+            var bodyEvents = function() {
+                hideDayDropDownMenu();
+                hideYearSelectorDropDown();
+            };
+
+            _document.body.addEventListener( "click", bodyEvents );
+            _document.body.addEventListener( "contextmenu", bodyEvents );
+            _window.addEventListener( "resize", bodyEvents );
         }
     }
 
@@ -1397,6 +1406,10 @@ function calendarJs( id, options, startDateTime ) {
         dayText.className = isMuted ? "day-muted" : "";
         dayText.innerText = actualDay;
 
+        dayElement.oncontextmenu = function( e ) {
+            showDayDropDownMenu( e, new Date( year, month, actualDay ) );
+        };
+
         if ( _options.showDayNumberOrdinals ) {
             var sup = createElement( "sup" );
             sup.innerText = getDayOrdinal( actualDay );
@@ -1473,6 +1486,58 @@ function calendarJs( id, options, startDateTime ) {
             };
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Drop-Down Menus
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildDropDownMenus() {
+        buildDayDropDownMenu();
+    }
+
+    function buildDayDropDownMenu() {
+        _element_DropDownMenu_Day = createElement( "div" );
+        _element_DropDownMenu_Day.className = "calender-drop-down-menu";
+        _document.body.appendChild( _element_DropDownMenu_Day );
+        
+        var addEvent = createElement( "div" );
+        addEvent.className = "item";
+        addEvent.innerHTML = _options.addEventTitle;
+        _element_DropDownMenu_Day.appendChild( addEvent );
+
+        addEvent.onclick = function() {
+            showEventDialog( null, _element_DropDownMenu_DateSelected );
+        };
+
+        var separator1 = createElement( "div" );
+        separator1.className = "separator";
+        _element_DropDownMenu_Day.appendChild( separator1 );
+
+        var expandDay = createElement( "div" );
+        expandDay.className = "item";
+        expandDay.innerHTML = _options.expandDayTooltipText;
+        _element_DropDownMenu_Day.appendChild( expandDay );
+
+        expandDay.onclick = function() {
+            showFullDayView( _element_DropDownMenu_DateSelected );
+        };
+    }
+
+    function showDayDropDownMenu( e, date ) {
+        _element_DropDownMenu_DateSelected = date;
+
+        cancelBubble( e );
+        showElementAtMousePosition( e, _element_DropDownMenu_Day );
+    }
+
+    function hideDayDropDownMenu() {
+        if ( _element_DropDownMenu_Day.style.display !== "none" ) {
+            _element_DropDownMenu_Day.style.display = "none";
         }
     }
 
@@ -1985,7 +2050,6 @@ function calendarJs( id, options, startDateTime ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calender-tooltip-event" : "calender-tooltip";
-                    _element_Tooltip.style.display = "block";
 
                     if ( text !== "" ) {
                         _element_Tooltip.innerHTML = text;
@@ -2015,23 +2079,7 @@ function calendarJs( id, options, startDateTime ) {
                         }
                     }
 
-                    var left = e.clientX,
-                        top = e.clientY;
-    
-                    if ( left + _element_Tooltip.offsetWidth > _window.innerWidth ) {
-                        left -= _element_Tooltip.offsetWidth;
-                    } else {
-                        left++;
-                    }
-    
-                    if ( top + _element_Tooltip.offsetHeight > _window.innerHeight ) {
-                        top -= _element_Tooltip.offsetHeight;
-                    } else {
-                        top++;
-                    }
-                    
-                    _element_Tooltip.style.left = left + "px";
-                    _element_Tooltip.style.top = top + "px";
+                    showElementAtMousePosition( e, _element_Tooltip );
                 }
 
             }, _options.eventTooltipDelay );
@@ -2167,6 +2215,28 @@ function calendarJs( id, options, startDateTime ) {
     function cancelBubble( e ) {
         e.preventDefault();
         e.cancelBubble = true;
+    }
+
+    function showElementAtMousePosition( e, element ) {
+        var left = e.clientX,
+            top = e.clientY;
+
+        element.style.display = "block";
+
+        if ( left + element.offsetWidth > _window.innerWidth ) {
+            left -= element.offsetWidth;
+        } else {
+            left++;
+        }
+
+        if ( top + element.offsetHeight > _window.innerHeight ) {
+            top -= element.offsetHeight;
+        } else {
+            top++;
+        }
+        
+        element.style.left = left + "px";
+        element.style.top = top + "px";
     }
 
 

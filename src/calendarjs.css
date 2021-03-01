@@ -7,6 +7,7 @@
 div.calendar,
 div.calender-tooltip,
 div.calender-tooltip-event,
+div.calender-drop-down-menu,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
@@ -23,6 +24,7 @@ div.calender-select-export-type-dialog textarea {
   div.calendar,
   div.calender-tooltip,
   div.calender-tooltip-event,
+  div.calender-drop-down-menu,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -40,6 +42,7 @@ div.calender-select-export-type-dialog textarea {
   div.calendar,
   div.calender-tooltip,
   div.calender-tooltip-event,
+  div.calender-drop-down-menu,
   div.calender-event-editor-dialog,
   div.calender-event-editor-dialog input,
   div.calender-event-editor-dialog textarea,
@@ -56,6 +59,7 @@ div.calender-select-export-type-dialog textarea {
 div.calendar div.overlay-shown,
 div.calender-tooltip div.overlay-shown,
 div.calender-tooltip-event div.overlay-shown,
+div.calender-drop-down-menu div.overlay-shown,
 div.calender-event-editor-dialog div.overlay-shown,
 div.calender-event-editor-dialog input div.overlay-shown,
 div.calender-event-editor-dialog textarea div.overlay-shown,
@@ -2095,6 +2099,48 @@ div.calender-tooltip {
 div.calender-tooltip-event {
   max-width: 300px;
   width: 100%;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Drop-Down Menu
+    -------------------------------------------------------------------------
+*/
+div.calender-drop-down-menu {
+  background-color: #DCDCDC;
+  border: 1px solid #282828;
+  color: #282828;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: none;
+  cursor: pointer !important;
+  font-size: smaller !important;
+  z-index: 1000;
+}
+
+div.calender-drop-down-menu div.item {
+  padding: 10px;
+  padding-right: 30px;
+}
+
+div.calender-drop-down-menu div.item:hover {
+  background-color: #282828;
+  color: #F5F5F5;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+div.calender-drop-down-menu div.item:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.calender-drop-down-menu div.separator {
+  border-bottom: 1px solid #282828;
 }
 
 /*
