@@ -2751,7 +2751,11 @@ function calendarJs( id, options, startDateTime ) {
                 updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
                 triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
-                event.id = storageGuid;
+                if ( !isDefined( event.id ) ) {
+                    event.id = storageGuid;
+                } else {
+                    storageGuid = event.id;
+                }
 
                 _events[ storageDate ][ storageGuid ] = getAdjustedAllDayEventEvent( event );
                 added = true;
@@ -2819,17 +2823,17 @@ function calendarJs( id, options, startDateTime ) {
 
         for ( var storageDate in _events ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageID in _events[ storageDate ] ) {
+                for ( var storageGuid in _events[ storageDate ] ) {
 
-                    if ( _events[ storageDate ].hasOwnProperty( storageID ) && storageID === id ) {
+                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) && storageGuid === id ) {
                         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
                         triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
-                        delete _events[ storageDate ][ storageID ];
+                        delete _events[ storageDate ][ storageGuid ];
                         removed = true;
 
                         if ( triggerEvent ) {
-                            triggerOptionsEventWithEventData( "onEventRemoved", _events[ storageDate ][ storageID ] );
+                            triggerOptionsEventWithEventData( "onEventRemoved", _events[ storageDate ][ storageGuid ] );
                         }
 
                         if ( updateEvents ) {

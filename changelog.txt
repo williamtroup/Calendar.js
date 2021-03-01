@@ -25,6 +25,7 @@ v0.3.0:
 - Fixed the tooltips being shown when a drop down menu (Years, Context) is visible.
 - The Year Selector drop-down menu now highlights the current year.
 - Fixed outline issues when focusing on a input/textarea.  They now work in all browsers and have a transition effect.
+- Event "id" property values are now maintained when editing or moving the event.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
