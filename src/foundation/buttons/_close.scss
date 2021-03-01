@@ -1,0 +1,24 @@
+@import "button";
+
+.ib-close {
+    @include button;
+    float: right;
+
+    &:before,
+    &:after {
+        left: ($size / 2) - $border-width / 2;
+        top: -($border-width / 4);
+        width: $border-width;
+        height: $size + $border-width / 2;
+        background-color: $light-color;
+        border-radius: $border-radius;
+    }
+
+    &:before {
+        transform: rotate(45deg);
+    }
+
+    &:after {
+        transform: rotate(-45deg);
+    }
+}

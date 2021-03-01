@@ -1,0 +1,24 @@
+@import "button";
+
+.ib-refresh {
+    @include button;
+    float: left;
+    
+    &:before {
+        border-top: $border;
+        border-left: $border;
+        border-radius: $border-radius;
+        left: 0;
+        width: $size - $border-width * 2 - $border-width / 3;
+        height: $size - $border-width;
+    }
+
+    &:after {
+        border-bottom: $border;
+        border-right: $border;
+        border-radius: $border-radius;
+        right: 0;
+        width: $size - $border-width * 2 - $border-width / 3;
+        height: $size - $border-width;
+    }
+}

@@ -184,7 +184,10 @@ div.calendar {
         background-color: $dark-color;
         color: $light-color;
         text-align: center;
-        padding: $spacing;
+        padding-top: $spacing;
+        padding-bottom: $spacing;
+        padding-left: $spacing / 2;
+        padding-right: $spacing / 2;
         position: relative;
 
         div.title-container {
@@ -264,171 +267,19 @@ div.calendar {
         }
 
         div {
-            margin-left: 5px;
-            margin-right: 5px;
+            margin-left: $spacing / 2;
+            margin-right: $spacing / 2;
         }
 
-        div.arrow {
-            border-top: $header-date-toolbar-button-border;
-            border-right: $header-date-toolbar-button-border;
-            width: 8px;
-            height: 8px;
-            border-radius: $border-view-radius;
-            display: inline;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
+        @import "foundation/buttons/arrow-left-full";
+        @import "foundation/buttons/pin";
+        @import "foundation/buttons/refresh";
 
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-        
-        div.next-month {
-            @include transform(rotate(45deg));
-            float: right;
-
-        }
-        
-        div.previous-month {
-            @include transform(rotate(-135deg));
-            float: left;
-        }
-
-        div.previous-month,
-        div.next-month {
-            margin-top: 2px;
-            margin-left: 0;
-            margin-right: 0;
-        }
-        
-        @import "foundation/export-events-button";
-        @import "foundation/add-event-button";
-
-        div.list-all-events {
-            display: inline;
-            width: 16px;
-            height: 8px;
-            border-top: $header-date-toolbar-button-border;
-            border-bottom: $header-date-toolbar-button-border;
-            border-radius: $border-circle-radius;
-            float: right;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        div.today {
-            width: 18px;
-            height: 12px;
-            float: left;
-            border-top: $header-date-toolbar-button-border;
-            border-radius: .25rem;
-            position: relative;
-
-            &:before,
-            &:after {
-                position: absolute;
-                content: "";
-                background-color: $light-color;
-                width: 4px;
-                left: 50%;
-                transform: translate(-50%);
-            }
-
-            &:before {
-                height: calc(100% - 6px);
-                border-bottom-left-radius: .25rem;
-                border-bottom-right-radius: .25rem;
-            }
-    
-            &:after {
-                height: 4px;
-                bottom: 0;
-                border-radius: .25rem;
-            }
-
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        div.list-week-events {
-            display: inline;
-            width: 16px;
-            height: 9px;
-            border-top: $header-date-toolbar-button-small-border;
-            border-bottom: $header-date-toolbar-button-small-border;
-            float: right;
-            position: relative;
-            margin-top: 1px;
-            border-radius: $border-view-radius;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-
-            &:before {
-                content: "";
-                position: absolute;
-                top: 3px;
-                left: 0px;
-                height: 3px;
-                width: 100%;
-                background: $light-color;
-              }
-        }
-
-        div.refresh {
-            width: 18px;
-            height: 14px;
-            float: left;
-            position: relative;
-            margin-top: 1px;
-
-            &:before,
-            &:after {
-                position: absolute;
-                content: "";
-                width: 8px;
-                height: 10px;
-                border-radius: .25rem;
-            }
-
-            &:before {
-                border-top: $header-date-toolbar-button-border;
-                border-left: $header-date-toolbar-button-border;
-                left: 0;
-            }
-    
-            &:after {
-                border-bottom: $header-date-toolbar-button-border;
-                border-right: $header-date-toolbar-button-border;
-                left: 6px;
-            }
-
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
+        @import "foundation/buttons/hamburger";
+        @import "foundation/buttons/eye";
+        @import "foundation/buttons/arrow-down-full-line";
+        @import "foundation/buttons/plus";
+        @import "foundation/buttons/arrow-right-full";
     }
 }
 

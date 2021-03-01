@@ -249,7 +249,10 @@ div.calendar div.header-date {
   background-color: #282828;
   color: #F5F5F5;
   text-align: center;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   position: relative;
 }
 
@@ -349,286 +352,330 @@ div.calendar div.header-date div {
   margin-right: 5px;
 }
 
-div.calendar div.header-date div.arrow {
-  border-top: 4px solid #F5F5F5;
-  border-right: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  border-radius: 0.25rem;
-  display: inline;
+div.calendar div.header-date .ib-arrow-left-full {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: left;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 16px solid #F5F5F5;
 }
 
-div.calendar div.header-date div.arrow:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.header-date .ib-arrow-left-full:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.header-date div.arrow:active {
+div.calendar div.header-date .ib-arrow-left-full:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.header-date div.next-month {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  float: right;
+div.calendar div.header-date .ib-pin {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: left;
+  height: 12px;
+  border-top: 4px solid #F5F5F5;
+  border-radius: 50%;
 }
 
-div.calendar div.header-date div.previous-month {
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
+div.calendar div.header-date .ib-pin:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.header-date .ib-pin:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+div.calendar div.header-date .ib-pin:before, div.calendar div.header-date .ib-pin:after {
+  position: absolute;
+  content: "";
+}
+
+div.calendar div.header-date .ib-pin:before {
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  background-color: #F5F5F5;
+  width: 4px;
+  height: calc(100% - 4px - 2px);
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+div.calendar div.header-date .ib-pin:after {
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  background-color: #F5F5F5;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  bottom: 0;
+}
+
+div.calendar div.header-date .ib-refresh {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
   float: left;
 }
 
-div.calendar div.header-date div.previous-month,
-div.calendar div.header-date div.next-month {
-  margin-top: 2px;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-div.calendar div.header-date div.export-events {
-  width: 12px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.header-date div.export-events:before, div.calendar div.header-date div.export-events:after {
-  position: absolute;
-  content: "";
-  border-radius: .25rem;
-}
-
-div.calendar div.header-date div.export-events:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  border-right: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  top: 4px;
-  left: 0;
-}
-
-div.calendar div.header-date div.export-events:after {
-  background-color: #F5F5F5;
-  width: 4px;
-  left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
-  height: calc(100% - 2px);
-  top: 0;
-}
-
-div.calendar div.header-date div.export-events:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.header-date .ib-refresh:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.header-date div.export-events:active {
+div.calendar div.header-date .ib-refresh:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.header-date div.add-event {
-  width: 16px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.header-date div.add-event:before, div.calendar div.header-date div.add-event:after {
+div.calendar div.header-date .ib-refresh:before, div.calendar div.header-date .ib-refresh:after {
   position: absolute;
   content: "";
-  background-color: #F5F5F5;
-  border-radius: .25rem;
 }
 
-div.calendar div.header-date div.add-event:before {
-  width: 4px;
-  left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
-  height: 100%;
+div.calendar div.header-date .ib-refresh:before {
+  border-top: 4px solid #F5F5F5;
+  border-left: 4px solid #F5F5F5;
+  border-radius: 4px;
+  left: 0;
+  width: 6.66667px;
+  height: 12px;
 }
 
-div.calendar div.header-date div.add-event:after {
-  width: 100%;
-  height: 4px;
+div.calendar div.header-date .ib-refresh:after {
+  border-bottom: 4px solid #F5F5F5;
+  border-right: 4px solid #F5F5F5;
+  border-radius: 4px;
+  right: 0;
+  width: 6.66667px;
+  height: 12px;
+}
+
+div.calendar div.header-date .ib-hamburger {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
+  border-top: 4px solid #F5F5F5;
+  border-bottom: 4px solid #F5F5F5;
+  border-radius: 4px;
+  height: 8px;
+}
+
+div.calendar div.header-date .ib-hamburger:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.header-date .ib-hamburger:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+div.calendar div.header-date .ib-hamburger:before {
+  position: absolute;
+  content: "";
   top: 50%;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
-  left: 0;
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  left: 0px;
 }
 
-div.calendar div.header-date div.add-event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.header-date div.add-event:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-div.calendar div.header-date div.list-all-events {
-  display: inline;
+div.calendar div.header-date .ib-eye {
   width: 16px;
-  height: 8px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
   border-top: 4px solid #F5F5F5;
   border-bottom: 4px solid #F5F5F5;
   border-radius: 50%;
-  float: right;
+  height: 8px;
 }
 
-div.calendar div.header-date div.list-all-events:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.header-date .ib-eye:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.header-date div.list-all-events:active {
+div.calendar div.header-date .ib-eye:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.header-date div.today {
-  width: 18px;
-  height: 12px;
-  float: left;
-  border-top: 4px solid #F5F5F5;
-  border-radius: .25rem;
-  position: relative;
-}
-
-div.calendar div.header-date div.today:before, div.calendar div.header-date div.today:after {
+div.calendar div.header-date .ib-eye:before {
   position: absolute;
   content: "";
-  background-color: #F5F5F5;
-  width: 4px;
-  left: 50%;
+  left: calc(50% - 2px);
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
-}
-
-div.calendar div.header-date div.today:before {
-  height: calc(100% - 6px);
-  border-bottom-left-radius: .25rem;
-  border-bottom-right-radius: .25rem;
-}
-
-div.calendar div.header-date div.today:after {
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  background-color: #F5F5F5;
+  width: 4px;
   height: 4px;
-  bottom: 0;
-  border-radius: .25rem;
+  border-radius: 50%;
 }
 
-div.calendar div.header-date div.today:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.header-date div.today:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-div.calendar div.header-date div.list-week-events {
-  display: inline;
+div.calendar div.header-date .ib-arrow-down-full-line {
   width: 16px;
-  height: 9px;
-  border-top: 3px solid #F5F5F5;
-  border-bottom: 3px solid #F5F5F5;
-  float: right;
+  height: 16px;
+  display: inline-block;
   position: relative;
-  margin-top: 1px;
-  border-radius: 0.25rem;
+  float: right;
 }
 
-div.calendar div.header-date div.list-week-events:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.header-date .ib-arrow-down-full-line:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.header-date div.list-week-events:active {
+div.calendar div.header-date .ib-arrow-down-full-line:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.header-date div.list-week-events:before {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 0px;
-  height: 3px;
-  width: 100%;
-  background: #F5F5F5;
-}
-
-div.calendar div.header-date div.refresh {
-  width: 18px;
-  height: 14px;
-  float: left;
-  position: relative;
-  margin-top: 1px;
-}
-
-div.calendar div.header-date div.refresh:before, div.calendar div.header-date div.refresh:after {
+div.calendar div.header-date .ib-arrow-down-full-line:before, div.calendar div.header-date .ib-arrow-down-full-line:after {
   position: absolute;
   content: "";
-  width: 8px;
-  height: 10px;
-  border-radius: .25rem;
 }
 
-div.calendar div.header-date div.refresh:before {
-  border-top: 4px solid #F5F5F5;
-  border-left: 4px solid #F5F5F5;
+div.calendar div.header-date .ib-arrow-down-full-line:before {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #F5F5F5;
+  bottom: 0;
   left: 0;
 }
 
-div.calendar div.header-date div.refresh:after {
-  border-bottom: 4px solid #F5F5F5;
-  border-right: 4px solid #F5F5F5;
-  left: 6px;
+div.calendar div.header-date .ib-arrow-down-full-line:after {
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: #F5F5F5;
+  top: 0;
 }
 
-div.calendar div.header-date div.refresh:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.header-date .ib-plus {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
+}
+
+div.calendar div.header-date .ib-plus:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.header-date div.refresh:active {
+div.calendar div.header-date .ib-plus:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
+}
+
+div.calendar div.header-date .ib-plus:before, div.calendar div.header-date .ib-plus:after {
+  position: absolute;
+  content: "";
+}
+
+div.calendar div.header-date .ib-plus:before {
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  background-color: #F5F5F5;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px;
+}
+
+div.calendar div.header-date .ib-plus:after {
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  left: 0;
+}
+
+div.calendar div.header-date .ib-arrow-right-full {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 16px solid #F5F5F5;
+}
+
+div.calendar div.header-date .ib-arrow-right-full:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.header-date .ib-arrow-right-full:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 /*
@@ -711,9 +758,12 @@ div.calendar div.full-day-view {
 }
 
 div.calendar div.full-day-view div.title-bar {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - 10px - 5px);
   display: inline-block;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
   background-color: #282828;
   color: #F5F5F5;
 }
@@ -729,141 +779,145 @@ div.calendar div.full-day-view div.title-bar div.title {
   margin-left: 0;
 }
 
-div.calendar div.full-day-view div.title-bar div.close {
-  float: right;
-  margin-top: 2px;
-  margin-left: 0;
+div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line {
   width: 16px;
-  height: 14px;
+  height: 16px;
+  display: inline-block;
   position: relative;
+  float: right;
 }
 
-div.calendar div.full-day-view div.title-bar div.close:before, div.calendar div.full-day-view div.title-bar div.close:after {
-  position: absolute;
-  content: "";
-  border-top: 4px solid #F5F5F5;
-  border-right: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  border-radius: 0.25rem;
-}
-
-div.calendar div.full-day-view div.title-bar div.close:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-div.calendar div.full-day-view div.title-bar div.close:after {
-  left: 12px;
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-}
-
-div.calendar div.full-day-view div.title-bar div.close:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.full-day-view div.title-bar div.close:active {
+div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.full-day-view div.title-bar div.export-events {
-  width: 12px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.full-day-view div.title-bar div.export-events:before, div.calendar div.full-day-view div.title-bar div.export-events:after {
+div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line:before, div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line:after {
   position: absolute;
   content: "";
-  border-radius: .25rem;
 }
 
-div.calendar div.full-day-view div.title-bar div.export-events:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  border-right: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  top: 4px;
+div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line:before {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #F5F5F5;
+  bottom: 0;
   left: 0;
 }
 
-div.calendar div.full-day-view div.title-bar div.export-events:after {
-  background-color: #F5F5F5;
-  width: 4px;
+div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line:after {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
-  height: calc(100% - 2px);
+  width: 8px;
+  height: 8px;
+  background-color: #F5F5F5;
   top: 0;
 }
 
-div.calendar div.full-day-view div.title-bar div.export-events:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
+div.calendar div.full-day-view div.title-bar .ib-plus {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
 }
 
-div.calendar div.full-day-view div.title-bar div.export-events:active {
+div.calendar div.full-day-view div.title-bar .ib-plus:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.full-day-view div.title-bar .ib-plus:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.full-day-view div.title-bar div.add-event {
-  width: 16px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.full-day-view div.title-bar div.add-event:before, div.calendar div.full-day-view div.title-bar div.add-event:after {
+div.calendar div.full-day-view div.title-bar .ib-plus:before, div.calendar div.full-day-view div.title-bar .ib-plus:after {
   position: absolute;
   content: "";
-  background-color: #F5F5F5;
-  border-radius: .25rem;
 }
 
-div.calendar div.full-day-view div.title-bar div.add-event:before {
-  width: 4px;
+div.calendar div.full-day-view div.title-bar .ib-plus:before {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
+  background-color: #F5F5F5;
+  width: 4px;
   height: 100%;
+  border-radius: 4px;
 }
 
-div.calendar div.full-day-view div.title-bar div.add-event:after {
-  width: 100%;
-  height: 4px;
+div.calendar div.full-day-view div.title-bar .ib-plus:after {
   top: 50%;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
   left: 0;
 }
 
-div.calendar div.full-day-view div.title-bar div.add-event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
+div.calendar div.full-day-view div.title-bar .ib-close {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
 }
 
-div.calendar div.full-day-view div.title-bar div.add-event:active {
+div.calendar div.full-day-view div.title-bar .ib-close:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.full-day-view div.title-bar .ib-close:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
+}
+
+div.calendar div.full-day-view div.title-bar .ib-close:before, div.calendar div.full-day-view div.title-bar .ib-close:after {
+  position: absolute;
+  content: "";
+}
+
+div.calendar div.full-day-view div.title-bar .ib-close:before, div.calendar div.full-day-view div.title-bar .ib-close:after {
+  left: 6px;
+  top: -1px;
+  width: 4px;
+  height: 18px;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+}
+
+div.calendar div.full-day-view div.title-bar .ib-close:before {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+div.calendar div.full-day-view div.title-bar .ib-close:after {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 
 div.calendar div.full-day-view div.contents {
@@ -976,9 +1030,12 @@ div.calendar div.list-all-events-view {
 }
 
 div.calendar div.list-all-events-view div.title-bar {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - 10px - 5px);
   display: inline-block;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
   background-color: #282828;
   color: #F5F5F5;
 }
@@ -994,141 +1051,145 @@ div.calendar div.list-all-events-view div.title-bar div.title {
   margin-left: 0;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.close {
-  float: right;
-  margin-top: 2px;
-  margin-left: 0;
+div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line {
   width: 16px;
-  height: 14px;
+  height: 16px;
+  display: inline-block;
   position: relative;
+  float: right;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.close:before, div.calendar div.list-all-events-view div.title-bar div.close:after {
-  position: absolute;
-  content: "";
-  border-top: 4px solid #F5F5F5;
-  border-right: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  border-radius: 0.25rem;
-}
-
-div.calendar div.list-all-events-view div.title-bar div.close:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-div.calendar div.list-all-events-view div.title-bar div.close:after {
-  left: 12px;
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-}
-
-div.calendar div.list-all-events-view div.title-bar div.close:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.close:active {
+div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.export-events {
-  width: 12px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.list-all-events-view div.title-bar div.export-events:before, div.calendar div.list-all-events-view div.title-bar div.export-events:after {
+div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line:before, div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line:after {
   position: absolute;
   content: "";
-  border-radius: .25rem;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.export-events:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  border-right: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  top: 4px;
+div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line:before {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #F5F5F5;
+  bottom: 0;
   left: 0;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.export-events:after {
-  background-color: #F5F5F5;
-  width: 4px;
+div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line:after {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
-  height: calc(100% - 2px);
+  width: 8px;
+  height: 8px;
+  background-color: #F5F5F5;
   top: 0;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.export-events:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
+div.calendar div.list-all-events-view div.title-bar .ib-plus {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.export-events:active {
+div.calendar div.list-all-events-view div.title-bar .ib-plus:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.list-all-events-view div.title-bar .ib-plus:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.add-event {
-  width: 16px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.list-all-events-view div.title-bar div.add-event:before, div.calendar div.list-all-events-view div.title-bar div.add-event:after {
+div.calendar div.list-all-events-view div.title-bar .ib-plus:before, div.calendar div.list-all-events-view div.title-bar .ib-plus:after {
   position: absolute;
   content: "";
-  background-color: #F5F5F5;
-  border-radius: .25rem;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.add-event:before {
-  width: 4px;
+div.calendar div.list-all-events-view div.title-bar .ib-plus:before {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
+  background-color: #F5F5F5;
+  width: 4px;
   height: 100%;
+  border-radius: 4px;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.add-event:after {
-  width: 100%;
-  height: 4px;
+div.calendar div.list-all-events-view div.title-bar .ib-plus:after {
   top: 50%;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
   left: 0;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.add-event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
+div.calendar div.list-all-events-view div.title-bar .ib-close {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
 }
 
-div.calendar div.list-all-events-view div.title-bar div.add-event:active {
+div.calendar div.list-all-events-view div.title-bar .ib-close:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.list-all-events-view div.title-bar .ib-close:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
+}
+
+div.calendar div.list-all-events-view div.title-bar .ib-close:before, div.calendar div.list-all-events-view div.title-bar .ib-close:after {
+  position: absolute;
+  content: "";
+}
+
+div.calendar div.list-all-events-view div.title-bar .ib-close:before, div.calendar div.list-all-events-view div.title-bar .ib-close:after {
+  left: 6px;
+  top: -1px;
+  width: 4px;
+  height: 18px;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+}
+
+div.calendar div.list-all-events-view div.title-bar .ib-close:before {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+div.calendar div.list-all-events-view div.title-bar .ib-close:after {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 
 div.calendar div.list-all-events-view div.contents {
@@ -1257,9 +1318,12 @@ div.calendar div.list-all-week-events-view {
 }
 
 div.calendar div.list-all-week-events-view div.title-bar {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - 10px - 5px);
   display: inline-block;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
   background-color: #282828;
   color: #F5F5F5;
 }
@@ -1275,141 +1339,145 @@ div.calendar div.list-all-week-events-view div.title-bar div.title {
   margin-left: 0;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.close {
-  float: right;
-  margin-top: 2px;
-  margin-left: 0;
+div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line {
   width: 16px;
-  height: 14px;
+  height: 16px;
+  display: inline-block;
   position: relative;
+  float: right;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.close:before, div.calendar div.list-all-week-events-view div.title-bar div.close:after {
-  position: absolute;
-  content: "";
-  border-top: 4px solid #F5F5F5;
-  border-right: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  border-radius: 0.25rem;
-}
-
-div.calendar div.list-all-week-events-view div.title-bar div.close:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-div.calendar div.list-all-week-events-view div.title-bar div.close:after {
-  left: 12px;
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-}
-
-div.calendar div.list-all-week-events-view div.title-bar div.close:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.close:active {
+div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.export-events {
-  width: 12px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.list-all-week-events-view div.title-bar div.export-events:before, div.calendar div.list-all-week-events-view div.title-bar div.export-events:after {
+div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line:before, div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line:after {
   position: absolute;
   content: "";
-  border-radius: .25rem;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.export-events:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  border-right: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
-  width: 8px;
-  height: 8px;
-  top: 4px;
+div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line:before {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #F5F5F5;
+  bottom: 0;
   left: 0;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.export-events:after {
-  background-color: #F5F5F5;
-  width: 4px;
+div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line:after {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
-  height: calc(100% - 2px);
+  width: 8px;
+  height: 8px;
+  background-color: #F5F5F5;
   top: 0;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.export-events:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
+div.calendar div.list-all-week-events-view div.title-bar .ib-plus {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.export-events:active {
+div.calendar div.list-all-week-events-view div.title-bar .ib-plus:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.list-all-week-events-view div.title-bar .ib-plus:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.add-event {
-  width: 16px;
-  height: 16px;
-  float: right;
-  position: relative;
-}
-
-div.calendar div.list-all-week-events-view div.title-bar div.add-event:before, div.calendar div.list-all-week-events-view div.title-bar div.add-event:after {
+div.calendar div.list-all-week-events-view div.title-bar .ib-plus:before, div.calendar div.list-all-week-events-view div.title-bar .ib-plus:after {
   position: absolute;
   content: "";
-  background-color: #F5F5F5;
-  border-radius: .25rem;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.add-event:before {
-  width: 4px;
+div.calendar div.list-all-week-events-view div.title-bar .ib-plus:before {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
+  background-color: #F5F5F5;
+  width: 4px;
   height: 100%;
+  border-radius: 4px;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.add-event:after {
-  width: 100%;
-  height: 4px;
+div.calendar div.list-all-week-events-view div.title-bar .ib-plus:after {
   top: 50%;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
   left: 0;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.add-event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
+div.calendar div.list-all-week-events-view div.title-bar .ib-close {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
 }
 
-div.calendar div.list-all-week-events-view div.title-bar div.add-event:active {
+div.calendar div.list-all-week-events-view div.title-bar .ib-close:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+div.calendar div.list-all-week-events-view div.title-bar .ib-close:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
+}
+
+div.calendar div.list-all-week-events-view div.title-bar .ib-close:before, div.calendar div.list-all-week-events-view div.title-bar .ib-close:after {
+  position: absolute;
+  content: "";
+}
+
+div.calendar div.list-all-week-events-view div.title-bar .ib-close:before, div.calendar div.list-all-week-events-view div.title-bar .ib-close:after {
+  left: 6px;
+  top: -1px;
+  width: 4px;
+  height: 18px;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+}
+
+div.calendar div.list-all-week-events-view div.title-bar .ib-close:before {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+div.calendar div.list-all-week-events-view div.title-bar .ib-close:after {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 
 div.calendar div.list-all-week-events-view div.contents {
