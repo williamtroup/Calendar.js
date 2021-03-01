@@ -170,7 +170,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfirmationDialog_YesButton = null,
         _element_ConfirmationDialog_NoButton = null,
         _element_SelectExportTypeDialog = null,
-        _element_SelectExportTypeDialog_TitleBar = null,
         _element_SelectExportTypeDialog_Option_CSV = null,
         _element_SelectExportTypeDialog_Option_XML = null,
         _element_SelectExportTypeDialog_Option_JSON = null,
@@ -1748,7 +1747,7 @@ function calendarJs( id, options, startDateTime ) {
     function setInputType( input, type ) {
         try {
             input.type = type;
-        } catch( e ) {
+        } catch ( e ) {
             input.type = "text";
         }
     }
@@ -2021,10 +2020,10 @@ function calendarJs( id, options, startDateTime ) {
             _element_SelectExportTypeDialog.className = "calender-select-export-type-dialog";
             _document.body.appendChild( _element_SelectExportTypeDialog );
 
-            _element_SelectExportTypeDialog_TitleBar = createElement( "div" );
-            _element_SelectExportTypeDialog_TitleBar.className = "title-bar";
-            _element_SelectExportTypeDialog_TitleBar.innerHTML = _options.selectExportTypeTitle;
-            _element_SelectExportTypeDialog.appendChild( _element_SelectExportTypeDialog_TitleBar );
+            var titleBar = createElement( "div" );
+            titleBar.className = "title-bar";
+            titleBar.innerHTML = _options.selectExportTypeTitle;
+            _element_SelectExportTypeDialog.appendChild( titleBar );
 
             var contents = createElement( "div" );
             contents.className = "contents";
