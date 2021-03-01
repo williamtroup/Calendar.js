@@ -24,4 +24,10 @@ div.title-bar {
     @import "buttons/arrow-down-full-line";
     @import "buttons/plus";
     @import "buttons/close";
+
+    div.ib-arrow-down-full-line,
+    div.ib-plus,
+    div.ib-close {
+        float: right;
+    }
 }

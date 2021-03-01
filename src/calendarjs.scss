@@ -275,11 +275,25 @@ div.calendar {
         @import "foundation/buttons/pin";
         @import "foundation/buttons/refresh";
 
+        div.ib-arrow-left-full,
+        div.ib-pin,
+        div.ib-refresh {
+            float: left;
+        }
+
         @import "foundation/buttons/hamburger";
         @import "foundation/buttons/eye";
         @import "foundation/buttons/arrow-down-full-line";
         @import "foundation/buttons/plus";
         @import "foundation/buttons/arrow-right-full";
+
+        div.ib-hamburger,
+        div.ib-eye,
+        div.ib-arrow-down-full-line,
+        div.ib-plus,
+        div.ib-arrow-right-full {
+            float: right;
+        }
     }
 }
 

@@ -2,7 +2,7 @@
 
 .ib-plus {
     @include button;
-    float: right;
+    
     &:before {
         @include left-center;
         background-color: $light-color;

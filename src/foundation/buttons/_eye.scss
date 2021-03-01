@@ -2,7 +2,6 @@
 
 .ib-eye {
     @include button-no-before-after;
-    float: right;
     border-top: $border;
     border-bottom: $border;
     border-radius: 50%;

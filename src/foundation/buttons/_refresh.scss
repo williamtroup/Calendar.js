@@ -2,7 +2,6 @@
 
 .ib-refresh {
     @include button;
-    float: left;
     
     &:before {
         border-top: $border;

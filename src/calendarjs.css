@@ -357,7 +357,6 @@ div.calendar div.header-date .ib-arrow-left-full {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: left;
   width: 0;
   height: 0;
   border-top: 8px solid transparent;
@@ -384,7 +383,6 @@ div.calendar div.header-date .ib-pin {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: left;
   height: 12px;
   border-top: 4px solid #F5F5F5;
   border-radius: 50%;
@@ -436,7 +434,6 @@ div.calendar div.header-date .ib-refresh {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: left;
 }
 
 div.calendar div.header-date .ib-refresh:hover {
@@ -476,12 +473,17 @@ div.calendar div.header-date .ib-refresh:after {
   height: 12px;
 }
 
+div.calendar div.header-date div.ib-arrow-left-full,
+div.calendar div.header-date div.ib-pin,
+div.calendar div.header-date div.ib-refresh {
+  float: left;
+}
+
 div.calendar div.header-date .ib-hamburger {
   width: 16px;
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
   border-top: 4px solid #F5F5F5;
   border-bottom: 4px solid #F5F5F5;
   border-radius: 4px;
@@ -520,7 +522,6 @@ div.calendar div.header-date .ib-eye {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
   border-top: 4px solid #F5F5F5;
   border-bottom: 4px solid #F5F5F5;
   border-radius: 50%;
@@ -561,7 +562,6 @@ div.calendar div.header-date .ib-arrow-down-full-line {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.header-date .ib-arrow-down-full-line:hover {
@@ -608,7 +608,6 @@ div.calendar div.header-date .ib-plus {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.header-date .ib-plus:hover {
@@ -656,7 +655,6 @@ div.calendar div.header-date .ib-arrow-right-full {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
   width: 0;
   height: 0;
   border-top: 8px solid transparent;
@@ -676,6 +674,14 @@ div.calendar div.header-date .ib-arrow-right-full:active {
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
+}
+
+div.calendar div.header-date div.ib-hamburger,
+div.calendar div.header-date div.ib-eye,
+div.calendar div.header-date div.ib-arrow-down-full-line,
+div.calendar div.header-date div.ib-plus,
+div.calendar div.header-date div.ib-arrow-right-full {
+  float: right;
 }
 
 /*
@@ -784,7 +790,6 @@ div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.full-day-view div.title-bar .ib-arrow-down-full-line:hover {
@@ -831,7 +836,6 @@ div.calendar div.full-day-view div.title-bar .ib-plus {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.full-day-view div.title-bar .ib-plus:hover {
@@ -879,7 +883,6 @@ div.calendar div.full-day-view div.title-bar .ib-close {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.full-day-view div.title-bar .ib-close:hover {
@@ -918,6 +921,12 @@ div.calendar div.full-day-view div.title-bar .ib-close:before {
 div.calendar div.full-day-view div.title-bar .ib-close:after {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
+}
+
+div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.full-day-view div.title-bar div.ib-plus,
+div.calendar div.full-day-view div.title-bar div.ib-close {
+  float: right;
 }
 
 div.calendar div.full-day-view div.contents {
@@ -1056,7 +1065,6 @@ div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.list-all-events-view div.title-bar .ib-arrow-down-full-line:hover {
@@ -1103,7 +1111,6 @@ div.calendar div.list-all-events-view div.title-bar .ib-plus {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.list-all-events-view div.title-bar .ib-plus:hover {
@@ -1151,7 +1158,6 @@ div.calendar div.list-all-events-view div.title-bar .ib-close {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.list-all-events-view div.title-bar .ib-close:hover {
@@ -1190,6 +1196,12 @@ div.calendar div.list-all-events-view div.title-bar .ib-close:before {
 div.calendar div.list-all-events-view div.title-bar .ib-close:after {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
+}
+
+div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.list-all-events-view div.title-bar div.ib-plus,
+div.calendar div.list-all-events-view div.title-bar div.ib-close {
+  float: right;
 }
 
 div.calendar div.list-all-events-view div.contents {
@@ -1344,7 +1356,6 @@ div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-lin
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.list-all-week-events-view div.title-bar .ib-arrow-down-full-line:hover {
@@ -1391,7 +1402,6 @@ div.calendar div.list-all-week-events-view div.title-bar .ib-plus {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.list-all-week-events-view div.title-bar .ib-plus:hover {
@@ -1439,7 +1449,6 @@ div.calendar div.list-all-week-events-view div.title-bar .ib-close {
   height: 16px;
   display: inline-block;
   position: relative;
-  float: right;
 }
 
 div.calendar div.list-all-week-events-view div.title-bar .ib-close:hover {
@@ -1478,6 +1487,12 @@ div.calendar div.list-all-week-events-view div.title-bar .ib-close:before {
 div.calendar div.list-all-week-events-view div.title-bar .ib-close:after {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
+}
+
+div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-plus,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-close {
+  float: right;
 }
 
 div.calendar div.list-all-week-events-view div.contents {
