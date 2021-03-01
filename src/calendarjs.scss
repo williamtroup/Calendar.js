@@ -633,7 +633,7 @@ div.calender-event-editor-dialog {
             padding: .375rem .75rem;
             border: 1px solid $input-border-color;
             border-radius: $border-view-radius;
-            outline-color: $dark-color !important;
+            outline: none;
             margin-bottom: $spacing;
             background-color: $input-background-color;
             transition: $transition;
@@ -641,9 +641,10 @@ div.calender-event-editor-dialog {
             &:last-child {
                 margin-bottom: 0;
             }
-    
-            &:-moz-focusring {
-                outline: none;
+
+            &:focus {
+                border: 1px solid $dark-color;
+                box-shadow: 0 0 1pt 1pt $dark-color;
             }
         }
     
