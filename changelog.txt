@@ -1,3 +1,6 @@
+v0.4.0:
+- 
+
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
 - The custom scroll-bar now has :hover and :active selectors.
