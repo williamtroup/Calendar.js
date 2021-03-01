@@ -27,6 +27,7 @@ v0.3.0:
 - Fixed outline issues when focusing on a input/textarea.  They now work in all browsers and have a transition effect.
 - Event "id" property values are now maintained when editing or moving the event.
 - Fixed an error removing the description from a tooltip when it's not required.
+- Safer node adding/removing across the core code.
 
 v0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.

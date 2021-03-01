@@ -2281,7 +2281,9 @@ function calendarJs( id, options, startDateTime ) {
 
     function addNode( parent, node ) {
         try {
-            parent.appendChild( node );
+            if ( !parent.contains( node ) ) {
+                parent.appendChild( node );
+            }
         } catch ( e ) {
             console.warn( e.message );
         }
@@ -2289,7 +2291,9 @@ function calendarJs( id, options, startDateTime ) {
 
     function removeNode( parent, node ) {
         try {
-            parent.removeChild( node );
+            if ( parent.contains( node ) ) {
+                parent.removeChild( node );
+            }
         } catch ( e ) {
             console.warn( e.message );
         }
