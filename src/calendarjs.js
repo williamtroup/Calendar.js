@@ -12,9 +12,9 @@
  * This is the object format that is used to store the details about a day event.
  *
  * @property    {string}   id                                           The ID of for the event.
+ * @property    {string}   title                                        The title of the event.
  * @property    {object}   from                                         The date that the event occurs from.
  * @property    {object}   to                                           The date that the event runs until.
- * @property    {string}   title                                        The title of the event.
  * @property    {string}   description                                  The in depth description of the event.
  * @property    {string}   location                                     The location of the event.
  * @property    {string}   color                                        The color that should be used for the event (overrides all others).
@@ -1677,6 +1677,14 @@ function calendarJs( id, options, startDateTime ) {
             contents.className = "contents";
             view.appendChild( contents );
 
+            var textTitle = createElement( "p" );
+            textTitle.innerText = _options.titleText;
+            contents.appendChild( textTitle );
+
+            _element_EventEditorDialog_Title = createElement( "input" );
+            _element_EventEditorDialog_Title.type = "text";
+            contents.appendChild( _element_EventEditorDialog_Title );
+
             var textFrom = createElement( "p" );
             textFrom.innerText = _options.fromText;
             contents.appendChild( textFrom );
@@ -1727,14 +1735,6 @@ function calendarJs( id, options, startDateTime ) {
             toSplitContainer.appendChild( _element_EventEditorDialog_TimeTo );
 
             setInputType( _element_EventEditorDialog_TimeTo, "time" );
-
-            var textTitle = createElement( "p" );
-            textTitle.innerText = _options.titleText;
-            contents.appendChild( textTitle );
-
-            _element_EventEditorDialog_Title = createElement( "input" );
-            _element_EventEditorDialog_Title.type = "text";
-            contents.appendChild( _element_EventEditorDialog_Title );
 
             var textLocation = createElement( "p" );
             textLocation.innerText = _options.locationText;
@@ -1815,7 +1815,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
-        _element_EventEditorDialog_DateFrom.focus();
+        _element_EventEditorDialog_Title.focus();
 
         if ( isDefined( eventDetails ) ) {
             _element_EventEditorDialog_OKButton.value = _options.updateText;
