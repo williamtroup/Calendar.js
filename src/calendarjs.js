@@ -17,6 +17,9 @@
  * @property    {string}   title                                        The title of the event.
  * @property    {string}   description                                  The in depth description of the event.
  * @property    {string}   location                                     The location of the event.
+ * @property    {string}   color                                        The color that should be used for the event (overrides all others).
+ * @property    {string}   colorText                                    The color that should be used for the event text (overrides all others).
+ * @property    {string}   colorBorder                                  The color that should be used for the event border (overrides all others).
  * @property    {boolean}  isAllDayEvent                                States if this is an all day event.
  */
 
@@ -606,14 +609,8 @@ function calendarJs( id, options, startDateTime ) {
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
                 };
-    
-                if ( eventDetails.to < new Date() ) {
-                    event.className += " expired";
-                }
 
-                if ( eventDetails.isAllDayEvent ) {
-                    event.className += " all-day-event";
-                }
+                setEventClassesAndColors( eventDetails, event );
     
                 if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
                     event.setAttribute( "draggable", true );
@@ -703,6 +700,29 @@ function calendarJs( id, options, startDateTime ) {
 
         while ( events[ 0 ] ) {
             events[ 0 ].parentNode.removeChild( events[ 0 ] );
+        }
+    }
+
+    function setEventClassesAndColors( eventDetails, event ) {
+        if ( eventDetails.to < new Date() ) {
+            event.className += " expired";
+        }
+
+        if ( isDefinedStringAndSet( eventDetails.color ) ) {
+            event.style.backgroundColor = eventDetails.color;
+
+            if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
+                event.style.color = eventDetails.colorText;
+            }
+
+            if ( isDefinedStringAndSet( eventDetails.colorBorder ) ) {
+                event.style.borderLeftColor = eventDetails.colorBorder;
+            }
+        } else {
+
+            if ( eventDetails.isAllDayEvent ) {
+                event.className += " all-day-event";
+            }
         }
     }
 
@@ -854,22 +874,16 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        if ( eventDetails.to < new Date() ) {
-            event.className += " expired";
-        }
+        setEventClassesAndColors( eventDetails, event );
 
-        if ( eventDetails.isAllDayEvent ) {
-            event.className += " all-day-event";
-        }
-
-        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
             location.className = "location";
             location.innerHTML = eventDetails.location;
             event.appendChild( location );
         }
 
-        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.description ) ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
@@ -1007,22 +1021,16 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        if ( eventDetails.to < new Date() ) {
-            event.className += " expired";
-        }
+        setEventClassesAndColors( eventDetails, event );
 
-        if ( eventDetails.isAllDayEvent ) {
-            event.className += " all-day-event";
-        }
-
-        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
             location.className = "location";
             location.innerHTML = eventDetails.location;
             event.appendChild( location );
         }
 
-        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.description ) ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
@@ -1243,22 +1251,16 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        if ( eventDetails.to < new Date() ) {
-            event.className += " expired";
-        }
+        setEventClassesAndColors( eventDetails, event );
 
-        if ( eventDetails.isAllDayEvent ) {
-            event.className += " all-day-event";
-        }
-
-        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
             location.className = "location";
             location.innerHTML = eventDetails.location;
             event.appendChild( location );
         }
 
-        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.description ) ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
@@ -1548,7 +1550,10 @@ function calendarJs( id, options, startDateTime ) {
                 title: _eventDetails_Dragged.title,
                 description: _eventDetails_Dragged.description,
                 location: _eventDetails_Dragged.location,
-                isAllDayEvent: _eventDetails_Dragged.isAllDayEvent
+                isAllDayEvent: _eventDetails_Dragged.isAllDayEvent,
+                color: _eventDetails_Dragged.color,
+                colorText: _eventDetails_Dragged.colorText,
+                colorBorder: _eventDetails_Dragged.colorBorder
             };
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
@@ -2185,7 +2190,7 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip_Title.innerHTML = eventDetails.title;
 
-                        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+                        if ( isDefinedStringAndSet( eventDetails.location ) ) {
                             _element_Tooltip_Location.innerHTML = eventDetails.location;
                             addNode( _element_Tooltip, _element_Tooltip_Location );
                         } else {
@@ -2193,7 +2198,7 @@ function calendarJs( id, options, startDateTime ) {
                             removeNode( _element_Tooltip, _element_Tooltip_Location );
                         }
     
-                        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
+                        if ( isDefinedStringAndSet( eventDetails.description ) ) {
                             _element_Tooltip_Description.innerHTML = eventDetails.description;
                             addNode( _element_Tooltip, _element_Tooltip_Description );
                         } else {
@@ -2397,6 +2402,10 @@ function calendarJs( id, options, startDateTime ) {
 
     function isDefinedString( object ) {
         return isDefined( object ) && typeof object === "string";
+    }
+
+    function isDefinedStringAndSet( object ) {
+        return isDefinedString( object ) && object !== "";
     }
 
 
