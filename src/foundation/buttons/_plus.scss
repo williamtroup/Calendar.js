@@ -2,13 +2,14 @@
 
 .ib-plus {
     @include button;
-    
+
     &:before {
         @include left-center;
         background-color: $light-color;
         width: $border-width;
         height: 100%;
         border-radius: $border-radius;
+        top: 0;
     }
 
     &:after {

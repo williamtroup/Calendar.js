@@ -59,3 +59,9 @@ $border: $border-width solid $light-color;
     top: 50%;
     transform: translate(0, -50%);
 }
+
+@mixin transform-rotate($property) {
+    -webkit-transform: rotate($property);
+    -ms-transform: rotate($property);
+    transform: rotate($property);
+}

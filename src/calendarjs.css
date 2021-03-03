@@ -1644,6 +1644,7 @@ div.calender-drop-down-menu div.separator {
   height: calc(100% - 4px - 2px);
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
+  top: 0;
 }
 
 .ib-pin:after {
@@ -1687,18 +1688,20 @@ div.calender-drop-down-menu div.separator {
   border-top: 4px solid #F5F5F5;
   border-left: 4px solid #F5F5F5;
   border-radius: 4px;
-  left: 0;
   width: 6.66667px;
   height: 12px;
+  left: 0;
+  top: 0;
 }
 
 .ib-refresh:after {
   border-bottom: 4px solid #F5F5F5;
   border-right: 4px solid #F5F5F5;
   border-radius: 4px;
-  right: 0;
   width: 6.66667px;
   height: 12px;
+  right: 0;
+  top: 0;
 }
 
 .ib-hamburger {
@@ -1736,7 +1739,7 @@ div.calender-drop-down-menu div.separator {
   width: 100%;
   height: 4px;
   border-radius: 4px;
-  left: 0px;
+  left: 0;
 }
 
 .ib-eye {
@@ -1811,8 +1814,8 @@ div.calender-drop-down-menu div.separator {
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 8px solid #F5F5F5;
-  bottom: 0;
   left: 0;
+  bottom: 0;
 }
 
 .ib-arrow-down-full-line:after {
@@ -1859,6 +1862,7 @@ div.calender-drop-down-menu div.separator {
   width: 4px;
   height: 100%;
   border-radius: 4px;
+  top: 0;
 }
 
 .ib-plus:after {
@@ -1932,6 +1936,7 @@ div.calender-drop-down-menu div.separator {
   width: 4px;
   height: 100%;
   border-radius: 4px;
+  top: 0;
 }
 
 .ib-plus:after {
@@ -1972,21 +1977,21 @@ div.calender-drop-down-menu div.separator {
 }
 
 .ib-close:before, .ib-close:after {
-  left: 6px;
-  top: -1px;
   width: 4px;
   height: 18px;
   background-color: #F5F5F5;
   border-radius: 4px;
+  left: 6px;
+  top: -1px;
 }
 
 .ib-close:before {
   -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .ib-close:after {
   -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 /*# sourceMappingURL=calendarjs.css.map */

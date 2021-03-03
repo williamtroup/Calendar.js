@@ -13,6 +13,7 @@
         height: calc(100% - #{$border-width} - 2px);
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
+        top: 0;
     }
 
     &:after {
