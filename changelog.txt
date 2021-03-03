@@ -7,6 +7,7 @@ v0.4.0:
 - Event tooltip widths now auto-size to the available content (saves a lot of empty space).
 - Added support to set event Color, Text Color and Border Color (color, colorText, colorBorder properties).
 - The "Title" field is now the first field in the Event Editor dialog.
+- Added a new "..." button next to the Title text box on the event editor (allows choosing the colors for the event).
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.

@@ -102,6 +102,10 @@
  * @property    {string}   selectExportTypeTitle                        The text that should be displayed for the "Select Export Type" label.
  * @property    {boolean}  fullScreenModeEnabled                        States if double click on the main title bar activates full screen mode (defaults to true).
  * @property    {number}   eventTooltipDelay                            The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
+ * @property    {string}   selectColorsText                             The text that should be displayed for the "Select Colors" label.
+ * @property    {string}   backgroundColorText                          The text that should be displayed for the "Background Color:" label.
+ * @property    {string}   textColorText                                The text that should be displayed for the "Text Color:" label.
+ * @property    {string}   borderColorText                              The text that should be displayed for the "Border Color:" label.
  */
 
 
@@ -149,12 +153,17 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_TimeTo = null,
         _element_EventEditorDialog_IsAllDayEvent = null,
         _element_EventEditorDialog_Title = null,
+        _element_EventEditorDialog_SelectColorsButton = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
         _element_EventEditorDialog_ErrorMessage = null,
         _element_EventEditorDialog_EventDetails = null,
         _element_EventEditorDialog_OKButton = null,
         _element_EventEditorDialog_RemoveButton = null,
+        _element_EventEditorColorsDialog = null,
+        _element_EventEditorColorsDialog_Color = null,
+        _element_EventEditorColorsDialog_ColorText = null,
+        _element_EventEditorColorsDialog_ColorBorder = null,
         _element_FullDayView = null,
         _element_FullDayView_Title = null,
         _element_FullDayView_Contents = null,
@@ -219,6 +228,7 @@ function calendarJs( id, options, startDateTime ) {
         buildDayEvents();
         buildDisabledBackground();
         buildEventEditingDialog();
+        buildEventEditingColorDialog();
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
         buildTooltip();
@@ -1681,9 +1691,20 @@ function calendarJs( id, options, startDateTime ) {
             textTitle.innerText = _options.titleText;
             contents.appendChild( textTitle );
 
+            var inputTitleContainer = createElement( "div" );
+            inputTitleContainer.className = "input-title-container";
+            contents.appendChild( inputTitleContainer );
+
             _element_EventEditorDialog_Title = createElement( "input" );
             _element_EventEditorDialog_Title.type = "text";
-            contents.appendChild( _element_EventEditorDialog_Title );
+            inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
+
+            _element_EventEditorDialog_SelectColorsButton = createElement( "input" );
+            _element_EventEditorDialog_SelectColorsButton.className = "dots";
+            _element_EventEditorDialog_SelectColorsButton.type = "button";
+            _element_EventEditorDialog_SelectColorsButton.value = "...";
+            _element_EventEditorDialog_SelectColorsButton.onclick = showEventEditorColorsDialog;
+            inputTitleContainer.appendChild( _element_EventEditorDialog_SelectColorsButton );
 
             var textFrom = createElement( "p" );
             textFrom.innerText = _options.fromText;
@@ -1830,6 +1851,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.value = getString( eventDetails.title );
             _element_EventEditorDialog_Description.value = getString( eventDetails.description );
             _element_EventEditorDialog_Location.value = getString( eventDetails.location );
+            _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
+            _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
+            _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
         } else {
             var date = new Date(),
                 today = !isDefined( overrideTodayDate ) ? date : overrideTodayDate;
@@ -1851,6 +1875,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.value = "";
             _element_EventEditorDialog_Description.value = "";
             _element_EventEditorDialog_Location.value = "";
+            _element_EventEditorColorsDialog_Color.value = "#484848";
+            _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
+            _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
         }
 
         isAllDayEventChanged();
@@ -1889,7 +1916,10 @@ function calendarJs( id, options, startDateTime ) {
                 title: title,
                 description: description,
                 location: location,
-                isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked
+                isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
+                color: _element_EventEditorDialog_EventDetails.color,
+                colorText: _element_EventEditorDialog_EventDetails.colorText,
+                colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
             };
 
             if ( _element_EventEditorDialog_EventDetails !== null ) {
@@ -1988,6 +2018,93 @@ function calendarJs( id, options, startDateTime ) {
         updateFullDayViewFromEventEdit();
         updateViewAllEventsViewFromEventEdit();
         updateViewAllWeekEventsViewFromEventEdit();
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Event Editing Colors Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildEventEditingColorDialog() {
+        if ( _element_EventEditorColorsDialog === null ) {
+            _element_EventEditorColorsDialog = createElement( "div" );
+            _element_EventEditorColorsDialog.className = "calender-event-editor-colors-dialog";
+            _document.body.appendChild( _element_EventEditorColorsDialog );
+
+            var titleBar = createElement( "div" );
+            titleBar.className = "title-bar";
+            titleBar.innerHTML = _options.selectColorsText;
+            _element_EventEditorColorsDialog.appendChild( titleBar );
+
+            var contents = createElement( "div" );
+            contents.className = "contents";
+            _element_EventEditorColorsDialog.appendChild( contents );
+
+            var backgroundColorText = createElement( "p" );
+            backgroundColorText.innerText = _options.backgroundColorText;
+            contents.appendChild( backgroundColorText );
+
+            _element_EventEditorColorsDialog_Color = createElement( "input" );
+            contents.appendChild( _element_EventEditorColorsDialog_Color );
+
+            setInputType( _element_EventEditorColorsDialog_Color, "color" );
+
+            var textColorText = createElement( "p" );
+            textColorText.innerText = _options.textColorText;
+            contents.appendChild( textColorText );
+
+            _element_EventEditorColorsDialog_ColorText = createElement( "input" );
+            contents.appendChild( _element_EventEditorColorsDialog_ColorText );
+
+            setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
+
+            var borderColorText = createElement( "p" );
+            borderColorText.innerText = _options.borderColorText;
+            contents.appendChild( borderColorText );
+
+            _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
+            contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
+
+            setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
+
+            var buttonsSplitContainer = createElement( "div" );
+            buttonsSplitContainer.className = "split";
+            contents.appendChild( buttonsSplitContainer );
+
+            var okButton = createElement( "input" );
+            okButton.className = "ok";
+            okButton.type = "button";
+            okButton.value = _options.okText;
+            okButton.onclick = eventColorsDialogEvent_OK;
+            buttonsSplitContainer.appendChild( okButton );
+
+            var cancelButton = createElement( "input" );
+            cancelButton.className = "cancel";
+            cancelButton.type = "button";
+            cancelButton.value = _options.cancelText;
+            cancelButton.onclick = eventColorsDialogEvent_Cancel;
+            buttonsSplitContainer.appendChild( cancelButton );
+        }
+    }
+
+    function eventColorsDialogEvent_OK() {
+        eventColorsDialogEvent_Cancel();
+
+        _element_EventEditorDialog_EventDetails.color = _element_EventEditorColorsDialog_Color.value;
+        _element_EventEditorDialog_EventDetails.colorText = _element_EventEditorColorsDialog_ColorText.value;
+        _element_EventEditorDialog_EventDetails.colorBorder = _element_EventEditorColorsDialog_ColorBorder.value;
+    }
+
+    function eventColorsDialogEvent_Cancel() {
+        _element_EventEditorColorsDialog.style.display = "none";
+        _element_EventEditorDialog_DisabledArea.style.display = "none";
+    }
+
+    function showEventEditorColorsDialog() {
+        _element_EventEditorColorsDialog.style.display = "block";
+        _element_EventEditorDialog_DisabledArea.style.display = "block";
     }
 
 
@@ -2497,8 +2614,10 @@ function calendarJs( id, options, startDateTime ) {
         return date + " " + time;
     }
 
-    function getString( string ) {
-        return isDefinedString( string ) ? string : "";
+    function getString( string, defaultValue ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : "";
+
+        return isDefinedString( string ) ? string : defaultValue;
     }
 
     function getPropertyName( name ) {
@@ -3201,6 +3320,22 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.eventTooltipDelay ) ) {
             _options.eventTooltipDelay = 1000;
+        }
+
+        if ( !isDefined( _options.selectColorsText ) ) {
+            _options.selectColorsText = "Select Colors";
+        }
+
+        if ( !isDefined( _options.backgroundColorText ) ) {
+            _options.backgroundColorText = "Background Color:";
+        }
+
+        if ( !isDefined( _options.textColorText ) ) {
+            _options.textColorText = "Text Color:";
+        }
+
+        if ( !isDefined( _options.borderColorText ) ) {
+            _options.borderColorText = "Border Color:";
         }
     };
 

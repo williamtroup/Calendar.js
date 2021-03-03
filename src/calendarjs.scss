@@ -15,6 +15,8 @@ div.calender-drop-down-menu,
 div.calender-event-editor-dialog,
 div.calender-event-editor-dialog input,
 div.calender-event-editor-dialog textarea,
+div.calender-event-editor-colors-dialog,
+div.calender-event-editor-colors-dialog input,
 div.calender-confirmation-dialog,
 div.calender-confirmation-dialog input,
 div.calender-confirmation-dialog textarea,
@@ -476,6 +478,22 @@ div.calender-event-editor-dialog {
             padding: $spacing;
             text-align: center;
         }
+
+        div.input-title-container {
+            display: flex;
+            margin-bottom: $spacing;
+
+            input[type="text"] {
+                flex-grow: 1;
+                margin-bottom: 0 !important;
+            }
+
+            input[type="button"] {
+                padding: .375rem .75rem;
+                margin-left: $spacing;
+                line-height: 0;
+            }
+        }
         
         div.contents {
             padding: $spacing;
@@ -510,7 +528,7 @@ div.calender-event-editor-dialog {
         textarea {
             height: 100px;
             resize: none;
-            margin-bottom: 20px !important;
+            margin-bottom: $spacing * 2;
         }
     
         @import "foundation/split-container";
@@ -523,7 +541,7 @@ div.calender-event-editor-dialog {
             &.error {
                 color: $alert-color;
                 display: none;
-                margin-bottom: 20px;
+                margin-bottom: $spacing * 2;
             }
         }
     }
@@ -542,6 +560,7 @@ div.calender-event-editor-dialog {
         @include button(ok, $light-color, $ok-color);
         @include button(cancel, $light-color, $alert-color);
         @include button(remove, $light-color, $dark-color);
+        @include button(dots, $light-color, #6c757d);
 
         &.remove {
             margin-top: $spacing;
@@ -610,6 +629,78 @@ div.calender-event-editor-dialog {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Event Editor Colors Dialog
+    -------------------------------------------------------------------------
+*/
+
+div.calender-event-editor-colors-dialog {
+    @include dialog-styles(300px);
+
+    div.title-bar {
+        @include no-selection-allowed;
+        background-color: $dark-color;
+        color: $light-color;
+        padding: $spacing;
+        text-align: center;
+    }
+    
+    div.contents {
+        padding: $spacing;
+    }
+    
+    input[type="color"] {
+        color: $dark-color;
+        width: 100%;
+        padding: .375rem .75rem;
+        border: 1px solid $input-border-color;
+        border-radius: $border-view-radius;
+        outline: none;
+        margin-bottom: $spacing;
+        background-color: $input-background-color;
+        transition: $transition;
+        height: 40px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:focus {
+            border: 1px solid $dark-color;
+            box-shadow: 0 0 1pt 1pt $dark-color;
+        }
+    }
+
+    p {
+        @include no-selection-allowed;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Event Editor Colors Dialog - Buttons
+    -------------------------------------------------------------------------
+*/
+
+div.calender-event-editor-colors-dialog {
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Confirmation Dialog
     -------------------------------------------------------------------------
 */
@@ -630,7 +721,7 @@ div.calender-confirmation-dialog {
 
         div.message {
             @include no-selection-allowed;
-            margin-bottom: 20px;
+            margin-bottom: $spacing * 2;
         }
     }
     
