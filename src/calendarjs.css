@@ -1446,7 +1446,7 @@ div.calender-confirmation-dialog input[type="button"].no:active {
 */
 div.calender-select-export-type-dialog {
   width: calc(100% - (10px * 2));
-  max-width: 300px;
+  max-width: 250px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;

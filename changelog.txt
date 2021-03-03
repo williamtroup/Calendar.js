@@ -8,6 +8,7 @@ v0.4.0:
 - Added support to set event Color, Text Color and Border Color (color, colorText, colorBorder properties).
 - The "Title" field is now the first field in the Event Editor dialog.
 - Added a new "..." button next to the Title text box on the event editor (allows choosing the colors for the event).
+- Decreased the width of the "Select Export Type" dialog.
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.

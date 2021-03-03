@@ -751,7 +751,7 @@ div.calender-confirmation-dialog {
 */
 
 div.calender-select-export-type-dialog {
-    @include dialog-styles(300px);
+    @include dialog-styles(250px);
 
     div.title-bar {
         @include no-selection-allowed;
