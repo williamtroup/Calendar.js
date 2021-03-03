@@ -16,6 +16,7 @@
  * @property    {object}   to                                           The date that the event runs until.
  * @property    {string}   title                                        The title of the event.
  * @property    {string}   description                                  The in depth description of the event.
+ * @property    {string}   location                                     The location of the event.
  * @property    {boolean}  isAllDayEvent                                States if this is an all day event.
  */
 
@@ -59,6 +60,7 @@
  * @property    {string}   isAllDayEventText                            The text that should be displayed for the "Is All Day Event" label.
  * @property    {string}   titleText                                    The text that should be displayed for the "Title:" label.
  * @property    {string}   descriptionText                              The text that should be displayed for the "Description:" label.
+ * @property    {string}   locationText                                 The text that should be displayed for the "Location:" label.
  * @property    {string}   addText                                      The text that should be displayed for the "Add" button.
  * @property    {string}   updatedText                                  The text that should be displayed for the "Update" button.
  * @property    {string}   cancelText                                   The text that should be displayed for the "Cancel" button.
@@ -145,6 +147,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_IsAllDayEvent = null,
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_Description = null,
+        _element_EventEditorDialog_Location = null,
         _element_EventEditorDialog_ErrorMessage = null,
         _element_EventEditorDialog_EventDetails = null,
         _element_EventEditorDialog_OKButton = null,
@@ -179,6 +182,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
         _element_Tooltip_Description = null,
+        _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
         _element_DropDownMenu_Day = null,
         _element_DropDownMenu_DateSelected = null;
@@ -827,18 +831,18 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildFullDayDayEvent( eventDetails ) {
-        var fullDayEvent = createElement( "div" );
-        fullDayEvent.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
-        _element_FullDayView_Contents.appendChild( fullDayEvent );
+        var event = createElement( "div" );
+        event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
+        _element_FullDayView_Contents.appendChild( event );
 
         var title = createElement( "div" );
         title.className = "title";
         title.innerHTML = eventDetails.title;
-        fullDayEvent.appendChild( title );
+        event.appendChild( title );
 
         var startTime = createElement( "div" );
         startTime.className = "date";
-        fullDayEvent.appendChild( startTime );
+        event.appendChild( startTime );
 
         if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
             if ( eventDetails.isAllDayEvent ) {
@@ -851,22 +855,29 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( eventDetails.to < new Date() ) {
-            fullDayEvent.className += " expired";
+            event.className += " expired";
         }
 
         if ( eventDetails.isAllDayEvent ) {
-            fullDayEvent.className += " all-day-event";
+            event.className += " all-day-event";
         }
 
-        if ( eventDetails.description !== "" ) {
+        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+            var location = createElement( "div" );
+            location.className = "location";
+            location.innerHTML = eventDetails.location;
+            event.appendChild( location );
+        }
+
+        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
-            fullDayEvent.appendChild( description );
+            event.appendChild( description );
         }
 
         if ( _options.manualEditingEnabled ) {
-            fullDayEvent.onclick = function() {
+            event.onclick = function() {
                 showEventDialog( eventDetails );
             };
         }
@@ -1004,7 +1015,14 @@ function calendarJs( id, options, startDateTime ) {
             event.className += " all-day-event";
         }
 
-        if ( eventDetails.description !== "" ) {
+        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+            var location = createElement( "div" );
+            location.className = "location";
+            location.innerHTML = eventDetails.location;
+            event.appendChild( location );
+        }
+
+        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
@@ -1233,7 +1251,14 @@ function calendarJs( id, options, startDateTime ) {
             event.className += " all-day-event";
         }
 
-        if ( eventDetails.description !== "" ) {
+        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+            var location = createElement( "div" );
+            location.className = "location";
+            location.innerHTML = eventDetails.location;
+            event.appendChild( location );
+        }
+
+        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
@@ -1522,6 +1547,7 @@ function calendarJs( id, options, startDateTime ) {
                 to: toDate,
                 title: _eventDetails_Dragged.title,
                 description: _eventDetails_Dragged.description,
+                location: _eventDetails_Dragged.location,
                 isAllDayEvent: _eventDetails_Dragged.isAllDayEvent
             };
 
@@ -1705,6 +1731,14 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.type = "text";
             contents.appendChild( _element_EventEditorDialog_Title );
 
+            var textLocation = createElement( "p" );
+            textLocation.innerText = _options.locationText;
+            contents.appendChild( textLocation );
+
+            _element_EventEditorDialog_Location = createElement( "input" );
+            _element_EventEditorDialog_Location.type = "text";
+            contents.appendChild( _element_EventEditorDialog_Location );
+
             var textDescription = createElement( "p" );
             textDescription.innerText = _options.descriptionText;
             contents.appendChild( textDescription );
@@ -1788,8 +1822,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_DateTo.value = toFormattedDate( eventDetails.to, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
             _element_EventEditorDialog_IsAllDayEvent.checked = eventDetails.isAllDayEvent;
-            _element_EventEditorDialog_Title.value = eventDetails.title;
-            _element_EventEditorDialog_Description.value = eventDetails.description;
+            _element_EventEditorDialog_Title.value = getString( eventDetails.title );
+            _element_EventEditorDialog_Description.value = getString( eventDetails.description );
+            _element_EventEditorDialog_Location.value = getString( eventDetails.location );
         } else {
             var date = new Date(),
                 today = !isDefined( overrideTodayDate ) ? date : overrideTodayDate;
@@ -1810,6 +1845,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_IsAllDayEvent.checked = false;
             _element_EventEditorDialog_Title.value = "";
             _element_EventEditorDialog_Description.value = "";
+            _element_EventEditorDialog_Location.value = "";
         }
 
         isAllDayEventChanged();
@@ -1821,7 +1857,8 @@ function calendarJs( id, options, startDateTime ) {
             fromTime = _element_EventEditorDialog_TimeFrom.value.split( ":" ),
             toTime = _element_EventEditorDialog_TimeTo.value.split( ":" ),
             title = trimString( _element_EventEditorDialog_Title.value ),
-            description = trimString( _element_EventEditorDialog_Description.value );
+            description = trimString( _element_EventEditorDialog_Description.value ),
+            location = trimString( _element_EventEditorDialog_Location.value );
 
         if ( fromTime.length <= 0 ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
@@ -1846,6 +1883,7 @@ function calendarJs( id, options, startDateTime ) {
                 to: toDate,
                 title: title,
                 description: description,
+                location: location,
                 isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked
             };
 
@@ -2119,6 +2157,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip_Description = createElement( "div" );
             _element_Tooltip_Description.className = "description";
 
+            _element_Tooltip_Location = createElement( "div" );
+            _element_Tooltip_Location.className = "location";
+
             document.body.addEventListener( "mousemove", hideTooltip );
         }
     }
@@ -2143,8 +2184,16 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip_Title.innerHTML = eventDetails.title;
+
+                        if ( isDefinedString( eventDetails.location ) && eventDetails.location !== "" ) {
+                            _element_Tooltip_Location.innerHTML = eventDetails.location;
+                            addNode( _element_Tooltip, _element_Tooltip_Location );
+                        } else {
+                            _element_Tooltip_Location.innerHTML = "";
+                            removeNode( _element_Tooltip, _element_Tooltip_Location );
+                        }
     
-                        if ( eventDetails.description !== "" ) {
+                        if ( isDefinedString( eventDetails.description ) && eventDetails.description !== "" ) {
                             _element_Tooltip_Description.innerHTML = eventDetails.description;
                             addNode( _element_Tooltip, _element_Tooltip_Description );
                         } else {
@@ -2346,6 +2395,10 @@ function calendarJs( id, options, startDateTime ) {
         return isDefined( object ) && isFunction( object );
     }
 
+    function isDefinedString( object ) {
+        return isDefined( object ) && typeof object === "string";
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2435,12 +2488,16 @@ function calendarJs( id, options, startDateTime ) {
         return date + " " + time;
     }
 
+    function getString( string ) {
+        return isDefinedString( string ) ? string : "";
+    }
+
     function getPropertyName( name ) {
         return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
     }
 
     function getPropertyValue( value ) {
-        var result = value;
+        var result = getString( value );
 
         if ( typeof value === "boolean" ) {
             result = getYesNoFromBoolean( value );
@@ -2459,7 +2516,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -2484,8 +2541,9 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.from ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.to ) ) );
         eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDayEvent ) ) );
-        eventContents.push( getCsvValue( eventDetails.title.toString() ) );
-        eventContents.push( getCsvValue( eventDetails.description.toString() ) );
+        eventContents.push( getCsvValue( getString( eventDetails.title ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.description ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.location ) ) );
 
         csvContents.push( getCsvValueLine( eventContents ) );
     }
@@ -2965,6 +3023,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.descriptionText ) ) {
             _options.descriptionText = "Description:";
+        }
+
+        if ( !isDefined( _options.locationText ) ) {
+            _options.locationText = "Location:";
         }
 
         if ( !isDefined( _options.addText ) ) {

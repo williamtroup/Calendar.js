@@ -534,8 +534,10 @@ div.calendar div.full-day-view div.contents div.event-no-hover div.title {
 
 div.calendar div.full-day-view div.contents div.event div.date,
 div.calendar div.full-day-view div.contents div.event div.description,
+div.calendar div.full-day-view div.contents div.event div.location,
 div.calendar div.full-day-view div.contents div.event-no-hover div.date,
-div.calendar div.full-day-view div.contents div.event-no-hover div.description {
+div.calendar div.full-day-view div.contents div.event-no-hover div.description,
+div.calendar div.full-day-view div.contents div.event-no-hover div.location {
   font-size: smaller;
   font-weight: 300;
 }
@@ -689,8 +691,10 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.date,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.description,
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div.location,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.date,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.description {
+div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.description,
+div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.location {
   font-size: smaller;
   font-weight: 300;
 }
@@ -842,8 +846,10 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.date,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.description,
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.location,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.date,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.description {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.description,
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.location {
   font-size: smaller;
   font-weight: 300;
 }
@@ -1455,8 +1461,10 @@ div.calender-tooltip-event div.title {
 
 div.calender-tooltip div.date,
 div.calender-tooltip div.description,
+div.calender-tooltip div.location,
 div.calender-tooltip-event div.date,
-div.calender-tooltip-event div.description {
+div.calender-tooltip-event div.description,
+div.calender-tooltip-event div.location {
   font-size: smaller;
 }
 
