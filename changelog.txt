@@ -4,7 +4,7 @@ v0.4.0:
 - All title-bar icons now use the "PureCSS" generated images, giving a much cleaner look and feel.
 - Fixed a fault that caused optional text fields for Events to show up as "undefined" when edited or exported.
 - Added "Location" support to events, with the extra information being shown in full events and tooltips.
-- Event tooltips widths now auto-size to the available content (saves a lot of empty space).
+- Event tooltip widths now auto-size to the available content (saves a lot of empty space).
 - Added support to set event Color, Text Color and Border Color (color, colorText, colorBorder properties).
 - The "Title" field is now the first field in the Event Editor dialog.
 
