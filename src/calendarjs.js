@@ -1503,16 +1503,21 @@ function calendarJs( id, options, startDateTime ) {
         var today = new Date(),
             dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
             dayElement = getElementByID( _elementID_DayElement + elementDayNumber ),
-            dayText = createElement( "span" );
-
-        dayElement.className = _elementClassName_Cell + ( dayIsToday ? " today" : "" );
+            dayText = createElement( "span" ),
+            dayDate = new Date( year, month, actualDay );
+        
         dayElement.innerHTML = "";
 
         dayText.className = isMuted ? "day-muted" : "";
+        dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
 
+        if ( dayDate.getDay() === 6 || dayDate.getDay() === 0 ) {
+            dayElement.className += " weekend-day";
+        }
+
         dayElement.oncontextmenu = function( e ) {
-            showDayDropDownMenu( e, new Date( year, month, actualDay ) );
+            showDayDropDownMenu( e, dayDate );
         };
 
         if ( _options.showDayNumberOrdinals ) {
@@ -1531,13 +1536,13 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( expandDayButton, _options.expandDayTooltipText );
     
             expandDayButton.onclick = function() {
-                showFullDayView( new Date( year, month, actualDay ) );
+                showFullDayView( dayDate );
             };
         }
 
         if ( _options.manualEditingEnabled ) {
             dayElement.ondblclick = function() {
-                showEventDialog( null, new Date( year, month, actualDay ) );
+                showEventDialog( null, dayDate );
             };
 
             if ( _options.manualEditingEnabled ) {

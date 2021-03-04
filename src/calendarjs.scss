@@ -102,10 +102,6 @@ div.calendar {
         margin-bottom: 0;
     }
     
-    span.day-muted {
-        opacity: 0.3;
-    }
-    
     div.header-days {
         font-weight: 900 !important;
         background-color: $day-names-color !important;
@@ -133,6 +129,23 @@ div.calendar {
             overflow: hidden;
             color: $dark-color;
 
+            span {
+                display: inline-block;;
+                padding: 4px;
+                padding-left: 5px;
+                padding-right: 5px;
+                border-radius: $border-view-radius;
+        
+                &.day-muted {
+                    opacity: 0.3;
+                }
+        
+                &.today {
+                    background-color: $dark-color;
+                    color: $light-color;
+                }
+            }
+
             &:last-child {
                 border-right: none;
             }
@@ -141,9 +154,9 @@ div.calendar {
                 display: block;
             }
         }
-        
-        div.today {
-            background-color: $day-names-color;
+
+        div.weekend-day {
+            background-color: $day-names-color !important;
         }
 
         &:last-child {

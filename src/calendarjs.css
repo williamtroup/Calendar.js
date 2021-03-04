@@ -167,13 +167,9 @@ div.calendar p {
   margin-bottom: 0;
 }
 
-div.calendar span.day-muted {
-  opacity: 0.3;
-}
-
 div.calendar div.header-days {
   font-weight: 900 !important;
-  background-color: #D0D0D0 !important;
+  background-color: #E0E0E0 !important;
   color: #282828 !important;
   text-transform: uppercase;
 }
@@ -201,6 +197,23 @@ div.calendar div.row div.cell {
   color: #282828;
 }
 
+div.calendar div.row div.cell span {
+  display: inline-block;
+  padding: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 0.25rem;
+}
+
+div.calendar div.row div.cell span.day-muted {
+  opacity: 0.3;
+}
+
+div.calendar div.row div.cell span.today {
+  background-color: #282828;
+  color: #F5F5F5;
+}
+
 div.calendar div.row div.cell:last-child {
   border-right: none;
 }
@@ -209,8 +222,8 @@ div.calendar div.row div.cell:hover div.expand-day {
   display: block;
 }
 
-div.calendar div.row div.today {
-  background-color: #D0D0D0;
+div.calendar div.row div.weekend-day {
+  background-color: #E0E0E0 !important;
 }
 
 div.calendar div.row:last-child {
