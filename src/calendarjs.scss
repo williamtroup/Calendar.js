@@ -648,7 +648,8 @@ div.calender-event-editor-colors-dialog {
         padding: $spacing;
     }
     
-    input[type="color"] {
+    input[type="color"],
+    input[type="text"] {
         color: $dark-color;
         width: 100%;
         padding: .375rem .75rem;

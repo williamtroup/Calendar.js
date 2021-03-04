@@ -1208,7 +1208,8 @@ div.calender-event-editor-colors-dialog div.contents {
   padding: 10px;
 }
 
-div.calender-event-editor-colors-dialog input[type="color"] {
+div.calender-event-editor-colors-dialog input[type="color"],
+div.calender-event-editor-colors-dialog input[type="text"] {
   color: #282828;
   width: 100%;
   padding: .375rem .75rem;
@@ -1222,11 +1223,13 @@ div.calender-event-editor-colors-dialog input[type="color"] {
   height: 40px;
 }
 
-div.calender-event-editor-colors-dialog input[type="color"]:last-child {
+div.calender-event-editor-colors-dialog input[type="color"]:last-child,
+div.calender-event-editor-colors-dialog input[type="text"]:last-child {
   margin-bottom: 0;
 }
 
-div.calender-event-editor-colors-dialog input[type="color"]:focus {
+div.calender-event-editor-colors-dialog input[type="color"]:focus,
+div.calender-event-editor-colors-dialog input[type="text"]:focus {
   border: 1px solid #282828;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
