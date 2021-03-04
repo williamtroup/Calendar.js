@@ -11,16 +11,16 @@
  * 
  * This is the object format that is used to store the details about a day event.
  *
- * @property    {string}   id                                           The ID of for the event.
- * @property    {string}   title                                        The title of the event.
- * @property    {object}   from                                         The date that the event occurs from.
- * @property    {object}   to                                           The date that the event runs until.
- * @property    {string}   description                                  The in depth description of the event.
- * @property    {string}   location                                     The location of the event.
- * @property    {string}   color                                        The color that should be used for the event (overrides all others).
- * @property    {string}   colorText                                    The color that should be used for the event text (overrides all others).
- * @property    {string}   colorBorder                                  The color that should be used for the event border (overrides all others).
- * @property    {boolean}  isAllDayEvent                                States if this is an all day event.
+ * @property    {string}    id                                          The ID of for the event.
+ * @property    {string}    title                                       The title of the event.
+ * @property    {object}    from                                        The date that the event occurs from.
+ * @property    {object}    to                                          The date that the event runs until.
+ * @property    {string}    description                                 The in depth description of the event.
+ * @property    {string}    location                                    The location of the event.
+ * @property    {string}    color                                       The color that should be used for the event (overrides all others).
+ * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
+ * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
+ * @property    {boolean}   isAllDayEvent                               States if this is an all day event.
  */
 
 
@@ -29,15 +29,15 @@
  * 
  * These are the properties that store the events that should be fired when various actions are triggered.
  *
- * @property    {object}   onPreviousMonth                              Specifies an event that will be triggered when the "Previous Month" button is pressed.
- * @property    {object}   onNextMonth                                  Specifies an event that will be triggered when the "Next Month" button is pressed.
- * @property    {object}   onToday                                      Specifies an event that will be triggered when the "Today" button is pressed.
- * @property    {object}   onEventAdded                                 Specifies an event that will be triggered when an event is added (passes the event to the function).
- * @property    {object}   onEventUpdated                               Specifies an event that will be triggered when an event is updated (passes the event to the function).
- * @property    {object}   onEventRemoved                               Specifies an event that will be triggered when an event is removed (passes the event to the function).
- * @property    {object}   onEventsAdded                                Specifies an event that will be triggered when events are added (passes the events to the function).
- * @property    {object}   onEventsCleared                              Specifies an event that will be triggered when the events are cleared.
- * @property    {object}   onEventsExported                             Specifies an event that will be triggered when the "Export Events" button is pressed.
+ * @property    {object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed.
+ * @property    {object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed.
+ * @property    {object}    onToday                                     Specifies an event that will be triggered when the "Today" button is pressed.
+ * @property    {object}    onEventAdded                                Specifies an event that will be triggered when an event is added (passes the event to the function).
+ * @property    {object}    onEventUpdated                              Specifies an event that will be triggered when an event is updated (passes the event to the function).
+ * @property    {object}    onEventRemoved                              Specifies an event that will be triggered when an event is removed (passes the event to the function).
+ * @property    {object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
+ * @property    {object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
+ * @property    {object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
  */
 
 
@@ -46,72 +46,72 @@
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
- * @property    {string}   previousMonthTooltipText                     The tooltip text that should be used for for the "Previous Month" button.
- * @property    {string}   nextMonthTooltipText                         The tooltip text that should be used for for the "Next Month" button.
- * @property    {string}   addEventTooltipText                          The tooltip text that should be used for for the "Add Event" button.
- * @property    {string}   closeTooltipText                             The tooltip text that should be used for for the "Close" button.
- * @property    {string}   exportEventsTooltipText                      The tooltip text that should be used for for the "Export Events" button.
- * @property    {string}   listAllEventsTooltipText                     The tooltip text that should be used for for the "View All Events" button.
- * @property    {string}   listWeekEventsTooltipText                    The tooltip text that should be used for for the "View Current Week Events" button.
- * @property    {string}   todayTooltipText                             The tooltip text that should be used for for the "Today" button.
- * @property    {string}   refreshTooltipText                           The tooltip text that should be used for for the "Refresh" button.
- * @property    {string}   searchTooltipText                            The tooltip text that should be used for for the "Search" button.
- * @property    {string}   expandDayTooltipText                         The tooltip text that should be used for for the "Expand Day" button.
- * @property    {array}    dayHeaderNames                               The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
- * @property    {array}    dayNames                                     The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
- * @property    {string}   fromText                                     The text that should be displayed for the "From:" label.
- * @property    {string}   toText                                       The text that should be displayed for the "To:" label.
- * @property    {string}   isAllDayEventText                            The text that should be displayed for the "Is All Day Event" label.
- * @property    {string}   titleText                                    The text that should be displayed for the "Title:" label.
- * @property    {string}   descriptionText                              The text that should be displayed for the "Description:" label.
- * @property    {string}   locationText                                 The text that should be displayed for the "Location:" label.
- * @property    {string}   addText                                      The text that should be displayed for the "Add" button.
- * @property    {string}   updatedText                                  The text that should be displayed for the "Update" button.
- * @property    {string}   cancelText                                   The text that should be displayed for the "Cancel" button.
- * @property    {string}   removeEventText                              The text that should be displayed for the "Remove Event" button.
- * @property    {string}   addEventTitle                                The title bar text that is shown for the "Add Event" label.
- * @property    {string}   editEventTitle                               The title bar text that is shown for the "Edit Event" label.
- * @property    {string}   monthNames                                   The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
- * @property    {boolean}  showDayNumberOrdinals                        States if the day ordinal values should be shown (defaults to true).  
- * @property    {boolean}  dragAndDropForEventsEnabled                  States if dragging and dropping events around the days of the month is enabled (defaults to true).
- * @property    {string}   exportStartFilename                          The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
- * @property    {string}   fromTimeErrorMessage                         The error message shown for the "Please select a valid 'From' time." label.
- * @property    {string}   toTimeErrorMessage                           The error message shown for the "Please select a valid 'To' time." label.
- * @property    {string}   toSmallerThanFromErrorMessage                The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label.
- * @property    {string}   titleErrorMessage                            The error message shown for the "Please enter a value in the 'Title' field (no empty space)." label.
- * @property    {string}   stText                                       The day ordinal text for "st".
- * @property    {string}   ndText                                       The day ordinal text for "nd".
- * @property    {string}   rdText                                       The day ordinal text for "rd".
- * @property    {string}   thText                                       The day ordinal text for "th".
- * @property    {boolean}  fullDayViewEnabled                           States if viewing all the events in a full day is enabled (defaults to true).
- * @property    {number}   maximumEventsPerDayDisplay                   The maximum number of events that should be display per day in the main calendar display (defaults to 3).
- * @property    {string}   yesText                                      The text that should be displayed for the "Yes" label.
- * @property    {string}   noText                                       The text that should be displayed for the "No" label.
- * @property    {number}   extraSelectableYearsAhead                    The number of extra years ahead that are selectable in the drop down (defaults to 51).
- * @property    {string}   allDayEventText                              The text that should be displayed for the "All Day Event" label.
- * @property    {string}   allEventsText                                The text that should be displayed for the "All Events" label.
- * @property    {boolean}  exportEventsEnabled                          States if exporting events is enabled (defaults to true).
- * @property    {boolean}  manualEditingEnabled                         States if adding, editing, dragging and removing events is enabled (defaults to true).
- * @property    {boolean}  showTimesInMainCalendarEvents                States if the time should be shown on the main calendar view events (defaults to false).
- * @property    {string}   startsOnText                                 The text that should be displayed for the "Starts on" label.
- * @property    {string}   andFinishesOnText                            The text that should be displayed for the "and finishes on" label.
- * @property    {string}   toTimeText                                   The text that should be displayed for the "to" label.
- * @property    {number}   autoRefreshTimerDelay                        The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
- * @property    {string}   confirmEventRemoveTitle                      The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
- * @property    {string}   confirmEventRemoveMessage                    The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
- * @property    {string}   okText                                       The text that should be displayed for the "OK" button.
- * @property    {string}   selectExportTypeTitle                        The text that should be displayed for the "Select Export Type" label.
- * @property    {boolean}  fullScreenModeEnabled                        States if double click on the main title bar activates full screen mode (defaults to true).
- * @property    {number}   eventTooltipDelay                            The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
- * @property    {string}   selectColorsText                             The text that should be displayed for the "Select Colors" label.
- * @property    {string}   backgroundColorText                          The text that should be displayed for the "Background Color:" label.
- * @property    {string}   textColorText                                The text that should be displayed for the "Text Color:" label.
- * @property    {string}   borderColorText                              The text that should be displayed for the "Border Color:" label.
- * @property    {string}   searchEventsTitle                            The text that should be displayed for the "Search Events" label.
- * @property    {string}   forText                                      The text that should be displayed for the "For:" label.
- * @property    {string}   previousText                                 The text that should be displayed for the "Previous" button.
- * @property    {string}   nextText                                     The text that should be displayed for the "Next" button.
- * @property    {string}   matchCaseText                                The text that should be displayed for the "Match Case" label.
+ * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for for the "Previous Month" button.
+ * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for for the "Next Month" button.
+ * @property    {string}    addEventTooltipText                         The tooltip text that should be used for for the "Add Event" button.
+ * @property    {string}    closeTooltipText                            The tooltip text that should be used for for the "Close" button.
+ * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for for the "Export Events" button.
+ * @property    {string}    listAllEventsTooltipText                    The tooltip text that should be used for for the "View All Events" button.
+ * @property    {string}    listWeekEventsTooltipText                   The tooltip text that should be used for for the "View Current Week Events" button.
+ * @property    {string}    todayTooltipText                            The tooltip text that should be used for for the "Today" button.
+ * @property    {string}    refreshTooltipText                          The tooltip text that should be used for for the "Refresh" button.
+ * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
+ * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
+ * @property    {array}     dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
+ * @property    {array}     dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
+ * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
+ * @property    {string}    isAllDayEventText                           The text that should be displayed for the "Is All Day Event" label.
+ * @property    {string}    titleText                                   The text that should be displayed for the "Title:" label.
+ * @property    {string}    descriptionText                             The text that should be displayed for the "Description:" label.
+ * @property    {string}    locationText                                The text that should be displayed for the "Location:" label.
+ * @property    {string}    addText                                     The text that should be displayed for the "Add" button.
+ * @property    {string}    updatedText                                 The text that should be displayed for the "Update" button.
+ * @property    {string}    cancelText                                  The text that should be displayed for the "Cancel" button.
+ * @property    {string}    removeEventText                             The text that should be displayed for the "Remove Event" button.
+ * @property    {string}    addEventTitle                               The title bar text that is shown for the "Add Event" label.
+ * @property    {string}    editEventTitle                              The title bar text that is shown for the "Edit Event" label.
+ * @property    {string}    monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
+ * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
+ * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
+ * @property    {string}    exportStartFilename                         The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
+ * @property    {string}    fromTimeErrorMessage                        The error message shown for the "Please select a valid 'From' time." label.
+ * @property    {string}    toTimeErrorMessage                          The error message shown for the "Please select a valid 'To' time." label.
+ * @property    {string}    toSmallerThanFromErrorMessage               The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label.
+ * @property    {string}    titleErrorMessage                           The error message shown for the "Please enter a value in the 'Title' field (no empty space)." label.
+ * @property    {string}    stText                                      The day ordinal text for "st".
+ * @property    {string}    ndText                                      The day ordinal text for "nd".
+ * @property    {string}    rdText                                      The day ordinal text for "rd".
+ * @property    {string}    thText                                      The day ordinal text for "th".
+ * @property    {boolean}   fullDayViewEnabled                          States if viewing all the events in a full day is enabled (defaults to true).
+ * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3).
+ * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
+ * @property    {string}    noText                                      The text that should be displayed for the "No" label.
+ * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
+ * @property    {string}    allDayEventText                             The text that should be displayed for the "All Day Event" label.
+ * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
+ * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
+ * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
+ * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
+ * @property    {string}    startsOnText                                The text that should be displayed for the "Starts on" label.
+ * @property    {string}    andFinishesOnText                           The text that should be displayed for the "and finishes on" label.
+ * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
+ * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
+ * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
+ * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
+ * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
+ * @property    {string}    selectExportTypeTitle                       The text that should be displayed for the "Select Export Type" label.
+ * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
+ * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
+ * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
+ * @property    {string}    backgroundColorText                         The text that should be displayed for the "Background Color:" label.
+ * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
+ * @property    {string}    borderColorText                             The text that should be displayed for the "Border Color:" label.
+ * @property    {string}    searchEventsTitle                           The text that should be displayed for the "Search Events" label.
+ * @property    {string}    forText                                     The text that should be displayed for the "For:" label.
+ * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
+ * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
+ * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
  */
 
 
