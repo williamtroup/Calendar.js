@@ -128,7 +128,7 @@ div.full-screen-view {
 }
 
 div.full-screen-view div.row div.cell {
-  height: calc(100% - (10px * 2));
+  height: calc(100% - (10px * 2)) !important;
 }
 
 div.full-screen-view div.header-days {

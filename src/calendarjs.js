@@ -112,6 +112,7 @@
  * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
+ * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto). 
  */
 
 
@@ -453,6 +454,10 @@ function calendarJs( id, options, startDateTime ) {
                 columnData.className = _elementClassName_Cell;
                 columnData.id = _elementID_DayElement + columnDataNumber;
                 rowData.appendChild( columnData );
+
+                if ( _options.minimumDayHeight > 0 ) {
+                    columnData.style.height = _options.minimumDayHeight + "px";
+                }
             }
         }
     }
@@ -3584,6 +3589,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.matchCaseText ) ) {
             _options.matchCaseText = "Match Case";
+        }
+
+        if ( !isDefined( _options.minimumDayHeight ) ) {
+            _options.minimumDayHeight = 0;
         }
     };
 

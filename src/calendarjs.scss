@@ -65,7 +65,7 @@ div.full-screen-view {
         }
 
         div.cell {
-            height: calc(100% - (#{$spacing} * 2));
+            height: calc(100% - (#{$spacing} * 2)) !important;
         }
     }
 

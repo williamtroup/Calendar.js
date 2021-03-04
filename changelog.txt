@@ -18,6 +18,7 @@ v0.4.0:
 - Added full search support (new "Search" button on the main toolbar), with option to Match Case.
 - Fixed the text cursor being shown for text that cannot be selected.
 - Fixed the Today button redrawing the main display even when the current month is in view.
+- Added new option "minimumDayHeight", which allows you to set the height of the days in the main view (defaults to 0 - auto).
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
