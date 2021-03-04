@@ -1866,7 +1866,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_OKButton.value = _options.addText;
             _element_EventEditorDialog_RemoveButton.style.display = "none";
             _element_EventEditorDialog_TitleBar.innerHTML = _options.addEventTitle;
-            _element_EventEditorDialog_EventDetails = null;
+            _element_EventEditorDialog_EventDetails = {};
             _element_EventEditorDialog_DateFrom.value = toFormattedDate( today, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
             _element_EventEditorDialog_DateTo.value = toFormattedDate( today, _element_EventEditorDialog_DateTo.type );
@@ -1922,7 +1922,7 @@ function calendarJs( id, options, startDateTime ) {
                 colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
             };
 
-            if ( _element_EventEditorDialog_EventDetails !== null ) {
+            if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
                 _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
             } else {
                 _this.addEvent( newEvent, false );
@@ -1970,7 +1970,7 @@ function calendarJs( id, options, startDateTime ) {
             onNoEvent();
             eventDialogEvent_Cancel();
 
-            if ( _element_EventEditorDialog_EventDetails !== null ) {
+            if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
                 _this.removeEvent( _element_EventEditorDialog_EventDetails.id, true );
                 refreshOpenedViews();
             }
