@@ -659,7 +659,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( availableEvents === 0 ) {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "none";
             } else {
-                _element_HeaderDateDisplay_ExportEventsButton.style.display = "block";
+                _element_HeaderDateDisplay_ExportEventsButton.style.display = "inline-block";
             }
         }
     }
@@ -855,7 +855,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( _element_FullDayView_EventsShown.length === 0 ) {
                 _element_FullDayView_ExportEventsButton.style.display = "none";
             } else {
-                _element_FullDayView_ExportEventsButton.style.display = "block";
+                _element_FullDayView_ExportEventsButton.style.display = "inline-block";
             }
         }
     }
@@ -1205,7 +1205,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( _element_ListAllWeekEventsView_EventsShown.length === 0 ) {
                 _element_ListAllWeekEventsView_ExportEventsButton.style.display = "none";
             } else {
-                _element_ListAllWeekEventsView_ExportEventsButton.style.display = "block";
+                _element_ListAllWeekEventsView_ExportEventsButton.style.display = "inline-block";
             }
         }
     }

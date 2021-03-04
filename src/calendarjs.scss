@@ -286,6 +286,24 @@ div.calendar {
         div.ib-arrow-right-full {
             float: right;
         }
+
+        @media screen and (min-width: $minimum-width) {
+            div.ib-refresh,
+            div.ib-hamburger,
+            div.ib-eye,
+            div.ib-arrow-down-full-line {
+                display: inline-block;
+            }
+        }
+        
+        @media screen and (max-width: $maximum-width) {
+            div.ib-refresh,
+            div.ib-hamburger,
+            div.ib-eye,
+            div.ib-arrow-down-full-line {
+                display: none !important;
+            }
+        }
     }
 }
 

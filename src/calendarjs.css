@@ -374,6 +374,24 @@ div.calendar div.header-date div.ib-arrow-right-full {
   float: right;
 }
 
+@media screen and (min-width: 321px) {
+  div.calendar div.header-date div.ib-refresh,
+  div.calendar div.header-date div.ib-hamburger,
+  div.calendar div.header-date div.ib-eye,
+  div.calendar div.header-date div.ib-arrow-down-full-line {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.calendar div.header-date div.ib-refresh,
+  div.calendar div.header-date div.ib-hamburger,
+  div.calendar div.header-date div.ib-eye,
+  div.calendar div.header-date div.ib-arrow-down-full-line {
+    display: none !important;
+  }
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Day Events
