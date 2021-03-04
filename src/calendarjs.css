@@ -998,20 +998,6 @@ div.calender-event-editor-dialog div.view textarea {
   margin-bottom: 20px;
 }
 
-div.calender-event-editor-dialog div.view div.split input {
-  width: calc(50% - (10px / 2));
-  margin-right: 5px;
-  margin-left: 5px;
-}
-
-div.calender-event-editor-dialog div.view div.split input:first-child {
-  margin-left: 0;
-}
-
-div.calender-event-editor-dialog div.view div.split input:last-child {
-  margin-right: 0;
-}
-
 div.calender-event-editor-dialog div.view p {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1028,12 +1014,21 @@ div.calender-event-editor-dialog div.view p.error {
   margin-bottom: 20px;
 }
 
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
-div.calender-event-editor-dialog input[type="button"] {
+div.calender-event-editor-dialog div.view div.split input {
+  width: calc(50% - (10px / 2));
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+div.calender-event-editor-dialog div.view div.split input:first-child {
+  margin-left: 0;
+}
+
+div.calender-event-editor-dialog div.view div.split input:last-child {
+  margin-right: 0;
+}
+
+div.calender-event-editor-dialog div.view input[type="button"] {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1050,83 +1045,83 @@ div.calender-event-editor-dialog input[type="button"] {
   cursor: pointer;
 }
 
-div.calender-event-editor-dialog input[type="button"].ok {
+div.calender-event-editor-dialog div.view input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
 }
 
-div.calender-event-editor-dialog input[type="button"].ok:hover {
+div.calender-event-editor-dialog div.view input[type="button"].ok:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calender-event-editor-dialog input[type="button"].ok:active {
+div.calender-event-editor-dialog div.view input[type="button"].ok:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calender-event-editor-dialog input[type="button"].cancel {
+div.calender-event-editor-dialog div.view input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
 }
 
-div.calender-event-editor-dialog input[type="button"].cancel:hover {
+div.calender-event-editor-dialog div.view input[type="button"].cancel:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calender-event-editor-dialog input[type="button"].cancel:active {
+div.calender-event-editor-dialog div.view input[type="button"].cancel:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calender-event-editor-dialog input[type="button"].remove {
+div.calender-event-editor-dialog div.view input[type="button"].remove {
   color: #F5F5F5;
   background-color: #282828;
 }
 
-div.calender-event-editor-dialog input[type="button"].remove:hover {
+div.calender-event-editor-dialog div.view input[type="button"].remove:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calender-event-editor-dialog input[type="button"].remove:active {
+div.calender-event-editor-dialog div.view input[type="button"].remove:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calender-event-editor-dialog input[type="button"].select-colors {
+div.calender-event-editor-dialog div.view input[type="button"].select-colors {
   color: #F5F5F5;
   background-color: #6c757d;
 }
 
-div.calender-event-editor-dialog input[type="button"].select-colors:hover {
+div.calender-event-editor-dialog div.view input[type="button"].select-colors:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calender-event-editor-dialog input[type="button"].select-colors:active {
+div.calender-event-editor-dialog div.view input[type="button"].select-colors:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calender-event-editor-dialog input[type="button"].remove {
+div.calender-event-editor-dialog div.view input[type="button"].remove {
   margin-top: 10px;
   width: 100%;
 }
@@ -1281,11 +1276,6 @@ div.calender-event-editor-colors-dialog div.split {
   margin-top: 10px;
 }
 
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Event Editor Colors Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
 div.calender-event-editor-colors-dialog input[type="button"] {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1400,11 +1390,6 @@ div.calender-confirmation-dialog div.split input:last-child {
   margin-right: 0;
 }
 
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Confirmation Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
 div.calender-confirmation-dialog input[type="button"] {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1514,11 +1499,6 @@ div.calender-select-export-type-dialog div.split {
   margin-top: 20px;
 }
 
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
 div.calender-select-export-type-dialog input[type="button"] {
   -moz-user-select: none;
   -webkit-user-select: none;

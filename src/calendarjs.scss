@@ -525,9 +525,7 @@ div.calender-event-editor-dialog {
             resize: none;
             margin-bottom: $spacing * 2;
         }
-    
-        @import "foundation/split-container";
-        
+
         p {
             @include no-selection-allowed;
             margin: 0;
@@ -539,27 +537,20 @@ div.calender-event-editor-dialog {
                 margin-bottom: $spacing * 2;
             }
         }
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
-
-div.calender-event-editor-dialog {
-    input[type="button"] {
-        @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
-        @include button(remove, $light-color, $dark-color);
-        @include button(select-colors, $light-color, #6c757d);
-
-        &.remove {
-            margin-top: $spacing;
-            width: 100%;
+    
+        @import "foundation/split-container";
+        
+        input[type="button"] {
+            @include dialog-button-styles;
+            @include button(ok, $light-color, $ok-color);
+            @include button(cancel, $light-color, $alert-color);
+            @include button(remove, $light-color, $dark-color);
+            @include button(select-colors, $light-color, #6c757d);
+    
+            &.remove {
+                margin-top: $spacing;
+                width: 100%;
+            }
         }
     }
 }
@@ -652,16 +643,7 @@ div.calender-event-editor-colors-dialog {
     div.split {
         margin-top: $spacing;
     }
-}
 
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Event Editor Colors Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
-
-div.calender-event-editor-colors-dialog {
     input[type="button"] {
         @include dialog-button-styles;
         @include button(ok, $light-color, $ok-color);
@@ -690,16 +672,7 @@ div.calender-confirmation-dialog {
     }
     
     @import "foundation/split-container";
-}
 
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Confirmation Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
-
-div.calender-confirmation-dialog {
     input[type="button"] {
         @include dialog-button-styles;
         @include button(yes, $light-color, $ok-color);
@@ -727,16 +700,7 @@ div.calender-select-export-type-dialog {
     div.split {
         margin-top: 20px;
     }
-}
 
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
-
-div.calender-select-export-type-dialog {
     input[type="button"] {
         @include dialog-button-styles;
         @include button(ok, $light-color, $ok-color);
