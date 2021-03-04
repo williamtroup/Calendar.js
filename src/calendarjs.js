@@ -1892,9 +1892,9 @@ function calendarJs( id, options, startDateTime ) {
             description = trimString( _element_EventEditorDialog_Description.value ),
             location = trimString( _element_EventEditorDialog_Location.value );
 
-        if ( fromTime.length <= 0 ) {
+        if ( fromTime.length < 2 ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
-        } else if ( toTime.length <= 0 ) {
+        } else if ( toTime.length < 2 ) {
             showEventDialogErrorMessage( _options.toTimeErrorMessage, _element_EventEditorDialog_TimeTo );
         } else if ( toDate < fromDate ) {
             showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
@@ -1904,11 +1904,8 @@ function calendarJs( id, options, startDateTime ) {
         else {
 
             eventDialogEvent_Cancel();
-
-            fromDate.setHours( parseInt( fromTime[ 0 ] ) );
-            fromDate.setMinutes( parseInt( fromTime[ 1 ] ) );
-            toDate.setHours( parseInt( toTime[ 0 ] ) );
-            toDate.setMinutes( parseInt( toTime[ 1 ] ) );
+            setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
+            setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
 
             var newEvent = {
                 from: fromDate,
@@ -1931,6 +1928,25 @@ function calendarJs( id, options, startDateTime ) {
             buildDayEvents();
             refreshOpenedViews();
         }
+    }
+
+    function setTimeOnDate( date, timeData ) {
+        var hours = 0,
+            minutes = 0,
+            splitData = timeData.split( ":" );
+
+        if ( splitData.length === 2 ) {
+            var newHours = parseInt( splitData[ 0 ] ),
+                newMinutes = parseInt( splitData[ 1 ] );
+
+            if ( !isNaN( newHours ) && !isNaN( newMinutes ) ) {
+                hours = newHours;
+                minutes = newMinutes;
+            }
+        }
+
+        date.setHours( hours );
+        date.setMinutes( minutes );
     }
 
     function getSelectedDate( input ) {
