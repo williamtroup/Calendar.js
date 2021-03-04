@@ -5,7 +5,7 @@ v0.4.0:
 - Fixed a fault that caused optional text fields for Events to show up as "undefined" when edited or exported.
 - Added "Location" support to events, with the extra information being shown in full events and tooltips.
 - Event tooltip widths now auto-size to the available content (saves a lot of empty space).
-- Added support to set event Color, Text Color and Border Color (color, colorText, colorBorder properties).
+- Added support to set the event Color, Text Color and Border Color (color, colorText, colorBorder properties).
 - The "Title" field is now the first field in the Event Editor dialog.
 - Added a new "..." button next to the Title text box on the event editor (allows choosing the colors for the event).
 - Decreased the width of the "Select Export Type" dialog.
@@ -13,7 +13,7 @@ v0.4.0:
 - Fixed a fault that caused bad times (characters other than numbers) to be allowed in events, which never show up.
 - Fixed a fault that set the toolbar buttons to the wrong display type.
 - The extra toolbar buttons on the main display are now hidden on smaller displays (refresh, export, list all, list week).
-- Fixed spelling mistake across the CSS and JS code for CSS class names.
+- Fixed spelling mistakes across the CSS and JS code for CSS class names.
 - Renamed all dialog CSS classes to added "calendar-dialog" CSS class (to allow easier use of custom input styles).
 - Added full search support (new "Search" button on the main toolbar), with option to Match Case.
 
