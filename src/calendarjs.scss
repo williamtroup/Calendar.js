@@ -644,7 +644,7 @@ div.select-export-type {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: 20px;
+        margin-top: $spacing;
     }
 
     input[type="button"] {
@@ -682,7 +682,7 @@ div.search {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing * 2;
+        margin-top: $spacing;
     }
 
     input[type="button"] {
@@ -712,7 +712,7 @@ div.calendar,
 div.calendar-dialog {
     label.checkbox {
         @include no-selection-allowed;
-        display: block;
+        display: inline-block;
         position: relative;
         padding-left: 25px;
         padding-top: 1px;
@@ -770,7 +770,7 @@ div.calendar,
 div.calendar-dialog {
     label.radioButton {
         @include no-selection-allowed;
-        display: block;
+        display: inline-block;
         position: relative;
         padding-left: 25px;
         padding-top: 1px;

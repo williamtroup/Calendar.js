@@ -2685,10 +2685,13 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildRadioButton( container, labelText, groupName ) {
+        var lineContents = createElement( "div" );
+        container.appendChild( lineContents );
+
         var label = createElement( "label" );
         label.className = "radioButton";
         label.innerText = labelText;
-        container.appendChild( label );
+        lineContents.appendChild( label );
 
         var input = createElement( "input" );
         input.type = "radio";
@@ -2703,10 +2706,13 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildCheckBox( container, labelText, changedEvent ) {
+        var lineContents = createElement( "div" );
+        container.appendChild( lineContents );
+
         var label = createElement( "label" );
         label.className = "checkbox";
         label.innerText = labelText;
-        container.appendChild( label );
+        lineContents.appendChild( label );
 
         var input = createElement( "input" );
         input.type = "checkbox";

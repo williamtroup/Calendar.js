@@ -1466,7 +1466,7 @@ div.select-export-type div.split input:last-child {
 }
 
 div.select-export-type div.split {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 div.select-export-type input[type="button"] {
@@ -1616,7 +1616,7 @@ div.search div.split input:last-child {
 }
 
 div.search div.split {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 div.search input[type="button"] {
@@ -1702,7 +1702,7 @@ div.calendar-dialog label.checkbox {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  display: block;
+  display: inline-block;
   position: relative;
   padding-left: 25px;
   padding-top: 1px;
@@ -1768,7 +1768,7 @@ div.calendar-dialog label.radioButton {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  display: block;
+  display: inline-block;
   position: relative;
   padding-left: 25px;
   padding-top: 1px;
