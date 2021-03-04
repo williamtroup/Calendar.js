@@ -1,5 +1,5 @@
 /*
- * Calender.js Library v0.4.0
+ * Calendar.js Library v0.4.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -9,20 +9,20 @@
 @import "foundation/styles";
 
 div.calendar,
-div.calender-tooltip,
-div.calender-tooltip-event,
-div.calender-drop-down-menu,
-div.calender-event-editor-dialog,
-div.calender-event-editor-dialog input,
-div.calender-event-editor-dialog textarea,
-div.calender-event-editor-colors-dialog,
-div.calender-event-editor-colors-dialog input,
-div.calender-confirmation-dialog,
-div.calender-confirmation-dialog input,
-div.calender-confirmation-dialog textarea,
-div.calender-select-export-type-dialog,
-div.calender-select-export-type-dialog input,
-div.calender-select-export-type-dialog textarea {
+div.calendar-tooltip,
+div.calendar-tooltip-event,
+div.calendar-drop-down-menu,
+div.calendar-event-editor-dialog,
+div.calendar-event-editor-dialog input,
+div.calendar-event-editor-dialog textarea,
+div.calendar-event-editor-colors-dialog,
+div.calendar-event-editor-colors-dialog input,
+div.calendar-confirmation-dialog,
+div.calendar-confirmation-dialog input,
+div.calendar-confirmation-dialog textarea,
+div.calendar-select-export-type-dialog,
+div.calendar-select-export-type-dialog input,
+div.calendar-select-export-type-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: $minimum-width) {
@@ -483,7 +483,7 @@ div.calendar {
     -------------------------------------------------------------------------
 */
 
-div.calender-event-editor-dialog {
+div.calendar-event-editor-dialog {
     @include dialog-styles(370px);
 
     div.view {
@@ -562,7 +562,7 @@ div.calender-event-editor-dialog {
     -------------------------------------------------------------------------
 */
 
-div.calender-event-editor-dialog {
+div.calendar-event-editor-dialog {
     label.checkbox {
         @include no-selection-allowed;
         display: block;
@@ -619,7 +619,7 @@ div.calender-event-editor-dialog {
     -------------------------------------------------------------------------
 */
 
-div.calender-event-editor-colors-dialog {
+div.calendar-event-editor-colors-dialog {
     @include dialog-styles(300px);
     @include dialog-title-bar;
     
@@ -658,7 +658,7 @@ div.calender-event-editor-colors-dialog {
     -------------------------------------------------------------------------
 */
 
-div.calender-confirmation-dialog {
+div.calendar-confirmation-dialog {
     @include dialog-styles(330px);
     @include dialog-title-bar;
 
@@ -687,7 +687,7 @@ div.calender-confirmation-dialog {
     -------------------------------------------------------------------------
 */
 
-div.calender-select-export-type-dialog {
+div.calendar-select-export-type-dialog {
     @include dialog-styles(250px);
     @include dialog-title-bar;
 
@@ -715,7 +715,7 @@ div.calender-select-export-type-dialog {
     -------------------------------------------------------------------------
 */
 
-div.calender-select-export-type-dialog {
+div.calendar-select-export-type-dialog {
     label.radioButton {
         @include no-selection-allowed;
         display: block;
@@ -772,8 +772,8 @@ div.calender-select-export-type-dialog {
     -------------------------------------------------------------------------
 */
 
-div.calender-tooltip,
-div.calender-tooltip-event {
+div.calendar-tooltip,
+div.calendar-tooltip-event {
     @include fade-in-effect-animation(1s);
     @include no-selection-allowed;
     position: absolute;
@@ -798,13 +798,13 @@ div.calender-tooltip-event {
     }
 }
 
-div.calender-tooltip {
+div.calendar-tooltip {
     font-size: smaller !important;
     white-space: nowrap;
     overflow: hidden;
 }
 
-div.calender-tooltip-event {
+div.calendar-tooltip-event {
     max-width: 300px;
 }
 
@@ -815,7 +815,7 @@ div.calender-tooltip-event {
     -------------------------------------------------------------------------
 */
 
-div.calender-drop-down-menu {
+div.calendar-drop-down-menu {
     @include no-selection-allowed;
     background-color: #DCDCDC;
     border: $standard-border-size solid $dark-color;

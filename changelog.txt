@@ -13,6 +13,7 @@ v0.4.0:
 - Fixed a fault that caused bad times (characters other than numbers) to be allowed in events, which never show up.
 - Fixed a fault that set the toolbar buttons to the wrong display type.
 - The extra toolbar buttons on the main display are now hidden on smaller displays (refresh, export, list all, list week).
+- Fixed spelling mistake across the CSS and JS code for CSS class names.
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.

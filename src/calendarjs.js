@@ -1583,7 +1583,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDayDropDownMenu() {
         _element_DropDownMenu_Day = createElement( "div" );
-        _element_DropDownMenu_Day.className = "calender-drop-down-menu";
+        _element_DropDownMenu_Day.className = "calendar-drop-down-menu";
         _document.body.appendChild( _element_DropDownMenu_Day );
         
         var addEvent = createElement( "div" );
@@ -1668,7 +1668,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildEventEditingDialog() {
         if ( _element_EventEditorDialog === null ) {
             _element_EventEditorDialog = createElement( "div" );
-            _element_EventEditorDialog.className = "calender-event-editor-dialog";
+            _element_EventEditorDialog.className = "calendar-event-editor-dialog";
             _document.body.appendChild( _element_EventEditorDialog );
 
             var view = createElement( "div" );
@@ -2049,7 +2049,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildEventEditingColorDialog() {
         if ( _element_EventEditorColorsDialog === null ) {
             _element_EventEditorColorsDialog = createElement( "div" );
-            _element_EventEditorColorsDialog.className = "calender-event-editor-colors-dialog";
+            _element_EventEditorColorsDialog.className = "calendar-event-editor-colors-dialog";
             _document.body.appendChild( _element_EventEditorColorsDialog );
 
             var titleBar = createElement( "div" );
@@ -2136,7 +2136,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildConfirmationDialog() {
         if ( _element_ConfirmationDialog === null ) {
             _element_ConfirmationDialog = createElement( "div" );
-            _element_ConfirmationDialog.className = "calender-confirmation-dialog";
+            _element_ConfirmationDialog.className = "calendar-confirmation-dialog";
             _document.body.appendChild( _element_ConfirmationDialog );
 
             _element_ConfirmationDialog_TitleBar = createElement( "div" );
@@ -2196,7 +2196,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildSelectExportTypeDialog() {
         if ( _element_SelectExportTypeDialog === null ) {
             _element_SelectExportTypeDialog = createElement( "div" );
-            _element_SelectExportTypeDialog.className = "calender-select-export-type-dialog";
+            _element_SelectExportTypeDialog.className = "calendar-select-export-type-dialog";
             _document.body.appendChild( _element_SelectExportTypeDialog );
 
             var titleBar = createElement( "div" );
@@ -2315,7 +2315,7 @@ function calendarJs( id, options, startDateTime ) {
                 if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
                     text = isDefined( text ) ? text : "";
 
-                    _element_Tooltip.className = text === "" ? "calender-tooltip-event" : "calender-tooltip";
+                    _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
 
                     if ( text !== "" ) {
                         _element_Tooltip.innerHTML = text;
@@ -3093,7 +3093,7 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * setOptions().
      * 
-     * Sets the options that should be used in Calender.js.
+     * Sets the options that should be used in Calendar.js.
      * 
      * @param {object}      newOptions                                  All the configurable options that should be used (see Options documentation).
      */
