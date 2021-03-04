@@ -15,6 +15,7 @@ v0.4.0:
 - The extra toolbar buttons on the main display are now hidden on smaller displays (refresh, export, list all, list week).
 - Fixed spelling mistake across the CSS and JS code for CSS class names.
 - Renamed all dialog CSS classes to added "calendar-dialog" CSS class (to allow easier use of custom input styles).
+- Added full search support (new "Search" icon on the main toolbar), with option to Match Case.
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.

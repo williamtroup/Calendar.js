@@ -125,6 +125,26 @@ $minimum-width: $maximum-width + 1;
     border-radius: $border-view-radius;
     outline: 0;
     cursor: pointer;
+
+    &:disabled {
+        background-color: $input-border-color !important;
+        cursor: default !important;
+    }
+}
+
+@mixin button($name, $color, $background-color) {
+    &.#{$name} {
+        color: $color;
+        background-color: $background-color;
+
+        &:not(:disabled):hover {
+            @include opacity-hover-effect;
+        }
+
+        &:not(:disabled):active {
+            @include opacity-active-effect;
+        }
+    }
 }
 
 @mixin disabled-area($position) {
@@ -141,21 +161,6 @@ $minimum-width: $maximum-width + 1;
 
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-}
-
-@mixin button($name, $color, $background-color) {
-    &.#{$name} {
-        color: $color;
-        background-color: $background-color;
-
-        &:hover {
-            @include opacity-hover-effect;
-        }
-
-        &:active {
-            @include opacity-active-effect;
         }
     }
 }

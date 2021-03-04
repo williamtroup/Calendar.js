@@ -55,6 +55,7 @@
  * @property    {string}   listWeekEventsTooltipText                    The tooltip text that should be used for for the "View Current Week Events" button.
  * @property    {string}   todayTooltipText                             The tooltip text that should be used for for the "Today" button.
  * @property    {string}   refreshTooltipText                           The tooltip text that should be used for for the "Refresh" button.
+ * @property    {string}   searchTooltipText                            The tooltip text that should be used for for the "Search" button.
  * @property    {string}   expandDayTooltipText                         The tooltip text that should be used for for the "Expand Day" button.
  * @property    {array}    dayHeaderNames                               The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
  * @property    {array}    dayNames                                     The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
@@ -106,6 +107,11 @@
  * @property    {string}   backgroundColorText                          The text that should be displayed for the "Background Color:" label.
  * @property    {string}   textColorText                                The text that should be displayed for the "Text Color:" label.
  * @property    {string}   borderColorText                              The text that should be displayed for the "Border Color:" label.
+ * @property    {string}   searchEventsTitle                            The text that should be displayed for the "Search Events" label.
+ * @property    {string}   forText                                      The text that should be displayed for the "For:" label.
+ * @property    {string}   previousText                                 The text that should be displayed for the "Previous" button.
+ * @property    {string}   nextText                                     The text that should be displayed for the "Next" button.
+ * @property    {string}   matchCaseText                                The text that should be displayed for the "Match Case" label.
  */
 
 
@@ -197,7 +203,17 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
         _element_DropDownMenu_Day = null,
-        _element_DropDownMenu_DateSelected = null;
+        _element_DropDownMenu_DateSelected = null,
+        _element_SearchDialog = null,
+        _element_SearchDialog_For = null,
+        _element_SearchDialog_MatchCase = null,
+        _element_SearchDialog_Previous = null,
+        _element_SearchDialog_Next = null,
+        _element_SearchDialog_IsMoving = false,
+        _element_SearchDialog_X = 0,
+        _element_SearchDialog_Y = 0,
+        _element_SearchDialog_SearchResults = [],
+        _element_SearchDialog_SearchIndex = 0;
 
 
     /*
@@ -231,6 +247,7 @@ function calendarJs( id, options, startDateTime ) {
         buildEventEditingColorDialog();
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
+        buildSearchDialog();
         buildTooltip();
         buildDropDownMenus();
 
@@ -294,6 +311,14 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay.appendChild( refreshButton );
 
         addToolTip( refreshButton, _options.refreshTooltipText );
+
+        var searchButton = createElement( "div" );
+        searchButton.className = "ib-search";
+        searchButton.onclick = showSearchDialog;
+        searchButton.ondblclick = cancelBubble;
+        _element_HeaderDateDisplay.appendChild( searchButton );
+
+        addToolTip( searchButton, _options.searchTooltipText );
 
         var nextMonthButton = createElement( "div" );
         nextMonthButton.className = "ib-arrow-right-full";
@@ -1725,19 +1750,7 @@ function calendarJs( id, options, startDateTime ) {
 
             setInputType( _element_EventEditorDialog_TimeFrom, "time" );
 
-            var isAllDayEventLabel = createElement( "label" );
-            isAllDayEventLabel.className = "checkbox";
-            isAllDayEventLabel.innerText = _options.isAllDayEventText;
-            contents.appendChild( isAllDayEventLabel );
-
-            _element_EventEditorDialog_IsAllDayEvent = createElement( "input" );
-            _element_EventEditorDialog_IsAllDayEvent.type = "checkbox";
-            _element_EventEditorDialog_IsAllDayEvent.onchange = isAllDayEventChanged;
-            isAllDayEventLabel.appendChild( _element_EventEditorDialog_IsAllDayEvent );
-
-            var isAllDayEventLabelSpan = createElement( "span" );
-            isAllDayEventLabelSpan.className = "check-mark";
-            isAllDayEventLabel.appendChild( isAllDayEventLabelSpan );
+            _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
 
             var textTo = createElement( "p" );
             textTo.innerText = _options.toText;
@@ -2233,24 +2246,6 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildRadioButton( container, labelText, groupName ) {
-        var label = createElement( "label" );
-        label.className = "radioButton";
-        label.innerText = labelText;
-        container.appendChild( label );
-
-        var input = createElement( "input" );
-        input.type = "radio";
-        input.name = groupName;
-        label.appendChild( input );
-
-        var labelSpan = createElement( "span" );
-        labelSpan.className = "check-mark";
-        label.appendChild( labelSpan );
-
-        return input;
-    }
-
     function showSelectExportTypeDialog( events ) {
         addNode( _document.body, _element_DisabledBackground );
         _element_SelectExportTypeDialog.style.display = "block";
@@ -2275,6 +2270,168 @@ function calendarJs( id, options, startDateTime ) {
         } else if ( _element_SelectExportTypeDialog_Option_TEXT.checked ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "text" );
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Search Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildSearchDialog() {
+        if ( _element_SearchDialog === null ) {
+            _element_SearchDialog = createElement( "div" );
+            _element_SearchDialog.className = "calendar-dialog search";
+            _document.body.appendChild( _element_SearchDialog );
+
+            var titleBar = createElement( "div" );
+            titleBar.className = "title-bar";
+            titleBar.innerHTML = _options.searchEventsTitle;
+            titleBar.onmousedown = searchOnTitleBarMouseDown;
+            titleBar.onmouseup = searchOnTitleBarMouseUp;
+            _element_SearchDialog.appendChild( titleBar );
+
+            var closeButton = createElement( "div" );
+            closeButton.className = "ib-close";
+            closeButton.onclick = hideSearchDialog;
+            titleBar.appendChild( closeButton );
+
+            addToolTip( closeButton, _options.closeTooltipText );
+
+            var contents = createElement( "div" );
+            contents.className = "contents";
+            _element_SearchDialog.appendChild( contents );
+
+            var textFor = createElement( "p" );
+            textFor.innerText = _options.forText;
+            contents.appendChild( textFor );
+
+            _element_SearchDialog_For = createElement( "input" );
+            _element_SearchDialog_For.type = "text";
+            _element_SearchDialog_For.oninput = searchForTextChanged;
+            _element_SearchDialog_For.onpropertychange = searchForTextChanged;
+            _element_SearchDialog_For.onkeypress = searchOnEnter;
+            contents.appendChild( _element_SearchDialog_For );
+            
+            _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText );
+
+            var buttonsSplitContainer = createElement( "div" );
+            buttonsSplitContainer.className = "split";
+            contents.appendChild( buttonsSplitContainer );
+
+            _element_SearchDialog_Previous = createElement( "input" );
+            _element_SearchDialog_Previous.className = "previous";
+            _element_SearchDialog_Previous.type = "button";
+            _element_SearchDialog_Previous.value = _options.previousText;
+            _element_SearchDialog_Previous.onclick = searchOnPrevious;
+            buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
+
+            _element_SearchDialog_Next = createElement( "input" );
+            _element_SearchDialog_Next.className = "next";
+            _element_SearchDialog_Next.type = "button";
+            _element_SearchDialog_Next.value = _options.nextText;
+            _element_SearchDialog_Next.onclick = searchOnNext;
+            buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
+
+            _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
+        }
+    }
+
+    function searchOnTitleBarMouseDown( e ) {
+        if ( !_element_SearchDialog_IsMoving ) {
+            _element_SearchDialog_IsMoving = true;
+            _element_SearchDialog_X = e.pageX - _element_SearchDialog.offsetLeft;
+            _element_SearchDialog_Y = e.pageY - _element_SearchDialog.offsetTop;
+        }
+    }
+
+    function searchOnDocumentMouseMove( e ) {
+        if ( _element_SearchDialog_IsMoving ) {
+            _element_SearchDialog.style.left = ( e.pageX - _element_SearchDialog_X ) + "px";
+            _element_SearchDialog.style.top = ( e.pageY - _element_SearchDialog_Y ) + "px";
+        }
+    }
+
+    function searchOnTitleBarMouseUp() {
+        if ( _element_SearchDialog_IsMoving ) {
+            _element_SearchDialog_IsMoving = false;
+        }
+    }
+
+    function searchForTextChanged() {
+        _element_SearchDialog_Previous.disabled = true;
+        _element_SearchDialog_Next.disabled = _element_SearchDialog_For.value === "";
+        _element_SearchDialog_SearchResults = [];
+        _element_SearchDialog_SearchIndex = 0;
+    }
+
+    function showSearchDialog() {
+        _element_SearchDialog_SearchResults = [];
+        _element_SearchDialog.style.display = "block";
+        _element_SearchDialog_For.value = "";
+        _element_SearchDialog_For.focus();
+
+        searchForTextChanged();
+    }
+
+    function hideSearchDialog() {
+        _element_SearchDialog.style.display = "none";
+    }
+
+    function searchOnPrevious() {
+        if ( _element_SearchDialog_SearchIndex > 0 ) {
+            _element_SearchDialog_SearchIndex--;
+
+            updateSearchButtons();
+            build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+        }
+    }
+
+    function searchOnEnter( e ) {
+        if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
+            searchOnNext();
+        }
+    }
+
+    function searchOnNext() {
+        if ( _element_SearchDialog_SearchResults.length === 0 ) {
+            var matchCase = _element_SearchDialog_MatchCase.checked,
+                search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
+                monthYearsFound = {};
+
+            for ( var storageDate in _events ) {
+                if ( _events.hasOwnProperty( storageDate ) ) {
+
+                    for ( var storageGuid in _events[ storageDate ] ) {
+                        if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
+                            var event = _events[ storageDate ][ storageGuid ],
+                                title = !matchCase ? event.title.toLowerCase() : event.title,
+                                description = !matchCase ? event.description.toLowerCase() : event.description;
+
+                            if ( title.indexOf( search ) > -1 || description.indexOf( search ) > -1 ) {
+
+                                var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+                                if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                                    _element_SearchDialog_SearchResults.push( event );
+                                    monthYearsFound[ monthYear ] = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            _element_SearchDialog_SearchIndex++;
+        }
+
+        updateSearchButtons();
+        build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+    }
+
+    function updateSearchButtons() {
+        _element_SearchDialog_Previous.disabled = _element_SearchDialog_SearchIndex === 0;
+        _element_SearchDialog_Next.disabled = _element_SearchDialog_SearchIndex === _element_SearchDialog_SearchResults.length - 1;
     }
 
 
@@ -2496,8 +2653,8 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showElementAtMousePosition( e, element ) {
-        var left = e.clientX,
-            top = e.clientY;
+        var left = e.pageX,
+            top = e.pageY;
 
         element.style.display = "block";
 
@@ -2515,6 +2672,52 @@ function calendarJs( id, options, startDateTime ) {
         
         element.style.left = left + "px";
         element.style.top = top + "px";
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Input Types
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildRadioButton( container, labelText, groupName ) {
+        var label = createElement( "label" );
+        label.className = "radioButton";
+        label.innerText = labelText;
+        container.appendChild( label );
+
+        var input = createElement( "input" );
+        input.type = "radio";
+        input.name = groupName;
+        label.appendChild( input );
+
+        var labelSpan = createElement( "span" );
+        labelSpan.className = "check-mark";
+        label.appendChild( labelSpan );
+
+        return input;
+    }
+
+    function buildCheckBox( container, labelText, changedEvent ) {
+        var label = createElement( "label" );
+        label.className = "checkbox";
+        label.innerText = labelText;
+        container.appendChild( label );
+
+        var input = createElement( "input" );
+        input.type = "checkbox";
+        label.appendChild( input );
+
+        if ( isDefined( changedEvent ) ) {
+            input.onchange = changedEvent;
+        }
+
+        var labelSpan = createElement( "span" );
+        labelSpan.className = "check-mark";
+        label.appendChild( labelSpan );
+
+        return input;
     }
 
 
@@ -3132,6 +3335,10 @@ function calendarJs( id, options, startDateTime ) {
             _options.refreshTooltipText = "Refresh";
         }
 
+        if ( !isDefined( _options.searchTooltipText ) ) {
+            _options.searchTooltipText = "Search";
+        }
+
         if ( !isDefined( _options.expandDayTooltipText ) ) {
             _options.expandDayTooltipText = "Expand Day";
         }
@@ -3355,6 +3562,26 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.borderColorText ) ) {
             _options.borderColorText = "Border Color:";
+        }
+
+        if ( !isDefined( _options.searchEventsTitle ) ) {
+            _options.searchEventsTitle = "Search Events";
+        }
+
+        if ( !isDefined( _options.forText ) ) {
+            _options.forText = "For:";
+        }
+
+        if ( !isDefined( _options.previousText ) ) {
+            _options.previousText = "Previous";
+        }
+
+        if ( !isDefined( _options.nextText ) ) {
+            _options.nextText = "Next";
+        }
+
+        if ( !isDefined( _options.matchCaseText ) ) {
+            _options.matchCaseText = "Match Case";
         }
     };
 

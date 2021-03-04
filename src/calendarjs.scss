@@ -20,7 +20,9 @@ div.event-editor-colors input,
 div.confirmation,
 div.confirmation input,
 div.select-export-type,
-div.select-export-type input {
+div.select-export-type input,
+div.search,
+div.search input {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: $minimum-width) {
@@ -273,7 +275,8 @@ div.calendar {
 
         div.ib-arrow-left-full,
         div.ib-pin,
-        div.ib-refresh {
+        div.ib-refresh,
+        div.ib-search {
             float: left;
         }
 
@@ -287,6 +290,7 @@ div.calendar {
 
         @media screen and (min-width: $minimum-width) {
             div.ib-refresh,
+            div.ib-search,
             div.ib-hamburger,
             div.ib-eye,
             div.ib-arrow-down-full-line {
@@ -296,6 +300,7 @@ div.calendar {
         
         @media screen and (max-width: $maximum-width) {
             div.ib-refresh,
+            div.ib-search,
             div.ib-hamburger,
             div.ib-eye,
             div.ib-arrow-down-full-line {
@@ -652,6 +657,53 @@ div.select-export-type {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Dialog - Search
+    -------------------------------------------------------------------------
+*/
+
+div.search {
+    @include dialog-styles(250px);
+    @include dialog-title-bar;
+
+    div.contents {
+        padding: $spacing;
+    }
+    
+    input[type="text"] {
+        @include input-fields;
+    }
+
+    p {
+        @include no-selection-allowed;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing * 2;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(next, $light-color, $ok-color);
+        @include button(previous, $light-color, #6c757d);
+        
+        &.cancel {
+            margin-top: $spacing;
+            width: 100%;
+        }
+    }
+
+    .ib-close {
+        float: right;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - CheckBox
     -------------------------------------------------------------------------
 */
@@ -907,6 +959,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-left-full";
 @import "foundation/buttons/pin";
 @import "foundation/buttons/refresh";
+@import "foundation/buttons/search";
 @import "foundation/buttons/hamburger";
 @import "foundation/buttons/eye";
 @import "foundation/buttons/arrow-down-full-line";
