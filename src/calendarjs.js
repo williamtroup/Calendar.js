@@ -1939,8 +1939,11 @@ function calendarJs( id, options, startDateTime ) {
             var newHours = parseInt( splitData[ 0 ] ),
                 newMinutes = parseInt( splitData[ 1 ] );
 
-            if ( !isNaN( newHours ) && !isNaN( newMinutes ) ) {
+            if ( !isNaN( newHours ) && newHours.toString().length <= 2 ) {
                 hours = newHours;
+            }
+
+            if ( !isNaN( newMinutes ) && newMinutes.toString().length <= 2 ) {
                 minutes = newMinutes;
             }
         }
