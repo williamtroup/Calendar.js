@@ -647,10 +647,6 @@ function calendarJs( id, options, startDateTime ) {
 
                 setEventClassesAndColors( eventDetails, event );
     
-                if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-                    event.setAttribute( "draggable", true );
-                }
-    
                 if ( _options.manualEditingEnabled ) {
                     event.onclick = function() {
                         showEventDialog( eventDetails );
@@ -658,6 +654,8 @@ function calendarJs( id, options, startDateTime ) {
                 }
     
                 if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+                    event.setAttribute( "draggable", true );
+                    
                     event.ondragstart = function() {
                         _eventDetails_Dragged = eventDetails;
                     };
