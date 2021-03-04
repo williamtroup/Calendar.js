@@ -157,7 +157,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
         _element_EventEditorDialog_ErrorMessage = null,
-        _element_EventEditorDialog_EventDetails = null,
+        _element_EventEditorDialog_EventDetails = {},
         _element_EventEditorDialog_OKButton = null,
         _element_EventEditorDialog_RemoveButton = null,
         _element_EventEditorColorsDialog = null,
