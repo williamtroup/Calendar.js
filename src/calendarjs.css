@@ -150,6 +150,7 @@ div.calendar {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   border-radius: 0.25rem;
   overflow: hidden;
   width: 100%;
@@ -935,6 +936,7 @@ div.event-editor div.view div.title-bar {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
@@ -1007,6 +1009,7 @@ div.event-editor div.view p {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   margin: 0;
   margin-bottom: 8px;
 }
@@ -1037,6 +1040,7 @@ div.event-editor div.view input[type="button"] {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -1160,6 +1164,7 @@ div.event-editor-colors div.title-bar {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
@@ -1203,6 +1208,7 @@ div.event-editor-colors p {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   margin: 0;
   margin-bottom: 8px;
 }
@@ -1231,6 +1237,7 @@ div.event-editor-colors input[type="button"] {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -1311,6 +1318,7 @@ div.confirmation div.title-bar {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
@@ -1327,6 +1335,7 @@ div.confirmation div.contents div.message {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   margin-bottom: 20px;
 }
 
@@ -1350,6 +1359,7 @@ div.confirmation input[type="button"] {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -1430,6 +1440,7 @@ div.select-export-type div.title-bar {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
@@ -1464,6 +1475,7 @@ div.select-export-type input[type="button"] {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -1544,6 +1556,7 @@ div.search div.title-bar {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
@@ -1583,6 +1596,7 @@ div.search p {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   margin: 0;
   margin-bottom: 8px;
 }
@@ -1611,6 +1625,7 @@ div.search input[type="button"] {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -1686,6 +1701,7 @@ div.calendar-dialog label.checkbox {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   display: block;
   position: relative;
   padding-left: 25px;
@@ -1751,6 +1767,7 @@ div.calendar-dialog label.radioButton {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   display: block;
   position: relative;
   padding-left: 25px;
@@ -1821,6 +1838,7 @@ div.calendar-tooltip-event {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   position: absolute;
   border: 1px solid #282828;
   border-radius: 0.25rem;
@@ -1876,6 +1894,7 @@ div.calendar-drop-down-menu {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  cursor: default;
   background-color: #DCDCDC;
   border: 1px solid #282828;
   color: #282828;
