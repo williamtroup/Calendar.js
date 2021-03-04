@@ -1668,7 +1668,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildEventEditingDialog() {
         if ( _element_EventEditorDialog === null ) {
             _element_EventEditorDialog = createElement( "div" );
-            _element_EventEditorDialog.className = "calendar-event-editor-dialog";
+            _element_EventEditorDialog.className = "calendar-dialog event-editor";
             _document.body.appendChild( _element_EventEditorDialog );
 
             var view = createElement( "div" );
@@ -2049,7 +2049,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildEventEditingColorDialog() {
         if ( _element_EventEditorColorsDialog === null ) {
             _element_EventEditorColorsDialog = createElement( "div" );
-            _element_EventEditorColorsDialog.className = "calendar-event-editor-colors-dialog";
+            _element_EventEditorColorsDialog.className = "calendar-dialog event-editor-colors";
             _document.body.appendChild( _element_EventEditorColorsDialog );
 
             var titleBar = createElement( "div" );
@@ -2136,7 +2136,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildConfirmationDialog() {
         if ( _element_ConfirmationDialog === null ) {
             _element_ConfirmationDialog = createElement( "div" );
-            _element_ConfirmationDialog.className = "calendar-confirmation-dialog";
+            _element_ConfirmationDialog.className = "calendar-dialog confirmation";
             _document.body.appendChild( _element_ConfirmationDialog );
 
             _element_ConfirmationDialog_TitleBar = createElement( "div" );
@@ -2196,7 +2196,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildSelectExportTypeDialog() {
         if ( _element_SelectExportTypeDialog === null ) {
             _element_SelectExportTypeDialog = createElement( "div" );
-            _element_SelectExportTypeDialog.className = "calendar-select-export-type-dialog";
+            _element_SelectExportTypeDialog.className = "calendar-dialog select-export-type";
             _document.body.appendChild( _element_SelectExportTypeDialog );
 
             var titleBar = createElement( "div" );

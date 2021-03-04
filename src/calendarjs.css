@@ -8,17 +8,15 @@ div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
 div.calendar-drop-down-menu,
-div.calendar-event-editor-dialog,
-div.calendar-event-editor-dialog input,
-div.calendar-event-editor-dialog textarea,
-div.calendar-event-editor-colors-dialog,
-div.calendar-event-editor-colors-dialog input,
-div.calendar-confirmation-dialog,
-div.calendar-confirmation-dialog input,
-div.calendar-confirmation-dialog textarea,
-div.calendar-select-export-type-dialog,
-div.calendar-select-export-type-dialog input,
-div.calendar-select-export-type-dialog textarea {
+div.event-editor,
+div.event-editor input,
+div.event-editor textarea,
+div.event-editor-colors,
+div.event-editor-colors input,
+div.confirmation,
+div.confirmation input,
+div.select-export-type,
+div.select-export-type input {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -27,17 +25,15 @@ div.calendar-select-export-type-dialog textarea {
   div.calendar-tooltip,
   div.calendar-tooltip-event,
   div.calendar-drop-down-menu,
-  div.calendar-event-editor-dialog,
-  div.calendar-event-editor-dialog input,
-  div.calendar-event-editor-dialog textarea,
-  div.calendar-event-editor-colors-dialog,
-  div.calendar-event-editor-colors-dialog input,
-  div.calendar-confirmation-dialog,
-  div.calendar-confirmation-dialog input,
-  div.calendar-confirmation-dialog textarea,
-  div.calendar-select-export-type-dialog,
-  div.calendar-select-export-type-dialog input,
-  div.calendar-select-export-type-dialog textarea {
+  div.event-editor,
+  div.event-editor input,
+  div.event-editor textarea,
+  div.event-editor-colors,
+  div.event-editor-colors input,
+  div.confirmation,
+  div.confirmation input,
+  div.select-export-type,
+  div.select-export-type input {
     font-size: 0.9rem !important;
   }
 }
@@ -47,17 +43,15 @@ div.calendar-select-export-type-dialog textarea {
   div.calendar-tooltip,
   div.calendar-tooltip-event,
   div.calendar-drop-down-menu,
-  div.calendar-event-editor-dialog,
-  div.calendar-event-editor-dialog input,
-  div.calendar-event-editor-dialog textarea,
-  div.calendar-event-editor-colors-dialog,
-  div.calendar-event-editor-colors-dialog input,
-  div.calendar-confirmation-dialog,
-  div.calendar-confirmation-dialog input,
-  div.calendar-confirmation-dialog textarea,
-  div.calendar-select-export-type-dialog,
-  div.calendar-select-export-type-dialog input,
-  div.calendar-select-export-type-dialog textarea {
+  div.event-editor,
+  div.event-editor input,
+  div.event-editor textarea,
+  div.event-editor-colors,
+  div.event-editor-colors input,
+  div.confirmation,
+  div.confirmation input,
+  div.select-export-type,
+  div.select-export-type input {
     font-size: 0.7rem !important;
   }
 }
@@ -66,17 +60,15 @@ div.calendar div.overlay-shown,
 div.calendar-tooltip div.overlay-shown,
 div.calendar-tooltip-event div.overlay-shown,
 div.calendar-drop-down-menu div.overlay-shown,
-div.calendar-event-editor-dialog div.overlay-shown,
-div.calendar-event-editor-dialog input div.overlay-shown,
-div.calendar-event-editor-dialog textarea div.overlay-shown,
-div.calendar-event-editor-colors-dialog div.overlay-shown,
-div.calendar-event-editor-colors-dialog input div.overlay-shown,
-div.calendar-confirmation-dialog div.overlay-shown,
-div.calendar-confirmation-dialog input div.overlay-shown,
-div.calendar-confirmation-dialog textarea div.overlay-shown,
-div.calendar-select-export-type-dialog div.overlay-shown,
-div.calendar-select-export-type-dialog input div.overlay-shown,
-div.calendar-select-export-type-dialog textarea div.overlay-shown {
+div.event-editor div.overlay-shown,
+div.event-editor input div.overlay-shown,
+div.event-editor textarea div.overlay-shown,
+div.event-editor-colors div.overlay-shown,
+div.event-editor-colors input div.overlay-shown,
+div.confirmation div.overlay-shown,
+div.confirmation input div.overlay-shown,
+div.select-export-type div.overlay-shown,
+div.select-export-type input div.overlay-shown {
   top: 0 !important;
   visibility: visible !important;
 }
@@ -904,10 +896,10 @@ div.calendar div.list-all-week-events-view div.contents div.day:last-child {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog
+    Calendar.js - Dialog - Event Editor
     -------------------------------------------------------------------------
 */
-div.calendar-event-editor-dialog {
+div.event-editor {
   width: calc(100% - (10px * 2));
   max-width: 370px;
   border-radius: 0.25rem;
@@ -922,11 +914,11 @@ div.calendar-event-editor-dialog {
   z-index: 1500;
 }
 
-div.calendar-event-editor-dialog div.view {
+div.event-editor div.view {
   position: relative;
 }
 
-div.calendar-event-editor-dialog div.view div.title-bar {
+div.event-editor div.view div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -938,32 +930,32 @@ div.calendar-event-editor-dialog div.view div.title-bar {
   text-align: center;
 }
 
-div.calendar-event-editor-dialog div.view div.input-title-container {
+div.event-editor div.view div.input-title-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 10px;
 }
 
-div.calendar-event-editor-dialog div.view div.input-title-container input[type="text"] {
+div.event-editor div.view div.input-title-container input[type="text"] {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   margin-bottom: 0 !important;
 }
 
-div.calendar-event-editor-dialog div.view div.input-title-container input[type="button"] {
+div.event-editor div.view div.input-title-container input[type="button"] {
   padding: .375rem .75rem;
   margin-left: 10px;
   line-height: 0;
 }
 
-div.calendar-event-editor-dialog div.view div.contents {
+div.event-editor div.view div.contents {
   padding: 10px;
 }
 
-div.calendar-event-editor-dialog div.view input:not([type="button"]),
-div.calendar-event-editor-dialog div.view textarea {
+div.event-editor div.view input:not([type="button"]),
+div.event-editor div.view textarea {
   color: #282828;
   width: 100%;
   padding: .375rem .75rem;
@@ -976,29 +968,29 @@ div.calendar-event-editor-dialog div.view textarea {
   transition: all 0.3s;
 }
 
-div.calendar-event-editor-dialog div.view input:not([type="button"]):last-child,
-div.calendar-event-editor-dialog div.view textarea:last-child {
+div.event-editor div.view input:not([type="button"]):last-child,
+div.event-editor div.view textarea:last-child {
   margin-bottom: 0;
 }
 
-div.calendar-event-editor-dialog div.view input:not([type="button"]):focus,
-div.calendar-event-editor-dialog div.view textarea:focus {
+div.event-editor div.view input:not([type="button"]):focus,
+div.event-editor div.view textarea:focus {
   border: 1px solid #282828;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.calendar-event-editor-dialog div.view input:disabled {
+div.event-editor div.view input:disabled {
   background-color: #F5F5F5;
 }
 
-div.calendar-event-editor-dialog div.view textarea {
+div.event-editor div.view textarea {
   height: 100px;
   resize: none;
   margin-bottom: 20px;
 }
 
-div.calendar-event-editor-dialog div.view p {
+div.event-editor div.view p {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1008,27 +1000,27 @@ div.calendar-event-editor-dialog div.view p {
   margin-bottom: 8px;
 }
 
-div.calendar-event-editor-dialog div.view p.error {
+div.event-editor div.view p.error {
   color: #C60000;
   display: none;
   margin-bottom: 20px;
 }
 
-div.calendar-event-editor-dialog div.view div.split input {
+div.event-editor div.view div.split input {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
 }
 
-div.calendar-event-editor-dialog div.view div.split input:first-child {
+div.event-editor div.view div.split input:first-child {
   margin-left: 0;
 }
 
-div.calendar-event-editor-dialog div.view div.split input:last-child {
+div.event-editor div.view div.split input:last-child {
   margin-right: 0;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"] {
+div.event-editor div.view input[type="button"] {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1045,93 +1037,463 @@ div.calendar-event-editor-dialog div.view input[type="button"] {
   cursor: pointer;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].ok {
+div.event-editor div.view input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].ok:hover {
+div.event-editor div.view input[type="button"].ok:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].ok:active {
+div.event-editor div.view input[type="button"].ok:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].cancel {
+div.event-editor div.view input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].cancel:hover {
+div.event-editor div.view input[type="button"].cancel:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].cancel:active {
+div.event-editor div.view input[type="button"].cancel:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].remove {
+div.event-editor div.view input[type="button"].remove {
   color: #F5F5F5;
   background-color: #282828;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].remove:hover {
+div.event-editor div.view input[type="button"].remove:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].remove:active {
+div.event-editor div.view input[type="button"].remove:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].select-colors {
+div.event-editor div.view input[type="button"].select-colors {
   color: #F5F5F5;
   background-color: #6c757d;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].select-colors:hover {
+div.event-editor div.view input[type="button"].select-colors:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].select-colors:active {
+div.event-editor div.view input[type="button"].select-colors:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.calendar-event-editor-dialog div.view input[type="button"].remove {
+div.event-editor div.view input[type="button"].remove {
   margin-top: 10px;
   width: 100%;
 }
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog - CheckBox
+    Calendar.js - Dialog - Event Editor Colors
     -------------------------------------------------------------------------
 */
-div.calendar-event-editor-dialog label.checkbox {
+div.event-editor-colors {
+  width: calc(100% - (10px * 2));
+  max-width: 300px;
+  border-radius: 0.25rem;
+  background-color: #F5F5F5;
+  border: 1px solid #282828;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+  z-index: 1500;
+}
+
+div.event-editor-colors div.title-bar {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-color: #282828;
+  color: #F5F5F5;
+  padding: 10px;
+  text-align: center;
+}
+
+div.event-editor-colors div.contents {
+  padding: 10px;
+}
+
+div.event-editor-colors input[type="color"],
+div.event-editor-colors input[type="text"] {
+  color: #282828;
+  width: 100%;
+  padding: .375rem .75rem;
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  height: 40px;
+}
+
+div.event-editor-colors input[type="color"]:last-child,
+div.event-editor-colors input[type="text"]:last-child {
+  margin-bottom: 0;
+}
+
+div.event-editor-colors input[type="color"]:focus,
+div.event-editor-colors input[type="text"]:focus {
+  border: 1px solid #282828;
+  -webkit-box-shadow: 0 0 1pt 1pt #282828;
+          box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.event-editor-colors p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+div.event-editor-colors div.split input {
+  width: calc(50% - (10px / 2));
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+div.event-editor-colors div.split input:first-child {
+  margin-left: 0;
+}
+
+div.event-editor-colors div.split input:last-child {
+  margin-right: 0;
+}
+
+div.event-editor-colors div.split {
+  margin-top: 10px;
+}
+
+div.event-editor-colors input[type="button"] {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: .255rem .55rem;
+  line-height: 1.8;
+  border-radius: 0.25rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+div.event-editor-colors input[type="button"].ok {
+  color: #F5F5F5;
+  background-color: #289345;
+}
+
+div.event-editor-colors input[type="button"].ok:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.event-editor-colors input[type="button"].ok:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.event-editor-colors input[type="button"].cancel {
+  color: #F5F5F5;
+  background-color: #C60000;
+}
+
+div.event-editor-colors input[type="button"].cancel:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.event-editor-colors input[type="button"].cancel:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Confirmation
+    -------------------------------------------------------------------------
+*/
+div.confirmation {
+  width: calc(100% - (10px * 2));
+  max-width: 330px;
+  border-radius: 0.25rem;
+  background-color: #F5F5F5;
+  border: 1px solid #282828;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+  z-index: 1500;
+}
+
+div.confirmation div.title-bar {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-color: #282828;
+  color: #F5F5F5;
+  padding: 10px;
+  text-align: center;
+}
+
+div.confirmation div.contents {
+  padding: 10px;
+}
+
+div.confirmation div.contents div.message {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  margin-bottom: 20px;
+}
+
+div.confirmation div.split input {
+  width: calc(50% - (10px / 2));
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+div.confirmation div.split input:first-child {
+  margin-left: 0;
+}
+
+div.confirmation div.split input:last-child {
+  margin-right: 0;
+}
+
+div.confirmation input[type="button"] {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: .255rem .55rem;
+  line-height: 1.8;
+  border-radius: 0.25rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+div.confirmation input[type="button"].yes {
+  color: #F5F5F5;
+  background-color: #289345;
+}
+
+div.confirmation input[type="button"].yes:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.confirmation input[type="button"].yes:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.confirmation input[type="button"].no {
+  color: #F5F5F5;
+  background-color: #C60000;
+}
+
+div.confirmation input[type="button"].no:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.confirmation input[type="button"].no:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Select Export Type
+    -------------------------------------------------------------------------
+*/
+div.select-export-type {
+  width: calc(100% - (10px * 2));
+  max-width: 250px;
+  border-radius: 0.25rem;
+  background-color: #F5F5F5;
+  border: 1px solid #282828;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+  z-index: 1500;
+}
+
+div.select-export-type div.title-bar {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-color: #282828;
+  color: #F5F5F5;
+  padding: 10px;
+  text-align: center;
+}
+
+div.select-export-type div.contents {
+  padding: 10px;
+}
+
+div.select-export-type div.split input {
+  width: calc(50% - (10px / 2));
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+div.select-export-type div.split input:first-child {
+  margin-left: 0;
+}
+
+div.select-export-type div.split input:last-child {
+  margin-right: 0;
+}
+
+div.select-export-type div.split {
+  margin-top: 20px;
+}
+
+div.select-export-type input[type="button"] {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: .255rem .55rem;
+  line-height: 1.8;
+  border-radius: 0.25rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+div.select-export-type input[type="button"].ok {
+  color: #F5F5F5;
+  background-color: #289345;
+}
+
+div.select-export-type input[type="button"].ok:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.select-export-type input[type="button"].ok:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.select-export-type input[type="button"].cancel {
+  color: #F5F5F5;
+  background-color: #C60000;
+}
+
+div.select-export-type input[type="button"].cancel:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.select-export-type input[type="button"].cancel:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - CheckBox
+    -------------------------------------------------------------------------
+*/
+div.calendar label.checkbox,
+div.calendar-dialog label.checkbox {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1145,20 +1507,24 @@ div.calendar-event-editor-dialog label.checkbox {
   color: #282828;
 }
 
-div.calendar-event-editor-dialog label.checkbox input {
+div.calendar label.checkbox input,
+div.calendar-dialog label.checkbox input {
   display: none;
 }
 
-div.calendar-event-editor-dialog label.checkbox input:checked ~ span.check-mark {
+div.calendar label.checkbox input:checked ~ span.check-mark,
+div.calendar-dialog label.checkbox input:checked ~ span.check-mark {
   background-color: #282828 !important;
   border: 1px solid #282828;
 }
 
-div.calendar-event-editor-dialog label.checkbox input:checked ~ span.check-mark:before {
+div.calendar label.checkbox input:checked ~ span.check-mark:before,
+div.calendar-dialog label.checkbox input:checked ~ span.check-mark:before {
   display: block;
 }
 
-div.calendar-event-editor-dialog label.checkbox span.check-mark {
+div.calendar label.checkbox span.check-mark,
+div.calendar-dialog label.checkbox span.check-mark {
   position: absolute;
   top: 0;
   left: 0;
@@ -1171,7 +1537,8 @@ div.calendar-event-editor-dialog label.checkbox span.check-mark {
   transition: all 0.3s;
 }
 
-div.calendar-event-editor-dialog label.checkbox span.check-mark:before {
+div.calendar label.checkbox span.check-mark:before,
+div.calendar-dialog label.checkbox span.check-mark:before {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   content: "";
@@ -1187,379 +1554,11 @@ div.calendar-event-editor-dialog label.checkbox span.check-mark:before {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Colors Dialog
+    Calendar.js - Radio Button
     -------------------------------------------------------------------------
 */
-div.calendar-event-editor-colors-dialog {
-  width: calc(100% - (10px * 2));
-  max-width: 300px;
-  border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
-}
-
-div.calendar-event-editor-colors-dialog div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  background-color: #282828;
-  color: #F5F5F5;
-  padding: 10px;
-  text-align: center;
-}
-
-div.calendar-event-editor-colors-dialog div.contents {
-  padding: 10px;
-}
-
-div.calendar-event-editor-colors-dialog input[type="color"],
-div.calendar-event-editor-colors-dialog input[type="text"] {
-  color: #282828;
-  width: 100%;
-  padding: .375rem .75rem;
-  border: 1px solid #A8A8A8;
-  border-radius: 0.25rem;
-  outline: none;
-  margin-bottom: 10px;
-  background-color: #FFFFFF;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  height: 40px;
-}
-
-div.calendar-event-editor-colors-dialog input[type="color"]:last-child,
-div.calendar-event-editor-colors-dialog input[type="text"]:last-child {
-  margin-bottom: 0;
-}
-
-div.calendar-event-editor-colors-dialog input[type="color"]:focus,
-div.calendar-event-editor-colors-dialog input[type="text"]:focus {
-  border: 1px solid #282828;
-  -webkit-box-shadow: 0 0 1pt 1pt #282828;
-          box-shadow: 0 0 1pt 1pt #282828;
-}
-
-div.calendar-event-editor-colors-dialog p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  margin: 0;
-  margin-bottom: 8px;
-}
-
-div.calendar-event-editor-colors-dialog div.split input {
-  width: calc(50% - (10px / 2));
-  margin-right: 5px;
-  margin-left: 5px;
-}
-
-div.calendar-event-editor-colors-dialog div.split input:first-child {
-  margin-left: 0;
-}
-
-div.calendar-event-editor-colors-dialog div.split input:last-child {
-  margin-right: 0;
-}
-
-div.calendar-event-editor-colors-dialog div.split {
-  margin-top: 10px;
-}
-
-div.calendar-event-editor-colors-dialog input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  padding: .255rem .55rem;
-  line-height: 1.8;
-  border-radius: 0.25rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-div.calendar-event-editor-colors-dialog input[type="button"].ok {
-  color: #F5F5F5;
-  background-color: #289345;
-}
-
-div.calendar-event-editor-colors-dialog input[type="button"].ok:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar-event-editor-colors-dialog input[type="button"].ok:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-div.calendar-event-editor-colors-dialog input[type="button"].cancel {
-  color: #F5F5F5;
-  background-color: #C60000;
-}
-
-div.calendar-event-editor-colors-dialog input[type="button"].cancel:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar-event-editor-colors-dialog input[type="button"].cancel:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Confirmation Dialog
-    -------------------------------------------------------------------------
-*/
-div.calendar-confirmation-dialog {
-  width: calc(100% - (10px * 2));
-  max-width: 330px;
-  border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
-}
-
-div.calendar-confirmation-dialog div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  background-color: #282828;
-  color: #F5F5F5;
-  padding: 10px;
-  text-align: center;
-}
-
-div.calendar-confirmation-dialog div.contents {
-  padding: 10px;
-}
-
-div.calendar-confirmation-dialog div.contents div.message {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  margin-bottom: 20px;
-}
-
-div.calendar-confirmation-dialog div.split input {
-  width: calc(50% - (10px / 2));
-  margin-right: 5px;
-  margin-left: 5px;
-}
-
-div.calendar-confirmation-dialog div.split input:first-child {
-  margin-left: 0;
-}
-
-div.calendar-confirmation-dialog div.split input:last-child {
-  margin-right: 0;
-}
-
-div.calendar-confirmation-dialog input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  padding: .255rem .55rem;
-  line-height: 1.8;
-  border-radius: 0.25rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-div.calendar-confirmation-dialog input[type="button"].yes {
-  color: #F5F5F5;
-  background-color: #289345;
-}
-
-div.calendar-confirmation-dialog input[type="button"].yes:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar-confirmation-dialog input[type="button"].yes:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-div.calendar-confirmation-dialog input[type="button"].no {
-  color: #F5F5F5;
-  background-color: #C60000;
-}
-
-div.calendar-confirmation-dialog input[type="button"].no:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar-confirmation-dialog input[type="button"].no:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog
-    -------------------------------------------------------------------------
-*/
-div.calendar-select-export-type-dialog {
-  width: calc(100% - (10px * 2));
-  max-width: 250px;
-  border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
-}
-
-div.calendar-select-export-type-dialog div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  background-color: #282828;
-  color: #F5F5F5;
-  padding: 10px;
-  text-align: center;
-}
-
-div.calendar-select-export-type-dialog div.contents {
-  padding: 10px;
-}
-
-div.calendar-select-export-type-dialog div.split input {
-  width: calc(50% - (10px / 2));
-  margin-right: 5px;
-  margin-left: 5px;
-}
-
-div.calendar-select-export-type-dialog div.split input:first-child {
-  margin-left: 0;
-}
-
-div.calendar-select-export-type-dialog div.split input:last-child {
-  margin-right: 0;
-}
-
-div.calendar-select-export-type-dialog div.split {
-  margin-top: 20px;
-}
-
-div.calendar-select-export-type-dialog input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  padding: .255rem .55rem;
-  line-height: 1.8;
-  border-radius: 0.25rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-div.calendar-select-export-type-dialog input[type="button"].ok {
-  color: #F5F5F5;
-  background-color: #289345;
-}
-
-div.calendar-select-export-type-dialog input[type="button"].ok:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar-select-export-type-dialog input[type="button"].ok:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-div.calendar-select-export-type-dialog input[type="button"].cancel {
-  color: #F5F5F5;
-  background-color: #C60000;
-}
-
-div.calendar-select-export-type-dialog input[type="button"].cancel:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar-select-export-type-dialog input[type="button"].cancel:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog - Radio Button
-    -------------------------------------------------------------------------
-*/
-div.calendar-select-export-type-dialog label.radioButton {
+div.calendar label.radioButton,
+div.calendar-dialog label.radioButton {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1573,20 +1572,24 @@ div.calendar-select-export-type-dialog label.radioButton {
   color: #282828;
 }
 
-div.calendar-select-export-type-dialog label.radioButton input {
+div.calendar label.radioButton input,
+div.calendar-dialog label.radioButton input {
   display: none;
 }
 
-div.calendar-select-export-type-dialog label.radioButton input:checked ~ span.check-mark {
+div.calendar label.radioButton input:checked ~ span.check-mark,
+div.calendar-dialog label.radioButton input:checked ~ span.check-mark {
   background-color: #282828 !important;
   border: 1px solid #282828;
 }
 
-div.calendar-select-export-type-dialog label.radioButton input:checked ~ span.check-mark:before {
+div.calendar label.radioButton input:checked ~ span.check-mark:before,
+div.calendar-dialog label.radioButton input:checked ~ span.check-mark:before {
   display: block;
 }
 
-div.calendar-select-export-type-dialog label.radioButton span.check-mark {
+div.calendar label.radioButton span.check-mark,
+div.calendar-dialog label.radioButton span.check-mark {
   position: absolute;
   top: 0;
   left: 0;
@@ -1599,7 +1602,8 @@ div.calendar-select-export-type-dialog label.radioButton span.check-mark {
   transition: all 0.3s;
 }
 
-div.calendar-select-export-type-dialog label.radioButton span.check-mark:before {
+div.calendar label.radioButton span.check-mark:before,
+div.calendar-dialog label.radioButton span.check-mark:before {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   content: "";

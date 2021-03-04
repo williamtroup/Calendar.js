@@ -12,17 +12,15 @@ div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
 div.calendar-drop-down-menu,
-div.calendar-event-editor-dialog,
-div.calendar-event-editor-dialog input,
-div.calendar-event-editor-dialog textarea,
-div.calendar-event-editor-colors-dialog,
-div.calendar-event-editor-colors-dialog input,
-div.calendar-confirmation-dialog,
-div.calendar-confirmation-dialog input,
-div.calendar-confirmation-dialog textarea,
-div.calendar-select-export-type-dialog,
-div.calendar-select-export-type-dialog input,
-div.calendar-select-export-type-dialog textarea {
+div.event-editor,
+div.event-editor input,
+div.event-editor textarea,
+div.event-editor-colors,
+div.event-editor-colors input,
+div.confirmation,
+div.confirmation input,
+div.select-export-type,
+div.select-export-type input {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: $minimum-width) {
@@ -479,11 +477,11 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog
+    Calendar.js - Dialog - Event Editor
     -------------------------------------------------------------------------
 */
 
-div.calendar-event-editor-dialog {
+div.event-editor {
     @include dialog-styles(370px);
 
     div.view {
@@ -558,11 +556,108 @@ div.calendar-event-editor-dialog {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog - CheckBox
+    Calendar.js - Dialog - Event Editor Colors
     -------------------------------------------------------------------------
 */
 
-div.calendar-event-editor-dialog {
+div.event-editor-colors {
+    @include dialog-styles(300px);
+    @include dialog-title-bar;
+    
+    div.contents {
+        padding: $spacing;
+    }
+    
+    input[type="color"],
+    input[type="text"] {
+        @include input-fields(40px);
+    }
+
+    p {
+        @include no-selection-allowed;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Confirmation
+    -------------------------------------------------------------------------
+*/
+
+div.confirmation {
+    @include dialog-styles(330px);
+    @include dialog-title-bar;
+
+    div.contents {
+        padding: $spacing;
+
+        div.message {
+            @include no-selection-allowed;
+            margin-bottom: $spacing * 2;
+        }
+    }
+    
+    @import "foundation/split-container";
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(yes, $light-color, $ok-color);
+        @include button(no, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Select Export Type
+    -------------------------------------------------------------------------
+*/
+
+div.select-export-type {
+    @include dialog-styles(250px);
+    @include dialog-title-bar;
+
+    div.contents {
+        padding: $spacing;
+    }
+    
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: 20px;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - CheckBox
+    -------------------------------------------------------------------------
+*/
+
+div.calendar,
+div.calendar-dialog {
     label.checkbox {
         @include no-selection-allowed;
         display: block;
@@ -615,107 +710,12 @@ div.calendar-event-editor-dialog {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Colors Dialog
+    Calendar.js - Radio Button
     -------------------------------------------------------------------------
 */
 
-div.calendar-event-editor-colors-dialog {
-    @include dialog-styles(300px);
-    @include dialog-title-bar;
-    
-    div.contents {
-        padding: $spacing;
-    }
-    
-    input[type="color"],
-    input[type="text"] {
-        @include input-fields(40px);
-    }
-
-    p {
-        @include no-selection-allowed;
-        margin: 0;
-        margin-bottom: 8px;
-    }
-
-    @import "foundation/split-container";
-
-    div.split {
-        margin-top: $spacing;
-    }
-
-    input[type="button"] {
-        @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Confirmation Dialog
-    -------------------------------------------------------------------------
-*/
-
-div.calendar-confirmation-dialog {
-    @include dialog-styles(330px);
-    @include dialog-title-bar;
-
-    div.contents {
-        padding: $spacing;
-
-        div.message {
-            @include no-selection-allowed;
-            margin-bottom: $spacing * 2;
-        }
-    }
-    
-    @import "foundation/split-container";
-
-    input[type="button"] {
-        @include dialog-button-styles;
-        @include button(yes, $light-color, $ok-color);
-        @include button(no, $light-color, $alert-color);
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog
-    -------------------------------------------------------------------------
-*/
-
-div.calendar-select-export-type-dialog {
-    @include dialog-styles(250px);
-    @include dialog-title-bar;
-
-    div.contents {
-        padding: $spacing;
-    }
-    
-    @import "foundation/split-container";
-
-    div.split {
-        margin-top: 20px;
-    }
-
-    input[type="button"] {
-        @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog - Radio Button
-    -------------------------------------------------------------------------
-*/
-
-div.calendar-select-export-type-dialog {
+div.calendar,
+div.calendar-dialog {
     label.radioButton {
         @include no-selection-allowed;
         display: block;
