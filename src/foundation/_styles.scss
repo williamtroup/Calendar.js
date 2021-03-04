@@ -159,3 +159,38 @@ $minimum-width: $maximum-width + 1;
         }
     }
 }
+
+@mixin input-fields($height: 0px) {
+    color: $dark-color;
+    width: 100%;
+    padding: .375rem .75rem;
+    border: 1px solid $input-border-color;
+    border-radius: $border-view-radius;
+    outline: none;
+    margin-bottom: $spacing;
+    background-color: $input-background-color;
+    transition: $transition;
+
+    @if $height > 0px {
+        height: $height;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &:focus {
+        border: 1px solid $dark-color;
+        box-shadow: 0 0 1pt 1pt $dark-color;
+    }
+}
+
+@mixin dialog-title-bar {
+    div.title-bar {
+        @include no-selection-allowed;
+        background-color: $dark-color;
+        color: $light-color;
+        padding: $spacing;
+        text-align: center;
+    }
+}

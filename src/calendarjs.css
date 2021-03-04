@@ -1107,19 +1107,19 @@ div.calender-event-editor-dialog input[type="button"].remove:active {
   opacity: 0.4;
 }
 
-div.calender-event-editor-dialog input[type="button"].dots {
+div.calender-event-editor-dialog input[type="button"].select-colors {
   color: #F5F5F5;
   background-color: #6c757d;
 }
 
-div.calender-event-editor-dialog input[type="button"].dots:hover {
+div.calender-event-editor-dialog input[type="button"].select-colors:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calender-event-editor-dialog input[type="button"].dots:active {
+div.calender-event-editor-dialog input[type="button"].select-colors:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;

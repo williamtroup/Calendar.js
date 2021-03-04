@@ -1700,7 +1700,7 @@ function calendarJs( id, options, startDateTime ) {
             inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
 
             _element_EventEditorDialog_SelectColorsButton = createElement( "input" );
-            _element_EventEditorDialog_SelectColorsButton.className = "dots";
+            _element_EventEditorDialog_SelectColorsButton.className = "select-colors";
             _element_EventEditorDialog_SelectColorsButton.type = "button";
             _element_EventEditorDialog_SelectColorsButton.value = "...";
             _element_EventEditorDialog_SelectColorsButton.onclick = showEventEditorColorsDialog;

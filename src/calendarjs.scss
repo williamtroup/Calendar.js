@@ -489,13 +489,7 @@ div.calender-event-editor-dialog {
     div.view {
         position: relative;
 
-        div.title-bar {
-            @include no-selection-allowed;
-            background-color: $dark-color;
-            color: $light-color;
-            padding: $spacing;
-            text-align: center;
-        }
+        @include dialog-title-bar;
 
         div.input-title-container {
             display: flex;
@@ -519,24 +513,7 @@ div.calender-event-editor-dialog {
         
         input:not([type="button"]),
         textarea {
-            color: $dark-color;
-            width: 100%;
-            padding: .375rem .75rem;
-            border: 1px solid $input-border-color;
-            border-radius: $border-view-radius;
-            outline: none;
-            margin-bottom: $spacing;
-            background-color: $input-background-color;
-            transition: $transition;
-    
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            &:focus {
-                border: 1px solid $dark-color;
-                box-shadow: 0 0 1pt 1pt $dark-color;
-            }
+            @include input-fields;
         }
     
         input:disabled {
@@ -578,7 +555,7 @@ div.calender-event-editor-dialog {
         @include button(ok, $light-color, $ok-color);
         @include button(cancel, $light-color, $alert-color);
         @include button(remove, $light-color, $dark-color);
-        @include button(dots, $light-color, #6c757d);
+        @include button(select-colors, $light-color, #6c757d);
 
         &.remove {
             margin-top: $spacing;
@@ -653,14 +630,7 @@ div.calender-event-editor-dialog {
 
 div.calender-event-editor-colors-dialog {
     @include dialog-styles(300px);
-
-    div.title-bar {
-        @include no-selection-allowed;
-        background-color: $dark-color;
-        color: $light-color;
-        padding: $spacing;
-        text-align: center;
-    }
+    @include dialog-title-bar;
     
     div.contents {
         padding: $spacing;
@@ -668,25 +638,7 @@ div.calender-event-editor-colors-dialog {
     
     input[type="color"],
     input[type="text"] {
-        color: $dark-color;
-        width: 100%;
-        padding: .375rem .75rem;
-        border: 1px solid $input-border-color;
-        border-radius: $border-view-radius;
-        outline: none;
-        margin-bottom: $spacing;
-        background-color: $input-background-color;
-        transition: $transition;
-        height: 40px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        &:focus {
-            border: 1px solid $dark-color;
-            box-shadow: 0 0 1pt 1pt $dark-color;
-        }
+        @include input-fields(40px);
     }
 
     p {
@@ -726,14 +678,7 @@ div.calender-event-editor-colors-dialog {
 
 div.calender-confirmation-dialog {
     @include dialog-styles(330px);
-
-    div.title-bar {
-        @include no-selection-allowed;
-        background-color: $dark-color;
-        color: $light-color;
-        padding: $spacing;
-        text-align: center;
-    }
+    @include dialog-title-bar;
 
     div.contents {
         padding: $spacing;
@@ -771,14 +716,7 @@ div.calender-confirmation-dialog {
 
 div.calender-select-export-type-dialog {
     @include dialog-styles(250px);
-
-    div.title-bar {
-        @include no-selection-allowed;
-        background-color: $dark-color;
-        color: $light-color;
-        padding: $spacing;
-        text-align: center;
-    }
+    @include dialog-title-bar;
 
     div.contents {
         padding: $spacing;
