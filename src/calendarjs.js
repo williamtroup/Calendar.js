@@ -3094,8 +3094,12 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function moveToday() {
-        build();
-        triggerOptionsEvent( "onToday" );
+        var today = new Date();
+
+        if ( _currentDate.getMonth() !== today.getMonth() || _currentDate.getFullYear() !== today.getFullYear() ) {
+            build();
+            triggerOptionsEvent( "onToday" );
+        }
     }
 
 

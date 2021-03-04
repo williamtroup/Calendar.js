@@ -17,6 +17,7 @@ v0.4.0:
 - Renamed all dialog CSS classes to added "calendar-dialog" CSS class (to allow easier use of custom input styles).
 - Added full search support (new "Search" button on the main toolbar), with option to Match Case.
 - Fixed the text cursor being shown for text that cannot be selected.
+- Fixed the Today button redrawing the main display even when the current month is in view.
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
