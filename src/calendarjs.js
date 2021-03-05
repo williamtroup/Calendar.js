@@ -304,6 +304,7 @@ function calendarJs( id, options, startDateTime ) {
         if ( !_initialized ) {
             var element = getElementByID( _elementID );
             element.className = "calendar";
+            element.innerHTML = "";
     
             buildListAllEventsView( element );
             buildListAllWeekEventsView( element );

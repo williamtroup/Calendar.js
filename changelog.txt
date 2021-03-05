@@ -25,6 +25,7 @@ v0.4.0:
 - The current day is now indicated by the day number being highlighted (instead of the whole day).
 - Building events on the main display is now much faster.
 - Updating the toolbar icons on the main display is now based on the events already checked, instead of searching again.
+- The element that will hold the Calendar is now cleared before building starts (was causing some strange display issues).
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
