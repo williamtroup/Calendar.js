@@ -1,0 +1,23 @@
+@import "button";
+
+.ib-arrow-down-full-line {
+    @include button;
+
+    &:before {
+        width: 0; 
+        height: 0; 
+        border-left: $size / 2 solid transparent;
+        border-right: $size / 2 solid transparent;
+        border-top: $size / 2 solid $light-color;
+        left: 0;
+        bottom: 0;
+    }
+
+    &:after {
+        @include left-center;
+        width: $size / 2;
+        height: $size / 2;
+        background-color: $light-color;
+        top: 0;
+    }
+}

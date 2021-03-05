@@ -1,0 +1,67 @@
+$light-color: #F5F5F5;
+$size: 16px;
+$border-width: $size / 4;
+$border-radius: $border-width;
+$border: $border-width solid $light-color;
+
+@mixin button-no-before-after {
+    width: $size;
+    height: $size;
+    display: inline-block;
+    position: relative;
+
+    &:hover {
+        @include button-hover;
+    }
+
+    &:active {
+        @include button-active;
+    }
+}
+
+@mixin button {
+    @include button-no-before-after;
+
+    &:before,
+    &:after {
+        @include button-after-before-setup;
+    }
+}
+
+@mixin button-after-before-setup {
+    position: absolute;
+    content: "";
+}
+
+@mixin button-hover {
+    transition: all .3s;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+@mixin button-active {
+    transition: all .2s;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+@mixin left-center {
+    left: 50%;
+    transform: translate(-50%);
+}
+
+@mixin left-center-minus($minus-value) {
+    left: calc(50% - #{$minus-value});
+    transform: translate(-50%);
+}
+
+@mixin top-center {
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+@mixin transform-rotate($property) {
+    -webkit-transform: rotate($property);
+    -ms-transform: rotate($property);
+    transform: rotate($property);
+}

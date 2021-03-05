@@ -1,9 +1,12 @@
 @import "styles";
 
 div.title-bar {
-    width: calc(100% - (#{$spacing} * 2));
+    width: calc(100% - #{$spacing} - #{$spacing / 2});
     display: inline-block;
-    padding: $spacing;
+    padding-top: $spacing;
+    padding-bottom: $spacing;
+    padding-left: $spacing;
+    padding-right: $spacing / 2;
     background-color: $dark-color;
     color: $light-color;
 
@@ -18,7 +21,9 @@ div.title-bar {
         margin-left: 0;
     }
 
-    @import "close-button";
-    @import "export-events-button";
-    @import "add-event-button";
+    div.ib-arrow-down-full-line,
+    div.ib-plus,
+    div.ib-close {
+        float: right;
+    }
 }

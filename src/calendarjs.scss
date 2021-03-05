@@ -1,5 +1,5 @@
 /*
- * Calender.js Library v0.3.0
+ * Calendar.js Library v0.4.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -9,18 +9,20 @@
 @import "foundation/styles";
 
 div.calendar,
-div.calender-tooltip,
-div.calender-tooltip-event,
-div.calender-drop-down-menu,
-div.calender-event-editor-dialog,
-div.calender-event-editor-dialog input,
-div.calender-event-editor-dialog textarea,
-div.calender-confirmation-dialog,
-div.calender-confirmation-dialog input,
-div.calender-confirmation-dialog textarea,
-div.calender-select-export-type-dialog,
-div.calender-select-export-type-dialog input,
-div.calender-select-export-type-dialog textarea {
+div.calendar-tooltip,
+div.calendar-tooltip-event,
+div.calendar-drop-down-menu,
+div.event-editor,
+div.event-editor input,
+div.event-editor textarea,
+div.event-editor-colors,
+div.event-editor-colors input,
+div.confirmation,
+div.confirmation input,
+div.select-export-type,
+div.select-export-type input,
+div.search,
+div.search input {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: $minimum-width) {
@@ -63,7 +65,7 @@ div.full-screen-view {
         }
 
         div.cell {
-            height: calc(100% - (#{$spacing} * 2));
+            height: calc(100% - (#{$spacing} * 2)) !important;
         }
     }
 
@@ -100,10 +102,6 @@ div.calendar {
         margin-bottom: 0;
     }
     
-    span.day-muted {
-        opacity: 0.3;
-    }
-    
     div.header-days {
         font-weight: 900 !important;
         background-color: $day-names-color !important;
@@ -125,11 +123,37 @@ div.calendar {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
             display: inline-block;
             text-align: center;
-            padding: $spacing;
             border-right: $standard-border-size solid $dark-color;
             position: relative;
             overflow: hidden;
             color: $dark-color;
+
+            @media screen and (min-width: $minimum-width) {
+                padding: $spacing;
+            }
+            
+            @media screen and (max-width: $maximum-width) {
+                padding: $spacing / 2;
+            }
+
+            span {
+                display: inline-block;;
+                padding: 4px;
+                padding-left: 0px;
+                padding-right: 0px;
+                border-radius: $border-view-radius;
+        
+                &.day-muted {
+                    opacity: 0.3;
+                }
+        
+                &.today {
+                    background-color: $dark-color;
+                    color: $light-color;
+                    padding-left: 7px;
+                    padding-right: 7px;
+                }
+            }
 
             &:last-child {
                 border-right: none;
@@ -139,9 +163,9 @@ div.calendar {
                 display: block;
             }
         }
-        
-        div.today {
-            background-color: $day-names-color;
+
+        div.weekend-day {
+            background-color: $day-names-color !important;
         }
 
         &:last-child {
@@ -184,7 +208,10 @@ div.calendar {
         background-color: $dark-color;
         color: $light-color;
         text-align: center;
-        padding: $spacing;
+        padding-top: $spacing;
+        padding-bottom: $spacing;
+        padding-left: $spacing / 2;
+        padding-right: $spacing / 2;
         position: relative;
 
         div.title-container {
@@ -264,169 +291,42 @@ div.calendar {
         }
 
         div {
-            margin-left: 5px;
-            margin-right: 5px;
+            margin-left: $spacing / 2;
+            margin-right: $spacing / 2;
         }
 
-        div.arrow {
-            border-top: $header-date-toolbar-button-border;
-            border-right: $header-date-toolbar-button-border;
-            width: 8px;
-            height: 8px;
-            border-radius: $border-view-radius;
-            display: inline;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-        
-        div.next-month {
-            @include transform(rotate(45deg));
-            float: right;
-
-        }
-        
-        div.previous-month {
-            @include transform(rotate(-135deg));
+        div.ib-arrow-left-full,
+        div.ib-pin,
+        div.ib-refresh,
+        div.ib-search {
             float: left;
         }
 
-        div.previous-month,
-        div.next-month {
-            margin-top: 2px;
-            margin-left: 0;
-            margin-right: 0;
+        div.ib-hamburger,
+        div.ib-eye,
+        div.ib-arrow-down-full-line,
+        div.ib-plus,
+        div.ib-arrow-right-full {
+            float: right;
+        }
+
+        @media screen and (min-width: $minimum-width) {
+            div.ib-refresh,
+            div.ib-search,
+            div.ib-hamburger,
+            div.ib-eye,
+            div.ib-arrow-down-full-line {
+                display: inline-block;
+            }
         }
         
-        @import "foundation/export-events-button";
-        @import "foundation/add-event-button";
-
-        div.list-all-events {
-            display: inline;
-            width: 16px;
-            height: 8px;
-            border-top: $header-date-toolbar-button-border;
-            border-bottom: $header-date-toolbar-button-border;
-            border-radius: $border-circle-radius;
-            float: right;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        div.today {
-            width: 18px;
-            height: 12px;
-            float: left;
-            border-top: $header-date-toolbar-button-border;
-            border-radius: .25rem;
-            position: relative;
-
-            &:before,
-            &:after {
-                position: absolute;
-                content: "";
-                background-color: $light-color;
-                width: 4px;
-                left: 50%;
-                transform: translate(-50%);
-            }
-
-            &:before {
-                height: calc(100% - 6px);
-                border-bottom-left-radius: .25rem;
-                border-bottom-right-radius: .25rem;
-            }
-    
-            &:after {
-                height: 4px;
-                bottom: 0;
-                border-radius: .25rem;
-            }
-
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-
-        div.list-week-events {
-            display: inline;
-            width: 16px;
-            height: 9px;
-            border-top: $header-date-toolbar-button-small-border;
-            border-bottom: $header-date-toolbar-button-small-border;
-            float: right;
-            position: relative;
-            margin-top: 1px;
-            border-radius: $border-view-radius;
-    
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-
-            &:before {
-                content: "";
-                position: absolute;
-                top: 3px;
-                left: 0px;
-                height: 3px;
-                width: 100%;
-                background: $light-color;
-              }
-        }
-
-        div.refresh {
-            width: 18px;
-            height: 14px;
-            float: left;
-            position: relative;
-            margin-top: 1px;
-
-            &:before,
-            &:after {
-                position: absolute;
-                content: "";
-                width: 8px;
-                height: 10px;
-                border-radius: .25rem;
-            }
-
-            &:before {
-                border-top: $header-date-toolbar-button-border;
-                border-left: $header-date-toolbar-button-border;
-                left: 0;
-            }
-    
-            &:after {
-                border-bottom: $header-date-toolbar-button-border;
-                border-right: $header-date-toolbar-button-border;
-                left: 6px;
-            }
-
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
+        @media screen and (max-width: $maximum-width) {
+            div.ib-refresh,
+            div.ib-search,
+            div.ib-hamburger,
+            div.ib-eye,
+            div.ib-arrow-down-full-line {
+                display: none !important;
             }
         }
     }
@@ -604,22 +504,32 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog
+    Calendar.js - Dialog - Event Editor
     -------------------------------------------------------------------------
 */
 
-div.calender-event-editor-dialog {
+div.event-editor {
     @include dialog-styles(370px);
 
     div.view {
         position: relative;
 
-        div.title-bar {
-            @include no-selection-allowed;
-            background-color: $dark-color;
-            color: $light-color;
-            padding: $spacing;
-            text-align: center;
+        @include dialog-title-bar;
+
+        div.input-title-container {
+            display: flex;
+            margin-bottom: $spacing;
+
+            input[type="text"] {
+                flex-grow: 1;
+                margin-bottom: 0 !important;
+            }
+
+            input[type="button"] {
+                padding: .375rem .75rem;
+                margin-left: $spacing;
+                line-height: 0;
+            }
         }
         
         div.contents {
@@ -628,24 +538,7 @@ div.calender-event-editor-dialog {
         
         input:not([type="button"]),
         textarea {
-            color: $dark-color;
-            width: 100%;
-            padding: .375rem .75rem;
-            border: 1px solid $input-border-color;
-            border-radius: $border-view-radius;
-            outline: none;
-            margin-bottom: $spacing;
-            background-color: $input-background-color;
-            transition: $transition;
-    
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            &:focus {
-                border: 1px solid $dark-color;
-                box-shadow: 0 0 1pt 1pt $dark-color;
-            }
+            @include input-fields;
         }
     
         input:disabled {
@@ -655,11 +548,9 @@ div.calender-event-editor-dialog {
         textarea {
             height: 100px;
             resize: none;
-            margin-bottom: 20px !important;
+            margin-bottom: $spacing * 2;
         }
-    
-        @import "foundation/split-container";
-        
+
         p {
             @include no-selection-allowed;
             margin: 0;
@@ -668,7 +559,22 @@ div.calender-event-editor-dialog {
             &.error {
                 color: $alert-color;
                 display: none;
-                margin-bottom: 20px;
+                margin-bottom: $spacing * 2;
+            }
+        }
+    
+        @import "foundation/split-container";
+        
+        input[type="button"] {
+            @include dialog-button-styles;
+            @include button(ok, $light-color, $ok-color);
+            @include button(cancel, $light-color, $alert-color);
+            @include button(remove, $light-color, $dark-color);
+            @include button(select-colors, $light-color, #6c757d);
+    
+            &.remove {
+                margin-top: $spacing;
+                width: 100%;
             }
         }
     }
@@ -677,35 +583,158 @@ div.calender-event-editor-dialog {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog - Buttons
+    Calendar.js - Dialog - Event Editor Colors
     -------------------------------------------------------------------------
 */
 
-div.calender-event-editor-dialog {
+div.event-editor-colors {
+    @include dialog-styles(300px);
+    @include dialog-title-bar;
+    
+    div.contents {
+        padding: $spacing;
+    }
+    
+    input[type="color"],
+    input[type="text"] {
+        @include input-fields(40px);
+    }
+
+    p {
+        @include no-selection-allowed;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing;
+    }
+
     input[type="button"] {
         @include dialog-button-styles;
         @include button(ok, $light-color, $ok-color);
         @include button(cancel, $light-color, $alert-color);
-        @include button(remove, $light-color, $dark-color);
-
-        &.remove {
-            margin-top: $spacing;
-            width: 100%;
-        }
     }
 }
 
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Event Editor Dialog - CheckBox
+    Calendar.js - Dialog - Confirmation
     -------------------------------------------------------------------------
 */
 
-div.calender-event-editor-dialog {
+div.confirmation {
+    @include dialog-styles(330px);
+    @include dialog-title-bar;
+
+    div.contents {
+        padding: $spacing;
+
+        div.message {
+            @include no-selection-allowed;
+            margin-bottom: $spacing * 2;
+        }
+    }
+    
+    @import "foundation/split-container";
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(yes, $light-color, $ok-color);
+        @include button(no, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Select Export Type
+    -------------------------------------------------------------------------
+*/
+
+div.select-export-type {
+    @include dialog-styles(250px);
+    @include dialog-title-bar;
+
+    div.contents {
+        padding: $spacing;
+    }
+    
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Search
+    -------------------------------------------------------------------------
+*/
+
+div.search {
+    @include dialog-styles(250px);
+    @include dialog-title-bar;
+
+    div.contents {
+        padding: $spacing;
+    }
+    
+    input[type="text"] {
+        @include input-fields;
+    }
+
+    p {
+        @include no-selection-allowed;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(next, $light-color, $ok-color);
+        @include button(previous, $light-color, #6c757d);
+        
+        &.cancel {
+            margin-top: $spacing;
+            width: 100%;
+        }
+    }
+
+    .ib-close {
+        float: right;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - CheckBox
+    -------------------------------------------------------------------------
+*/
+
+div.calendar,
+div.calendar-dialog {
     label.checkbox {
         @include no-selection-allowed;
-        display: block;
+        display: inline-block;
         position: relative;
         padding-left: 25px;
         padding-top: 1px;
@@ -755,103 +784,15 @@ div.calender-event-editor-dialog {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Confirmation Dialog
+    Calendar.js - Radio Button
     -------------------------------------------------------------------------
 */
 
-div.calender-confirmation-dialog {
-    @include dialog-styles(330px);
-
-    div.title-bar {
-        @include no-selection-allowed;
-        background-color: $dark-color;
-        color: $light-color;
-        padding: $spacing;
-        text-align: center;
-    }
-
-    div.contents {
-        padding: $spacing;
-
-        div.message {
-            @include no-selection-allowed;
-            margin-bottom: 20px;
-        }
-    }
-    
-    @import "foundation/split-container";
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Confirmation Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
-
-div.calender-confirmation-dialog {
-    input[type="button"] {
-        @include dialog-button-styles;
-        @include button(yes, $light-color, $ok-color);
-        @include button(no, $light-color, $alert-color);
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog
-    -------------------------------------------------------------------------
-*/
-
-div.calender-select-export-type-dialog {
-    @include dialog-styles(300px);
-
-    div.title-bar {
-        @include no-selection-allowed;
-        background-color: $dark-color;
-        color: $light-color;
-        padding: $spacing;
-        text-align: center;
-    }
-
-    div.contents {
-        padding: $spacing;
-    }
-    
-    @import "foundation/split-container";
-
-    div.split {
-        margin-top: 20px;
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog - Buttons
-    -------------------------------------------------------------------------
-*/
-
-div.calender-select-export-type-dialog {
-    input[type="button"] {
-        @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Select Export Type Dialog - Radio Button
-    -------------------------------------------------------------------------
-*/
-
-div.calender-select-export-type-dialog {
+div.calendar,
+div.calendar-dialog {
     label.radioButton {
         @include no-selection-allowed;
-        display: block;
+        display: inline-block;
         position: relative;
         padding-left: 25px;
         padding-top: 1px;
@@ -905,8 +846,8 @@ div.calender-select-export-type-dialog {
     -------------------------------------------------------------------------
 */
 
-div.calender-tooltip,
-div.calender-tooltip-event {
+div.calendar-tooltip,
+div.calendar-tooltip-event {
     @include fade-in-effect-animation(1s);
     @include no-selection-allowed;
     position: absolute;
@@ -925,20 +866,20 @@ div.calender-tooltip-event {
     }
 
     div.date,
-    div.description {
+    div.description,
+    div.location {
         font-size: smaller;
     }
 }
 
-div.calender-tooltip {
+div.calendar-tooltip {
     font-size: smaller !important;
     white-space: nowrap;
     overflow: hidden;
 }
 
-div.calender-tooltip-event {
+div.calendar-tooltip-event {
     max-width: 300px;
-    width: 100%;
 }
 
 
@@ -948,7 +889,7 @@ div.calender-tooltip-event {
     -------------------------------------------------------------------------
 */
 
-div.calender-drop-down-menu {
+div.calendar-drop-down-menu {
     @include no-selection-allowed;
     background-color: #DCDCDC;
     border: $standard-border-size solid $dark-color;
@@ -1029,3 +970,22 @@ div.calender-drop-down-menu {
         opacity: 1;
     }
 }
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Buttons
+    -------------------------------------------------------------------------
+*/
+
+@import "foundation/buttons/arrow-left-full";
+@import "foundation/buttons/pin";
+@import "foundation/buttons/refresh";
+@import "foundation/buttons/search";
+@import "foundation/buttons/hamburger";
+@import "foundation/buttons/eye";
+@import "foundation/buttons/arrow-down-full-line";
+@import "foundation/buttons/plus";
+@import "foundation/buttons/arrow-right-full";
+@import "foundation/buttons/plus";
+@import "foundation/buttons/close";

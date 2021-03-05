@@ -1,0 +1,19 @@
+@import "button";
+
+.ib-hamburger {
+    @include button-no-before-after;
+    border-top: $border;
+    border-bottom: $border;
+    border-radius: $border-radius;
+    height: $size - $border-width * 2;
+
+    &:before {
+        @include button-after-before-setup;
+        @include top-center;
+        background-color: $light-color;
+        width: 100%;
+        height: $border-width;
+        border-radius: $border-radius;
+        left: 0;
+    }
+}

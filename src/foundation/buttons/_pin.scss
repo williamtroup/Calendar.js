@@ -1,0 +1,27 @@
+@import "button";
+
+.ib-pin {
+    @include button;
+    height: $size - $border-width;
+    border-top: $border;
+    border-radius: 50%;
+
+    &:before {
+        @include left-center;
+        background-color: $light-color;
+        width: $border-width;
+        height: calc(100% - #{$border-width} - 2px);
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        top: 0;
+    }
+
+    &:after {
+        @include left-center;
+        background-color: $light-color;
+        width: $border-width;
+        height: $border-width;
+        border-radius: 50%;
+        bottom: 0;
+    }
+}

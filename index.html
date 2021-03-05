@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js v0.3.0</title>
+        <title>Calendar.js v0.4.0</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="src/calendarjs.css" />
         <script src="src/calendarjs.js"></script>
@@ -14,7 +14,9 @@
         <button onclick="calendarInstance.clearEvents();">Clear Events</button>
         <br />
         <br />
-        <div id="myCalendar" style="max-width: 800px;"></div>
+        <div id="myCalendar" style="max-width: 800px;">
+            <p>Some data that should be cleared.</p>
+        </div>
         <br />
         <br />
         <a href="index_minified_files.html" target="_self">Minimized Version</a>
@@ -30,7 +32,8 @@
         var calendarInstance = new calendarJs( "myCalendar", { 
                 exportEventsEnabled: true, 
                 manualEditingEnabled: true, 
-                showTimesInMainCalendarEvents: false 
+                showTimesInMainCalendarEvents: false,
+                minimumDayHeight: 0
             } ),
             previousDay = new Date(),
             today9 = new Date(),
@@ -64,13 +67,18 @@
                 to: previousDay,
                 title: "Previous Day",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                isAllDayEvent: true
+                location: "Teams Meeting",
+                isAllDayEvent: true,
+                color: "#FF0000",
+                colorText: "#FFFF00",
+                colorBorder: "#00FF00"
             },
             {
                 from: today11,
                 to: tomorrow,
                 title: "Title 1",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                location: "Teams Meeting",
                 isAllDayEvent: false
             },
             {
@@ -78,6 +86,7 @@
                 to: today11,
                 title: "Title Bad (should not show)",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                location: "Teams Meeting",
                 isAllDayEvent: false
             },
             {
@@ -85,6 +94,7 @@
                 to: today9,
                 title: "Title 2",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                location: "Teams Meeting",
                 isAllDayEvent: true
             },
             {
@@ -92,14 +102,19 @@
                 to: firstDayInNextMonth,
                 title: "First Day",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                isAllDayEvent: true
+                location: "Teams Meeting",
+                isAllDayEvent: true,
+                color: "#00FF00",
+                colorText: "#FF0000",
             },
             {
                 from: lastDayInNextMonth,
                 to: lastDayInNextMonth,
                 title: "Last Day",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                isAllDayEvent: true
+                location: "Teams Meeting",
+                isAllDayEvent: true,
+                color: "#0000FF",
             },
             {
                 from: today,

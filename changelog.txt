@@ -1,3 +1,33 @@
+v0.4.0:
+- The Year Selector drop-down now auto-scrolls to the selected year.
+- Removed unneeded class variables.
+- All title-bar icons now use the "PureCSS" generated images, giving a much cleaner look and feel.
+- Fixed a fault that caused optional text fields for Events to show up as "undefined" when edited or exported.
+- Added "Location" support to events, with the extra information being shown in full events and tooltips.
+- Event tooltip widths now auto-size to the available content (saves a lot of empty space).
+- Added support to set the event Color, Text Color and Border Color (color, colorText, colorBorder properties).
+- The "Title" field is now the first field in the Event Editor dialog.
+- Added a new "..." button next to the Title text box on the event editor (allows choosing the colors for the event).
+- Decreased the width of the "Select Export Type" dialog.
+- Fixed a fault that allowed bad values through from Times on the Event Editor.
+- Fixed a fault that caused bad times (characters other than numbers) to be allowed in events, which never show up.
+- Fixed a fault that set the toolbar buttons to the wrong display type.
+- The extra toolbar buttons on the main display are now hidden on smaller displays (refresh, export, list all, list week).
+- Fixed spelling mistakes across the CSS and JS code for CSS class names.
+- Renamed all dialog CSS classes to added "calendar-dialog" CSS class (to allow easier use of custom input styles).
+- Added full search support (new "Search" button on the main toolbar), with option to Match Case.
+- Fixed the text cursor being shown for text that cannot be selected.ß
+- Fixed the Today button redrawing the main display even when the current month is in view.
+- Added new option "minimumDayHeight", which allows you to set the height of the days in the main view (defaults to 0 - auto).
+- Fixed the check/radio boxes using the full width of the container areas.
+- The background color used for the headers on the main display is now a slightly lighter shade of gray.ß
+- Weekend days in the main display are now shown in a color as the headers.
+- The current day is now indicated by the day number being highlighted (instead of the whole day).
+- Building events on the main display is now much faster.
+- Updating the toolbar icons on the main display is now based on the events already checked, instead of searching again.
+- The element that will hold the Calendar is now cleared before building starts (was causing some strange display issues).
+- More JSDoc documentation improvements and type fixes.
+
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
 - The custom scroll-bar now has :hover and :active selectors.

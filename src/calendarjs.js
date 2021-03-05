@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.3.0
+ * Calendar.js Library v0.4.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -11,12 +11,16 @@
  * 
  * This is the object format that is used to store the details about a day event.
  *
- * @property    {string}   id                                           The ID of for the event.
- * @property    {object}   from                                         The date that the event occurs from.
- * @property    {object}   to                                           The date that the event runs until.
- * @property    {string}   title                                        The title of the event.
- * @property    {string}   description                                  The in depth description of the event.
- * @property    {boolean}  isAllDayEvent                                States if this is an all day event.
+ * @property    {string}    id                                          The ID of for the event.
+ * @property    {string}    title                                       The title of the event.
+ * @property    {Object}    from                                        The date that the event occurs from.
+ * @property    {Object}    to                                          The date that the event runs until.
+ * @property    {string}    description                                 The in depth description of the event.
+ * @property    {string}    location                                    The location of the event.
+ * @property    {string}    color                                       The color that should be used for the event (overrides all others).
+ * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
+ * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
+ * @property    {boolean}   isAllDayEvent                               States if this is an all day event.
  */
 
 
@@ -25,15 +29,15 @@
  * 
  * These are the properties that store the events that should be fired when various actions are triggered.
  *
- * @property    {object}   onPreviousMonth                              Specifies an event that will be triggered when the "Previous Month" button is pressed.
- * @property    {object}   onNextMonth                                  Specifies an event that will be triggered when the "Next Month" button is pressed.
- * @property    {object}   onToday                                      Specifies an event that will be triggered when the "Today" button is pressed.
- * @property    {object}   onEventAdded                                 Specifies an event that will be triggered when an event is added (passes the event to the function).
- * @property    {object}   onEventUpdated                               Specifies an event that will be triggered when an event is updated (passes the event to the function).
- * @property    {object}   onEventRemoved                               Specifies an event that will be triggered when an event is removed (passes the event to the function).
- * @property    {object}   onEventsAdded                                Specifies an event that will be triggered when events are added (passes the events to the function).
- * @property    {object}   onEventsCleared                              Specifies an event that will be triggered when the events are cleared.
- * @property    {object}   onEventsExported                             Specifies an event that will be triggered when the "Export Events" button is pressed.
+ * @property    {Object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed.
+ * @property    {Object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed.
+ * @property    {Object}    onToday                                     Specifies an event that will be triggered when the "Today" button is pressed.
+ * @property    {Object}    onEventAdded                                Specifies an event that will be triggered when an event is added (passes the event to the function).
+ * @property    {Object}    onEventUpdated                              Specifies an event that will be triggered when an event is updated (passes the event to the function).
+ * @property    {Object}    onEventRemoved                              Specifies an event that will be triggered when an event is removed (passes the event to the function).
+ * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
+ * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
+ * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
  */
 
 
@@ -42,61 +46,73 @@
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
- * @property    {string}   previousMonthTooltipText                     The tooltip text that should be used for for the "Previous Month" button.
- * @property    {string}   nextMonthTooltipText                         The tooltip text that should be used for for the "Next Month" button.
- * @property    {string}   addEventTooltipText                          The tooltip text that should be used for for the "Add Event" button.
- * @property    {string}   closeTooltipText                             The tooltip text that should be used for for the "Close" button.
- * @property    {string}   exportEventsTooltipText                      The tooltip text that should be used for for the "Export Events" button.
- * @property    {string}   listAllEventsTooltipText                     The tooltip text that should be used for for the "View All Events" button.
- * @property    {string}   listWeekEventsTooltipText                    The tooltip text that should be used for for the "View Current Week Events" button.
- * @property    {string}   todayTooltipText                             The tooltip text that should be used for for the "Today" button.
- * @property    {string}   refreshTooltipText                           The tooltip text that should be used for for the "Refresh" button.
- * @property    {string}   expandDayTooltipText                         The tooltip text that should be used for for the "Expand Day" button.
- * @property    {array}    dayHeaderNames                               The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
- * @property    {array}    dayNames                                     The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
- * @property    {string}   fromText                                     The text that should be displayed for the "From:" label.
- * @property    {string}   toText                                       The text that should be displayed for the "To:" label.
- * @property    {string}   isAllDayEventText                            The text that should be displayed for the "Is All Day Event" label.
- * @property    {string}   titleText                                    The text that should be displayed for the "Title:" label.
- * @property    {string}   descriptionText                              The text that should be displayed for the "Description:" label.
- * @property    {string}   addText                                      The text that should be displayed for the "Add" button.
- * @property    {string}   updatedText                                  The text that should be displayed for the "Update" button.
- * @property    {string}   cancelText                                   The text that should be displayed for the "Cancel" button.
- * @property    {string}   removeEventText                              The text that should be displayed for the "Remove Event" button.
- * @property    {string}   addEventTitle                                The title bar text that is shown for the "Add Event" label.
- * @property    {string}   editEventTitle                               The title bar text that is shown for the "Edit Event" label.
- * @property    {string}   monthNames                                   The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
- * @property    {boolean}  showDayNumberOrdinals                        States if the day ordinal values should be shown (defaults to true).  
- * @property    {boolean}  dragAndDropForEventsEnabled                  States if dragging and dropping events around the days of the month is enabled (defaults to true).
- * @property    {string}   exportStartFilename                          The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
- * @property    {string}   fromTimeErrorMessage                         The error message shown for the "Please select a valid 'From' time." label.
- * @property    {string}   toTimeErrorMessage                           The error message shown for the "Please select a valid 'To' time." label.
- * @property    {string}   toSmallerThanFromErrorMessage                The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label.
- * @property    {string}   titleErrorMessage                            The error message shown for the "Please enter a value in the 'Title' field (no empty space)." label.
- * @property    {string}   stText                                       The day ordinal text for "st".
- * @property    {string}   ndText                                       The day ordinal text for "nd".
- * @property    {string}   rdText                                       The day ordinal text for "rd".
- * @property    {string}   thText                                       The day ordinal text for "th".
- * @property    {boolean}  fullDayViewEnabled                           States if viewing all the events in a full day is enabled (defaults to true).
- * @property    {number}   maximumEventsPerDayDisplay                   The maximum number of events that should be display per day in the main calendar display (defaults to 3).
- * @property    {string}   yesText                                      The text that should be displayed for the "Yes" label.
- * @property    {string}   noText                                       The text that should be displayed for the "No" label.
- * @property    {number}   extraSelectableYearsAhead                    The number of extra years ahead that are selectable in the drop down (defaults to 51).
- * @property    {string}   allDayEventText                              The text that should be displayed for the "All Day Event" label.
- * @property    {string}   allEventsText                                The text that should be displayed for the "All Events" label.
- * @property    {boolean}  exportEventsEnabled                          States if exporting events is enabled (defaults to true).
- * @property    {boolean}  manualEditingEnabled                         States if adding, editing, dragging and removing events is enabled (defaults to true).
- * @property    {boolean}  showTimesInMainCalendarEvents                States if the time should be shown on the main calendar view events (defaults to false).
- * @property    {string}   startsOnText                                 The text that should be displayed for the "Starts on" label.
- * @property    {string}   andFinishesOnText                            The text that should be displayed for the "and finishes on" label.
- * @property    {string}   toTimeText                                   The text that should be displayed for the "to" label.
- * @property    {number}   autoRefreshTimerDelay                        The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
- * @property    {string}   confirmEventRemoveTitle                      The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
- * @property    {string}   confirmEventRemoveMessage                    The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
- * @property    {string}   okText                                       The text that should be displayed for the "OK" button.
- * @property    {string}   selectExportTypeTitle                        The text that should be displayed for the "Select Export Type" label.
- * @property    {boolean}  fullScreenModeEnabled                        States if double click on the main title bar activates full screen mode (defaults to true).
- * @property    {number}   eventTooltipDelay                            The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
+ * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for for the "Previous Month" button.
+ * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for for the "Next Month" button.
+ * @property    {string}    addEventTooltipText                         The tooltip text that should be used for for the "Add Event" button.
+ * @property    {string}    closeTooltipText                            The tooltip text that should be used for for the "Close" button.
+ * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for for the "Export Events" button.
+ * @property    {string}    listAllEventsTooltipText                    The tooltip text that should be used for for the "View All Events" button.
+ * @property    {string}    listWeekEventsTooltipText                   The tooltip text that should be used for for the "View Current Week Events" button.
+ * @property    {string}    todayTooltipText                            The tooltip text that should be used for for the "Today" button.
+ * @property    {string}    refreshTooltipText                          The tooltip text that should be used for for the "Refresh" button.
+ * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
+ * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
+ * @property    {Object[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
+ * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
+ * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
+ * @property    {string}    isAllDayEventText                           The text that should be displayed for the "Is All Day Event" label.
+ * @property    {string}    titleText                                   The text that should be displayed for the "Title:" label.
+ * @property    {string}    descriptionText                             The text that should be displayed for the "Description:" label.
+ * @property    {string}    locationText                                The text that should be displayed for the "Location:" label.
+ * @property    {string}    addText                                     The text that should be displayed for the "Add" button.
+ * @property    {string}    updatedText                                 The text that should be displayed for the "Update" button.
+ * @property    {string}    cancelText                                  The text that should be displayed for the "Cancel" button.
+ * @property    {string}    removeEventText                             The text that should be displayed for the "Remove Event" button.
+ * @property    {string}    addEventTitle                               The title bar text that is shown for the "Add Event" label.
+ * @property    {string}    editEventTitle                              The title bar text that is shown for the "Edit Event" label.
+ * @property    {string}    monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
+ * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
+ * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
+ * @property    {string}    exportStartFilename                         The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
+ * @property    {string}    fromTimeErrorMessage                        The error message shown for the "Please select a valid 'From' time." label.
+ * @property    {string}    toTimeErrorMessage                          The error message shown for the "Please select a valid 'To' time." label.
+ * @property    {string}    toSmallerThanFromErrorMessage               The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label.
+ * @property    {string}    titleErrorMessage                           The error message shown for the "Please enter a value in the 'Title' field (no empty space)." label.
+ * @property    {string}    stText                                      The day ordinal text for "st".
+ * @property    {string}    ndText                                      The day ordinal text for "nd".
+ * @property    {string}    rdText                                      The day ordinal text for "rd".
+ * @property    {string}    thText                                      The day ordinal text for "th".
+ * @property    {boolean}   fullDayViewEnabled                          States if viewing all the events in a full day is enabled (defaults to true).
+ * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3).
+ * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
+ * @property    {string}    noText                                      The text that should be displayed for the "No" label.
+ * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
+ * @property    {string}    allDayEventText                             The text that should be displayed for the "All Day Event" label.
+ * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
+ * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
+ * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
+ * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
+ * @property    {string}    startsOnText                                The text that should be displayed for the "Starts on" label.
+ * @property    {string}    andFinishesOnText                           The text that should be displayed for the "and finishes on" label.
+ * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
+ * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
+ * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
+ * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
+ * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
+ * @property    {string}    selectExportTypeTitle                       The text that should be displayed for the "Select Export Type" label.
+ * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
+ * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
+ * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
+ * @property    {string}    backgroundColorText                         The text that should be displayed for the "Background Color:" label.
+ * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
+ * @property    {string}    borderColorText                             The text that should be displayed for the "Border Color:" label.
+ * @property    {string}    searchEventsTitle                           The text that should be displayed for the "Search Events" label.
+ * @property    {string}    forText                                     The text that should be displayed for the "For:" label.
+ * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
+ * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
+ * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
+ * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto). 
  */
 
 
@@ -107,9 +123,9 @@
  * 
  * @class
  * 
- * @param       {sting}     id                                          The ID of the element that should be used to display the calendar.
- * @param       {object}    options                                     All the configurable options that should be used (see Options documentation).
- * @param       {object}    startDateTime                               The date that the calendar should start from by default (defaults to today).
+ * @param       {string}    id                                          The ID of the element that should be used to display the calendar.
+ * @param       {Object}    options                                     All the configurable options that should be used (see Options documentation).
+ * @param       {Object}    startDateTime                               The date that the calendar should start from by default (defaults to today).
  */
 function calendarJs( id, options, startDateTime ) {
     var _options = {},
@@ -132,6 +148,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay = null,
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
+        _element_HeaderDateDisplay_YearSelector_Contents = null,
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
@@ -144,10 +161,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_IsAllDayEvent = null,
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_Description = null,
+        _element_EventEditorDialog_Location = null,
         _element_EventEditorDialog_ErrorMessage = null,
-        _element_EventEditorDialog_EventDetails = null,
+        _element_EventEditorDialog_EventDetails = {},
         _element_EventEditorDialog_OKButton = null,
         _element_EventEditorDialog_RemoveButton = null,
+        _element_EventEditorColorsDialog = null,
+        _element_EventEditorColorsDialog_Color = null,
+        _element_EventEditorColorsDialog_ColorText = null,
+        _element_EventEditorColorsDialog_ColorBorder = null,
         _element_FullDayView = null,
         _element_FullDayView_Title = null,
         _element_FullDayView_Contents = null,
@@ -169,7 +191,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfirmationDialog_YesButton = null,
         _element_ConfirmationDialog_NoButton = null,
         _element_SelectExportTypeDialog = null,
-        _element_SelectExportTypeDialog_TitleBar = null,
         _element_SelectExportTypeDialog_Option_CSV = null,
         _element_SelectExportTypeDialog_Option_XML = null,
         _element_SelectExportTypeDialog_Option_JSON = null,
@@ -179,9 +200,20 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
         _element_Tooltip_Description = null,
+        _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
         _element_DropDownMenu_Day = null,
-        _element_DropDownMenu_DateSelected = null;
+        _element_DropDownMenu_DateSelected = null,
+        _element_SearchDialog = null,
+        _element_SearchDialog_For = null,
+        _element_SearchDialog_MatchCase = null,
+        _element_SearchDialog_Previous = null,
+        _element_SearchDialog_Next = null,
+        _element_SearchDialog_IsMoving = false,
+        _element_SearchDialog_X = 0,
+        _element_SearchDialog_Y = 0,
+        _element_SearchDialog_SearchResults = [],
+        _element_SearchDialog_SearchIndex = 0;
 
 
     /*
@@ -212,12 +244,52 @@ function calendarJs( id, options, startDateTime ) {
         buildDayEvents();
         buildDisabledBackground();
         buildEventEditingDialog();
+        buildEventEditingColorDialog();
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
+        buildSearchDialog();
         buildTooltip();
         buildDropDownMenus();
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Getting Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getAllEvents() {
+        var events = [];
+    
+        getAllEventsFunc( function( event ) {
+            events.push( event );
+        } );
+
+        return events;
+    }
+
+    function getAllEventsFunc( func ) {
+        for ( var storageDate in _events ) {
+            if ( _events.hasOwnProperty( storageDate ) ) {
+                for ( var storageGuid in _events[ storageDate ] ) {
+                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
+                        var result = func( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ), storageDate, storageGuid );
+                        if ( result ) {
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function getOrderedEvents( events ) {
+        return events.sort( function( a, b ) {
+            return a.from - b.from;
+        } );
     }
 
 
@@ -229,8 +301,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildLayout() {
         if ( !_initialized ) {
-            var element = getElementByID( _elementID );
-            element.className = "calendar";
+            var element = buildContainer();
     
             buildListAllEventsView( element );
             buildListAllWeekEventsView( element );
@@ -241,6 +312,14 @@ function calendarJs( id, options, startDateTime ) {
             
             _initialized = true;
         }
+    }
+
+    function buildContainer() {
+        var element = getElementByID( _elementID );
+        element.className = "calendar";
+        element.innerHTML = "";
+
+        return element;
     }
 
     function buildDateHeader( element ) {
@@ -255,7 +334,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         var previousMonthButton = createElement( "div" );
-        previousMonthButton.className = "arrow previous-month";
+        previousMonthButton.className = "ib-arrow-left-full";
         previousMonthButton.onclick = moveBackMonth;
         previousMonthButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( previousMonthButton );
@@ -263,7 +342,7 @@ function calendarJs( id, options, startDateTime ) {
         addToolTip( previousMonthButton, _options.previousMonthTooltipText );
 
         var todayButton = createElement( "div" );
-        todayButton.className = "today";
+        todayButton.className = "ib-pin";
         todayButton.onclick = moveToday;
         todayButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( todayButton );
@@ -271,15 +350,23 @@ function calendarJs( id, options, startDateTime ) {
         addToolTip( todayButton, _options.todayTooltipText );
 
         var refreshButton = createElement( "div" );
-        refreshButton.className = "refresh";
+        refreshButton.className = "ib-refresh";
         refreshButton.onclick = refreshViews;
         refreshButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( refreshButton );
 
         addToolTip( refreshButton, _options.refreshTooltipText );
 
+        var searchButton = createElement( "div" );
+        searchButton.className = "ib-search";
+        searchButton.onclick = showSearchDialog;
+        searchButton.ondblclick = cancelBubble;
+        _element_HeaderDateDisplay.appendChild( searchButton );
+
+        addToolTip( searchButton, _options.searchTooltipText );
+
         var nextMonthButton = createElement( "div" );
-        nextMonthButton.className = "arrow next-month";
+        nextMonthButton.className = "ib-arrow-right-full";
         nextMonthButton.onclick = moveForwardMonth;
         nextMonthButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( nextMonthButton );
@@ -288,7 +375,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _options.manualEditingEnabled ) {
             var addEventButton = createElement( "div" );
-            addEventButton.className = "add-event";
+            addEventButton.className = "ib-plus";
             addEventButton.onclick = addNewEvent;
             addEventButton.ondblclick = cancelBubble;
             _element_HeaderDateDisplay.appendChild( addEventButton );
@@ -298,7 +385,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _options.exportEventsEnabled ) {
             _element_HeaderDateDisplay_ExportEventsButton = createElement( "div" );
-            _element_HeaderDateDisplay_ExportEventsButton.className = "export-events";
+            _element_HeaderDateDisplay_ExportEventsButton.className = "ib-arrow-down-full-line";
             _element_HeaderDateDisplay_ExportEventsButton.ondblclick = cancelBubble;
             _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_ExportEventsButton );
 
@@ -310,7 +397,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         var listAllEventsButton = createElement( "div" );
-        listAllEventsButton.className = "list-all-events";
+        listAllEventsButton.className = "ib-eye";
         listAllEventsButton.onclick = showListAllEventsView;
         listAllEventsButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( listAllEventsButton );
@@ -318,7 +405,7 @@ function calendarJs( id, options, startDateTime ) {
         addToolTip( listAllEventsButton, _options.listAllEventsTooltipText );
 
         var listWeekEventsButton = createElement( "div" );
-        listWeekEventsButton.className = "list-week-events";
+        listWeekEventsButton.className = "ib-hamburger";
         listWeekEventsButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
 
@@ -349,12 +436,12 @@ function calendarJs( id, options, startDateTime ) {
             _element_HeaderDateDisplay_YearSelector.className = "years-drop-down";
             container.appendChild( _element_HeaderDateDisplay_YearSelector );
 
-            var contents = createElement( "div" );
-            contents.className = "contents custom-scroll-bars";
-            _element_HeaderDateDisplay_YearSelector.appendChild( contents );
+            _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div" );
+            _element_HeaderDateDisplay_YearSelector_Contents.className = "contents custom-scroll-bars";
+            _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
 
             for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
-                buildYearSelectorDropDownYear( contents, date.getFullYear() );
+                buildYearSelectorDropDownYear( date.getFullYear() );
 
                 date.setFullYear( date.getFullYear() + 1 );
             }
@@ -367,11 +454,11 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildYearSelectorDropDownYear( contents, actualYear ) {
+    function buildYearSelectorDropDownYear( actualYear ) {
         var year = createElement( "div" );
         year.innerText = actualYear.toString();
         year.id = _elementID_YearSelected + actualYear.toString();
-        contents.appendChild( year );
+        _element_HeaderDateDisplay_YearSelector_Contents.appendChild( year );
 
         year.onclick = function() {
             _currentDate.setFullYear( actualYear );
@@ -411,6 +498,10 @@ function calendarJs( id, options, startDateTime ) {
                 columnData.className = _elementClassName_Cell;
                 columnData.id = _elementID_DayElement + columnDataNumber;
                 rowData.appendChild( columnData );
+
+                if ( _options.minimumDayHeight > 0 ) {
+                    columnData.style.height = _options.minimumDayHeight + "px";
+                }
             }
         }
     }
@@ -454,6 +545,7 @@ function calendarJs( id, options, startDateTime ) {
             }
 
             _element_HeaderDateDisplay_YearSelector.style.display = "block";
+            _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - ( _element_HeaderDateDisplay_YearSelector.offsetHeight / 2 );
         }
     }
 
@@ -527,36 +619,20 @@ function calendarJs( id, options, startDateTime ) {
     function buildDayEvents() {
         clearEventsFromDays();
         clearAutoRefreshTimer();
-    
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                var orderedEvents = [];
-    
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        orderedEvents.push( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
-                    }
-                }
-    
-                orderedEvents.sort( function( a, b ) {
-                    return a.from - b.from;
-                });
-    
-                var orderedEventsLength = orderedEvents.length;
-                for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-                    var orderedEvent = orderedEvents[ orderedEventIndex ],
-                        elementDay = getDayElement( orderedEvent.from );
-    
-                    if ( elementDay !== null ) {
-                        buildDayEventAcrossDays( orderedEvent );
-                    }
-                }
-    
-                orderedEvents = [];
+
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                elementDay = getDayElement( orderedEvent.from );
+
+            if ( elementDay !== null ) {
+                buildDayEventAcrossDays( orderedEvent );
             }
         }
     
-        updateExportButtonsVisibleState();
+        updateExportButtonsVisibleState( orderedEventsLength );
         startAutoRefreshTimer();
     }
     
@@ -601,18 +677,8 @@ function calendarJs( id, options, startDateTime ) {
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
                 };
-    
-                if ( eventDetails.to < new Date() ) {
-                    event.className += " expired";
-                }
 
-                if ( eventDetails.isAllDayEvent ) {
-                    event.className += " all-day-event";
-                }
-    
-                if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-                    event.setAttribute( "draggable", true );
-                }
+                setEventClassesAndColors( eventDetails, event );
     
                 if ( _options.manualEditingEnabled ) {
                     event.onclick = function() {
@@ -621,6 +687,8 @@ function calendarJs( id, options, startDateTime ) {
                 }
     
                 if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+                    event.setAttribute( "draggable", true );
+                    
                     event.ondragstart = function() {
                         _eventDetails_Dragged = eventDetails;
                     };
@@ -629,25 +697,12 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function updateExportButtonsVisibleState() {
-        var availableEvents = 0;
-
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        availableEvents++;
-                        break;
-                    }
-                }
-            }
-        }
-
+    function updateExportButtonsVisibleState( orderedEventsLength ) {
         if ( _options.exportEventsEnabled ) {
-            if ( availableEvents === 0 ) {
+            if ( orderedEventsLength === 0 ) {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "none";
             } else {
-                _element_HeaderDateDisplay_ExportEventsButton.style.display = "block";
+                _element_HeaderDateDisplay_ExportEventsButton.style.display = "inline-block";
             }
         }
     }
@@ -701,6 +756,29 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function setEventClassesAndColors( eventDetails, event ) {
+        if ( eventDetails.to < new Date() ) {
+            event.className += " expired";
+        }
+
+        if ( isDefinedStringAndSet( eventDetails.color ) ) {
+            event.style.backgroundColor = eventDetails.color;
+
+            if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
+                event.style.color = eventDetails.colorText;
+            }
+
+            if ( isDefinedStringAndSet( eventDetails.colorBorder ) ) {
+                event.style.borderLeftColor = eventDetails.colorBorder;
+            }
+        } else {
+
+            if ( eventDetails.isAllDayEvent ) {
+                event.className += " all-day-event";
+            }
+        }
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -729,7 +807,7 @@ function calendarJs( id, options, startDateTime ) {
             titleBar.appendChild( _element_FullDayView_Title );
 
             var closeButton = createElement( "div" );
-            closeButton.className = "close";
+            closeButton.className = "ib-close";
             closeButton.ondblclick = cancelBubble;
             titleBar.appendChild( closeButton );
 
@@ -742,7 +820,7 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.manualEditingEnabled ) {
                 var addEventButton = createElement( "div" );
-                addEventButton.className = "add-event";
+                addEventButton.className = "ib-plus";
                 addEventButton.onclick = addNewEvent;
                 addEventButton.ondblclick = cancelBubble;
                 titleBar.appendChild( addEventButton );
@@ -752,7 +830,7 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.exportEventsEnabled ) {
                 _element_FullDayView_ExportEventsButton = createElement( "div" );
-                _element_FullDayView_ExportEventsButton.className = "export-events";
+                _element_FullDayView_ExportEventsButton.className = "ib-arrow-down-full-line";
                 _element_FullDayView_ExportEventsButton.ondblclick = cancelBubble;
                 titleBar.appendChild( _element_FullDayView_ExportEventsButton );
 
@@ -784,60 +862,51 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [];
 
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
+        
+        var orderedEvents = [];
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                var orderedEvents = [];
-
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        var orderedEvent = getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ),
-                            totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to ) + 1,
-                            nextDate = new Date( orderedEvent.from );
-                        
-                        for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
-                            if ( nextDate.getFullYear() === date.getFullYear() && nextDate.getMonth() === date.getMonth() && nextDate.getDate() === date.getDate() ) {
-                                orderedEvents.push( orderedEvent );
-                            }
-
-                            nextDate.setDate( nextDate.getDate() + 1 );
-                        }
-                    }
+        getAllEventsFunc( function( event ) {
+            var totalDays = getTotalDaysBetweenDates( event.from, event.to ) + 1,
+                nextDate = new Date( event.from );
+            
+            for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
+                if ( nextDate.getFullYear() === date.getFullYear() && nextDate.getMonth() === date.getMonth() && nextDate.getDate() === date.getDate() ) {
+                    orderedEvents.push( event );
                 }
 
-                orderedEvents.sort( function( a, b ) {
-                    return a.from - b.from;
-                });
-    
-                var orderedEventsLength = orderedEvents.length;
-                for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-                    buildFullDayDayEvent( orderedEvents[ orderedEventIndex ] );
-                }
+                nextDate.setDate( nextDate.getDate() + 1 );
             }
+        } );
+
+        orderedEvents = getOrderedEvents( orderedEvents );
+
+        var orderedEventsLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            buildFullDayDayEvent( orderedEvents[ orderedEventIndex ] );
         }
 
         if ( _options.exportEventsEnabled ) {
-            if ( _element_FullDayView_EventsShown.length === 0 ) {
+            if ( orderedEvents.length === 0 ) {
                 _element_FullDayView_ExportEventsButton.style.display = "none";
             } else {
-                _element_FullDayView_ExportEventsButton.style.display = "block";
+                _element_FullDayView_ExportEventsButton.style.display = "inline-block";
             }
         }
     }
 
     function buildFullDayDayEvent( eventDetails ) {
-        var fullDayEvent = createElement( "div" );
-        fullDayEvent.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
-        _element_FullDayView_Contents.appendChild( fullDayEvent );
+        var event = createElement( "div" );
+        event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
+        _element_FullDayView_Contents.appendChild( event );
 
         var title = createElement( "div" );
         title.className = "title";
         title.innerHTML = eventDetails.title;
-        fullDayEvent.appendChild( title );
+        event.appendChild( title );
 
         var startTime = createElement( "div" );
         startTime.className = "date";
-        fullDayEvent.appendChild( startTime );
+        event.appendChild( startTime );
 
         if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
             if ( eventDetails.isAllDayEvent ) {
@@ -849,23 +918,24 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        if ( eventDetails.to < new Date() ) {
-            fullDayEvent.className += " expired";
+        setEventClassesAndColors( eventDetails, event );
+
+        if ( isDefinedStringAndSet( eventDetails.location ) ) {
+            var location = createElement( "div" );
+            location.className = "location";
+            location.innerHTML = eventDetails.location;
+            event.appendChild( location );
         }
 
-        if ( eventDetails.isAllDayEvent ) {
-            fullDayEvent.className += " all-day-event";
-        }
-
-        if ( eventDetails.description !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.description ) ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
-            fullDayEvent.appendChild( description );
+            event.appendChild( description );
         }
 
         if ( _options.manualEditingEnabled ) {
-            fullDayEvent.onclick = function() {
+            event.onclick = function() {
                 showEventDialog( eventDetails );
             };
         }
@@ -902,7 +972,7 @@ function calendarJs( id, options, startDateTime ) {
             titleBar.appendChild( title );
 
             var closeButton = createElement( "div" );
-            closeButton.className = "close";
+            closeButton.className = "ib-close";
             closeButton.ondblclick = cancelBubble;
             titleBar.appendChild( closeButton );
 
@@ -914,7 +984,7 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.manualEditingEnabled ) {
                 var addEventButton = createElement( "div" );
-                addEventButton.className = "add-event";
+                addEventButton.className = "ib-plus";
                 addEventButton.onclick = addNewEvent;
                 addEventButton.ondblclick = cancelBubble;
                 titleBar.appendChild( addEventButton );
@@ -924,7 +994,7 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.exportEventsEnabled ) {
                 _element_ListAllEventsView_ExportEventsButton = createElement( "div" );
-                _element_ListAllEventsView_ExportEventsButton.className = "export-events";
+                _element_ListAllEventsView_ExportEventsButton.className = "ib-arrow-down-full-line";
                 _element_ListAllEventsView_ExportEventsButton.ondblclick = cancelBubble;
                 titleBar.appendChild( _element_ListAllEventsView_ExportEventsButton );
 
@@ -946,23 +1016,9 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_ListAllEventsView_Contents.innerHTML = "";
 
-        var orderedEvents = [];
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        orderedEvents.push( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
-                    }
-                }
-            }
-        }
-
-        orderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
-
-        var orderedEventsLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 monthContents = buildListAllEventsMonth( orderedEvent.from );
@@ -995,15 +1051,16 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        if ( eventDetails.to < new Date() ) {
-            event.className += " expired";
+        setEventClassesAndColors( eventDetails, event );
+
+        if ( isDefinedStringAndSet( eventDetails.location ) ) {
+            var location = createElement( "div" );
+            location.className = "location";
+            location.innerHTML = eventDetails.location;
+            event.appendChild( location );
         }
 
-        if ( eventDetails.isAllDayEvent ) {
-            event.className += " all-day-event";
-        }
-
-        if ( eventDetails.description !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.description ) ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
@@ -1074,7 +1131,7 @@ function calendarJs( id, options, startDateTime ) {
             titleBar.appendChild( _element_ListAllWeekEventsView_Title );
 
             var closeButton = createElement( "div" );
-            closeButton.className = "close";
+            closeButton.className = "ib-close";
             closeButton.ondblclick = cancelBubble;
             titleBar.appendChild( closeButton );
 
@@ -1086,7 +1143,7 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.manualEditingEnabled ) {
                 var addEventButton = createElement( "div" );
-                addEventButton.className = "add-event";
+                addEventButton.className = "ib-plus";
                 addEventButton.onclick = addNewEvent;
                 addEventButton.ondblclick = cancelBubble;
                 titleBar.appendChild( addEventButton );
@@ -1096,7 +1153,7 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.exportEventsEnabled ) {
                 _element_ListAllWeekEventsView_ExportEventsButton = createElement( "div" );
-                _element_ListAllWeekEventsView_ExportEventsButton.className = "export-events";
+                _element_ListAllWeekEventsView_ExportEventsButton.className = "ib-arrow-down-full-line";
                 _element_ListAllWeekEventsView_ExportEventsButton.ondblclick = cancelBubble;
                 titleBar.appendChild( _element_ListAllWeekEventsView_ExportEventsButton );
 
@@ -1120,28 +1177,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate;
 
-        var orderedEvents = [],
-            weekStartEndDates = getWeekStartEndDates( weekDate ),
+        var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
             weekEndDate = weekStartEndDates[ 1 ];
 
         setAllWeekEventsViewTitle( weekStartDate, weekEndDate );
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        orderedEvents.push( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
-                    }
-                }
-            }
-        }
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
 
-        orderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
-
-        var orderedEventsLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to ) + 1,
@@ -1168,7 +1212,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( _element_ListAllWeekEventsView_EventsShown.length === 0 ) {
                 _element_ListAllWeekEventsView_ExportEventsButton.style.display = "none";
             } else {
-                _element_ListAllWeekEventsView_ExportEventsButton.style.display = "block";
+                _element_ListAllWeekEventsView_ExportEventsButton.style.display = "inline-block";
             }
         }
     }
@@ -1224,15 +1268,16 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        if ( eventDetails.to < new Date() ) {
-            event.className += " expired";
+        setEventClassesAndColors( eventDetails, event );
+
+        if ( isDefinedStringAndSet( eventDetails.location ) ) {
+            var location = createElement( "div" );
+            location.className = "location";
+            location.innerHTML = eventDetails.location;
+            event.appendChild( location );
         }
 
-        if ( eventDetails.isAllDayEvent ) {
-            event.className += " all-day-event";
-        }
-
-        if ( eventDetails.description !== "" ) {
+        if ( isDefinedStringAndSet( eventDetails.description ) ) {
             var description = createElement( "div" );
             description.className = "description";
             description.innerHTML = eventDetails.description;
@@ -1437,16 +1482,21 @@ function calendarJs( id, options, startDateTime ) {
         var today = new Date(),
             dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
             dayElement = getElementByID( _elementID_DayElement + elementDayNumber ),
-            dayText = createElement( "span" );
-
-        dayElement.className = _elementClassName_Cell + ( dayIsToday ? " today" : "" );
+            dayText = createElement( "span" ),
+            dayDate = new Date( year, month, actualDay );
+        
         dayElement.innerHTML = "";
 
         dayText.className = isMuted ? "day-muted" : "";
+        dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
 
+        if ( dayDate.getDay() === 6 || dayDate.getDay() === 0 ) {
+            dayElement.className += " weekend-day";
+        }
+
         dayElement.oncontextmenu = function( e ) {
-            showDayDropDownMenu( e, new Date( year, month, actualDay ) );
+            showDayDropDownMenu( e, dayDate );
         };
 
         if ( _options.showDayNumberOrdinals ) {
@@ -1465,13 +1515,13 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( expandDayButton, _options.expandDayTooltipText );
     
             expandDayButton.onclick = function() {
-                showFullDayView( new Date( year, month, actualDay ) );
+                showFullDayView( dayDate );
             };
         }
 
         if ( _options.manualEditingEnabled ) {
             dayElement.ondblclick = function() {
-                showEventDialog( null, new Date( year, month, actualDay ) );
+                showEventDialog( null, dayDate );
             };
 
             if ( _options.manualEditingEnabled ) {
@@ -1521,7 +1571,11 @@ function calendarJs( id, options, startDateTime ) {
                 to: toDate,
                 title: _eventDetails_Dragged.title,
                 description: _eventDetails_Dragged.description,
-                isAllDayEvent: _eventDetails_Dragged.isAllDayEvent
+                location: _eventDetails_Dragged.location,
+                isAllDayEvent: _eventDetails_Dragged.isAllDayEvent,
+                color: _eventDetails_Dragged.color,
+                colorText: _eventDetails_Dragged.colorText,
+                colorBorder: _eventDetails_Dragged.colorBorder
             };
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
@@ -1541,7 +1595,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDayDropDownMenu() {
         _element_DropDownMenu_Day = createElement( "div" );
-        _element_DropDownMenu_Day.className = "calender-drop-down-menu";
+        _element_DropDownMenu_Day.className = "calendar-drop-down-menu";
         _document.body.appendChild( _element_DropDownMenu_Day );
         
         var addEvent = createElement( "div" );
@@ -1626,7 +1680,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildEventEditingDialog() {
         if ( _element_EventEditorDialog === null ) {
             _element_EventEditorDialog = createElement( "div" );
-            _element_EventEditorDialog.className = "calender-event-editor-dialog";
+            _element_EventEditorDialog.className = "calendar-dialog event-editor";
             _document.body.appendChild( _element_EventEditorDialog );
 
             var view = createElement( "div" );
@@ -1644,6 +1698,25 @@ function calendarJs( id, options, startDateTime ) {
             var contents = createElement( "div" );
             contents.className = "contents";
             view.appendChild( contents );
+
+            var textTitle = createElement( "p" );
+            textTitle.innerText = _options.titleText;
+            contents.appendChild( textTitle );
+
+            var inputTitleContainer = createElement( "div" );
+            inputTitleContainer.className = "input-title-container";
+            contents.appendChild( inputTitleContainer );
+
+            _element_EventEditorDialog_Title = createElement( "input" );
+            _element_EventEditorDialog_Title.type = "text";
+            inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
+
+            var selectColorsButton = createElement( "input" );
+            selectColorsButton.className = "select-colors";
+            selectColorsButton.type = "button";
+            selectColorsButton.value = "...";
+            selectColorsButton.onclick = showEventEditorColorsDialog;
+            inputTitleContainer.appendChild( selectColorsButton );
 
             var textFrom = createElement( "p" );
             textFrom.innerText = _options.fromText;
@@ -1664,19 +1737,7 @@ function calendarJs( id, options, startDateTime ) {
 
             setInputType( _element_EventEditorDialog_TimeFrom, "time" );
 
-            var isAllDayEventLabel = createElement( "label" );
-            isAllDayEventLabel.className = "checkbox";
-            isAllDayEventLabel.innerText = _options.isAllDayEventText;
-            contents.appendChild( isAllDayEventLabel );
-
-            _element_EventEditorDialog_IsAllDayEvent = createElement( "input" );
-            _element_EventEditorDialog_IsAllDayEvent.type = "checkbox";
-            _element_EventEditorDialog_IsAllDayEvent.onchange = isAllDayEventChanged;
-            isAllDayEventLabel.appendChild( _element_EventEditorDialog_IsAllDayEvent );
-
-            var isAllDayEventLabelSpan = createElement( "span" );
-            isAllDayEventLabelSpan.className = "check-mark";
-            isAllDayEventLabel.appendChild( isAllDayEventLabelSpan );
+            _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
 
             var textTo = createElement( "p" );
             textTo.innerText = _options.toText;
@@ -1696,13 +1757,13 @@ function calendarJs( id, options, startDateTime ) {
 
             setInputType( _element_EventEditorDialog_TimeTo, "time" );
 
-            var textTitle = createElement( "p" );
-            textTitle.innerText = _options.titleText;
-            contents.appendChild( textTitle );
+            var textLocation = createElement( "p" );
+            textLocation.innerText = _options.locationText;
+            contents.appendChild( textLocation );
 
-            _element_EventEditorDialog_Title = createElement( "input" );
-            _element_EventEditorDialog_Title.type = "text";
-            contents.appendChild( _element_EventEditorDialog_Title );
+            _element_EventEditorDialog_Location = createElement( "input" );
+            _element_EventEditorDialog_Location.type = "text";
+            contents.appendChild( _element_EventEditorDialog_Location );
 
             var textDescription = createElement( "p" );
             textDescription.innerText = _options.descriptionText;
@@ -1746,7 +1807,7 @@ function calendarJs( id, options, startDateTime ) {
     function setInputType( input, type ) {
         try {
             input.type = type;
-        } catch( e ) {
+        } catch ( e ) {
             input.type = "text";
         }
     }
@@ -1775,7 +1836,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
-        _element_EventEditorDialog_DateFrom.focus();
+        _element_EventEditorDialog_Title.focus();
 
         if ( isDefined( eventDetails ) ) {
             _element_EventEditorDialog_OKButton.value = _options.updateText;
@@ -1787,8 +1848,12 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_DateTo.value = toFormattedDate( eventDetails.to, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
             _element_EventEditorDialog_IsAllDayEvent.checked = eventDetails.isAllDayEvent;
-            _element_EventEditorDialog_Title.value = eventDetails.title;
-            _element_EventEditorDialog_Description.value = eventDetails.description;
+            _element_EventEditorDialog_Title.value = getString( eventDetails.title );
+            _element_EventEditorDialog_Description.value = getString( eventDetails.description );
+            _element_EventEditorDialog_Location.value = getString( eventDetails.location );
+            _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
+            _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
+            _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
         } else {
             var date = new Date(),
                 today = !isDefined( overrideTodayDate ) ? date : overrideTodayDate;
@@ -1801,7 +1866,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_OKButton.value = _options.addText;
             _element_EventEditorDialog_RemoveButton.style.display = "none";
             _element_EventEditorDialog_TitleBar.innerHTML = _options.addEventTitle;
-            _element_EventEditorDialog_EventDetails = null;
+            _element_EventEditorDialog_EventDetails = {};
             _element_EventEditorDialog_DateFrom.value = toFormattedDate( today, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
             _element_EventEditorDialog_DateTo.value = toFormattedDate( today, _element_EventEditorDialog_DateTo.type );
@@ -1809,6 +1874,10 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_IsAllDayEvent.checked = false;
             _element_EventEditorDialog_Title.value = "";
             _element_EventEditorDialog_Description.value = "";
+            _element_EventEditorDialog_Location.value = "";
+            _element_EventEditorColorsDialog_Color.value = "#484848";
+            _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
+            _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
         }
 
         isAllDayEventChanged();
@@ -1820,11 +1889,12 @@ function calendarJs( id, options, startDateTime ) {
             fromTime = _element_EventEditorDialog_TimeFrom.value.split( ":" ),
             toTime = _element_EventEditorDialog_TimeTo.value.split( ":" ),
             title = trimString( _element_EventEditorDialog_Title.value ),
-            description = trimString( _element_EventEditorDialog_Description.value );
+            description = trimString( _element_EventEditorDialog_Description.value ),
+            location = trimString( _element_EventEditorDialog_Location.value );
 
-        if ( fromTime.length <= 0 ) {
+        if ( fromTime.length < 2 ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
-        } else if ( toTime.length <= 0 ) {
+        } else if ( toTime.length < 2 ) {
             showEventDialogErrorMessage( _options.toTimeErrorMessage, _element_EventEditorDialog_TimeTo );
         } else if ( toDate < fromDate ) {
             showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
@@ -1834,21 +1904,22 @@ function calendarJs( id, options, startDateTime ) {
         else {
 
             eventDialogEvent_Cancel();
-
-            fromDate.setHours( parseInt( fromTime[ 0 ] ) );
-            fromDate.setMinutes( parseInt( fromTime[ 1 ] ) );
-            toDate.setHours( parseInt( toTime[ 0 ] ) );
-            toDate.setMinutes( parseInt( toTime[ 1 ] ) );
+            setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
+            setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
 
             var newEvent = {
                 from: fromDate,
                 to: toDate,
                 title: title,
                 description: description,
-                isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked
+                location: location,
+                isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
+                color: _element_EventEditorDialog_EventDetails.color,
+                colorText: _element_EventEditorDialog_EventDetails.colorText,
+                colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
             };
 
-            if ( _element_EventEditorDialog_EventDetails !== null ) {
+            if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
                 _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
             } else {
                 _this.addEvent( newEvent, false );
@@ -1857,6 +1928,28 @@ function calendarJs( id, options, startDateTime ) {
             buildDayEvents();
             refreshOpenedViews();
         }
+    }
+
+    function setTimeOnDate( date, timeData ) {
+        var hours = 0,
+            minutes = 0,
+            splitData = timeData.split( ":" );
+
+        if ( splitData.length === 2 ) {
+            var newHours = parseInt( splitData[ 0 ] ),
+                newMinutes = parseInt( splitData[ 1 ] );
+
+            if ( !isNaN( newHours ) && newHours.toString().length <= 2 ) {
+                hours = newHours;
+            }
+
+            if ( !isNaN( newMinutes ) && newMinutes.toString().length <= 2 ) {
+                minutes = newMinutes;
+            }
+        }
+
+        date.setHours( hours );
+        date.setMinutes( minutes );
     }
 
     function getSelectedDate( input ) {
@@ -1896,7 +1989,7 @@ function calendarJs( id, options, startDateTime ) {
             onNoEvent();
             eventDialogEvent_Cancel();
 
-            if ( _element_EventEditorDialog_EventDetails !== null ) {
+            if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
                 _this.removeEvent( _element_EventEditorDialog_EventDetails.id, true );
                 refreshOpenedViews();
             }
@@ -1949,6 +2042,93 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Event Editing Colors Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildEventEditingColorDialog() {
+        if ( _element_EventEditorColorsDialog === null ) {
+            _element_EventEditorColorsDialog = createElement( "div" );
+            _element_EventEditorColorsDialog.className = "calendar-dialog event-editor-colors";
+            _document.body.appendChild( _element_EventEditorColorsDialog );
+
+            var titleBar = createElement( "div" );
+            titleBar.className = "title-bar";
+            titleBar.innerHTML = _options.selectColorsText;
+            _element_EventEditorColorsDialog.appendChild( titleBar );
+
+            var contents = createElement( "div" );
+            contents.className = "contents";
+            _element_EventEditorColorsDialog.appendChild( contents );
+
+            var backgroundColorText = createElement( "p" );
+            backgroundColorText.innerText = _options.backgroundColorText;
+            contents.appendChild( backgroundColorText );
+
+            _element_EventEditorColorsDialog_Color = createElement( "input" );
+            contents.appendChild( _element_EventEditorColorsDialog_Color );
+
+            setInputType( _element_EventEditorColorsDialog_Color, "color" );
+
+            var textColorText = createElement( "p" );
+            textColorText.innerText = _options.textColorText;
+            contents.appendChild( textColorText );
+
+            _element_EventEditorColorsDialog_ColorText = createElement( "input" );
+            contents.appendChild( _element_EventEditorColorsDialog_ColorText );
+
+            setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
+
+            var borderColorText = createElement( "p" );
+            borderColorText.innerText = _options.borderColorText;
+            contents.appendChild( borderColorText );
+
+            _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
+            contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
+
+            setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
+
+            var buttonsSplitContainer = createElement( "div" );
+            buttonsSplitContainer.className = "split";
+            contents.appendChild( buttonsSplitContainer );
+
+            var okButton = createElement( "input" );
+            okButton.className = "ok";
+            okButton.type = "button";
+            okButton.value = _options.okText;
+            okButton.onclick = eventColorsDialogEvent_OK;
+            buttonsSplitContainer.appendChild( okButton );
+
+            var cancelButton = createElement( "input" );
+            cancelButton.className = "cancel";
+            cancelButton.type = "button";
+            cancelButton.value = _options.cancelText;
+            cancelButton.onclick = eventColorsDialogEvent_Cancel;
+            buttonsSplitContainer.appendChild( cancelButton );
+        }
+    }
+
+    function eventColorsDialogEvent_OK() {
+        eventColorsDialogEvent_Cancel();
+
+        _element_EventEditorDialog_EventDetails.color = _element_EventEditorColorsDialog_Color.value;
+        _element_EventEditorDialog_EventDetails.colorText = _element_EventEditorColorsDialog_ColorText.value;
+        _element_EventEditorDialog_EventDetails.colorBorder = _element_EventEditorColorsDialog_ColorBorder.value;
+    }
+
+    function eventColorsDialogEvent_Cancel() {
+        _element_EventEditorColorsDialog.style.display = "none";
+        _element_EventEditorDialog_DisabledArea.style.display = "none";
+    }
+
+    function showEventEditorColorsDialog() {
+        _element_EventEditorColorsDialog.style.display = "block";
+        _element_EventEditorDialog_DisabledArea.style.display = "block";
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Build Confirmation Dialog
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -1956,7 +2136,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildConfirmationDialog() {
         if ( _element_ConfirmationDialog === null ) {
             _element_ConfirmationDialog = createElement( "div" );
-            _element_ConfirmationDialog.className = "calender-confirmation-dialog";
+            _element_ConfirmationDialog.className = "calendar-dialog confirmation";
             _document.body.appendChild( _element_ConfirmationDialog );
 
             _element_ConfirmationDialog_TitleBar = createElement( "div" );
@@ -2016,13 +2196,13 @@ function calendarJs( id, options, startDateTime ) {
     function buildSelectExportTypeDialog() {
         if ( _element_SelectExportTypeDialog === null ) {
             _element_SelectExportTypeDialog = createElement( "div" );
-            _element_SelectExportTypeDialog.className = "calender-select-export-type-dialog";
+            _element_SelectExportTypeDialog.className = "calendar-dialog select-export-type";
             _document.body.appendChild( _element_SelectExportTypeDialog );
 
-            _element_SelectExportTypeDialog_TitleBar = createElement( "div" );
-            _element_SelectExportTypeDialog_TitleBar.className = "title-bar";
-            _element_SelectExportTypeDialog_TitleBar.innerHTML = _options.selectExportTypeTitle;
-            _element_SelectExportTypeDialog.appendChild( _element_SelectExportTypeDialog_TitleBar );
+            var titleBar = createElement( "div" );
+            titleBar.className = "title-bar";
+            titleBar.innerHTML = _options.selectExportTypeTitle;
+            _element_SelectExportTypeDialog.appendChild( titleBar );
 
             var contents = createElement( "div" );
             contents.className = "contents";
@@ -2051,24 +2231,6 @@ function calendarJs( id, options, startDateTime ) {
             cancelButton.onclick = hideSelectExportTypeDialog;
             buttonsSplitContainer.appendChild( cancelButton );
         }
-    }
-
-    function buildRadioButton( container, labelText, groupName ) {
-        var label = createElement( "label" );
-        label.className = "radioButton";
-        label.innerText = labelText;
-        container.appendChild( label );
-
-        var input = createElement( "input" );
-        input.type = "radio";
-        input.name = groupName;
-        label.appendChild( input );
-
-        var labelSpan = createElement( "span" );
-        labelSpan.className = "check-mark";
-        label.appendChild( labelSpan );
-
-        return input;
     }
 
     function showSelectExportTypeDialog( events ) {
@@ -2100,6 +2262,161 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Search Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildSearchDialog() {
+        if ( _element_SearchDialog === null ) {
+            _element_SearchDialog = createElement( "div" );
+            _element_SearchDialog.className = "calendar-dialog search";
+            _document.body.appendChild( _element_SearchDialog );
+
+            var titleBar = createElement( "div" );
+            titleBar.className = "title-bar";
+            titleBar.innerHTML = _options.searchEventsTitle;
+            titleBar.onmousedown = searchOnTitleBarMouseDown;
+            titleBar.onmouseup = searchOnTitleBarMouseUp;
+            _element_SearchDialog.appendChild( titleBar );
+
+            var closeButton = createElement( "div" );
+            closeButton.className = "ib-close";
+            closeButton.onclick = hideSearchDialog;
+            titleBar.appendChild( closeButton );
+
+            addToolTip( closeButton, _options.closeTooltipText );
+
+            var contents = createElement( "div" );
+            contents.className = "contents";
+            _element_SearchDialog.appendChild( contents );
+
+            var textFor = createElement( "p" );
+            textFor.innerText = _options.forText;
+            contents.appendChild( textFor );
+
+            _element_SearchDialog_For = createElement( "input" );
+            _element_SearchDialog_For.type = "text";
+            _element_SearchDialog_For.oninput = searchForTextChanged;
+            _element_SearchDialog_For.onpropertychange = searchForTextChanged;
+            _element_SearchDialog_For.onkeypress = searchOnEnter;
+            contents.appendChild( _element_SearchDialog_For );
+            
+            _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText );
+
+            var buttonsSplitContainer = createElement( "div" );
+            buttonsSplitContainer.className = "split";
+            contents.appendChild( buttonsSplitContainer );
+
+            _element_SearchDialog_Previous = createElement( "input" );
+            _element_SearchDialog_Previous.className = "previous";
+            _element_SearchDialog_Previous.type = "button";
+            _element_SearchDialog_Previous.value = _options.previousText;
+            _element_SearchDialog_Previous.onclick = searchOnPrevious;
+            buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
+
+            _element_SearchDialog_Next = createElement( "input" );
+            _element_SearchDialog_Next.className = "next";
+            _element_SearchDialog_Next.type = "button";
+            _element_SearchDialog_Next.value = _options.nextText;
+            _element_SearchDialog_Next.onclick = searchOnNext;
+            buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
+
+            _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
+        }
+    }
+
+    function searchOnTitleBarMouseDown( e ) {
+        if ( !_element_SearchDialog_IsMoving ) {
+            _element_SearchDialog_IsMoving = true;
+            _element_SearchDialog_X = e.pageX - _element_SearchDialog.offsetLeft;
+            _element_SearchDialog_Y = e.pageY - _element_SearchDialog.offsetTop;
+        }
+    }
+
+    function searchOnDocumentMouseMove( e ) {
+        if ( _element_SearchDialog_IsMoving ) {
+            _element_SearchDialog.style.left = ( e.pageX - _element_SearchDialog_X ) + "px";
+            _element_SearchDialog.style.top = ( e.pageY - _element_SearchDialog_Y ) + "px";
+        }
+    }
+
+    function searchOnTitleBarMouseUp() {
+        if ( _element_SearchDialog_IsMoving ) {
+            _element_SearchDialog_IsMoving = false;
+        }
+    }
+
+    function searchForTextChanged() {
+        _element_SearchDialog_Previous.disabled = true;
+        _element_SearchDialog_Next.disabled = _element_SearchDialog_For.value === "";
+        _element_SearchDialog_SearchResults = [];
+        _element_SearchDialog_SearchIndex = 0;
+    }
+
+    function showSearchDialog() {
+        _element_SearchDialog_SearchResults = [];
+        _element_SearchDialog.style.display = "block";
+        _element_SearchDialog_For.value = "";
+        _element_SearchDialog_For.focus();
+
+        searchForTextChanged();
+    }
+
+    function hideSearchDialog() {
+        _element_SearchDialog.style.display = "none";
+    }
+
+    function searchOnPrevious() {
+        if ( _element_SearchDialog_SearchIndex > 0 ) {
+            _element_SearchDialog_SearchIndex--;
+
+            updateSearchButtons();
+            build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+        }
+    }
+
+    function searchOnEnter( e ) {
+        if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
+            searchOnNext();
+        }
+    }
+
+    function searchOnNext() {
+        if ( _element_SearchDialog_SearchResults.length === 0 ) {
+            var matchCase = _element_SearchDialog_MatchCase.checked,
+                search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
+                monthYearsFound = {};
+
+            getAllEventsFunc( function( event ) {
+                var title = !matchCase ? event.title.toLowerCase() : event.title,
+                    description = !matchCase ? event.description.toLowerCase() : event.description;
+
+                if ( title.indexOf( search ) > -1 || description.indexOf( search ) > -1 ) {
+                    var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+
+                    if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                        _element_SearchDialog_SearchResults.push( event );
+                        monthYearsFound[ monthYear ] = true;
+                    }
+                }
+            } );
+
+        } else {
+            _element_SearchDialog_SearchIndex++;
+        }
+
+        updateSearchButtons();
+        build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+    }
+
+    function updateSearchButtons() {
+        _element_SearchDialog_Previous.disabled = _element_SearchDialog_SearchIndex === 0;
+        _element_SearchDialog_Next.disabled = _element_SearchDialog_SearchIndex === _element_SearchDialog_SearchResults.length - 1;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Tooltip
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -2118,6 +2435,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip_Description = createElement( "div" );
             _element_Tooltip_Description.className = "description";
 
+            _element_Tooltip_Location = createElement( "div" );
+            _element_Tooltip_Location.className = "location";
+
             document.body.addEventListener( "mousemove", hideTooltip );
         }
     }
@@ -2132,7 +2452,7 @@ function calendarJs( id, options, startDateTime ) {
                 if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
                     text = isDefined( text ) ? text : "";
 
-                    _element_Tooltip.className = text === "" ? "calender-tooltip-event" : "calender-tooltip";
+                    _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
 
                     if ( text !== "" ) {
                         _element_Tooltip.innerHTML = text;
@@ -2142,8 +2462,16 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip_Title.innerHTML = eventDetails.title;
+
+                        if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                            _element_Tooltip_Location.innerHTML = eventDetails.location;
+                            addNode( _element_Tooltip, _element_Tooltip_Location );
+                        } else {
+                            _element_Tooltip_Location.innerHTML = "";
+                            removeNode( _element_Tooltip, _element_Tooltip_Location );
+                        }
     
-                        if ( eventDetails.description !== "" ) {
+                        if ( isDefinedStringAndSet( eventDetails.description ) ) {
                             _element_Tooltip_Description.innerHTML = eventDetails.description;
                             addNode( _element_Tooltip, _element_Tooltip_Description );
                         } else {
@@ -2305,8 +2633,8 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showElementAtMousePosition( e, element ) {
-        var left = e.clientX,
-            top = e.clientY;
+        var left = e.pageX,
+            top = e.pageY;
 
         element.style.display = "block";
 
@@ -2329,6 +2657,58 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Input Types
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildRadioButton( container, labelText, groupName ) {
+        var lineContents = createElement( "div" );
+        container.appendChild( lineContents );
+
+        var label = createElement( "label" );
+        label.className = "radioButton";
+        label.innerText = labelText;
+        lineContents.appendChild( label );
+
+        var input = createElement( "input" );
+        input.type = "radio";
+        input.name = groupName;
+        label.appendChild( input );
+
+        var labelSpan = createElement( "span" );
+        labelSpan.className = "check-mark";
+        label.appendChild( labelSpan );
+
+        return input;
+    }
+
+    function buildCheckBox( container, labelText, changedEvent ) {
+        var lineContents = createElement( "div" );
+        container.appendChild( lineContents );
+
+        var label = createElement( "label" );
+        label.className = "checkbox";
+        label.innerText = labelText;
+        lineContents.appendChild( label );
+
+        var input = createElement( "input" );
+        input.type = "checkbox";
+        label.appendChild( input );
+
+        if ( isDefined( changedEvent ) ) {
+            input.onchange = changedEvent;
+        }
+
+        var labelSpan = createElement( "span" );
+        labelSpan.className = "check-mark";
+        label.appendChild( labelSpan );
+
+        return input;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Validation
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -2343,6 +2723,14 @@ function calendarJs( id, options, startDateTime ) {
 
     function isDefinedFunction( object ) {
         return isDefined( object ) && isFunction( object );
+    }
+
+    function isDefinedString( object ) {
+        return isDefined( object ) && typeof object === "string";
+    }
+
+    function isDefinedStringAndSet( object ) {
+        return isDefinedString( object ) && object !== "";
     }
 
 
@@ -2390,27 +2778,12 @@ function calendarJs( id, options, startDateTime ) {
         var csvOrderedEvents = [];
 
         if ( isDefined( events ) ) {
-            var eventsLength = events.length;
-            
-            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                csvOrderedEvents.push( events[ eventIndex ] );
-            }
+            csvOrderedEvents = csvOrderedEvents.concat( events );
         } else {
-
-            for ( var storageDate in _events ) {
-                if ( _events.hasOwnProperty( storageDate ) ) {
-                    for ( var storageGuid in _events[ storageDate ] ) {
-                        if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                            csvOrderedEvents.push( _events[ storageDate ][ storageGuid ] );
-                        }
-                    }
-                }
-            }
+            csvOrderedEvents = getAllEvents();
         }
 
-        csvOrderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
+        csvOrderedEvents = getOrderedEvents( csvOrderedEvents );
 
         return csvOrderedEvents;
     }
@@ -2434,12 +2807,18 @@ function calendarJs( id, options, startDateTime ) {
         return date + " " + time;
     }
 
+    function getString( string, defaultValue ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : "";
+
+        return isDefinedString( string ) ? string : defaultValue;
+    }
+
     function getPropertyName( name ) {
         return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
     }
 
     function getPropertyValue( value ) {
-        var result = value;
+        var result = getString( value );
 
         if ( typeof value === "boolean" ) {
             result = getYesNoFromBoolean( value );
@@ -2458,7 +2837,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -2483,8 +2862,9 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.from ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.to ) ) );
         eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDayEvent ) ) );
-        eventContents.push( getCsvValue( eventDetails.title.toString() ) );
-        eventContents.push( getCsvValue( eventDetails.description.toString() ) );
+        eventContents.push( getCsvValue( getString( eventDetails.title ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.description ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.location ) ) );
 
         csvContents.push( getCsvValueLine( eventContents ) );
     }
@@ -2685,8 +3065,12 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function moveToday() {
-        build();
-        triggerOptionsEvent( "onToday" );
+        var today = new Date();
+
+        if ( _currentDate.getMonth() !== today.getMonth() || _currentDate.getFullYear() !== today.getFullYear() ) {
+            build();
+            triggerOptionsEvent( "onToday" );
+        }
     }
 
 
@@ -2703,7 +3087,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @fires       onEventsAdded
      * 
-     * @param       {array}     events                                      The array of events.
+     * @param       {Object[]}  events                                      The array of events (refer to 'Day Event' documentation for properties).
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventsAdded" event should be triggered.
      */
@@ -2730,11 +3114,11 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * addEvent().
      * 
-     * Adds an array of new events.
+     * Adds a of new event.
      * 
      * @fires       onEventAdded
      * 
-     * @param       {object}    event                                       The event.
+     * @param       {Object}    event                                       The event (refer to 'Day Event' documentation for properties).
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventAdded" event should be triggered.
      * 
@@ -2785,7 +3169,7 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventUpdated
      * 
      * @param       {string}    id                                          The ID of the event.
-     * @param       {object}    event                                       The event.
+     * @param       {Object}    event                                       The event (refer to 'Day Event' documentation for properties).
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventUpdated" event should be triggered.
      * 
@@ -2825,30 +3209,25 @@ function calendarJs( id, options, startDateTime ) {
     this.removeEvent = function( id, updateEvents, triggerEvent ) {
         var removed = false;
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
+        getAllEventsFunc( function( event, storageDate, storageGuid ) {
+            if ( storageGuid === id ) {
+                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) && storageGuid === id ) {
-                        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                delete _events[ storageDate ][ storageGuid ];
+                removed = true;
 
-                        delete _events[ storageDate ][ storageGuid ];
-                        removed = true;
-
-                        if ( triggerEvent ) {
-                            triggerOptionsEventWithEventData( "onEventRemoved", _events[ storageDate ][ storageGuid ] );
-                        }
-
-                        if ( updateEvents ) {
-                            buildDayEvents();
-                        }
-
-                        break;
-                    }
+                if ( triggerEvent ) {
+                    triggerOptionsEventWithEventData( "onEventRemoved", event );
                 }
+
+                if ( updateEvents ) {
+                    buildDayEvents();
+                }
+
+                return true;
             }
-        }
+        } );
 
         return removed;
     };
@@ -2887,9 +3266,9 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * setOptions().
      * 
-     * Sets the options that should be used in Calender.js.
+     * Sets the options that should be used in Calendar.js.
      * 
-     * @param {object}      newOptions                                  All the configurable options that should be used (see Options documentation).
+     * @param {Object}      newOptions                                  All the configurable options that should be used (refer to 'Options' documentation for properties).
      */
     this.setOptions = function( newOptions ) {
         if ( newOptions !== null && typeof newOptions === "object" ) {
@@ -2924,6 +3303,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.refreshTooltipText ) ) {
             _options.refreshTooltipText = "Refresh";
+        }
+
+        if ( !isDefined( _options.searchTooltipText ) ) {
+            _options.searchTooltipText = "Search";
         }
 
         if ( !isDefined( _options.expandDayTooltipText ) ) {
@@ -2964,6 +3347,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.descriptionText ) ) {
             _options.descriptionText = "Description:";
+        }
+
+        if ( !isDefined( _options.locationText ) ) {
+            _options.locationText = "Location:";
         }
 
         if ( !isDefined( _options.addText ) ) {
@@ -3129,6 +3516,46 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.eventTooltipDelay ) ) {
             _options.eventTooltipDelay = 1000;
+        }
+
+        if ( !isDefined( _options.selectColorsText ) ) {
+            _options.selectColorsText = "Select Colors";
+        }
+
+        if ( !isDefined( _options.backgroundColorText ) ) {
+            _options.backgroundColorText = "Background Color:";
+        }
+
+        if ( !isDefined( _options.textColorText ) ) {
+            _options.textColorText = "Text Color:";
+        }
+
+        if ( !isDefined( _options.borderColorText ) ) {
+            _options.borderColorText = "Border Color:";
+        }
+
+        if ( !isDefined( _options.searchEventsTitle ) ) {
+            _options.searchEventsTitle = "Search Events";
+        }
+
+        if ( !isDefined( _options.forText ) ) {
+            _options.forText = "For:";
+        }
+
+        if ( !isDefined( _options.previousText ) ) {
+            _options.previousText = "Previous";
+        }
+
+        if ( !isDefined( _options.nextText ) ) {
+            _options.nextText = "Next";
+        }
+
+        if ( !isDefined( _options.matchCaseText ) ) {
+            _options.matchCaseText = "Match Case";
+        }
+
+        if ( !isDefined( _options.minimumDayHeight ) ) {
+            _options.minimumDayHeight = 0;
         }
     };
 

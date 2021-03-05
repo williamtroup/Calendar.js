@@ -1,0 +1,10 @@
+@import "button";
+
+.ib-arrow-left-full {
+    @include button-no-before-after;
+    width: 0; 
+    height: 0; 
+    border-top: $size / 2 solid transparent;
+    border-bottom: $size / 2 solid transparent;
+    border-right: $size solid $light-color;
+}
