@@ -26,6 +26,7 @@ v0.4.0:
 - Building events on the main display is now much faster.
 - Updating the toolbar icons on the main display is now based on the events already checked, instead of searching again.
 - The element that will hold the Calendar is now cleared before building starts (was causing some strange display issues).
+- More JSDoc documentation improvements and typw fixes.
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.

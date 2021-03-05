@@ -13,8 +13,8 @@
  *
  * @property    {string}    id                                          The ID of for the event.
  * @property    {string}    title                                       The title of the event.
- * @property    {object}    from                                        The date that the event occurs from.
- * @property    {object}    to                                          The date that the event runs until.
+ * @property    {Object}    from                                        The date that the event occurs from.
+ * @property    {Object}    to                                          The date that the event runs until.
  * @property    {string}    description                                 The in depth description of the event.
  * @property    {string}    location                                    The location of the event.
  * @property    {string}    color                                       The color that should be used for the event (overrides all others).
@@ -29,15 +29,15 @@
  * 
  * These are the properties that store the events that should be fired when various actions are triggered.
  *
- * @property    {object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed.
- * @property    {object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed.
- * @property    {object}    onToday                                     Specifies an event that will be triggered when the "Today" button is pressed.
- * @property    {object}    onEventAdded                                Specifies an event that will be triggered when an event is added (passes the event to the function).
- * @property    {object}    onEventUpdated                              Specifies an event that will be triggered when an event is updated (passes the event to the function).
- * @property    {object}    onEventRemoved                              Specifies an event that will be triggered when an event is removed (passes the event to the function).
- * @property    {object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
- * @property    {object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
- * @property    {object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
+ * @property    {Object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed.
+ * @property    {Object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed.
+ * @property    {Object}    onToday                                     Specifies an event that will be triggered when the "Today" button is pressed.
+ * @property    {Object}    onEventAdded                                Specifies an event that will be triggered when an event is added (passes the event to the function).
+ * @property    {Object}    onEventUpdated                              Specifies an event that will be triggered when an event is updated (passes the event to the function).
+ * @property    {Object}    onEventRemoved                              Specifies an event that will be triggered when an event is removed (passes the event to the function).
+ * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
+ * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
+ * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
  */
 
 
@@ -57,8 +57,8 @@
  * @property    {string}    refreshTooltipText                          The tooltip text that should be used for for the "Refresh" button.
  * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
  * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
- * @property    {array}     dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
- * @property    {array}     dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {Object[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
+ * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
  * @property    {string}    isAllDayEventText                           The text that should be displayed for the "Is All Day Event" label.
@@ -123,9 +123,9 @@
  * 
  * @class
  * 
- * @param       {sting}     id                                          The ID of the element that should be used to display the calendar.
- * @param       {object}    options                                     All the configurable options that should be used (see Options documentation).
- * @param       {object}    startDateTime                               The date that the calendar should start from by default (defaults to today).
+ * @param       {string}    id                                          The ID of the element that should be used to display the calendar.
+ * @param       {Object}    options                                     All the configurable options that should be used (see Options documentation).
+ * @param       {Object}    startDateTime                               The date that the calendar should start from by default (defaults to today).
  */
 function calendarJs( id, options, startDateTime ) {
     var _options = {},
@@ -302,9 +302,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildLayout() {
         if ( !_initialized ) {
-            var element = getElementByID( _elementID );
-            element.className = "calendar";
-            element.innerHTML = "";
+            var element = buildContainer();
     
             buildListAllEventsView( element );
             buildListAllWeekEventsView( element );
@@ -315,6 +313,14 @@ function calendarJs( id, options, startDateTime ) {
             
             _initialized = true;
         }
+    }
+
+    function buildContainer() {
+        var element = getElementByID( _elementID );
+        element.className = "calendar";
+        element.innerHTML = "";
+
+        return element;
     }
 
     function buildDateHeader( element ) {
@@ -3082,7 +3088,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @fires       onEventsAdded
      * 
-     * @param       {array}     events                                      The array of events.
+     * @param       {Object[]}  events                                      The array of events (refer to 'Day Event' documentation for properties).
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventsAdded" event should be triggered.
      */
@@ -3109,11 +3115,11 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * addEvent().
      * 
-     * Adds an array of new events.
+     * Adds a of new event.
      * 
      * @fires       onEventAdded
      * 
-     * @param       {object}    event                                       The event.
+     * @param       {Object}    event                                       The event (refer to 'Day Event' documentation for properties).
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventAdded" event should be triggered.
      * 
@@ -3164,7 +3170,7 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventUpdated
      * 
      * @param       {string}    id                                          The ID of the event.
-     * @param       {object}    event                                       The event.
+     * @param       {Object}    event                                       The event (refer to 'Day Event' documentation for properties).
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventUpdated" event should be triggered.
      * 
@@ -3263,7 +3269,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * Sets the options that should be used in Calendar.js.
      * 
-     * @param {object}      newOptions                                  All the configurable options that should be used (see Options documentation).
+     * @param {Object}      newOptions                                  All the configurable options that should be used (refer to 'Options' documentation for properties).
      */
     this.setOptions = function( newOptions ) {
         if ( newOptions !== null && typeof newOptions === "object" ) {
