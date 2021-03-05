@@ -277,7 +277,10 @@ function calendarJs( id, options, startDateTime ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
                 for ( var storageGuid in _events[ storageDate ] ) {
                     if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        func( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
+                        var result = func( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ), storageDate, storageGuid );
+                        if ( result ) {
+                            return;
+                        }
                     }
                 }
             }
@@ -3200,30 +3203,25 @@ function calendarJs( id, options, startDateTime ) {
     this.removeEvent = function( id, updateEvents, triggerEvent ) {
         var removed = false;
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
+        getAllEventsFunc( function( event, storageDate, storageGuid ) {
+            if ( storageGuid === id ) {
+                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) && storageGuid === id ) {
-                        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                delete _events[ storageDate ][ storageGuid ];
+                removed = true;
 
-                        delete _events[ storageDate ][ storageGuid ];
-                        removed = true;
-
-                        if ( triggerEvent ) {
-                            triggerOptionsEventWithEventData( "onEventRemoved", _events[ storageDate ][ storageGuid ] );
-                        }
-
-                        if ( updateEvents ) {
-                            buildDayEvents();
-                        }
-
-                        break;
-                    }
+                if ( triggerEvent ) {
+                    triggerOptionsEventWithEventData( "onEventRemoved", event );
                 }
+
+                if ( updateEvents ) {
+                    buildDayEvents();
+                }
+
+                return true;
             }
-        }
+        } );
 
         return removed;
     };
