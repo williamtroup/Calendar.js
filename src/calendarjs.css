@@ -190,18 +190,29 @@ div.calendar div.row div.cell {
   width: calc(100% - (20px + 1px) / 7);
   display: inline-block;
   text-align: center;
-  padding: 10px;
   border-right: 1px solid #282828;
   position: relative;
   overflow: hidden;
   color: #282828;
 }
 
+@media screen and (min-width: 321px) {
+  div.calendar div.row div.cell {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div.calendar div.row div.cell {
+    padding: 5px;
+  }
+}
+
 div.calendar div.row div.cell span {
   display: inline-block;
   padding: 4px;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 0px;
+  padding-right: 0px;
   border-radius: 0.25rem;
 }
 
@@ -212,6 +223,8 @@ div.calendar div.row div.cell span.day-muted {
 div.calendar div.row div.cell span.today {
   background-color: #282828;
   color: #F5F5F5;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 div.calendar div.row div.cell:last-child {

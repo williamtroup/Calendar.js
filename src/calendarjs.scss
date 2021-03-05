@@ -123,17 +123,24 @@ div.calendar {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
             display: inline-block;
             text-align: center;
-            padding: $spacing;
             border-right: $standard-border-size solid $dark-color;
             position: relative;
             overflow: hidden;
             color: $dark-color;
 
+            @media screen and (min-width: $minimum-width) {
+                padding: $spacing;
+            }
+            
+            @media screen and (max-width: $maximum-width) {
+                padding: $spacing / 2;
+            }
+
             span {
                 display: inline-block;;
                 padding: 4px;
-                padding-left: 7px;
-                padding-right: 7px;
+                padding-left: 0px;
+                padding-right: 0px;
                 border-radius: $border-view-radius;
         
                 &.day-muted {
@@ -143,6 +150,8 @@ div.calendar {
                 &.today {
                     background-color: $dark-color;
                     color: $light-color;
+                    padding-left: 7px;
+                    padding-right: 7px;
                 }
             }
 
