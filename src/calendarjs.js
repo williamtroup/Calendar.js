@@ -160,7 +160,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_TimeTo = null,
         _element_EventEditorDialog_IsAllDayEvent = null,
         _element_EventEditorDialog_Title = null,
-        _element_EventEditorDialog_SelectColorsButton = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
         _element_EventEditorDialog_ErrorMessage = null,
@@ -1712,12 +1711,12 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.type = "text";
             inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
 
-            _element_EventEditorDialog_SelectColorsButton = createElement( "input" );
-            _element_EventEditorDialog_SelectColorsButton.className = "select-colors";
-            _element_EventEditorDialog_SelectColorsButton.type = "button";
-            _element_EventEditorDialog_SelectColorsButton.value = "...";
-            _element_EventEditorDialog_SelectColorsButton.onclick = showEventEditorColorsDialog;
-            inputTitleContainer.appendChild( _element_EventEditorDialog_SelectColorsButton );
+            var selectColorsButton = createElement( "input" );
+            selectColorsButton.className = "select-colors";
+            selectColorsButton.type = "button";
+            selectColorsButton.value = "...";
+            selectColorsButton.onclick = showEventEditorColorsDialog;
+            inputTitleContainer.appendChild( selectColorsButton );
 
             var textFrom = createElement( "p" );
             textFrom.innerText = _options.fromText;
