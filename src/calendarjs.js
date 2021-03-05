@@ -575,36 +575,34 @@ function calendarJs( id, options, startDateTime ) {
     function buildDayEvents() {
         clearEventsFromDays();
         clearAutoRefreshTimer();
+
+        var orderedEvents = [];
     
         for ( var storageDate in _events ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
-                var orderedEvents = [];
-    
                 for ( var storageGuid in _events[ storageDate ] ) {
                     if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
                         orderedEvents.push( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
                     }
                 }
-    
-                orderedEvents.sort( function( a, b ) {
-                    return a.from - b.from;
-                });
-    
-                var orderedEventsLength = orderedEvents.length;
-                for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-                    var orderedEvent = orderedEvents[ orderedEventIndex ],
-                        elementDay = getDayElement( orderedEvent.from );
-    
-                    if ( elementDay !== null ) {
-                        buildDayEventAcrossDays( orderedEvent );
-                    }
-                }
-    
-                orderedEvents = [];
+            }
+        }
+
+        orderedEvents.sort( function( a, b ) {
+            return a.from - b.from;
+        });
+
+        var orderedEventsLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                elementDay = getDayElement( orderedEvent.from );
+
+            if ( elementDay !== null ) {
+                buildDayEventAcrossDays( orderedEvent );
             }
         }
     
-        updateExportButtonsVisibleState();
+        updateExportButtonsVisibleState( orderedEventsLength );
         startAutoRefreshTimer();
     }
     
@@ -669,22 +667,9 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function updateExportButtonsVisibleState() {
-        var availableEvents = 0;
-
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        availableEvents++;
-                        break;
-                    }
-                }
-            }
-        }
-
+    function updateExportButtonsVisibleState( orderedEventsLength ) {
         if ( _options.exportEventsEnabled ) {
-            if ( availableEvents === 0 ) {
+            if ( orderedEventsLength === 0 ) {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "none";
             } else {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "inline-block";
@@ -2806,11 +2791,7 @@ function calendarJs( id, options, startDateTime ) {
         var csvOrderedEvents = [];
 
         if ( isDefined( events ) ) {
-            var eventsLength = events.length;
-            
-            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                csvOrderedEvents.push( events[ eventIndex ] );
-            }
+            csvOrderedEvents = csvOrderedEvents.concat( events );
         } else {
 
             for ( var storageDate in _events ) {

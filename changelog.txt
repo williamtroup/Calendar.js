@@ -23,6 +23,8 @@ v0.4.0:
 - The background color used for the headers on the main display is now a slightly lighter shade of gray.
 - Weekend days in the main display are now shown in a color as the headers.
 - The current day is now indicated by the day number being highlighted (instead of the whole day).
+- Building events on the main display is now much faster.
+- Updating the toolbar icons on the main display is now based on the events already checked, instead of searching again.
 
 v0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
