@@ -258,6 +258,41 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Getting Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getAllEvents() {
+        var events = [];
+    
+        getAllEventsFunc( function( event ) {
+            events.push( event );
+        } );
+
+        return events;
+    }
+
+    function getAllEventsFunc( func ) {
+        for ( var storageDate in _events ) {
+            if ( _events.hasOwnProperty( storageDate ) ) {
+                for ( var storageGuid in _events[ storageDate ] ) {
+                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
+                        func( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
+                    }
+                }
+            }
+        }
+    }
+
+    function getOrderedEvents( events ) {
+        return events.sort( function( a, b ) {
+            return a.from - b.from;
+        } );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Build Layout
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -576,23 +611,9 @@ function calendarJs( id, options, startDateTime ) {
         clearEventsFromDays();
         clearAutoRefreshTimer();
 
-        var orderedEvents = [];
-    
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        orderedEvents.push( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
-                    }
-                }
-            }
-        }
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
 
-        orderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
-
-        var orderedEventsLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 elementDay = getDayElement( orderedEvent.from );
@@ -832,40 +853,31 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [];
 
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
+        
+        var orderedEvents = [];
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                var orderedEvents = [];
-
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        var orderedEvent = getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ),
-                            totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to ) + 1,
-                            nextDate = new Date( orderedEvent.from );
-                        
-                        for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
-                            if ( nextDate.getFullYear() === date.getFullYear() && nextDate.getMonth() === date.getMonth() && nextDate.getDate() === date.getDate() ) {
-                                orderedEvents.push( orderedEvent );
-                            }
-
-                            nextDate.setDate( nextDate.getDate() + 1 );
-                        }
-                    }
+        getAllEventsFunc( function( event ) {
+            var totalDays = getTotalDaysBetweenDates( event.from, event.to ) + 1,
+                nextDate = new Date( event.from );
+            
+            for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
+                if ( nextDate.getFullYear() === date.getFullYear() && nextDate.getMonth() === date.getMonth() && nextDate.getDate() === date.getDate() ) {
+                    orderedEvents.push( event );
                 }
 
-                orderedEvents.sort( function( a, b ) {
-                    return a.from - b.from;
-                });
-    
-                var orderedEventsLength = orderedEvents.length;
-                for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-                    buildFullDayDayEvent( orderedEvents[ orderedEventIndex ] );
-                }
+                nextDate.setDate( nextDate.getDate() + 1 );
             }
+        } );
+
+        orderedEvents = getOrderedEvents( orderedEvents );
+
+        var orderedEventsLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            buildFullDayDayEvent( orderedEvents[ orderedEventIndex ] );
         }
 
         if ( _options.exportEventsEnabled ) {
-            if ( _element_FullDayView_EventsShown.length === 0 ) {
+            if ( orderedEvents.length === 0 ) {
                 _element_FullDayView_ExportEventsButton.style.display = "none";
             } else {
                 _element_FullDayView_ExportEventsButton.style.display = "inline-block";
@@ -995,23 +1007,9 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_ListAllEventsView_Contents.innerHTML = "";
 
-        var orderedEvents = [];
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        orderedEvents.push( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
-                    }
-                }
-            }
-        }
-
-        orderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
-
-        var orderedEventsLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 monthContents = buildListAllEventsMonth( orderedEvent.from );
@@ -1170,28 +1168,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate;
 
-        var orderedEvents = [],
-            weekStartEndDates = getWeekStartEndDates( weekDate ),
+        var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
             weekEndDate = weekStartEndDates[ 1 ];
 
         setAllWeekEventsViewTitle( weekStartDate, weekEndDate );
 
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        orderedEvents.push( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ) );
-                    }
-                }
-            }
-        }
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
 
-        orderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
-
-        var orderedEventsLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to ) + 1,
@@ -2393,27 +2378,20 @@ function calendarJs( id, options, startDateTime ) {
                 search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
                 monthYearsFound = {};
 
-            for ( var storageDate in _events ) {
-                if ( _events.hasOwnProperty( storageDate ) ) {
+            getAllEventsFunc( function( event ) {
+                var title = !matchCase ? event.title.toLowerCase() : event.title,
+                    description = !matchCase ? event.description.toLowerCase() : event.description;
 
-                    for ( var storageGuid in _events[ storageDate ] ) {
-                        if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                            var event = _events[ storageDate ][ storageGuid ],
-                                title = !matchCase ? event.title.toLowerCase() : event.title,
-                                description = !matchCase ? event.description.toLowerCase() : event.description;
+                if ( title.indexOf( search ) > -1 || description.indexOf( search ) > -1 ) {
+                    var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
 
-                            if ( title.indexOf( search ) > -1 || description.indexOf( search ) > -1 ) {
-
-                                var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
-                                if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
-                                    _element_SearchDialog_SearchResults.push( event );
-                                    monthYearsFound[ monthYear ] = true;
-                                }
-                            }
-                        }
+                    if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                        _element_SearchDialog_SearchResults.push( event );
+                        monthYearsFound[ monthYear ] = true;
                     }
                 }
-            }
+            } );
+
         } else {
             _element_SearchDialog_SearchIndex++;
         }
@@ -2793,21 +2771,10 @@ function calendarJs( id, options, startDateTime ) {
         if ( isDefined( events ) ) {
             csvOrderedEvents = csvOrderedEvents.concat( events );
         } else {
-
-            for ( var storageDate in _events ) {
-                if ( _events.hasOwnProperty( storageDate ) ) {
-                    for ( var storageGuid in _events[ storageDate ] ) {
-                        if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                            csvOrderedEvents.push( _events[ storageDate ][ storageGuid ] );
-                        }
-                    }
-                }
-            }
+            csvOrderedEvents = getAllEvents();
         }
 
-        csvOrderedEvents.sort( function( a, b ) {
-            return a.from - b.from;
-        });
+        csvOrderedEvents = getOrderedEvents( csvOrderedEvents );
 
         return csvOrderedEvents;
     }
