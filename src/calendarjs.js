@@ -114,12 +114,12 @@
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
  * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
- * @property    {string}    repeatText                                  The text that should be displayed for the "Repeats:" label.
- * @property    {string}    repeatNever                                 The text that should be displayed for the "Never" label.
- * @property    {string}    repeatEveryDayText                          The text that should be displayed for the "Every Day" label.
- * @property    {string}    repeatEveryWeekText                         The text that should be displayed for the "Every Week" label.
- * @property    {string}    repeatEveryMonthText                        The text that should be displayed for the "Every Month" label.
- * @property    {string}    repeatEveryYearText                         The text that should be displayed for the "Every Year" label.
+ * @property    {string}    repeatsText                                 The text that should be displayed for the "Repeats:" label.
+ * @property    {string}    repeatsNever                                The text that should be displayed for the "Never" label.
+ * @property    {string}    repeatsEveryDayText                         The text that should be displayed for the "Every Day" label.
+ * @property    {string}    repeatsEveryWeekText                        The text that should be displayed for the "Every Week" label.
+ * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
+ * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
  */
 
 
@@ -1093,6 +1093,8 @@ function calendarJs( id, options, startDateTime ) {
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
 
+        setEventClassesAndColors( eventDetails, event );
+
         var title = createElement( "div" );
         title.className = "title";
         title.innerHTML = eventDetails.title;
@@ -1112,7 +1114,12 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            var repeats = createElement( "div" );
+            repeats.className = "repeats";
+            repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+            event.appendChild( repeats );
+        }
 
         if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
@@ -1823,18 +1830,18 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
 
             var textRepeatEvery = createElement( "p" );
-            textRepeatEvery.innerText = _options.repeatText;
+            textRepeatEvery.innerText = _options.repeatsText;
             contents.appendChild( textRepeatEvery );
 
             var radioButtonsContainer = createElement( "div" );
             radioButtonsContainer.className = "radioButtonsContainer";
             contents.appendChild( radioButtonsContainer );
 
-            _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatNever, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatEveryDayText, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatEveryWeekText, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatEveryMonthText, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatEveryYearText, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType" );
 
             var textLocation = createElement( "p" );
             textLocation.innerText = _options.locationText;
@@ -2944,17 +2951,17 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getRepeatsText( value ) {
-        var result = _options.repeatNever;
+        var result = _options.repeatsNever;
             repeatEvery = getNumber( value );
 
         if ( repeatEvery === _const_Repeat_EveryDay ) {
-            result = _options.repeatEveryDayText;
+            result = _options.repeatsEveryDayText;
         } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-            result = _options.repeatEveryWeekText;
+            result = _options.repeatsEveryWeekText;
         } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-            result = _options.repeatEveryMonthText;
+            result = _options.repeatsEveryMonthText;
         } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-            result = _options.repeatEveryYearText;
+            result = _options.repeatsEveryYearText;
         }
 
         return result;
@@ -2991,7 +2998,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText, _options.repeatText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText, _options.repeatsText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3713,28 +3720,28 @@ function calendarJs( id, options, startDateTime ) {
             _options.minimumDayHeight = 0;
         }
 
-        if ( !isDefined( _options.repeatText ) ) {
-            _options.repeatText = "Repeats:";
+        if ( !isDefined( _options.repeatsText ) ) {
+            _options.repeatsText = "Repeats:";
         }
 
-        if ( !isDefined( _options.repeatNever ) ) {
-            _options.repeatNever = "Never";
+        if ( !isDefined( _options.repeatsNever ) ) {
+            _options.repeatsNever = "Never";
         }
 
-        if ( !isDefined( _options.repeatEveryDayText ) ) {
-            _options.repeatEveryDayText = "Every Day";
+        if ( !isDefined( _options.repeatsEveryDayText ) ) {
+            _options.repeatsEveryDayText = "Every Day";
         }
 
-        if ( !isDefined( _options.repeatEveryWeekText ) ) {
-            _options.repeatEveryWeekText = "Every Week";
+        if ( !isDefined( _options.repeatsEveryWeekText ) ) {
+            _options.repeatsEveryWeekText = "Every Week";
         }
 
-        if ( !isDefined( _options.repeatEveryMonthText ) ) {
-            _options.repeatEveryMonthText = "Every Month";
+        if ( !isDefined( _options.repeatsEveryMonthText ) ) {
+            _options.repeatsEveryMonthText = "Every Month";
         }
 
-        if ( !isDefined( _options.repeatEveryYearText ) ) {
-            _options.repeatEveryYearText = "Every Year";
+        if ( !isDefined( _options.repeatsEveryYearText ) ) {
+            _options.repeatsEveryYearText = "Every Year";
         }
 
         if ( _initialized ) {
