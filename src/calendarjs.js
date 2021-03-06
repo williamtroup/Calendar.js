@@ -695,7 +695,7 @@ function calendarJs( id, options, startDateTime ) {
         while ( newFromDate < _largestDateInView ) {
             dateFunc( newFromDate );
 
-            var repeatDayElement = elementDay = getDayElement( newFromDate );
+            var repeatDayElement = getDayElement( newFromDate );
             if ( repeatDayElement !== null ) {
                 buildDayEvent( newFromDate, orderedEvent );
             }
@@ -1651,7 +1651,8 @@ function calendarJs( id, options, startDateTime ) {
                 isAllDayEvent: _eventDetails_Dragged.isAllDayEvent,
                 color: _eventDetails_Dragged.color,
                 colorText: _eventDetails_Dragged.colorText,
-                colorBorder: _eventDetails_Dragged.colorBorder
+                colorBorder: _eventDetails_Dragged.colorBorder,
+                repeatEvery: _eventDetails_Dragged.repeatEvery
             };
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
@@ -2951,7 +2952,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getRepeatsText( value ) {
-        var result = _options.repeatsNever;
+        var result = _options.repeatsNever,
             repeatEvery = getNumber( value );
 
         if ( repeatEvery === _const_Repeat_EveryDay ) {
