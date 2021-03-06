@@ -937,6 +937,7 @@ function calendarJs( id, options, startDateTime ) {
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( nextDate.getFullYear() === date.getFullYear() && nextDate.getMonth() === date.getMonth() && nextDate.getDate() === date.getDate() ) {
                     orderedEvents.push( event );
+                    break;
                 }
 
                 nextDate.setDate( nextDate.getDate() + 1 );
