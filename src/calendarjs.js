@@ -1270,6 +1270,27 @@ function calendarJs( id, options, startDateTime ) {
                 nextDate.setDate( nextDate.getDate() + 1 );
             }
 
+            var repeatEvery = getNumber( orderedEvent.repeatEvery );
+            if ( repeatEvery > _const_Repeat_Never ) {
+                if ( repeatEvery === _const_Repeat_EveryDay ) {
+                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setDate( date.getDate() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setDate( date.getDate() + 7 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setMonth( date.getMonth() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setFullYear( date.getFullYear() + 1 );
+                    } );
+                }
+            }
+
             if ( added ) {
                 _element_ListAllWeekEventsView_EventsShown.push( orderedEvent );
             }
@@ -1280,6 +1301,20 @@ function calendarJs( id, options, startDateTime ) {
                 _element_ListAllWeekEventsView_ExportEventsButton.style.display = "none";
             } else {
                 _element_ListAllWeekEventsView_ExportEventsButton.style.display = "inline-block";
+            }
+        }
+    }
+
+    function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc ) {
+        var newFromDate = new Date( orderedEvent.from );
+    
+        while ( newFromDate < _largestDateInView ) {
+            dateFunc( newFromDate );
+    
+            if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
+                var dayContents = buildListAllEventsDay( newFromDate );
+
+                buildListAllWeekEventsEvent( orderedEvent, dayContents );
             }
         }
     }
@@ -1316,6 +1351,8 @@ function calendarJs( id, options, startDateTime ) {
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
 
+        setEventClassesAndColors( eventDetails, event );
+
         var title = createElement( "div" );
         title.className = "title";
         title.innerHTML = eventDetails.title;
@@ -1335,7 +1372,12 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            var repeats = createElement( "div" );
+            repeats.className = "repeats";
+            repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+            event.appendChild( repeats );
+        }
 
         if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
@@ -2589,7 +2631,7 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip_Title.innerHTML = eventDetails.title;
-                        
+
                         if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
                             _element_Tooltip_Repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
                             addNode( _element_Tooltip, _element_Tooltip_Repeats );
