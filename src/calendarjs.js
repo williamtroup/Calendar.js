@@ -921,6 +921,7 @@ function calendarJs( id, options, startDateTime ) {
     function showFullDayView( date ) {
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_Contents.innerHTML = "";
+        _element_FullDayView_Contents.scrollTop = 0;
         _element_FullDayView_DateSelected = date;
         _element_FullDayView_EventsShown = [];
 
@@ -963,6 +964,8 @@ function calendarJs( id, options, startDateTime ) {
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         _element_FullDayView_Contents.appendChild( event );
 
+        setEventClassesAndColors( eventDetails, event );
+
         var title = createElement( "div" );
         title.className = "title";
         title.innerHTML = eventDetails.title;
@@ -982,7 +985,12 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            var repeats = createElement( "div" );
+            repeats.className = "repeats";
+            repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+            event.appendChild( repeats );
+        }
 
         if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
@@ -1077,6 +1085,7 @@ function calendarJs( id, options, startDateTime ) {
         showOverlay( _element_ListAllEventsView );
 
         _element_ListAllEventsView_Contents.innerHTML = "";
+        _element_ListAllEventsView_Contents.scrollTop = 0;
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length;
@@ -1241,6 +1250,7 @@ function calendarJs( id, options, startDateTime ) {
         showOverlay( _element_ListAllWeekEventsView );
 
         _element_ListAllWeekEventsView_Contents.innerHTML = "";
+        _element_ListAllWeekEventsView_Contents.scrollTop = 0;
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate;
 

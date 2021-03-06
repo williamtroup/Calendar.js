@@ -4,6 +4,7 @@ v0.5.0:
 - Fixed a fault that caused events to be assigned to the document/window more than once.
 - Fixed a fault that prevented the Day drop-down menu from closing when opening the Year Selector drop-down menu.
 - The From/To Date/Times on the Event Editor dialog are now joined up (uses less space).
+- Fixed a fault that prevented the views from jumping back to the top of the view when opened again.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
