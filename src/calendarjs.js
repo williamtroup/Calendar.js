@@ -866,13 +866,12 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showFullDayView( date ) {
-        showOverlay( _element_FullDayView );
-
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_Contents.innerHTML = "";
         _element_FullDayView_DateSelected = date;
         _element_FullDayView_EventsShown = [];
 
+        showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
         
         var orderedEvents = [];
