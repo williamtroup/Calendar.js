@@ -992,7 +992,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc ) {
         var newFromDate = new Date( event.from );
     
-        while ( newFromDate < _largestDateInView ) {
+        while ( newFromDate < date ) {
             dateFunc( newFromDate );
     
             if ( newFromDate.getFullYear() === date.getFullYear() && newFromDate.getMonth() === date.getMonth() && newFromDate.getDate() === date.getDate() ) {
@@ -1371,7 +1371,7 @@ function calendarJs( id, options, startDateTime ) {
         var newFromDate = new Date( orderedEvent.from ),
             added = false;
     
-        while ( newFromDate < _largestDateInView ) {
+        while ( newFromDate < weekEndDate ) {
             dateFunc( newFromDate );
     
             if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
