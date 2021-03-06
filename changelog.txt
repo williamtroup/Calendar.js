@@ -1,5 +1,5 @@
 v0.5.0:
-- 
+- When an API is called that forces a redraw of the main display, all drop down menus are now hidden.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.

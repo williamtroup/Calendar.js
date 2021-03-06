@@ -233,7 +233,7 @@ function calendarJs( id, options, startDateTime ) {
             startDay = 7;
         }
 
-        hideYearSelectorDropDown();
+        hideAllDropDowns();
 
         buildLayout();
         buildPreviousMonthDays( _currentDate, startDay );
@@ -1649,7 +1649,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function isDayDropDownMenuVisible() {
-        return _element_DropDownMenu_Day.style.display === "block";
+        return _element_DropDownMenu_Day !== null && _element_DropDownMenu_Day.style.display === "block";
     }
 
 
@@ -2500,7 +2500,7 @@ function calendarJs( id, options, startDateTime ) {
     function hideTooltip() {
         clearTooltipTimer();
 
-        if ( _element_Tooltip.style.display !== "none" ) {
+        if ( isTooltipVisible() ) {
             _element_Tooltip.style.display = "none";
         }
     }
@@ -2513,7 +2513,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function isTooltipVisible() {
-        return _element_Tooltip.style.display === "block" || _element_Tooltip_ShowTimer !== null;
+        return _element_Tooltip_ShowTimer !== null || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
     }
 
     function addToolTip( element, text ) {
