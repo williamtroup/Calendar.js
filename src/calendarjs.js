@@ -2943,17 +2943,41 @@ function calendarJs( id, options, startDateTime ) {
         return isDefinedNumber( value ) ? value : defaultValue;
     }
 
+    function getRepeatsText( value ) {
+        var result = _options.repeatNever;
+            repeatEvery = getNumber( value );
+
+        if ( repeatEvery === _const_Repeat_EveryDay ) {
+            result = _options.repeatEveryDayText;
+        } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+            result = _options.repeatEveryWeekText;
+        } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+            result = _options.repeatEveryMonthText;
+        } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+            result = _options.repeatEveryYearText;
+        }
+
+        return result;
+    }
+
     function getPropertyName( name ) {
         return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
     }
 
-    function getPropertyValue( value ) {
+    function getPropertyValue( name, value ) {
         var result = getString( value );
 
         if ( typeof value === "boolean" ) {
             result = getYesNoFromBoolean( value );
         } else if ( typeof value === "object" ) {
             result = getStringFromDateTime( value );
+        } else if ( typeof value === "number" ) {
+
+            if ( name === "repeatEvery" ) {
+                result = getRepeatsText( value );
+            } else {
+                result = value.toString();
+            }
         }
 
         return result;
@@ -2967,7 +2991,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText, _options.repeatText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -2995,7 +3019,8 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getString( eventDetails.title ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.description ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.location ) ) );
-
+        eventContents.push( getCsvValue( getRepeatsText( eventDetails.repeatEvery ) ) );
+        
         csvContents.push( getCsvValueLine( eventContents ) );
     }
 
@@ -3033,7 +3058,7 @@ function calendarJs( id, options, startDateTime ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
                     var newPropertyName = getPropertyName( propertyName );
                     
-                    xmlContents.push( "<" + newPropertyName + ">" + getPropertyValue( orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
+                    xmlContents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
                 }
             }
     
@@ -3065,7 +3090,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    jsonContents.push( "\"" + propertyName + "\":\"" + getPropertyValue( orderedEvent[ propertyName ] ) + "\"," );
+                    jsonContents.push( "\"" + propertyName + "\":\"" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "\"," );
                 }
             }
 
@@ -3098,7 +3123,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    textContents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( orderedEvent[ propertyName ] ) );
+                    textContents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
                 }
             }
     
