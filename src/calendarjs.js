@@ -21,6 +21,7 @@
  * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
  * @property    {boolean}   isAllDayEvent                               States if this is an all day event.
+ * @property    {number}    repeatEvery                                 States how often the event should repeat.
  */
 
 
@@ -112,7 +113,13 @@
  * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
- * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto). 
+ * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
+ * @property    {string}    repeatText                                  The text that should be displayed for the "Repeats:" label.
+ * @property    {string}    repeatNever                                 The text that should be displayed for the "Never" label.
+ * @property    {string}    repeatEveryDayText                          The text that should be displayed for the "Every Day" label.
+ * @property    {string}    repeatEveryWeekText                         The text that should be displayed for the "Every Week" label.
+ * @property    {string}    repeatEveryMonthText                        The text that should be displayed for the "Every Month" label.
+ * @property    {string}    repeatEveryYearText                         The text that should be displayed for the "Every Year" label.
  */
 
 
@@ -130,7 +137,8 @@
 function calendarJs( id, options, startDateTime ) {
     var _options = {},
         _this = this,
-        _currentDate,
+        _currentDate = null,
+        _largestDateInView = null,
         _elementTypes = {},
         _elements = {},
         _document = null,
@@ -142,6 +150,11 @@ function calendarJs( id, options, startDateTime ) {
         _timer_RefreshMainDisplay = null,
         _eventDetails_Dragged = null,
         _cachedStyles = null,
+        _const_Repeat_Never = 0,
+        _const_Repeat_EveryDay = 1,
+        _const_Repeat_EveryWeek = 2,
+        _const_Repeat_EveryMonth = 3,
+        _const_Repeat_EveryYear = 4,
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
@@ -163,6 +176,11 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
+        _element_EventEditorDialog_RepeatEvery_Never = null,
+        _element_EventEditorDialog_RepeatEvery_EveryDay = null,
+        _element_EventEditorDialog_RepeatEvery_EveryWeek = null,
+        _element_EventEditorDialog_RepeatEvery_EveryMonth = null,
+        _element_EventEditorDialog_RepeatEvery_EveryYear = null,
         _element_EventEditorDialog_ErrorMessage = null,
         _element_EventEditorDialog_EventDetails = {},
         _element_EventEditorDialog_OKButton = null,
@@ -644,10 +662,44 @@ function calendarJs( id, options, startDateTime ) {
             if ( elementDay !== null ) {
                 buildDayEventAcrossDays( orderedEvent );
             }
+
+            var repeatEvery = getNumber( orderedEvent.repeatEvery );
+            if ( repeatEvery > _const_Repeat_Never ) {
+                if ( repeatEvery === _const_Repeat_EveryDay ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setDate( date.getDate() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setDate( date.getDate() + 7 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setMonth( date.getMonth() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setFullYear( date.getFullYear() + 1 );
+                    } );
+                }
+            }
         }
     
         updateExportButtonsVisibleState( orderedEventsLength );
         startAutoRefreshTimer();
+    }
+
+    function buildRepeatedDayEvents( orderedEvent, dateFunc ) {
+        var newFromDate = new Date( orderedEvent.from );
+
+        while ( newFromDate < _largestDateInView ) {
+            dateFunc( newFromDate );
+
+            var repeatDayElement = elementDay = getDayElement( newFromDate );
+            if ( repeatDayElement !== null ) {
+                buildDayEvent( newFromDate, orderedEvent );
+            }
+        }
     }
     
     function buildDayEventAcrossDays( orderedEvent ) {
@@ -1450,12 +1502,14 @@ function calendarJs( id, options, startDateTime ) {
             previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
             var totalDaysInMonth = daysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
-                elementDayNumber = 1;
+                elementDayNumber = 1,
+                dayStart = ( totalDaysInMonth - startDay ) + 1;
 
-            for ( var day = ( totalDaysInMonth - startDay ) + 1; day < totalDaysInMonth; day++ ) {
+            for ( var day = dayStart; day < totalDaysInMonth; day++ ) {
                 buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true );
                 elementDayNumber++;
             }
+
         }
     }
 
@@ -1482,6 +1536,14 @@ function calendarJs( id, options, startDateTime ) {
                 buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true );
                 actualDay++;
             }
+
+            var nextDay = daysInMonth( nextMonth.getFullYear(), nextMonth.getMonth() );
+            nextDay = Math.round( nextDay / 2 );
+
+            _largestDateInView = new Date( nextMonth.getFullYear(), nextMonth.getMonth(), nextDay );
+
+        } else {
+            _largestDateInView = null;
         }
     }
 
@@ -1726,7 +1788,7 @@ function calendarJs( id, options, startDateTime ) {
             inputTitleContainer.appendChild( selectColorsButton );
 
             var textFrom = createElement( "p" );
-            textFrom.innerText = _options.fromText;
+            textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
             contents.appendChild( textFrom );
 
             var fromSplitContainer = createElement( "div" );
@@ -1744,12 +1806,6 @@ function calendarJs( id, options, startDateTime ) {
 
             setInputType( _element_EventEditorDialog_TimeFrom, "time" );
 
-            _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
-
-            var textTo = createElement( "p" );
-            textTo.innerText = _options.toText;
-            contents.appendChild( textTo );
-
             var toSplitContainer = createElement( "div" );
             toSplitContainer.className = "split";
             contents.appendChild( toSplitContainer );
@@ -1763,6 +1819,22 @@ function calendarJs( id, options, startDateTime ) {
             toSplitContainer.appendChild( _element_EventEditorDialog_TimeTo );
 
             setInputType( _element_EventEditorDialog_TimeTo, "time" );
+
+            _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
+
+            var textRepeatEvery = createElement( "p" );
+            textRepeatEvery.innerText = _options.repeatText;
+            contents.appendChild( textRepeatEvery );
+
+            var radioButtonsContainer = createElement( "div" );
+            radioButtonsContainer.className = "radioButtonsContainer";
+            contents.appendChild( radioButtonsContainer );
+
+            _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatNever, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatEveryDayText, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatEveryWeekText, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatEveryMonthText, "RepeatType" );
+            _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatEveryYearText, "RepeatType" );
 
             var textLocation = createElement( "p" );
             textLocation.innerText = _options.locationText;
@@ -1830,12 +1902,17 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_DateTo.value = _element_EventEditorDialog_DateFrom.value;
             _element_EventEditorDialog_TimeFrom.value = "00:00";
             _element_EventEditorDialog_TimeTo.value = "23:59";
+            _element_EventEditorDialog_RepeatEvery_Never.checked = true;
             disabled = true;
         }
 
         _element_EventEditorDialog_DateTo.disabled = disabled;
         _element_EventEditorDialog_TimeFrom.disabled = disabled;
         _element_EventEditorDialog_TimeTo.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryDay.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = disabled;
     }
 
     function showEventDialog( eventDetails, overrideTodayDate ) {
@@ -1861,7 +1938,21 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
             _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
             _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
+
+            var repeatEvery = getNumber( eventDetails.repeatEvery );
+            if ( repeatEvery === _const_Repeat_Never ) {
+                _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryDay ) {
+                _element_EventEditorDialog_RepeatEvery_EveryDay.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                _element_EventEditorDialog_RepeatEvery_EveryWeek.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
+            }
         } else {
+
             var date = new Date(),
                 today = !isDefined( overrideTodayDate ) ? date : overrideTodayDate;
 
@@ -1885,6 +1976,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_Color.value = "#484848";
             _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
             _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
+            _element_EventEditorDialog_RepeatEvery_Never.checked = true;
         }
 
         isAllDayEventChanged();
@@ -1925,6 +2017,18 @@ function calendarJs( id, options, startDateTime ) {
                 colorText: _element_EventEditorDialog_EventDetails.colorText,
                 colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
             };
+
+            if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
+                newEvent.repeatEvery = 0;
+            } else if ( _element_EventEditorDialog_RepeatEvery_EveryDay.checked ) {
+                newEvent.repeatEvery = 1;
+            } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
+                newEvent.repeatEvery = 2;
+            } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
+                newEvent.repeatEvery = 3;
+            } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
+                newEvent.repeatEvery = 4;
+            }
 
             if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
                 _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
@@ -2215,10 +2319,14 @@ function calendarJs( id, options, startDateTime ) {
             contents.className = "contents";
             _element_SelectExportTypeDialog.appendChild( contents );
 
-            _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( contents, "CSV", "ExportType" );
-            _element_SelectExportTypeDialog_Option_XML = buildRadioButton( contents, "XML", "ExportType" );
-            _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( contents, "JSON", "ExportType" );
-            _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( contents, "TEXT", "ExportType" );
+            var radioButtonsContainer = createElement( "div" );
+            radioButtonsContainer.className = "radioButtonsContainer";
+            contents.appendChild( radioButtonsContainer );
+
+            _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer, "CSV", "ExportType" );
+            _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer, "XML", "ExportType" );
+            _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
+            _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
 
             var buttonsSplitContainer = createElement( "div" );
             buttonsSplitContainer.className = "split";
@@ -2670,11 +2778,11 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildRadioButton( container, labelText, groupName ) {
         var lineContents = createElement( "div" );
+        lineContents.className = "radioButtonContainer";
         container.appendChild( lineContents );
 
         var label = createElement( "label" );
         label.className = "radioButton";
-        label.innerText = labelText;
         lineContents.appendChild( label );
 
         var input = createElement( "input" );
@@ -2685,6 +2793,11 @@ function calendarJs( id, options, startDateTime ) {
         var labelSpan = createElement( "span" );
         labelSpan.className = "check-mark";
         label.appendChild( labelSpan );
+
+        var labelSpanText = createElement( "span" );
+        labelSpanText.className = "text";
+        labelSpanText.innerText = labelText;
+        label.appendChild( labelSpanText );
 
         return input;
     }
@@ -2734,6 +2847,10 @@ function calendarJs( id, options, startDateTime ) {
 
     function isDefinedString( object ) {
         return isDefined( object ) && typeof object === "string";
+    }
+
+    function isDefinedNumber( object ) {
+        return isDefined( object ) && typeof object === "number";
     }
 
     function isDefinedStringAndSet( object ) {
@@ -2814,10 +2931,16 @@ function calendarJs( id, options, startDateTime ) {
         return date + " " + time;
     }
 
-    function getString( string, defaultValue ) {
+    function getString( value, defaultValue ) {
         defaultValue = isDefined( defaultValue ) ? defaultValue : "";
 
-        return isDefinedString( string ) ? string : defaultValue;
+        return isDefinedString( value ) ? value : defaultValue;
+    }
+
+    function getNumber( value, defaultValue ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
+
+        return isDefinedNumber( value ) ? value : defaultValue;
     }
 
     function getPropertyName( name ) {
@@ -3563,6 +3686,30 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.minimumDayHeight ) ) {
             _options.minimumDayHeight = 0;
+        }
+
+        if ( !isDefined( _options.repeatText ) ) {
+            _options.repeatText = "Repeats:";
+        }
+
+        if ( !isDefined( _options.repeatNever ) ) {
+            _options.repeatNever = "Never";
+        }
+
+        if ( !isDefined( _options.repeatEveryDayText ) ) {
+            _options.repeatEveryDayText = "Every Day";
+        }
+
+        if ( !isDefined( _options.repeatEveryWeekText ) ) {
+            _options.repeatEveryWeekText = "Every Week";
+        }
+
+        if ( !isDefined( _options.repeatEveryMonthText ) ) {
+            _options.repeatEveryMonthText = "Every Month";
+        }
+
+        if ( !isDefined( _options.repeatEveryYearText ) ) {
+            _options.repeatEveryYearText = "Every Year";
         }
 
         if ( _initialized ) {

@@ -546,7 +546,7 @@ div.event-editor {
         }
     
         textarea {
-            height: 100px;
+            height: 70px;
             resize: none;
             margin-bottom: $spacing * 2;
         }
@@ -666,7 +666,7 @@ div.select-export-type {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing;
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
@@ -790,51 +790,67 @@ div.calendar-dialog {
 
 div.calendar,
 div.calendar-dialog {
-    label.radioButton {
-        @include no-selection-allowed;
-        display: inline-block;
-        position: relative;
-        padding-left: 25px;
-        padding-top: 1px;
-        margin-bottom: 12px;
-        color: $dark-color;
+    div.radioButtonsContainer {
+        margin-bottom: $spacing;
+    }
 
-        input {
-            display: none;
+    div.radioButtonContainer {
+        margin-bottom: $spacing / 2;
 
-            &:checked ~ span.check-mark {
-                background-color: $dark-color !important;
-                border: 1px solid $dark-color;
+        label.radioButton {
+            @include no-selection-allowed;
+            display: inline-block;
+            position: relative;
+            padding-left: 25px;
+            padding-top: 1px;
+            color: $dark-color;
+    
+            input {
+                display: none;
+    
+                &:checked ~ span.check-mark {
+                    background-color: $dark-color !important;
+                    border: 1px solid $dark-color;
+                }
+    
+                &:checked ~ span.check-mark:before {
+                    display: block;
+                }
+
+                &:disabled ~ span.check-mark,
+                &:disabled ~ span.text {
+                    opacity: 0.5;
+                }
             }
-
-            &:checked ~ span.check-mark:before {
-                display: block;
+    
+            span.check-mark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 15px;
+                width: 15px;
+                background-color: $input-background-color;
+                border-radius: 50%;
+                border: 1px solid $input-border-color;
+                transition: $transition;
+    
+                &:before {
+                    @include transform(rotate(45deg));
+                    content: "";
+                    position: absolute;
+                    display: none;
+                    left: 4px;
+                    top: 4px;
+                    width: 7px;
+                    height: 7px;
+                    background-color: $light-color;
+                    border-radius: 50%;
+                }
             }
         }
 
-        span.check-mark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 15px;
-            width: 15px;
-            background-color: $input-background-color;
-            border-radius: 50%;
-            border: 1px solid $input-border-color;
-            transition: $transition;
-
-            &:before {
-                @include transform(rotate(45deg));
-                content: "";
-                position: absolute;
-                display: none;
-                left: 4px;
-                top: 4px;
-                width: 7px;
-                height: 7px;
-                background-color: $light-color;
-                border-radius: 50%;
-            }
+        &:last-child {
+            margin-bottom: $spacing;
         }
     }
 }
