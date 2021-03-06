@@ -1335,19 +1335,19 @@ function calendarJs( id, options, startDateTime ) {
             var repeatEvery = getNumber( orderedEvent.repeatEvery );
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setDate( date.getDate() + 1 );
                     } );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setDate( date.getDate() + 7 );
                     } );
                 } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setMonth( date.getMonth() + 1 );
                     } );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setFullYear( date.getFullYear() + 1 );
                     } );
                 }
@@ -1368,7 +1368,8 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc ) {
-        var newFromDate = new Date( orderedEvent.from );
+        var newFromDate = new Date( orderedEvent.from ),
+            added = false;
     
         while ( newFromDate < _largestDateInView ) {
             dateFunc( newFromDate );
@@ -1377,8 +1378,11 @@ function calendarJs( id, options, startDateTime ) {
                 var dayContents = buildListAllEventsDay( newFromDate );
 
                 buildListAllWeekEventsEvent( orderedEvent, dayContents );
+                added = true;
             }
         }
+
+        return added;
     }
 
     function setAllWeekEventsViewTitle( weekStartDate, weekEndDate ) {
