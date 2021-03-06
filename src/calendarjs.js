@@ -218,6 +218,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip = null,
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
+        _element_Tooltip_Repeats = null,
         _element_Tooltip_Description = null,
         _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
@@ -2555,6 +2556,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip_Date = createElement( "div" );
             _element_Tooltip_Date.className = "date";
 
+            _element_Tooltip_Repeats = createElement( "div" );
+            _element_Tooltip_Repeats.className = "repeats";
+
             _element_Tooltip_Description = createElement( "div" );
             _element_Tooltip_Description.className = "description";
 
@@ -2585,6 +2589,14 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip_Title.innerHTML = eventDetails.title;
+                        
+                        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                            _element_Tooltip_Repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+                            addNode( _element_Tooltip, _element_Tooltip_Repeats );
+                        } else {
+                            _element_Tooltip_Repeats.innerHTML = "";
+                            removeNode( _element_Tooltip, _element_Tooltip_Repeats );
+                        }
 
                         if ( isDefinedStringAndSet( eventDetails.location ) ) {
                             _element_Tooltip_Location.innerHTML = eventDetails.location;

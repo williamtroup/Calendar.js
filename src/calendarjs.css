@@ -1920,9 +1920,11 @@ div.calendar-tooltip-event div.title {
 div.calendar-tooltip div.date,
 div.calendar-tooltip div.description,
 div.calendar-tooltip div.location,
+div.calendar-tooltip div.repeats,
 div.calendar-tooltip-event div.date,
 div.calendar-tooltip-event div.description,
-div.calendar-tooltip-event div.location {
+div.calendar-tooltip-event div.location,
+div.calendar-tooltip-event div.repeats {
   font-size: smaller;
 }
 
