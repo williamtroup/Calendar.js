@@ -942,6 +942,27 @@ function calendarJs( id, options, startDateTime ) {
 
                 nextDate.setDate( nextDate.getDate() + 1 );
             }
+            
+            var repeatEvery = getNumber( event.repeatEvery );
+            if ( repeatEvery > _const_Repeat_Never ) {
+                if ( repeatEvery === _const_Repeat_EveryDay ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setDate( date.getDate() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setDate( date.getDate() + 7 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setMonth( date.getMonth() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setFullYear( date.getFullYear() + 1 );
+                    } );
+                }
+            }
         } );
 
         orderedEvents = getOrderedEvents( orderedEvents );
@@ -956,6 +977,19 @@ function calendarJs( id, options, startDateTime ) {
                 _element_FullDayView_ExportEventsButton.style.display = "none";
             } else {
                 _element_FullDayView_ExportEventsButton.style.display = "inline-block";
+            }
+        }
+    }
+
+    function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc ) {
+        var newFromDate = new Date( event.from );
+    
+        while ( newFromDate < _largestDateInView ) {
+            dateFunc( newFromDate );
+    
+            if ( newFromDate.getFullYear() === date.getFullYear() && newFromDate.getMonth() === date.getMonth() && newFromDate.getDate() === date.getDate() ) {
+                orderedEvents.push( event );
+                break;
             }
         }
     }
