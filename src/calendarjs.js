@@ -419,9 +419,12 @@ function calendarJs( id, options, startDateTime ) {
 
         var listAllEventsButton = createElement( "div" );
         listAllEventsButton.className = "ib-eye";
-        listAllEventsButton.onclick = showListAllEventsView;
         listAllEventsButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( listAllEventsButton );
+
+        listAllEventsButton.onclick = function() {
+            showListAllEventsView( true );
+        };
 
         addToolTip( listAllEventsButton, _options.listAllEventsTooltipText );
 
@@ -431,7 +434,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
 
         listWeekEventsButton.onclick = function() {
-            showListAllWeekEventsView();
+            showListAllWeekEventsView( null, true );
         };
 
         addToolTip( listWeekEventsButton, _options.listWeekEventsTooltipText );
@@ -918,12 +921,17 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function showFullDayView( date ) {
+    function showFullDayView( date, fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
+
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_Contents.innerHTML = "";
-        _element_FullDayView_Contents.scrollTop = 0;
         _element_FullDayView_DateSelected = date;
         _element_FullDayView_EventsShown = [];
+
+        if ( fromOpen ) {
+            _element_FullDayView_Contents.scrollTop = 0;
+        }
 
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
@@ -1116,11 +1124,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllEventsView.appendChild( _element_ListAllEventsView_Contents );
     }
 
-    function showListAllEventsView() {
-        showOverlay( _element_ListAllEventsView );
+    function showListAllEventsView( fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
+        showOverlay( _element_ListAllEventsView );
         _element_ListAllEventsView_Contents.innerHTML = "";
-        _element_ListAllEventsView_Contents.scrollTop = 0;
+
+        if ( fromOpen ) {
+            _element_ListAllEventsView_Contents.scrollTop = 0;
+        }
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length;
@@ -1281,13 +1293,18 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView.appendChild( _element_ListAllWeekEventsView_Contents );
     }
 
-    function showListAllWeekEventsView( weekDate ) {
+    function showListAllWeekEventsView( weekDate, fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
+
         showOverlay( _element_ListAllWeekEventsView );
 
         _element_ListAllWeekEventsView_Contents.innerHTML = "";
-        _element_ListAllWeekEventsView_Contents.scrollTop = 0;
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate;
+
+        if ( fromOpen ) {
+            _element_ListAllWeekEventsView_Contents.scrollTop = 0;
+        }
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
@@ -1679,7 +1696,7 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( expandDayButton, _options.expandDayTooltipText );
     
             expandDayButton.onclick = function() {
-                showFullDayView( dayDate );
+                showFullDayView( dayDate, true );
             };
         }
 
@@ -1782,7 +1799,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day.appendChild( expandDay );
 
         expandDay.onclick = function() {
-            showFullDayView( _element_DropDownMenu_DateSelected );
+            showFullDayView( _element_DropDownMenu_DateSelected, true );
         };
 
         var separator2 = createElement( "div" );
@@ -1795,7 +1812,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day.appendChild( viewCurrentWeekEvents );
 
         viewCurrentWeekEvents.onclick = function() {
-            showListAllWeekEventsView( _element_DropDownMenu_DateSelected );
+            showListAllWeekEventsView( _element_DropDownMenu_DateSelected, true );
         };
     }
 
