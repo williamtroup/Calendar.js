@@ -1,5 +1,8 @@
 v0.5.0:
 - When an API is called that forces a redraw of the main display, all drop down menus are now hidden.
+- Calling the public method "setOptions()" now rebuilds to the main display using the new settings.
+- Fixed a fault that caused events to be assigned to the document/window more than once.
+- Fixed a fault that prevented the Day drop-down menu from closing when opening the Year Selector drop-down menu.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
