@@ -85,7 +85,6 @@
  * @property    {string}    ndText                                      The day ordinal text for "nd".
  * @property    {string}    rdText                                      The day ordinal text for "rd".
  * @property    {string}    thText                                      The day ordinal text for "th".
- * @property    {boolean}   fullDayViewEnabled                          States if viewing all the events in a full day is enabled (defaults to true).
  * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3).
  * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
  * @property    {string}    noText                                      The text that should be displayed for the "No" label.
@@ -1760,18 +1759,16 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         dayElement.appendChild( dayText );
+        
+        var expandDayButton = createElement( "div" );
+        expandDayButton.className = "expand-day";
+        dayElement.appendChild( expandDayButton );
 
-        if ( _options.fullDayViewEnabled ) {
-            var expandDayButton = createElement( "div" );
-            expandDayButton.className = "expand-day";
-            dayElement.appendChild( expandDayButton );
+        addToolTip( expandDayButton, _options.expandDayTooltipText );
 
-            addToolTip( expandDayButton, _options.expandDayTooltipText );
-    
-            expandDayButton.onclick = function() {
-                showFullDayView( dayDate, true );
-            };
-        }
+        expandDayButton.onclick = function() {
+            showFullDayView( dayDate, true );
+        };
 
         if ( _options.manualEditingEnabled ) {
             dayElement.ondblclick = function() {
@@ -4032,10 +4029,6 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.thText ) ) {
             _options.thText = "th";
-        }
-
-        if ( !isDefined( _options.fullDayViewEnabled ) ) {
-            _options.fullDayViewEnabled = true;
         }
 
         if ( !isDefined( _options.maximumEventsPerDayDisplay ) ) {
