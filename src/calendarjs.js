@@ -753,9 +753,11 @@ function calendarJs( id, options, startDateTime ) {
                     showTooltip( e, eventDetails );
                 };
 
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails );
-                };
+                if ( _options.manualEditingEnabled ) {
+                    event.oncontextmenu = function( e ) {
+                        showEventDropDownMenu( e, eventDetails );
+                    };
+                }
 
                 setEventClassesAndColors( eventDetails, event );
     
@@ -1016,9 +1018,11 @@ function calendarJs( id, options, startDateTime ) {
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         _element_FullDayView_Contents.appendChild( event );
 
-        event.oncontextmenu = function( e ) {
-            showEventDropDownMenu( e, eventDetails );
-        };
+        if ( _options.manualEditingEnabled ) {
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
+        }
 
         setEventClassesAndColors( eventDetails, event );
 
@@ -1163,9 +1167,11 @@ function calendarJs( id, options, startDateTime ) {
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
 
-        event.oncontextmenu = function( e ) {
-            showEventDropDownMenu( e, eventDetails );
-        };
+        if ( _options.manualEditingEnabled ) {
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
+        }
 
         setEventClassesAndColors( eventDetails, event );
 
@@ -1442,9 +1448,11 @@ function calendarJs( id, options, startDateTime ) {
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
 
-        event.oncontextmenu = function( e ) {
-            showEventDropDownMenu( e, eventDetails );
-        };
+        if ( _options.manualEditingEnabled ) {
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
+        }
 
         setEventClassesAndColors( eventDetails, event );
 
@@ -1817,19 +1825,21 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day = createElement( "div" );
         _element_DropDownMenu_Day.className = "calendar-drop-down-menu";
         _document.body.appendChild( _element_DropDownMenu_Day );
-        
-        var addEvent = createElement( "div" );
-        addEvent.className = "item";
-        addEvent.innerHTML = _options.addEventTitle;
-        _element_DropDownMenu_Day.appendChild( addEvent );
 
-        addEvent.onclick = function() {
-            showEventDialog( null, _element_DropDownMenu_Day_DateSelected );
-        };
-
-        var separator1 = createElement( "div" );
-        separator1.className = "separator";
-        _element_DropDownMenu_Day.appendChild( separator1 );
+        if ( _options.manualEditingEnabled ) {
+            var addEvent = createElement( "div" );
+            addEvent.className = "item";
+            addEvent.innerHTML = _options.addEventTitle;
+            _element_DropDownMenu_Day.appendChild( addEvent );
+    
+            addEvent.onclick = function() {
+                showEventDialog( null, _element_DropDownMenu_Day_DateSelected );
+            };
+    
+            var separator1 = createElement( "div" );
+            separator1.className = "separator";
+            _element_DropDownMenu_Day.appendChild( separator1 );
+        }
 
         var expandDay = createElement( "div" );
         expandDay.className = "item";
