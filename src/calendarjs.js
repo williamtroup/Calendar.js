@@ -225,7 +225,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
         _element_DropDownMenu_Day = null,
-        _element_DropDownMenu_DateSelected = null,
+        _element_DropDownMenu_Day_DateSelected = null,
+        _element_DropDownMenu_Event = null,
+        _element_DropDownMenu_Event_EventDetails = null,
         _element_SearchDialog = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
@@ -643,6 +645,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function hideAllDropDowns() {
         hideDayDropDownMenu();
+        hideEventDropDownMenu();
         hideYearSelectorDropDown();
         hideTooltip();
     }
@@ -748,6 +751,10 @@ function calendarJs( id, options, startDateTime ) {
 
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
+                };
+
+                event.oncontextmenu = function( e ) {
+                    showEventDropDownMenu( e, eventDetails );
                 };
 
                 setEventClassesAndColors( eventDetails, event );
@@ -1009,6 +1016,10 @@ function calendarJs( id, options, startDateTime ) {
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         _element_FullDayView_Contents.appendChild( event );
 
+        event.oncontextmenu = function( e ) {
+            showEventDropDownMenu( e, eventDetails );
+        };
+
         setEventClassesAndColors( eventDetails, event );
 
         var title = createElement( "div" );
@@ -1151,6 +1162,10 @@ function calendarJs( id, options, startDateTime ) {
         var event = createElement( "div" );
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
+
+        event.oncontextmenu = function( e ) {
+            showEventDropDownMenu( e, eventDetails );
+        };
 
         setEventClassesAndColors( eventDetails, event );
 
@@ -1426,6 +1441,10 @@ function calendarJs( id, options, startDateTime ) {
         var event = createElement( "div" );
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
+
+        event.oncontextmenu = function( e ) {
+            showEventDropDownMenu( e, eventDetails );
+        };
 
         setEventClassesAndColors( eventDetails, event );
 
@@ -1791,6 +1810,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDropDownMenus() {
         buildDayDropDownMenu();
+        buildEventDropDownMenu();
     }
 
     function buildDayDropDownMenu() {
@@ -1804,7 +1824,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day.appendChild( addEvent );
 
         addEvent.onclick = function() {
-            showEventDialog( null, _element_DropDownMenu_DateSelected );
+            showEventDialog( null, _element_DropDownMenu_Day_DateSelected );
         };
 
         var separator1 = createElement( "div" );
@@ -1817,7 +1837,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day.appendChild( expandDay );
 
         expandDay.onclick = function() {
-            showFullDayView( _element_DropDownMenu_DateSelected, true );
+            showFullDayView( _element_DropDownMenu_Day_DateSelected, true );
         };
 
         var separator2 = createElement( "div" );
@@ -1830,16 +1850,67 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day.appendChild( viewCurrentWeekEvents );
 
         viewCurrentWeekEvents.onclick = function() {
-            showListAllWeekEventsView( _element_DropDownMenu_DateSelected, true );
+            showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
+        };
+    }
+
+    function buildEventDropDownMenu() {
+        _element_DropDownMenu_Event = createElement( "div" );
+        _element_DropDownMenu_Event.className = "calendar-drop-down-menu";
+        _document.body.appendChild( _element_DropDownMenu_Event );
+        
+        var remove = createElement( "div" );
+        remove.className = "item";
+        remove.innerHTML = _options.removeEventText;
+        _element_DropDownMenu_Event.appendChild( remove );
+
+        remove.onclick = function() {
+            addNode( _document.body, _element_DisabledBackground );
+
+            var onNoEvent = function() {
+                removeNode( _document.body, _element_DisabledBackground );
+            };
+
+            var onYesEvent = function() {
+                onNoEvent();
+
+                if ( isDefined( _element_DropDownMenu_Event_EventDetails.id ) ) {
+                    _this.removeEvent( _element_DropDownMenu_Event_EventDetails.id, true );
+                    refreshOpenedViews();
+                }
+            };
+    
+            showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
+        };
+
+        var separator1 = createElement( "div" );
+        separator1.className = "separator";
+        _element_DropDownMenu_Event.appendChild( separator1 );
+
+        var editEvent = createElement( "div" );
+        editEvent.className = "item";
+        editEvent.innerHTML = _options.editEventTitle;
+        _element_DropDownMenu_Event.appendChild( editEvent );
+
+        editEvent.onclick = function() {
+            showEventDialog( _element_DropDownMenu_Event_EventDetails );
         };
     }
 
     function showDayDropDownMenu( e, date ) {
-        _element_DropDownMenu_DateSelected = date;
+        _element_DropDownMenu_Day_DateSelected = date;
 
         hideAllDropDowns();
         cancelBubble( e );
         showElementAtMousePosition( e, _element_DropDownMenu_Day );
+    }
+
+    function showEventDropDownMenu( e, eventDetails ) {
+        _element_DropDownMenu_Event_EventDetails = eventDetails;
+
+        hideAllDropDowns();
+        cancelBubble( e );
+        showElementAtMousePosition( e, _element_DropDownMenu_Event );
     }
 
     function hideDayDropDownMenu() {
@@ -1848,8 +1919,18 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function hideEventDropDownMenu() {
+        if ( isEventDropDownMenuVisible() ) {
+            _element_DropDownMenu_Event.style.display = "none";
+        }
+    }
+
     function isDayDropDownMenuVisible() {
         return _element_DropDownMenu_Day !== null && _element_DropDownMenu_Day.style.display === "block";
+    }
+
+    function isEventDropDownMenuVisible() {
+        return _element_DropDownMenu_Event !== null && _element_DropDownMenu_Event.style.display === "block";
     }
 
 
@@ -2699,7 +2780,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _element_Tooltip.style.display !== "block" ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
+                if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -2803,7 +2884,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function refreshViews() {
-        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
+        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) {
             refreshOpenedViews();
             buildDayEvents();
         }
@@ -3664,7 +3745,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.removeEventText ) ) {
-            _options.removeEventText = "Remove Event";
+            _options.removeEventText = "Remove";
         }
 
         if ( !isDefined( _options.addEventTitle ) ) {
