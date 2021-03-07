@@ -121,6 +121,7 @@
  * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
  * @property    {string}    selectDaysToExcludeTitle                    The text that should be displayed for the "Select Days To Exclude" label.
+ * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
  */
 
 
@@ -571,7 +572,7 @@ function calendarJs( id, options, startDateTime ) {
             cancelBubble( e );
 
             var yearSelected = _element_HeaderDateDisplay_YearSelector.getElementsByClassName( "current-year-selected" );
-            if ( yearSelected !== null && yearSelected.length >= 1 ) {
+            if ( yearSelected.length >= 1 ) {
 
                 var yearSelectedLength = yearSelected.length;
                 for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
@@ -795,6 +796,23 @@ function calendarJs( id, options, startDateTime ) {
                         _eventDetails_Dragged = eventDetails;
                     };
                 }
+            } else {
+
+                var plusXEvents = elementDay.getElementsByClassName( "plus-x-events" ),
+                    plusXEventsText = plusXEvents.length > 0 ? plusXEvents[ 0 ] : null;
+
+                if ( plusXEventsText === null ) {
+                    plusXEventsText = createElement( "div" );
+                    plusXEventsText.className = "plus-x-events";
+                    plusXEventsText.setAttribute( "events", "1" );
+                    plusXEventsText.innerHTML = "+1 " + _options.moreText;
+                    elementDay.appendChild( plusXEventsText );
+                } else {
+
+                    var numberOfEvents = parseInt( plusXEventsText.getAttribute( "events" ) ) + 1;
+                    plusXEventsText.setAttribute( "events", numberOfEvents.toString() );
+                    plusXEventsText.innerHTML = "+" + numberOfEvents + " " + _options.moreText;
+                }
             }
         }
     }
@@ -851,13 +869,18 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function clearEventsFromDay( elementDay ) {
-        var events = elementDay.getElementsByClassName( _options.manualEditingEnabled ? "event" : "event-no-hover" );
-
-        while ( events[ 0 ] ) {
-            events[ 0 ].parentNode.removeChild( events[ 0 ] );
-        }
+        clearElementsByClassName( elementDay, _options.manualEditingEnabled ? "event" : "event-no-hover" );
+        clearElementsByClassName( elementDay, "plus-x-events" );
     }
 
+    function clearElementsByClassName( element, className ) {
+        var elements = element.getElementsByClassName( className );
+
+        while ( elements[ 0 ] ) {
+            elements[ 0 ].parentNode.removeChild( elements[ 0 ] );
+        }
+    }
+  
     function setEventClassesAndColors( eventDetails, event ) {
         if ( eventDetails.to < new Date() ) {
             event.className += " expired";
@@ -4197,6 +4220,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.selectDaysToExcludeTitle ) ) {
             _options.selectDaysToExcludeTitle = "Select Days To Exclude";
+        }
+
+        if ( !isDefined( _options.moreText ) ) {
+            _options.moreText = "More";
         }
 
         if ( _initialized ) {

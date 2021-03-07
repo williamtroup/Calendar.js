@@ -497,6 +497,12 @@ div.calendar div.row div.cell div.all-day-event {
   background-color: #1b3752 !important;
 }
 
+div.calendar div.row div.cell div.plus-x-events {
+  font-size: smaller;
+  text-align: center;
+  margin-top: 10px;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Full Day View

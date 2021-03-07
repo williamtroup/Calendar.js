@@ -391,6 +391,12 @@ div.calendar {
             div.all-day-event {
                 background-color: $event-color-all-day-event !important;
             }
+
+            div.plus-x-events {
+                font-size: smaller;
+                text-align: center;
+                margin-top: $spacing;
+            }
         }
     }
 }

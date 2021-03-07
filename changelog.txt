@@ -16,6 +16,7 @@ v0.5.0:
 - Decreased the default width of the "Select Colors" dialog.
 - Removed the option "fullDayViewEnabled", as it's no longer needed.
 - When dragging an event, the target area now shows a highlighted background color.
+- When the "maximumEventsPerDayDisplay" value is reached for events, a new label is shown stating how many more exist.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
