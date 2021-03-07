@@ -1979,140 +1979,142 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildEventEditingDialog() {
-        if ( _element_EventEditorDialog === null ) {
-            _element_EventEditorDialog = createElement( "div" );
-            _element_EventEditorDialog.className = "calendar-dialog event-editor";
-            _document.body.appendChild( _element_EventEditorDialog );
-
-            var view = createElement( "div" );
-            view.className = "view";
-            _element_EventEditorDialog.appendChild( view );
-
-            _element_EventEditorDialog_DisabledArea = createElement( "div" );
-            _element_EventEditorDialog_DisabledArea.className = "disabled-area";
-            view.appendChild( _element_EventEditorDialog_DisabledArea );
-
-            _element_EventEditorDialog_TitleBar = createElement( "div" );
-            _element_EventEditorDialog_TitleBar.className = "title-bar";
-            view.appendChild( _element_EventEditorDialog_TitleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            view.appendChild( contents );
-
-            var textTitle = createElement( "p" );
-            textTitle.innerText = _options.titleText;
-            contents.appendChild( textTitle );
-
-            var inputTitleContainer = createElement( "div" );
-            inputTitleContainer.className = "input-title-container";
-            contents.appendChild( inputTitleContainer );
-
-            _element_EventEditorDialog_Title = createElement( "input" );
-            _element_EventEditorDialog_Title.type = "text";
-            inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
-
-            var selectColorsButton = createElement( "input" );
-            selectColorsButton.className = "select-colors";
-            selectColorsButton.type = "button";
-            selectColorsButton.value = "...";
-            selectColorsButton.onclick = showEventEditorColorsDialog;
-            inputTitleContainer.appendChild( selectColorsButton );
-
-            var textFrom = createElement( "p" );
-            textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
-            contents.appendChild( textFrom );
-
-            var fromSplitContainer = createElement( "div" );
-            fromSplitContainer.className = "split";
-            contents.appendChild( fromSplitContainer );
-
-            _element_EventEditorDialog_DateFrom = createElement( "input" );
-            _element_EventEditorDialog_DateFrom.onchange = isAllDayEventChanged;
-            fromSplitContainer.appendChild( _element_EventEditorDialog_DateFrom );
-
-            setInputType( _element_EventEditorDialog_DateFrom, "date" );
-
-            _element_EventEditorDialog_TimeFrom = createElement( "input" );
-            fromSplitContainer.appendChild( _element_EventEditorDialog_TimeFrom );
-
-            setInputType( _element_EventEditorDialog_TimeFrom, "time" );
-
-            var toSplitContainer = createElement( "div" );
-            toSplitContainer.className = "split";
-            contents.appendChild( toSplitContainer );
-
-            _element_EventEditorDialog_DateTo = createElement( "input" );
-            toSplitContainer.appendChild( _element_EventEditorDialog_DateTo );
-
-            setInputType( _element_EventEditorDialog_DateTo, "date" );
-
-            _element_EventEditorDialog_TimeTo = createElement( "input" );
-            toSplitContainer.appendChild( _element_EventEditorDialog_TimeTo );
-
-            setInputType( _element_EventEditorDialog_TimeTo, "time" );
-
-            _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
-
-            var textRepeatEvery = createElement( "p" );
-            textRepeatEvery.innerText = _options.repeatsText;
-            contents.appendChild( textRepeatEvery );
-
-            var radioButtonsContainer = createElement( "div" );
-            radioButtonsContainer.className = "radioButtonsContainer";
-            contents.appendChild( radioButtonsContainer );
-
-            _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType" );
-            _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType" );
-
-            var textLocation = createElement( "p" );
-            textLocation.innerText = _options.locationText;
-            contents.appendChild( textLocation );
-
-            _element_EventEditorDialog_Location = createElement( "input" );
-            _element_EventEditorDialog_Location.type = "text";
-            contents.appendChild( _element_EventEditorDialog_Location );
-
-            var textDescription = createElement( "p" );
-            textDescription.innerText = _options.descriptionText;
-            contents.appendChild( textDescription );
-
-            _element_EventEditorDialog_Description = createElement( "textarea" );
-            _element_EventEditorDialog_Description.className = "custom-scroll-bars";
-            contents.appendChild( _element_EventEditorDialog_Description );
-
-            _element_EventEditorDialog_ErrorMessage = createElement( "p" );
-            _element_EventEditorDialog_ErrorMessage.className = "error";
-            contents.appendChild( _element_EventEditorDialog_ErrorMessage );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            _element_EventEditorDialog_OKButton = createElement( "input" );
-            _element_EventEditorDialog_OKButton.className = "ok";
-            _element_EventEditorDialog_OKButton.type = "button";
-            _element_EventEditorDialog_OKButton.value = _options.addText;
-            _element_EventEditorDialog_OKButton.onclick = eventDialogEvent_OK;
-            buttonsSplitContainer.appendChild( _element_EventEditorDialog_OKButton );
-
-            var cancelButton = createElement( "input" );
-            cancelButton.className = "cancel";
-            cancelButton.type = "button";
-            cancelButton.value = _options.cancelText;
-            cancelButton.onclick = eventDialogEvent_Cancel;
-            buttonsSplitContainer.appendChild( cancelButton );
-
-            _element_EventEditorDialog_RemoveButton = createElement( "input" );
-            _element_EventEditorDialog_RemoveButton.className = "remove";
-            _element_EventEditorDialog_RemoveButton.type = "button";
-            _element_EventEditorDialog_RemoveButton.value = _options.removeEventText;
-            _element_EventEditorDialog_RemoveButton.onclick = eventDialogEvent_Remove;
-            contents.appendChild( _element_EventEditorDialog_RemoveButton );
+        if ( _element_EventEditorDialog !== null ) {
+            removeNode( _document.body, _element_EventEditorDialog );
         }
+
+        _element_EventEditorDialog = createElement( "div" );
+        _element_EventEditorDialog.className = "calendar-dialog event-editor";
+        _document.body.appendChild( _element_EventEditorDialog );
+
+        var view = createElement( "div" );
+        view.className = "view";
+        _element_EventEditorDialog.appendChild( view );
+
+        _element_EventEditorDialog_DisabledArea = createElement( "div" );
+        _element_EventEditorDialog_DisabledArea.className = "disabled-area";
+        view.appendChild( _element_EventEditorDialog_DisabledArea );
+
+        _element_EventEditorDialog_TitleBar = createElement( "div" );
+        _element_EventEditorDialog_TitleBar.className = "title-bar";
+        view.appendChild( _element_EventEditorDialog_TitleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        view.appendChild( contents );
+
+        var textTitle = createElement( "p" );
+        textTitle.innerText = _options.titleText;
+        contents.appendChild( textTitle );
+
+        var inputTitleContainer = createElement( "div" );
+        inputTitleContainer.className = "input-title-container";
+        contents.appendChild( inputTitleContainer );
+
+        _element_EventEditorDialog_Title = createElement( "input" );
+        _element_EventEditorDialog_Title.type = "text";
+        inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
+
+        var selectColorsButton = createElement( "input" );
+        selectColorsButton.className = "select-colors";
+        selectColorsButton.type = "button";
+        selectColorsButton.value = "...";
+        selectColorsButton.onclick = showEventEditorColorsDialog;
+        inputTitleContainer.appendChild( selectColorsButton );
+
+        var textFrom = createElement( "p" );
+        textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
+        contents.appendChild( textFrom );
+
+        var fromSplitContainer = createElement( "div" );
+        fromSplitContainer.className = "split";
+        contents.appendChild( fromSplitContainer );
+
+        _element_EventEditorDialog_DateFrom = createElement( "input" );
+        _element_EventEditorDialog_DateFrom.onchange = isAllDayEventChanged;
+        fromSplitContainer.appendChild( _element_EventEditorDialog_DateFrom );
+
+        setInputType( _element_EventEditorDialog_DateFrom, "date" );
+
+        _element_EventEditorDialog_TimeFrom = createElement( "input" );
+        fromSplitContainer.appendChild( _element_EventEditorDialog_TimeFrom );
+
+        setInputType( _element_EventEditorDialog_TimeFrom, "time" );
+
+        var toSplitContainer = createElement( "div" );
+        toSplitContainer.className = "split";
+        contents.appendChild( toSplitContainer );
+
+        _element_EventEditorDialog_DateTo = createElement( "input" );
+        toSplitContainer.appendChild( _element_EventEditorDialog_DateTo );
+
+        setInputType( _element_EventEditorDialog_DateTo, "date" );
+
+        _element_EventEditorDialog_TimeTo = createElement( "input" );
+        toSplitContainer.appendChild( _element_EventEditorDialog_TimeTo );
+
+        setInputType( _element_EventEditorDialog_TimeTo, "time" );
+
+        _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
+
+        var textRepeatEvery = createElement( "p" );
+        textRepeatEvery.innerText = _options.repeatsText;
+        contents.appendChild( textRepeatEvery );
+
+        var radioButtonsContainer = createElement( "div" );
+        radioButtonsContainer.className = "radioButtonsContainer";
+        contents.appendChild( radioButtonsContainer );
+
+        _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType" );
+        _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType" );
+        _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType" );
+        _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType" );
+        _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType" );
+
+        var textLocation = createElement( "p" );
+        textLocation.innerText = _options.locationText;
+        contents.appendChild( textLocation );
+
+        _element_EventEditorDialog_Location = createElement( "input" );
+        _element_EventEditorDialog_Location.type = "text";
+        contents.appendChild( _element_EventEditorDialog_Location );
+
+        var textDescription = createElement( "p" );
+        textDescription.innerText = _options.descriptionText;
+        contents.appendChild( textDescription );
+
+        _element_EventEditorDialog_Description = createElement( "textarea" );
+        _element_EventEditorDialog_Description.className = "custom-scroll-bars";
+        contents.appendChild( _element_EventEditorDialog_Description );
+
+        _element_EventEditorDialog_ErrorMessage = createElement( "p" );
+        _element_EventEditorDialog_ErrorMessage.className = "error";
+        contents.appendChild( _element_EventEditorDialog_ErrorMessage );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        _element_EventEditorDialog_OKButton = createElement( "input" );
+        _element_EventEditorDialog_OKButton.className = "ok";
+        _element_EventEditorDialog_OKButton.type = "button";
+        _element_EventEditorDialog_OKButton.value = _options.addText;
+        _element_EventEditorDialog_OKButton.onclick = eventDialogEvent_OK;
+        buttonsSplitContainer.appendChild( _element_EventEditorDialog_OKButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = eventDialogEvent_Cancel;
+        buttonsSplitContainer.appendChild( cancelButton );
+
+        _element_EventEditorDialog_RemoveButton = createElement( "input" );
+        _element_EventEditorDialog_RemoveButton.className = "remove";
+        _element_EventEditorDialog_RemoveButton.type = "button";
+        _element_EventEditorDialog_RemoveButton.value = _options.removeEventText;
+        _element_EventEditorDialog_RemoveButton.onclick = eventDialogEvent_Remove;
+        contents.appendChild( _element_EventEditorDialog_RemoveButton );
     }
 
     function setInputType( input, type ) {
@@ -2395,65 +2397,67 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildEventEditingColorDialog() {
-        if ( _element_EventEditorColorsDialog === null ) {
-            _element_EventEditorColorsDialog = createElement( "div" );
-            _element_EventEditorColorsDialog.className = "calendar-dialog event-editor-colors";
-            _document.body.appendChild( _element_EventEditorColorsDialog );
-
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            titleBar.innerHTML = _options.selectColorsText;
-            _element_EventEditorColorsDialog.appendChild( titleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_EventEditorColorsDialog.appendChild( contents );
-
-            var backgroundColorText = createElement( "p" );
-            backgroundColorText.innerText = _options.backgroundColorText;
-            contents.appendChild( backgroundColorText );
-
-            _element_EventEditorColorsDialog_Color = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_Color );
-
-            setInputType( _element_EventEditorColorsDialog_Color, "color" );
-
-            var textColorText = createElement( "p" );
-            textColorText.innerText = _options.textColorText;
-            contents.appendChild( textColorText );
-
-            _element_EventEditorColorsDialog_ColorText = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_ColorText );
-
-            setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
-
-            var borderColorText = createElement( "p" );
-            borderColorText.innerText = _options.borderColorText;
-            contents.appendChild( borderColorText );
-
-            _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
-
-            setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            var okButton = createElement( "input" );
-            okButton.className = "ok";
-            okButton.type = "button";
-            okButton.value = _options.okText;
-            okButton.onclick = eventColorsDialogEvent_OK;
-            buttonsSplitContainer.appendChild( okButton );
-
-            var cancelButton = createElement( "input" );
-            cancelButton.className = "cancel";
-            cancelButton.type = "button";
-            cancelButton.value = _options.cancelText;
-            cancelButton.onclick = eventColorsDialogEvent_Cancel;
-            buttonsSplitContainer.appendChild( cancelButton );
+        if ( _element_EventEditorColorsDialog !== null ) {
+            removeNode( _document.body, _element_EventEditorColorsDialog );
         }
+
+        _element_EventEditorColorsDialog = createElement( "div" );
+        _element_EventEditorColorsDialog.className = "calendar-dialog event-editor-colors";
+        _document.body.appendChild( _element_EventEditorColorsDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.selectColorsText;
+        _element_EventEditorColorsDialog.appendChild( titleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_EventEditorColorsDialog.appendChild( contents );
+
+        var backgroundColorText = createElement( "p" );
+        backgroundColorText.innerText = _options.backgroundColorText;
+        contents.appendChild( backgroundColorText );
+
+        _element_EventEditorColorsDialog_Color = createElement( "input" );
+        contents.appendChild( _element_EventEditorColorsDialog_Color );
+
+        setInputType( _element_EventEditorColorsDialog_Color, "color" );
+
+        var textColorText = createElement( "p" );
+        textColorText.innerText = _options.textColorText;
+        contents.appendChild( textColorText );
+
+        _element_EventEditorColorsDialog_ColorText = createElement( "input" );
+        contents.appendChild( _element_EventEditorColorsDialog_ColorText );
+
+        setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
+
+        var borderColorText = createElement( "p" );
+        borderColorText.innerText = _options.borderColorText;
+        contents.appendChild( borderColorText );
+
+        _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
+        contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
+
+        setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        var okButton = createElement( "input" );
+        okButton.className = "ok";
+        okButton.type = "button";
+        okButton.value = _options.okText;
+        okButton.onclick = eventColorsDialogEvent_OK;
+        buttonsSplitContainer.appendChild( okButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = eventColorsDialogEvent_Cancel;
+        buttonsSplitContainer.appendChild( cancelButton );
     }
 
     function eventColorsDialogEvent_OK() {
@@ -2482,39 +2486,41 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildConfirmationDialog() {
-        if ( _element_ConfirmationDialog === null ) {
-            _element_ConfirmationDialog = createElement( "div" );
-            _element_ConfirmationDialog.className = "calendar-dialog confirmation";
-            _document.body.appendChild( _element_ConfirmationDialog );
-
-            _element_ConfirmationDialog_TitleBar = createElement( "div" );
-            _element_ConfirmationDialog_TitleBar.className = "title-bar";
-            _element_ConfirmationDialog.appendChild( _element_ConfirmationDialog_TitleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_ConfirmationDialog.appendChild( contents );
-
-            _element_ConfirmationDialog_Message = createElement( "div" );
-            _element_ConfirmationDialog_Message.className = "message";
-            contents.appendChild( _element_ConfirmationDialog_Message );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            _element_ConfirmationDialog_YesButton = createElement( "input" );
-            _element_ConfirmationDialog_YesButton.className = "yes";
-            _element_ConfirmationDialog_YesButton.type = "button";
-            _element_ConfirmationDialog_YesButton.value = _options.yesText;
-            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_YesButton );
-
-            _element_ConfirmationDialog_NoButton = createElement( "input" );
-            _element_ConfirmationDialog_NoButton.className = "no";
-            _element_ConfirmationDialog_NoButton.type = "button";
-            _element_ConfirmationDialog_NoButton.value = _options.noText;
-            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_NoButton );
+        if ( _element_ConfirmationDialog !== null ) {
+            removeNode( _document.body, _element_ConfirmationDialog );
         }
+
+        _element_ConfirmationDialog = createElement( "div" );
+        _element_ConfirmationDialog.className = "calendar-dialog confirmation";
+        _document.body.appendChild( _element_ConfirmationDialog );
+
+        _element_ConfirmationDialog_TitleBar = createElement( "div" );
+        _element_ConfirmationDialog_TitleBar.className = "title-bar";
+        _element_ConfirmationDialog.appendChild( _element_ConfirmationDialog_TitleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_ConfirmationDialog.appendChild( contents );
+
+        _element_ConfirmationDialog_Message = createElement( "div" );
+        _element_ConfirmationDialog_Message.className = "message";
+        contents.appendChild( _element_ConfirmationDialog_Message );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        _element_ConfirmationDialog_YesButton = createElement( "input" );
+        _element_ConfirmationDialog_YesButton.className = "yes";
+        _element_ConfirmationDialog_YesButton.type = "button";
+        _element_ConfirmationDialog_YesButton.value = _options.yesText;
+        buttonsSplitContainer.appendChild( _element_ConfirmationDialog_YesButton );
+
+        _element_ConfirmationDialog_NoButton = createElement( "input" );
+        _element_ConfirmationDialog_NoButton.className = "no";
+        _element_ConfirmationDialog_NoButton.type = "button";
+        _element_ConfirmationDialog_NoButton.value = _options.noText;
+        buttonsSplitContainer.appendChild( _element_ConfirmationDialog_NoButton );
     }
 
     function showConfirmationDialog( title, message, onYesEvent, onNoEvent ) {
@@ -2542,47 +2548,49 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildSelectExportTypeDialog() {
-        if ( _element_SelectExportTypeDialog === null ) {
-            _element_SelectExportTypeDialog = createElement( "div" );
-            _element_SelectExportTypeDialog.className = "calendar-dialog select-export-type";
-            _document.body.appendChild( _element_SelectExportTypeDialog );
-
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            titleBar.innerHTML = _options.selectExportTypeTitle;
-            _element_SelectExportTypeDialog.appendChild( titleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_SelectExportTypeDialog.appendChild( contents );
-
-            var radioButtonsContainer = createElement( "div" );
-            radioButtonsContainer.className = "radioButtonsContainer";
-            contents.appendChild( radioButtonsContainer );
-
-            _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer, "CSV", "ExportType" );
-            _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer, "XML", "ExportType" );
-            _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
-            _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            var okButton = createElement( "input" );
-            okButton.className = "ok";
-            okButton.type = "button";
-            okButton.value = _options.okText;
-            okButton.onclick = exportEventsFromOptionSelected;
-            buttonsSplitContainer.appendChild( okButton );
-
-            var cancelButton = createElement( "input" );
-            cancelButton.className = "cancel";
-            cancelButton.type = "button";
-            cancelButton.value = _options.cancelText;
-            cancelButton.onclick = hideSelectExportTypeDialog;
-            buttonsSplitContainer.appendChild( cancelButton );
+        if ( _element_SelectExportTypeDialog !== null ) {
+            removeNode( _document.body, _element_SelectExportTypeDialog );
         }
+
+        _element_SelectExportTypeDialog = createElement( "div" );
+        _element_SelectExportTypeDialog.className = "calendar-dialog select-export-type";
+        _document.body.appendChild( _element_SelectExportTypeDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.selectExportTypeTitle;
+        _element_SelectExportTypeDialog.appendChild( titleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_SelectExportTypeDialog.appendChild( contents );
+
+        var radioButtonsContainer = createElement( "div" );
+        radioButtonsContainer.className = "radioButtonsContainer";
+        contents.appendChild( radioButtonsContainer );
+
+        _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer, "CSV", "ExportType" );
+        _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer, "XML", "ExportType" );
+        _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
+        _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        var okButton = createElement( "input" );
+        okButton.className = "ok";
+        okButton.type = "button";
+        okButton.value = _options.okText;
+        okButton.onclick = exportEventsFromOptionSelected;
+        buttonsSplitContainer.appendChild( okButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = hideSelectExportTypeDialog;
+        buttonsSplitContainer.appendChild( cancelButton );
     }
 
     function showSelectExportTypeDialog( events ) {
@@ -2620,61 +2628,63 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildSearchDialog() {
         if ( _element_SearchDialog === null ) {
-            _element_SearchDialog = createElement( "div" );
-            _element_SearchDialog.className = "calendar-dialog search";
-            _document.body.appendChild( _element_SearchDialog );
-
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            titleBar.innerHTML = _options.searchEventsTitle;
-            titleBar.onmousedown = searchOnTitleBarMouseDown;
-            titleBar.onmouseup = searchOnTitleBarMouseUp;
-            _element_SearchDialog.appendChild( titleBar );
-
-            var closeButton = createElement( "div" );
-            closeButton.className = "ib-close";
-            closeButton.onclick = hideSearchDialog;
-            titleBar.appendChild( closeButton );
-
-            addToolTip( closeButton, _options.closeTooltipText );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_SearchDialog.appendChild( contents );
-
-            var textFor = createElement( "p" );
-            textFor.innerText = _options.forText;
-            contents.appendChild( textFor );
-
-            _element_SearchDialog_For = createElement( "input" );
-            _element_SearchDialog_For.type = "text";
-            _element_SearchDialog_For.oninput = searchForTextChanged;
-            _element_SearchDialog_For.onpropertychange = searchForTextChanged;
-            _element_SearchDialog_For.onkeypress = searchOnEnter;
-            contents.appendChild( _element_SearchDialog_For );
-            
-            _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            _element_SearchDialog_Previous = createElement( "input" );
-            _element_SearchDialog_Previous.className = "previous";
-            _element_SearchDialog_Previous.type = "button";
-            _element_SearchDialog_Previous.value = _options.previousText;
-            _element_SearchDialog_Previous.onclick = searchOnPrevious;
-            buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
-
-            _element_SearchDialog_Next = createElement( "input" );
-            _element_SearchDialog_Next.className = "next";
-            _element_SearchDialog_Next.type = "button";
-            _element_SearchDialog_Next.value = _options.nextText;
-            _element_SearchDialog_Next.onclick = searchOnNext;
-            buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
-
-            _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
+            removeNode( _document.body, _element_SearchDialog );
         }
+
+        _element_SearchDialog = createElement( "div" );
+        _element_SearchDialog.className = "calendar-dialog search";
+        _document.body.appendChild( _element_SearchDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.searchEventsTitle;
+        titleBar.onmousedown = searchOnTitleBarMouseDown;
+        titleBar.onmouseup = searchOnTitleBarMouseUp;
+        _element_SearchDialog.appendChild( titleBar );
+
+        var closeButton = createElement( "div" );
+        closeButton.className = "ib-close";
+        closeButton.onclick = hideSearchDialog;
+        titleBar.appendChild( closeButton );
+
+        addToolTip( closeButton, _options.closeTooltipText );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_SearchDialog.appendChild( contents );
+
+        var textFor = createElement( "p" );
+        textFor.innerText = _options.forText;
+        contents.appendChild( textFor );
+
+        _element_SearchDialog_For = createElement( "input" );
+        _element_SearchDialog_For.type = "text";
+        _element_SearchDialog_For.oninput = searchForTextChanged;
+        _element_SearchDialog_For.onpropertychange = searchForTextChanged;
+        _element_SearchDialog_For.onkeypress = searchOnEnter;
+        contents.appendChild( _element_SearchDialog_For );
+        
+        _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        _element_SearchDialog_Previous = createElement( "input" );
+        _element_SearchDialog_Previous.className = "previous";
+        _element_SearchDialog_Previous.type = "button";
+        _element_SearchDialog_Previous.value = _options.previousText;
+        _element_SearchDialog_Previous.onclick = searchOnPrevious;
+        buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
+
+        _element_SearchDialog_Next = createElement( "input" );
+        _element_SearchDialog_Next.className = "next";
+        _element_SearchDialog_Next.type = "button";
+        _element_SearchDialog_Next.value = _options.nextText;
+        _element_SearchDialog_Next.onclick = searchOnNext;
+        buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
+
+        _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
     }
 
     function searchOnTitleBarMouseDown( e ) {
