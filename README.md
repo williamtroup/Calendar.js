@@ -2,6 +2,8 @@
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
+![CalendarJs](https://saunterjs.co.uk/images/calendarjs.png)
+
 Features include:
 - Adding, updating, and removing events.
 - Full API support via public functions.
