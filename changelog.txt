@@ -8,6 +8,7 @@ v0.5.0:
 - Fixed a fault that caused the Full Day date checker loop to keep going (even after finding the event is on that day).
 - Fixed an ordering fault in the Weekly View (the days would be ordered in the order they were found, not by date).
 - Better responsive sizes for toolbar icons and font-sizes.
+- Added event (repeatsEvery) repeating support (every day, week, month and year), with new text settings.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.

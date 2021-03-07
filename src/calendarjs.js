@@ -21,7 +21,7 @@
  * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
  * @property    {boolean}   isAllDayEvent                               States if this is an all day event.
- * @property    {number}    repeatEvery                                 States how often the event should repeat.
+ * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
  */
 
 
