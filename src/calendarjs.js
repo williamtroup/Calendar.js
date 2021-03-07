@@ -2235,15 +2235,15 @@ function calendarJs( id, options, startDateTime ) {
                 };
     
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
-                    newEvent.repeatEvery = 0;
+                    newEvent.repeatEvery = _const_Repeat_Never;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryDay.checked ) {
-                    newEvent.repeatEvery = 1;
+                    newEvent.repeatEvery = _const_Repeat_EveryDay;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
-                    newEvent.repeatEvery = 2;
+                    newEvent.repeatEvery = _const_Repeat_EveryWeek;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
-                    newEvent.repeatEvery = 3;
+                    newEvent.repeatEvery = _const_Repeat_EveryMonth;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
-                    newEvent.repeatEvery = 4;
+                    newEvent.repeatEvery = _const_Repeat_EveryYear;
                 }
     
                 if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
