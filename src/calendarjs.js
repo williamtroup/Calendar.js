@@ -2040,6 +2040,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_DateTo.disabled = disabled;
         _element_EventEditorDialog_TimeFrom.disabled = disabled;
         _element_EventEditorDialog_TimeTo.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_Never.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryDay.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
