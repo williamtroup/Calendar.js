@@ -2046,6 +2046,7 @@ function calendarJs( id, options, startDateTime ) {
         contents.appendChild( toSplitContainer );
 
         _element_EventEditorDialog_DateTo = createElement( "input" );
+        _element_EventEditorDialog_DateTo.onchange = isAllDayEventChanged;
         toSplitContainer.appendChild( _element_EventEditorDialog_DateTo );
 
         setInputType( _element_EventEditorDialog_DateTo, "date" );
@@ -2136,13 +2137,21 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_DateTo.value = _element_EventEditorDialog_DateFrom.value;
             _element_EventEditorDialog_TimeFrom.value = "00:00";
             _element_EventEditorDialog_TimeTo.value = "23:59";
-            _element_EventEditorDialog_RepeatEvery_Never.checked = true;
             disabled = true;
         }
 
         _element_EventEditorDialog_DateTo.disabled = disabled;
         _element_EventEditorDialog_TimeFrom.disabled = disabled;
         _element_EventEditorDialog_TimeTo.disabled = disabled;
+
+        var fromDate = getSelectedDate( _element_EventEditorDialog_DateFrom ),
+            toDate = getSelectedDate( _element_EventEditorDialog_DateTo );
+
+        if ( toDate > fromDate || toDate < fromDate ) {
+            disabled = true;
+            _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+        }
+
         _element_EventEditorDialog_RepeatEvery_Never.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryDay.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = disabled;
