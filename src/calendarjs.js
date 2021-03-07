@@ -2208,49 +2208,53 @@ function calendarJs( id, options, startDateTime ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
         } else if ( toTime.length < 2 ) {
             showEventDialogErrorMessage( _options.toTimeErrorMessage, _element_EventEditorDialog_TimeTo );
-        } else if ( toDate < fromDate ) {
-            showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
         } else if ( title === "" ) {
             showEventDialogErrorMessage( _options.titleErrorMessage, _element_EventEditorDialog_Title );
         }
         else {
 
-            eventDialogEvent_Cancel();
             setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
             setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
 
-            var newEvent = {
-                from: fromDate,
-                to: toDate,
-                title: title,
-                description: description,
-                location: location,
-                isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
-                color: _element_EventEditorDialog_EventDetails.color,
-                colorText: _element_EventEditorDialog_EventDetails.colorText,
-                colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
-            };
-
-            if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
-                newEvent.repeatEvery = 0;
-            } else if ( _element_EventEditorDialog_RepeatEvery_EveryDay.checked ) {
-                newEvent.repeatEvery = 1;
-            } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
-                newEvent.repeatEvery = 2;
-            } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
-                newEvent.repeatEvery = 3;
-            } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
-                newEvent.repeatEvery = 4;
-            }
-
-            if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
-                _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
+            if ( toDate < fromDate ) {
+                showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
             } else {
-                _this.addEvent( newEvent, false );
-            }
+                
+                eventDialogEvent_Cancel();
 
-            buildDayEvents();
-            refreshOpenedViews();
+                var newEvent = {
+                    from: fromDate,
+                    to: toDate,
+                    title: title,
+                    description: description,
+                    location: location,
+                    isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
+                    color: _element_EventEditorDialog_EventDetails.color,
+                    colorText: _element_EventEditorDialog_EventDetails.colorText,
+                    colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
+                };
+    
+                if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
+                    newEvent.repeatEvery = 0;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryDay.checked ) {
+                    newEvent.repeatEvery = 1;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
+                    newEvent.repeatEvery = 2;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
+                    newEvent.repeatEvery = 3;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
+                    newEvent.repeatEvery = 4;
+                }
+    
+                if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
+                    _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
+                } else {
+                    _this.addEvent( newEvent, false );
+                }
+    
+                buildDayEvents();
+                refreshOpenedViews();
+            }
         }
     }
 

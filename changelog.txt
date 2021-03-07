@@ -10,6 +10,7 @@ v0.5.0:
 - Better responsive sizes for toolbar icons and font-sizes.
 - Added event (repeatsEvery) repeating support (every day, week, month and year), with new text settings.
 - Added a new context menu for events (with quick access to Remove and Edit) to all views.
+- Fixed a fault that allowed a To time to be smaller than a From time on the Event Editor (for the same day).
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
