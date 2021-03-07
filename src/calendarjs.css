@@ -147,6 +147,10 @@ div.full-screen-view div.header-days div.cell {
   height: auto !important;
 }
 
+div.full-screen-view div.plus-x-events {
+  display: none !important;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Layout
