@@ -2150,6 +2150,8 @@ function calendarJs( id, options, startDateTime ) {
         if ( toDate > fromDate || toDate < fromDate ) {
             disabled = true;
             _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+        } else {
+            disabled = false;
         }
 
         _element_EventEditorDialog_RepeatEvery_Never.disabled = disabled;
