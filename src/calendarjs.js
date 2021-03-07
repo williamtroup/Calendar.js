@@ -202,6 +202,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_Title = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
         _element_ListAllWeekEventsView_Contents = null,
+        _element_ListAllWeekEventsView_Contents_FullView = {},
+        _element_ListAllWeekEventsView_Contents_FullView_Contents = {},
         _element_ListAllWeekEventsView_EventsShown = [],
         _element_ListAllWeekEventsView_DateSelected = null,
         _element_ConfirmationDialog = null,
@@ -1299,6 +1301,8 @@ function calendarJs( id, options, startDateTime ) {
         showOverlay( _element_ListAllWeekEventsView );
 
         _element_ListAllWeekEventsView_Contents.innerHTML = "";
+        _element_ListAllWeekEventsView_Contents_FullView = {};
+        _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate;
 
@@ -1355,6 +1359,12 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( added ) {
                 _element_ListAllWeekEventsView_EventsShown.push( orderedEvent );
+            }
+        }
+
+        for ( var dateID in _element_ListAllWeekEventsView_Contents_FullView ) {
+            if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
+                _element_ListAllWeekEventsView_Contents.append( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
             }
         }
 
@@ -1468,13 +1478,13 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
-            dayContentsID = "day-" + weekDayNumber,
-            dayContents = getElementByID( dayContentsID );
-        
-        if ( dayContents === null ) {
+            dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
+            dayContents = null;
+
+        if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
             var day = createElement( "div" );
             day.className = "day";
-            _element_ListAllWeekEventsView_Contents.appendChild( day );
+            _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
 
             var header = createElement( "div" );
             header.className = "header";
@@ -1483,9 +1493,13 @@ function calendarJs( id, options, startDateTime ) {
             buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
 
             dayContents = createElement( "div" );
-            dayContents.id = dayContentsID;
             dayContents.className = "events";
             day.appendChild( dayContents );
+
+            _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = dayContents;
+
+        } else {
+            dayContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
         }
 
         return dayContents;
