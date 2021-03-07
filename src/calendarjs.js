@@ -22,6 +22,7 @@
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
  * @property    {boolean}   isAllDayEvent                               States if this is an all day event.
  * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
+ * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated
  */
 
 
@@ -120,6 +121,7 @@
  * @property    {string}    repeatsEveryWeekText                        The text that should be displayed for the "Every Week" label.
  * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
+ * @property    {string}    selectDaysToExcludeTitle                    The text that should be displayed for the "Select Days To Exclude" label.
  */
 
 
@@ -181,6 +183,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_EveryWeek = null,
         _element_EventEditorDialog_RepeatEvery_EveryMonth = null,
         _element_EventEditorDialog_RepeatEvery_EveryYear = null,
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton = null,
         _element_EventEditorDialog_ErrorMessage = null,
         _element_EventEditorDialog_EventDetails = {},
         _element_EventEditorDialog_OKButton = null,
@@ -189,6 +192,14 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorColorsDialog_Color = null,
         _element_EventEditorColorsDialog_ColorText = null,
         _element_EventEditorColorsDialog_ColorBorder = null,
+        _element_EventEditorExcludeDaysDialog = null,
+        _element_EventEditorExcludeDaysDialog_Mon = null,
+        _element_EventEditorExcludeDaysDialog_Tue = null,
+        _element_EventEditorExcludeDaysDialog_Wed = null,
+        _element_EventEditorExcludeDaysDialog_Thu = null,
+        _element_EventEditorExcludeDaysDialog_Fri = null,
+        _element_EventEditorExcludeDaysDialog_Sat = null,
+        _element_EventEditorExcludeDaysDialog_Sun = null,
         _element_FullDayView = null,
         _element_FullDayView_Title = null,
         _element_FullDayView_Contents = null,
@@ -269,6 +280,7 @@ function calendarJs( id, options, startDateTime ) {
         buildDisabledBackground();
         buildEventEditingDialog();
         buildEventEditingColorDialog();
+        buildEventEditingExcludeDaysDialog();
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
         buildSearchDialog();
@@ -705,14 +717,18 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildRepeatedDayEvents( orderedEvent, dateFunc ) {
-        var newFromDate = new Date( orderedEvent.from );
+        var newFromDate = new Date( orderedEvent.from ),
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays );
 
         while ( newFromDate < _largestDateInView ) {
             dateFunc( newFromDate );
 
-            var repeatDayElement = getDayElement( newFromDate );
-            if ( repeatDayElement !== null ) {
-                buildDayEvent( newFromDate, orderedEvent );
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 ) {
+                var repeatDayElement = getDayElement( newFromDate );
+
+                if ( repeatDayElement !== null ) {
+                    buildDayEvent( newFromDate, orderedEvent );
+                }
             }
         }
     }
@@ -1007,14 +1023,17 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc ) {
-        var newFromDate = new Date( event.from );
+        var newFromDate = new Date( event.from ),
+            excludeDays = getArray( event.repeatEveryExcludeDays );
     
         while ( newFromDate < date ) {
             dateFunc( newFromDate );
-    
-            if ( newFromDate.getFullYear() === date.getFullYear() && newFromDate.getMonth() === date.getMonth() && newFromDate.getDate() === date.getDate() ) {
-                orderedEvents.push( event );
-                break;
+
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 ) {
+                if ( newFromDate.getFullYear() === date.getFullYear() && newFromDate.getMonth() === date.getMonth() && newFromDate.getDate() === date.getDate() ) {
+                    orderedEvents.push( event );
+                    break;
+                }
             }
         }
     }
@@ -1406,16 +1425,19 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc ) {
         var newFromDate = new Date( orderedEvent.from ),
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
             added = false;
     
         while ( newFromDate < weekEndDate ) {
             dateFunc( newFromDate );
+            
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 ) {
+                if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
+                    var dayContents = buildListAllEventsDay( newFromDate );
     
-            if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
-                var dayContents = buildListAllEventsDay( newFromDate );
-
-                buildListAllWeekEventsEvent( orderedEvent, dayContents );
-                added = true;
+                    buildListAllWeekEventsEvent( orderedEvent, dayContents );
+                    added = true;
+                }
             }
         }
 
@@ -1808,7 +1830,8 @@ function calendarJs( id, options, startDateTime ) {
                 color: _eventDetails_Dragged.color,
                 colorText: _eventDetails_Dragged.colorText,
                 colorBorder: _eventDetails_Dragged.colorBorder,
-                repeatEvery: _eventDetails_Dragged.repeatEvery
+                repeatEvery: _eventDetails_Dragged.repeatEvery,
+                repeatEveryExcludeDays: _eventDetails_Dragged.repeatEveryExcludeDays
             };
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
@@ -2078,6 +2101,13 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType" );
         _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType" );
 
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton = createElement( "input" );
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.className = "days-to-exclude";
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.type = "button";
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.value = "...";
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.onclick = showEventEditorExcludeDaysDialog;
+        radioButtonsContainer.appendChild( _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton );
+
         var textLocation = createElement( "p" );
         textLocation.innerText = _options.locationText;
         contents.appendChild( textLocation );
@@ -2165,6 +2195,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.disabled = disabled;
     }
 
     function showEventDialog( eventDetails, overrideTodayDate ) {
@@ -2203,6 +2234,15 @@ function calendarJs( id, options, startDateTime ) {
             } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                 _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
             }
+
+            var excludeDays = getArray( eventDetails.repeatEveryExcludeDays );
+            _element_EventEditorExcludeDaysDialog_Mon.checked = excludeDays.indexOf( 1 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Tue.checked = excludeDays.indexOf( 2 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Wed.checked = excludeDays.indexOf( 3 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Thu.checked = excludeDays.indexOf( 4 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Fri.checked = excludeDays.indexOf( 5 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Sat.checked = excludeDays.indexOf( 6 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Sun.checked = excludeDays.indexOf( 0 ) > -1;
         } else {
 
             var date = new Date(),
@@ -2229,6 +2269,13 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
             _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
             _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+            _element_EventEditorExcludeDaysDialog_Mon.checked = false;
+            _element_EventEditorExcludeDaysDialog_Tue.checked = false;
+            _element_EventEditorExcludeDaysDialog_Wed.checked = false;
+            _element_EventEditorExcludeDaysDialog_Thu.checked = false;
+            _element_EventEditorExcludeDaysDialog_Fri.checked = false;
+            _element_EventEditorExcludeDaysDialog_Sat.checked = false;
+            _element_EventEditorExcludeDaysDialog_Sun.checked = false;
         }
 
         isAllDayEventChanged();
@@ -2270,7 +2317,8 @@ function calendarJs( id, options, startDateTime ) {
                     isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
                     color: _element_EventEditorDialog_EventDetails.color,
                     colorText: _element_EventEditorDialog_EventDetails.colorText,
-                    colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
+                    colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
+                    repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays
                 };
     
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
@@ -2492,6 +2540,104 @@ function calendarJs( id, options, startDateTime ) {
 
     function showEventEditorColorsDialog() {
         _element_EventEditorColorsDialog.style.display = "block";
+        _element_EventEditorDialog_DisabledArea.style.display = "block";
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Event Editing Exclude Days Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildEventEditingExcludeDaysDialog() {
+        if ( _element_EventEditorExcludeDaysDialog !== null ) {
+            removeNode( _document.body, _element_EventEditorExcludeDaysDialog );
+        }
+
+        _element_EventEditorExcludeDaysDialog = createElement( "div" );
+        _element_EventEditorExcludeDaysDialog.className = "calendar-dialog event-editor-exclude-days";
+        _document.body.appendChild( _element_EventEditorExcludeDaysDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.selectDaysToExcludeTitle;
+        _element_EventEditorExcludeDaysDialog.appendChild( titleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_EventEditorExcludeDaysDialog.appendChild( contents );
+
+        _element_EventEditorExcludeDaysDialog_Mon = buildCheckBox( contents, _options.dayNames[ 0 ] );
+        _element_EventEditorExcludeDaysDialog_Tue = buildCheckBox( contents, _options.dayNames[ 1 ] );
+        _element_EventEditorExcludeDaysDialog_Wed = buildCheckBox( contents, _options.dayNames[ 2 ] );
+        _element_EventEditorExcludeDaysDialog_Thu = buildCheckBox( contents, _options.dayNames[ 3 ] );
+        _element_EventEditorExcludeDaysDialog_Fri = buildCheckBox( contents, _options.dayNames[ 4 ] );
+        _element_EventEditorExcludeDaysDialog_Sat = buildCheckBox( contents, _options.dayNames[ 5 ] );
+        _element_EventEditorExcludeDaysDialog_Sun = buildCheckBox( contents, _options.dayNames[ 6 ] );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        var okButton = createElement( "input" );
+        okButton.className = "ok";
+        okButton.type = "button";
+        okButton.value = _options.okText;
+        okButton.onclick = eventExcludeDaysDialogEvent_OK;
+        buttonsSplitContainer.appendChild( okButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = eventExcludeDaysDialogEvent_Cancel;
+        buttonsSplitContainer.appendChild( cancelButton );
+    }
+
+    function eventExcludeDaysDialogEvent_OK() {
+        eventExcludeDaysDialogEvent_Cancel();
+
+        var repeatEveryExcludeDays = [];
+
+        if ( _element_EventEditorExcludeDaysDialog_Mon.checked ) {
+            repeatEveryExcludeDays.push( 1 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Tue.checked ) {
+            repeatEveryExcludeDays.push( 2 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Wed.checked ) {
+            repeatEveryExcludeDays.push( 3 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Thu.checked ) {
+            repeatEveryExcludeDays.push( 4 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Fri.checked ) {
+            repeatEveryExcludeDays.push( 5 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Sat.checked ) {
+            repeatEveryExcludeDays.push( 6 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Sun.checked ) {
+            repeatEveryExcludeDays.push( 0 );
+        }
+
+        _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays = repeatEveryExcludeDays;
+    }
+
+    function eventExcludeDaysDialogEvent_Cancel() {
+        _element_EventEditorExcludeDaysDialog.style.display = "none";
+        _element_EventEditorDialog_DisabledArea.style.display = "none";
+    }
+
+    function showEventEditorExcludeDaysDialog() {
+        _element_EventEditorExcludeDaysDialog.style.display = "block";
         _element_EventEditorDialog_DisabledArea.style.display = "block";
     }
 
@@ -3132,6 +3278,10 @@ function calendarJs( id, options, startDateTime ) {
         return isDefined( object ) && typeof object === "boolean";
     }
 
+    function isDefinedArray( object ) {
+        return isDefined( object ) && typeof object === "object" && object instanceof Array;
+    }
+
     function isDefinedStringAndSet( object ) {
         return isDefinedString( object ) && object !== "";
     }
@@ -3226,6 +3376,12 @@ function calendarJs( id, options, startDateTime ) {
         defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
 
         return isDefinedBoolean( value ) ? value ? 1 : 0 : defaultValue;
+    }
+
+    function getArray( value, defaultValue ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : [];
+
+        return isDefinedArray( value ) ? value : defaultValue;
     }
 
     function getRepeatsText( value ) {
@@ -4020,6 +4176,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.repeatsEveryYearText ) ) {
             _options.repeatsEveryYearText = "Every Year";
+        }
+
+        if ( !isDefined( _options.selectDaysToExcludeTitle ) ) {
+            _options.selectDaysToExcludeTitle = "Select Days To Exclude";
         }
 
         if ( _initialized ) {

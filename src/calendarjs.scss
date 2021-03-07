@@ -17,6 +17,8 @@ div.event-editor input,
 div.event-editor textarea,
 div.event-editor-colors,
 div.event-editor-colors input,
+div.event-editor-exclude-days,
+div.event-editor-exclude-days input,
 div.confirmation,
 div.confirmation input,
 div.select-export-type,
@@ -571,10 +573,23 @@ div.event-editor {
             @include button(cancel, $light-color, $alert-color);
             @include button(remove, $light-color, $dark-color);
             @include button(select-colors, $light-color, #6c757d);
-    
+            @include button(days-to-exclude, $light-color, #6c757d);
+
             &.remove {
                 margin-top: $spacing;
                 width: 100%;
+            }
+
+            &.select-colors,
+            &.days-to-exclude {
+                width: 50px;
+            }
+
+            &.days-to-exclude {
+                position: absolute;
+                margin: 0 !important;
+                bottom: 0;
+                right: 0;
             }
         }
     }
@@ -588,7 +603,7 @@ div.event-editor {
 */
 
 div.event-editor-colors {
-    @include dialog-styles(300px);
+    @include dialog-styles(250px);
     @include dialog-title-bar;
     
     div.contents {
@@ -610,6 +625,38 @@ div.event-editor-colors {
 
     div.split {
         margin-top: $spacing;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Event Editor Exclude Days
+    -------------------------------------------------------------------------
+*/
+
+div.event-editor-exclude-days {
+    @include dialog-styles(250px);
+    @include dialog-title-bar;
+    
+    div.contents {
+        padding: $spacing;
+    }
+
+    label.checkbox {
+        margin-bottom: $spacing / 2 !important;
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
@@ -738,7 +785,7 @@ div.calendar-dialog {
         position: relative;
         padding-left: 25px;
         padding-top: 1px;
-        margin-bottom: 12px;
+        margin-bottom: $spacing;
         color: $dark-color;
 
         input {
@@ -792,6 +839,7 @@ div.calendar,
 div.calendar-dialog {
     div.radioButtonsContainer {
         margin-bottom: $spacing;
+        position: relative;
     }
 
     div.radioButtonContainer {

@@ -9,9 +9,11 @@ v0.5.0:
 - Fixed an ordering fault in the Weekly View (the days would be ordered in the order they were found, not by date).
 - Better responsive sizes for toolbar icons and font-sizes.
 - Added event (repeatsEvery) repeating support (every day, week, month and year), with new text settings.
+- Added event (repeatEveryExcludeDays) exclude days for repeating events support (editable via a new dialog).
 - Added a new context menu for events (with quick access to Remove and Edit) to all views.
 - Fixed a fault that allowed a To time to be smaller than a From time on the Event Editor (for the same day).
 - Fixed some of the editing menus items being available when manual editing of events is disabled.
+- Decreased the default width of the "Select Colors" dialog.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
