@@ -312,9 +312,15 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getOrderedEvents( events ) {
-        return events.sort( function( a, b ) {
+        events = events.sort( function( a, b ) {
             return a.from - b.from;
         } );
+
+        events = events.sort( function( a, b ) {
+            return getBooleanAsNumber( b.isAllDayEvent ) - getBooleanAsNumber( a.isAllDayEvent );
+        } );
+
+        return events;
     }
 
 
@@ -3122,6 +3128,10 @@ function calendarJs( id, options, startDateTime ) {
         return isDefined( object ) && typeof object === "number";
     }
 
+    function isDefinedBoolean( object ) {
+        return isDefined( object ) && typeof object === "boolean";
+    }
+
     function isDefinedStringAndSet( object ) {
         return isDefinedString( object ) && object !== "";
     }
@@ -3210,6 +3220,12 @@ function calendarJs( id, options, startDateTime ) {
         defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
 
         return isDefinedNumber( value ) ? value : defaultValue;
+    }
+
+    function getBooleanAsNumber( value, defaultValue  ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
+
+        return isDefinedBoolean( value ) ? value ? 1 : 0 : defaultValue;
     }
 
     function getRepeatsText( value ) {
