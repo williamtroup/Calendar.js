@@ -1822,6 +1822,10 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDayDropDownMenu() {
+        if (_element_DropDownMenu_Day !== null) {
+            removeNode( _document.body, _element_DropDownMenu_Day );
+        }
+
         _element_DropDownMenu_Day = createElement( "div" );
         _element_DropDownMenu_Day.className = "calendar-drop-down-menu";
         _document.body.appendChild( _element_DropDownMenu_Day );
@@ -1865,46 +1869,52 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildEventDropDownMenu() {
-        _element_DropDownMenu_Event = createElement( "div" );
-        _element_DropDownMenu_Event.className = "calendar-drop-down-menu";
-        _document.body.appendChild( _element_DropDownMenu_Event );
+        if (_element_DropDownMenu_Event !== null) {
+            removeNode( _document.body, _element_DropDownMenu_Event );
+        }
+
+        if ( _options.manualEditingEnabled ) {
+            _element_DropDownMenu_Event = createElement( "div" );
+            _element_DropDownMenu_Event.className = "calendar-drop-down-menu";
+            _document.body.appendChild( _element_DropDownMenu_Event );
+            
+            var remove = createElement( "div" );
+            remove.className = "item";
+            remove.innerHTML = _options.removeEventText;
+            _element_DropDownMenu_Event.appendChild( remove );
+    
+            remove.onclick = function() {
+                addNode( _document.body, _element_DisabledBackground );
+    
+                var onNoEvent = function() {
+                    removeNode( _document.body, _element_DisabledBackground );
+                };
+    
+                var onYesEvent = function() {
+                    onNoEvent();
+    
+                    if ( isDefined( _element_DropDownMenu_Event_EventDetails.id ) ) {
+                        _this.removeEvent( _element_DropDownMenu_Event_EventDetails.id, true );
+                        refreshOpenedViews();
+                    }
+                };
         
-        var remove = createElement( "div" );
-        remove.className = "item";
-        remove.innerHTML = _options.removeEventText;
-        _element_DropDownMenu_Event.appendChild( remove );
-
-        remove.onclick = function() {
-            addNode( _document.body, _element_DisabledBackground );
-
-            var onNoEvent = function() {
-                removeNode( _document.body, _element_DisabledBackground );
-            };
-
-            var onYesEvent = function() {
-                onNoEvent();
-
-                if ( isDefined( _element_DropDownMenu_Event_EventDetails.id ) ) {
-                    _this.removeEvent( _element_DropDownMenu_Event_EventDetails.id, true );
-                    refreshOpenedViews();
-                }
+                showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
             };
     
-            showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
-        };
-
-        var separator1 = createElement( "div" );
-        separator1.className = "separator";
-        _element_DropDownMenu_Event.appendChild( separator1 );
-
-        var editEvent = createElement( "div" );
-        editEvent.className = "item";
-        editEvent.innerHTML = _options.editEventTitle;
-        _element_DropDownMenu_Event.appendChild( editEvent );
-
-        editEvent.onclick = function() {
-            showEventDialog( _element_DropDownMenu_Event_EventDetails );
-        };
+            var separator1 = createElement( "div" );
+            separator1.className = "separator";
+            _element_DropDownMenu_Event.appendChild( separator1 );
+    
+            var editEvent = createElement( "div" );
+            editEvent.className = "item";
+            editEvent.innerHTML = _options.editEventTitle;
+            _element_DropDownMenu_Event.appendChild( editEvent );
+    
+            editEvent.onclick = function() {
+                showEventDialog( _element_DropDownMenu_Event_EventDetails );
+            };
+        }
     }
 
     function showDayDropDownMenu( e, date ) {
