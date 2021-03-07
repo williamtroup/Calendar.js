@@ -22,7 +22,7 @@ div.search input {
   font-family: 'Montserrat', sans-serif;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar,
   div.calendar-tooltip,
   div.calendar-tooltip-event,
@@ -42,7 +42,7 @@ div.search input {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar,
   div.calendar-tooltip,
   div.calendar-tooltip-event,
@@ -115,13 +115,13 @@ div.full-screen-view {
   border: none !important;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.full-screen-view div.row {
     height: calc((100% - ((1px * 10) + ((10px * 4) + (0.9rem * 2)))) / 6);
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.full-screen-view div.row {
     height: calc((100% - ((1px * 10) + ((10px * 4) + (0.7rem * 2)))) / 6);
   }
@@ -196,13 +196,13 @@ div.calendar div.row div.cell {
   color: #282828;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar div.row div.cell {
     padding: 10px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar div.row div.cell {
     padding: 5px;
   }
@@ -325,13 +325,13 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   overflow: hidden;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar div.header-date div.title-container div.years-drop-down {
     top: calc(10px + 0.9rem);
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar div.header-date div.title-container div.years-drop-down {
     top: calc(10px + 0.7rem);
   }
@@ -402,7 +402,7 @@ div.calendar div.header-date div.ib-arrow-right-full {
   float: right;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar div.header-date div.ib-refresh,
   div.calendar div.header-date div.ib-search,
   div.calendar div.header-date div.ib-hamburger,
@@ -412,7 +412,7 @@ div.calendar div.header-date div.ib-arrow-right-full {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar div.header-date div.ib-refresh,
   div.calendar div.header-date div.ib-search,
   div.calendar div.header-date div.ib-hamburger,
@@ -442,14 +442,14 @@ div.calendar div.row div.cell div.event-no-hover {
   text-overflow: ellipsis;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar div.row div.cell div.event,
   div.calendar div.row div.cell div.event-no-hover {
     font-size: 0.7rem !important;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar div.row div.cell div.event,
   div.calendar div.row div.cell div.event-no-hover {
     font-size: 0.5rem !important;
@@ -538,13 +538,13 @@ div.calendar div.full-day-view div.contents {
   overflow-x: hidden;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar div.full-day-view div.contents {
     height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar div.full-day-view div.contents {
     height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
@@ -679,13 +679,13 @@ div.calendar div.list-all-events-view div.contents {
   overflow-x: hidden;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar div.list-all-events-view div.contents {
     height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar div.list-all-events-view div.contents {
     height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
@@ -836,13 +836,13 @@ div.calendar div.list-all-week-events-view div.contents {
   overflow-x: hidden;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 376px) {
   div.calendar div.list-all-week-events-view div.contents {
     height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 375px) {
   div.calendar div.list-all-week-events-view div.contents {
     height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
   }
