@@ -194,6 +194,12 @@ div.calendar div.row {
   color: #282828;
 }
 
+div.calendar div.row div.drag-over {
+  background-color: rgba(135, 206, 250, 0.4) !important;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
 div.calendar div.row div.cell {
   width: calc(100% - (20px + 1px) / 7);
   display: inline-block;
@@ -244,7 +250,7 @@ div.calendar div.row div.cell:hover div.expand-day {
 }
 
 div.calendar div.row div.weekend-day {
-  background-color: #E0E0E0 !important;
+  background-color: #E0E0E0;
 }
 
 div.calendar div.row:last-child {

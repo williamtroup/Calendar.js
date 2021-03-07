@@ -15,6 +15,7 @@ v0.5.0:
 - Fixed some of the editing menus items being available when manual editing of events is disabled.
 - Decreased the default width of the "Select Colors" dialog.
 - Removed the option "fullDayViewEnabled", as it's no longer needed.
+- When dragging an event, the target area now shows a highlighted background color.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.

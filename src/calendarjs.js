@@ -1778,12 +1778,36 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.manualEditingEnabled ) {
                 dayElement.ondragover = function( e ) {
                     cancelBubble( e );
+                    showDraggingEffect( dayElement );
+                };
+
+                dayElement.ondragenter = function( e ) {
+                    cancelBubble( e );
+                    showDraggingEffect( dayElement );
+                };
+
+                dayElement.ondragleave = function( e ) {
+                    cancelBubble( e );
+                    hideDraggingEffect( dayElement );
                 };
         
                 dayElement.ondrop = function( e ) {
                     dropEventOnDay( e, year, month, actualDay );
+                    hideDraggingEffect( dayElement );
                 };
             }
+        }
+    }
+
+    function showDraggingEffect( dayElement ) {
+        if ( dayElement.className.indexOf( " drag-over" ) === -1 ) {
+            dayElement.className += " drag-over";
+        }
+    }
+
+    function hideDraggingEffect( dayElement ) {
+        if ( dayElement.className.indexOf( " drag-over" ) > -1 ) {
+            dayElement.className = dayElement.className.replace( " drag-over", "" );
         }
     }
 
