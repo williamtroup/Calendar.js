@@ -771,6 +771,8 @@ function calendarJs( id, options, startDateTime ) {
                 event.innerHTML = eventTitle;
                 elementDay.appendChild( event );
 
+                setEventClassesAndColors( eventDetails, event );
+
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
                 };
@@ -780,8 +782,6 @@ function calendarJs( id, options, startDateTime ) {
                         showEventDropDownMenu( e, eventDetails );
                     };
                 }
-
-                setEventClassesAndColors( eventDetails, event );
     
                 if ( _options.manualEditingEnabled ) {
                     event.onclick = function() {
@@ -882,7 +882,9 @@ function calendarJs( id, options, startDateTime ) {
     }
   
     function setEventClassesAndColors( eventDetails, event ) {
-        if ( eventDetails.to < new Date() ) {
+        var repeatEvery = getNumber( eventDetails.repeatEvery );
+
+        if ( eventDetails.to < new Date() && repeatEvery === _const_Repeat_Never ) {
             event.className += " expired";
         }
 
