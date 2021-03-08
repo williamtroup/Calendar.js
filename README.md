@@ -15,7 +15,7 @@ Features include:
 - Export to CSV, XML, JSON and TEXT.
 - Full-screen mode.
 - Search support.
-- Repeat every Day, Week, Month, and Year.
+- Repeat every Day, Week, Month, or Year (with exclusion days support).
 
 To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
 
