@@ -20,7 +20,7 @@
  * @property    {string}    color                                       The color that should be used for the event (overrides all others).
  * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
- * @property    {boolean}   isAllDay                                    States if this event is for all day.
+ * @property    {boolean}   isAllDay                                    States if this event is for all-day.
  * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
  * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated
  */
@@ -67,7 +67,7 @@
  * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
- * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All Day" label.
+ * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All-Day" label.
  * @property    {string}    titleText                                   The text that should be displayed for the "Title:" label.
  * @property    {string}    descriptionText                             The text that should be displayed for the "Description:" label.
  * @property    {string}    locationText                                The text that should be displayed for the "Location:" label.
@@ -93,7 +93,7 @@
  * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
  * @property    {string}    noText                                      The text that should be displayed for the "No" label.
  * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
- * @property    {string}    allDayText                                  The text that should be displayed for the "All Day" label.
+ * @property    {string}    allDayText                                  The text that should be displayed for the "All-Day" label.
  * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
@@ -3550,7 +3550,7 @@ function calendarJs( id, options, startDateTime ) {
             result = getStringFromDateTime( value );
         } else if ( typeof value === "object" && value instanceof Array ) {
             result = getArrayText( value );
-        }  else if ( typeof value === "number" ) {
+        } else if ( typeof value === "number" ) {
 
             if ( name === "repeatEvery" ) {
                 result = getRepeatsText( value );
@@ -4092,7 +4092,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.isAllDayText ) ) {
-            _options.isAllDayText = "Is All Day";
+            _options.isAllDayText = "Is All-Day";
         }
 
         if ( !isDefined( _options.titleText ) ) {
@@ -4209,7 +4209,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.allDayText ) ) {
-            _options.allDayText = "All Day";
+            _options.allDayText = "All-Day";
         }
 
         if ( !isDefined( _options.allEventsText ) ) {
