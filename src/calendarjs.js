@@ -1432,7 +1432,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_Contents_FullView = {};
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
         _element_ListAllWeekEventsView_EventsShown = [];
-        _element_ListAllWeekEventsView_DateSelected = weekDate;
+        _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : weekDate;
 
         if ( fromOpen ) {
             _element_ListAllWeekEventsView_Contents.scrollTop = 0;
