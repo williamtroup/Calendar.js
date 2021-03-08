@@ -1,5 +1,8 @@
 # Calendar.js Change Log:
 
+### Version 0.6.0:
+- 
+
 ### Version 0.5.1:
 - Fixed exports (all except CSV) being broken.
 - Fixed missing properties on CSV exports.
