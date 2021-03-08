@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.5.0
+ * Calendar.js Library v0.5.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -119,6 +119,7 @@
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
  * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
  * @property    {string}    repeatsText                                 The text that should be displayed for the "Repeats:" label.
+ * @property    {string}    repeatDaysToExcludeText                     The text that should be displayed for the "Repeat Days To Exclude:" label.
  * @property    {string}    repeatsNever                                The text that should be displayed for the "Never" label.
  * @property    {string}    repeatsEveryDayText                         The text that should be displayed for the "Every Day" label.
  * @property    {string}    repeatsEveryWeekText                        The text that should be displayed for the "Every Week" label.
@@ -3532,6 +3533,10 @@ function calendarJs( id, options, startDateTime ) {
         return result;
     }
 
+    function getArrayText( value ) {
+        return getArray( value ).join( "," );
+    }
+
     function getPropertyName( name ) {
         return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
     }
@@ -3541,9 +3546,11 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( typeof value === "boolean" ) {
             result = getYesNoFromBoolean( value );
-        } else if ( typeof value === "object" ) {
+        } else if ( typeof value === "object" && value instanceof Date ) {
             result = getStringFromDateTime( value );
-        } else if ( typeof value === "number" ) {
+        } else if ( typeof value === "object" && value instanceof Array ) {
+            result = getArrayText( value );
+        }  else if ( typeof value === "number" ) {
 
             if ( name === "repeatEvery" ) {
                 result = getRepeatsText( value );
@@ -3563,7 +3570,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText, _options.repeatsText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3591,8 +3598,12 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getString( eventDetails.title ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.description ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.location ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.color ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.colorText ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.colorBorder ) ) );
         eventContents.push( getCsvValue( getRepeatsText( eventDetails.repeatEvery ) ) );
-        
+        eventContents.push( getCsvValue( getArrayText( eventDetails.repeatEveryExcludeDays ) ) );
+
         csvContents.push( getCsvValueLine( eventContents ) );
     }
 
@@ -4299,6 +4310,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.repeatsText ) ) {
             _options.repeatsText = "Repeats:";
+        }
+
+        if ( !isDefined( _options.repeatDaysToExcludeText ) ) {
+            _options.repeatDaysToExcludeText = "Repeat Days To Exclude:";
         }
 
         if ( !isDefined( _options.repeatsNever ) ) {
