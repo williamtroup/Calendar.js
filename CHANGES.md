@@ -1,6 +1,8 @@
 # Calendar.js Change Log:
 
 ### Version 0.5.1:
+- Fixed exports (all except CSV) being broken.
+- Fixed missing properties on CSV exports.
 
 ### Version 0.5.0:
 - When an API is called that forces a redraw of the main display, all drop-down menus are now hidden.
