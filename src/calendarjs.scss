@@ -115,7 +115,7 @@ div.calendar {
     }
     
     div.row {
-        border-bottom: $standard-border-size solid $dark-color;
+        border-bottom: $standard-border-size solid $grid-border-color;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
@@ -133,7 +133,7 @@ div.calendar {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
             display: inline-block;
             text-align: center;
-            border-right: $standard-border-size solid $dark-color;
+            border-right: $standard-border-size solid $grid-border-color;
             position: relative;
             overflow: hidden;
             color: $dark-color;

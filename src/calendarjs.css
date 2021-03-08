@@ -186,7 +186,7 @@ div.calendar div.header-days {
 }
 
 div.calendar div.row {
-  border-bottom: 1px solid #282828;
+  border-bottom: 1px solid #B0B0B0;
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -207,7 +207,7 @@ div.calendar div.row div.cell {
   width: calc(100% - (20px + 1px) / 7);
   display: inline-block;
   text-align: center;
-  border-right: 1px solid #282828;
+  border-right: 1px solid #B0B0B0;
   position: relative;
   overflow: hidden;
   color: #282828;

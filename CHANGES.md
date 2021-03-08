@@ -3,6 +3,7 @@
 ### Version 0.6.0:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
 - Fixed a fault that allowed text to be selected in a disabled text field (date, time).
+- Added "grid-border-color" that states the border color of the internal grid borders (which is now a lighter gray).
 
 ### Version 0.5.1:
 - Fixed exports (all except CSV) being broken.
