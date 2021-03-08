@@ -168,7 +168,6 @@ div.calendar {
   width: 100%;
   border: 1px solid #282828;
   position: relative;
-  overflow: hidden;
 }
 
 div.calendar sup {
@@ -558,10 +557,10 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full {
 div.calendar div.full-day-view div.contents {
   display: inline-block;
   padding: 10px;
-  width: calc(100% - (10px * 2));
   position: relative;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - (10px * 2));
 }
 
 @media screen and (min-width: 376px) {
@@ -701,10 +700,10 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full {
 div.calendar div.list-all-events-view div.contents {
   display: inline-block;
   padding: 10px;
-  width: calc(100% - (10px * 2));
   position: relative;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - (10px * 2));
 }
 
 @media screen and (min-width: 376px) {
@@ -860,10 +859,10 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full
 div.calendar div.list-all-week-events-view div.contents {
   display: inline-block;
   padding: 10px;
-  width: calc(100% - (10px * 2));
   position: relative;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - (10px * 2));
 }
 
 @media screen and (min-width: 376px) {

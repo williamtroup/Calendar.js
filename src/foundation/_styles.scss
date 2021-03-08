@@ -87,6 +87,9 @@ $minimum-width: $maximum-width + 1;
 @mixin overlay-contents {
     display: inline-block;
     padding: $spacing;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: calc(100% - (#{$spacing} * 2));
 
     @media screen and (min-width: $minimum-width) {
@@ -96,10 +99,6 @@ $minimum-width: $maximum-width + 1;
     @media screen and (max-width: $maximum-width) {
         height: calc(100% - ((#{$spacing} * 4) + #{$small-font-size}) - #{$standard-border-size} * 2);
     }
-
-    position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 @mixin dialog-styles($width) {
