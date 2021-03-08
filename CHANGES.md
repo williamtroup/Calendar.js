@@ -1,7 +1,7 @@
 # Calendar.js Change Log:
 
 ### Version 0.6.0:
-- 
+- The text "All Day Event" is now "All Day" (renamed all the settings to match).
 
 ### Version 0.5.1:
 - Fixed exports (all except CSV) being broken.

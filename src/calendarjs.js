@@ -20,7 +20,7 @@
  * @property    {string}    color                                       The color that should be used for the event (overrides all others).
  * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
- * @property    {boolean}   isAllDayEvent                               States if this is an all day event.
+ * @property    {boolean}   isAllDay                                    States if this event is for all day.
  * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
  * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated
  */
@@ -67,7 +67,7 @@
  * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
- * @property    {string}    isAllDayEventText                           The text that should be displayed for the "Is All Day Event" label.
+ * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All Day" label.
  * @property    {string}    titleText                                   The text that should be displayed for the "Title:" label.
  * @property    {string}    descriptionText                             The text that should be displayed for the "Description:" label.
  * @property    {string}    locationText                                The text that should be displayed for the "Location:" label.
@@ -93,7 +93,7 @@
  * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
  * @property    {string}    noText                                      The text that should be displayed for the "No" label.
  * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
- * @property    {string}    allDayEventText                             The text that should be displayed for the "All Day Event" label.
+ * @property    {string}    allDayText                                  The text that should be displayed for the "All Day" label.
  * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
@@ -179,7 +179,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_TimeFrom = null,
         _element_EventEditorDialog_DateTo = null,
         _element_EventEditorDialog_TimeTo = null,
-        _element_EventEditorDialog_IsAllDayEvent = null,
+        _element_EventEditorDialog_IsAllDay = null,
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
@@ -318,7 +318,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
                 for ( var storageGuid in _events[ storageDate ] ) {
                     if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        var result = func( getAdjustedAllDayEventEvent( _events[ storageDate ][ storageGuid ] ), storageDate, storageGuid );
+                        var result = func( getAdjustedAllDayEvent( _events[ storageDate ][ storageGuid ] ), storageDate, storageGuid );
                         if ( result ) {
                             return;
                         }
@@ -334,7 +334,7 @@ function calendarJs( id, options, startDateTime ) {
         } );
 
         events = events.sort( function( a, b ) {
-            return getBooleanAsNumber( b.isAllDayEvent ) - getBooleanAsNumber( a.isAllDayEvent );
+            return getBooleanAsNumber( b.isAllDay ) - getBooleanAsNumber( a.isAllDay );
         } );
 
         return events;
@@ -551,10 +551,10 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function getAdjustedAllDayEventEvent( event ) {
+    function getAdjustedAllDayEvent( event ) {
         var adjustedEvent = event;
 
-        if ( adjustedEvent.isAllDayEvent ) {
+        if ( adjustedEvent.isAllDay ) {
             adjustedEvent.from = new Date( adjustedEvent.from.getFullYear(), adjustedEvent.from.getMonth(), adjustedEvent.from.getDate(), 0, 0 );
             adjustedEvent.to = new Date( adjustedEvent.from.getFullYear(), adjustedEvent.from.getMonth(), adjustedEvent.from.getDate(), 23, 59 );
         }
@@ -768,7 +768,7 @@ function calendarJs( id, options, startDateTime ) {
                 var event = createElement( "div" ),
                     eventTitle = eventDetails.title;
 
-                if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDayEvent && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
                     eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
                 }
 
@@ -904,8 +904,8 @@ function calendarJs( id, options, startDateTime ) {
             }
         } else {
 
-            if ( eventDetails.isAllDayEvent ) {
-                event.className += " all-day-event";
+            if ( eventDetails.isAllDay ) {
+                event.className += " all-day";
             }
         }
     }
@@ -1119,8 +1119,8 @@ function calendarJs( id, options, startDateTime ) {
         event.appendChild( startTime );
 
         if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-            if ( eventDetails.isAllDayEvent ) {
-                startTime.innerHTML = _options.allDayEventText;
+            if ( eventDetails.isAllDay ) {
+                startTime.innerHTML = _options.allDayText;
             } else {
                 startTime.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
             }
@@ -1278,8 +1278,8 @@ function calendarJs( id, options, startDateTime ) {
         event.appendChild( startTime );
 
         if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-            if ( eventDetails.isAllDayEvent ) {
-                buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayEventText );
+            if ( eventDetails.isAllDay ) {
+                buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
             } else {
                 buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
             }
@@ -1584,8 +1584,8 @@ function calendarJs( id, options, startDateTime ) {
         event.appendChild( startTime );
 
         if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-            if ( eventDetails.isAllDayEvent ) {
-                startTime.innerHTML = _options.allDayEventText;
+            if ( eventDetails.isAllDay ) {
+                startTime.innerHTML = _options.allDayText;
             } else {
                 startTime.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
             }
@@ -1948,7 +1948,7 @@ function calendarJs( id, options, startDateTime ) {
                 title: _eventDetails_Dragged.title,
                 description: _eventDetails_Dragged.description,
                 location: _eventDetails_Dragged.location,
-                isAllDayEvent: _eventDetails_Dragged.isAllDayEvent,
+                isAllDay: _eventDetails_Dragged.isAllDay,
                 color: _eventDetails_Dragged.color,
                 colorText: _eventDetails_Dragged.colorText,
                 colorBorder: _eventDetails_Dragged.colorBorder,
@@ -2182,7 +2182,7 @@ function calendarJs( id, options, startDateTime ) {
         contents.appendChild( fromSplitContainer );
 
         _element_EventEditorDialog_DateFrom = createElement( "input" );
-        _element_EventEditorDialog_DateFrom.onchange = isAllDayEventChanged;
+        _element_EventEditorDialog_DateFrom.onchange = isAllDayChanged;
         fromSplitContainer.appendChild( _element_EventEditorDialog_DateFrom );
 
         setInputType( _element_EventEditorDialog_DateFrom, "date" );
@@ -2197,7 +2197,7 @@ function calendarJs( id, options, startDateTime ) {
         contents.appendChild( toSplitContainer );
 
         _element_EventEditorDialog_DateTo = createElement( "input" );
-        _element_EventEditorDialog_DateTo.onchange = isAllDayEventChanged;
+        _element_EventEditorDialog_DateTo.onchange = isAllDayChanged;
         toSplitContainer.appendChild( _element_EventEditorDialog_DateTo );
 
         setInputType( _element_EventEditorDialog_DateTo, "date" );
@@ -2207,7 +2207,7 @@ function calendarJs( id, options, startDateTime ) {
 
         setInputType( _element_EventEditorDialog_TimeTo, "time" );
 
-        _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
+        _element_EventEditorDialog_IsAllDay = buildCheckBox( contents, _options.isAllDayText, isAllDayChanged );
 
         var textRepeatEvery = createElement( "p" );
         textRepeatEvery.innerText = _options.repeatsText;
@@ -2292,10 +2292,10 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.disabled = _element_EventEditorDialog_RepeatEvery_Never.checked;
     }
 
-    function isAllDayEventChanged() {
+    function isAllDayChanged() {
         var disabled = false;
 
-        if ( _element_EventEditorDialog_IsAllDayEvent.checked ) {
+        if ( _element_EventEditorDialog_IsAllDay.checked ) {
             _element_EventEditorDialog_DateTo.value = _element_EventEditorDialog_DateFrom.value;
             _element_EventEditorDialog_TimeFrom.value = "00:00";
             _element_EventEditorDialog_TimeTo.value = "23:59";
@@ -2342,7 +2342,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
             _element_EventEditorDialog_DateTo.value = toFormattedDate( eventDetails.to, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
-            _element_EventEditorDialog_IsAllDayEvent.checked = eventDetails.isAllDayEvent;
+            _element_EventEditorDialog_IsAllDay.checked = eventDetails.isAllDay;
             _element_EventEditorDialog_Title.value = getString( eventDetails.title );
             _element_EventEditorDialog_Description.value = getString( eventDetails.description );
             _element_EventEditorDialog_Location.value = getString( eventDetails.location );
@@ -2389,7 +2389,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
             _element_EventEditorDialog_DateTo.value = toFormattedDate( today, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
-            _element_EventEditorDialog_IsAllDayEvent.checked = false;
+            _element_EventEditorDialog_IsAllDay.checked = false;
             _element_EventEditorDialog_Title.value = "";
             _element_EventEditorDialog_Description.value = "";
             _element_EventEditorDialog_Location.value = "";
@@ -2406,7 +2406,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorExcludeDaysDialog_Sun.checked = false;
         }
 
-        isAllDayEventChanged();
+        isAllDayChanged();
     }
 
     function eventDialogEvent_OK() {
@@ -2442,7 +2442,7 @@ function calendarJs( id, options, startDateTime ) {
                     title: title,
                     description: description,
                     location: location,
-                    isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
+                    isAllDay: _element_EventEditorDialog_IsAllDay.checked,
                     color: _element_EventEditorDialog_EventDetails.color,
                     colorText: _element_EventEditorDialog_EventDetails.colorText,
                     colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
@@ -3144,8 +3144,8 @@ function calendarJs( id, options, startDateTime ) {
                         }
         
                         if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                            if ( eventDetails.isAllDayEvent ) {
-                                _element_Tooltip_Date.innerHTML = _options.allDayEventText;
+                            if ( eventDetails.isAllDay ) {
+                                _element_Tooltip_Date.innerHTML = _options.allDayText;
                             } else {
                                 _element_Tooltip_Date.innerHTML = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
                             }
@@ -3570,7 +3570,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3594,7 +3594,7 @@ function calendarJs( id, options, startDateTime ) {
 
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.from ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.to ) ) );
-        eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDayEvent ) ) );
+        eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDay ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.title ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.description ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.location ) ) );
@@ -3883,7 +3883,7 @@ function calendarJs( id, options, startDateTime ) {
                     storageGuid = event.id;
                 }
 
-                _events[ storageDate ][ storageGuid ] = getAdjustedAllDayEventEvent( event );
+                _events[ storageDate ][ storageGuid ] = getAdjustedAllDayEvent( event );
                 added = true;
 
                 if ( triggerEvent ) {
@@ -4091,8 +4091,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.toText = "To:";
         }
 
-        if ( !isDefined( _options.isAllDayEventText ) ) {
-            _options.isAllDayEventText = "Is All Day Event";
+        if ( !isDefined( _options.isAllDayText ) ) {
+            _options.isAllDayText = "Is All Day";
         }
 
         if ( !isDefined( _options.titleText ) ) {
@@ -4208,8 +4208,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.extraSelectableYearsAhead = 51;
         }
 
-        if ( !isDefined( _options.allDayEventText ) ) {
-            _options.allDayEventText = "All Day Event";
+        if ( !isDefined( _options.allDayText ) ) {
+            _options.allDayText = "All Day";
         }
 
         if ( !isDefined( _options.allEventsText ) ) {

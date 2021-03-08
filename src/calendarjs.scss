@@ -392,8 +392,8 @@ div.calendar {
                 opacity: $event-expired-opacity;
             }
 
-            div.all-day-event {
-                background-color: $event-color-all-day-event !important;
+            div.all-day {
+                background-color: $event-color-all-day !important;
             }
 
             div.plus-x-events {

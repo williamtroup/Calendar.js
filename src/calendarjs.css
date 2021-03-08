@@ -497,7 +497,7 @@ div.calendar div.row div.cell div.expired {
   opacity: 0.7;
 }
 
-div.calendar div.row div.cell div.all-day-event {
+div.calendar div.row div.cell div.all-day {
   background-color: #1b3752 !important;
 }
 
@@ -580,7 +580,7 @@ div.calendar div.full-day-view div.contents div.expired {
   opacity: 0.7;
 }
 
-div.calendar div.full-day-view div.contents div.all-day-event {
+div.calendar div.full-day-view div.contents div.all-day {
   background-color: #1b3752 !important;
 }
 
@@ -741,7 +741,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.expi
   opacity: 0.7;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.events div.all-day-event {
+div.calendar div.list-all-events-view div.contents div.month div.events div.all-day {
   background-color: #1b3752 !important;
 }
 
@@ -900,7 +900,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   opacity: 0.7;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.all-day-event {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.all-day {
   background-color: #1b3752 !important;
 }
 
