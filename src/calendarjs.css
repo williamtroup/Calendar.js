@@ -1056,6 +1056,12 @@ div.event-editor div.view textarea:focus {
 }
 
 div.event-editor div.view input:disabled {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
   background-color: #F5F5F5;
 }
 
