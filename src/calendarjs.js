@@ -1491,7 +1491,7 @@ function calendarJs( id, options, startDateTime ) {
                 }
             }
 
-            if ( repeatAdded ) {
+            if ( repeatAdded && !addedNow ) {
                 _element_ListAllWeekEventsView_EventsShown.push( orderedEvent );
             }
         }
