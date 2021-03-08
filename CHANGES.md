@@ -20,6 +20,7 @@
 - When dragging an event, the target area now shows a highlighted background color.
 - When the "maximumEventsPerDayDisplay" value is reached for events, a new label is shown stating how many more exist.
 - Added Previous/Next buttons to the toolbar for the Weekly and Day view, allowing you to skip back and forth.
+- Fixed a fault tht caused events to appear on the wrong that 9start of week was calculated incorrectly).
 
 ### Version 0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.

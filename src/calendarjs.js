@@ -837,21 +837,22 @@ function calendarJs( id, options, startDateTime ) {
             nextMonth = new Date( _currentDate ),
             previousMonth = new Date( _currentDate ),
             elementDay = null,
-            elementDayNumber = 0;
+            elementDayNumber = 0,
+            firstDayNumber = getWeekdayNumber( firstDay );
         
         nextMonth.setMonth( nextMonth.getMonth() + 1 );
         previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
         if ( date.getMonth() === nextMonth.getMonth() && date.getFullYear() === nextMonth.getFullYear() ) {
-            startDay = firstDay.getDay() + daysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
-            elementDayNumber = ( date.getDate() + startDay ) - 1;
+            startDay = firstDayNumber + daysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
+            elementDayNumber = ( date.getDate() + startDay );
 
         } else if ( date.getMonth() === previousMonth.getMonth() && date.getFullYear() === previousMonth.getFullYear() ) {
-            elementDayNumber = firstDay.getDay() - getTotalDaysBetweenDates( date, _currentDate );
+            elementDayNumber = firstDayNumber - getTotalDaysBetweenDates( date, _currentDate ) + 1;
             
         } else if ( date.getMonth() === _currentDate.getMonth() && date.getFullYear() === _currentDate.getFullYear() ) {
-            startDay = firstDay.getDay();
-            elementDayNumber = ( date.getDate() + startDay ) - 1;
+            startDay = firstDayNumber;
+            elementDayNumber = ( date.getDate() + startDay );
         }
 
         if ( elementDayNumber > 0 ) {
