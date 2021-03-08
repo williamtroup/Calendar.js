@@ -58,9 +58,9 @@
         lastDayInNextMonth.setMonth( lastDayInNextMonth.getMonth() + 1 );
         lastDayInNextMonth.setDate( lastDayInNextMonth.getDate() + daysInMonth( lastDayInNextMonth.getFullYear(), lastDayInNextMonth.getMonth() ) - 1 );
 
-        today.setHours( 0, 0, 0, 0 );
+        today.setHours( 21, 59, 0, 0 );
         today.setDate( today.getDate() + 3 );
-        today3HoursAhead.setHours( 3, 0, 0, 0 );
+        today3HoursAhead.setHours( 23, 59, 0, 0 );
         today3HoursAhead.setDate( today3HoursAhead.getDate() + 3 );
 
         var events = [

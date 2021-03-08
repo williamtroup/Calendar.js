@@ -771,7 +771,7 @@ function calendarJs( id, options, startDateTime ) {
                 event.innerHTML = eventTitle;
                 elementDay.appendChild( event );
 
-                setEventClassesAndColors( eventDetails, event );
+                setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, eventDateFrom ) );
 
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
@@ -881,10 +881,8 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
   
-    function setEventClassesAndColors( eventDetails, event ) {
-        var repeatEvery = getNumber( eventDetails.repeatEvery );
-
-        if ( eventDetails.to < new Date() && repeatEvery === _const_Repeat_Never ) {
+    function setEventClassesAndColors( eventDetails, event, toDate ) {
+        if ( isDefined( toDate ) && toDate < new Date() ) {
             event.className += " expired";
         }
 
@@ -904,6 +902,20 @@ function calendarJs( id, options, startDateTime ) {
                 event.className += " all-day-event";
             }
         }
+    }
+
+    function getToTimeWithPassedDate( eventDetails, date ) {
+        var repeatEvery = getNumber( eventDetails.repeatEvery ),
+            toDate = new Date( eventDetails.to );
+        
+        if ( repeatEvery > _const_Repeat_Never ) {
+            var newCurrentDate = new Date( date );
+            newCurrentDate.setHours( toDate.getHours(), toDate.getMinutes() );
+
+            toDate = newCurrentDate;
+        }
+
+        return toDate;
     }
 
 
@@ -1034,7 +1046,7 @@ function calendarJs( id, options, startDateTime ) {
 
         var orderedEventsLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            buildFullDayDayEvent( orderedEvents[ orderedEventIndex ] );
+            buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date );
         }
 
         if ( _options.exportEventsEnabled ) {
@@ -1062,7 +1074,7 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildFullDayDayEvent( eventDetails ) {
+    function buildFullDayDayEvent( eventDetails, displayDate ) {
         var event = createElement( "div" );
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         _element_FullDayView_Contents.appendChild( event );
@@ -1073,7 +1085,7 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div" );
         title.className = "title";
@@ -1399,7 +1411,7 @@ function calendarJs( id, options, startDateTime ) {
                 if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
                     var dayContents = buildListAllEventsDay( nextDate );
     
-                    buildListAllWeekEventsEvent( orderedEvent, dayContents );
+                    buildListAllWeekEventsEvent( orderedEvent, dayContents, nextDate );
                     added = true;
                 }
 
@@ -1459,7 +1471,7 @@ function calendarJs( id, options, startDateTime ) {
                 if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
                     var dayContents = buildListAllEventsDay( newFromDate );
     
-                    buildListAllWeekEventsEvent( orderedEvent, dayContents );
+                    buildListAllWeekEventsEvent( orderedEvent, dayContents, newFromDate );
                     added = true;
                 }
             }
@@ -1495,7 +1507,7 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildListAllWeekEventsEvent( eventDetails, container ) {
+    function buildListAllWeekEventsEvent( eventDetails, container, displayDate ) {
         var event = createElement( "div" );
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
@@ -1506,7 +1518,7 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div" );
         title.className = "title";
