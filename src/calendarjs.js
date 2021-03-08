@@ -50,6 +50,10 @@
  *
  * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for for the "Previous Month" button.
  * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for for the "Next Month" button.
+ * @property    {string}    previousDayTooltipText                      The tooltip text that should be used for for the "Previous Day" button.
+ * @property    {string}    nextDayTooltipText                          The tooltip text that should be used for for the "Next Day" button.
+ * @property    {string}    previousWeekTooltipText                     The tooltip text that should be used for for the "Previous Week" button.
+ * @property    {string}    nextWeekTooltipText                         The tooltip text that should be used for for the "Next Week" button.
  * @property    {string}    addEventTooltipText                         The tooltip text that should be used for for the "Add Event" button.
  * @property    {string}    closeTooltipText                            The tooltip text that should be used for for the "Close" button.
  * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for for the "Export Events" button.
@@ -966,6 +970,22 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( addEventButton, _options.addEventTooltipText );
         }
 
+        var nextMonthButton = createElement( "div" );
+        nextMonthButton.className = "ib-arrow-right-full";
+        nextMonthButton.onclick = onNextDay;
+        nextMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( nextMonthButton );
+        
+        addToolTip( nextMonthButton, _options.nextDayTooltipText );
+
+        var previousMonthButton = createElement( "div" );
+        previousMonthButton.className = "ib-arrow-left-full";
+        previousMonthButton.onclick = onPreviousDay;
+        previousMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( previousMonthButton );
+        
+        addToolTip( previousMonthButton, _options.previousDayTooltipText );
+
         if ( _options.exportEventsEnabled ) {
             _element_FullDayView_ExportEventsButton = createElement( "div" );
             _element_FullDayView_ExportEventsButton.className = "ib-arrow-down-full-line";
@@ -1134,6 +1154,16 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         _element_FullDayView_EventsShown.push( eventDetails );
+    }
+
+    function onPreviousDay() {
+        _element_FullDayView_DateSelected.setDate( _element_FullDayView_DateSelected.getDate() - 1 );
+        showFullDayView( _element_FullDayView_DateSelected, true );
+    }
+
+    function onNextDay() {
+        _element_FullDayView_DateSelected.setDate( _element_FullDayView_DateSelected.getDate() + 1 );
+        showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
 
@@ -1358,6 +1388,22 @@ function calendarJs( id, options, startDateTime ) {
 
             addToolTip( addEventButton, _options.addEventTooltipText );
         }
+
+        var nextMonthButton = createElement( "div" );
+        nextMonthButton.className = "ib-arrow-right-full";
+        nextMonthButton.onclick = onNextWeek;
+        nextMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( nextMonthButton );
+        
+        addToolTip( nextMonthButton, _options.nextWeekTooltipText );
+
+        var previousMonthButton = createElement( "div" );
+        previousMonthButton.className = "ib-arrow-left-full";
+        previousMonthButton.onclick = onPreviousWeek;
+        previousMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( previousMonthButton );
+        
+        addToolTip( previousMonthButton, _options.previousWeekTooltipText );
 
         if ( _options.exportEventsEnabled ) {
             _element_ListAllWeekEventsView_ExportEventsButton = createElement( "div" );
@@ -1621,6 +1667,16 @@ function calendarJs( id, options, startDateTime ) {
         weekEndDate.setHours( 23, 59, 59, 99 );
         
         return [ weekStartDate, weekEndDate ];
+    }
+
+    function onPreviousWeek() {
+        _element_ListAllWeekEventsView_DateSelected.setDate( _element_ListAllWeekEventsView_DateSelected.getDate() - 7 );
+        showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
+    }
+
+    function onNextWeek() {
+        _element_ListAllWeekEventsView_DateSelected.setDate( _element_ListAllWeekEventsView_DateSelected.getDate() + 7 );
+        showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
     }
 
 
@@ -3947,6 +4003,22 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.nextMonthTooltipText ) ) {
             _options.nextMonthTooltipText = "Next Month";
+        }
+
+        if ( !isDefined( _options.previousDayTooltipText ) ) {
+            _options.previousDayTooltipText = "Previous Day";
+        }
+
+        if ( !isDefined( _options.nextDayTooltipText ) ) {
+            _options.nextDayTooltipText = "Next Day";
+        }
+
+        if ( !isDefined( _options.previousWeekTooltipText ) ) {
+            _options.previousWeekTooltipText = "Previous Week";
+        }
+
+        if ( !isDefined( _options.nextWeekTooltipText ) ) {
+            _options.nextWeekTooltipText = "Next Week";
         }
 
         if ( !isDefined( _options.addEventTooltipText ) ) {

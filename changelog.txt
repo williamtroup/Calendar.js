@@ -17,6 +17,7 @@ v0.5.0:
 - Removed the option "fullDayViewEnabled", as it's no longer needed.
 - When dragging an event, the target area now shows a highlighted background color.
 - When the "maximumEventsPerDayDisplay" value is reached for events, a new label is shown stating how many more exist.
+- Added Previous/Next buttons to the toolbar for the Weekly and Day view, allowing you to skip back and forth.
 
 v0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.

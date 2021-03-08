@@ -549,7 +549,9 @@ div.calendar div.full-day-view div.title-bar div.title {
 
 div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.full-day-view div.title-bar div.ib-plus,
-div.calendar div.full-day-view div.title-bar div.ib-close {
+div.calendar div.full-day-view div.title-bar div.ib-close,
+div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full {
   float: right;
 }
 
@@ -690,7 +692,9 @@ div.calendar div.list-all-events-view div.title-bar div.title {
 
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.list-all-events-view div.title-bar div.ib-plus,
-div.calendar div.list-all-events-view div.title-bar div.ib-close {
+div.calendar div.list-all-events-view div.title-bar div.ib-close,
+div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full {
   float: right;
 }
 
@@ -847,7 +851,9 @@ div.calendar div.list-all-week-events-view div.title-bar div.title {
 
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-plus,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-close {
+div.calendar div.list-all-week-events-view div.title-bar div.ib-close,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full {
   float: right;
 }
 
