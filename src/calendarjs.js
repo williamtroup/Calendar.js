@@ -1451,41 +1451,47 @@ function calendarJs( id, options, startDateTime ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to ) + 1,
                 nextDate = new Date( orderedEvent.from ),
-                added = false;
+                addedNow = false;
             
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
                     var dayContents = buildListAllEventsDay( nextDate );
     
                     buildListAllWeekEventsEvent( orderedEvent, dayContents, nextDate );
-                    added = true;
+                    addedNow = true;
                 }
 
                 nextDate.setDate( nextDate.getDate() + 1 );
             }
 
-            var repeatEvery = getNumber( orderedEvent.repeatEvery );
+            if ( addedNow ) {
+                _element_ListAllWeekEventsView_EventsShown.push( orderedEvent );
+            }
+
+            var repeatEvery = getNumber( orderedEvent.repeatEvery ),
+                repeatAdded = false;
+
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setDate( date.getDate() + 1 );
                     } );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setDate( date.getDate() + 7 );
                     } );
                 } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setMonth( date.getMonth() + 1 );
                     } );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    added = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
                         date.setFullYear( date.getFullYear() + 1 );
                     } );
                 }
             }
 
-            if ( added ) {
+            if ( repeatAdded ) {
                 _element_ListAllWeekEventsView_EventsShown.push( orderedEvent );
             }
         }
