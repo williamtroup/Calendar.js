@@ -1500,7 +1500,7 @@ function calendarJs( id, options, startDateTime ) {
 
         for ( var dateID in _element_ListAllWeekEventsView_Contents_FullView ) {
             if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
-                _element_ListAllWeekEventsView_Contents.append( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
+                _element_ListAllWeekEventsView_Contents.appendChild( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
             }
         }
 
