@@ -2153,11 +2153,11 @@ function calendarJs( id, options, startDateTime ) {
         radioButtonsContainer.className = "radioButtonsContainer";
         contents.appendChild( radioButtonsContainer );
 
-        _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType" );
-        _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType" );
-        _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType" );
-        _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType" );
-        _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType" );
+        _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
 
         _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton = createElement( "input" );
         _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.className = "days-to-exclude";
@@ -2224,6 +2224,10 @@ function calendarJs( id, options, startDateTime ) {
         showEventDialog( null, _element_FullDayView_DateSelected );
     }
 
+    function repeatEveryEvent() {
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.disabled = _element_EventEditorDialog_RepeatEvery_Never.checked;
+    }
+
     function isAllDayEventChanged() {
         var disabled = false;
 
@@ -2254,6 +2258,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.disabled = disabled;
+
+        repeatEveryEvent();
     }
 
     function showEventDialog( eventDetails, overrideTodayDate ) {
@@ -3255,7 +3261,7 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildRadioButton( container, labelText, groupName ) {
+    function buildRadioButton( container, labelText, groupName, onChangeEvent ) {
         var lineContents = createElement( "div" );
         lineContents.className = "radioButtonContainer";
         container.appendChild( lineContents );
@@ -3269,6 +3275,10 @@ function calendarJs( id, options, startDateTime ) {
         input.name = groupName;
         label.appendChild( input );
 
+        if ( isDefined( onChangeEvent ) ) {
+            input.onchange = onChangeEvent;
+        }
+
         var labelSpan = createElement( "span" );
         labelSpan.className = "check-mark";
         label.appendChild( labelSpan );
@@ -3281,7 +3291,7 @@ function calendarJs( id, options, startDateTime ) {
         return input;
     }
 
-    function buildCheckBox( container, labelText, changedEvent ) {
+    function buildCheckBox( container, labelText, onChangeEvent ) {
         var lineContents = createElement( "div" );
         container.appendChild( lineContents );
 
@@ -3294,8 +3304,8 @@ function calendarJs( id, options, startDateTime ) {
         input.type = "checkbox";
         label.appendChild( input );
 
-        if ( isDefined( changedEvent ) ) {
-            input.onchange = changedEvent;
+        if ( isDefined( onChangeEvent ) ) {
+            input.onchange = onChangeEvent;
         }
 
         var labelSpan = createElement( "span" );
