@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.4.0
+ * Calendar.js Library v0.5.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -21,6 +21,8 @@
  * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
  * @property    {boolean}   isAllDayEvent                               States if this is an all day event.
+ * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
+ * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated
  */
 
 
@@ -48,6 +50,10 @@
  *
  * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for for the "Previous Month" button.
  * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for for the "Next Month" button.
+ * @property    {string}    previousDayTooltipText                      The tooltip text that should be used for for the "Previous Day" button.
+ * @property    {string}    nextDayTooltipText                          The tooltip text that should be used for for the "Next Day" button.
+ * @property    {string}    previousWeekTooltipText                     The tooltip text that should be used for for the "Previous Week" button.
+ * @property    {string}    nextWeekTooltipText                         The tooltip text that should be used for for the "Next Week" button.
  * @property    {string}    addEventTooltipText                         The tooltip text that should be used for for the "Add Event" button.
  * @property    {string}    closeTooltipText                            The tooltip text that should be used for for the "Close" button.
  * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for for the "Export Events" button.
@@ -83,7 +89,6 @@
  * @property    {string}    ndText                                      The day ordinal text for "nd".
  * @property    {string}    rdText                                      The day ordinal text for "rd".
  * @property    {string}    thText                                      The day ordinal text for "th".
- * @property    {boolean}   fullDayViewEnabled                          States if viewing all the events in a full day is enabled (defaults to true).
  * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3).
  * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
  * @property    {string}    noText                                      The text that should be displayed for the "No" label.
@@ -112,7 +117,15 @@
  * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
- * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto). 
+ * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
+ * @property    {string}    repeatsText                                 The text that should be displayed for the "Repeats:" label.
+ * @property    {string}    repeatsNever                                The text that should be displayed for the "Never" label.
+ * @property    {string}    repeatsEveryDayText                         The text that should be displayed for the "Every Day" label.
+ * @property    {string}    repeatsEveryWeekText                        The text that should be displayed for the "Every Week" label.
+ * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
+ * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
+ * @property    {string}    selectDaysToExcludeTitle                    The text that should be displayed for the "Select Days To Exclude" label.
+ * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
  */
 
 
@@ -130,17 +143,24 @@
 function calendarJs( id, options, startDateTime ) {
     var _options = {},
         _this = this,
-        _currentDate,
+        _currentDate = null,
+        _largestDateInView = null,
         _elementTypes = {},
         _elements = {},
         _document = null,
         _window = null,
         _elementID = null,
         _initialized = false,
+        _initializedDocumentEvents = false,
         _events = {},
         _timer_RefreshMainDisplay = null,
         _eventDetails_Dragged = null,
         _cachedStyles = null,
+        _const_Repeat_Never = 0,
+        _const_Repeat_EveryDay = 1,
+        _const_Repeat_EveryWeek = 2,
+        _const_Repeat_EveryMonth = 3,
+        _const_Repeat_EveryYear = 4,
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
@@ -162,6 +182,12 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
+        _element_EventEditorDialog_RepeatEvery_Never = null,
+        _element_EventEditorDialog_RepeatEvery_EveryDay = null,
+        _element_EventEditorDialog_RepeatEvery_EveryWeek = null,
+        _element_EventEditorDialog_RepeatEvery_EveryMonth = null,
+        _element_EventEditorDialog_RepeatEvery_EveryYear = null,
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton = null,
         _element_EventEditorDialog_ErrorMessage = null,
         _element_EventEditorDialog_EventDetails = {},
         _element_EventEditorDialog_OKButton = null,
@@ -170,6 +196,14 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorColorsDialog_Color = null,
         _element_EventEditorColorsDialog_ColorText = null,
         _element_EventEditorColorsDialog_ColorBorder = null,
+        _element_EventEditorExcludeDaysDialog = null,
+        _element_EventEditorExcludeDaysDialog_Mon = null,
+        _element_EventEditorExcludeDaysDialog_Tue = null,
+        _element_EventEditorExcludeDaysDialog_Wed = null,
+        _element_EventEditorExcludeDaysDialog_Thu = null,
+        _element_EventEditorExcludeDaysDialog_Fri = null,
+        _element_EventEditorExcludeDaysDialog_Sat = null,
+        _element_EventEditorExcludeDaysDialog_Sun = null,
         _element_FullDayView = null,
         _element_FullDayView_Title = null,
         _element_FullDayView_Contents = null,
@@ -183,6 +217,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_Title = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
         _element_ListAllWeekEventsView_Contents = null,
+        _element_ListAllWeekEventsView_Contents_FullView = {},
+        _element_ListAllWeekEventsView_Contents_FullView_Contents = {},
         _element_ListAllWeekEventsView_EventsShown = [],
         _element_ListAllWeekEventsView_DateSelected = null,
         _element_ConfirmationDialog = null,
@@ -199,11 +235,14 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip = null,
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
+        _element_Tooltip_Repeats = null,
         _element_Tooltip_Description = null,
         _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
         _element_DropDownMenu_Day = null,
-        _element_DropDownMenu_DateSelected = null,
+        _element_DropDownMenu_Day_DateSelected = null,
+        _element_DropDownMenu_Event = null,
+        _element_DropDownMenu_Event_EventDetails = null,
         _element_SearchDialog = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
@@ -233,7 +272,7 @@ function calendarJs( id, options, startDateTime ) {
             startDay = 7;
         }
 
-        hideYearSelectorDropDown();
+        hideAllDropDowns();
 
         buildLayout();
         buildPreviousMonthDays( _currentDate, startDay );
@@ -245,11 +284,13 @@ function calendarJs( id, options, startDateTime ) {
         buildDisabledBackground();
         buildEventEditingDialog();
         buildEventEditingColorDialog();
+        buildEventEditingExcludeDaysDialog();
         buildConfirmationDialog();
         buildSelectExportTypeDialog();
         buildSearchDialog();
         buildTooltip();
         buildDropDownMenus();
+        buildDocumentEvents();
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
     }
@@ -287,9 +328,15 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getOrderedEvents( events ) {
-        return events.sort( function( a, b ) {
+        events = events.sort( function( a, b ) {
             return a.from - b.from;
         } );
+
+        events = events.sort( function( a, b ) {
+            return getBooleanAsNumber( b.isAllDayEvent ) - getBooleanAsNumber( a.isAllDayEvent );
+        } );
+
+        return events;
     }
 
 
@@ -398,9 +445,12 @@ function calendarJs( id, options, startDateTime ) {
 
         var listAllEventsButton = createElement( "div" );
         listAllEventsButton.className = "ib-eye";
-        listAllEventsButton.onclick = showListAllEventsView;
         listAllEventsButton.ondblclick = cancelBubble;
         _element_HeaderDateDisplay.appendChild( listAllEventsButton );
+
+        listAllEventsButton.onclick = function() {
+            showListAllEventsView( true );
+        };
 
         addToolTip( listAllEventsButton, _options.listAllEventsTooltipText );
 
@@ -410,7 +460,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
 
         listWeekEventsButton.onclick = function() {
-            showListAllWeekEventsView();
+            showListAllWeekEventsView( null, true );
         };
 
         addToolTip( listWeekEventsButton, _options.listWeekEventsTooltipText );
@@ -427,31 +477,25 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildYearSelectorDropDown( container ) {
-        if ( _element_HeaderDateDisplay_YearSelector === null ) {
-            var date = new Date( 1900, 1, 1 ),
-                dateCurrent = new Date(),
-                dateYearsTotal = ( dateCurrent.getFullYear() - date.getFullYear() ) + _options.extraSelectableYearsAhead;
+        var date = new Date( 1900, 1, 1 ),
+            dateCurrent = new Date(),
+            dateYearsTotal = ( dateCurrent.getFullYear() - date.getFullYear() ) + _options.extraSelectableYearsAhead;
 
-            _element_HeaderDateDisplay_YearSelector = createElement( "div" );
-            _element_HeaderDateDisplay_YearSelector.className = "years-drop-down";
-            container.appendChild( _element_HeaderDateDisplay_YearSelector );
+        _element_HeaderDateDisplay_YearSelector = createElement( "div" );
+        _element_HeaderDateDisplay_YearSelector.className = "years-drop-down";
+        container.appendChild( _element_HeaderDateDisplay_YearSelector );
 
-            _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div" );
-            _element_HeaderDateDisplay_YearSelector_Contents.className = "contents custom-scroll-bars";
-            _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
+        _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div" );
+        _element_HeaderDateDisplay_YearSelector_Contents.className = "contents custom-scroll-bars";
+        _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
 
-            for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
-                buildYearSelectorDropDownYear( date.getFullYear() );
+        for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
+            buildYearSelectorDropDownYear( date.getFullYear() );
 
-                date.setFullYear( date.getFullYear() + 1 );
-            }
-
-            _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
-
-            _document.body.addEventListener( "click", hideAllDropDowns );
-            _document.body.addEventListener( "contextmenu", hideAllDropDowns );
-            _window.addEventListener( "resize", hideAllDropDowns );
+            date.setFullYear( date.getFullYear() + 1 );
         }
+
+        _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
     }
 
     function buildYearSelectorDropDownYear( actualYear ) {
@@ -528,10 +572,11 @@ function calendarJs( id, options, startDateTime ) {
 
     function showYearSelectorDropDownMenu( e ) {
         if ( _element_HeaderDateDisplay_YearSelector.style.display !== "block" ) {
+            hideAllDropDowns();
             cancelBubble( e );
 
             var yearSelected = _element_HeaderDateDisplay_YearSelector.getElementsByClassName( "current-year-selected" );
-            if ( yearSelected !== null && yearSelected.length >= 1 ) {
+            if ( yearSelected.length >= 1 ) {
 
                 var yearSelectedLength = yearSelected.length;
                 for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
@@ -603,8 +648,26 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Document Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildDocumentEvents() {
+        if ( !_initializedDocumentEvents ) {
+            _document.body.addEventListener( "click", hideAllDropDowns );
+            _document.body.addEventListener( "contextmenu", hideAllDropDowns );
+            _window.addEventListener( "resize", hideAllDropDowns );
+
+            _initializedDocumentEvents = true;
+        }
+    }
+
     function hideAllDropDowns() {
         hideDayDropDownMenu();
+        hideEventDropDownMenu();
         hideYearSelectorDropDown();
         hideTooltip();
     }
@@ -630,10 +693,48 @@ function calendarJs( id, options, startDateTime ) {
             if ( elementDay !== null ) {
                 buildDayEventAcrossDays( orderedEvent );
             }
+
+            var repeatEvery = getNumber( orderedEvent.repeatEvery );
+            if ( repeatEvery > _const_Repeat_Never ) {
+                if ( repeatEvery === _const_Repeat_EveryDay ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setDate( date.getDate() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setDate( date.getDate() + 7 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setMonth( date.getMonth() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                    buildRepeatedDayEvents( orderedEvent, function( date ) {
+                        date.setFullYear( date.getFullYear() + 1 );
+                    } );
+                }
+            }
         }
     
         updateExportButtonsVisibleState( orderedEventsLength );
         startAutoRefreshTimer();
+    }
+
+    function buildRepeatedDayEvents( orderedEvent, dateFunc ) {
+        var newFromDate = new Date( orderedEvent.from ),
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays );
+
+        while ( newFromDate < _largestDateInView ) {
+            dateFunc( newFromDate );
+
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 ) {
+                var repeatDayElement = getDayElement( newFromDate );
+
+                if ( repeatDayElement !== null ) {
+                    buildDayEvent( newFromDate, orderedEvent );
+                }
+            }
+        }
     }
     
     function buildDayEventAcrossDays( orderedEvent ) {
@@ -674,11 +775,17 @@ function calendarJs( id, options, startDateTime ) {
                 event.innerHTML = eventTitle;
                 elementDay.appendChild( event );
 
+                setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, eventDateFrom ) );
+
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
                 };
 
-                setEventClassesAndColors( eventDetails, event );
+                if ( _options.manualEditingEnabled ) {
+                    event.oncontextmenu = function( e ) {
+                        showEventDropDownMenu( e, eventDetails );
+                    };
+                }
     
                 if ( _options.manualEditingEnabled ) {
                     event.onclick = function() {
@@ -692,6 +799,23 @@ function calendarJs( id, options, startDateTime ) {
                     event.ondragstart = function() {
                         _eventDetails_Dragged = eventDetails;
                     };
+                }
+            } else {
+
+                var plusXEvents = elementDay.getElementsByClassName( "plus-x-events" ),
+                    plusXEventsText = plusXEvents.length > 0 ? plusXEvents[ 0 ] : null;
+
+                if ( plusXEventsText === null ) {
+                    plusXEventsText = createElement( "div" );
+                    plusXEventsText.className = "plus-x-events";
+                    plusXEventsText.setAttribute( "events", "1" );
+                    plusXEventsText.innerHTML = "+1 " + _options.moreText;
+                    elementDay.appendChild( plusXEventsText );
+                } else {
+
+                    var numberOfEvents = parseInt( plusXEventsText.getAttribute( "events" ) ) + 1;
+                    plusXEventsText.setAttribute( "events", numberOfEvents.toString() );
+                    plusXEventsText.innerHTML = "+" + numberOfEvents + " " + _options.moreText;
                 }
             }
         }
@@ -713,21 +837,22 @@ function calendarJs( id, options, startDateTime ) {
             nextMonth = new Date( _currentDate ),
             previousMonth = new Date( _currentDate ),
             elementDay = null,
-            elementDayNumber = 0;
+            elementDayNumber = 0,
+            firstDayNumber = getWeekdayNumber( firstDay );
         
         nextMonth.setMonth( nextMonth.getMonth() + 1 );
         previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
         if ( date.getMonth() === nextMonth.getMonth() && date.getFullYear() === nextMonth.getFullYear() ) {
-            startDay = firstDay.getDay() + daysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
-            elementDayNumber = ( date.getDate() + startDay ) - 1;
+            startDay = firstDayNumber + daysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
+            elementDayNumber = ( date.getDate() + startDay );
 
         } else if ( date.getMonth() === previousMonth.getMonth() && date.getFullYear() === previousMonth.getFullYear() ) {
-            elementDayNumber = firstDay.getDay() - getTotalDaysBetweenDates( date, _currentDate );
+            elementDayNumber = firstDayNumber - getTotalDaysBetweenDates( date, _currentDate ) + 1;
             
         } else if ( date.getMonth() === _currentDate.getMonth() && date.getFullYear() === _currentDate.getFullYear() ) {
-            startDay = firstDay.getDay();
-            elementDayNumber = ( date.getDate() + startDay ) - 1;
+            startDay = firstDayNumber;
+            elementDayNumber = ( date.getDate() + startDay );
         }
 
         if ( elementDayNumber > 0 ) {
@@ -749,15 +874,20 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function clearEventsFromDay( elementDay ) {
-        var events = elementDay.getElementsByClassName( _options.manualEditingEnabled ? "event" : "event-no-hover" );
-
-        while ( events[ 0 ] ) {
-            events[ 0 ].parentNode.removeChild( events[ 0 ] );
-        }
+        clearElementsByClassName( elementDay, _options.manualEditingEnabled ? "event" : "event-no-hover" );
+        clearElementsByClassName( elementDay, "plus-x-events" );
     }
 
-    function setEventClassesAndColors( eventDetails, event ) {
-        if ( eventDetails.to < new Date() ) {
+    function clearElementsByClassName( element, className ) {
+        var elements = element.getElementsByClassName( className );
+
+        while ( elements[ 0 ] ) {
+            elements[ 0 ].parentNode.removeChild( elements[ 0 ] );
+        }
+    }
+  
+    function setEventClassesAndColors( eventDetails, event, toDate ) {
+        if ( isDefined( toDate ) && toDate < new Date() ) {
             event.className += " expired";
         }
 
@@ -779,6 +909,20 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function getToTimeWithPassedDate( eventDetails, date ) {
+        var repeatEvery = getNumber( eventDetails.repeatEvery ),
+            toDate = new Date( eventDetails.to );
+        
+        if ( repeatEvery > _const_Repeat_Never ) {
+            var newCurrentDate = new Date( date );
+            newCurrentDate.setHours( toDate.getHours(), toDate.getMinutes() );
+
+            toDate = newCurrentDate;
+        }
+
+        return toDate;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -787,64 +931,78 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildFullDayView( element ) {
-        if ( _element_FullDayView === null ) {
-            _element_FullDayView = createElement( "div" );
-            _element_FullDayView.className = "full-day-view";
-            element.appendChild( _element_FullDayView );
+        _element_FullDayView = createElement( "div" );
+        _element_FullDayView.className = "full-day-view";
+        element.appendChild( _element_FullDayView );
 
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            _element_FullDayView.appendChild( titleBar );
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        _element_FullDayView.appendChild( titleBar );
 
-            if ( _options.fullScreenModeEnabled ) {
-                titleBar.ondblclick = function() {
-                    headerDoubleClick( element );
-                };
-            }
-
-            _element_FullDayView_Title = createElement( "div" );
-            _element_FullDayView_Title.className = "title";
-            titleBar.appendChild( _element_FullDayView_Title );
-
-            var closeButton = createElement( "div" );
-            closeButton.className = "ib-close";
-            closeButton.ondblclick = cancelBubble;
-            titleBar.appendChild( closeButton );
-
-            addToolTip( closeButton, _options.closeTooltipText );
-
-            closeButton.onclick = function() {
-                hideOverlay( _element_FullDayView );
-                _element_FullDayView_DateSelected = null;
+        if ( _options.fullScreenModeEnabled ) {
+            titleBar.ondblclick = function() {
+                headerDoubleClick( element );
             };
-
-            if ( _options.manualEditingEnabled ) {
-                var addEventButton = createElement( "div" );
-                addEventButton.className = "ib-plus";
-                addEventButton.onclick = addNewEvent;
-                addEventButton.ondblclick = cancelBubble;
-                titleBar.appendChild( addEventButton );
-
-                addToolTip( addEventButton, _options.addEventTooltipText );
-            }
-
-            if ( _options.exportEventsEnabled ) {
-                _element_FullDayView_ExportEventsButton = createElement( "div" );
-                _element_FullDayView_ExportEventsButton.className = "ib-arrow-down-full-line";
-                _element_FullDayView_ExportEventsButton.ondblclick = cancelBubble;
-                titleBar.appendChild( _element_FullDayView_ExportEventsButton );
-
-                addToolTip( _element_FullDayView_ExportEventsButton, _options.exportEventsTooltipText );
-
-                _element_FullDayView_ExportEventsButton.onclick = function() {
-                    showSelectExportTypeDialog( _element_FullDayView_EventsShown );
-                };
-            }
-
-            _element_FullDayView_Contents = createElement( "div" );
-            _element_FullDayView_Contents.className = "contents custom-scroll-bars";
-            _element_FullDayView.appendChild( _element_FullDayView_Contents );
         }
+
+        _element_FullDayView_Title = createElement( "div" );
+        _element_FullDayView_Title.className = "title";
+        titleBar.appendChild( _element_FullDayView_Title );
+
+        var closeButton = createElement( "div" );
+        closeButton.className = "ib-close";
+        closeButton.ondblclick = cancelBubble;
+        titleBar.appendChild( closeButton );
+
+        addToolTip( closeButton, _options.closeTooltipText );
+
+        closeButton.onclick = function() {
+            hideOverlay( _element_FullDayView );
+            _element_FullDayView_DateSelected = null;
+        };
+
+        if ( _options.manualEditingEnabled ) {
+            var addEventButton = createElement( "div" );
+            addEventButton.className = "ib-plus";
+            addEventButton.onclick = addNewEvent;
+            addEventButton.ondblclick = cancelBubble;
+            titleBar.appendChild( addEventButton );
+
+            addToolTip( addEventButton, _options.addEventTooltipText );
+        }
+
+        var nextMonthButton = createElement( "div" );
+        nextMonthButton.className = "ib-arrow-right-full";
+        nextMonthButton.onclick = onNextDay;
+        nextMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( nextMonthButton );
+        
+        addToolTip( nextMonthButton, _options.nextDayTooltipText );
+
+        var previousMonthButton = createElement( "div" );
+        previousMonthButton.className = "ib-arrow-left-full";
+        previousMonthButton.onclick = onPreviousDay;
+        previousMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( previousMonthButton );
+        
+        addToolTip( previousMonthButton, _options.previousDayTooltipText );
+
+        if ( _options.exportEventsEnabled ) {
+            _element_FullDayView_ExportEventsButton = createElement( "div" );
+            _element_FullDayView_ExportEventsButton.className = "ib-arrow-down-full-line";
+            _element_FullDayView_ExportEventsButton.ondblclick = cancelBubble;
+            titleBar.appendChild( _element_FullDayView_ExportEventsButton );
+
+            addToolTip( _element_FullDayView_ExportEventsButton, _options.exportEventsTooltipText );
+
+            _element_FullDayView_ExportEventsButton.onclick = function() {
+                showSelectExportTypeDialog( _element_FullDayView_EventsShown );
+            };
+        }
+
+        _element_FullDayView_Contents = createElement( "div" );
+        _element_FullDayView_Contents.className = "contents custom-scroll-bars";
+        _element_FullDayView.appendChild( _element_FullDayView_Contents );
     }
 
     function updateFullDayViewFromEventEdit() {
@@ -853,14 +1011,19 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function showFullDayView( date ) {
-        showOverlay( _element_FullDayView );
+    function showFullDayView( date, fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_Contents.innerHTML = "";
         _element_FullDayView_DateSelected = date;
         _element_FullDayView_EventsShown = [];
 
+        if ( fromOpen ) {
+            _element_FullDayView_Contents.scrollTop = 0;
+        }
+
+        showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
         
         var orderedEvents = [];
@@ -872,9 +1035,31 @@ function calendarJs( id, options, startDateTime ) {
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( nextDate.getFullYear() === date.getFullYear() && nextDate.getMonth() === date.getMonth() && nextDate.getDate() === date.getDate() ) {
                     orderedEvents.push( event );
+                    break;
                 }
 
                 nextDate.setDate( nextDate.getDate() + 1 );
+            }
+            
+            var repeatEvery = getNumber( event.repeatEvery );
+            if ( repeatEvery > _const_Repeat_Never ) {
+                if ( repeatEvery === _const_Repeat_EveryDay ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setDate( date.getDate() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setDate( date.getDate() + 7 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setMonth( date.getMonth() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
+                        date.setFullYear( date.getFullYear() + 1 );
+                    } );
+                }
             }
         } );
 
@@ -882,7 +1067,7 @@ function calendarJs( id, options, startDateTime ) {
 
         var orderedEventsLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            buildFullDayDayEvent( orderedEvents[ orderedEventIndex ] );
+            buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date );
         }
 
         if ( _options.exportEventsEnabled ) {
@@ -894,10 +1079,34 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildFullDayDayEvent( eventDetails ) {
+    function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc ) {
+        var newFromDate = new Date( event.from ),
+            excludeDays = getArray( event.repeatEveryExcludeDays );
+    
+        while ( newFromDate < date ) {
+            dateFunc( newFromDate );
+
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 ) {
+                if ( newFromDate.getFullYear() === date.getFullYear() && newFromDate.getMonth() === date.getMonth() && newFromDate.getDate() === date.getDate() ) {
+                    orderedEvents.push( event );
+                    break;
+                }
+            }
+        }
+    }
+
+    function buildFullDayDayEvent( eventDetails, displayDate ) {
         var event = createElement( "div" );
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         _element_FullDayView_Contents.appendChild( event );
+
+        if ( _options.manualEditingEnabled ) {
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
+        }
+
+        setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div" );
         title.className = "title";
@@ -918,7 +1127,12 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            var repeats = createElement( "div" );
+            repeats.className = "repeats";
+            repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+            event.appendChild( repeats );
+        }
 
         if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
@@ -943,6 +1157,16 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown.push( eventDetails );
     }
 
+    function onPreviousDay() {
+        _element_FullDayView_DateSelected.setDate( _element_FullDayView_DateSelected.getDate() - 1 );
+        showFullDayView( _element_FullDayView_DateSelected, true );
+    }
+
+    function onNextDay() {
+        _element_FullDayView_DateSelected.setDate( _element_FullDayView_DateSelected.getDate() + 1 );
+        showFullDayView( _element_FullDayView_DateSelected, true );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -951,70 +1175,73 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildListAllEventsView( element ) {
-        if ( _element_ListAllEventsView === null ) {
-            _element_ListAllEventsView = createElement( "div" );
-            _element_ListAllEventsView.className = "list-all-events-view";
-            element.appendChild( _element_ListAllEventsView );
+        _element_ListAllEventsView = createElement( "div" );
+        _element_ListAllEventsView.className = "list-all-events-view";
+        element.appendChild( _element_ListAllEventsView );
 
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            _element_ListAllEventsView.appendChild( titleBar );
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        _element_ListAllEventsView.appendChild( titleBar );
 
-            if ( _options.fullScreenModeEnabled ) {
-                titleBar.ondblclick = function() {
-                    headerDoubleClick( element );
-                };
-            }
-
-            var title = createElement( "div" );
-            title.className = "title";
-            title.innerHTML = _options.allEventsText;
-            titleBar.appendChild( title );
-
-            var closeButton = createElement( "div" );
-            closeButton.className = "ib-close";
-            closeButton.ondblclick = cancelBubble;
-            titleBar.appendChild( closeButton );
-
-            addToolTip( closeButton, _options.closeTooltipText );
-
-            closeButton.onclick = function() {
-                hideOverlay( _element_ListAllEventsView );
+        if ( _options.fullScreenModeEnabled ) {
+            titleBar.ondblclick = function() {
+                headerDoubleClick( element );
             };
-
-            if ( _options.manualEditingEnabled ) {
-                var addEventButton = createElement( "div" );
-                addEventButton.className = "ib-plus";
-                addEventButton.onclick = addNewEvent;
-                addEventButton.ondblclick = cancelBubble;
-                titleBar.appendChild( addEventButton );
-
-                addToolTip( addEventButton, _options.addEventTooltipText );
-            }
-
-            if ( _options.exportEventsEnabled ) {
-                _element_ListAllEventsView_ExportEventsButton = createElement( "div" );
-                _element_ListAllEventsView_ExportEventsButton.className = "ib-arrow-down-full-line";
-                _element_ListAllEventsView_ExportEventsButton.ondblclick = cancelBubble;
-                titleBar.appendChild( _element_ListAllEventsView_ExportEventsButton );
-
-                addToolTip( _element_ListAllEventsView_ExportEventsButton, _options.exportEventsTooltipText );
-
-                _element_ListAllEventsView_ExportEventsButton.onclick = function() {
-                    showSelectExportTypeDialog();
-                };                
-            }
-
-            _element_ListAllEventsView_Contents = createElement( "div" );
-            _element_ListAllEventsView_Contents.className = "contents custom-scroll-bars";
-            _element_ListAllEventsView.appendChild( _element_ListAllEventsView_Contents );
         }
+
+        var title = createElement( "div" );
+        title.className = "title";
+        title.innerHTML = _options.allEventsText;
+        titleBar.appendChild( title );
+
+        var closeButton = createElement( "div" );
+        closeButton.className = "ib-close";
+        closeButton.ondblclick = cancelBubble;
+        titleBar.appendChild( closeButton );
+
+        addToolTip( closeButton, _options.closeTooltipText );
+
+        closeButton.onclick = function() {
+            hideOverlay( _element_ListAllEventsView );
+        };
+
+        if ( _options.manualEditingEnabled ) {
+            var addEventButton = createElement( "div" );
+            addEventButton.className = "ib-plus";
+            addEventButton.onclick = addNewEvent;
+            addEventButton.ondblclick = cancelBubble;
+            titleBar.appendChild( addEventButton );
+
+            addToolTip( addEventButton, _options.addEventTooltipText );
+        }
+
+        if ( _options.exportEventsEnabled ) {
+            _element_ListAllEventsView_ExportEventsButton = createElement( "div" );
+            _element_ListAllEventsView_ExportEventsButton.className = "ib-arrow-down-full-line";
+            _element_ListAllEventsView_ExportEventsButton.ondblclick = cancelBubble;
+            titleBar.appendChild( _element_ListAllEventsView_ExportEventsButton );
+
+            addToolTip( _element_ListAllEventsView_ExportEventsButton, _options.exportEventsTooltipText );
+
+            _element_ListAllEventsView_ExportEventsButton.onclick = function() {
+                showSelectExportTypeDialog();
+            };                
+        }
+
+        _element_ListAllEventsView_Contents = createElement( "div" );
+        _element_ListAllEventsView_Contents.className = "contents custom-scroll-bars";
+        _element_ListAllEventsView.appendChild( _element_ListAllEventsView_Contents );
     }
 
-    function showListAllEventsView() {
-        showOverlay( _element_ListAllEventsView );
+    function showListAllEventsView( fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
+        showOverlay( _element_ListAllEventsView );
         _element_ListAllEventsView_Contents.innerHTML = "";
+
+        if ( fromOpen ) {
+            _element_ListAllEventsView_Contents.scrollTop = 0;
+        }
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length;
@@ -1031,6 +1258,14 @@ function calendarJs( id, options, startDateTime ) {
         var event = createElement( "div" );
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
+
+        if ( _options.manualEditingEnabled ) {
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
+        }
+
+        setEventClassesAndColors( eventDetails, event );
 
         var title = createElement( "div" );
         title.className = "title";
@@ -1051,7 +1286,12 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            var repeats = createElement( "div" );
+            repeats.className = "repeats";
+            repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+            event.appendChild( repeats );
+        }
 
         if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
@@ -1111,71 +1351,93 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildListAllWeekEventsView( element ) {
-        if ( _element_ListAllWeekEventsView === null ) {
-            _element_ListAllWeekEventsView = createElement( "div" );
-            _element_ListAllWeekEventsView.className = "list-all-week-events-view";
-            element.appendChild( _element_ListAllWeekEventsView );
+        _element_ListAllWeekEventsView = createElement( "div" );
+        _element_ListAllWeekEventsView.className = "list-all-week-events-view";
+        element.appendChild( _element_ListAllWeekEventsView );
 
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            _element_ListAllWeekEventsView.appendChild( titleBar );
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        _element_ListAllWeekEventsView.appendChild( titleBar );
 
-            if ( _options.fullScreenModeEnabled ) {
-                titleBar.ondblclick = function() {
-                    headerDoubleClick( element );
-                };
-            }
-
-            _element_ListAllWeekEventsView_Title = createElement( "div" );
-            _element_ListAllWeekEventsView_Title.className = "title";
-            titleBar.appendChild( _element_ListAllWeekEventsView_Title );
-
-            var closeButton = createElement( "div" );
-            closeButton.className = "ib-close";
-            closeButton.ondblclick = cancelBubble;
-            titleBar.appendChild( closeButton );
-
-            addToolTip( closeButton, _options.closeTooltipText );
-
-            closeButton.onclick = function() {
-                hideOverlay( _element_ListAllWeekEventsView );
+        if ( _options.fullScreenModeEnabled ) {
+            titleBar.ondblclick = function() {
+                headerDoubleClick( element );
             };
-
-            if ( _options.manualEditingEnabled ) {
-                var addEventButton = createElement( "div" );
-                addEventButton.className = "ib-plus";
-                addEventButton.onclick = addNewEvent;
-                addEventButton.ondblclick = cancelBubble;
-                titleBar.appendChild( addEventButton );
-
-                addToolTip( addEventButton, _options.addEventTooltipText );
-            }
-
-            if ( _options.exportEventsEnabled ) {
-                _element_ListAllWeekEventsView_ExportEventsButton = createElement( "div" );
-                _element_ListAllWeekEventsView_ExportEventsButton.className = "ib-arrow-down-full-line";
-                _element_ListAllWeekEventsView_ExportEventsButton.ondblclick = cancelBubble;
-                titleBar.appendChild( _element_ListAllWeekEventsView_ExportEventsButton );
-
-                addToolTip( _element_ListAllWeekEventsView_ExportEventsButton, _options.exportEventsTooltipText );
-
-                _element_ListAllWeekEventsView_ExportEventsButton.onclick = function() {
-                    showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
-                };                
-            }
-
-            _element_ListAllWeekEventsView_Contents = createElement( "div" );
-            _element_ListAllWeekEventsView_Contents.className = "contents custom-scroll-bars";
-            _element_ListAllWeekEventsView.appendChild( _element_ListAllWeekEventsView_Contents );
         }
+
+        _element_ListAllWeekEventsView_Title = createElement( "div" );
+        _element_ListAllWeekEventsView_Title.className = "title";
+        titleBar.appendChild( _element_ListAllWeekEventsView_Title );
+
+        var closeButton = createElement( "div" );
+        closeButton.className = "ib-close";
+        closeButton.ondblclick = cancelBubble;
+        titleBar.appendChild( closeButton );
+
+        addToolTip( closeButton, _options.closeTooltipText );
+
+        closeButton.onclick = function() {
+            hideOverlay( _element_ListAllWeekEventsView );
+        };
+
+        if ( _options.manualEditingEnabled ) {
+            var addEventButton = createElement( "div" );
+            addEventButton.className = "ib-plus";
+            addEventButton.onclick = addNewEvent;
+            addEventButton.ondblclick = cancelBubble;
+            titleBar.appendChild( addEventButton );
+
+            addToolTip( addEventButton, _options.addEventTooltipText );
+        }
+
+        var nextMonthButton = createElement( "div" );
+        nextMonthButton.className = "ib-arrow-right-full";
+        nextMonthButton.onclick = onNextWeek;
+        nextMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( nextMonthButton );
+        
+        addToolTip( nextMonthButton, _options.nextWeekTooltipText );
+
+        var previousMonthButton = createElement( "div" );
+        previousMonthButton.className = "ib-arrow-left-full";
+        previousMonthButton.onclick = onPreviousWeek;
+        previousMonthButton.ondblclick = cancelBubble;
+        titleBar.appendChild( previousMonthButton );
+        
+        addToolTip( previousMonthButton, _options.previousWeekTooltipText );
+
+        if ( _options.exportEventsEnabled ) {
+            _element_ListAllWeekEventsView_ExportEventsButton = createElement( "div" );
+            _element_ListAllWeekEventsView_ExportEventsButton.className = "ib-arrow-down-full-line";
+            _element_ListAllWeekEventsView_ExportEventsButton.ondblclick = cancelBubble;
+            titleBar.appendChild( _element_ListAllWeekEventsView_ExportEventsButton );
+
+            addToolTip( _element_ListAllWeekEventsView_ExportEventsButton, _options.exportEventsTooltipText );
+
+            _element_ListAllWeekEventsView_ExportEventsButton.onclick = function() {
+                showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
+            };                
+        }
+
+        _element_ListAllWeekEventsView_Contents = createElement( "div" );
+        _element_ListAllWeekEventsView_Contents.className = "contents custom-scroll-bars";
+        _element_ListAllWeekEventsView.appendChild( _element_ListAllWeekEventsView_Contents );
     }
 
-    function showListAllWeekEventsView( weekDate ) {
+    function showListAllWeekEventsView( weekDate, fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
+
         showOverlay( _element_ListAllWeekEventsView );
 
         _element_ListAllWeekEventsView_Contents.innerHTML = "";
+        _element_ListAllWeekEventsView_Contents_FullView = {};
+        _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
         _element_ListAllWeekEventsView_EventsShown = [];
-        _element_ListAllWeekEventsView_DateSelected = weekDate;
+        _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : weekDate;
+
+        if ( fromOpen ) {
+            _element_ListAllWeekEventsView_Contents.scrollTop = 0;
+        }
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
@@ -1190,21 +1452,54 @@ function calendarJs( id, options, startDateTime ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to ) + 1,
                 nextDate = new Date( orderedEvent.from ),
-                added = false;
+                addedNow = false;
             
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
                     var dayContents = buildListAllEventsDay( nextDate );
     
-                    buildListAllWeekEventsEvent( orderedEvent, dayContents );
-                    added = true;
+                    buildListAllWeekEventsEvent( orderedEvent, dayContents, nextDate );
+                    addedNow = true;
                 }
 
                 nextDate.setDate( nextDate.getDate() + 1 );
             }
 
-            if ( added ) {
+            if ( addedNow ) {
                 _element_ListAllWeekEventsView_EventsShown.push( orderedEvent );
+            }
+
+            var repeatEvery = getNumber( orderedEvent.repeatEvery ),
+                repeatAdded = false;
+
+            if ( repeatEvery > _const_Repeat_Never ) {
+                if ( repeatEvery === _const_Repeat_EveryDay ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setDate( date.getDate() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setDate( date.getDate() + 7 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setMonth( date.getMonth() + 1 );
+                    } );
+                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
+                        date.setFullYear( date.getFullYear() + 1 );
+                    } );
+                }
+            }
+
+            if ( repeatAdded && !addedNow ) {
+                _element_ListAllWeekEventsView_EventsShown.push( orderedEvent );
+            }
+        }
+
+        for ( var dateID in _element_ListAllWeekEventsView_Contents_FullView ) {
+            if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
+                _element_ListAllWeekEventsView_Contents.append( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
             }
         }
 
@@ -1215,6 +1510,27 @@ function calendarJs( id, options, startDateTime ) {
                 _element_ListAllWeekEventsView_ExportEventsButton.style.display = "inline-block";
             }
         }
+    }
+
+    function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc ) {
+        var newFromDate = new Date( orderedEvent.from ),
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
+            added = false;
+    
+        while ( newFromDate < weekEndDate ) {
+            dateFunc( newFromDate );
+            
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 ) {
+                if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
+                    var dayContents = buildListAllEventsDay( newFromDate );
+    
+                    buildListAllWeekEventsEvent( orderedEvent, dayContents, newFromDate );
+                    added = true;
+                }
+            }
+        }
+
+        return added;
     }
 
     function setAllWeekEventsViewTitle( weekStartDate, weekEndDate ) {
@@ -1244,10 +1560,18 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildListAllWeekEventsEvent( eventDetails, container ) {
+    function buildListAllWeekEventsEvent( eventDetails, container, displayDate ) {
         var event = createElement( "div" );
         event.className = _options.manualEditingEnabled ? "event" : "event-no-hover";
         container.appendChild( event );
+
+        if ( _options.manualEditingEnabled ) {
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
+        }
+
+        setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div" );
         title.className = "title";
@@ -1268,7 +1592,12 @@ function calendarJs( id, options, startDateTime ) {
             buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            var repeats = createElement( "div" );
+            repeats.className = "repeats";
+            repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+            event.appendChild( repeats );
+        }
 
         if ( isDefinedStringAndSet( eventDetails.location ) ) {
             var location = createElement( "div" );
@@ -1293,13 +1622,13 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
-            dayContentsID = "day-" + weekDayNumber,
-            dayContents = getElementByID( dayContentsID );
-        
-        if ( dayContents === null ) {
+            dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
+            dayContents = null;
+
+        if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
             var day = createElement( "div" );
             day.className = "day";
-            _element_ListAllWeekEventsView_Contents.appendChild( day );
+            _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
 
             var header = createElement( "div" );
             header.className = "header";
@@ -1308,9 +1637,13 @@ function calendarJs( id, options, startDateTime ) {
             buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
 
             dayContents = createElement( "div" );
-            dayContents.id = dayContentsID;
             dayContents.className = "events";
             day.appendChild( dayContents );
+
+            _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = dayContents;
+
+        } else {
+            dayContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
         }
 
         return dayContents;
@@ -1341,6 +1674,16 @@ function calendarJs( id, options, startDateTime ) {
         weekEndDate.setHours( 23, 59, 59, 99 );
         
         return [ weekStartDate, weekEndDate ];
+    }
+
+    function onPreviousWeek() {
+        _element_ListAllWeekEventsView_DateSelected.setDate( _element_ListAllWeekEventsView_DateSelected.getDate() - 7 );
+        showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
+    }
+
+    function onNextWeek() {
+        _element_ListAllWeekEventsView_DateSelected.setDate( _element_ListAllWeekEventsView_DateSelected.getDate() + 7 );
+        showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
     }
 
 
@@ -1443,12 +1786,14 @@ function calendarJs( id, options, startDateTime ) {
             previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
             var totalDaysInMonth = daysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
-                elementDayNumber = 1;
+                elementDayNumber = 1,
+                dayStart = ( totalDaysInMonth - startDay ) + 1;
 
-            for ( var day = ( totalDaysInMonth - startDay ) + 1; day < totalDaysInMonth; day++ ) {
+            for ( var day = dayStart; day < totalDaysInMonth; day++ ) {
                 buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true );
                 elementDayNumber++;
             }
+
         }
     }
 
@@ -1475,6 +1820,14 @@ function calendarJs( id, options, startDateTime ) {
                 buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true );
                 actualDay++;
             }
+
+            var nextDay = daysInMonth( nextMonth.getFullYear(), nextMonth.getMonth() );
+            nextDay = Math.round( nextDay / 2 );
+
+            _largestDateInView = new Date( nextMonth.getFullYear(), nextMonth.getMonth(), nextDay );
+
+        } else {
+            _largestDateInView = null;
         }
     }
 
@@ -1506,18 +1859,16 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         dayElement.appendChild( dayText );
+        
+        var expandDayButton = createElement( "div" );
+        expandDayButton.className = "expand-day";
+        dayElement.appendChild( expandDayButton );
 
-        if ( _options.fullDayViewEnabled ) {
-            var expandDayButton = createElement( "div" );
-            expandDayButton.className = "expand-day";
-            dayElement.appendChild( expandDayButton );
+        addToolTip( expandDayButton, _options.expandDayTooltipText );
 
-            addToolTip( expandDayButton, _options.expandDayTooltipText );
-    
-            expandDayButton.onclick = function() {
-                showFullDayView( dayDate );
-            };
-        }
+        expandDayButton.onclick = function() {
+            showFullDayView( dayDate, true );
+        };
 
         if ( _options.manualEditingEnabled ) {
             dayElement.ondblclick = function() {
@@ -1527,12 +1878,36 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.manualEditingEnabled ) {
                 dayElement.ondragover = function( e ) {
                     cancelBubble( e );
+                    showDraggingEffect( dayElement );
+                };
+
+                dayElement.ondragenter = function( e ) {
+                    cancelBubble( e );
+                    showDraggingEffect( dayElement );
+                };
+
+                dayElement.ondragleave = function( e ) {
+                    cancelBubble( e );
+                    hideDraggingEffect( dayElement );
                 };
         
                 dayElement.ondrop = function( e ) {
                     dropEventOnDay( e, year, month, actualDay );
+                    hideDraggingEffect( dayElement );
                 };
             }
+        }
+    }
+
+    function showDraggingEffect( dayElement ) {
+        if ( dayElement.className.indexOf( " drag-over" ) === -1 ) {
+            dayElement.className += " drag-over";
+        }
+    }
+
+    function hideDraggingEffect( dayElement ) {
+        if ( dayElement.className.indexOf( " drag-over" ) > -1 ) {
+            dayElement.className = dayElement.className.replace( " drag-over", "" );
         }
     }
 
@@ -1575,7 +1950,9 @@ function calendarJs( id, options, startDateTime ) {
                 isAllDayEvent: _eventDetails_Dragged.isAllDayEvent,
                 color: _eventDetails_Dragged.color,
                 colorText: _eventDetails_Dragged.colorText,
-                colorBorder: _eventDetails_Dragged.colorBorder
+                colorBorder: _eventDetails_Dragged.colorBorder,
+                repeatEvery: _eventDetails_Dragged.repeatEvery,
+                repeatEveryExcludeDays: _eventDetails_Dragged.repeatEveryExcludeDays
             };
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
@@ -1591,25 +1968,32 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDropDownMenus() {
         buildDayDropDownMenu();
+        buildEventDropDownMenu();
     }
 
     function buildDayDropDownMenu() {
+        if (_element_DropDownMenu_Day !== null) {
+            removeNode( _document.body, _element_DropDownMenu_Day );
+        }
+
         _element_DropDownMenu_Day = createElement( "div" );
         _element_DropDownMenu_Day.className = "calendar-drop-down-menu";
         _document.body.appendChild( _element_DropDownMenu_Day );
-        
-        var addEvent = createElement( "div" );
-        addEvent.className = "item";
-        addEvent.innerHTML = _options.addEventTitle;
-        _element_DropDownMenu_Day.appendChild( addEvent );
 
-        addEvent.onclick = function() {
-            showEventDialog( null, _element_DropDownMenu_DateSelected );
-        };
-
-        var separator1 = createElement( "div" );
-        separator1.className = "separator";
-        _element_DropDownMenu_Day.appendChild( separator1 );
+        if ( _options.manualEditingEnabled ) {
+            var addEvent = createElement( "div" );
+            addEvent.className = "item";
+            addEvent.innerHTML = _options.addEventTitle;
+            _element_DropDownMenu_Day.appendChild( addEvent );
+    
+            addEvent.onclick = function() {
+                showEventDialog( null, _element_DropDownMenu_Day_DateSelected );
+            };
+    
+            var separator1 = createElement( "div" );
+            separator1.className = "separator";
+            _element_DropDownMenu_Day.appendChild( separator1 );
+        }
 
         var expandDay = createElement( "div" );
         expandDay.className = "item";
@@ -1617,7 +2001,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day.appendChild( expandDay );
 
         expandDay.onclick = function() {
-            showFullDayView( _element_DropDownMenu_DateSelected );
+            showFullDayView( _element_DropDownMenu_Day_DateSelected, true );
         };
 
         var separator2 = createElement( "div" );
@@ -1630,16 +2014,73 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Day.appendChild( viewCurrentWeekEvents );
 
         viewCurrentWeekEvents.onclick = function() {
-            showListAllWeekEventsView( _element_DropDownMenu_DateSelected );
+            showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
         };
     }
 
+    function buildEventDropDownMenu() {
+        if (_element_DropDownMenu_Event !== null) {
+            removeNode( _document.body, _element_DropDownMenu_Event );
+        }
+
+        if ( _options.manualEditingEnabled ) {
+            _element_DropDownMenu_Event = createElement( "div" );
+            _element_DropDownMenu_Event.className = "calendar-drop-down-menu";
+            _document.body.appendChild( _element_DropDownMenu_Event );
+            
+            var remove = createElement( "div" );
+            remove.className = "item";
+            remove.innerHTML = _options.removeEventText;
+            _element_DropDownMenu_Event.appendChild( remove );
+    
+            remove.onclick = function() {
+                addNode( _document.body, _element_DisabledBackground );
+    
+                var onNoEvent = function() {
+                    removeNode( _document.body, _element_DisabledBackground );
+                };
+    
+                var onYesEvent = function() {
+                    onNoEvent();
+    
+                    if ( isDefined( _element_DropDownMenu_Event_EventDetails.id ) ) {
+                        _this.removeEvent( _element_DropDownMenu_Event_EventDetails.id, true );
+                        refreshOpenedViews();
+                    }
+                };
+        
+                showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
+            };
+    
+            var separator1 = createElement( "div" );
+            separator1.className = "separator";
+            _element_DropDownMenu_Event.appendChild( separator1 );
+    
+            var editEvent = createElement( "div" );
+            editEvent.className = "item";
+            editEvent.innerHTML = _options.editEventTitle;
+            _element_DropDownMenu_Event.appendChild( editEvent );
+    
+            editEvent.onclick = function() {
+                showEventDialog( _element_DropDownMenu_Event_EventDetails );
+            };
+        }
+    }
+
     function showDayDropDownMenu( e, date ) {
-        _element_DropDownMenu_DateSelected = date;
+        _element_DropDownMenu_Day_DateSelected = date;
 
         hideAllDropDowns();
         cancelBubble( e );
         showElementAtMousePosition( e, _element_DropDownMenu_Day );
+    }
+
+    function showEventDropDownMenu( e, eventDetails ) {
+        _element_DropDownMenu_Event_EventDetails = eventDetails;
+
+        hideAllDropDowns();
+        cancelBubble( e );
+        showElementAtMousePosition( e, _element_DropDownMenu_Event );
     }
 
     function hideDayDropDownMenu() {
@@ -1648,8 +2089,18 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function hideEventDropDownMenu() {
+        if ( isEventDropDownMenuVisible() ) {
+            _element_DropDownMenu_Event.style.display = "none";
+        }
+    }
+
     function isDayDropDownMenuVisible() {
-        return _element_DropDownMenu_Day.style.display === "block";
+        return _element_DropDownMenu_Day !== null && _element_DropDownMenu_Day.style.display === "block";
+    }
+
+    function isEventDropDownMenuVisible() {
+        return _element_DropDownMenu_Event !== null && _element_DropDownMenu_Event.style.display === "block";
     }
 
 
@@ -1678,130 +2129,150 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildEventEditingDialog() {
-        if ( _element_EventEditorDialog === null ) {
-            _element_EventEditorDialog = createElement( "div" );
-            _element_EventEditorDialog.className = "calendar-dialog event-editor";
-            _document.body.appendChild( _element_EventEditorDialog );
-
-            var view = createElement( "div" );
-            view.className = "view";
-            _element_EventEditorDialog.appendChild( view );
-
-            _element_EventEditorDialog_DisabledArea = createElement( "div" );
-            _element_EventEditorDialog_DisabledArea.className = "disabled-area";
-            view.appendChild( _element_EventEditorDialog_DisabledArea );
-
-            _element_EventEditorDialog_TitleBar = createElement( "div" );
-            _element_EventEditorDialog_TitleBar.className = "title-bar";
-            view.appendChild( _element_EventEditorDialog_TitleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            view.appendChild( contents );
-
-            var textTitle = createElement( "p" );
-            textTitle.innerText = _options.titleText;
-            contents.appendChild( textTitle );
-
-            var inputTitleContainer = createElement( "div" );
-            inputTitleContainer.className = "input-title-container";
-            contents.appendChild( inputTitleContainer );
-
-            _element_EventEditorDialog_Title = createElement( "input" );
-            _element_EventEditorDialog_Title.type = "text";
-            inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
-
-            var selectColorsButton = createElement( "input" );
-            selectColorsButton.className = "select-colors";
-            selectColorsButton.type = "button";
-            selectColorsButton.value = "...";
-            selectColorsButton.onclick = showEventEditorColorsDialog;
-            inputTitleContainer.appendChild( selectColorsButton );
-
-            var textFrom = createElement( "p" );
-            textFrom.innerText = _options.fromText;
-            contents.appendChild( textFrom );
-
-            var fromSplitContainer = createElement( "div" );
-            fromSplitContainer.className = "split";
-            contents.appendChild( fromSplitContainer );
-
-            _element_EventEditorDialog_DateFrom = createElement( "input" );
-            _element_EventEditorDialog_DateFrom.onchange = isAllDayEventChanged;
-            fromSplitContainer.appendChild( _element_EventEditorDialog_DateFrom );
-
-            setInputType( _element_EventEditorDialog_DateFrom, "date" );
-
-            _element_EventEditorDialog_TimeFrom = createElement( "input" );
-            fromSplitContainer.appendChild( _element_EventEditorDialog_TimeFrom );
-
-            setInputType( _element_EventEditorDialog_TimeFrom, "time" );
-
-            _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
-
-            var textTo = createElement( "p" );
-            textTo.innerText = _options.toText;
-            contents.appendChild( textTo );
-
-            var toSplitContainer = createElement( "div" );
-            toSplitContainer.className = "split";
-            contents.appendChild( toSplitContainer );
-
-            _element_EventEditorDialog_DateTo = createElement( "input" );
-            toSplitContainer.appendChild( _element_EventEditorDialog_DateTo );
-
-            setInputType( _element_EventEditorDialog_DateTo, "date" );
-
-            _element_EventEditorDialog_TimeTo = createElement( "input" );
-            toSplitContainer.appendChild( _element_EventEditorDialog_TimeTo );
-
-            setInputType( _element_EventEditorDialog_TimeTo, "time" );
-
-            var textLocation = createElement( "p" );
-            textLocation.innerText = _options.locationText;
-            contents.appendChild( textLocation );
-
-            _element_EventEditorDialog_Location = createElement( "input" );
-            _element_EventEditorDialog_Location.type = "text";
-            contents.appendChild( _element_EventEditorDialog_Location );
-
-            var textDescription = createElement( "p" );
-            textDescription.innerText = _options.descriptionText;
-            contents.appendChild( textDescription );
-
-            _element_EventEditorDialog_Description = createElement( "textarea" );
-            _element_EventEditorDialog_Description.className = "custom-scroll-bars";
-            contents.appendChild( _element_EventEditorDialog_Description );
-
-            _element_EventEditorDialog_ErrorMessage = createElement( "p" );
-            _element_EventEditorDialog_ErrorMessage.className = "error";
-            contents.appendChild( _element_EventEditorDialog_ErrorMessage );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            _element_EventEditorDialog_OKButton = createElement( "input" );
-            _element_EventEditorDialog_OKButton.className = "ok";
-            _element_EventEditorDialog_OKButton.type = "button";
-            _element_EventEditorDialog_OKButton.value = _options.addText;
-            _element_EventEditorDialog_OKButton.onclick = eventDialogEvent_OK;
-            buttonsSplitContainer.appendChild( _element_EventEditorDialog_OKButton );
-
-            var cancelButton = createElement( "input" );
-            cancelButton.className = "cancel";
-            cancelButton.type = "button";
-            cancelButton.value = _options.cancelText;
-            cancelButton.onclick = eventDialogEvent_Cancel;
-            buttonsSplitContainer.appendChild( cancelButton );
-
-            _element_EventEditorDialog_RemoveButton = createElement( "input" );
-            _element_EventEditorDialog_RemoveButton.className = "remove";
-            _element_EventEditorDialog_RemoveButton.type = "button";
-            _element_EventEditorDialog_RemoveButton.value = _options.removeEventText;
-            _element_EventEditorDialog_RemoveButton.onclick = eventDialogEvent_Remove;
-            contents.appendChild( _element_EventEditorDialog_RemoveButton );
+        if ( _element_EventEditorDialog !== null ) {
+            removeNode( _document.body, _element_EventEditorDialog );
         }
+
+        _element_EventEditorDialog = createElement( "div" );
+        _element_EventEditorDialog.className = "calendar-dialog event-editor";
+        _document.body.appendChild( _element_EventEditorDialog );
+
+        var view = createElement( "div" );
+        view.className = "view";
+        _element_EventEditorDialog.appendChild( view );
+
+        _element_EventEditorDialog_DisabledArea = createElement( "div" );
+        _element_EventEditorDialog_DisabledArea.className = "disabled-area";
+        view.appendChild( _element_EventEditorDialog_DisabledArea );
+
+        _element_EventEditorDialog_TitleBar = createElement( "div" );
+        _element_EventEditorDialog_TitleBar.className = "title-bar";
+        view.appendChild( _element_EventEditorDialog_TitleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        view.appendChild( contents );
+
+        var textTitle = createElement( "p" );
+        textTitle.innerText = _options.titleText;
+        contents.appendChild( textTitle );
+
+        var inputTitleContainer = createElement( "div" );
+        inputTitleContainer.className = "input-title-container";
+        contents.appendChild( inputTitleContainer );
+
+        _element_EventEditorDialog_Title = createElement( "input" );
+        _element_EventEditorDialog_Title.type = "text";
+        inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
+
+        var selectColorsButton = createElement( "input" );
+        selectColorsButton.className = "select-colors";
+        selectColorsButton.type = "button";
+        selectColorsButton.value = "...";
+        selectColorsButton.onclick = showEventEditorColorsDialog;
+        inputTitleContainer.appendChild( selectColorsButton );
+
+        var textFrom = createElement( "p" );
+        textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
+        contents.appendChild( textFrom );
+
+        var fromSplitContainer = createElement( "div" );
+        fromSplitContainer.className = "split";
+        contents.appendChild( fromSplitContainer );
+
+        _element_EventEditorDialog_DateFrom = createElement( "input" );
+        _element_EventEditorDialog_DateFrom.onchange = isAllDayEventChanged;
+        fromSplitContainer.appendChild( _element_EventEditorDialog_DateFrom );
+
+        setInputType( _element_EventEditorDialog_DateFrom, "date" );
+
+        _element_EventEditorDialog_TimeFrom = createElement( "input" );
+        fromSplitContainer.appendChild( _element_EventEditorDialog_TimeFrom );
+
+        setInputType( _element_EventEditorDialog_TimeFrom, "time" );
+
+        var toSplitContainer = createElement( "div" );
+        toSplitContainer.className = "split";
+        contents.appendChild( toSplitContainer );
+
+        _element_EventEditorDialog_DateTo = createElement( "input" );
+        _element_EventEditorDialog_DateTo.onchange = isAllDayEventChanged;
+        toSplitContainer.appendChild( _element_EventEditorDialog_DateTo );
+
+        setInputType( _element_EventEditorDialog_DateTo, "date" );
+
+        _element_EventEditorDialog_TimeTo = createElement( "input" );
+        toSplitContainer.appendChild( _element_EventEditorDialog_TimeTo );
+
+        setInputType( _element_EventEditorDialog_TimeTo, "time" );
+
+        _element_EventEditorDialog_IsAllDayEvent = buildCheckBox( contents, _options.isAllDayEventText, isAllDayEventChanged );
+
+        var textRepeatEvery = createElement( "p" );
+        textRepeatEvery.innerText = _options.repeatsText;
+        contents.appendChild( textRepeatEvery );
+
+        var radioButtonsContainer = createElement( "div" );
+        radioButtonsContainer.className = "radioButtonsContainer";
+        contents.appendChild( radioButtonsContainer );
+
+        _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
+
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton = createElement( "input" );
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.className = "days-to-exclude";
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.type = "button";
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.value = "...";
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.onclick = showEventEditorExcludeDaysDialog;
+        radioButtonsContainer.appendChild( _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton );
+
+        var textLocation = createElement( "p" );
+        textLocation.innerText = _options.locationText;
+        contents.appendChild( textLocation );
+
+        _element_EventEditorDialog_Location = createElement( "input" );
+        _element_EventEditorDialog_Location.type = "text";
+        contents.appendChild( _element_EventEditorDialog_Location );
+
+        var textDescription = createElement( "p" );
+        textDescription.innerText = _options.descriptionText;
+        contents.appendChild( textDescription );
+
+        _element_EventEditorDialog_Description = createElement( "textarea" );
+        _element_EventEditorDialog_Description.className = "custom-scroll-bars";
+        contents.appendChild( _element_EventEditorDialog_Description );
+
+        _element_EventEditorDialog_ErrorMessage = createElement( "p" );
+        _element_EventEditorDialog_ErrorMessage.className = "error";
+        contents.appendChild( _element_EventEditorDialog_ErrorMessage );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        _element_EventEditorDialog_OKButton = createElement( "input" );
+        _element_EventEditorDialog_OKButton.className = "ok";
+        _element_EventEditorDialog_OKButton.type = "button";
+        _element_EventEditorDialog_OKButton.value = _options.addText;
+        _element_EventEditorDialog_OKButton.onclick = eventDialogEvent_OK;
+        buttonsSplitContainer.appendChild( _element_EventEditorDialog_OKButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = eventDialogEvent_Cancel;
+        buttonsSplitContainer.appendChild( cancelButton );
+
+        _element_EventEditorDialog_RemoveButton = createElement( "input" );
+        _element_EventEditorDialog_RemoveButton.className = "remove";
+        _element_EventEditorDialog_RemoveButton.type = "button";
+        _element_EventEditorDialog_RemoveButton.value = _options.removeEventText;
+        _element_EventEditorDialog_RemoveButton.onclick = eventDialogEvent_Remove;
+        contents.appendChild( _element_EventEditorDialog_RemoveButton );
     }
 
     function setInputType( input, type ) {
@@ -1814,6 +2285,10 @@ function calendarJs( id, options, startDateTime ) {
 
     function addNewEvent() {
         showEventDialog( null, _element_FullDayView_DateSelected );
+    }
+
+    function repeatEveryEvent() {
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.disabled = _element_EventEditorDialog_RepeatEvery_Never.checked;
     }
 
     function isAllDayEventChanged() {
@@ -1829,6 +2304,25 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_DateTo.disabled = disabled;
         _element_EventEditorDialog_TimeFrom.disabled = disabled;
         _element_EventEditorDialog_TimeTo.disabled = disabled;
+
+        var fromDate = getSelectedDate( _element_EventEditorDialog_DateFrom ),
+            toDate = getSelectedDate( _element_EventEditorDialog_DateTo );
+
+        if ( toDate > fromDate || toDate < fromDate ) {
+            disabled = true;
+            _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+        } else {
+            disabled = false;
+        }
+
+        _element_EventEditorDialog_RepeatEvery_Never.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryDay.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_DaysToExcludeButton.disabled = disabled;
+
+        repeatEveryEvent();
     }
 
     function showEventDialog( eventDetails, overrideTodayDate ) {
@@ -1854,7 +2348,30 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
             _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
             _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
+
+            var repeatEvery = getNumber( eventDetails.repeatEvery );
+            if ( repeatEvery === _const_Repeat_Never ) {
+                _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryDay ) {
+                _element_EventEditorDialog_RepeatEvery_EveryDay.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                _element_EventEditorDialog_RepeatEvery_EveryWeek.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
+            } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
+            }
+
+            var excludeDays = getArray( eventDetails.repeatEveryExcludeDays );
+            _element_EventEditorExcludeDaysDialog_Mon.checked = excludeDays.indexOf( 1 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Tue.checked = excludeDays.indexOf( 2 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Wed.checked = excludeDays.indexOf( 3 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Thu.checked = excludeDays.indexOf( 4 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Fri.checked = excludeDays.indexOf( 5 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Sat.checked = excludeDays.indexOf( 6 ) > -1;
+            _element_EventEditorExcludeDaysDialog_Sun.checked = excludeDays.indexOf( 0 ) > -1;
         } else {
+
             var date = new Date(),
                 today = !isDefined( overrideTodayDate ) ? date : overrideTodayDate;
 
@@ -1878,6 +2395,14 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_Color.value = "#484848";
             _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
             _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
+            _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+            _element_EventEditorExcludeDaysDialog_Mon.checked = false;
+            _element_EventEditorExcludeDaysDialog_Tue.checked = false;
+            _element_EventEditorExcludeDaysDialog_Wed.checked = false;
+            _element_EventEditorExcludeDaysDialog_Thu.checked = false;
+            _element_EventEditorExcludeDaysDialog_Fri.checked = false;
+            _element_EventEditorExcludeDaysDialog_Sat.checked = false;
+            _element_EventEditorExcludeDaysDialog_Sun.checked = false;
         }
 
         isAllDayEventChanged();
@@ -1896,37 +2421,54 @@ function calendarJs( id, options, startDateTime ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
         } else if ( toTime.length < 2 ) {
             showEventDialogErrorMessage( _options.toTimeErrorMessage, _element_EventEditorDialog_TimeTo );
-        } else if ( toDate < fromDate ) {
-            showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
         } else if ( title === "" ) {
             showEventDialogErrorMessage( _options.titleErrorMessage, _element_EventEditorDialog_Title );
         }
         else {
 
-            eventDialogEvent_Cancel();
             setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
             setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
 
-            var newEvent = {
-                from: fromDate,
-                to: toDate,
-                title: title,
-                description: description,
-                location: location,
-                isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
-                color: _element_EventEditorDialog_EventDetails.color,
-                colorText: _element_EventEditorDialog_EventDetails.colorText,
-                colorBorder: _element_EventEditorDialog_EventDetails.colorBorder
-            };
-
-            if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
-                _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
+            if ( toDate < fromDate ) {
+                showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
             } else {
-                _this.addEvent( newEvent, false );
-            }
+                
+                eventDialogEvent_Cancel();
 
-            buildDayEvents();
-            refreshOpenedViews();
+                var newEvent = {
+                    from: fromDate,
+                    to: toDate,
+                    title: title,
+                    description: description,
+                    location: location,
+                    isAllDayEvent: _element_EventEditorDialog_IsAllDayEvent.checked,
+                    color: _element_EventEditorDialog_EventDetails.color,
+                    colorText: _element_EventEditorDialog_EventDetails.colorText,
+                    colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
+                    repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays
+                };
+    
+                if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_Never;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryDay.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_EveryDay;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_EveryWeek;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_EveryMonth;
+                } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_EveryYear;
+                }
+    
+                if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
+                    _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
+                } else {
+                    _this.addEvent( newEvent, false );
+                }
+    
+                buildDayEvents();
+                refreshOpenedViews();
+            }
         }
     }
 
@@ -2047,65 +2589,67 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildEventEditingColorDialog() {
-        if ( _element_EventEditorColorsDialog === null ) {
-            _element_EventEditorColorsDialog = createElement( "div" );
-            _element_EventEditorColorsDialog.className = "calendar-dialog event-editor-colors";
-            _document.body.appendChild( _element_EventEditorColorsDialog );
-
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            titleBar.innerHTML = _options.selectColorsText;
-            _element_EventEditorColorsDialog.appendChild( titleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_EventEditorColorsDialog.appendChild( contents );
-
-            var backgroundColorText = createElement( "p" );
-            backgroundColorText.innerText = _options.backgroundColorText;
-            contents.appendChild( backgroundColorText );
-
-            _element_EventEditorColorsDialog_Color = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_Color );
-
-            setInputType( _element_EventEditorColorsDialog_Color, "color" );
-
-            var textColorText = createElement( "p" );
-            textColorText.innerText = _options.textColorText;
-            contents.appendChild( textColorText );
-
-            _element_EventEditorColorsDialog_ColorText = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_ColorText );
-
-            setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
-
-            var borderColorText = createElement( "p" );
-            borderColorText.innerText = _options.borderColorText;
-            contents.appendChild( borderColorText );
-
-            _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
-
-            setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            var okButton = createElement( "input" );
-            okButton.className = "ok";
-            okButton.type = "button";
-            okButton.value = _options.okText;
-            okButton.onclick = eventColorsDialogEvent_OK;
-            buttonsSplitContainer.appendChild( okButton );
-
-            var cancelButton = createElement( "input" );
-            cancelButton.className = "cancel";
-            cancelButton.type = "button";
-            cancelButton.value = _options.cancelText;
-            cancelButton.onclick = eventColorsDialogEvent_Cancel;
-            buttonsSplitContainer.appendChild( cancelButton );
+        if ( _element_EventEditorColorsDialog !== null ) {
+            removeNode( _document.body, _element_EventEditorColorsDialog );
         }
+
+        _element_EventEditorColorsDialog = createElement( "div" );
+        _element_EventEditorColorsDialog.className = "calendar-dialog event-editor-colors";
+        _document.body.appendChild( _element_EventEditorColorsDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.selectColorsText;
+        _element_EventEditorColorsDialog.appendChild( titleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_EventEditorColorsDialog.appendChild( contents );
+
+        var backgroundColorText = createElement( "p" );
+        backgroundColorText.innerText = _options.backgroundColorText;
+        contents.appendChild( backgroundColorText );
+
+        _element_EventEditorColorsDialog_Color = createElement( "input" );
+        contents.appendChild( _element_EventEditorColorsDialog_Color );
+
+        setInputType( _element_EventEditorColorsDialog_Color, "color" );
+
+        var textColorText = createElement( "p" );
+        textColorText.innerText = _options.textColorText;
+        contents.appendChild( textColorText );
+
+        _element_EventEditorColorsDialog_ColorText = createElement( "input" );
+        contents.appendChild( _element_EventEditorColorsDialog_ColorText );
+
+        setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
+
+        var borderColorText = createElement( "p" );
+        borderColorText.innerText = _options.borderColorText;
+        contents.appendChild( borderColorText );
+
+        _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
+        contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
+
+        setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        var okButton = createElement( "input" );
+        okButton.className = "ok";
+        okButton.type = "button";
+        okButton.value = _options.okText;
+        okButton.onclick = eventColorsDialogEvent_OK;
+        buttonsSplitContainer.appendChild( okButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = eventColorsDialogEvent_Cancel;
+        buttonsSplitContainer.appendChild( cancelButton );
     }
 
     function eventColorsDialogEvent_OK() {
@@ -2129,44 +2673,144 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Event Editing Exclude Days Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildEventEditingExcludeDaysDialog() {
+        if ( _element_EventEditorExcludeDaysDialog !== null ) {
+            removeNode( _document.body, _element_EventEditorExcludeDaysDialog );
+        }
+
+        _element_EventEditorExcludeDaysDialog = createElement( "div" );
+        _element_EventEditorExcludeDaysDialog.className = "calendar-dialog event-editor-exclude-days";
+        _document.body.appendChild( _element_EventEditorExcludeDaysDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.selectDaysToExcludeTitle;
+        _element_EventEditorExcludeDaysDialog.appendChild( titleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_EventEditorExcludeDaysDialog.appendChild( contents );
+
+        _element_EventEditorExcludeDaysDialog_Mon = buildCheckBox( contents, _options.dayNames[ 0 ] );
+        _element_EventEditorExcludeDaysDialog_Tue = buildCheckBox( contents, _options.dayNames[ 1 ] );
+        _element_EventEditorExcludeDaysDialog_Wed = buildCheckBox( contents, _options.dayNames[ 2 ] );
+        _element_EventEditorExcludeDaysDialog_Thu = buildCheckBox( contents, _options.dayNames[ 3 ] );
+        _element_EventEditorExcludeDaysDialog_Fri = buildCheckBox( contents, _options.dayNames[ 4 ] );
+        _element_EventEditorExcludeDaysDialog_Sat = buildCheckBox( contents, _options.dayNames[ 5 ] );
+        _element_EventEditorExcludeDaysDialog_Sun = buildCheckBox( contents, _options.dayNames[ 6 ] );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        var okButton = createElement( "input" );
+        okButton.className = "ok";
+        okButton.type = "button";
+        okButton.value = _options.okText;
+        okButton.onclick = eventExcludeDaysDialogEvent_OK;
+        buttonsSplitContainer.appendChild( okButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = eventExcludeDaysDialogEvent_Cancel;
+        buttonsSplitContainer.appendChild( cancelButton );
+    }
+
+    function eventExcludeDaysDialogEvent_OK() {
+        eventExcludeDaysDialogEvent_Cancel();
+
+        var repeatEveryExcludeDays = [];
+
+        if ( _element_EventEditorExcludeDaysDialog_Mon.checked ) {
+            repeatEveryExcludeDays.push( 1 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Tue.checked ) {
+            repeatEveryExcludeDays.push( 2 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Wed.checked ) {
+            repeatEveryExcludeDays.push( 3 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Thu.checked ) {
+            repeatEveryExcludeDays.push( 4 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Fri.checked ) {
+            repeatEveryExcludeDays.push( 5 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Sat.checked ) {
+            repeatEveryExcludeDays.push( 6 );
+        }
+
+        if ( _element_EventEditorExcludeDaysDialog_Sun.checked ) {
+            repeatEveryExcludeDays.push( 0 );
+        }
+
+        _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays = repeatEveryExcludeDays;
+    }
+
+    function eventExcludeDaysDialogEvent_Cancel() {
+        _element_EventEditorExcludeDaysDialog.style.display = "none";
+        _element_EventEditorDialog_DisabledArea.style.display = "none";
+    }
+
+    function showEventEditorExcludeDaysDialog() {
+        _element_EventEditorExcludeDaysDialog.style.display = "block";
+        _element_EventEditorDialog_DisabledArea.style.display = "block";
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Build Confirmation Dialog
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
     function buildConfirmationDialog() {
-        if ( _element_ConfirmationDialog === null ) {
-            _element_ConfirmationDialog = createElement( "div" );
-            _element_ConfirmationDialog.className = "calendar-dialog confirmation";
-            _document.body.appendChild( _element_ConfirmationDialog );
-
-            _element_ConfirmationDialog_TitleBar = createElement( "div" );
-            _element_ConfirmationDialog_TitleBar.className = "title-bar";
-            _element_ConfirmationDialog.appendChild( _element_ConfirmationDialog_TitleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_ConfirmationDialog.appendChild( contents );
-
-            _element_ConfirmationDialog_Message = createElement( "div" );
-            _element_ConfirmationDialog_Message.className = "message";
-            contents.appendChild( _element_ConfirmationDialog_Message );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            _element_ConfirmationDialog_YesButton = createElement( "input" );
-            _element_ConfirmationDialog_YesButton.className = "yes";
-            _element_ConfirmationDialog_YesButton.type = "button";
-            _element_ConfirmationDialog_YesButton.value = _options.yesText;
-            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_YesButton );
-
-            _element_ConfirmationDialog_NoButton = createElement( "input" );
-            _element_ConfirmationDialog_NoButton.className = "no";
-            _element_ConfirmationDialog_NoButton.type = "button";
-            _element_ConfirmationDialog_NoButton.value = _options.noText;
-            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_NoButton );
+        if ( _element_ConfirmationDialog !== null ) {
+            removeNode( _document.body, _element_ConfirmationDialog );
         }
+
+        _element_ConfirmationDialog = createElement( "div" );
+        _element_ConfirmationDialog.className = "calendar-dialog confirmation";
+        _document.body.appendChild( _element_ConfirmationDialog );
+
+        _element_ConfirmationDialog_TitleBar = createElement( "div" );
+        _element_ConfirmationDialog_TitleBar.className = "title-bar";
+        _element_ConfirmationDialog.appendChild( _element_ConfirmationDialog_TitleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_ConfirmationDialog.appendChild( contents );
+
+        _element_ConfirmationDialog_Message = createElement( "div" );
+        _element_ConfirmationDialog_Message.className = "message";
+        contents.appendChild( _element_ConfirmationDialog_Message );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        _element_ConfirmationDialog_YesButton = createElement( "input" );
+        _element_ConfirmationDialog_YesButton.className = "yes";
+        _element_ConfirmationDialog_YesButton.type = "button";
+        _element_ConfirmationDialog_YesButton.value = _options.yesText;
+        buttonsSplitContainer.appendChild( _element_ConfirmationDialog_YesButton );
+
+        _element_ConfirmationDialog_NoButton = createElement( "input" );
+        _element_ConfirmationDialog_NoButton.className = "no";
+        _element_ConfirmationDialog_NoButton.type = "button";
+        _element_ConfirmationDialog_NoButton.value = _options.noText;
+        buttonsSplitContainer.appendChild( _element_ConfirmationDialog_NoButton );
     }
 
     function showConfirmationDialog( title, message, onYesEvent, onNoEvent ) {
@@ -2194,43 +2838,49 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildSelectExportTypeDialog() {
-        if ( _element_SelectExportTypeDialog === null ) {
-            _element_SelectExportTypeDialog = createElement( "div" );
-            _element_SelectExportTypeDialog.className = "calendar-dialog select-export-type";
-            _document.body.appendChild( _element_SelectExportTypeDialog );
-
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            titleBar.innerHTML = _options.selectExportTypeTitle;
-            _element_SelectExportTypeDialog.appendChild( titleBar );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_SelectExportTypeDialog.appendChild( contents );
-
-            _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( contents, "CSV", "ExportType" );
-            _element_SelectExportTypeDialog_Option_XML = buildRadioButton( contents, "XML", "ExportType" );
-            _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( contents, "JSON", "ExportType" );
-            _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( contents, "TEXT", "ExportType" );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            var okButton = createElement( "input" );
-            okButton.className = "ok";
-            okButton.type = "button";
-            okButton.value = _options.okText;
-            okButton.onclick = exportEventsFromOptionSelected;
-            buttonsSplitContainer.appendChild( okButton );
-
-            var cancelButton = createElement( "input" );
-            cancelButton.className = "cancel";
-            cancelButton.type = "button";
-            cancelButton.value = _options.cancelText;
-            cancelButton.onclick = hideSelectExportTypeDialog;
-            buttonsSplitContainer.appendChild( cancelButton );
+        if ( _element_SelectExportTypeDialog !== null ) {
+            removeNode( _document.body, _element_SelectExportTypeDialog );
         }
+
+        _element_SelectExportTypeDialog = createElement( "div" );
+        _element_SelectExportTypeDialog.className = "calendar-dialog select-export-type";
+        _document.body.appendChild( _element_SelectExportTypeDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.selectExportTypeTitle;
+        _element_SelectExportTypeDialog.appendChild( titleBar );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_SelectExportTypeDialog.appendChild( contents );
+
+        var radioButtonsContainer = createElement( "div" );
+        radioButtonsContainer.className = "radioButtonsContainer";
+        contents.appendChild( radioButtonsContainer );
+
+        _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer, "CSV", "ExportType" );
+        _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer, "XML", "ExportType" );
+        _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
+        _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        var okButton = createElement( "input" );
+        okButton.className = "ok";
+        okButton.type = "button";
+        okButton.value = _options.okText;
+        okButton.onclick = exportEventsFromOptionSelected;
+        buttonsSplitContainer.appendChild( okButton );
+
+        var cancelButton = createElement( "input" );
+        cancelButton.className = "cancel";
+        cancelButton.type = "button";
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = hideSelectExportTypeDialog;
+        buttonsSplitContainer.appendChild( cancelButton );
     }
 
     function showSelectExportTypeDialog( events ) {
@@ -2268,61 +2918,63 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildSearchDialog() {
         if ( _element_SearchDialog === null ) {
-            _element_SearchDialog = createElement( "div" );
-            _element_SearchDialog.className = "calendar-dialog search";
-            _document.body.appendChild( _element_SearchDialog );
-
-            var titleBar = createElement( "div" );
-            titleBar.className = "title-bar";
-            titleBar.innerHTML = _options.searchEventsTitle;
-            titleBar.onmousedown = searchOnTitleBarMouseDown;
-            titleBar.onmouseup = searchOnTitleBarMouseUp;
-            _element_SearchDialog.appendChild( titleBar );
-
-            var closeButton = createElement( "div" );
-            closeButton.className = "ib-close";
-            closeButton.onclick = hideSearchDialog;
-            titleBar.appendChild( closeButton );
-
-            addToolTip( closeButton, _options.closeTooltipText );
-
-            var contents = createElement( "div" );
-            contents.className = "contents";
-            _element_SearchDialog.appendChild( contents );
-
-            var textFor = createElement( "p" );
-            textFor.innerText = _options.forText;
-            contents.appendChild( textFor );
-
-            _element_SearchDialog_For = createElement( "input" );
-            _element_SearchDialog_For.type = "text";
-            _element_SearchDialog_For.oninput = searchForTextChanged;
-            _element_SearchDialog_For.onpropertychange = searchForTextChanged;
-            _element_SearchDialog_For.onkeypress = searchOnEnter;
-            contents.appendChild( _element_SearchDialog_For );
-            
-            _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText );
-
-            var buttonsSplitContainer = createElement( "div" );
-            buttonsSplitContainer.className = "split";
-            contents.appendChild( buttonsSplitContainer );
-
-            _element_SearchDialog_Previous = createElement( "input" );
-            _element_SearchDialog_Previous.className = "previous";
-            _element_SearchDialog_Previous.type = "button";
-            _element_SearchDialog_Previous.value = _options.previousText;
-            _element_SearchDialog_Previous.onclick = searchOnPrevious;
-            buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
-
-            _element_SearchDialog_Next = createElement( "input" );
-            _element_SearchDialog_Next.className = "next";
-            _element_SearchDialog_Next.type = "button";
-            _element_SearchDialog_Next.value = _options.nextText;
-            _element_SearchDialog_Next.onclick = searchOnNext;
-            buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
-
-            _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
+            removeNode( _document.body, _element_SearchDialog );
         }
+
+        _element_SearchDialog = createElement( "div" );
+        _element_SearchDialog.className = "calendar-dialog search";
+        _document.body.appendChild( _element_SearchDialog );
+
+        var titleBar = createElement( "div" );
+        titleBar.className = "title-bar";
+        titleBar.innerHTML = _options.searchEventsTitle;
+        titleBar.onmousedown = searchOnTitleBarMouseDown;
+        titleBar.onmouseup = searchOnTitleBarMouseUp;
+        _element_SearchDialog.appendChild( titleBar );
+
+        var closeButton = createElement( "div" );
+        closeButton.className = "ib-close";
+        closeButton.onclick = hideSearchDialog;
+        titleBar.appendChild( closeButton );
+
+        addToolTip( closeButton, _options.closeTooltipText );
+
+        var contents = createElement( "div" );
+        contents.className = "contents";
+        _element_SearchDialog.appendChild( contents );
+
+        var textFor = createElement( "p" );
+        textFor.innerText = _options.forText;
+        contents.appendChild( textFor );
+
+        _element_SearchDialog_For = createElement( "input" );
+        _element_SearchDialog_For.type = "text";
+        _element_SearchDialog_For.oninput = searchForTextChanged;
+        _element_SearchDialog_For.onpropertychange = searchForTextChanged;
+        _element_SearchDialog_For.onkeypress = searchOnEnter;
+        contents.appendChild( _element_SearchDialog_For );
+        
+        _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText );
+
+        var buttonsSplitContainer = createElement( "div" );
+        buttonsSplitContainer.className = "split";
+        contents.appendChild( buttonsSplitContainer );
+
+        _element_SearchDialog_Previous = createElement( "input" );
+        _element_SearchDialog_Previous.className = "previous";
+        _element_SearchDialog_Previous.type = "button";
+        _element_SearchDialog_Previous.value = _options.previousText;
+        _element_SearchDialog_Previous.onclick = searchOnPrevious;
+        buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
+
+        _element_SearchDialog_Next = createElement( "input" );
+        _element_SearchDialog_Next.className = "next";
+        _element_SearchDialog_Next.type = "button";
+        _element_SearchDialog_Next.value = _options.nextText;
+        _element_SearchDialog_Next.onclick = searchOnNext;
+        buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
+
+        _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
     }
 
     function searchOnTitleBarMouseDown( e ) {
@@ -2432,6 +3084,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip_Date = createElement( "div" );
             _element_Tooltip_Date.className = "date";
 
+            _element_Tooltip_Repeats = createElement( "div" );
+            _element_Tooltip_Repeats.className = "repeats";
+
             _element_Tooltip_Description = createElement( "div" );
             _element_Tooltip_Description.className = "description";
 
@@ -2449,7 +3104,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _element_Tooltip.style.display !== "block" ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
+                if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -2462,6 +3117,14 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip_Title.innerHTML = eventDetails.title;
+
+                        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                            _element_Tooltip_Repeats.innerHTML = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+                            addNode( _element_Tooltip, _element_Tooltip_Repeats );
+                        } else {
+                            _element_Tooltip_Repeats.innerHTML = "";
+                            removeNode( _element_Tooltip, _element_Tooltip_Repeats );
+                        }
 
                         if ( isDefinedStringAndSet( eventDetails.location ) ) {
                             _element_Tooltip_Location.innerHTML = eventDetails.location;
@@ -2500,7 +3163,7 @@ function calendarJs( id, options, startDateTime ) {
     function hideTooltip() {
         clearTooltipTimer();
 
-        if ( _element_Tooltip.style.display !== "none" ) {
+        if ( isTooltipVisible() ) {
             _element_Tooltip.style.display = "none";
         }
     }
@@ -2513,7 +3176,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function isTooltipVisible() {
-        return _element_Tooltip.style.display === "block" || _element_Tooltip_ShowTimer !== null;
+        return _element_Tooltip_ShowTimer !== null || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
     }
 
     function addToolTip( element, text ) {
@@ -2545,7 +3208,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function refreshViews() {
-        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() ) {
+        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) {
             refreshOpenedViews();
             buildDayEvents();
         }
@@ -2661,13 +3324,13 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildRadioButton( container, labelText, groupName ) {
+    function buildRadioButton( container, labelText, groupName, onChangeEvent ) {
         var lineContents = createElement( "div" );
+        lineContents.className = "radioButtonContainer";
         container.appendChild( lineContents );
 
         var label = createElement( "label" );
         label.className = "radioButton";
-        label.innerText = labelText;
         lineContents.appendChild( label );
 
         var input = createElement( "input" );
@@ -2675,14 +3338,23 @@ function calendarJs( id, options, startDateTime ) {
         input.name = groupName;
         label.appendChild( input );
 
+        if ( isDefined( onChangeEvent ) ) {
+            input.onchange = onChangeEvent;
+        }
+
         var labelSpan = createElement( "span" );
         labelSpan.className = "check-mark";
         label.appendChild( labelSpan );
 
+        var labelSpanText = createElement( "span" );
+        labelSpanText.className = "text";
+        labelSpanText.innerText = labelText;
+        label.appendChild( labelSpanText );
+
         return input;
     }
 
-    function buildCheckBox( container, labelText, changedEvent ) {
+    function buildCheckBox( container, labelText, onChangeEvent ) {
         var lineContents = createElement( "div" );
         container.appendChild( lineContents );
 
@@ -2695,8 +3367,8 @@ function calendarJs( id, options, startDateTime ) {
         input.type = "checkbox";
         label.appendChild( input );
 
-        if ( isDefined( changedEvent ) ) {
-            input.onchange = changedEvent;
+        if ( isDefined( onChangeEvent ) ) {
+            input.onchange = onChangeEvent;
         }
 
         var labelSpan = createElement( "span" );
@@ -2727,6 +3399,18 @@ function calendarJs( id, options, startDateTime ) {
 
     function isDefinedString( object ) {
         return isDefined( object ) && typeof object === "string";
+    }
+
+    function isDefinedNumber( object ) {
+        return isDefined( object ) && typeof object === "number";
+    }
+
+    function isDefinedBoolean( object ) {
+        return isDefined( object ) && typeof object === "boolean";
+    }
+
+    function isDefinedArray( object ) {
+        return isDefined( object ) && typeof object === "object" && object instanceof Array;
     }
 
     function isDefinedStringAndSet( object ) {
@@ -2807,23 +3491,65 @@ function calendarJs( id, options, startDateTime ) {
         return date + " " + time;
     }
 
-    function getString( string, defaultValue ) {
+    function getString( value, defaultValue ) {
         defaultValue = isDefined( defaultValue ) ? defaultValue : "";
 
-        return isDefinedString( string ) ? string : defaultValue;
+        return isDefinedString( value ) ? value : defaultValue;
+    }
+
+    function getNumber( value, defaultValue ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
+
+        return isDefinedNumber( value ) ? value : defaultValue;
+    }
+
+    function getBooleanAsNumber( value, defaultValue  ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
+
+        return isDefinedBoolean( value ) ? value ? 1 : 0 : defaultValue;
+    }
+
+    function getArray( value, defaultValue ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : [];
+
+        return isDefinedArray( value ) ? value : defaultValue;
+    }
+
+    function getRepeatsText( value ) {
+        var result = _options.repeatsNever,
+            repeatEvery = getNumber( value );
+
+        if ( repeatEvery === _const_Repeat_EveryDay ) {
+            result = _options.repeatsEveryDayText;
+        } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+            result = _options.repeatsEveryWeekText;
+        } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+            result = _options.repeatsEveryMonthText;
+        } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+            result = _options.repeatsEveryYearText;
+        }
+
+        return result;
     }
 
     function getPropertyName( name ) {
         return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
     }
 
-    function getPropertyValue( value ) {
+    function getPropertyValue( name, value ) {
         var result = getString( value );
 
         if ( typeof value === "boolean" ) {
             result = getYesNoFromBoolean( value );
         } else if ( typeof value === "object" ) {
             result = getStringFromDateTime( value );
+        } else if ( typeof value === "number" ) {
+
+            if ( name === "repeatEvery" ) {
+                result = getRepeatsText( value );
+            } else {
+                result = value.toString();
+            }
         }
 
         return result;
@@ -2837,7 +3563,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayEventText, _options.titleText, _options.descriptionText, _options.locationText, _options.repeatsText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -2865,7 +3591,8 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getString( eventDetails.title ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.description ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.location ) ) );
-
+        eventContents.push( getCsvValue( getRepeatsText( eventDetails.repeatEvery ) ) );
+        
         csvContents.push( getCsvValueLine( eventContents ) );
     }
 
@@ -2903,7 +3630,7 @@ function calendarJs( id, options, startDateTime ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
                     var newPropertyName = getPropertyName( propertyName );
                     
-                    xmlContents.push( "<" + newPropertyName + ">" + getPropertyValue( orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
+                    xmlContents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
                 }
             }
     
@@ -2935,7 +3662,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    jsonContents.push( "\"" + propertyName + "\":\"" + getPropertyValue( orderedEvent[ propertyName ] ) + "\"," );
+                    jsonContents.push( "\"" + propertyName + "\":\"" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "\"," );
                 }
             }
 
@@ -2968,7 +3695,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    textContents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( orderedEvent[ propertyName ] ) );
+                    textContents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
                 }
             }
     
@@ -3285,6 +4012,22 @@ function calendarJs( id, options, startDateTime ) {
             _options.nextMonthTooltipText = "Next Month";
         }
 
+        if ( !isDefined( _options.previousDayTooltipText ) ) {
+            _options.previousDayTooltipText = "Previous Day";
+        }
+
+        if ( !isDefined( _options.nextDayTooltipText ) ) {
+            _options.nextDayTooltipText = "Next Day";
+        }
+
+        if ( !isDefined( _options.previousWeekTooltipText ) ) {
+            _options.previousWeekTooltipText = "Previous Week";
+        }
+
+        if ( !isDefined( _options.nextWeekTooltipText ) ) {
+            _options.nextWeekTooltipText = "Next Week";
+        }
+
         if ( !isDefined( _options.addEventTooltipText ) ) {
             _options.addEventTooltipText = "Add Event";
         }
@@ -3366,7 +4109,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.removeEventText ) ) {
-            _options.removeEventText = "Remove Event";
+            _options.removeEventText = "Remove";
         }
 
         if ( !isDefined( _options.addEventTitle ) ) {
@@ -3436,10 +4179,6 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.thText ) ) {
             _options.thText = "th";
-        }
-
-        if ( !isDefined( _options.fullDayViewEnabled ) ) {
-            _options.fullDayViewEnabled = true;
         }
 
         if ( !isDefined( _options.maximumEventsPerDayDisplay ) ) {
@@ -3556,6 +4295,44 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.minimumDayHeight ) ) {
             _options.minimumDayHeight = 0;
+        }
+
+        if ( !isDefined( _options.repeatsText ) ) {
+            _options.repeatsText = "Repeats:";
+        }
+
+        if ( !isDefined( _options.repeatsNever ) ) {
+            _options.repeatsNever = "Never";
+        }
+
+        if ( !isDefined( _options.repeatsEveryDayText ) ) {
+            _options.repeatsEveryDayText = "Every Day";
+        }
+
+        if ( !isDefined( _options.repeatsEveryWeekText ) ) {
+            _options.repeatsEveryWeekText = "Every Week";
+        }
+
+        if ( !isDefined( _options.repeatsEveryMonthText ) ) {
+            _options.repeatsEveryMonthText = "Every Month";
+        }
+
+        if ( !isDefined( _options.repeatsEveryYearText ) ) {
+            _options.repeatsEveryYearText = "Every Year";
+        }
+
+        if ( !isDefined( _options.selectDaysToExcludeTitle ) ) {
+            _options.selectDaysToExcludeTitle = "Select Days To Exclude";
+        }
+
+        if ( !isDefined( _options.moreText ) ) {
+            _options.moreText = "More";
+        }
+
+        if ( _initialized ) {
+            _initialized = false;
+
+            build( _currentDate );
         }
     };
 

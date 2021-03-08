@@ -1,4 +1,28 @@
-v0.4.0:
+# Calendar.js Change Log:
+
+### Version 0.5.0:
+- When an API is called that forces a redraw of the main display, all drop down menus are now hidden.
+- Calling the public method "setOptions()" now rebuilds to the main display using the new settings.
+- Fixed a fault that caused events to be assigned to the document/window more than once.
+- Fixed a fault that prevented the Day drop-down menu from closing when opening the Year Selector drop-down menu.
+- The From/To Date/Times on the Event Editor dialog are now joined up (uses less space).
+- Fixed a fault that prevented the views from jumping back to the top of the view when opened again.
+- Fixed a fault that caused the Full Day date checker loop to keep going (even after finding the event is on that day).
+- Fixed an ordering fault in the Weekly View (the days would be ordered in the order they were found, not by date).
+- Better responsive sizes for toolbar icons and font-sizes.
+- Added event (repeatsEvery) repeating support (every day, week, month and year), with new text settings.
+- Added event (repeatEveryExcludeDays) exclude days for repeating events support (editable via a new dialog).
+- Added a new context menu for events (with quick access to Remove and Edit) to all views.
+- Fixed a fault that allowed a To time to be smaller than a From time on the Event Editor (for the same day).
+- Fixed some of the editing menus items being available when manual editing of events is disabled.
+- Decreased the default width of the "Select Colors" dialog.
+- Removed the option "fullDayViewEnabled", as it's no longer needed.
+- When dragging an event, the target area now shows a highlighted background color.
+- When the "maximumEventsPerDayDisplay" value is reached for events, a new label is shown stating how many more exist.
+- Added Previous/Next buttons to the toolbar for the Weekly and Day view, allowing you to skip back and forth.
+- Fixed a fault tht caused events to appear on the wrong that 9start of week was calculated incorrectly).
+
+### Version 0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
 - Removed unneeded class variables.
 - All title-bar icons now use the "PureCSS" generated images, giving a much cleaner look and feel.
@@ -28,7 +52,7 @@ v0.4.0:
 - The element that will hold the Calendar is now cleared before building starts (was causing some strange display issues).
 - More JSDoc documentation improvements and type fixes.
 
-v0.3.0:
+### Version 0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
 - The custom scroll-bar now has :hover and :active selectors.
 - Added support to use the custom tooltip for every tooltip throughout the views.
@@ -59,7 +83,7 @@ v0.3.0:
 - Fixed an error removing the description from a tooltip when it's not required.
 - Safer node adding/removing across the core code.
 
-v0.2.0:
+### Version 0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
 - A confirmation dialog is now shown when removing an event.
 - Added "Select Export Type" dialog, with CSV, XML, JSON and TEXT support now available.
@@ -72,9 +96,9 @@ v0.2.0:
 - Improved SASS support for font-sizes, spacing, cell sizes, and border sizes.
 - Auto event updating now only runs when the background of the document body is not displayed.
 
-v0.1.1:
+### Version 0.1.1:
 - Added active CSS effects for all clickable elements.
 - Minor documentation corrections.
 
-v0.1.0:
+### Version 0.1.0:
 - Everything :)

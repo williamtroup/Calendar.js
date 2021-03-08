@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.4.0
+ * Calendar.js Library v0.5.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -17,6 +17,8 @@ div.event-editor input,
 div.event-editor textarea,
 div.event-editor-colors,
 div.event-editor-colors input,
+div.event-editor-exclude-days,
+div.event-editor-exclude-days input,
 div.confirmation,
 div.confirmation input,
 div.select-export-type,
@@ -76,6 +78,10 @@ div.full-screen-view {
             height: auto !important;
         }
     }
+
+    div.plus-x-events {
+        display: none !important;
+    }
 }
 
  
@@ -118,6 +124,11 @@ div.calendar {
         font-weight: 300;
         background-color: $light-color;
         color: $dark-color;
+
+        div.drag-over {
+            background-color: rgba(135, 206, 250, 0.4) !important;
+            transition: $transition-faster;
+        }
 
         div.cell {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
@@ -165,7 +176,7 @@ div.calendar {
         }
 
         div.weekend-day {
-            background-color: $day-names-color !important;
+            background-color: $day-names-color;
         }
 
         &:last-child {
@@ -384,6 +395,12 @@ div.calendar {
             div.all-day-event {
                 background-color: $event-color-all-day-event !important;
             }
+
+            div.plus-x-events {
+                font-size: smaller;
+                text-align: center;
+                margin-top: $spacing;
+            }
         }
     }
 }
@@ -546,7 +563,7 @@ div.event-editor {
         }
     
         textarea {
-            height: 100px;
+            height: 70px;
             resize: none;
             margin-bottom: $spacing * 2;
         }
@@ -571,10 +588,23 @@ div.event-editor {
             @include button(cancel, $light-color, $alert-color);
             @include button(remove, $light-color, $dark-color);
             @include button(select-colors, $light-color, #6c757d);
-    
+            @include button(days-to-exclude, $light-color, #6c757d);
+
             &.remove {
                 margin-top: $spacing;
                 width: 100%;
+            }
+
+            &.select-colors,
+            &.days-to-exclude {
+                width: 50px;
+            }
+
+            &.days-to-exclude {
+                position: absolute;
+                margin: 0 !important;
+                bottom: 0;
+                right: 0;
             }
         }
     }
@@ -588,7 +618,7 @@ div.event-editor {
 */
 
 div.event-editor-colors {
-    @include dialog-styles(300px);
+    @include dialog-styles(250px);
     @include dialog-title-bar;
     
     div.contents {
@@ -610,6 +640,38 @@ div.event-editor-colors {
 
     div.split {
         margin-top: $spacing;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Event Editor Exclude Days
+    -------------------------------------------------------------------------
+*/
+
+div.event-editor-exclude-days {
+    @include dialog-styles(250px);
+    @include dialog-title-bar;
+    
+    div.contents {
+        padding: $spacing;
+    }
+
+    label.checkbox {
+        margin-bottom: $spacing / 2 !important;
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
@@ -666,7 +728,7 @@ div.select-export-type {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing;
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
@@ -738,7 +800,7 @@ div.calendar-dialog {
         position: relative;
         padding-left: 25px;
         padding-top: 1px;
-        margin-bottom: 12px;
+        margin-bottom: $spacing;
         color: $dark-color;
 
         input {
@@ -790,51 +852,68 @@ div.calendar-dialog {
 
 div.calendar,
 div.calendar-dialog {
-    label.radioButton {
-        @include no-selection-allowed;
-        display: inline-block;
+    div.radioButtonsContainer {
+        margin-bottom: $spacing;
         position: relative;
-        padding-left: 25px;
-        padding-top: 1px;
-        margin-bottom: 12px;
-        color: $dark-color;
+    }
 
-        input {
-            display: none;
+    div.radioButtonContainer {
+        margin-bottom: $spacing / 2;
 
-            &:checked ~ span.check-mark {
-                background-color: $dark-color !important;
-                border: 1px solid $dark-color;
+        label.radioButton {
+            @include no-selection-allowed;
+            display: inline-block;
+            position: relative;
+            padding-left: 25px;
+            padding-top: 1px;
+            color: $dark-color;
+    
+            input {
+                display: none;
+    
+                &:checked ~ span.check-mark {
+                    background-color: $dark-color !important;
+                    border: 1px solid $dark-color;
+                }
+    
+                &:checked ~ span.check-mark:before {
+                    display: block;
+                }
+
+                &:disabled ~ span.check-mark,
+                &:disabled ~ span.text {
+                    opacity: 0.5;
+                }
             }
-
-            &:checked ~ span.check-mark:before {
-                display: block;
+    
+            span.check-mark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 15px;
+                width: 15px;
+                background-color: $input-background-color;
+                border-radius: 50%;
+                border: 1px solid $input-border-color;
+                transition: $transition;
+    
+                &:before {
+                    @include transform(rotate(45deg));
+                    content: "";
+                    position: absolute;
+                    display: none;
+                    left: 4px;
+                    top: 4px;
+                    width: 7px;
+                    height: 7px;
+                    background-color: $light-color;
+                    border-radius: 50%;
+                }
             }
         }
 
-        span.check-mark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 15px;
-            width: 15px;
-            background-color: $input-background-color;
-            border-radius: 50%;
-            border: 1px solid $input-border-color;
-            transition: $transition;
-
-            &:before {
-                @include transform(rotate(45deg));
-                content: "";
-                position: absolute;
-                display: none;
-                left: 4px;
-                top: 4px;
-                width: 7px;
-                height: 7px;
-                background-color: $light-color;
-                border-radius: 50%;
-            }
+        &:last-child {
+            margin-bottom: $spacing;
         }
     }
 }
@@ -867,7 +946,8 @@ div.calendar-tooltip-event {
 
     div.date,
     div.description,
-    div.location {
+    div.location,
+    div.repeats {
         font-size: smaller;
     }
 }

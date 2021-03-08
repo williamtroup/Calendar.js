@@ -2,6 +2,8 @@
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
+![CalendarJs](https://saunterjs.co.uk/images/calendarjs.png)
+
 Features include:
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
@@ -13,6 +15,7 @@ Features include:
 - Export to CSV, XML, JSON and TEXT.
 - Full-screen mode (double clicking the title bar).
 - Search support.
+- Repeat every Day, Week, Month, or Year (with exclusion days support).
 
 To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
 
