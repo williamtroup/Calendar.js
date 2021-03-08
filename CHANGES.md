@@ -1,7 +1,7 @@
 # Calendar.js Change Log:
 
 ### Version 0.5.0:
-- When an API is called that forces a redraw of the main display, all drop down menus are now hidden.
+- When an API is called that forces a redraw of the main display, all drop-down menus are now hidden.
 - Calling the public method "setOptions()" now rebuilds to the main display using the new settings.
 - Fixed a fault that caused events to be assigned to the document/window more than once.
 - Fixed a fault that prevented the Day drop-down menu from closing when opening the Year Selector drop-down menu.
@@ -10,7 +10,7 @@
 - Fixed a fault that caused the Full Day date checker loop to keep going (even after finding the event is on that day).
 - Fixed an ordering fault in the Weekly View (the days would be ordered in the order they were found, not by date).
 - Better responsive sizes for toolbar icons and font-sizes.
-- Added event (repeatsEvery) repeating support (every day, week, month and year), with new text settings.
+- Added event (repeatsEvery) repeating support (every day, week, month, and year), with new text settings.
 - Added event (repeatEveryExcludeDays) exclude days for repeating events support (editable via a new dialog).
 - Added a new context menu for events (with quick access to Remove and Edit) to all views.
 - Fixed a fault that allowed a To time to be smaller than a From time on the Event Editor (for the same day).
@@ -20,7 +20,7 @@
 - When dragging an event, the target area now shows a highlighted background color.
 - When the "maximumEventsPerDayDisplay" value is reached for events, a new label is shown stating how many more exist.
 - Added Previous/Next buttons to the toolbar for the Weekly and Day view, allowing you to skip back and forth.
-- Fixed a fault tht caused events to appear on the wrong that 9start of week was calculated incorrectly).
+- Fixed a fault that caused events to appear on the wrong that (start of the week was calculated incorrectly).
 
 ### Version 0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
