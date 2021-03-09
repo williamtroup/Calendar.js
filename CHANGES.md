@@ -4,6 +4,7 @@
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
 - Fixed a fault that allowed text to be selected in a disabled text field (date, time).
 - Added "grid-border-color" that states the border color of the internal grid borders (which is now a lighter gray).
+- The day name headers now use 3 letters for the short names by default.
 
 ### Version 0.5.1:
 - Fixed exports (all except CSV) being broken.

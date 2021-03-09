@@ -63,7 +63,7 @@
  * @property    {string}    refreshTooltipText                          The tooltip text that should be used for for the "Refresh" button.
  * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
  * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
- * @property    {Object[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ]').
+ * @property    {Object[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
  * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
@@ -4076,7 +4076,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.dayHeaderNames ) ) {
-            _options.dayHeaderNames = [ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ];
+            _options.dayHeaderNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
         }
 
         if ( !isDefined( _options.dayNames ) ) {
