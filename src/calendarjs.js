@@ -312,13 +312,15 @@ function calendarJs( id, options, startDateTime ) {
 
         return events;
     }
-
+    
     function getAllEventsFunc( func ) {
         for ( var storageDate in _events ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
                 for ( var storageGuid in _events[ storageDate ] ) {
                     if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        var result = func( getAdjustedAllDayEvent( _events[ storageDate ][ storageGuid ] ), storageDate, storageGuid );
+                        var event = getAdjustedAllDayEvent( _events[ storageDate ][ storageGuid ] ),
+                            result = func( event, storageDate, storageGuid );
+
                         if ( result ) {
                             return;
                         }
