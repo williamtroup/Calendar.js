@@ -163,6 +163,11 @@ div.calendar {
                     padding-left: 7px;
                     padding-right: 7px;
                 }
+
+                &.holiday {
+                    display: block;
+                    font-size: xx-small;
+                }
             }
 
             &:last-child {
@@ -414,6 +419,10 @@ div.calendar {
 div.calendar {
     div.full-day-view {
         @include full-size-view-display;
+
+        span.holiday {
+            font-weight: 300 !important;
+        }
 
         @import "foundation/overlay-title-bar";
         

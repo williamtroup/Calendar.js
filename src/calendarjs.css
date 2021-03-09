@@ -244,6 +244,11 @@ div.calendar div.row div.cell span.today {
   padding-right: 7px;
 }
 
+div.calendar div.row div.cell span.holiday {
+  display: block;
+  font-size: xx-small;
+}
+
 div.calendar div.row div.cell:last-child {
   border-right: none;
 }
@@ -522,6 +527,10 @@ div.calendar div.full-day-view {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   visibility: hidden;
+}
+
+div.calendar div.full-day-view span.holiday {
+  font-weight: 300 !important;
 }
 
 div.calendar div.full-day-view div.title-bar {

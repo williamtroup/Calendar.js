@@ -5,6 +5,7 @@
 - Fixed a fault that allowed text to be selected in a disabled text field (date, time).
 - Added "grid-border-color" that states the border color of the internal grid borders (which is now a lighter gray).
 - The day name headers now use 3 letters for the short names by default.
+- Added holiday support (shown under day numbers and in the Full Day title bar) as a new option called "holidays".
 
 ### Version 0.5.1:
 - Fixed exports (all except CSV) being broken.

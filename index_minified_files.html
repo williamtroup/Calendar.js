@@ -35,7 +35,8 @@
                 manualEditingEnabled: true, 
                 showTimesInMainCalendarEvents: false,
                 minimumDayHeight: 0,
-                manualEditingEnabled: true
+                manualEditingEnabled: true,
+                holidays: getHolidays()
             } ),
             previousDay = new Date(),
             today9 = new Date(),
@@ -148,6 +149,26 @@
                 exportEventsEnabled: false,
                 showDayNumberOrdinals: false
             } );
+        }
+
+        function getHolidays() {
+            return [
+                {
+                    day: 24,
+                    month: 12,
+                    title: "Christmas Eve"
+                },
+                {
+                    day: 25,
+                    month: 12,
+                    title: "Christmas Day"
+                },
+                {
+                    day: 26,
+                    month: 12,
+                    title: "Boxing Day"
+                }
+            ];
         }
     </script>
 </html>

@@ -22,7 +22,18 @@
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
  * @property    {boolean}   isAllDay                                    States if this event is for all-day.
  * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
- * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated
+ * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated.
+ */
+
+
+/**
+ * Holiday.
+ * 
+ * This is the object format that is used to display a holiday.
+ *
+ * @property    {number}    day                                         The day that the holiday occurs.
+ * @property    {number}    month                                       The month that the holiday occurs.
+ * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
  */
 
 
@@ -127,6 +138,7 @@
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
  * @property    {string}    selectDaysToExcludeTitle                    The text that should be displayed for the "Select Days To Exclude" label.
  * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
+ * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (see Holidays documentation).
  */
 
 
@@ -312,7 +324,7 @@ function calendarJs( id, options, startDateTime ) {
 
         return events;
     }
-    
+
     function getAllEventsFunc( func ) {
         for ( var storageDate in _events ) {
             if ( _events.hasOwnProperty( storageDate ) ) {
@@ -1028,8 +1040,16 @@ function calendarJs( id, options, startDateTime ) {
 
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
-        
-        var orderedEvents = [];
+
+        var holidayText = getHoliday( date ),
+            orderedEvents = [];
+
+        if ( holidayText !== null ) {
+            var holiday = createElement( "span" );
+            holiday.className = "holiday";
+            holiday.innerText = " (" + holidayText + ")";
+            _element_FullDayView_Title.appendChild( holiday );
+        }
 
         getAllEventsFunc( function( event ) {
             var totalDays = getTotalDaysBetweenDates( event.from, event.to ) + 1,
@@ -1796,7 +1816,6 @@ function calendarJs( id, options, startDateTime ) {
                 buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true );
                 elementDayNumber++;
             }
-
         }
     }
 
@@ -1847,8 +1866,8 @@ function calendarJs( id, options, startDateTime ) {
         dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
 
-        if ( dayDate.getDay() === 6 || dayDate.getDay() === 0 ) {
-            dayElement.className += " weekend-day";
+        if ( dayDate.getDay() === 6 || dayDate.getDay() === 0 && dayElement.className === _elementClassName_Cell ) {
+            dayElement.className = _elementClassName_Cell + " weekend-day";
         }
 
         dayElement.oncontextmenu = function( e ) {
@@ -1868,6 +1887,14 @@ function calendarJs( id, options, startDateTime ) {
         dayElement.appendChild( expandDayButton );
 
         addToolTip( expandDayButton, _options.expandDayTooltipText );
+
+        var holidayText = getHoliday( dayDate );
+        if ( holidayText !== null ) {
+            var holiday = createElement( "span" );
+            holiday.className = "holiday";
+            holiday.innerText = holidayText;
+            dayText.appendChild( holiday );
+        }
 
         expandDayButton.onclick = function() {
             showFullDayView( dayDate, true );
@@ -1960,6 +1987,30 @@ function calendarJs( id, options, startDateTime ) {
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
         }
+    }
+
+    function getHoliday( date ) {
+        var result = null,
+            holidayTextItems = [],
+            holidaysLength = _options.holidays.length;
+
+        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+            var holiday = _options.holidays[ holidayIndex ];
+
+            if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 ) {
+                var holidayText = getString( holiday.title, null );
+                
+                if ( holidayText !== null ) {
+                    holidayTextItems.push( holidayText );
+                }
+            }
+        }
+
+        if ( holidayTextItems.length > 0 ) {
+            result = holidayTextItems.join( ", " );
+        }
+
+        return result;
     }
 
 
@@ -4344,6 +4395,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.moreText ) ) {
             _options.moreText = "More";
+        }
+
+        if ( !isDefined( _options.holidays ) ) {
+            _options.holidays = [];
         }
 
         if ( _initialized ) {
