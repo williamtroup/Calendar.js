@@ -12,6 +12,7 @@
 - Fixed a script error occurring when nothing is found in the Search dialog.
 - Added include "Title", "Description" and "Location" searching support in the Search dialog.
 - Added support to minimize and restore the Search dialog (new button on the toolbar).
+- Fixed a fault that caused the Search dialog to redraw every time the search button is pressed on the main toolbar.
 
 ### Version 0.5.1:
 - Fixed exports (all except CSV) being broken.

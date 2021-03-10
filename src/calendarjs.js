@@ -2944,13 +2944,16 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showSearchDialog() {
-        _element_SearchDialog_SearchResults = [];
-        _element_SearchDialog.style.display = "block";
-        _element_SearchDialog_For.value = "";
-        _element_SearchDialog_For.focus();
+        if ( _element_SearchDialog.style.display !== "block" ) {
+            _element_SearchDialog_SearchResults = [];
+            _element_SearchDialog.style.display = "block";
+            _element_SearchDialog_For.value = "";
+    
+            centerSearchDialog();
+            searchForTextChanged();
+        }
 
-        centerSearchDialog();
-        searchForTextChanged();
+        _element_SearchDialog_For.focus();
     }
 
     function centerSearchDialog() {
