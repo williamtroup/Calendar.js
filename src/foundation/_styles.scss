@@ -102,18 +102,21 @@ $minimum-width: $maximum-width + 1;
     }
 }
 
-@mixin dialog-styles($width) {
+@mixin dialog-styles($width, $includeTransform: true) {
     width: calc(100% - (#{$spacing} * 2));
     max-width: $width;
     border-radius: $border-view-radius;
     background-color: $light-color;
     border: $standard-border-size solid $dark-color;
     position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     display: none;
     z-index: 1500;
+
+    @if $includeTransform {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 @mixin dialog-button-styles {

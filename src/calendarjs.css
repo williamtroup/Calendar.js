@@ -988,12 +988,12 @@ div.event-editor {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.event-editor div.view {
@@ -1256,12 +1256,12 @@ div.event-editor-colors {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.event-editor-colors div.title-bar {
@@ -1410,12 +1410,12 @@ div.event-editor-exclude-days {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.event-editor-exclude-days div.title-bar {
@@ -1530,12 +1530,12 @@ div.confirmation {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.confirmation div.title-bar {
@@ -1652,12 +1652,12 @@ div.select-export-type {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.select-export-type div.title-bar {
@@ -1768,10 +1768,6 @@ div.search {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
   display: none;
   z-index: 1500;
 }
@@ -1911,8 +1907,15 @@ div.search input[type="button"].cancel {
   width: 100%;
 }
 
-div.search .ib-close {
+div.search div.ib-close,
+div.search div.ib-minus,
+div.search div.ib-square-hollow {
   float: right;
+}
+
+div.search div.ib-minus,
+div.search div.ib-square-hollow {
+  margin-right: 10px;
 }
 
 /*
@@ -2654,6 +2657,65 @@ div.calendar-drop-down-menu div.separator {
   height: 4px;
   border-radius: 4px;
   left: 0;
+}
+
+.ib-minus {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+
+.ib-minus:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-minus:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-minus:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  left: 0;
+}
+
+.ib-square-hollow {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  border: 4px solid #F5F5F5;
+  border-radius: 4px;
+  width: 8px;
+  height: 8px;
+}
+
+.ib-square-hollow:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-square-hollow:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .ib-close {

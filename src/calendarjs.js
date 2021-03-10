@@ -140,6 +140,8 @@
  * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
  * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
  * @property    {string}    includeText                                 The text that should be displayed for the "Include:" label.
+ * @property    {string}    minimizedTooltipText                        The tooltip text that should be used for for the "Minimize" button.
+ * @property    {string}    restoreTooltipText                          The tooltip text that should be used for for the "Restore" button.
  */
 
 
@@ -258,6 +260,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Event = null,
         _element_DropDownMenu_Event_EventDetails = null,
         _element_SearchDialog = null,
+        _element_SearchDialog_MinimizedRestoreButton = null,
+        _element_SearchDialog_Contents = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
         _element_SearchDialog_Include_Title = null,
@@ -266,6 +270,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Previous = null,
         _element_SearchDialog_Next = null,
         _element_SearchDialog_IsMoving = false,
+        _element_SearchDialog_Moved = false,
         _element_SearchDialog_X = 0,
         _element_SearchDialog_Y = 0,
         _element_SearchDialog_SearchResults = [],
@@ -666,6 +671,7 @@ function calendarJs( id, options, startDateTime ) {
             _document.body.addEventListener( "click", hideAllDropDowns );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
             _window.addEventListener( "resize", hideAllDropDowns );
+            _window.addEventListener( "resize", centerSearchDialog );
 
             _initializedDocumentEvents = true;
         }
@@ -2860,34 +2866,40 @@ function calendarJs( id, options, startDateTime ) {
 
         addToolTip( closeButton, _options.closeTooltipText );
 
-        var contents = createElement( "div", "contents" );
-        _element_SearchDialog.appendChild( contents );
+        _element_SearchDialog_MinimizedRestoreButton = createElement( "div", "ib-minus" );
+        _element_SearchDialog_MinimizedRestoreButton.onclick = minimizeRestoreDialog;
+        titleBar.appendChild( _element_SearchDialog_MinimizedRestoreButton );
+
+        addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.minimizedTooltipText );
+
+        _element_SearchDialog_Contents = createElement( "div", "contents" );
+        _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
 
         var textFor = createElement( "p" );
         textFor.innerText = _options.forText;
-        contents.appendChild( textFor );
+        _element_SearchDialog_Contents.appendChild( textFor );
 
         _element_SearchDialog_For = createElement( "input", null, "text" );
         _element_SearchDialog_For.oninput = searchForTextChanged;
         _element_SearchDialog_For.onpropertychange = searchForTextChanged;
         _element_SearchDialog_For.onkeypress = searchOnEnter;
-        contents.appendChild( _element_SearchDialog_For );
+        _element_SearchDialog_Contents.appendChild( _element_SearchDialog_For );
         
-        _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText, searchForTextChanged );
+        _element_SearchDialog_MatchCase = buildCheckBox( _element_SearchDialog_Contents, _options.matchCaseText, searchForTextChanged );
 
         var textInclude = createElement( "p" );
         textInclude.innerText = _options.includeText;
-        contents.appendChild( textInclude );
+        _element_SearchDialog_Contents.appendChild( textInclude );
 
         var checkboxContainer = createElement( "div", "checkboxContainer" );
-        contents.appendChild( checkboxContainer );
+        _element_SearchDialog_Contents.appendChild( checkboxContainer );
 
         _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchForTextChanged );
         _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged );
         _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchForTextChanged );
 
         var buttonsSplitContainer = createElement( "div", "split" );
-        contents.appendChild( buttonsSplitContainer );
+        _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
 
         _element_SearchDialog_Previous = createElement( "input", "previous", "button" );
         _element_SearchDialog_Previous.value = _options.previousText;
@@ -2920,6 +2932,7 @@ function calendarJs( id, options, startDateTime ) {
     function searchOnTitleBarMouseUp() {
         if ( _element_SearchDialog_IsMoving ) {
             _element_SearchDialog_IsMoving = false;
+            _element_SearchDialog_Moved = true;
         }
     }
 
@@ -2936,11 +2949,31 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_For.value = "";
         _element_SearchDialog_For.focus();
 
+        centerSearchDialog();
         searchForTextChanged();
+    }
+
+    function centerSearchDialog() {
+        if ( !_element_SearchDialog_Moved ) {
+            _element_SearchDialog.style.left = ( _window.innerWidth / 2 - _element_SearchDialog.offsetWidth / 2 ) + "px";
+            _element_SearchDialog.style.top = ( _window.innerHeight / 2 - _element_SearchDialog.offsetHeight / 2 ) + "px";
+        }
     }
 
     function hideSearchDialog() {
         _element_SearchDialog.style.display = "none";
+    }
+
+    function minimizeRestoreDialog() {
+        if ( _element_SearchDialog_Contents.style.display !== "none" ) {
+            _element_SearchDialog_Contents.style.display = "none";
+            _element_SearchDialog_MinimizedRestoreButton.className = "ib-square-hollow";
+            addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.restoreTooltipText );
+        } else {
+            _element_SearchDialog_Contents.style.display = "block";
+            _element_SearchDialog_MinimizedRestoreButton.className = "ib-minus";
+            addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.minimizedTooltipText );
+        }
     }
 
     function searchOnPrevious() {
@@ -4284,6 +4317,14 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.holidays ) ) {
             _options.holidays = [];
+        }
+
+        if ( !isDefined( _options.minimizedTooltipText ) ) {
+            _options.minimizedTooltipText = "Minimize";
+        }
+
+        if ( !isDefined( _options.restoreTooltipText ) ) {
+            _options.restoreTooltipText = "Restore";
         }
 
         if ( _initialized ) {

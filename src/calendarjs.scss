@@ -755,7 +755,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(250px);
+    @include dialog-styles(250px, false);
     @include dialog-title-bar;
 
     div.contents {
@@ -789,8 +789,15 @@ div.search {
         }
     }
 
-    .ib-close {
+    div.ib-close,
+    div.ib-minus,
+    div.ib-square-hollow {
         float: right;
+    }
+
+    div.ib-minus,
+    div.ib-square-hollow {
+        margin-right: $spacing;
     }
 }
 
@@ -1083,4 +1090,6 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/plus";
 @import "foundation/buttons/arrow-right-full";
 @import "foundation/buttons/plus";
+@import "foundation/buttons/minus";
+@import "foundation/buttons/square-hollow";
 @import "foundation/buttons/close";
