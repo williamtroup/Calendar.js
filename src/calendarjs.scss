@@ -775,7 +775,7 @@ div.search {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing;
+        margin-top: $spacing + $spacing / 2;
     }
 
     input[type="button"] {
@@ -803,6 +803,12 @@ div.search {
 
 div.calendar,
 div.calendar-dialog {
+    div.checkboxContainer {
+        label.checkbox {
+            margin-bottom: $spacing / 2 !important;
+        }
+    }
+
     label.checkbox {
         @include no-selection-allowed;
         display: inline-block;

@@ -1842,7 +1842,7 @@ div.search div.split input:last-child {
 }
 
 div.search div.split {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 div.search input[type="button"] {
@@ -1920,6 +1920,11 @@ div.search .ib-close {
     Calendar.js - CheckBox
     -------------------------------------------------------------------------
 */
+div.calendar div.checkboxContainer label.checkbox,
+div.calendar-dialog div.checkboxContainer label.checkbox {
+  margin-bottom: 5px !important;
+}
+
 div.calendar label.checkbox,
 div.calendar-dialog label.checkbox {
   -moz-user-select: none;

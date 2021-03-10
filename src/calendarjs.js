@@ -139,6 +139,7 @@
  * @property    {string}    selectDaysToExcludeTitle                    The text that should be displayed for the "Select Days To Exclude" label.
  * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
  * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
+ * @property    {string}    includeText                                 The text that should be displayed for the "Include:" label.
  */
 
 
@@ -259,6 +260,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
+        _element_SearchDialog_Include_Title = null,
+        _element_SearchDialog_Include_Location = null,
+        _element_SearchDialog_Include_Description = null,
         _element_SearchDialog_Previous = null,
         _element_SearchDialog_Next = null,
         _element_SearchDialog_IsMoving = false,
@@ -2869,7 +2873,18 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_For.onkeypress = searchOnEnter;
         contents.appendChild( _element_SearchDialog_For );
         
-        _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText );
+        _element_SearchDialog_MatchCase = buildCheckBox( contents, _options.matchCaseText, searchForTextChanged );
+
+        var textInclude = createElement( "p" );
+        textInclude.innerText = _options.includeText;
+        contents.appendChild( textInclude );
+
+        var checkboxContainer = createElement( "div", "checkboxContainer" );
+        contents.appendChild( checkboxContainer );
+
+        _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchForTextChanged );
+        _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged );
+        _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchForTextChanged );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -2950,10 +2965,26 @@ function calendarJs( id, options, startDateTime ) {
                 monthYearsFound = {};
 
             getAllEventsFunc( function( event ) {
-                var title = !matchCase ? event.title.toLowerCase() : event.title,
-                    description = !matchCase ? event.description.toLowerCase() : event.description;
+                var title = getString( event.title ),
+                    location = getString( event.location ),
+                    description = getString( event.description ),
+                    found = false;
 
-                if ( title.indexOf( search ) > -1 || description.indexOf( search ) > -1 ) {
+                if ( !matchCase ) {
+                    title = title.toLowerCase();
+                    description = description.toLowerCase();
+                    location = location.toLowerCase();
+                }
+
+                if ( _element_SearchDialog_Include_Title.checked && title.indexOf( search ) > -1 ) {
+                    found = true;
+                } else if ( _element_SearchDialog_Include_Location.checked && location.indexOf( search ) > -1 ) {
+                    found = true;
+                } else if ( _element_SearchDialog_Include_Description.checked && description.indexOf( search ) > -1 ) {
+                    found = true;
+                }
+
+                if ( found ) {
                     var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
 
                     if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
@@ -2968,12 +2999,15 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         updateSearchButtons();
-        build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+
+        if ( _element_SearchDialog_SearchResults.length > 0 ) {
+            build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+        }
     }
 
     function updateSearchButtons() {
         _element_SearchDialog_Previous.disabled = _element_SearchDialog_SearchIndex === 0;
-        _element_SearchDialog_Next.disabled = _element_SearchDialog_SearchIndex === _element_SearchDialog_SearchResults.length - 1;
+        _element_SearchDialog_Next.disabled = _element_SearchDialog_SearchIndex === _element_SearchDialog_SearchResults.length - 1 || _element_SearchDialog_SearchResults.length === 0;
     }
 
 
@@ -4242,6 +4276,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.moreText ) ) {
             _options.moreText = "More";
+        }
+
+        if ( !isDefined( _options.includeText ) ) {
+            _options.includeText = "Include:";
         }
 
         if ( !isDefined( _options.holidays ) ) {
