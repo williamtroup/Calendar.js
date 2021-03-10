@@ -274,8 +274,9 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function build( newStartDateTime ) {
+    function build( newStartDateTime, fullRebuild ) {
         _currentDate = isDefined( newStartDateTime ) ? newStartDateTime : new Date();
+        fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
 
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
             startDay = firstDay.getDay(),
@@ -294,16 +295,19 @@ function calendarJs( id, options, startDateTime ) {
 
         buildNextMonthDays( lastDayFilled );
         buildDayEvents();
-        buildDisabledBackground();
-        buildEventEditingDialog();
-        buildEventEditingColorDialog();
-        buildEventEditingExcludeDaysDialog();
-        buildConfirmationDialog();
-        buildSelectExportTypeDialog();
-        buildSearchDialog();
-        buildTooltip();
-        buildDropDownMenus();
-        buildDocumentEvents();
+
+        if ( fullRebuild ) {
+            buildDisabledBackground();
+            buildEventEditingDialog();
+            buildEventEditingColorDialog();
+            buildEventEditingExcludeDaysDialog();
+            buildConfirmationDialog();
+            buildSelectExportTypeDialog();
+            buildSearchDialog();
+            buildTooltip();
+            buildDropDownMenus();
+            buildDocumentEvents();
+        }
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
     }
@@ -2833,7 +2837,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function buildSearchDialog() {
-        if ( _element_SearchDialog === null ) {
+        if ( _element_SearchDialog !== null ) {
             removeNode( _document.body, _element_SearchDialog );
         }
 
@@ -4247,7 +4251,7 @@ function calendarJs( id, options, startDateTime ) {
         if ( _initialized ) {
             _initialized = false;
 
-            build( _currentDate );
+            build( _currentDate, true );
         }
     };
 
@@ -4265,7 +4269,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _this.setOptions( options );
 
-        build( startDateTime );
+        build( startDateTime, true );
 
     } ) ( document, window );
 }

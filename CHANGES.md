@@ -7,6 +7,8 @@
 - The day name headers now use 3 letters for the short names by default.
 - Added holiday support (shown under day numbers and in the Full Day title bar) as a new option called "holidays".
 - Transition effects are no longer shown when the Event Editor is opened (stops things jumping around).
+- Fixed a fault that prevented the "Search" dialog from rebuilding when setting new options.
+- Fixed a fault that caused the dialogs to become unresponsive when the main display is rebuilt.
 
 ### Version 0.5.1:
 - Fixed exports (all except CSV) being broken.
