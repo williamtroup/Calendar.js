@@ -16,6 +16,7 @@ Features include:
 - Full-screen mode (double clicking the title bar).
 - Search support.
 - Repeat every Day, Week, Month, or Year (with exclusion days support).
+- Customizable holidays.
 
 To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
 

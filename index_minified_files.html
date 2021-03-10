@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js - Minimized - v0.5.1</title>
+        <title>Calendar.js - Minimized - v0.5.2</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="src/calendarjs.min.css" />
         <script src="src/calendarjs.min.js"></script>
@@ -35,7 +35,8 @@
                 manualEditingEnabled: true, 
                 showTimesInMainCalendarEvents: false,
                 minimumDayHeight: 0,
-                manualEditingEnabled: true
+                manualEditingEnabled: true,
+                holidays: getHolidays()
             } ),
             previousDay = new Date(),
             today9 = new Date(),
@@ -70,7 +71,7 @@
                 title: "Previous Day",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                 location: "Teams Meeting",
-                isAllDayEvent: true,
+                isAllDay: true,
                 color: "#FF0000",
                 colorText: "#FFFF00",
                 colorBorder: "#00FF00",
@@ -82,7 +83,7 @@
                 title: "Title 1",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                 location: "Teams Meeting",
-                isAllDayEvent: false
+                isAllDay: false
             },
             {
                 from: tomorrow,
@@ -90,7 +91,7 @@
                 title: "Title Bad (should not show)",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                 location: "Teams Meeting",
-                isAllDayEvent: false
+                isAllDay: false
             },
             {
                 from: today9,
@@ -98,7 +99,7 @@
                 title: "Title 2",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                 location: "Teams Meeting",
-                isAllDayEvent: true
+                isAllDay: true
             },
             {
                 from: firstDayInNextMonth,
@@ -106,7 +107,7 @@
                 title: "First Day",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                 location: "Teams Meeting",
-                isAllDayEvent: true,
+                isAllDay: true,
                 color: "#00FF00",
                 colorText: "#FF0000",
                 repeatEvery: 3
@@ -117,7 +118,7 @@
                 title: "Last Day",
                 description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                 location: "Teams Meeting",
-                isAllDayEvent: true,
+                isAllDay: true,
                 color: "#0000FF",
                 repeatEvery: 2
             },
@@ -145,8 +146,29 @@
             calendarInstance.setOptions( {
                 minimumDayHeight: 70,
                 manualEditingEnabled: false,
-                exportEventsEnabled: false
+                exportEventsEnabled: false,
+                showDayNumberOrdinals: false
             } );
+        }
+
+        function getHolidays() {
+            return [
+                {
+                    day: 24,
+                    month: 12,
+                    title: "Christmas Eve"
+                },
+                {
+                    day: 25,
+                    month: 12,
+                    title: "Christmas Day"
+                },
+                {
+                    day: 26,
+                    month: 12,
+                    title: "Boxing Day"
+                }
+            ];
         }
     </script>
 </html>

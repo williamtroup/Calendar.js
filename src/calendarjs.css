@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.5.1
+ * Calendar.js Library v0.5.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -168,7 +168,6 @@ div.calendar {
   width: 100%;
   border: 1px solid #282828;
   position: relative;
-  overflow: hidden;
 }
 
 div.calendar sup {
@@ -187,7 +186,7 @@ div.calendar div.header-days {
 }
 
 div.calendar div.row {
-  border-bottom: 1px solid #282828;
+  border-bottom: 1px solid #B0B0B0;
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -208,7 +207,7 @@ div.calendar div.row div.cell {
   width: calc(100% - (20px + 1px) / 7);
   display: inline-block;
   text-align: center;
-  border-right: 1px solid #282828;
+  border-right: 1px solid #B0B0B0;
   position: relative;
   overflow: hidden;
   color: #282828;
@@ -243,6 +242,11 @@ div.calendar div.row div.cell span.today {
   color: #F5F5F5;
   padding-left: 7px;
   padding-right: 7px;
+}
+
+div.calendar div.row div.cell span.holiday {
+  display: block;
+  font-size: xx-small;
 }
 
 div.calendar div.row div.cell:last-child {
@@ -497,7 +501,7 @@ div.calendar div.row div.cell div.expired {
   opacity: 0.7;
 }
 
-div.calendar div.row div.cell div.all-day-event {
+div.calendar div.row div.cell div.all-day {
   background-color: #1b3752 !important;
 }
 
@@ -523,6 +527,10 @@ div.calendar div.full-day-view {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   visibility: hidden;
+}
+
+div.calendar div.full-day-view span.holiday {
+  font-weight: 300 !important;
 }
 
 div.calendar div.full-day-view div.title-bar {
@@ -558,10 +566,10 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full {
 div.calendar div.full-day-view div.contents {
   display: inline-block;
   padding: 10px;
-  width: calc(100% - (10px * 2));
   position: relative;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - (10px * 2));
 }
 
 @media screen and (min-width: 376px) {
@@ -580,7 +588,7 @@ div.calendar div.full-day-view div.contents div.expired {
   opacity: 0.7;
 }
 
-div.calendar div.full-day-view div.contents div.all-day-event {
+div.calendar div.full-day-view div.contents div.all-day {
   background-color: #1b3752 !important;
 }
 
@@ -701,10 +709,10 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full {
 div.calendar div.list-all-events-view div.contents {
   display: inline-block;
   padding: 10px;
-  width: calc(100% - (10px * 2));
   position: relative;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - (10px * 2));
 }
 
 @media screen and (min-width: 376px) {
@@ -741,7 +749,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.expi
   opacity: 0.7;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.events div.all-day-event {
+div.calendar div.list-all-events-view div.contents div.month div.events div.all-day {
   background-color: #1b3752 !important;
 }
 
@@ -860,10 +868,10 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full
 div.calendar div.list-all-week-events-view div.contents {
   display: inline-block;
   padding: 10px;
-  width: calc(100% - (10px * 2));
   position: relative;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - (10px * 2));
 }
 
 @media screen and (min-width: 376px) {
@@ -900,7 +908,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   opacity: 0.7;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.all-day-event {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.all-day {
   background-color: #1b3752 !important;
 }
 
@@ -980,12 +988,12 @@ div.event-editor {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.event-editor div.view {
@@ -1056,6 +1064,12 @@ div.event-editor div.view textarea:focus {
 }
 
 div.event-editor div.view input:disabled {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
   background-color: #F5F5F5;
 }
 
@@ -1242,12 +1256,12 @@ div.event-editor-colors {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.event-editor-colors div.title-bar {
@@ -1396,12 +1410,12 @@ div.event-editor-exclude-days {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.event-editor-exclude-days div.title-bar {
@@ -1516,12 +1530,12 @@ div.confirmation {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.confirmation div.title-bar {
@@ -1638,12 +1652,12 @@ div.select-export-type {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
+  display: none;
+  z-index: 1500;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  display: none;
-  z-index: 1500;
 }
 
 div.select-export-type div.title-bar {
@@ -1754,10 +1768,6 @@ div.search {
   background-color: #F5F5F5;
   border: 1px solid #282828;
   position: fixed;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
   display: none;
   z-index: 1500;
 }
@@ -1828,7 +1838,7 @@ div.search div.split input:last-child {
 }
 
 div.search div.split {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 div.search input[type="button"] {
@@ -1897,8 +1907,15 @@ div.search input[type="button"].cancel {
   width: 100%;
 }
 
-div.search .ib-close {
+div.search div.ib-close,
+div.search div.ib-minus,
+div.search div.ib-square-hollow {
   float: right;
+}
+
+div.search div.ib-minus,
+div.search div.ib-square-hollow {
+  margin-right: 10px;
 }
 
 /*
@@ -1906,6 +1923,11 @@ div.search .ib-close {
     Calendar.js - CheckBox
     -------------------------------------------------------------------------
 */
+div.calendar div.checkboxContainer label.checkbox,
+div.calendar-dialog div.checkboxContainer label.checkbox {
+  margin-bottom: 5px !important;
+}
+
 div.calendar label.checkbox,
 div.calendar-dialog label.checkbox {
   -moz-user-select: none;
@@ -2635,6 +2657,65 @@ div.calendar-drop-down-menu div.separator {
   height: 4px;
   border-radius: 4px;
   left: 0;
+}
+
+.ib-minus {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+
+.ib-minus:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-minus:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-minus:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  left: 0;
+}
+
+.ib-square-hollow {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  border: 4px solid #F5F5F5;
+  border-radius: 4px;
+  width: 8px;
+  height: 8px;
+}
+
+.ib-square-hollow:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-square-hollow:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .ib-close {

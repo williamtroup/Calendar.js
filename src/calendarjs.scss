@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.5.1
+ * Calendar.js Library v0.5.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -98,7 +98,6 @@ div.calendar {
     width: 100%;
     border: $standard-border-size solid $dark-color;
     position: relative;
-    overflow: hidden;
 
     sup {
         font-size: xx-small;
@@ -116,7 +115,7 @@ div.calendar {
     }
     
     div.row {
-        border-bottom: $standard-border-size solid $dark-color;
+        border-bottom: $standard-border-size solid $grid-border-color;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
@@ -134,7 +133,7 @@ div.calendar {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
             display: inline-block;
             text-align: center;
-            border-right: $standard-border-size solid $dark-color;
+            border-right: $standard-border-size solid $grid-border-color;
             position: relative;
             overflow: hidden;
             color: $dark-color;
@@ -163,6 +162,11 @@ div.calendar {
                     color: $light-color;
                     padding-left: 7px;
                     padding-right: 7px;
+                }
+
+                &.holiday {
+                    display: block;
+                    font-size: xx-small;
                 }
             }
 
@@ -392,8 +396,8 @@ div.calendar {
                 opacity: $event-expired-opacity;
             }
 
-            div.all-day-event {
-                background-color: $event-color-all-day-event !important;
+            div.all-day {
+                background-color: $event-color-all-day !important;
             }
 
             div.plus-x-events {
@@ -415,6 +419,10 @@ div.calendar {
 div.calendar {
     div.full-day-view {
         @include full-size-view-display;
+
+        span.holiday {
+            font-weight: 300 !important;
+        }
 
         @import "foundation/overlay-title-bar";
         
@@ -559,6 +567,7 @@ div.event-editor {
         }
     
         input:disabled {
+            @include no-selection-allowed;
             background-color: $light-color;
         }
     
@@ -746,7 +755,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(250px);
+    @include dialog-styles(250px, false);
     @include dialog-title-bar;
 
     div.contents {
@@ -766,7 +775,7 @@ div.search {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing;
+        margin-top: $spacing + $spacing / 2;
     }
 
     input[type="button"] {
@@ -780,8 +789,15 @@ div.search {
         }
     }
 
-    .ib-close {
+    div.ib-close,
+    div.ib-minus,
+    div.ib-square-hollow {
         float: right;
+    }
+
+    div.ib-minus,
+    div.ib-square-hollow {
+        margin-right: $spacing;
     }
 }
 
@@ -794,6 +810,12 @@ div.search {
 
 div.calendar,
 div.calendar-dialog {
+    div.checkboxContainer {
+        label.checkbox {
+            margin-bottom: $spacing / 2 !important;
+        }
+    }
+
     label.checkbox {
         @include no-selection-allowed;
         display: inline-block;
@@ -1068,4 +1090,6 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/plus";
 @import "foundation/buttons/arrow-right-full";
 @import "foundation/buttons/plus";
+@import "foundation/buttons/minus";
+@import "foundation/buttons/square-hollow";
 @import "foundation/buttons/close";
