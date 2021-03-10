@@ -2278,10 +2278,6 @@ function calendarJs( id, options, startDateTime ) {
     function showEventDialog( eventDetails, overrideTodayDate ) {
         addNode( _document.body, _element_DisabledBackground );
 
-        _element_EventEditorDialog.style.display = "block";
-        _element_EventEditorDialog_ErrorMessage.style.display = "none";
-        _element_EventEditorDialog_Title.focus();
-
         if ( isDefined( eventDetails ) ) {
             _element_EventEditorDialog_OKButton.value = _options.updateText;
             _element_EventEditorDialog_RemoveButton.style.display = "block";
@@ -2356,6 +2352,10 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         isAllDayChanged();
+
+        _element_EventEditorDialog.style.display = "block";
+        _element_EventEditorDialog_ErrorMessage.style.display = "none";
+        _element_EventEditorDialog_Title.focus();
     }
 
     function eventDialogEvent_OK() {
