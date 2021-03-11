@@ -1562,7 +1562,11 @@ div.confirmation div.contents div.message {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+div.confirmation label.checkbox {
+  margin-bottom: 0 !important;
 }
 
 div.confirmation div.split input {
@@ -1577,6 +1581,10 @@ div.confirmation div.split input:first-child {
 
 div.confirmation div.split input:last-child {
   margin-right: 0;
+}
+
+div.confirmation div.split {
+  margin-top: 20px;
 }
 
 div.confirmation input[type="button"] {

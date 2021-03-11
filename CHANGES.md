@@ -1,7 +1,7 @@
 # Calendar.js Change Log:
 
 ### Version 0.6.0:
-- 
+- Added support to remove an event from a repeating series (asked in the confirmation message).
 
 ### Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
