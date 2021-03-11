@@ -1,5 +1,8 @@
 # Calendar.js Change Log:
 
+### Version 0.6.0:
+- 
+
 ### Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
 - Fixed a fault that allowed text to be selected in a disabled text field (date, time).
