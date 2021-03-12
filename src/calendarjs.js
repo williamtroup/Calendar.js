@@ -23,7 +23,8 @@
  * @property    {boolean}   isAllDay                                    States if this event is for all-day.
  * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
  * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated.
- * @property    {Object[]}  seriesIgnoreDates                           States the dates (string format) that should be ignored when an event is repeated
+ * @property    {Object[]}  seriesIgnoreDates                           States the dates (string format) that should be ignored when an event is repeated.
+ * @property    {Object}    created                                     The date that the event was created.
  */
 
 
@@ -145,6 +146,7 @@
  * @property    {string}    minimizedTooltipText                        The tooltip text that should be used for for the "Minimize" button.
  * @property    {string}    restoreTooltipText                          The tooltip text that should be used for for the "Restore" button.
  * @property    {string}    removeAllEventsInSeriesText                 The text that should be displayed for the "Remove All Events In Series" label.
+ * @property    {string}    createdText                                 The text that should be displayed for the "Created:" label.
  */
 
 
@@ -3631,7 +3633,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3665,6 +3667,7 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getRepeatsText( eventDetails.repeatEvery ) ) );
         eventContents.push( getCsvValue( getArrayText( eventDetails.repeatEveryExcludeDays ) ) );
         eventContents.push( getCsvValue( getArrayText( eventDetails.seriesIgnoreDates ) ) );
+        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.created ) ) );
 
         csvContents.push( getCsvValueLine( eventContents ) );
     }
@@ -3943,6 +3946,10 @@ function calendarJs( id, options, startDateTime ) {
                     event.id = storageGuid;
                 } else {
                     storageGuid = event.id;
+                }
+
+                if ( !isDefined( event.created ) ) {
+                    event.created = new Date();
                 }
 
                 _events[ storageDate ][ storageGuid ] = getAdjustedAllDayEvent( event );
@@ -4428,6 +4435,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.removeAllEventsInSeriesText ) ) {
             _options.removeAllEventsInSeriesText = "Remove All Events In Series";
+        }
+
+        if ( !isDefined( _options.createdText ) ) {
+            _options.createdText = "Created:";
         }
 
         if ( _initialized ) {

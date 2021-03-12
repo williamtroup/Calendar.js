@@ -10,6 +10,7 @@
   4. Down:  Jumps to the current month.
   6. F5:  Refreshes the current view.
   7. Ctrl/Command + F:  Opens the search dialog.
+- Added "created" support to events (set automatically if not available to the current date/time).
 
 ### Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
