@@ -25,6 +25,8 @@
  * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated.
  * @property    {Object[]}  seriesIgnoreDates                           States the dates (string format) that should be ignored when an event is repeated.
  * @property    {Object}    created                                     The date that the event was created.
+ * @property    {string}    organizerName                               The name of the organizer.
+ * @property    {string}    organizerEmailAddress                       The email address of the organizer.
  */
 
 
@@ -147,6 +149,10 @@
  * @property    {string}    restoreTooltipText                          The tooltip text that should be used for for the "Restore" button.
  * @property    {string}    removeAllEventsInSeriesText                 The text that should be displayed for the "Remove All Events In Series" label.
  * @property    {string}    createdText                                 The text that should be displayed for the "Created:" label.
+ * @property    {string}    organizerName                               The default name of the organizer (defaults to empty string).
+ * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
+ * @property    {string}    organizerNameText                           The text that should be displayed for the "Organizer:" label.
+ * @property    {string}    organizerEmailAddressText                   The text that should be displayed for the "Organizer Email:" label.
  */
 
 
@@ -2467,7 +2473,8 @@ function calendarJs( id, options, startDateTime ) {
                 
                 eventDialogEvent_Cancel();
 
-                var newEvent = {
+                var isExistingEvent = isDefined( _element_EventEditorDialog_EventDetails.id ),
+                    newEvent = {
                     from: fromDate,
                     to: toDate,
                     title: title,
@@ -2491,8 +2498,13 @@ function calendarJs( id, options, startDateTime ) {
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryYear;
                 }
+
+                if ( !isExistingEvent ) {
+                    newEvent.organizerName = _options.organizerName;
+                    newEvent.organizerEmailAddress = _options.organizerEmailAddress;
+                }
     
-                if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
+                if ( isExistingEvent ) {
                     _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
                 } else {
                     _this.addEvent( newEvent, false );
@@ -3633,7 +3645,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText ],
+        var headers = [ _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3668,6 +3680,8 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getArrayText( eventDetails.repeatEveryExcludeDays ) ) );
         eventContents.push( getCsvValue( getArrayText( eventDetails.seriesIgnoreDates ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.created ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.organizerName ) ) );
+        eventContents.push( getCsvValue( getString( eventDetails.organizerEmailAddress ) ) );
 
         csvContents.push( getCsvValueLine( eventContents ) );
     }
@@ -4439,6 +4453,22 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.createdText ) ) {
             _options.createdText = "Created:";
+        }
+
+        if ( !isDefined( _options.organizerName ) ) {
+            _options.organizerName = "";
+        }
+        
+        if ( !isDefined( _options.organizerEmailAddress ) ) {
+            _options.organizerEmailAddress = "";
+        }
+
+        if ( !isDefined( _options.organizerNameText ) ) {
+            _options.organizerNameText = "Organizer:";
+        }
+        
+        if ( !isDefined( _options.organizerEmailAddressText ) ) {
+            _options.organizerEmailAddressText = "Organizer Email:";
         }
 
         if ( _initialized ) {

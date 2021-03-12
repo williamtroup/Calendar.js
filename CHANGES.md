@@ -11,6 +11,8 @@
   6. F5:  Refreshes the current view.
   7. Ctrl/Command + F:  Opens the search dialog.
 - Added "created" support to events (set automatically if not available to the current date/time).
+- Added "organizerName" support to events (set automatically if not available to options > organizerName).
+- Added "organizerEmailAddress" support to events (set automatically if not available to options > organizerEmailAddress).
 
 ### Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
