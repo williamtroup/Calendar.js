@@ -4383,7 +4383,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.holidays ) ) {
-            _options.holidays = [];
+            _options.holidays = getStandardHolidays();
         }
 
         if ( !isDefined( _options.minimizedTooltipText ) ) {
@@ -4404,6 +4404,36 @@ function calendarJs( id, options, startDateTime ) {
             build( _currentDate, true );
         }
     };
+
+    function getStandardHolidays() {
+        return [
+            {
+                day: 24,
+                month: 12,
+                title: "Christmas Eve"
+            },
+            {
+                day: 25,
+                month: 12,
+                title: "Christmas Day"
+            },
+            {
+                day: 26,
+                month: 12,
+                title: "Boxing Day"
+            },
+            {
+                day: 31,
+                month: 12,
+                title: "New Year's Eve"
+            },
+            {
+                day: 1,
+                month: 1,
+                title: "New Year's Day"
+            }
+        ];
+    }
 
     
     /*
