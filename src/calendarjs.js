@@ -3738,30 +3738,30 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getXmlContents( orderedEvents ) {
-        var xmlContents = [];
-        xmlContents.push( "<?xml version=\"1.0\" ?>" );
-        xmlContents.push( "<Events>" );
+        var contents = [];
+        contents.push( "<?xml version=\"1.0\" ?>" );
+        contents.push( "<Events>" );
 
         var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
 
-            xmlContents.push( "<Event>" );
+            contents.push( "<Event>" );
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
                     var newPropertyName = getPropertyName( propertyName );
                     
-                    xmlContents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
+                    contents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
                 }
             }
     
-            xmlContents.push( "</Event>" );
+            contents.push( "</Event>" );
         }
 
-        xmlContents.push( "</Events>" );
+        contents.push( "</Events>" );
 
-        return xmlContents.join( "\n" );
+        return contents.join( "\n" );
     }
 
 
@@ -3772,33 +3772,32 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getJsonContents( orderedEvents ) {
-        var jsonContents = [];
-        jsonContents.push( "{" );
-        jsonContents.push( "\"events:\": [" );
+        var contents = [];
+        contents.push( "{" );
+        contents.push( "\"events:\": [" );
 
         var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
             
-            jsonContents.push( "{" );
+            contents.push( "{" );
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    jsonContents.push( "\"" + propertyName + "\":\"" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "\"," );
+                    contents.push( "\"" + propertyName + "\":\"" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "\"," );
                 }
             }
 
-            var lastJsonEntry = jsonContents[ jsonContents.length - 1 ];
-            jsonContents[ jsonContents.length - 1 ] = lastJsonEntry.substring( 0, lastJsonEntry.length - 1 );
-    
-            jsonContents.push( "}," );
+            var lastJsonEntry = contents[ contents.length - 1 ];
+            contents[ contents.length - 1 ] = lastJsonEntry.substring( 0, lastJsonEntry.length - 1 );
+            contents.push( "}," );
         }
 
-        jsonContents[ jsonContents.length - 1 ] = "}";
-        jsonContents.push( "]" );
-        jsonContents.push( "}" );
+        contents[ contents.length - 1 ] = "}";
+        contents.push( "]" );
+        contents.push( "}" );
 
-        return jsonContents.join( "\n" );
+        return contents.join( "\n" );
     }
 
 
@@ -3809,7 +3808,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getTextContents( orderedEvents ) {
-        var textContents = [];
+        var contents = [];
 
         var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
@@ -3817,16 +3816,16 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) ) {
-                    textContents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
+                    contents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
                 }
             }
     
-            textContents.push( "" );
+            contents.push( "" );
         }
 
-        textContents.pop();
+        contents.pop();
 
-        return textContents.join( "\n" );
+        return contents.join( "\n" );
     }
 
 
@@ -3837,28 +3836,28 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getICalContents( orderedEvents ) {
-        var textContents = [];
-        textContents.push( "BEGIN:VCALENDAR" );
-        textContents.push( "VERSION:2.0" );
-        textContents.push( "PRODID:-//hacksw/handcal//NONSGML v1.0//EN" );
+        var contents = [];
+        contents.push( "BEGIN:VCALENDAR" );
+        contents.push( "VERSION:2.0" );
+        contents.push( "PRODID:-//hacksw/handcal//NONSGML v1.0//EN" );
 
         var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
 
-            textContents.push( "BEGIN:VEVENT" );
-            textContents.push( "UID:" + getString( orderedEvent.id ) );
-            textContents.push( "DTSTAMP:" + getICalDateTimeString( orderedEvent.created ) );
-            textContents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
-            textContents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
-            textContents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
-            textContents.push( "SUMMARY:" + getString( orderedEvent.title ) );
-            textContents.push( "END:VEVENT" );
+            contents.push( "BEGIN:VEVENT" );
+            contents.push( "UID:" + getString( orderedEvent.id ) );
+            contents.push( "DTSTAMP:" + getICalDateTimeString( orderedEvent.created ) );
+            contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
+            contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
+            contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
+            contents.push( "SUMMARY:" + getString( orderedEvent.title ) );
+            contents.push( "END:VEVENT" );
         }
 
-        textContents.push( "END:VCALENDAR" );
+        contents.push( "END:VCALENDAR" );
 
-        return textContents.join( "\n" );
+        return contents.join( "\n" );
     }
 
 
