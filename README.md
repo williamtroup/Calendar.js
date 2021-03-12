@@ -12,7 +12,7 @@ Features include:
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons).
 - Custom events for actions (adding/updating/removing events, skipping months, etc).
-- Export to CSV, XML, JSON and TEXT.
+- Export to CSV, XML, JSON, TEXT, and iCAL.
 - Full-screen mode (double clicking the title bar).
 - Search support.
 - Repeat every Day, Week, Month, or Year (with exclusion days support).

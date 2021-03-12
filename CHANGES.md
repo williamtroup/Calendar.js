@@ -13,6 +13,8 @@
 - Added "created" support to events (set automatically if not available to the current date/time).
 - Added "organizerName" support to events (set automatically if not available to options > organizerName).
 - Added "organizerEmailAddress" support to events (set automatically if not available to options > organizerEmailAddress).
+- Added support to export events to the iCAL format.
+- Fixed events being in the wrong order when exported (to any format).
 
 ### Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).

@@ -261,6 +261,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_XML = null,
         _element_SelectExportTypeDialog_Option_JSON = null,
         _element_SelectExportTypeDialog_Option_TEXT = null,
+        _element_SelectExportTypeDialog_Option_iCAL = null,
         _element_SelectExportTypeDialog_ExportEvents = null,
         _element_Tooltip = null,
         _element_Tooltip_Title = null,
@@ -369,14 +370,18 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function getOrderedEvents( events ) {
+    function getOrderedEvents( events, sortAllDayEvents ) {
+        sortAllDayEvents = isDefined( sortAllDayEvents ) ? sortAllDayEvents : true;
+
         events = events.sort( function( a, b ) {
             return a.from - b.from;
         } );
 
-        events = events.sort( function( a, b ) {
-            return getBooleanAsNumber( b.isAllDay ) - getBooleanAsNumber( a.isAllDay );
-        } );
+        if ( sortAllDayEvents ) {
+            events = events.sort( function( a, b ) {
+                return getBooleanAsNumber( b.isAllDay ) - getBooleanAsNumber( a.isAllDay );
+            } );
+        }
 
         return events;
     }
@@ -2899,6 +2904,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer, "XML", "ExportType" );
         _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
         _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
+        _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer, "iCAL", "ExportType" );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -2937,6 +2943,8 @@ function calendarJs( id, options, startDateTime ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "json" );
         } else if ( _element_SelectExportTypeDialog_Option_TEXT.checked ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "text" );
+        } else if ( _element_SelectExportTypeDialog_Option_iCAL.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "ical" );
         }
     }
 
@@ -3504,7 +3512,7 @@ function calendarJs( id, options, startDateTime ) {
         type = isDefined( type ) ? type.toLowerCase() : "csv";
 
         var contents = "",
-            contentsEvents = getExportEvents( events );
+            contentsEvents = getOrderedEvents( getExportEvents( events ), false );
 
         if ( type === "csv" ) {
             contents = getCsvContents( contentsEvents );
@@ -3514,12 +3522,22 @@ function calendarJs( id, options, startDateTime ) {
             contents = getJsonContents( contentsEvents );
         } else if ( type === "text" ) {
             contents = getTextContents( contentsEvents );
+        } else if ( type === "ical" ) {
+            contents = getICalContents( contentsEvents );
         }
 
         if ( contents !== "" ) {
             var tempLink = createElement( "a" ),
-                mimeType = type === "text" ? "plain" : type,
-                extension = type === "text" ? "txt" : type;
+                mimeType = type,
+                extension = type;
+
+            if ( type === "text" ) {
+                mimeType = "plain";
+                extension = "txt";
+            } else if ( type === "ical" ) {
+                mimeType = "calendar";
+                extension = "ics";
+            }
 
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
@@ -3635,6 +3653,20 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return result;
+    }
+
+    function getICalDateTimeString( eventDate ) {
+        var format = [];
+        format.push( eventDate.getFullYear() );
+        format.push( eventDate.getMonth() );
+        format.push( eventDate.getDate() );
+        format.push( "T" );
+        format.push( eventDate.getHours() );
+        format.push( eventDate.getMinutes() );
+        format.push( "00" );
+        format.push( "Z" );
+
+        return format.join( "" );
     }
 
 
@@ -3793,6 +3825,38 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         textContents.pop();
+
+        return textContents.join( "\n" );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To iCAL
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getICalContents( orderedEvents ) {
+        var textContents = [];
+        textContents.push( "BEGIN:VCALENDAR" );
+        textContents.push( "VERSION:2.0" );
+        textContents.push( "PRODID:-//hacksw/handcal//NONSGML v1.0//EN" );
+
+        var orderedEventLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
+
+            textContents.push( "BEGIN:VEVENT" );
+            textContents.push( "UID:" + getString( orderedEvent.id ) );
+            textContents.push( "DTSTAMP:" + getICalDateTimeString( orderedEvent.created ) );
+            textContents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
+            textContents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
+            textContents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
+            textContents.push( "SUMMARY:" + getString( orderedEvent.title ) );
+            textContents.push( "END:VEVENT" );
+        }
+
+        textContents.push( "END:VCALENDAR" );
 
         return textContents.join( "\n" );
     }
