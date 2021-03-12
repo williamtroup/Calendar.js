@@ -1,4 +1,4 @@
-# Welcome to Calendar.js:
+# Welcome to Calendar.js v0.6.0:
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
@@ -24,6 +24,8 @@ Features include:
   4. Down:  Jumps to the current month.
   6. F5:  Refreshes the current view.
   7. Ctrl/Command + F:  Opens the search dialog.
+
+So see all the latest changes, click [here](CHANGES.md).
 
 To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
 
