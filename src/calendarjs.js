@@ -700,7 +700,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function onWindowKeyDown( e, element ) {
-        if ( _isFullScreenModeActivated ) {
+        if ( _isFullScreenModeActivated && isOnlyMainDisplayVisible() ) {
             if ( e.keyCode === 27 ) {
                 headerDoubleClick( element );
             } else if ( e.keyCode === 37 ) {
@@ -3266,10 +3266,14 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function refreshViews() {
-        if ( !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) {
+        if ( isOnlyMainDisplayVisible() ) {
             refreshOpenedViews();
             buildDayEvents();
         }
+    }
+
+    function isOnlyMainDisplayVisible() {
+        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible();
     }
 
     
