@@ -48,6 +48,8 @@
  *
  * @property    {Object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed.
  * @property    {Object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed.
+ * @property    {Object}    onPreviousYear                              Specifies an event that will be triggered when moving to the previous year.
+ * @property    {Object}    onNextYear                                  Specifies an event that will be triggered when moving to the next year.
  * @property    {Object}    onToday                                     Specifies an event that will be triggered when the "Today" button is pressed.
  * @property    {Object}    onEventAdded                                Specifies an event that will be triggered when an event is added (passes the event to the function).
  * @property    {Object}    onEventUpdated                              Specifies an event that will be triggered when an event is updated (passes the event to the function).
@@ -714,7 +716,16 @@ function calendarJs( id, options, startDateTime ) {
 
     function onWindowKeyDown( e, element ) {
         if ( _isFullScreenModeActivated && isOnlyMainDisplayVisible() ) {
-            if ( e.keyCode === 27 ) {
+            if ( e.keyCode === 37 && isControlKey( e ) ) {
+                e.preventDefault();
+                moveBackYear();
+            } else if ( e.keyCode === 39 && isControlKey( e ) ) {
+                e.preventDefault();
+                moveForwardYear();
+            } else if ( e.keyCode === 70 && isControlKey( e ) ) {
+                e.preventDefault();
+                showSearchDialog();
+            } else if ( e.keyCode === 27 ) {
                 headerDoubleClick( element );
             } else if ( e.keyCode === 37 ) {
                 moveBackMonth();
@@ -722,13 +733,14 @@ function calendarJs( id, options, startDateTime ) {
                 moveForwardMonth();
             } else if ( e.keyCode === 40 ) {
                 moveToday();
-            } else if ( e.keyCode === 70 && ( e.ctrlKey || e.metaKey ) ) {
-                e.preventDefault();
-                showSearchDialog();
             } else if ( e.keyCode === 116 ) {
                 refreshViews();
             }
         }
+    }
+
+    function isControlKey( e ) {
+        return e.ctrlKey || e.metaKey;
     }
 
 
@@ -3890,6 +3902,28 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
+     * moveToPreviousYear().
+     * 
+     * Moves to the previous year.
+     * 
+     * @fires onPreviousYear
+     */
+    this.moveToPreviousYear = function() {
+        moveBackYear();
+    };
+
+    /**
+     * moveToNextYear().
+     * 
+     * Moves to the next year.
+     * 
+     * @fires onNextYear
+     */
+    this.moveToNextYear = function() {
+        moveForwardYear();
+    };
+
+    /**
      * moveToToday().
      * 
      * Moves to the current month.
@@ -3942,6 +3976,24 @@ function calendarJs( id, options, startDateTime ) {
 
         build( nextMonth );
         triggerOptionsEvent( "onNextMonth" );
+    }
+
+    function moveBackYear() {
+        var previousYear = new Date( _currentDate );
+        previousYear.setFullYear( previousYear.getFullYear() - 1 );
+        previousYear.setDate( 1 );
+
+        build( previousYear );
+        triggerOptionsEvent( "onPreviousYear" );
+    }
+
+    function moveForwardYear() {
+        var nextYear = new Date( _currentDate );
+        nextYear.setFullYear( nextYear.getFullYear() + 1 );
+        nextYear.setDate( 1 );
+
+        build( nextYear );
+        triggerOptionsEvent( "onNextYear" );
     }
 
     function moveToday() {

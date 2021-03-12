@@ -24,6 +24,8 @@ Features include:
   4. Down:  Jumps to the current month.
   6. F5:  Refreshes the current view.
   7. Ctrl/Command + F:  Opens the search dialog.
+  8. Ctrl/Command + Left:  Moves to the previous year.
+  9. Ctrl/Command + Right:  Moves to the next year.
 
 So see all the latest changes, click [here](CHANGES.md).
 
