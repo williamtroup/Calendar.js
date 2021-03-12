@@ -17,6 +17,13 @@ Features include:
 - Search support.
 - Repeat every Day, Week, Month, or Year (with exclusion days support).
 - Customizable holidays.
+- Navigation keys (when full-screen mode is activated):
+  1. Left:  Moves to the previous month.
+  2. Right:  Moves to the next month.
+  3. Escape:  Closes full-screen mode.
+  4. Down:  Jumps to the current month.
+  6. F5:  Refreshes the current view.
+  7. Ctrl/Command + F:  Opens the search dialog.
 
 To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
 
