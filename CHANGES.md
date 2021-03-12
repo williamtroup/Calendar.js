@@ -17,7 +17,7 @@
 - Added "organizerEmailAddress" support to events (set automatically if not available to options > organizerEmailAddress).
 - Added support to export events to the iCAL format.
 - Fixed events being in the wrong order when exported (to any format).
-- Added public methods "moveToPreviousYear()" and "moveToNextYear()" (with new on events).
+- Added public methods "moveToPreviousYear()" and "moveToNextYear()" (with new "on" events).
 
 ### Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
