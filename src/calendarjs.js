@@ -175,6 +175,7 @@ function calendarJs( id, options, startDateTime ) {
         _timer_RefreshMainDisplay = null,
         _eventDetails_Dragged = null,
         _cachedStyles = null,
+        _isFullScreenModeActivated = false,
         _const_Repeat_Never = 0,
         _const_Repeat_EveryDay = 1,
         _const_Repeat_EveryWeek = 2,
@@ -321,7 +322,6 @@ function calendarJs( id, options, startDateTime ) {
             buildSearchDialog();
             buildTooltip();
             buildDropDownMenus();
-            buildDocumentEvents();
         }
 
         _element_HeaderDateDisplay_Text.innerHTML = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
@@ -390,6 +390,7 @@ function calendarJs( id, options, startDateTime ) {
             buildDateHeader( element );
             buildDayNamesHeader( element );
             buildDayRows( element );
+            buildDocumentEvents( element );
             
             _initialized = true;
         }
@@ -656,12 +657,16 @@ function calendarJs( id, options, startDateTime ) {
 
     function headerDoubleClick( element ) {
         if ( element.className.indexOf( " full-screen-view" ) <= 0 ) {
-            element.className += " full-screen-view";
             _cachedStyles = element.style.cssText;
+            _isFullScreenModeActivated = true;
+
+            element.className += " full-screen-view";
             element.removeAttribute( "style" );
+            
         } else {
             element.className = element.className.replace( " full-screen-view", "" );
             element.style.cssText = _cachedStyles;
+            _isFullScreenModeActivated = false;
         }
     }
 
@@ -672,12 +677,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildDocumentEvents() {
+    function buildDocumentEvents( element ) {
         if ( !_initializedDocumentEvents ) {
             _document.body.addEventListener( "click", hideAllDropDowns );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
             _window.addEventListener( "resize", hideAllDropDowns );
             _window.addEventListener( "resize", centerSearchDialog );
+
+            _document.addEventListener( "keydown", function( e ) {
+                onWindowKeyDown( e, element );
+            } );
 
             _initializedDocumentEvents = true;
         }
@@ -688,6 +697,25 @@ function calendarJs( id, options, startDateTime ) {
         hideEventDropDownMenu();
         hideYearSelectorDropDown();
         hideTooltip();
+    }
+
+    function onWindowKeyDown( e, element ) {
+        if ( _isFullScreenModeActivated ) {
+            if ( e.keyCode === 27 ) {
+                headerDoubleClick( element );
+            } else if ( e.keyCode === 37 ) {
+                moveBackMonth();
+            } else if ( e.keyCode === 39 ) {
+                moveForwardMonth();
+            } else if ( e.keyCode === 40 ) {
+                moveToday();
+            } else if ( e.keyCode === 70 && ( e.ctrlKey || e.metaKey ) ) {
+                e.preventDefault();
+                showSearchDialog();
+            } else if ( e.keyCode === 116 ) {
+                refreshViews();
+            }
+        }
     }
 
 

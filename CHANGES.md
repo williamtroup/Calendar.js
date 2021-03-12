@@ -3,6 +3,13 @@
 ### Version 0.6.0:
 - Added support to remove an event from a repeating series (asked in the confirmation message).
 - Holidays (Christmas Eve, Christmas Day, Boxing Day, New Year's Eve and New Year's Day) are now the default holidays.
+- Added navigation key support when full-screen mode is activated:
+  1. Left:  Moves to the previous month.
+  2. Right:  Moves to the next month.
+  3. Escape:  Closes full-screen mode.
+  4. Down:  Jumps to the current month.
+  6. F5:  Refreshes the current view.
+  7. Ctrl/Command + F:  Opens the search dialog.
 
 ### Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
