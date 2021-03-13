@@ -4299,6 +4299,15 @@ function calendarJs( id, options, startDateTime ) {
         }
     };
 
+    /**
+     * getEvents().
+     * 
+     * Returns an array of the events available.
+     */
+    this.getEvents = function() {
+        return getOrderedEvents( getAllEvents() );
+    };
+
     function toStorageDate( date ) {
         return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
     }

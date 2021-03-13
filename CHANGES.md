@@ -6,6 +6,7 @@
 - Fixed full-screen mode appearing odd when used on a very small display (iPhone SE, Galaxy Fold, etc).
 - The calendar now has a minimum width of 260px.
 - Added public functions "turnOnFullScreen()" and "turnOffFullScreen()" (for toggling full-screen mode, if enabled).
+- Added public function "getEvents()", which returns all the events in an ordered array.
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
