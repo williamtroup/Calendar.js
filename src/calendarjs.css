@@ -131,19 +131,11 @@ div.full-screen-view {
 
 @media screen and (max-width: 375px) {
   div.full-screen-view div.row {
-    height: calc((100% - ((1px * 10) + ((10px * 4) + (0.7rem * 2)))) / 6);
+    height: calc((100% - ((1px * 10) + ((10px * 3) + (0.7rem * 2)))) / 6);
   }
 }
 
-div.full-screen-view div.row div.cell {
-  height: calc(100% - (10px * 2)) !important;
-}
-
 div.full-screen-view div.header-days {
-  height: auto !important;
-}
-
-div.full-screen-view div.header-days div.cell {
   height: auto !important;
 }
 
