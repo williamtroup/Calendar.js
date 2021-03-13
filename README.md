@@ -1,4 +1,4 @@
-# Welcome to Calendar.js v0.6.0:
+# Welcome to Calendar.js v0.6.1:
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
@@ -26,8 +26,34 @@ Features include:
   7. Ctrl/Command + F:  Opens the search dialog.
   8. Ctrl/Command + Left:  Moves to the previous year.
   9. Ctrl/Command + Right:  Moves to the next year.
+<br>
+<br>
+
+## Recent Changes:
 
 So see all the latest changes, click [here](CHANGES.md).
+<br>
+<br>
+
+## Options:
+
+So see all the available options, click [here](OPTIONS.md).
+<br>
+<br>
+
+## Event Object Format:
+
+So see how an event object should be formatted, click [here](EVENT.md).
+<br>
+<br>
+
+## Holiday Object Format:
+
+So see how an holiday object should be formatted, click [here](HOLIDAY.md).
+<br>
+<br>
+
+## Getting Started:
 
 To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
 

@@ -1,4 +1,8 @@
-# Calendar.js Change Log:
+# Calendar.js - Change Log:
+
+### Version 0.6.1:
+- Added Markdown documentation files for options, events and holidays.
+- Fixed some documentation errors.
 
 ### Version 0.6.0:
 - Added support to remove an event from a repeating series (asked in the confirmation message).

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.6.0
+ * Calendar.js Library v0.6.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -11,11 +11,11 @@
  * 
  * This is the object format that is used to store the details about a day event.
  *
- * @property    {string}    id                                          The ID of for the event.
+ * @property    {string}    id                                          The ID for the event (set automatically if not available).
  * @property    {string}    title                                       The title of the event.
  * @property    {Object}    from                                        The date that the event occurs from.
  * @property    {Object}    to                                          The date that the event runs until.
- * @property    {string}    description                                 The in depth description of the event.
+ * @property    {string}    description                                 The in-depth description of the event.
  * @property    {string}    location                                    The location of the event.
  * @property    {string}    color                                       The color that should be used for the event (overrides all others).
  * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
