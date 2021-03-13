@@ -696,7 +696,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function turnOnFullScreenMode() {
-        if ( !_isFullScreenModeActivated ) {
+        if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
             _cachedStyles = _element_Calendar.style.cssText;
             _isFullScreenModeActivated = true;
             _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-contract-left-right";
@@ -715,7 +715,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function turnOffFullScreenMode() {
-        if ( _isFullScreenModeActivated ) {
+        if ( _isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
             _isFullScreenModeActivated = false;
             _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-expand-left-right";
             _element_FullDayView_FullScreenButton.className = "ib-arrow-expand-left-right";
@@ -3969,9 +3969,7 @@ function calendarJs( id, options, startDateTime ) {
      * Turns on the full-screen mode (if enabled).
      */
     this.turnOnFullScreen = function() {
-        if ( _options.fullScreenModeEnabled ) {
-            turnOnFullScreenMode();
-        }
+        turnOnFullScreenMode();
     };
 
     /**
@@ -3980,9 +3978,25 @@ function calendarJs( id, options, startDateTime ) {
      * Turns off the full-screen mode (if enabled).
      */
     this.turnOffFullScreen = function() {
-        if ( _options.fullScreenModeEnabled ) {
-            turnOffFullScreenMode();
-        }
+        turnOffFullScreenMode();
+    };
+
+    /**
+     * startTheAutoRefreshTimer().
+     * 
+     * Starts the auto-refresh timer (if enabled).
+     */
+    this.startTheAutoRefreshTimer = function() {
+        startAutoRefreshTimer();
+    };
+
+    /**
+     * stopTheAutoRefreshTimer().
+     * 
+     * Stops the auto-refresh timer (if enabled).
+     */
+    this.stopTheAutoRefreshTimer = function() {
+        clearAutoRefreshTimer();
     };
 
 
