@@ -1,6 +1,6 @@
 # Calendar.js - Event:
 
-Below is the object format that is expected when calling "addEvents()", "addEvent()", and "updateEvent()".
+Below is the format that is expected for an event object when calling "addEvents()", "addEvent()", and "updateEvent()".
 
 | Type:    | Name:                              |                                                                                                                               |
 | -------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
