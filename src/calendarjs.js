@@ -157,6 +157,7 @@
  * @property    {string}    organizerEmailAddressText                   The text that should be displayed for the "Organizer Email:" label.
  * @property    {string}    enableFullScreenTooltipText                 The tooltip text that should be used for for the "Turn On Full-Screen Mode" button.
  * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button.
+ * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
  */
 
 
@@ -3771,7 +3772,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
+        var headers = [ _options.idText, _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3793,6 +3794,7 @@ function calendarJs( id, options, startDateTime ) {
     function storeCsvData( csvContents, eventDetails ) {
         var eventContents = [];
 
+        eventContents.push( getCsvValue( getString( eventDetails.id ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.from ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.to ) ) );
         eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDay ) ) );
@@ -4734,6 +4736,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.disableFullScreenTooltipText ) ) {
             _options.disableFullScreenTooltipText = "Turn Off Full-Screen Mode";
+        }
+
+        if ( !isDefined( _options.idText ) ) {
+            _options.idText = "ID:";
         }
 
         if ( _initialized ) {

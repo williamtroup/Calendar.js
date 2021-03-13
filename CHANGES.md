@@ -8,6 +8,7 @@
 - Added public functions "turnOnFullScreen()" and "turnOffFullScreen()" (for toggling full-screen mode, if enabled).
 - Added public function "getEvents()", which returns all the events in an ordered array.
 - Added public function "getEvent()", which returns the event details found for an event ID.
+- Fixed the ID data being missing from the exported CSV data (it is now the first column shown).
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
