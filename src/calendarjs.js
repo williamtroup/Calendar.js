@@ -197,6 +197,7 @@ function calendarJs( id, options, startDateTime ) {
         _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
         _elementClassName_Cell = "cell",
+        _element_Calendar = null,
         _element_HeaderDateDisplay = null,
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
@@ -403,35 +404,32 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildLayout() {
         if ( !_initialized ) {
-            var element = buildContainer();
-    
-            buildListAllEventsView( element );
-            buildListAllWeekEventsView( element );
-            buildFullDayView( element );
-            buildDateHeader( element );
-            buildDayNamesHeader( element );
-            buildDayRows( element );
-            buildDocumentEvents( element );
+            buildContainer();
+            buildListAllEventsView();
+            buildListAllWeekEventsView();
+            buildFullDayView();
+            buildDateHeader();
+            buildDayNamesHeader();
+            buildDayRows();
+            buildDocumentEvents();
             
             _initialized = true;
         }
     }
 
     function buildContainer() {
-        var element = getElementByID( _elementID );
-        element.className = "calendar";
-        element.innerHTML = "";
-
-        return element;
+        _element_Calendar = getElementByID( _elementID );
+        _element_Calendar.className = "calendar";
+        _element_Calendar.innerHTML = "";
     }
 
-    function buildDateHeader( element ) {
+    function buildDateHeader() {
         _element_HeaderDateDisplay = createElement( "div", "header-date" );
-        element.appendChild( _element_HeaderDateDisplay );
+        _element_Calendar.appendChild( _element_HeaderDateDisplay );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_HeaderDateDisplay.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -519,7 +517,7 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.enableFullScreenTooltipText );
 
             _element_HeaderDateDisplay_FullScreenButton.onclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -567,11 +565,11 @@ function calendarJs( id, options, startDateTime ) {
         };
     }
 
-    function buildDayNamesHeader( element ) {
+    function buildDayNamesHeader() {
         var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
             headerNamesLength = _options.dayHeaderNames.length;
 
-        element.appendChild( headerRow );
+        _element_Calendar.appendChild( headerRow );
 
         for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
             var headerName = _options.dayHeaderNames[ headerNameIndex ],
@@ -582,10 +580,10 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildDayRows( element ) {
+    function buildDayRows() {
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
             var rowData = createElement( "div", _elementClassName_Row );
-            element.appendChild( rowData );
+            _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
                 var columnDataNumber = ( rowIndex * 7 ) + ( columnDataIndex + 1 ),
@@ -688,38 +686,45 @@ function calendarJs( id, options, startDateTime ) {
         return result.join( "" );
     }
 
-    function headerDoubleClick( element ) {
-        if ( element.className.indexOf( " full-screen-view" ) <= 0 ) {
-            _cachedStyles = element.style.cssText;
-            _isFullScreenModeActivated = true;
-            _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-contract-left-right";
-            _element_FullDayView_FullScreenButton.className = "ib-arrow-contract-left-right";
-            _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
-            _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
-
-            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.disableFullScreenTooltipText );
-            addToolTip( _element_FullDayView_FullScreenButton, _options.disableFullScreenTooltipText );
-            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
-            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
-
-            element.className += " full-screen-view";
-            element.removeAttribute( "style" );
-            
+    function headerDoubleClick() {
+        if ( _element_Calendar.className.indexOf( " full-screen-view" ) <= 0 ) {
+            turnOnFullScreenMode();
         } else {
-            _isFullScreenModeActivated = false;
-            _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-expand-left-right";
-            _element_FullDayView_FullScreenButton.className = "ib-arrow-expand-left-right";
-            _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
-            _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
-
-            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.enableFullScreenTooltipText );
-            addToolTip( _element_FullDayView_FullScreenButton, _options.enableFullScreenTooltipText );
-            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
-            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
-            
-            element.className = element.className.replace( " full-screen-view", "" );
-            element.style.cssText = _cachedStyles;
+            turnOffFullScreenMode();
         }
+    }
+
+    function turnOnFullScreenMode() {
+        _cachedStyles = _element_Calendar.style.cssText;
+        _isFullScreenModeActivated = true;
+        _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-contract-left-right";
+        _element_FullDayView_FullScreenButton.className = "ib-arrow-contract-left-right";
+        _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
+        _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
+
+        addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.disableFullScreenTooltipText );
+        addToolTip( _element_FullDayView_FullScreenButton, _options.disableFullScreenTooltipText );
+        addToolTip( _element_ListAllEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
+        addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
+
+        _element_Calendar.className += " full-screen-view";
+        _element_Calendar.removeAttribute( "style" );
+    }
+
+    function turnOffFullScreenMode() {
+        _isFullScreenModeActivated = false;
+        _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-expand-left-right";
+        _element_FullDayView_FullScreenButton.className = "ib-arrow-expand-left-right";
+        _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
+        _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
+
+        addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.enableFullScreenTooltipText );
+        addToolTip( _element_FullDayView_FullScreenButton, _options.enableFullScreenTooltipText );
+        addToolTip( _element_ListAllEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+        addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+        
+        _element_Calendar.className = _element_Calendar.className.replace( " full-screen-view", "" );
+        _element_Calendar.style.cssText = _cachedStyles;
     }
 
 
@@ -729,7 +734,7 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildDocumentEvents( element ) {
+    function buildDocumentEvents() {
         if ( !_initializedDocumentEvents ) {
             _document.body.addEventListener( "click", hideAllDropDowns );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
@@ -737,7 +742,7 @@ function calendarJs( id, options, startDateTime ) {
             _window.addEventListener( "resize", centerSearchDialog );
 
             _document.addEventListener( "keydown", function( e ) {
-                onWindowKeyDown( e, element );
+                onWindowKeyDown( e );
             } );
 
             _initializedDocumentEvents = true;
@@ -751,7 +756,7 @@ function calendarJs( id, options, startDateTime ) {
         hideTooltip();
     }
 
-    function onWindowKeyDown( e, element ) {
+    function onWindowKeyDown( e ) {
         if ( _isFullScreenModeActivated && isOnlyMainDisplayVisible() ) {
             if ( e.keyCode === 37 && isControlKey( e ) ) {
                 e.preventDefault();
@@ -763,7 +768,7 @@ function calendarJs( id, options, startDateTime ) {
                 e.preventDefault();
                 showSearchDialog();
             } else if ( e.keyCode === 27 ) {
-                headerDoubleClick( element );
+                headerDoubleClick();
             } else if ( e.keyCode === 37 ) {
                 moveBackMonth();
             } else if ( e.keyCode === 39 ) {
@@ -1043,16 +1048,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildFullDayView( element ) {
+    function buildFullDayView() {
         _element_FullDayView = createElement( "div", "full-day-view" );
-        element.appendChild( _element_FullDayView );
+        _element_Calendar.appendChild( _element_FullDayView );
 
         var titleBar = createElement( "div", "title-bar" );
         _element_FullDayView.appendChild( titleBar );
 
         if ( _options.fullScreenModeEnabled ) {
             titleBar.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1113,7 +1118,7 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( _element_FullDayView_FullScreenButton, _options.enableFullScreenTooltipText );
         
             _element_FullDayView_FullScreenButton.onclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1296,16 +1301,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildListAllEventsView( element ) {
+    function buildListAllEventsView() {
         _element_ListAllEventsView = createElement( "div", "list-all-events-view" );
-        element.appendChild( _element_ListAllEventsView );
+        _element_Calendar.appendChild( _element_ListAllEventsView );
 
         var titleBar = createElement( "div", "title-bar" );
         _element_ListAllEventsView.appendChild( titleBar );
 
         if ( _options.fullScreenModeEnabled ) {
             titleBar.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1352,7 +1357,7 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( _element_ListAllEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
         
             _element_ListAllEventsView_FullScreenButton.onclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1468,16 +1473,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildListAllWeekEventsView( element ) {
+    function buildListAllWeekEventsView() {
         _element_ListAllWeekEventsView = createElement( "div", "list-all-week-events-view" );
-        element.appendChild( _element_ListAllWeekEventsView );
+        _element_Calendar.appendChild( _element_ListAllWeekEventsView );
 
         var titleBar = createElement( "div", "title-bar" );
         _element_ListAllWeekEventsView.appendChild( titleBar );
 
         if ( _options.fullScreenModeEnabled ) {
             titleBar.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1537,7 +1542,7 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
         
             _element_ListAllWeekEventsView_FullScreenButton.onclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -3944,6 +3949,35 @@ function calendarJs( id, options, startDateTime ) {
 
         return contents.join( "\n" );
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Main Controls (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * turnOnFullScreen().
+     * 
+     * Turns on the full-screen mode (if enabled).
+     */
+    this.turnOnFullScreen = function() {
+        if ( _options.fullScreenModeEnabled ) {
+            turnOnFullScreenMode();
+        }
+    };
+
+    /**
+     * turnOffFullScreen().
+     * 
+     * Turns off the full-screen mode (if enabled).
+     */
+    this.turnOffFullScreen = function() {
+        if ( _options.fullScreenModeEnabled ) {
+            turnOffFullScreenMode();
+        }
+    };
 
 
     /*
