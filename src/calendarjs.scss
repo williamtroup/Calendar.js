@@ -321,7 +321,9 @@ div.calendar {
         div.ib-eye,
         div.ib-arrow-down-full-line,
         div.ib-plus,
-        div.ib-arrow-right-full {
+        div.ib-arrow-right-full,
+        div.ib-arrow-expand-left-right,
+        div.ib-arrow-contract-left-right {
             float: right;
         }
 
@@ -1097,7 +1099,8 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-down-full-line";
 @import "foundation/buttons/plus";
 @import "foundation/buttons/arrow-right-full";
-@import "foundation/buttons/plus";
 @import "foundation/buttons/minus";
 @import "foundation/buttons/square-hollow";
 @import "foundation/buttons/close";
+@import "foundation/buttons/arrow-expand-left-right";
+@import "foundation/buttons/arrow-contract-left-right";

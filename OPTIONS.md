@@ -98,6 +98,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
 | *string* | organizerNameText | The text that should be displayed for the "Organizer:" label. |
 | *string* | organizerEmailAddressText | The text that should be displayed for the "Organizer Email:" label. |
+| *string* | enableFullScreenTooltipText | The tooltip text that should be used for for the "Turn On Full-Screen Mode" button. |
+| *string* | disableFullScreenTooltipText | The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button. |
 
 <br/>
 

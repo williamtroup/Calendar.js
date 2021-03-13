@@ -1,0 +1,23 @@
+@import "button";
+
+.ib-arrow-contract-left-right {
+    @include button;
+
+    &:before {
+        border-right: $border;
+        border-top: $border;
+        width: $size - $size / 2 - $border-width;
+        height: $size - $size / 2 - $border-width;
+        bottom: 0;
+        left: 0;
+    }
+
+    &:after {
+        border-left: $border;
+        border-bottom: $border;
+        width: $size - $size / 2 - $border-width;
+        height: $size - $size / 2 - $border-width;
+        top: 0;
+        right: 0;
+    }
+}
