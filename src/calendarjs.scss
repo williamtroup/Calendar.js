@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.5.2
+ * Calendar.js Library v0.6.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -706,11 +706,19 @@ div.confirmation {
 
         div.message {
             @include no-selection-allowed;
-            margin-bottom: $spacing * 2;
+            margin-bottom: $spacing;
         }
+    }
+
+    label.checkbox {
+        margin-bottom: 0 !important;
     }
     
     @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing * 2;
+    }
 
     input[type="button"] {
         @include dialog-button-styles;
