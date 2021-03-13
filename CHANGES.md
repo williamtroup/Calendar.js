@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.6.2:
+- Markdown files for documentation now display correctly and types are italic.
+
 ### Version 0.6.1:
 - Added Markdown documentation files for options, events and holidays.
 - Fixed some documentation errors.
