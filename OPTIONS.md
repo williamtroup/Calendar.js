@@ -1,6 +1,6 @@
-# Calendar.js Options:
+# Calendar.js - Options:
 
-Below are all the options that can be passed to the Calendar.js constructor, or "setOptions()" public function.
+Below are all the options that can be passed to the Calendar.js constructor, or "setOptions()".
 
 
 ### Standard Options:
