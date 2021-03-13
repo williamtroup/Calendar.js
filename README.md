@@ -1,8 +1,8 @@
-# Welcome to Calendar.js v0.6.2:
+# Welcome to Calendar.js v0.7.0:
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
-![CalendarJs](https://saunterjs.co.uk/images/calendarjs.png)
+![CalendarJs](images/main.png)
 
 Features include:
 - Adding, updating, and removing events, with full custom colors support.

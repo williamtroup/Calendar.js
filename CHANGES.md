@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.7.0:
+- 
+
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
 
