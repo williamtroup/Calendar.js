@@ -29,6 +29,7 @@
         <button onclick="calendarInstance.clearEvents();">Clear Events</button>
         <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
         <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+        <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
         <br>
 
         <h2>Options:</h2>
@@ -172,6 +173,13 @@
                 showDayNumberOrdinals: false,
                 fullScreenModeEnabled: false
             } );
+        }
+
+        function setCurrentDisplayDate() {
+            var newDate = new Date();
+            newDate.setMonth( newDate.getMonth() + 3 );
+
+            calendarInstance.setCurrentDisplayDate( newDate );
         }
     </script>
 </html>

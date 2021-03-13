@@ -4065,6 +4065,28 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
+     * getCurrentDisplayDate().
+     * 
+     * Returns the current date that is being used in the main display.
+     * 
+     * @returns     {Object}                                                A Date() object (day is always set to the 1st).
+     */
+    this.getCurrentDisplayDate = function() {
+        return new Date( _currentDate );
+    };
+
+    /**
+     * setCurrentDisplayDate().
+     * 
+     * Sets the current date that is being used in the main display.
+     * 
+     * @param       {Object}    date                                        The Date() object to set.
+     */
+    this.setCurrentDisplayDate = function( date ) {
+        build( new Date( date ) );
+    };
+
+    /**
      * exportAllEvents().
      * 
      * Exports all the events into a CSV download.
@@ -4343,17 +4365,6 @@ function calendarJs( id, options, startDateTime ) {
         } );
 
         return returnEvent;
-    };
-
-    /**
-     * getCurrentDisplayDate().
-     * 
-     * Returns the current date that is being used in the main display.
-     * 
-     * @returns     {Object}                                                A Date() object (day is always set to the 1st).
-     */
-    this.getCurrentDisplayDate = function() {
-        return new Date( _currentDate );
     };
 
     function toStorageDate( date ) {
