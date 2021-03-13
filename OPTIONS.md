@@ -1,5 +1,11 @@
 # Calendar.js Options:
 
+Below are all the options that can be passed to the Calendar.js constructor, or "setOptions()" public function.
+
+
+### Standard Options:
+<br/>
+
 | Type:    | Name:                                       | Description:                                                                                                                                                                 |
 | -------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | string   | previousMonthTooltipText                    | The tooltip text that should be used for for the "Previous Month" button.                                                                                                    |
@@ -92,3 +98,21 @@
 | string   | organizerEmailAddress                       | The default email address of the organizer (defaults to empty string).                                                                                                       |
 | string   | organizerNameText                           | The text that should be displayed for the "Organizer:" label.                                                                                                                |
 | string   | organizerEmailAddressText                   | The text that should be displayed for the "Organizer Email:" label.                                                                                                          |
+<br/>
+
+### Event Options:
+<br/>
+
+| Name:                                  | Description:                                                                                                      |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| onPreviousMonth                        | Specifies an event that will be triggered when the "Previous Month" button is pressed.                            |
+| onNextMonth                            | Specifies an event that will be triggered when the "Next Month" button is pressed.                                |
+| onPreviousYear                         | Specifies an event that will be triggered when moving to the previous year.                                       |
+| onNextYear                             | Specifies an event that will be triggered when moving to the next year.                                           |
+| onToday                                | Specifies an event that will be triggered when the "Today" button is pressed.                                     |
+| onEventAdded                           | Specifies an event that will be triggered when an event is added (passes the event to the function).              |
+| onEventUpdated                         | Specifies an event that will be triggered when an event is updated (passes the event to the function).            |
+| onEventRemoved                         | Specifies an event that will be triggered when an event is removed (passes the event to the function).            |
+| onEventsAdded                          | Specifies an event that will be triggered when events are added (passes the events to the function).              |
+| onEventsCleared                        | Specifies an event that will be triggered when the events are cleared.                                            |
+| onEventsExported                       | Specifies an event that will be triggered when the "Export Events" button is pressed.                             |
