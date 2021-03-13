@@ -313,6 +313,9 @@ function calendarJs( id, options, startDateTime ) {
         _currentDate = isDefined( newStartDateTime ) ? newStartDateTime : new Date();
         fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
 
+        _currentDate.setDate( 1 );
+        _currentDate.setHours( 0, 0, 0, 0 );
+
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
             startDay = firstDay.getDay(),
             totalDaysInMonth = daysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
@@ -4090,7 +4093,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveBackMonth() {
         var previousMonth = new Date( _currentDate );
         previousMonth.setMonth( previousMonth.getMonth() - 1 );
-        previousMonth.setDate( 1 );
 
         build( previousMonth );
         triggerOptionsEvent( "onPreviousMonth" );
@@ -4099,7 +4101,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveForwardMonth() {
         var nextMonth = new Date( _currentDate );
         nextMonth.setMonth( nextMonth.getMonth() + 1 );
-        nextMonth.setDate( 1 );
 
         build( nextMonth );
         triggerOptionsEvent( "onNextMonth" );
@@ -4108,7 +4109,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveBackYear() {
         var previousYear = new Date( _currentDate );
         previousYear.setFullYear( previousYear.getFullYear() - 1 );
-        previousYear.setDate( 1 );
 
         build( previousYear );
         triggerOptionsEvent( "onPreviousYear" );
@@ -4117,7 +4117,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveForwardYear() {
         var nextYear = new Date( _currentDate );
         nextYear.setFullYear( nextYear.getFullYear() + 1 );
-        nextYear.setDate( 1 );
 
         build( nextYear );
         triggerOptionsEvent( "onNextYear" );

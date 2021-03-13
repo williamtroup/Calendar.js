@@ -11,6 +11,7 @@
 - Fixed the ID data being missing from the exported CSV data (it is now the first column shown).
 - Added public functions "startTheAutoRefreshTimer()" and "stopTheAutoRefreshTimer()".
 - Added public function "getCurrentDisplayDate()", which returns the current date being used in the main display.
+- The current date is now always set to the beginning of the day and the 1st day of the month.
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
