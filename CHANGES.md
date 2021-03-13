@@ -12,7 +12,7 @@
 - Added public functions "startTheAutoRefreshTimer()" and "stopTheAutoRefreshTimer()".
 - Added public function "getCurrentDisplayDate()", which returns the current date being used in the main display.
 - The current date is now always set to the beginning of the day and the 1st day of the month.
-- Added public function "setCurrentDisplayDate()", which will set the main display date.
+- Added public function "setCurrentDisplayDate()", which will set the main display date (fires "onSetDate", if available).
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.

@@ -57,6 +57,7 @@
  * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
  * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
  * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
+ * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally.
  */
 
 
@@ -4080,10 +4081,13 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * Sets the current date that is being used in the main display.
      * 
+     * @fires onSetDate
+     * 
      * @param       {Object}    date                                        The Date() object to set.
      */
     this.setCurrentDisplayDate = function( date ) {
         build( new Date( date ) );
+        triggerOptionsEvent( "onSetDate" );
     };
 
     /**
