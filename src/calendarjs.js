@@ -4308,6 +4308,28 @@ function calendarJs( id, options, startDateTime ) {
         return getOrderedEvents( getAllEvents() );
     };
 
+    /**
+     * getEvent().
+     * 
+     * Returns an event that matches the ID passed.
+     * 
+     * @param       {string}    id                                          The ID of the event to fetch.
+     * 
+     * @returns     {Object}                                                The event details (or null if the ID cannot be found).
+     */
+    this.getEvent = function( id ) {
+        var returnEvent = null;
+
+        getAllEventsFunc( function( event, _, storageGuid ) {
+            if ( storageGuid === id ) {
+                returnEvent = event;
+                return true;
+            }
+        } );
+
+        return returnEvent;
+    };
+
     function toStorageDate( date ) {
         return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
     }

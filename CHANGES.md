@@ -7,6 +7,7 @@
 - The calendar now has a minimum width of 260px.
 - Added public functions "turnOnFullScreen()" and "turnOffFullScreen()" (for toggling full-screen mode, if enabled).
 - Added public function "getEvents()", which returns all the events in an ordered array.
+- Added public function "getEvent()", which returns the event details found for an event ID.
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.

@@ -27,6 +27,7 @@
         <h2>Events:</h2>
         <button onclick="removeEvent();">Remove Event</button>
         <button onclick="calendarInstance.clearEvents();">Clear Events</button>
+        <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
         <br>
 
         <h2>Options:</h2>
@@ -92,7 +93,8 @@
                 color: "#FF0000",
                 colorText: "#FFFF00",
                 colorBorder: "#00FF00",
-                repeatEvery: 4
+                repeatEvery: 4,
+                id: "1234-5678-9"
             },
             {
                 from: today11,
