@@ -10,6 +10,7 @@
 - Added public function "getEvent()", which returns the event details found for an event ID.
 - Fixed the ID data being missing from the exported CSV data (it is now the first column shown).
 - Added public functions "startTheAutoRefreshTimer()" and "stopTheAutoRefreshTimer()".
+- Added public function "getCurrentDisplayDate()", which returns the current date being used in the main display.
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
