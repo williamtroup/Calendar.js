@@ -8,6 +8,10 @@
 
 @import "foundation/styles";
 
+div.calendar {
+    min-width: 260px;
+}
+
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
@@ -226,6 +230,9 @@ div.calendar {
             position: relative;
 
             span {
+                white-space: nowrap;
+                overflow: hidden;
+
                 &:hover {
                     @include opacity-hover-effect;
                 }

@@ -4,6 +4,7 @@
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
 - Fixed the CSS class "ib-plus" being available twice in the master CSS file.
 - Fixed full-screen mode appearing odd when used on a very small display (iPhone SE, Galaxy Fold, etc).
+- The calendar now has a minimum width of 260px.
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.

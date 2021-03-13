@@ -4,6 +4,10 @@
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
  */
+div.calendar {
+  min-width: 260px;
+}
+
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
@@ -308,6 +312,11 @@ div.calendar div.header-date {
 div.calendar div.header-date div.title-container {
   display: inline;
   position: relative;
+}
+
+div.calendar div.header-date div.title-container span {
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 div.calendar div.header-date div.title-container span:hover {
