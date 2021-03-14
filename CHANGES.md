@@ -14,6 +14,7 @@
 - The current date is now always set to the beginning of the day and the 1st day of the month.
 - Added public function "setCurrentDisplayDate()", which will set the main display date (fires "onSetDate", if available).
 - Changed the mime type for exported JSON to application/json.
+- Added FUNCTIONS.md documentation and fixed internal JS documentation for public functions.
 
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
