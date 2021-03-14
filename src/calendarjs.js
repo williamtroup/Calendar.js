@@ -3627,20 +3627,23 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( contents !== "" ) {
             var tempLink = createElement( "a" ),
-                mimeType = type,
+                mimeTypeStart = "text",
+                mimeTypeEnd = type,
                 extension = type;
 
             if ( type === "text" ) {
-                mimeType = "plain";
+                mimeTypeEnd = "plain";
                 extension = "txt";
             } else if ( type === "ical" ) {
-                mimeType = "calendar";
+                mimeTypeEnd = "calendar";
                 extension = "ics";
+            } else if ( type === "json" ) {
+                mimeTypeStart = "application";
             }
 
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", "data:text/" + mimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
+            tempLink.setAttribute( "href", "data:" + mimeTypeStart + "/" + mimeTypeEnd + ";charset=utf-8," + encodeURIComponent( contents ) );
             tempLink.setAttribute( "download", getExportDownloadFilename( extension ) );
     
             _document.body.appendChild( tempLink );
