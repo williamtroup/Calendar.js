@@ -52,7 +52,7 @@ To see how an holiday object should be formatted, click [here](HOLIDAY.md).
 <br>
 <br>
 
-## Options:
+## Public Functions:
 
 To see all the available public functions, click [here](FUNCTIONS.md).
 <br>
