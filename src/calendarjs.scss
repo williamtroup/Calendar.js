@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.6.2
+ * Calendar.js Library v0.7.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -7,6 +7,10 @@
 
 
 @import "foundation/styles";
+
+div.calendar {
+    min-width: 260px;
+}
 
 div.calendar,
 div.calendar-tooltip,
@@ -63,20 +67,12 @@ div.full-screen-view {
         }
         
         @media screen and (max-width: $maximum-width) {
-            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$small-font-size} * 2)))) / 6);
-        }
-
-        div.cell {
-            height: calc(100% - (#{$spacing} * 2)) !important;
+            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 3) + (#{$small-font-size} * 2)))) / 6);
         }
     }
 
     div.header-days {
         height: auto !important;
-
-        div.cell {
-            height: auto !important;
-        }
     }
 
     div.plus-x-events {
@@ -234,6 +230,9 @@ div.calendar {
             position: relative;
 
             span {
+                white-space: nowrap;
+                overflow: hidden;
+
                 &:hover {
                     @include opacity-hover-effect;
                 }
@@ -321,7 +320,9 @@ div.calendar {
         div.ib-eye,
         div.ib-arrow-down-full-line,
         div.ib-plus,
-        div.ib-arrow-right-full {
+        div.ib-arrow-right-full,
+        div.ib-arrow-expand-left-right,
+        div.ib-arrow-contract-left-right {
             float: right;
         }
 
@@ -1097,7 +1098,8 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-down-full-line";
 @import "foundation/buttons/plus";
 @import "foundation/buttons/arrow-right-full";
-@import "foundation/buttons/plus";
 @import "foundation/buttons/minus";
 @import "foundation/buttons/square-hollow";
 @import "foundation/buttons/close";
+@import "foundation/buttons/arrow-expand-left-right";
+@import "foundation/buttons/arrow-contract-left-right";

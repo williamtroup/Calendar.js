@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.6.2
+ * Calendar.js Library v0.7.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -57,6 +57,7 @@
  * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
  * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
  * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
+ * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally.
  */
 
 
@@ -155,6 +156,9 @@
  * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
  * @property    {string}    organizerNameText                           The text that should be displayed for the "Organizer:" label.
  * @property    {string}    organizerEmailAddressText                   The text that should be displayed for the "Organizer Email:" label.
+ * @property    {string}    enableFullScreenTooltipText                 The tooltip text that should be used for for the "Turn On Full-Screen Mode" button.
+ * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button.
+ * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
  */
 
 
@@ -195,11 +199,13 @@ function calendarJs( id, options, startDateTime ) {
         _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
         _elementClassName_Cell = "cell",
+        _element_Calendar = null,
         _element_HeaderDateDisplay = null,
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
         _element_HeaderDateDisplay_YearSelector_Contents = null,
         _element_HeaderDateDisplay_ExportEventsButton = null,
+        _element_HeaderDateDisplay_FullScreenButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_DisabledArea = null,
@@ -240,12 +246,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_DateSelected = null,
         _element_FullDayView_EventsShown = [],
         _element_FullDayView_ExportEventsButton = null,
+        _element_FullDayView_FullScreenButton = null,
         _element_ListAllEventsView = null,
         _element_ListAllEventsView_ExportEventsButton = null,
+        _element_ListAllEventsView_FullScreenButton = null,
         _element_ListAllEventsView_Contents = null,
         _element_ListAllWeekEventsView = null,
         _element_ListAllWeekEventsView_Title = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
+        _element_ListAllWeekEventsView_FullScreenButton = null,
         _element_ListAllWeekEventsView_Contents = null,
         _element_ListAllWeekEventsView_Contents_FullView = {},
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {},
@@ -304,6 +313,9 @@ function calendarJs( id, options, startDateTime ) {
     function build( newStartDateTime, fullRebuild ) {
         _currentDate = isDefined( newStartDateTime ) ? newStartDateTime : new Date();
         fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
+
+        _currentDate.setDate( 1 );
+        _currentDate.setHours( 0, 0, 0, 0 );
 
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
             startDay = firstDay.getDay(),
@@ -397,35 +409,32 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildLayout() {
         if ( !_initialized ) {
-            var element = buildContainer();
-    
-            buildListAllEventsView( element );
-            buildListAllWeekEventsView( element );
-            buildFullDayView( element );
-            buildDateHeader( element );
-            buildDayNamesHeader( element );
-            buildDayRows( element );
-            buildDocumentEvents( element );
+            buildContainer();
+            buildListAllEventsView();
+            buildListAllWeekEventsView();
+            buildFullDayView();
+            buildDateHeader();
+            buildDayNamesHeader();
+            buildDayRows();
+            buildDocumentEvents();
             
             _initialized = true;
         }
     }
 
     function buildContainer() {
-        var element = getElementByID( _elementID );
-        element.className = "calendar";
-        element.innerHTML = "";
-
-        return element;
+        _element_Calendar = getElementByID( _elementID );
+        _element_Calendar.className = "calendar";
+        _element_Calendar.innerHTML = "";
     }
 
-    function buildDateHeader( element ) {
+    function buildDateHeader() {
         _element_HeaderDateDisplay = createElement( "div", "header-date" );
-        element.appendChild( _element_HeaderDateDisplay );
+        _element_Calendar.appendChild( _element_HeaderDateDisplay );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_HeaderDateDisplay.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -505,6 +514,18 @@ function calendarJs( id, options, startDateTime ) {
 
         addToolTip( listWeekEventsButton, _options.listWeekEventsTooltipText );
 
+        if ( _options.fullScreenModeEnabled ) {
+            _element_HeaderDateDisplay_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
+            _element_HeaderDateDisplay_FullScreenButton.ondblclick = cancelBubble;
+            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_FullScreenButton );
+
+            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.enableFullScreenTooltipText );
+
+            _element_HeaderDateDisplay_FullScreenButton.onclick = function() {
+                headerDoubleClick();
+            };
+        }
+
         var titleContainer = createElement( "div", "title-container" );
         _element_HeaderDateDisplay.appendChild( titleContainer );
         
@@ -549,11 +570,11 @@ function calendarJs( id, options, startDateTime ) {
         };
     }
 
-    function buildDayNamesHeader( element ) {
+    function buildDayNamesHeader() {
         var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
             headerNamesLength = _options.dayHeaderNames.length;
 
-        element.appendChild( headerRow );
+        _element_Calendar.appendChild( headerRow );
 
         for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
             var headerName = _options.dayHeaderNames[ headerNameIndex ],
@@ -564,10 +585,10 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildDayRows( element ) {
+    function buildDayRows() {
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
             var rowData = createElement( "div", _elementClassName_Row );
-            element.appendChild( rowData );
+            _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
                 var columnDataNumber = ( rowIndex * 7 ) + ( columnDataIndex + 1 ),
@@ -670,18 +691,48 @@ function calendarJs( id, options, startDateTime ) {
         return result.join( "" );
     }
 
-    function headerDoubleClick( element ) {
-        if ( element.className.indexOf( " full-screen-view" ) <= 0 ) {
-            _cachedStyles = element.style.cssText;
-            _isFullScreenModeActivated = true;
-
-            element.className += " full-screen-view";
-            element.removeAttribute( "style" );
-            
+    function headerDoubleClick() {
+        if ( !_isFullScreenModeActivated ) {
+            turnOnFullScreenMode();
         } else {
-            element.className = element.className.replace( " full-screen-view", "" );
-            element.style.cssText = _cachedStyles;
+            turnOffFullScreenMode();
+        }
+    }
+
+    function turnOnFullScreenMode() {
+        if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
+            _cachedStyles = _element_Calendar.style.cssText;
+            _isFullScreenModeActivated = true;
+            _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-contract-left-right";
+            _element_FullDayView_FullScreenButton.className = "ib-arrow-contract-left-right";
+            _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
+            _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
+    
+            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.disableFullScreenTooltipText );
+            addToolTip( _element_FullDayView_FullScreenButton, _options.disableFullScreenTooltipText );
+            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
+            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
+    
+            _element_Calendar.className += " full-screen-view";
+            _element_Calendar.removeAttribute( "style" );
+        }
+    }
+
+    function turnOffFullScreenMode() {
+        if ( _isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
             _isFullScreenModeActivated = false;
+            _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-expand-left-right";
+            _element_FullDayView_FullScreenButton.className = "ib-arrow-expand-left-right";
+            _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
+            _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
+    
+            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.enableFullScreenTooltipText );
+            addToolTip( _element_FullDayView_FullScreenButton, _options.enableFullScreenTooltipText );
+            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+            
+            _element_Calendar.className = _element_Calendar.className.replace( " full-screen-view", "" );
+            _element_Calendar.style.cssText = _cachedStyles;
         }
     }
 
@@ -692,7 +743,7 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildDocumentEvents( element ) {
+    function buildDocumentEvents() {
         if ( !_initializedDocumentEvents ) {
             _document.body.addEventListener( "click", hideAllDropDowns );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
@@ -700,7 +751,7 @@ function calendarJs( id, options, startDateTime ) {
             _window.addEventListener( "resize", centerSearchDialog );
 
             _document.addEventListener( "keydown", function( e ) {
-                onWindowKeyDown( e, element );
+                onWindowKeyDown( e );
             } );
 
             _initializedDocumentEvents = true;
@@ -714,7 +765,7 @@ function calendarJs( id, options, startDateTime ) {
         hideTooltip();
     }
 
-    function onWindowKeyDown( e, element ) {
+    function onWindowKeyDown( e ) {
         if ( _isFullScreenModeActivated && isOnlyMainDisplayVisible() ) {
             if ( e.keyCode === 37 && isControlKey( e ) ) {
                 e.preventDefault();
@@ -726,7 +777,7 @@ function calendarJs( id, options, startDateTime ) {
                 e.preventDefault();
                 showSearchDialog();
             } else if ( e.keyCode === 27 ) {
-                headerDoubleClick( element );
+                headerDoubleClick();
             } else if ( e.keyCode === 37 ) {
                 moveBackMonth();
             } else if ( e.keyCode === 39 ) {
@@ -1006,16 +1057,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildFullDayView( element ) {
+    function buildFullDayView() {
         _element_FullDayView = createElement( "div", "full-day-view" );
-        element.appendChild( _element_FullDayView );
+        _element_Calendar.appendChild( _element_FullDayView );
 
         var titleBar = createElement( "div", "title-bar" );
         _element_FullDayView.appendChild( titleBar );
 
         if ( _options.fullScreenModeEnabled ) {
             titleBar.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1065,6 +1116,18 @@ function calendarJs( id, options, startDateTime ) {
 
             _element_FullDayView_ExportEventsButton.onclick = function() {
                 showSelectExportTypeDialog( _element_FullDayView_EventsShown );
+            };
+        }
+
+        if ( _options.fullScreenModeEnabled ) {
+            _element_FullDayView_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
+            _element_FullDayView_FullScreenButton.ondblclick = cancelBubble;
+            titleBar.appendChild( _element_FullDayView_FullScreenButton );
+        
+            addToolTip( _element_FullDayView_FullScreenButton, _options.enableFullScreenTooltipText );
+        
+            _element_FullDayView_FullScreenButton.onclick = function() {
+                headerDoubleClick();
             };
         }
 
@@ -1247,16 +1310,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildListAllEventsView( element ) {
+    function buildListAllEventsView() {
         _element_ListAllEventsView = createElement( "div", "list-all-events-view" );
-        element.appendChild( _element_ListAllEventsView );
+        _element_Calendar.appendChild( _element_ListAllEventsView );
 
         var titleBar = createElement( "div", "title-bar" );
         _element_ListAllEventsView.appendChild( titleBar );
 
         if ( _options.fullScreenModeEnabled ) {
             titleBar.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1293,6 +1356,18 @@ function calendarJs( id, options, startDateTime ) {
             _element_ListAllEventsView_ExportEventsButton.onclick = function() {
                 showSelectExportTypeDialog();
             };                
+        }
+
+        if ( _options.fullScreenModeEnabled ) {
+            _element_ListAllEventsView_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
+            _element_ListAllEventsView_FullScreenButton.ondblclick = cancelBubble;
+            titleBar.appendChild( _element_ListAllEventsView_FullScreenButton );
+        
+            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+        
+            _element_ListAllEventsView_FullScreenButton.onclick = function() {
+                headerDoubleClick();
+            };
         }
 
         _element_ListAllEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -1407,16 +1482,16 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildListAllWeekEventsView( element ) {
+    function buildListAllWeekEventsView() {
         _element_ListAllWeekEventsView = createElement( "div", "list-all-week-events-view" );
-        element.appendChild( _element_ListAllWeekEventsView );
+        _element_Calendar.appendChild( _element_ListAllWeekEventsView );
 
         var titleBar = createElement( "div", "title-bar" );
         _element_ListAllWeekEventsView.appendChild( titleBar );
 
         if ( _options.fullScreenModeEnabled ) {
             titleBar.ondblclick = function() {
-                headerDoubleClick( element );
+                headerDoubleClick();
             };
         }
 
@@ -1466,6 +1541,18 @@ function calendarJs( id, options, startDateTime ) {
             _element_ListAllWeekEventsView_ExportEventsButton.onclick = function() {
                 showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
             };                
+        }
+
+        if ( _options.fullScreenModeEnabled ) {
+            _element_ListAllWeekEventsView_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
+            _element_ListAllWeekEventsView_FullScreenButton.ondblclick = cancelBubble;
+            titleBar.appendChild( _element_ListAllWeekEventsView_FullScreenButton );
+        
+            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+        
+            _element_ListAllWeekEventsView_FullScreenButton.onclick = function() {
+                headerDoubleClick();
+            };
         }
 
         _element_ListAllWeekEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -3540,20 +3627,23 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( contents !== "" ) {
             var tempLink = createElement( "a" ),
-                mimeType = type,
+                mimeTypeStart = "text",
+                mimeTypeEnd = type,
                 extension = type;
 
             if ( type === "text" ) {
-                mimeType = "plain";
+                mimeTypeEnd = "plain";
                 extension = "txt";
             } else if ( type === "ical" ) {
-                mimeType = "calendar";
+                mimeTypeEnd = "calendar";
                 extension = "ics";
+            } else if ( type === "json" ) {
+                mimeTypeStart = "application";
             }
 
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
-            tempLink.setAttribute( "href", "data:text/" + mimeType + ";charset=utf-8," + encodeURIComponent( contents ) );
+            tempLink.setAttribute( "href", "data:" + mimeTypeStart + "/" + mimeTypeEnd + ";charset=utf-8," + encodeURIComponent( contents ) );
             tempLink.setAttribute( "download", getExportDownloadFilename( extension ) );
     
             _document.body.appendChild( tempLink );
@@ -3689,7 +3779,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
+        var headers = [ _options.idText, _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3711,6 +3801,7 @@ function calendarJs( id, options, startDateTime ) {
     function storeCsvData( csvContents, eventDetails ) {
         var eventContents = [];
 
+        eventContents.push( getCsvValue( getString( eventDetails.id ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.from ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.to ) ) );
         eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDay ) ) );
@@ -3875,6 +3966,49 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Main Controls (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * turnOnFullScreen().
+     * 
+     * Turns on the full-screen mode (if enabled).
+     */
+    this.turnOnFullScreen = function() {
+        turnOnFullScreenMode();
+    };
+
+    /**
+     * turnOffFullScreen().
+     * 
+     * Turns off the full-screen mode (if enabled).
+     */
+    this.turnOffFullScreen = function() {
+        turnOffFullScreenMode();
+    };
+
+    /**
+     * startTheAutoRefreshTimer().
+     * 
+     * Starts the auto-refresh timer (if enabled).
+     */
+    this.startTheAutoRefreshTimer = function() {
+        startAutoRefreshTimer();
+    };
+
+    /**
+     * stopTheAutoRefreshTimer().
+     * 
+     * Stops the auto-refresh timer (if enabled).
+     */
+    this.stopTheAutoRefreshTimer = function() {
+        clearAutoRefreshTimer();
+    };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Navigation, Exporting and Refreshing (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -3935,13 +4069,38 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
+     * getCurrentDisplayDate().
+     * 
+     * Returns the current date that is being used in the main display.
+     * 
+     * @returns     {Object}                                                A Date() object (day is always set to the 1st).
+     */
+    this.getCurrentDisplayDate = function() {
+        return new Date( _currentDate );
+    };
+
+    /**
+     * setCurrentDisplayDate().
+     * 
+     * Sets the current date that is being used in the main display.
+     * 
+     * @fires onSetDate
+     * 
+     * @param       {Object}    date                                        The Date() object to set.
+     */
+    this.setCurrentDisplayDate = function( date ) {
+        build( new Date( date ) );
+        triggerOptionsEvent( "onSetDate" );
+    };
+
+    /**
      * exportAllEvents().
      * 
-     * Exports all the events into a CSV download.
+     * Exports all the events into a downloadable file.
      * 
      * @fires onEventsExported
      * 
-     * @param       {string}    type                                        The data type to export to (defaults to "csv").
+     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt" and "ical").
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
@@ -3963,7 +4122,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveBackMonth() {
         var previousMonth = new Date( _currentDate );
         previousMonth.setMonth( previousMonth.getMonth() - 1 );
-        previousMonth.setDate( 1 );
 
         build( previousMonth );
         triggerOptionsEvent( "onPreviousMonth" );
@@ -3972,7 +4130,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveForwardMonth() {
         var nextMonth = new Date( _currentDate );
         nextMonth.setMonth( nextMonth.getMonth() + 1 );
-        nextMonth.setDate( 1 );
 
         build( nextMonth );
         triggerOptionsEvent( "onNextMonth" );
@@ -3981,7 +4138,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveBackYear() {
         var previousYear = new Date( _currentDate );
         previousYear.setFullYear( previousYear.getFullYear() - 1 );
-        previousYear.setDate( 1 );
 
         build( previousYear );
         triggerOptionsEvent( "onPreviousYear" );
@@ -3990,7 +4146,6 @@ function calendarJs( id, options, startDateTime ) {
     function moveForwardYear() {
         var nextYear = new Date( _currentDate );
         nextYear.setFullYear( nextYear.getFullYear() + 1 );
-        nextYear.setDate( 1 );
 
         build( nextYear );
         triggerOptionsEvent( "onNextYear" );
@@ -4100,7 +4255,7 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * updateEvent().
      * 
-     * Adds an array of new events.
+     * Updates an existing event.
      * 
      * @fires       onEventUpdated
      * 
@@ -4186,6 +4341,39 @@ function calendarJs( id, options, startDateTime ) {
         if ( updateEvents ) {
             buildDayEvents();
         }
+    };
+
+    /**
+     * getEvents().
+     * 
+     * Returns an array of the events available.
+     * 
+     * @returns     {Object[]}                                              An array of the event.
+     */
+    this.getEvents = function() {
+        return getOrderedEvents( getAllEvents() );
+    };
+
+    /**
+     * getEvent().
+     * 
+     * Returns an event that matches the ID passed.
+     * 
+     * @param       {string}    id                                          The ID of the event to get.
+     * 
+     * @returns     {Object}                                                The event details (or null if the ID cannot be found).
+     */
+    this.getEvent = function( id ) {
+        var returnEvent = null;
+
+        getAllEventsFunc( function( event, _, storageGuid ) {
+            if ( storageGuid === id ) {
+                returnEvent = event;
+                return true;
+            }
+        } );
+
+        return returnEvent;
     };
 
     function toStorageDate( date ) {
@@ -4584,6 +4772,18 @@ function calendarJs( id, options, startDateTime ) {
         
         if ( !isDefined( _options.organizerEmailAddressText ) ) {
             _options.organizerEmailAddressText = "Organizer Email:";
+        }
+
+        if ( !isDefined( _options.enableFullScreenTooltipText ) ) {
+            _options.enableFullScreenTooltipText = "Turn On Full-Screen Mode";
+        }
+
+        if ( !isDefined( _options.disableFullScreenTooltipText ) ) {
+            _options.disableFullScreenTooltipText = "Turn Off Full-Screen Mode";
+        }
+
+        if ( !isDefined( _options.idText ) ) {
+            _options.idText = "ID:";
         }
 
         if ( _initialized ) {

@@ -1,8 +1,8 @@
-# Welcome to Calendar.js v0.6.2:
+# Welcome to Calendar.js v0.7.0:
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
-![CalendarJs](https://saunterjs.co.uk/images/calendarjs.png)
+![CalendarJs](images/main.png)
 
 Features include:
 - Adding, updating, and removing events, with full custom colors support.
@@ -30,30 +30,36 @@ Features include:
 
 ## Recent Changes:
 
-So see all the latest changes, click [here](CHANGES.md).
+To see all the latest changes, click [here](CHANGES.md).
 <br>
 <br>
 
 ## Options:
 
-So see all the available options, click [here](OPTIONS.md).
+To see all the available options, click [here](OPTIONS.md).
 <br>
 <br>
 
 ## Event Object Format:
 
-So see how an event object should be formatted, click [here](EVENT.md).
+To see how an event object should be formatted, click [here](EVENT.md).
 <br>
 <br>
 
 ## Holiday Object Format:
 
-So see how an holiday object should be formatted, click [here](HOLIDAY.md).
+To see how an holiday object should be formatted, click [here](HOLIDAY.md).
+<br>
+<br>
+
+## Options:
+
+To see all the available public functions, click [here](FUNCTIONS.md).
 <br>
 <br>
 
 ## Getting Started:
 
-To get started, download the source code and run the "index.html" file.  This will show an example of a calendar with most option enabled.
+To get started, download the source code and run the "calendarjs.html" file.  This will show an example of a calendar with most option enabled.
 
 For further help with configuration, everything is documented in the unminimized "src/calendarjs.js" JavaScript file.

@@ -1,0 +1,138 @@
+# Calendar.js - Functions:
+
+Below is a list of all the public functions that can be called from a Calendar.js class instance.
+<br>
+<br>
+
+### **turnOnFullScreen()**:
+Turns on the full-screen mode (if enabled).
+
+### **turnOffFullScreen()**:
+Turns off the full-screen mode (if enabled).
+
+### **startTheAutoRefreshTimer()**:
+Starts the auto-refresh timer (if enabled).
+
+### **stopTheAutoRefreshTimer()**:
+Stops the auto-refresh timer (if enabled).
+
+### **moveToPreviousMonth()**:
+Moves to the previous month.
+<br>
+***Fires***:  onPreviousMonth
+
+### **moveToNextMonth()**:
+Moves to the next month.
+<br>
+***Fires***:  onNextMonth
+
+### **moveToPreviousYear()**:
+Moves to the previous year.
+<br>
+***Fires***:  onPreviousYear
+
+### **moveToNextYear()**:
+Moves to the next year.
+<br>
+***Fires***:  onNextYear
+
+### **moveToToday()**:
+Moves to the current month.
+<br>
+***Fires***:  onToday
+
+### **getCurrentDisplayDate()**:
+Returns the current date that is being used in the main display.
+<br>
+***Returns***: '*Object*' - A Date() object (day is always set to the 1st).
+
+### **setCurrentDisplayDate( *date* )**:
+Sets the current date that is being used in the main display.
+<br>
+***Fires***:  onSetDate
+<br>
+***Parameter: date***: '*Object*' - The Date() object to set.
+
+### **exportAllEvents( *type* )**:
+Exports all the events into a downloadable file.
+<br>
+***Fires***:  onEventsExported
+<br>
+***Parameter: type***: '*string*' - The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt" and "ical").
+
+### **refresh()**:
+Refreshes all of the views.
+
+### **addEvents( *events*, *updateEvents*, *triggerEvent* )**:
+Adds an array of new events.
+<br>
+***Fires***:  onEventsAdded
+<br>
+***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onEventsAdded" event should be triggered.
+
+### **addEvent( *event*, *updateEvents*, *triggerEvent* )**:
+Adds a of new event.
+<br>
+***Fires***:  onEventAdded
+<br>
+***Parameter: event***: '*Object*' - The event (refer to "Event" documentation for properties).
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onEventAdded" event should be triggered.
+
+### **updateEvent( *id*, *event*, *updateEvents*, *triggerEvent* )**:
+Updates an existing event.
+<br>
+***Fires***:  onEventUpdated
+<br>
+***Parameter: id***: '*string*' - The ID of the event.
+<br>
+***Parameter: event***: '*Object*' - The event (refer to "Event" documentation for properties).
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onEventUpdated" event should be triggered.
+<br>
+***Returns***: '*boolean*' - States if the event was updated.
+
+### **removeEvent( *id*, *updateEvents*, *triggerEvent* )**:
+Removes an event.
+<br>
+***Fires***:  onEventRemoved
+<br>
+***Parameter: id***: '*string*' - The ID of the event.
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onEventRemoved" event should be triggered.
+<br>
+***Returns***: '*boolean*' - States if the event was removed.
+
+### **clearEvents( *updateEvents* )**:
+Clears all the events.
+<br>
+***Fires***:  onEventsCleared
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+
+### **getEvents()**:
+Returns an array of the events available.
+<br>
+***Returns***: '*Object[]]' - An array of the event.
+
+### **getEvent( *id* )**:
+Returns an event that matches the ID passed.
+<br>
+***Parameter: id***: '*string*' - The ID of the event to get.
+<br>
+***Returns***: '*object*' - The event details (or null if the ID cannot be found).
+
+### **setOptions( *newOptions* )**:
+Sets the options that should be used in Calendar.js.
+<br>
+***Parameter: newOptions***: '*Object*' - All the configurable options that should be used (refer to "Options" documentation for properties).

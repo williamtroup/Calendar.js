@@ -1,34 +1,53 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js - Minimized - v0.6.2</title>
+        <title>Calendar.js v0.7.0</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="src/calendarjs.min.css" />
-        <script src="src/calendarjs.min.js"></script>
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="src/calendarjs.css" />
+        <script src="src/calendarjs.js"></script>
     </head>
-    
+
     <body>
-        <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
-        <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
-        <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
-        <button onclick="calendarInstance.moveToNextYear();">Next Month</button>
-        <button onclick="removeEvent();">Remove Event</button>
-        <button onclick="calendarInstance.clearEvents();">Clear Events</button>
-        <button onclick="setOptions();">Set Options</button>
-        <br />
-        <br />
+        <h1>Welcome to Calendar.js v0.7.0:</h1>
+        <p>Click <a href="calendarjs.min.html" target="_self">here</a> to jump to the minimized version.</p>
+
         <div id="myCalendar" style="max-width: 800px;">
             <p>Some data that should be cleared.</p>
         </div>
+        <br>
+
+        <h2>Move Back/Forward By Month/Year:</h2>
+        <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
+        <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
+        <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
+        <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
+        <br>
+
+        <h2>Events:</h2>
+        <button onclick="removeEvent();">Remove Event</button>
+        <button onclick="calendarInstance.clearEvents();">Clear Events</button>
+        <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
+        <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+        <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
+        <br>
+
+        <h2>Options:</h2>
+        <button onclick="setOptions();">Set Options</button>
         <br />
-        <br />
-        <a href="index.html" target="_self">Unminimized Version</a>
-        <br />
-        <br />
+
+        <h2>Export Events:</h2>
         <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
         <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
         <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
         <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
+        <br />
+
+        <h2>Main Controls:</h2>
+        <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
+        <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
+        <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
+        <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
     </body>
 
     <script>
@@ -78,7 +97,8 @@
                 color: "#FF0000",
                 colorText: "#FFFF00",
                 colorBorder: "#00FF00",
-                repeatEvery: 4
+                repeatEvery: 4,
+                id: "1234-5678-9"
             },
             {
                 from: today11,
@@ -150,8 +170,16 @@
                 minimumDayHeight: 70,
                 manualEditingEnabled: false,
                 exportEventsEnabled: false,
-                showDayNumberOrdinals: false
+                showDayNumberOrdinals: false,
+                fullScreenModeEnabled: false
             } );
+        }
+
+        function setCurrentDisplayDate() {
+            var newDate = new Date();
+            newDate.setMonth( newDate.getMonth() + 3 );
+
+            calendarInstance.setCurrentDisplayDate( newDate );
         }
     </script>
 </html>

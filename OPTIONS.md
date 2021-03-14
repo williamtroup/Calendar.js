@@ -98,6 +98,9 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
 | *string* | organizerNameText | The text that should be displayed for the "Organizer:" label. |
 | *string* | organizerEmailAddressText | The text that should be displayed for the "Organizer Email:" label. |
+| *string* | enableFullScreenTooltipText | The tooltip text that should be used for for the "Turn On Full-Screen Mode" button. |
+| *string* | disableFullScreenTooltipText | The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button. |
+| *string* | idText | The text that should be displayed for the "ID:" label. |
 
 <br/>
 
@@ -117,3 +120,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsAdded | Specifies an event that will be triggered when events are added (passes the events to the function). |
 | onEventsCleared | Specifies an event that will be triggered when the events are cleared. |
 | onEventsExported | Specifies an event that will be triggered when the "Export Events" button is pressed. |
+| onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |

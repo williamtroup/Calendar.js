@@ -2,7 +2,7 @@
 
 Below is the format that is expected for an event object when calling "addEvents()", "addEvent()", and "updateEvent()".
 
-| Type: | Name: | |
+| Type: | Name: | Description: |
 | --- | --- | --- |
 | *string* | id | The ID for the event (set automatically if not available). |
 | *string* | title | The title of the event. |

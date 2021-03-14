@@ -1,5 +1,21 @@
 # Calendar.js - Change Log:
 
+### Version 0.7.0:
+- Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
+- Fixed the CSS class "ib-plus" being available twice in the master CSS file.
+- Fixed full-screen mode appearing odd when used on a very small display (iPhone SE, Galaxy Fold, etc).
+- The calendar now has a minimum width of 260px.
+- Added public functions "turnOnFullScreen()" and "turnOffFullScreen()".
+- Added public function "getEvents()", which returns all the events in an ordered array.
+- Added public function "getEvent()", which returns the event details found for an event ID.
+- Fixed the ID data being missing from the exported CSV data (it is now the first column shown).
+- Added public functions "startTheAutoRefreshTimer()" and "stopTheAutoRefreshTimer()".
+- Added public function "getCurrentDisplayDate()", which returns the current date being used in the main display.
+- The current date is now always set to the beginning of the day and the 1st day of the month.
+- Added public function "setCurrentDisplayDate()", which will set the main display date (fires "onSetDate", if available).
+- Changed the mime type for exported JSON to application/json.
+- Added FUNCTIONS.md documentation and fixed internal JS documentation for public functions.
+
 ### Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
 
