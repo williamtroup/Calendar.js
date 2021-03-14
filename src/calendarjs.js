@@ -4255,7 +4255,7 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * updateEvent().
      * 
-     * Adds an array of new events.
+     * Updates an existing event.
      * 
      * @fires       onEventUpdated
      * 
@@ -4347,6 +4347,8 @@ function calendarJs( id, options, startDateTime ) {
      * getEvents().
      * 
      * Returns an array of the events available.
+     * 
+     * @returns     {Object[]}                                              An array of the event.
      */
     this.getEvents = function() {
         return getOrderedEvents( getAllEvents() );
@@ -4357,7 +4359,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * Returns an event that matches the ID passed.
      * 
-     * @param       {string}    id                                          The ID of the event to fetch.
+     * @param       {string}    id                                          The ID of the event to get.
      * 
      * @returns     {Object}                                                The event details (or null if the ID cannot be found).
      */

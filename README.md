@@ -30,25 +30,31 @@ Features include:
 
 ## Recent Changes:
 
-So see all the latest changes, click [here](CHANGES.md).
+To see all the latest changes, click [here](CHANGES.md).
 <br>
 <br>
 
 ## Options:
 
-So see all the available options, click [here](OPTIONS.md).
+To see all the available options, click [here](OPTIONS.md).
 <br>
 <br>
 
 ## Event Object Format:
 
-So see how an event object should be formatted, click [here](EVENT.md).
+To see how an event object should be formatted, click [here](EVENT.md).
 <br>
 <br>
 
 ## Holiday Object Format:
 
-So see how an holiday object should be formatted, click [here](HOLIDAY.md).
+To see how an holiday object should be formatted, click [here](HOLIDAY.md).
+<br>
+<br>
+
+## Options:
+
+To see all the available public functions, click [here](FUNCTIONS.md).
 <br>
 <br>
 
