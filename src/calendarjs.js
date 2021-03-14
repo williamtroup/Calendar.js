@@ -4096,11 +4096,11 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * exportAllEvents().
      * 
-     * Exports all the events into a CSV download.
+     * Exports all the events into a downloadable file.
      * 
      * @fires onEventsExported
      * 
-     * @param       {string}    type                                        The data type to export to (defaults to "csv").
+     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt" and "ical").
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
