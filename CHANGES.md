@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.8.0:
+- 
+
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
 - Fixed the CSS class "ib-plus" being available twice in the master CSS file.
