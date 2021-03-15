@@ -3749,9 +3749,12 @@ function calendarJs( id, options, startDateTime ) {
         } else if ( typeof value === "object" && value instanceof Date ) {
             result = getStringFromDateTime( value );
         } else if ( typeof value === "object" && value instanceof Array ) {
-            result = getArrayText( value );
+            if ( name === "repeatEveryExcludeDays" ) {
+                result = getArrayDays( value );
+            } else {
+                result = getArrayText( value );
+            }
         } else if ( typeof value === "number" ) {
-
             if ( name === "repeatEvery" ) {
                 result = getRepeatsText( value );
             } else {
@@ -3774,6 +3777,25 @@ function calendarJs( id, options, startDateTime ) {
         format.push( "Z" );
 
         return format.join( "" );
+    }
+
+    function getArrayDays( days ) {
+        var daysNames = [];
+
+        if ( isDefinedArray( days ) ) {
+            var daysLength = days.length;
+
+            for ( var dayIndex = 0; dayIndex < daysLength; dayIndex++ ) {
+                var weekDayNumber = days[ dayIndex ] - 1;
+                if ( weekDayNumber === -1 ) {
+                    weekDayNumber = 6;
+                }
+
+                daysNames.push( _options.dayNames[ weekDayNumber ] );
+            }
+        }
+
+        return getArrayText( daysNames );
     }
 
 
@@ -3817,7 +3839,7 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getString( eventDetails.colorText ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.colorBorder ) ) );
         eventContents.push( getCsvValue( getRepeatsText( eventDetails.repeatEvery ) ) );
-        eventContents.push( getCsvValue( getArrayText( eventDetails.repeatEveryExcludeDays ) ) );
+        eventContents.push( getCsvValue( getArrayDays( eventDetails.repeatEveryExcludeDays ) ) );
         eventContents.push( getCsvValue( getArrayText( eventDetails.seriesIgnoreDates ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.created ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.organizerName ) ) );
