@@ -21,8 +21,8 @@ div.event-editor input,
 div.event-editor textarea,
 div.event-editor-colors,
 div.event-editor-colors input,
-div.event-editor-exclude-days,
-div.event-editor-exclude-days input,
+div.event-editor-repeat-options,
+div.event-editor-repeat-options input,
 div.confirmation,
 div.confirmation input,
 div.select-export-type,
@@ -598,7 +598,7 @@ div.event-editor {
             @include button(cancel, $light-color, $alert-color);
             @include button(remove, $light-color, $dark-color);
             @include button(select-colors, $light-color, #6c757d);
-            @include button(days-to-exclude, $light-color, #6c757d);
+            @include button(repeat-options, $light-color, #6c757d);
 
             &.remove {
                 margin-top: $spacing;
@@ -606,11 +606,11 @@ div.event-editor {
             }
 
             &.select-colors,
-            &.days-to-exclude {
+            &.repeat-options {
                 width: 50px;
             }
 
-            &.days-to-exclude {
+            &.repeat-options {
                 position: absolute;
                 margin: 0 !important;
                 bottom: 0;
@@ -633,17 +633,17 @@ div.event-editor-colors {
     
     div.contents {
         padding: $spacing;
+
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+        }
     }
     
     input[type="color"],
     input[type="text"] {
         @include input-fields(40px);
-    }
-
-    p {
-        @include no-selection-allowed;
-        margin: 0;
-        margin-bottom: 8px;
     }
 
     @import "foundation/split-container";
@@ -662,16 +662,22 @@ div.event-editor-colors {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Exclude Days
+    Calendar.js - Dialog - Event Editor Repeat Options
     -------------------------------------------------------------------------
 */
 
-div.event-editor-exclude-days {
+div.event-editor-repeat-options {
     @include dialog-styles(250px);
     @include dialog-title-bar;
     
     div.contents {
         padding: $spacing;
+
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+        }
     }
 
     label.checkbox {
@@ -769,16 +775,16 @@ div.search {
 
     div.contents {
         padding: $spacing;
+        
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+        }
     }
     
     input[type="text"] {
         @include input-fields;
-    }
-
-    p {
-        @include no-selection-allowed;
-        margin: 0;
-        margin-bottom: 8px;
     }
 
     @import "foundation/split-container";

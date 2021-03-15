@@ -80,13 +80,14 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | minimumDayHeight | States the height the main calendar days should used (defaults to 0 - auto). |
 | *string* | repeatsText | The text that should be displayed for the "Repeats:" label. |
 | *string* | repeatDaysToExcludeText | The text that should be displayed for the "Repeat Days To Exclude:" label. |
+| *string* | daysToExcludeText | The text that should be displayed for the "Days To Exclude:" label. |
 | *string* | seriesIgnoreDatesText | The text that should be displayed for the "Series Ignore Dates:" label. |
 | *string* | repeatsNever | The text that should be displayed for the "Never" label. |
 | *string* | repeatsEveryDayText | The text that should be displayed for the "Every Day" label. |
 | *string* | repeatsEveryWeekText | The text that should be displayed for the "Every Week" label. |
 | *string* | repeatsEveryMonthText | The text that should be displayed for the "Every Month" label. |
 | *string* | repeatsEveryYearText | The text that should be displayed for the "Every Year" label. |
-| *string* | selectDaysToExcludeTitle | The text that should be displayed for the "Select Days To Exclude" label. |
+| *string* | repeatOptionsTitle | The text that should be displayed for the "Repeat Options" label. |
 | *string* | moreText | The text that should be displayed for the "More" label. |
 | *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | includeText | The text that should be displayed for the "Include:" label. |

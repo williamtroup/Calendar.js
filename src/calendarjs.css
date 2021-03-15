@@ -17,8 +17,8 @@ div.event-editor input,
 div.event-editor textarea,
 div.event-editor-colors,
 div.event-editor-colors input,
-div.event-editor-exclude-days,
-div.event-editor-exclude-days input,
+div.event-editor-repeat-options,
+div.event-editor-repeat-options input,
 div.confirmation,
 div.confirmation input,
 div.select-export-type,
@@ -38,8 +38,8 @@ div.search input {
   div.event-editor textarea,
   div.event-editor-colors,
   div.event-editor-colors input,
-  div.event-editor-exclude-days,
-  div.event-editor-exclude-days input,
+  div.event-editor-repeat-options,
+  div.event-editor-repeat-options input,
   div.confirmation,
   div.confirmation input,
   div.select-export-type,
@@ -60,8 +60,8 @@ div.search input {
   div.event-editor textarea,
   div.event-editor-colors,
   div.event-editor-colors input,
-  div.event-editor-exclude-days,
-  div.event-editor-exclude-days input,
+  div.event-editor-repeat-options,
+  div.event-editor-repeat-options input,
   div.confirmation,
   div.confirmation input,
   div.select-export-type,
@@ -81,8 +81,8 @@ div.event-editor input div.overlay-shown,
 div.event-editor textarea div.overlay-shown,
 div.event-editor-colors div.overlay-shown,
 div.event-editor-colors input div.overlay-shown,
-div.event-editor-exclude-days div.overlay-shown,
-div.event-editor-exclude-days input div.overlay-shown,
+div.event-editor-repeat-options div.overlay-shown,
+div.event-editor-repeat-options input div.overlay-shown,
 div.confirmation div.overlay-shown,
 div.confirmation input div.overlay-shown,
 div.select-export-type div.overlay-shown,
@@ -1218,19 +1218,19 @@ div.event-editor div.view input[type="button"].select-colors:not(:disabled):acti
   opacity: 0.4;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude {
+div.event-editor div.view input[type="button"].repeat-options {
   color: #F5F5F5;
   background-color: #6c757d;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude:not(:disabled):hover {
+div.event-editor div.view input[type="button"].repeat-options:not(:disabled):hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude:not(:disabled):active {
+div.event-editor div.view input[type="button"].repeat-options:not(:disabled):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -1242,11 +1242,11 @@ div.event-editor div.view input[type="button"].remove {
   width: 100%;
 }
 
-div.event-editor div.view input[type="button"].select-colors, div.event-editor div.view input[type="button"].days-to-exclude {
+div.event-editor div.view input[type="button"].select-colors, div.event-editor div.view input[type="button"].repeat-options {
   width: 50px;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude {
+div.event-editor div.view input[type="button"].repeat-options {
   position: absolute;
   margin: 0 !important;
   bottom: 0;
@@ -1290,6 +1290,17 @@ div.event-editor-colors div.contents {
   padding: 10px;
 }
 
+div.event-editor-colors div.contents p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
 div.event-editor-colors input[type="color"],
 div.event-editor-colors input[type="text"] {
   color: #282828;
@@ -1315,17 +1326,6 @@ div.event-editor-colors input[type="text"]:focus {
   border: 1px solid #282828;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
-}
-
-div.event-editor-colors p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  margin: 0;
-  margin-bottom: 8px;
 }
 
 div.event-editor-colors div.split input {
@@ -1409,10 +1409,10 @@ div.event-editor-colors input[type="button"].cancel:not(:disabled):active {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Exclude Days
+    Calendar.js - Dialog - Event Editor Repeat Options
     -------------------------------------------------------------------------
 */
-div.event-editor-exclude-days {
+div.event-editor-repeat-options {
   width: calc(100% - (10px * 2));
   max-width: 250px;
   border-radius: 0.25rem;
@@ -1427,7 +1427,7 @@ div.event-editor-exclude-days {
           transform: translate(-50%, -50%);
 }
 
-div.event-editor-exclude-days div.title-bar {
+div.event-editor-repeat-options div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1440,33 +1440,44 @@ div.event-editor-exclude-days div.title-bar {
   text-align: center;
 }
 
-div.event-editor-exclude-days div.contents {
+div.event-editor-repeat-options div.contents {
   padding: 10px;
 }
 
-div.event-editor-exclude-days label.checkbox {
+div.event-editor-repeat-options div.contents p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+div.event-editor-repeat-options label.checkbox {
   margin-bottom: 5px !important;
 }
 
-div.event-editor-exclude-days div.split input {
+div.event-editor-repeat-options div.split input {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
 }
 
-div.event-editor-exclude-days div.split input:first-child {
+div.event-editor-repeat-options div.split input:first-child {
   margin-left: 0;
 }
 
-div.event-editor-exclude-days div.split input:last-child {
+div.event-editor-repeat-options div.split input:last-child {
   margin-right: 0;
 }
 
-div.event-editor-exclude-days div.split {
+div.event-editor-repeat-options div.split {
   margin-top: 20px;
 }
 
-div.event-editor-exclude-days input[type="button"] {
+div.event-editor-repeat-options input[type="button"] {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1484,43 +1495,43 @@ div.event-editor-exclude-days input[type="button"] {
   cursor: pointer;
 }
 
-div.event-editor-exclude-days input[type="button"]:disabled {
+div.event-editor-repeat-options input[type="button"]:disabled {
   background-color: #A8A8A8 !important;
   cursor: default !important;
 }
 
-div.event-editor-exclude-days input[type="button"].ok {
+div.event-editor-repeat-options input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
 }
 
-div.event-editor-exclude-days input[type="button"].ok:not(:disabled):hover {
+div.event-editor-repeat-options input[type="button"].ok:not(:disabled):hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.event-editor-exclude-days input[type="button"].ok:not(:disabled):active {
+div.event-editor-repeat-options input[type="button"].ok:not(:disabled):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.event-editor-exclude-days input[type="button"].cancel {
+div.event-editor-repeat-options input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
 }
 
-div.event-editor-exclude-days input[type="button"].cancel:not(:disabled):hover {
+div.event-editor-repeat-options input[type="button"].cancel:not(:disabled):hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.event-editor-exclude-days input[type="button"].cancel:not(:disabled):active {
+div.event-editor-repeat-options input[type="button"].cancel:not(:disabled):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -1806,6 +1817,17 @@ div.search div.contents {
   padding: 10px;
 }
 
+div.search div.contents p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
 div.search input[type="text"] {
   color: #282828;
   width: 100%;
@@ -1827,17 +1849,6 @@ div.search input[type="text"]:focus {
   border: 1px solid #282828;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
-}
-
-div.search p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  margin: 0;
-  margin-bottom: 8px;
 }
 
 div.search div.split input {
