@@ -4390,16 +4390,28 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * setOptions().
      * 
-     * Sets the options that should be used in Calendar.js.
+     * Sets the specific options that should be used.
      * 
-     * @param {Object}      newOptions                                  All the configurable options that should be used (refer to "Options" documentation for properties).
+     * @param {Object}      newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
      */
     this.setOptions = function( newOptions ) {
-        if ( newOptions !== null && typeof newOptions === "object" ) {
-            _options = newOptions;
-        } else {
-            _options = {};
+        newOptions = getOptions( newOptions );
+
+        for ( var propertyName in newOptions ) {
+            if ( newOptions.hasOwnProperty( propertyName ) ) {
+                _options[ propertyName ] = newOptions[ propertyName ];
+            }
         }
+
+        if ( _initialized ) {
+            _initialized = false;
+
+            build( _currentDate, true );
+        }
+    };
+
+    function buildDefaultOptions( newOptions ) {
+        _options = getOptions( newOptions );
 
         if ( !isDefined( _options.previousMonthTooltipText ) ) {
             _options.previousMonthTooltipText = "Previous Month";
@@ -4785,13 +4797,15 @@ function calendarJs( id, options, startDateTime ) {
         if ( !isDefined( _options.idText ) ) {
             _options.idText = "ID:";
         }
+    }
 
-        if ( _initialized ) {
-            _initialized = false;
-
-            build( _currentDate, true );
+    function getOptions( newOptions ) {
+        if ( !isDefined( newOptions ) || typeof newOptions !== "object" ) {
+            newOptions = {};
         }
-    };
+
+        return newOptions;
+    }
 
     function getStandardHolidays() {
         return [
@@ -4835,8 +4849,7 @@ function calendarJs( id, options, startDateTime ) {
         _window = windowObject;
         _elementID = id;
 
-        _this.setOptions( options );
-
+        buildDefaultOptions( options );
         build( startDateTime, true );
 
     } ) ( document, window );

@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.8.0:
-- 
+- Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).
 
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
