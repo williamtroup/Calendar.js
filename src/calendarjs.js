@@ -1308,7 +1308,8 @@ function calendarJs( id, options, startDateTime ) {
 
     function setEventPositionAndGetScrollTop( displayDate, event, eventDetails, scrollHeight ) {
         var minutesIntoDay = getMinutesIntoDay( eventDetails.from ),
-            newTop = ( scrollHeight / 1440 ) * minutesIntoDay,
+            minutesInDay = 1440,
+            newTop = ( scrollHeight / minutesInDay ) * minutesIntoDay,
             repeatEvery = getNumber( eventDetails.repeatEvery );
 
         if ( ( eventDetails.from.getDate() !== displayDate.getDate() || eventDetails.from.getMonth() !== displayDate.getMonth() ) && repeatEvery === _const_Repeat_Never ) {
@@ -1341,7 +1342,7 @@ function calendarJs( id, options, startDateTime ) {
                     totalMinutesOfEvent = totalMinutesOfEvent - minutesIntoDay;
                 }
     
-                newHeight = ( ( scrollHeight / 1440 ) * totalMinutesOfEvent ) - ( _options.spacing * 2 );
+                newHeight = ( ( scrollHeight / minutesInDay ) * totalMinutesOfEvent ) - ( _options.spacing * 2 );
             }
 
             event.style.height = newHeight + "px";
