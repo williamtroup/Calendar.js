@@ -1346,6 +1346,10 @@ function calendarJs( id, options, startDateTime ) {
             }
 
             event.style.height = newHeight + "px";
+
+            if ( newTop + event.offsetHeight > ( scrollHeight - _options.spacing ) ) {
+                event.style.height = ( newHeight - _options.spacing ) + "px";
+            }
         }
 
         if ( newTop === 0 ) {
