@@ -170,7 +170,7 @@ div.calendar {
                 border-right: none;
             }
 
-            &:hover div.expand-day {
+            &:hover div.ib-arrow-expand-left-right-small {
                 display: block;
             }
         }
@@ -183,26 +183,13 @@ div.calendar {
             border-bottom: none;
         }
     }
-    
-    div.expand-day {
+
+    div.ib-arrow-expand-left-right-small {
         @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
         top: 5px;
-        height: 9px;
-        width: 9px;
-        border-top: 3px solid $event-color;
-        border-right: 3px solid $event-color;
-        border-radius: $border-view-radius;
         display: none;
-
-        &:hover {
-            @include opacity-hover-effect;
-        }
-
-        &:active {
-            @include opacity-active-effect;
-        }
     }
 }
 
@@ -1159,3 +1146,4 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/close";
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
+@import "foundation/buttons/arrow-expand-left-right-small";

@@ -249,7 +249,7 @@ div.calendar div.row div.cell:last-child {
   border-right: none;
 }
 
-div.calendar div.row div.cell:hover div.expand-day {
+div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-small {
   display: block;
 }
 
@@ -261,7 +261,7 @@ div.calendar div.row:last-child {
   border-bottom: none;
 }
 
-div.calendar div.expand-day {
+div.calendar div.ib-arrow-expand-left-right-small {
   animation: fade-in-effect ease 2s;
   -webkit-animation: fade-in-effect ease 2s;
   -moz-animation: fade-in-effect ease 2s;
@@ -270,26 +270,7 @@ div.calendar div.expand-day {
   position: absolute;
   right: 5px;
   top: 5px;
-  height: 9px;
-  width: 9px;
-  border-top: 3px solid #484848;
-  border-right: 3px solid #484848;
-  border-radius: 0.25rem;
   display: none;
-}
-
-div.calendar div.expand-day:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.expand-day:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
 }
 
 /*
@@ -2924,6 +2905,50 @@ div.calendar-drop-down-menu div.separator {
   border-bottom: 4px solid #F5F5F5;
   width: 4px;
   height: 4px;
+  top: 0;
+  right: 0;
+}
+
+.ib-arrow-expand-left-right-small {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+
+.ib-arrow-expand-left-right-small:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-arrow-expand-left-right-small:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-arrow-expand-left-right-small:before, .ib-arrow-expand-left-right-small:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-arrow-expand-left-right-small:before {
+  border-left: 3px solid #282828;
+  border-bottom: 3px solid #282828;
+  width: 6px;
+  height: 6px;
+  bottom: 0;
+  left: 0;
+}
+
+.ib-arrow-expand-left-right-small:after {
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  width: 6px;
+  height: 6px;
   top: 0;
   right: 0;
 }
