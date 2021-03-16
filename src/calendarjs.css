@@ -816,6 +816,10 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
   padding: 10px;
 }
 
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right {
+  float: right;
+}
+
 div.calendar div.list-all-events-view div.contents div.month div.events {
   margin-top: 10px;
   margin-bottom: 10px;

@@ -509,6 +509,10 @@ div.calendar {
                     background-color: $dark-color;
                     color: $light-color;
                     padding: $spacing;
+
+                    div.ib-arrow-expand-left-right {
+                        float: right;
+                    }
                 }
 
                 div.events {

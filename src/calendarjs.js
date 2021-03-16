@@ -161,6 +161,7 @@
  * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button.
  * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins.
+ * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for for the "Expand Month" button.
  */
 
 
@@ -1530,7 +1531,8 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildListAllEventsMonth( date ) {
         var monthContentsID = "month-" + date.getMonth() + "-" + date.getFullYear(),
-            monthContents = getElementByID( monthContentsID );
+            monthContents = getElementByID( monthContentsID ),
+            expandMonthDate = new Date( date );
         
         if ( monthContents === null ) {
             var month = createElement( "div", "month" );
@@ -1539,6 +1541,17 @@ function calendarJs( id, options, startDateTime ) {
             var header = createElement( "div", "header" );
             header.innerHTML = _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
             month.appendChild( header );
+
+            var expandMonth = createElement( "div", "ib-arrow-expand-left-right" );
+            expandMonth.ondblclick = cancelBubble;
+            header.appendChild( expandMonth );
+
+            expandMonth.onclick = function() {
+                hideOverlay( _element_ListAllEventsView );
+                build( expandMonthDate );
+            };
+    
+            addToolTip( expandMonth, _options.expandMonthTooltipText );
 
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
@@ -4917,6 +4930,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.spacing ) ) {
             _options.spacing = 10;
+        }
+
+        if ( !isDefined( _options.expandMonthTooltipText ) ) {
+            _options.expandMonthTooltipText = "Expand Month";
         }
     }
 
