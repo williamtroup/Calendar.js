@@ -1147,7 +1147,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_Contents.innerHTML = "";
-        _element_FullDayView_DateSelected = date;
+        _element_FullDayView_DateSelected = new Date( date );
         _element_FullDayView_EventsShown = [];
 
         if ( fromOpen ) {
@@ -1244,7 +1244,7 @@ function calendarJs( id, options, startDateTime ) {
             var formattedDate = toStorageFormattedDate( displayDate );
 
             event.oncontextmenu = function( e ) {
-                showEventDropDownMenu( e, eventDetails, toStorageFormattedDate( formattedDate ) );
+                showEventDropDownMenu( e, eventDetails, formattedDate );
             };
         }
 
@@ -1569,7 +1569,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_Contents_FullView = {};
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
         _element_ListAllWeekEventsView_EventsShown = [];
-        _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : weekDate;
+        _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
 
         if ( fromOpen ) {
             _element_ListAllWeekEventsView_Contents.scrollTop = 0;
@@ -2235,7 +2235,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showDayDropDownMenu( e, date ) {
-        _element_DropDownMenu_Day_DateSelected = date;
+        _element_DropDownMenu_Day_DateSelected = new Date( date );
 
         hideAllDropDowns();
         cancelBubble( e );
@@ -2962,12 +2962,13 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfirmationDialog_YesButton.onclick = hideConfirmationDialog;
         _element_ConfirmationDialog_NoButton.onclick = hideConfirmationDialog;
         _element_ConfirmationDialog_YesButton.addEventListener( "click", onYesEvent );
-        _element_ConfirmationDialog_RemoveAllEvents.checked = false;
 
         if ( showRemoveAllEventsCheckBox ) {
             _element_ConfirmationDialog_RemoveAllEvents_Label.style.display = "block";
+            _element_ConfirmationDialog_RemoveAllEvents.checked = false;
         } else {
             _element_ConfirmationDialog_RemoveAllEvents_Label.style.display = "none";
+            _element_ConfirmationDialog_RemoveAllEvents.checked = true;
         }
 
         if ( isDefinedFunction( onNoEvent ) ) {

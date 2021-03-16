@@ -4,6 +4,10 @@
 - Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).
 - Renamed the "Select Days To Exclude" dialog to "Repeat Options" (renames settings and CSS classes to match).
 - Exported data now shows the days to exclude (for repeating events) as actual day names, instead of numbers.
+- Fixed a fault that caused the incorrect dates to be used when showing a Full Day or Full Week (after skipping days/weeks).
+- Fixed the context menu not working on the Full Day view events.
+- Fixed a fault that prevented events being removed when the checkbox is not available on the confirmation message.
+- Fixed the extra toolbar buttons on the the extra views not hiding when used on a smaller screen (as with the main display).
 
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
