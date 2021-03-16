@@ -1861,7 +1861,6 @@ function calendarJs( id, options, startDateTime ) {
             header.appendChild( expandDay );
 
             expandDay.onclick = function() {
-                hideOverlay( _element_ListAllWeekEventsView );
                 showFullDayView( expandDate, true );
             };
     

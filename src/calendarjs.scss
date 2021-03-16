@@ -419,7 +419,7 @@ div.calendar {
 
 div.calendar {
     div.full-day-view {
-        @include full-size-view-display;
+        @include full-size-view-display(2);
 
         span.holiday {
             font-weight: 300 !important;
