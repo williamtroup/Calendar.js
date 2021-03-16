@@ -1339,7 +1339,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( setHeight ) {
                 var totalMinutesOfEvent = getMinutesIntoDay( eventDetails.to );
                 if ( areDatesTheSame ) {
-                    totalMinutesOfEvent = totalMinutesOfEvent - minutesIntoDay;
+                    totalMinutesOfEvent -= minutesIntoDay;
                 }
     
                 newHeight = ( ( scrollHeight / minutesInDay ) * totalMinutesOfEvent ) - ( _options.spacing * 2 );
