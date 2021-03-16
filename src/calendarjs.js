@@ -246,6 +246,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView = null,
         _element_FullDayView_Title = null,
         _element_FullDayView_Contents = null,
+        _element_FullDayView_Contents_AllDayEvents = null,
+        _element_FullDayView_Contents_Hours = null,
         _element_FullDayView_DateSelected = null,
         _element_FullDayView_EventsShown = [],
         _element_FullDayView_ExportEventsButton = null,
@@ -1127,16 +1129,26 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_FullDayView.appendChild( _element_FullDayView_Contents );
 
-        for ( var hour = 0; hour < 24; hour++ ) {
-            var row = createElement( "div", "hours" );
-            _element_FullDayView_Contents.appendChild( row );
+        _element_FullDayView_Contents_AllDayEvents = createElement( "div", "content-events-all-day" );
+        _element_FullDayView_Contents.appendChild( _element_FullDayView_Contents_AllDayEvents );
 
-            var newHour1 = createElement( "div", "hour" );
-            newHour1.innerHTML = padNumber(hour) + ":00";
+        var allDayText = createElement( "div", "all-day-text" );
+        allDayText.innerHTML = _options.allDayText;
+        _element_FullDayView_Contents_AllDayEvents.appendChild( allDayText );
+
+        _element_FullDayView_Contents_Hours = createElement( "div", "contents-events" );
+        _element_FullDayView_Contents.appendChild( _element_FullDayView_Contents_Hours );
+
+        for ( var hour = 0; hour < 24; hour++ ) {
+            var row = createElement( "div", "hour" );
+            _element_FullDayView_Contents_Hours.appendChild( row );
+
+            var newHour1 = createElement( "div", "hour-text" );
+            newHour1.innerHTML = padNumber( hour ) + ":00";
             row.appendChild( newHour1 );
 
-            var newHour2 = createElement( "div", "hour" );
-            newHour2.innerHTML = padNumber(hour) + ":30";
+            var newHour2 = createElement( "div", "hour-text" );
+            newHour2.innerHTML = padNumber( hour ) + ":30";
             row.appendChild( newHour2 );
         }
     }
@@ -1153,6 +1165,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_DateSelected = new Date( date );
         _element_FullDayView_EventsShown = [];
+        _element_FullDayView_Contents_AllDayEvents.style.display = "block";
 
         clearElementsByClassName( _element_FullDayView_Contents, _options.manualEditingEnabled ? "event" : "event-no-hover" );
 
@@ -1160,8 +1173,7 @@ function calendarJs( id, options, startDateTime ) {
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
 
         var holidayText = getHoliday( date ),
-            orderedEvents = [],
-            contentsScrollHeight = _element_FullDayView_Contents.scrollHeight;
+            orderedEvents = [];
 
         if ( holidayText !== null ) {
             var holiday = createElement( "span", "holiday" );
@@ -1210,7 +1222,7 @@ function calendarJs( id, options, startDateTime ) {
             orderedEventsFirstTopPosition = null;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            var newTopPosition = buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date, contentsScrollHeight );
+            var newTopPosition = buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date );
             if ( orderedEventsFirstTopPosition === null ) {
                 orderedEventsFirstTopPosition = newTopPosition;
             }
@@ -1218,6 +1230,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( fromOpen ) {
             _element_FullDayView_Contents.scrollTop = orderedEventsFirstTopPosition - ( _element_FullDayView_Contents.offsetHeight / 2 );
+        }
+
+        if ( _element_FullDayView_Contents_AllDayEvents.offsetHeight <= 1 ) {
+            _element_FullDayView_Contents_AllDayEvents.style.display = "none";
         }
 
         if ( _options.exportEventsEnabled ) {
@@ -1248,10 +1264,14 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildFullDayDayEvent( eventDetails, displayDate, contentsScrollHeight ) {
+    function buildFullDayDayEvent( eventDetails, displayDate ) {
         var event = createElement( "div", _options.manualEditingEnabled ? "event" : "event-no-hover" );
 
-        _element_FullDayView_Contents.appendChild( event );
+        if ( eventDetails.isAllDay ) {
+            _element_FullDayView_Contents_AllDayEvents.appendChild( event );
+        } else {
+            _element_FullDayView_Contents_Hours.appendChild( event );
+        }
 
         if ( _options.manualEditingEnabled ) {
             var formattedDate = toStorageFormattedDate( displayDate );
@@ -1304,12 +1324,18 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
-        return setEventPositionAndGetScrollTop( displayDate, event, eventDetails, contentsScrollHeight );
+        var scrollTop = 0;
+        if ( !eventDetails.isAllDay ) {
+            scrollTop = setEventPositionAndGetScrollTop( displayDate, event, eventDetails );
+        }
+
+        return scrollTop;
     }
 
-    function setEventPositionAndGetScrollTop( displayDate, event, eventDetails, contentsScrollHeight ) {
+    function setEventPositionAndGetScrollTop( displayDate, event, eventDetails ) {
         var minutesInDay = 1440,
-            pixelsPerMinute = contentsScrollHeight / minutesInDay,
+            contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
+            pixelsPerMinute = contentHoursHeight / minutesInDay,
             minutesTop = _options.spacing,
             minutesHeight = null;
 
@@ -1325,7 +1351,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( doDatesMatch( eventDetails.to, displayDate ) ) {
                 minutesHeight = ( pixelsPerMinute * getMinutesIntoDay( eventDetails.to ) ) - minutesTop;
             } else {
-                minutesHeight = contentsScrollHeight;
+                minutesHeight = contentHoursHeight;
             }
 
             minutesHeight -= _options.spacing * 2;
@@ -1337,8 +1363,8 @@ function calendarJs( id, options, startDateTime ) {
             event.style.height = minutesHeight + "px";
         }
 
-        if ( event.offsetTop + event.offsetHeight > ( contentsScrollHeight - _options.spacing ) ) {
-            event.style.height = ( ( contentsScrollHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
+        if ( event.offsetTop + event.offsetHeight > ( contentHoursHeight - _options.spacing ) ) {
+            event.style.height = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
         }
 
         var scrollTop = minutesTop + ( _element_FullDayView_Contents.offsetHeight / 2 );

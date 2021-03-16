@@ -577,20 +577,42 @@ div.calendar div.full-day-view div.contents {
   width: 100%;
 }
 
-div.calendar div.full-day-view div.contents div.hours {
+div.calendar div.full-day-view div.contents div.content-events-all-day {
+  position: relative;
+  border-bottom: 1px solid #282828;
+  overflow: hidden;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day div.all-day-text {
+  width: 80px;
+  padding: 10px;
+  background-color: #F5F5F5;
+  color: #282828;
+  border-right: 1px solid #282828;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day div.event,
+div.calendar div.full-day-view div.contents div.content-events-all-day div.event-no-hover {
+  position: static !important;
+  margin-left: 110px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events {
+  position: relative;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour {
   background-color: #F5F5F5;
   border-bottom: 1px solid #282828;
 }
 
-div.calendar div.full-day-view div.contents div.hours:nth-child(odd) {
-  background-color: #E0E0E0;
-}
-
-div.calendar div.full-day-view div.contents div.hours:last-child {
-  border-bottom: none;
-}
-
-div.calendar div.full-day-view div.contents div.hours div.hour {
+div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
   width: 80px;
   height: 80px;
   padding: 10px;
@@ -599,9 +621,17 @@ div.calendar div.full-day-view div.contents div.hours div.hour {
   border-right: 1px solid #282828;
 }
 
-div.calendar div.full-day-view div.contents div.hours div.hour:nth-child(odd) {
+div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text:nth-child(odd) {
   background-color: #282828;
   color: #F5F5F5;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour:nth-child(odd) {
+  background-color: #E0E0E0;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour:last-child {
+  border-bottom: none;
 }
 
 @media screen and (min-width: 376px) {
@@ -687,8 +717,8 @@ div.calendar div.full-day-view div.contents:last-child {
 div.calendar div.full-day-view div.contents div.event,
 div.calendar div.full-day-view div.contents div.event-no-hover {
   position: absolute;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  margin-left: 0;
+  margin-right: 0;
   width: calc(100% - 80px - (10px * 6) - (10px / 2));
   left: 110px;
   overflow: hidden;

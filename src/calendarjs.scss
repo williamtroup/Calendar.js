@@ -421,29 +421,59 @@ div.calendar {
             overflow-y: auto;
             width: 100%;
 
-            div.hours {
-                background-color: $light-color;
+            div.content-events-all-day {
+                position: relative;
                 border-bottom: $standard-border-size solid $dark-color;
-
-                &:nth-child(odd) {
-                    background-color: $day-names-color;
-                }
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                div.hour {
+                overflow: hidden;
+    
+                div.all-day-text {
                     width: $time-hours-width;
-                    height: $time-hours-width;
                     padding: $spacing;
                     background-color: $light-color;
                     color: $dark-color;
                     border-right: $standard-border-size solid $dark-color;
-        
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                }
+                
+                div.event,
+                div.event-no-hover {
+                    position: static !important;
+                    margin-left: $time-hours-width + ($spacing * 3) !important;
+                    margin-top: $spacing;
+                    margin-bottom: $spacing;
+                }
+            }
+    
+            div.contents-events {
+                position: relative;
+
+                div.hour {
+                    background-color: $light-color;
+                    border-bottom: $standard-border-size solid $dark-color;
+
+                    div.hour-text {
+                        width: $time-hours-width;
+                        height: $time-hours-width;
+                        padding: $spacing;
+                        background-color: $light-color;
+                        color: $dark-color;
+                        border-right: $standard-border-size solid $dark-color;
+                        
+                        &:nth-child(odd) {
+                            background-color: $dark-color;
+                            color: $light-color;
+                        }
+                    }
+    
                     &:nth-child(odd) {
-                        background-color: $dark-color;
-                        color: $light-color;
+                        background-color: $day-names-color;
+                    }
+    
+                    &:last-child {
+                        border-bottom: none;
                     }
                 }
             }
@@ -461,8 +491,8 @@ div.calendar {
             div.event,
             div.event-no-hover {
                 position: absolute;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
+                margin-left: 0;
+                margin-right: 0;
                 width: calc(100% - #{$time-hours-width} - (#{$spacing} * 6) - (#{$spacing} / 2));
                 left: $time-hours-width + ($spacing * 3);
                 overflow: hidden;
