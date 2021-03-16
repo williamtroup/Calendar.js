@@ -1303,9 +1303,50 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
+        return setEventPositionAndGetScrollTop( displayDate, event, eventDetails, scrollHeight );
+    }
+
+    function setEventPositionAndGetScrollTop( displayDate, event, eventDetails, scrollHeight ) {
         var minutesIntoDay = getMinutesIntoDay( eventDetails.from ),
-            newTop = ( scrollHeight / 1440 ) * minutesIntoDay;
-        
+            newTop = ( scrollHeight / 1440 ) * minutesIntoDay,
+            repeatEvery = getNumber( eventDetails.repeatEvery );
+
+        if ( ( eventDetails.from.getDate() !== displayDate.getDate() || eventDetails.from.getMonth() !== displayDate.getMonth() ) && repeatEvery === _const_Repeat_Never ) {
+            newTop = 0;
+        }
+
+        if ( !eventDetails.isAllDay ) {
+            var newHeight = 0,
+                setHeight = false,
+                areDatesTheSame = eventDetails.from.getDate() === eventDetails.to.getDate() && eventDetails.from.getMonth() === eventDetails.to.getMonth();
+
+            if ( areDatesTheSame ) {
+                setHeight = true;
+            } else {
+
+                if ( eventDetails.to.getDate() !== displayDate.getDate() || eventDetails.to.getMonth() !== displayDate.getMonth() ) {
+                    if ( newTop > 0 ) {
+                        newHeight = scrollHeight - newTop;
+                    } else {
+                        newHeight = ( scrollHeight - _options.spacing * 4 );
+                    }
+                } else {
+                    setHeight = true;
+                }
+            }
+
+            if ( setHeight ) {
+                var totalMinutesOfEvent = getMinutesIntoDay( eventDetails.to );
+                if ( areDatesTheSame ) {
+                    totalMinutesOfEvent = totalMinutesOfEvent - minutesIntoDay;
+                }
+    
+                newHeight = ( ( scrollHeight / 1440 ) * totalMinutesOfEvent ) - ( _options.spacing * 2 );
+            }
+
+            event.style.height = newHeight + "px";
+        }
+
         if ( newTop === 0 ) {
             newTop = _options.spacing;
         } else if ( newTop + event.offsetHeight > scrollHeight ) {
@@ -1316,7 +1357,12 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_FullDayView_EventsShown.push( eventDetails );
 
-        return newTop + ( event.offsetHeight / 2 );
+        var scrollTop = newTop + ( _element_FullDayView_Contents.offsetHeight / 2 );
+        if ( scrollTop <= _element_FullDayView_Contents.offsetHeight ) {
+            scrollTop = 0;
+        }
+
+        return scrollTop;
     }
 
     function getMinutesIntoDay( date ) {
