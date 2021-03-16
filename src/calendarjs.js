@@ -1353,13 +1353,11 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
 
-        if ( newTop === 0 ) {
-            newTop = _options.spacing;
-        } else if ( newTop + event.offsetHeight > scrollHeight ) {
-            newTop = ( scrollHeight - event.offsetHeight ) - _options.spacing;
+        if ( newTop + event.offsetHeight > scrollHeight ) {
+            event.style.height = ( ( scrollHeight - newTop ) - ( _options.spacing * 3 ) ) + "px";
         }
 
-        event.style.top = newTop + "px";
+        event.style.top = ( newTop === 0 ? _options.spacing : newTop ) + "px";
 
         _element_FullDayView_EventsShown.push( eventDetails );
 

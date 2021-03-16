@@ -691,6 +691,7 @@ div.calendar div.full-day-view div.contents div.event-no-hover {
   margin-right: 0 !important;
   width: calc(100% - 80px - (10px * 6) - (10px / 2));
   left: 110px;
+  overflow: hidden;
 }
 
 /*
