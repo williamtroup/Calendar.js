@@ -568,24 +568,70 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
 }
 
+@media screen and (min-width: 376px) {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+    display: none !important;
+  }
+}
+
 div.calendar div.full-day-view div.contents {
   display: inline-block;
-  padding: 10px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - (10px * 2));
+  width: 100%;
+}
+
+div.calendar div.full-day-view div.contents div.hours {
+  background-color: #F5F5F5;
+  border-bottom: 1px solid #282828;
+}
+
+div.calendar div.full-day-view div.contents div.hours:nth-child(odd) {
+  background-color: #E0E0E0;
+}
+
+div.calendar div.full-day-view div.contents div.hours:last-child {
+  border-bottom: none;
+}
+
+div.calendar div.full-day-view div.contents div.hours div.hour {
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  background-color: #F5F5F5;
+  color: #282828;
+  border-right: 1px solid #282828;
+}
+
+div.calendar div.full-day-view div.contents div.hours div.hour:nth-child(odd) {
+  background-color: #282828;
+  color: #F5F5F5;
 }
 
 @media screen and (min-width: 376px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
+    height: calc(100% - ((10px * 2) + 0.9rem));
   }
 }
 
 @media screen and (max-width: 375px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
+    height: calc(100% - ((10px * 2) + 0.7rem));
   }
 }
 
@@ -659,8 +705,11 @@ div.calendar div.full-day-view div.contents:last-child {
 
 div.calendar div.full-day-view div.contents div.event,
 div.calendar div.full-day-view div.contents div.event-no-hover {
+  position: absolute;
   margin-left: 0 !important;
   margin-right: 0 !important;
+  width: calc(100% - 80px - (10px * 6) - (10px / 2));
+  left: 110px;
 }
 
 /*
@@ -711,6 +760,26 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
+}
+
+@media screen and (min-width: 376px) {
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: none !important;
+  }
 }
 
 div.calendar div.list-all-events-view div.contents {
@@ -872,6 +941,26 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
+}
+
+@media screen and (min-width: 376px) {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: none !important;
+  }
 }
 
 div.calendar div.list-all-week-events-view div.contents {

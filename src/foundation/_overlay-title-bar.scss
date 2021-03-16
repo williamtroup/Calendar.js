@@ -30,4 +30,24 @@ div.title-bar {
     div.ib-arrow-contract-left-right {
         float: right;
     }
+
+    @media screen and (min-width: $minimum-width) {
+        div.ib-arrow-down-full-line,
+        div.ib-arrow-left-full,
+        div.ib-arrow-right-full,
+        div.ib-arrow-expand-left-right,
+        div.ib-arrow-contract-left-right {
+            display: inline-block;
+        }
+    }
+    
+    @media screen and (max-width: $maximum-width) {
+        div.ib-arrow-down-full-line,
+        div.ib-arrow-left-full,
+        div.ib-arrow-right-full,
+        div.ib-arrow-expand-left-right,
+        div.ib-arrow-contract-left-right {
+            display: none !important;
+        }
+    }
 }

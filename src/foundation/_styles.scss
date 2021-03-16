@@ -24,6 +24,7 @@ $large-font-size: 0.9rem;
 $small-font-size: 0.7rem;
 $maximum-width: 375px;
 $minimum-width: $maximum-width + 1;
+$time-hours-width: 80px;
 
 @mixin fade-in-effect-animation($seconds) {
     animation: fade-in-effect ease $seconds;

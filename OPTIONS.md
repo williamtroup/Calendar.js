@@ -102,6 +102,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | enableFullScreenTooltipText | The tooltip text that should be used for for the "Turn On Full-Screen Mode" button. |
 | *string* | disableFullScreenTooltipText | The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button. |
 | *string* | idText | The text that should be displayed for the "ID:" label. |
+| *number* | spacing | States the default spacing that should be used for additional margins. |
 
 <br/>
 
