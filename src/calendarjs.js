@@ -2088,7 +2088,7 @@ function calendarJs( id, options, startDateTime ) {
 
         dayElement.appendChild( dayText );
         
-        var expandDayButton = createElement( "div", "ib-arrow-expand-left-right-small" );
+        var expandDayButton = createElement( "div", "ib-arrow-top-right" );
         dayElement.appendChild( expandDayButton );
 
         addToolTip( expandDayButton, _options.expandDayTooltipText );

@@ -170,7 +170,7 @@ div.calendar {
                 border-right: none;
             }
 
-            &:hover div.ib-arrow-expand-left-right-small {
+            &:hover div.ib-arrow-top-right {
                 display: block;
             }
         }
@@ -184,7 +184,7 @@ div.calendar {
         }
     }
 
-    div.ib-arrow-expand-left-right-small {
+    div.ib-arrow-top-right {
         @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
@@ -1146,4 +1146,4 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/close";
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
-@import "foundation/buttons/arrow-expand-left-right-small";
+@import "foundation/buttons/arrow-top-right";
