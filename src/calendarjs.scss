@@ -170,7 +170,7 @@ div.calendar {
                 border-right: none;
             }
 
-            &:hover div.expand-day {
+            &:hover div.ib-arrow-top-right {
                 display: block;
             }
         }
@@ -183,26 +183,13 @@ div.calendar {
             border-bottom: none;
         }
     }
-    
-    div.expand-day {
+
+    div.ib-arrow-top-right {
         @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
         top: 5px;
-        height: 9px;
-        width: 9px;
-        border-top: 3px solid $event-color;
-        border-right: 3px solid $event-color;
-        border-radius: $border-view-radius;
         display: none;
-
-        &:hover {
-            @include opacity-hover-effect;
-        }
-
-        &:active {
-            @include opacity-active-effect;
-        }
     }
 }
 
@@ -419,7 +406,7 @@ div.calendar {
 
 div.calendar {
     div.full-day-view {
-        @include full-size-view-display;
+        @include full-size-view-display(2);
 
         span.holiday {
             font-weight: 300 !important;
@@ -428,14 +415,87 @@ div.calendar {
         @import "foundation/overlay-title-bar";
         
         div.contents {
-            @include overlay-contents;
+            display: inline-block;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+
+            div.content-events-all-day {
+                position: relative;
+                border-bottom: $standard-border-size solid $dark-color;
+                overflow: hidden;
+    
+                div.all-day-text {
+                    width: $time-hours-width;
+                    padding: $spacing;
+                    background-color: $light-color;
+                    color: $dark-color;
+                    border-right: $standard-border-size solid $dark-color;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                }
+                
+                div.event,
+                div.event-no-hover {
+                    position: static !important;
+                    margin-left: $time-hours-width + ($spacing * 3) !important;
+                    margin-top: $spacing;
+                    margin-bottom: $spacing;
+                }
+            }
+    
+            div.contents-events {
+                position: relative;
+
+                div.hour {
+                    background-color: $light-color;
+                    border-bottom: $standard-border-size solid $dark-color;
+
+                    div.hour-text {
+                        width: $time-hours-width;
+                        height: $time-hours-width;
+                        padding: $spacing;
+                        background-color: $light-color;
+                        color: $dark-color;
+                        border-right: $standard-border-size solid $dark-color;
+                        
+                        &:nth-child(odd) {
+                            background-color: $dark-color;
+                            color: $light-color;
+                        }
+                    }
+    
+                    &:nth-child(odd) {
+                        background-color: $day-names-color;
+                    }
+    
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        
+            @media screen and (min-width: $minimum-width) {
+                height: calc(100% - ((#{$spacing} * 2) + #{$large-font-size}));
+            }
+            
+            @media screen and (max-width: $maximum-width) {
+                height: calc(100% - ((#{$spacing} * 2) + #{$small-font-size}));
+            }
 
             @import "foundation/overlay-event";
 
             div.event,
             div.event-no-hover {
-                margin-left: 0 !important;
-                margin-right: 0 !important;
+                position: absolute;
+                margin-left: 0;
+                margin-right: 0;
+                width: calc(100% - #{$time-hours-width} - (#{$spacing} * 6) - (#{$spacing} / 2));
+                left: $time-hours-width + ($spacing * 3);
+                overflow: hidden;
             }
         }
     }
@@ -467,6 +527,10 @@ div.calendar {
                     background-color: $dark-color;
                     color: $light-color;
                     padding: $spacing;
+
+                    div.ib-arrow-expand-left-right {
+                        float: right;
+                    }
                 }
 
                 div.events {
@@ -510,6 +574,10 @@ div.calendar {
                     background-color: $dark-color;
                     color: $light-color;
                     padding: $spacing;
+
+                    div.ib-arrow-expand-left-right {
+                        float: right;
+                    }
                 }
 
                 div.events {
@@ -1109,3 +1177,4 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/close";
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
+@import "foundation/buttons/arrow-top-right";

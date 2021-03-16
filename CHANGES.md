@@ -8,6 +8,9 @@
 - Fixed the context menu not working on the Full Day view events.
 - Fixed a fault that prevented events being removed when the checkbox is not available on the confirmation message.
 - Fixed the extra toolbar buttons on the the extra views not hiding when used on a smaller screen (as with the main display).
+- Added support to expand a day into a Full Day view from the Weekly view.
+- Added support to expand a month into the main display from the All Events view.
+- The Full Day view now shows the events against a time view instead of a list (sorry for the delay in this).
 
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).

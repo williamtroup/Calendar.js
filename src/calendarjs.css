@@ -249,7 +249,7 @@ div.calendar div.row div.cell:last-child {
   border-right: none;
 }
 
-div.calendar div.row div.cell:hover div.expand-day {
+div.calendar div.row div.cell:hover div.ib-arrow-top-right {
   display: block;
 }
 
@@ -261,7 +261,7 @@ div.calendar div.row:last-child {
   border-bottom: none;
 }
 
-div.calendar div.expand-day {
+div.calendar div.ib-arrow-top-right {
   animation: fade-in-effect ease 2s;
   -webkit-animation: fade-in-effect ease 2s;
   -moz-animation: fade-in-effect ease 2s;
@@ -270,26 +270,7 @@ div.calendar div.expand-day {
   position: absolute;
   right: 5px;
   top: 5px;
-  height: 9px;
-  width: 9px;
-  border-top: 3px solid #484848;
-  border-right: 3px solid #484848;
-  border-radius: 0.25rem;
   display: none;
-}
-
-div.calendar div.expand-day:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.expand-day:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
 }
 
 /*
@@ -525,7 +506,7 @@ div.calendar div.full-day-view {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   background-color: #F5F5F5;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -590,22 +571,78 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
 
 div.calendar div.full-day-view div.contents {
   display: inline-block;
-  padding: 10px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - (10px * 2));
+  width: 100%;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day {
+  position: relative;
+  border-bottom: 1px solid #282828;
+  overflow: hidden;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day div.all-day-text {
+  width: 80px;
+  padding: 10px;
+  background-color: #F5F5F5;
+  color: #282828;
+  border-right: 1px solid #282828;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day div.event,
+div.calendar div.full-day-view div.contents div.content-events-all-day div.event-no-hover {
+  position: static !important;
+  margin-left: 110px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events {
+  position: relative;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour {
+  background-color: #F5F5F5;
+  border-bottom: 1px solid #282828;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  background-color: #F5F5F5;
+  color: #282828;
+  border-right: 1px solid #282828;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text:nth-child(odd) {
+  background-color: #282828;
+  color: #F5F5F5;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour:nth-child(odd) {
+  background-color: #E0E0E0;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour:last-child {
+  border-bottom: none;
 }
 
 @media screen and (min-width: 376px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
+    height: calc(100% - ((10px * 2) + 0.9rem));
   }
 }
 
 @media screen and (max-width: 375px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
+    height: calc(100% - ((10px * 2) + 0.7rem));
   }
 }
 
@@ -679,8 +716,12 @@ div.calendar div.full-day-view div.contents:last-child {
 
 div.calendar div.full-day-view div.contents div.event,
 div.calendar div.full-day-view div.contents div.event-no-hover {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  position: absolute;
+  margin-left: 0;
+  margin-right: 0;
+  width: calc(100% - 80px - (10px * 6) - (10px / 2));
+  left: 110px;
+  overflow: hidden;
 }
 
 /*
@@ -785,6 +826,10 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
+}
+
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right {
+  float: right;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events {
@@ -966,6 +1011,10 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right {
+  float: right;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
@@ -2889,5 +2938,31 @@ div.calendar-drop-down-menu div.separator {
   height: 4px;
   top: 0;
   right: 0;
+}
+
+.ib-arrow-top-right {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  border-radius: 3px;
+}
+
+.ib-arrow-top-right:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-arrow-top-right:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
 }
 /*# sourceMappingURL=calendarjs.css.map */

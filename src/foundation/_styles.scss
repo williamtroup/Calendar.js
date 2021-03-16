@@ -24,6 +24,7 @@ $large-font-size: 0.9rem;
 $small-font-size: 0.7rem;
 $maximum-width: 375px;
 $minimum-width: $maximum-width + 1;
+$time-hours-width: 80px;
 
 @mixin fade-in-effect-animation($seconds) {
     animation: fade-in-effect ease $seconds;
@@ -67,13 +68,13 @@ $minimum-width: $maximum-width + 1;
     width: 100%;
 }
 
-@mixin full-size-view-display {
+@mixin full-size-view-display($z-index: 1) {
     top: -100%;
     left: 0;
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index: 1;
+    z-index: $z-index;
     background-color: $light-color;
     transition: $transition;
     visibility: hidden;
