@@ -1174,7 +1174,7 @@ function calendarJs( id, options, startDateTime ) {
                 nextDate = new Date( event.from );
             
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
-                if ( nextDate.getFullYear() === date.getFullYear() && nextDate.getMonth() === date.getMonth() && nextDate.getDate() === date.getDate() ) {
+                if ( doDatesMatch( nextDate, date ) ) {
                     orderedEvents.push( event );
                     break;
                 }
@@ -1240,7 +1240,7 @@ function calendarJs( id, options, startDateTime ) {
             var formattedDate = toStorageFormattedDate( newFromDate );
 
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
-                if ( newFromDate.getFullYear() === date.getFullYear() && newFromDate.getMonth() === date.getMonth() && newFromDate.getDate() === date.getDate() ) {
+                if ( doDatesMatch( newFromDate, date ) ) {
                     orderedEvents.push( event );
                     break;
                 }
@@ -1316,7 +1316,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown.push( eventDetails );
 
         if ( !eventDetails.isAllDay ) {
-            if ( doDatesMatch( eventDetails.from, displayDate ) ) {
+            var repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( doDatesMatch( eventDetails.from, displayDate ) || repeatEvery > _const_Repeat_Never ) {
                 minutesTop = pixelsPerMinute * getMinutesIntoDay( eventDetails.from );
             }
 
