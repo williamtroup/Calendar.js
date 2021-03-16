@@ -997,6 +997,10 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
   padding: 10px;
 }
 
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right {
+  float: right;
+}
+
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
   margin-top: 10px;
   margin-bottom: 10px;

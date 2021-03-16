@@ -1831,7 +1831,8 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
             dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
-            dayContents = null;
+            dayContents = null,
+            expandDate = new Date( date );
 
         if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
             var day = createElement( "div", "day" );
@@ -1841,6 +1842,17 @@ function calendarJs( id, options, startDateTime ) {
             day.appendChild( header );
 
             buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
+
+            var expandDay = createElement( "div", "ib-arrow-expand-left-right" );
+            expandDay.ondblclick = cancelBubble;
+            header.appendChild( expandDay );
+
+            expandDay.onclick = function() {
+                hideOverlay( _element_ListAllWeekEventsView );
+                showFullDayView( expandDate, true );
+            };
+    
+            addToolTip( expandDay, _options.expandDayTooltipText );
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
