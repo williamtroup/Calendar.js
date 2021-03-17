@@ -976,7 +976,8 @@ function calendarJs( id, options, startDateTime ) {
                 event.innerHTML = eventTitle;
                 elementDay.appendChild( event );
 
-                setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, dayDate ) );
+                makeEventDraggable( event, eventDetails );
+                setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
 
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
@@ -995,8 +996,6 @@ function calendarJs( id, options, startDateTime ) {
                         showEventDialog( eventDetails );
                     };
                 }
-    
-                makeEventDraggable( event, eventDetails );
             } else {
 
                 var plusXEvents = elementDay.getElementsByClassName( "plus-x-events" ),
@@ -1089,7 +1088,7 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
   
-    function setEventClassesAndColors( eventDetails, event, toDate ) {
+    function setEventClassesAndColors( event, eventDetails, toDate ) {
         if ( isDefined( toDate ) && toDate < new Date() ) {
             event.className += " expired";
         }
@@ -1358,7 +1357,7 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
-        setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, displayDate ) );
+        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div", "title" );
         title.innerHTML = eventDetails.title;
@@ -1566,7 +1565,7 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
-        setEventClassesAndColors( eventDetails, event );
+        setEventClassesAndColors( event, eventDetails );
 
         var title = createElement( "div", "title" );
         title.innerHTML = eventDetails.title;
@@ -1880,7 +1879,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         makeEventDraggable( event, eventDetails );
-        setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, displayDate ) );
+        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div", "title" );
         title.innerHTML = eventDetails.title;
