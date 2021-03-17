@@ -164,6 +164,7 @@
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins.
  * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for for the "Expand Month" button.
  * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
+ * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
  */
 
 
@@ -1745,6 +1746,7 @@ function calendarJs( id, options, startDateTime ) {
             weekStartDate = weekStartEndDates[ 0 ],
             weekEndDate = weekStartEndDates[ 1 ];
 
+        buildAllWeekDays( weekStartDate, weekEndDate );
         setAllWeekEventsViewTitle( weekStartDate, weekEndDate );
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
@@ -1867,6 +1869,8 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildListAllWeekEventsEvent( eventDetails, container, displayDate ) {
+        clearElementsByClassName( container, "no-events-text" );
+
         var event = createElement( "div", _options.manualEditingEnabled ? "event" : "event-no-hover" );
         container.appendChild( event );
 
@@ -1923,6 +1927,16 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function buildAllWeekDays( weekStartDate, weekEndDate ) {
+        var startOfWeek = new Date( weekStartDate );
+
+        do {
+            buildListAllEventsDay( startOfWeek );
+            startOfWeek.setDate( startOfWeek.getDate() + 1 );
+
+        } while ( startOfWeek < weekEndDate );
+    }
+
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
             dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
@@ -1952,6 +1966,10 @@ function calendarJs( id, options, startDateTime ) {
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
+
+            var noEventsText = createElement( "div", "no-events-text" );
+            noEventsText.innerHTML = _options.noEventsAvailableText;
+            dayContents.appendChild( noEventsText );
 
             _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = dayContents;
 
@@ -5031,6 +5049,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.repeatEndsText ) ) {
             _options.repeatEndsText = "Repeat Ends:";
+        }
+
+        if ( !isDefined( _options.noEventsAvailableText ) ) {
+            _options.noEventsAvailableText = "No events available";
         }
     }
 

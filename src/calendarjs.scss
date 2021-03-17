@@ -573,6 +573,12 @@ div.calendar {
         div.contents {
             @include overlay-contents;
 
+            div.no-events-text {
+                margin-top: $spacing;
+                margin-bottom: $spacing;
+                text-align: center;
+            }
+
             div.day {
                 border-radius: $border-view-radius;
                 border: $standard-border-size solid $dark-color;

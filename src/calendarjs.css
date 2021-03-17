@@ -1015,6 +1015,12 @@ div.calendar div.list-all-week-events-view div.contents {
   }
 }
 
+div.calendar div.list-all-week-events-view div.contents div.no-events-text {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 div.calendar div.list-all-week-events-view div.contents div.day {
   border-radius: 0.25rem;
   border: 1px solid #282828;
