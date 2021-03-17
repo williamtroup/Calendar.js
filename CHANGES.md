@@ -13,7 +13,7 @@
 - The Full Day view now shows the events against a time view instead of a list (sorry for the delay in this).
 - Added support to state when repeating events should end (defaults to never).
 - If the Search dialog is minimized and the search button is pressed again, it is now restored.
-- Fixed a fault that caused no events to appear in the main display when "maximumEventsPerDayDisplay" is set to zero.
+- Fixed a fault that caused events not to appear in the main display when "maximumEventsPerDayDisplay" is set to zero.
 - The "1+ More" text shown in the main display for days can now be clicked to expand the full day.
 
 ### Version 0.7.0:
