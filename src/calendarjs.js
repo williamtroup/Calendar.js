@@ -794,7 +794,7 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Date Validation
+     * Date/Time Validation & Handling
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -816,6 +816,56 @@ function calendarJs( id, options, startDateTime ) {
         var today = new Date();
         
         return date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
+    }
+
+    function toFormattedDate( date, inputType ) {
+        var formatted = null;
+
+        if ( isDefined( date ) ) {
+            var day = ( "0" + date.getDate() ).slice( -2 ),
+                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+            if ( inputType === "date" ) {
+                formatted = date.getFullYear() + "-" + month + "-" + day;
+            } else {
+                formatted = day + "/" + month + "/" + date.getFullYear();
+            }
+        }
+
+        return formatted;
+    }
+
+    function toStorageFormattedDate( date ) {
+        var day = ( "0" + date.getDate() ).slice( -2 ),
+            month = ( "0" + ( date.getMonth() ) ).slice( -2 ),
+            formatted = day + "/" + month + "/" + date.getFullYear();
+
+        return formatted;
+    }
+
+    function toFormattedTime( date ) {
+        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
+    }
+
+    function getWeekdayNumber( date ) {
+        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
+    }
+
+    function getWeekStartEndDates( date ) {
+        date = isDefined( date ) ? date : new Date();
+
+        var day = date.getDay() === 0 ? 7 : date.getDay(),
+            firstDayNumber = ( date.getDate() - day ) + 1,
+            lastDayNumber = firstDayNumber + 6,
+            weekStartDate = new Date( date ),
+            weekEndDate = new Date( date );
+
+        weekStartDate.setDate( firstDayNumber );
+        weekStartDate.setHours( 0, 0, 0, 0 );
+        weekEndDate.setDate( lastDayNumber);
+        weekEndDate.setHours( 23, 59, 59, 99 );
+        
+        return [ weekStartDate, weekEndDate ];
     }
 
 
@@ -1915,27 +1965,6 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function getWeekdayNumber( date ) {
-        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
-    }
-
-    function getWeekStartEndDates( date ) {
-        date = isDefined( date ) ? date : new Date();
-
-        var day = date.getDay() === 0 ? 7 : date.getDay(),
-            firstDayNumber = ( date.getDate() - day ) + 1,
-            lastDayNumber = firstDayNumber + 6,
-            weekStartDate = new Date( date ),
-            weekEndDate = new Date( date );
-
-        weekStartDate.setDate( firstDayNumber );
-        weekStartDate.setHours( 0, 0, 0, 0 );
-        weekEndDate.setDate( lastDayNumber);
-        weekEndDate.setHours( 23, 59, 59, 99 );
-        
-        return [ weekStartDate, weekEndDate ];
-    }
-
     function onPreviousWeek() {
         _element_ListAllWeekEventsView_DateSelected.setDate( _element_ListAllWeekEventsView_DateSelected.getDate() - 7 );
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
@@ -2821,35 +2850,6 @@ function calendarJs( id, options, startDateTime ) {
         };
 
         showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
-    }
-
-    function toFormattedDate( date, inputType ) {
-        var formatted = null;
-
-        if ( isDefined( date ) ) {
-            var day = ( "0" + date.getDate() ).slice( -2 ),
-                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
-
-            if ( inputType === "date" ) {
-                formatted = date.getFullYear() + "-" + month + "-" + day;
-            } else {
-                formatted = day + "/" + month + "/" + date.getFullYear();
-            }
-        }
-
-        return formatted;
-    }
-
-    function toStorageFormattedDate( date ) {
-        var day = ( "0" + date.getDate() ).slice( -2 ),
-            month = ( "0" + ( date.getMonth() ) ).slice( -2 ),
-            formatted = day + "/" + month + "/" + date.getFullYear();
-
-        return formatted;
-    }
-
-    function toFormattedTime( date ) {
-        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
     }
 
     function padNumber( number ) {
