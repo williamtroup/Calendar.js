@@ -165,6 +165,7 @@
  * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for for the "Expand Month" button.
  * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
  * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
+ * @property    {string}    viewWeekEventsText                          The text that should be displayed for the "View Week Events" label.
  */
 
 
@@ -2365,11 +2366,11 @@ function calendarJs( id, options, startDateTime ) {
         var separator2 = createElement( "div", "separator" );
         _element_DropDownMenu_Day.appendChild( separator2 );
 
-        var viewCurrentWeekEvents = createElement( "div", "item" );
-        viewCurrentWeekEvents.innerHTML = _options.listWeekEventsTooltipText;
-        _element_DropDownMenu_Day.appendChild( viewCurrentWeekEvents );
+        var viewWeekEvents = createElement( "div", "item" );
+        viewWeekEvents.innerHTML = _options.viewWeekEventsText;
+        _element_DropDownMenu_Day.appendChild( viewWeekEvents );
 
-        viewCurrentWeekEvents.onclick = function() {
+        viewWeekEvents.onclick = function() {
             showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
         };
     }
@@ -5053,6 +5054,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.noEventsAvailableText ) ) {
             _options.noEventsAvailableText = "No events available";
+        }
+
+        if ( !isDefined( _options.viewWeekEventsText ) ) {
+            _options.viewWeekEventsText = "View Week Events";
         }
     }
 

@@ -106,6 +106,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | expandMonthTooltipText | The tooltip text that should be used for for the "Expand Month" button. |
 | *string* | repeatEndsText | The text that should be displayed for the "Repeat Ends:" label. |
 | *string* | noEventsAvailableText | The text that should be displayed for the "No events available" label. |
+| *string* | viewWeekEventsText | The text that should be displayed for the "View Week Events" label. |
 
 <br/>
 

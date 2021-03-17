@@ -18,6 +18,7 @@
 - Fixed a fault that caused the setting "dragAndDropForEventsEnabled" to be ignored.
 - Added drag & drop support within the weekly view (same as the main display).
 - The weekly view now shows all the days available, enabling better drag & drop support (new text setting available).
+- Improved some of the default text for the drop-down menus (via new settings).
 
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
