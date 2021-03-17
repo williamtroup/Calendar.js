@@ -957,8 +957,8 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
     
-    function buildDayEvent( eventDateFrom, eventDetails ) {
-        var elementDay = getDayElement( eventDateFrom );
+    function buildDayEvent( dayDate, eventDetails ) {
+        var elementDay = getDayElement( dayDate );
         if ( elementDay !== null ) {
     
             var eventClassName = _options.manualEditingEnabled ? "event" : "event-no-hover",
@@ -976,14 +976,14 @@ function calendarJs( id, options, startDateTime ) {
                 event.innerHTML = eventTitle;
                 elementDay.appendChild( event );
 
-                setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, eventDateFrom ) );
+                setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, dayDate ) );
 
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
                 };
 
                 if ( _options.manualEditingEnabled ) {
-                    var formattedDate = toStorageFormattedDate( eventDateFrom );
+                    var formattedDate = toStorageFormattedDate( dayDate );
 
                     event.oncontextmenu = function( e ) {
                         showEventDropDownMenu( e, eventDetails, formattedDate );
@@ -1009,10 +1009,17 @@ function calendarJs( id, options, startDateTime ) {
                     plusXEventsText = plusXEvents.length > 0 ? plusXEvents[ 0 ] : null;
 
                 if ( plusXEventsText === null ) {
+                    var showFullDayDay = new Date( dayDate );
+
                     plusXEventsText = createElement( "div", "plus-x-events" );
                     plusXEventsText.setAttribute( "events", "1" );
                     plusXEventsText.innerHTML = "+1 " + _options.moreText;
+                    plusXEventsText.ondblclick = cancelBubble;
                     elementDay.appendChild( plusXEventsText );
+
+                    plusXEventsText.onclick = function() {
+                        showFullDayView( showFullDayDay, true );
+                    };
                 } else {
 
                     var numberOfEvents = parseInt( plusXEventsText.getAttribute( "events" ) ) + 1;

@@ -392,6 +392,15 @@ div.calendar {
                 font-size: smaller;
                 text-align: center;
                 margin-top: $spacing;
+
+                &:hover {
+                    @include opacity-hover-effect;
+                    text-decoration: underline;
+                }
+                
+                &:active {
+                    @include opacity-active-effect;
+                }
             }
         }
     }

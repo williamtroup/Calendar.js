@@ -495,6 +495,21 @@ div.calendar div.row div.cell div.plus-x-events {
   margin-top: 10px;
 }
 
+div.calendar div.row div.cell div.plus-x-events:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+  text-decoration: underline;
+}
+
+div.calendar div.row div.cell div.plus-x-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Full Day View
