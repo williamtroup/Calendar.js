@@ -11,6 +11,7 @@
 - Added support to expand a day into a Full Day view from the Weekly view.
 - Added support to expand a month into the main display from the All Events view.
 - The Full Day view now shows the events against a time view instead of a list (sorry for the delay in this).
+- Added support to state when repeating events should end (defaults to never).
 
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).

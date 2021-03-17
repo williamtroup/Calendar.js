@@ -744,8 +744,18 @@ div.event-editor-repeat-options {
         p {
             @include no-selection-allowed;
             margin: 0;
+            margin-top: 5px;
             margin-bottom: 8px;
+
+            &:first-child {
+                margin-top: 0;
+            }
         }
+    }
+
+    input:not([type="button"]),
+    textarea {
+        @include input-fields;
     }
 
     label.checkbox {
@@ -755,7 +765,7 @@ div.event-editor-repeat-options {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing * 2;
+        margin-top: $spacing + $spacing / 2;
     }
 
     input[type="button"] {

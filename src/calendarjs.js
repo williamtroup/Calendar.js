@@ -27,6 +27,7 @@
  * @property    {Object}    created                                     The date that the event was created.
  * @property    {string}    organizerName                               The name of the organizer.
  * @property    {string}    organizerEmailAddress                       The email address of the organizer.
+ * @property    {Object}    repeatEnds                                  The date when a repeating series should end.
  */
 
 
@@ -162,6 +163,7 @@
  * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins.
  * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for for the "Expand Month" button.
+ * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
  */
 
 
@@ -243,6 +245,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorRepeatOptionsDialog_Fri = null,
         _element_EventEditorRepeatOptionsDialog_Sat = null,
         _element_EventEditorRepeatOptionsDialog_Sun = null,
+        _element_EventEditorRepeatOptionsDialog_RepeatEnds = null,
         _element_FullDayView = null,
         _element_FullDayView_Title = null,
         _element_FullDayView_Contents = null,
@@ -658,12 +661,6 @@ function calendarJs( id, options, startDateTime ) {
         return _element_HeaderDateDisplay_YearSelector !== null && _element_HeaderDateDisplay_YearSelector.style.display === "block";
     }
 
-    function isDateToday( date ) {
-        var today = new Date();
-        
-        return date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
-    }
-
     function triggerOptionsEvent( name ) {
         if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
             _options[ name ]();
@@ -797,6 +794,33 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Date Validation
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function doDatesMatch( date1, date2 ) {
+        return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+    }
+
+    function isDateSmallerOrEqualToDate( date1, date2 ) {
+        var newDate1 = new Date( date1.getFullYear(), date1.getMonth(), date1.getDate() );
+        newDate1.setHours(0, 0, 0, 0);
+
+        var newDate2 = new Date( date2.getFullYear(), date2.getMonth(), date2.getDate() );
+        newDate2.setHours(0, 0, 0, 0);
+
+        return newDate1 <= newDate2;
+    }
+
+    function isDateToday( date ) {
+        var today = new Date();
+        
+        return date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Build Day Events
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -850,9 +874,10 @@ function calendarJs( id, options, startDateTime ) {
         while ( newFromDate < _largestDateInView ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate );
+            var formattedDate = toStorageFormattedDate( newFromDate ),
+                repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
 
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
                 var repeatDayElement = getDayElement( newFromDate );
 
                 if ( repeatDayElement !== null ) {
@@ -1253,9 +1278,10 @@ function calendarJs( id, options, startDateTime ) {
         while ( newFromDate < date ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate );
+            var formattedDate = toStorageFormattedDate( newFromDate ),
+                repeatEnded = !( !isDefined( event.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, event.repeatEnds ) );
 
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
                 if ( doDatesMatch( newFromDate, date ) ) {
                     orderedEvents.push( event );
                     break;
@@ -1373,10 +1399,6 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return scrollTop;
-    }
-
-    function doDatesMatch( date1, date2 ) {
-        return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
     }
 
     function getMinutesIntoDay( date ) {
@@ -1751,9 +1773,10 @@ function calendarJs( id, options, startDateTime ) {
         while ( newFromDate < weekEndDate ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate );
+            var formattedDate = toStorageFormattedDate( newFromDate ),
+                repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
             
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
                 if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
                     var dayContents = buildListAllEventsDay( newFromDate );
     
@@ -2614,6 +2637,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Fri.checked = excludeDays.indexOf( 5 ) > -1;
             _element_EventEditorRepeatOptionsDialog_Sat.checked = excludeDays.indexOf( 6 ) > -1;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = excludeDays.indexOf( 0 ) > -1;
+            _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = toFormattedDate( eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds.type );
         } else {
 
             var date = new Date(),
@@ -2647,6 +2671,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Fri.checked = false;
             _element_EventEditorRepeatOptionsDialog_Sat.checked = false;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = false;
+            _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
         }
 
         isAllDayChanged();
@@ -2663,7 +2688,8 @@ function calendarJs( id, options, startDateTime ) {
             toTime = _element_EventEditorDialog_TimeTo.value.split( ":" ),
             title = trimString( _element_EventEditorDialog_Title.value ),
             description = trimString( _element_EventEditorDialog_Description.value ),
-            location = trimString( _element_EventEditorDialog_Location.value );
+            location = trimString( _element_EventEditorDialog_Location.value ),
+            repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null );
 
         if ( fromTime.length < 2 ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
@@ -2694,7 +2720,8 @@ function calendarJs( id, options, startDateTime ) {
                     color: _element_EventEditorDialog_EventDetails.color,
                     colorText: _element_EventEditorDialog_EventDetails.colorText,
                     colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
-                    repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays
+                    repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays,
+                    repeatEnds: repeatEnds
                 };
     
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
@@ -2748,19 +2775,21 @@ function calendarJs( id, options, startDateTime ) {
         date.setMinutes( minutes );
     }
 
-    function getSelectedDate( input ) {
-        var result = new Date();
+    function getSelectedDate( input, defaultValue ) {
+        var result = isDefinedOnly( defaultValue ) ? defaultValue : new Date();
 
-        if ( input.type === "date" ) {
-            result = new Date( input.value );
-        } else {
-
-            var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
-            if ( match ) {
-
-                var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ] );
-                if ( newDate instanceof Date && !isNaN( newDate ) ) {
-                    result = newDate;
+        if ( input.value !== "" ) {
+            if ( input.type === "date" ) {
+                result = new Date( input.value );
+            } else {
+    
+                var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
+                if ( match ) {
+    
+                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ] );
+                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                        result = newDate;
+                    }
                 }
             }
         }
@@ -2795,14 +2824,17 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function toFormattedDate( date, inputType ) {
-        var day = ( "0" + date.getDate() ).slice( -2 ),
-            month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 ),
-            formatted = null;
+        var formatted = null;
 
-        if ( inputType === "date" ) {
-            formatted = date.getFullYear() + "-" + month + "-" + day;
-        } else {
-            formatted = day + "/" + month + "/" + date.getFullYear();
+        if ( isDefined( date ) ) {
+            var day = ( "0" + date.getDate() ).slice( -2 ),
+                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+            if ( inputType === "date" ) {
+                formatted = date.getFullYear() + "-" + month + "-" + day;
+            } else {
+                formatted = day + "/" + month + "/" + date.getFullYear();
+            }
         }
 
         return formatted;
@@ -2957,6 +2989,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorRepeatOptionsDialog_Fri = buildCheckBox( contents, _options.dayNames[ 4 ] )[ 0 ];
         _element_EventEditorRepeatOptionsDialog_Sat = buildCheckBox( contents, _options.dayNames[ 5 ] )[ 0 ];
         _element_EventEditorRepeatOptionsDialog_Sun = buildCheckBox( contents, _options.dayNames[ 6 ] )[ 0 ];
+
+        var repeatEndsText = createElement( "p" );
+        repeatEndsText.innerText = _options.repeatEndsText;
+        contents.appendChild( repeatEndsText );
+
+        _element_EventEditorRepeatOptionsDialog_RepeatEnds = createElement( "input" );
+        contents.appendChild( _element_EventEditorRepeatOptionsDialog_RepeatEnds );
+
+        setInputType( _element_EventEditorRepeatOptionsDialog_RepeatEnds, "date" );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -3679,8 +3720,12 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
+    function isDefinedOnly( data ) {
+        return data !== undefined;
+    }
+
     function isDefined( data ) {
-        return data !== undefined && data !== null && data !== "";
+        return isDefinedOnly( data ) && data !== null && data !== "";
     }
 
     function isFunction( object ) {
@@ -3792,10 +3837,16 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getStringFromDateTime( eventDate ) {
-        var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
-            time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
+        var result = _options.repeatsNever;
 
-        return date + " " + time;
+        if ( isDefined( eventDate ) ) {
+            var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
+                time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
+
+            result = date + " " + time;
+        }
+
+        return result;
     }
 
     function getString( value, defaultValue ) {
@@ -3912,7 +3963,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.idText, _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
+        var headers = [ _options.idText, _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatEndsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
             headersLength = headers.length,
             csvHeaders = [],
             csvContents = [];
@@ -3945,6 +3996,7 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getCsvValue( getString( eventDetails.colorText ) ) );
         eventContents.push( getCsvValue( getString( eventDetails.colorBorder ) ) );
         eventContents.push( getCsvValue( getRepeatsText( eventDetails.repeatEvery ) ) );
+        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.repeatEnds ) ) );
         eventContents.push( getCsvValue( getArrayDays( eventDetails.repeatEveryExcludeDays ) ) );
         eventContents.push( getCsvValue( getArrayText( eventDetails.seriesIgnoreDates ) ) );
         eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.created ) ) );
@@ -3985,7 +4037,7 @@ function calendarJs( id, options, startDateTime ) {
             contents.push( "<Event>" );
 
             for ( var propertyName in orderedEvent ) {
-                if ( orderedEvent.hasOwnProperty( propertyName ) ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
                     var newPropertyName = getPropertyName( propertyName );
                     
                     contents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
@@ -4019,7 +4071,7 @@ function calendarJs( id, options, startDateTime ) {
             contents.push( "{" );
 
             for ( var propertyName in orderedEvent ) {
-                if ( orderedEvent.hasOwnProperty( propertyName ) ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
                     contents.push( "\"" + propertyName + "\":\"" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "\"," );
                 }
             }
@@ -4051,7 +4103,7 @@ function calendarJs( id, options, startDateTime ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
 
             for ( var propertyName in orderedEvent ) {
-                if ( orderedEvent.hasOwnProperty( propertyName ) ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
                     contents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
                 }
             }
@@ -4941,6 +4993,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.expandMonthTooltipText ) ) {
             _options.expandMonthTooltipText = "Expand Month";
+        }
+
+        if ( !isDefined( _options.repeatEndsText ) ) {
+            _options.repeatEndsText = "Repeat Ends:";
         }
     }
 

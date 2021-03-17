@@ -104,6 +104,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | idText | The text that should be displayed for the "ID:" label. |
 | *number* | spacing | States the default spacing that should be used for additional margins. |
 | *string* | expandMonthTooltipText | The tooltip text that should be used for for the "Expand Month" button. |
+| *string* | repeatEndsText | The text that should be displayed for the "Repeat Ends:" label. |
 
 <br/>
 
