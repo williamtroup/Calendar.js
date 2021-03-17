@@ -329,7 +329,7 @@ function calendarJs( id, options, startDateTime ) {
 
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
             startDay = firstDay.getDay(),
-            totalDaysInMonth = daysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
+            totalDaysInMonth = getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
 
         if ( startDay === 0 ) {
             startDay = 7;
@@ -870,6 +870,31 @@ function calendarJs( id, options, startDateTime ) {
         return [ weekStartDate, weekEndDate ];
     }
 
+    function getTotalDaysInMonth( year, month ) {
+        return new Date( year, month + 1, 0 ).getDate();
+    }
+
+    function getDayOrdinal( value ) {
+        var result = _options.thText;
+
+        if ( value === 31 || value === 21 || value === 1 ) {
+            result = _options.stText;
+        } else if ( value === 22 || value === 2 ) {
+            result = _options.ndText;
+        } else if ( value === 23 || value === 3 ) {
+            result = _options.rdText;
+        }
+
+        return result;
+    }
+
+    function getMinutesIntoDay( date ) {
+        var hours = date.getHours(),
+            minutes = date.getMinutes();
+        
+        return ( hours * 60 ) + minutes;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1048,7 +1073,7 @@ function calendarJs( id, options, startDateTime ) {
         previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
         if ( date.getMonth() === nextMonth.getMonth() && date.getFullYear() === nextMonth.getFullYear() ) {
-            startDay = firstDayNumber + daysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
+            startDay = firstDayNumber + getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
             elementDayNumber = ( date.getDate() + startDay );
 
         } else if ( date.getMonth() === previousMonth.getMonth() && date.getFullYear() === previousMonth.getFullYear() ) {
@@ -1451,13 +1476,6 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return scrollTop;
-    }
-
-    function getMinutesIntoDay( date ) {
-        var hours = date.getHours(),
-            minutes = date.getMinutes();
-        
-        return ( hours * 60 ) + minutes;
     }
 
     function onPreviousDay() {
@@ -2096,7 +2114,7 @@ function calendarJs( id, options, startDateTime ) {
             var previousMonth = new Date( dateTime );
             previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
-            var totalDaysInMonth = daysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
+            var totalDaysInMonth = getTotalDaysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
                 elementDayNumber = 1,
                 dayStart = ( totalDaysInMonth - startDay ) + 1;
 
@@ -2131,7 +2149,7 @@ function calendarJs( id, options, startDateTime ) {
                 actualDay++;
             }
 
-            var nextDay = daysInMonth( nextMonth.getFullYear(), nextMonth.getMonth() );
+            var nextDay = getTotalDaysInMonth( nextMonth.getFullYear(), nextMonth.getMonth() );
             nextDay = Math.round( nextDay / 2 );
 
             _largestDateInView = new Date( nextMonth.getFullYear(), nextMonth.getMonth(), nextDay );
@@ -2193,24 +2211,6 @@ function calendarJs( id, options, startDateTime ) {
 
             makeAreaDroppable( dayElement, year, month, actualDay );
         }
-    }
-
-    function daysInMonth( year, month ) {
-        return new Date( year, month + 1, 0 ).getDate();
-    }
-
-    function getDayOrdinal( value ) {
-        var result = _options.thText;
-
-        if ( value === 31 || value === 21 || value === 1 ) {
-            result = _options.stText;
-        } else if ( value === 22 || value === 2 ) {
-            result = _options.ndText;
-        } else if ( value === 23 || value === 3 ) {
-            result = _options.rdText;
-        }
-
-        return result;
     }
 
     function dropEventOnDay( e, year, month, day ) {
