@@ -49,7 +49,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | ndText | The day ordinal text for "nd". |
 | *string* | rdText | The day ordinal text for "rd". |
 | *string* | thText | The day ordinal text for "th". |
-| *number* | maximumEventsPerDayDisplay | The maximum number of events that should be display per day in the main calendar display (defaults to 3). |
+| *number* | maximumEventsPerDayDisplay | The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it). |
 | *string* | yesText | The text that should be displayed for the "Yes" label. |
 | *string* | noText | The text that should be displayed for the "No" label. |
 | *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 51). |
