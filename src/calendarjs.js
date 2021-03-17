@@ -964,7 +964,7 @@ function calendarJs( id, options, startDateTime ) {
             var eventClassName = _options.manualEditingEnabled ? "event" : "event-no-hover",
                 events = elementDay.getElementsByClassName( eventClassName );
 
-            if ( events.length < _options.maximumEventsPerDayDisplay ) {
+            if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
     
                 var event = createElement( "div", eventClassName ),
                     eventTitle = eventDetails.title;
