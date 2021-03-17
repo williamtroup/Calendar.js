@@ -996,13 +996,7 @@ function calendarJs( id, options, startDateTime ) {
                     };
                 }
     
-                if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-                    event.setAttribute( "draggable", true );
-                    
-                    event.ondragstart = function() {
-                        _eventDetails_Dragged = eventDetails;
-                    };
-                }
+                makeEventDraggable( event, eventDetails );
             } else {
 
                 var plusXEvents = elementDay.getElementsByClassName( "plus-x-events" ),
@@ -1885,6 +1879,7 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
+        makeEventDraggable( event, eventDetails );
         setEventClassesAndColors( eventDetails, event, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div", "title" );
@@ -1938,6 +1933,8 @@ function calendarJs( id, options, startDateTime ) {
         if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
             var day = createElement( "div", "day" );
             _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
+
+            makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
             var header = createElement( "div", "header" );
             day.appendChild( header );
@@ -2176,39 +2173,7 @@ function calendarJs( id, options, startDateTime ) {
                 showEventDialog( null, dayDate );
             };
 
-            if ( _options.dragAndDropForEventsEnabled ) {
-                dayElement.ondragover = function( e ) {
-                    cancelBubble( e );
-                    showDraggingEffect( dayElement );
-                };
-
-                dayElement.ondragenter = function( e ) {
-                    cancelBubble( e );
-                    showDraggingEffect( dayElement );
-                };
-
-                dayElement.ondragleave = function( e ) {
-                    cancelBubble( e );
-                    hideDraggingEffect( dayElement );
-                };
-        
-                dayElement.ondrop = function( e ) {
-                    dropEventOnDay( e, year, month, actualDay );
-                    hideDraggingEffect( dayElement );
-                };
-            }
-        }
-    }
-
-    function showDraggingEffect( dayElement ) {
-        if ( dayElement.className.indexOf( " drag-over" ) === -1 ) {
-            dayElement.className += " drag-over";
-        }
-    }
-
-    function hideDraggingEffect( dayElement ) {
-        if ( dayElement.className.indexOf( " drag-over" ) > -1 ) {
-            dayElement.className = dayElement.className.replace( " drag-over", "" );
+            makeAreaDroppable( dayElement, year, month, actualDay );
         }
     }
 
@@ -2257,6 +2222,8 @@ function calendarJs( id, options, startDateTime ) {
             };
 
             _this.updateEvent( _eventDetails_Dragged.id, newEvent );
+            
+            refreshViews();
         }
     }
 
@@ -2282,6 +2249,58 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return result;
+    }
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Drag & Drop
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function makeEventDraggable( event, eventDetails ) {
+        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            event.setAttribute( "draggable", true );
+            
+            event.ondragstart = function() {
+                _eventDetails_Dragged = eventDetails;
+            };
+        }
+    }
+
+    function makeAreaDroppable( element, year, month, actualDay ) {
+        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            element.ondragover = function( e ) {
+                cancelBubble( e );
+                showDraggingEffect( element );
+            };
+        
+            element.ondragenter = function( e ) {
+                cancelBubble( e );
+                showDraggingEffect( element );
+            };
+        
+            element.ondragleave = function( e ) {
+                cancelBubble( e );
+                hideDraggingEffect( element );
+            };
+        
+            element.ondrop = function( e ) {
+                dropEventOnDay( e, year, month, actualDay );
+                hideDraggingEffect( element );
+            };
+        }
+    }
+
+    function showDraggingEffect( dayElement ) {
+        if ( dayElement.className.indexOf( " drag-over" ) === -1 ) {
+            dayElement.className += " drag-over";
+        }
+    }
+
+    function hideDraggingEffect( dayElement ) {
+        if ( dayElement.className.indexOf( " drag-over" ) > -1 ) {
+            dayElement.className = dayElement.className.replace( " drag-over", "" );
+        }
     }
 
 

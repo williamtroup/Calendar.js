@@ -8,6 +8,12 @@ div.calendar {
   min-width: 260px;
 }
 
+div.calendar div.drag-over {
+  background-color: rgba(135, 206, 250, 0.4) !important;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
@@ -191,12 +197,6 @@ div.calendar div.row {
   font-weight: 300;
   background-color: #F5F5F5;
   color: #282828;
-}
-
-div.calendar div.row div.drag-over {
-  background-color: rgba(135, 206, 250, 0.4) !important;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
 }
 
 div.calendar div.row div.cell {

@@ -10,6 +10,11 @@
 
 div.calendar {
     min-width: 260px;
+
+    div.drag-over {
+        background-color: rgba(135, 206, 250, 0.4) !important;
+        transition: $transition-faster;
+    }
 }
 
 div.calendar,
@@ -119,11 +124,6 @@ div.calendar {
         font-weight: 300;
         background-color: $light-color;
         color: $dark-color;
-
-        div.drag-over {
-            background-color: rgba(135, 206, 250, 0.4) !important;
-            transition: $transition-faster;
-        }
 
         div.cell {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
