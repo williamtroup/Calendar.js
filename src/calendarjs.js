@@ -3313,6 +3313,10 @@ function calendarJs( id, options, startDateTime ) {
             searchForTextChanged();
         }
 
+        if ( !isSearchDialogContentVisible() ) {
+            minimizeRestoreDialog();
+        }
+
         _element_SearchDialog_For.focus();
     }
 
@@ -3328,7 +3332,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function minimizeRestoreDialog() {
-        if ( _element_SearchDialog_Contents.style.display !== "none" ) {
+        if ( isSearchDialogContentVisible() ) {
             _element_SearchDialog_Contents.style.display = "none";
             _element_SearchDialog_MinimizedRestoreButton.className = "ib-square-hollow";
             addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.restoreTooltipText );
@@ -3337,6 +3341,10 @@ function calendarJs( id, options, startDateTime ) {
             _element_SearchDialog_MinimizedRestoreButton.className = "ib-minus";
             addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.minimizedTooltipText );
         }
+    }
+
+    function isSearchDialogContentVisible() {
+        return _element_SearchDialog_Contents.style.display === "block";
     }
 
     function searchOnPrevious() {
