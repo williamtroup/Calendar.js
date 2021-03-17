@@ -133,6 +133,6 @@ Returns an event that matches the ID passed.
 ***Returns***: '*object*' - The event details (or null if the ID cannot be found).
 
 ### **setOptions( *newOptions* )**:
-Sets the options that should be used in Calendar.js.
+Sets the specific options that should be used.
 <br>
-***Parameter: newOptions***: '*Object*' - All the configurable options that should be used (refer to "Options" documentation for properties).
+***Parameter: newOptions***: '*Object*' - All the options that should be set (refer to "Options" documentation for properties).

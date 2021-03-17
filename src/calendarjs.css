@@ -1,11 +1,17 @@
 /*
- * Calendar.js Library v0.7.0
+ * Calendar.js Library v0.8.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
  */
 div.calendar {
   min-width: 260px;
+}
+
+div.calendar div.drag-over {
+  background-color: rgba(135, 206, 250, 0.4) !important;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
 div.calendar,
@@ -17,8 +23,8 @@ div.event-editor input,
 div.event-editor textarea,
 div.event-editor-colors,
 div.event-editor-colors input,
-div.event-editor-exclude-days,
-div.event-editor-exclude-days input,
+div.event-editor-repeat-options,
+div.event-editor-repeat-options input,
 div.confirmation,
 div.confirmation input,
 div.select-export-type,
@@ -38,8 +44,8 @@ div.search input {
   div.event-editor textarea,
   div.event-editor-colors,
   div.event-editor-colors input,
-  div.event-editor-exclude-days,
-  div.event-editor-exclude-days input,
+  div.event-editor-repeat-options,
+  div.event-editor-repeat-options input,
   div.confirmation,
   div.confirmation input,
   div.select-export-type,
@@ -60,8 +66,8 @@ div.search input {
   div.event-editor textarea,
   div.event-editor-colors,
   div.event-editor-colors input,
-  div.event-editor-exclude-days,
-  div.event-editor-exclude-days input,
+  div.event-editor-repeat-options,
+  div.event-editor-repeat-options input,
   div.confirmation,
   div.confirmation input,
   div.select-export-type,
@@ -81,8 +87,8 @@ div.event-editor input div.overlay-shown,
 div.event-editor textarea div.overlay-shown,
 div.event-editor-colors div.overlay-shown,
 div.event-editor-colors input div.overlay-shown,
-div.event-editor-exclude-days div.overlay-shown,
-div.event-editor-exclude-days input div.overlay-shown,
+div.event-editor-repeat-options div.overlay-shown,
+div.event-editor-repeat-options input div.overlay-shown,
 div.confirmation div.overlay-shown,
 div.confirmation input div.overlay-shown,
 div.select-export-type div.overlay-shown,
@@ -193,12 +199,6 @@ div.calendar div.row {
   color: #282828;
 }
 
-div.calendar div.row div.drag-over {
-  background-color: rgba(135, 206, 250, 0.4) !important;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-}
-
 div.calendar div.row div.cell {
   width: calc(100% - (20px + 1px) / 7);
   display: inline-block;
@@ -249,7 +249,7 @@ div.calendar div.row div.cell:last-child {
   border-right: none;
 }
 
-div.calendar div.row div.cell:hover div.expand-day {
+div.calendar div.row div.cell:hover div.ib-arrow-top-right {
   display: block;
 }
 
@@ -261,7 +261,7 @@ div.calendar div.row:last-child {
   border-bottom: none;
 }
 
-div.calendar div.expand-day {
+div.calendar div.ib-arrow-top-right {
   animation: fade-in-effect ease 2s;
   -webkit-animation: fade-in-effect ease 2s;
   -moz-animation: fade-in-effect ease 2s;
@@ -270,26 +270,7 @@ div.calendar div.expand-day {
   position: absolute;
   right: 5px;
   top: 5px;
-  height: 9px;
-  width: 9px;
-  border-top: 3px solid #484848;
-  border-right: 3px solid #484848;
-  border-radius: 0.25rem;
   display: none;
-}
-
-div.calendar div.expand-day:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.expand-day:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
 }
 
 /*
@@ -514,6 +495,21 @@ div.calendar div.row div.cell div.plus-x-events {
   margin-top: 10px;
 }
 
+div.calendar div.row div.cell div.plus-x-events:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+  text-decoration: underline;
+}
+
+div.calendar div.row div.cell div.plus-x-events:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Full Day View
@@ -525,7 +521,7 @@ div.calendar div.full-day-view {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   background-color: #F5F5F5;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -568,24 +564,100 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
 }
 
+@media screen and (min-width: 376px) {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+    display: none !important;
+  }
+}
+
 div.calendar div.full-day-view div.contents {
   display: inline-block;
-  padding: 10px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - (10px * 2));
+  width: 100%;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day {
+  position: relative;
+  border-bottom: 1px solid #282828;
+  overflow: hidden;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day div.all-day-text {
+  width: 80px;
+  padding: 10px;
+  background-color: #F5F5F5;
+  color: #282828;
+  border-right: 1px solid #282828;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+div.calendar div.full-day-view div.contents div.content-events-all-day div.event,
+div.calendar div.full-day-view div.contents div.content-events-all-day div.event-no-hover {
+  position: static !important;
+  margin-left: 110px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events {
+  position: relative;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour {
+  background-color: #F5F5F5;
+  border-bottom: 1px solid #282828;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  background-color: #F5F5F5;
+  color: #282828;
+  border-right: 1px solid #282828;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text:nth-child(odd) {
+  background-color: #282828;
+  color: #F5F5F5;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour:nth-child(odd) {
+  background-color: #E0E0E0;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour:last-child {
+  border-bottom: none;
 }
 
 @media screen and (min-width: 376px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem) - 1px * 2);
+    height: calc(100% - ((10px * 2) + 0.9rem));
   }
 }
 
 @media screen and (max-width: 375px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem) - 1px * 2);
+    height: calc(100% - ((10px * 2) + 0.7rem));
   }
 }
 
@@ -659,8 +731,12 @@ div.calendar div.full-day-view div.contents:last-child {
 
 div.calendar div.full-day-view div.contents div.event,
 div.calendar div.full-day-view div.contents div.event-no-hover {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  position: absolute;
+  margin-left: 0;
+  margin-right: 0;
+  width: calc(100% - 80px - (10px * 6) - (10px / 2));
+  left: 110px;
+  overflow: hidden;
 }
 
 /*
@@ -713,6 +789,26 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-r
   float: right;
 }
 
+@media screen and (min-width: 376px) {
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: none !important;
+  }
+}
+
 div.calendar div.list-all-events-view div.contents {
   display: inline-block;
   padding: 10px;
@@ -745,6 +841,10 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
+}
+
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right {
+  float: right;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events {
@@ -874,6 +974,26 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-l
   float: right;
 }
 
+@media screen and (min-width: 376px) {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+    display: none !important;
+  }
+}
+
 div.calendar div.list-all-week-events-view div.contents {
   display: inline-block;
   padding: 10px;
@@ -895,6 +1015,12 @@ div.calendar div.list-all-week-events-view div.contents {
   }
 }
 
+div.calendar div.list-all-week-events-view div.contents div.no-events-text {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 div.calendar div.list-all-week-events-view div.contents div.day {
   border-radius: 0.25rem;
   border: 1px solid #282828;
@@ -906,6 +1032,10 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right {
+  float: right;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
@@ -1218,19 +1348,19 @@ div.event-editor div.view input[type="button"].select-colors:not(:disabled):acti
   opacity: 0.4;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude {
+div.event-editor div.view input[type="button"].repeat-options {
   color: #F5F5F5;
   background-color: #6c757d;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude:not(:disabled):hover {
+div.event-editor div.view input[type="button"].repeat-options:not(:disabled):hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude:not(:disabled):active {
+div.event-editor div.view input[type="button"].repeat-options:not(:disabled):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -1242,11 +1372,11 @@ div.event-editor div.view input[type="button"].remove {
   width: 100%;
 }
 
-div.event-editor div.view input[type="button"].select-colors, div.event-editor div.view input[type="button"].days-to-exclude {
+div.event-editor div.view input[type="button"].select-colors, div.event-editor div.view input[type="button"].repeat-options {
   width: 50px;
 }
 
-div.event-editor div.view input[type="button"].days-to-exclude {
+div.event-editor div.view input[type="button"].repeat-options {
   position: absolute;
   margin: 0 !important;
   bottom: 0;
@@ -1290,6 +1420,17 @@ div.event-editor-colors div.contents {
   padding: 10px;
 }
 
+div.event-editor-colors div.contents p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
 div.event-editor-colors input[type="color"],
 div.event-editor-colors input[type="text"] {
   color: #282828;
@@ -1315,17 +1456,6 @@ div.event-editor-colors input[type="text"]:focus {
   border: 1px solid #282828;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
-}
-
-div.event-editor-colors p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  margin: 0;
-  margin-bottom: 8px;
 }
 
 div.event-editor-colors div.split input {
@@ -1409,10 +1539,10 @@ div.event-editor-colors input[type="button"].cancel:not(:disabled):active {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Exclude Days
+    Calendar.js - Dialog - Event Editor Repeat Options
     -------------------------------------------------------------------------
 */
-div.event-editor-exclude-days {
+div.event-editor-repeat-options {
   width: calc(100% - (10px * 2));
   max-width: 250px;
   border-radius: 0.25rem;
@@ -1427,7 +1557,7 @@ div.event-editor-exclude-days {
           transform: translate(-50%, -50%);
 }
 
-div.event-editor-exclude-days div.title-bar {
+div.event-editor-repeat-options div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1440,33 +1570,75 @@ div.event-editor-exclude-days div.title-bar {
   text-align: center;
 }
 
-div.event-editor-exclude-days div.contents {
+div.event-editor-repeat-options div.contents {
   padding: 10px;
 }
 
-div.event-editor-exclude-days label.checkbox {
+div.event-editor-repeat-options div.contents p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+div.event-editor-repeat-options div.contents p:first-child {
+  margin-top: 0;
+}
+
+div.event-editor-repeat-options input:not([type="button"]),
+div.event-editor-repeat-options textarea {
+  color: #282828;
+  width: 100%;
+  padding: .375rem .75rem;
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+div.event-editor-repeat-options input:not([type="button"]):last-child,
+div.event-editor-repeat-options textarea:last-child {
+  margin-bottom: 0;
+}
+
+div.event-editor-repeat-options input:not([type="button"]):focus,
+div.event-editor-repeat-options textarea:focus {
+  border: 1px solid #282828;
+  -webkit-box-shadow: 0 0 1pt 1pt #282828;
+          box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.event-editor-repeat-options label.checkbox {
   margin-bottom: 5px !important;
 }
 
-div.event-editor-exclude-days div.split input {
+div.event-editor-repeat-options div.split input {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
 }
 
-div.event-editor-exclude-days div.split input:first-child {
+div.event-editor-repeat-options div.split input:first-child {
   margin-left: 0;
 }
 
-div.event-editor-exclude-days div.split input:last-child {
+div.event-editor-repeat-options div.split input:last-child {
   margin-right: 0;
 }
 
-div.event-editor-exclude-days div.split {
-  margin-top: 20px;
+div.event-editor-repeat-options div.split {
+  margin-top: 15px;
 }
 
-div.event-editor-exclude-days input[type="button"] {
+div.event-editor-repeat-options input[type="button"] {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1484,43 +1656,43 @@ div.event-editor-exclude-days input[type="button"] {
   cursor: pointer;
 }
 
-div.event-editor-exclude-days input[type="button"]:disabled {
+div.event-editor-repeat-options input[type="button"]:disabled {
   background-color: #A8A8A8 !important;
   cursor: default !important;
 }
 
-div.event-editor-exclude-days input[type="button"].ok {
+div.event-editor-repeat-options input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
 }
 
-div.event-editor-exclude-days input[type="button"].ok:not(:disabled):hover {
+div.event-editor-repeat-options input[type="button"].ok:not(:disabled):hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.event-editor-exclude-days input[type="button"].ok:not(:disabled):active {
+div.event-editor-repeat-options input[type="button"].ok:not(:disabled):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
 }
 
-div.event-editor-exclude-days input[type="button"].cancel {
+div.event-editor-repeat-options input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
 }
 
-div.event-editor-exclude-days input[type="button"].cancel:not(:disabled):hover {
+div.event-editor-repeat-options input[type="button"].cancel:not(:disabled):hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.event-editor-exclude-days input[type="button"].cancel:not(:disabled):active {
+div.event-editor-repeat-options input[type="button"].cancel:not(:disabled):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -1806,6 +1978,17 @@ div.search div.contents {
   padding: 10px;
 }
 
+div.search div.contents p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
 div.search input[type="text"] {
   color: #282828;
   width: 100%;
@@ -1827,17 +2010,6 @@ div.search input[type="text"]:focus {
   border: 1px solid #282828;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
-}
-
-div.search p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  margin: 0;
-  margin-bottom: 8px;
 }
 
 div.search div.split input {
@@ -2818,5 +2990,31 @@ div.calendar-drop-down-menu div.separator {
   height: 4px;
   top: 0;
   right: 0;
+}
+
+.ib-arrow-top-right {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  border-radius: 3px;
+}
+
+.ib-arrow-top-right:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-arrow-top-right:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
 }
 /*# sourceMappingURL=calendarjs.css.map */

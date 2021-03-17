@@ -1,5 +1,25 @@
 # Calendar.js - Change Log:
 
+### Version 0.8.0:
+- Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).
+- Renamed the "Select Days To Exclude" dialog to "Repeat Options" (renames settings and CSS classes to match).
+- Exported data now shows the days to exclude (for repeating events) as actual day names, instead of numbers.
+- Fixed a fault that caused the incorrect dates to be used when showing a Full Day or Full Week (after skipping days/weeks).
+- Fixed the context menu not working on the Full Day view events.
+- Fixed a fault that prevented events from being removed when the checkbox is not available on the confirmation message.
+- Fixed the extra toolbar buttons on the extra views not hiding when used on a smaller screen (as with the main display).
+- Added support to expand a day into a Full Day view from the Weekly view.
+- Added support to expand a month into the main display from the All Events view.
+- The Full Day view now shows the events against a time view instead of a list (sorry for the delay in this).
+- Added support to state when repeating events should end (defaults to never).
+- If the Search dialog is minimized and the search button is pressed again, it is now restored.
+- Fixed a fault that caused events not to appear in the main display when "maximumEventsPerDayDisplay" is set to zero.
+- The "1+ More" text shown in the main display for days can now be clicked to expand the full day.
+- Fixed a fault that caused the setting "dragAndDropForEventsEnabled" to be ignored.
+- Added drag & drop support within the weekly view (same as the main display).
+- The weekly view now shows all the days available, enabling better drag & drop support (new text setting available).
+- Improved some of the default text for the drop-down menus (via new settings).
+
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
 - Fixed the CSS class "ib-plus" being available twice in the master CSS file.

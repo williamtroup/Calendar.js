@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.7.0
+ * Calendar.js Library v0.8.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -10,6 +10,11 @@
 
 div.calendar {
     min-width: 260px;
+
+    div.drag-over {
+        background-color: rgba(135, 206, 250, 0.4) !important;
+        transition: $transition-faster;
+    }
 }
 
 div.calendar,
@@ -21,8 +26,8 @@ div.event-editor input,
 div.event-editor textarea,
 div.event-editor-colors,
 div.event-editor-colors input,
-div.event-editor-exclude-days,
-div.event-editor-exclude-days input,
+div.event-editor-repeat-options,
+div.event-editor-repeat-options input,
 div.confirmation,
 div.confirmation input,
 div.select-export-type,
@@ -120,11 +125,6 @@ div.calendar {
         background-color: $light-color;
         color: $dark-color;
 
-        div.drag-over {
-            background-color: rgba(135, 206, 250, 0.4) !important;
-            transition: $transition-faster;
-        }
-
         div.cell {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
             display: inline-block;
@@ -170,7 +170,7 @@ div.calendar {
                 border-right: none;
             }
 
-            &:hover div.expand-day {
+            &:hover div.ib-arrow-top-right {
                 display: block;
             }
         }
@@ -183,26 +183,13 @@ div.calendar {
             border-bottom: none;
         }
     }
-    
-    div.expand-day {
+
+    div.ib-arrow-top-right {
         @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
         top: 5px;
-        height: 9px;
-        width: 9px;
-        border-top: 3px solid $event-color;
-        border-right: 3px solid $event-color;
-        border-radius: $border-view-radius;
         display: none;
-
-        &:hover {
-            @include opacity-hover-effect;
-        }
-
-        &:active {
-            @include opacity-active-effect;
-        }
     }
 }
 
@@ -405,6 +392,15 @@ div.calendar {
                 font-size: smaller;
                 text-align: center;
                 margin-top: $spacing;
+
+                &:hover {
+                    @include opacity-hover-effect;
+                    text-decoration: underline;
+                }
+                
+                &:active {
+                    @include opacity-active-effect;
+                }
             }
         }
     }
@@ -419,7 +415,7 @@ div.calendar {
 
 div.calendar {
     div.full-day-view {
-        @include full-size-view-display;
+        @include full-size-view-display(2);
 
         span.holiday {
             font-weight: 300 !important;
@@ -428,14 +424,87 @@ div.calendar {
         @import "foundation/overlay-title-bar";
         
         div.contents {
-            @include overlay-contents;
+            display: inline-block;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+
+            div.content-events-all-day {
+                position: relative;
+                border-bottom: $standard-border-size solid $dark-color;
+                overflow: hidden;
+    
+                div.all-day-text {
+                    width: $time-hours-width;
+                    padding: $spacing;
+                    background-color: $light-color;
+                    color: $dark-color;
+                    border-right: $standard-border-size solid $dark-color;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                }
+                
+                div.event,
+                div.event-no-hover {
+                    position: static !important;
+                    margin-left: $time-hours-width + ($spacing * 3) !important;
+                    margin-top: $spacing;
+                    margin-bottom: $spacing;
+                }
+            }
+    
+            div.contents-events {
+                position: relative;
+
+                div.hour {
+                    background-color: $light-color;
+                    border-bottom: $standard-border-size solid $dark-color;
+
+                    div.hour-text {
+                        width: $time-hours-width;
+                        height: $time-hours-width;
+                        padding: $spacing;
+                        background-color: $light-color;
+                        color: $dark-color;
+                        border-right: $standard-border-size solid $dark-color;
+                        
+                        &:nth-child(odd) {
+                            background-color: $dark-color;
+                            color: $light-color;
+                        }
+                    }
+    
+                    &:nth-child(odd) {
+                        background-color: $day-names-color;
+                    }
+    
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        
+            @media screen and (min-width: $minimum-width) {
+                height: calc(100% - ((#{$spacing} * 2) + #{$large-font-size}));
+            }
+            
+            @media screen and (max-width: $maximum-width) {
+                height: calc(100% - ((#{$spacing} * 2) + #{$small-font-size}));
+            }
 
             @import "foundation/overlay-event";
 
             div.event,
             div.event-no-hover {
-                margin-left: 0 !important;
-                margin-right: 0 !important;
+                position: absolute;
+                margin-left: 0;
+                margin-right: 0;
+                width: calc(100% - #{$time-hours-width} - (#{$spacing} * 6) - (#{$spacing} / 2));
+                left: $time-hours-width + ($spacing * 3);
+                overflow: hidden;
             }
         }
     }
@@ -467,6 +536,10 @@ div.calendar {
                     background-color: $dark-color;
                     color: $light-color;
                     padding: $spacing;
+
+                    div.ib-arrow-expand-left-right {
+                        float: right;
+                    }
                 }
 
                 div.events {
@@ -500,6 +573,12 @@ div.calendar {
         div.contents {
             @include overlay-contents;
 
+            div.no-events-text {
+                margin-top: $spacing;
+                margin-bottom: $spacing;
+                text-align: center;
+            }
+
             div.day {
                 border-radius: $border-view-radius;
                 border: $standard-border-size solid $dark-color;
@@ -510,6 +589,10 @@ div.calendar {
                     background-color: $dark-color;
                     color: $light-color;
                     padding: $spacing;
+
+                    div.ib-arrow-expand-left-right {
+                        float: right;
+                    }
                 }
 
                 div.events {
@@ -598,7 +681,7 @@ div.event-editor {
             @include button(cancel, $light-color, $alert-color);
             @include button(remove, $light-color, $dark-color);
             @include button(select-colors, $light-color, #6c757d);
-            @include button(days-to-exclude, $light-color, #6c757d);
+            @include button(repeat-options, $light-color, #6c757d);
 
             &.remove {
                 margin-top: $spacing;
@@ -606,11 +689,11 @@ div.event-editor {
             }
 
             &.select-colors,
-            &.days-to-exclude {
+            &.repeat-options {
                 width: 50px;
             }
 
-            &.days-to-exclude {
+            &.repeat-options {
                 position: absolute;
                 margin: 0 !important;
                 bottom: 0;
@@ -633,17 +716,17 @@ div.event-editor-colors {
     
     div.contents {
         padding: $spacing;
+
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+        }
     }
     
     input[type="color"],
     input[type="text"] {
         @include input-fields(40px);
-    }
-
-    p {
-        @include no-selection-allowed;
-        margin: 0;
-        margin-bottom: 8px;
     }
 
     @import "foundation/split-container";
@@ -662,16 +745,32 @@ div.event-editor-colors {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Exclude Days
+    Calendar.js - Dialog - Event Editor Repeat Options
     -------------------------------------------------------------------------
 */
 
-div.event-editor-exclude-days {
+div.event-editor-repeat-options {
     @include dialog-styles(250px);
     @include dialog-title-bar;
     
     div.contents {
         padding: $spacing;
+
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-top: 5px;
+            margin-bottom: 8px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+
+    input:not([type="button"]),
+    textarea {
+        @include input-fields;
     }
 
     label.checkbox {
@@ -681,7 +780,7 @@ div.event-editor-exclude-days {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing * 2;
+        margin-top: $spacing + $spacing / 2;
     }
 
     input[type="button"] {
@@ -769,16 +868,16 @@ div.search {
 
     div.contents {
         padding: $spacing;
+        
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+        }
     }
     
     input[type="text"] {
         @include input-fields;
-    }
-
-    p {
-        @include no-selection-allowed;
-        margin: 0;
-        margin-bottom: 8px;
     }
 
     @import "foundation/split-container";
@@ -1103,3 +1202,4 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/close";
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
+@import "foundation/buttons/arrow-top-right";
