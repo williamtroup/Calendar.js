@@ -15,6 +15,7 @@
 - If the Search dialog is minimized and the search button is pressed again, it is now restored.
 - Fixed a fault that caused events not to appear in the main display when "maximumEventsPerDayDisplay" is set to zero.
 - The "1+ More" text shown in the main display for days can now be clicked to expand the full day.
+- Fixed a fault that caused the setting "dragAndDropForEventsEnabled" to be ignored.
 
 ### Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).

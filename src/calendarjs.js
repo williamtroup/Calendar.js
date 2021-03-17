@@ -2176,7 +2176,7 @@ function calendarJs( id, options, startDateTime ) {
                 showEventDialog( null, dayDate );
             };
 
-            if ( _options.manualEditingEnabled ) {
+            if ( _options.dragAndDropForEventsEnabled ) {
                 dayElement.ondragover = function( e ) {
                     cancelBubble( e );
                     showDraggingEffect( dayElement );
