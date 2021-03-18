@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.8.0
+ * Calendar.js Library v0.8.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -620,15 +620,6 @@ function calendarJs( id, options, startDateTime ) {
         return adjustedEvent;
     }
 
-    function getTotalDaysBetweenDates( from, to ) {
-        var fromDate = new Date( from.getFullYear(), from.getMonth(), from.getDate() ),
-            toDate = new Date( to.getFullYear(), to.getMonth(), to.getDate() ),
-            differenceTime = Math.abs( toDate - fromDate ),
-            differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
-        
-        return differenceDays;
-    }
-
     function showYearSelectorDropDownMenu( e ) {
         if ( _element_HeaderDateDisplay_YearSelector.style.display !== "block" ) {
             hideAllDropDowns();
@@ -893,6 +884,15 @@ function calendarJs( id, options, startDateTime ) {
             minutes = date.getMinutes();
         
         return ( hours * 60 ) + minutes;
+    }
+
+    function getTotalDaysBetweenDates( from, to ) {
+        var fromDate = new Date( from.getFullYear(), from.getMonth(), from.getDate() ),
+            toDate = new Date( to.getFullYear(), to.getMonth(), to.getDate() ),
+            differenceTime = Math.abs( toDate - fromDate ),
+            differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
+        
+        return differenceDays;
     }
 
 
