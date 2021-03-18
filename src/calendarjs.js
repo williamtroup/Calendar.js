@@ -59,6 +59,7 @@
  * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
  * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
  * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally.
+ * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
  */
 
 
@@ -4403,6 +4404,28 @@ function calendarJs( id, options, startDateTime ) {
      * Add/Remove Events (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    /**
+     * setEvents().
+     * 
+     * Sets the events and clears any existing ones.
+     * 
+     * @fires       onEventsSet
+     * 
+     * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
+     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States of the "onEventsSet" event should be triggered.
+     */
+    this.setEvents = function( events, updateEvents, triggerEvent ) {
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        _events = {};
+
+        this.addEvents( events, updateEvents, false );
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithEventData( "onEventsSet", events );
+        }
+    };
 
     /**
      * addEvents().

@@ -127,3 +127,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsCleared | Specifies an event that will be triggered when the events are cleared. |
 | onEventsExported | Specifies an event that will be triggered when the "Export Events" button is pressed. |
 | onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |
+| onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
