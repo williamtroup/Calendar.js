@@ -654,18 +654,6 @@ function calendarJs( id, options, startDateTime ) {
         return _element_HeaderDateDisplay_YearSelector !== null && _element_HeaderDateDisplay_YearSelector.style.display === "block";
     }
 
-    function triggerOptionsEvent( name ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]();
-        }
-    }
-
-    function triggerOptionsEventWithEventData( name, event ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]( event );
-        }
-    }
-
     function newGuid() {
         var result = [];
 
@@ -1023,30 +1011,34 @@ function calendarJs( id, options, startDateTime ) {
                         showEventDialog( eventDetails );
                     };
                 }
+
             } else {
-
-                var plusXEvents = elementDay.getElementsByClassName( "plus-x-events" ),
-                    plusXEventsText = plusXEvents.length > 0 ? plusXEvents[ 0 ] : null;
-
-                if ( plusXEventsText === null ) {
-                    var showFullDayDay = new Date( dayDate );
-
-                    plusXEventsText = createElement( "div", "plus-x-events" );
-                    plusXEventsText.setAttribute( "events", "1" );
-                    plusXEventsText.innerHTML = "+1 " + _options.moreText;
-                    plusXEventsText.ondblclick = cancelBubble;
-                    elementDay.appendChild( plusXEventsText );
-
-                    plusXEventsText.onclick = function() {
-                        showFullDayView( showFullDayDay, true );
-                    };
-                } else {
-
-                    var numberOfEvents = parseInt( plusXEventsText.getAttribute( "events" ) ) + 1;
-                    plusXEventsText.setAttribute( "events", numberOfEvents.toString() );
-                    plusXEventsText.innerHTML = "+" + numberOfEvents + " " + _options.moreText;
-                }
+                buildDayEventPlusText( elementDay, dayDate );
             }
+        }
+    }
+
+    function buildDayEventPlusText( elementDay, dayDate ) {
+        var plusXEvents = elementDay.getElementsByClassName( "plus-x-events" ),
+            plusXEventsText = plusXEvents.length > 0 ? plusXEvents[ 0 ] : null;
+
+        if ( plusXEventsText === null ) {
+            var showFullDayDay = new Date( dayDate );
+
+            plusXEventsText = createElement( "div", "plus-x-events" );
+            plusXEventsText.setAttribute( "events", "1" );
+            plusXEventsText.innerHTML = "+1 " + _options.moreText;
+            plusXEventsText.ondblclick = cancelBubble;
+            elementDay.appendChild( plusXEventsText );
+
+            plusXEventsText.onclick = function() {
+                showFullDayView( showFullDayDay, true );
+            };
+        } else {
+
+            var numberOfEvents = parseInt( plusXEventsText.getAttribute( "events" ) ) + 1;
+            plusXEventsText.setAttribute( "events", numberOfEvents.toString() );
+            plusXEventsText.innerHTML = "+" + numberOfEvents + " " + _options.moreText;
         }
     }
 
@@ -5097,6 +5089,18 @@ function calendarJs( id, options, startDateTime ) {
                 title: "New Year's Day"
             }
         ];
+    }
+
+    function triggerOptionsEvent( name ) {
+        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
+            _options[ name ]();
+        }
+    }
+
+    function triggerOptionsEventWithEventData( name, event ) {
+        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
+            _options[ name ]( event );
+        }
     }
 
     
