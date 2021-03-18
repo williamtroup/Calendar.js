@@ -654,21 +654,6 @@ function calendarJs( id, options, startDateTime ) {
         return _element_HeaderDateDisplay_YearSelector !== null && _element_HeaderDateDisplay_YearSelector.style.display === "block";
     }
 
-    function newGuid() {
-        var result = [];
-
-        for ( var charIndex = 0; charIndex < 32; charIndex++ ) {
-            if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
-                result.push( "-" );
-            }
-
-            var character = Math.floor( Math.random() * 16 ).toString( 16 );
-            result.push( character );
-        }
-
-        return result.join( "" );
-    }
-
     function headerDoubleClick() {
         if ( !_isFullScreenModeActivated ) {
             turnOnFullScreenMode();
@@ -2205,38 +2190,6 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function dropEventOnDay( e, year, month, day ) {
-        cancelBubble( e );
-
-        if ( _eventDetails_Dragged !== null ) {
-            var totalDays = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged.to ),
-                fromDate = new Date( year, month, day, _eventDetails_Dragged.from.getHours(), _eventDetails_Dragged.from.getMinutes() ),
-                toDate = new Date( year, month, day, _eventDetails_Dragged.to.getHours(), _eventDetails_Dragged.to.getMinutes() );               
-
-            if ( totalDays > 0 ) {
-                toDate.setDate( toDate.getDate() + totalDays );
-            }
-
-            var newEvent = {
-                from: fromDate,
-                to: toDate,
-                title: _eventDetails_Dragged.title,
-                description: _eventDetails_Dragged.description,
-                location: _eventDetails_Dragged.location,
-                isAllDay: _eventDetails_Dragged.isAllDay,
-                color: _eventDetails_Dragged.color,
-                colorText: _eventDetails_Dragged.colorText,
-                colorBorder: _eventDetails_Dragged.colorBorder,
-                repeatEvery: _eventDetails_Dragged.repeatEvery,
-                repeatEveryExcludeDays: _eventDetails_Dragged.repeatEveryExcludeDays
-            };
-
-            _this.updateEvent( _eventDetails_Dragged.id, newEvent );
-            
-            refreshViews();
-        }
-    }
-
     function getHoliday( date ) {
         var result = null,
             holidayTextItems = [],
@@ -2311,6 +2264,38 @@ function calendarJs( id, options, startDateTime ) {
     function hideDraggingEffect( dayElement ) {
         if ( dayElement.className.indexOf( " drag-over" ) > -1 ) {
             dayElement.className = dayElement.className.replace( " drag-over", "" );
+        }
+    }
+
+    function dropEventOnDay( e, year, month, day ) {
+        cancelBubble( e );
+
+        if ( _eventDetails_Dragged !== null ) {
+            var totalDays = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged.to ),
+                fromDate = new Date( year, month, day, _eventDetails_Dragged.from.getHours(), _eventDetails_Dragged.from.getMinutes() ),
+                toDate = new Date( year, month, day, _eventDetails_Dragged.to.getHours(), _eventDetails_Dragged.to.getMinutes() );               
+
+            if ( totalDays > 0 ) {
+                toDate.setDate( toDate.getDate() + totalDays );
+            }
+
+            var newEvent = {
+                from: fromDate,
+                to: toDate,
+                title: _eventDetails_Dragged.title,
+                description: _eventDetails_Dragged.description,
+                location: _eventDetails_Dragged.location,
+                isAllDay: _eventDetails_Dragged.isAllDay,
+                color: _eventDetails_Dragged.color,
+                colorText: _eventDetails_Dragged.colorText,
+                colorBorder: _eventDetails_Dragged.colorBorder,
+                repeatEvery: _eventDetails_Dragged.repeatEvery,
+                repeatEveryExcludeDays: _eventDetails_Dragged.repeatEveryExcludeDays
+            };
+
+            _this.updateEvent( _eventDetails_Dragged.id, newEvent );
+            
+            refreshViews();
         }
     }
 
@@ -2612,14 +2597,6 @@ function calendarJs( id, options, startDateTime ) {
         contents.appendChild( _element_EventEditorDialog_RemoveButton );
     }
 
-    function setInputType( input, type ) {
-        try {
-            input.type = type;
-        } catch ( e ) {
-            input.type = "text";
-        }
-    }
-
     function addNewEvent() {
         showEventDialog( null, _element_FullDayView_DateSelected );
     }
@@ -2889,21 +2866,11 @@ function calendarJs( id, options, startDateTime ) {
         showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
     }
 
-    function padNumber( number ) {
-        var numberString = number.toString();
-
-        return numberString.length === 1 ? "0" + numberString : numberString;
-    }
-
     function showEventDialogErrorMessage( message, input ) {
         _element_EventEditorDialog_ErrorMessage.innerHTML = message;
         _element_EventEditorDialog_ErrorMessage.style.display = "block";
 
         input.focus();
-    }
-
-    function trimString( string ) {
-        return string.replace( /^\s+|\s+$/g , "" );
     }
 
     function refreshOpenedViews() {
@@ -3705,6 +3672,14 @@ function calendarJs( id, options, startDateTime ) {
         element.style.top = top + "px";
     }
 
+    function setInputType( input, type ) {
+        try {
+            input.type = type;
+        } catch ( e ) {
+            input.type = "text";
+        }
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3756,6 +3731,38 @@ function calendarJs( id, options, startDateTime ) {
         label.appendChild( labelSpan );
 
         return [ input, label ];
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * String Handling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function padNumber( number ) {
+        var numberString = number.toString();
+
+        return numberString.length === 1 ? "0" + numberString : numberString;
+    }
+    
+    function trimString( string ) {
+        return string.replace( /^\s+|\s+$/g , "" );
+    }
+
+    function newGuid() {
+        var result = [];
+
+        for ( var charIndex = 0; charIndex < 32; charIndex++ ) {
+            if ( charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20 ) {
+                result.push( "-" );
+            }
+
+            var character = Math.floor( Math.random() * 16 ).toString( 16 );
+            result.push( character );
+        }
+
+        return result.join( "" );
     }
 
 
