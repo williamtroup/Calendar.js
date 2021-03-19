@@ -667,37 +667,33 @@ function calendarJs( id, options, startDateTime ) {
         if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
             _cachedStyles = _element_Calendar.style.cssText;
             _isFullScreenModeActivated = true;
-            _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-contract-left-right";
-            _element_FullDayView_FullScreenButton.className = "ib-arrow-contract-left-right";
-            _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
-            _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-contract-left-right";
-    
-            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.disableFullScreenTooltipText );
-            addToolTip( _element_FullDayView_FullScreenButton, _options.disableFullScreenTooltipText );
-            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
-            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.disableFullScreenTooltipText );
-    
             _element_Calendar.className += " full-screen-view";
             _element_Calendar.removeAttribute( "style" );
+
+            updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
         }
     }
 
     function turnOffFullScreenMode() {
         if ( _isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
             _isFullScreenModeActivated = false;
-            _element_HeaderDateDisplay_FullScreenButton.className = "ib-arrow-expand-left-right";
-            _element_FullDayView_FullScreenButton.className = "ib-arrow-expand-left-right";
-            _element_ListAllEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
-            _element_ListAllWeekEventsView_FullScreenButton.className = "ib-arrow-expand-left-right";
-    
-            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.enableFullScreenTooltipText );
-            addToolTip( _element_FullDayView_FullScreenButton, _options.enableFullScreenTooltipText );
-            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
-            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
-            
             _element_Calendar.className = _element_Calendar.className.replace( " full-screen-view", "" );
             _element_Calendar.style.cssText = _cachedStyles;
+
+            updateExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
         }
+    }
+
+    function updateExpandButtons( className, tooltipText ) {
+        _element_HeaderDateDisplay_FullScreenButton.className = className;
+        _element_FullDayView_FullScreenButton.className = className;
+        _element_ListAllEventsView_FullScreenButton.className = className;
+        _element_ListAllWeekEventsView_FullScreenButton.className = className;
+
+        addToolTip( _element_HeaderDateDisplay_FullScreenButton, tooltipText );
+        addToolTip( _element_FullDayView_FullScreenButton, tooltipText );
+        addToolTip( _element_ListAllEventsView_FullScreenButton, tooltipText );
+        addToolTip( _element_ListAllWeekEventsView_FullScreenButton, tooltipText );
     }
 
 
