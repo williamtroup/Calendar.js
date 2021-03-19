@@ -25,6 +25,7 @@
         <br>
 
         <h2>Events:</h2>
+        <button onclick="setEvents();">Set Events</button>
         <button onclick="removeEvent();">Remove Event</button>
         <button onclick="calendarInstance.clearEvents();">Clear Events</button>
         <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
@@ -62,6 +63,10 @@
         } );
 
         calendarInstance.addEvents( getEvents() );
+
+        function setEvents() {
+            calendarInstance.setEvents( getEvents() );
+        }
 
         function removeEvent() {
             calendarInstance.removeEvent( new Date(), "Test Title 2" );
