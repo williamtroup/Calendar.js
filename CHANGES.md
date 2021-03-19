@@ -2,7 +2,7 @@
 
 ### Version 0.8.1:
 - Added public function "setEvents()", which adds an array of events and clears the original (fires onEventsSet, if available).
-- 
+- The option "autoRefreshTimerDelay" now defaults to 30000 milliseconds.
 
 ### Version 0.8.0:
 - Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).

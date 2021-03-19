@@ -61,7 +61,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | startsOnText | The text that should be displayed for the "Starts on" label. |
 | *string* | andFinishesOnText | The text that should be displayed for the "and finishes on" label. |
 | *string* | toTimeText | The text that should be displayed for the "to" label. |
-| *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it). |
+| *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
 | *string* | confirmEventRemoveTitle | The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal"). |
 | *string* | confirmEventRemoveMessage | The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone. Do you want to continue?"). |
 | *string* | okText | The text that should be displayed for the "OK" button. |

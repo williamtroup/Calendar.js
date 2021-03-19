@@ -121,7 +121,7 @@
  * @property    {string}    startsOnText                                The text that should be displayed for the "Starts on" label.
  * @property    {string}    andFinishesOnText                           The text that should be displayed for the "and finishes on" label.
  * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
- * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it).
+ * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
  * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
  * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
@@ -4899,7 +4899,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.autoRefreshTimerDelay ) ) {
-            _options.autoRefreshTimerDelay = 5000;
+            _options.autoRefreshTimerDelay = 30000;
         }
 
         if ( !isDefined( _options.confirmEventRemoveTitle ) ) {
