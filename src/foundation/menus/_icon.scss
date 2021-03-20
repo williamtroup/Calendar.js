@@ -1,0 +1,6 @@
+@import "../buttons/button";
+
+$size: 12px;
+$border-width: $size / 4;
+$border-radius: $border-width;
+$border: $border-width solid $dark-color;

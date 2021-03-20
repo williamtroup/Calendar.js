@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.8.0
+ * Calendar.js Library v0.8.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -14,6 +14,34 @@ div.calendar {
     div.drag-over {
         background-color: rgba(135, 206, 250, 0.4) !important;
         transition: $transition-faster;
+    }
+
+    div.no-events-available-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%;
+        max-width: 300px;
+
+        p {
+            margin-top: 0;
+            margin-bottom: $spacing;
+        }
+
+        span.link {
+            text-decoration: underline;
+            color: #2471A3;
+
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
+            }
+        }
     }
 }
 
@@ -429,6 +457,7 @@ div.calendar {
             overflow-x: hidden;
             overflow-y: auto;
             width: 100%;
+            padding: 0 !important;
 
             div.content-events-all-day {
                 position: relative;
@@ -1113,6 +1142,16 @@ div.calendar-drop-down-menu {
     font-size: smaller !important;;
     z-index: 1000;
 
+    div.menu-text {
+        display: inline-block;
+    }
+
+    div.ib-plus-icon,
+    div.ib-arrow-top-right-icon,
+    div.ib-hamburger-icon {
+        margin-right: $spacing;
+    }
+
     div.item {
         padding: $spacing;
         padding-right: $spacing * 3;
@@ -1121,6 +1160,17 @@ div.calendar-drop-down-menu {
             background-color: $dark-color;
             color: $light-color;
             transition: $transition;
+        }
+
+        &:hover div.ib-plus-icon:before,
+        &:hover div.ib-plus-icon:after,
+        &:hover div.ib-hamburger-icon:before {
+            background-color: $light-color;
+        }
+
+        &:hover div.ib-arrow-top-right-icon,
+        &:hover div.ib-hamburger-icon {
+            border-color: $light-color;
         }
 
         &:active {
@@ -1203,3 +1253,6 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
 @import "foundation/buttons/arrow-top-right";
+@import "foundation/menus/plus-icon";
+@import "foundation/menus/arrow-top-right-icon";
+@import "foundation/menus/hamburger-icon";

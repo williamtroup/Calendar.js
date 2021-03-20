@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.8.0
+ * Calendar.js Library v0.8.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -12,6 +12,41 @@ div.calendar div.drag-over {
   background-color: rgba(135, 206, 250, 0.4) !important;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
+}
+
+div.calendar div.no-events-available-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+div.calendar div.no-events-available-text p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+div.calendar div.no-events-available-text span.link {
+  text-decoration: underline;
+  color: #2471A3;
+}
+
+div.calendar div.no-events-available-text span.link:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.calendar div.no-events-available-text span.link:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar,
@@ -590,6 +625,7 @@ div.calendar div.full-day-view div.contents {
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
+  padding: 0 !important;
 }
 
 div.calendar div.full-day-view div.contents div.content-events-all-day {
@@ -2355,6 +2391,16 @@ div.calendar-drop-down-menu {
   z-index: 1000;
 }
 
+div.calendar-drop-down-menu div.menu-text {
+  display: inline-block;
+}
+
+div.calendar-drop-down-menu div.ib-plus-icon,
+div.calendar-drop-down-menu div.ib-arrow-top-right-icon,
+div.calendar-drop-down-menu div.ib-hamburger-icon {
+  margin-right: 10px;
+}
+
 div.calendar-drop-down-menu div.item {
   padding: 10px;
   padding-right: 30px;
@@ -2365,6 +2411,17 @@ div.calendar-drop-down-menu div.item:hover {
   color: #F5F5F5;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+}
+
+div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:before,
+div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:after,
+div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before {
+  background-color: #F5F5F5;
+}
+
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon,
+div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon {
+  border-color: #F5F5F5;
 }
 
 div.calendar-drop-down-menu div.item:active {
@@ -3016,5 +3073,102 @@ div.calendar-drop-down-menu div.separator {
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
+}
+
+.ib-plus-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+
+.ib-plus-icon:before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  background-color: #282828;
+  width: 3px;
+  height: 100%;
+  border-radius: 3px;
+  top: 0;
+}
+
+.ib-plus-icon:after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  background-color: #282828;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  left: 0;
+}
+
+.ib-arrow-top-right-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  border-radius: 3px;
+}
+
+.ib-arrow-top-right-icon:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-arrow-top-right-icon:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-hamburger-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  border-top: 3px solid #282828;
+  border-bottom: 3px solid #282828;
+  border-radius: 3px;
+  height: 6px;
+}
+
+.ib-hamburger-icon:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-hamburger-icon:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-hamburger-icon:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  background-color: #282828;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  left: 0;
 }
 /*# sourceMappingURL=calendarjs.css.map */

@@ -61,7 +61,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | startsOnText | The text that should be displayed for the "Starts on" label. |
 | *string* | andFinishesOnText | The text that should be displayed for the "and finishes on" label. |
 | *string* | toTimeText | The text that should be displayed for the "to" label. |
-| *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 5000 milliseconds, 0 disables it). |
+| *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
 | *string* | confirmEventRemoveTitle | The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal"). |
 | *string* | confirmEventRemoveMessage | The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone. Do you want to continue?"). |
 | *string* | okText | The text that should be displayed for the "OK" button. |
@@ -107,6 +107,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | repeatEndsText | The text that should be displayed for the "Repeat Ends:" label. |
 | *string* | noEventsAvailableText | The text that should be displayed for the "No events available" label. |
 | *string* | viewWeekEventsText | The text that should be displayed for the "View Week Events" label. |
+| *string* | noEventsAvailableFullText | The text that should be displayed for the "There are no events available to view." label. |
+| *string* | clickText | The text that should be displayed for the "Click" label. |
+| *string* | hereText | The text that should be displayed for the "here" label. |
+| *string* | toAddANewEventText | The text that should be displayed for the "to add a new event." label. |
 
 <br/>
 
@@ -127,3 +131,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsCleared | Specifies an event that will be triggered when the events are cleared. |
 | onEventsExported | Specifies an event that will be triggered when the "Export Events" button is pressed. |
 | onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |
+| onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |

@@ -1,0 +1,10 @@
+@import "icon";
+
+.ib-arrow-top-right-icon {
+    @include button-no-before-after;
+    width: $size - $border-width;
+    height: $size - $border-width;
+    border-right: $border;
+    border-top: $border;
+    border-radius: $border-radius;
+}

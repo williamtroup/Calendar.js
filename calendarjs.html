@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js v0.8.0</title>
+        <title>Calendar.js v0.8.1</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="src/calendarjs.css" />
@@ -9,165 +9,67 @@
     </head>
 
     <body>
-        <h1>Welcome to Calendar.js v0.8.0:</h1>
-        <p>Click <a href="calendarjs.min.html" target="_self">here</a> to jump to the minimized version.</p>
+        <h1>Welcome to Calendar.js v0.8.1:</h1>
 
-        <div id="myCalendar" style="max-width: 800px;">
-            <p>Some data that should be cleared.</p>
+        <div class="contents">
+            <p>Click <a href="calendarjs.min.html" target="_self">here</a> to jump to the minimized version.</p>
+
+            <div id="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+            <br>
+    
+            <h2>Move Back/Forward By Month/Year:</h2>
+            <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
+            <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
+            <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
+            <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
+            <br>
+    
+            <h2>Events:</h2>
+            <button onclick="setEvents();">Set Events</button>
+            <button onclick="removeEvent();">Remove Event</button>
+            <button onclick="calendarInstance.clearEvents();">Clear Events</button>
+            <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
+            <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
+            <br>
+    
+            <h2>Options:</h2>
+            <button onclick="setOptions();">Set Options</button>
+            <br />
+    
+            <h2>Export Events:</h2>
+            <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
+            <br />
+    
+            <h2>Main Controls:</h2>
+            <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
+            <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
+            <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
+            <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
         </div>
-        <br>
-
-        <h2>Move Back/Forward By Month/Year:</h2>
-        <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
-        <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
-        <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
-        <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
-        <br>
-
-        <h2>Events:</h2>
-        <button onclick="removeEvent();">Remove Event</button>
-        <button onclick="calendarInstance.clearEvents();">Clear Events</button>
-        <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
-        <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
-        <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
-        <br>
-
-        <h2>Options:</h2>
-        <button onclick="setOptions();">Set Options</button>
-        <br />
-
-        <h2>Export Events:</h2>
-        <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
-        <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
-        <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
-        <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
-        <br />
-
-        <h2>Main Controls:</h2>
-        <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
-        <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
-        <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
-        <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
     </body>
 
     <script>
         var calendarInstance = new calendarJs( "myCalendar", { 
-                exportEventsEnabled: true, 
-                manualEditingEnabled: true, 
-                showTimesInMainCalendarEvents: false,
-                minimumDayHeight: 0,
-                manualEditingEnabled: true,
-                organizerName: "Your Name",
-                organizerEmailAddress: "your@email.address"
-            } ),
-            previousDay = new Date(),
-            today9 = new Date(),
-            today11 = new Date(),
-            tomorrow = new Date(),
-            firstDayInNextMonth = new Date(),
-            lastDayInNextMonth = new Date(),
-            today = new Date(),
-            today3HoursAhead = new Date();
+            exportEventsEnabled: true, 
+            manualEditingEnabled: true, 
+            showTimesInMainCalendarEvents: false,
+            minimumDayHeight: 0,
+            manualEditingEnabled: true,
+            organizerName: "Your Name",
+            organizerEmailAddress: "your@email.address"
+        } );
 
-        previousDay.setDate( previousDay.getDate() - 1 );
-        today11.setHours( 11 );
-        tomorrow.setDate( today11.getDate() + 1 );
-        today9.setHours( 9 );
+        calendarInstance.addEvents( getEvents() );
 
-        firstDayInNextMonth.setDate( 1 );
-        firstDayInNextMonth.setDate( firstDayInNextMonth.getDate() + daysInMonth( firstDayInNextMonth.getFullYear(), firstDayInNextMonth.getMonth() ) );
-
-        lastDayInNextMonth.setDate( 1 );
-        lastDayInNextMonth.setMonth( lastDayInNextMonth.getMonth() + 1 );
-        lastDayInNextMonth.setDate( lastDayInNextMonth.getDate() + daysInMonth( lastDayInNextMonth.getFullYear(), lastDayInNextMonth.getMonth() ) - 1 );
-
-        today.setHours( 21, 59, 0, 0 );
-        today.setDate( today.getDate() + 3 );
-        today3HoursAhead.setHours( 23, 59, 0, 0 );
-        today3HoursAhead.setDate( today3HoursAhead.getDate() + 3 );
-
-        var events = [
-            {
-                from: previousDay,
-                to: previousDay,
-                title: "Previous Day",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                location: "Teams Meeting",
-                isAllDay: true,
-                color: "#FF0000",
-                colorText: "#FFFF00",
-                colorBorder: "#00FF00",
-                repeatEvery: 4,
-                id: "1234-5678-9"
-            },
-            {
-                from: today11,
-                to: tomorrow,
-                title: "Title 1",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                location: "Teams Meeting",
-                isAllDay: false
-            },
-            {
-                from: tomorrow,
-                to: today11,
-                title: "Title Bad (should not show)",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                location: "Teams Meeting",
-                isAllDay: false
-            },
-            {
-                from: today9,
-                to: today9,
-                title: "Title 2",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                location: "Teams Meeting",
-                isAllDay: true
-            },
-            {
-                from: firstDayInNextMonth,
-                to: firstDayInNextMonth,
-                title: "First Day 1",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                location: "Teams Meeting",
-                isAllDay: true,
-                color: "#00FF00",
-                colorText: "#FF0000",
-                repeatEvery: 3
-            },
-            {
-                from: firstDayInNextMonth,
-                to: firstDayInNextMonth,
-                title: "First Day 2",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                location: "Teams Meeting",
-                isAllDay: true,
-                color: "#00FF00",
-                colorText: "#FF0000",
-                repeatEvery: 3
-            },
-            {
-                from: lastDayInNextMonth,
-                to: lastDayInNextMonth,
-                title: "Last Day 1",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                location: "Teams Meeting",
-                isAllDay: true,
-                color: "#0000FF",
-                repeatEvery: 2
-            },
-            {
-                from: today,
-                to: today3HoursAhead,
-                title: "Regular Event",
-                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-                repeatEvery: 1,
-                repeatEveryExcludeDays: [ 6, 0 ],
-                repeatEnds: new Date( today.getFullYear() + 1, 0, 1 )
-            }
-        ];
-        
-        calendarInstance.addEvents( events );
+        function setEvents() {
+            calendarInstance.setEvents( getEvents() );
+        }
 
         function removeEvent() {
             calendarInstance.removeEvent( new Date(), "Test Title 2" );
@@ -193,6 +95,115 @@
             newDate.setMonth( newDate.getMonth() + 3 );
 
             calendarInstance.setCurrentDisplayDate( newDate );
+        }
+
+        function getEvents() {
+            var previousDay = new Date(),
+                today9 = new Date(),
+                today11 = new Date(),
+                tomorrow = new Date(),
+                firstDayInNextMonth = new Date(),
+                lastDayInNextMonth = new Date(),
+                today = new Date(),
+                today3HoursAhead = new Date();
+
+            previousDay.setDate( previousDay.getDate() - 1 );
+            today11.setHours( 11 );
+            tomorrow.setDate( today11.getDate() + 1 );
+            today9.setHours( 9 );
+
+            firstDayInNextMonth.setDate( 1 );
+            firstDayInNextMonth.setDate( firstDayInNextMonth.getDate() + daysInMonth( firstDayInNextMonth.getFullYear(), firstDayInNextMonth.getMonth() ) );
+
+            lastDayInNextMonth.setDate( 1 );
+            lastDayInNextMonth.setMonth( lastDayInNextMonth.getMonth() + 1 );
+            lastDayInNextMonth.setDate( lastDayInNextMonth.getDate() + daysInMonth( lastDayInNextMonth.getFullYear(), lastDayInNextMonth.getMonth() ) - 1 );
+
+            today.setHours( 21, 59, 0, 0 );
+            today.setDate( today.getDate() + 3 );
+            today3HoursAhead.setHours( 23, 59, 0, 0 );
+            today3HoursAhead.setDate( today3HoursAhead.getDate() + 3 );
+
+            return [
+                {
+                    from: previousDay,
+                    to: previousDay,
+                    title: "Previous Day",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: true,
+                    color: "#FF0000",
+                    colorText: "#FFFF00",
+                    colorBorder: "#00FF00",
+                    repeatEvery: 4,
+                    id: "1234-5678-9"
+                },
+                {
+                    from: today11,
+                    to: tomorrow,
+                    title: "Title 1",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: false
+                },
+                {
+                    from: tomorrow,
+                    to: today11,
+                    title: "Title Bad (should not show)",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: false
+                },
+                {
+                    from: today9,
+                    to: today9,
+                    title: "Title 2",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: true
+                },
+                {
+                    from: firstDayInNextMonth,
+                    to: firstDayInNextMonth,
+                    title: "First Day 1",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: true,
+                    color: "#00FF00",
+                    colorText: "#FF0000",
+                    repeatEvery: 3
+                },
+                {
+                    from: firstDayInNextMonth,
+                    to: firstDayInNextMonth,
+                    title: "First Day 2",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: true,
+                    color: "#00FF00",
+                    colorText: "#FF0000",
+                    repeatEvery: 3
+                },
+                {
+                    from: lastDayInNextMonth,
+                    to: lastDayInNextMonth,
+                    title: "Last Day 1",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: true,
+                    color: "#0000FF",
+                    repeatEvery: 2
+                },
+                {
+                    from: today,
+                    to: today3HoursAhead,
+                    title: "Regular Event",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    repeatEvery: 1,
+                    repeatEveryExcludeDays: [ 6, 0 ],
+                    repeatEnds: new Date( today.getFullYear() + 1, 0, 1 )
+                }
+            ];
         }
     </script>
 </html>

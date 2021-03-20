@@ -63,6 +63,17 @@ Exports all the events into a downloadable file.
 ### **refresh()**:
 Refreshes all of the views.
 
+### **setEvents( *events*, *updateEvents*, *triggerEvent* )**:
+Sets the events and clears any existing ones.
+<br>
+***Fires***:  onEventsSet
+<br>
+***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onEventsSet" event should be triggered.
+
 ### **addEvents( *events*, *updateEvents*, *triggerEvent* )**:
 Adds an array of new events.
 <br>

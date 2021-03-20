@@ -4,11 +4,15 @@ $border-width: $size / 4;
 $border-radius: $border-width;
 $border: $border-width solid $light-color;
 
-@mixin button-no-before-after {
+@mixin button-size {
     width: $size;
     height: $size;
     display: inline-block;
     position: relative;
+}
+
+@mixin button-no-before-after {
+    @include button-size;
 
     &:hover {
         @include button-hover;
