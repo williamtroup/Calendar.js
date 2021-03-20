@@ -3,12 +3,12 @@
 ### Version 0.8.1:
 - Added public function "setEvents()", which adds an array of events and clears the original (fires onEventsSet, if available).
 - The option "autoRefreshTimerDelay" now defaults to 30000 milliseconds.
-- When the month on display is the current month/year, auto refresh will now jump to the right date when the day changes.
+- When the month on display is the current month/year, the auto-refresh will now jump to the right date when the day changes.
 - Added icons to the context menu shown for days on the main display.
 - Fixed a fault that allowed HTML to be inserted into text displays (allowing script injection).
 - Fixed a fault that caused the Export Events button to always be visible on the List All Events view.
 - Fixed a padding fault on the Full Day view (now defaults to 0 to prevent display issues).
-- When events are not available in the views, a new centered message is now shown (instead of whitespace).
+- When events are not available in the views, a new centred message is now shown (instead of whitespace).
 - Fixed a fault that prevented the opened view from updating when calling one of the public functions.
 
 ### Version 0.8.0:
