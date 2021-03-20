@@ -32,7 +32,7 @@ div.calendar div.no-events-available-text p {
 
 div.calendar div.no-events-available-text span.link {
   text-decoration: underline;
-  color: blue;
+  color: #2471A3;
 }
 
 div.calendar div.no-events-available-text span.link:hover {
