@@ -3648,21 +3648,23 @@ function calendarJs( id, options, startDateTime ) {
         startText.innerText = _options.noEventsAvailableFullText;
         contents.appendChild( startText );
 
-        var addText = createElement( "div" );
-        contents.appendChild( addText );
-
-        var clickText = createElement( "span" );
-        clickText.innerText = _options.clickText + " ";
-        contents.appendChild( clickText );
-
-        var hereText = createElement( "span", "link" );
-        hereText.innerText = _options.hereText;
-        hereText.onclick = onClickEvent;
-        contents.appendChild( hereText );
-
-        var remainingText = createElement( "span" );
-        remainingText.innerText = " " + _options.toAddANewEventText;
-        contents.appendChild( remainingText );
+        if ( _options.manualEditingEnabled ) {
+            var addText = createElement( "div" );
+            contents.appendChild( addText );
+    
+            var clickText = createElement( "span" );
+            clickText.innerText = _options.clickText + " ";
+            contents.appendChild( clickText );
+    
+            var hereText = createElement( "span", "link" );
+            hereText.innerText = _options.hereText;
+            hereText.onclick = onClickEvent;
+            contents.appendChild( hereText );
+    
+            var remainingText = createElement( "span" );
+            remainingText.innerText = " " + _options.toAddANewEventText;
+            contents.appendChild( remainingText );
+        }
     }
 
 
