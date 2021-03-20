@@ -6,6 +6,7 @@
 - When the month on display is the current month/year, auto refresh will now jump to the right date when the day changes.
 - Added icons to the context menu shown for days on the main display.
 - Fixed a fault that allowed HTML to be inserted into text displays (allowing script injection).
+- Fixed a fault that caused the Export Events button to always be visible on the List All Events view.
 
 ### Version 0.8.0:
 - Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).

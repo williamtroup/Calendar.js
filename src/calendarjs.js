@@ -1458,6 +1458,14 @@ function calendarJs( id, options, startDateTime ) {
 
             buildListAllEventsEvent( orderedEvent, monthContents );
         }
+        
+        if ( _options.exportEventsEnabled ) {
+            if ( orderedEventsLength === 0 ) {
+                _element_ListAllEventsView_ExportEventsButton.style.display = "none";
+            } else {
+                _element_ListAllEventsView_ExportEventsButton.style.display = "inline-block";
+            }
+        }
     }
 
     function buildListAllEventsEvent( eventDetails, container ) {
