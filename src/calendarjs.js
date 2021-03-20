@@ -198,6 +198,7 @@ function calendarJs( id, options, startDateTime ) {
         _eventDetails_Dragged = null,
         _cachedStyles = null,
         _isFullScreenModeActivated = false,
+        _isDateToday = false,
         _const_Repeat_Never = 0,
         _const_Repeat_EveryDay = 1,
         _const_Repeat_EveryWeek = 2,
@@ -323,10 +324,11 @@ function calendarJs( id, options, startDateTime ) {
 
     function build( newStartDateTime, fullRebuild ) {
         _currentDate = isDefined( newStartDateTime ) ? newStartDateTime : new Date();
-        fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
-
         _currentDate.setDate( 1 );
         _currentDate.setHours( 0, 0, 0, 0 );
+        _isDateToday = isDateTodaysMonthAndYear( _currentDate );
+
+        fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
 
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
             startDay = firstDay.getDay(),
@@ -779,6 +781,12 @@ function calendarJs( id, options, startDateTime ) {
         var today = new Date();
         
         return date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
+    }
+
+    function isDateTodaysMonthAndYear( date ) {
+        var today = new Date();
+        
+        return date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
     }
 
     function toFormattedDate( date, inputType ) {
@@ -3554,7 +3562,12 @@ function calendarJs( id, options, startDateTime ) {
     function refreshViews() {
         if ( isOnlyMainDisplayVisible() ) {
             refreshOpenedViews();
-            buildDayEvents();
+
+            if ( _isDateToday ) {
+                build();
+            } else {
+                buildDayEvents();
+            }
         }
     }
 
