@@ -767,10 +767,10 @@ function calendarJs( id, options, startDateTime ) {
 
     function isDateSmallerOrEqualToDate( date1, date2 ) {
         var newDate1 = new Date( date1.getFullYear(), date1.getMonth(), date1.getDate() );
-        newDate1.setHours(0, 0, 0, 0);
+        newDate1.setHours( 0, 0, 0, 0 );
 
         var newDate2 = new Date( date2.getFullYear(), date2.getMonth(), date2.getDate() );
-        newDate2.setHours(0, 0, 0, 0);
+        newDate2.setHours( 0, 0, 0, 0 );
 
         return newDate1 <= newDate2;
     }
