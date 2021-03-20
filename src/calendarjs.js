@@ -4387,6 +4387,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( updateEvents ) {
             buildDayEvents();
+            refreshOpenedViews();
         }
     };
 
@@ -4437,6 +4438,7 @@ function calendarJs( id, options, startDateTime ) {
         
                 if ( updateEvents ) {
                     buildDayEvents();
+                    refreshOpenedViews();
                 }
             }
         }
@@ -4506,6 +4508,7 @@ function calendarJs( id, options, startDateTime ) {
 
                 if ( updateEvents ) {
                     buildDayEvents();
+                    refreshOpenedViews();
                 }
 
                 return true;
@@ -4532,6 +4535,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( updateEvents ) {
             buildDayEvents();
+            refreshOpenedViews();
         }
     };
 
