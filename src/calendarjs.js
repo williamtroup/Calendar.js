@@ -3867,8 +3867,7 @@ function calendarJs( id, options, startDateTime ) {
         format.push( "T" );
         format.push( eventDate.getHours() );
         format.push( eventDate.getMinutes() );
-        format.push( "00" );
-        format.push( "Z" );
+        format.push( "00Z" );
 
         return format.join( "" );
     }
