@@ -10,45 +10,48 @@
     
     <body>
         <h1>Welcome to Calendar.js v0.8.1:</h1>
-        <p>Click <a href="calendarjs.html" target="_self">here</a> to jump to the un-minimized version.</p>
 
-        <div id="myCalendar" style="max-width: 800px;">
-            <p>Some data that should be cleared.</p>
+        <div class="contents">
+            <p>Click <a href="calendarjs.min.html" target="_self">here</a> to jump to the minimized version.</p>
+
+            <div id="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+            <br>
+    
+            <h2>Move Back/Forward By Month/Year:</h2>
+            <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
+            <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
+            <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
+            <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
+            <br>
+    
+            <h2>Events:</h2>
+            <button onclick="setEvents();">Set Events</button>
+            <button onclick="removeEvent();">Remove Event</button>
+            <button onclick="calendarInstance.clearEvents();">Clear Events</button>
+            <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
+            <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
+            <br>
+    
+            <h2>Options:</h2>
+            <button onclick="setOptions();">Set Options</button>
+            <br />
+    
+            <h2>Export Events:</h2>
+            <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
+            <br />
+    
+            <h2>Main Controls:</h2>
+            <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
+            <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
+            <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
+            <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
         </div>
-        <br>
-
-        <h2>Move Back/Forward By Month/Year:</h2>
-        <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
-        <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
-        <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
-        <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
-        <br>
-
-        <h2>Events:</h2>
-        <button onclick="setEvents();">Set Events</button>
-        <button onclick="removeEvent();">Remove Event</button>
-        <button onclick="calendarInstance.clearEvents();">Clear Events</button>
-        <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
-        <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
-        <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
-        <br>
-
-        <h2>Options:</h2>
-        <button onclick="setOptions();">Set Options</button>
-        <br />
-
-        <h2>Export Events:</h2>
-        <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
-        <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
-        <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
-        <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
-        <br />
-        
-        <h2>Main Controls:</h2>
-        <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
-        <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
-        <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
-        <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
     </body>
 
     <script>
