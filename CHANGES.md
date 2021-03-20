@@ -7,6 +7,7 @@
 - Added icons to the context menu shown for days on the main display.
 - Fixed a fault that allowed HTML to be inserted into text displays (allowing script injection).
 - Fixed a fault that caused the Export Events button to always be visible on the List All Events view.
+- Fixed a padding fault on the Full Day view (now defaults to 0 to prevent display issues).
 
 ### Version 0.8.0:
 - Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).

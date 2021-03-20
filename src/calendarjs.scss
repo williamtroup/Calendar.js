@@ -429,6 +429,7 @@ div.calendar {
             overflow-x: hidden;
             overflow-y: auto;
             width: 100%;
+            padding: 0 !important;
 
             div.content-events-all-day {
                 position: relative;

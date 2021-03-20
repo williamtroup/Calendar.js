@@ -590,6 +590,7 @@ div.calendar div.full-day-view div.contents {
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
+  padding: 0 !important;
 }
 
 div.calendar div.full-day-view div.contents div.content-events-all-day {
