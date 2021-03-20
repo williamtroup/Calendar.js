@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.8.2:
+- 
+
 ### Version 0.8.1:
 - Added public function "setEvents()", which adds an array of events and clears the original (fires onEventsSet, if available).
 - The option "autoRefreshTimerDelay" now defaults to 30000 milliseconds.
