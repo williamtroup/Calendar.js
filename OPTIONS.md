@@ -107,6 +107,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | repeatEndsText | The text that should be displayed for the "Repeat Ends:" label. |
 | *string* | noEventsAvailableText | The text that should be displayed for the "No events available" label. |
 | *string* | viewWeekEventsText | The text that should be displayed for the "View Week Events" label. |
+| *string* | noEventsAvailableFullText | The text that should be displayed for the "There are no events available to view." label. |
+| *string* | clickText | The text that should be displayed for the "Click" label. |
+| *string* | hereText | The text that should be displayed for the "here" label. |
+| *string* | toAddANewEventText | The text that should be displayed for the "to add a new event." label. |
 
 <br/>
 

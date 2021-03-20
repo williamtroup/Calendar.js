@@ -167,6 +167,10 @@
  * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
  * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
  * @property    {string}    viewWeekEventsText                          The text that should be displayed for the "View Week Events" label.
+ * @property    {string}    noEventsAvailableFullText                   The text that should be displayed for the "There are no events available to view." label.
+ * @property    {string}    clickText                                   The text that should be displayed for the "Click" label.
+ * @property    {string}    hereText                                    The text that should be displayed for the "here" label.
+ * @property    {string}    toAddANewEventText                          The text that should be displayed for the "to add a new event." label.
  */
 
 
@@ -485,17 +489,6 @@ function calendarJs( id, options, startDateTime ) {
         titleContainer.appendChild( _element_HeaderDateDisplay_Text );
 
         buildYearSelectorDropDown( titleContainer );
-    }
-
-    function buildToolbarButton( container, cssClass, tooltipText, onClickEvent ) {
-        var button = createElement( "div", cssClass );
-        button.ondblclick = cancelBubble;
-        button.onclick = onClickEvent;
-        container.appendChild( button );
-
-        addToolTip( button, tooltipText );
-
-        return button;
     }
 
     function buildYearSelectorDropDown( container ) {
@@ -1466,6 +1459,10 @@ function calendarJs( id, options, startDateTime ) {
                 _element_ListAllEventsView_ExportEventsButton.style.display = "inline-block";
             }
         }
+
+        if ( orderedEventsLength === 0 ) {
+            buildNoEventsAvailableText( _element_ListAllEventsView_Contents, addNewEvent );
+        }
     }
 
     function buildListAllEventsEvent( eventDetails, container ) {
@@ -1692,6 +1689,10 @@ function calendarJs( id, options, startDateTime ) {
             } else {
                 _element_ListAllWeekEventsView_ExportEventsButton.style.display = "inline-block";
             }
+        }
+
+        if ( _element_ListAllWeekEventsView_EventsShown.length === 0 ) {
+            buildNoEventsAvailableText( _element_ListAllWeekEventsView_Contents, addNewEvent );
         }
     }
 
@@ -3576,7 +3577,7 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Build Input Types
+     * Build Controls/Text
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -3624,6 +3625,44 @@ function calendarJs( id, options, startDateTime ) {
         label.appendChild( labelSpan );
 
         return [ input, label ];
+    }
+
+    function buildToolbarButton( container, cssClass, tooltipText, onClickEvent ) {
+        var button = createElement( "div", cssClass );
+        button.ondblclick = cancelBubble;
+        button.onclick = onClickEvent;
+        container.appendChild( button );
+
+        addToolTip( button, tooltipText );
+
+        return button;
+    }
+
+    function buildNoEventsAvailableText( container, onClickEvent ) {
+        container.innerHTML = "";
+
+        var contents = createElement( "div", "no-events-available-text" );
+        container.appendChild( contents );
+
+        var startText = createElement( "p" );
+        startText.innerText = _options.noEventsAvailableFullText;
+        contents.appendChild( startText );
+
+        var addText = createElement( "div" );
+        contents.appendChild( addText );
+
+        var clickText = createElement( "span" );
+        clickText.innerText = _options.clickText + " ";
+        contents.appendChild( clickText );
+
+        var hereText = createElement( "span", "link" );
+        hereText.innerText = _options.hereText;
+        hereText.onclick = onClickEvent;
+        contents.appendChild( hereText );
+
+        var remainingText = createElement( "span" );
+        remainingText.innerText = " " + _options.toAddANewEventText;
+        contents.appendChild( remainingText );
     }
 
 
@@ -4971,6 +5010,22 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.viewWeekEventsText ) ) {
             _options.viewWeekEventsText = "View Week Events";
+        }
+
+        if ( !isDefined( _options.noEventsAvailableFullText ) ) {
+            _options.noEventsAvailableFullText = "There are no events available to view.";
+        }
+
+        if ( !isDefined( _options.clickText ) ) {
+            _options.clickText = "Click";
+        }
+
+        if ( !isDefined( _options.hereText ) ) {
+            _options.hereText = "here";
+        }
+
+        if ( !isDefined( _options.toAddANewEventText ) ) {
+            _options.toAddANewEventText = "to add a new event.";
         }
     }
 

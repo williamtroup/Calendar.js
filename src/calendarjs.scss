@@ -15,6 +15,34 @@ div.calendar {
         background-color: rgba(135, 206, 250, 0.4) !important;
         transition: $transition-faster;
     }
+
+    div.no-events-available-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%;
+        max-width: 300px;
+
+        p {
+            margin-top: 0;
+            margin-bottom: $spacing;
+        }
+
+        span.link {
+            text-decoration: underline;
+            color: blue;
+
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
+            }
+        }
+    }
 }
 
 div.calendar,
