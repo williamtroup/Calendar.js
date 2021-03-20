@@ -1113,6 +1113,16 @@ div.calendar-drop-down-menu {
     font-size: smaller !important;;
     z-index: 1000;
 
+    div.menu-text {
+        display: inline-block;
+    }
+
+    div.ib-plus-icon,
+    div.ib-arrow-top-right-icon,
+    div.ib-hamburger-icon {
+        margin-right: $spacing;
+    }
+
     div.item {
         padding: $spacing;
         padding-right: $spacing * 3;
@@ -1121,6 +1131,17 @@ div.calendar-drop-down-menu {
             background-color: $dark-color;
             color: $light-color;
             transition: $transition;
+        }
+
+        &:hover div.ib-plus-icon:before,
+        &:hover div.ib-plus-icon:after,
+        &:hover div.ib-hamburger-icon:before {
+            background-color: $light-color;
+        }
+
+        &:hover div.ib-arrow-top-right-icon,
+        &:hover div.ib-hamburger-icon {
+            border-color: $light-color;
         }
 
         &:active {
@@ -1203,3 +1224,6 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
 @import "foundation/buttons/arrow-top-right";
+@import "foundation/menus/plus-icon";
+@import "foundation/menus/arrow-top-right-icon";
+@import "foundation/menus/hamburger-icon";

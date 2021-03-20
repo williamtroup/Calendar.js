@@ -2329,36 +2329,22 @@ function calendarJs( id, options, startDateTime ) {
         _document.body.appendChild( _element_DropDownMenu_Day );
 
         if ( _options.manualEditingEnabled ) {
-            var addEvent = createElement( "div", "item" );
-            addEvent.innerHTML = _options.addEventTitle;
-            _element_DropDownMenu_Day.appendChild( addEvent );
-    
-            addEvent.onclick = function() {
+            buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle, function() {
                 showEventDialog( null, _element_DropDownMenu_Day_DateSelected );
-            };
+            } );
     
-            var separator1 = createElement( "div", "separator" );
-            _element_DropDownMenu_Day.appendChild( separator1 );
+            buildMenuSeparator( _element_DropDownMenu_Day );
         }
 
-        var expandDay = createElement( "div", "item" );
-        expandDay.innerHTML = _options.expandDayTooltipText;
-        _element_DropDownMenu_Day.appendChild( expandDay );
-
-        expandDay.onclick = function() {
+        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-arrow-top-right-icon", _options.expandDayTooltipText, function() {
             showFullDayView( _element_DropDownMenu_Day_DateSelected, true );
-        };
+        } );
 
-        var separator2 = createElement( "div", "separator" );
-        _element_DropDownMenu_Day.appendChild( separator2 );
+        buildMenuSeparator( _element_DropDownMenu_Day );
 
-        var viewWeekEvents = createElement( "div", "item" );
-        viewWeekEvents.innerHTML = _options.viewWeekEventsText;
-        _element_DropDownMenu_Day.appendChild( viewWeekEvents );
-
-        viewWeekEvents.onclick = function() {
+        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-hamburger-icon", _options.viewWeekEventsText, function() {
             showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
-        };
+        } );
     }
 
     function buildEventDropDownMenu() {
@@ -2408,9 +2394,8 @@ function calendarJs( id, options, startDateTime ) {
         
                 showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
             };
-    
-            var separator1 = createElement( "div", "separator" );
-            _element_DropDownMenu_Event.appendChild( separator1 );
+
+            buildMenuSeparator( _element_DropDownMenu_Event );
     
             var editEvent = createElement( "div", "item" );
             editEvent.innerHTML = _options.editEventTitle;
@@ -2420,6 +2405,26 @@ function calendarJs( id, options, startDateTime ) {
                 showEventDialog( _element_DropDownMenu_Event_EventDetails );
             };
         }
+    }
+
+    function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent ) {
+        var menuItem = createElement( "div", "item" );
+        container.appendChild( menuItem );
+
+        var menuIcon = createElement( "div", iconCSS );
+        menuItem.appendChild( menuIcon );
+
+        var menuText = createElement( "div", "menu-text" );
+        menuText.innerHTML = text;
+        menuItem.appendChild( menuText );
+
+        menuItem.onclick = function() {
+            onClickEvent();
+        };
+    }
+
+    function buildMenuSeparator( container ) {
+        container.appendChild( createElement( "div", "separator" ) );
     }
 
     function showDayDropDownMenu( e, date ) {

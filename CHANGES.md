@@ -4,6 +4,7 @@
 - Added public function "setEvents()", which adds an array of events and clears the original (fires onEventsSet, if available).
 - The option "autoRefreshTimerDelay" now defaults to 30000 milliseconds.
 - When the month on display is the current month/year, auto refresh will now jump to the right date when the day changes.
+- Added icons to the context menu shown for days on the main display.
 
 ### Version 0.8.0:
 - Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).
