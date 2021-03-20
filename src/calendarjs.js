@@ -958,7 +958,7 @@ function calendarJs( id, options, startDateTime ) {
         var elementDay = getDayElement( dayDate );
         if ( elementDay !== null ) {
     
-            var eventClassName = _options.manualEditingEnabled ? "event" : "event-no-hover",
+            var eventClassName = getEventClassName(),
                 events = elementDay.getElementsByClassName( eventClassName );
 
             if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
@@ -1077,7 +1077,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function clearEventsFromDay( elementDay ) {
-        clearElementsByClassName( elementDay, _options.manualEditingEnabled ? "event" : "event-no-hover" );
+        clearElementsByClassName( elementDay, getEventClassName() );
         clearElementsByClassName( elementDay, "plus-x-events" );
     }
 
@@ -1124,6 +1124,10 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return toDate;
+    }
+
+    function getEventClassName() {
+        return _options.manualEditingEnabled ? "event" : "event-no-hover";
     }
 
 
@@ -1243,7 +1247,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [];
         _element_FullDayView_Contents_AllDayEvents.style.display = "block";
 
-        clearElementsByClassName( _element_FullDayView_Contents, _options.manualEditingEnabled ? "event" : "event-no-hover" );
+        clearElementsByClassName( _element_FullDayView_Contents, getEventClassName() );
 
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
@@ -1342,7 +1346,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildFullDayDayEvent( eventDetails, displayDate ) {
-        var event = createElement( "div", _options.manualEditingEnabled ? "event" : "event-no-hover" );
+        var event = createElement( "div", getEventClassName() );
 
         if ( eventDetails.isAllDay ) {
             _element_FullDayView_Contents_AllDayEvents.appendChild( event );
@@ -1550,7 +1554,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildListAllEventsEvent( eventDetails, container ) {
-        var event = createElement( "div", _options.manualEditingEnabled ? "event" : "event-no-hover" );
+        var event = createElement( "div", getEventClassName() );
         container.appendChild( event );
 
         if ( _options.manualEditingEnabled ) {
@@ -1864,7 +1868,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllWeekEventsEvent( eventDetails, container, displayDate ) {
         clearElementsByClassName( container, "no-events-text" );
 
-        var event = createElement( "div", _options.manualEditingEnabled ? "event" : "event-no-hover" );
+        var event = createElement( "div", getEventClassName() );
         container.appendChild( event );
 
         if ( _options.manualEditingEnabled ) {
