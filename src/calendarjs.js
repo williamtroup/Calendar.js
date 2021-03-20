@@ -449,89 +449,32 @@ function calendarJs( id, options, startDateTime ) {
             _element_HeaderDateDisplay.ondblclick = headerDoubleClick;
         }
 
-        var previousMonthButton = createElement( "div", "ib-arrow-left-full" );
-        previousMonthButton.onclick = moveBackMonth;
-        previousMonthButton.ondblclick = cancelBubble;
-        _element_HeaderDateDisplay.appendChild( previousMonthButton );
-
-        addToolTip( previousMonthButton, _options.previousMonthTooltipText );
-
-        var todayButton = createElement( "div", "ib-pin" );
-        todayButton.onclick = moveToday;
-        todayButton.ondblclick = cancelBubble;
-        _element_HeaderDateDisplay.appendChild( todayButton );
-
-        addToolTip( todayButton, _options.todayTooltipText );
-
-        var refreshButton = createElement( "div", "ib-refresh" );
-        refreshButton.onclick = refreshViews;
-        refreshButton.ondblclick = cancelBubble;
-        _element_HeaderDateDisplay.appendChild( refreshButton );
-
-        addToolTip( refreshButton, _options.refreshTooltipText );
-
-        var searchButton = createElement( "div", "ib-search" );
-        searchButton.onclick = showSearchDialog;
-        searchButton.ondblclick = cancelBubble;
-        _element_HeaderDateDisplay.appendChild( searchButton );
-
-        addToolTip( searchButton, _options.searchTooltipText );
-
-        var nextMonthButton = createElement( "div", "ib-arrow-right-full" );
-        nextMonthButton.onclick = moveForwardMonth;
-        nextMonthButton.ondblclick = cancelBubble;
-        _element_HeaderDateDisplay.appendChild( nextMonthButton );
-
-        addToolTip( nextMonthButton, _options.nextMonthTooltipText );
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
 
         if ( _options.manualEditingEnabled ) {
-            var addEventButton = createElement( "div", "ib-plus" );
-            addEventButton.onclick = addNewEvent;
-            addEventButton.ondblclick = cancelBubble;
-            _element_HeaderDateDisplay.appendChild( addEventButton );
-
-            addToolTip( addEventButton, _options.addEventTooltipText );
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-plus", _options.addEventTooltipText, addNewEvent );
         }
 
         if ( _options.exportEventsEnabled ) {
-            _element_HeaderDateDisplay_ExportEventsButton = createElement( "div", "ib-arrow-down-full-line" );
-            _element_HeaderDateDisplay_ExportEventsButton.ondblclick = cancelBubble;
-            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_ExportEventsButton );
-
-            addToolTip( _element_HeaderDateDisplay_ExportEventsButton, _options.exportEventsTooltipText );
-            
-            _element_HeaderDateDisplay_ExportEventsButton.onclick = function() {
+            _element_HeaderDateDisplay_ExportEventsButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
                 showSelectExportTypeDialog();
-            };
+            } );
         }
-
-        var listAllEventsButton = createElement( "div", "ib-eye" );
-        listAllEventsButton.ondblclick = cancelBubble;
-        _element_HeaderDateDisplay.appendChild( listAllEventsButton );
-
-        listAllEventsButton.onclick = function() {
+        
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-eye", _options.listAllEventsTooltipText, function() {
             showListAllEventsView( true );
-        };
+        } );
 
-        addToolTip( listAllEventsButton, _options.listAllEventsTooltipText );
-
-        var listWeekEventsButton = createElement( "div", "ib-hamburger" );
-        listWeekEventsButton.ondblclick = cancelBubble;
-        _element_HeaderDateDisplay.appendChild( listWeekEventsButton );
-
-        listWeekEventsButton.onclick = function() {
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.listWeekEventsTooltipText, function() {
             showListAllWeekEventsView( null, true );
-        };
-
-        addToolTip( listWeekEventsButton, _options.listWeekEventsTooltipText );
+        } );
 
         if ( _options.fullScreenModeEnabled ) {
-            _element_HeaderDateDisplay_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
-            _element_HeaderDateDisplay_FullScreenButton.ondblclick = cancelBubble;
-            _element_HeaderDateDisplay_FullScreenButton.onclick = headerDoubleClick;
-            _element_HeaderDateDisplay.appendChild( _element_HeaderDateDisplay_FullScreenButton );
-
-            addToolTip( _element_HeaderDateDisplay_FullScreenButton, _options.enableFullScreenTooltipText );
+            _element_HeaderDateDisplay_FullScreenButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
         var titleContainer = createElement( "div", "title-container" );
@@ -542,6 +485,17 @@ function calendarJs( id, options, startDateTime ) {
         titleContainer.appendChild( _element_HeaderDateDisplay_Text );
 
         buildYearSelectorDropDown( titleContainer );
+    }
+
+    function buildToolbarButton( container, cssClass, tooltipText, onClickEvent ) {
+        var button = createElement( "div", cssClass );
+        button.ondblclick = cancelBubble;
+        button.onclick = onClickEvent;
+        container.appendChild( button );
+
+        addToolTip( button, tooltipText );
+
+        return button;
     }
 
     function buildYearSelectorDropDown( container ) {
@@ -1159,59 +1113,26 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_Title = createElement( "div", "title" );
         titleBar.appendChild( _element_FullDayView_Title );
 
-        var closeButton = createElement( "div", "ib-close" );
-        closeButton.ondblclick = cancelBubble;
-        titleBar.appendChild( closeButton );
-
-        addToolTip( closeButton, _options.closeTooltipText );
-
-        closeButton.onclick = function() {
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
             hideOverlay( _element_FullDayView );
             _element_FullDayView_DateSelected = null;
-        };
+        } );
 
         if ( _options.manualEditingEnabled ) {
-            var addEventButton = createElement( "div", "ib-plus" );
-            addEventButton.onclick = addNewEvent;
-            addEventButton.ondblclick = cancelBubble;
-            titleBar.appendChild( addEventButton );
-
-            addToolTip( addEventButton, _options.addEventTooltipText );
+            buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
         }
 
-        var nextMonthButton = createElement( "div", "ib-arrow-right-full" );
-        nextMonthButton.onclick = onNextDay;
-        nextMonthButton.ondblclick = cancelBubble;
-        titleBar.appendChild( nextMonthButton );
-        
-        addToolTip( nextMonthButton, _options.nextDayTooltipText );
-
-        var previousMonthButton = createElement( "div", "ib-arrow-left-full" );
-        previousMonthButton.onclick = onPreviousDay;
-        previousMonthButton.ondblclick = cancelBubble;
-        titleBar.appendChild( previousMonthButton );
-        
-        addToolTip( previousMonthButton, _options.previousDayTooltipText );
+        buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextDay );
+        buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay );
 
         if ( _options.exportEventsEnabled ) {
-            _element_FullDayView_ExportEventsButton = createElement( "div", "ib-arrow-down-full-line" );
-            _element_FullDayView_ExportEventsButton.ondblclick = cancelBubble;
-            titleBar.appendChild( _element_FullDayView_ExportEventsButton );
-
-            addToolTip( _element_FullDayView_ExportEventsButton, _options.exportEventsTooltipText );
-
-            _element_FullDayView_ExportEventsButton.onclick = function() {
+            _element_FullDayView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
                 showSelectExportTypeDialog( _element_FullDayView_EventsShown );
-            };
+            } );
         }
 
         if ( _options.fullScreenModeEnabled ) {
-            _element_FullDayView_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
-            _element_FullDayView_FullScreenButton.ondblclick = cancelBubble;
-            _element_FullDayView_FullScreenButton.onclick = headerDoubleClick;
-            titleBar.appendChild( _element_FullDayView_FullScreenButton );
-        
-            addToolTip( _element_FullDayView_FullScreenButton, _options.enableFullScreenTooltipText );
+            _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
         _element_FullDayView_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -1496,44 +1417,22 @@ function calendarJs( id, options, startDateTime ) {
         title.innerHTML = _options.allEventsText;
         titleBar.appendChild( title );
 
-        var closeButton = createElement( "div", "ib-close" );
-        closeButton.ondblclick = cancelBubble;
-        titleBar.appendChild( closeButton );
-
-        addToolTip( closeButton, _options.closeTooltipText );
-
-        closeButton.onclick = function() {
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
             hideOverlay( _element_ListAllEventsView );
-        };
+        } );
 
         if ( _options.manualEditingEnabled ) {
-            var addEventButton = createElement( "div", "ib-plus" );
-            addEventButton.onclick = addNewEvent;
-            addEventButton.ondblclick = cancelBubble;
-            titleBar.appendChild( addEventButton );
-
-            addToolTip( addEventButton, _options.addEventTooltipText );
+            buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
         }
 
         if ( _options.exportEventsEnabled ) {
-            _element_ListAllEventsView_ExportEventsButton = createElement( "div", "ib-arrow-down-full-line" );
-            _element_ListAllEventsView_ExportEventsButton.ondblclick = cancelBubble;
-            titleBar.appendChild( _element_ListAllEventsView_ExportEventsButton );
-
-            addToolTip( _element_ListAllEventsView_ExportEventsButton, _options.exportEventsTooltipText );
-
-            _element_ListAllEventsView_ExportEventsButton.onclick = function() {
+            _element_ListAllEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
                 showSelectExportTypeDialog();
-            };                
+            } );
         }
 
         if ( _options.fullScreenModeEnabled ) {
-            _element_ListAllEventsView_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
-            _element_ListAllEventsView_FullScreenButton.ondblclick = cancelBubble;
-            _element_ListAllEventsView_FullScreenButton.onclick = headerDoubleClick;
-            titleBar.appendChild( _element_ListAllEventsView_FullScreenButton );
-        
-            addToolTip( _element_ListAllEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+            _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
         _element_ListAllEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -1674,58 +1573,25 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_Title = createElement( "div", "title" );
         titleBar.appendChild( _element_ListAllWeekEventsView_Title );
 
-        var closeButton = createElement( "div", "ib-close" );
-        closeButton.ondblclick = cancelBubble;
-        titleBar.appendChild( closeButton );
-
-        addToolTip( closeButton, _options.closeTooltipText );
-
-        closeButton.onclick = function() {
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
             hideOverlay( _element_ListAllWeekEventsView );
-        };
+        } );
 
         if ( _options.manualEditingEnabled ) {
-            var addEventButton = createElement( "div", "ib-plus" );
-            addEventButton.onclick = addNewEvent;
-            addEventButton.ondblclick = cancelBubble;
-            titleBar.appendChild( addEventButton );
-
-            addToolTip( addEventButton, _options.addEventTooltipText );
+            buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
         }
 
-        var nextMonthButton = createElement( "div", "ib-arrow-right-full" );
-        nextMonthButton.onclick = onNextWeek;
-        nextMonthButton.ondblclick = cancelBubble;
-        titleBar.appendChild( nextMonthButton );
-        
-        addToolTip( nextMonthButton, _options.nextWeekTooltipText );
-
-        var previousMonthButton = createElement( "div", "ib-arrow-left-full" );
-        previousMonthButton.onclick = onPreviousWeek;
-        previousMonthButton.ondblclick = cancelBubble;
-        titleBar.appendChild( previousMonthButton );
-        
-        addToolTip( previousMonthButton, _options.previousWeekTooltipText );
+        buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextWeek );
+        buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek );
 
         if ( _options.exportEventsEnabled ) {
-            _element_ListAllWeekEventsView_ExportEventsButton = createElement( "div", "ib-arrow-down-full-line" );
-            _element_ListAllWeekEventsView_ExportEventsButton.ondblclick = cancelBubble;
-            titleBar.appendChild( _element_ListAllWeekEventsView_ExportEventsButton );
-
-            addToolTip( _element_ListAllWeekEventsView_ExportEventsButton, _options.exportEventsTooltipText );
-
-            _element_ListAllWeekEventsView_ExportEventsButton.onclick = function() {
+            _element_ListAllWeekEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
                 showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
-            };                
+            } );
         }
 
         if ( _options.fullScreenModeEnabled ) {
-            _element_ListAllWeekEventsView_FullScreenButton = createElement( "div", "ib-arrow-expand-left-right" );
-            _element_ListAllWeekEventsView_FullScreenButton.ondblclick = cancelBubble;
-            _element_ListAllWeekEventsView_FullScreenButton.onclick = headerDoubleClick;
-            titleBar.appendChild( _element_ListAllWeekEventsView_FullScreenButton );
-        
-            addToolTip( _element_ListAllWeekEventsView_FullScreenButton, _options.enableFullScreenTooltipText );
+            _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
         _element_ListAllWeekEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
