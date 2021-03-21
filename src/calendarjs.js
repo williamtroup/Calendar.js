@@ -658,10 +658,7 @@ function calendarJs( id, options, startDateTime ) {
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
             _window.addEventListener( "resize", hideAllDropDowns );
             _window.addEventListener( "resize", centerSearchDialog );
-
-            _document.addEventListener( "keydown", function( e ) {
-                onWindowKeyDown( e );
-            } );
+            _document.addEventListener( "keydown", onWindowKeyDown );
 
             _initializedDocumentEvents = true;
         }
