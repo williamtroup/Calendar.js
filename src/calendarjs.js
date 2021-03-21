@@ -2145,34 +2145,35 @@ function calendarJs( id, options, startDateTime ) {
     function makeAreaDroppable( element, year, month, actualDay ) {
         if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
             element.ondragover = function( e ) {
-                cancelBubble( e );
-                showDraggingEffect( element );
+                showDraggingEffect( e, element );
             };
         
             element.ondragenter = function( e ) {
-                cancelBubble( e );
-                showDraggingEffect( element );
+                showDraggingEffect( e, element );
             };
         
             element.ondragleave = function( e ) {
-                cancelBubble( e );
-                hideDraggingEffect( element );
+                hideDraggingEffect( e, element );
             };
         
             element.ondrop = function( e ) {
                 dropEventOnDay( e, year, month, actualDay );
-                hideDraggingEffect( element );
+                hideDraggingEffect( e, element );
             };
         }
     }
 
-    function showDraggingEffect( dayElement ) {
+    function showDraggingEffect( e, dayElement ) {
+        cancelBubble( e );
+
         if ( dayElement.className.indexOf( " drag-over" ) === -1 ) {
             dayElement.className += " drag-over";
         }
     }
 
-    function hideDraggingEffect( dayElement ) {
+    function hideDraggingEffect( e, dayElement ) {
+        cancelBubble( e );
+
         if ( dayElement.className.indexOf( " drag-over" ) > -1 ) {
             dayElement.className = dayElement.className.replace( " drag-over", "" );
         }
