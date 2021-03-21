@@ -202,6 +202,7 @@ function calendarJs( id, options, startDateTime ) {
         _initializedDocumentEvents = false,
         _events = {},
         _timer_RefreshMainDisplay = null,
+        _eventDetails_Dragged_DateFrom = null,
         _eventDetails_Dragged = null,
         _cachedStyles = null,
         _isFullScreenModeActivated = false,
@@ -943,7 +944,7 @@ function calendarJs( id, options, startDateTime ) {
                 event.innerText = eventTitle;
                 elementDay.appendChild( event );
 
-                makeEventDraggable( event, eventDetails );
+                makeEventDraggable( event, eventDetails, dayDate );
                 setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
 
                 event.onmousemove = function( e ) {
@@ -1785,7 +1786,7 @@ function calendarJs( id, options, startDateTime ) {
             };
         }
 
-        makeEventDraggable( event, eventDetails );
+        makeEventDraggable( event, eventDetails, displayDate );
         setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
         var title = createElement( "div", "title" );
@@ -2132,11 +2133,14 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function makeEventDraggable( event, eventDetails ) {
+    function makeEventDraggable( event, eventDetails, dragFromDate ) {
         if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            var draggedFromDate = new Date( dragFromDate );
+
             event.setAttribute( "draggable", true );
             
             event.ondragstart = function() {
+                _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
             };
         }
@@ -2157,8 +2161,8 @@ function calendarJs( id, options, startDateTime ) {
             };
         
             element.ondrop = function( e ) {
-                dropEventOnDay( e, year, month, actualDay );
                 hideDraggingEffect( e, element );
+                dropEventOnDay( e, year, month, actualDay );
             };
         }
     }
@@ -2183,12 +2187,18 @@ function calendarJs( id, options, startDateTime ) {
         cancelBubble( e );
 
         if ( _eventDetails_Dragged !== null ) {
-            var totalDays = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged.to ),
+            var daysBetweenDraggedFromAndFrom = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged_DateFrom ),
+                daysBetweenFromAndTo = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged.to ),
                 fromDate = new Date( year, month, day, _eventDetails_Dragged.from.getHours(), _eventDetails_Dragged.from.getMinutes() ),
                 toDate = new Date( year, month, day, _eventDetails_Dragged.to.getHours(), _eventDetails_Dragged.to.getMinutes() );               
 
-            if ( totalDays > 0 ) {
-                toDate.setDate( toDate.getDate() + totalDays );
+            if ( daysBetweenDraggedFromAndFrom > 0 ) {
+                fromDate.setDate( fromDate.getDate() - daysBetweenDraggedFromAndFrom );
+                toDate.setDate( toDate.getDate() - daysBetweenDraggedFromAndFrom );
+            }
+
+            if ( daysBetweenFromAndTo > 0 ) {
+                toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
             }
 
             var newEvent = {
