@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.8.2:
+- Details for a All Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
 - 
 
 ### Version 0.8.1:

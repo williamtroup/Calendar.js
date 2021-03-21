@@ -171,6 +171,7 @@
  * @property    {string}    clickText                                   The text that should be displayed for the "Click" label.
  * @property    {string}    hereText                                    The text that should be displayed for the "here" label.
  * @property    {string}    toAddANewEventText                          The text that should be displayed for the "to add a new event." label.
+ * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
  */
 
 
@@ -1287,35 +1288,37 @@ function calendarJs( id, options, startDateTime ) {
         title.innerText = eventDetails.title;
         event.appendChild( title );
 
-        var startTime = createElement( "div", "date" );
-        event.appendChild( startTime );
-
-        if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-            if ( eventDetails.isAllDay ) {
-                startTime.innerText = _options.allDayText;
+        if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
+            var startTime = createElement( "div", "date" );
+            event.appendChild( startTime );
+    
+            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                if ( eventDetails.isAllDay ) {
+                    startTime.innerText = _options.allDayText;
+                } else {
+                    startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                }
             } else {
-                startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
             }
-        } else {
-            buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-        }
-
-        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
-            var repeats = createElement( "div", "repeats" );
-            repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
-            event.appendChild( repeats );
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.location ) ) {
-            var location = createElement( "div", "location" );
-            location.innerText = eventDetails.location;
-            event.appendChild( location );
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.description ) ) {
-            var description = createElement( "div", "description" );
-            description.innerText = eventDetails.description;
-            event.appendChild( description );
+    
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                var repeats = createElement( "div", "repeats" );
+                repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+                event.appendChild( repeats );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                var location = createElement( "div", "location" );
+                location.innerText = eventDetails.location;
+                event.appendChild( location );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                var description = createElement( "div", "description" );
+                description.innerText = eventDetails.description;
+                event.appendChild( description );
+            }
         }
 
         if ( _options.manualEditingEnabled ) {
@@ -5029,6 +5032,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.toAddANewEventText ) ) {
             _options.toAddANewEventText = "to add a new event.";
+        }
+
+        if ( !isDefined( _options.showAllDayEventDetailsInFullDayView ) ) {
+            _options.showAllDayEventDetailsInFullDayView = false;
         }
     }
 
