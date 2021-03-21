@@ -112,6 +112,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | hereText | The text that should be displayed for the "here" label. |
 | *string* | toAddANewEventText | The text that should be displayed for the "to add a new event." label. |
 | *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
+| *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
+| *string* | weekText | The text that should be displayed for the "Week" label. |
 
 <br/>
 

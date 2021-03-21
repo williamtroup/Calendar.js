@@ -172,6 +172,8 @@
  * @property    {string}    hereText                                    The text that should be displayed for the "here" label.
  * @property    {string}    toAddANewEventText                          The text that should be displayed for the "to add a new event." label.
  * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
+ * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
+ * @property    {string}    weekText                                    The text that should be displayed for the "Week" label.
  */
 
 
@@ -816,6 +818,17 @@ function calendarJs( id, options, startDateTime ) {
             differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
         
         return differenceDays;
+    }
+
+    function getWeekNumber( date ) {
+        var firstDay = new Date( date.getFullYear(), 0, 1),
+            weekNumber = Math.ceil( ( ( ( date - firstDay ) / 86400000 ) + firstDay.getDay() + 1 ) / 7 );
+        
+        if ( firstDay.getDay() > 0 ) {
+            weekNumber--;
+        }
+        
+        return weekNumber;
     }
 
 
@@ -1723,6 +1736,12 @@ function calendarJs( id, options, startDateTime ) {
 
     function setAllWeekEventsViewTitle( weekStartDate, weekEndDate ) {
         _element_ListAllWeekEventsView_Title.innerHTML = "";
+
+        if ( _options.showWeekNumbersInTitles ) {
+            var week = createElement( "span" );
+            week.innerText = _options.weekText + " " + getWeekNumber( weekStartDate ) + ": ";
+            _element_ListAllWeekEventsView_Title.appendChild( week );
+        }
         
         if ( weekStartDate.getFullYear() === weekEndDate.getFullYear() ) {
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, false );
@@ -5036,6 +5055,14 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.showAllDayEventDetailsInFullDayView ) ) {
             _options.showAllDayEventDetailsInFullDayView = false;
+        }
+
+        if ( !isDefined( _options.showWeekNumbersInTitles ) ) {
+            _options.showWeekNumbersInTitles = false;
+        }
+
+        if ( !isDefined( _options.weekText ) ) {
+            _options.weekText = "Week";
         }
     }
 
