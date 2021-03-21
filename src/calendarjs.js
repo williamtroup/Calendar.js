@@ -831,6 +831,10 @@ function calendarJs( id, options, startDateTime ) {
         return weekNumber;
     }
 
+    function isWeekendDay( date ) {
+        return date.getDay() === 6 || date.getDay() === 0;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1846,6 +1850,10 @@ function calendarJs( id, options, startDateTime ) {
             var day = createElement( "div", "day" );
             _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
 
+            if ( isWeekendDay( date ) ) {
+                day.className += " weekend-day";
+            }
+
             makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
             var header = createElement( "div", "header" );
@@ -2052,7 +2060,7 @@ function calendarJs( id, options, startDateTime ) {
         dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
 
-        if ( dayDate.getDay() === 6 || dayDate.getDay() === 0 && dayElement.className === _elementClassName_Cell ) {
+        if ( isWeekendDay( dayDate ) && dayElement.className === _elementClassName_Cell ) {
             dayElement.className = _elementClassName_Cell + " weekend-day";
         }
 

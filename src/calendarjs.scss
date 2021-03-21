@@ -8,43 +8,6 @@
 
 @import "foundation/styles";
 
-div.calendar {
-    min-width: 260px;
-
-    div.drag-over {
-        background-color: rgba(135, 206, 250, 0.4) !important;
-        transition: $transition-faster;
-    }
-
-    div.no-events-available-text {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        width: 100%;
-        max-width: 300px;
-
-        p {
-            margin-top: 0;
-            margin-bottom: $spacing;
-        }
-
-        span.link {
-            text-decoration: underline;
-            color: #2471A3;
-
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-    }
-}
-
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
@@ -125,6 +88,7 @@ div.calendar {
     border-radius: $border-view-radius;
     overflow: hidden;
     width: 100%;
+    min-width: 260px;
     border: $standard-border-size solid $dark-color;
     position: relative;
 
@@ -141,6 +105,43 @@ div.calendar {
         background-color: $day-names-color !important;
         color: $dark-color !important;
         text-transform: uppercase;
+    }
+
+    div.weekend-day {
+        background-color: $day-names-color;
+    }
+
+    div.drag-over {
+        background-color: rgba(135, 206, 250, 0.4) !important;
+        transition: $transition-faster;
+    }
+
+    div.no-events-available-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%;
+        max-width: 300px;
+
+        p {
+            margin-top: 0;
+            margin-bottom: $spacing;
+        }
+
+        span.link {
+            text-decoration: underline;
+            color: #2471A3;
+
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
+            }
+        }
     }
     
     div.row {
@@ -201,10 +202,6 @@ div.calendar {
             &:hover div.ib-arrow-top-right {
                 display: block;
             }
-        }
-
-        div.weekend-day {
-            background-color: $day-names-color;
         }
 
         &:last-child {

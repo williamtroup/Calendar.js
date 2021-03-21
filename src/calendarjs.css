@@ -4,51 +4,6 @@
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
  */
-div.calendar {
-  min-width: 260px;
-}
-
-div.calendar div.drag-over {
-  background-color: rgba(135, 206, 250, 0.4) !important;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-}
-
-div.calendar div.no-events-available-text {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  text-align: center;
-  width: 100%;
-  max-width: 300px;
-}
-
-div.calendar div.no-events-available-text p {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-div.calendar div.no-events-available-text span.link {
-  text-decoration: underline;
-  color: #2471A3;
-}
-
-div.calendar div.no-events-available-text span.link:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.no-events-available-text span.link:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
-}
-
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
@@ -203,6 +158,7 @@ div.calendar {
   border-radius: 0.25rem;
   overflow: hidden;
   width: 100%;
+  min-width: 260px;
   border: 1px solid #282828;
   position: relative;
 }
@@ -220,6 +176,51 @@ div.calendar div.header-days {
   background-color: #E0E0E0 !important;
   color: #282828 !important;
   text-transform: uppercase;
+}
+
+div.calendar div.weekend-day {
+  background-color: #E0E0E0;
+}
+
+div.calendar div.drag-over {
+  background-color: rgba(135, 206, 250, 0.4) !important;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+div.calendar div.no-events-available-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+div.calendar div.no-events-available-text p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+div.calendar div.no-events-available-text span.link {
+  text-decoration: underline;
+  color: #2471A3;
+}
+
+div.calendar div.no-events-available-text span.link:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.calendar div.no-events-available-text span.link:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 div.calendar div.row {
@@ -286,10 +287,6 @@ div.calendar div.row div.cell:last-child {
 
 div.calendar div.row div.cell:hover div.ib-arrow-top-right {
   display: block;
-}
-
-div.calendar div.row div.weekend-day {
-  background-color: #E0E0E0;
 }
 
 div.calendar div.row:last-child {
