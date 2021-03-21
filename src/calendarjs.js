@@ -2166,7 +2166,7 @@ function calendarJs( id, options, startDateTime ) {
     function showDraggingEffect( e, dayElement ) {
         cancelBubble( e );
 
-        if ( dayElement.className.indexOf( " drag-over" ) === -1 ) {
+        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) === -1 ) {
             dayElement.className += " drag-over";
         }
     }
@@ -2174,7 +2174,7 @@ function calendarJs( id, options, startDateTime ) {
     function hideDraggingEffect( e, dayElement ) {
         cancelBubble( e );
 
-        if ( dayElement.className.indexOf( " drag-over" ) > -1 ) {
+        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) > -1 ) {
             dayElement.className = dayElement.className.replace( " drag-over", "" );
         }
     }
