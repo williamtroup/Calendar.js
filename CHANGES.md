@@ -8,7 +8,7 @@
 - Fixed a fault that caused the drag & drop hover effects to activate for objects not dragged in the calendar.
 - Dragging an event that repeats (or spans multiple days) takes the day it was dragged from into account (drops more accurately).
 - On the Search dialog, the "Title" option is now checked by default.
-- Fixed a huge bug that caused events to change dates when searching!.
+- Fixed a huge bug that caused events to change dates when searching.
 - When searching, the events that are found are now focused and show a pulsing effect in the main display.
 
 ### Version 0.8.1:
