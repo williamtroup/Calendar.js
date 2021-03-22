@@ -171,6 +171,11 @@ div.calendar p {
   margin-bottom: 0;
 }
 
+div.calendar div.focused-event {
+  -webkit-animation: focused-event-effect 2s infinite;
+          animation: focused-event-effect 2s infinite;
+}
+
 div.calendar div.header-days {
   font-weight: 900 !important;
   background-color: #E0E0E0 !important;
@@ -2479,6 +2484,48 @@ div.calendar-drop-down-menu div.separator {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@-webkit-keyframes focused-event-effect {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 #C60000;
+            box-shadow: 0 0 0 0 #C60000;
+    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 10px #C60000;
+            box-shadow: 0 0 0 10px #C60000;
+    -webkit-box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+            box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 #C60000;
+            box-shadow: 0 0 0 0 #C60000;
+    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
+  }
+}
+
+@keyframes focused-event-effect {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 #C60000;
+            box-shadow: 0 0 0 0 #C60000;
+    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 10px #C60000;
+            box-shadow: 0 0 0 10px #C60000;
+    -webkit-box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+            box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 #C60000;
+            box-shadow: 0 0 0 0 #C60000;
+    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
   }
 }
 

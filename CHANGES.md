@@ -7,6 +7,9 @@
 - Weekend days in the Weekly view now show the same background colour as the days on the main display.
 - Fixed a fault that caused the drag & drop hover effects to activate for objects not dragged in the calendar.
 - Dragging an event that repeats (or spans multiple days) takes the day it was dragged from into account (drops more accurately).
+- On the Search dialog, the "Title" option is now checked by default.
+- Fixed a huge bug that caused events to change dates when searching!.
+- When searching, the events that are found are now focused and show a pulsing effect in the main display.
 
 ### Version 0.8.1:
 - Added public function "setEvents()", which adds an array of events and clears the original (fires onEventsSet, if available).

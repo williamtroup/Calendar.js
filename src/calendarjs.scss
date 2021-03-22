@@ -99,6 +99,10 @@ div.calendar {
     p {
         margin-bottom: 0;
     }
+
+    div.focused-event {
+        animation: focused-event-effect 2s infinite;
+    }
     
     div.header-days {
         font-weight: 900 !important;
@@ -1225,6 +1229,23 @@ div.calendar-drop-down-menu {
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes focused-event-effect {
+    0% {
+        box-shadow: 0 0 0 0 $alert-color;
+        box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px $alert-color;
+        box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 $alert-color;
+        box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
     }
 }
 

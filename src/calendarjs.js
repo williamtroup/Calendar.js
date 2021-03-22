@@ -212,6 +212,7 @@ function calendarJs( id, options, startDateTime ) {
         _const_Repeat_EveryWeek = 2,
         _const_Repeat_EveryMonth = 3,
         _const_Repeat_EveryYear = 4,
+        _elementID_Day = "day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
@@ -321,7 +322,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_X = 0,
         _element_SearchDialog_Y = 0,
         _element_SearchDialog_SearchResults = [],
-        _element_SearchDialog_SearchIndex = 0;
+        _element_SearchDialog_SearchIndex = 0,
+        _element_SearchDialog_FocusedEventID = null;
 
 
     /*
@@ -947,6 +949,14 @@ function calendarJs( id, options, startDateTime ) {
                 makeEventDraggable( event, eventDetails, dayDate );
                 setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
 
+                if ( doDatesMatch( eventDetails.from, dayDate ) ) {
+                    event.id = _elementID_Day + eventDetails.id;
+
+                    if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                        event.className += " focused-event";
+                    }
+                }
+
                 event.onmousemove = function( e ) {
                     showTooltip( e, eventDetails );
                 };
@@ -1052,11 +1062,20 @@ function calendarJs( id, options, startDateTime ) {
         clearElementsByClassName( elementDay, "plus-x-events" );
     }
 
-    function clearElementsByClassName( element, className ) {
-        var elements = element.getElementsByClassName( className );
+    function clearElementsByClassName( container, className ) {
+        var elements = container.getElementsByClassName( className );
 
         while ( elements[ 0 ] ) {
             elements[ 0 ].parentNode.removeChild( elements[ 0 ] );
+        }
+    }
+
+    function removeElementsClassName( container, className ) {
+        var elements = container.getElementsByClassName( className ),
+            elementsLength = elements.length;
+
+        for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
+            elements[ elementIndex ].className = elements[ elementIndex ].className.replace( className, "" );
         }
     }
   
@@ -3189,6 +3208,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged )[ 0 ];
         _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchForTextChanged )[ 0 ];
 
+        _element_SearchDialog_Include_Title.checked = true;
+
         var buttonsSplitContainer = createElement( "div", "split" );
         _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
 
@@ -3228,10 +3249,15 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function searchForTextChanged() {
+        if ( _element_SearchDialog_SearchResults.length > 0 ) {
+            removeElementsClassName( _element_Calendar, " focused-event" );
+        }
+
         _element_SearchDialog_Previous.disabled = true;
         _element_SearchDialog_Next.disabled = _element_SearchDialog_For.value === "";
         _element_SearchDialog_SearchResults = [];
         _element_SearchDialog_SearchIndex = 0;
+        _element_SearchDialog_FocusedEventID = null;
     }
 
     function showSearchDialog() {
@@ -3260,6 +3286,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function hideSearchDialog() {
         _element_SearchDialog.style.display = "none";
+        searchForTextChanged();
     }
 
     function minimizeRestoreDialog() {
@@ -3336,7 +3363,21 @@ function calendarJs( id, options, startDateTime ) {
         updateSearchButtons();
 
         if ( _element_SearchDialog_SearchResults.length > 0 ) {
-            build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+            var eventDetails = _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ],
+                dateFrom = new Date( eventDetails.from );
+
+            build( dateFrom );
+            updatedFocusedElementAfterSearch( eventDetails );
+        }
+    }
+
+    function updatedFocusedElementAfterSearch( eventDetails ) {
+        removeElementsClassName( _element_Calendar, " focused-event" );
+
+        var event = getElementByID( _elementID_Day + eventDetails.id );
+        if ( event !== null ) {
+            event.className += " focused-event";
+            _element_SearchDialog_FocusedEventID = eventDetails.id;
         }
     }
 
