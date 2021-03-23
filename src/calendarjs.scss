@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.8.1
+ * Calendar.js Library v0.8.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -7,43 +7,6 @@
 
 
 @import "foundation/styles";
-
-div.calendar {
-    min-width: 260px;
-
-    div.drag-over {
-        background-color: rgba(135, 206, 250, 0.4) !important;
-        transition: $transition-faster;
-    }
-
-    div.no-events-available-text {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        width: 100%;
-        max-width: 300px;
-
-        p {
-            margin-top: 0;
-            margin-bottom: $spacing;
-        }
-
-        span.link {
-            text-decoration: underline;
-            color: #2471A3;
-
-            &:hover {
-                @include opacity-hover-effect;
-            }
-
-            &:active {
-                @include opacity-active-effect;
-            }
-        }
-    }
-}
 
 div.calendar,
 div.calendar-tooltip,
@@ -125,6 +88,7 @@ div.calendar {
     border-radius: $border-view-radius;
     overflow: hidden;
     width: 100%;
+    min-width: 260px;
     border: $standard-border-size solid $dark-color;
     position: relative;
 
@@ -135,12 +99,53 @@ div.calendar {
     p {
         margin-bottom: 0;
     }
+
+    div.focused-event {
+        animation: focused-event-effect 2s infinite;
+    }
     
     div.header-days {
         font-weight: 900 !important;
         background-color: $day-names-color !important;
         color: $dark-color !important;
         text-transform: uppercase;
+    }
+
+    div.weekend-day {
+        background-color: $day-names-color;
+    }
+
+    div.drag-over {
+        background-color: rgba(135, 206, 250, 0.4) !important;
+        transition: $transition-faster;
+    }
+
+    div.no-events-available-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%;
+        max-width: 300px;
+
+        p {
+            margin-top: 0;
+            margin-bottom: $spacing;
+        }
+
+        span.link {
+            text-decoration: underline;
+            color: #2471A3;
+
+            &:hover {
+                @include opacity-hover-effect;
+            }
+
+            &:active {
+                @include opacity-active-effect;
+            }
+        }
     }
     
     div.row {
@@ -201,10 +206,6 @@ div.calendar {
             &:hover div.ib-arrow-top-right {
                 display: block;
             }
-        }
-
-        div.weekend-day {
-            background-color: $day-names-color;
         }
 
         &:last-child {
@@ -1228,6 +1229,23 @@ div.calendar-drop-down-menu {
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes focused-event-effect {
+    0% {
+        box-shadow: 0 0 0 0 $alert-color;
+        box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px $alert-color;
+        box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 $alert-color;
+        box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
     }
 }
 

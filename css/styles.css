@@ -3,6 +3,11 @@ body {
     margin: 0;
 }
 
+a,
+a:visited {
+    color: blue;
+}
+
 h1 {
     background-color: lightgray;
     color: black;
