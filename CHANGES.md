@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.8.2:
-- Details for a All Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
+- Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
 - Added new option "showWeekNumbersInTitles", which will display the week numbers where applicable (off by default).
 - Increased the maximum responsive width so that the default text/icons do not overlap.
 - Weekend days in the Weekly view now show the same background colour as the days on the main display.
@@ -9,7 +9,7 @@
 - Dragging an event that repeats (or spans multiple days) takes the day it was dragged from into account (drops more accurately).
 - On the Search dialog, the "Title" option is now checked by default.
 - Fixed a huge bug that caused events to change dates when searching.
-- When searching, the events that are found are now focused and show a pulsing effect in the main display.
+- When searching, the events that are found are now focused and show a pulsing effect on the main display.
 
 ### Version 0.8.1:
 - Added public function "setEvents()", which adds an array of events and clears the original (fires onEventsSet, if available).
