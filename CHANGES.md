@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.0:
+- 
+
 ### Version 0.8.2:
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
 - Added new option "showWeekNumbersInTitles", which will display the week numbers where applicable (off by default).
