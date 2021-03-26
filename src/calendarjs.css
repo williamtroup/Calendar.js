@@ -1273,17 +1273,21 @@ div.event-editor div.view p.error {
   margin-bottom: 20px;
 }
 
-div.event-editor div.view div.split input {
+div.event-editor div.view div.split input,
+div.event-editor div.view div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
+  display: inline-block;
 }
 
-div.event-editor div.view div.split input:first-child {
+div.event-editor div.view div.split input:first-child,
+div.event-editor div.view div.split p:first-child {
   margin-left: 0;
 }
 
-div.event-editor div.view div.split input:last-child {
+div.event-editor div.view div.split input:last-child,
+div.event-editor div.view div.split p:last-child {
   margin-right: 0;
 }
 
@@ -1496,17 +1500,21 @@ div.event-editor-colors input[type="text"]:focus {
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.event-editor-colors div.split input {
+div.event-editor-colors div.split input,
+div.event-editor-colors div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
+  display: inline-block;
 }
 
-div.event-editor-colors div.split input:first-child {
+div.event-editor-colors div.split input:first-child,
+div.event-editor-colors div.split p:first-child {
   margin-left: 0;
 }
 
-div.event-editor-colors div.split input:last-child {
+div.event-editor-colors div.split input:last-child,
+div.event-editor-colors div.split p:last-child {
   margin-right: 0;
 }
 
@@ -1658,17 +1666,21 @@ div.event-editor-repeat-options label.checkbox {
   margin-bottom: 5px !important;
 }
 
-div.event-editor-repeat-options div.split input {
+div.event-editor-repeat-options div.split input,
+div.event-editor-repeat-options div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
+  display: inline-block;
 }
 
-div.event-editor-repeat-options div.split input:first-child {
+div.event-editor-repeat-options div.split input:first-child,
+div.event-editor-repeat-options div.split p:first-child {
   margin-left: 0;
 }
 
-div.event-editor-repeat-options div.split input:last-child {
+div.event-editor-repeat-options div.split input:last-child,
+div.event-editor-repeat-options div.split p:last-child {
   margin-right: 0;
 }
 
@@ -1788,17 +1800,21 @@ div.confirmation label.checkbox {
   margin-bottom: 0 !important;
 }
 
-div.confirmation div.split input {
+div.confirmation div.split input,
+div.confirmation div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
+  display: inline-block;
 }
 
-div.confirmation div.split input:first-child {
+div.confirmation div.split input:first-child,
+div.confirmation div.split p:first-child {
   margin-left: 0;
 }
 
-div.confirmation div.split input:last-child {
+div.confirmation div.split input:last-child,
+div.confirmation div.split p:last-child {
   margin-right: 0;
 }
 
@@ -1904,17 +1920,21 @@ div.select-export-type div.contents {
   padding: 10px;
 }
 
-div.select-export-type div.split input {
+div.select-export-type div.split input,
+div.select-export-type div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
+  display: inline-block;
 }
 
-div.select-export-type div.split input:first-child {
+div.select-export-type div.split input:first-child,
+div.select-export-type div.split p:first-child {
   margin-left: 0;
 }
 
-div.select-export-type div.split input:last-child {
+div.select-export-type div.split input:last-child,
+div.select-export-type div.split p:last-child {
   margin-right: 0;
 }
 
@@ -2050,17 +2070,21 @@ div.search input[type="text"]:focus {
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.search div.split input {
+div.search div.split input,
+div.search div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
   margin-left: 5px;
+  display: inline-block;
 }
 
-div.search div.split input:first-child {
+div.search div.split input:first-child,
+div.search div.split p:first-child {
   margin-left: 0;
 }
 
-div.search div.split input:last-child {
+div.search div.split input:last-child,
+div.search div.split p:last-child {
   margin-right: 0;
 }
 

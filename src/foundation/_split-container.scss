@@ -1,8 +1,10 @@
 div.split {
-    input {
+    input,
+    p {
         width: calc(50% - (#{$spacing} / 2));
         margin-right: $spacing / 2;
         margin-left: $spacing / 2;
+        display: inline-block;
 
         &:first-child {
             margin-left: 0;

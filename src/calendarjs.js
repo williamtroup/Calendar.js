@@ -28,6 +28,7 @@
  * @property    {string}    organizerName                               The name of the organizer.
  * @property    {string}    organizerEmailAddress                       The email address of the organizer.
  * @property    {Object}    repeatEnds                                  The date when a repeating series should end.
+ * @property    {string}    group                                       The name of the group the event belongs to.
  */
 
 
@@ -174,6 +175,7 @@
  * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
  * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {string}    weekText                                    The text that should be displayed for the "Week" label.
+ * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
  */
 
 
@@ -236,6 +238,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
+        _element_EventEditorDialog_Group = null,
         _element_EventEditorDialog_RepeatEvery_Never = null,
         _element_EventEditorDialog_RepeatEvery_EveryDay = null,
         _element_EventEditorDialog_RepeatEvery_EveryWeek = null,
@@ -2507,12 +2510,25 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.onclick = showEventEditorRepeatOptionsDialog;
         radioButtonsContainer.appendChild( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton );
 
+        var inputFields1TextSplitContainer = createElement( "div", "split" );
+        contents.appendChild( inputFields1TextSplitContainer );
+
         var textLocation = createElement( "p" );
         textLocation.innerText = _options.locationText;
-        contents.appendChild( textLocation );
+        inputFields1TextSplitContainer.appendChild( textLocation );
+
+        var groupLocation = createElement( "p" );
+        groupLocation.innerText = _options.groupText;
+        inputFields1TextSplitContainer.appendChild( groupLocation );
+
+        var inputFields1SplitContainer = createElement( "div", "split" );
+        contents.appendChild( inputFields1SplitContainer );
 
         _element_EventEditorDialog_Location = createElement( "input", null, "text" );
-        contents.appendChild( _element_EventEditorDialog_Location );
+        inputFields1SplitContainer.appendChild( _element_EventEditorDialog_Location );
+
+        _element_EventEditorDialog_Group = createElement( "input", null, "text" );
+        inputFields1SplitContainer.appendChild( _element_EventEditorDialog_Group );
 
         var textDescription = createElement( "p" );
         textDescription.innerText = _options.descriptionText;
@@ -2601,6 +2617,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.value = getString( eventDetails.title );
             _element_EventEditorDialog_Description.value = getString( eventDetails.description );
             _element_EventEditorDialog_Location.value = getString( eventDetails.location );
+            _element_EventEditorDialog_Group.value = getString( eventDetails.group );
             _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
             _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
             _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
@@ -2649,6 +2666,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.value = "";
             _element_EventEditorDialog_Description.value = "";
             _element_EventEditorDialog_Location.value = "";
+            _element_EventEditorDialog_Group.value = "";
             _element_EventEditorColorsDialog_Color.value = "#484848";
             _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
             _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
@@ -2678,6 +2696,7 @@ function calendarJs( id, options, startDateTime ) {
             title = trimString( _element_EventEditorDialog_Title.value ),
             description = trimString( _element_EventEditorDialog_Description.value ),
             location = trimString( _element_EventEditorDialog_Location.value ),
+            group = trimString( _element_EventEditorDialog_Group.value ),
             repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null );
 
         if ( fromTime.length < 2 ) {
@@ -2705,6 +2724,7 @@ function calendarJs( id, options, startDateTime ) {
                     title: title,
                     description: description,
                     location: location,
+                    group: group,
                     isAllDay: _element_EventEditorDialog_IsAllDay.checked,
                     color: _element_EventEditorDialog_EventDetails.color,
                     colorText: _element_EventEditorDialog_EventDetails.colorText,
@@ -5123,6 +5143,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.weekText ) ) {
             _options.weekText = "Week";
+        }
+
+        if ( !isDefined( _options.groupText ) ) {
+            _options.groupText = "Group:";
         }
     }
 

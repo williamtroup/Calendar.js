@@ -137,7 +137,8 @@
                     colorText: "#FFFF00",
                     colorBorder: "#00FF00",
                     repeatEvery: 4,
-                    id: "1234-5678-9"
+                    id: "1234-5678-9",
+                    group: "Group 1"
                 },
                 {
                     from: today11,
@@ -145,7 +146,8 @@
                     title: "Title 1",
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    isAllDay: false
+                    isAllDay: false,
+                    group: "Group 1"
                 },
                 {
                     from: tomorrow,
@@ -153,7 +155,8 @@
                     title: "Title Bad (should not show)",
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    isAllDay: false
+                    isAllDay: false,
+                    group: "Group 1"
                 },
                 {
                     from: today9,
@@ -161,7 +164,8 @@
                     title: "Title 2",
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    isAllDay: true
+                    isAllDay: true,
+                    group: "Group 1"
                 },
                 {
                     from: firstDayInNextMonth,
@@ -172,7 +176,8 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 3
+                    repeatEvery: 3,
+                    group: "Group 2"
                 },
                 {
                     from: firstDayInNextMonth,
@@ -183,7 +188,8 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 3
+                    repeatEvery: 3,
+                    group: "Group 2"
                 },
                 {
                     from: lastDayInNextMonth,
@@ -193,7 +199,8 @@
                     location: "Teams Meeting",
                     isAllDay: true,
                     color: "#0000FF",
-                    repeatEvery: 2
+                    repeatEvery: 2,
+                    group: "Group 2"
                 },
                 {
                     from: today,
@@ -202,7 +209,8 @@
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     repeatEvery: 1,
                     repeatEveryExcludeDays: [ 6, 0 ],
-                    repeatEnds: new Date( today.getFullYear() + 1, 0, 1 )
+                    repeatEnds: new Date( today.getFullYear() + 1, 0, 1 ),
+                    group: "Group 1"
                 }
             ];
         }
