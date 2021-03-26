@@ -3543,7 +3543,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getGroupName( group ) {
-        return group.replace( " ",  "" ).toLowerCase();
+        return group.toLowerCase();
     }
 
     function isEventVisible( event ) {
