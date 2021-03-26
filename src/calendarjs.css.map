@@ -51,7 +51,7 @@
         "foundation/buttons/_button.scss",
         "foundation/buttons/_arrow-contract-left-right.scss",
         "foundation/buttons/_button.scss",
-        "foundation/buttons/_arrow-top-right.scss",
+        "foundation/small/_arrow-top-right.scss",
         "foundation/buttons/_button.scss",
         "foundation/buttons/_octagon-hollow.scss",
         "foundation/buttons/_button.scss",
