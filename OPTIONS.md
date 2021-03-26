@@ -115,6 +115,9 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 | *string* | weekText | The text that should be displayed for the "Week" label. |
 | *string* | groupText | The text that should be displayed for the "Group:" label. |
+| *string* | configurationTooltipText | The tooltip text that should be used for for the "Configuration" button. |
+| *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
+| *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
 
 <br/>
 

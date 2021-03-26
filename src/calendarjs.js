@@ -176,6 +176,9 @@
  * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {string}    weekText                                    The text that should be displayed for the "Week" label.
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
+ * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
+ * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
+ * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
  */
 
 
@@ -197,6 +200,7 @@ function calendarJs( id, options, startDateTime ) {
         _largestDateInView = null,
         _elementTypes = {},
         _elements = {},
+        _configuration = {},
         _document = null,
         _window = null,
         _elementID = null,
@@ -224,6 +228,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
         _element_HeaderDateDisplay_YearSelector_Contents = null,
+        _element_HeaderDateDisplay_ConfigurationButton = null,
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_DisabledBackground = null,
@@ -275,6 +280,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllEventsView_ExportEventsButton = null,
         _element_ListAllEventsView_FullScreenButton = null,
         _element_ListAllEventsView_Contents = null,
+        _element_ListAllEventsView_EventsShown = [],
         _element_ListAllWeekEventsView = null,
         _element_ListAllWeekEventsView_Title = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
@@ -326,7 +332,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Y = 0,
         _element_SearchDialog_SearchResults = [],
         _element_SearchDialog_SearchIndex = 0,
-        _element_SearchDialog_FocusedEventID = null;
+        _element_SearchDialog_FocusedEventID = null,
+        _element_ConfigurationDialog = null,
+        _element_ConfigurationDialog_VisibleGroups = null;
 
 
     /*
@@ -369,6 +377,7 @@ function calendarJs( id, options, startDateTime ) {
             buildConfirmationDialog();
             buildSelectExportTypeDialog();
             buildSearchDialog();
+            buildConfigurationDialog();
             buildTooltip();
             buildDropDownMenus();
         }
@@ -466,6 +475,9 @@ function calendarJs( id, options, startDateTime ) {
         buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
         buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
         buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
+
+        _element_HeaderDateDisplay_ConfigurationButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
+        
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
 
         if ( _options.manualEditingEnabled ) {
@@ -853,7 +865,8 @@ function calendarJs( id, options, startDateTime ) {
         clearAutoRefreshTimer();
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
-            orderedEventsLength = orderedEvents.length;
+            orderedEventsLength = orderedEvents.length,
+            groupsAvailable = false;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
@@ -861,6 +874,10 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( elementDay !== null ) {
                 buildDayEventAcrossDays( orderedEvent );
+            }
+
+            if ( getString( orderedEvent.group ) !== "" ) {
+                groupsAvailable = true;
             }
 
             var repeatEvery = getNumber( orderedEvent.repeatEvery );
@@ -885,7 +902,7 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
     
-        updateExportButtonsVisibleState( orderedEventsLength );
+        updateExportButtonsVisibleState( orderedEventsLength, groupsAvailable );
         startAutoRefreshTimer();
     }
 
@@ -932,7 +949,7 @@ function calendarJs( id, options, startDateTime ) {
     
     function buildDayEvent( dayDate, eventDetails ) {
         var elementDay = getDayElement( dayDate );
-        if ( elementDay !== null ) {
+        if ( elementDay !== null && isEventVisible( eventDetails ) ) {
     
             var eventClassName = getEventClassName(),
                 events = elementDay.getElementsByClassName( eventClassName );
@@ -1008,13 +1025,19 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function updateExportButtonsVisibleState( orderedEventsLength ) {
+    function updateExportButtonsVisibleState( orderedEventsLength, groupsAvailable ) {
         if ( _options.exportEventsEnabled ) {
             if ( orderedEventsLength === 0 ) {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "none";
             } else {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "inline-block";
             }
+        }
+
+        if ( !groupsAvailable ) {
+            _element_HeaderDateDisplay_ConfigurationButton.style.display = "none";
+        } else {
+            _element_HeaderDateDisplay_ConfigurationButton.style.display = "inline-block";
         }
     }
 
@@ -1277,7 +1300,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( _options.exportEventsEnabled ) {
-            if ( orderedEvents.length === 0 ) {
+            if ( _element_FullDayView_EventsShown.length === 0 ) {
                 _element_FullDayView_ExportEventsButton.style.display = "none";
             } else {
                 _element_FullDayView_ExportEventsButton.style.display = "inline-block";
@@ -1306,70 +1329,75 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildFullDayDayEvent( eventDetails, displayDate ) {
-        var event = createElement( "div", getEventClassName() );
-
-        if ( eventDetails.isAllDay ) {
-            _element_FullDayView_Contents_AllDayEvents.appendChild( event );
-        } else {
-            _element_FullDayView_Contents_Hours.appendChild( event );
-        }
-
-        if ( _options.manualEditingEnabled ) {
-            var formattedDate = toStorageFormattedDate( displayDate );
-
-            event.oncontextmenu = function( e ) {
-                showEventDropDownMenu( e, eventDetails, formattedDate );
-            };
-        }
-
-        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
-
-        var title = createElement( "div", "title" );
-        title.innerText = eventDetails.title;
-        event.appendChild( title );
-
-        if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
-            var startTime = createElement( "div", "date" );
-            event.appendChild( startTime );
-    
-            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                if ( eventDetails.isAllDay ) {
-                    startTime.innerText = _options.allDayText;
-                } else {
-                    startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
-                }
-            } else {
-                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-            }
-    
-            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
-                var repeats = createElement( "div", "repeats" );
-                repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
-                event.appendChild( repeats );
-            }
-    
-            if ( isDefinedStringAndSet( eventDetails.location ) ) {
-                var location = createElement( "div", "location" );
-                location.innerText = eventDetails.location;
-                event.appendChild( location );
-            }
-    
-            if ( isDefinedStringAndSet( eventDetails.description ) ) {
-                var description = createElement( "div", "description" );
-                description.innerText = eventDetails.description;
-                event.appendChild( description );
-            }
-        }
-
-        if ( _options.manualEditingEnabled ) {
-            event.onclick = function() {
-                showEventDialog( eventDetails );
-            };
-        }
-
         var scrollTop = 0;
-        if ( !eventDetails.isAllDay ) {
-            scrollTop = setEventPositionAndGetScrollTop( displayDate, event, eventDetails );
+
+        if ( isEventVisible( eventDetails ) ) {
+            var event = createElement( "div", getEventClassName() );
+
+            if ( eventDetails.isAllDay ) {
+                _element_FullDayView_Contents_AllDayEvents.appendChild( event );
+            } else {
+                _element_FullDayView_Contents_Hours.appendChild( event );
+            }
+    
+            if ( _options.manualEditingEnabled ) {
+                var formattedDate = toStorageFormattedDate( displayDate );
+    
+                event.oncontextmenu = function( e ) {
+                    showEventDropDownMenu( e, eventDetails, formattedDate );
+                };
+            }
+    
+            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
+    
+            var title = createElement( "div", "title" );
+            title.innerText = eventDetails.title;
+            event.appendChild( title );
+    
+            if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
+                var startTime = createElement( "div", "date" );
+                event.appendChild( startTime );
+        
+                if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                    if ( eventDetails.isAllDay ) {
+                        startTime.innerText = _options.allDayText;
+                    } else {
+                        startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                    }
+                } else {
+                    buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+                }
+        
+                if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                    var repeats = createElement( "div", "repeats" );
+                    repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+                    event.appendChild( repeats );
+                }
+        
+                if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                    var location = createElement( "div", "location" );
+                    location.innerText = eventDetails.location;
+                    event.appendChild( location );
+                }
+        
+                if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                    var description = createElement( "div", "description" );
+                    description.innerText = eventDetails.description;
+                    event.appendChild( description );
+                }
+            }
+    
+            if ( _options.manualEditingEnabled ) {
+                event.onclick = function() {
+                    showEventDialog( eventDetails );
+                };
+            }
+            
+            if ( !eventDetails.isAllDay ) {
+                scrollTop = setEventPositionAndGetScrollTop( displayDate, event, eventDetails );
+            }
+
+            _element_FullDayView_EventsShown.push( eventDetails );
         }
 
         return scrollTop;
@@ -1381,8 +1409,6 @@ function calendarJs( id, options, startDateTime ) {
             pixelsPerMinute = contentHoursHeight / minutesInDay,
             minutesTop = _options.spacing,
             minutesHeight = null;
-
-        _element_FullDayView_EventsShown.push( eventDetails );
 
         if ( !eventDetails.isAllDay ) {
             var repeatEvery = getNumber( eventDetails.repeatEvery );
@@ -1460,7 +1486,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _options.exportEventsEnabled ) {
             _element_ListAllEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                showSelectExportTypeDialog();
+                showSelectExportTypeDialog( _element_ListAllEventsView_EventsShown );
             } );
         }
 
@@ -1477,6 +1503,7 @@ function calendarJs( id, options, startDateTime ) {
 
         showOverlay( _element_ListAllEventsView );
         _element_ListAllEventsView_Contents.innerHTML = "";
+        _element_ListAllEventsView_EventsShown = [];
 
         if ( fromOpen ) {
             _element_ListAllEventsView_Contents.scrollTop = 0;
@@ -1486,76 +1513,79 @@ function calendarJs( id, options, startDateTime ) {
             orderedEventsLength = orderedEvents.length;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ],
-                monthContents = buildListAllEventsMonth( orderedEvent.from );
-
-            buildListAllEventsEvent( orderedEvent, monthContents );
+            buildListAllEventsEvent( orderedEvents[ orderedEventIndex ] );
         }
         
         if ( _options.exportEventsEnabled ) {
-            if ( orderedEventsLength === 0 ) {
+            if ( _element_ListAllEventsView_EventsShown.length === 0 ) {
                 _element_ListAllEventsView_ExportEventsButton.style.display = "none";
             } else {
                 _element_ListAllEventsView_ExportEventsButton.style.display = "inline-block";
             }
         }
 
-        if ( orderedEventsLength === 0 ) {
+        if ( _element_ListAllEventsView_EventsShown.length === 0 ) {
             buildNoEventsAvailableText( _element_ListAllEventsView_Contents, addNewEvent );
         }
     }
 
-    function buildListAllEventsEvent( eventDetails, container ) {
-        var event = createElement( "div", getEventClassName() );
-        container.appendChild( event );
+    function buildListAllEventsEvent( eventDetails ) {
+        if ( isEventVisible( eventDetails ) ) {
+            var container = buildListAllEventsMonth( eventDetails.from ),
+                event = createElement( "div", getEventClassName() );
 
-        if ( _options.manualEditingEnabled ) {
-            event.oncontextmenu = function( e ) {
-                showEventDropDownMenu( e, eventDetails );
-            };
-        }
-
-        setEventClassesAndColors( event, eventDetails );
-
-        var title = createElement( "div", "title" );
-        title.innerText = eventDetails.title;
-        event.appendChild( title );
-
-        var startTime = createElement( "div", "date" );
-        event.appendChild( startTime );
-
-        if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-            if ( eventDetails.isAllDay ) {
-                buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
-            } else {
-                buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+            container.appendChild( event );
+    
+            if ( _options.manualEditingEnabled ) {
+                event.oncontextmenu = function( e ) {
+                    showEventDropDownMenu( e, eventDetails );
+                };
             }
-        } else {
-            buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-        }
+    
+            setEventClassesAndColors( event, eventDetails );
+    
+            var title = createElement( "div", "title" );
+            title.innerText = eventDetails.title;
+            event.appendChild( title );
+    
+            var startTime = createElement( "div", "date" );
+            event.appendChild( startTime );
+    
+            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                if ( eventDetails.isAllDay ) {
+                    buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
+                } else {
+                    buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                }
+            } else {
+                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+            }
+    
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                var repeats = createElement( "div", "repeats" );
+                repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+                event.appendChild( repeats );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                var location = createElement( "div", "location" );
+                location.innerText = eventDetails.location;
+                event.appendChild( location );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                var description = createElement( "div", "description" );
+                description.innerText = eventDetails.description;
+                event.appendChild( description );
+            }
+    
+            if ( _options.manualEditingEnabled ) {
+                event.onclick = function() {
+                    showEventDialog( eventDetails );
+                };
+            }
 
-        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
-            var repeats = createElement( "div", "repeats" );
-            repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
-            event.appendChild( repeats );
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.location ) ) {
-            var location = createElement( "div", "location" );
-            location.innerText = eventDetails.location;
-            event.appendChild( location );
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.description ) ) {
-            var description = createElement( "div", "description" );
-            description.innerText = eventDetails.description;
-            event.appendChild( description );
-        }
-
-        if ( _options.manualEditingEnabled ) {
-            event.onclick = function() {
-                showEventDialog( eventDetails );
-            };
+            _element_ListAllEventsView_EventsShown.push( eventDetails );
         }
     }
 
@@ -1678,8 +1708,10 @@ function calendarJs( id, options, startDateTime ) {
                 if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
                     var dayContents = buildListAllEventsDay( nextDate );
     
-                    buildListAllWeekEventsEvent( orderedEvent, dayContents, nextDate );
-                    addedNow = true;
+                    var added = buildListAllWeekEventsEvent( orderedEvent, dayContents, nextDate );
+                    if ( added ) {
+                        addedNow = true;
+                    }
                 }
 
                 nextDate.setDate( nextDate.getDate() + 1 );
@@ -1795,62 +1827,70 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildListAllWeekEventsEvent( eventDetails, container, displayDate ) {
-        clearElementsByClassName( container, "no-events-text" );
+        var added = false;
 
-        var event = createElement( "div", getEventClassName() );
-        container.appendChild( event );
-
-        if ( _options.manualEditingEnabled ) {
-            var formattedDate = toStorageFormattedDate( displayDate );
-
-            event.oncontextmenu = function( e ) {
-                showEventDropDownMenu( e, eventDetails, formattedDate );
-            };
-        }
-
-        makeEventDraggable( event, eventDetails, displayDate );
-        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
-
-        var title = createElement( "div", "title" );
-        title.innerText = eventDetails.title;
-        event.appendChild( title );
-
-        var startTime = createElement( "div", "date" );
-        event.appendChild( startTime );
-
-        if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-            if ( eventDetails.isAllDay ) {
-                startTime.innerText = _options.allDayText;
-            } else {
-                startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+        if ( isEventVisible( eventDetails ) ) {
+            clearElementsByClassName( container, "no-events-text" );
+            
+            var event = createElement( "div", getEventClassName() );
+            container.appendChild( event );
+    
+            if ( _options.manualEditingEnabled ) {
+                var formattedDate = toStorageFormattedDate( displayDate );
+    
+                event.oncontextmenu = function( e ) {
+                    showEventDropDownMenu( e, eventDetails, formattedDate );
+                };
             }
-        } else {
-            buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+    
+            makeEventDraggable( event, eventDetails, displayDate );
+            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
+    
+            var title = createElement( "div", "title" );
+            title.innerText = eventDetails.title;
+            event.appendChild( title );
+    
+            var startTime = createElement( "div", "date" );
+            event.appendChild( startTime );
+    
+            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                if ( eventDetails.isAllDay ) {
+                    startTime.innerText = _options.allDayText;
+                } else {
+                    startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                }
+            } else {
+                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+            }
+    
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                var repeats = createElement( "div", "repeats" );
+                repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
+                event.appendChild( repeats );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                var location = createElement( "div", "location" );
+                location.innerText = eventDetails.location;
+                event.appendChild( location );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                var description = createElement( "div", "description" );
+                description.innerText = eventDetails.description;
+                event.appendChild( description );
+            }
+    
+            if ( _options.manualEditingEnabled ) {
+                event.onclick = function() {
+                    showEventDialog( eventDetails );
+                };
+            }
+
+            added = true;
         }
 
-        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
-            var repeats = createElement( "div", "repeats" );
-            repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
-            event.appendChild( repeats );
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.location ) ) {
-            var location = createElement( "div", "location" );
-            location.innerText = eventDetails.location;
-            event.appendChild( location );
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.description ) ) {
-            var description = createElement( "div", "description" );
-            description.innerText = eventDetails.description;
-            event.appendChild( description );
-        }
-
-        if ( _options.manualEditingEnabled ) {
-            event.onclick = function() {
-                showEventDialog( eventDetails );
-            };
-        }
+        return added;
     }
 
     function buildAllWeekDays( weekStartDate, weekEndDate ) {
@@ -3347,31 +3387,33 @@ function calendarJs( id, options, startDateTime ) {
                 monthYearsFound = {};
 
             getAllEventsFunc( function( event ) {
-                var title = getString( event.title ),
-                    location = getString( event.location ),
-                    description = getString( event.description ),
-                    found = false;
+                if ( isEventVisible( event ) ) {
+                    var title = getString( event.title ),
+                        location = getString( event.location ),
+                        description = getString( event.description ),
+                        found = false;
 
-                if ( !matchCase ) {
-                    title = title.toLowerCase();
-                    description = description.toLowerCase();
-                    location = location.toLowerCase();
-                }
+                    if ( !matchCase ) {
+                        title = title.toLowerCase();
+                        description = description.toLowerCase();
+                        location = location.toLowerCase();
+                    }
 
-                if ( _element_SearchDialog_Include_Title.checked && title.indexOf( search ) > -1 ) {
-                    found = true;
-                } else if ( _element_SearchDialog_Include_Location.checked && location.indexOf( search ) > -1 ) {
-                    found = true;
-                } else if ( _element_SearchDialog_Include_Description.checked && description.indexOf( search ) > -1 ) {
-                    found = true;
-                }
+                    if ( _element_SearchDialog_Include_Title.checked && title.indexOf( search ) > -1 ) {
+                        found = true;
+                    } else if ( _element_SearchDialog_Include_Location.checked && location.indexOf( search ) > -1 ) {
+                        found = true;
+                    } else if ( _element_SearchDialog_Include_Description.checked && description.indexOf( search ) > -1 ) {
+                        found = true;
+                    }
 
-                if ( found ) {
-                    var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+                    if ( found ) {
+                        var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
 
-                    if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
-                        _element_SearchDialog_SearchResults.push( event );
-                        monthYearsFound[ monthYear ] = true;
+                        if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                            _element_SearchDialog_SearchResults.push( event );
+                            monthYearsFound[ monthYear ] = true;
+                        }
                     }
                 }
             } );
@@ -3404,6 +3446,133 @@ function calendarJs( id, options, startDateTime ) {
     function updateSearchButtons() {
         _element_SearchDialog_Previous.disabled = _element_SearchDialog_SearchIndex === 0;
         _element_SearchDialog_Next.disabled = _element_SearchDialog_SearchIndex === _element_SearchDialog_SearchResults.length - 1 || _element_SearchDialog_SearchResults.length === 0;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Configuration Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildConfigurationDialog() {
+        if ( _element_ConfigurationDialog !== null ) {
+            removeNode( _document.body, _element_ConfigurationDialog );
+        }
+
+        _element_ConfigurationDialog = createElement( "div", "calendar-dialog configuration" );
+        _document.body.appendChild( _element_ConfigurationDialog );
+
+        var titleBar = createElement( "div", "title-bar" );
+        titleBar.innerText = _options.configurationTitleText;
+        _element_ConfigurationDialog.appendChild( titleBar );
+
+        var contents = createElement( "div", "contents" );
+        _element_ConfigurationDialog.appendChild( contents );
+
+        var visibleGroupsText = createElement( "p" );
+        visibleGroupsText.innerText = _options.visibleGroupsText;
+        contents.appendChild( visibleGroupsText );
+
+        _element_ConfigurationDialog_VisibleGroups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        contents.appendChild( _element_ConfigurationDialog_VisibleGroups );
+
+        var buttonsSplitContainer = createElement( "div", "split" );
+        contents.appendChild( buttonsSplitContainer );
+
+        var okButton = createElement( "input", "ok", "button" );
+        okButton.value = _options.okText;
+        okButton.onclick = configurationDialogEvent_OK;
+        buttonsSplitContainer.appendChild( okButton );
+
+        var cancelButton = createElement( "input", "cancel", "button" );
+        cancelButton.value = _options.cancelText;
+        cancelButton.onclick = configurationDialogEvent_Cancel;
+        buttonsSplitContainer.appendChild( cancelButton );
+    }
+
+    function buildConfigurationVisibleGroupOptions() {
+        _element_ConfigurationDialog_VisibleGroups.innerHTML = "";
+
+        var groups = getGroups(),
+            groupsLength = groups.length;
+
+        for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
+            var groupName = groups[ groupIndex ],
+                configGroupName = getGroupName( groupName ),
+                visible = true;
+            
+            if ( isDefined( _configuration.visibleGroups ) ) {
+                visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
+            }
+
+            buildCheckBox( _element_ConfigurationDialog_VisibleGroups, groupName, null, configGroupName, visible );
+        }
+    }
+
+    function configurationDialogEvent_OK() {
+        var checkboxes = _element_ConfigurationDialog_VisibleGroups.getElementsByTagName( "input" ),
+            checkboxesLength = checkboxes.length;
+        
+        _configuration.visibleGroups = [];
+        
+        for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
+            var checkbox = checkboxes[ checkboxIndex ];
+            if ( checkbox.checked ) {
+                _configuration.visibleGroups.push( checkbox.name );
+            }
+        }
+
+        buildDayEvents();
+        hideConfigurationDialog();
+    }
+
+    function configurationDialogEvent_Cancel() {
+        hideConfigurationDialog();
+    }
+
+    function showConfigurationDialog() {
+        addNode( _document.body, _element_DisabledBackground );
+        buildConfigurationVisibleGroupOptions();
+        _element_ConfigurationDialog.style.display = "block";
+    }
+
+    function hideConfigurationDialog() {
+        removeNode( _document.body, _element_DisabledBackground );
+        _element_ConfigurationDialog.style.display = "none";
+    }
+
+    function getGroupName( group ) {
+        return group.replace( " ",  "" ).toLowerCase();
+    }
+
+    function isEventVisible( event ) {
+        var group = getString( event.group ),
+            configGroup = getGroupName( group ),
+            visible = true;
+        
+        if ( isDefined( _configuration.visibleGroups ) ) {
+            visible = _configuration.visibleGroups.indexOf( configGroup ) > -1;
+        }
+
+        return visible;
+    }
+
+    function getGroups() {
+        var groups = [],
+            groupsAnyCase = [];
+
+        getAllEventsFunc( function( event ) {
+            var group = getString( event.group );
+            if ( group !== "" && groupsAnyCase.indexOf( group.toLowerCase() ) === -1 ) {
+                groups.push( group );
+                groupsAnyCase.push( group.toLowerCase() );
+            }
+        } );
+
+        groups.sort();
+
+        return groups;
     }
 
 
@@ -3705,7 +3874,7 @@ function calendarJs( id, options, startDateTime ) {
         return input;
     }
 
-    function buildCheckBox( container, labelText, onChangeEvent ) {
+    function buildCheckBox( container, labelText, onChangeEvent, name, checked ) {
         var lineContents = createElement( "div" );
         container.appendChild( lineContents );
 
@@ -3716,8 +3885,16 @@ function calendarJs( id, options, startDateTime ) {
         var input = createElement( "input", null, "checkbox" );
         label.appendChild( input );
 
+        if ( isDefined( name ) ) {
+            input.name = name;
+        }
+
         if ( isDefined( onChangeEvent ) ) {
             input.onchange = onChangeEvent;
+        }
+
+        if ( isDefined( checked ) ) {
+            input.checked = checked;
         }
 
         var labelSpan = createElement( "span", "check-mark" );
@@ -5147,6 +5324,18 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.groupText ) ) {
             _options.groupText = "Group:";
+        }
+
+        if ( !isDefined( _options.configurationTooltipText ) ) {
+            _options.configurationTooltipText = "Configuration";
+        }
+
+        if ( !isDefined( _options.configurationTitleText ) ) {
+            _options.configurationTitleText = "Configuration";
+        }
+
+        if ( !isDefined( _options.visibleGroupsText ) ) {
+            _options.visibleGroupsText = "Visible Groups:";
         }
     }
 

@@ -431,7 +431,8 @@ div.calendar div.header-date div {
 div.calendar div.header-date div.ib-arrow-left-full,
 div.calendar div.header-date div.ib-pin,
 div.calendar div.header-date div.ib-refresh,
-div.calendar div.header-date div.ib-search {
+div.calendar div.header-date div.ib-search,
+div.calendar div.header-date div.ib-octagon-hollow {
   float: left;
 }
 
@@ -450,7 +451,8 @@ div.calendar div.header-date div.ib-arrow-contract-left-right {
   div.calendar div.header-date div.ib-search,
   div.calendar div.header-date div.ib-hamburger,
   div.calendar div.header-date div.ib-eye,
-  div.calendar div.header-date div.ib-arrow-down-full-line {
+  div.calendar div.header-date div.ib-arrow-down-full-line,
+  div.calendar div.header-date div.ib-octagon-hollow {
     display: inline-block;
   }
 }
@@ -460,7 +462,8 @@ div.calendar div.header-date div.ib-arrow-contract-left-right {
   div.calendar div.header-date div.ib-search,
   div.calendar div.header-date div.ib-hamburger,
   div.calendar div.header-date div.ib-eye,
-  div.calendar div.header-date div.ib-arrow-down-full-line {
+  div.calendar div.header-date div.ib-arrow-down-full-line,
+  div.calendar div.header-date div.ib-octagon-hollow {
     display: none !important;
   }
 }
@@ -1216,12 +1219,12 @@ div.event-editor div.view div.contents {
 
 div.event-editor div.view input:not([type="button"]),
 div.event-editor div.view textarea {
-  color: #282828;
-  width: 100%;
-  padding: .375rem .75rem;
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
   outline: none;
+  width: 100%;
+  padding: .375rem .75rem;
+  color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
@@ -1475,12 +1478,12 @@ div.event-editor-colors div.contents p {
 
 div.event-editor-colors input[type="color"],
 div.event-editor-colors input[type="text"] {
-  color: #282828;
-  width: 100%;
-  padding: .375rem .75rem;
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
   outline: none;
+  width: 100%;
+  padding: .375rem .75rem;
+  color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
@@ -1638,12 +1641,12 @@ div.event-editor-repeat-options div.contents p:first-child {
 
 div.event-editor-repeat-options input:not([type="button"]),
 div.event-editor-repeat-options textarea {
-  color: #282828;
-  width: 100%;
-  padding: .375rem .75rem;
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
   outline: none;
+  width: 100%;
+  padding: .375rem .75rem;
+  color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
@@ -2048,12 +2051,12 @@ div.search div.contents p {
 }
 
 div.search input[type="text"] {
-  color: #282828;
-  width: 100%;
-  padding: .375rem .75rem;
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
   outline: none;
+  width: 100%;
+  padding: .375rem .75rem;
+  color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
@@ -2167,6 +2170,147 @@ div.search div.ib-square-hollow {
 div.search div.ib-minus,
 div.search div.ib-square-hollow {
   margin-right: 10px;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Dialog - Configuration
+    -------------------------------------------------------------------------
+*/
+div.configuration {
+  width: calc(100% - (10px * 2));
+  max-width: 300px;
+  border-radius: 0.25rem;
+  background-color: #F5F5F5;
+  border: 1px solid #282828;
+  position: fixed;
+  display: none;
+  z-index: 1500;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+div.configuration div.title-bar {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  background-color: #282828;
+  color: #F5F5F5;
+  padding: 10px;
+  text-align: center;
+}
+
+div.configuration div.controls-container {
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  height: 150px;
+  padding: 10px;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+div.configuration div.contents {
+  padding: 10px;
+}
+
+div.configuration div.contents p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+div.configuration div.split input,
+div.configuration div.split p {
+  width: calc(50% - (10px / 2));
+  margin-right: 5px;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+div.configuration div.split input:first-child,
+div.configuration div.split p:first-child {
+  margin-left: 0;
+}
+
+div.configuration div.split input:last-child,
+div.configuration div.split p:last-child {
+  margin-right: 0;
+}
+
+div.configuration div.split {
+  margin-top: 20px;
+}
+
+div.configuration input[type="button"] {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: .255rem .55rem;
+  line-height: 1.8;
+  border-radius: 0.25rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+div.configuration input[type="button"]:disabled {
+  background-color: #A8A8A8 !important;
+  cursor: default !important;
+}
+
+div.configuration input[type="button"].ok {
+  color: #F5F5F5;
+  background-color: #289345;
+}
+
+div.configuration input[type="button"].ok:not(:disabled):hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.configuration input[type="button"].ok:not(:disabled):active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.configuration input[type="button"].cancel {
+  color: #F5F5F5;
+  background-color: #C60000;
+}
+
+div.configuration input[type="button"].cancel:not(:disabled):hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+div.configuration input[type="button"].cancel:not(:disabled):active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
 }
 
 /*
@@ -3141,6 +3285,52 @@ div.calendar-drop-down-menu div.separator {
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
+}
+
+.ib-octagon-hollow {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+
+.ib-octagon-hollow:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-octagon-hollow:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-octagon-hollow:before, .ib-octagon-hollow:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-octagon-hollow:before {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  border: 4px solid #F5F5F5;
+  width: 4px;
+  height: 4px;
+  left: 2px;
+  top: 2px;
+}
+
+.ib-octagon-hollow:after {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  border: 4px solid #F5F5F5;
+  width: 4px;
+  height: 4px;
+  left: 2px;
+  top: 2px;
 }
 
 .ib-plus-icon {

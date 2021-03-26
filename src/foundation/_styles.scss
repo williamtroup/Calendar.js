@@ -171,13 +171,17 @@ $time-hours-width: 80px;
     }
 }
 
-@mixin input-fields($height: 0px) {
-    color: $dark-color;
-    width: 100%;
-    padding: .375rem .75rem;
+@mixin input-style {
     border: 1px solid $input-border-color;
     border-radius: $border-view-radius;
     outline: none;
+}
+
+@mixin input-fields($height: 0px) {
+    @include input-style;
+    width: 100%;
+    padding: .375rem .75rem;
+    color: $dark-color;
     margin-bottom: $spacing;
     background-color: $input-background-color;
     transition: $transition;

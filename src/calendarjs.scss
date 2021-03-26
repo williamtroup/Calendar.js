@@ -328,7 +328,8 @@ div.calendar {
         div.ib-arrow-left-full,
         div.ib-pin,
         div.ib-refresh,
-        div.ib-search {
+        div.ib-search,
+        div.ib-octagon-hollow {
             float: left;
         }
 
@@ -347,7 +348,8 @@ div.calendar {
             div.ib-search,
             div.ib-hamburger,
             div.ib-eye,
-            div.ib-arrow-down-full-line {
+            div.ib-arrow-down-full-line,
+            div.ib-octagon-hollow {
                 display: inline-block;
             }
         }
@@ -357,7 +359,8 @@ div.calendar {
             div.ib-search,
             div.ib-hamburger,
             div.ib-eye,
-            div.ib-arrow-down-full-line {
+            div.ib-arrow-down-full-line,
+            div.ib-octagon-hollow {
                 display: none !important;
             }
         }
@@ -942,6 +945,48 @@ div.search {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Dialog - Configuration
+    -------------------------------------------------------------------------
+*/
+
+div.configuration {
+    @include dialog-styles(300px);
+    @include dialog-title-bar;
+
+    div.controls-container {
+        @include input-style;
+        height: 150px;
+        padding: $spacing;
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+
+    div.contents {
+        padding: $spacing;
+        
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+        }
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing * 2;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - CheckBox
     -------------------------------------------------------------------------
 */
@@ -1271,6 +1316,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
 @import "foundation/buttons/arrow-top-right";
+@import "foundation/buttons/octagon-hollow";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/arrow-top-right-icon";
 @import "foundation/menus/hamburger-icon";
