@@ -119,8 +119,6 @@
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
- * @property    {string}    startsOnText                                The text that should be displayed for the "Starts on" label.
- * @property    {string}    andFinishesOnText                           The text that should be displayed for the "and finishes on" label.
  * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
  * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
  * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
@@ -2038,15 +2036,11 @@ function calendarJs( id, options, startDateTime ) {
     function buildDateTimeToDateTimeDisplay( container, fromDate, toDate ) {
         container.innerHTML = "";
 
-        var startText = createElement( "span" );
-        startText.innerText = _options.startsOnText + " ";
-        container.appendChild( startText );
-
         buildDateTimeDisplay( container, fromDate );
 
-        var finishesText = createElement( "span" );
-        finishesText.innerText = " " + _options.andFinishesOnText + " ";
-        container.appendChild( finishesText );
+        var toText = createElement( "span" );
+        toText.innerText = " " + _options.toTimeText + " ";
+        container.appendChild( toText );
 
         buildDateTimeDisplay( container, toDate );
     }
@@ -5151,14 +5145,6 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.showTimesInMainCalendarEvents ) ) {
             _options.showTimesInMainCalendarEvents = false;
-        }
-
-        if ( !isDefined( _options.startsOnText ) ) {
-            _options.startsOnText = "Starts on the";
-        }
-
-        if ( !isDefined( _options.andFinishesOnText ) ) {
-            _options.andFinishesOnText = "and finishes on the";
         }
 
         if ( !isDefined( _options.toTimeText ) ) {

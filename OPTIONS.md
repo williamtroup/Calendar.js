@@ -58,8 +58,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
 | *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
-| *string* | startsOnText | The text that should be displayed for the "Starts on" label. |
-| *string* | andFinishesOnText | The text that should be displayed for the "and finishes on" label. |
 | *string* | toTimeText | The text that should be displayed for the "to" label. |
 | *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
 | *string* | confirmEventRemoveTitle | The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal"). |
