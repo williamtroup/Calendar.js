@@ -391,7 +391,7 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   padding: 0 !important;
 }
 
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year {
   display: inline-block;
   color: #282828;
   font-size: 0.75rem;
@@ -404,7 +404,7 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   padding: 3px;
 }
 
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div:hover {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:hover {
   background-color: #282828;
   color: #F5F5F5;
   cursor: pointer;
@@ -412,7 +412,7 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   transition: all 0.3s;
 }
 
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div:active {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;

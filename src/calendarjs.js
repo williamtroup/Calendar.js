@@ -629,6 +629,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildYearSelectorDropDownYear( actualYear ) {
         var year = createElement( "div" );
+        year.className = "year";
         year.innerText = actualYear.toString();
         year.id = _elementID_YearSelected + actualYear.toString();
         _element_HeaderDateDisplay_YearSelector_Contents.appendChild( year );
@@ -659,18 +660,18 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function updateYearSelectorDropDownMenuColors() {
-        var yearSelected = _element_HeaderDateDisplay_YearSelector.getElementsByClassName( "current-year-selected" );
-        if ( yearSelected.length >= 1 ) {
+        var yearSelected = _element_HeaderDateDisplay_YearSelector.getElementsByClassName( "year" ),
+            yearSelectedLength = yearSelected.length;
 
-            var yearSelectedLength = yearSelected.length;
+        if ( yearSelectedLength >= 1 ) {
             for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
-                yearSelected[ yearsSelectedIndex ].removeAttribute( "class" );
+                yearSelected[ yearsSelectedIndex ].className = "year";
             }
         }
 
         var year = getElementByID( _elementID_YearSelected + _currentDate.getFullYear() );
         if ( year !== null ) {
-            year.className = "current-year-selected";
+            year.className += " current-year-selected";
         }
 
         return year;
