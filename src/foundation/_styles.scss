@@ -25,6 +25,8 @@ $small-font-size: 0.7rem;
 $maximum-width: 450px;
 $minimum-width: $maximum-width + 1;
 $time-hours-width: 80px;
+$time-arrow-line-height: 12px;
+$link-color: #2471A3;
 
 @mixin fade-in-effect-animation($seconds) {
     animation: fade-in-effect ease $seconds;

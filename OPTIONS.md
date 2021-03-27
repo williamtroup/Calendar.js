@@ -118,6 +118,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | configurationTooltipText | The tooltip text that should be used for for the "Configuration" button. |
 | *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
 | *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
+| *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full day view (defaults to true). |
 
 <br/>
 

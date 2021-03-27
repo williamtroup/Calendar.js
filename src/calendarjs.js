@@ -179,6 +179,7 @@
  * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
  * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
+ * @property    {boolean}   showTimelineArrowOnFullDayView              States if the timeline arrow should be shown in the full day view (defaults to true).
  */
 
 
@@ -223,6 +224,7 @@ function calendarJs( id, options, startDateTime ) {
         _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
         _elementClassName_Cell = "cell",
+        _minutesInDay = 1440,
         _element_Calendar = null,
         _element_HeaderDateDisplay = null,
         _element_HeaderDateDisplay_Text = null,
@@ -276,6 +278,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [],
         _element_FullDayView_ExportEventsButton = null,
         _element_FullDayView_FullScreenButton = null,
+        _element_FullDayView_TimeArrow = null,
         _element_ListAllEventsView = null,
         _element_ListAllEventsView_ExportEventsButton = null,
         _element_ListAllEventsView_FullScreenButton = null,
@@ -1214,6 +1217,8 @@ function calendarJs( id, options, startDateTime ) {
             newHour2.innerText = padNumber( hour ) + ":30";
             row.appendChild( newHour2 );
         }
+
+        buildFullDayViewTimeArrow();
     }
 
     function updateFullDayViewFromEventEdit() {
@@ -1282,7 +1287,8 @@ function calendarJs( id, options, startDateTime ) {
         orderedEvents = getOrderedEvents( orderedEvents );
 
         var orderedEventsLength = orderedEvents.length,
-            orderedEventsFirstTopPosition = null;
+            orderedEventsFirstTopPosition = null,
+            timeArrowPosition = updateFullDayViewTimeArrowPosition();
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var newTopPosition = buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date );
@@ -1292,7 +1298,11 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( fromOpen ) {
-            _element_FullDayView_Contents.scrollTop = orderedEventsFirstTopPosition - ( _element_FullDayView_Contents.offsetHeight / 2 );
+            if ( isFullDayTimeArrowVisible() ) {
+                _element_FullDayView_Contents.scrollTop = timeArrowPosition;
+            } else {
+                _element_FullDayView_Contents.scrollTop = orderedEventsFirstTopPosition - ( _element_FullDayView_Contents.offsetHeight / 2 );
+            }
         }
 
         if ( _element_FullDayView_Contents_AllDayEvents.offsetHeight <= 1 ) {
@@ -1404,9 +1414,8 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function setEventPositionAndGetScrollTop( displayDate, event, eventDetails ) {
-        var minutesInDay = 1440,
-            contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
-            pixelsPerMinute = contentHoursHeight / minutesInDay,
+        var contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
+            pixelsPerMinute = contentHoursHeight / _minutesInDay,
             minutesTop = _options.spacing,
             minutesHeight = null;
 
@@ -1452,6 +1461,44 @@ function calendarJs( id, options, startDateTime ) {
     function onNextDay() {
         _element_FullDayView_DateSelected.setDate( _element_FullDayView_DateSelected.getDate() + 1 );
         showFullDayView( _element_FullDayView_DateSelected, true );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Full Day View - Time Arrow
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildFullDayViewTimeArrow() {
+        _element_FullDayView_TimeArrow = createElement( "div", "time-arrow" );
+        _element_FullDayView_Contents_Hours.appendChild( _element_FullDayView_TimeArrow );
+
+        _element_FullDayView_TimeArrow.appendChild( createElement( "div", "arrow-left" ) );
+        _element_FullDayView_TimeArrow.appendChild( createElement( "div", "line" ) );
+    }
+
+    function updateFullDayViewTimeArrowPosition() {
+        var topPosition = 0;
+
+        if ( isFullDayTimeArrowVisible() ) {
+            var contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
+                pixelsPerMinute = contentHoursHeight / _minutesInDay,
+                top = pixelsPerMinute * getMinutesIntoDay( new Date() );
+
+            _element_FullDayView_TimeArrow.style.display = "block";
+            _element_FullDayView_TimeArrow.style.top = top + "px";
+            topPosition = top;
+
+        } else {
+            _element_FullDayView_TimeArrow.style.display = "none";
+        }
+
+        return topPosition;
+    }
+
+    function isFullDayTimeArrowVisible() {
+        return isDateToday( _element_FullDayView_DateSelected ) && isOverlayVisible( _element_FullDayView ) && _options.showTimelineArrowOnFullDayView ;
     }
 
 
@@ -3710,6 +3757,7 @@ function calendarJs( id, options, startDateTime ) {
     function refreshViews() {
         if ( isOnlyMainDisplayVisible() ) {
             refreshOpenedViews();
+            updateFullDayViewTimeArrowPosition();
 
             if ( _isDateToday ) {
                 build();
@@ -5336,6 +5384,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.visibleGroupsText ) ) {
             _options.visibleGroupsText = "Visible Groups:";
+        }
+
+        if ( !isDefined( _options.showTimelineArrowOnFullDayView ) ) {
+            _options.showTimelineArrowOnFullDayView = true;
         }
     }
 

@@ -4,6 +4,7 @@
 - Fixed a fault that prevented all day events being exported from the Full Day view.
 - Added grouping support for events (new property called "group").
 - Added a new Configuration dialog, which can be used to control the visible groups (at this time).
+- Added a timeline arrow that is shown in the Full Day view when the viewable date is the current date (optional, on by default).
 
 ### Version 0.8.2:
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").

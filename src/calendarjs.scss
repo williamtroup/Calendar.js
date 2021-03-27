@@ -136,7 +136,7 @@ div.calendar {
 
         span.link {
             text-decoration: underline;
-            color: #2471A3;
+            color: $link-color;
 
             &:hover {
                 @include opacity-hover-effect;
@@ -491,6 +491,33 @@ div.calendar {
     
             div.contents-events {
                 position: relative;
+
+                div.time-arrow {
+                    position: absolute;
+                    width: calc(100% - #{$time-hours-width} - (#{$spacing} * 2) - #{$standard-border-size});
+                    left: $time-hours-width + ($spacing * 2) + $standard-border-size;
+                    top: 0;                    
+                    z-index: 10;
+                    height: $time-arrow-line-height;
+                    display: none;
+
+                    div.arrow-left {
+                        width: 0; 
+                        height: 0; 
+                        border-top: $time-arrow-line-height / 2 solid transparent;
+                        border-bottom: $time-arrow-line-height / 2 solid transparent;
+                        border-right: $time-arrow-line-height solid $link-color;
+                    }
+
+                    div.line {
+                        background-color: $link-color;
+                        position: absolute;
+                        left: $time-arrow-line-height;
+                        top: $time-arrow-line-height / 4;
+                        height: $time-arrow-line-height / 2;
+                        width: 100%;
+                    }
+                }
 
                 div.hour {
                     background-color: $light-color;
