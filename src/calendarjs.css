@@ -388,6 +388,7 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   height: inherit;
   margin-left: 0;
   margin-right: 0;
+  padding: 0 !important;
 }
 
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div {

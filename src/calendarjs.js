@@ -597,24 +597,35 @@ function calendarJs( id, options, startDateTime ) {
         if ( _element_HeaderDateDisplay_YearSelector.style.display !== "block" ) {
             hideAllDropDowns();
             cancelBubble( e );
-
-            var yearSelected = _element_HeaderDateDisplay_YearSelector.getElementsByClassName( "current-year-selected" );
-            if ( yearSelected.length >= 1 ) {
-
-                var yearSelectedLength = yearSelected.length;
-                for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
-                    yearSelected[ yearsSelectedIndex ].removeAttribute( "class" );
-                }
-            }
-
-            var year = getElementByID( _elementID_YearSelected + _currentDate.getFullYear() );
-            if ( year !== null ) {
-                year.className = "current-year-selected";
-            }
+            
+            var year = updateYearSelectorDropDownMenuColors();
 
             _element_HeaderDateDisplay_YearSelector.style.display = "block";
-            _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - ( _element_HeaderDateDisplay_YearSelector.offsetHeight / 2 );
+
+            if ( year !== null ) {
+                _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - ( _element_HeaderDateDisplay_YearSelector.offsetHeight / 2 );
+            } else {
+                _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = 0;
+            }
         }
+    }
+
+    function updateYearSelectorDropDownMenuColors() {
+        var yearSelected = _element_HeaderDateDisplay_YearSelector.getElementsByClassName( "current-year-selected" );
+        if ( yearSelected.length >= 1 ) {
+
+            var yearSelectedLength = yearSelected.length;
+            for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
+                yearSelected[ yearsSelectedIndex ].removeAttribute( "class" );
+            }
+        }
+
+        var year = getElementByID( _elementID_YearSelected + _currentDate.getFullYear() );
+        if ( year !== null ) {
+            year.className = "current-year-selected";
+        }
+
+        return year;
     }
 
     function hideYearSelectorDropDown() {
