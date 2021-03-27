@@ -758,7 +758,7 @@ function calendarJs( id, options, startDateTime ) {
     function isDateToday( date ) {
         var today = new Date();
         
-        return date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
+        return date !== null && date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
     }
 
     function isDateTodaysMonthAndYear( date ) {
