@@ -226,6 +226,7 @@ function calendarJs( id, options, startDateTime ) {
         _elementClassName_Cell = "cell",
         _minutesInDay = 1440,
         _element_Calendar = null,
+        _element_Calendar_AllVisibleEvents = [],
         _element_HeaderDateDisplay = null,
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
@@ -489,7 +490,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _options.exportEventsEnabled ) {
             _element_HeaderDateDisplay_ExportEventsButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                showSelectExportTypeDialog();
+                showSelectExportTypeDialog( _element_Calendar_AllVisibleEvents );
             } );
         }
         
@@ -867,6 +868,8 @@ function calendarJs( id, options, startDateTime ) {
         clearEventsFromDays();
         clearAutoRefreshTimer();
 
+        _element_Calendar_AllVisibleEvents = [];
+
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length,
             groupsAvailable = false;
@@ -881,6 +884,10 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( getString( orderedEvent.group ) !== "" ) {
                 groupsAvailable = true;
+            }
+
+            if ( isEventVisible( orderedEvent ) ) {
+                _element_Calendar_AllVisibleEvents.push( orderedEvent );
             }
 
             var repeatEvery = getNumber( orderedEvent.repeatEvery );
@@ -905,7 +912,7 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
     
-        updateExportButtonsVisibleState( orderedEventsLength, groupsAvailable );
+        updateExportButtonsVisibleState( _element_Calendar_AllVisibleEvents.length, groupsAvailable );
         startAutoRefreshTimer();
     }
 
