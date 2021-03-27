@@ -697,7 +697,7 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
 
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
   width: 80px;
-  height: 80px;
+  height: 40px;
   padding: 10px;
   background-color: #F5F5F5;
   color: #282828;

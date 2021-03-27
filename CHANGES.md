@@ -6,6 +6,7 @@
 - Added a new Configuration dialog, which can be used to control the visible groups (at this time).
 - Added a timeline arrow that is shown in the Full Day view when the viewable date is the current date (optional, on by default).
 - Removed the options "startsOnText" and "andFinishesOnText" as the text displays for times are now shorter.
+- Decreased the height of the hours shown in the Full Day view to allow more events to be shown.
 
 ### Version 0.8.2:
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
