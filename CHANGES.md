@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.9.0:
-- Fixed a fault that prevent all day events being exported from the Full Day view.
+- Fixed a fault that prevented all day events being exported from the Full Day view.
 - Added grouping support for events (new property called "group").
 - Added a new Configuration dialog, which can be used to control the visible groups (at this time).
 
