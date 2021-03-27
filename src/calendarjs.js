@@ -1511,7 +1511,7 @@ function calendarJs( id, options, startDateTime ) {
                 top = pixelsPerMinute * getMinutesIntoDay( new Date() );
 
             _element_FullDayView_TimeArrow.style.display = "block";
-            _element_FullDayView_TimeArrow.style.top = top + "px";
+            _element_FullDayView_TimeArrow.style.top = ( top - ( _element_FullDayView_TimeArrow.offsetHeight / 2 ) ) + "px";
             topPosition = top;
 
         } else {
