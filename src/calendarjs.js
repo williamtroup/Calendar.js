@@ -514,40 +514,6 @@ function calendarJs( id, options, startDateTime ) {
         buildYearSelectorDropDown( titleContainer );
     }
 
-    function buildYearSelectorDropDown( container ) {
-        var date = new Date( 1900, 1, 1 ),
-            dateCurrent = new Date(),
-            dateYearsTotal = ( dateCurrent.getFullYear() - date.getFullYear() ) + _options.extraSelectableYearsAhead;
-
-        _element_HeaderDateDisplay_YearSelector = createElement( "div", "years-drop-down" );
-        container.appendChild( _element_HeaderDateDisplay_YearSelector );
-
-        _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div", "contents custom-scroll-bars" );
-        _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
-
-        for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
-            buildYearSelectorDropDownYear( date.getFullYear() );
-
-            date.setFullYear( date.getFullYear() + 1 );
-        }
-
-        _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
-    }
-
-    function buildYearSelectorDropDownYear( actualYear ) {
-        var year = createElement( "div" );
-        year.innerText = actualYear.toString();
-        year.id = _elementID_YearSelected + actualYear.toString();
-        _element_HeaderDateDisplay_YearSelector_Contents.appendChild( year );
-
-        year.onclick = function() {
-            _currentDate.setFullYear( actualYear );
-
-            build( _currentDate );
-            hideYearSelectorDropDown();
-        };
-    }
-
     function buildDayNamesHeader() {
         var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
             headerNamesLength = _options.dayHeaderNames.length;
@@ -593,6 +559,88 @@ function calendarJs( id, options, startDateTime ) {
         return adjustedEvent;
     }
 
+    function headerDoubleClick() {
+        if ( !_isFullScreenModeActivated ) {
+            turnOnFullScreenMode();
+        } else {
+            turnOffFullScreenMode();
+        }
+    }
+
+    function turnOnFullScreenMode() {
+        if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
+            _cachedStyles = _element_Calendar.style.cssText;
+            _isFullScreenModeActivated = true;
+            _element_Calendar.className += " full-screen-view";
+            _element_Calendar.removeAttribute( "style" );
+
+            updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
+        }
+    }
+
+    function turnOffFullScreenMode() {
+        if ( _isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
+            _isFullScreenModeActivated = false;
+            _element_Calendar.className = _element_Calendar.className.replace( " full-screen-view", "" );
+            _element_Calendar.style.cssText = _cachedStyles;
+
+            updateExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
+        }
+    }
+
+    function updateExpandButtons( className, tooltipText ) {
+        _element_HeaderDateDisplay_FullScreenButton.className = className;
+        _element_FullDayView_FullScreenButton.className = className;
+        _element_ListAllEventsView_FullScreenButton.className = className;
+        _element_ListAllWeekEventsView_FullScreenButton.className = className;
+
+        addToolTip( _element_HeaderDateDisplay_FullScreenButton, tooltipText );
+        addToolTip( _element_FullDayView_FullScreenButton, tooltipText );
+        addToolTip( _element_ListAllEventsView_FullScreenButton, tooltipText );
+        addToolTip( _element_ListAllWeekEventsView_FullScreenButton, tooltipText );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Years Drop-Down Menu
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildYearSelectorDropDown( container ) {
+        var date = new Date( 1900, 1, 1 ),
+            dateCurrent = new Date(),
+            dateYearsTotal = ( dateCurrent.getFullYear() - date.getFullYear() ) + _options.extraSelectableYearsAhead;
+
+        _element_HeaderDateDisplay_YearSelector = createElement( "div", "years-drop-down" );
+        container.appendChild( _element_HeaderDateDisplay_YearSelector );
+
+        _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div", "contents custom-scroll-bars" );
+        _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
+
+        for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
+            buildYearSelectorDropDownYear( date.getFullYear() );
+
+            date.setFullYear( date.getFullYear() + 1 );
+        }
+
+        _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
+    }
+
+    function buildYearSelectorDropDownYear( actualYear ) {
+        var year = createElement( "div" );
+        year.innerText = actualYear.toString();
+        year.id = _elementID_YearSelected + actualYear.toString();
+        _element_HeaderDateDisplay_YearSelector_Contents.appendChild( year );
+
+        year.onclick = function() {
+            _currentDate.setFullYear( actualYear );
+
+            build( _currentDate );
+            hideYearSelectorDropDown();
+        };
+    }
+
     function showYearSelectorDropDownMenu( e ) {
         if ( _element_HeaderDateDisplay_YearSelector.style.display !== "block" ) {
             hideAllDropDowns();
@@ -636,47 +684,6 @@ function calendarJs( id, options, startDateTime ) {
 
     function isYearSelectorDropDownVisible() {
         return _element_HeaderDateDisplay_YearSelector !== null && _element_HeaderDateDisplay_YearSelector.style.display === "block";
-    }
-
-    function headerDoubleClick() {
-        if ( !_isFullScreenModeActivated ) {
-            turnOnFullScreenMode();
-        } else {
-            turnOffFullScreenMode();
-        }
-    }
-
-    function turnOnFullScreenMode() {
-        if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
-            _cachedStyles = _element_Calendar.style.cssText;
-            _isFullScreenModeActivated = true;
-            _element_Calendar.className += " full-screen-view";
-            _element_Calendar.removeAttribute( "style" );
-
-            updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
-        }
-    }
-
-    function turnOffFullScreenMode() {
-        if ( _isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
-            _isFullScreenModeActivated = false;
-            _element_Calendar.className = _element_Calendar.className.replace( " full-screen-view", "" );
-            _element_Calendar.style.cssText = _cachedStyles;
-
-            updateExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
-        }
-    }
-
-    function updateExpandButtons( className, tooltipText ) {
-        _element_HeaderDateDisplay_FullScreenButton.className = className;
-        _element_FullDayView_FullScreenButton.className = className;
-        _element_ListAllEventsView_FullScreenButton.className = className;
-        _element_ListAllWeekEventsView_FullScreenButton.className = className;
-
-        addToolTip( _element_HeaderDateDisplay_FullScreenButton, tooltipText );
-        addToolTip( _element_FullDayView_FullScreenButton, tooltipText );
-        addToolTip( _element_ListAllEventsView_FullScreenButton, tooltipText );
-        addToolTip( _element_ListAllWeekEventsView_FullScreenButton, tooltipText );
     }
 
 
