@@ -9,6 +9,11 @@
 - Decreased the height of the hours shown in the Full Day view to allow more events to be shown.
 - Fixed a fault that caused an error when opening the Year drop-down menu when the current year is not available in the list.
 - Fixed a fault that allowed the padding on the Years drop-down menu to be overridden.
+- Added new options to set the maximum length allowed for event fields (each default to zero, which allows any length):
+  1. maximumEventTitleLength
+  2. maximumEventDescriptionLength
+  3. maximumEventLocationLength
+  4. maximumEventGroupLength
 
 ### Version 0.8.2:
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").

@@ -117,6 +117,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
 | *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
 | *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full day view (defaults to true). |
+| *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
+| *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
+| *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
+| *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
 
 <br/>
 

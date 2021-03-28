@@ -178,6 +178,10 @@
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
  * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
  * @property    {boolean}   showTimelineArrowOnFullDayView              States if the timeline arrow should be shown in the full day view (defaults to true).
+ * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
+ * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
+ * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
+ * @property    {number}    maximumEventGroupLength                     States the maximum length allowed for an event group (defaults to 0 to allow any size).
  */
 
 
@@ -2560,6 +2564,10 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_Title = createElement( "input", null, "text" );
         inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
 
+        if ( _options.maximumEventTitleLength > 0 ) {
+            _element_EventEditorDialog_Title.maxLength = _options.maximumEventTitleLength ;
+        }
+
         var selectColorsButton = createElement( "input", "select-colors", "button" );
         selectColorsButton.value = "...";
         selectColorsButton.onclick = showEventEditorColorsDialog;
@@ -2634,8 +2642,16 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_Location = createElement( "input", null, "text" );
         inputFields1SplitContainer.appendChild( _element_EventEditorDialog_Location );
 
+        if ( _options.maximumEventLocationLength > 0 ) {
+            _element_EventEditorDialog_Location.maxLength = _options.maximumEventLocationLength ;
+        }
+
         _element_EventEditorDialog_Group = createElement( "input", null, "text" );
         inputFields1SplitContainer.appendChild( _element_EventEditorDialog_Group );
+
+        if ( _options.maximumEventGroupLength > 0 ) {
+            _element_EventEditorDialog_Group.maxLength = _options.maximumEventGroupLength ;
+        }
 
         var textDescription = createElement( "p" );
         textDescription.innerText = _options.descriptionText;
@@ -2643,6 +2659,10 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_EventEditorDialog_Description = createElement( "textarea", "custom-scroll-bars" );
         contents.appendChild( _element_EventEditorDialog_Description );
+
+        if ( _options.maximumEventDescriptionLength > 0 ) {
+            _element_EventEditorDialog_Description.maxLength = _options.maximumEventDescriptionLength ;
+        }
 
         _element_EventEditorDialog_ErrorMessage = createElement( "p", "error" );
         contents.appendChild( _element_EventEditorDialog_ErrorMessage );
@@ -4753,7 +4773,11 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( event.from <= event.to ) {
             var storageDate = toStorageDate( event.from ),
-                storageGuid = newGuid();
+                storageGuid = newGuid(),
+                title = getString( event.title ),
+                description = getString( event.description ),
+                location = getString( event.location ),
+                group = getString( event.group );
 
             if ( !_events.hasOwnProperty( storageDate ) ) {
                 _events[ storageDate ] = {};
@@ -4767,6 +4791,22 @@ function calendarJs( id, options, startDateTime ) {
                     event.id = storageGuid;
                 } else {
                     storageGuid = event.id;
+                }
+
+                if ( _options.maximumEventTitleLength > 0 && title !== "" && title.length > _options.maximumEventTitleLength ) {
+                    event.title = event.title.substring( 0, _options.maximumEventTitleLength );
+                }
+
+                if ( _options.maximumEventDescriptionLength > 0 && description !== "" && description.length > _options.maximumEventDescriptionLength ) {
+                    event.description = event.description.substring( 0, _options.maximumEventDescriptionLength );
+                }
+
+                if ( _options.maximumEventLocationLength > 0 && location !== "" && location.length > _options.maximumEventLocationLength ) {
+                    event.location = event.location.substring( 0, _options.maximumEventLocationLength );
+                }
+
+                if ( _options.maximumEventGroupLength > 0 && group !== "" && group.length > _options.maximumEventGroupLength ) {
+                    event.group = event.group.substring( 0, _options.maximumEventGroupLength );
                 }
 
                 if ( !isDefined( event.created ) ) {
@@ -5400,6 +5440,22 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.showTimelineArrowOnFullDayView ) ) {
             _options.showTimelineArrowOnFullDayView = true;
+        }
+
+        if ( !isDefined( _options.maximumEventTitleLength ) ) {
+            _options.maximumEventTitleLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventDescriptionLength ) ) {
+            _options.maximumEventDescriptionLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventLocationLength ) ) {
+            _options.maximumEventLocationLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventGroupLength ) ) {
+            _options.maximumEventGroupLength = 0;
         }
     }
 
