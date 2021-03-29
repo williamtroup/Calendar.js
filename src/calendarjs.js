@@ -1189,8 +1189,8 @@ function calendarJs( id, options, startDateTime ) {
                 today = new Date(),
                 repeatEvery = getNumber( event.repeatEvery );
 
-            newFrom.setHours( event.from.getHours(), event.from.getMinutes() );
-            newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0 );
+            newFrom.setHours( event.from.getHours(), event.from.getMinutes(), 0, 0 );
+            newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0, 0 );
 
             if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.from ) ) {
                 newFrom.setHours( 0, 0, 0, 0 );
