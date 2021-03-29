@@ -864,7 +864,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getWeekNumber( date ) {
-        var firstDay = new Date( date.getFullYear(), 0, 1),
+        var firstDay = new Date( date.getFullYear(), 0, 1 ),
             weekNumber = Math.ceil( ( ( ( date - firstDay ) / 86400000 ) + firstDay.getDay() + 1 ) / 7 );
         
         if ( firstDay.getDay() > 4 ) {
