@@ -985,13 +985,12 @@ function calendarJs( id, options, startDateTime ) {
     function buildDayEvent( dayDate, eventDetails ) {
         var elementDay = getDayElement( dayDate );
         if ( elementDay !== null && isEventVisible( eventDetails ) ) {
-    
+            checkEventForNotifications( dayDate, eventDetails );
+            
             var eventClassName = getEventClassName(),
                 events = elementDay.getElementsByClassName( eventClassName );
 
             if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
-                checkEventForNotifications( dayDate, eventDetails );
-
                 var event = createElement( "div", eventClassName ),
                     eventTitle = eventDetails.title;
 
@@ -5019,7 +5018,7 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
 
-        checkForBrowserNotificationPermissions();
+        checkForBrowserNotificationsPermission();
 
         if ( _initialized ) {
             _initialized = false;
@@ -5508,10 +5507,10 @@ function calendarJs( id, options, startDateTime ) {
             _options.eventNotificationBody = "The event '{0}' has started.";
         }
 
-        checkForBrowserNotificationPermissions();
+        checkForBrowserNotificationsPermission();
     }
 
-    function checkForBrowserNotificationPermissions() {
+    function checkForBrowserNotificationsPermission() {
         if ( _options.eventNotificationsEnabled ) {
             if ( !Notification ) {
                 console.error( "Browser notifications API unavailable." );
