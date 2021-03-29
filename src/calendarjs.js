@@ -1264,7 +1264,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_Contents_AllDayEvents.style.display = "block";
 
         clearElementsByClassName( _element_FullDayView_Contents, getEventClassName() );
-
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
 
