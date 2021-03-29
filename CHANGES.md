@@ -15,6 +15,7 @@
   3. maximumEventLocationLength
   4. maximumEventGroupLength
 - Week numbers are now calculated more accurately for the title bar text.
+- Added browser notification support for events (modern browsers only, while clicking one will open the Event Editor dialog).
 
 ### Version 0.8.2:
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").

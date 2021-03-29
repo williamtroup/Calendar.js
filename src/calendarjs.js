@@ -182,6 +182,9 @@
  * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
  * @property    {number}    maximumEventGroupLength                     States the maximum length allowed for an event group (defaults to 0 to allow any size).
+ * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
+ * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
+ * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
  */
 
 
@@ -204,6 +207,7 @@ function calendarJs( id, options, startDateTime ) {
         _elementTypes = {},
         _elements = {},
         _configuration = {},
+        _eventNotificationsTriggered = {},
         _document = null,
         _window = null,
         _elementID = null,
@@ -986,7 +990,8 @@ function calendarJs( id, options, startDateTime ) {
                 events = elementDay.getElementsByClassName( eventClassName );
 
             if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
-    
+                checkEventForNotifications( dayDate, eventDetails );
+
                 var event = createElement( "div", eventClassName ),
                     eventTitle = eventDetails.title;
 
@@ -1175,6 +1180,38 @@ function calendarJs( id, options, startDateTime ) {
 
     function getEventClassName() {
         return _options.manualEditingEnabled ? "event" : "event-no-hover";
+    }
+
+    function checkEventForNotifications( date, event ) {
+        if (  _options.eventNotificationsEnabled && isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( event.id ) ) {
+            var newFrom = new Date(),
+                newTo = new Date(),
+                today = new Date(),
+                repeatEvery = getNumber( event.repeatEvery );
+
+            newFrom.setHours( event.from.getHours(), event.from.getMinutes() );
+            newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0 );
+
+            if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.from ) ) {
+                newFrom.setHours( 0, 0, 0, 0 );
+            }
+
+            if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.to ) ) {
+                newTo.setHours( 23, 59, 59, 99 );
+            }
+            
+            if ( today >= newFrom && today <= newTo ) {
+                _eventNotificationsTriggered[ event.id ] = true;
+
+                var notification = new Notification( _options.eventNotificationTitle, {
+                    body: _options.eventNotificationBody.replace( "{0}", event.title ),
+                });
+    
+                notification.onclick = function() {
+                    showEventDialog( event );
+                };
+            }
+        }
     }
 
 
@@ -4982,6 +5019,8 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
 
+        checkForBrowserNotificationPermissions();
+
         if ( _initialized ) {
             _initialized = false;
 
@@ -5455,6 +5494,33 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.maximumEventGroupLength ) ) {
             _options.maximumEventGroupLength = 0;
+        }
+
+        if ( !isDefined( _options.eventNotificationsEnabled ) ) {
+            _options.eventNotificationsEnabled = false;
+        }
+
+        if ( !isDefined( _options.eventNotificationTitle ) ) {
+            _options.eventNotificationTitle = "Calendar.js";
+        }
+
+        if ( !isDefined( _options.eventNotificationBody ) ) {
+            _options.eventNotificationBody = "The event '{0}' has started.";
+        }
+
+        checkForBrowserNotificationPermissions();
+    }
+
+    function checkForBrowserNotificationPermissions() {
+        if ( _options.eventNotificationsEnabled ) {
+            if ( !Notification ) {
+                console.error( "Browser notifications API unavailable." );
+            } else {
+
+                if ( Notification.permission !== "granted" ) {
+                    Notification.requestPermission();
+                }
+            }
         }
     }
 

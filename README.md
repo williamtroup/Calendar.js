@@ -27,6 +27,7 @@ Features include:
   8. Ctrl/Command + Left:  Moves to the previous year.
   9. Ctrl/Command + Right:  Moves to the next year.
 - Custom event groups (with configurable toggles).
+- Browser notifications for events (modern browsers only).
 <br>
 
 ## Recent Changes:

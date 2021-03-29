@@ -37,6 +37,7 @@
     
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
+            <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
             <br />
     
             <h2>Export Events:</h2>
@@ -67,6 +68,12 @@
         } );
 
         calendarInstance.addEvents( getEvents() );
+
+        function turnOnEventNotifications() {
+            calendarInstance.setOptions( {
+                eventNotificationsEnabled: true
+            } );
+        }
 
         function setEvents() {
             calendarInstance.setEvents( getEvents() );
@@ -126,9 +133,9 @@
             lastDayInNextMonth.setDate( lastDayInNextMonth.getDate() + daysInMonth( lastDayInNextMonth.getFullYear(), lastDayInNextMonth.getMonth() ) - 1 );
 
             today.setHours( 21, 59, 0, 0 );
-            today.setDate( today.getDate() + 3 );
+            today.setDate( today.getDate() - 3 );
             today3HoursAhead.setHours( 23, 59, 0, 0 );
-            today3HoursAhead.setDate( today3HoursAhead.getDate() + 3 );
+            today3HoursAhead.setDate( today3HoursAhead.getDate() - 3 );
 
             return [
                 {

@@ -121,6 +121,9 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
 | *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
 | *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
+| *boolean* | eventNotificationsEnabled | States if notifications should be shown for events (defaults to false). |
+| *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
+| *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
 
 <br/>
 
