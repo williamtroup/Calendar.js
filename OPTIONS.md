@@ -58,8 +58,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
 | *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
-| *string* | startsOnText | The text that should be displayed for the "Starts on" label. |
-| *string* | andFinishesOnText | The text that should be displayed for the "and finishes on" label. |
 | *string* | toTimeText | The text that should be displayed for the "to" label. |
 | *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
 | *string* | confirmEventRemoveTitle | The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal"). |
@@ -114,6 +112,18 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 | *string* | weekText | The text that should be displayed for the "Week" label. |
+| *string* | groupText | The text that should be displayed for the "Group:" label. |
+| *string* | configurationTooltipText | The tooltip text that should be used for for the "Configuration" button. |
+| *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
+| *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
+| *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full day view (defaults to true). |
+| *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
+| *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
+| *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
+| *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
+| *boolean* | eventNotificationsEnabled | States if notifications should be shown for events (defaults to false). |
+| *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
+| *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
 
 <br/>
 

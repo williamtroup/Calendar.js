@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js v0.8.2</title>
+        <title>Calendar.js v0.9.0</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="src/calendarjs.css" />
@@ -9,7 +9,7 @@
     </head>
 
     <body>
-        <h1>Welcome to Calendar.js v0.8.2:</h1>
+        <h1>Welcome to Calendar.js v0.9.0:</h1>
 
         <div class="contents">
             <p>Click <a href="calendarjs.min.html" target="_self">here</a> to jump to the minimized version.</p>
@@ -37,6 +37,7 @@
     
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
+            <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
             <br />
     
             <h2>Export Events:</h2>
@@ -68,6 +69,12 @@
 
         calendarInstance.addEvents( getEvents() );
 
+        function turnOnEventNotifications() {
+            calendarInstance.setOptions( {
+                eventNotificationsEnabled: true
+            } );
+        }
+
         function setEvents() {
             calendarInstance.setEvents( getEvents() );
         }
@@ -87,7 +94,12 @@
                 exportEventsEnabled: false,
                 showDayNumberOrdinals: false,
                 fullScreenModeEnabled: false,
-                maximumEventsPerDayDisplay: 0
+                maximumEventsPerDayDisplay: 0,
+                showTimelineArrowOnFullDayView: false,
+                maximumEventTitleLength: 10,
+                maximumEventDescriptionLength: 10,
+                maximumEventLocationLength: 10,
+                maximumEventGroupLength: 10
             } );
         }
 
@@ -137,7 +149,8 @@
                     colorText: "#FFFF00",
                     colorBorder: "#00FF00",
                     repeatEvery: 4,
-                    id: "1234-5678-9"
+                    id: "1234-5678-9",
+                    group: "Group 1"
                 },
                 {
                     from: today11,
@@ -145,7 +158,8 @@
                     title: "Title 1",
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    isAllDay: false
+                    isAllDay: false,
+                    group: "group 1"
                 },
                 {
                     from: tomorrow,
@@ -153,7 +167,8 @@
                     title: "Title Bad (should not show)",
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    isAllDay: false
+                    isAllDay: false,
+                    group: "group 1"
                 },
                 {
                     from: today9,
@@ -161,7 +176,8 @@
                     title: "Title 2",
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    isAllDay: true
+                    isAllDay: true,
+                    group: "Group 1"
                 },
                 {
                     from: firstDayInNextMonth,
@@ -172,7 +188,8 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 3
+                    repeatEvery: 3,
+                    group: "Group 2"
                 },
                 {
                     from: firstDayInNextMonth,
@@ -183,7 +200,8 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 3
+                    repeatEvery: 3,
+                    group: "Group 2"
                 },
                 {
                     from: lastDayInNextMonth,
@@ -193,7 +211,8 @@
                     location: "Teams Meeting",
                     isAllDay: true,
                     color: "#0000FF",
-                    repeatEvery: 2
+                    repeatEvery: 2,
+                    group: "Group 2"
                 },
                 {
                     from: today,
@@ -202,7 +221,8 @@
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     repeatEvery: 1,
                     repeatEveryExcludeDays: [ 6, 0 ],
-                    repeatEnds: new Date( today.getFullYear() + 1, 0, 1 )
+                    repeatEnds: new Date( today.getFullYear() + 1, 0, 1 ),
+                    group: "Group 1"
                 }
             ];
         }

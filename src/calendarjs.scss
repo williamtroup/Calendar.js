@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.8.2
+ * Calendar.js Library v0.9.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -136,7 +136,7 @@ div.calendar {
 
         span.link {
             text-decoration: underline;
-            color: #2471A3;
+            color: $link-color;
 
             &:hover {
                 @include opacity-hover-effect;
@@ -287,8 +287,9 @@ div.calendar {
                     height: inherit;
                     margin-left: 0;
                     margin-right: 0;
+                    padding: 0 !important;
     
-                    div {
+                    div.year {
                         display: inline-block;
                         color: $dark-color;
                         font-size: 0.75rem;
@@ -328,7 +329,8 @@ div.calendar {
         div.ib-arrow-left-full,
         div.ib-pin,
         div.ib-refresh,
-        div.ib-search {
+        div.ib-search,
+        div.ib-octagon-hollow {
             float: left;
         }
 
@@ -347,7 +349,8 @@ div.calendar {
             div.ib-search,
             div.ib-hamburger,
             div.ib-eye,
-            div.ib-arrow-down-full-line {
+            div.ib-arrow-down-full-line,
+            div.ib-octagon-hollow {
                 display: inline-block;
             }
         }
@@ -357,7 +360,8 @@ div.calendar {
             div.ib-search,
             div.ib-hamburger,
             div.ib-eye,
-            div.ib-arrow-down-full-line {
+            div.ib-arrow-down-full-line,
+            div.ib-octagon-hollow {
                 display: none !important;
             }
         }
@@ -489,13 +493,40 @@ div.calendar {
             div.contents-events {
                 position: relative;
 
+                div.time-arrow {
+                    position: absolute;
+                    width: calc(100% - #{$time-hours-width} - (#{$spacing} * 2) - #{$standard-border-size});
+                    left: $time-hours-width + ($spacing * 2) + $standard-border-size;
+                    top: 0;                    
+                    z-index: 10;
+                    height: $time-arrow-line-height;
+                    display: none;
+
+                    div.arrow-left {
+                        width: 0; 
+                        height: 0; 
+                        border-top: $time-arrow-line-height / 2 solid transparent;
+                        border-bottom: $time-arrow-line-height / 2 solid transparent;
+                        border-right: $time-arrow-line-height solid $link-color;
+                    }
+
+                    div.line {
+                        background-color: $link-color;
+                        position: absolute;
+                        left: $time-arrow-line-height;
+                        top: $time-arrow-line-height / 4;
+                        height: $time-arrow-line-height / 2;
+                        width: 100%;
+                    }
+                }
+
                 div.hour {
                     background-color: $light-color;
                     border-bottom: $standard-border-size solid $dark-color;
 
                     div.hour-text {
                         width: $time-hours-width;
-                        height: $time-hours-width;
+                        height: $time-hours-height;
                         padding: $spacing;
                         background-color: $light-color;
                         color: $dark-color;
@@ -942,6 +973,48 @@ div.search {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Dialog - Configuration
+    -------------------------------------------------------------------------
+*/
+
+div.configuration {
+    @include dialog-styles(300px);
+    @include dialog-title-bar;
+
+    div.controls-container {
+        @include input-style;
+        height: 150px;
+        padding: $spacing;
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+
+    div.contents {
+        padding: $spacing;
+        
+        p {
+            @include no-selection-allowed;
+            margin: 0;
+            margin-bottom: 8px;
+        }
+    }
+
+    @import "foundation/split-container";
+
+    div.split {
+        margin-top: $spacing * 2;
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button(ok, $light-color, $ok-color);
+        @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - CheckBox
     -------------------------------------------------------------------------
 */
@@ -1270,7 +1343,8 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/close";
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
-@import "foundation/buttons/arrow-top-right";
+@import "foundation/small/arrow-top-right";
+@import "foundation/buttons/octagon-hollow";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/arrow-top-right-icon";
 @import "foundation/menus/hamburger-icon";
