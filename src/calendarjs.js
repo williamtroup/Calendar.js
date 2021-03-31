@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.0
+ * Calendar.js Library v0.9.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -654,11 +654,10 @@ function calendarJs( id, options, startDateTime ) {
         if ( _element_HeaderDateDisplay_YearSelector.style.display !== "block" ) {
             hideAllDropDowns();
             cancelBubble( e );
-            
-            var year = updateYearSelectorDropDownMenuColors();
 
             _element_HeaderDateDisplay_YearSelector.style.display = "block";
 
+            var year = updateYearSelectorDropDownMenuColors();
             if ( year !== null ) {
                 _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - ( _element_HeaderDateDisplay_YearSelector.offsetHeight / 2 );
             } else {
