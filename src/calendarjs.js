@@ -5007,8 +5007,8 @@ function calendarJs( id, options, startDateTime ) {
     this.getEvent = function( id ) {
         var returnEvent = null;
 
-        getAllEventsFunc( function( event, _, storageGuid ) {
-            if ( storageGuid === id ) {
+        getAllEventsFunc( function( event ) {
+            if ( event.id === id ) {
                 returnEvent = event;
                 return true;
             }
