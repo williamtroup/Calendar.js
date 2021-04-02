@@ -628,8 +628,7 @@ function calendarJs( id, options, startDateTime ) {
 
         for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
             buildYearSelectorDropDownYear( date.getFullYear() );
-
-            date.setFullYear( date.getFullYear() + 1 );
+            moveDateForwardOneYear( date );
         }
 
         _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
@@ -881,6 +880,30 @@ function calendarJs( id, options, startDateTime ) {
         return date.getDay() === 6 || date.getDay() === 0;
     }
 
+    function moveDateBackOneDay( date ) {
+        date.setDate( date.getDate() - 1 );
+    }
+
+    function moveDateForwardOneDay( date ) {
+        date.setDate( date.getDate() + 1 );
+    }
+
+    function moveDateBackOneWeek( date ) {
+        date.setDate( date.getDate() - 7 );
+    }
+
+    function moveDateForwardOneWeek( date ) {
+        date.setDate( date.getDate() + 7 );
+    }
+
+    function moveDateForwardOneMonth( date ) {
+        date.setMonth( date.getMonth() + 1 );
+    }
+
+    function moveDateForwardOneYear( date ) {
+        date.setFullYear( date.getFullYear() + 1 );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -917,21 +940,13 @@ function calendarJs( id, options, startDateTime ) {
             var repeatEvery = getNumber( orderedEvent.repeatEvery );
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    buildRepeatedDayEvents( orderedEvent, function( date ) {
-                        date.setDate( date.getDate() + 1 );
-                    } );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    buildRepeatedDayEvents( orderedEvent, function( date ) {
-                        date.setDate( date.getDate() + 7 );
-                    } );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneWeek );
                 } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    buildRepeatedDayEvents( orderedEvent, function( date ) {
-                        date.setMonth( date.getMonth() + 1 );
-                    } );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    buildRepeatedDayEvents( orderedEvent, function( date ) {
-                        date.setFullYear( date.getFullYear() + 1 );
-                    } );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneYear );
                 }
             }
         }
@@ -970,7 +985,7 @@ function calendarJs( id, options, startDateTime ) {
     
                 var nextDayDate = new Date( orderedEvent.from );
                 for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
-                    nextDayDate.setDate( nextDayDate.getDate() + 1 );
+                    moveDateForwardOneDay( nextDayDate );
     
                     var elementNextDay = getDayElement( nextDayDate );
                     if ( elementNextDay !== null ) {
@@ -1321,27 +1336,19 @@ function calendarJs( id, options, startDateTime ) {
                     break;
                 }
 
-                nextDate.setDate( nextDate.getDate() + 1 );
+                moveDateForwardOneDay( nextDate );
             }
             
             var repeatEvery = getNumber( event.repeatEvery );
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
-                        date.setDate( date.getDate() + 1 );
-                    } );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
-                        date.setDate( date.getDate() + 7 );
-                    } );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneWeek );
                 } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
-                        date.setMonth( date.getMonth() + 1 );
-                    } );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, function( date ) {
-                        date.setFullYear( date.getFullYear() + 1 );
-                    } );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneYear );
                 }
             }
         } );
@@ -1516,12 +1523,12 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function onPreviousDay() {
-        _element_FullDayView_DateSelected.setDate( _element_FullDayView_DateSelected.getDate() - 1 );
+        moveDateBackOneDay( _element_FullDayView_DateSelected );
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
     function onNextDay() {
-        _element_FullDayView_DateSelected.setDate( _element_FullDayView_DateSelected.getDate() + 1 );
+        moveDateForwardOneDay( _element_FullDayView_DateSelected );
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
@@ -1823,7 +1830,7 @@ function calendarJs( id, options, startDateTime ) {
                     }
                 }
 
-                nextDate.setDate( nextDate.getDate() + 1 );
+                moveDateForwardOneDay( nextDate );
             }
 
             if ( addedNow ) {
@@ -1835,21 +1842,13 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
-                        date.setDate( date.getDate() + 1 );
-                    } );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
-                        date.setDate( date.getDate() + 7 );
-                    } );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneWeek );
                 } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
-                        date.setMonth( date.getMonth() + 1 );
-                    } );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, function( date ) {
-                        date.setFullYear( date.getFullYear() + 1 );
-                    } );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneYear );
                 }
             }
 
@@ -2007,7 +2006,7 @@ function calendarJs( id, options, startDateTime ) {
 
         do {
             buildListAllEventsDay( startOfWeek );
-            startOfWeek.setDate( startOfWeek.getDate() + 1 );
+            moveDateForwardOneDay( startOfWeek );
 
         } while ( startOfWeek < weekEndDate );
     }
@@ -2066,12 +2065,12 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function onPreviousWeek() {
-        _element_ListAllWeekEventsView_DateSelected.setDate( _element_ListAllWeekEventsView_DateSelected.getDate() - 7 );
+        moveDateBackOneWeek( _element_ListAllWeekEventsView_DateSelected );
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
     }
 
     function onNextWeek() {
-        _element_ListAllWeekEventsView_DateSelected.setDate( _element_ListAllWeekEventsView_DateSelected.getDate() + 7 );
+        moveDateForwardOneWeek( _element_ListAllWeekEventsView_DateSelected );
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
     }
 
@@ -2368,22 +2367,7 @@ function calendarJs( id, options, startDateTime ) {
                 toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
             }
 
-            var newEvent = {
-                from: fromDate,
-                to: toDate,
-                title: _eventDetails_Dragged.title,
-                description: _eventDetails_Dragged.description,
-                location: _eventDetails_Dragged.location,
-                isAllDay: _eventDetails_Dragged.isAllDay,
-                color: _eventDetails_Dragged.color,
-                colorText: _eventDetails_Dragged.colorText,
-                colorBorder: _eventDetails_Dragged.colorBorder,
-                repeatEvery: _eventDetails_Dragged.repeatEvery,
-                repeatEveryExcludeDays: _eventDetails_Dragged.repeatEveryExcludeDays
-            };
-
-            _this.updateEvent( _eventDetails_Dragged.id, newEvent );
-            
+            _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate );            
             refreshViews();
         }
     }
@@ -4892,6 +4876,49 @@ function calendarJs( id, options, startDateTime ) {
                 triggerOptionsEventWithEventData( "onEventUpdated", event );
             }
         }
+        
+        return updated;
+    };
+
+    /**
+     * updateEventDateTimes().
+     * 
+     * Updates an existing events from/to dates.
+     * 
+     * @fires       onEventUpdated
+     * 
+     * @param       {string}    id                                          The ID of the event.
+     * @param       {Object}    from                                        The new from date.
+     * @param       {Object}    to                                          The new to date.
+     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States of the "onEventUpdated" event should be triggered.
+     * 
+     * @returns     {boolean}                                               States if the event was updated.
+     */
+     this.updateEventDateTimes = function( id, from, to, updateEvents, triggerEvent ) {
+        var updated = false;
+
+        getAllEventsFunc( function( event ) {
+            if ( event.id === id ) {
+                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+                event.from = from;
+                event.to = to;
+                updated = true;
+
+                if ( triggerEvent ) {
+                    triggerOptionsEventWithEventData( "onEventUpdated", event );
+                }
+
+                if ( updateEvents ) {
+                    buildDayEvents();
+                    refreshOpenedViews();
+                }
+
+                return true;
+            }
+        } );
         
         return updated;
     };
