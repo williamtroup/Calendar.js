@@ -3333,16 +3333,19 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.innerText = _options.searchEventsTitle;
         titleBar.onmousedown = searchOnTitleBarMouseDown;
         titleBar.onmouseup = searchOnTitleBarMouseUp;
+        titleBar.ondblclick = minimizeRestoreDialog;
         _element_SearchDialog.appendChild( titleBar );
 
         var closeButton = createElement( "div", "ib-close" );
         closeButton.onclick = hideSearchDialog;
+        closeButton.ondblclick = cancelBubble;
         titleBar.appendChild( closeButton );
 
         addToolTip( closeButton, _options.closeTooltipText );
 
         _element_SearchDialog_MinimizedRestoreButton = createElement( "div", "ib-minus" );
         _element_SearchDialog_MinimizedRestoreButton.onclick = minimizeRestoreDialog;
+        _element_SearchDialog_MinimizedRestoreButton.ondblclick = cancelBubble;
         titleBar.appendChild( _element_SearchDialog_MinimizedRestoreButton );
 
         addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.minimizedTooltipText );

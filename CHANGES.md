@@ -3,6 +3,7 @@
 ### Version 0.9.1:
 - Added new public function updateEventDateTimes().
 - Drag & Drop now uses the new updateEventDateTimes() function (much faster).
+- Double clicking on the Search dialogs title bar will now toggle its minimized state.
 - 
 
 ### Version 0.9.0:
