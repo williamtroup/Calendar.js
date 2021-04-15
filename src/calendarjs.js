@@ -186,6 +186,7 @@
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
  * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
+ * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
  */
 
 
@@ -524,17 +525,19 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDayNamesHeader() {
-        var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
-            headerNamesLength = _options.dayHeaderNames.length;
+        if ( _options.showDayNamesInMainDisplay ) {
+            var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
+                headerNamesLength = _options.dayHeaderNames.length;
 
-        _element_Calendar.appendChild( headerRow );
+            _element_Calendar.appendChild( headerRow );
 
-        for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
-            var headerName = _options.dayHeaderNames[ headerNameIndex ],
-                header = createElement( "div", _elementClassName_Cell );
+            for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
+                var headerName = _options.dayHeaderNames[ headerNameIndex ],
+                    header = createElement( "div", _elementClassName_Cell );
 
-            header.innerText = headerName;
-            headerRow.appendChild( header );
+                header.innerText = headerName;
+                headerRow.appendChild( header );
+            }
         }
     }
 
@@ -5550,6 +5553,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
             _options.showPreviousNextMonthNamesInMainDisplay = true;
+        }
+
+        if ( !isDefined( _options.showDayNamesInMainDisplay ) ) {
+            _options.showDayNamesInMainDisplay = true;
         }
 
         checkForBrowserNotificationsPermission();

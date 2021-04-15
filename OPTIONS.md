@@ -125,6 +125,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
 | *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
 | *boolean* | showPreviousNextMonthNamesInMainDisplay | States if the previous/next month names should be shown in the main display days (defaults to true). |
+| *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
 
 <br/>
 
