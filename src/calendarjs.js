@@ -2400,7 +2400,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDayDropDownMenu() {
-        if (_element_DropDownMenu_Day !== null) {
+        if ( _element_DropDownMenu_Day !== null ) {
             removeNode( _document.body, _element_DropDownMenu_Day );
         }
 
@@ -2427,7 +2427,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildEventDropDownMenu() {
-        if (_element_DropDownMenu_Event !== null) {
+        if ( _element_DropDownMenu_Event !== null ) {
             removeNode( _document.body, _element_DropDownMenu_Event );
         }
 
