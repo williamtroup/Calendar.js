@@ -111,6 +111,23 @@ Updates an existing event.
 <br>
 ***Returns***: '*boolean*' - States if the event was updated.
 
+### **updateEventDateTimes( *id*, *from*, *to*, *updateEvents*, *triggerEvent* )**:
+Updates an existing events from/to dates.
+<br>
+***Fires***:  onEventUpdated
+<br>
+***Parameter: id***: '*string*' - The ID of the event.
+<br>
+***Parameter: from***: '*Object*' - The new from date.
+<br>
+***Parameter: to***: '*Object*' - The new to date.
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onEventUpdated" event should be triggered.
+<br>
+***Returns***: '*boolean*' - States if the event was updated.
+
 ### **removeEvent( *id*, *updateEvents*, *triggerEvent* )**:
 Removes an event.
 <br>
