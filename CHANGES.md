@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.2:
+- 
+
 ### Version 0.9.1:
 - Added new public function updateEventDateTimes().
 - Drag & Drop now uses the new updateEventDateTimes() function (much faster).
