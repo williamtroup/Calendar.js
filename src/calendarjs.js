@@ -2893,6 +2893,8 @@ function calendarJs( id, options, startDateTime ) {
                 if ( !isExistingEvent ) {
                     newEvent.organizerName = _options.organizerName;
                     newEvent.organizerEmailAddress = _options.organizerEmailAddress;
+                } else {
+                    newEvent.id = _element_EventEditorDialog_EventDetails.id;
                 }
     
                 if ( isExistingEvent ) {
@@ -4870,8 +4872,6 @@ function calendarJs( id, options, startDateTime ) {
         if ( updated ) {
             updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
             triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
-
-            event.id = newGuid();
 
             updated = this.addEvent( event, updateEvents, false );
 
