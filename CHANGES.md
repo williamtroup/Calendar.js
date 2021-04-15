@@ -3,9 +3,8 @@
 ### Version 0.9.1:
 - Added new public function updateEventDateTimes().
 - Drag & Drop now uses the new updateEventDateTimes() function (much faster).
-- Double clicking on the Search dialogs title bar will now toggle its minimized state.
+- Double-clicking on the Search dialogs title bar will now toggle its minimized state.
 - Fixed a fault that caused the event ID property to be overridden when updated in the Event Editor.
-- 
 
 ### Version 0.9.0:
 - Fixed a fault that prevented all-day events from being exported from the Full Day view.
