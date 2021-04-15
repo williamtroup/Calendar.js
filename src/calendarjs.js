@@ -185,6 +185,7 @@
  * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
+ * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
  */
 
 
@@ -2174,7 +2175,9 @@ function calendarJs( id, options, startDateTime ) {
                 dayStart = ( totalDaysInMonth - startDay ) + 1;
 
             for ( var day = dayStart; day < totalDaysInMonth; day++ ) {
-                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true );
+                var addMonthName = day === ( totalDaysInMonth - 1 );
+
+                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName );
                 elementDayNumber++;
             }
         }
@@ -2200,7 +2203,9 @@ function calendarJs( id, options, startDateTime ) {
             nextMonth.setMonth( nextMonth.getMonth() + 1 );
 
             for ( var elementDayNumber = lastDayFilled + 1; elementDayNumber < 43; elementDayNumber++ ) {
-                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true );
+                var addMonthName = actualDay === 1;
+
+                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName );
                 actualDay++;
             }
 
@@ -2214,15 +2219,16 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildDay( actualDay, elementDayNumber, month, year, isMuted ) {
+    function buildDay( actualDay, elementDayNumber, month, year, isMuted, includeMonthName ) {
         var today = new Date(),
             dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
             dayElement = getElementByID( _elementID_DayElement + elementDayNumber ),
             dayText = createElement( "span" ),
             dayDate = new Date( year, month, actualDay );
         
-        dayElement.innerHTML = "";
+        includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
+        dayElement.innerHTML = "";
         dayText.className = isMuted ? "day-muted" : "";
         dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
@@ -2247,6 +2253,12 @@ function calendarJs( id, options, startDateTime ) {
         dayElement.appendChild( expandDayButton );
 
         addToolTip( expandDayButton, _options.expandDayTooltipText );
+
+        if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
+            var monthName = createElement( "span", "month-name" );
+            monthName.innerText = _options.monthNames[ month ];
+            dayText.appendChild( monthName );
+        }
 
         var holidayText = getHoliday( dayDate );
         if ( holidayText !== null ) {
@@ -5534,6 +5546,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.eventNotificationBody ) ) {
             _options.eventNotificationBody = "The event '{0}' has started.";
+        }
+
+        if ( !isDefined( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
+            _options.showPreviousNextMonthNamesInMainDisplay = true;
         }
 
         checkForBrowserNotificationsPermission();

@@ -193,7 +193,8 @@ div.calendar {
                     padding-right: 7px;
                 }
 
-                &.holiday {
+                &.holiday,
+                &.month-name {
                     display: block;
                     font-size: xx-small;
                 }

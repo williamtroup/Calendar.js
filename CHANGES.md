@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.9.2:
-- 
+- Added support to show the previous/next month names in the days on the main display (optional, on by default).
 
 ### Version 0.9.1:
 - Added new public function updateEventDateTimes().

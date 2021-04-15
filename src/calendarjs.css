@@ -281,7 +281,7 @@ div.calendar div.row div.cell span.today {
   padding-right: 7px;
 }
 
-div.calendar div.row div.cell span.holiday {
+div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name {
   display: block;
   font-size: xx-small;
 }
