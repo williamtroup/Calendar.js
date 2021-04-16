@@ -65,10 +65,10 @@
 
 
 /**
- * Options.
+ * Options - Translatable Strings.
  * 
- * These are the options that are used to control how Calendar.js works and renders.
- *
+ * These are the translatable strings that are used in Calendar.js.
+ * 
  * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for for the "Previous Month" button.
  * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for for the "Next Month" button.
  * @property    {string}    previousDayTooltipText                      The tooltip text that should be used for for the "Previous Day" button.
@@ -86,6 +86,7 @@
  * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
  * @property    {Object[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
  * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {Object[]}  monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
  * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All-Day" label.
@@ -98,9 +99,6 @@
  * @property    {string}    removeEventText                             The text that should be displayed for the "Remove Event" button.
  * @property    {string}    addEventTitle                               The title bar text that is shown for the "Add Event" label.
  * @property    {string}    editEventTitle                              The title bar text that is shown for the "Edit Event" label.
- * @property    {string}    monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
- * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
- * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
  * @property    {string}    exportStartFilename                         The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
  * @property    {string}    fromTimeErrorMessage                        The error message shown for the "Please select a valid 'From' time." label.
  * @property    {string}    toTimeErrorMessage                          The error message shown for the "Please select a valid 'To' time." label.
@@ -110,23 +108,15 @@
  * @property    {string}    ndText                                      The day ordinal text for "nd".
  * @property    {string}    rdText                                      The day ordinal text for "rd".
  * @property    {string}    thText                                      The day ordinal text for "th".
- * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
  * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
  * @property    {string}    noText                                      The text that should be displayed for the "No" label.
- * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
  * @property    {string}    allDayText                                  The text that should be displayed for the "All-Day" label.
  * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
- * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
- * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
- * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
  * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
- * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
  * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
  * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
  * @property    {string}    selectExportTypeTitle                       The text that should be displayed for the "Select Export Type" label.
- * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
- * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
  * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
  * @property    {string}    backgroundColorText                         The text that should be displayed for the "Background Color:" label.
  * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
@@ -136,7 +126,6 @@
  * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
- * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
  * @property    {string}    repeatsText                                 The text that should be displayed for the "Repeats:" label.
  * @property    {string}    repeatDaysToExcludeText                     The text that should be displayed for the "Repeat Days To Exclude:" label.
  * @property    {string}    daysToExcludeText                           The text that should be displayed for the "Days To Exclude:" label.
@@ -148,20 +137,16 @@
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
  * @property    {string}    repeatOptionsTitle                          The text that should be displayed for the "Repeat Options" label.
  * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
- * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
  * @property    {string}    includeText                                 The text that should be displayed for the "Include:" label.
  * @property    {string}    minimizedTooltipText                        The tooltip text that should be used for for the "Minimize" button.
  * @property    {string}    restoreTooltipText                          The tooltip text that should be used for for the "Restore" button.
  * @property    {string}    removeAllEventsInSeriesText                 The text that should be displayed for the "Remove All Events In Series" label.
  * @property    {string}    createdText                                 The text that should be displayed for the "Created:" label.
- * @property    {string}    organizerName                               The default name of the organizer (defaults to empty string).
- * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
  * @property    {string}    organizerNameText                           The text that should be displayed for the "Organizer:" label.
  * @property    {string}    organizerEmailAddressText                   The text that should be displayed for the "Organizer Email:" label.
  * @property    {string}    enableFullScreenTooltipText                 The tooltip text that should be used for for the "Turn On Full-Screen Mode" button.
  * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button.
  * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
- * @property    {number}    spacing                                     States the default spacing that should be used for additional margins.
  * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for for the "Expand Month" button.
  * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
  * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
@@ -170,21 +155,44 @@
  * @property    {string}    clickText                                   The text that should be displayed for the "Click" label.
  * @property    {string}    hereText                                    The text that should be displayed for the "here" label.
  * @property    {string}    toAddANewEventText                          The text that should be displayed for the "to add a new event." label.
- * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
- * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {string}    weekText                                    The text that should be displayed for the "Week" label.
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
  * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
  * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
+ * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
+ * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
+ */
+
+
+/**
+ * Options.
+ * 
+ * These are the options that are used to control how Calendar.js works and renders.
+ *
+ * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
+ * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
+ * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
+ * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
+ * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
+ * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
+ * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
+ * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
+ * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
+ * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
+ * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
+ * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
+ * @property    {string}    organizerName                               The default name of the organizer (defaults to empty string).
+ * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
+ * @property    {number}    spacing                                     States the default spacing that should be used for additional margins.
+ * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
+ * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {boolean}   showTimelineArrowOnFullDayView              States if the timeline arrow should be shown in the full day view (defaults to true).
  * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
  * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
  * @property    {number}    maximumEventGroupLength                     States the maximum length allowed for an event group (defaults to 0 to allow any size).
  * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
- * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
- * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
  * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
  * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
  */
@@ -5074,6 +5082,111 @@ function calendarJs( id, options, startDateTime ) {
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
 
+        if ( !isDefined( _options.showDayNumberOrdinals ) ) {
+            _options.showDayNumberOrdinals = true;
+        }
+
+        if ( !isDefined( _options.dragAndDropForEventsEnabled ) ) {
+            _options.dragAndDropForEventsEnabled = true;
+        }
+
+        if ( !isDefined( _options.maximumEventsPerDayDisplay ) ) {
+            _options.maximumEventsPerDayDisplay = 3;
+        }
+
+        if ( !isDefined( _options.extraSelectableYearsAhead ) ) {
+            _options.extraSelectableYearsAhead = 51;
+        }
+
+        if ( !isDefined( _options.exportEventsEnabled ) ) {
+            _options.exportEventsEnabled = true;
+        }
+
+        if ( !isDefined( _options.manualEditingEnabled ) ) {
+            _options.manualEditingEnabled = true;
+        }
+
+        if ( !isDefined( _options.showTimesInMainCalendarEvents ) ) {
+            _options.showTimesInMainCalendarEvents = false;
+        }
+
+        if ( !isDefined( _options.autoRefreshTimerDelay ) ) {
+            _options.autoRefreshTimerDelay = 30000;
+        }
+
+        if ( !isDefined( _options.fullScreenModeEnabled ) ) {
+            _options.fullScreenModeEnabled = true;
+        }
+
+        if ( !isDefined( _options.eventTooltipDelay ) ) {
+            _options.eventTooltipDelay = 1000;
+        }
+
+        if ( !isDefined( _options.minimumDayHeight ) ) {
+            _options.minimumDayHeight = 0;
+        }
+
+        if ( !isDefined( _options.holidays ) ) {
+            _options.holidays = getStandardHolidays();
+        }
+
+        if ( !isDefined( _options.organizerName ) ) {
+            _options.organizerName = "";
+        }
+        
+        if ( !isDefined( _options.organizerEmailAddress ) ) {
+            _options.organizerEmailAddress = "";
+        }
+
+        if ( !isDefined( _options.spacing ) ) {
+            _options.spacing = 10;
+        }
+
+        if ( !isDefined( _options.showAllDayEventDetailsInFullDayView ) ) {
+            _options.showAllDayEventDetailsInFullDayView = false;
+        }
+
+        if ( !isDefined( _options.showWeekNumbersInTitles ) ) {
+            _options.showWeekNumbersInTitles = false;
+        }
+
+        if ( !isDefined( _options.showTimelineArrowOnFullDayView ) ) {
+            _options.showTimelineArrowOnFullDayView = true;
+        }
+
+        if ( !isDefined( _options.maximumEventTitleLength ) ) {
+            _options.maximumEventTitleLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventDescriptionLength ) ) {
+            _options.maximumEventDescriptionLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventLocationLength ) ) {
+            _options.maximumEventLocationLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventGroupLength ) ) {
+            _options.maximumEventGroupLength = 0;
+        }
+
+        if ( !isDefined( _options.eventNotificationsEnabled ) ) {
+            _options.eventNotificationsEnabled = false;
+        }
+
+        if ( !isDefined( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
+            _options.showPreviousNextMonthNamesInMainDisplay = true;
+        }
+
+        if ( !isDefined( _options.showDayNamesInMainDisplay ) ) {
+            _options.showDayNamesInMainDisplay = true;
+        }
+
+        setTranslationStringOptions();
+        checkForBrowserNotificationsPermission();
+    }
+
+    function setTranslationStringOptions() {
         if ( !isDefined( _options.previousMonthTooltipText ) ) {
             _options.previousMonthTooltipText = "Previous Month";
         }
@@ -5135,11 +5248,44 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.dayHeaderNames ) ) {
-            _options.dayHeaderNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
+            _options.dayHeaderNames = [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ];
         }
 
         if ( !isDefined( _options.dayNames ) ) {
-            _options.dayNames = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
+            _options.dayNames = [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            ];
+        }
+
+        if ( !isDefined( _options.monthNames ) ) {
+            _options.monthNames = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ];
         }
 
         if ( !isDefined( _options.fromText ) ) {
@@ -5190,31 +5336,6 @@ function calendarJs( id, options, startDateTime ) {
             _options.editEventTitle = "Edit Event";
         }
 
-        if ( !isDefined( _options.monthNames ) ) {
-            _options.monthNames = [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"
-            ];
-        }
-
-        if ( !isDefined( _options.showDayNumberOrdinals ) ) {
-            _options.showDayNumberOrdinals = true;
-        }
-
-        if ( !isDefined( _options.dragAndDropForEventsEnabled ) ) {
-            _options.dragAndDropForEventsEnabled = true;
-        }
-
         if ( !isDefined( _options.exportStartFilename ) ) {
             _options.exportStartFilename = "exported_events_";
         }
@@ -5251,20 +5372,12 @@ function calendarJs( id, options, startDateTime ) {
             _options.thText = "th";
         }
 
-        if ( !isDefined( _options.maximumEventsPerDayDisplay ) ) {
-            _options.maximumEventsPerDayDisplay = 3;
-        }
-
         if ( !isDefined( _options.yesText ) ) {
             _options.yesText = "Yes";
         }
 
         if ( !isDefined( _options.noText ) ) {
             _options.noText = "No";
-        }
-
-        if ( !isDefined( _options.extraSelectableYearsAhead ) ) {
-            _options.extraSelectableYearsAhead = 51;
         }
 
         if ( !isDefined( _options.allDayText ) ) {
@@ -5275,166 +5388,126 @@ function calendarJs( id, options, startDateTime ) {
             _options.allEventsText = "All Events";
         }
 
-        if ( !isDefined( _options.exportEventsEnabled ) ) {
-            _options.exportEventsEnabled = true;
-        }
-
-        if ( !isDefined( _options.manualEditingEnabled ) ) {
-            _options.manualEditingEnabled = true;
-        }
-
-        if ( !isDefined( _options.showTimesInMainCalendarEvents ) ) {
-            _options.showTimesInMainCalendarEvents = false;
-        }
-
         if ( !isDefined( _options.toTimeText ) ) {
             _options.toTimeText = "to";
         }
-
-        if ( !isDefined( _options.autoRefreshTimerDelay ) ) {
-            _options.autoRefreshTimerDelay = 30000;
-        }
-
+        
         if ( !isDefined( _options.confirmEventRemoveTitle ) ) {
             _options.confirmEventRemoveTitle = "Confirm Event Removal";
         }
-
+        
         if ( !isDefined( _options.confirmEventRemoveMessage ) ) {
             _options.confirmEventRemoveMessage = "Removing this event cannot be undone.  Do you want to continue?";
         }
-
+        
         if ( !isDefined( _options.okText ) ) {
             _options.okText = "OK";
         }
-
+        
         if ( !isDefined( _options.selectExportTypeTitle ) ) {
             _options.selectExportTypeTitle = "Select Export Type";
         }
-
-        if ( !isDefined( _options.fullScreenModeEnabled ) ) {
-            _options.fullScreenModeEnabled = true;
-        }
-
-        if ( !isDefined( _options.eventTooltipDelay ) ) {
-            _options.eventTooltipDelay = 1000;
-        }
-
+        
         if ( !isDefined( _options.selectColorsText ) ) {
             _options.selectColorsText = "Select Colors";
         }
-
+        
         if ( !isDefined( _options.backgroundColorText ) ) {
             _options.backgroundColorText = "Background Color:";
         }
-
+        
         if ( !isDefined( _options.textColorText ) ) {
             _options.textColorText = "Text Color:";
         }
-
+        
         if ( !isDefined( _options.borderColorText ) ) {
             _options.borderColorText = "Border Color:";
         }
-
+        
         if ( !isDefined( _options.searchEventsTitle ) ) {
             _options.searchEventsTitle = "Search Events";
         }
-
+        
         if ( !isDefined( _options.forText ) ) {
             _options.forText = "For:";
         }
-
+        
         if ( !isDefined( _options.previousText ) ) {
             _options.previousText = "Previous";
         }
-
+        
         if ( !isDefined( _options.nextText ) ) {
             _options.nextText = "Next";
         }
-
+        
         if ( !isDefined( _options.matchCaseText ) ) {
             _options.matchCaseText = "Match Case";
         }
-
-        if ( !isDefined( _options.minimumDayHeight ) ) {
-            _options.minimumDayHeight = 0;
-        }
-
+        
         if ( !isDefined( _options.repeatsText ) ) {
             _options.repeatsText = "Repeats:";
         }
-
+        
         if ( !isDefined( _options.repeatDaysToExcludeText ) ) {
             _options.repeatDaysToExcludeText = "Repeat Days To Exclude:";
         }
-
+        
         if ( !isDefined( _options.daysToExcludeText ) ) {
             _options.daysToExcludeText = "Days To Exclude:";
         }
-
+        
         if ( !isDefined( _options.seriesIgnoreDatesText ) ) {
             _options.seriesIgnoreDatesText = "Series Ignore Dates:";
         }
-
+        
         if ( !isDefined( _options.repeatsNever ) ) {
             _options.repeatsNever = "Never";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryDayText ) ) {
             _options.repeatsEveryDayText = "Every Day";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryWeekText ) ) {
             _options.repeatsEveryWeekText = "Every Week";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryMonthText ) ) {
             _options.repeatsEveryMonthText = "Every Month";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryYearText ) ) {
             _options.repeatsEveryYearText = "Every Year";
         }
-
+        
         if ( !isDefined( _options.repeatOptionsTitle ) ) {
             _options.repeatOptionsTitle = "Repeat Options";
         }
-
+        
         if ( !isDefined( _options.moreText ) ) {
             _options.moreText = "More";
         }
-
+        
         if ( !isDefined( _options.includeText ) ) {
             _options.includeText = "Include:";
         }
-
-        if ( !isDefined( _options.holidays ) ) {
-            _options.holidays = getStandardHolidays();
-        }
-
+        
         if ( !isDefined( _options.minimizedTooltipText ) ) {
             _options.minimizedTooltipText = "Minimize";
         }
-
+        
         if ( !isDefined( _options.restoreTooltipText ) ) {
             _options.restoreTooltipText = "Restore";
         }
-
+        
         if ( !isDefined( _options.removeAllEventsInSeriesText ) ) {
             _options.removeAllEventsInSeriesText = "Remove All Events In Series";
         }
-
+        
         if ( !isDefined( _options.createdText ) ) {
             _options.createdText = "Created:";
         }
-
-        if ( !isDefined( _options.organizerName ) ) {
-            _options.organizerName = "";
-        }
         
-        if ( !isDefined( _options.organizerEmailAddress ) ) {
-            _options.organizerEmailAddress = "";
-        }
-
         if ( !isDefined( _options.organizerNameText ) ) {
             _options.organizerNameText = "Organizer:";
         }
@@ -5442,124 +5515,78 @@ function calendarJs( id, options, startDateTime ) {
         if ( !isDefined( _options.organizerEmailAddressText ) ) {
             _options.organizerEmailAddressText = "Organizer Email:";
         }
-
+        
         if ( !isDefined( _options.enableFullScreenTooltipText ) ) {
             _options.enableFullScreenTooltipText = "Turn On Full-Screen Mode";
         }
-
+        
         if ( !isDefined( _options.disableFullScreenTooltipText ) ) {
             _options.disableFullScreenTooltipText = "Turn Off Full-Screen Mode";
         }
-
+        
         if ( !isDefined( _options.idText ) ) {
             _options.idText = "ID:";
         }
-
-        if ( !isDefined( _options.spacing ) ) {
-            _options.spacing = 10;
-        }
-
+        
         if ( !isDefined( _options.expandMonthTooltipText ) ) {
             _options.expandMonthTooltipText = "Expand Month";
         }
-
+        
         if ( !isDefined( _options.repeatEndsText ) ) {
             _options.repeatEndsText = "Repeat Ends:";
         }
-
+        
         if ( !isDefined( _options.noEventsAvailableText ) ) {
             _options.noEventsAvailableText = "No events available";
         }
-
+        
         if ( !isDefined( _options.viewWeekEventsText ) ) {
             _options.viewWeekEventsText = "View Week Events";
         }
-
+        
         if ( !isDefined( _options.noEventsAvailableFullText ) ) {
             _options.noEventsAvailableFullText = "There are no events available to view.";
         }
-
+        
         if ( !isDefined( _options.clickText ) ) {
             _options.clickText = "Click";
         }
-
+        
         if ( !isDefined( _options.hereText ) ) {
             _options.hereText = "here";
         }
-
+        
         if ( !isDefined( _options.toAddANewEventText ) ) {
             _options.toAddANewEventText = "to add a new event.";
         }
-
-        if ( !isDefined( _options.showAllDayEventDetailsInFullDayView ) ) {
-            _options.showAllDayEventDetailsInFullDayView = false;
-        }
-
-        if ( !isDefined( _options.showWeekNumbersInTitles ) ) {
-            _options.showWeekNumbersInTitles = false;
-        }
-
+        
         if ( !isDefined( _options.weekText ) ) {
             _options.weekText = "Week";
         }
-
+        
         if ( !isDefined( _options.groupText ) ) {
             _options.groupText = "Group:";
         }
-
+        
         if ( !isDefined( _options.configurationTooltipText ) ) {
             _options.configurationTooltipText = "Configuration";
         }
-
+        
         if ( !isDefined( _options.configurationTitleText ) ) {
             _options.configurationTitleText = "Configuration";
         }
-
+        
         if ( !isDefined( _options.visibleGroupsText ) ) {
             _options.visibleGroupsText = "Visible Groups:";
         }
-
-        if ( !isDefined( _options.showTimelineArrowOnFullDayView ) ) {
-            _options.showTimelineArrowOnFullDayView = true;
-        }
-
-        if ( !isDefined( _options.maximumEventTitleLength ) ) {
-            _options.maximumEventTitleLength = 0;
-        }
-
-        if ( !isDefined( _options.maximumEventDescriptionLength ) ) {
-            _options.maximumEventDescriptionLength = 0;
-        }
-
-        if ( !isDefined( _options.maximumEventLocationLength ) ) {
-            _options.maximumEventLocationLength = 0;
-        }
-
-        if ( !isDefined( _options.maximumEventGroupLength ) ) {
-            _options.maximumEventGroupLength = 0;
-        }
-
-        if ( !isDefined( _options.eventNotificationsEnabled ) ) {
-            _options.eventNotificationsEnabled = false;
-        }
-
+        
         if ( !isDefined( _options.eventNotificationTitle ) ) {
             _options.eventNotificationTitle = "Calendar.js";
         }
-
+        
         if ( !isDefined( _options.eventNotificationBody ) ) {
             _options.eventNotificationBody = "The event '{0}' has started.";
         }
-
-        if ( !isDefined( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
-            _options.showPreviousNextMonthNamesInMainDisplay = true;
-        }
-
-        if ( !isDefined( _options.showDayNamesInMainDisplay ) ) {
-            _options.showDayNamesInMainDisplay = true;
-        }
-
-        checkForBrowserNotificationsPermission();
     }
 
     function checkForBrowserNotificationsPermission() {
