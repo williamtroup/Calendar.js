@@ -4586,6 +4586,16 @@ function calendarJs( id, options, startDateTime ) {
         clearAutoRefreshTimer();
     };
 
+    /**
+     * destroy().
+     * 
+     * Removes the calendar from the DOM.
+     */
+    this.destroy = function() {
+        _element_Calendar.className = "";
+        _element_Calendar.innerHTML = "";
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -16,6 +16,9 @@ Starts the auto-refresh timer (if enabled).
 ### **stopTheAutoRefreshTimer()**:
 Stops the auto-refresh timer (if enabled).
 
+### **destroy()**:
+Removes the calendar from the DOM.
+
 ### **moveToPreviousMonth()**:
 Moves to the previous month.
 <br>

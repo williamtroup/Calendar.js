@@ -4,6 +4,7 @@
 - Added support to show the previous/next month names in the days on the main display (optional, on by default).
 - Added new option "showDayNamesInMainDisplay" to disable the day names header in the main display (optional, on by default).
 - Split out documentation for strings shown in the display and fixed some of the types.
+- Added new public function destroy(), which clears and removes the calendar from the DOM.
 - 
 
 ### Version 0.9.1:
