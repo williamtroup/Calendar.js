@@ -5,6 +5,7 @@
 - Added new option "showDayNamesInMainDisplay" to disable the day names header in the main display (optional, on by default).
 - Split out documentation for strings shown in the display and fixed some of the types.
 - Added new public function destroy(), which clears and removes the calendar from the DOM.
+- The years drop-down menu list now fades in when shown.
 - 
 
 ### Version 0.9.1:

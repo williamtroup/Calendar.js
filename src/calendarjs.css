@@ -352,6 +352,11 @@ div.calendar div.header-date div.title-container span:active {
 }
 
 div.calendar div.header-date div.title-container div.years-drop-down {
+  animation: fade-in-effect ease 1s;
+  -webkit-animation: fade-in-effect ease 1s;
+  -moz-animation: fade-in-effect ease 1s;
+  -o-animation: fade-in-effect ease 1s;
+  -ms-animation: fade-in-effect ease 1s;
   position: absolute;
   width: 240px;
   height: 200px;
