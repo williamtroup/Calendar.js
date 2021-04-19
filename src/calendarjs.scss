@@ -260,7 +260,7 @@ div.calendar {
             }
 
             div.years-drop-down {
-                @include fade-in-effect-animation(1s);
+                @include fade-in-effect-animation(0.5s);
                 position: absolute;
                 width: 240px;
                 height: 200px;
