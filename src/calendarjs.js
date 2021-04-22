@@ -2849,6 +2849,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
         }
 
+        buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
         isAllDayChanged();
 
         _element_EventEditorDialog.style.display = "block";
@@ -3034,6 +3035,8 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.innerText = _options.selectColorsText;
         _element_EventEditorColorsDialog.appendChild( titleBar );
 
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventColorsDialogEvent_Cancel, true );
+
         var contents = createElement( "div", "contents" );
         _element_EventEditorColorsDialog.appendChild( contents );
 
@@ -3114,6 +3117,8 @@ function calendarJs( id, options, startDateTime ) {
         var titleBar = createElement( "div", "title-bar" );
         titleBar.innerText = _options.repeatOptionsTitle;
         _element_EventEditorRepeatOptionsDialog.appendChild( titleBar );
+
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventRepeatOptionsDialogEvent_Cancel, true );
 
         var contents = createElement( "div", "contents" );
         _element_EventEditorRepeatOptionsDialog.appendChild( contents );
@@ -3284,6 +3289,8 @@ function calendarJs( id, options, startDateTime ) {
         var titleBar = createElement( "div", "title-bar" );
         titleBar.innerText = _options.selectExportTypeTitle;
         _element_SelectExportTypeDialog.appendChild( titleBar );
+
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSelectExportTypeDialog, true );
 
         var contents = createElement( "div", "contents" );
         _element_SelectExportTypeDialog.appendChild( contents );
@@ -3590,6 +3597,8 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.innerText = _options.configurationTitleText;
         _element_ConfigurationDialog.appendChild( titleBar );
 
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, configurationDialogEvent_Cancel, true );
+
         var contents = createElement( "div", "contents" );
         _element_ConfigurationDialog.appendChild( contents );
 
@@ -3720,14 +3729,16 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function showTooltip( e, eventDetails, text ) {
+    function showTooltip( e, eventDetails, text, overrideShow ) {
         cancelBubble( e );
         clearTooltipTimer();
         hideTooltip();
 
+        overrideShow = isDefined( overrideShow ) ? overrideShow : false;
+
         if ( _element_Tooltip.style.display !== "block" ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) {
+                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -3802,9 +3813,9 @@ function calendarJs( id, options, startDateTime ) {
         return _element_Tooltip_ShowTimer !== null || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
     }
 
-    function addToolTip( element, text ) {
+    function addToolTip( element, text, overrideShow ) {
         element.onmousemove = function( e ) {
-            showTooltip( e, null, text );
+            showTooltip( e, null, text, overrideShow );
         };
     }
 
@@ -4027,13 +4038,13 @@ function calendarJs( id, options, startDateTime ) {
         return [ input, label ];
     }
 
-    function buildToolbarButton( container, cssClass, tooltipText, onClickEvent ) {
+    function buildToolbarButton( container, cssClass, tooltipText, onClickEvent, overrideShow ) {
         var button = createElement( "div", cssClass );
         button.ondblclick = cancelBubble;
         button.onclick = onClickEvent;
         container.appendChild( button );
 
-        addToolTip( button, tooltipText );
+        addToolTip( button, tooltipText, overrideShow );
 
         return button;
     }

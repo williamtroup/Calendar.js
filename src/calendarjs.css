@@ -1209,6 +1209,10 @@ div.event-editor {
           transform: translate(-50%, -50%);
 }
 
+div.event-editor div.ib-close {
+  float: right;
+}
+
 div.event-editor div.view {
   position: relative;
 }
@@ -1481,6 +1485,10 @@ div.event-editor-colors {
           transform: translate(-50%, -50%);
 }
 
+div.event-editor-colors div.ib-close {
+  float: right;
+}
+
 div.event-editor-colors div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1637,6 +1645,10 @@ div.event-editor-repeat-options {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+div.event-editor-repeat-options div.ib-close {
+  float: right;
 }
 
 div.event-editor-repeat-options div.title-bar {
@@ -1805,6 +1817,10 @@ div.confirmation {
           transform: translate(-50%, -50%);
 }
 
+div.confirmation div.ib-close {
+  float: right;
+}
+
 div.confirmation div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1939,6 +1955,10 @@ div.select-export-type {
           transform: translate(-50%, -50%);
 }
 
+div.select-export-type div.ib-close {
+  float: right;
+}
+
 div.select-export-type div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -2053,6 +2073,10 @@ div.search {
   position: fixed;
   display: none;
   z-index: 1500;
+}
+
+div.search div.ib-close {
+  float: right;
 }
 
 div.search div.title-bar {
@@ -2194,7 +2218,6 @@ div.search input[type="button"].cancel {
   width: 100%;
 }
 
-div.search div.ib-close,
 div.search div.ib-minus,
 div.search div.ib-square-hollow {
   float: right;
@@ -2223,6 +2246,10 @@ div.configuration {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+div.configuration div.ib-close {
+  float: right;
 }
 
 div.configuration div.title-bar {

@@ -121,6 +121,10 @@ $link-color: #2471A3;
         top: 50%;
         transform: translate(-50%, -50%);
     }
+
+    div.ib-close {
+        float: right;
+    }
 }
 
 @mixin dialog-button-styles {

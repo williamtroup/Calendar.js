@@ -7,6 +7,7 @@
 - Added new public function destroy(), which clears and removes the calendar from the DOM.
 - The years drop-down menu list now fades in when shown.
 - Removed code that should be using the quick-build functions (less code).
+- Added close (X) buttons to all dialogs (except the confirmation dialog) with full tooltip support.
 - 
 
 ### Version 0.9.1:
