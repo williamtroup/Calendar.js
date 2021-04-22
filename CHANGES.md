@@ -6,6 +6,7 @@
 - Split out documentation for strings shown in the display and fixed some of the types.
 - Added new public function destroy(), which clears and removes the calendar from the DOM.
 - The years drop-down menu list now fades in when shown.
+- Removed code that should be using the quick-build functions (less code).
 - 
 
 ### Version 0.9.1:

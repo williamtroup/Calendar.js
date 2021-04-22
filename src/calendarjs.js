@@ -837,7 +837,7 @@ function calendarJs( id, options, startDateTime ) {
 
         weekStartDate.setDate( firstDayNumber );
         weekStartDate.setHours( 0, 0, 0, 0 );
-        weekEndDate.setDate( lastDayNumber);
+        weekEndDate.setDate( lastDayNumber );
         weekEndDate.setHours( 23, 59, 59, 99 );
         
         return [ weekStartDate, weekEndDate ];
@@ -3361,19 +3361,9 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.ondblclick = minimizeRestoreDialog;
         _element_SearchDialog.appendChild( titleBar );
 
-        var closeButton = createElement( "div", "ib-close" );
-        closeButton.onclick = hideSearchDialog;
-        closeButton.ondblclick = cancelBubble;
-        titleBar.appendChild( closeButton );
-
-        addToolTip( closeButton, _options.closeTooltipText );
-
-        _element_SearchDialog_MinimizedRestoreButton = createElement( "div", "ib-minus" );
-        _element_SearchDialog_MinimizedRestoreButton.onclick = minimizeRestoreDialog;
-        _element_SearchDialog_MinimizedRestoreButton.ondblclick = cancelBubble;
-        titleBar.appendChild( _element_SearchDialog_MinimizedRestoreButton );
-
-        addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.minimizedTooltipText );
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSearchDialog );
+        
+        _element_SearchDialog_MinimizedRestoreButton = buildToolbarButton( titleBar, "ib-minus", _options.minimizedTooltipText, minimizeRestoreDialog );
 
         _element_SearchDialog_Contents = createElement( "div", "contents" );
         _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
