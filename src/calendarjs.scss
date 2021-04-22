@@ -1042,7 +1042,7 @@ div.calendar-dialog {
 
             &:checked ~ span.check-mark {
                 background-color: $dark-color !important;
-                border: 1px solid $dark-color;
+                border: 1px solid $dark-color !important;
             }
 
             &:checked ~ span.check-mark:before {
@@ -1073,6 +1073,10 @@ div.calendar-dialog {
                 border: solid $light-color;
                 border-width: 0 3px 3px 0;
             }
+        }
+
+        &:hover span.check-mark {
+            border: 1px solid $input-hover-color;
         }
     }
 }
@@ -1107,7 +1111,7 @@ div.calendar-dialog {
     
                 &:checked ~ span.check-mark {
                     background-color: $dark-color !important;
-                    border: 1px solid $dark-color;
+                    border: 1px solid $dark-color !important;
                 }
     
                 &:checked ~ span.check-mark:before {
@@ -1143,6 +1147,10 @@ div.calendar-dialog {
                     background-color: $light-color;
                     border-radius: 50%;
                 }
+            }
+
+            &:hover span.check-mark {
+                border: 1px solid $input-hover-color;
             }
         }
 

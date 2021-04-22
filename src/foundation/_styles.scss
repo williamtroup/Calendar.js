@@ -28,6 +28,7 @@ $time-hours-width: 80px;
 $time-hours-height: 40px;
 $time-arrow-line-height: 12px;
 $link-color: #2471A3;
+$input-hover-color: $dark-color;
 
 @mixin fade-in-effect-animation($seconds) {
     animation: fade-in-effect ease $seconds;
@@ -202,8 +203,12 @@ $link-color: #2471A3;
     }
 
     &:focus {
-        border: 1px solid $dark-color;
+        border: 1px solid $dark-color !important;
         box-shadow: 0 0 1pt 1pt $dark-color;
+    }
+
+    &:hover {
+        border: 1px solid $input-hover-color;
     }
 }
 
