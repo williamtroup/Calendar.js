@@ -2614,6 +2614,8 @@ function calendarJs( id, options, startDateTime ) {
         selectColorsButton.onclick = showEventEditorColorsDialog;
         inputTitleContainer.appendChild( selectColorsButton );
 
+        addToolTip( selectColorsButton, _options.selectColorsText, true );
+
         var textFrom = createElement( "p" );
         textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
         contents.appendChild( textFrom );
@@ -2665,6 +2667,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.value = "...";
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.onclick = showEventEditorRepeatOptionsDialog;
         radioButtonsContainer.appendChild( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton );
+
+        addToolTip( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton, _options.repeatOptionsTitle, true );
 
         var inputFields1TextSplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1TextSplitContainer );

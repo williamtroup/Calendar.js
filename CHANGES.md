@@ -8,6 +8,7 @@
 - The years drop-down menu list now fades in when shown.
 - Removed code that should be using the quick-build functions (less code).
 - Added close (X) buttons to all dialogs (except the confirmation dialog) with full tooltip support.
+- Added tooltip support to the ... buttons on the Event Editor dialog (more obvious which one does what).
 - 
 
 ### Version 0.9.1:
