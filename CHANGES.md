@@ -12,6 +12,7 @@
 - Added border hover effect to all input controls (text fields, check boxes, radio buttons, etc).
 - Added new public function getAllGroups(), which returns all the groups.
 - Added new public function clearAllGroups(), which clears all the groups assigned to the events.
+- Added Valentine's Day and Halloween default holidays.
 - 
 
 ### Version 0.9.1:

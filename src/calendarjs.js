@@ -5671,6 +5671,21 @@ function calendarJs( id, options, startDateTime ) {
     function getStandardHolidays() {
         return [
             {
+                day: 1,
+                month: 1,
+                title: "New Year's Day"
+            },
+            {
+                day: 14,
+                month: 2,
+                title: "Valentine's Day"
+            },
+            {
+                day: 31,
+                month: 10,
+                title: "Halloween"
+            },
+            {
                 day: 24,
                 month: 12,
                 title: "Christmas Eve"
@@ -5689,11 +5704,6 @@ function calendarJs( id, options, startDateTime ) {
                 day: 31,
                 month: 12,
                 title: "New Year's Eve"
-            },
-            {
-                day: 1,
-                month: 1,
-                title: "New Year's Day"
             }
         ];
     }
