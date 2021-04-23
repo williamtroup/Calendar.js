@@ -2,20 +2,19 @@
 
 ### Version 0.9.2:
 - Added support to show the previous/next month names in the days on the main display (optional, on by default).
-- Added new option "showDayNamesInMainDisplay" to disable the day names header in the main display (optional, on by default).
-- Split out documentation for strings shown in the display and fixed some of the types.
+- Added a new option "showDayNamesInMainDisplay" to disable the day names header in the main display (optional, on by default).
+- Split out the documentation for strings shown in the display and fixed some of the types.
 - Added new public function destroy(), which clears and removes the calendar from the DOM.
-- The years drop-down menu list now fades in when shown.
+- The year's drop-down menu list now fades in when shown.
 - Removed code that should be using the quick-build functions (less code).
 - Added close (X) buttons to all dialogs (except the confirmation dialog) with full tooltip support.
 - Added tooltip support to the ... buttons on the Event Editor dialog (more obvious which one does what).
-- Added border hover effect to all input controls (text fields, check boxes, radio buttons, etc).
+- Added border hover effect to all input controls (text fields, checkboxes, radio buttons, etc).
 - Added new public function getAllGroups(), which returns all the groups.
 - Added new public function clearAllGroups(), which clears all the groups assigned to the events.
 - Added Valentine's Day, Halloween, April Fools' Day and Earth Day to default holidays.
 - Added a plus button to the Weekly View internal header panel for quickly adding new events.
 - Added a plus button to the All Events View internal header panel for quickly adding new events.
-- 
 
 ### Version 0.9.1:
 - Added new public function updateEventDateTimes().
