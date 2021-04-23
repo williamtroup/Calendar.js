@@ -10,6 +10,8 @@
 - Added close (X) buttons to all dialogs (except the confirmation dialog) with full tooltip support.
 - Added tooltip support to the ... buttons on the Event Editor dialog (more obvious which one does what).
 - Added border hover effect to all input controls (text fields, check boxes, radio buttons, etc).
+- Added new public function getAllGroups(), which returns all the groups.
+- Added new public function clearAllGroups(), which clears all the groups assigned to the events.
 - 
 
 ### Version 0.9.1:

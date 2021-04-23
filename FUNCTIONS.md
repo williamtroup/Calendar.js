@@ -163,6 +163,18 @@ Returns an event that matches the ID passed.
 <br>
 ***Returns***: '*object*' - The event details (or null if the ID cannot be found).
 
+### **getAllGroups()**:
+Returns an array of group names being used.
+<br>
+***Returns***: '*Object[]]' - An array of the group names.
+
+### **clearAllGroups( *updateEvents* )**:
+Clears all the event groups.
+<br>
+***Fires***:  onGroupsCleared
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+
 ### **setOptions( *newOptions* )**:
 Sets the specific options that should be used.
 <br>
