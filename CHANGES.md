@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.3:
+- 
+
 ### Version 0.9.2:
 - Added support to show the previous/next month names in the days on the main display (optional, on by default).
 - Added a new option "showDayNamesInMainDisplay" to disable the day names header in the main display (optional, on by default).
