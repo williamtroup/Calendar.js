@@ -5681,6 +5681,16 @@ function calendarJs( id, options, startDateTime ) {
                 title: "Valentine's Day"
             },
             {
+                day: 1,
+                month: 4,
+                title: "April Fools' Day"
+            },
+            {
+                day: 22,
+                month: 4,
+                title: "Earth Day"
+            },
+            {
                 day: 31,
                 month: 10,
                 title: "Halloween"
