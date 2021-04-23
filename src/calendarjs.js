@@ -4610,22 +4610,26 @@ function calendarJs( id, options, startDateTime ) {
         var orderedEventLength = orderedEvents.length,
             exportHeaders = getExportHeaders(),
             headersLength = exportHeaders[ 1 ],
-            contents = [ "| " + exportHeaders[ 0 ].join( " | " ) + " |" ],
+            contents = [ getMdFileRow( exportHeaders[ 0 ] ) ],
             headerLines = [];
 
         for ( var headerIndex = 0; headerIndex < headersLength; headerIndex++ ) {
             headerLines.push( "---" );
         }
 
-        contents.push( "| " + headerLines.join( " | " ) + " |" );
+        contents.push( getMdFileRow( headerLines ) );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var rowContents = getExportRow( orderedEvents[ orderedEventIndex ] );
 
-            contents.push( "| " + rowContents.join( " | " ) + " |" );
+            contents.push( getMdFileRow( rowContents ) );
         }
 
         return contents.join( "\n" );
+    }
+
+    function getMdFileRow( contents ) {
+        return "| " + contents.join( " | " ) + " |";
     }
 
 
