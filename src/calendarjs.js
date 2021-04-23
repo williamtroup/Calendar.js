@@ -2043,6 +2043,12 @@ function calendarJs( id, options, startDateTime ) {
                 showFullDayView( expandDate, true );
             } );
 
+            if ( _options.manualEditingEnabled ) {
+                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
+                    showEventDialog( null, expandDate );
+                } );
+            }
+
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
 

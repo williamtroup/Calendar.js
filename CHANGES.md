@@ -13,6 +13,7 @@
 - Added new public function getAllGroups(), which returns all the groups.
 - Added new public function clearAllGroups(), which clears all the groups assigned to the events.
 - Added Valentine's Day, Halloween, April Fools' Day and Earth Day to default holidays.
+- Added a plus button to the Weekly View internal header panel for quickly adding new events.
 - 
 
 ### Version 0.9.1:
