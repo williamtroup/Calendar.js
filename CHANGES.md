@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.9.3:
+- Added export to MD (markdown) file support.
 - 
 
 ### Version 0.9.2:
