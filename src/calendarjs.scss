@@ -600,8 +600,10 @@ div.calendar {
                     color: $light-color;
                     padding: $spacing;
 
-                    div.ib-arrow-expand-left-right {
+                    div.ib-arrow-expand-left-right,
+                    div.ib-plus {
                         float: right;
+                        margin-left: $spacing;
                     }
                 }
 

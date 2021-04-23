@@ -1736,6 +1736,14 @@ function calendarJs( id, options, startDateTime ) {
                 build( expandMonthDate );
             } );
 
+            if ( _options.manualEditingEnabled ) {
+                var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
+
+                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
+                    showEventDialog( null, addNewEventDate );
+                } );
+            }
+
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
             month.appendChild( monthContents );
