@@ -1731,16 +1731,10 @@ function calendarJs( id, options, startDateTime ) {
             header.innerText = _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
             month.appendChild( header );
 
-            var expandMonth = createElement( "div", "ib-arrow-expand-left-right" );
-            expandMonth.ondblclick = cancelBubble;
-            header.appendChild( expandMonth );
-
-            expandMonth.onclick = function() {
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
                 hideOverlay( _element_ListAllEventsView );
                 build( expandMonthDate );
-            };
-    
-            addToolTip( expandMonth, _options.expandMonthTooltipText );
+            } );
 
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
@@ -2045,15 +2039,9 @@ function calendarJs( id, options, startDateTime ) {
 
             buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
 
-            var expandDay = createElement( "div", "ib-arrow-expand-left-right" );
-            expandDay.ondblclick = cancelBubble;
-            header.appendChild( expandDay );
-
-            expandDay.onclick = function() {
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, function() {
                 showFullDayView( expandDate, true );
-            };
-    
-            addToolTip( expandDay, _options.expandDayTooltipText );
+            } );
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
