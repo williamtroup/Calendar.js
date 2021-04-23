@@ -325,6 +325,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_TEXT = null,
         _element_SelectExportTypeDialog_Option_iCAL = null,
         _element_SelectExportTypeDialog_Option_MD = null,
+        _element_SelectExportTypeDialog_Option_HTML = null,
         _element_SelectExportTypeDialog_ExportEvents = null,
         _element_Tooltip = null,
         _element_Tooltip_Title = null,
@@ -3312,6 +3313,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
         _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer, "iCAL", "ExportType" );
         _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer, "MD", "ExportType" );
+        _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer, "HTML", "ExportType" );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -3354,6 +3356,8 @@ function calendarJs( id, options, startDateTime ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "ical" );
         } else if ( _element_SelectExportTypeDialog_Option_MD.checked ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "md" );
+        } else if ( _element_SelectExportTypeDialog_Option_HTML.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "html" );
         }
     }
 
@@ -4189,6 +4193,8 @@ function calendarJs( id, options, startDateTime ) {
             contents = getICalContents( contentsEvents );
         } else if ( type === "md" ) {
             contents = getMdContents( contentsEvents );
+        } else if ( type === "html" ) {
+            contents = getHtmlContents( contentsEvents );
         }
 
         if ( contents !== "" ) {
@@ -4207,6 +4213,8 @@ function calendarJs( id, options, startDateTime ) {
                 mimeTypeStart = "application";
             } else if ( type === "md" ) {
                 mimeTypeEnd = "x-markdown";
+            } else if ( type === "html" ) {
+                mimeTypeEnd = "html";
             }
 
             tempLink.style.display = "none";
@@ -4635,6 +4643,41 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To HTML
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getHtmlContents( orderedEvents ) {
+        var contents = [],
+            orderedEventLength = orderedEvents.length;
+
+        contents.push( "<html>" );
+        contents.push( "<body>" );
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
+
+            contents.push( "<h3><b>" + orderedEvent.id + ":</b></h3>" );
+            contents.push( "<ul>" );
+
+            for ( var propertyName in orderedEvent ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                    contents.push( "<li><b>" + getPropertyName( propertyName ) + "</b>: " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</li>" );
+                }
+            }
+
+            contents.push( "</ul>" );
+        }
+
+        contents.push( "</body>" );
+        contents.push( "</html>" );
+
+        return contents.join( "\n" );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Main Controls (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -4779,7 +4822,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @fires onEventsExported
      * 
-     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", and "md").
+     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", and "html").
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {

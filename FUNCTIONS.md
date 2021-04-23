@@ -61,7 +61,7 @@ Exports all the events into a downloadable file.
 <br>
 ***Fires***:  onEventsExported
 <br>
-***Parameter: type***: '*string*' - The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt" and "ical").
+***Parameter: type***: '*string*' - The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", and "html").
 
 ### **refresh()**:
 Refreshes all of the views.

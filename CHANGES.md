@@ -2,6 +2,7 @@
 
 ### Version 0.9.3:
 - Added export to MD (markdown) file support.
+- Added export to HTML file support.
 - 
 
 ### Version 0.9.2:
