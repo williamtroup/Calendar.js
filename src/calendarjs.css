@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.1
+ * Calendar.js Library v0.9.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -281,7 +281,7 @@ div.calendar div.row div.cell span.today {
   padding-right: 7px;
 }
 
-div.calendar div.row div.cell span.holiday {
+div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name {
   display: block;
   font-size: xx-small;
 }
@@ -352,6 +352,11 @@ div.calendar div.header-date div.title-container span:active {
 }
 
 div.calendar div.header-date div.title-container div.years-drop-down {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   position: absolute;
   width: 240px;
   height: 200px;
@@ -912,8 +917,10 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
   padding: 10px;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right {
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right,
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus {
   float: right;
+  margin-left: 10px;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events {
@@ -1103,8 +1110,10 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
   padding: 10px;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right {
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-plus {
   float: right;
+  margin-left: 10px;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
@@ -1204,6 +1213,10 @@ div.event-editor {
           transform: translate(-50%, -50%);
 }
 
+div.event-editor div.ib-close {
+  float: right;
+}
+
 div.event-editor div.view {
   position: relative;
 }
@@ -1266,9 +1279,14 @@ div.event-editor div.view textarea:last-child {
 
 div.event-editor div.view input:not([type="button"]):focus,
 div.event-editor div.view textarea:focus {
-  border: 1px solid #282828;
+  border: 1px solid #282828 !important;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.event-editor div.view input:not([type="button"]):hover,
+div.event-editor div.view textarea:hover {
+  border: 1px solid #282828;
 }
 
 div.event-editor div.view input:disabled {
@@ -1476,6 +1494,10 @@ div.event-editor-colors {
           transform: translate(-50%, -50%);
 }
 
+div.event-editor-colors div.ib-close {
+  float: right;
+}
+
 div.event-editor-colors div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1526,9 +1548,14 @@ div.event-editor-colors input[type="text"]:last-child {
 
 div.event-editor-colors input[type="color"]:focus,
 div.event-editor-colors input[type="text"]:focus {
-  border: 1px solid #282828;
+  border: 1px solid #282828 !important;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.event-editor-colors input[type="color"]:hover,
+div.event-editor-colors input[type="text"]:hover {
+  border: 1px solid #282828;
 }
 
 div.event-editor-colors div.split input,
@@ -1634,6 +1661,10 @@ div.event-editor-repeat-options {
           transform: translate(-50%, -50%);
 }
 
+div.event-editor-repeat-options div.ib-close {
+  float: right;
+}
+
 div.event-editor-repeat-options div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1688,9 +1719,14 @@ div.event-editor-repeat-options textarea:last-child {
 
 div.event-editor-repeat-options input:not([type="button"]):focus,
 div.event-editor-repeat-options textarea:focus {
-  border: 1px solid #282828;
+  border: 1px solid #282828 !important;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.event-editor-repeat-options input:not([type="button"]):hover,
+div.event-editor-repeat-options textarea:hover {
+  border: 1px solid #282828;
 }
 
 div.event-editor-repeat-options label.checkbox {
@@ -1798,6 +1834,10 @@ div.confirmation {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+div.confirmation div.ib-close {
+  float: right;
 }
 
 div.confirmation div.title-bar {
@@ -1934,6 +1974,10 @@ div.select-export-type {
           transform: translate(-50%, -50%);
 }
 
+div.select-export-type div.ib-close {
+  float: right;
+}
+
 div.select-export-type div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -2050,6 +2094,10 @@ div.search {
   z-index: 1500;
 }
 
+div.search div.ib-close {
+  float: right;
+}
+
 div.search div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -2096,9 +2144,13 @@ div.search input[type="text"]:last-child {
 }
 
 div.search input[type="text"]:focus {
-  border: 1px solid #282828;
+  border: 1px solid #282828 !important;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.search input[type="text"]:hover {
+  border: 1px solid #282828;
 }
 
 div.search div.split input,
@@ -2189,7 +2241,6 @@ div.search input[type="button"].cancel {
   width: 100%;
 }
 
-div.search div.ib-close,
 div.search div.ib-minus,
 div.search div.ib-square-hollow {
   float: right;
@@ -2218,6 +2269,10 @@ div.configuration {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+div.configuration div.ib-close {
+  float: right;
 }
 
 div.configuration div.title-bar {
@@ -2375,7 +2430,7 @@ div.calendar-dialog label.checkbox input {
 div.calendar label.checkbox input:checked ~ span.check-mark,
 div.calendar-dialog label.checkbox input:checked ~ span.check-mark {
   background-color: #282828 !important;
-  border: 1px solid #282828;
+  border: 1px solid #282828 !important;
 }
 
 div.calendar label.checkbox input:checked ~ span.check-mark:before,
@@ -2410,6 +2465,11 @@ div.calendar-dialog label.checkbox span.check-mark:before {
   height: 7px;
   border: solid #F5F5F5;
   border-width: 0 3px 3px 0;
+}
+
+div.calendar label.checkbox:hover span.check-mark,
+div.calendar-dialog label.checkbox:hover span.check-mark {
+  border: 1px solid #282828;
 }
 
 /*
@@ -2451,7 +2511,7 @@ div.calendar-dialog div.radioButtonContainer label.radioButton input {
 div.calendar div.radioButtonContainer label.radioButton input:checked ~ span.check-mark,
 div.calendar-dialog div.radioButtonContainer label.radioButton input:checked ~ span.check-mark {
   background-color: #282828 !important;
-  border: 1px solid #282828;
+  border: 1px solid #282828 !important;
 }
 
 div.calendar div.radioButtonContainer label.radioButton input:checked ~ span.check-mark:before,
@@ -2493,6 +2553,11 @@ div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark:b
   height: 7px;
   background-color: #F5F5F5;
   border-radius: 50%;
+}
+
+div.calendar div.radioButtonContainer label.radioButton:hover span.check-mark,
+div.calendar-dialog div.radioButtonContainer label.radioButton:hover span.check-mark {
+  border: 1px solid #282828;
 }
 
 div.calendar div.radioButtonContainer:last-child,

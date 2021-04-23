@@ -8,6 +8,39 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
+| *boolean* | showDayNumberOrdinals | States if the day ordinal values should be shown (defaults to true). |
+| *boolean* | dragAndDropForEventsEnabled | States if dragging and dropping events around the days of the month is enabled (defaults to true). |
+| *number* | maximumEventsPerDayDisplay | The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it). |
+| *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 51). |
+| *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
+| *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
+| *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
+| *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
+| *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full screen mode (defaults to true). |
+| *number* | eventTooltipDelay | The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds). |
+| *number* | minimumDayHeight | States the height the main calendar days should used (defaults to 0 - auto). |
+| *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
+| *string* | organizerName | The default name of the organizer (defaults to empty string). |
+| *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
+| *number* | spacing | States the default spacing that should be used for additional margins. |
+| *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
+| *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
+| *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full day view (defaults to true). |
+| *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
+| *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
+| *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
+| *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
+| *boolean* | eventNotificationsEnabled | States if notifications should be shown for events (defaults to false). |
+| *boolean* | showPreviousNextMonthNamesInMainDisplay | States if the previous/next month names should be shown in the main display days (defaults to true). |
+| *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
+
+<br/>
+
+### Translatable String Options:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
 | *string* | previousMonthTooltipText | The tooltip text that should be used for for the "Previous Month" button. |
 | *string* | nextMonthTooltipText | The tooltip text that should be used for for the "Next Month" button. |
 | *string* | previousDayTooltipText | The tooltip text that should be used for for the "Previous Day" button. |
@@ -25,6 +58,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | expandDayTooltipText | The tooltip text that should be used for for the "Expand Day" button. |
 | *Object[]* | dayHeaderNames | The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]'). |
 | *Object[]* | dayNames | The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]'). |
+| *Object[]* | monthNames | The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]'). |
 | *string* | fromText | The text that should be displayed for the "From:" label. |
 | *string* | toText | The text that should be displayed for the "To:" label. |
 | *string* | isAllDayText | The text that should be displayed for the "Is All-Day" label. |
@@ -37,9 +71,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | removeEventText | The text that should be displayed for the "Remove Event" button. |
 | *string* | addEventTitle | The title bar text that is shown for the "Add Event" label. |
 | *string* | editEventTitle | The title bar text that is shown for the "Edit Event" label. |
-| *string* | monthNames | The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]'). |
-| *boolean* | showDayNumberOrdinals | States if the day ordinal values should be shown (defaults to true). |
-| *boolean* | dragAndDropForEventsEnabled | States if dragging and dropping events around the days of the month is enabled (defaults to true). |
 | *string* | exportStartFilename | The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_"). |
 | *string* | fromTimeErrorMessage | The error message shown for the "Please select a valid 'From' time." label. |
 | *string* | toTimeErrorMessage | The error message shown for the "Please select a valid 'To' time." label. |
@@ -49,23 +80,15 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | ndText | The day ordinal text for "nd". |
 | *string* | rdText | The day ordinal text for "rd". |
 | *string* | thText | The day ordinal text for "th". |
-| *number* | maximumEventsPerDayDisplay | The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it). |
 | *string* | yesText | The text that should be displayed for the "Yes" label. |
 | *string* | noText | The text that should be displayed for the "No" label. |
-| *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 51). |
 | *string* | allDayText | The text that should be displayed for the "All-Day" label. |
 | *string* | allEventsText | The text that should be displayed for the "All Events" label. |
-| *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
-| *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
-| *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
 | *string* | toTimeText | The text that should be displayed for the "to" label. |
-| *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
 | *string* | confirmEventRemoveTitle | The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal"). |
 | *string* | confirmEventRemoveMessage | The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone. Do you want to continue?"). |
 | *string* | okText | The text that should be displayed for the "OK" button. |
 | *string* | selectExportTypeTitle | The text that should be displayed for the "Select Export Type" label. |
-| *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full screen mode (defaults to true). |
-| *number* | eventTooltipDelay | The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds). |
 | *string* | selectColorsText | The text that should be displayed for the "Select Colors" label. |
 | *string* | backgroundColorText | The text that should be displayed for the "Background Color:" label. |
 | *string* | textColorText | The text that should be displayed for the "Text Color:" label. |
@@ -75,7 +98,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | previousText | The text that should be displayed for the "Previous" button. |
 | *string* | nextText | The text that should be displayed for the "Next" button. |
 | *string* | matchCaseText | The text that should be displayed for the "Match Case" label. |
-| *number* | minimumDayHeight | States the height the main calendar days should used (defaults to 0 - auto). |
 | *string* | repeatsText | The text that should be displayed for the "Repeats:" label. |
 | *string* | repeatDaysToExcludeText | The text that should be displayed for the "Repeat Days To Exclude:" label. |
 | *string* | daysToExcludeText | The text that should be displayed for the "Days To Exclude:" label. |
@@ -87,20 +109,16 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | repeatsEveryYearText | The text that should be displayed for the "Every Year" label. |
 | *string* | repeatOptionsTitle | The text that should be displayed for the "Repeat Options" label. |
 | *string* | moreText | The text that should be displayed for the "More" label. |
-| *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | includeText | The text that should be displayed for the "Include:" label. |
 | *string* | minimizedTooltipText | The tooltip text that should be used for for the "Minimize" button. |
 | *string* | restoreTooltipText | The tooltip text that should be used for for the "Restore" button. |
 | *string* | removeAllEventsInSeriesText | The text that should be displayed for the "Remove All Events In Series" label. |
 | *string* | createdText | The text that should be displayed for the "Created:" label. |
-| *string* | organizerName | The default name of the organizer (defaults to empty string). |
-| *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
 | *string* | organizerNameText | The text that should be displayed for the "Organizer:" label. |
 | *string* | organizerEmailAddressText | The text that should be displayed for the "Organizer Email:" label. |
 | *string* | enableFullScreenTooltipText | The tooltip text that should be used for for the "Turn On Full-Screen Mode" button. |
 | *string* | disableFullScreenTooltipText | The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button. |
 | *string* | idText | The text that should be displayed for the "ID:" label. |
-| *number* | spacing | States the default spacing that should be used for additional margins. |
 | *string* | expandMonthTooltipText | The tooltip text that should be used for for the "Expand Month" button. |
 | *string* | repeatEndsText | The text that should be displayed for the "Repeat Ends:" label. |
 | *string* | noEventsAvailableText | The text that should be displayed for the "No events available" label. |
@@ -109,19 +127,11 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | clickText | The text that should be displayed for the "Click" label. |
 | *string* | hereText | The text that should be displayed for the "here" label. |
 | *string* | toAddANewEventText | The text that should be displayed for the "to add a new event." label. |
-| *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
-| *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 | *string* | weekText | The text that should be displayed for the "Week" label. |
 | *string* | groupText | The text that should be displayed for the "Group:" label. |
 | *string* | configurationTooltipText | The tooltip text that should be used for for the "Configuration" button. |
 | *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
 | *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
-| *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full day view (defaults to true). |
-| *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
-| *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
-| *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
-| *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
-| *boolean* | eventNotificationsEnabled | States if notifications should be shown for events (defaults to false). |
 | *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
 | *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
 
@@ -145,3 +155,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsExported | Specifies an event that will be triggered when the "Export Events" button is pressed. |
 | onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |
 | onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
+| onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |

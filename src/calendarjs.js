@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.1
+ * Calendar.js Library v0.9.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -61,14 +61,15 @@
  * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
  * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally.
  * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
+ * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
  */
 
 
 /**
- * Options.
+ * Options - Translatable Strings.
  * 
- * These are the options that are used to control how Calendar.js works and renders.
- *
+ * These are the translatable strings that are used in Calendar.js.
+ * 
  * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for for the "Previous Month" button.
  * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for for the "Next Month" button.
  * @property    {string}    previousDayTooltipText                      The tooltip text that should be used for for the "Previous Day" button.
@@ -86,6 +87,7 @@
  * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
  * @property    {Object[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
  * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {Object[]}  monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
  * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All-Day" label.
@@ -98,9 +100,6 @@
  * @property    {string}    removeEventText                             The text that should be displayed for the "Remove Event" button.
  * @property    {string}    addEventTitle                               The title bar text that is shown for the "Add Event" label.
  * @property    {string}    editEventTitle                              The title bar text that is shown for the "Edit Event" label.
- * @property    {string}    monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
- * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
- * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
  * @property    {string}    exportStartFilename                         The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
  * @property    {string}    fromTimeErrorMessage                        The error message shown for the "Please select a valid 'From' time." label.
  * @property    {string}    toTimeErrorMessage                          The error message shown for the "Please select a valid 'To' time." label.
@@ -110,23 +109,15 @@
  * @property    {string}    ndText                                      The day ordinal text for "nd".
  * @property    {string}    rdText                                      The day ordinal text for "rd".
  * @property    {string}    thText                                      The day ordinal text for "th".
- * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
  * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
  * @property    {string}    noText                                      The text that should be displayed for the "No" label.
- * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
  * @property    {string}    allDayText                                  The text that should be displayed for the "All-Day" label.
  * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
- * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
- * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
- * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
  * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
- * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
  * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
  * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
  * @property    {string}    selectExportTypeTitle                       The text that should be displayed for the "Select Export Type" label.
- * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
- * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
  * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
  * @property    {string}    backgroundColorText                         The text that should be displayed for the "Background Color:" label.
  * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
@@ -136,7 +127,6 @@
  * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
- * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
  * @property    {string}    repeatsText                                 The text that should be displayed for the "Repeats:" label.
  * @property    {string}    repeatDaysToExcludeText                     The text that should be displayed for the "Repeat Days To Exclude:" label.
  * @property    {string}    daysToExcludeText                           The text that should be displayed for the "Days To Exclude:" label.
@@ -148,20 +138,16 @@
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
  * @property    {string}    repeatOptionsTitle                          The text that should be displayed for the "Repeat Options" label.
  * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
- * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
  * @property    {string}    includeText                                 The text that should be displayed for the "Include:" label.
  * @property    {string}    minimizedTooltipText                        The tooltip text that should be used for for the "Minimize" button.
  * @property    {string}    restoreTooltipText                          The tooltip text that should be used for for the "Restore" button.
  * @property    {string}    removeAllEventsInSeriesText                 The text that should be displayed for the "Remove All Events In Series" label.
  * @property    {string}    createdText                                 The text that should be displayed for the "Created:" label.
- * @property    {string}    organizerName                               The default name of the organizer (defaults to empty string).
- * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
  * @property    {string}    organizerNameText                           The text that should be displayed for the "Organizer:" label.
  * @property    {string}    organizerEmailAddressText                   The text that should be displayed for the "Organizer Email:" label.
  * @property    {string}    enableFullScreenTooltipText                 The tooltip text that should be used for for the "Turn On Full-Screen Mode" button.
  * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button.
  * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
- * @property    {number}    spacing                                     States the default spacing that should be used for additional margins.
  * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for for the "Expand Month" button.
  * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
  * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
@@ -170,21 +156,46 @@
  * @property    {string}    clickText                                   The text that should be displayed for the "Click" label.
  * @property    {string}    hereText                                    The text that should be displayed for the "here" label.
  * @property    {string}    toAddANewEventText                          The text that should be displayed for the "to add a new event." label.
- * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
- * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {string}    weekText                                    The text that should be displayed for the "Week" label.
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
  * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
  * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
+ * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
+ * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
+ */
+
+
+/**
+ * Options.
+ * 
+ * These are the options that are used to control how Calendar.js works and renders.
+ *
+ * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
+ * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
+ * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
+ * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
+ * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
+ * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
+ * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
+ * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
+ * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
+ * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
+ * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
+ * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
+ * @property    {string}    organizerName                               The default name of the organizer (defaults to empty string).
+ * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
+ * @property    {number}    spacing                                     States the default spacing that should be used for additional margins.
+ * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
+ * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {boolean}   showTimelineArrowOnFullDayView              States if the timeline arrow should be shown in the full day view (defaults to true).
  * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
  * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
  * @property    {number}    maximumEventGroupLength                     States the maximum length allowed for an event group (defaults to 0 to allow any size).
  * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
- * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
- * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
+ * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
+ * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
  */
 
 
@@ -523,17 +534,19 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDayNamesHeader() {
-        var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
-            headerNamesLength = _options.dayHeaderNames.length;
+        if ( _options.showDayNamesInMainDisplay ) {
+            var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
+                headerNamesLength = _options.dayHeaderNames.length;
 
-        _element_Calendar.appendChild( headerRow );
+            _element_Calendar.appendChild( headerRow );
 
-        for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
-            var headerName = _options.dayHeaderNames[ headerNameIndex ],
-                header = createElement( "div", _elementClassName_Cell );
+            for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
+                var headerName = _options.dayHeaderNames[ headerNameIndex ],
+                    header = createElement( "div", _elementClassName_Cell );
 
-            header.innerText = headerName;
-            headerRow.appendChild( header );
+                header.innerText = headerName;
+                headerRow.appendChild( header );
+            }
         }
     }
 
@@ -825,7 +838,7 @@ function calendarJs( id, options, startDateTime ) {
 
         weekStartDate.setDate( firstDayNumber );
         weekStartDate.setHours( 0, 0, 0, 0 );
-        weekEndDate.setDate( lastDayNumber);
+        weekEndDate.setDate( lastDayNumber );
         weekEndDate.setHours( 23, 59, 59, 99 );
         
         return [ weekStartDate, weekEndDate ];
@@ -1718,16 +1731,18 @@ function calendarJs( id, options, startDateTime ) {
             header.innerText = _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
             month.appendChild( header );
 
-            var expandMonth = createElement( "div", "ib-arrow-expand-left-right" );
-            expandMonth.ondblclick = cancelBubble;
-            header.appendChild( expandMonth );
-
-            expandMonth.onclick = function() {
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
                 hideOverlay( _element_ListAllEventsView );
                 build( expandMonthDate );
-            };
-    
-            addToolTip( expandMonth, _options.expandMonthTooltipText );
+            } );
+
+            if ( _options.manualEditingEnabled ) {
+                var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
+
+                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
+                    showEventDialog( null, addNewEventDate );
+                } );
+            }
 
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
@@ -2032,15 +2047,15 @@ function calendarJs( id, options, startDateTime ) {
 
             buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
 
-            var expandDay = createElement( "div", "ib-arrow-expand-left-right" );
-            expandDay.ondblclick = cancelBubble;
-            header.appendChild( expandDay );
-
-            expandDay.onclick = function() {
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, function() {
                 showFullDayView( expandDate, true );
-            };
-    
-            addToolTip( expandDay, _options.expandDayTooltipText );
+            } );
+
+            if ( _options.manualEditingEnabled ) {
+                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
+                    showEventDialog( null, expandDate );
+                } );
+            }
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
@@ -2174,7 +2189,9 @@ function calendarJs( id, options, startDateTime ) {
                 dayStart = ( totalDaysInMonth - startDay ) + 1;
 
             for ( var day = dayStart; day < totalDaysInMonth; day++ ) {
-                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true );
+                var addMonthName = day === ( totalDaysInMonth - 1 );
+
+                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName );
                 elementDayNumber++;
             }
         }
@@ -2200,7 +2217,9 @@ function calendarJs( id, options, startDateTime ) {
             nextMonth.setMonth( nextMonth.getMonth() + 1 );
 
             for ( var elementDayNumber = lastDayFilled + 1; elementDayNumber < 43; elementDayNumber++ ) {
-                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true );
+                var addMonthName = actualDay === 1;
+
+                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName );
                 actualDay++;
             }
 
@@ -2214,15 +2233,16 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildDay( actualDay, elementDayNumber, month, year, isMuted ) {
+    function buildDay( actualDay, elementDayNumber, month, year, isMuted, includeMonthName ) {
         var today = new Date(),
             dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
             dayElement = getElementByID( _elementID_DayElement + elementDayNumber ),
             dayText = createElement( "span" ),
             dayDate = new Date( year, month, actualDay );
         
-        dayElement.innerHTML = "";
+        includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
+        dayElement.innerHTML = "";
         dayText.className = isMuted ? "day-muted" : "";
         dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
@@ -2247,6 +2267,12 @@ function calendarJs( id, options, startDateTime ) {
         dayElement.appendChild( expandDayButton );
 
         addToolTip( expandDayButton, _options.expandDayTooltipText );
+
+        if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
+            var monthName = createElement( "span", "month-name" );
+            monthName.innerText = _options.monthNames[ month ];
+            dayText.appendChild( monthName );
+        }
 
         var holidayText = getHoliday( dayDate );
         if ( holidayText !== null ) {
@@ -2385,7 +2411,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDayDropDownMenu() {
-        if (_element_DropDownMenu_Day !== null) {
+        if ( _element_DropDownMenu_Day !== null ) {
             removeNode( _document.body, _element_DropDownMenu_Day );
         }
 
@@ -2412,7 +2438,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildEventDropDownMenu() {
-        if (_element_DropDownMenu_Event !== null) {
+        if ( _element_DropDownMenu_Event !== null ) {
             removeNode( _document.body, _element_DropDownMenu_Event );
         }
 
@@ -2591,6 +2617,8 @@ function calendarJs( id, options, startDateTime ) {
         selectColorsButton.onclick = showEventEditorColorsDialog;
         inputTitleContainer.appendChild( selectColorsButton );
 
+        addToolTip( selectColorsButton, _options.selectColorsText, true );
+
         var textFrom = createElement( "p" );
         textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
         contents.appendChild( textFrom );
@@ -2642,6 +2670,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.value = "...";
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.onclick = showEventEditorRepeatOptionsDialog;
         radioButtonsContainer.appendChild( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton );
+
+        addToolTip( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton, _options.repeatOptionsTitle, true );
 
         var inputFields1TextSplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1TextSplitContainer );
@@ -2826,6 +2856,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
         }
 
+        buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
         isAllDayChanged();
 
         _element_EventEditorDialog.style.display = "block";
@@ -3011,6 +3042,8 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.innerText = _options.selectColorsText;
         _element_EventEditorColorsDialog.appendChild( titleBar );
 
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventColorsDialogEvent_Cancel, true );
+
         var contents = createElement( "div", "contents" );
         _element_EventEditorColorsDialog.appendChild( contents );
 
@@ -3091,6 +3124,8 @@ function calendarJs( id, options, startDateTime ) {
         var titleBar = createElement( "div", "title-bar" );
         titleBar.innerText = _options.repeatOptionsTitle;
         _element_EventEditorRepeatOptionsDialog.appendChild( titleBar );
+
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventRepeatOptionsDialogEvent_Cancel, true );
 
         var contents = createElement( "div", "contents" );
         _element_EventEditorRepeatOptionsDialog.appendChild( contents );
@@ -3262,6 +3297,8 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.innerText = _options.selectExportTypeTitle;
         _element_SelectExportTypeDialog.appendChild( titleBar );
 
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSelectExportTypeDialog, true );
+
         var contents = createElement( "div", "contents" );
         _element_SelectExportTypeDialog.appendChild( contents );
 
@@ -3338,19 +3375,9 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.ondblclick = minimizeRestoreDialog;
         _element_SearchDialog.appendChild( titleBar );
 
-        var closeButton = createElement( "div", "ib-close" );
-        closeButton.onclick = hideSearchDialog;
-        closeButton.ondblclick = cancelBubble;
-        titleBar.appendChild( closeButton );
-
-        addToolTip( closeButton, _options.closeTooltipText );
-
-        _element_SearchDialog_MinimizedRestoreButton = createElement( "div", "ib-minus" );
-        _element_SearchDialog_MinimizedRestoreButton.onclick = minimizeRestoreDialog;
-        _element_SearchDialog_MinimizedRestoreButton.ondblclick = cancelBubble;
-        titleBar.appendChild( _element_SearchDialog_MinimizedRestoreButton );
-
-        addToolTip( _element_SearchDialog_MinimizedRestoreButton, _options.minimizedTooltipText );
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSearchDialog );
+        
+        _element_SearchDialog_MinimizedRestoreButton = buildToolbarButton( titleBar, "ib-minus", _options.minimizedTooltipText, minimizeRestoreDialog );
 
         _element_SearchDialog_Contents = createElement( "div", "contents" );
         _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
@@ -3577,6 +3604,8 @@ function calendarJs( id, options, startDateTime ) {
         titleBar.innerText = _options.configurationTitleText;
         _element_ConfigurationDialog.appendChild( titleBar );
 
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, configurationDialogEvent_Cancel, true );
+
         var contents = createElement( "div", "contents" );
         _element_ConfigurationDialog.appendChild( contents );
 
@@ -3707,14 +3736,16 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function showTooltip( e, eventDetails, text ) {
+    function showTooltip( e, eventDetails, text, overrideShow ) {
         cancelBubble( e );
         clearTooltipTimer();
         hideTooltip();
 
+        overrideShow = isDefined( overrideShow ) ? overrideShow : false;
+
         if ( _element_Tooltip.style.display !== "block" ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) {
+                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -3789,9 +3820,9 @@ function calendarJs( id, options, startDateTime ) {
         return _element_Tooltip_ShowTimer !== null || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
     }
 
-    function addToolTip( element, text ) {
+    function addToolTip( element, text, overrideShow ) {
         element.onmousemove = function( e ) {
-            showTooltip( e, null, text );
+            showTooltip( e, null, text, overrideShow );
         };
     }
 
@@ -4014,13 +4045,13 @@ function calendarJs( id, options, startDateTime ) {
         return [ input, label ];
     }
 
-    function buildToolbarButton( container, cssClass, tooltipText, onClickEvent ) {
+    function buildToolbarButton( container, cssClass, tooltipText, onClickEvent, overrideShow ) {
         var button = createElement( "div", cssClass );
         button.ondblclick = cancelBubble;
         button.onclick = onClickEvent;
         container.appendChild( button );
 
-        addToolTip( button, tooltipText );
+        addToolTip( button, tooltipText, overrideShow );
 
         return button;
     }
@@ -4563,6 +4594,16 @@ function calendarJs( id, options, startDateTime ) {
         clearAutoRefreshTimer();
     };
 
+    /**
+     * destroy().
+     * 
+     * Removes the calendar from the DOM.
+     */
+    this.destroy = function() {
+        _element_Calendar.className = "";
+        _element_Calendar.innerHTML = "";
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -5027,6 +5068,48 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Get/Set Additional Data (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * getAllGroups().
+     * 
+     * Returns an array of group names being used.
+     * 
+     * @returns     {Object[]}                                              An array of the group names.
+     */
+    this.getAllGroups = function() {
+        return getGroups();
+    };
+
+    /**
+     * clearAllGroups().
+     * 
+     * Clears all the event groups.
+     * 
+     * @fires       onGroupsCleared
+     * 
+     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
+     */
+    this.clearAllGroups = function( updateEvents ) {
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+
+        getAllEventsFunc( function( event ) {
+            event.group = null;
+        } );
+
+        triggerOptionsEvent( "onGroupsCleared" );
+
+        if ( updateEvents ) {
+            buildDayEvents();
+            refreshOpenedViews();
+        }
+    };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Setting Options (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -5059,6 +5142,111 @@ function calendarJs( id, options, startDateTime ) {
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
 
+        if ( !isDefined( _options.showDayNumberOrdinals ) ) {
+            _options.showDayNumberOrdinals = true;
+        }
+
+        if ( !isDefined( _options.dragAndDropForEventsEnabled ) ) {
+            _options.dragAndDropForEventsEnabled = true;
+        }
+
+        if ( !isDefined( _options.maximumEventsPerDayDisplay ) ) {
+            _options.maximumEventsPerDayDisplay = 3;
+        }
+
+        if ( !isDefined( _options.extraSelectableYearsAhead ) ) {
+            _options.extraSelectableYearsAhead = 51;
+        }
+
+        if ( !isDefined( _options.exportEventsEnabled ) ) {
+            _options.exportEventsEnabled = true;
+        }
+
+        if ( !isDefined( _options.manualEditingEnabled ) ) {
+            _options.manualEditingEnabled = true;
+        }
+
+        if ( !isDefined( _options.showTimesInMainCalendarEvents ) ) {
+            _options.showTimesInMainCalendarEvents = false;
+        }
+
+        if ( !isDefined( _options.autoRefreshTimerDelay ) ) {
+            _options.autoRefreshTimerDelay = 30000;
+        }
+
+        if ( !isDefined( _options.fullScreenModeEnabled ) ) {
+            _options.fullScreenModeEnabled = true;
+        }
+
+        if ( !isDefined( _options.eventTooltipDelay ) ) {
+            _options.eventTooltipDelay = 1000;
+        }
+
+        if ( !isDefined( _options.minimumDayHeight ) ) {
+            _options.minimumDayHeight = 0;
+        }
+
+        if ( !isDefined( _options.holidays ) ) {
+            _options.holidays = getStandardHolidays();
+        }
+
+        if ( !isDefined( _options.organizerName ) ) {
+            _options.organizerName = "";
+        }
+        
+        if ( !isDefined( _options.organizerEmailAddress ) ) {
+            _options.organizerEmailAddress = "";
+        }
+
+        if ( !isDefined( _options.spacing ) ) {
+            _options.spacing = 10;
+        }
+
+        if ( !isDefined( _options.showAllDayEventDetailsInFullDayView ) ) {
+            _options.showAllDayEventDetailsInFullDayView = false;
+        }
+
+        if ( !isDefined( _options.showWeekNumbersInTitles ) ) {
+            _options.showWeekNumbersInTitles = false;
+        }
+
+        if ( !isDefined( _options.showTimelineArrowOnFullDayView ) ) {
+            _options.showTimelineArrowOnFullDayView = true;
+        }
+
+        if ( !isDefined( _options.maximumEventTitleLength ) ) {
+            _options.maximumEventTitleLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventDescriptionLength ) ) {
+            _options.maximumEventDescriptionLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventLocationLength ) ) {
+            _options.maximumEventLocationLength = 0;
+        }
+
+        if ( !isDefined( _options.maximumEventGroupLength ) ) {
+            _options.maximumEventGroupLength = 0;
+        }
+
+        if ( !isDefined( _options.eventNotificationsEnabled ) ) {
+            _options.eventNotificationsEnabled = false;
+        }
+
+        if ( !isDefined( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
+            _options.showPreviousNextMonthNamesInMainDisplay = true;
+        }
+
+        if ( !isDefined( _options.showDayNamesInMainDisplay ) ) {
+            _options.showDayNamesInMainDisplay = true;
+        }
+
+        setTranslationStringOptions();
+        checkForBrowserNotificationsPermission();
+    }
+
+    function setTranslationStringOptions() {
         if ( !isDefined( _options.previousMonthTooltipText ) ) {
             _options.previousMonthTooltipText = "Previous Month";
         }
@@ -5120,11 +5308,44 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( !isDefined( _options.dayHeaderNames ) ) {
-            _options.dayHeaderNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
+            _options.dayHeaderNames = [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ];
         }
 
         if ( !isDefined( _options.dayNames ) ) {
-            _options.dayNames = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
+            _options.dayNames = [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            ];
+        }
+
+        if ( !isDefined( _options.monthNames ) ) {
+            _options.monthNames = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ];
         }
 
         if ( !isDefined( _options.fromText ) ) {
@@ -5175,31 +5396,6 @@ function calendarJs( id, options, startDateTime ) {
             _options.editEventTitle = "Edit Event";
         }
 
-        if ( !isDefined( _options.monthNames ) ) {
-            _options.monthNames = [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"
-            ];
-        }
-
-        if ( !isDefined( _options.showDayNumberOrdinals ) ) {
-            _options.showDayNumberOrdinals = true;
-        }
-
-        if ( !isDefined( _options.dragAndDropForEventsEnabled ) ) {
-            _options.dragAndDropForEventsEnabled = true;
-        }
-
         if ( !isDefined( _options.exportStartFilename ) ) {
             _options.exportStartFilename = "exported_events_";
         }
@@ -5236,20 +5432,12 @@ function calendarJs( id, options, startDateTime ) {
             _options.thText = "th";
         }
 
-        if ( !isDefined( _options.maximumEventsPerDayDisplay ) ) {
-            _options.maximumEventsPerDayDisplay = 3;
-        }
-
         if ( !isDefined( _options.yesText ) ) {
             _options.yesText = "Yes";
         }
 
         if ( !isDefined( _options.noText ) ) {
             _options.noText = "No";
-        }
-
-        if ( !isDefined( _options.extraSelectableYearsAhead ) ) {
-            _options.extraSelectableYearsAhead = 51;
         }
 
         if ( !isDefined( _options.allDayText ) ) {
@@ -5260,166 +5448,126 @@ function calendarJs( id, options, startDateTime ) {
             _options.allEventsText = "All Events";
         }
 
-        if ( !isDefined( _options.exportEventsEnabled ) ) {
-            _options.exportEventsEnabled = true;
-        }
-
-        if ( !isDefined( _options.manualEditingEnabled ) ) {
-            _options.manualEditingEnabled = true;
-        }
-
-        if ( !isDefined( _options.showTimesInMainCalendarEvents ) ) {
-            _options.showTimesInMainCalendarEvents = false;
-        }
-
         if ( !isDefined( _options.toTimeText ) ) {
             _options.toTimeText = "to";
         }
-
-        if ( !isDefined( _options.autoRefreshTimerDelay ) ) {
-            _options.autoRefreshTimerDelay = 30000;
-        }
-
+        
         if ( !isDefined( _options.confirmEventRemoveTitle ) ) {
             _options.confirmEventRemoveTitle = "Confirm Event Removal";
         }
-
+        
         if ( !isDefined( _options.confirmEventRemoveMessage ) ) {
             _options.confirmEventRemoveMessage = "Removing this event cannot be undone.  Do you want to continue?";
         }
-
+        
         if ( !isDefined( _options.okText ) ) {
             _options.okText = "OK";
         }
-
+        
         if ( !isDefined( _options.selectExportTypeTitle ) ) {
             _options.selectExportTypeTitle = "Select Export Type";
         }
-
-        if ( !isDefined( _options.fullScreenModeEnabled ) ) {
-            _options.fullScreenModeEnabled = true;
-        }
-
-        if ( !isDefined( _options.eventTooltipDelay ) ) {
-            _options.eventTooltipDelay = 1000;
-        }
-
+        
         if ( !isDefined( _options.selectColorsText ) ) {
             _options.selectColorsText = "Select Colors";
         }
-
+        
         if ( !isDefined( _options.backgroundColorText ) ) {
             _options.backgroundColorText = "Background Color:";
         }
-
+        
         if ( !isDefined( _options.textColorText ) ) {
             _options.textColorText = "Text Color:";
         }
-
+        
         if ( !isDefined( _options.borderColorText ) ) {
             _options.borderColorText = "Border Color:";
         }
-
+        
         if ( !isDefined( _options.searchEventsTitle ) ) {
             _options.searchEventsTitle = "Search Events";
         }
-
+        
         if ( !isDefined( _options.forText ) ) {
             _options.forText = "For:";
         }
-
+        
         if ( !isDefined( _options.previousText ) ) {
             _options.previousText = "Previous";
         }
-
+        
         if ( !isDefined( _options.nextText ) ) {
             _options.nextText = "Next";
         }
-
+        
         if ( !isDefined( _options.matchCaseText ) ) {
             _options.matchCaseText = "Match Case";
         }
-
-        if ( !isDefined( _options.minimumDayHeight ) ) {
-            _options.minimumDayHeight = 0;
-        }
-
+        
         if ( !isDefined( _options.repeatsText ) ) {
             _options.repeatsText = "Repeats:";
         }
-
+        
         if ( !isDefined( _options.repeatDaysToExcludeText ) ) {
             _options.repeatDaysToExcludeText = "Repeat Days To Exclude:";
         }
-
+        
         if ( !isDefined( _options.daysToExcludeText ) ) {
             _options.daysToExcludeText = "Days To Exclude:";
         }
-
+        
         if ( !isDefined( _options.seriesIgnoreDatesText ) ) {
             _options.seriesIgnoreDatesText = "Series Ignore Dates:";
         }
-
+        
         if ( !isDefined( _options.repeatsNever ) ) {
             _options.repeatsNever = "Never";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryDayText ) ) {
             _options.repeatsEveryDayText = "Every Day";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryWeekText ) ) {
             _options.repeatsEveryWeekText = "Every Week";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryMonthText ) ) {
             _options.repeatsEveryMonthText = "Every Month";
         }
-
+        
         if ( !isDefined( _options.repeatsEveryYearText ) ) {
             _options.repeatsEveryYearText = "Every Year";
         }
-
+        
         if ( !isDefined( _options.repeatOptionsTitle ) ) {
             _options.repeatOptionsTitle = "Repeat Options";
         }
-
+        
         if ( !isDefined( _options.moreText ) ) {
             _options.moreText = "More";
         }
-
+        
         if ( !isDefined( _options.includeText ) ) {
             _options.includeText = "Include:";
         }
-
-        if ( !isDefined( _options.holidays ) ) {
-            _options.holidays = getStandardHolidays();
-        }
-
+        
         if ( !isDefined( _options.minimizedTooltipText ) ) {
             _options.minimizedTooltipText = "Minimize";
         }
-
+        
         if ( !isDefined( _options.restoreTooltipText ) ) {
             _options.restoreTooltipText = "Restore";
         }
-
+        
         if ( !isDefined( _options.removeAllEventsInSeriesText ) ) {
             _options.removeAllEventsInSeriesText = "Remove All Events In Series";
         }
-
+        
         if ( !isDefined( _options.createdText ) ) {
             _options.createdText = "Created:";
         }
-
-        if ( !isDefined( _options.organizerName ) ) {
-            _options.organizerName = "";
-        }
         
-        if ( !isDefined( _options.organizerEmailAddress ) ) {
-            _options.organizerEmailAddress = "";
-        }
-
         if ( !isDefined( _options.organizerNameText ) ) {
             _options.organizerNameText = "Organizer:";
         }
@@ -5427,116 +5575,78 @@ function calendarJs( id, options, startDateTime ) {
         if ( !isDefined( _options.organizerEmailAddressText ) ) {
             _options.organizerEmailAddressText = "Organizer Email:";
         }
-
+        
         if ( !isDefined( _options.enableFullScreenTooltipText ) ) {
             _options.enableFullScreenTooltipText = "Turn On Full-Screen Mode";
         }
-
+        
         if ( !isDefined( _options.disableFullScreenTooltipText ) ) {
             _options.disableFullScreenTooltipText = "Turn Off Full-Screen Mode";
         }
-
+        
         if ( !isDefined( _options.idText ) ) {
             _options.idText = "ID:";
         }
-
-        if ( !isDefined( _options.spacing ) ) {
-            _options.spacing = 10;
-        }
-
+        
         if ( !isDefined( _options.expandMonthTooltipText ) ) {
             _options.expandMonthTooltipText = "Expand Month";
         }
-
+        
         if ( !isDefined( _options.repeatEndsText ) ) {
             _options.repeatEndsText = "Repeat Ends:";
         }
-
+        
         if ( !isDefined( _options.noEventsAvailableText ) ) {
             _options.noEventsAvailableText = "No events available";
         }
-
+        
         if ( !isDefined( _options.viewWeekEventsText ) ) {
             _options.viewWeekEventsText = "View Week Events";
         }
-
+        
         if ( !isDefined( _options.noEventsAvailableFullText ) ) {
             _options.noEventsAvailableFullText = "There are no events available to view.";
         }
-
+        
         if ( !isDefined( _options.clickText ) ) {
             _options.clickText = "Click";
         }
-
+        
         if ( !isDefined( _options.hereText ) ) {
             _options.hereText = "here";
         }
-
+        
         if ( !isDefined( _options.toAddANewEventText ) ) {
             _options.toAddANewEventText = "to add a new event.";
         }
-
-        if ( !isDefined( _options.showAllDayEventDetailsInFullDayView ) ) {
-            _options.showAllDayEventDetailsInFullDayView = false;
-        }
-
-        if ( !isDefined( _options.showWeekNumbersInTitles ) ) {
-            _options.showWeekNumbersInTitles = false;
-        }
-
+        
         if ( !isDefined( _options.weekText ) ) {
             _options.weekText = "Week";
         }
-
+        
         if ( !isDefined( _options.groupText ) ) {
             _options.groupText = "Group:";
         }
-
+        
         if ( !isDefined( _options.configurationTooltipText ) ) {
             _options.configurationTooltipText = "Configuration";
         }
-
+        
         if ( !isDefined( _options.configurationTitleText ) ) {
             _options.configurationTitleText = "Configuration";
         }
-
+        
         if ( !isDefined( _options.visibleGroupsText ) ) {
             _options.visibleGroupsText = "Visible Groups:";
         }
-
-        if ( !isDefined( _options.showTimelineArrowOnFullDayView ) ) {
-            _options.showTimelineArrowOnFullDayView = true;
-        }
-
-        if ( !isDefined( _options.maximumEventTitleLength ) ) {
-            _options.maximumEventTitleLength = 0;
-        }
-
-        if ( !isDefined( _options.maximumEventDescriptionLength ) ) {
-            _options.maximumEventDescriptionLength = 0;
-        }
-
-        if ( !isDefined( _options.maximumEventLocationLength ) ) {
-            _options.maximumEventLocationLength = 0;
-        }
-
-        if ( !isDefined( _options.maximumEventGroupLength ) ) {
-            _options.maximumEventGroupLength = 0;
-        }
-
-        if ( !isDefined( _options.eventNotificationsEnabled ) ) {
-            _options.eventNotificationsEnabled = false;
-        }
-
+        
         if ( !isDefined( _options.eventNotificationTitle ) ) {
             _options.eventNotificationTitle = "Calendar.js";
         }
-
+        
         if ( !isDefined( _options.eventNotificationBody ) ) {
             _options.eventNotificationBody = "The event '{0}' has started.";
         }
-
-        checkForBrowserNotificationsPermission();
     }
 
     function checkForBrowserNotificationsPermission() {
@@ -5563,6 +5673,31 @@ function calendarJs( id, options, startDateTime ) {
     function getStandardHolidays() {
         return [
             {
+                day: 1,
+                month: 1,
+                title: "New Year's Day"
+            },
+            {
+                day: 14,
+                month: 2,
+                title: "Valentine's Day"
+            },
+            {
+                day: 1,
+                month: 4,
+                title: "April Fools' Day"
+            },
+            {
+                day: 22,
+                month: 4,
+                title: "Earth Day"
+            },
+            {
+                day: 31,
+                month: 10,
+                title: "Halloween"
+            },
+            {
                 day: 24,
                 month: 12,
                 title: "Christmas Eve"
@@ -5581,11 +5716,6 @@ function calendarJs( id, options, startDateTime ) {
                 day: 31,
                 month: 12,
                 title: "New Year's Eve"
-            },
-            {
-                day: 1,
-                month: 1,
-                title: "New Year's Day"
             }
         ];
     }
