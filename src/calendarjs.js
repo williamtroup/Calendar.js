@@ -4587,7 +4587,8 @@ function calendarJs( id, options, startDateTime ) {
 
         contents.push( "BEGIN:VCALENDAR" );
         contents.push( "VERSION:2.0" );
-        contents.push( "PRODID:-//hacksw/handcal//NONSGML v1.0//EN" );
+        contents.push( "PRODID:Calendar.js v" + _this.getVersion() );
+        contents.push( "CALSCALE:GREGORIAN" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
@@ -5229,6 +5230,17 @@ function calendarJs( id, options, startDateTime ) {
             buildDayEvents();
             refreshOpenedViews();
         }
+    };
+
+    /**
+     * getVersion().
+     * 
+     * Returns the version of Calendar.js.
+     * 
+     * @returns     {string}                                                The version number.
+     */
+    this.getVersion = function() {
+        return "0.9.3";
     };
 
 

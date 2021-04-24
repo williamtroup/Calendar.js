@@ -3,6 +3,10 @@
 ### Version 0.9.3:
 - Added export to MD (markdown) file support.
 - Added export to HTML file support.
+- Added public function getVersion(), which returns the current version of Calendar.js.
+- Fixed some documentation errors for functions (return types not being shown correctly).
+- Fixed the PRODID for iCAL exports showing the wrong product data.
+- Added gregorian time format support for iCAL export type.
 - 
 
 ### Version 0.9.2:

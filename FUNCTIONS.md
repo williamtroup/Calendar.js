@@ -154,7 +154,7 @@ Clears all the events.
 ### **getEvents()**:
 Returns an array of the events available.
 <br>
-***Returns***: '*Object[]]' - An array of the event.
+***Returns***: '*Object[]*' - An array of the event.
 
 ### **getEvent( *id* )**:
 Returns an event that matches the ID passed.
@@ -166,7 +166,7 @@ Returns an event that matches the ID passed.
 ### **getAllGroups()**:
 Returns an array of group names being used.
 <br>
-***Returns***: '*Object[]]' - An array of the group names.
+***Returns***: '*Object[]*' - An array of the group names.
 
 ### **clearAllGroups( *updateEvents* )**:
 Clears all the event groups.
@@ -174,6 +174,11 @@ Clears all the event groups.
 ***Fires***:  onGroupsCleared
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+
+### **getVersion()**:
+Returns the version of Calendar.js.
+<br>
+***Returns***: '*string*' - The version number.
 
 ### **setOptions( *newOptions* )**:
 Sets the specific options that should be used.
