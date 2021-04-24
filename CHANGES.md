@@ -8,6 +8,8 @@
 - Fixed the PRODID for iCAL exports showing the wrong product data.
 - Added gregorian time format support for iCAL export type.
 - Added new option tooltipsEnabled, which allows the tooltips throughout the calendar to be disabled (on by default).
+- Fixed a fault that caused the holidays to appear within the Day number text element (now placed under it).
+- The first day of each month is now highlighted (the same style as the current day of the month).
 - 
 
 ### Version 0.9.2:

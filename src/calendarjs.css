@@ -274,11 +274,19 @@ div.calendar div.row div.cell span.day-muted {
   opacity: 0.3;
 }
 
-div.calendar div.row div.cell span.today {
-  background-color: #282828;
-  color: #F5F5F5;
+div.calendar div.row div.cell span.today, div.calendar div.row div.cell span.first-day {
   padding-left: 7px;
   padding-right: 7px;
+}
+
+div.calendar div.row div.cell span.today {
+  background-color: #282828 !important;
+  color: #F5F5F5 !important;
+}
+
+div.calendar div.row div.cell span.first-day {
+  background-color: #C8C8C8;
+  color: #282828;
 }
 
 div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name {

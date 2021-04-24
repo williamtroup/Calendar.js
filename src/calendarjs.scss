@@ -186,11 +186,20 @@ div.calendar {
                     opacity: 0.3;
                 }
         
-                &.today {
-                    background-color: $dark-color;
-                    color: $light-color;
+                &.today,
+                &.first-day {
                     padding-left: 7px;
                     padding-right: 7px;
+                }
+
+                &.today {
+                    background-color: $dark-color !important;
+                    color: $light-color !important;
+                }
+
+                &.first-day {
+                    background-color: #C8C8C8;
+                    color: $dark-color;
                 }
 
                 &.holiday,

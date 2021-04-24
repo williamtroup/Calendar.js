@@ -2250,6 +2250,10 @@ function calendarJs( id, options, startDateTime ) {
         dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
 
+        if ( actualDay === 1 ) {
+            dayText.className += " first-day";
+        }
+
         if ( isWeekendDay( dayDate ) && dayElement.className === _elementClassName_Cell ) {
             dayElement.className = _elementClassName_Cell + " weekend-day";
         }
@@ -2273,15 +2277,17 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
             var monthName = createElement( "span", "month-name" );
+            monthName.className += isMuted ? " day-muted" : "";
             monthName.innerText = _options.monthNames[ month ];
-            dayText.appendChild( monthName );
+            dayElement.appendChild( monthName );
         }
 
         var holidayText = getHoliday( dayDate );
         if ( holidayText !== null ) {
             var holiday = createElement( "span", "holiday" );
+            holiday.className += isMuted ? " day-muted" : "";
             holiday.innerText = holidayText;
-            dayText.appendChild( holiday );
+            dayElement.appendChild( holiday );
         }
 
         expandDayButton.onclick = function() {
