@@ -196,6 +196,7 @@
  * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
  * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
  * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
+ * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
  */
 
 
@@ -3751,7 +3752,7 @@ function calendarJs( id, options, startDateTime ) {
 
         overrideShow = isDefined( overrideShow ) ? overrideShow : false;
 
-        if ( _element_Tooltip.style.display !== "block" ) {
+        if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
                 if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) ) {
                     text = isDefined( text ) ? text : "";
@@ -5376,6 +5377,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.showDayNamesInMainDisplay ) ) {
             _options.showDayNamesInMainDisplay = true;
+        }
+
+        if ( !isDefined( _options.tooltipsEnabled ) ) {
+            _options.tooltipsEnabled = true;
         }
 
         setTranslationStringOptions();

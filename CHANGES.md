@@ -7,6 +7,7 @@
 - Fixed some documentation errors for functions (return types not being shown correctly).
 - Fixed the PRODID for iCAL exports showing the wrong product data.
 - Added gregorian time format support for iCAL export type.
+- Added new option tooltipsEnabled, which allows the tooltips throughout the calendar to be disabled (on by default).
 - 
 
 ### Version 0.9.2:
