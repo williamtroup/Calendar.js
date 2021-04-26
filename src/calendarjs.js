@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.2
+ * Calendar.js Library v0.9.3
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -196,6 +196,7 @@
  * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
  * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
  * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
+ * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
  */
 
 
@@ -324,6 +325,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_JSON = null,
         _element_SelectExportTypeDialog_Option_TEXT = null,
         _element_SelectExportTypeDialog_Option_iCAL = null,
+        _element_SelectExportTypeDialog_Option_MD = null,
+        _element_SelectExportTypeDialog_Option_HTML = null,
         _element_SelectExportTypeDialog_ExportEvents = null,
         _element_Tooltip = null,
         _element_Tooltip_Title = null,
@@ -2247,6 +2250,10 @@ function calendarJs( id, options, startDateTime ) {
         dayText.className += dayIsToday ? " today" : "";
         dayText.innerText = actualDay;
 
+        if ( actualDay === 1 ) {
+            dayText.className += " first-day";
+        }
+
         if ( isWeekendDay( dayDate ) && dayElement.className === _elementClassName_Cell ) {
             dayElement.className = _elementClassName_Cell + " weekend-day";
         }
@@ -2270,15 +2277,17 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
             var monthName = createElement( "span", "month-name" );
+            monthName.className += isMuted ? " day-muted" : "";
             monthName.innerText = _options.monthNames[ month ];
-            dayText.appendChild( monthName );
+            dayElement.appendChild( monthName );
         }
 
         var holidayText = getHoliday( dayDate );
         if ( holidayText !== null ) {
             var holiday = createElement( "span", "holiday" );
+            holiday.className += isMuted ? " day-muted" : "";
             holiday.innerText = holidayText;
-            dayText.appendChild( holiday );
+            dayElement.appendChild( holiday );
         }
 
         expandDayButton.onclick = function() {
@@ -3310,6 +3319,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
         _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
         _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer, "iCAL", "ExportType" );
+        _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer, "MD", "ExportType" );
+        _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer, "HTML", "ExportType" );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -3350,6 +3361,10 @@ function calendarJs( id, options, startDateTime ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "text" );
         } else if ( _element_SelectExportTypeDialog_Option_iCAL.checked ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "ical" );
+        } else if ( _element_SelectExportTypeDialog_Option_MD.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "md" );
+        } else if ( _element_SelectExportTypeDialog_Option_HTML.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "html" );
         }
     }
 
@@ -3743,7 +3758,7 @@ function calendarJs( id, options, startDateTime ) {
 
         overrideShow = isDefined( overrideShow ) ? overrideShow : false;
 
-        if ( _element_Tooltip.style.display !== "block" ) {
+        if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
                 if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDayDropDownMenuVisible() && !isEventDropDownMenuVisible() ) ) {
                     text = isDefined( text ) ? text : "";
@@ -4183,6 +4198,10 @@ function calendarJs( id, options, startDateTime ) {
             contents = getTextContents( contentsEvents );
         } else if ( type === "ical" ) {
             contents = getICalContents( contentsEvents );
+        } else if ( type === "md" ) {
+            contents = getMdContents( contentsEvents );
+        } else if ( type === "html" ) {
+            contents = getHtmlContents( contentsEvents );
         }
 
         if ( contents !== "" ) {
@@ -4199,6 +4218,10 @@ function calendarJs( id, options, startDateTime ) {
                 extension = "ics";
             } else if ( type === "json" ) {
                 mimeTypeStart = "application";
+            } else if ( type === "md" ) {
+                mimeTypeEnd = "x-markdown";
+            } else if ( type === "html" ) {
+                mimeTypeEnd = "html";
             }
 
             tempLink.style.display = "none";
@@ -4358,6 +4381,55 @@ function calendarJs( id, options, startDateTime ) {
         return getArrayText( daysNames );
     }
 
+    function getExportHeaders() {
+        var headers = [ 
+                _options.idText,
+                _options.fromText,
+                _options.toText,
+                _options.isAllDayText,
+                _options.titleText,
+                _options.descriptionText,
+                _options.locationText,
+                _options.backgroundColorText,
+                _options.textColorText,
+                _options.borderColorText,
+                _options.repeatsText,
+                _options.repeatEndsText,
+                _options.repeatDaysToExcludeText,
+                _options.seriesIgnoreDatesText,
+                _options.createdText,
+                _options.organizerNameText,
+                _options.organizerEmailAddressText
+            ],
+            headersLength = headers.length;
+
+        return [ headers, headersLength ];
+    }
+
+    function getExportRow( eventDetails ) {
+        var eventContents = [];
+
+        eventContents.push( getString( eventDetails.id ) );
+        eventContents.push( getStringFromDateTime( eventDetails.from ) );
+        eventContents.push( getStringFromDateTime( eventDetails.to ) );
+        eventContents.push( getYesNoFromBoolean( eventDetails.isAllDay ) );
+        eventContents.push( getString( eventDetails.title ) );
+        eventContents.push( getString( eventDetails.description ) );
+        eventContents.push( getString( eventDetails.location ) );
+        eventContents.push( getString( eventDetails.color ) );
+        eventContents.push( getString( eventDetails.colorText ) );
+        eventContents.push( getString( eventDetails.colorBorder ) );
+        eventContents.push( getRepeatsText( eventDetails.repeatEvery ) );
+        eventContents.push( getStringFromDateTime( eventDetails.repeatEnds ) );
+        eventContents.push( getArrayDays( eventDetails.repeatEveryExcludeDays ) );
+        eventContents.push( getArrayText( eventDetails.seriesIgnoreDates ) );
+        eventContents.push( getStringFromDateTime( eventDetails.created ) );
+        eventContents.push( getString( eventDetails.organizerName ) );
+        eventContents.push( getString( eventDetails.organizerEmailAddress ) );
+
+        return eventContents;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4366,8 +4438,10 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getCsvContents( orderedEvents ) {
-        var headers = [ _options.idText, _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatEndsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.organizerNameText, _options.organizerEmailAddressText ],
-            headersLength = headers.length,
+        var orderedEventLength = orderedEvents.length,
+            exportHeaders = getExportHeaders(),
+            headers = exportHeaders[ 0 ],
+            headersLength = exportHeaders[ 1 ],
             csvHeaders = [],
             csvContents = [];
 
@@ -4377,7 +4451,6 @@ function calendarJs( id, options, startDateTime ) {
         
         csvContents.push( getCsvValueLine( csvHeaders ) );
 
-        var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             storeCsvData( csvContents, orderedEvents[ orderedEventIndex ] );
         }
@@ -4386,25 +4459,12 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function storeCsvData( csvContents, eventDetails ) {
-        var eventContents = [];
+        var eventContents = getExportRow( eventDetails ),
+            eventContentsLength = eventContents.length;
 
-        eventContents.push( getCsvValue( getString( eventDetails.id ) ) );
-        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.from ) ) );
-        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.to ) ) );
-        eventContents.push( getCsvValue( getYesNoFromBoolean( eventDetails.isAllDay ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.title ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.description ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.location ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.color ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.colorText ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.colorBorder ) ) );
-        eventContents.push( getCsvValue( getRepeatsText( eventDetails.repeatEvery ) ) );
-        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.repeatEnds ) ) );
-        eventContents.push( getCsvValue( getArrayDays( eventDetails.repeatEveryExcludeDays ) ) );
-        eventContents.push( getCsvValue( getArrayText( eventDetails.seriesIgnoreDates ) ) );
-        eventContents.push( getCsvValue( getStringFromDateTime( eventDetails.created ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.organizerName ) ) );
-        eventContents.push( getCsvValue( getString( eventDetails.organizerEmailAddress ) ) );
+        for ( var eventContentsIndex = 0; eventContentsIndex < eventContentsLength; eventContentsIndex++ ) {
+            eventContents[ eventContentsIndex ] = getCsvValue( eventContents[ eventContentsIndex ] );
+        }
 
         csvContents.push( getCsvValueLine( eventContents ) );
     }
@@ -4429,11 +4489,12 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getXmlContents( orderedEvents ) {
-        var contents = [];
+        var contents = [],
+            orderedEventLength = orderedEvents.length;
+
         contents.push( "<?xml version=\"1.0\" ?>" );
         contents.push( "<Events>" );
 
-        var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
 
@@ -4463,11 +4524,12 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getJsonContents( orderedEvents ) {
-        var contents = [];
+        var contents = [],
+            orderedEventLength = orderedEvents.length;
+
         contents.push( "{" );
         contents.push( "\"events:\": [" );
 
-        var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
             
@@ -4499,9 +4561,9 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getTextContents( orderedEvents ) {
-        var contents = [];
+        var contents = [],
+            orderedEventLength = orderedEvents.length;
 
-        var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
 
@@ -4527,12 +4589,14 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function getICalContents( orderedEvents ) {
-        var contents = [];
+        var contents = [],
+            orderedEventLength = orderedEvents.length;
+
         contents.push( "BEGIN:VCALENDAR" );
         contents.push( "VERSION:2.0" );
-        contents.push( "PRODID:-//hacksw/handcal//NONSGML v1.0//EN" );
+        contents.push( "PRODID:Calendar.js v" + _this.getVersion() );
+        contents.push( "CALSCALE:GREGORIAN" );
 
-        var orderedEventLength = orderedEvents.length;
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
 
@@ -4547,6 +4611,74 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         contents.push( "END:VCALENDAR" );
+
+        return contents.join( "\n" );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To MD
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getMdContents( orderedEvents ) {
+        var orderedEventLength = orderedEvents.length,
+            exportHeaders = getExportHeaders(),
+            headersLength = exportHeaders[ 1 ],
+            contents = [ getMdFileRow( exportHeaders[ 0 ] ) ],
+            headerLines = [];
+
+        for ( var headerIndex = 0; headerIndex < headersLength; headerIndex++ ) {
+            headerLines.push( "---" );
+        }
+
+        contents.push( getMdFileRow( headerLines ) );
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            var rowContents = getExportRow( orderedEvents[ orderedEventIndex ] );
+
+            contents.push( getMdFileRow( rowContents ) );
+        }
+
+        return contents.join( "\n" );
+    }
+
+    function getMdFileRow( contents ) {
+        return "| " + contents.join( " | " ) + " |";
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To HTML
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getHtmlContents( orderedEvents ) {
+        var contents = [],
+            orderedEventLength = orderedEvents.length;
+
+        contents.push( "<html>" );
+        contents.push( "<body>" );
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
+
+            contents.push( "<h3><b>" + orderedEvent.id + ":</b></h3>" );
+            contents.push( "<ul>" );
+
+            for ( var propertyName in orderedEvent ) {
+                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                    contents.push( "<li><b>" + getPropertyName( propertyName ) + "</b>: " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</li>" );
+                }
+            }
+
+            contents.push( "</ul>" );
+        }
+
+        contents.push( "</body>" );
+        contents.push( "</html>" );
 
         return contents.join( "\n" );
     }
@@ -4698,7 +4830,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @fires onEventsExported
      * 
-     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt" and "ical").
+     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", and "html").
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
@@ -5107,6 +5239,17 @@ function calendarJs( id, options, startDateTime ) {
         }
     };
 
+    /**
+     * getVersion().
+     * 
+     * Returns the version of Calendar.js.
+     * 
+     * @returns     {string}                                                The version number.
+     */
+    this.getVersion = function() {
+        return "0.9.3";
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -5240,6 +5383,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.showDayNamesInMainDisplay ) ) {
             _options.showDayNamesInMainDisplay = true;
+        }
+
+        if ( !isDefined( _options.tooltipsEnabled ) ) {
+            _options.tooltipsEnabled = true;
         }
 
         setTranslationStringOptions();

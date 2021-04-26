@@ -61,7 +61,7 @@ Exports all the events into a downloadable file.
 <br>
 ***Fires***:  onEventsExported
 <br>
-***Parameter: type***: '*string*' - The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt" and "ical").
+***Parameter: type***: '*string*' - The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", and "html").
 
 ### **refresh()**:
 Refreshes all of the views.
@@ -154,7 +154,7 @@ Clears all the events.
 ### **getEvents()**:
 Returns an array of the events available.
 <br>
-***Returns***: '*Object[]]' - An array of the event.
+***Returns***: '*Object[]*' - An array of the event.
 
 ### **getEvent( *id* )**:
 Returns an event that matches the ID passed.
@@ -166,7 +166,7 @@ Returns an event that matches the ID passed.
 ### **getAllGroups()**:
 Returns an array of group names being used.
 <br>
-***Returns***: '*Object[]]' - An array of the group names.
+***Returns***: '*Object[]*' - An array of the group names.
 
 ### **clearAllGroups( *updateEvents* )**:
 Clears all the event groups.
@@ -174,6 +174,11 @@ Clears all the event groups.
 ***Fires***:  onGroupsCleared
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+
+### **getVersion()**:
+Returns the version of Calendar.js.
+<br>
+***Returns***: '*string*' - The version number.
 
 ### **setOptions( *newOptions* )**:
 Sets the specific options that should be used.

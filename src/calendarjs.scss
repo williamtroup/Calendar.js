@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.2
+ * Calendar.js Library v0.9.3
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -186,11 +186,20 @@ div.calendar {
                     opacity: 0.3;
                 }
         
-                &.today {
-                    background-color: $dark-color;
-                    color: $light-color;
+                &.today,
+                &.first-day {
                     padding-left: 7px;
                     padding-right: 7px;
+                }
+
+                &.today {
+                    background-color: $dark-color !important;
+                    color: $light-color !important;
+                }
+
+                &.first-day {
+                    background-color: #C8C8C8;
+                    color: $dark-color;
                 }
 
                 &.holiday,
