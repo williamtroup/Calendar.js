@@ -197,6 +197,7 @@
  * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
  * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
  * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
+ * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
  */
 
 
@@ -1028,7 +1029,12 @@ function calendarJs( id, options, startDateTime ) {
                     eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
                 }
 
-                event.innerText = eventTitle;
+                if ( !_options.useOnlyDotEventsForMainDisplay ) {
+                    event.innerText = eventTitle;
+                } else {
+                    event.className += " event-circle";
+                }
+                
                 elementDay.appendChild( event );
 
                 makeEventDraggable( event, eventDetails, dayDate );
@@ -2269,6 +2275,8 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         dayElement.appendChild( dayText );
+
+        dayElement.appendChild( createElement( "span", "blank" ) );
         
         var expandDayButton = createElement( "div", "ib-arrow-top-right" );
         dayElement.appendChild( expandDayButton );
@@ -5387,6 +5395,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.tooltipsEnabled ) ) {
             _options.tooltipsEnabled = true;
+        }
+
+        if ( !isDefined( _options.useOnlyDotEventsForMainDisplay ) ) {
+            _options.useOnlyDotEventsForMainDisplay = false;
         }
 
         setTranslationStringOptions();

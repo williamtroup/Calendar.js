@@ -41,6 +41,7 @@
             
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
+            <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
             <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
             <br />
     
@@ -109,6 +110,12 @@
                 maximumEventGroupLength: 10,
                 showDayNamesInMainDisplay: false,
                 tooltipsEnabled: false
+            } );
+        }
+
+        function onlyDotsDisplay() {
+            calendarInstance.setOptions( {
+                useOnlyDotEventsForMainDisplay: true
             } );
         }
 

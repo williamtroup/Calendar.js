@@ -203,9 +203,14 @@ div.calendar {
                 }
 
                 &.holiday,
-                &.month-name {
+                &.month-name,
+                &.blank {
                     display: block;
                     font-size: xx-small;
+                }
+
+                &.blank {
+                    padding: 0 !important;
                 }
             }
 
@@ -413,6 +418,20 @@ div.calendar {
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+            }
+
+            div.event-circle {
+                display: inline-block;
+                border-radius: 50% !important;
+                border-left: none !important;
+                height: 5px;
+                width: 5px;
+                margin-left: 2.5px;
+                margin-right: 2.5px;
+
+                &:last-child {
+                    margin-bottom: 5;
                 }
             }
 

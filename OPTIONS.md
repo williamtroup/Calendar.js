@@ -34,6 +34,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showPreviousNextMonthNamesInMainDisplay | States if the previous/next month names should be shown in the main display days (defaults to true). |
 | *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
+| *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
 
 <br/>
 

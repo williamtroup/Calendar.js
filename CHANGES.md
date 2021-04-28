@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.0.0:
+- Added support to show the events in the main display as dots (optional, to save space; defaults to false).
 - 
 
 ### Version 0.9.3:

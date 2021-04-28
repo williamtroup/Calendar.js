@@ -289,9 +289,13 @@ div.calendar div.row div.cell span.first-day {
   color: #282828;
 }
 
-div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name {
+div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name, div.calendar div.row div.cell span.blank {
   display: block;
   font-size: xx-small;
+}
+
+div.calendar div.row div.cell span.blank {
+  padding: 0 !important;
 }
 
 div.calendar div.row div.cell:last-child {
@@ -519,6 +523,20 @@ div.calendar div.row div.cell div.event-no-hover {
 div.calendar div.row div.cell div.event:last-child,
 div.calendar div.row div.cell div.event-no-hover:last-child {
   margin-bottom: 0;
+}
+
+div.calendar div.row div.cell div.event-circle {
+  display: inline-block;
+  border-radius: 50% !important;
+  border-left: none !important;
+  height: 5px;
+  width: 5px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+div.calendar div.row div.cell div.event-circle:last-child {
+  margin-bottom: 5;
 }
 
 div.calendar div.row div.cell div.event:hover {
