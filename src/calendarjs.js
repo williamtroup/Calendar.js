@@ -2622,9 +2622,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         view.appendChild( contents );
 
-        var textTitle = createElement( "p" );
-        textTitle.innerText = _options.titleText;
-        contents.appendChild( textTitle );
+        createTextHeaderElement( contents, _options.titleText );
 
         var inputTitleContainer = createElement( "div", "input-title-container" );
         contents.appendChild( inputTitleContainer );
@@ -2643,9 +2641,7 @@ function calendarJs( id, options, startDateTime ) {
 
         addToolTip( selectColorsButton, _options.selectColorsText, true );
 
-        var textFrom = createElement( "p" );
-        textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
-        contents.appendChild( textFrom );
+        createTextHeaderElement( contents, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
         var fromSplitContainer = createElement( "div", "split" );
         contents.appendChild( fromSplitContainer );
@@ -2677,9 +2673,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_EventEditorDialog_IsAllDay = buildCheckBox( contents, _options.isAllDayText, isAllDayChanged )[ 0 ];
 
-        var textRepeatEvery = createElement( "p" );
-        textRepeatEvery.innerText = _options.repeatsText;
-        contents.appendChild( textRepeatEvery );
+        createTextHeaderElement( contents, _options.repeatsText );
 
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
         contents.appendChild( radioButtonsContainer );
@@ -2700,13 +2694,8 @@ function calendarJs( id, options, startDateTime ) {
         var inputFields1TextSplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1TextSplitContainer );
 
-        var textLocation = createElement( "p" );
-        textLocation.innerText = _options.locationText;
-        inputFields1TextSplitContainer.appendChild( textLocation );
-
-        var groupLocation = createElement( "p" );
-        groupLocation.innerText = _options.groupText;
-        inputFields1TextSplitContainer.appendChild( groupLocation );
+        createTextHeaderElement( inputFields1TextSplitContainer, _options.locationText );
+        createTextHeaderElement( inputFields1TextSplitContainer, _options.groupText );
 
         var inputFields1SplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1SplitContainer );
@@ -2725,9 +2714,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Group.maxLength = _options.maximumEventGroupLength ;
         }
 
-        var textDescription = createElement( "p" );
-        textDescription.innerText = _options.descriptionText;
-        contents.appendChild( textDescription );
+        createTextHeaderElement( contents, _options.descriptionText );
 
         _element_EventEditorDialog_Description = createElement( "textarea", "custom-scroll-bars" );
         contents.appendChild( _element_EventEditorDialog_Description );
@@ -3071,27 +3058,21 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_EventEditorColorsDialog.appendChild( contents );
 
-        var backgroundColorText = createElement( "p" );
-        backgroundColorText.innerText = _options.backgroundColorText;
-        contents.appendChild( backgroundColorText );
+        createTextHeaderElement( contents, _options.backgroundColorText );
 
         _element_EventEditorColorsDialog_Color = createElement( "input" );
         contents.appendChild( _element_EventEditorColorsDialog_Color );
 
         setInputType( _element_EventEditorColorsDialog_Color, "color" );
 
-        var textColorText = createElement( "p" );
-        textColorText.innerText = _options.textColorText;
-        contents.appendChild( textColorText );
+        createTextHeaderElement( contents, _options.textColorText );
 
         _element_EventEditorColorsDialog_ColorText = createElement( "input" );
         contents.appendChild( _element_EventEditorColorsDialog_ColorText );
 
         setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
 
-        var borderColorText = createElement( "p" );
-        borderColorText.innerText = _options.borderColorText;
-        contents.appendChild( borderColorText );
+        createTextHeaderElement( contents, _options.borderColorText );
 
         _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
         contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
@@ -3154,9 +3135,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_EventEditorRepeatOptionsDialog.appendChild( contents );
 
-        var daysToExcludeText = createElement( "p" );
-        daysToExcludeText.innerText = _options.daysToExcludeText;
-        contents.appendChild( daysToExcludeText );
+        createTextHeaderElement( contents, _options.daysToExcludeText );
 
         _element_EventEditorRepeatOptionsDialog_Mon = buildCheckBox( contents, _options.dayNames[ 0 ] )[ 0 ];
         _element_EventEditorRepeatOptionsDialog_Tue = buildCheckBox( contents, _options.dayNames[ 1 ] )[ 0 ];
@@ -3166,9 +3145,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorRepeatOptionsDialog_Sat = buildCheckBox( contents, _options.dayNames[ 5 ] )[ 0 ];
         _element_EventEditorRepeatOptionsDialog_Sun = buildCheckBox( contents, _options.dayNames[ 6 ] )[ 0 ];
 
-        var repeatEndsText = createElement( "p" );
-        repeatEndsText.innerText = _options.repeatEndsText;
-        contents.appendChild( repeatEndsText );
+        createTextHeaderElement( contents, _options.repeatEndsText );
 
         _element_EventEditorRepeatOptionsDialog_RepeatEnds = createElement( "input" );
         contents.appendChild( _element_EventEditorRepeatOptionsDialog_RepeatEnds );
@@ -3412,9 +3389,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Contents = createElement( "div", "contents" );
         _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
 
-        var textFor = createElement( "p" );
-        textFor.innerText = _options.forText;
-        _element_SearchDialog_Contents.appendChild( textFor );
+        createTextHeaderElement( _element_SearchDialog_Contents, _options.forText );
 
         _element_SearchDialog_For = createElement( "input", null, "text" );
         _element_SearchDialog_For.oninput = searchForTextChanged;
@@ -3434,9 +3409,7 @@ function calendarJs( id, options, startDateTime ) {
         var splitContents2 = createElement( "div", "split-contents" );
         optionsSplitContainer.appendChild( splitContents2 );
 
-        var textInclude = createElement( "p" );
-        textInclude.innerText = _options.includeText;
-        splitContents1.appendChild( textInclude );
+        createTextHeaderElement( splitContents1, _options.includeText );
 
         var checkboxContainer = createElement( "div", "checkboxContainer" );
         splitContents1.appendChild( checkboxContainer );
@@ -3447,9 +3420,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_SearchDialog_Include_Title.checked = true;
 
-        var textOptions = createElement( "p" );
-        textOptions.innerText = _options.optionsText;
-        splitContents2.appendChild( textOptions );
+        createTextHeaderElement( splitContents2, _options.optionsText );
 
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
         splitContents2.appendChild( radioButtonsContainer );
@@ -3676,9 +3647,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_ConfigurationDialog.appendChild( contents );
 
-        var visibleGroupsText = createElement( "p" );
-        visibleGroupsText.innerText = _options.visibleGroupsText;
-        contents.appendChild( visibleGroupsText );
+        createTextHeaderElement( contents, _options.visibleGroupsText );
 
         _element_ConfigurationDialog_VisibleGroups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
         contents.appendChild( _element_ConfigurationDialog_VisibleGroups );
@@ -3984,6 +3953,12 @@ function calendarJs( id, options, startDateTime ) {
         return result;
     }
 
+    function createTextHeaderElement( container, text ) {
+        var element = createElement( "p" );
+        element.innerText = text;
+        container.appendChild( element );
+    }
+
     function getElementByID( id ) {
         if ( !_elements.hasOwnProperty( id ) || _elements[ id ] === null ) {
             _elements[ id ] = _document.getElementById( id );
@@ -4129,9 +4104,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "no-events-available-text" );
         container.appendChild( contents );
 
-        var startText = createElement( "p" );
-        startText.innerText = _options.noEventsAvailableFullText;
-        contents.appendChild( startText );
+        createTextHeaderElement( contents, _options.noEventsAvailableFullText );
 
         if ( _options.manualEditingEnabled ) {
             var addText = createElement( "div" );
