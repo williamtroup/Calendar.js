@@ -2,6 +2,7 @@
 
 ### Version 1.0.0:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
+- Added options "Starts With", "Ends With" and "Contains" to the Search dialog (defaults to the first one).
 - 
 
 ### Version 0.9.3:

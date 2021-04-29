@@ -1349,6 +1349,7 @@ div.event-editor div.view p.error {
 }
 
 div.event-editor div.view div.split input,
+div.event-editor div.view div.split div.split-contents,
 div.event-editor div.view div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1357,11 +1358,13 @@ div.event-editor div.view div.split p {
 }
 
 div.event-editor div.view div.split input:first-child,
+div.event-editor div.view div.split div.split-contents:first-child,
 div.event-editor div.view div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor div.view div.split input:last-child,
+div.event-editor div.view div.split div.split-contents:last-child,
 div.event-editor div.view div.split p:last-child {
   margin-right: 0;
 }
@@ -1585,6 +1588,7 @@ div.event-editor-colors input[type="text"]:hover {
 }
 
 div.event-editor-colors div.split input,
+div.event-editor-colors div.split div.split-contents,
 div.event-editor-colors div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1593,11 +1597,13 @@ div.event-editor-colors div.split p {
 }
 
 div.event-editor-colors div.split input:first-child,
+div.event-editor-colors div.split div.split-contents:first-child,
 div.event-editor-colors div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor-colors div.split input:last-child,
+div.event-editor-colors div.split div.split-contents:last-child,
 div.event-editor-colors div.split p:last-child {
   margin-right: 0;
 }
@@ -1760,6 +1766,7 @@ div.event-editor-repeat-options label.checkbox {
 }
 
 div.event-editor-repeat-options div.split input,
+div.event-editor-repeat-options div.split div.split-contents,
 div.event-editor-repeat-options div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1768,11 +1775,13 @@ div.event-editor-repeat-options div.split p {
 }
 
 div.event-editor-repeat-options div.split input:first-child,
+div.event-editor-repeat-options div.split div.split-contents:first-child,
 div.event-editor-repeat-options div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor-repeat-options div.split input:last-child,
+div.event-editor-repeat-options div.split div.split-contents:last-child,
 div.event-editor-repeat-options div.split p:last-child {
   margin-right: 0;
 }
@@ -1898,6 +1907,7 @@ div.confirmation label.checkbox {
 }
 
 div.confirmation div.split input,
+div.confirmation div.split div.split-contents,
 div.confirmation div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1906,11 +1916,13 @@ div.confirmation div.split p {
 }
 
 div.confirmation div.split input:first-child,
+div.confirmation div.split div.split-contents:first-child,
 div.confirmation div.split p:first-child {
   margin-left: 0;
 }
 
 div.confirmation div.split input:last-child,
+div.confirmation div.split div.split-contents:last-child,
 div.confirmation div.split p:last-child {
   margin-right: 0;
 }
@@ -2022,6 +2034,7 @@ div.select-export-type div.contents {
 }
 
 div.select-export-type div.split input,
+div.select-export-type div.split div.split-contents,
 div.select-export-type div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -2030,11 +2043,13 @@ div.select-export-type div.split p {
 }
 
 div.select-export-type div.split input:first-child,
+div.select-export-type div.split div.split-contents:first-child,
 div.select-export-type div.split p:first-child {
   margin-left: 0;
 }
 
 div.select-export-type div.split input:last-child,
+div.select-export-type div.split div.split-contents:last-child,
 div.select-export-type div.split p:last-child {
   margin-right: 0;
 }
@@ -2111,7 +2126,7 @@ div.select-export-type input[type="button"].cancel:not(:disabled):active {
 */
 div.search {
   width: calc(100% - (10px * 2));
-  max-width: 250px;
+  max-width: 300px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -2180,6 +2195,7 @@ div.search input[type="text"]:hover {
 }
 
 div.search div.split input,
+div.search div.split div.split-contents,
 div.search div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -2188,16 +2204,18 @@ div.search div.split p {
 }
 
 div.search div.split input:first-child,
+div.search div.split div.split-contents:first-child,
 div.search div.split p:first-child {
   margin-left: 0;
 }
 
 div.search div.split input:last-child,
+div.search div.split div.split-contents:last-child,
 div.search div.split p:last-child {
   margin-right: 0;
 }
 
-div.search div.split {
+div.search div.split:last-child {
   margin-top: 15px;
 }
 
@@ -2340,6 +2358,7 @@ div.configuration div.contents p {
 }
 
 div.configuration div.split input,
+div.configuration div.split div.split-contents,
 div.configuration div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -2348,11 +2367,13 @@ div.configuration div.split p {
 }
 
 div.configuration div.split input:first-child,
+div.configuration div.split div.split-contents:first-child,
 div.configuration div.split p:first-child {
   margin-left: 0;
 }
 
 div.configuration div.split input:last-child,
+div.configuration div.split div.split-contents:last-child,
 div.configuration div.split p:last-child {
   margin-right: 0;
 }

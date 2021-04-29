@@ -958,7 +958,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(250px, false);
+    @include dialog-styles(300px, false);
     @include dialog-title-bar;
 
     div.contents {
@@ -977,7 +977,7 @@ div.search {
 
     @import "foundation/split-container";
 
-    div.split {
+    div.split:last-child {
         margin-top: $spacing + $spacing / 2;
     }
 

@@ -163,6 +163,10 @@
  * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
+ * @property    {string}    optionsText                                 The text that should be displayed for the "Options:" label.
+ * @property    {string}    startsWithText                              The text that should be displayed for the "Starts With" label.
+ * @property    {string}    endsWithText                                The text that should be displayed for the "Ends With" label.
+ * @property    {string}    containsText                                The text that should be displayed for the "Contains" label.
  */
 
 
@@ -349,6 +353,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Include_Title = null,
         _element_SearchDialog_Include_Location = null,
         _element_SearchDialog_Include_Description = null,
+        _element_SearchDialog_Option_StartsWith = null,
+        _element_SearchDialog_Option_EndsWith = null,
+        _element_SearchDialog_Option_Contains = null,
         _element_SearchDialog_Previous = null,
         _element_SearchDialog_Next = null,
         _element_SearchDialog_IsMoving = false,
@@ -3417,12 +3424,22 @@ function calendarJs( id, options, startDateTime ) {
         
         _element_SearchDialog_MatchCase = buildCheckBox( _element_SearchDialog_Contents, _options.matchCaseText, searchForTextChanged )[ 0 ];
 
+
+        var optionsSplitContainer = createElement( "div", "split" );
+        _element_SearchDialog_Contents.appendChild( optionsSplitContainer );
+
+        var splitContents1 = createElement( "div", "split-contents" );
+        optionsSplitContainer.appendChild( splitContents1 );
+
+        var splitContents2 = createElement( "div", "split-contents" );
+        optionsSplitContainer.appendChild( splitContents2 );
+
         var textInclude = createElement( "p" );
         textInclude.innerText = _options.includeText;
-        _element_SearchDialog_Contents.appendChild( textInclude );
+        splitContents1.appendChild( textInclude );
 
         var checkboxContainer = createElement( "div", "checkboxContainer" );
-        _element_SearchDialog_Contents.appendChild( checkboxContainer );
+        splitContents1.appendChild( checkboxContainer );
 
         _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchForTextChanged )[ 0 ];
         _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged )[ 0 ];
@@ -3430,7 +3447,20 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_SearchDialog_Include_Title.checked = true;
 
-        var buttonsSplitContainer = createElement( "div", "split" );
+        var textOptions = createElement( "p" );
+        textOptions.innerText = _options.optionsText;
+        splitContents2.appendChild( textOptions );
+
+        var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
+        splitContents2.appendChild( radioButtonsContainer );
+
+        _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchForTextChanged );
+        _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchForTextChanged );
+        _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchForTextChanged );
+
+        _element_SearchDialog_Option_StartsWith.checked = true;
+
+        var buttonsSplitContainer = createElement( "div", "split last-split" );
         _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
 
         _element_SearchDialog_Previous = createElement( "input", "previous", "button" );
@@ -3559,11 +3589,11 @@ function calendarJs( id, options, startDateTime ) {
                         location = location.toLowerCase();
                     }
 
-                    if ( _element_SearchDialog_Include_Title.checked && title.indexOf( search ) > -1 ) {
+                    if ( _element_SearchDialog_Include_Title.checked && isSearchTextAvailable( title, search ) ) {
                         found = true;
-                    } else if ( _element_SearchDialog_Include_Location.checked && location.indexOf( search ) > -1 ) {
+                    } else if ( _element_SearchDialog_Include_Location.checked && isSearchTextAvailable( location, search ) ) {
                         found = true;
-                    } else if ( _element_SearchDialog_Include_Description.checked && description.indexOf( search ) > -1 ) {
+                    } else if ( _element_SearchDialog_Include_Description.checked && isSearchTextAvailable( description, search ) ) {
                         found = true;
                     }
 
@@ -3606,6 +3636,20 @@ function calendarJs( id, options, startDateTime ) {
     function updateSearchButtons() {
         _element_SearchDialog_Previous.disabled = _element_SearchDialog_SearchIndex === 0;
         _element_SearchDialog_Next.disabled = _element_SearchDialog_SearchIndex === _element_SearchDialog_SearchResults.length - 1 || _element_SearchDialog_SearchResults.length === 0;
+    }
+
+    function isSearchTextAvailable( data, searchText ) {
+        var found = false;
+        
+        if ( _element_SearchDialog_Option_StartsWith.checked ) {
+            found = startsWith( data, searchText );
+        } else if ( _element_SearchDialog_Option_EndsWith.checked ) {
+            found = endsWith( data, searchText );
+        } else {
+            found = data.indexOf( searchText ) > -1;
+        }
+
+        return found;
     }
 
 
@@ -4138,6 +4182,14 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return result.join( "" );
+    }
+
+    function startsWith( data, start ) {
+        return data.substring( 0, start.length ) === start;
+    }
+
+    function endsWith( data, end ) {
+        return data.substring( data.length - end.length, data.length ) === end;
     }
 
 
@@ -5805,6 +5857,22 @@ function calendarJs( id, options, startDateTime ) {
         
         if ( !isDefined( _options.eventNotificationBody ) ) {
             _options.eventNotificationBody = "The event '{0}' has started.";
+        }
+
+        if ( !isDefined( _options.optionsText ) ) {
+            _options.optionsText = "Options:";
+        }
+
+        if ( !isDefined( _options.startsWithText ) ) {
+            _options.startsWithText = "Starts With";
+        }
+
+        if ( !isDefined( _options.endsWithText ) ) {
+            _options.endsWithText = "Ends With";
+        }
+
+        if ( !isDefined( _options.containsText ) ) {
+            _options.containsText = "Contains";
         }
     }
 

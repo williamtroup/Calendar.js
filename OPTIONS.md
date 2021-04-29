@@ -136,6 +136,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
 | *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
 | *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
+| *string* | optionsText | The text that should be displayed for the "Options:" label. |
+| *string* | startsWithText | The text that should be displayed for the "Starts With" label. |
+| *string* | endsWithText | The text that should be displayed for the "Ends With" label. |
+| *string* | containsText | The text that should be displayed for the "Contains" label. |
 
 <br/>
 
