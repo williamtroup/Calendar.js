@@ -1350,9 +1350,7 @@ function calendarJs( id, options, startDateTime ) {
             orderedEvents = [];
 
         if ( holidayText !== null ) {
-            var holiday = createElement( "span", "holiday" );
-            holiday.innerText = " (" + holidayText + ")";
-            _element_FullDayView_Title.appendChild( holiday );
+            createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")" );
         }
 
         getAllEventsFunc( function( event ) {
@@ -1936,31 +1934,18 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_Title.innerHTML = "";
 
         if ( _options.showWeekNumbersInTitles ) {
-            var week = createElement( "span" );
-            week.innerText = _options.weekText + " " + getWeekNumber( weekStartDate ) + ": ";
-            _element_ListAllWeekEventsView_Title.appendChild( week );
+            createSpanElement( _element_ListAllWeekEventsView_Title, _options.weekText + " " + getWeekNumber( weekStartDate ) + ": " );
         }
         
         if ( weekStartDate.getFullYear() === weekEndDate.getFullYear() ) {
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, false );
-
-            var dash1 = createElement( "span" );
-            dash1.innerText = " - ";
-            _element_ListAllWeekEventsView_Title.appendChild( dash1 );
-
+            createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, false );
-
-            var year = createElement( "span" );
-            year.innerText = ", " + weekStartDate.getFullYear();
-            _element_ListAllWeekEventsView_Title.appendChild( year );
+            createSpanElement( _element_ListAllWeekEventsView_Title, ", " + weekStartDate.getFullYear() );
 
         } else {
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, true );
-
-            var dash2 = createElement( "span" );
-            dash2.innerText = " - ";
-            _element_ListAllWeekEventsView_Title.appendChild( dash2 );
-
+            createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, true );
         }
     }
@@ -2124,11 +2109,7 @@ function calendarJs( id, options, startDateTime ) {
         container.innerHTML = "";
 
         buildDateTimeDisplay( container, fromDate );
-
-        var toText = createElement( "span" );
-        toText.innerText = " " + _options.toTimeText + " ";
-        container.appendChild( toText );
-
+        createSpanElement( container, " " + _options.toTimeText + " " );
         buildDateTimeDisplay( container, toDate );
     }
 
@@ -2138,42 +2119,27 @@ function calendarJs( id, options, startDateTime ) {
         addDayName = !isDefined( addDayName ) ? false : addDayName;
 
         if ( addDayName ) {
-            var weekDayNumber = getWeekdayNumber( date ),
-                weekDay = createElement( "span" );
-
-            weekDay.innerText = _options.dayNames[ weekDayNumber ] + ", ";
-            container.appendChild( weekDay );
+            createSpanElement( container, _options.dayNames[ getWeekdayNumber( date ) ] + ", " );
         }
 
         buildDayDisplay( container, date );
-
-        var month = createElement( "span" );
-        month.innerText = " " + _options.monthNames[ date.getMonth() ];
-        container.appendChild( month );
+        createSpanElement( container, " " + _options.monthNames[ date.getMonth() ] );
 
         if ( addYear ) {
-            var year = createElement( "span" );
-            year.innerText = " " + date.getFullYear();
-            container.appendChild( year );
+            createSpanElement( container, " " + date.getFullYear() );
         }
 
         if ( addTime ) {
-            var end = createElement( "span" );
-            end.innerText = " " + getTimeForDisplay( date );
-            container.appendChild( end );
+            createSpanElement( container, " " + getTimeForDisplay( date ) );
         }
     }
 
     function buildDayDisplay( container, date, beforeText, afterText ) {
         if ( isDefined( beforeText ) ) {
-            var before = createElement( "span" );
-            before.innerText = beforeText;
-            container.appendChild( before );
+            createSpanElement( container, beforeText );
         }
 
-        var dayNumber = createElement( "span" );
-        dayNumber.innerText = date.getDate();
-        container.appendChild( dayNumber );
+        createSpanElement( container, date.getDate() );
 
         if ( _options.showDayNumberOrdinals ) {
             var sup = createElement( "sup" );
@@ -2182,9 +2148,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( isDefined( afterText ) ) {
-            var after = createElement( "span" );
-            after.innerText = afterText;
-            container.appendChild( after );
+            createSpanElement( container, afterText );
         }
     }
 
@@ -2282,7 +2246,6 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         dayElement.appendChild( dayText );
-
         dayElement.appendChild( createElement( "span", "blank" ) );
         
         var expandDayButton = createElement( "div", "ib-arrow-top-right" );
@@ -3959,6 +3922,16 @@ function calendarJs( id, options, startDateTime ) {
         container.appendChild( element );
     }
 
+    function createSpanElement( container, text, className, event ) {
+        var element = createElement( "span", className );
+        element.innerText = text;        
+        container.appendChild( element );
+
+        if ( isDefined( event ) ) {
+            element.onclick = event;
+        }
+    } 
+
     function getElementByID( id ) {
         if ( !_elements.hasOwnProperty( id ) || _elements[ id ] === null ) {
             _elements[ id ] = _document.getElementById( id );
@@ -4048,12 +4021,9 @@ function calendarJs( id, options, startDateTime ) {
             input.onchange = onChangeEvent;
         }
 
-        var labelSpan = createElement( "span", "check-mark" );
-        label.appendChild( labelSpan );
+        label.appendChild( createElement( "span", "check-mark" ) );
 
-        var labelSpanText = createElement( "span", "text" );
-        labelSpanText.innerText = labelText;
-        label.appendChild( labelSpanText );
+        createSpanElement( label, labelText, "text" );
 
         return input;
     }
@@ -4081,8 +4051,7 @@ function calendarJs( id, options, startDateTime ) {
             input.checked = checked;
         }
 
-        var labelSpan = createElement( "span", "check-mark" );
-        label.appendChild( labelSpan );
+        label.appendChild( createElement( "span", "check-mark" ) );
 
         return [ input, label ];
     }
@@ -4107,21 +4076,11 @@ function calendarJs( id, options, startDateTime ) {
         createTextHeaderElement( contents, _options.noEventsAvailableFullText );
 
         if ( _options.manualEditingEnabled ) {
-            var addText = createElement( "div" );
-            contents.appendChild( addText );
-    
-            var clickText = createElement( "span" );
-            clickText.innerText = _options.clickText + " ";
-            contents.appendChild( clickText );
-    
-            var hereText = createElement( "span", "link" );
-            hereText.innerText = _options.hereText;
-            hereText.onclick = onClickEvent;
-            contents.appendChild( hereText );
-    
-            var remainingText = createElement( "span" );
-            remainingText.innerText = " " + _options.toAddANewEventText;
-            contents.appendChild( remainingText );
+            contents.appendChild( createElement( "div" ) );
+
+            createSpanElement( contents, _options.clickText + " " );
+            createSpanElement( contents, _options.hereText, "link", onClickEvent );
+            createSpanElement( contents, " " + _options.toAddANewEventText );
         }
     }
 
