@@ -123,7 +123,6 @@
  * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
  * @property    {string}    borderColorText                             The text that should be displayed for the "Border Color:" label.
  * @property    {string}    searchEventsTitle                           The text that should be displayed for the "Search Events" label.
- * @property    {string}    forText                                     The text that should be displayed for the "For:" label.
  * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
@@ -3384,8 +3383,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Contents = createElement( "div", "contents" );
         _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
 
-        createTextHeaderElement( _element_SearchDialog_Contents, _options.forText );
-
         _element_SearchDialog_For = createElement( "input", null, "text" );
         _element_SearchDialog_For.oninput = searchForTextChanged;
         _element_SearchDialog_For.onpropertychange = searchForTextChanged;
@@ -5669,10 +5666,6 @@ function calendarJs( id, options, startDateTime ) {
         
         if ( !isDefined( _options.searchEventsTitle ) ) {
             _options.searchEventsTitle = "Search Events";
-        }
-        
-        if ( !isDefined( _options.forText ) ) {
-            _options.forText = "For:";
         }
         
         if ( !isDefined( _options.previousText ) ) {

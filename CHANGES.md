@@ -4,6 +4,7 @@
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
 - Added options "Starts With", "Ends With" and "Contains" to the Search dialog (defaults to the first one).
 - Repeating events now show an icon in the display to indicate this (including the overlay views).
+- Removed the For: label from the Search dialog (and option support), as it's not really needed.
 - 
 
 ### Version 0.9.3:

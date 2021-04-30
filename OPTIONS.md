@@ -96,7 +96,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | textColorText | The text that should be displayed for the "Text Color:" label. |
 | *string* | borderColorText | The text that should be displayed for the "Border Color:" label. |
 | *string* | searchEventsTitle | The text that should be displayed for the "Search Events" label. |
-| *string* | forText | The text that should be displayed for the "For:" label. |
 | *string* | previousText | The text that should be displayed for the "Previous" button. |
 | *string* | nextText | The text that should be displayed for the "Next" button. |
 | *string* | matchCaseText | The text that should be displayed for the "Match Case" label. |
