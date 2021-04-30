@@ -1037,7 +1037,18 @@ function calendarJs( id, options, startDateTime ) {
                 }
 
                 if ( !_options.useOnlyDotEventsForMainDisplay ) {
-                    event.innerText = eventTitle;
+                    var repeatEvery = getNumber( eventDetails.repeatEvery );
+                    if ( repeatEvery > _const_Repeat_Never ) {
+                        var icon = createElement( "div", "ib-refresh-small" );
+                        event.appendChild( icon );
+        
+                        if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
+                            icon.style.borderColor = eventDetails.colorText;
+                        }
+                    }
+
+                    event.innerHTML += eventTitle;
+
                 } else {
                     event.className += " event-circle";
                 }
@@ -1456,8 +1467,19 @@ function calendarJs( id, options, startDateTime ) {
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
-            var title = createElement( "div", "title" );
-            title.innerText = eventDetails.title;
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _const_Repeat_Never ) {
+                var icon = createElement( "div", "ib-refresh-medium" );
+                title.appendChild( icon );
+
+                if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
+                    icon.style.borderColor = eventDetails.colorText;
+                }
+            }
+            
+            title.innerHTML += eventDetails.title;
             event.appendChild( title );
     
             if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
@@ -1687,8 +1709,19 @@ function calendarJs( id, options, startDateTime ) {
     
             setEventClassesAndColors( event, eventDetails );
     
-            var title = createElement( "div", "title" );
-            title.innerText = eventDetails.title;
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _const_Repeat_Never ) {
+                var icon = createElement( "div", "ib-refresh-medium" );
+                title.appendChild( icon );
+
+                if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
+                    icon.style.borderColor = eventDetails.colorText;
+                }
+            }
+            
+            title.innerHTML += eventDetails.title;
             event.appendChild( title );
     
             var startTime = createElement( "div", "date" );
@@ -1970,10 +2003,21 @@ function calendarJs( id, options, startDateTime ) {
             makeEventDraggable( event, eventDetails, displayDate );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
-            var title = createElement( "div", "title" );
-            title.innerText = eventDetails.title;
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _const_Repeat_Never ) {
+                var icon = createElement( "div", "ib-refresh-medium" );
+                title.appendChild( icon );
+
+                if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
+                    icon.style.borderColor = eventDetails.colorText;
+                }
+            }
+            
+            title.innerHTML += eventDetails.title;
             event.appendChild( title );
-    
+
             var startTime = createElement( "div", "date" );
             event.appendChild( startTime );
     

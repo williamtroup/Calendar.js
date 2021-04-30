@@ -525,6 +525,11 @@ div.calendar div.row div.cell div.event-no-hover:last-child {
   margin-bottom: 0;
 }
 
+div.calendar div.row div.cell div.event div.ib-refresh-small,
+div.calendar div.row div.cell div.event-no-hover div.ib-refresh-small {
+  margin-right: 5px;
+}
+
 div.calendar div.row div.cell div.event-circle {
   display: inline-block;
   border-radius: 50% !important;
@@ -811,6 +816,11 @@ div.calendar div.full-day-view div.contents div.event-no-hover div.repeats {
   font-weight: 300;
 }
 
+div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium,
+div.calendar div.full-day-view div.contents div.event-no-hover div.ib-refresh-medium {
+  margin-right: 5px;
+}
+
 div.calendar div.full-day-view div.contents div.event:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -1004,6 +1014,11 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   font-weight: 300;
 }
 
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div.ib-refresh-medium,
+div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.ib-refresh-medium {
+  margin-right: 5px;
+}
+
 div.calendar div.list-all-events-view div.contents div.month div.events div.event:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -1195,6 +1210,11 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.repeats {
   font-size: smaller;
   font-weight: 300;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.ib-refresh-medium,
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.ib-refresh-medium {
+  margin-right: 5px;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event:hover {
@@ -3401,32 +3421,6 @@ div.calendar-drop-down-menu div.separator {
   right: 0;
 }
 
-.ib-arrow-top-right {
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-  position: relative;
-  width: 9px;
-  height: 9px;
-  border-right: 3px solid #282828;
-  border-top: 3px solid #282828;
-  border-radius: 3px;
-}
-
-.ib-arrow-top-right:hover {
-  -webkit-transition: all .3s;
-  transition: all .3s;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.ib-arrow-top-right:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.5;
-}
-
 .ib-octagon-hollow {
   width: 16px;
   height: 16px;
@@ -3568,5 +3562,125 @@ div.calendar-drop-down-menu div.separator {
   height: 3px;
   border-radius: 3px;
   left: 0;
+}
+
+.ib-arrow-top-right {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  border-radius: 3px;
+}
+
+.ib-arrow-top-right:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-arrow-top-right:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-refresh-medium {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  border-color: #F5F5F5;
+}
+
+.ib-refresh-medium:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-refresh-medium:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-refresh-medium:before, .ib-refresh-medium:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-refresh-medium:before {
+  border-top: 3px solid;
+  border-left: 3px solid;
+  border-radius: 3px;
+  width: 5px;
+  height: 9px;
+  left: 0;
+  top: 0;
+}
+
+.ib-refresh-medium:after {
+  border-bottom: 3px solid;
+  border-right: 3px solid;
+  border-radius: 3px;
+  width: 5px;
+  height: 9px;
+  right: 0;
+  top: 0;
+}
+
+.ib-refresh-small {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  position: relative;
+  border-color: #F5F5F5;
+}
+
+.ib-refresh-small:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-refresh-small:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-refresh-small:before, .ib-refresh-small:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-refresh-small:before {
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-radius: 2px;
+  width: 3.33333px;
+  height: 6px;
+  left: 0;
+  top: 0;
+}
+
+.ib-refresh-small:after {
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  border-radius: 2px;
+  width: 3.33333px;
+  height: 6px;
+  right: 0;
+  top: 0;
 }
 /*# sourceMappingURL=calendarjs.css.map */
