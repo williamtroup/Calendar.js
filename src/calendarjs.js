@@ -1040,11 +1040,8 @@ function calendarJs( id, options, startDateTime ) {
                     var repeatEvery = getNumber( eventDetails.repeatEvery );
                     if ( repeatEvery > _const_Repeat_Never ) {
                         var icon = createElement( "div", "ib-refresh-small" );
+                        icon.style.borderColor = event.style.color;
                         event.appendChild( icon );
-        
-                        if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
-                            icon.style.borderColor = eventDetails.colorText;
-                        }
                     }
 
                     event.innerHTML += eventTitle;
@@ -1472,11 +1469,8 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( repeatEvery > _const_Repeat_Never ) {
                 var icon = createElement( "div", "ib-refresh-medium" );
+                icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
-
-                if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
-                    icon.style.borderColor = eventDetails.colorText;
-                }
             }
             
             title.innerHTML += eventDetails.title;
@@ -1714,11 +1708,8 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( repeatEvery > _const_Repeat_Never ) {
                 var icon = createElement( "div", "ib-refresh-medium" );
+                icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
-
-                if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
-                    icon.style.borderColor = eventDetails.colorText;
-                }
             }
             
             title.innerHTML += eventDetails.title;
@@ -2008,11 +1999,8 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( repeatEvery > _const_Repeat_Never ) {
                 var icon = createElement( "div", "ib-refresh-medium" );
+                icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
-
-                if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
-                    icon.style.borderColor = eventDetails.colorText;
-                }
             }
             
             title.innerHTML += eventDetails.title;
