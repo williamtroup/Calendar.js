@@ -2686,6 +2686,11 @@ div.calendar-tooltip-event div.repeats {
   font-size: smaller;
 }
 
+div.calendar-tooltip div.ib-refresh-medium,
+div.calendar-tooltip-event div.ib-refresh-medium {
+  margin-right: 5px;
+}
+
 div.calendar-tooltip {
   font-size: smaller !important;
   white-space: nowrap;

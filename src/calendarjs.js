@@ -3800,7 +3800,15 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.innerHTML = "";
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
-                        _element_Tooltip_Title.innerText = eventDetails.title;
+
+                        var repeatEvery = getNumber( eventDetails.repeatEvery );
+                        if ( repeatEvery > _const_Repeat_Never ) {
+                            var icon = createElement( "div", "ib-refresh-medium" );
+                            icon.style.borderColor = _element_Tooltip_Title.style.color;
+                            _element_Tooltip_Title.appendChild( icon );
+                        }
+                        
+                        _element_Tooltip_Title.innerHTML += eventDetails.title;
 
                         if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
                             _element_Tooltip_Repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
