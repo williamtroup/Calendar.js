@@ -2972,7 +2972,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( input.value !== "" ) {
             if ( input.type === "date" ) {
-                result = new Date( input.value );
+                result = new Date( input.value + "T00:00:00Z" );
             } else {
     
                 var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
