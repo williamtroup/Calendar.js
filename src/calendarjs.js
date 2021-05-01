@@ -1759,21 +1759,24 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildListAllEventsMonth( date ) {
         var monthContentsID = "month-" + date.getMonth() + "-" + date.getFullYear(),
-            monthContents = getElementByID( monthContentsID ),
-            expandMonthDate = new Date( date );
+            monthContents = getElementByID( monthContentsID );
         
         if ( monthContents === null ) {
+            var expandMonthDate = new Date( date ),
+                expandFunction = function() {
+                    hideOverlay( _element_ListAllEventsView );
+                    build( expandMonthDate );
+                };
+
             var month = createElement( "div", "month" );
             _element_ListAllEventsView_Contents.appendChild( month );
 
             var header = createElement( "div", "header" );
             header.innerText = _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
+            header.ondblclick = expandFunction;
             month.appendChild( header );
 
-            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
-                hideOverlay( _element_ListAllEventsView );
-                build( expandMonthDate );
-            } );
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
                 var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
@@ -2063,10 +2066,14 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
             dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
-            dayContents = null,
-            expandDate = new Date( date );
+            dayContents = null;
 
         if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
+            var expandDate = new Date( date ),
+                expandFunction = function() {
+                    showFullDayView( expandDate, true );
+                };
+
             var day = createElement( "div", "day" );
             _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
 
@@ -2077,13 +2084,11 @@ function calendarJs( id, options, startDateTime ) {
             makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
             var header = createElement( "div", "header" );
+            header.ondblclick = expandFunction;
             day.appendChild( header );
 
             buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
-
-            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, function() {
-                showFullDayView( expandDate, true );
-            } );
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
                 buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
