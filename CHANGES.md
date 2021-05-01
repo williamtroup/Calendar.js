@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.9.5:
-- Fixed a fault that caused the public function addEvents() to fire the wrong went.
+- Fixed a fault that caused the public function addEvents() to fire the wrong event.
 - Double clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.
 - Improved the "No events available" default text display in the Week view.
 - 
