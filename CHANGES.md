@@ -8,6 +8,7 @@
 - Fixed a fault that caused new events to be added to the wrong date when added from the Event Editor.
 - Fixed a fault that caused the wrong date to be used when setting the end of a repeating event.
 - Fixed a fault that caused the wrong dates to be used when the date picker is now compatible with the browser.
+- Faster rendering of the years drop-down menu (no longer sets classes when not required).
 - 
 
 ### Version 0.9.3:

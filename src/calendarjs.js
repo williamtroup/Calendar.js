@@ -694,7 +694,9 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( yearSelectedLength >= 1 ) {
             for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
-                yearSelected[ yearsSelectedIndex ].className = "year";
+                if ( yearSelected[ yearsSelectedIndex ].className !== "year" ) {
+                    yearSelected[ yearsSelectedIndex ].className = "year";
+                }
             }
         }
 
