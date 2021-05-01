@@ -1,5 +1,9 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.5:
+- Fixed a fault that caused the public function addEvents() to fire the wrong went.
+- 
+
 ### Version 0.9.4:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
 - Added options "Starts With", "Ends With" and "Contains" to the Search dialog (defaults to the first one).
