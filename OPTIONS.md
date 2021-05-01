@@ -161,3 +161,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |
 | onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
 | onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
+| onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |

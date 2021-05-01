@@ -62,6 +62,7 @@
  * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally.
  * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
  * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
+ * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
  */
 
 
@@ -5059,6 +5060,38 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return added;
+    };
+
+    /**
+     * updateEvents().
+     * 
+     * Updates an array of existing events.
+     * 
+     * @fires       onEventsUpdated
+     * 
+     * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
+     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States of the "onEventsUpdated" event should be triggered.
+     */
+     this.updateEvents = function( events, updateEvents, triggerEvent ) {
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        var eventsLength = events.length;
+        for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+            var event = events[ eventIndex ];
+
+            this.updateEvent( event.id, event, false, false );
+        }
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithEventData( "onEventsUpdated", events );
+        }
+
+        if ( updateEvents ) {
+            buildDayEvents();
+            refreshOpenedViews();
+        }
     };
 
     /**
