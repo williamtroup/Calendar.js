@@ -9,6 +9,7 @@
 - Fixed a fault that caused the wrong date to be used when setting the end of a repeating event.
 - Fixed a fault that caused the wrong dates to be used when the date picker is now compatible with the browser.
 - Faster rendering of the years drop-down menu (no longer sets classes when not required).
+- Fixed the vertical scrollbar not showing up in the groups list on the Configuration dialog.
 - 
 
 ### Version 0.9.3:

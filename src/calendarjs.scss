@@ -1022,8 +1022,8 @@ div.configuration {
         @include input-style;
         height: 150px;
         padding: $spacing;
-        overflow-y: hidden;
-        overflow-x: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     div.contents {

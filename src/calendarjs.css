@@ -2358,8 +2358,8 @@ div.configuration div.controls-container {
   outline: none;
   height: 150px;
   padding: 10px;
-  overflow-y: hidden;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 div.configuration div.contents {
