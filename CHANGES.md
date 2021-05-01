@@ -1,6 +1,6 @@
 # Calendar.js - Change Log:
 
-### Version 1.0.0:
+### Version 0.9.4:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
 - Added options "Starts With", "Ends With" and "Contains" to the Search dialog (defaults to the first one).
 - Repeating events now show an icon in the display to indicate this (including the overlay views).
