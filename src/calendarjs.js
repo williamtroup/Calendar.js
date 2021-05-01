@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.3
+ * Calendar.js Library v0.9.4
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -123,7 +123,6 @@
  * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
  * @property    {string}    borderColorText                             The text that should be displayed for the "Border Color:" label.
  * @property    {string}    searchEventsTitle                           The text that should be displayed for the "Search Events" label.
- * @property    {string}    forText                                     The text that should be displayed for the "For:" label.
  * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
  * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
  * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
@@ -163,6 +162,10 @@
  * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
+ * @property    {string}    optionsText                                 The text that should be displayed for the "Options:" label.
+ * @property    {string}    startsWithText                              The text that should be displayed for the "Starts With" label.
+ * @property    {string}    endsWithText                                The text that should be displayed for the "Ends With" label.
+ * @property    {string}    containsText                                The text that should be displayed for the "Contains" label.
  */
 
 
@@ -197,6 +200,7 @@
  * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
  * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
  * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
+ * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
  */
 
 
@@ -348,6 +352,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Include_Title = null,
         _element_SearchDialog_Include_Location = null,
         _element_SearchDialog_Include_Description = null,
+        _element_SearchDialog_Option_StartsWith = null,
+        _element_SearchDialog_Option_EndsWith = null,
+        _element_SearchDialog_Option_Contains = null,
         _element_SearchDialog_Previous = null,
         _element_SearchDialog_Next = null,
         _element_SearchDialog_IsMoving = false,
@@ -687,7 +694,9 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( yearSelectedLength >= 1 ) {
             for ( var yearsSelectedIndex = 0; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++ ) {
-                yearSelected[ yearsSelectedIndex ].className = "year";
+                if ( yearSelected[ yearsSelectedIndex ].className !== "year" ) {
+                    yearSelected[ yearsSelectedIndex ].className = "year";
+                }
             }
         }
 
@@ -1028,7 +1037,20 @@ function calendarJs( id, options, startDateTime ) {
                     eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
                 }
 
-                event.innerText = eventTitle;
+                if ( !_options.useOnlyDotEventsForMainDisplay ) {
+                    var repeatEvery = getNumber( eventDetails.repeatEvery );
+                    if ( repeatEvery > _const_Repeat_Never ) {
+                        var icon = createElement( "div", "ib-refresh-small" );
+                        icon.style.borderColor = event.style.color;
+                        event.appendChild( icon );
+                    }
+
+                    event.innerHTML += eventTitle;
+
+                } else {
+                    event.className += " event-circle";
+                }
+                
                 elementDay.appendChild( event );
 
                 makeEventDraggable( event, eventDetails, dayDate );
@@ -1337,9 +1359,7 @@ function calendarJs( id, options, startDateTime ) {
             orderedEvents = [];
 
         if ( holidayText !== null ) {
-            var holiday = createElement( "span", "holiday" );
-            holiday.innerText = " (" + holidayText + ")";
-            _element_FullDayView_Title.appendChild( holiday );
+            createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")" );
         }
 
         getAllEventsFunc( function( event ) {
@@ -1445,8 +1465,16 @@ function calendarJs( id, options, startDateTime ) {
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
-            var title = createElement( "div", "title" );
-            title.innerText = eventDetails.title;
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _const_Repeat_Never ) {
+                var icon = createElement( "div", "ib-refresh-medium" );
+                icon.style.borderColor = event.style.color;
+                title.appendChild( icon );
+            }
+            
+            title.innerHTML += eventDetails.title;
             event.appendChild( title );
     
             if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
@@ -1676,8 +1704,16 @@ function calendarJs( id, options, startDateTime ) {
     
             setEventClassesAndColors( event, eventDetails );
     
-            var title = createElement( "div", "title" );
-            title.innerText = eventDetails.title;
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _const_Repeat_Never ) {
+                var icon = createElement( "div", "ib-refresh-medium" );
+                icon.style.borderColor = event.style.color;
+                title.appendChild( icon );
+            }
+            
+            title.innerHTML += eventDetails.title;
             event.appendChild( title );
     
             var startTime = createElement( "div", "date" );
@@ -1923,31 +1959,18 @@ function calendarJs( id, options, startDateTime ) {
         _element_ListAllWeekEventsView_Title.innerHTML = "";
 
         if ( _options.showWeekNumbersInTitles ) {
-            var week = createElement( "span" );
-            week.innerText = _options.weekText + " " + getWeekNumber( weekStartDate ) + ": ";
-            _element_ListAllWeekEventsView_Title.appendChild( week );
+            createSpanElement( _element_ListAllWeekEventsView_Title, _options.weekText + " " + getWeekNumber( weekStartDate ) + ": " );
         }
         
         if ( weekStartDate.getFullYear() === weekEndDate.getFullYear() ) {
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, false );
-
-            var dash1 = createElement( "span" );
-            dash1.innerText = " - ";
-            _element_ListAllWeekEventsView_Title.appendChild( dash1 );
-
+            createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, false );
-
-            var year = createElement( "span" );
-            year.innerText = ", " + weekStartDate.getFullYear();
-            _element_ListAllWeekEventsView_Title.appendChild( year );
+            createSpanElement( _element_ListAllWeekEventsView_Title, ", " + weekStartDate.getFullYear() );
 
         } else {
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, true );
-
-            var dash2 = createElement( "span" );
-            dash2.innerText = " - ";
-            _element_ListAllWeekEventsView_Title.appendChild( dash2 );
-
+            createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, true );
         }
     }
@@ -1972,10 +1995,18 @@ function calendarJs( id, options, startDateTime ) {
             makeEventDraggable( event, eventDetails, displayDate );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
-            var title = createElement( "div", "title" );
-            title.innerText = eventDetails.title;
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _const_Repeat_Never ) {
+                var icon = createElement( "div", "ib-refresh-medium" );
+                icon.style.borderColor = event.style.color;
+                title.appendChild( icon );
+            }
+            
+            title.innerHTML += eventDetails.title;
             event.appendChild( title );
-    
+
             var startTime = createElement( "div", "date" );
             event.appendChild( startTime );
     
@@ -2111,11 +2142,7 @@ function calendarJs( id, options, startDateTime ) {
         container.innerHTML = "";
 
         buildDateTimeDisplay( container, fromDate );
-
-        var toText = createElement( "span" );
-        toText.innerText = " " + _options.toTimeText + " ";
-        container.appendChild( toText );
-
+        createSpanElement( container, " " + _options.toTimeText + " " );
         buildDateTimeDisplay( container, toDate );
     }
 
@@ -2125,42 +2152,27 @@ function calendarJs( id, options, startDateTime ) {
         addDayName = !isDefined( addDayName ) ? false : addDayName;
 
         if ( addDayName ) {
-            var weekDayNumber = getWeekdayNumber( date ),
-                weekDay = createElement( "span" );
-
-            weekDay.innerText = _options.dayNames[ weekDayNumber ] + ", ";
-            container.appendChild( weekDay );
+            createSpanElement( container, _options.dayNames[ getWeekdayNumber( date ) ] + ", " );
         }
 
         buildDayDisplay( container, date );
-
-        var month = createElement( "span" );
-        month.innerText = " " + _options.monthNames[ date.getMonth() ];
-        container.appendChild( month );
+        createSpanElement( container, " " + _options.monthNames[ date.getMonth() ] );
 
         if ( addYear ) {
-            var year = createElement( "span" );
-            year.innerText = " " + date.getFullYear();
-            container.appendChild( year );
+            createSpanElement( container, " " + date.getFullYear() );
         }
 
         if ( addTime ) {
-            var end = createElement( "span" );
-            end.innerText = " " + getTimeForDisplay( date );
-            container.appendChild( end );
+            createSpanElement( container, " " + getTimeForDisplay( date ) );
         }
     }
 
     function buildDayDisplay( container, date, beforeText, afterText ) {
         if ( isDefined( beforeText ) ) {
-            var before = createElement( "span" );
-            before.innerText = beforeText;
-            container.appendChild( before );
+            createSpanElement( container, beforeText );
         }
 
-        var dayNumber = createElement( "span" );
-        dayNumber.innerText = date.getDate();
-        container.appendChild( dayNumber );
+        createSpanElement( container, date.getDate() );
 
         if ( _options.showDayNumberOrdinals ) {
             var sup = createElement( "sup" );
@@ -2169,9 +2181,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( isDefined( afterText ) ) {
-            var after = createElement( "span" );
-            after.innerText = afterText;
-            container.appendChild( after );
+            createSpanElement( container, afterText );
         }
     }
 
@@ -2269,6 +2279,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         dayElement.appendChild( dayText );
+        dayElement.appendChild( createElement( "span", "blank" ) );
         
         var expandDayButton = createElement( "div", "ib-arrow-top-right" );
         dayElement.appendChild( expandDayButton );
@@ -2607,9 +2618,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         view.appendChild( contents );
 
-        var textTitle = createElement( "p" );
-        textTitle.innerText = _options.titleText;
-        contents.appendChild( textTitle );
+        createTextHeaderElement( contents, _options.titleText );
 
         var inputTitleContainer = createElement( "div", "input-title-container" );
         contents.appendChild( inputTitleContainer );
@@ -2628,9 +2637,7 @@ function calendarJs( id, options, startDateTime ) {
 
         addToolTip( selectColorsButton, _options.selectColorsText, true );
 
-        var textFrom = createElement( "p" );
-        textFrom.innerText = _options.fromText.replace( ":", "" ) + "/" + _options.toText;
-        contents.appendChild( textFrom );
+        createTextHeaderElement( contents, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
         var fromSplitContainer = createElement( "div", "split" );
         contents.appendChild( fromSplitContainer );
@@ -2662,9 +2669,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_EventEditorDialog_IsAllDay = buildCheckBox( contents, _options.isAllDayText, isAllDayChanged )[ 0 ];
 
-        var textRepeatEvery = createElement( "p" );
-        textRepeatEvery.innerText = _options.repeatsText;
-        contents.appendChild( textRepeatEvery );
+        createTextHeaderElement( contents, _options.repeatsText );
 
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
         contents.appendChild( radioButtonsContainer );
@@ -2685,13 +2690,8 @@ function calendarJs( id, options, startDateTime ) {
         var inputFields1TextSplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1TextSplitContainer );
 
-        var textLocation = createElement( "p" );
-        textLocation.innerText = _options.locationText;
-        inputFields1TextSplitContainer.appendChild( textLocation );
-
-        var groupLocation = createElement( "p" );
-        groupLocation.innerText = _options.groupText;
-        inputFields1TextSplitContainer.appendChild( groupLocation );
+        createTextHeaderElement( inputFields1TextSplitContainer, _options.locationText );
+        createTextHeaderElement( inputFields1TextSplitContainer, _options.groupText );
 
         var inputFields1SplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1SplitContainer );
@@ -2710,9 +2710,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Group.maxLength = _options.maximumEventGroupLength ;
         }
 
-        var textDescription = createElement( "p" );
-        textDescription.innerText = _options.descriptionText;
-        contents.appendChild( textDescription );
+        createTextHeaderElement( contents, _options.descriptionText );
 
         _element_EventEditorDialog_Description = createElement( "textarea", "custom-scroll-bars" );
         contents.appendChild( _element_EventEditorDialog_Description );
@@ -2976,13 +2974,13 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( input.value !== "" ) {
             if ( input.type === "date" ) {
-                result = new Date( input.value );
+                result = new Date( input.value + "T00:00:00Z" );
             } else {
     
                 var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
                 if ( match ) {
     
-                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ] );
+                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
                     if ( newDate instanceof Date && !isNaN( newDate ) ) {
                         result = newDate;
                     }
@@ -3056,27 +3054,21 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_EventEditorColorsDialog.appendChild( contents );
 
-        var backgroundColorText = createElement( "p" );
-        backgroundColorText.innerText = _options.backgroundColorText;
-        contents.appendChild( backgroundColorText );
+        createTextHeaderElement( contents, _options.backgroundColorText );
 
         _element_EventEditorColorsDialog_Color = createElement( "input" );
         contents.appendChild( _element_EventEditorColorsDialog_Color );
 
         setInputType( _element_EventEditorColorsDialog_Color, "color" );
 
-        var textColorText = createElement( "p" );
-        textColorText.innerText = _options.textColorText;
-        contents.appendChild( textColorText );
+        createTextHeaderElement( contents, _options.textColorText );
 
         _element_EventEditorColorsDialog_ColorText = createElement( "input" );
         contents.appendChild( _element_EventEditorColorsDialog_ColorText );
 
         setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
 
-        var borderColorText = createElement( "p" );
-        borderColorText.innerText = _options.borderColorText;
-        contents.appendChild( borderColorText );
+        createTextHeaderElement( contents, _options.borderColorText );
 
         _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
         contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
@@ -3139,9 +3131,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_EventEditorRepeatOptionsDialog.appendChild( contents );
 
-        var daysToExcludeText = createElement( "p" );
-        daysToExcludeText.innerText = _options.daysToExcludeText;
-        contents.appendChild( daysToExcludeText );
+        createTextHeaderElement( contents, _options.daysToExcludeText );
 
         _element_EventEditorRepeatOptionsDialog_Mon = buildCheckBox( contents, _options.dayNames[ 0 ] )[ 0 ];
         _element_EventEditorRepeatOptionsDialog_Tue = buildCheckBox( contents, _options.dayNames[ 1 ] )[ 0 ];
@@ -3151,9 +3141,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorRepeatOptionsDialog_Sat = buildCheckBox( contents, _options.dayNames[ 5 ] )[ 0 ];
         _element_EventEditorRepeatOptionsDialog_Sun = buildCheckBox( contents, _options.dayNames[ 6 ] )[ 0 ];
 
-        var repeatEndsText = createElement( "p" );
-        repeatEndsText.innerText = _options.repeatEndsText;
-        contents.appendChild( repeatEndsText );
+        createTextHeaderElement( contents, _options.repeatEndsText );
 
         _element_EventEditorRepeatOptionsDialog_RepeatEnds = createElement( "input" );
         contents.appendChild( _element_EventEditorRepeatOptionsDialog_RepeatEnds );
@@ -3397,10 +3385,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Contents = createElement( "div", "contents" );
         _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
 
-        var textFor = createElement( "p" );
-        textFor.innerText = _options.forText;
-        _element_SearchDialog_Contents.appendChild( textFor );
-
         _element_SearchDialog_For = createElement( "input", null, "text" );
         _element_SearchDialog_For.oninput = searchForTextChanged;
         _element_SearchDialog_For.onpropertychange = searchForTextChanged;
@@ -3409,12 +3393,20 @@ function calendarJs( id, options, startDateTime ) {
         
         _element_SearchDialog_MatchCase = buildCheckBox( _element_SearchDialog_Contents, _options.matchCaseText, searchForTextChanged )[ 0 ];
 
-        var textInclude = createElement( "p" );
-        textInclude.innerText = _options.includeText;
-        _element_SearchDialog_Contents.appendChild( textInclude );
+
+        var optionsSplitContainer = createElement( "div", "split" );
+        _element_SearchDialog_Contents.appendChild( optionsSplitContainer );
+
+        var splitContents1 = createElement( "div", "split-contents" );
+        optionsSplitContainer.appendChild( splitContents1 );
+
+        var splitContents2 = createElement( "div", "split-contents" );
+        optionsSplitContainer.appendChild( splitContents2 );
+
+        createTextHeaderElement( splitContents1, _options.includeText );
 
         var checkboxContainer = createElement( "div", "checkboxContainer" );
-        _element_SearchDialog_Contents.appendChild( checkboxContainer );
+        splitContents1.appendChild( checkboxContainer );
 
         _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchForTextChanged )[ 0 ];
         _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged )[ 0 ];
@@ -3422,7 +3414,18 @@ function calendarJs( id, options, startDateTime ) {
 
         _element_SearchDialog_Include_Title.checked = true;
 
-        var buttonsSplitContainer = createElement( "div", "split" );
+        createTextHeaderElement( splitContents2, _options.optionsText );
+
+        var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
+        splitContents2.appendChild( radioButtonsContainer );
+
+        _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchForTextChanged );
+        _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchForTextChanged );
+        _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchForTextChanged );
+
+        _element_SearchDialog_Option_StartsWith.checked = true;
+
+        var buttonsSplitContainer = createElement( "div", "split last-split" );
         _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
 
         _element_SearchDialog_Previous = createElement( "input", "previous", "button" );
@@ -3551,11 +3554,11 @@ function calendarJs( id, options, startDateTime ) {
                         location = location.toLowerCase();
                     }
 
-                    if ( _element_SearchDialog_Include_Title.checked && title.indexOf( search ) > -1 ) {
+                    if ( _element_SearchDialog_Include_Title.checked && isSearchTextAvailable( title, search ) ) {
                         found = true;
-                    } else if ( _element_SearchDialog_Include_Location.checked && location.indexOf( search ) > -1 ) {
+                    } else if ( _element_SearchDialog_Include_Location.checked && isSearchTextAvailable( location, search ) ) {
                         found = true;
-                    } else if ( _element_SearchDialog_Include_Description.checked && description.indexOf( search ) > -1 ) {
+                    } else if ( _element_SearchDialog_Include_Description.checked && isSearchTextAvailable( description, search ) ) {
                         found = true;
                     }
 
@@ -3600,6 +3603,20 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Next.disabled = _element_SearchDialog_SearchIndex === _element_SearchDialog_SearchResults.length - 1 || _element_SearchDialog_SearchResults.length === 0;
     }
 
+    function isSearchTextAvailable( data, searchText ) {
+        var found = false;
+        
+        if ( _element_SearchDialog_Option_StartsWith.checked ) {
+            found = startsWith( data, searchText );
+        } else if ( _element_SearchDialog_Option_EndsWith.checked ) {
+            found = endsWith( data, searchText );
+        } else {
+            found = data.indexOf( searchText ) > -1;
+        }
+
+        return found;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3624,9 +3641,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_ConfigurationDialog.appendChild( contents );
 
-        var visibleGroupsText = createElement( "p" );
-        visibleGroupsText.innerText = _options.visibleGroupsText;
-        contents.appendChild( visibleGroupsText );
+        createTextHeaderElement( contents, _options.visibleGroupsText );
 
         _element_ConfigurationDialog_VisibleGroups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
         contents.appendChild( _element_ConfigurationDialog_VisibleGroups );
@@ -3772,7 +3787,15 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.innerHTML = "";
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
-                        _element_Tooltip_Title.innerText = eventDetails.title;
+
+                        var repeatEvery = getNumber( eventDetails.repeatEvery );
+                        if ( repeatEvery > _const_Repeat_Never ) {
+                            var icon = createElement( "div", "ib-refresh-medium" );
+                            icon.style.borderColor = _element_Tooltip_Title.style.color;
+                            _element_Tooltip_Title.appendChild( icon );
+                        }
+                        
+                        _element_Tooltip_Title.innerHTML += eventDetails.title;
 
                         if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
                             _element_Tooltip_Repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
@@ -3932,6 +3955,22 @@ function calendarJs( id, options, startDateTime ) {
         return result;
     }
 
+    function createTextHeaderElement( container, text ) {
+        var element = createElement( "p" );
+        element.innerText = text;
+        container.appendChild( element );
+    }
+
+    function createSpanElement( container, text, className, event ) {
+        var element = createElement( "span", className );
+        element.innerText = text;        
+        container.appendChild( element );
+
+        if ( isDefined( event ) ) {
+            element.onclick = event;
+        }
+    } 
+
     function getElementByID( id ) {
         if ( !_elements.hasOwnProperty( id ) || _elements[ id ] === null ) {
             _elements[ id ] = _document.getElementById( id );
@@ -4021,12 +4060,9 @@ function calendarJs( id, options, startDateTime ) {
             input.onchange = onChangeEvent;
         }
 
-        var labelSpan = createElement( "span", "check-mark" );
-        label.appendChild( labelSpan );
+        label.appendChild( createElement( "span", "check-mark" ) );
 
-        var labelSpanText = createElement( "span", "text" );
-        labelSpanText.innerText = labelText;
-        label.appendChild( labelSpanText );
+        createSpanElement( label, labelText, "text" );
 
         return input;
     }
@@ -4054,8 +4090,7 @@ function calendarJs( id, options, startDateTime ) {
             input.checked = checked;
         }
 
-        var labelSpan = createElement( "span", "check-mark" );
-        label.appendChild( labelSpan );
+        label.appendChild( createElement( "span", "check-mark" ) );
 
         return [ input, label ];
     }
@@ -4077,26 +4112,14 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "no-events-available-text" );
         container.appendChild( contents );
 
-        var startText = createElement( "p" );
-        startText.innerText = _options.noEventsAvailableFullText;
-        contents.appendChild( startText );
+        createTextHeaderElement( contents, _options.noEventsAvailableFullText );
 
         if ( _options.manualEditingEnabled ) {
-            var addText = createElement( "div" );
-            contents.appendChild( addText );
-    
-            var clickText = createElement( "span" );
-            clickText.innerText = _options.clickText + " ";
-            contents.appendChild( clickText );
-    
-            var hereText = createElement( "span", "link" );
-            hereText.innerText = _options.hereText;
-            hereText.onclick = onClickEvent;
-            contents.appendChild( hereText );
-    
-            var remainingText = createElement( "span" );
-            remainingText.innerText = " " + _options.toAddANewEventText;
-            contents.appendChild( remainingText );
+            contents.appendChild( createElement( "div" ) );
+
+            createSpanElement( contents, _options.clickText + " " );
+            createSpanElement( contents, _options.hereText, "link", onClickEvent );
+            createSpanElement( contents, " " + _options.toAddANewEventText );
         }
     }
 
@@ -4130,6 +4153,14 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return result.join( "" );
+    }
+
+    function startsWith( data, start ) {
+        return data.substring( 0, start.length ) === start;
+    }
+
+    function endsWith( data, end ) {
+        return data.substring( data.length - end.length, data.length ) === end;
     }
 
 
@@ -5247,7 +5278,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.3";
+        return "0.9.4";
     };
 
 
@@ -5387,6 +5418,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.tooltipsEnabled ) ) {
             _options.tooltipsEnabled = true;
+        }
+
+        if ( !isDefined( _options.useOnlyDotEventsForMainDisplay ) ) {
+            _options.useOnlyDotEventsForMainDisplay = false;
         }
 
         setTranslationStringOptions();
@@ -5635,10 +5670,6 @@ function calendarJs( id, options, startDateTime ) {
             _options.searchEventsTitle = "Search Events";
         }
         
-        if ( !isDefined( _options.forText ) ) {
-            _options.forText = "For:";
-        }
-        
         if ( !isDefined( _options.previousText ) ) {
             _options.previousText = "Previous";
         }
@@ -5793,6 +5824,22 @@ function calendarJs( id, options, startDateTime ) {
         
         if ( !isDefined( _options.eventNotificationBody ) ) {
             _options.eventNotificationBody = "The event '{0}' has started.";
+        }
+
+        if ( !isDefined( _options.optionsText ) ) {
+            _options.optionsText = "Options:";
+        }
+
+        if ( !isDefined( _options.startsWithText ) ) {
+            _options.startsWithText = "Starts With";
+        }
+
+        if ( !isDefined( _options.endsWithText ) ) {
+            _options.endsWithText = "Ends With";
+        }
+
+        if ( !isDefined( _options.containsText ) ) {
+            _options.containsText = "Contains";
         }
     }
 

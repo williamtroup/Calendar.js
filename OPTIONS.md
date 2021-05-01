@@ -34,6 +34,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showPreviousNextMonthNamesInMainDisplay | States if the previous/next month names should be shown in the main display days (defaults to true). |
 | *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
+| *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
 
 <br/>
 
@@ -95,7 +96,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | textColorText | The text that should be displayed for the "Text Color:" label. |
 | *string* | borderColorText | The text that should be displayed for the "Border Color:" label. |
 | *string* | searchEventsTitle | The text that should be displayed for the "Search Events" label. |
-| *string* | forText | The text that should be displayed for the "For:" label. |
 | *string* | previousText | The text that should be displayed for the "Previous" button. |
 | *string* | nextText | The text that should be displayed for the "Next" button. |
 | *string* | matchCaseText | The text that should be displayed for the "Match Case" label. |
@@ -135,6 +135,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
 | *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
 | *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
+| *string* | optionsText | The text that should be displayed for the "Options:" label. |
+| *string* | startsWithText | The text that should be displayed for the "Starts With" label. |
+| *string* | endsWithText | The text that should be displayed for the "Ends With" label. |
+| *string* | containsText | The text that should be displayed for the "Contains" label. |
 
 <br/>
 

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.3
+ * Calendar.js Library v0.9.4
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -203,9 +203,14 @@ div.calendar {
                 }
 
                 &.holiday,
-                &.month-name {
+                &.month-name,
+                &.blank {
                     display: block;
                     font-size: xx-small;
+                }
+
+                &.blank {
+                    padding: 0 !important;
                 }
             }
 
@@ -413,6 +418,24 @@ div.calendar {
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+
+                div.ib-refresh-small {
+                    margin-right: $spacing / 2;
+                }
+            }
+
+            div.event-circle {
+                display: inline-block;
+                border-radius: 50% !important;
+                border-left: none !important;
+                height: 5px;
+                width: 5px;
+                margin-left: 2.5px;
+                margin-right: 2.5px;
+
+                &:last-child {
+                    margin-bottom: 5;
                 }
             }
 
@@ -939,7 +962,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(250px, false);
+    @include dialog-styles(300px, false);
     @include dialog-title-bar;
 
     div.contents {
@@ -958,7 +981,7 @@ div.search {
 
     @import "foundation/split-container";
 
-    div.split {
+    div.split:last-child {
         margin-top: $spacing + $spacing / 2;
     }
 
@@ -999,8 +1022,8 @@ div.configuration {
         @include input-style;
         height: 150px;
         padding: $spacing;
-        overflow-y: hidden;
-        overflow-x: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     div.contents {
@@ -1205,6 +1228,10 @@ div.calendar-tooltip-event {
     div.repeats {
         font-size: smaller;
     }
+
+    div.ib-refresh-medium {
+        margin-right: $spacing / 2;
+    }
 }
 
 div.calendar-tooltip {
@@ -1365,8 +1392,10 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/close";
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
-@import "foundation/small/arrow-top-right";
 @import "foundation/buttons/octagon-hollow";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/arrow-top-right-icon";
 @import "foundation/menus/hamburger-icon";
+@import "foundation/small/arrow-top-right";
+@import "foundation/small/refresh-medium";
+@import "foundation/small/refresh-small";

@@ -1,5 +1,6 @@
 div.split {
     input,
+    div.split-contents,
     p {
         width: calc(50% - (#{$spacing} / 2));
         margin-right: $spacing / 2;

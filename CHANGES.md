@@ -1,5 +1,16 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.4:
+- Added support to show the events in the main display as dots (optional, to save space; defaults to false).
+- Added options "Starts With", "Ends With" and "Contains" to the Search dialog (defaults to the first one).
+- Repeating events now show an icon in the display to indicate this (including the overlay views).
+- Removed the "For:" label from the Search dialog (with option support), as it's not needed.
+- Fixed a fault that caused new events to be added to the wrong date when added from the Event Editor.
+- Fixed a fault that caused the wrong date to be used when setting the end of a repeating event.
+- Fixed a fault that caused the wrong dates to be used when the date picker is now compatible with the browser.
+- Faster rendering of the years drop-down menu (no longer sets classes when not required).
+- Fixed the vertical scrollbar not showing up in the group's list on the Configuration dialog.
+
 ### Version 0.9.3:
 - Added export to MD (markdown) file support.
 - Added export to HTML file support.

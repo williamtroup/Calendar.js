@@ -1,0 +1,31 @@
+@import "../buttons/button";
+
+$size: 12px;
+$border-width: $size / 4;
+$border-radius: $border-width;
+$border: $border-width solid;
+
+.ib-refresh-medium {
+    @include button;
+    border-color: $light-color;
+    
+    &:before {
+        border-top: $border;
+        border-left: $border;
+        border-radius: $border-radius;
+        width: $size - $border-width * 2 - $border-width / 3;
+        height: $size - $border-width;
+        left: 0;
+        top: 0;
+    }
+
+    &:after {
+        border-bottom: $border;
+        border-right: $border;
+        border-radius: $border-radius;
+        width: $size - $border-width * 2 - $border-width / 3;
+        height: $size - $border-width;
+        right: 0;
+        top: 0;
+    }
+}

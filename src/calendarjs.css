@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.3
+ * Calendar.js Library v0.9.4
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -289,9 +289,13 @@ div.calendar div.row div.cell span.first-day {
   color: #282828;
 }
 
-div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name {
+div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name, div.calendar div.row div.cell span.blank {
   display: block;
   font-size: xx-small;
+}
+
+div.calendar div.row div.cell span.blank {
+  padding: 0 !important;
 }
 
 div.calendar div.row div.cell:last-child {
@@ -519,6 +523,25 @@ div.calendar div.row div.cell div.event-no-hover {
 div.calendar div.row div.cell div.event:last-child,
 div.calendar div.row div.cell div.event-no-hover:last-child {
   margin-bottom: 0;
+}
+
+div.calendar div.row div.cell div.event div.ib-refresh-small,
+div.calendar div.row div.cell div.event-no-hover div.ib-refresh-small {
+  margin-right: 5px;
+}
+
+div.calendar div.row div.cell div.event-circle {
+  display: inline-block;
+  border-radius: 50% !important;
+  border-left: none !important;
+  height: 5px;
+  width: 5px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+div.calendar div.row div.cell div.event-circle:last-child {
+  margin-bottom: 5;
 }
 
 div.calendar div.row div.cell div.event:hover {
@@ -793,6 +816,11 @@ div.calendar div.full-day-view div.contents div.event-no-hover div.repeats {
   font-weight: 300;
 }
 
+div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium,
+div.calendar div.full-day-view div.contents div.event-no-hover div.ib-refresh-medium {
+  margin-right: 5px;
+}
+
 div.calendar div.full-day-view div.contents div.event:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -984,6 +1012,11 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
 div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.repeats {
   font-size: smaller;
   font-weight: 300;
+}
+
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div.ib-refresh-medium,
+div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.ib-refresh-medium {
+  margin-right: 5px;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.event:hover {
@@ -1179,6 +1212,11 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   font-weight: 300;
 }
 
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.ib-refresh-medium,
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.ib-refresh-medium {
+  margin-right: 5px;
+}
+
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -1331,6 +1369,7 @@ div.event-editor div.view p.error {
 }
 
 div.event-editor div.view div.split input,
+div.event-editor div.view div.split div.split-contents,
 div.event-editor div.view div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1339,11 +1378,13 @@ div.event-editor div.view div.split p {
 }
 
 div.event-editor div.view div.split input:first-child,
+div.event-editor div.view div.split div.split-contents:first-child,
 div.event-editor div.view div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor div.view div.split input:last-child,
+div.event-editor div.view div.split div.split-contents:last-child,
 div.event-editor div.view div.split p:last-child {
   margin-right: 0;
 }
@@ -1567,6 +1608,7 @@ div.event-editor-colors input[type="text"]:hover {
 }
 
 div.event-editor-colors div.split input,
+div.event-editor-colors div.split div.split-contents,
 div.event-editor-colors div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1575,11 +1617,13 @@ div.event-editor-colors div.split p {
 }
 
 div.event-editor-colors div.split input:first-child,
+div.event-editor-colors div.split div.split-contents:first-child,
 div.event-editor-colors div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor-colors div.split input:last-child,
+div.event-editor-colors div.split div.split-contents:last-child,
 div.event-editor-colors div.split p:last-child {
   margin-right: 0;
 }
@@ -1742,6 +1786,7 @@ div.event-editor-repeat-options label.checkbox {
 }
 
 div.event-editor-repeat-options div.split input,
+div.event-editor-repeat-options div.split div.split-contents,
 div.event-editor-repeat-options div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1750,11 +1795,13 @@ div.event-editor-repeat-options div.split p {
 }
 
 div.event-editor-repeat-options div.split input:first-child,
+div.event-editor-repeat-options div.split div.split-contents:first-child,
 div.event-editor-repeat-options div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor-repeat-options div.split input:last-child,
+div.event-editor-repeat-options div.split div.split-contents:last-child,
 div.event-editor-repeat-options div.split p:last-child {
   margin-right: 0;
 }
@@ -1880,6 +1927,7 @@ div.confirmation label.checkbox {
 }
 
 div.confirmation div.split input,
+div.confirmation div.split div.split-contents,
 div.confirmation div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -1888,11 +1936,13 @@ div.confirmation div.split p {
 }
 
 div.confirmation div.split input:first-child,
+div.confirmation div.split div.split-contents:first-child,
 div.confirmation div.split p:first-child {
   margin-left: 0;
 }
 
 div.confirmation div.split input:last-child,
+div.confirmation div.split div.split-contents:last-child,
 div.confirmation div.split p:last-child {
   margin-right: 0;
 }
@@ -2004,6 +2054,7 @@ div.select-export-type div.contents {
 }
 
 div.select-export-type div.split input,
+div.select-export-type div.split div.split-contents,
 div.select-export-type div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -2012,11 +2063,13 @@ div.select-export-type div.split p {
 }
 
 div.select-export-type div.split input:first-child,
+div.select-export-type div.split div.split-contents:first-child,
 div.select-export-type div.split p:first-child {
   margin-left: 0;
 }
 
 div.select-export-type div.split input:last-child,
+div.select-export-type div.split div.split-contents:last-child,
 div.select-export-type div.split p:last-child {
   margin-right: 0;
 }
@@ -2093,7 +2146,7 @@ div.select-export-type input[type="button"].cancel:not(:disabled):active {
 */
 div.search {
   width: calc(100% - (10px * 2));
-  max-width: 250px;
+  max-width: 300px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -2162,6 +2215,7 @@ div.search input[type="text"]:hover {
 }
 
 div.search div.split input,
+div.search div.split div.split-contents,
 div.search div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -2170,16 +2224,18 @@ div.search div.split p {
 }
 
 div.search div.split input:first-child,
+div.search div.split div.split-contents:first-child,
 div.search div.split p:first-child {
   margin-left: 0;
 }
 
 div.search div.split input:last-child,
+div.search div.split div.split-contents:last-child,
 div.search div.split p:last-child {
   margin-right: 0;
 }
 
-div.search div.split {
+div.search div.split:last-child {
   margin-top: 15px;
 }
 
@@ -2302,8 +2358,8 @@ div.configuration div.controls-container {
   outline: none;
   height: 150px;
   padding: 10px;
-  overflow-y: hidden;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 div.configuration div.contents {
@@ -2322,6 +2378,7 @@ div.configuration div.contents p {
 }
 
 div.configuration div.split input,
+div.configuration div.split div.split-contents,
 div.configuration div.split p {
   width: calc(50% - (10px / 2));
   margin-right: 5px;
@@ -2330,11 +2387,13 @@ div.configuration div.split p {
 }
 
 div.configuration div.split input:first-child,
+div.configuration div.split div.split-contents:first-child,
 div.configuration div.split p:first-child {
   margin-left: 0;
 }
 
 div.configuration div.split input:last-child,
+div.configuration div.split div.split-contents:last-child,
 div.configuration div.split p:last-child {
   margin-right: 0;
 }
@@ -2625,6 +2684,11 @@ div.calendar-tooltip-event div.description,
 div.calendar-tooltip-event div.location,
 div.calendar-tooltip-event div.repeats {
   font-size: smaller;
+}
+
+div.calendar-tooltip div.ib-refresh-medium,
+div.calendar-tooltip-event div.ib-refresh-medium {
+  margin-right: 5px;
 }
 
 div.calendar-tooltip {
@@ -3362,32 +3426,6 @@ div.calendar-drop-down-menu div.separator {
   right: 0;
 }
 
-.ib-arrow-top-right {
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-  position: relative;
-  width: 9px;
-  height: 9px;
-  border-right: 3px solid #282828;
-  border-top: 3px solid #282828;
-  border-radius: 3px;
-}
-
-.ib-arrow-top-right:hover {
-  -webkit-transition: all .3s;
-  transition: all .3s;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.ib-arrow-top-right:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.5;
-}
-
 .ib-octagon-hollow {
   width: 16px;
   height: 16px;
@@ -3529,5 +3567,125 @@ div.calendar-drop-down-menu div.separator {
   height: 3px;
   border-radius: 3px;
   left: 0;
+}
+
+.ib-arrow-top-right {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  border-radius: 3px;
+}
+
+.ib-arrow-top-right:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-arrow-top-right:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-refresh-medium {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  border-color: #F5F5F5;
+}
+
+.ib-refresh-medium:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-refresh-medium:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-refresh-medium:before, .ib-refresh-medium:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-refresh-medium:before {
+  border-top: 3px solid;
+  border-left: 3px solid;
+  border-radius: 3px;
+  width: 5px;
+  height: 9px;
+  left: 0;
+  top: 0;
+}
+
+.ib-refresh-medium:after {
+  border-bottom: 3px solid;
+  border-right: 3px solid;
+  border-radius: 3px;
+  width: 5px;
+  height: 9px;
+  right: 0;
+  top: 0;
+}
+
+.ib-refresh-small {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  position: relative;
+  border-color: #F5F5F5;
+}
+
+.ib-refresh-small:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-refresh-small:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-refresh-small:before, .ib-refresh-small:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-refresh-small:before {
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-radius: 2px;
+  width: 3.33333px;
+  height: 6px;
+  left: 0;
+  top: 0;
+}
+
+.ib-refresh-small:after {
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  border-radius: 2px;
+  width: 3.33333px;
+  height: 6px;
+  right: 0;
+  top: 0;
 }
 /*# sourceMappingURL=calendarjs.css.map */
