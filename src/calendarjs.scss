@@ -133,18 +133,18 @@ div.calendar {
             margin-top: 0;
             margin-bottom: $spacing;
         }
+    }
 
-        span.link {
-            text-decoration: underline;
-            color: $link-color;
+    span.link {
+        text-decoration: underline !important;
+        color: $link-color !important;
 
-            &:hover {
-                @include opacity-hover-effect;
-            }
+        &:hover {
+            @include opacity-hover-effect;
+        }
 
-            &:active {
-                @include opacity-active-effect;
-            }
+        &:active {
+            @include opacity-active-effect;
         }
     }
     

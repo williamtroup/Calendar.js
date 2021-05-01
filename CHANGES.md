@@ -3,6 +3,7 @@
 ### Version 0.9.5:
 - Fixed a fault that caused the public function addEvents() to fire the wrong went.
 - Double clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.
+- Improved the "No events available" default text display in the Week view.
 - 
 
 ### Version 0.9.4:

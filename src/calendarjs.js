@@ -2072,6 +2072,9 @@ function calendarJs( id, options, startDateTime ) {
             var expandDate = new Date( date ),
                 expandFunction = function() {
                     showFullDayView( expandDate, true );
+                },
+                addEventFunction = function() {
+                    showEventDialog( null, expandDate );
                 };
 
             var day = createElement( "div", "day" );
@@ -2091,17 +2094,19 @@ function calendarJs( id, options, startDateTime ) {
             buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
-                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
-                    showEventDialog( null, expandDate );
-                } );
+                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, addEventFunction );
             }
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
 
-            var noEventsText = createElement( "div", "no-events-text" );
-            noEventsText.innerText = _options.noEventsAvailableText;
-            dayContents.appendChild( noEventsText );
+            var noEventsTextContainer = createElement( "div", "no-events-text" );
+            dayContents.appendChild( noEventsTextContainer );
+
+            createSpanElement( noEventsTextContainer, _options.noEventsAvailableText );
+            createSpanElement( noEventsTextContainer, " " + _options.clickText + " " );
+            createSpanElement( noEventsTextContainer, _options.hereText, "link", addEventFunction );
+            createSpanElement( noEventsTextContainer, " " + _options.toAddANewEventText );
 
             _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = dayContents;
 
@@ -5780,7 +5785,7 @@ function calendarJs( id, options, startDateTime ) {
         }
         
         if ( !isDefined( _options.noEventsAvailableText ) ) {
-            _options.noEventsAvailableText = "No events available";
+            _options.noEventsAvailableText = "No events available.";
         }
         
         if ( !isDefined( _options.viewWeekEventsText ) ) {

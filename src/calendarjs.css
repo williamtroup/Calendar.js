@@ -209,19 +209,19 @@ div.calendar div.no-events-available-text p {
   margin-bottom: 10px;
 }
 
-div.calendar div.no-events-available-text span.link {
-  text-decoration: underline;
-  color: #2471A3;
+div.calendar span.link {
+  text-decoration: underline !important;
+  color: #2471A3 !important;
 }
 
-div.calendar div.no-events-available-text span.link:hover {
+div.calendar span.link:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
-div.calendar div.no-events-available-text span.link:active {
+div.calendar span.link:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
