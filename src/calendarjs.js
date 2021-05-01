@@ -2297,18 +2297,12 @@ function calendarJs( id, options, startDateTime ) {
         addToolTip( expandDayButton, _options.expandDayTooltipText );
 
         if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
-            var monthName = createElement( "span", "month-name" );
-            monthName.className += isMuted ? " day-muted" : "";
-            monthName.innerText = _options.monthNames[ month ];
-            dayElement.appendChild( monthName );
+            createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + ( isMuted ? " day-muted" : "" ) );
         }
 
         var holidayText = getHoliday( dayDate );
         if ( holidayText !== null ) {
-            var holiday = createElement( "span", "holiday" );
-            holiday.className += isMuted ? " day-muted" : "";
-            holiday.innerText = holidayText;
-            dayElement.appendChild( holiday );
+            createSpanElement( dayElement, holidayText, "holiday" + ( isMuted ? " day-muted" : "" ) );
         }
 
         expandDayButton.onclick = function() {
@@ -2531,8 +2525,7 @@ function calendarJs( id, options, startDateTime ) {
         var menuItem = createElement( "div", "item" );
         container.appendChild( menuItem );
 
-        var menuIcon = createElement( "div", iconCSS );
-        menuItem.appendChild( menuIcon );
+        menuItem.appendChild( createElement( "div", iconCSS ) );
 
         var menuText = createElement( "div", "menu-text" );
         menuText.innerText = text;
