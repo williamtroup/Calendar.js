@@ -6,6 +6,8 @@
 - Repeating events now show an icon in the display to indicate this (including the overlay views).
 - Removed the For: label from the Search dialog (and option support), as it's not really needed.
 - Fixed a fault that caused new events to be added to the wrong date when added from the Event Editor.
+- Fixed a fault that caused the wrong date to be used when setting the end of a repeating event.
+- Fixed a fault that caused the wrong dates to be used when the date picker is now compatible with the browser.
 - 
 
 ### Version 0.9.3:

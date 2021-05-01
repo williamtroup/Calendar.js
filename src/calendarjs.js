@@ -2978,7 +2978,7 @@ function calendarJs( id, options, startDateTime ) {
                 var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
                 if ( match ) {
     
-                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ] );
+                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
                     if ( newDate instanceof Date && !isNaN( newDate ) ) {
                         result = newDate;
                     }
