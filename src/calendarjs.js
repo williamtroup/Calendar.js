@@ -4037,6 +4037,7 @@ function calendarJs( id, options, startDateTime ) {
         try {
             input.type = type;
         } catch ( e ) {
+            console.error( e.message );
             input.type = "text";
         }
     }

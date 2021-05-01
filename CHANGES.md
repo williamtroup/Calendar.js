@@ -4,6 +4,7 @@
 - Fixed a fault that caused the public function addEvents() to fire the wrong event.
 - Double clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.
 - Improved the "No events available" default text display in the Week view.
+- An error log is now shown in the developer console when an input type is not supported by the browser.
 - 
 
 ### Version 0.9.4:
