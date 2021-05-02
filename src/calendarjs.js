@@ -2634,12 +2634,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.maxLength = _options.maximumEventTitleLength ;
         }
 
-        var selectColorsButton = createElement( "input", "select-colors", "button" );
-        selectColorsButton.value = "...";
-        selectColorsButton.onclick = showEventEditorColorsDialog;
-        inputTitleContainer.appendChild( selectColorsButton );
-
-        addToolTip( selectColorsButton, _options.selectColorsText, true );
+        createButtonElement( inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText );
 
         createTextHeaderElement( contents, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
@@ -2684,12 +2679,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
 
-        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = createElement( "input", "repeat-options", "button" );
-        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.value = "...";
-        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.onclick = showEventEditorRepeatOptionsDialog;
-        radioButtonsContainer.appendChild( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton );
-
-        addToolTip( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton, _options.repeatOptionsTitle, true );
+        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = createButtonElement( radioButtonsContainer, "...", "repeat-options", showEventEditorRepeatOptionsDialog, _options.repeatOptionsTitle );
 
         var inputFields1TextSplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1TextSplitContainer );
@@ -2729,20 +2719,9 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        _element_EventEditorDialog_OKButton = createElement( "input", "ok", "button" );
-        _element_EventEditorDialog_OKButton.value = _options.addText;
-        _element_EventEditorDialog_OKButton.onclick = eventDialogEvent_OK;
-        buttonsSplitContainer.appendChild( _element_EventEditorDialog_OKButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = eventDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
-
-        _element_EventEditorDialog_RemoveButton = createElement( "input", "remove", "button" );
-        _element_EventEditorDialog_RemoveButton.value = _options.removeEventText;
-        _element_EventEditorDialog_RemoveButton.onclick = eventDialogEvent_Remove;
-        contents.appendChild( _element_EventEditorDialog_RemoveButton );
+        _element_EventEditorDialog_OKButton = createButtonElement( buttonsSplitContainer, _options.addText, "ok", eventDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
+        _element_EventEditorDialog_RemoveButton = createButtonElement( contents, _options.removeEventText, "remove", eventDialogEvent_Remove );
     }
 
     function addNewEvent() {
@@ -3082,15 +3061,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = eventColorsDialogEvent_OK;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = eventColorsDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", eventColorsDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel );
     }
 
     function eventColorsDialogEvent_OK() {
@@ -3155,15 +3127,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = eventRepeatOptionsDialogEvent_OK;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = eventRepeatOptionsDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", eventRepeatOptionsDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel );
     }
 
     function eventRepeatOptionsDialogEvent_OK() {
@@ -3317,15 +3282,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = exportEventsFromOptionSelected;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = hideSelectExportTypeDialog;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", exportEventsFromOptionSelected );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", hideSelectExportTypeDialog );
     }
 
     function showSelectExportTypeDialog( events ) {
@@ -3432,15 +3390,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split last-split" );
         _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
 
-        _element_SearchDialog_Previous = createElement( "input", "previous", "button" );
-        _element_SearchDialog_Previous.value = _options.previousText;
-        _element_SearchDialog_Previous.onclick = searchOnPrevious;
-        buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
-
-        _element_SearchDialog_Next = createElement( "input", "next", "button" );
-        _element_SearchDialog_Next.value = _options.nextText;
-        _element_SearchDialog_Next.onclick = searchOnNext;
-        buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
+        _element_SearchDialog_Previous = createButtonElement( buttonsSplitContainer, _options.previousText, "previous", searchOnPrevious );
+        _element_SearchDialog_Next = createButtonElement( buttonsSplitContainer, _options.nextText, "next", searchOnNext );
 
         _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
     }
@@ -3653,15 +3604,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = configurationDialogEvent_OK;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = configurationDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", configurationDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
     }
 
     function buildConfigurationVisibleGroupOptions() {
@@ -3973,7 +3917,20 @@ function calendarJs( id, options, startDateTime ) {
         if ( isDefined( event ) ) {
             element.onclick = event;
         }
-    } 
+    }
+
+    function createButtonElement( container, text, className, event, tooltipText ) {
+        var button = createElement( "input", className, "button" );
+        button.value = text;
+        button.onclick = event;
+        container.appendChild( button );
+
+        if ( isDefined( tooltipText ) ) {
+            addToolTip( button, tooltipText, true );
+        }
+
+        return button;
+    }
 
     function getElementByID( id ) {
         if ( !_elements.hasOwnProperty( id ) || _elements[ id ] === null ) {
