@@ -3733,6 +3733,7 @@ function calendarJs( id, options, startDateTime ) {
                     } else {
 
                         _element_Tooltip.innerHTML = "";
+                        _element_Tooltip_Title.innerHTML = "";
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
 

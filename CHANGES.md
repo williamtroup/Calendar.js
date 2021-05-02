@@ -6,6 +6,7 @@
 - Improved the "No events available" default text display in the Week view.
 - An error log is now shown in the developer console when an input type is not supported by the browser.
 - Added public function updateEvents(), which will update an array of existing events.
+- Fixed a fault that prevent the tooltip title for an event to be cleared before being shown again.
 - 
 
 ### Version 0.9.4:
