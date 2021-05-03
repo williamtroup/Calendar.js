@@ -7,6 +7,7 @@
 - An error log is now shown in the developer console when an input type is not supported by the browser.
 - Added public function updateEvents(), which will update an array of existing events.
 - Fixed a fault that prevented the tooltip title for an event to be cleared before being shown again.
+- Fixed a fault that prevented the event found via the Search dialog from being focused when pressing Previous.
 
 ### Version 0.9.4:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).

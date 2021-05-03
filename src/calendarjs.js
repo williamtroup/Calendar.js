@@ -3479,8 +3479,11 @@ function calendarJs( id, options, startDateTime ) {
         if ( _element_SearchDialog_SearchIndex > 0 ) {
             _element_SearchDialog_SearchIndex--;
 
+            var eventDetails = _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ];
+
             updateSearchButtons();
-            build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+            build( eventDetails.from );
+            updatedFocusedElementAfterSearch( eventDetails );
         }
     }
 
