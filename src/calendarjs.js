@@ -3355,7 +3355,6 @@ function calendarJs( id, options, startDateTime ) {
         
         _element_SearchDialog_MatchCase = buildCheckBox( _element_SearchDialog_Contents, _options.matchCaseText, searchForTextChanged )[ 0 ];
 
-
         var optionsSplitContainer = createElement( "div", "split" );
         _element_SearchDialog_Contents.appendChild( optionsSplitContainer );
 
