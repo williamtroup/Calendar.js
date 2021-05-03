@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.4
+ * Calendar.js Library v0.9.5
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -133,18 +133,18 @@ div.calendar {
             margin-top: 0;
             margin-bottom: $spacing;
         }
+    }
 
-        span.link {
-            text-decoration: underline;
-            color: $link-color;
+    span.link {
+        text-decoration: underline !important;
+        color: $link-color !important;
 
-            &:hover {
-                @include opacity-hover-effect;
-            }
+        &:hover {
+            @include opacity-hover-effect;
+        }
 
-            &:active {
-                @include opacity-active-effect;
-            }
+        &:active {
+            @include opacity-active-effect;
         }
     }
     

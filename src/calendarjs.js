@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.4
+ * Calendar.js Library v0.9.5
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -62,6 +62,7 @@
  * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally.
  * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
  * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
+ * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
  */
 
 
@@ -1759,21 +1760,24 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildListAllEventsMonth( date ) {
         var monthContentsID = "month-" + date.getMonth() + "-" + date.getFullYear(),
-            monthContents = getElementByID( monthContentsID ),
-            expandMonthDate = new Date( date );
+            monthContents = getElementByID( monthContentsID );
         
         if ( monthContents === null ) {
+            var expandMonthDate = new Date( date ),
+                expandFunction = function() {
+                    hideOverlay( _element_ListAllEventsView );
+                    build( expandMonthDate );
+                };
+
             var month = createElement( "div", "month" );
             _element_ListAllEventsView_Contents.appendChild( month );
 
             var header = createElement( "div", "header" );
             header.innerText = _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
+            header.ondblclick = expandFunction;
             month.appendChild( header );
 
-            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
-                hideOverlay( _element_ListAllEventsView );
-                build( expandMonthDate );
-            } );
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
                 var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
@@ -2063,10 +2067,17 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
             dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
-            dayContents = null,
-            expandDate = new Date( date );
+            dayContents = null;
 
         if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
+            var expandDate = new Date( date ),
+                expandFunction = function() {
+                    showFullDayView( expandDate, true );
+                },
+                addEventFunction = function() {
+                    showEventDialog( null, expandDate );
+                };
+
             var day = createElement( "div", "day" );
             _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
 
@@ -2077,26 +2088,26 @@ function calendarJs( id, options, startDateTime ) {
             makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
             var header = createElement( "div", "header" );
+            header.ondblclick = expandFunction;
             day.appendChild( header );
 
             buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
-
-            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, function() {
-                showFullDayView( expandDate, true );
-            } );
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
-                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
-                    showEventDialog( null, expandDate );
-                } );
+                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, addEventFunction );
             }
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
 
-            var noEventsText = createElement( "div", "no-events-text" );
-            noEventsText.innerText = _options.noEventsAvailableText;
-            dayContents.appendChild( noEventsText );
+            var noEventsTextContainer = createElement( "div", "no-events-text" );
+            dayContents.appendChild( noEventsTextContainer );
+
+            createSpanElement( noEventsTextContainer, _options.noEventsAvailableText );
+            createSpanElement( noEventsTextContainer, " " + _options.clickText + " " );
+            createSpanElement( noEventsTextContainer, _options.hereText, "link", addEventFunction );
+            createSpanElement( noEventsTextContainer, " " + _options.toAddANewEventText );
 
             _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = dayContents;
 
@@ -2287,18 +2298,12 @@ function calendarJs( id, options, startDateTime ) {
         addToolTip( expandDayButton, _options.expandDayTooltipText );
 
         if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
-            var monthName = createElement( "span", "month-name" );
-            monthName.className += isMuted ? " day-muted" : "";
-            monthName.innerText = _options.monthNames[ month ];
-            dayElement.appendChild( monthName );
+            createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + ( isMuted ? " day-muted" : "" ) );
         }
 
         var holidayText = getHoliday( dayDate );
         if ( holidayText !== null ) {
-            var holiday = createElement( "span", "holiday" );
-            holiday.className += isMuted ? " day-muted" : "";
-            holiday.innerText = holidayText;
-            dayElement.appendChild( holiday );
+            createSpanElement( dayElement, holidayText, "holiday" + ( isMuted ? " day-muted" : "" ) );
         }
 
         expandDayButton.onclick = function() {
@@ -2521,8 +2526,7 @@ function calendarJs( id, options, startDateTime ) {
         var menuItem = createElement( "div", "item" );
         container.appendChild( menuItem );
 
-        var menuIcon = createElement( "div", iconCSS );
-        menuItem.appendChild( menuIcon );
+        menuItem.appendChild( createElement( "div", iconCSS ) );
 
         var menuText = createElement( "div", "menu-text" );
         menuText.innerText = text;
@@ -2630,12 +2634,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Title.maxLength = _options.maximumEventTitleLength ;
         }
 
-        var selectColorsButton = createElement( "input", "select-colors", "button" );
-        selectColorsButton.value = "...";
-        selectColorsButton.onclick = showEventEditorColorsDialog;
-        inputTitleContainer.appendChild( selectColorsButton );
-
-        addToolTip( selectColorsButton, _options.selectColorsText, true );
+        createButtonElement( inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText );
 
         createTextHeaderElement( contents, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
@@ -2680,12 +2679,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
 
-        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = createElement( "input", "repeat-options", "button" );
-        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.value = "...";
-        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.onclick = showEventEditorRepeatOptionsDialog;
-        radioButtonsContainer.appendChild( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton );
-
-        addToolTip( _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton, _options.repeatOptionsTitle, true );
+        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = createButtonElement( radioButtonsContainer, "...", "repeat-options", showEventEditorRepeatOptionsDialog, _options.repeatOptionsTitle );
 
         var inputFields1TextSplitContainer = createElement( "div", "split" );
         contents.appendChild( inputFields1TextSplitContainer );
@@ -2725,20 +2719,9 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        _element_EventEditorDialog_OKButton = createElement( "input", "ok", "button" );
-        _element_EventEditorDialog_OKButton.value = _options.addText;
-        _element_EventEditorDialog_OKButton.onclick = eventDialogEvent_OK;
-        buttonsSplitContainer.appendChild( _element_EventEditorDialog_OKButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = eventDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
-
-        _element_EventEditorDialog_RemoveButton = createElement( "input", "remove", "button" );
-        _element_EventEditorDialog_RemoveButton.value = _options.removeEventText;
-        _element_EventEditorDialog_RemoveButton.onclick = eventDialogEvent_Remove;
-        contents.appendChild( _element_EventEditorDialog_RemoveButton );
+        _element_EventEditorDialog_OKButton = createButtonElement( buttonsSplitContainer, _options.addText, "ok", eventDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
+        _element_EventEditorDialog_RemoveButton = createButtonElement( contents, _options.removeEventText, "remove", eventDialogEvent_Remove );
     }
 
     function addNewEvent() {
@@ -3078,15 +3061,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = eventColorsDialogEvent_OK;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = eventColorsDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", eventColorsDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel );
     }
 
     function eventColorsDialogEvent_OK() {
@@ -3151,15 +3127,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = eventRepeatOptionsDialogEvent_OK;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = eventRepeatOptionsDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", eventRepeatOptionsDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel );
     }
 
     function eventRepeatOptionsDialogEvent_OK() {
@@ -3313,15 +3282,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = exportEventsFromOptionSelected;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = hideSelectExportTypeDialog;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", exportEventsFromOptionSelected );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", hideSelectExportTypeDialog );
     }
 
     function showSelectExportTypeDialog( events ) {
@@ -3423,20 +3385,13 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchForTextChanged );
         _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchForTextChanged );
 
-        _element_SearchDialog_Option_StartsWith.checked = true;
+        _element_SearchDialog_Option_Contains.checked = true;
 
         var buttonsSplitContainer = createElement( "div", "split last-split" );
         _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
 
-        _element_SearchDialog_Previous = createElement( "input", "previous", "button" );
-        _element_SearchDialog_Previous.value = _options.previousText;
-        _element_SearchDialog_Previous.onclick = searchOnPrevious;
-        buttonsSplitContainer.appendChild( _element_SearchDialog_Previous );
-
-        _element_SearchDialog_Next = createElement( "input", "next", "button" );
-        _element_SearchDialog_Next.value = _options.nextText;
-        _element_SearchDialog_Next.onclick = searchOnNext;
-        buttonsSplitContainer.appendChild( _element_SearchDialog_Next );
+        _element_SearchDialog_Previous = createButtonElement( buttonsSplitContainer, _options.previousText, "previous", searchOnPrevious );
+        _element_SearchDialog_Next = createButtonElement( buttonsSplitContainer, _options.nextText, "next", searchOnNext );
 
         _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
     }
@@ -3524,13 +3479,18 @@ function calendarJs( id, options, startDateTime ) {
         if ( _element_SearchDialog_SearchIndex > 0 ) {
             _element_SearchDialog_SearchIndex--;
 
+            var eventDetails = _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ];
+
             updateSearchButtons();
-            build( _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ].from );
+            build( eventDetails.from );
+            updatedFocusedElementAfterSearch( eventDetails );
         }
     }
 
     function searchOnEnter( e ) {
-        if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
+        if ( e.keyCode === 13 && isControlKey( e ) && !_element_SearchDialog_Previous.disabled ) {
+            searchOnPrevious();
+        } else if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
             searchOnNext();
         }
     }
@@ -3649,15 +3609,8 @@ function calendarJs( id, options, startDateTime ) {
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
-        var okButton = createElement( "input", "ok", "button" );
-        okButton.value = _options.okText;
-        okButton.onclick = configurationDialogEvent_OK;
-        buttonsSplitContainer.appendChild( okButton );
-
-        var cancelButton = createElement( "input", "cancel", "button" );
-        cancelButton.value = _options.cancelText;
-        cancelButton.onclick = configurationDialogEvent_Cancel;
-        buttonsSplitContainer.appendChild( cancelButton );
+        createButtonElement( buttonsSplitContainer, _options.okText, "ok", configurationDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
     }
 
     function buildConfigurationVisibleGroupOptions() {
@@ -3785,6 +3738,7 @@ function calendarJs( id, options, startDateTime ) {
                     } else {
 
                         _element_Tooltip.innerHTML = "";
+                        _element_Tooltip_Title.innerHTML = "";
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
 
@@ -3969,7 +3923,20 @@ function calendarJs( id, options, startDateTime ) {
         if ( isDefined( event ) ) {
             element.onclick = event;
         }
-    } 
+    }
+
+    function createButtonElement( container, text, className, event, tooltipText ) {
+        var button = createElement( "input", className, "button" );
+        button.value = text;
+        button.onclick = event;
+        container.appendChild( button );
+
+        if ( isDefined( tooltipText ) ) {
+            addToolTip( button, tooltipText, true );
+        }
+
+        return button;
+    }
 
     function getElementByID( id ) {
         if ( !_elements.hasOwnProperty( id ) || _elements[ id ] === null ) {
@@ -4034,6 +4001,7 @@ function calendarJs( id, options, startDateTime ) {
         try {
             input.type = type;
         } catch ( e ) {
+            console.error( e.message );
             input.type = "text";
         }
     }
@@ -4973,7 +4941,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( triggerEvent ) {
-            triggerOptionsEventWithEventData( "onEventAdded", events );
+            triggerOptionsEventWithEventData( "onEventsAdded", events );
         }
 
         if ( updateEvents ) {
@@ -5055,6 +5023,38 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return added;
+    };
+
+    /**
+     * updateEvents().
+     * 
+     * Updates an array of existing events.
+     * 
+     * @fires       onEventsUpdated
+     * 
+     * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
+     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States of the "onEventsUpdated" event should be triggered.
+     */
+     this.updateEvents = function( events, updateEvents, triggerEvent ) {
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        var eventsLength = events.length;
+        for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+            var event = events[ eventIndex ];
+
+            this.updateEvent( event.id, event, false, false );
+        }
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithEventData( "onEventsUpdated", events );
+        }
+
+        if ( updateEvents ) {
+            buildDayEvents();
+            refreshOpenedViews();
+        }
     };
 
     /**
@@ -5278,7 +5278,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.4";
+        return "0.9.5";
     };
 
 
@@ -5775,7 +5775,7 @@ function calendarJs( id, options, startDateTime ) {
         }
         
         if ( !isDefined( _options.noEventsAvailableText ) ) {
-            _options.noEventsAvailableText = "No events available";
+            _options.noEventsAvailableText = "No events available.";
         }
         
         if ( !isDefined( _options.viewWeekEventsText ) ) {

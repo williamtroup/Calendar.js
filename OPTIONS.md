@@ -122,7 +122,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | idText | The text that should be displayed for the "ID:" label. |
 | *string* | expandMonthTooltipText | The tooltip text that should be used for for the "Expand Month" button. |
 | *string* | repeatEndsText | The text that should be displayed for the "Repeat Ends:" label. |
-| *string* | noEventsAvailableText | The text that should be displayed for the "No events available" label. |
+| *string* | noEventsAvailableText | The text that should be displayed for the "No events available." label. |
 | *string* | viewWeekEventsText | The text that should be displayed for the "View Week Events" label. |
 | *string* | noEventsAvailableFullText | The text that should be displayed for the "There are no events available to view." label. |
 | *string* | clickText | The text that should be displayed for the "Click" label. |
@@ -161,3 +161,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |
 | onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
 | onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
+| onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |

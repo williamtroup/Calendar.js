@@ -99,6 +99,17 @@ Adds a of new event.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States of the "onEventAdded" event should be triggered.
 
+### **updateEvents( *events*, *updateEvents*, *triggerEvent* )**:
+Updates an array of existing events.
+<br>
+***Fires***:  onEventsUpdated
+<br>
+***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
+<br>
+***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onEventsUpdated" event should be triggered.
+
 ### **updateEvent( *id*, *event*, *updateEvents*, *triggerEvent* )**:
 Updates an existing event.
 <br>

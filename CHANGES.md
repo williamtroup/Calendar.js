@@ -1,5 +1,16 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.5:
+- Fixed a fault that caused the public function addEvents() to fire the wrong event.
+- Double-clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.
+- Improved the "No events available" default text display in the Week view.
+- An error log is now shown in the developer console when an input type is not supported by the browser.
+- Added public function updateEvents(), which will update an array of existing events.
+- Fixed a fault that prevented the tooltip title for an event to be cleared before being shown again.
+- Fixed a fault that prevented the event found via the Search dialog from being focused when pressing Previous.
+- Pressing Ctrl+Enter in the Search dialog will now move back to the previously found event.
+- The "Contains" option on the Search dialog is now the default selection.
+
 ### Version 0.9.4:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
 - Added options "Starts With", "Ends With" and "Contains" to the Search dialog (defaults to the first one).
