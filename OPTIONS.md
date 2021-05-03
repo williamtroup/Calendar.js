@@ -22,7 +22,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | organizerName | The default name of the organizer (defaults to empty string). |
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
-| *number* | spacing | States the default spacing that should be used for additional margins. |
+| *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |
 | *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 | *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full day view (defaults to true). |
