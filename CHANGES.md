@@ -2,12 +2,11 @@
 
 ### Version 0.9.5:
 - Fixed a fault that caused the public function addEvents() to fire the wrong event.
-- Double clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.
+- Double-clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.
 - Improved the "No events available" default text display in the Week view.
 - An error log is now shown in the developer console when an input type is not supported by the browser.
 - Added public function updateEvents(), which will update an array of existing events.
-- Fixed a fault that prevent the tooltip title for an event to be cleared before being shown again.
-- 
+- Fixed a fault that prevented the tooltip title for an event to be cleared before being shown again.
 
 ### Version 0.9.4:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
