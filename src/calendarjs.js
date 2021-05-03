@@ -3488,7 +3488,9 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function searchOnEnter( e ) {
-        if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
+        if ( e.keyCode === 13 && isControlKey( e ) && !_element_SearchDialog_Previous.disabled ) {
+            searchOnPrevious();
+        } else if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
             searchOnNext();
         }
     }
