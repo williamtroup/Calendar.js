@@ -3385,7 +3385,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchForTextChanged );
         _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchForTextChanged );
 
-        _element_SearchDialog_Option_StartsWith.checked = true;
+        _element_SearchDialog_Option_Contains.checked = true;
 
         var buttonsSplitContainer = createElement( "div", "split last-split" );
         _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
