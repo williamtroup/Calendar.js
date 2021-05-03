@@ -9,7 +9,7 @@
 - Fixed a fault that prevented the tooltip title for an event to be cleared before being shown again.
 - Fixed a fault that prevented the event found via the Search dialog from being focused when pressing Previous.
 - Pressing Ctrl+Enter in the Search dialog will now move back to the previously found event.
-- The contains option on the Search dialog is now the default selection.
+- The "Contains" option on the Search dialog is now the default selection.
 
 ### Version 0.9.4:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
