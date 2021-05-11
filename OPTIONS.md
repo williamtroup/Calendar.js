@@ -35,6 +35,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
 | *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
+| *Object[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 
 <br/>
 

@@ -202,6 +202,7 @@
  * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
  * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
  * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
+ * @property    {Object[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  */
 
 
@@ -552,11 +553,13 @@ function calendarJs( id, options, startDateTime ) {
             _element_Calendar.appendChild( headerRow );
 
             for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
-                var headerName = _options.dayHeaderNames[ headerNameIndex ],
-                    header = createElement( "div", _elementClassName_Cell );
+                if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
+                    var headerName = _options.dayHeaderNames[ headerNameIndex ],
+                        header = createElement( "div", getCellName() );
 
-                header.innerText = headerName;
-                headerRow.appendChild( header );
+                    header.innerText = headerName;
+                    headerRow.appendChild( header );
+                }
             }
         }
     }
@@ -567,17 +570,23 @@ function calendarJs( id, options, startDateTime ) {
             _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
-                var columnDataNumber = ( rowIndex * 7 ) + ( columnDataIndex + 1 ),
-                    columnData = createElement( "div", _elementClassName_Cell );
+                if ( _options.visibleDays.indexOf( columnDataIndex ) > -1 ) {
+                    var columnDataNumber = ( rowIndex * 7 ) + ( columnDataIndex + 1 ),
+                        columnData = createElement( "div", getCellName() );
 
-                columnData.id = _elementID_DayElement + columnDataNumber;
-                rowData.appendChild( columnData );
+                    columnData.id = _elementID_DayElement + columnDataNumber;
+                    rowData.appendChild( columnData );
 
-                if ( _options.minimumDayHeight > 0 ) {
-                    columnData.style.height = _options.minimumDayHeight + "px";
+                    if ( _options.minimumDayHeight > 0 ) {
+                        columnData.style.height = _options.minimumDayHeight + "px";
+                    }
                 }
             }
         }
+    }
+
+    function getCellName() {
+        return _elementClassName_Cell + " cell-" + _options.visibleDays.length;
     }
 
     function getAdjustedAllDayEvent( event ) {
@@ -1172,8 +1181,10 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function clearEventsFromDay( elementDay ) {
-        clearElementsByClassName( elementDay, getEventClassName() );
-        clearElementsByClassName( elementDay, "plus-x-events" );
+        if ( elementDay !== null ) {
+            clearElementsByClassName( elementDay, getEventClassName() );
+            clearElementsByClassName( elementDay, "plus-x-events" );
+        }
     }
 
     function clearElementsByClassName( container, className ) {
@@ -2258,64 +2269,67 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDay( actualDay, elementDayNumber, month, year, isMuted, includeMonthName ) {
-        var today = new Date(),
-            dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
-            dayElement = getElementByID( _elementID_DayElement + elementDayNumber ),
-            dayText = createElement( "span" ),
-            dayDate = new Date( year, month, actualDay );
+        var dayElement = getElementByID( _elementID_DayElement + elementDayNumber );
         
-        includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
+        if ( dayElement !== null ) {
+            var today = new Date(),
+                dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
+                dayText = createElement( "span" ),
+                dayDate = new Date( year, month, actualDay );
+            
+            includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
-        dayElement.innerHTML = "";
-        dayText.className = isMuted ? "day-muted" : "";
-        dayText.className += dayIsToday ? " today" : "";
-        dayText.innerText = actualDay;
+            dayElement.innerHTML = "";
+            dayText.className = isMuted ? "day-muted" : "";
+            dayText.className += dayIsToday ? " today" : "";
+            dayText.innerText = actualDay;
 
-        if ( actualDay === 1 ) {
-            dayText.className += " first-day";
-        }
+            if ( actualDay === 1 ) {
+                dayText.className += " first-day";
+            }
 
-        if ( isWeekendDay( dayDate ) && dayElement.className === _elementClassName_Cell ) {
-            dayElement.className = _elementClassName_Cell + " weekend-day";
-        }
+            if ( isWeekendDay( dayDate ) && dayElement.className.indexOf( "weekend-day" ) === -1 ) {
+                dayElement.className += " weekend-day";
+            }
 
-        dayElement.oncontextmenu = function( e ) {
-            showDayDropDownMenu( e, dayDate );
-        };
-
-        if ( _options.showDayNumberOrdinals ) {
-            var sup = createElement( "sup" );
-            sup.innerText = getDayOrdinal( actualDay );
-            dayText.appendChild( sup );
-        }
-
-        dayElement.appendChild( dayText );
-        dayElement.appendChild( createElement( "span", "blank" ) );
-        
-        var expandDayButton = createElement( "div", "ib-arrow-top-right" );
-        dayElement.appendChild( expandDayButton );
-
-        addToolTip( expandDayButton, _options.expandDayTooltipText );
-
-        if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
-            createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + ( isMuted ? " day-muted" : "" ) );
-        }
-
-        var holidayText = getHoliday( dayDate );
-        if ( holidayText !== null ) {
-            createSpanElement( dayElement, holidayText, "holiday" + ( isMuted ? " day-muted" : "" ) );
-        }
-
-        expandDayButton.onclick = function() {
-            showFullDayView( dayDate, true );
-        };
-
-        if ( _options.manualEditingEnabled ) {
-            dayElement.ondblclick = function() {
-                showEventDialog( null, dayDate );
+            dayElement.oncontextmenu = function( e ) {
+                showDayDropDownMenu( e, dayDate );
             };
 
-            makeAreaDroppable( dayElement, year, month, actualDay );
+            if ( _options.showDayNumberOrdinals ) {
+                var sup = createElement( "sup" );
+                sup.innerText = getDayOrdinal( actualDay );
+                dayText.appendChild( sup );
+            }
+
+            dayElement.appendChild( dayText );
+            dayElement.appendChild( createElement( "span", "blank" ) );
+            
+            var expandDayButton = createElement( "div", "ib-arrow-top-right" );
+            dayElement.appendChild( expandDayButton );
+
+            addToolTip( expandDayButton, _options.expandDayTooltipText );
+
+            if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
+                createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + ( isMuted ? " day-muted" : "" ) );
+            }
+
+            var holidayText = getHoliday( dayDate );
+            if ( holidayText !== null ) {
+                createSpanElement( dayElement, holidayText, "holiday" + ( isMuted ? " day-muted" : "" ) );
+            }
+
+            expandDayButton.onclick = function() {
+                showFullDayView( dayDate, true );
+            };
+
+            if ( _options.manualEditingEnabled ) {
+                dayElement.ondblclick = function() {
+                    showEventDialog( null, dayDate );
+                };
+
+                makeAreaDroppable( dayElement, year, month, actualDay );
+            }
         }
     }
 
@@ -5421,6 +5435,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.useOnlyDotEventsForMainDisplay ) ) {
             _options.useOnlyDotEventsForMainDisplay = false;
+        }
+
+        if ( !isDefined( _options.visibleDays ) ) {
+            _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
         }
 
         setTranslationStringOptions();

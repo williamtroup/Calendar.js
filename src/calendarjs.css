@@ -240,8 +240,35 @@ div.calendar div.row {
   color: #282828;
 }
 
-div.calendar div.row div.cell {
+div.calendar div.row div.cell-1 {
+  width: calc(100% - (20px + 1px));
+}
+
+div.calendar div.row div.cell-2 {
+  width: calc(100% - (20px + 1px) / 2);
+}
+
+div.calendar div.row div.cell-3 {
+  width: calc(100% - (20px + 1px) / 3);
+}
+
+div.calendar div.row div.cell-4 {
+  width: calc(100% - (20px + 1px) / 4);
+}
+
+div.calendar div.row div.cell-5 {
+  width: calc(100% - (20px + 1px) / 5);
+}
+
+div.calendar div.row div.cell-6 {
+  width: calc(100% - (20px + 1px) / 6);
+}
+
+div.calendar div.row div.cell-7 {
   width: calc(100% - (20px + 1px) / 7);
+}
+
+div.calendar div.row div.cell {
   display: inline-block;
   text-align: center;
   border-right: 1px solid #B0B0B0;

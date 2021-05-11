@@ -158,8 +158,35 @@ div.calendar {
         background-color: $light-color;
         color: $dark-color;
 
-        div.cell {
+        div.cell-1 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}));
+        }
+
+        div.cell-2 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 2);
+        }
+
+        div.cell-3 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 3);
+        }
+        
+        div.cell-4 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 4);
+        }
+
+        div.cell-5 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 5);
+        }
+
+        div.cell-6 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 6);
+        }
+
+        div.cell-7 {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
+        }
+
+        div.cell {
             display: inline-block;
             text-align: center;
             border-right: $standard-border-size solid $grid-border-color;
