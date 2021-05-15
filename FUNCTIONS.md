@@ -191,7 +191,11 @@ Returns the version of Calendar.js.
 <br>
 ***Returns***: '*string*' - The version number.
 
-### **setOptions( *newOptions* )**:
+### **setOptions( *newOptions*, *triggerEvent* )**:
 Sets the specific options that should be used.
 <br>
+***Fires***:  onOptionsUpdated
+<br>
 ***Parameter: newOptions***: '*Object*' - All the options that should be set (refer to "Options" documentation for properties).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States of the "onOptionsUpdated" event should be triggered.

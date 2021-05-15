@@ -63,6 +63,7 @@
  * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
  * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
  * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
+ * @property    {Object}    onOptionsUpdated                            Specifies an event that will be triggered when the options are updated (passes the options to the function).
  */
 
 
@@ -3711,6 +3712,7 @@ function calendarJs( id, options, startDateTime ) {
         _options.eventNotificationsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked;
         _options.tooltipsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked;
 
+        triggerOptionsEventWithData( "onOptionsUpdated", _options );
         checkForBrowserNotificationsPermission();
         buildDayEvents();
         hideConfigurationDialog();
@@ -4986,7 +4988,7 @@ function calendarJs( id, options, startDateTime ) {
         this.addEvents( events, updateEvents, false );
 
         if ( triggerEvent ) {
-            triggerOptionsEventWithEventData( "onEventsSet", events );
+            triggerOptionsEventWithData( "onEventsSet", events );
         }
     };
 
@@ -5013,7 +5015,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( triggerEvent ) {
-            triggerOptionsEventWithEventData( "onEventsAdded", events );
+            triggerOptionsEventWithData( "onEventsAdded", events );
         }
 
         if ( updateEvents ) {
@@ -5084,7 +5086,7 @@ function calendarJs( id, options, startDateTime ) {
                 added = true;
 
                 if ( triggerEvent ) {
-                    triggerOptionsEventWithEventData( "onEventAdded", event );
+                    triggerOptionsEventWithData( "onEventAdded", event );
                 }
         
                 if ( updateEvents ) {
@@ -5120,7 +5122,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         if ( triggerEvent ) {
-            triggerOptionsEventWithEventData( "onEventsUpdated", events );
+            triggerOptionsEventWithData( "onEventsUpdated", events );
         }
 
         if ( updateEvents ) {
@@ -5152,7 +5154,7 @@ function calendarJs( id, options, startDateTime ) {
             updated = this.addEvent( event, updateEvents, false );
 
             if ( updated && triggerEvent ) {
-                triggerOptionsEventWithEventData( "onEventUpdated", event );
+                triggerOptionsEventWithData( "onEventUpdated", event );
             }
         }
         
@@ -5187,7 +5189,7 @@ function calendarJs( id, options, startDateTime ) {
                 updated = true;
 
                 if ( triggerEvent ) {
-                    triggerOptionsEventWithEventData( "onEventUpdated", event );
+                    triggerOptionsEventWithData( "onEventUpdated", event );
                 }
 
                 if ( updateEvents ) {
@@ -5227,7 +5229,7 @@ function calendarJs( id, options, startDateTime ) {
                 removed = true;
 
                 if ( triggerEvent ) {
-                    triggerOptionsEventWithEventData( "onEventRemoved", event );
+                    triggerOptionsEventWithData( "onEventRemoved", event );
                 }
 
                 if ( updateEvents ) {
@@ -5363,11 +5365,14 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * setOptions().
      * 
+     * @fires       onOptionsUpdated
+     * 
      * Sets the specific options that should be used.
      * 
-     * @param {Object}      newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
+     * @param       {Object}    newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
+     * @param       {boolean}   triggerEvent                                States of the "onOptionsUpdated" event should be triggered.
      */
-    this.setOptions = function( newOptions ) {
+    this.setOptions = function( newOptions, triggerEvent ) {
         newOptions = getOptions( newOptions );
 
         for ( var propertyName in newOptions ) {
@@ -5379,6 +5384,12 @@ function calendarJs( id, options, startDateTime ) {
         checkForBrowserNotificationsPermission();
 
         if ( _initialized ) {
+            triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+            }
+
             _initialized = false;
 
             build( _currentDate, true );
@@ -6012,9 +6023,9 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function triggerOptionsEventWithEventData( name, event ) {
+    function triggerOptionsEventWithData( name, data ) {
         if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]( event );
+            _options[ name ]( data );
         }
     }
 

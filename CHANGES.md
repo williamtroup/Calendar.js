@@ -10,6 +10,7 @@
   * New translatable string options have also been added for the new options.
 - The Configuration dialog is now available at all times.
 - Fixed a fault that prevented the Configuration dialog using the right font and font-sizes.
+- Added new event onOptionsUpdated, which is triggered when setOptions() is called and in the Configuration dialog.
 - 
 
 ### Version 0.9.5:
