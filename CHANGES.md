@@ -3,6 +3,13 @@
 ### Version 0.9.6:
 - Added new option visibleDays, which states the days that are visible (defaults to all days, see documentation).
 - Fixed a fault that prevented the first event in a repeating series from being removed.
+- Extended the Configuration dialog to include tabs, with a new one called Display Options that contains:
+  1.  Enable auto-refresh for events
+  2.  Enable browser notifications
+  3.  Enable tooltips
+  * New translatable string options have also been added for the new options.
+- The Configuration dialog is now available at all times.
+- Fixed a fault that prevented the Configuration dialog using the right font and font-sizes.
 - 
 
 ### Version 0.9.5:

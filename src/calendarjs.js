@@ -160,13 +160,17 @@
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
  * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
- * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups:" label.
+ * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups" label.
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
  * @property    {string}    optionsText                                 The text that should be displayed for the "Options:" label.
  * @property    {string}    startsWithText                              The text that should be displayed for the "Starts With" label.
  * @property    {string}    endsWithText                                The text that should be displayed for the "Ends With" label.
  * @property    {string}    containsText                                The text that should be displayed for the "Contains" label.
+ * @property    {string}    displayOptionsText                          The text that should be displayed for the "Display Options" label.
+ * @property    {string}    enableAutoRefreshForEventsText              The text that should be displayed for the "Enable auto-refresh for events" label.
+ * @property    {string}    enableBrowserNotificationsText              The text that should be displayed for the "Enable browser notifications" label.
+ * @property    {string}    enableTooltipsText                          The text that should be displayed for the "Enable tooltips" label.
  */
 
 
@@ -255,7 +259,6 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
         _element_HeaderDateDisplay_YearSelector_Contents = null,
-        _element_HeaderDateDisplay_ConfigurationButton = null,
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_DisabledBackground = null,
@@ -367,8 +370,11 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_SearchIndex = 0,
         _element_SearchDialog_FocusedEventID = null,
         _element_ConfigurationDialog = null,
-        _element_ConfigurationDialog_VisibleGroups = null;
-
+        _element_ConfigurationDialog_VisibleGroups = null,
+        _element_ConfigurationDialog_DisplayOptions = null,
+        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = null,
+        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = null,
+        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = null;
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -508,9 +514,7 @@ function calendarJs( id, options, startDateTime ) {
         buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
         buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
         buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
-
-        _element_HeaderDateDisplay_ConfigurationButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
-        
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
 
         if ( _options.manualEditingEnabled ) {
@@ -953,8 +957,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_Calendar_AllVisibleEvents = [];
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
-            orderedEventsLength = orderedEvents.length,
-            groupsAvailable = false;
+            orderedEventsLength = orderedEvents.length;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
@@ -962,10 +965,6 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( elementDay !== null ) {
                 buildDayEventAcrossDays( orderedEvent );
-            }
-
-            if ( getString( orderedEvent.group ) !== "" ) {
-                groupsAvailable = true;
             }
 
             if ( isEventVisible( orderedEvent ) ) {
@@ -986,7 +985,7 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
     
-        updateExportButtonsVisibleState( _element_Calendar_AllVisibleEvents.length, groupsAvailable );
+        updateExportButtonsVisibleState( _element_Calendar_AllVisibleEvents.length );
         startAutoRefreshTimer();
     }
 
@@ -1125,19 +1124,13 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function updateExportButtonsVisibleState( orderedEventsLength, groupsAvailable ) {
+    function updateExportButtonsVisibleState( orderedEventsLength ) {
         if ( _options.exportEventsEnabled ) {
             if ( orderedEventsLength === 0 ) {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "none";
             } else {
                 _element_HeaderDateDisplay_ExportEventsButton.style.display = "inline-block";
             }
-        }
-
-        if ( !groupsAvailable ) {
-            _element_HeaderDateDisplay_ConfigurationButton.style.display = "none";
-        } else {
-            _element_HeaderDateDisplay_ConfigurationButton.style.display = "inline-block";
         }
     }
 
@@ -3617,16 +3610,59 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_ConfigurationDialog.appendChild( contents );
 
-        createTextHeaderElement( contents, _options.visibleGroupsText );
+        var tabsContainer = createElement( "div" );
+        contents.appendChild( tabsContainer );
+
+        var visibleGroupsTab = createElement( "div", "controls-tab-selected" );
+        visibleGroupsTab.innerText = _options.visibleGroupsText;
+        tabsContainer.appendChild( visibleGroupsTab );
+
+        visibleGroupsTab.onclick = function () {
+            showTabContents( visibleGroupsTab, _element_ConfigurationDialog_VisibleGroups );
+        };
+
+        var displayTab = createElement( "div", "controls-tab" );
+        displayTab.innerText = _options.displayOptionsText;
+        tabsContainer.appendChild( displayTab );
+
+        displayTab.onclick = function () {
+            showTabContents( displayTab, _element_ConfigurationDialog_DisplayOptions );
+        };
 
         _element_ConfigurationDialog_VisibleGroups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
         contents.appendChild( _element_ConfigurationDialog_VisibleGroups );
+
+        _element_ConfigurationDialog_DisplayOptions = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        _element_ConfigurationDialog_DisplayOptions.style.display = "none";
+        contents.appendChild( _element_ConfigurationDialog_DisplayOptions );
+
+        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableAutoRefreshForEventsText )[ 0 ];
+        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableBrowserNotificationsText )[ 0 ];
+        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableTooltipsText )[ 0 ];
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
 
         createButtonElement( buttonsSplitContainer, _options.okText, "ok", configurationDialogEvent_OK );
         createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
+    }
+
+    function showTabContents( tab, contents ) {
+        var tabs = _element_ConfigurationDialog.getElementsByClassName( "controls-tab-selected" ),
+            tabsLength = tabs.length,
+            allContents = _element_ConfigurationDialog.getElementsByClassName( "controls-container " ),
+            allContentsLength = allContents.length;
+
+        for ( var tabIndex = 0; tabIndex < tabsLength; tabIndex++ ) {
+            tabs[ tabIndex ].className = "controls-tab";
+        }
+
+        for ( var allContentsIndex = 0; allContentsIndex < allContentsLength; allContentsIndex++ ) {
+            allContents[ allContentsIndex ].style.display = "none";
+        }
+
+        tab.className = "controls-tab-selected";
+        contents.style.display = "block";
     }
 
     function buildConfigurationVisibleGroupOptions() {
@@ -3652,15 +3688,30 @@ function calendarJs( id, options, startDateTime ) {
         var checkboxes = _element_ConfigurationDialog_VisibleGroups.getElementsByTagName( "input" ),
             checkboxesLength = checkboxes.length;
         
-        _configuration.visibleGroups = [];
+        if ( checkboxesLength > 0 ) {
+            _configuration.visibleGroups = [];
         
-        for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
-            var checkbox = checkboxes[ checkboxIndex ];
-            if ( checkbox.checked ) {
-                _configuration.visibleGroups.push( checkbox.name );
+            for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
+                var checkbox = checkboxes[ checkboxIndex ];
+                if ( checkbox.checked ) {
+                    _configuration.visibleGroups.push( checkbox.name );
+                }
             }
+
+        } else {
+            _configuration.visibleGroups = null;
         }
 
+        if ( _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh.checked ) {
+            _this.startTheAutoRefreshTimer();
+        } else {
+            _this.stopTheAutoRefreshTimer();
+        }
+
+        _options.eventNotificationsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked;
+        _options.tooltipsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked;
+
+        checkForBrowserNotificationsPermission();
         buildDayEvents();
         hideConfigurationDialog();
     }
@@ -3672,6 +3723,11 @@ function calendarJs( id, options, startDateTime ) {
     function showConfigurationDialog() {
         addNode( _document.body, _element_DisabledBackground );
         buildConfigurationVisibleGroupOptions();
+
+        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
+        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
+        _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked = _options.tooltipsEnabled;
+
         _element_ConfigurationDialog.style.display = "block";
     }
 
@@ -5835,7 +5891,7 @@ function calendarJs( id, options, startDateTime ) {
         }
         
         if ( !isDefined( _options.visibleGroupsText ) ) {
-            _options.visibleGroupsText = "Visible Groups:";
+            _options.visibleGroupsText = "Visible Groups";
         }
         
         if ( !isDefined( _options.eventNotificationTitle ) ) {
@@ -5860,6 +5916,22 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.containsText ) ) {
             _options.containsText = "Contains";
+        }
+
+        if ( !isDefined( _options.displayOptionsText ) ) {
+            _options.displayOptionsText = "Display Options";
+        }
+        
+        if ( !isDefined( _options.enableAutoRefreshForEventsText ) ) {
+            _options.enableAutoRefreshForEventsText = "Enable auto-refresh for events";
+        }
+
+        if ( !isDefined( _options.enableBrowserNotificationsText ) ) {
+            _options.enableBrowserNotificationsText = "Enable browser notifications";
+        }
+
+        if ( !isDefined( _options.enableTooltipsText ) ) {
+            _options.enableTooltipsText = "Enable tooltips";
         }
     }
 
