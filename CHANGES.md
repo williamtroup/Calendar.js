@@ -12,6 +12,8 @@
 - Fixed a fault that prevented the Configuration dialog using the right font and font-sizes.
 - Added new event onOptionsUpdated, which is triggered when setOptions() is called and in the Configuration dialog.
 - Added drag & drop support within the all-event view (same as the main display).
+- Events in the views, and the main tooltip, now show the total duration (in days, hours and minutes).
+- New translation string options added for the event duration text.
 - 
 
 ### Version 0.9.5:

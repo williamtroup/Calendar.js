@@ -144,6 +144,12 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | enableAutoRefreshForEventsText | The text that should be displayed for the "Enable auto-refresh for events" label. |
 | *string* | enableBrowserNotificationsText | The text that should be displayed for the "Enable browser notifications" label. |
 | *string* | enableTooltipsText | The text that should be displayed for the "Enable tooltips" label. |
+| *string* | dayText | The text that should be displayed for the "day" label. |
+| *string* | daysText | The text that should be displayed for the "days" label. |
+| *string* | hourText | The text that should be displayed for the "hour" label. |
+| *string* | hoursText | The text that should be displayed for the "hours" label. |
+| *string* | minuteText | The text that should be displayed for the "minute" label. |
+| *string* | minutesText | The text that should be displayed for the "minutes" label. |
 
 <br/>
 

@@ -172,6 +172,12 @@
  * @property    {string}    enableAutoRefreshForEventsText              The text that should be displayed for the "Enable auto-refresh for events" label.
  * @property    {string}    enableBrowserNotificationsText              The text that should be displayed for the "Enable browser notifications" label.
  * @property    {string}    enableTooltipsText                          The text that should be displayed for the "Enable tooltips" label.
+ * @property    {string}    dayText                                     The text that should be displayed for the "day" label.
+ * @property    {string}    daysText                                    The text that should be displayed for the "days" label.
+ * @property    {string}    hourText                                    The text that should be displayed for the "hour" label.
+ * @property    {string}    hoursText                                   The text that should be displayed for the "hours" label.
+ * @property    {string}    minuteText                                  The text that should be displayed for the "minute" label.
+ * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
  */
 
 
@@ -341,6 +347,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip = null,
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
+        _element_Tooltip_TotalTime = null,
         _element_Tooltip_Repeats = null,
         _element_Tooltip_Description = null,
         _element_Tooltip_Location = null,
@@ -944,6 +951,33 @@ function calendarJs( id, options, startDateTime ) {
         date.setFullYear( date.getFullYear() + 1 );
     }
 
+    function getFriendlyTimeBetweenTwoDate( date1, date2 ) {
+        var text = [],
+            delta = Math.abs( date2 - date1 ) / 1000;
+
+        var days = Math.floor( delta / 86400 );
+        delta -= days * 86400;
+
+        if ( days > 0 ) {
+            text.push( days.toString() + " " + ( days === 1 ? _options.dayText : _options.daysText ) );
+        }
+
+        var hours = Math.floor( delta / 3600 ) % 24;
+        delta -= hours * 3600;
+
+        if ( hours > 0 ) {
+            text.push( hours.toString() + " " + ( hours === 1 ? _options.hourText : _options.hoursText ) );
+        }
+
+        var minutes = Math.floor( delta / 60 ) % 60;
+
+        if ( minutes > 0 ) {
+            text.push( minutes.toString() + " " + ( minutes === 1 ? _options.minuteText : _options.minutesText ) );
+        }
+
+        return text.join( ", " );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1489,15 +1523,21 @@ function calendarJs( id, options, startDateTime ) {
             if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
                 var startTime = createElement( "div", "date" );
                 event.appendChild( startTime );
+
+                var duration = createElement( "div", "duration" );
+                event.appendChild( duration );
         
                 if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
                     if ( eventDetails.isAllDay ) {
                         startTime.innerText = _options.allDayText;
                     } else {
                         startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                        duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                     }
                 } else {
                     buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+
+                    duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
         
                 if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
@@ -1728,15 +1768,22 @@ function calendarJs( id, options, startDateTime ) {
     
             var startTime = createElement( "div", "date" );
             event.appendChild( startTime );
+
+            var duration = createElement( "div", "duration" );
+            event.appendChild( duration );
     
             if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
                 if ( eventDetails.isAllDay ) {
                     buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
                 } else {
                     buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+
+                    duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
             } else {
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+
+                duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
             }
     
             if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
@@ -2024,15 +2071,21 @@ function calendarJs( id, options, startDateTime ) {
 
             var startTime = createElement( "div", "date" );
             event.appendChild( startTime );
+
+            var duration = createElement( "div", "duration" );
+            event.appendChild( duration );
     
             if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
                 if ( eventDetails.isAllDay ) {
                     startTime.innerText = _options.allDayText;
                 } else {
                     startTime.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                    duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
             } else {
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+
+                duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
             }
     
             if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
@@ -3797,6 +3850,7 @@ function calendarJs( id, options, startDateTime ) {
 
             _element_Tooltip_Title = createElement( "div", "title" );
             _element_Tooltip_Date = createElement( "div", "date" );
+            _element_Tooltip_TotalTime = createElement( "div", "duration" );
             _element_Tooltip_Repeats = createElement( "div", "repeats" );
             _element_Tooltip_Description = createElement( "div", "description" );
             _element_Tooltip_Location = createElement( "div", "location" );
@@ -3825,8 +3879,10 @@ function calendarJs( id, options, startDateTime ) {
 
                         _element_Tooltip.innerHTML = "";
                         _element_Tooltip_Title.innerHTML = "";
+                        _element_Tooltip_TotalTime.innerHTML = "";
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
+                        _element_Tooltip.appendChild( _element_Tooltip_TotalTime );
 
                         var repeatEvery = getNumber( eventDetails.repeatEvery );
                         if ( repeatEvery > _const_Repeat_Never ) {
@@ -3866,9 +3922,12 @@ function calendarJs( id, options, startDateTime ) {
                                 _element_Tooltip_Date.innerText = _options.allDayText;
                             } else {
                                 _element_Tooltip_Date.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
+                                _element_Tooltip_TotalTime.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                             }
                         } else {
                             buildDateTimeToDateTimeDisplay( _element_Tooltip_Date, eventDetails.from, eventDetails.to );
+
+                            _element_Tooltip_TotalTime.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                         }
                     }
 
@@ -5955,6 +6014,30 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.enableTooltipsText ) ) {
             _options.enableTooltipsText = "Enable tooltips";
+        }
+
+        if ( !isDefined( _options.dayText ) ) {
+            _options.dayText = "day";
+        }
+
+        if ( !isDefined( _options.daysText ) ) {
+            _options.daysText = "days";
+        }
+
+        if ( !isDefined( _options.hourText ) ) {
+            _options.hourText = "hour";
+        }
+
+        if ( !isDefined( _options.hoursText ) ) {
+            _options.hoursText = "hours";
+        }
+
+        if ( !isDefined( _options.minuteText ) ) {
+            _options.minuteText = "minute";
+        }
+
+        if ( !isDefined( _options.minutesText ) ) {
+            _options.minutesText = "minutes";
         }
     }
 
