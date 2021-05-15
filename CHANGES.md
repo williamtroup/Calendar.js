@@ -17,6 +17,7 @@
 - Changing the base styles for the dialogs can now be done in calendar-dialog CSS class.
 - Added a drop shadow to all dialogs.
 - The disabled background colour is now a few shades lighter.
+- Fixed standard border sizes now being shared within the SCSS files.
 - 
 
 ### Version 0.9.5:
