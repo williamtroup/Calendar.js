@@ -1711,6 +1711,7 @@ function calendarJs( id, options, startDateTime ) {
                 };
             }
     
+            makeEventDraggable( event, eventDetails, eventDetails.from );
             setEventClassesAndColors( event, eventDetails );
     
             var title = createElement( "div", "title" ),
@@ -1779,6 +1780,8 @@ function calendarJs( id, options, startDateTime ) {
 
             var month = createElement( "div", "month" );
             _element_ListAllEventsView_Contents.appendChild( month );
+
+            makeAreaDroppable( month, date.getFullYear(), date.getMonth() );
 
             var header = createElement( "div", "header" );
             header.innerText = _options.monthNames[ date.getMonth() ] + " " + date.getFullYear();
@@ -2415,6 +2418,15 @@ function calendarJs( id, options, startDateTime ) {
         cancelBubble( e );
 
         if ( _eventDetails_Dragged !== null ) {
+            if ( !isDefined( day ) ) {
+                var totalDaysInMonth = getTotalDaysInMonth( year, month );
+                day = _eventDetails_Dragged.from.getDate();
+
+                if ( day > totalDaysInMonth ) {
+                    day = totalDaysInMonth;
+                }
+            }
+
             var daysBetweenDraggedFromAndFrom = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged_DateFrom ),
                 daysBetweenFromAndTo = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged.to ),
                 fromDate = new Date( year, month, day, _eventDetails_Dragged.from.getHours(), _eventDetails_Dragged.from.getMinutes() ),
