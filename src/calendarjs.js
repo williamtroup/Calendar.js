@@ -1032,8 +1032,11 @@ function calendarJs( id, options, startDateTime ) {
     }
     
     function buildDayEvent( dayDate, eventDetails ) {
-        var elementDay = getDayElement( dayDate );
-        if ( elementDay !== null && isEventVisible( eventDetails ) ) {
+        var elementDay = getDayElement( dayDate ),
+            formattedDayDate = toStorageFormattedDate( dayDate ),
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates );
+
+        if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
             checkEventForNotifications( dayDate, eventDetails );
             
             var eventClassName = getEventClassName(),
