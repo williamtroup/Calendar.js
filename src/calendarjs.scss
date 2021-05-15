@@ -12,21 +12,9 @@ div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
 div.calendar-drop-down-menu,
-div.event-editor,
-div.event-editor input,
-div.event-editor textarea,
-div.event-editor-colors,
-div.event-editor-colors input,
-div.event-editor-repeat-options,
-div.event-editor-repeat-options input,
-div.confirmation,
-div.confirmation input,
-div.select-export-type,
-div.select-export-type input,
-div.search,
-div.search input,
-div.configuration,
-div.configuration input {
+div.calendar-dialog,
+div.calendar-dialog input,
+div.calendar-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: $minimum-width) {
@@ -41,6 +29,10 @@ div.configuration input {
         top: 0 !important;
         visibility: visible !important;
     }
+}
+
+div.calendar-dialog {
+    box-shadow: 4px 4px 4px $dark-color;
 }
 
 div.disabled-background {

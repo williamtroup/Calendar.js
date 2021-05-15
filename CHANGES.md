@@ -14,6 +14,9 @@
 - Added drag & drop support within the all-event view (same as the main display).
 - Events in the views, and the main tooltip, now show the total duration (in days, hours and minutes).
 - New translation string options added for the event duration text.
+- Changing the base styles for the dialogs can now be done in calendar-dialog CSS class.
+- Added a drop shadow to all dialogs.
+- The disabled background colour is now a few shades lighter.
 - 
 
 ### Version 0.9.5:

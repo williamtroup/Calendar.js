@@ -8,21 +8,9 @@ div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
 div.calendar-drop-down-menu,
-div.event-editor,
-div.event-editor input,
-div.event-editor textarea,
-div.event-editor-colors,
-div.event-editor-colors input,
-div.event-editor-repeat-options,
-div.event-editor-repeat-options input,
-div.confirmation,
-div.confirmation input,
-div.select-export-type,
-div.select-export-type input,
-div.search,
-div.search input,
-div.configuration,
-div.configuration input {
+div.calendar-dialog,
+div.calendar-dialog input,
+div.calendar-dialog textarea {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -31,21 +19,9 @@ div.configuration input {
   div.calendar-tooltip,
   div.calendar-tooltip-event,
   div.calendar-drop-down-menu,
-  div.event-editor,
-  div.event-editor input,
-  div.event-editor textarea,
-  div.event-editor-colors,
-  div.event-editor-colors input,
-  div.event-editor-repeat-options,
-  div.event-editor-repeat-options input,
-  div.confirmation,
-  div.confirmation input,
-  div.select-export-type,
-  div.select-export-type input,
-  div.search,
-  div.search input,
-  div.configuration,
-  div.configuration input {
+  div.calendar-dialog,
+  div.calendar-dialog input,
+  div.calendar-dialog textarea {
     font-size: 0.9rem !important;
   }
 }
@@ -55,21 +31,9 @@ div.configuration input {
   div.calendar-tooltip,
   div.calendar-tooltip-event,
   div.calendar-drop-down-menu,
-  div.event-editor,
-  div.event-editor input,
-  div.event-editor textarea,
-  div.event-editor-colors,
-  div.event-editor-colors input,
-  div.event-editor-repeat-options,
-  div.event-editor-repeat-options input,
-  div.confirmation,
-  div.confirmation input,
-  div.select-export-type,
-  div.select-export-type input,
-  div.search,
-  div.search input,
-  div.configuration,
-  div.configuration input {
+  div.calendar-dialog,
+  div.calendar-dialog input,
+  div.calendar-dialog textarea {
     font-size: 0.7rem !important;
   }
 }
@@ -78,23 +42,16 @@ div.calendar div.overlay-shown,
 div.calendar-tooltip div.overlay-shown,
 div.calendar-tooltip-event div.overlay-shown,
 div.calendar-drop-down-menu div.overlay-shown,
-div.event-editor div.overlay-shown,
-div.event-editor input div.overlay-shown,
-div.event-editor textarea div.overlay-shown,
-div.event-editor-colors div.overlay-shown,
-div.event-editor-colors input div.overlay-shown,
-div.event-editor-repeat-options div.overlay-shown,
-div.event-editor-repeat-options input div.overlay-shown,
-div.confirmation div.overlay-shown,
-div.confirmation input div.overlay-shown,
-div.select-export-type div.overlay-shown,
-div.select-export-type input div.overlay-shown,
-div.search div.overlay-shown,
-div.search input div.overlay-shown,
-div.configuration div.overlay-shown,
-div.configuration input div.overlay-shown {
+div.calendar-dialog div.overlay-shown,
+div.calendar-dialog input div.overlay-shown,
+div.calendar-dialog textarea div.overlay-shown {
   top: 0 !important;
   visibility: visible !important;
+}
+
+div.calendar-dialog {
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
 }
 
 div.disabled-background {
@@ -105,7 +62,7 @@ div.disabled-background {
   z-index: 1000;
   position: fixed;
   background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 div.disabled-area {
@@ -116,7 +73,7 @@ div.disabled-area {
   z-index: 1000;
   position: absolute;
   background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   display: none;
 }
 

@@ -166,7 +166,7 @@ $input-hover-color: $dark-color;
     z-index: 1000;
     position: $position;
     background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 @mixin div-label-spacing {
