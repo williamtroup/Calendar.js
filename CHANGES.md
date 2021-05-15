@@ -7,7 +7,7 @@
   1.  Enable auto-refresh for events
   2.  Enable browser notifications
   3.  Enable tooltips
-  * New translatable string options have also been added for the new options.
+  * New translatable string options have also been added for the new text.
 - The Configuration dialog is now available at all times.
 - Fixed a fault that prevented the Configuration dialog using the right font and font-sizes.
 - Added new event onOptionsUpdated, which is triggered when setOptions() is called and in the Configuration dialog.
