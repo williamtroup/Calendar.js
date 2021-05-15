@@ -22,7 +22,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | organizerName | The default name of the organizer (defaults to empty string). |
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
-| *number* | spacing | States the default spacing that should be used for additional margins. |
+| *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |
 | *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 | *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full day view (defaults to true). |
@@ -35,6 +35,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
 | *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
+| *Object[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 
 <br/>
 
@@ -132,13 +133,23 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | groupText | The text that should be displayed for the "Group:" label. |
 | *string* | configurationTooltipText | The tooltip text that should be used for for the "Configuration" button. |
 | *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
-| *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups:" label. |
+| *string* | visibleGroupsText | The text that should be displayed for the "Visible Groups" label. |
 | *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
 | *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
 | *string* | optionsText | The text that should be displayed for the "Options:" label. |
 | *string* | startsWithText | The text that should be displayed for the "Starts With" label. |
 | *string* | endsWithText | The text that should be displayed for the "Ends With" label. |
 | *string* | containsText | The text that should be displayed for the "Contains" label. |
+| *string* | displayOptionsText | The text that should be displayed for the "Display Options" label. |
+| *string* | enableAutoRefreshForEventsText | The text that should be displayed for the "Enable auto-refresh for events" label. |
+| *string* | enableBrowserNotificationsText | The text that should be displayed for the "Enable browser notifications" label. |
+| *string* | enableTooltipsText | The text that should be displayed for the "Enable tooltips" label. |
+| *string* | dayText | The text that should be displayed for the "day" label. |
+| *string* | daysText | The text that should be displayed for the "days" label. |
+| *string* | hourText | The text that should be displayed for the "hour" label. |
+| *string* | hoursText | The text that should be displayed for the "hours" label. |
+| *string* | minuteText | The text that should be displayed for the "minute" label. |
+| *string* | minutesText | The text that should be displayed for the "minutes" label. |
 
 <br/>
 
@@ -162,3 +173,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
 | onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
 | onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |
+| onOptionsUpdated | Specifies an event that will be triggered when the options are updated (passes the options to the function). |

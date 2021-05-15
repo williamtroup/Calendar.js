@@ -1,5 +1,24 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.6:
+- Added new option visibleDays, which states the days that are visible (defaults to all days, see documentation).
+- Fixed a fault that prevented the first event in a repeating series from being removed.
+- Extended the Configuration dialog to include tabs, with a new one called Display Options that contains:
+  1.  Enable auto-refresh for events
+  2.  Enable browser notifications
+  3.  Enable tooltips
+  * New translatable string options have also been added for the new text.
+- The Configuration dialog is now available at all times.
+- Fixed a fault that prevented the Configuration dialog from using the right font and font-sizes.
+- Added new event onOptionsUpdated, which is triggered when setOptions() is called and in the Configuration dialog.
+- Added drag & drop support within the all-event view (same as the main display).
+- Events in the views, and the main tooltip, now show the total duration (in days, hours and minutes).
+- New translation string options added for the event duration text.
+- Changed the base styles for the dialogs can now be done in calendar-dialog CSS class.
+- Added a drop shadow to all the dialogs.
+- The disabled background colour is now a few shades lighter.
+- Fixed standard border sizes now being shared within the SCSS files.
+
 ### Version 0.9.5:
 - Fixed a fault that caused the public function addEvents() to fire the wrong event.
 - Double-clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.5
+ * Calendar.js Library v0.9.6
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -8,19 +8,9 @@ div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
 div.calendar-drop-down-menu,
-div.event-editor,
-div.event-editor input,
-div.event-editor textarea,
-div.event-editor-colors,
-div.event-editor-colors input,
-div.event-editor-repeat-options,
-div.event-editor-repeat-options input,
-div.confirmation,
-div.confirmation input,
-div.select-export-type,
-div.select-export-type input,
-div.search,
-div.search input {
+div.calendar-dialog,
+div.calendar-dialog input,
+div.calendar-dialog textarea {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -29,19 +19,9 @@ div.search input {
   div.calendar-tooltip,
   div.calendar-tooltip-event,
   div.calendar-drop-down-menu,
-  div.event-editor,
-  div.event-editor input,
-  div.event-editor textarea,
-  div.event-editor-colors,
-  div.event-editor-colors input,
-  div.event-editor-repeat-options,
-  div.event-editor-repeat-options input,
-  div.confirmation,
-  div.confirmation input,
-  div.select-export-type,
-  div.select-export-type input,
-  div.search,
-  div.search input {
+  div.calendar-dialog,
+  div.calendar-dialog input,
+  div.calendar-dialog textarea {
     font-size: 0.9rem !important;
   }
 }
@@ -51,19 +31,9 @@ div.search input {
   div.calendar-tooltip,
   div.calendar-tooltip-event,
   div.calendar-drop-down-menu,
-  div.event-editor,
-  div.event-editor input,
-  div.event-editor textarea,
-  div.event-editor-colors,
-  div.event-editor-colors input,
-  div.event-editor-repeat-options,
-  div.event-editor-repeat-options input,
-  div.confirmation,
-  div.confirmation input,
-  div.select-export-type,
-  div.select-export-type input,
-  div.search,
-  div.search input {
+  div.calendar-dialog,
+  div.calendar-dialog input,
+  div.calendar-dialog textarea {
     font-size: 0.7rem !important;
   }
 }
@@ -72,21 +42,16 @@ div.calendar div.overlay-shown,
 div.calendar-tooltip div.overlay-shown,
 div.calendar-tooltip-event div.overlay-shown,
 div.calendar-drop-down-menu div.overlay-shown,
-div.event-editor div.overlay-shown,
-div.event-editor input div.overlay-shown,
-div.event-editor textarea div.overlay-shown,
-div.event-editor-colors div.overlay-shown,
-div.event-editor-colors input div.overlay-shown,
-div.event-editor-repeat-options div.overlay-shown,
-div.event-editor-repeat-options input div.overlay-shown,
-div.confirmation div.overlay-shown,
-div.confirmation input div.overlay-shown,
-div.select-export-type div.overlay-shown,
-div.select-export-type input div.overlay-shown,
-div.search div.overlay-shown,
-div.search input div.overlay-shown {
+div.calendar-dialog div.overlay-shown,
+div.calendar-dialog input div.overlay-shown,
+div.calendar-dialog textarea div.overlay-shown {
   top: 0 !important;
   visibility: visible !important;
+}
+
+div.calendar-dialog {
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
 }
 
 div.disabled-background {
@@ -97,7 +62,7 @@ div.disabled-background {
   z-index: 1000;
   position: fixed;
   background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 div.disabled-area {
@@ -108,7 +73,7 @@ div.disabled-area {
   z-index: 1000;
   position: absolute;
   background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   display: none;
 }
 
@@ -240,8 +205,35 @@ div.calendar div.row {
   color: #282828;
 }
 
-div.calendar div.row div.cell {
+div.calendar div.row div.cell-1 {
+  width: calc(100% - (20px + 1px));
+}
+
+div.calendar div.row div.cell-2 {
+  width: calc(100% - (20px + 1px) / 2);
+}
+
+div.calendar div.row div.cell-3 {
+  width: calc(100% - (20px + 1px) / 3);
+}
+
+div.calendar div.row div.cell-4 {
+  width: calc(100% - (20px + 1px) / 4);
+}
+
+div.calendar div.row div.cell-5 {
+  width: calc(100% - (20px + 1px) / 5);
+}
+
+div.calendar div.row div.cell-6 {
+  width: calc(100% - (20px + 1px) / 6);
+}
+
+div.calendar div.row div.cell-7 {
   width: calc(100% - (20px + 1px) / 7);
+}
+
+div.calendar div.row div.cell {
   display: inline-block;
   text-align: center;
   border-right: 1px solid #B0B0B0;
@@ -805,10 +797,12 @@ div.calendar div.full-day-view div.contents div.event-no-hover div.title {
 }
 
 div.calendar div.full-day-view div.contents div.event div.date,
+div.calendar div.full-day-view div.contents div.event div.duration,
 div.calendar div.full-day-view div.contents div.event div.description,
 div.calendar div.full-day-view div.contents div.event div.location,
 div.calendar div.full-day-view div.contents div.event div.repeats,
 div.calendar div.full-day-view div.contents div.event-no-hover div.date,
+div.calendar div.full-day-view div.contents div.event-no-hover div.duration,
 div.calendar div.full-day-view div.contents div.event-no-hover div.description,
 div.calendar div.full-day-view div.contents div.event-no-hover div.location,
 div.calendar div.full-day-view div.contents div.event-no-hover div.repeats {
@@ -1003,10 +997,12 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.date,
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div.duration,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.description,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.location,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.repeats,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.date,
+div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.duration,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.description,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.location,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.repeats {
@@ -1201,10 +1197,12 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.date,
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.duration,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.description,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.location,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.repeats,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.date,
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.duration,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.description,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.location,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.repeats {
@@ -2322,7 +2320,7 @@ div.search div.ib-square-hollow {
 */
 div.configuration {
   width: calc(100% - (10px * 2));
-  max-width: 300px;
+  max-width: 350px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -2350,6 +2348,44 @@ div.configuration div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+}
+
+div.configuration div.controls-tab,
+div.configuration div.controls-tab-selected {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  padding: 10px;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom: none !important;
+  text-align: center;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+div.configuration div.controls-tab-selected {
+  border: 1px solid #282828;
+  background-color: #282828;
+  color: #F5F5F5;
+}
+
+div.configuration div.controls-tab {
+  border: 1px solid #A8A8A8;
+  background-color: #F5F5F5;
+  color: #282828;
+}
+
+div.configuration div.controls-tab:hover {
+  cursor: pointer;
+  border: 1px solid #282828;
+  background-color: #282828;
+  color: #F5F5F5;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 div.configuration div.controls-container {
@@ -2676,10 +2712,12 @@ div.calendar-tooltip-event div.title {
 }
 
 div.calendar-tooltip div.date,
+div.calendar-tooltip div.duration,
 div.calendar-tooltip div.description,
 div.calendar-tooltip div.location,
 div.calendar-tooltip div.repeats,
 div.calendar-tooltip-event div.date,
+div.calendar-tooltip-event div.duration,
 div.calendar-tooltip-event div.description,
 div.calendar-tooltip-event div.location,
 div.calendar-tooltip-event div.repeats {

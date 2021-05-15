@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.5
+ * Calendar.js Library v0.9.6
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -12,19 +12,9 @@ div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
 div.calendar-drop-down-menu,
-div.event-editor,
-div.event-editor input,
-div.event-editor textarea,
-div.event-editor-colors,
-div.event-editor-colors input,
-div.event-editor-repeat-options,
-div.event-editor-repeat-options input,
-div.confirmation,
-div.confirmation input,
-div.select-export-type,
-div.select-export-type input,
-div.search,
-div.search input {
+div.calendar-dialog,
+div.calendar-dialog input,
+div.calendar-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: $minimum-width) {
@@ -39,6 +29,10 @@ div.search input {
         top: 0 !important;
         visibility: visible !important;
     }
+}
+
+div.calendar-dialog {
+    box-shadow: 4px 4px 4px $dark-color;
 }
 
 div.disabled-background {
@@ -158,8 +152,35 @@ div.calendar {
         background-color: $light-color;
         color: $dark-color;
 
-        div.cell {
+        div.cell-1 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}));
+        }
+
+        div.cell-2 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 2);
+        }
+
+        div.cell-3 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 3);
+        }
+        
+        div.cell-4 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 4);
+        }
+
+        div.cell-5 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 5);
+        }
+
+        div.cell-6 {
+            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 6);
+        }
+
+        div.cell-7 {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
+        }
+
+        div.cell {
             display: inline-block;
             text-align: center;
             border-right: $standard-border-size solid $grid-border-color;
@@ -1015,8 +1036,40 @@ div.search {
 */
 
 div.configuration {
-    @include dialog-styles(300px);
+    @include dialog-styles(350px);
     @include dialog-title-bar;
+
+    div.controls-tab,
+    div.controls-tab-selected {
+        @include no-selection-allowed;
+        padding: $spacing;
+        border-top-left-radius: $border-view-radius;
+        border-top-right-radius: $border-view-radius;
+        border-bottom: none !important;
+        text-align: center;
+        display: inline-block;
+        margin-left: $spacing / 2;
+    }
+
+    div.controls-tab-selected {
+        border: $standard-border-size solid $dark-color;
+        background-color: $dark-color;
+        color: $light-color;
+    }
+
+    div.controls-tab {
+        border: $standard-border-size solid $input-border-color;
+        background-color: $light-color;
+        color: $dark-color;
+
+        &:hover {
+            cursor: pointer;
+            border: $standard-border-size solid $dark-color;
+            background-color: $dark-color;
+            color: $light-color;
+            transition: $transition;
+        }
+    }
 
     div.controls-container {
         @include input-style;
@@ -1078,7 +1131,7 @@ div.calendar-dialog {
 
             &:checked ~ span.check-mark {
                 background-color: $dark-color !important;
-                border: 1px solid $dark-color !important;
+                border: $standard-border-size solid $dark-color !important;
             }
 
             &:checked ~ span.check-mark:before {
@@ -1094,7 +1147,7 @@ div.calendar-dialog {
             width: 15px;
             background-color: $input-background-color;
             border-radius: $border-view-radius;
-            border: 1px solid $input-border-color;
+            border: $standard-border-size solid $input-border-color;
             transition: $transition;
 
             &:before {
@@ -1112,7 +1165,7 @@ div.calendar-dialog {
         }
 
         &:hover span.check-mark {
-            border: 1px solid $input-hover-color;
+            border: $standard-border-size solid $input-hover-color;
         }
     }
 }
@@ -1147,7 +1200,7 @@ div.calendar-dialog {
     
                 &:checked ~ span.check-mark {
                     background-color: $dark-color !important;
-                    border: 1px solid $dark-color !important;
+                    border: $standard-border-size solid $dark-color !important;
                 }
     
                 &:checked ~ span.check-mark:before {
@@ -1168,7 +1221,7 @@ div.calendar-dialog {
                 width: 15px;
                 background-color: $input-background-color;
                 border-radius: 50%;
-                border: 1px solid $input-border-color;
+                border: $standard-border-size solid $input-border-color;
                 transition: $transition;
     
                 &:before {
@@ -1186,7 +1239,7 @@ div.calendar-dialog {
             }
 
             &:hover span.check-mark {
-                border: 1px solid $input-hover-color;
+                border: $standard-border-size solid $input-hover-color;
             }
         }
 
@@ -1223,6 +1276,7 @@ div.calendar-tooltip-event {
     }
 
     div.date,
+    div.duration,
     div.description,
     div.location,
     div.repeats {
