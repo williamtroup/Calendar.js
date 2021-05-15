@@ -9,7 +9,7 @@
   3.  Enable tooltips
   * New translatable string options have also been added for the new text.
 - The Configuration dialog is now available at all times.
-- Fixed a fault that prevented the Configuration dialog using the right font and font-sizes.
+- Fixed a fault that prevented the Configuration dialog from using the right font and font-sizes.
 - Added new event onOptionsUpdated, which is triggered when setOptions() is called and in the Configuration dialog.
 - Added drag & drop support within the all-event view (same as the main display).
 - Events in the views, and the main tooltip, now show the total duration (in days, hours and minutes).
@@ -18,7 +18,6 @@
 - Added a drop shadow to all the dialogs.
 - The disabled background colour is now a few shades lighter.
 - Fixed standard border sizes now being shared within the SCSS files.
-- 
 
 ### Version 0.9.5:
 - Fixed a fault that caused the public function addEvents() to fire the wrong event.
