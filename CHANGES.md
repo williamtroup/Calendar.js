@@ -3,6 +3,7 @@
 ### Version 0.9.7:
 - Added repeat Every 2 Weeks support (please update your events, the IDs for the others have been changed.  Sorry).
 - Added "Enable drag & drop for events" option to the Configuration dialog.
+- Renamed the tabs and setting names for the Configuration dialog (smaller and better).
 - 
 
 ### Version 0.9.6:

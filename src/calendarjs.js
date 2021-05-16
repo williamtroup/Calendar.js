@@ -162,14 +162,14 @@
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
  * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
- * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups" label.
+ * @property    {string}    groupsTabText                               The text that should be displayed for the "Groups" tab.
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
  * @property    {string}    optionsText                                 The text that should be displayed for the "Options:" label.
  * @property    {string}    startsWithText                              The text that should be displayed for the "Starts With" label.
  * @property    {string}    endsWithText                                The text that should be displayed for the "Ends With" label.
  * @property    {string}    containsText                                The text that should be displayed for the "Contains" label.
- * @property    {string}    displayOptionsText                          The text that should be displayed for the "Display Options" label.
+ * @property    {string}    displayTabText                              The text that should be displayed for the "Display" tab.
  * @property    {string}    enableAutoRefreshForEventsText              The text that should be displayed for the "Enable auto-refresh for events" label.
  * @property    {string}    enableBrowserNotificationsText              The text that should be displayed for the "Enable browser notifications" label.
  * @property    {string}    enableTooltipsText                          The text that should be displayed for the "Enable tooltips" label.
@@ -3701,7 +3701,7 @@ function calendarJs( id, options, startDateTime ) {
         contents.appendChild( tabsContainer );
 
         var visibleGroupsTab = createElement( "div", "controls-tab-selected" );
-        visibleGroupsTab.innerText = _options.visibleGroupsText;
+        visibleGroupsTab.innerText = _options.groupsTabText;
         tabsContainer.appendChild( visibleGroupsTab );
 
         visibleGroupsTab.onclick = function () {
@@ -3709,7 +3709,7 @@ function calendarJs( id, options, startDateTime ) {
         };
 
         var displayTab = createElement( "div", "controls-tab" );
-        displayTab.innerText = _options.displayOptionsText;
+        displayTab.innerText = _options.displayTabText;
         tabsContainer.appendChild( displayTab );
 
         displayTab.onclick = function () {
@@ -6002,8 +6002,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.configurationTitleText = "Configuration";
         }
         
-        if ( !isDefined( _options.visibleGroupsText ) ) {
-            _options.visibleGroupsText = "Visible Groups";
+        if ( !isDefined( _options.groupsTabText ) ) {
+            _options.groupsTabText = "Groups";
         }
         
         if ( !isDefined( _options.eventNotificationTitle ) ) {
@@ -6030,8 +6030,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.containsText = "Contains";
         }
 
-        if ( !isDefined( _options.displayOptionsText ) ) {
-            _options.displayOptionsText = "Display Options";
+        if ( !isDefined( _options.displayTabText ) ) {
+            _options.displayTabText = "Display";
         }
         
         if ( !isDefined( _options.enableAutoRefreshForEventsText ) ) {
