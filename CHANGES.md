@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.7:
+- 
+
 ### Version 0.9.6:
 - Added new option visibleDays, which states the days that are visible (defaults to all days, see documentation).
 - Fixed a fault that prevented the first event in a repeating series from being removed.

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.6
+ * Calendar.js Library v0.9.7
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -5423,7 +5423,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.6";
+        return "0.9.7";
     };
 
 
