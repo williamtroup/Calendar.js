@@ -179,6 +179,7 @@
  * @property    {string}    hoursText                                   The text that should be displayed for the "hours" label.
  * @property    {string}    minuteText                                  The text that should be displayed for the "minute" label.
  * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
+ * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
  */
 
 
@@ -385,7 +386,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_DisplayOptions = null,
         _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = null,
         _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = null;
+        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = null,
+        _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents = null;
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3724,6 +3726,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableAutoRefreshForEventsText )[ 0 ];
         _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableBrowserNotificationsText )[ 0 ];
         _element_ConfigurationDialog_DisplayOptions_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableTooltipsText )[ 0 ];
+        _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableDragAndDropForEventText )[ 0 ];
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -3795,6 +3798,7 @@ function calendarJs( id, options, startDateTime ) {
 
         _options.eventNotificationsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked;
         _options.tooltipsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked;
+        _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents.checked;
 
         triggerOptionsEventWithData( "onOptionsUpdated", _options );
         checkForBrowserNotificationsPermission();
@@ -3813,6 +3817,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
         _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
         _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked = _options.tooltipsEnabled;
+        _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
 
         _element_ConfigurationDialog.style.display = "block";
     }
@@ -6063,6 +6068,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.minutesText ) ) {
             _options.minutesText = "minutes";
+        }
+
+        if ( !isDefined( _options.enableDragAndDropForEventText ) ) {
+            _options.enableDragAndDropForEventText = "Enable drag & drop for events";
         }
     }
 
