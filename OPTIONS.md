@@ -107,6 +107,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | repeatsNever | The text that should be displayed for the "Never" label. |
 | *string* | repeatsEveryDayText | The text that should be displayed for the "Every Day" label. |
 | *string* | repeatsEveryWeekText | The text that should be displayed for the "Every Week" label. |
+| *string* | repeatsEvery2WeeksText | The text that should be displayed for the "Every 2 Weeks" label. |
 | *string* | repeatsEveryMonthText | The text that should be displayed for the "Every Month" label. |
 | *string* | repeatsEveryYearText | The text that should be displayed for the "Every Year" label. |
 | *string* | repeatOptionsTitle | The text that should be displayed for the "Repeat Options" label. |

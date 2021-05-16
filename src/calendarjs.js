@@ -135,6 +135,7 @@
  * @property    {string}    repeatsNever                                The text that should be displayed for the "Never" label.
  * @property    {string}    repeatsEveryDayText                         The text that should be displayed for the "Every Day" label.
  * @property    {string}    repeatsEveryWeekText                        The text that should be displayed for the "Every Week" label.
+ * @property    {string}    repeatsEvery2WeeksText                      The text that should be displayed for the "Every 2 Weeks" label.
  * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
  * @property    {string}    repeatOptionsTitle                          The text that should be displayed for the "Repeat Options" label.
@@ -252,8 +253,9 @@ function calendarJs( id, options, startDateTime ) {
         _const_Repeat_Never = 0,
         _const_Repeat_EveryDay = 1,
         _const_Repeat_EveryWeek = 2,
-        _const_Repeat_EveryMonth = 3,
-        _const_Repeat_EveryYear = 4,
+        _const_Repeat_Every2Weeks = 3,
+        _const_Repeat_EveryMonth = 4,
+        _const_Repeat_EveryYear = 5,
         _elementID_Day = "day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
@@ -284,6 +286,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Never = null,
         _element_EventEditorDialog_RepeatEvery_EveryDay = null,
         _element_EventEditorDialog_RepeatEvery_EveryWeek = null,
+        _element_EventEditorDialog_RepeatEvery_Every2Weeks = null,
         _element_EventEditorDialog_RepeatEvery_EveryMonth = null,
         _element_EventEditorDialog_RepeatEvery_EveryYear = null,
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = null,
@@ -943,6 +946,10 @@ function calendarJs( id, options, startDateTime ) {
         date.setDate( date.getDate() + 7 );
     }
 
+    function moveDateForwardTwoWeeks( date ) {
+        date.setDate( date.getDate() + 14 );
+    }
+
     function moveDateForwardOneMonth( date ) {
         date.setMonth( date.getMonth() + 1 );
     }
@@ -1012,7 +1019,9 @@ function calendarJs( id, options, startDateTime ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneWeek );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardTwoWeeks );
+                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneYear );
@@ -1424,7 +1433,9 @@ function calendarJs( id, options, startDateTime ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneWeek );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardTwoWeeks );
+                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneYear );
@@ -1961,7 +1972,9 @@ function calendarJs( id, options, startDateTime ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneWeek );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardTwoWeeks );
+                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneYear );
@@ -2752,6 +2765,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_Every2Weeks = buildRadioButton( radioButtonsContainer, _options.repeatsEvery2WeeksText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
 
@@ -2835,6 +2849,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Never.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryDay.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_Every2Weeks.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.disabled = disabled;
@@ -2870,7 +2885,9 @@ function calendarJs( id, options, startDateTime ) {
                 _element_EventEditorDialog_RepeatEvery_EveryDay.checked = true;
             } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                 _element_EventEditorDialog_RepeatEvery_EveryWeek.checked = true;
-            } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+            } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked = true;
+            }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                 _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
             } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                 _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
@@ -2981,7 +2998,9 @@ function calendarJs( id, options, startDateTime ) {
                     newEvent.repeatEvery = _const_Repeat_EveryDay;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryWeek;
-                } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
+                } else if ( _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_Every2Weeks;
+                }  else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryMonth;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryYear;
@@ -4452,7 +4471,9 @@ function calendarJs( id, options, startDateTime ) {
             result = _options.repeatsEveryDayText;
         } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
             result = _options.repeatsEveryWeekText;
-        } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+        } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+            result = _options.repeatsEvery2WeeksText;
+        }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
             result = _options.repeatsEveryMonthText;
         } else if ( repeatEvery === _const_Repeat_EveryYear ) {
             result = _options.repeatsEveryYearText;
@@ -5866,6 +5887,10 @@ function calendarJs( id, options, startDateTime ) {
         
         if ( !isDefined( _options.repeatsEveryWeekText ) ) {
             _options.repeatsEveryWeekText = "Every Week";
+        }
+
+        if ( !isDefined( _options.repeatsEvery2WeeksText ) ) {
+            _options.repeatsEvery2WeeksText = "Every 2 Weeks";
         }
         
         if ( !isDefined( _options.repeatsEveryMonthText ) ) {
