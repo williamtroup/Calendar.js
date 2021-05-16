@@ -1087,6 +1087,10 @@ div.configuration {
             margin: 0;
             margin-bottom: 8px;
         }
+
+        input[type="text"] {
+            @include input-fields;
+        }
     }
 
     @import "foundation/split-container";

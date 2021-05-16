@@ -180,6 +180,7 @@
  * @property    {string}    minuteText                                  The text that should be displayed for the "minute" label.
  * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
  * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
+ * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
  */
 
 
@@ -382,12 +383,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_SearchIndex = 0,
         _element_SearchDialog_FocusedEventID = null,
         _element_ConfigurationDialog = null,
-        _element_ConfigurationDialog_VisibleGroups = null,
-        _element_ConfigurationDialog_DisplayOptions = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents = null;
+        _element_ConfigurationDialog_Groups = null,
+        _element_ConfigurationDialog_Display = null,
+        _element_ConfigurationDialog_Display_EnableAutoRefresh = null,
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications = null,
+        _element_ConfigurationDialog_Display_EnableTooltips = null,
+        _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null,
+        _element_ConfigurationDialog_Organizer = null,
+        _element_ConfigurationDialog_Organizer_Name = null,
+        _element_ConfigurationDialog_Organizer_Email = null;
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3705,7 +3709,7 @@ function calendarJs( id, options, startDateTime ) {
         tabsContainer.appendChild( visibleGroupsTab );
 
         visibleGroupsTab.onclick = function () {
-            showTabContents( visibleGroupsTab, _element_ConfigurationDialog_VisibleGroups );
+            showTabContents( visibleGroupsTab, _element_ConfigurationDialog_Groups );
         };
 
         var displayTab = createElement( "div", "controls-tab" );
@@ -3713,20 +3717,42 @@ function calendarJs( id, options, startDateTime ) {
         tabsContainer.appendChild( displayTab );
 
         displayTab.onclick = function () {
-            showTabContents( displayTab, _element_ConfigurationDialog_DisplayOptions );
+            showTabContents( displayTab, _element_ConfigurationDialog_Display );
         };
 
-        _element_ConfigurationDialog_VisibleGroups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
-        contents.appendChild( _element_ConfigurationDialog_VisibleGroups );
+        var organizerTab = createElement( "div", "controls-tab" );
+        organizerTab.innerText = _options.organizerTabText;
+        tabsContainer.appendChild( organizerTab );
 
-        _element_ConfigurationDialog_DisplayOptions = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
-        _element_ConfigurationDialog_DisplayOptions.style.display = "none";
-        contents.appendChild( _element_ConfigurationDialog_DisplayOptions );
+        organizerTab.onclick = function () {
+            showTabContents( organizerTab, _element_ConfigurationDialog_Organizer );
+        };
 
-        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableAutoRefreshForEventsText )[ 0 ];
-        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableBrowserNotificationsText )[ 0 ];
-        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableTooltipsText )[ 0 ];
-        _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableDragAndDropForEventText )[ 0 ];
+        _element_ConfigurationDialog_Groups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        contents.appendChild( _element_ConfigurationDialog_Groups );
+
+        _element_ConfigurationDialog_Display = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        _element_ConfigurationDialog_Display.style.display = "none";
+        contents.appendChild( _element_ConfigurationDialog_Display );
+
+        _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
+
+        _element_ConfigurationDialog_Organizer = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        _element_ConfigurationDialog_Organizer.style.display = "none";
+        contents.appendChild( _element_ConfigurationDialog_Organizer );
+
+        createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
+
+        _element_ConfigurationDialog_Organizer_Name = createElement( "input", null, "text" );
+        _element_ConfigurationDialog_Organizer.appendChild( _element_ConfigurationDialog_Organizer_Name );
+
+        createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerEmailAddressText );
+
+        _element_ConfigurationDialog_Organizer_Email = createElement( "input", null, "text" );
+        _element_ConfigurationDialog_Organizer.appendChild( _element_ConfigurationDialog_Organizer_Email );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -3753,8 +3779,8 @@ function calendarJs( id, options, startDateTime ) {
         contents.style.display = "block";
     }
 
-    function buildConfigurationVisibleGroupOptions() {
-        _element_ConfigurationDialog_VisibleGroups.innerHTML = "";
+    function buildConfigurationGroupOptions() {
+        _element_ConfigurationDialog_Groups.innerHTML = "";
 
         var groups = getGroups(),
             groupsLength = groups.length;
@@ -3768,12 +3794,12 @@ function calendarJs( id, options, startDateTime ) {
                 visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
             }
 
-            buildCheckBox( _element_ConfigurationDialog_VisibleGroups, groupName, null, configGroupName, visible );
+            buildCheckBox( _element_ConfigurationDialog_Groups, groupName, null, configGroupName, visible );
         }
     }
 
     function configurationDialogEvent_OK() {
-        var checkboxes = _element_ConfigurationDialog_VisibleGroups.getElementsByTagName( "input" ),
+        var checkboxes = _element_ConfigurationDialog_Groups.getElementsByTagName( "input" ),
             checkboxesLength = checkboxes.length;
         
         if ( checkboxesLength > 0 ) {
@@ -3790,15 +3816,17 @@ function calendarJs( id, options, startDateTime ) {
             _configuration.visibleGroups = null;
         }
 
-        if ( _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh.checked ) {
+        if ( _element_ConfigurationDialog_Display_EnableAutoRefresh.checked ) {
             _this.startTheAutoRefreshTimer();
         } else {
             _this.stopTheAutoRefreshTimer();
         }
 
-        _options.eventNotificationsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked;
-        _options.tooltipsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked;
-        _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents.checked;
+        _options.eventNotificationsEnabled = _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked;
+        _options.tooltipsEnabled = _element_ConfigurationDialog_Display_EnableTooltips.checked;
+        _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked;
+        _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
+        _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
 
         triggerOptionsEventWithData( "onOptionsUpdated", _options );
         checkForBrowserNotificationsPermission();
@@ -3812,12 +3840,14 @@ function calendarJs( id, options, startDateTime ) {
 
     function showConfigurationDialog() {
         addNode( _document.body, _element_DisabledBackground );
-        buildConfigurationVisibleGroupOptions();
+        buildConfigurationGroupOptions();
 
-        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
-        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
-        _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked = _options.tooltipsEnabled;
-        _element_ConfigurationDialog_DisplayOptions_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
+        _element_ConfigurationDialog_Display_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
+        _element_ConfigurationDialog_Display_EnableTooltips.checked = _options.tooltipsEnabled;
+        _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
+        _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
+        _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
 
         _element_ConfigurationDialog.style.display = "block";
     }
@@ -6072,6 +6102,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.enableDragAndDropForEventText ) ) {
             _options.enableDragAndDropForEventText = "Enable drag & drop for events";
+        }
+
+        if ( !isDefined( _options.organizerTabText ) ) {
+            _options.organizerTabText = "Organizer";
         }
     }
 

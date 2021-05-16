@@ -152,6 +152,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | minuteText | The text that should be displayed for the "minute" label. |
 | *string* | minutesText | The text that should be displayed for the "minutes" label. |
 | *string* | enableDragAndDropForEventText | The text that should be displayed for the "Enable drag & drop for events" label. |
+| *string* | organizerTabText | The text that should be displayed for the "Organizer" tab. |
 
 <br/>
 
