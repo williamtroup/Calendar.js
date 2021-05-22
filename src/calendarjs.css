@@ -2150,7 +2150,7 @@ div.search {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  z-index: 1500;
+  z-index: 1000;
 }
 
 div.search div.ib-close {

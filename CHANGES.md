@@ -8,6 +8,7 @@
 - When using drag & drop, the "repeatEnds" property on the event is now updated to reflect the changes.
 - Extended the function updateEventDateTimes() to allow updating the "repeatEnds" property on the event.
 - The Search dialog is now hidden whenever you which to an overlay view (weekly, all events, full day).
+- Fixed a fault that caused the Search dialog to appear over the the modal dialogs.
 - 
 
 ### Version 0.9.6:

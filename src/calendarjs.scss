@@ -983,7 +983,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(300px, false);
+    @include dialog-styles(300px, false, 1000);
     @include dialog-title-bar;
 
     div.contents {

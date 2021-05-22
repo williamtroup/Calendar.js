@@ -107,7 +107,7 @@ $input-hover-color: $dark-color;
     }
 }
 
-@mixin dialog-styles($width, $includeTransform: true) {
+@mixin dialog-styles($width, $includeTransform: true, $z-index: 1500) {
     width: calc(100% - (#{$spacing} * 2));
     max-width: $width;
     border-radius: $border-view-radius;
@@ -115,7 +115,7 @@ $input-hover-color: $dark-color;
     border: $standard-border-size solid $dark-color;
     position: fixed;
     display: none;
-    z-index: 1500;
+    z-index: $z-index;
 
     @if $includeTransform {
         left: 50%;
