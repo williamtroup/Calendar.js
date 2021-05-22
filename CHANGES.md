@@ -5,6 +5,8 @@
 - Added "Enable drag & drop for events" option to the Configuration dialog.
 - Renamed the tabs and setting names for the Configuration dialog (smaller and better).
 - Added "Organizer" to the Configuration dialog, with support to change the name and email address.
+- When using drag & drop, the "repeatEnds" property on the event is now updated to reflect the changes.
+- Extended the function updateEventDateTimes() to allow updating the "repeatEnds" property on the event.
 - 
 
 ### Version 0.9.6:

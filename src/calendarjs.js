@@ -2502,18 +2502,27 @@ function calendarJs( id, options, startDateTime ) {
             var daysBetweenDraggedFromAndFrom = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged_DateFrom ),
                 daysBetweenFromAndTo = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged.to ),
                 fromDate = new Date( year, month, day, _eventDetails_Dragged.from.getHours(), _eventDetails_Dragged.from.getMinutes() ),
-                toDate = new Date( year, month, day, _eventDetails_Dragged.to.getHours(), _eventDetails_Dragged.to.getMinutes() );               
+                toDate = new Date( year, month, day, _eventDetails_Dragged.to.getHours(), _eventDetails_Dragged.to.getMinutes() ),
+                repeatEndsDate = _eventDetails_Dragged.repeatEnds;               
 
             if ( daysBetweenDraggedFromAndFrom > 0 ) {
                 fromDate.setDate( fromDate.getDate() - daysBetweenDraggedFromAndFrom );
                 toDate.setDate( toDate.getDate() - daysBetweenDraggedFromAndFrom );
             }
 
+            if ( isDefined( repeatEndsDate ) ) {
+                if ( fromDate > _eventDetails_Dragged.from ) {
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() + getTotalDaysBetweenDates( fromDate, _eventDetails_Dragged.from ) );
+                } else {
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() - getTotalDaysBetweenDates( fromDate, _eventDetails_Dragged.from ) );
+                }
+            }
+
             if ( daysBetweenFromAndTo > 0 ) {
                 toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
             }
 
-            _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate );            
+            _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate, repeatEndsDate );            
             refreshViews();
         }
     }
@@ -5298,12 +5307,13 @@ function calendarJs( id, options, startDateTime ) {
      * @param       {string}    id                                          The ID of the event.
      * @param       {Object}    from                                        The new from date.
      * @param       {Object}    to                                          The new to date.
+     * @param       {Object}    repeatEnds                                  The new repeat ends day.
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventUpdated" event should be triggered.
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
-     this.updateEventDateTimes = function( id, from, to, updateEvents, triggerEvent ) {
+     this.updateEventDateTimes = function( id, from, to, repeatEnds, updateEvents, triggerEvent ) {
         var updated = false;
 
         getAllEventsFunc( function( event ) {
@@ -5313,6 +5323,7 @@ function calendarJs( id, options, startDateTime ) {
 
                 event.from = from;
                 event.to = to;
+                event.repeatEnds = repeatEnds;
                 updated = true;
 
                 if ( triggerEvent ) {

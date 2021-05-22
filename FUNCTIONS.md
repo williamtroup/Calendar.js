@@ -125,7 +125,7 @@ Updates an existing event.
 <br>
 ***Returns***: '*boolean*' - States if the event was updated.
 
-### **updateEventDateTimes( *id*, *from*, *to*, *updateEvents*, *triggerEvent* )**:
+### **updateEventDateTimes( *id*, *from*, *to*, *repeatEnds*, *updateEvents*, *triggerEvent* )**:
 Updates an existing events from/to dates.
 <br>
 ***Fires***:  onEventUpdated
@@ -135,6 +135,8 @@ Updates an existing events from/to dates.
 ***Parameter: from***: '*Object*' - The new from date.
 <br>
 ***Parameter: to***: '*Object*' - The new to date.
+<br>
+***Parameter: repeatEnds***: '*Object*' - The new repeat ends day.
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
 <br>
