@@ -126,7 +126,7 @@ Updates an existing event.
 ***Returns***: '*boolean*' - States if the event was updated.
 
 ### **updateEventDateTimes( *id*, *from*, *to*, *repeatEnds*, *updateEvents*, *triggerEvent* )**:
-Updates an existing events from/to dates.
+Updates an existing events from, to, and repeatEnds dates.
 <br>
 ***Fires***:  onEventUpdated
 <br>

@@ -5300,7 +5300,7 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * updateEventDateTimes().
      * 
-     * Updates an existing events from/to dates.
+     * Updates an existing events from, to, and repeatEnds dates.
      * 
      * @fires       onEventUpdated
      * 
