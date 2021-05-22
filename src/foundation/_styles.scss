@@ -115,6 +115,7 @@ $input-hover-color: $dark-color;
     border: $standard-border-size solid $dark-color;
     position: fixed;
     display: none;
+    box-shadow: 4px 4px 4px $dark-color;
     z-index: $z-index;
 
     @if $includeTransform {

@@ -31,10 +31,6 @@ div.calendar-dialog textarea {
     }
 }
 
-div.calendar-dialog {
-    box-shadow: 4px 4px 4px $dark-color;
-}
-
 div.disabled-background {
     @include disabled-area(fixed);
 }
