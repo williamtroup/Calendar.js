@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.6
+ * Calendar.js Library v0.9.7
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -29,10 +29,6 @@ div.calendar-dialog textarea {
         top: 0 !important;
         visibility: visible !important;
     }
-}
-
-div.calendar-dialog {
-    box-shadow: 4px 4px 4px $dark-color;
 }
 
 div.disabled-background {
@@ -983,7 +979,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(300px, false);
+    @include dialog-styles(300px, false, 1000);
     @include dialog-title-bar;
 
     div.contents {
@@ -1086,6 +1082,10 @@ div.configuration {
             @include no-selection-allowed;
             margin: 0;
             margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            @include input-fields;
         }
     }
 

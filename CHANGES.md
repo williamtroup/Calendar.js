@@ -1,5 +1,16 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.7:
+- Added repeat Every 2 Weeks support (please update your events, the IDs for the others have been changed.  Sorry).
+- Added "Enable drag & drop for events" option to the Configuration dialog.
+- Renamed the tabs and setting names for the Configuration dialog (smaller and better).
+- Added "Organizer" to the Configuration dialog, with support to change the name and email address.
+- When using drag & drop, the "repeatEnds" property on the event is now updated to reflect the changes.
+- Extended the function updateEventDateTimes() to allow updating the "repeatEnds" property on the event.
+- The Search dialog is now hidden whenever you which to an overlay view (weekly, all events, full-day).
+- Fixed a fault that caused the Search dialog to appear over the modal dialogs.
+- The dialog drop shadows can now be changed per dialog (the base CSS class has been removed).
+
 ### Version 0.9.6:
 - Added new option visibleDays, which states the days that are visible (defaults to all days, see documentation).
 - Fixed a fault that prevented the first event in a repeating series from being removed.

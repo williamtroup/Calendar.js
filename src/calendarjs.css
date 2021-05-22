@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.6
+ * Calendar.js Library v0.9.7
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -47,11 +47,6 @@ div.calendar-dialog input div.overlay-shown,
 div.calendar-dialog textarea div.overlay-shown {
   top: 0 !important;
   visibility: visible !important;
-}
-
-div.calendar-dialog {
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
 }
 
 div.disabled-background {
@@ -1250,6 +1245,8 @@ div.event-editor {
   border: 1px solid #282828;
   position: fixed;
   display: none;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -1534,6 +1531,8 @@ div.event-editor-colors {
   border: 1px solid #282828;
   position: fixed;
   display: none;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -1704,6 +1703,8 @@ div.event-editor-repeat-options {
   border: 1px solid #282828;
   position: fixed;
   display: none;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -1882,6 +1883,8 @@ div.confirmation {
   border: 1px solid #282828;
   position: fixed;
   display: none;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -2023,6 +2026,8 @@ div.select-export-type {
   border: 1px solid #282828;
   position: fixed;
   display: none;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -2150,7 +2155,9 @@ div.search {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  z-index: 1500;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
+  z-index: 1000;
 }
 
 div.search div.ib-close {
@@ -2326,6 +2333,8 @@ div.configuration {
   border: 1px solid #282828;
   position: fixed;
   display: none;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -2411,6 +2420,33 @@ div.configuration div.contents p {
   cursor: default;
   margin: 0;
   margin-bottom: 8px;
+}
+
+div.configuration div.contents input[type="text"] {
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  width: 100%;
+  padding: .375rem .75rem;
+  color: #282828;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+div.configuration div.contents input[type="text"]:last-child {
+  margin-bottom: 0;
+}
+
+div.configuration div.contents input[type="text"]:focus {
+  border: 1px solid #282828 !important;
+  -webkit-box-shadow: 0 0 1pt 1pt #282828;
+          box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.configuration div.contents input[type="text"]:hover {
+  border: 1px solid #282828;
 }
 
 div.configuration div.split input,

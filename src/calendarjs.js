@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.6
+ * Calendar.js Library v0.9.7
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -135,6 +135,7 @@
  * @property    {string}    repeatsNever                                The text that should be displayed for the "Never" label.
  * @property    {string}    repeatsEveryDayText                         The text that should be displayed for the "Every Day" label.
  * @property    {string}    repeatsEveryWeekText                        The text that should be displayed for the "Every Week" label.
+ * @property    {string}    repeatsEvery2WeeksText                      The text that should be displayed for the "Every 2 Weeks" label.
  * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
  * @property    {string}    repeatOptionsTitle                          The text that should be displayed for the "Repeat Options" label.
@@ -161,14 +162,14 @@
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
  * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
- * @property    {string}    visibleGroupsText                           The text that should be displayed for the "Visible Groups" label.
+ * @property    {string}    groupsTabText                               The text that should be displayed for the "Groups" tab.
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
  * @property    {string}    optionsText                                 The text that should be displayed for the "Options:" label.
  * @property    {string}    startsWithText                              The text that should be displayed for the "Starts With" label.
  * @property    {string}    endsWithText                                The text that should be displayed for the "Ends With" label.
  * @property    {string}    containsText                                The text that should be displayed for the "Contains" label.
- * @property    {string}    displayOptionsText                          The text that should be displayed for the "Display Options" label.
+ * @property    {string}    displayTabText                              The text that should be displayed for the "Display" tab.
  * @property    {string}    enableAutoRefreshForEventsText              The text that should be displayed for the "Enable auto-refresh for events" label.
  * @property    {string}    enableBrowserNotificationsText              The text that should be displayed for the "Enable browser notifications" label.
  * @property    {string}    enableTooltipsText                          The text that should be displayed for the "Enable tooltips" label.
@@ -178,6 +179,8 @@
  * @property    {string}    hoursText                                   The text that should be displayed for the "hours" label.
  * @property    {string}    minuteText                                  The text that should be displayed for the "minute" label.
  * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
+ * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
+ * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
  */
 
 
@@ -252,8 +255,9 @@ function calendarJs( id, options, startDateTime ) {
         _const_Repeat_Never = 0,
         _const_Repeat_EveryDay = 1,
         _const_Repeat_EveryWeek = 2,
-        _const_Repeat_EveryMonth = 3,
-        _const_Repeat_EveryYear = 4,
+        _const_Repeat_Every2Weeks = 3,
+        _const_Repeat_EveryMonth = 4,
+        _const_Repeat_EveryYear = 5,
         _elementID_Day = "day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
@@ -284,6 +288,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Never = null,
         _element_EventEditorDialog_RepeatEvery_EveryDay = null,
         _element_EventEditorDialog_RepeatEvery_EveryWeek = null,
+        _element_EventEditorDialog_RepeatEvery_Every2Weeks = null,
         _element_EventEditorDialog_RepeatEvery_EveryMonth = null,
         _element_EventEditorDialog_RepeatEvery_EveryYear = null,
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = null,
@@ -378,11 +383,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_SearchIndex = 0,
         _element_SearchDialog_FocusedEventID = null,
         _element_ConfigurationDialog = null,
-        _element_ConfigurationDialog_VisibleGroups = null,
-        _element_ConfigurationDialog_DisplayOptions = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = null,
-        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = null;
+        _element_ConfigurationDialog_Groups = null,
+        _element_ConfigurationDialog_Display = null,
+        _element_ConfigurationDialog_Display_EnableAutoRefresh = null,
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications = null,
+        _element_ConfigurationDialog_Display_EnableTooltips = null,
+        _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null,
+        _element_ConfigurationDialog_Organizer = null,
+        _element_ConfigurationDialog_Organizer_Name = null,
+        _element_ConfigurationDialog_Organizer_Email = null;
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -943,6 +952,10 @@ function calendarJs( id, options, startDateTime ) {
         date.setDate( date.getDate() + 7 );
     }
 
+    function moveDateForwardTwoWeeks( date ) {
+        date.setDate( date.getDate() + 14 );
+    }
+
     function moveDateForwardOneMonth( date ) {
         date.setMonth( date.getMonth() + 1 );
     }
@@ -1012,7 +1025,9 @@ function calendarJs( id, options, startDateTime ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneWeek );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardTwoWeeks );
+                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardOneYear );
@@ -1424,7 +1439,9 @@ function calendarJs( id, options, startDateTime ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneWeek );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardTwoWeeks );
+                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneYear );
@@ -1961,7 +1978,9 @@ function calendarJs( id, options, startDateTime ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneDay );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneWeek );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardTwoWeeks );
+                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneMonth );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneYear );
@@ -2483,18 +2502,29 @@ function calendarJs( id, options, startDateTime ) {
             var daysBetweenDraggedFromAndFrom = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged_DateFrom ),
                 daysBetweenFromAndTo = getTotalDaysBetweenDates( _eventDetails_Dragged.from, _eventDetails_Dragged.to ),
                 fromDate = new Date( year, month, day, _eventDetails_Dragged.from.getHours(), _eventDetails_Dragged.from.getMinutes() ),
-                toDate = new Date( year, month, day, _eventDetails_Dragged.to.getHours(), _eventDetails_Dragged.to.getMinutes() );               
+                toDate = new Date( year, month, day, _eventDetails_Dragged.to.getHours(), _eventDetails_Dragged.to.getMinutes() ),
+                repeatEndsDate = _eventDetails_Dragged.repeatEnds;               
 
             if ( daysBetweenDraggedFromAndFrom > 0 ) {
                 fromDate.setDate( fromDate.getDate() - daysBetweenDraggedFromAndFrom );
                 toDate.setDate( toDate.getDate() - daysBetweenDraggedFromAndFrom );
             }
 
+            if ( isDefined( repeatEndsDate ) ) {
+                var newFromDaysDifference = getTotalDaysBetweenDates( fromDate, _eventDetails_Dragged.from );
+
+                if ( fromDate > _eventDetails_Dragged.from ) {
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() + newFromDaysDifference );
+                } else {
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() - newFromDaysDifference );
+                }
+            }
+
             if ( daysBetweenFromAndTo > 0 ) {
                 toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
             }
 
-            _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate );            
+            _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate, repeatEndsDate );            
             refreshViews();
         }
     }
@@ -2752,6 +2782,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryWeek = buildRadioButton( radioButtonsContainer, _options.repeatsEveryWeekText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_Every2Weeks = buildRadioButton( radioButtonsContainer, _options.repeatsEvery2WeeksText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
 
@@ -2835,6 +2866,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Never.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryDay.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_Every2Weeks.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.disabled = disabled;
@@ -2870,7 +2902,9 @@ function calendarJs( id, options, startDateTime ) {
                 _element_EventEditorDialog_RepeatEvery_EveryDay.checked = true;
             } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
                 _element_EventEditorDialog_RepeatEvery_EveryWeek.checked = true;
-            } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+            } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked = true;
+            }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                 _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
             } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                 _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
@@ -2981,7 +3015,9 @@ function calendarJs( id, options, startDateTime ) {
                     newEvent.repeatEvery = _const_Repeat_EveryDay;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryWeek;
-                } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
+                } else if ( _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_Every2Weeks;
+                }  else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryMonth;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryYear;
@@ -3680,31 +3716,54 @@ function calendarJs( id, options, startDateTime ) {
         contents.appendChild( tabsContainer );
 
         var visibleGroupsTab = createElement( "div", "controls-tab-selected" );
-        visibleGroupsTab.innerText = _options.visibleGroupsText;
+        visibleGroupsTab.innerText = _options.groupsTabText;
         tabsContainer.appendChild( visibleGroupsTab );
 
         visibleGroupsTab.onclick = function () {
-            showTabContents( visibleGroupsTab, _element_ConfigurationDialog_VisibleGroups );
+            showTabContents( visibleGroupsTab, _element_ConfigurationDialog_Groups );
         };
 
         var displayTab = createElement( "div", "controls-tab" );
-        displayTab.innerText = _options.displayOptionsText;
+        displayTab.innerText = _options.displayTabText;
         tabsContainer.appendChild( displayTab );
 
         displayTab.onclick = function () {
-            showTabContents( displayTab, _element_ConfigurationDialog_DisplayOptions );
+            showTabContents( displayTab, _element_ConfigurationDialog_Display );
         };
 
-        _element_ConfigurationDialog_VisibleGroups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
-        contents.appendChild( _element_ConfigurationDialog_VisibleGroups );
+        var organizerTab = createElement( "div", "controls-tab" );
+        organizerTab.innerText = _options.organizerTabText;
+        tabsContainer.appendChild( organizerTab );
 
-        _element_ConfigurationDialog_DisplayOptions = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
-        _element_ConfigurationDialog_DisplayOptions.style.display = "none";
-        contents.appendChild( _element_ConfigurationDialog_DisplayOptions );
+        organizerTab.onclick = function () {
+            showTabContents( organizerTab, _element_ConfigurationDialog_Organizer );
+        };
 
-        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableAutoRefreshForEventsText )[ 0 ];
-        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableBrowserNotificationsText )[ 0 ];
-        _element_ConfigurationDialog_DisplayOptions_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_DisplayOptions, _options.enableTooltipsText )[ 0 ];
+        _element_ConfigurationDialog_Groups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        contents.appendChild( _element_ConfigurationDialog_Groups );
+
+        _element_ConfigurationDialog_Display = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        _element_ConfigurationDialog_Display.style.display = "none";
+        contents.appendChild( _element_ConfigurationDialog_Display );
+
+        _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
+
+        _element_ConfigurationDialog_Organizer = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        _element_ConfigurationDialog_Organizer.style.display = "none";
+        contents.appendChild( _element_ConfigurationDialog_Organizer );
+
+        createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
+
+        _element_ConfigurationDialog_Organizer_Name = createElement( "input", null, "text" );
+        _element_ConfigurationDialog_Organizer.appendChild( _element_ConfigurationDialog_Organizer_Name );
+
+        createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerEmailAddressText );
+
+        _element_ConfigurationDialog_Organizer_Email = createElement( "input", null, "text" );
+        _element_ConfigurationDialog_Organizer.appendChild( _element_ConfigurationDialog_Organizer_Email );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -3731,8 +3790,8 @@ function calendarJs( id, options, startDateTime ) {
         contents.style.display = "block";
     }
 
-    function buildConfigurationVisibleGroupOptions() {
-        _element_ConfigurationDialog_VisibleGroups.innerHTML = "";
+    function buildConfigurationGroupOptions() {
+        _element_ConfigurationDialog_Groups.innerHTML = "";
 
         var groups = getGroups(),
             groupsLength = groups.length;
@@ -3746,12 +3805,12 @@ function calendarJs( id, options, startDateTime ) {
                 visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
             }
 
-            buildCheckBox( _element_ConfigurationDialog_VisibleGroups, groupName, null, configGroupName, visible );
+            buildCheckBox( _element_ConfigurationDialog_Groups, groupName, null, configGroupName, visible );
         }
     }
 
     function configurationDialogEvent_OK() {
-        var checkboxes = _element_ConfigurationDialog_VisibleGroups.getElementsByTagName( "input" ),
+        var checkboxes = _element_ConfigurationDialog_Groups.getElementsByTagName( "input" ),
             checkboxesLength = checkboxes.length;
         
         if ( checkboxesLength > 0 ) {
@@ -3768,14 +3827,17 @@ function calendarJs( id, options, startDateTime ) {
             _configuration.visibleGroups = null;
         }
 
-        if ( _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh.checked ) {
+        if ( _element_ConfigurationDialog_Display_EnableAutoRefresh.checked ) {
             _this.startTheAutoRefreshTimer();
         } else {
             _this.stopTheAutoRefreshTimer();
         }
 
-        _options.eventNotificationsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked;
-        _options.tooltipsEnabled = _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked;
+        _options.eventNotificationsEnabled = _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked;
+        _options.tooltipsEnabled = _element_ConfigurationDialog_Display_EnableTooltips.checked;
+        _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked;
+        _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
+        _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
 
         triggerOptionsEventWithData( "onOptionsUpdated", _options );
         checkForBrowserNotificationsPermission();
@@ -3789,11 +3851,14 @@ function calendarJs( id, options, startDateTime ) {
 
     function showConfigurationDialog() {
         addNode( _document.body, _element_DisabledBackground );
-        buildConfigurationVisibleGroupOptions();
+        buildConfigurationGroupOptions();
 
-        _element_ConfigurationDialog_DisplayOptions_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
-        _element_ConfigurationDialog_DisplayOptions_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
-        _element_ConfigurationDialog_DisplayOptions_EnableTooltips.checked = _options.tooltipsEnabled;
+        _element_ConfigurationDialog_Display_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
+        _element_ConfigurationDialog_Display_EnableTooltips.checked = _options.tooltipsEnabled;
+        _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
+        _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
+        _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
 
         _element_ConfigurationDialog.style.display = "block";
     }
@@ -4012,6 +4077,8 @@ function calendarJs( id, options, startDateTime ) {
     function showOverlay( element ) {
         if ( !isOverlayVisible( element ) ) {
             element.className += " overlay-shown";
+            
+            hideSearchDialog();
         }
     }
 
@@ -4452,7 +4519,9 @@ function calendarJs( id, options, startDateTime ) {
             result = _options.repeatsEveryDayText;
         } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
             result = _options.repeatsEveryWeekText;
-        } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+        } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+            result = _options.repeatsEvery2WeeksText;
+        }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
             result = _options.repeatsEveryMonthText;
         } else if ( repeatEvery === _const_Repeat_EveryYear ) {
             result = _options.repeatsEveryYearText;
@@ -5235,19 +5304,20 @@ function calendarJs( id, options, startDateTime ) {
     /**
      * updateEventDateTimes().
      * 
-     * Updates an existing events from/to dates.
+     * Updates an existing events from, to, and repeatEnds dates.
      * 
      * @fires       onEventUpdated
      * 
      * @param       {string}    id                                          The ID of the event.
      * @param       {Object}    from                                        The new from date.
      * @param       {Object}    to                                          The new to date.
+     * @param       {Object}    repeatEnds                                  The new repeat ends day.
      * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States of the "onEventUpdated" event should be triggered.
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
-     this.updateEventDateTimes = function( id, from, to, updateEvents, triggerEvent ) {
+     this.updateEventDateTimes = function( id, from, to, repeatEnds, updateEvents, triggerEvent ) {
         var updated = false;
 
         getAllEventsFunc( function( event ) {
@@ -5257,6 +5327,7 @@ function calendarJs( id, options, startDateTime ) {
 
                 event.from = from;
                 event.to = to;
+                event.repeatEnds = repeatEnds;
                 updated = true;
 
                 if ( triggerEvent ) {
@@ -5423,7 +5494,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.6";
+        return "0.9.7";
     };
 
 
@@ -5867,6 +5938,10 @@ function calendarJs( id, options, startDateTime ) {
         if ( !isDefined( _options.repeatsEveryWeekText ) ) {
             _options.repeatsEveryWeekText = "Every Week";
         }
+
+        if ( !isDefined( _options.repeatsEvery2WeeksText ) ) {
+            _options.repeatsEvery2WeeksText = "Every 2 Weeks";
+        }
         
         if ( !isDefined( _options.repeatsEveryMonthText ) ) {
             _options.repeatsEveryMonthText = "Every Month";
@@ -5972,8 +6047,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.configurationTitleText = "Configuration";
         }
         
-        if ( !isDefined( _options.visibleGroupsText ) ) {
-            _options.visibleGroupsText = "Visible Groups";
+        if ( !isDefined( _options.groupsTabText ) ) {
+            _options.groupsTabText = "Groups";
         }
         
         if ( !isDefined( _options.eventNotificationTitle ) ) {
@@ -6000,8 +6075,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.containsText = "Contains";
         }
 
-        if ( !isDefined( _options.displayOptionsText ) ) {
-            _options.displayOptionsText = "Display Options";
+        if ( !isDefined( _options.displayTabText ) ) {
+            _options.displayTabText = "Display";
         }
         
         if ( !isDefined( _options.enableAutoRefreshForEventsText ) ) {
@@ -6038,6 +6113,14 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.minutesText ) ) {
             _options.minutesText = "minutes";
+        }
+
+        if ( !isDefined( _options.enableDragAndDropForEventText ) ) {
+            _options.enableDragAndDropForEventText = "Enable drag & drop for events";
+        }
+
+        if ( !isDefined( _options.organizerTabText ) ) {
+            _options.organizerTabText = "Organizer";
         }
     }
 
