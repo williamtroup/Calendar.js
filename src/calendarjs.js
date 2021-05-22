@@ -2511,10 +2511,12 @@ function calendarJs( id, options, startDateTime ) {
             }
 
             if ( isDefined( repeatEndsDate ) ) {
+                var newFromDaysDifference = getTotalDaysBetweenDates( fromDate, _eventDetails_Dragged.from );
+
                 if ( fromDate > _eventDetails_Dragged.from ) {
-                    repeatEndsDate.setDate( repeatEndsDate.getDate() + getTotalDaysBetweenDates( fromDate, _eventDetails_Dragged.from ) );
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() + newFromDaysDifference );
                 } else {
-                    repeatEndsDate.setDate( repeatEndsDate.getDate() - getTotalDaysBetweenDates( fromDate, _eventDetails_Dragged.from ) );
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() - newFromDaysDifference );
                 }
             }
 
