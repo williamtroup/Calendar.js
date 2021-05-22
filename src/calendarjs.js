@@ -4077,6 +4077,8 @@ function calendarJs( id, options, startDateTime ) {
     function showOverlay( element ) {
         if ( !isOverlayVisible( element ) ) {
             element.className += " overlay-shown";
+            
+            hideSearchDialog();
         }
     }
 
