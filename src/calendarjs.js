@@ -838,23 +838,6 @@ function calendarJs( id, options, startDateTime ) {
         return date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
     }
 
-    function toFormattedDate( date, inputType ) {
-        var formatted = null;
-
-        if ( isDefined( date ) ) {
-            var day = ( "0" + date.getDate() ).slice( -2 ),
-                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
-
-            if ( inputType === "date" ) {
-                formatted = date.getFullYear() + "-" + month + "-" + day;
-            } else {
-                formatted = day + "/" + month + "/" + date.getFullYear();
-            }
-        }
-
-        return formatted;
-    }
-
     function toStorageFormattedDate( date ) {
         var day = ( "0" + date.getDate() ).slice( -2 ),
             month = ( "0" + ( date.getMonth() ) ).slice( -2 ),
@@ -990,6 +973,41 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return text.join( ", " );
+    }
+
+    function setSelectedDate( date, input ) {
+        if ( isDefined( date ) ) {
+            if ( input.type === "date" ) {
+                input.valueAsDate = new Date( Date.UTC( date.getFullYear(), date.getMonth(), date.getDate() ) );
+            } else {
+                var day = ( "0" + date.getDate() ).slice( -2 ),
+                    month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+                input.value = day + "/" + month + "/" + date.getFullYear();
+            }
+        }
+    }
+
+    function getSelectedDate( input, defaultValue ) {
+        var result = isDefinedOnly( defaultValue ) ? defaultValue : new Date();
+
+        if ( input.value !== "" ) {
+            if ( input.type === "date" ) {
+                result = input.valueAsDate;
+            } else {
+    
+                var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
+                if ( match ) {
+    
+                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
+                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                        result = newDate;
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
 
@@ -2887,9 +2905,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_RemoveButton.style.display = "block";
             _element_EventEditorDialog_TitleBar.innerText = _options.editEventTitle;
             _element_EventEditorDialog_EventDetails = eventDetails;
-            _element_EventEditorDialog_DateFrom.value = toFormattedDate( eventDetails.from, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
-            _element_EventEditorDialog_DateTo.value = toFormattedDate( eventDetails.to, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
             _element_EventEditorDialog_IsAllDay.checked = eventDetails.isAllDay;
             _element_EventEditorDialog_Title.value = getString( eventDetails.title );
@@ -2899,6 +2915,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
             _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
             _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
+
+            setSelectedDate( eventDetails.from, _element_EventEditorDialog_DateFrom );
+            setSelectedDate( eventDetails.to, _element_EventEditorDialog_DateTo );
 
             var repeatEvery = getNumber( eventDetails.repeatEvery );
             if ( repeatEvery === _const_Repeat_Never ) {
@@ -2923,7 +2942,8 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Fri.checked = excludeDays.indexOf( 5 ) > -1;
             _element_EventEditorRepeatOptionsDialog_Sat.checked = excludeDays.indexOf( 6 ) > -1;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = excludeDays.indexOf( 0 ) > -1;
-            _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = toFormattedDate( eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds.type );
+
+            setSelectedDate( eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds );
         } else {
 
             var date = new Date(),
@@ -2938,9 +2958,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_RemoveButton.style.display = "none";
             _element_EventEditorDialog_TitleBar.innerText = _options.addEventTitle;
             _element_EventEditorDialog_EventDetails = {};
-            _element_EventEditorDialog_DateFrom.value = toFormattedDate( today, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
-            _element_EventEditorDialog_DateTo.value = toFormattedDate( today, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
             _element_EventEditorDialog_IsAllDay.checked = false;
             _element_EventEditorDialog_Title.value = "";
@@ -2959,6 +2977,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Sat.checked = false;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = false;
             _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
+
+            setSelectedDate( today, _element_EventEditorDialog_DateFrom );
+            setSelectedDate( today, _element_EventEditorDialog_DateTo );
         }
 
         buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
@@ -3067,28 +3088,6 @@ function calendarJs( id, options, startDateTime ) {
 
         date.setHours( hours );
         date.setMinutes( minutes );
-    }
-
-    function getSelectedDate( input, defaultValue ) {
-        var result = isDefinedOnly( defaultValue ) ? defaultValue : new Date();
-
-        if ( input.value !== "" ) {
-            if ( input.type === "date" ) {
-                result = new Date( input.value + "T00:00:00Z" );
-            } else {
-    
-                var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
-                if ( match ) {
-    
-                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
-                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
-                        result = newDate;
-                    }
-                }
-            }
-        }
-
-        return result;
     }
 
     function eventDialogEvent_Cancel() {
