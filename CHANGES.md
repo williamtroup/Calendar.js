@@ -1,5 +1,9 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.8:
+- Tooltips now stay open when an event is hovered over (moving the mouse again over the vent will not close it).
+- 
+
 ### Version 0.9.7:
 - Added repeat Every 2 Weeks support (please update your events, the IDs for the others have been changed.  Sorry).
 - Added "Enable drag & drop for events" option to the Configuration dialog.

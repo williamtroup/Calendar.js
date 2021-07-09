@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.7
+ * Calendar.js Library v0.9.8
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -357,6 +357,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_Description = null,
         _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
+        _element_Tooltip_EventDetails = null,
         _element_DropDownMenu_Day = null,
         _element_DropDownMenu_Day_DateSelected = null,
         _element_DropDownMenu_Event = null,
@@ -1127,7 +1128,11 @@ function calendarJs( id, options, startDateTime ) {
                 }
 
                 event.onmousemove = function( e ) {
-                    showTooltip( e, eventDetails );
+                    if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
+                        cancelBubble( e );
+                    } else {
+                        showTooltip( e, eventDetails );
+                    }
                 };
 
                 if ( _options.manualEditingEnabled ) {
@@ -3942,6 +3947,8 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.innerText = text;
                     } else {
 
+                        _element_Tooltip.onmousemove = cancelBubble;
+                        _element_Tooltip_EventDetails = eventDetails;
                         _element_Tooltip.innerHTML = "";
                         _element_Tooltip_Title.innerHTML = "";
                         _element_Tooltip_TotalTime.innerHTML = "";
@@ -4008,6 +4015,8 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( isTooltipVisible() ) {
             _element_Tooltip.style.display = "none";
+            _element_Tooltip_EventDetails = null;
+            _element_Tooltip.onmousemove = null;
         }
     }
 
@@ -5494,7 +5503,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.7";
+        return "0.9.8";
     };
 
 
