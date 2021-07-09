@@ -3,6 +3,9 @@
 ### Version 0.9.8:
 - Tooltips now stay open when an event is hovered over (moving the mouse again over the vent will not close it).
 - Fixed another fault that caused dates selected for events to be out by one day.
+- Fixed a fault that caused an extra : character to appear in the exported JSON data.
+- Events exported to JSON now use proper value types so they can be re-used for imports.
+- Added drop support to the main view that will allow a file (contain JSON, or an array of events) to be added.
 - 
 
 ### Version 0.9.7:

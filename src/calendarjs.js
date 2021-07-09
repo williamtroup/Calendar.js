@@ -2488,7 +2488,12 @@ function calendarJs( id, options, startDateTime ) {
         
             element.ondrop = function( e ) {
                 hideDraggingEffect( e, element );
-                dropEventOnDay( e, year, month, actualDay );
+
+                if ( e.dataTransfer.files.length === 0 ) {
+                    dropEventOnDay( e, year, month, actualDay );
+                } else {
+                    dropFileOnDisplay( e );
+                }
             };
         }
     }
@@ -2550,6 +2555,43 @@ function calendarJs( id, options, startDateTime ) {
             _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate, repeatEndsDate );            
             refreshViews();
         }
+    }
+
+    function dropFileOnDisplay( e ) {
+        if ( isDefined( _window.FileReader ) ) {
+            var reader = new FileReader();
+
+            reader.onload = function( event ) {
+                var data = event.target.result,
+                    dataObject = getObjectFromString( data );
+    
+                if ( isDefinedArray( dataObject ) ) { 
+                    _this.addEvents( dataObject );
+                } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
+                    _this.addEvents( dataObject.events );
+                }
+            };
+    
+            reader.readAsText( e.dataTransfer.files[ 0 ] );
+        }
+    }
+
+    function getObjectFromString( objectString ) {
+        var result;
+
+        try {
+            result = JSON.parse( objectString );
+        } catch ( e1 ) {
+
+            try {
+                result = eval( "(" + objectString + ")" );
+            } catch ( e2 ) {
+                console.error( "Errors in object: " + e1.message + ", " + e2.message );
+                result = null;
+            }
+        }
+
+        return result;
     }
 
 
@@ -4386,8 +4428,12 @@ function calendarJs( id, options, startDateTime ) {
         return isDefined( object ) && typeof object === "boolean";
     }
 
+    function isDefinedObject( object ) {
+        return isDefined( object ) && typeof object === "object";
+    }
+
     function isDefinedArray( object ) {
-        return isDefined( object ) && typeof object === "object" && object instanceof Array;
+        return isDefinedObject( object ) && object instanceof Array;
     }
 
     function isDefinedStringAndSet( object ) {
@@ -4546,21 +4592,31 @@ function calendarJs( id, options, startDateTime ) {
         return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
     }
 
-    function getPropertyValue( name, value ) {
-        var result = getString( value );
+    function getPropertyValue( name, value, forJson ) {
+        forJson = isDefined( forJson ) ? forJson : false;
+
+        var result = !forJson ? getString( value ) : "\"" + getString( value ) + "\"";
 
         if ( typeof value === "boolean" ) {
-            result = getYesNoFromBoolean( value );
+            result = !forJson ? getYesNoFromBoolean( value ) : value.toString();
+
         } else if ( typeof value === "object" && value instanceof Date ) {
-            result = getStringFromDateTime( value );
+            result = !forJson ? getStringFromDateTime( value ) : "\"" + value.toISOString() + "\"";
+
         } else if ( typeof value === "object" && value instanceof Array ) {
-            if ( name === "repeatEveryExcludeDays" ) {
+            if ( name === "repeatEveryExcludeDays" && !forJson ) {
                 result = getArrayDays( value );
             } else {
-                result = getArrayText( value );
+
+                if ( forJson ) {
+                    result = "[" + getArrayText( value ) + "]";
+                } else {
+                    result = getArrayText( value );
+                }
             }
+
         } else if ( typeof value === "number" ) {
-            if ( name === "repeatEvery" ) {
+            if ( name === "repeatEvery" && !forJson ) {
                 result = getRepeatsText( value );
             } else {
                 result = value.toString();
@@ -4749,7 +4805,7 @@ function calendarJs( id, options, startDateTime ) {
             orderedEventLength = orderedEvents.length;
 
         contents.push( "{" );
-        contents.push( "\"events:\": [" );
+        contents.push( "\"events\": [" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
@@ -4758,7 +4814,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( "\"" + propertyName + "\":\"" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "\"," );
+                    contents.push( "\"" + propertyName + "\":" + getPropertyValue( propertyName, orderedEvent[ propertyName ], true ) + "," );
                 }
             }
 
@@ -5187,6 +5243,22 @@ function calendarJs( id, options, startDateTime ) {
      */
     this.addEvent = function( event, updateEvents, triggerEvent ) {
         var added = false;
+
+        if ( isDefinedString( event.from ) ) {
+            event.from = new Date( event.from );
+        }
+
+        if ( isDefinedString( event.to ) ) {
+            event.to = new Date( event.to );
+        }
+
+        if ( isDefinedString( event.repeatEnds ) ) {
+            event.repeatEnds = new Date( event.repeatEnds );
+        }
+
+        if ( isDefinedString( event.created ) ) {
+            event.created = new Date( event.created );
+        }
 
         if ( event.from <= event.to ) {
             var storageDate = toStorageDate( event.from ),
