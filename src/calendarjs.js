@@ -181,6 +181,9 @@
  * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
  * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
  * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
+ * @property    {string}    clearEventsTooltipText                      The tooltip text that should be used for for the "Clear Events" button.
+ * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal").
+ * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?").
  */
 
 
@@ -1264,6 +1267,15 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function showElementsByClassName( container, className ) {
+        var elements = container.getElementsByClassName( className ),
+            elementsLength = elements.length;
+
+        for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
+            elements[ elementIndex ].style.display = "block";
+        }
+    }
+
     function removeElementsClassName( container, className ) {
         var elements = container.getElementsByClassName( className ),
             elementsLength = elements.length;
@@ -1978,9 +1990,11 @@ function calendarJs( id, options, startDateTime ) {
             
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
-                    var dayContents = buildListAllEventsDay( nextDate );
+                    var containers = buildListAllEventsDay( nextDate ),
+                        dayContents = containers[ 0 ],
+                        dayHeader = containers[ 1 ];
     
-                    var added = buildListAllWeekEventsEvent( orderedEvent, dayContents, nextDate );
+                    var added = buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, nextDate );
                     if ( added ) {
                         addedNow = true;
                     }
@@ -2079,12 +2093,13 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildListAllWeekEventsEvent( eventDetails, container, displayDate ) {
+    function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
         var added = false;
 
         if ( isEventVisible( eventDetails ) ) {
             clearElementsByClassName( container, "no-events-text" );
-            
+            showElementsByClassName( header, "ib-close" );
+
             var event = createElement( "div", getEventClassName() );
             container.appendChild( event );
     
@@ -2173,7 +2188,9 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
             dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
-            dayContents = null;
+            dayContents = null,
+            dayHeader = null,
+            removeEventsDate = new Date( date );
 
         if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
             var expandDate = new Date( date ),
@@ -2193,15 +2210,19 @@ function calendarJs( id, options, startDateTime ) {
 
             makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
-            var header = createElement( "div", "header" );
-            header.ondblclick = expandFunction;
-            day.appendChild( header );
+            dayHeader = createElement( "div", "header" );
+            dayHeader.ondblclick = expandFunction;
+            day.appendChild( dayHeader );
 
-            buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
-            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
+            buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
+            buildToolbarButton( dayHeader, "ib-close", _options.clearEventsTooltipText, function() {
+                removeEventsOnSpecificDate( removeEventsDate );
+            } );
+
+            buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
-                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, addEventFunction );
+                buildToolbarButton( dayHeader, "ib-plus", _options.addEventTooltipText, addEventFunction );
             }
 
             dayContents = createElement( "div", "events" );
@@ -2215,13 +2236,15 @@ function calendarJs( id, options, startDateTime ) {
             createSpanElement( noEventsTextContainer, _options.hereText, "link", addEventFunction );
             createSpanElement( noEventsTextContainer, " " + _options.toAddANewEventText );
 
-            _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = dayContents;
-
+            _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = [ dayContents, dayHeader ];
         } else {
-            dayContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
+
+            var existingContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
+            dayContents = existingContents[ 0 ];
+            dayHeader = existingContents[ 1 ];
         }
 
-        return dayContents;
+        return [ dayContents, dayHeader ];
     }
 
     function updateViewAllWeekEventsViewFromEventEdit() {
@@ -2238,6 +2261,28 @@ function calendarJs( id, options, startDateTime ) {
     function onNextWeek() {
         moveDateForwardOneWeek( _element_ListAllWeekEventsView_DateSelected );
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
+    }
+
+    function removeEventsOnSpecificDate( date ) {
+        addNode( _document.body, _element_DisabledBackground );
+
+        var onNoEvent = function() {
+            removeNode( _document.body, _element_DisabledBackground );
+        };
+
+        var onYesEvent = function() {
+            onNoEvent();
+
+            getAllEventsFunc( function( event ) {
+                if ( doDatesMatch( event.from, date ) ) {
+                    _this.removeEvent( event.id, false );
+                }
+            } );
+
+            refreshViews();
+        };
+
+        showConfirmationDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
     }
 
 
@@ -6201,6 +6246,18 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.organizerTabText ) ) {
             _options.organizerTabText = "Organizer";
+        }
+
+        if ( !isDefined( _options.clearEventsTooltipText ) ) {
+            _options.clearEventsTooltipText = "Clear Events";
+        }
+
+        if ( !isDefined( _options.confirmEventsRemoveTitle ) ) {
+            _options.confirmEventsRemoveTitle = "Confirm Events Removal";
+        }
+        
+        if ( !isDefined( _options.confirmEventsRemoveMessage ) ) {
+            _options.confirmEventsRemoveMessage = "Removing these events cannot be undone.  Do you want to continue?";
         }
     }
 

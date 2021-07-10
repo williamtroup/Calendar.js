@@ -6,6 +6,7 @@
 - Fixed a fault that caused an extra : character to appear in the exported JSON data.
 - Events exported to JSON now use proper value types so they can be re-used for imports.
 - Added drop support to all views that will allow a file (containing JSON, or an array of events) to be added.
+- Added support to remove all the events on a specific day in the Weekly View (new X button on the day title bar).
 - 
 
 ### Version 0.9.7:
