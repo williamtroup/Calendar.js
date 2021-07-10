@@ -1,4 +1,4 @@
-# Welcome to Calendar.js v0.9.7:
+# Welcome to Calendar.js v0.9.8:
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
@@ -28,6 +28,7 @@ Features include:
   9. Ctrl/Command + Right:  Moves to the next year.
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
+- Drop file support (allowing a file containing JSON, or an array of events, to be added).
 <br>
 
 ## Recent Changes:

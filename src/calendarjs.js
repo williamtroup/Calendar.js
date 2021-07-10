@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.7
+ * Calendar.js Library v0.9.8
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -181,6 +181,9 @@
  * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
  * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
  * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
+ * @property    {string}    removeEventsTooltipText                     The tooltip text that should be used for for the "Remove Events" button.
+ * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal").
+ * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?").
  */
 
 
@@ -357,6 +360,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_Description = null,
         _element_Tooltip_Location = null,
         _element_Tooltip_ShowTimer = null,
+        _element_Tooltip_EventDetails = null,
         _element_DropDownMenu_Day = null,
         _element_DropDownMenu_Day_DateSelected = null,
         _element_DropDownMenu_Event = null,
@@ -444,7 +448,7 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Getting Events
+     * Getting/Remove Events
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -489,6 +493,28 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return events;
+    }
+
+    function removeEventsOnSpecificDate( date, compareFunc ) {
+        addNode( _document.body, _element_DisabledBackground );
+
+        var onNoEvent = function() {
+            removeNode( _document.body, _element_DisabledBackground );
+        };
+
+        var onYesEvent = function() {
+            onNoEvent();
+
+            getAllEventsFunc( function( event ) {
+                if ( compareFunc( event.from, date ) ) {
+                    _this.removeEvent( event.id, false );
+                }
+            } );
+
+            refreshViews();
+        };
+
+        showConfirmationDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
     }
 
 
@@ -815,6 +841,10 @@ function calendarJs( id, options, startDateTime ) {
         return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
     }
 
+    function doDatesMatchMonthAndYear( date1, date2 ) {
+        return date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+    }
+
     function isDateSmallerOrEqualToDate( date1, date2 ) {
         var newDate1 = new Date( date1.getFullYear(), date1.getMonth(), date1.getDate() );
         newDate1.setHours( 0, 0, 0, 0 );
@@ -835,23 +865,6 @@ function calendarJs( id, options, startDateTime ) {
         var today = new Date();
         
         return date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
-    }
-
-    function toFormattedDate( date, inputType ) {
-        var formatted = null;
-
-        if ( isDefined( date ) ) {
-            var day = ( "0" + date.getDate() ).slice( -2 ),
-                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
-
-            if ( inputType === "date" ) {
-                formatted = date.getFullYear() + "-" + month + "-" + day;
-            } else {
-                formatted = day + "/" + month + "/" + date.getFullYear();
-            }
-        }
-
-        return formatted;
     }
 
     function toStorageFormattedDate( date ) {
@@ -991,6 +1004,41 @@ function calendarJs( id, options, startDateTime ) {
         return text.join( ", " );
     }
 
+    function setSelectedDate( date, input ) {
+        if ( isDefined( date ) ) {
+            if ( input.type === "date" ) {
+                input.valueAsDate = new Date( Date.UTC( date.getFullYear(), date.getMonth(), date.getDate() ) );
+            } else {
+                var day = ( "0" + date.getDate() ).slice( -2 ),
+                    month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+                input.value = day + "/" + month + "/" + date.getFullYear();
+            }
+        }
+    }
+
+    function getSelectedDate( input, defaultValue ) {
+        var result = isDefinedOnly( defaultValue ) ? defaultValue : new Date();
+
+        if ( input.value !== "" ) {
+            if ( input.type === "date" ) {
+                result = input.valueAsDate;
+            } else {
+    
+                var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
+                if ( match ) {
+    
+                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
+                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                        result = newDate;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1041,16 +1089,14 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildRepeatedDayEvents( orderedEvent, dateFunc ) {
         var newFromDate = new Date( orderedEvent.from ),
-            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
-            seriesIgnoreDates = getArray( orderedEvent.seriesIgnoreDates );
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays );
 
         while ( newFromDate < _largestDateInView ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate ),
-                repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
+            var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
 
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 var repeatDayElement = getDayElement( newFromDate );
 
                 if ( repeatDayElement !== null ) {
@@ -1082,8 +1128,8 @@ function calendarJs( id, options, startDateTime ) {
     
     function buildDayEvent( dayDate, eventDetails ) {
         var elementDay = getDayElement( dayDate ),
-            formattedDayDate = toStorageFormattedDate( dayDate ),
-            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates );
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
+            formattedDayDate = toStorageFormattedDate( dayDate );
 
         if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
             checkEventForNotifications( dayDate, eventDetails );
@@ -1127,7 +1173,11 @@ function calendarJs( id, options, startDateTime ) {
                 }
 
                 event.onmousemove = function( e ) {
-                    showTooltip( e, eventDetails );
+                    if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
+                        cancelBubble( e );
+                    } else {
+                        showTooltip( e, eventDetails );
+                    }
                 };
 
                 if ( _options.manualEditingEnabled ) {
@@ -1238,6 +1288,15 @@ function calendarJs( id, options, startDateTime ) {
 
         while ( elements[ 0 ] ) {
             elements[ 0 ].parentNode.removeChild( elements[ 0 ] );
+        }
+    }
+
+    function showElementsByClassName( container, className ) {
+        var elements = container.getElementsByClassName( className ),
+            elementsLength = elements.length;
+
+        for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
+            elements[ elementIndex ].style.display = "block";
         }
     }
 
@@ -1485,16 +1544,14 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc ) {
         var newFromDate = new Date( event.from ),
-            excludeDays = getArray( event.repeatEveryExcludeDays ),
-            seriesIgnoreDates = getArray( event.seriesIgnoreDates );
+            excludeDays = getArray( event.repeatEveryExcludeDays );
     
         while ( newFromDate < date ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate ),
-                repeatEnded = !( !isDefined( event.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, event.repeatEnds ) );
+            var repeatEnded = !( !isDefined( event.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, event.repeatEnds ) );
 
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 if ( doDatesMatch( newFromDate, date ) ) {
                     orderedEvents.push( event );
                     break;
@@ -1504,9 +1561,11 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildFullDayDayEvent( eventDetails, displayDate ) {
-        var scrollTop = 0;
+        var scrollTop = 0,
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
+            formattedDate = toStorageFormattedDate( displayDate );
 
-        if ( isEventVisible( eventDetails ) ) {
+        if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", getEventClassName() );
 
             if ( eventDetails.isAllDay ) {
@@ -1516,8 +1575,6 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                var formattedDate = toStorageFormattedDate( displayDate );
-    
                 event.oncontextmenu = function( e ) {
                     showEventDropDownMenu( e, eventDetails, formattedDate );
                 };
@@ -1852,6 +1909,10 @@ function calendarJs( id, options, startDateTime ) {
             header.ondblclick = expandFunction;
             month.appendChild( header );
 
+            buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
+                removeEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
+            } );
+
             buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
@@ -1955,9 +2016,11 @@ function calendarJs( id, options, startDateTime ) {
             
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
-                    var dayContents = buildListAllEventsDay( nextDate );
+                    var containers = buildListAllEventsDay( nextDate ),
+                        dayContents = containers[ 0 ],
+                        dayHeader = containers[ 1 ];
     
-                    var added = buildListAllWeekEventsEvent( orderedEvent, dayContents, nextDate );
+                    var added = buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, nextDate );
                     if ( added ) {
                         addedNow = true;
                     }
@@ -2014,20 +2077,20 @@ function calendarJs( id, options, startDateTime ) {
     function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc ) {
         var newFromDate = new Date( orderedEvent.from ),
             excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
-            seriesIgnoreDates = getArray( orderedEvent.seriesIgnoreDates ),
             added = false;
     
         while ( newFromDate < weekEndDate ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate ),
-                repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
+            var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
             
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
-                    var dayContents = buildListAllEventsDay( newFromDate );
-    
-                    buildListAllWeekEventsEvent( orderedEvent, dayContents, newFromDate );
+                    var containers = buildListAllEventsDay( newFromDate ),
+                        dayContents = containers[ 0 ],
+                        dayHeader = containers[ 1 ];
+
+                    buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, newFromDate );
                     added = true;
                 }
             }
@@ -2056,18 +2119,19 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildListAllWeekEventsEvent( eventDetails, container, displayDate ) {
-        var added = false;
+    function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
+        var added = false,
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
+            formattedDate = toStorageFormattedDate( displayDate );
 
-        if ( isEventVisible( eventDetails ) ) {
+        if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             clearElementsByClassName( container, "no-events-text" );
-            
+            showElementsByClassName( header, "ib-close" );
+
             var event = createElement( "div", getEventClassName() );
             container.appendChild( event );
     
             if ( _options.manualEditingEnabled ) {
-                var formattedDate = toStorageFormattedDate( displayDate );
-    
                 event.oncontextmenu = function( e ) {
                     showEventDropDownMenu( e, eventDetails, formattedDate );
                 };
@@ -2150,7 +2214,9 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
             dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
-            dayContents = null;
+            dayContents = null,
+            dayHeader = null,
+            removeEventsDate = new Date( date );
 
         if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
             var expandDate = new Date( date ),
@@ -2170,15 +2236,19 @@ function calendarJs( id, options, startDateTime ) {
 
             makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
-            var header = createElement( "div", "header" );
-            header.ondblclick = expandFunction;
-            day.appendChild( header );
+            dayHeader = createElement( "div", "header" );
+            dayHeader.ondblclick = expandFunction;
+            day.appendChild( dayHeader );
 
-            buildDayDisplay( header, date, _options.dayNames[ weekDayNumber ] + ", " );
-            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
+            buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
+            buildToolbarButton( dayHeader, "ib-close", _options.removeEventsTooltipText, function() {
+                removeEventsOnSpecificDate( removeEventsDate, doDatesMatch );
+            } );
+
+            buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
-                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, addEventFunction );
+                buildToolbarButton( dayHeader, "ib-plus", _options.addEventTooltipText, addEventFunction );
             }
 
             dayContents = createElement( "div", "events" );
@@ -2192,13 +2262,15 @@ function calendarJs( id, options, startDateTime ) {
             createSpanElement( noEventsTextContainer, _options.hereText, "link", addEventFunction );
             createSpanElement( noEventsTextContainer, " " + _options.toAddANewEventText );
 
-            _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = dayContents;
-
+            _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = [ dayContents, dayHeader ];
         } else {
-            dayContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
+
+            var existingContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
+            dayContents = existingContents[ 0 ];
+            dayHeader = existingContents[ 1 ];
         }
 
-        return dayContents;
+        return [ dayContents, dayHeader ];
     }
 
     function updateViewAllWeekEventsViewFromEventEdit() {
@@ -2465,7 +2537,12 @@ function calendarJs( id, options, startDateTime ) {
         
             element.ondrop = function( e ) {
                 hideDraggingEffect( e, element );
-                dropEventOnDay( e, year, month, actualDay );
+
+                if ( e.dataTransfer.files.length === 0 ) {
+                    dropEventOnDay( e, year, month, actualDay );
+                } else {
+                    dropFileOnDisplay( e );
+                }
             };
         }
     }
@@ -2527,6 +2604,43 @@ function calendarJs( id, options, startDateTime ) {
             _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate, repeatEndsDate );            
             refreshViews();
         }
+    }
+
+    function dropFileOnDisplay( e ) {
+        if ( isDefined( _window.FileReader ) ) {
+            var reader = new FileReader();
+
+            reader.onload = function( event ) {
+                var data = event.target.result,
+                    dataObject = getObjectFromString( data );
+    
+                if ( isDefinedArray( dataObject ) ) { 
+                    _this.addEvents( dataObject );
+                } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
+                    _this.addEvents( dataObject.events );
+                }
+            };
+    
+            reader.readAsText( e.dataTransfer.files[ 0 ] );
+        }
+    }
+
+    function getObjectFromString( objectString ) {
+        var result;
+
+        try {
+            result = JSON.parse( objectString );
+        } catch ( e1 ) {
+
+            try {
+                result = eval( "(" + objectString + ")" );
+            } catch ( e2 ) {
+                console.error( "Errors in object: " + e1.message + ", " + e2.message );
+                result = null;
+            }
+        }
+
+        return result;
     }
 
 
@@ -2882,9 +2996,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_RemoveButton.style.display = "block";
             _element_EventEditorDialog_TitleBar.innerText = _options.editEventTitle;
             _element_EventEditorDialog_EventDetails = eventDetails;
-            _element_EventEditorDialog_DateFrom.value = toFormattedDate( eventDetails.from, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
-            _element_EventEditorDialog_DateTo.value = toFormattedDate( eventDetails.to, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
             _element_EventEditorDialog_IsAllDay.checked = eventDetails.isAllDay;
             _element_EventEditorDialog_Title.value = getString( eventDetails.title );
@@ -2894,6 +3006,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
             _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
             _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
+
+            setSelectedDate( eventDetails.from, _element_EventEditorDialog_DateFrom );
+            setSelectedDate( eventDetails.to, _element_EventEditorDialog_DateTo );
 
             var repeatEvery = getNumber( eventDetails.repeatEvery );
             if ( repeatEvery === _const_Repeat_Never ) {
@@ -2918,7 +3033,8 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Fri.checked = excludeDays.indexOf( 5 ) > -1;
             _element_EventEditorRepeatOptionsDialog_Sat.checked = excludeDays.indexOf( 6 ) > -1;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = excludeDays.indexOf( 0 ) > -1;
-            _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = toFormattedDate( eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds.type );
+
+            setSelectedDate( eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds );
         } else {
 
             var date = new Date(),
@@ -2933,9 +3049,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_RemoveButton.style.display = "none";
             _element_EventEditorDialog_TitleBar.innerText = _options.addEventTitle;
             _element_EventEditorDialog_EventDetails = {};
-            _element_EventEditorDialog_DateFrom.value = toFormattedDate( today, _element_EventEditorDialog_DateFrom.type );
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
-            _element_EventEditorDialog_DateTo.value = toFormattedDate( today, _element_EventEditorDialog_DateTo.type );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
             _element_EventEditorDialog_IsAllDay.checked = false;
             _element_EventEditorDialog_Title.value = "";
@@ -2954,6 +3068,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Sat.checked = false;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = false;
             _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
+
+            setSelectedDate( today, _element_EventEditorDialog_DateFrom );
+            setSelectedDate( today, _element_EventEditorDialog_DateTo );
         }
 
         buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
@@ -3062,28 +3179,6 @@ function calendarJs( id, options, startDateTime ) {
 
         date.setHours( hours );
         date.setMinutes( minutes );
-    }
-
-    function getSelectedDate( input, defaultValue ) {
-        var result = isDefinedOnly( defaultValue ) ? defaultValue : new Date();
-
-        if ( input.value !== "" ) {
-            if ( input.type === "date" ) {
-                result = new Date( input.value + "T00:00:00Z" );
-            } else {
-    
-                var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
-                if ( match ) {
-    
-                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
-                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
-                        result = newDate;
-                    }
-                }
-            }
-        }
-
-        return result;
     }
 
     function eventDialogEvent_Cancel() {
@@ -3942,6 +4037,8 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.innerText = text;
                     } else {
 
+                        _element_Tooltip.onmousemove = cancelBubble;
+                        _element_Tooltip_EventDetails = eventDetails;
                         _element_Tooltip.innerHTML = "";
                         _element_Tooltip_Title.innerHTML = "";
                         _element_Tooltip_TotalTime.innerHTML = "";
@@ -4008,6 +4105,8 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( isTooltipVisible() ) {
             _element_Tooltip.style.display = "none";
+            _element_Tooltip_EventDetails = null;
+            _element_Tooltip.onmousemove = null;
         }
     }
 
@@ -4378,8 +4477,12 @@ function calendarJs( id, options, startDateTime ) {
         return isDefined( object ) && typeof object === "boolean";
     }
 
+    function isDefinedObject( object ) {
+        return isDefined( object ) && typeof object === "object";
+    }
+
     function isDefinedArray( object ) {
-        return isDefined( object ) && typeof object === "object" && object instanceof Array;
+        return isDefinedObject( object ) && object instanceof Array;
     }
 
     function isDefinedStringAndSet( object ) {
@@ -4538,21 +4641,31 @@ function calendarJs( id, options, startDateTime ) {
         return name.charAt( 0 ).toUpperCase() + name.slice( 1 );
     }
 
-    function getPropertyValue( name, value ) {
-        var result = getString( value );
+    function getPropertyValue( name, value, forJson ) {
+        forJson = isDefined( forJson ) ? forJson : false;
+
+        var result = !forJson ? getString( value ) : "\"" + getString( value ) + "\"";
 
         if ( typeof value === "boolean" ) {
-            result = getYesNoFromBoolean( value );
+            result = !forJson ? getYesNoFromBoolean( value ) : value.toString();
+
         } else if ( typeof value === "object" && value instanceof Date ) {
-            result = getStringFromDateTime( value );
+            result = !forJson ? getStringFromDateTime( value ) : "\"" + value.toISOString() + "\"";
+
         } else if ( typeof value === "object" && value instanceof Array ) {
-            if ( name === "repeatEveryExcludeDays" ) {
+            if ( name === "repeatEveryExcludeDays" && !forJson ) {
                 result = getArrayDays( value );
             } else {
-                result = getArrayText( value );
+
+                if ( forJson ) {
+                    result = "[" + getArrayText( value ) + "]";
+                } else {
+                    result = getArrayText( value );
+                }
             }
+
         } else if ( typeof value === "number" ) {
-            if ( name === "repeatEvery" ) {
+            if ( name === "repeatEvery" && !forJson ) {
                 result = getRepeatsText( value );
             } else {
                 result = value.toString();
@@ -4565,11 +4678,11 @@ function calendarJs( id, options, startDateTime ) {
     function getICalDateTimeString( eventDate ) {
         var format = [];
         format.push( eventDate.getFullYear() );
-        format.push( eventDate.getMonth() );
-        format.push( eventDate.getDate() );
+        format.push( padNumber( eventDate.getMonth() ) );
+        format.push( padNumber( eventDate.getDate() ) );
         format.push( "T" );
-        format.push( eventDate.getHours() );
-        format.push( eventDate.getMinutes() );
+        format.push( padNumber( eventDate.getHours() ) );
+        format.push( padNumber( eventDate.getMinutes() ) );
         format.push( "00Z" );
 
         return format.join( "" );
@@ -4741,7 +4854,7 @@ function calendarJs( id, options, startDateTime ) {
             orderedEventLength = orderedEvents.length;
 
         contents.push( "{" );
-        contents.push( "\"events:\": [" );
+        contents.push( "\"events\": [" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ];
@@ -4750,7 +4863,7 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var propertyName in orderedEvent ) {
                 if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( "\"" + propertyName + "\":\"" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "\"," );
+                    contents.push( "\"" + propertyName + "\":" + getPropertyValue( propertyName, orderedEvent[ propertyName ], true ) + "," );
                 }
             }
 
@@ -4815,7 +4928,7 @@ function calendarJs( id, options, startDateTime ) {
 
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
-            contents.push( "DTSTAMP:" + getICalDateTimeString( orderedEvent.created ) );
+            contents.push( "CREATED:" + getICalDateTimeString( orderedEvent.created ) );
             contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
@@ -5180,6 +5293,22 @@ function calendarJs( id, options, startDateTime ) {
     this.addEvent = function( event, updateEvents, triggerEvent ) {
         var added = false;
 
+        if ( isDefinedString( event.from ) ) {
+            event.from = new Date( event.from );
+        }
+
+        if ( isDefinedString( event.to ) ) {
+            event.to = new Date( event.to );
+        }
+
+        if ( isDefinedString( event.repeatEnds ) ) {
+            event.repeatEnds = new Date( event.repeatEnds );
+        }
+
+        if ( isDefinedString( event.created ) ) {
+            event.created = new Date( event.created );
+        }
+
         if ( event.from <= event.to ) {
             var storageDate = toStorageDate( event.from ),
                 storageGuid = newGuid(),
@@ -5494,7 +5623,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.7";
+        return "0.9.8";
     };
 
 
@@ -6121,6 +6250,18 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.organizerTabText ) ) {
             _options.organizerTabText = "Organizer";
+        }
+
+        if ( !isDefined( _options.removeEventsTooltipText ) ) {
+            _options.removeEventsTooltipText = "Remove Events";
+        }
+
+        if ( !isDefined( _options.confirmEventsRemoveTitle ) ) {
+            _options.confirmEventsRemoveTitle = "Confirm Events Removal";
+        }
+        
+        if ( !isDefined( _options.confirmEventsRemoveMessage ) ) {
+            _options.confirmEventsRemoveMessage = "Removing these events cannot be undone.  Do you want to continue?";
         }
     }
 

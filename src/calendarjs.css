@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.7
+ * Calendar.js Library v0.9.8
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -943,7 +943,8 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right,
-div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus {
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus,
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-close {
   float: right;
   margin-left: 10px;
 }
@@ -1143,9 +1144,14 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
-div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-plus {
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-plus,
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-close {
   float: right;
   margin-left: 10px;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-close {
+  display: none;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events {

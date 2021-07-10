@@ -1,5 +1,17 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.8:
+- Tooltips now stay open when an event is hovered over (moving the mouse again over the vent will not close it).
+- Fixed another fault that caused dates selected for events to be out by one day.
+- Fixed a fault that caused an extra ":" character to appear in the exported JSON data.
+- Events exported to JSON now use proper value types so they can be re-used for imports.
+- Added drop support to all views that will allow a file (containing JSON, or an array of events) to be added.
+- Added support to remove all the events on a specific day in the Weekly View (new X button on the day title bar).
+- Added support to remove all the events on a specific day in the All Events View (new X button on the day title bar).
+- The iCal property DTSTAMP has been changed to CREATED.
+- Fixed a fault that caused the CREATED, DTSTART and DTEND values in the exported iCal events to be in the wrong format.
+- Fixed a fault that caused repeating events that are ignored (for specific dates) to still show up in all other views.
+
 ### Version 0.9.7:
 - Added repeat Every 2 Weeks support (please update your events, the IDs for the others have been changed.  Sorry).
 - Added "Enable drag & drop for events" option to the Configuration dialog.

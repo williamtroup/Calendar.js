@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.7
+ * Calendar.js Library v0.9.8
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -650,7 +650,8 @@ div.calendar {
                     padding: $spacing;
 
                     div.ib-arrow-expand-left-right,
-                    div.ib-plus {
+                    div.ib-plus,
+                    div.ib-close {
                         float: right;
                         margin-left: $spacing;
                     }
@@ -705,9 +706,14 @@ div.calendar {
                     padding: $spacing;
 
                     div.ib-arrow-expand-left-right,
-                    div.ib-plus {
+                    div.ib-plus,
+                    div.ib-close {
                         float: right;
                         margin-left: $spacing;
+                    }
+
+                    div.ib-close {
+                        display: none;
                     }
                 }
 
