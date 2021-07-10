@@ -650,7 +650,8 @@ div.calendar {
                     padding: $spacing;
 
                     div.ib-arrow-expand-left-right,
-                    div.ib-plus {
+                    div.ib-plus,
+                    div.ib-close {
                         float: right;
                         margin-left: $spacing;
                     }

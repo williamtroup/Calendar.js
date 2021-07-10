@@ -448,7 +448,7 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Getting Events
+     * Getting/Remove Events
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -493,6 +493,28 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return events;
+    }
+
+    function removeEventsOnSpecificDate( date, compareFunc ) {
+        addNode( _document.body, _element_DisabledBackground );
+
+        var onNoEvent = function() {
+            removeNode( _document.body, _element_DisabledBackground );
+        };
+
+        var onYesEvent = function() {
+            onNoEvent();
+
+            getAllEventsFunc( function( event ) {
+                if ( compareFunc( event.from, date ) ) {
+                    _this.removeEvent( event.id, false );
+                }
+            } );
+
+            refreshViews();
+        };
+
+        showConfirmationDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
     }
 
 
@@ -817,6 +839,10 @@ function calendarJs( id, options, startDateTime ) {
 
     function doDatesMatch( date1, date2 ) {
         return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+    }
+
+    function doDatesMatchMonthAndYear( date1, date2 ) {
+        return date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
     }
 
     function isDateSmallerOrEqualToDate( date1, date2 ) {
@@ -1887,6 +1913,10 @@ function calendarJs( id, options, startDateTime ) {
             header.ondblclick = expandFunction;
             month.appendChild( header );
 
+            buildToolbarButton( header, "ib-close", _options.clearEventsTooltipText, function() {
+                removeEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
+            } );
+
             buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
@@ -2216,7 +2246,7 @@ function calendarJs( id, options, startDateTime ) {
 
             buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
             buildToolbarButton( dayHeader, "ib-close", _options.clearEventsTooltipText, function() {
-                removeEventsOnSpecificDate( removeEventsDate );
+                removeEventsOnSpecificDate( removeEventsDate, doDatesMatch );
             } );
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
@@ -2261,28 +2291,6 @@ function calendarJs( id, options, startDateTime ) {
     function onNextWeek() {
         moveDateForwardOneWeek( _element_ListAllWeekEventsView_DateSelected );
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
-    }
-
-    function removeEventsOnSpecificDate( date ) {
-        addNode( _document.body, _element_DisabledBackground );
-
-        var onNoEvent = function() {
-            removeNode( _document.body, _element_DisabledBackground );
-        };
-
-        var onYesEvent = function() {
-            onNoEvent();
-
-            getAllEventsFunc( function( event ) {
-                if ( doDatesMatch( event.from, date ) ) {
-                    _this.removeEvent( event.id, false );
-                }
-            } );
-
-            refreshViews();
-        };
-
-        showConfirmationDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
     }
 
 

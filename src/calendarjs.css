@@ -943,7 +943,8 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right,
-div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus {
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus,
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-close {
   float: right;
   margin-left: 10px;
 }
