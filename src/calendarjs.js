@@ -181,7 +181,7 @@
  * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
  * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
  * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
- * @property    {string}    clearEventsTooltipText                      The tooltip text that should be used for for the "Clear Events" button.
+ * @property    {string}    removeEventsTooltipText                     The tooltip text that should be used for for the "Remove Events" button.
  * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal").
  * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?").
  */
@@ -1913,7 +1913,7 @@ function calendarJs( id, options, startDateTime ) {
             header.ondblclick = expandFunction;
             month.appendChild( header );
 
-            buildToolbarButton( header, "ib-close", _options.clearEventsTooltipText, function() {
+            buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
                 removeEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
             } );
 
@@ -2245,7 +2245,7 @@ function calendarJs( id, options, startDateTime ) {
             day.appendChild( dayHeader );
 
             buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
-            buildToolbarButton( dayHeader, "ib-close", _options.clearEventsTooltipText, function() {
+            buildToolbarButton( dayHeader, "ib-close", _options.removeEventsTooltipText, function() {
                 removeEventsOnSpecificDate( removeEventsDate, doDatesMatch );
             } );
 
@@ -6256,8 +6256,8 @@ function calendarJs( id, options, startDateTime ) {
             _options.organizerTabText = "Organizer";
         }
 
-        if ( !isDefined( _options.clearEventsTooltipText ) ) {
-            _options.clearEventsTooltipText = "Clear Events";
+        if ( !isDefined( _options.removeEventsTooltipText ) ) {
+            _options.removeEventsTooltipText = "Remove Events";
         }
 
         if ( !isDefined( _options.confirmEventsRemoveTitle ) ) {
