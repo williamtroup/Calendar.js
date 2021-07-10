@@ -4932,7 +4932,7 @@ function calendarJs( id, options, startDateTime ) {
 
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
-            contents.push( "DTSTAMP:" + getICalDateTimeString( orderedEvent.created ) );
+            contents.push( "CREATED:" + getICalDateTimeString( orderedEvent.created ) );
             contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
