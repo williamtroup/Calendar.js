@@ -4682,11 +4682,11 @@ function calendarJs( id, options, startDateTime ) {
     function getICalDateTimeString( eventDate ) {
         var format = [];
         format.push( eventDate.getFullYear() );
-        format.push( eventDate.getMonth() );
-        format.push( eventDate.getDate() );
+        format.push( padNumber( eventDate.getMonth() ) );
+        format.push( padNumber( eventDate.getDate() ) );
         format.push( "T" );
-        format.push( eventDate.getHours() );
-        format.push( eventDate.getMinutes() );
+        format.push( padNumber( eventDate.getHours() ) );
+        format.push( padNumber( eventDate.getMinutes() ) );
         format.push( "00Z" );
 
         return format.join( "" );
