@@ -8,7 +8,7 @@
 - Added drop support to all views that will allow a file (containing JSON, or an array of events) to be added.
 - Added support to remove all the events on a specific day in the Weekly View (new X button on the day title bar).
 - Added support to remove all the events on a specific day in the All Events View (new X button on the day title bar).
-- Fixed a fault that caused the DTSTAMP value in the exported iCal events to be in the wrong format (missing leading 0).
+- Fixed a fault that caused the DTSTAMP, DTSTART and DTEND values in the exported iCal events to be in the wrong format.
 - 
 
 ### Version 0.9.7:
