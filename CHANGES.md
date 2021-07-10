@@ -10,6 +10,7 @@
 - Added support to remove all the events on a specific day in the All Events View (new X button on the day title bar).
 - The iCal property DTSTAMP has been renamed to CREATED (makes more sense).
 - Fixed a fault that caused the CREATED, DTSTART and DTEND values in the exported iCal events to be in the wrong format.
+- Fixed a fault that caused repeating events that are ignored for specific dates to still show up in all over views.
 - 
 
 ### Version 0.9.7:

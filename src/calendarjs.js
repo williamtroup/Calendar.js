@@ -1089,16 +1089,14 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildRepeatedDayEvents( orderedEvent, dateFunc ) {
         var newFromDate = new Date( orderedEvent.from ),
-            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
-            seriesIgnoreDates = getArray( orderedEvent.seriesIgnoreDates );
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays );
 
         while ( newFromDate < _largestDateInView ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate ),
-                repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
+            var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
 
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 var repeatDayElement = getDayElement( newFromDate );
 
                 if ( repeatDayElement !== null ) {
@@ -1130,8 +1128,8 @@ function calendarJs( id, options, startDateTime ) {
     
     function buildDayEvent( dayDate, eventDetails ) {
         var elementDay = getDayElement( dayDate ),
-            formattedDayDate = toStorageFormattedDate( dayDate ),
-            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates );
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
+            formattedDayDate = toStorageFormattedDate( dayDate );
 
         if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
             checkEventForNotifications( dayDate, eventDetails );
@@ -1546,16 +1544,14 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc ) {
         var newFromDate = new Date( event.from ),
-            excludeDays = getArray( event.repeatEveryExcludeDays ),
-            seriesIgnoreDates = getArray( event.seriesIgnoreDates );
+            excludeDays = getArray( event.repeatEveryExcludeDays );
     
         while ( newFromDate < date ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate ),
-                repeatEnded = !( !isDefined( event.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, event.repeatEnds ) );
+            var repeatEnded = !( !isDefined( event.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, event.repeatEnds ) );
 
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 if ( doDatesMatch( newFromDate, date ) ) {
                     orderedEvents.push( event );
                     break;
@@ -1565,9 +1561,11 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildFullDayDayEvent( eventDetails, displayDate ) {
-        var scrollTop = 0;
+        var scrollTop = 0,
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
+            formattedDate = toStorageFormattedDate( displayDate );
 
-        if ( isEventVisible( eventDetails ) ) {
+        if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", getEventClassName() );
 
             if ( eventDetails.isAllDay ) {
@@ -1577,8 +1575,6 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                var formattedDate = toStorageFormattedDate( displayDate );
-    
                 event.oncontextmenu = function( e ) {
                     showEventDropDownMenu( e, eventDetails, formattedDate );
                 };
@@ -2081,16 +2077,14 @@ function calendarJs( id, options, startDateTime ) {
     function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc ) {
         var newFromDate = new Date( orderedEvent.from ),
             excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
-            seriesIgnoreDates = getArray( orderedEvent.seriesIgnoreDates ),
             added = false;
     
         while ( newFromDate < weekEndDate ) {
             dateFunc( newFromDate );
 
-            var formattedDate = toStorageFormattedDate( newFromDate ),
-                repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
+            var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
             
-            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
                     var containers = buildListAllEventsDay( newFromDate ),
                         dayContents = containers[ 0 ],
@@ -2126,9 +2120,11 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
-        var added = false;
+        var added = false,
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
+            formattedDate = toStorageFormattedDate( displayDate );
 
-        if ( isEventVisible( eventDetails ) ) {
+        if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             clearElementsByClassName( container, "no-events-text" );
             showElementsByClassName( header, "ib-close" );
 
@@ -2136,8 +2132,6 @@ function calendarJs( id, options, startDateTime ) {
             container.appendChild( event );
     
             if ( _options.manualEditingEnabled ) {
-                var formattedDate = toStorageFormattedDate( displayDate );
-    
                 event.oncontextmenu = function( e ) {
                     showEventDropDownMenu( e, eventDetails, formattedDate );
                 };
