@@ -2092,9 +2092,11 @@ function calendarJs( id, options, startDateTime ) {
             
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && seriesIgnoreDates.indexOf( formattedDate ) === -1 && !repeatEnded ) {
                 if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
-                    var dayContents = buildListAllEventsDay( newFromDate );
-    
-                    buildListAllWeekEventsEvent( orderedEvent, dayContents, newFromDate );
+                    var containers = buildListAllEventsDay( newFromDate ),
+                        dayContents = containers[ 0 ],
+                        dayHeader = containers[ 1 ];
+
+                    buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, newFromDate );
                     added = true;
                 }
             }
