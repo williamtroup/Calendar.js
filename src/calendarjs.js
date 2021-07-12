@@ -1216,7 +1216,7 @@ function calendarJs( id, options, startDateTime ) {
     
                 if ( _options.manualEditingEnabled ) {
                     event.onclick = function() {
-                        showEventDialog( eventDetails );
+                        showEventEditingDialog( eventDetails );
                     };
                 }
 
@@ -1402,7 +1402,7 @@ function calendarJs( id, options, startDateTime ) {
                 });
     
                 notification.onclick = function() {
-                    showEventDialog( event );
+                    showEventEditingDialog( event );
                 };
             }
         }
@@ -1661,7 +1661,7 @@ function calendarJs( id, options, startDateTime ) {
     
             if ( _options.manualEditingEnabled ) {
                 event.onclick = function() {
-                    showEventDialog( eventDetails );
+                    showEventEditingDialog( eventDetails );
                 };
             }
             
@@ -1906,7 +1906,7 @@ function calendarJs( id, options, startDateTime ) {
     
             if ( _options.manualEditingEnabled ) {
                 event.onclick = function() {
-                    showEventDialog( eventDetails );
+                    showEventEditingDialog( eventDetails );
                 };
             }
 
@@ -1945,7 +1945,7 @@ function calendarJs( id, options, startDateTime ) {
                 var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
 
                 buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
-                    showEventDialog( null, addNewEventDate );
+                    showEventEditingDialog( null, addNewEventDate );
                 } );
             }
 
@@ -2217,7 +2217,7 @@ function calendarJs( id, options, startDateTime ) {
     
             if ( _options.manualEditingEnabled ) {
                 event.onclick = function() {
-                    showEventDialog( eventDetails );
+                    showEventEditingDialog( eventDetails );
                 };
             }
 
@@ -2250,7 +2250,7 @@ function calendarJs( id, options, startDateTime ) {
                     showFullDayView( expandDate, true );
                 },
                 addEventFunction = function() {
-                    showEventDialog( null, expandDate );
+                    showEventEditingDialog( null, expandDate );
                 };
 
             var day = createElement( "div", "day" );
@@ -2495,7 +2495,7 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.manualEditingEnabled ) {
                 dayElement.ondblclick = function() {
-                    showEventDialog( null, dayDate );
+                    showEventEditingDialog( null, dayDate );
                 };
 
                 makeAreaDroppable( dayElement, year, month, actualDay );
@@ -2691,7 +2691,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( _options.manualEditingEnabled ) {
             buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle, function() {
-                showEventDialog( null, _element_DropDownMenu_Day_DateSelected );
+                showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
             } );
     
             buildMenuSeparator( _element_DropDownMenu_Day );
@@ -2763,7 +2763,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_DropDownMenu_Event.appendChild( editEvent );
     
             editEvent.onclick = function() {
-                showEventDialog( _element_DropDownMenu_Event_EventDetails );
+                showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
             };
         }
     }
@@ -2972,7 +2972,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function addNewEvent() {
-        showEventDialog( null, _element_FullDayView_DateSelected );
+        showEventEditingDialog( null, _element_FullDayView_DateSelected );
     }
 
     function repeatEveryEvent() {
@@ -3014,7 +3014,7 @@ function calendarJs( id, options, startDateTime ) {
         repeatEveryEvent();
     }
 
-    function showEventDialog( eventDetails, overrideTodayDate ) {
+    function showEventEditingDialog( eventDetails, overrideTodayDate ) {
         addNode( _document.body, _element_DisabledBackground );
 
         if ( isDefined( eventDetails ) ) {
