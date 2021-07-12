@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 0.9.9:
+- The context menus now open with a minor fade effect.
 - 
 
 ### Version 0.9.8a:

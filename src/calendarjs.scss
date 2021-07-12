@@ -1313,6 +1313,7 @@ div.calendar-tooltip-event {
 
 div.calendar-drop-down-menu {
     @include no-selection-allowed;
+    @include fade-in-effect-animation(0.5s);
     background-color: #DCDCDC;
     border: $standard-border-size solid $dark-color;
     color: $dark-color;

@@ -2793,6 +2793,11 @@ div.calendar-drop-down-menu {
   -o-user-select: none;
   user-select: none;
   cursor: default;
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   background-color: #DCDCDC;
   border: 1px solid #282828;
   color: #282828;
