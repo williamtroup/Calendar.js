@@ -3108,15 +3108,9 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function eventDialogEvent_OK() {
-        var fromDate = getSelectedDate( _element_EventEditorDialog_DateFrom ),
-            toDate = getSelectedDate( _element_EventEditorDialog_DateTo ),
-            fromTime = _element_EventEditorDialog_TimeFrom.value.split( ":" ),
+        var fromTime = _element_EventEditorDialog_TimeFrom.value.split( ":" ),
             toTime = _element_EventEditorDialog_TimeTo.value.split( ":" ),
-            title = trimString( _element_EventEditorDialog_Title.value ),
-            description = trimString( _element_EventEditorDialog_Description.value ),
-            location = trimString( _element_EventEditorDialog_Location.value ),
-            group = trimString( _element_EventEditorDialog_Group.value ),
-            repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null );
+            title = trimString( _element_EventEditorDialog_Title.value );
 
         if ( fromTime.length < 2 ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
@@ -3126,6 +3120,13 @@ function calendarJs( id, options, startDateTime ) {
             showEventDialogErrorMessage( _options.titleErrorMessage, _element_EventEditorDialog_Title );
         }
         else {
+
+            var fromDate = getSelectedDate( _element_EventEditorDialog_DateFrom ),
+                toDate = getSelectedDate( _element_EventEditorDialog_DateTo ),
+                description = trimString( _element_EventEditorDialog_Description.value ),
+                location = trimString( _element_EventEditorDialog_Location.value ),
+                group = trimString( _element_EventEditorDialog_Group.value ),
+                repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null );
 
             setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
             setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
