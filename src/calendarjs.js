@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.8
+ * Calendar.js Library v0.9.8a
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1006,12 +1006,12 @@ function calendarJs( id, options, startDateTime ) {
 
     function setSelectedDate( date, input ) {
         if ( isDefined( date ) ) {
-            if ( input.type === "date" ) {
-                input.valueAsDate = new Date( Date.UTC( date.getFullYear(), date.getMonth(), date.getDate() ) );
-            } else {
-                var day = ( "0" + date.getDate() ).slice( -2 ),
-                    month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+            var day = ( "0" + date.getDate() ).slice( -2 ),
+                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
 
+            if ( input.type === "date" ) {
+                input.value = date.getFullYear() + "-" + month + "-" + day;
+            } else {
                 input.value = day + "/" + month + "/" + date.getFullYear();
             }
         }
@@ -1022,7 +1022,7 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( input.value !== "" ) {
             if ( input.type === "date" ) {
-                result = input.valueAsDate;
+                result = new Date( input.value + "T00:00:00Z" );
             } else {
     
                 var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
@@ -5623,7 +5623,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "0.9.8";
+        return "0.9.8a";
     };
 
 
