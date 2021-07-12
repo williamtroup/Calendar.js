@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 0.9.8a:
+- Reverted date changes from 0.9.8.
+
 ### Version 0.9.8:
 - Tooltips now stay open when an event is hovered over (moving the mouse again over the vent will not close it).
 - Fixed another fault that caused dates selected for events to be out by one day.

@@ -1,4 +1,4 @@
-# Welcome to Calendar.js v0.9.8:
+# Welcome to Calendar.js v0.9.8a:
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
