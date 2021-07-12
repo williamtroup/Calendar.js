@@ -2692,7 +2692,7 @@ function calendarJs( id, options, startDateTime ) {
         if ( _options.manualEditingEnabled ) {
             buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle, function() {
                 showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
-            } );
+            }, true );
     
             buildMenuSeparator( _element_DropDownMenu_Day );
         }
@@ -2768,7 +2768,9 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent ) {
+    function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
+        isBold = isDefined( isBold ) ? isBold : false;
+
         var menuItem = createElement( "div", "item" );
         container.appendChild( menuItem );
 
@@ -2777,6 +2779,10 @@ function calendarJs( id, options, startDateTime ) {
         var menuText = createElement( "div", "menu-text" );
         menuText.innerText = text;
         menuItem.appendChild( menuText );
+
+        if ( isBold ) {
+            menuText.className += " bold";
+        }
 
         menuItem.onclick = function() {
             onClickEvent();

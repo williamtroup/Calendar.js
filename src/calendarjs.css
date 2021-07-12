@@ -2815,6 +2815,10 @@ div.calendar-drop-down-menu div.menu-text {
   display: inline-block;
 }
 
+div.calendar-drop-down-menu div.bold {
+  font-weight: 900;
+}
+
 div.calendar-drop-down-menu div.ib-plus-icon,
 div.calendar-drop-down-menu div.ib-arrow-top-right-icon,
 div.calendar-drop-down-menu div.ib-hamburger-icon {
