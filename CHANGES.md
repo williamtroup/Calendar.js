@@ -3,7 +3,7 @@
 ### Version 0.9.9:
 - Optimizations and clean ups to the core code (less repeating code, more functions, etc).
 - The context menus now open with a minor fade effect.
-- The local timezone is now determined when adding new events (sorry for the delay in sorting this).
+- The local timezone is now determined when adding new event, ensuring they are added to the right day.
 - The "Add Event" context menu item is now bold by default.
 - 
 
