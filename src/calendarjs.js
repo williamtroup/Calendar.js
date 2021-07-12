@@ -2717,11 +2717,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
             _document.body.appendChild( _element_DropDownMenu_Event );
             
-            var remove = createElement( "div", "item" );
-            remove.innerText = _options.removeEventText;
-            _element_DropDownMenu_Event.appendChild( remove );
-    
-            remove.onclick = function() {
+            buildMenuItem( _element_DropDownMenu_Event, _options.removeEventText, function() {
                 addNode( _document.body, _element_DisabledBackground );
     
                 var onNoEvent = function() {
@@ -2754,18 +2750,24 @@ function calendarJs( id, options, startDateTime ) {
                     showCheckBox = repeatEvery > _const_Repeat_Never && _element_DropDownMenu_Event_FormattedDateSelected !== null;
         
                 showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
-            };
+            } );
 
             buildMenuSeparator( _element_DropDownMenu_Event );
     
-            var editEvent = createElement( "div", "item" );
-            editEvent.innerText = _options.editEventTitle;
-            _element_DropDownMenu_Event.appendChild( editEvent );
-    
-            editEvent.onclick = function() {
+            buildMenuItem( _element_DropDownMenu_Event, _options.editEventTitle, function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
-            };
+            } );
         }
+    }
+
+    function buildMenuItem( container, text, onClickEvent ) {
+        var editEvent = createElement( "div", "item" );
+        editEvent.innerText = text;
+        container.appendChild( editEvent );
+
+        editEvent.onclick = function() {
+            onClickEvent();
+        };
     }
 
     function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
