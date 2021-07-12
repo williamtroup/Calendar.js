@@ -1036,7 +1036,33 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
 
+        if ( isDefined( result ) ) {
+            result = new Date( result.getTime() + Math.abs( result.getTimezoneOffset() * 60000 ) );
+        }
+
         return result;
+    }
+
+    function setTimeOnDate( date, timeData ) {
+        var hours = 0,
+            minutes = 0,
+            splitData = timeData.split( ":" );
+
+        if ( splitData.length === 2 ) {
+            var newHours = parseInt( splitData[ 0 ] ),
+                newMinutes = parseInt( splitData[ 1 ] );
+
+            if ( !isNaN( newHours ) && newHours.toString().length <= 2 ) {
+                hours = newHours;
+            }
+
+            if ( !isNaN( newMinutes ) && newMinutes.toString().length <= 2 ) {
+                minutes = newMinutes;
+            }
+        }
+
+        date.setHours( hours );
+        date.setMinutes( minutes );
     }
 
 
@@ -3157,28 +3183,6 @@ function calendarJs( id, options, startDateTime ) {
                 refreshOpenedViews();
             }
         }
-    }
-
-    function setTimeOnDate( date, timeData ) {
-        var hours = 0,
-            minutes = 0,
-            splitData = timeData.split( ":" );
-
-        if ( splitData.length === 2 ) {
-            var newHours = parseInt( splitData[ 0 ] ),
-                newMinutes = parseInt( splitData[ 1 ] );
-
-            if ( !isNaN( newHours ) && newHours.toString().length <= 2 ) {
-                hours = newHours;
-            }
-
-            if ( !isNaN( newMinutes ) && newMinutes.toString().length <= 2 ) {
-                minutes = newMinutes;
-            }
-        }
-
-        date.setHours( hours );
-        date.setMinutes( minutes );
     }
 
     function eventDialogEvent_Cancel() {

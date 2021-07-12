@@ -2,6 +2,7 @@
 
 ### Version 0.9.9:
 - The context menus now open with a minor fade effect.
+- The local timezone is now determined when adding new events (sorry for the delay in sorting this).
 - 
 
 ### Version 0.9.8a:
