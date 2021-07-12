@@ -1935,9 +1935,11 @@ function calendarJs( id, options, startDateTime ) {
             header.ondblclick = expandFunction;
             month.appendChild( header );
 
-            buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
-                removeEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
-            } );
+            if ( _options.manualEditingEnabled ) { 
+                buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
+                    removeEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
+                } );                
+            }
 
             buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
@@ -2267,9 +2269,12 @@ function calendarJs( id, options, startDateTime ) {
             day.appendChild( dayHeader );
 
             buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
-            buildToolbarButton( dayHeader, "ib-close", _options.removeEventsTooltipText, function() {
-                removeEventsOnSpecificDate( removeEventsDate, doDatesMatch );
-            } );
+
+            if ( _options.manualEditingEnabled ) { 
+                buildToolbarButton( dayHeader, "ib-close", _options.removeEventsTooltipText, function() {
+                    removeEventsOnSpecificDate( removeEventsDate, doDatesMatch );
+                } );                
+            }
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 

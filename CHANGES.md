@@ -5,6 +5,7 @@
 - The context menus now open with a minor fade effect.
 - The local timezone is now determined when adding new event, ensuring they are added to the right day.
 - The "Add Event" context menu item is now bold by default.
+- The "Remove Events" buttons (shown in the views) are now only shown when manual event editing is enabled.
 - 
 
 ### Version 0.9.8a:
