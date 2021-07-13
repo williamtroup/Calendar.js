@@ -2450,12 +2450,13 @@ function calendarJs( id, options, startDateTime ) {
             var today = new Date(),
                 dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
                 dayText = createElement( "span" ),
-                dayDate = new Date( year, month, actualDay );
+                dayDate = new Date( year, month, actualDay ),
+                dayMutedClass = isMuted ? " day-muted" : "";
             
             includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
             dayElement.innerHTML = "";
-            dayText.className = isMuted ? "day-muted" : "";
+            dayText.className = dayMutedClass;
             dayText.className += dayIsToday ? " today" : "";
             dayText.innerText = actualDay;
 
@@ -2485,10 +2486,12 @@ function calendarJs( id, options, startDateTime ) {
 
             addToolTip( expandDayButton, _options.expandDayTooltipText );
 
-            if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
-                var monthClassName = "month-name" + ( isMuted ? " day-muted" : "" );
+            expandDayButton.onclick = function() {
+                showFullDayView( dayDate, true );
+            };
 
-                createSpanElement( dayElement, _options.monthNames[ month ], monthClassName, function() {
+            if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
+                createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + dayMutedClass, function() {
                     if ( actualDay === 1 ) {
                         moveForwardMonth();
                     } else {
@@ -2499,12 +2502,8 @@ function calendarJs( id, options, startDateTime ) {
 
             var holidayText = getHoliday( dayDate );
             if ( holidayText !== null ) {
-                createSpanElement( dayElement, holidayText, "holiday" + ( isMuted ? " day-muted" : "" ) );
+                createSpanElement( dayElement, holidayText, "holiday" + dayMutedClass );
             }
-
-            expandDayButton.onclick = function() {
-                showFullDayView( dayDate, true );
-            };
 
             if ( _options.manualEditingEnabled ) {
                 dayElement.ondblclick = function() {
