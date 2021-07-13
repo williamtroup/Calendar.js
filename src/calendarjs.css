@@ -294,15 +294,23 @@ div.calendar div.row div.cell:last-child {
   border-right: none;
 }
 
-div.calendar div.row div.cell:hover div.ib-arrow-top-right {
-  display: block;
+@media screen and (min-width: 451px) {
+  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-small {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-small {
+    display: none;
+  }
 }
 
 div.calendar div.row:last-child {
   border-bottom: none;
 }
 
-div.calendar div.ib-arrow-top-right {
+div.calendar div.ib-arrow-expand-left-right-small {
   animation: fade-in-effect ease 2s;
   -webkit-animation: fade-in-effect ease 2s;
   -moz-animation: fade-in-effect ease 2s;
@@ -3663,30 +3671,48 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
 }
 
-.ib-arrow-top-right {
+.ib-arrow-expand-left-right-small {
   width: 12px;
   height: 12px;
   display: inline-block;
   position: relative;
-  width: 9px;
-  height: 9px;
-  border-right: 3px solid #282828;
-  border-top: 3px solid #282828;
-  border-radius: 3px;
 }
 
-.ib-arrow-top-right:hover {
+.ib-arrow-expand-left-right-small:hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-top-right:active {
+.ib-arrow-expand-left-right-small:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
+}
+
+.ib-arrow-expand-left-right-small:before, .ib-arrow-expand-left-right-small:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-arrow-expand-left-right-small:before {
+  border-left: 3px solid #282828;
+  border-bottom: 3px solid #282828;
+  width: 6px;
+  height: 6px;
+  bottom: 0;
+  left: 0;
+}
+
+.ib-arrow-expand-left-right-small:after {
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  width: 6px;
+  height: 6px;
+  top: 0;
+  right: 0;
 }
 
 .ib-refresh-medium {

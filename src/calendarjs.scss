@@ -240,8 +240,14 @@ div.calendar {
                 border-right: none;
             }
 
-            &:hover div.ib-arrow-top-right {
-                display: block;
+            &:hover div.ib-arrow-expand-left-right-small {
+                @media screen and (min-width: $minimum-width) {
+                    display: block;
+                }
+                
+                @media screen and (max-width: $maximum-width) {
+                    display: none;
+                }
             }
         }
 
@@ -250,7 +256,7 @@ div.calendar {
         }
     }
 
-    div.ib-arrow-top-right {
+    div.ib-arrow-expand-left-right-small {
         @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
@@ -1466,6 +1472,6 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/arrow-top-right-icon";
 @import "foundation/menus/hamburger-icon";
-@import "foundation/small/arrow-top-right";
+@import "foundation/small/arrow-expand-left-right-small";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";

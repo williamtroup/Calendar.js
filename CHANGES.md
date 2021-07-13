@@ -7,6 +7,8 @@
 - The "Add Event" context menu item is now bold by default.
 - The "Remove Events" buttons (shown in the views) are now only shown when manual event editing is enabled.
 - The month names shown in the main display (for the previous/next month) can now be clicked to quickly jump to that month.
+- The "Expand Day" button on the main display is now only shown on larger screens (prevents overlapping).
+- The "Expand Day" button on the main display now uses a new expand button (similar to other buttons).
 - 
 
 ### Version 0.9.8a:
