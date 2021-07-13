@@ -281,6 +281,11 @@ div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.m
   font-size: xx-small;
 }
 
+div.calendar div.row div.cell span.month-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 div.calendar div.row div.cell span.blank {
   padding: 0 !important;
 }

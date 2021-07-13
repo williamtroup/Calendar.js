@@ -2486,7 +2486,15 @@ function calendarJs( id, options, startDateTime ) {
             addToolTip( expandDayButton, _options.expandDayTooltipText );
 
             if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
-                createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + ( isMuted ? " day-muted" : "" ) );
+                var monthClassName = "month-name" + ( isMuted ? " day-muted" : "" );
+
+                createSpanElement( dayElement, _options.monthNames[ month ], monthClassName, function() {
+                    if ( actualDay === 1 ) {
+                        moveForwardMonth();
+                    } else {
+                        moveBackMonth();
+                    }
+                }, true );
             }
 
             var holidayText = getHoliday( dayDate );
@@ -4244,13 +4252,19 @@ function calendarJs( id, options, startDateTime ) {
         container.appendChild( element );
     }
 
-    function createSpanElement( container, text, className, event ) {
+    function createSpanElement( container, text, className, event, cancelDblClick ) {
+        cancelDblClick = isDefined( cancelDblClick ) ? cancelDblClick : false;
+
         var element = createElement( "span", className );
         element.innerText = text;        
         container.appendChild( element );
 
         if ( isDefined( event ) ) {
             element.onclick = event;
+        }
+
+        if ( cancelDblClick ) {
+            element.ondblclick = cancelBubble;
         }
     }
 

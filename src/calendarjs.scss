@@ -226,6 +226,11 @@ div.calendar {
                     font-size: xx-small;
                 }
 
+                &.month-name:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+
                 &.blank {
                     padding: 0 !important;
                 }
