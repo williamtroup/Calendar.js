@@ -4129,7 +4129,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildTab( container, text, onClickEvent, selected ) {
         selected = isDefined( selected ) ? selected : false;
 
-        var className = "controls-tab" + ( selected ? "-selected" : "" ),
+        var className = "tab-control" + ( selected ? "-selected" : "" ),
             tab = createElement( "div", className );
 
         tab.innerText = text;
@@ -4143,7 +4143,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildTabContainer( container, selected ) {
         selected = isDefined( selected ) ? selected : false;
 
-        var tabContainer = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        var tabContainer = createElement( "div", "checkboxContainer tab-content custom-scroll-bars" );
         container.appendChild( tabContainer );
 
         if ( !selected ) {
@@ -4154,20 +4154,20 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showTabContents( tab, contents, container ) {
-        var tabs = container.getElementsByClassName( "controls-tab-selected" ),
+        var tabs = container.getElementsByClassName( "tab-control-selected" ),
             tabsLength = tabs.length,
-            allContents = container.getElementsByClassName( "controls-container " ),
+            allContents = container.getElementsByClassName( "tab-content" ),
             allContentsLength = allContents.length;
     
         for ( var tabIndex = 0; tabIndex < tabsLength; tabIndex++ ) {
-            tabs[ tabIndex ].className = "controls-tab";
+            tabs[ tabIndex ].className = "tab-control";
         }
     
         for ( var allContentsIndex = 0; allContentsIndex < allContentsLength; allContentsIndex++ ) {
             allContents[ allContentsIndex ].style.display = "none";
         }
     
-        tab.className = "controls-tab-selected";
+        tab.className = "tab-control-selected";
         contents.style.display = "block";
     }
 

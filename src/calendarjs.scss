@@ -1087,8 +1087,8 @@ div.configuration {
 */
 
 div.calendar-dialog {
-    div.controls-tab,
-    div.controls-tab-selected {
+    div.tab-control,
+    div.tab-control-selected {
         @include no-selection-allowed;
         padding: $spacing;
         border-top-left-radius: $border-view-radius;
@@ -1099,13 +1099,13 @@ div.calendar-dialog {
         margin-left: $spacing / 2;
     }
 
-    div.controls-tab-selected {
+    div.tab-control-selected {
         border: $standard-border-size solid $dark-color;
         background-color: $dark-color;
         color: $light-color;
     }
 
-    div.controls-tab {
+    div.tab-control {
         border: $standard-border-size solid $input-border-color;
         background-color: $light-color;
         color: $dark-color;
@@ -1119,7 +1119,7 @@ div.calendar-dialog {
         }
     }
 
-    div.controls-container {
+    div.tab-content {
         @include input-style;
         height: 150px;
         padding: $spacing;

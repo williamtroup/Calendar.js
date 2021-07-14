@@ -2511,8 +2511,8 @@ div.configuration input[type="button"].cancel:not(:disabled):active {
     Calendar.js - Tabs
     -------------------------------------------------------------------------
 */
-div.calendar-dialog div.controls-tab,
-div.calendar-dialog div.controls-tab-selected {
+div.calendar-dialog div.tab-control,
+div.calendar-dialog div.tab-control-selected {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -2528,19 +2528,19 @@ div.calendar-dialog div.controls-tab-selected {
   margin-left: 5px;
 }
 
-div.calendar-dialog div.controls-tab-selected {
+div.calendar-dialog div.tab-control-selected {
   border: 1px solid #282828;
   background-color: #282828;
   color: #F5F5F5;
 }
 
-div.calendar-dialog div.controls-tab {
+div.calendar-dialog div.tab-control {
   border: 1px solid #A8A8A8;
   background-color: #F5F5F5;
   color: #282828;
 }
 
-div.calendar-dialog div.controls-tab:hover {
+div.calendar-dialog div.tab-control:hover {
   cursor: pointer;
   border: 1px solid #282828;
   background-color: #282828;
@@ -2549,7 +2549,7 @@ div.calendar-dialog div.controls-tab:hover {
   transition: all 0.3s;
 }
 
-div.calendar-dialog div.controls-container {
+div.calendar-dialog div.tab-content {
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
   outline: none;
