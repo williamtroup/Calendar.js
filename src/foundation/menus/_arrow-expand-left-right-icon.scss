@@ -5,7 +5,7 @@ $border-width: $size / 4;
 $border-radius: $border-width;
 $border: $border-width solid $dark-color;
 
-.ib-arrow-expand-left-right-small {
+.ib-arrow-expand-left-right-icon {
     @include button;
 
     &:before {

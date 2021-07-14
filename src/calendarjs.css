@@ -295,13 +295,13 @@ div.calendar div.row div.cell:last-child {
 }
 
 @media screen and (min-width: 451px) {
-  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-small {
+  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-icon {
     display: block;
   }
 }
 
 @media screen and (max-width: 450px) {
-  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-small {
+  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-icon {
     display: none;
   }
 }
@@ -310,7 +310,7 @@ div.calendar div.row:last-child {
   border-bottom: none;
 }
 
-div.calendar div.ib-arrow-expand-left-right-small {
+div.calendar div.ib-arrow-expand-left-right-icon {
   animation: fade-in-effect ease 2s;
   -webkit-animation: fade-in-effect ease 2s;
   -moz-animation: fade-in-effect ease 2s;
@@ -2844,7 +2844,7 @@ div.calendar-drop-down-menu div.bold {
 }
 
 div.calendar-drop-down-menu div.ib-plus-icon,
-div.calendar-drop-down-menu div.ib-arrow-expand-left-right-small,
+div.calendar-drop-down-menu div.ib-arrow-expand-left-right-icon,
 div.calendar-drop-down-menu div.ib-hamburger-icon {
   margin-right: 10px;
 }
@@ -2868,8 +2868,8 @@ div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before {
 }
 
 div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon,
-div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-small:after,
-div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-small:before {
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:after,
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before {
   border-color: #F5F5F5;
 }
 
@@ -3657,33 +3657,33 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
 }
 
-.ib-arrow-expand-left-right-small {
+.ib-arrow-expand-left-right-icon {
   width: 12px;
   height: 12px;
   display: inline-block;
   position: relative;
 }
 
-.ib-arrow-expand-left-right-small:hover {
+.ib-arrow-expand-left-right-icon:hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-expand-left-right-small:active {
+.ib-arrow-expand-left-right-icon:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
 }
 
-.ib-arrow-expand-left-right-small:before, .ib-arrow-expand-left-right-small:after {
+.ib-arrow-expand-left-right-icon:before, .ib-arrow-expand-left-right-icon:after {
   position: absolute;
   content: "";
 }
 
-.ib-arrow-expand-left-right-small:before {
+.ib-arrow-expand-left-right-icon:before {
   border-left: 3px solid #282828;
   border-bottom: 3px solid #282828;
   width: 6px;
@@ -3692,7 +3692,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
 }
 
-.ib-arrow-expand-left-right-small:after {
+.ib-arrow-expand-left-right-icon:after {
   border-right: 3px solid #282828;
   border-top: 3px solid #282828;
   width: 6px;
