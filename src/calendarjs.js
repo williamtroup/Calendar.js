@@ -29,6 +29,7 @@
  * @property    {string}    organizerEmailAddress                       The email address of the organizer.
  * @property    {Object}    repeatEnds                                  The date when a repeating series should end.
  * @property    {string}    group                                       The name of the group the event belongs to.
+ * @property    {string}    url                                         The URL that is associated with the event.
  */
 
 
@@ -186,6 +187,7 @@
  * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?").
  * @property    {string}    eventText                                   The text that should be displayed for the "Event" label.
  * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
+ * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
  */
 
 
@@ -293,6 +295,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
         _element_EventEditorDialog_Group = null,
+        _element_EventEditorDialog_Url = null,
         _element_EventEditorDialog_RepeatEvery_Never = null,
         _element_EventEditorDialog_RepeatEvery_EveryDay = null,
         _element_EventEditorDialog_RepeatEvery_EveryWeek = null,
@@ -1408,7 +1411,13 @@ function calendarJs( id, options, startDateTime ) {
                 });
     
                 notification.onclick = function() {
-                    showEventEditingDialog( event );
+                    var url = getString( event.url );
+
+                    if ( url === "" ) {
+                        showEventEditingDialog( event );
+                    } else {
+                        window.open( url, "_blank" );
+                    }
                 };
             }
         }
@@ -3021,6 +3030,11 @@ function calendarJs( id, options, startDateTime ) {
         if ( _options.maximumEventDescriptionLength > 0 ) {
             _element_EventEditorDialog_Description.maxLength = _options.maximumEventDescriptionLength ;
         }
+
+        createTextHeaderElement( _element_ConfigurationDialog_Tab_Extra, _options.urlText );
+
+        _element_EventEditorDialog_Url = createElement( "input", null, "text" );
+        _element_ConfigurationDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Url );
     }
 
     function addNewEvent() {
@@ -3082,6 +3096,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Description.value = getString( eventDetails.description );
             _element_EventEditorDialog_Location.value = getString( eventDetails.location );
             _element_EventEditorDialog_Group.value = getString( eventDetails.group );
+            _element_EventEditorDialog_Url.value = getString( eventDetails.url );
             _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
             _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
             _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
@@ -3135,6 +3150,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Description.value = "";
             _element_EventEditorDialog_Location.value = "";
             _element_EventEditorDialog_Group.value = "";
+            _element_EventEditorDialog_Url.value = "";
             _element_EventEditorColorsDialog_Color.value = "#484848";
             _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
             _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
@@ -3179,7 +3195,8 @@ function calendarJs( id, options, startDateTime ) {
                 description = trimString( _element_EventEditorDialog_Description.value ),
                 location = trimString( _element_EventEditorDialog_Location.value ),
                 group = trimString( _element_EventEditorDialog_Group.value ),
-                repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null );
+                repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null ),
+                url = trimString( _element_EventEditorDialog_Url.value );
 
             setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
             setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
@@ -3203,7 +3220,8 @@ function calendarJs( id, options, startDateTime ) {
                     colorText: _element_EventEditorDialog_EventDetails.colorText,
                     colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
                     repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays,
-                    repeatEnds: repeatEnds
+                    repeatEnds: repeatEnds,
+                    url: url
                 };
     
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
@@ -4845,7 +4863,8 @@ function calendarJs( id, options, startDateTime ) {
                 _options.seriesIgnoreDatesText,
                 _options.createdText,
                 _options.organizerNameText,
-                _options.organizerEmailAddressText
+                _options.organizerEmailAddressText,
+                _options.urlText
             ],
             headersLength = headers.length;
 
@@ -4872,6 +4891,7 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getStringFromDateTime( eventDetails.created ) );
         eventContents.push( getString( eventDetails.organizerName ) );
         eventContents.push( getString( eventDetails.organizerEmailAddress ) );
+        eventContents.push( getString( eventDetails.url ) );
 
         return eventContents;
     }
@@ -6439,6 +6459,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.optionalText ) ) {
             _options.optionalText = "Optional";
+        }
+
+        if ( !isDefined( _options.urlText ) ) {
+            _options.urlText = "Url:";
         }
     }
 

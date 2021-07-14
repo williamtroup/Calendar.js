@@ -12,6 +12,7 @@
 - Added support to export events to the TSV (tab separated values) file format.
 - The CSS class names used for the tabs (in the Configuration dialog) have been moved and renamed.
 - The "Add Event" dialog has been split up into separate tabs (due to size getting to large for smaller displays).
+- Added "url" support for events (when a notification is clicked, if set, the URL will be opened in a new window).
 - 
 
 ### Version 0.9.8a:
