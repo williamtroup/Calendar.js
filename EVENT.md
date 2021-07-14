@@ -22,3 +22,4 @@ Below is the format that is expected for an event object when calling "addEvents
 | *string* | organizerEmailAddress | The email address of the organizer. |
 | *Object* | repeatEnds | The date when a repeating series should end. |
 | *string* | group | The name of the group the event belongs to. |
+| *string* | url | The URL that is associated with the event. |

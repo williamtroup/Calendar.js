@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js v0.9.8a</title>
+        <title>Calendar.js v0.9.9</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="src/calendarjs.css" />
@@ -9,7 +9,7 @@
     </head>
 
     <body>
-        <h1>Welcome to Calendar.js v0.9.8a:</h1>
+        <h1>Welcome to Calendar.js v0.9.9:</h1>
 
         <div class="contents">
             <p>Click <a href="calendarjs.min.html" target="_self">here</a> to jump to the minimized version.</p>
@@ -53,6 +53,7 @@
             <button onclick="calendarInstance.exportAllEvents( 'ical' );">Export All Events (ical)</button>
             <button onclick="calendarInstance.exportAllEvents( 'md' );">Export All Events (md)</button>
             <button onclick="calendarInstance.exportAllEvents( 'html' );">Export All Events (html)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'tsv' );">Export All Events (tsv)</button>
             <br />
     
             <h2>Main Controls:</h2>
@@ -195,7 +196,8 @@
                     description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
                     isAllDay: true,
-                    group: "Group 1"
+                    group: "Group 1",
+                    url: "https://www.google.com/"
                 },
                 {
                     from: firstDayInNextMonth,

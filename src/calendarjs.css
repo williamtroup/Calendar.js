@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.8a
+ * Calendar.js Library v0.9.9
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -281,6 +281,11 @@ div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.m
   font-size: xx-small;
 }
 
+div.calendar div.row div.cell span.month-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 div.calendar div.row div.cell span.blank {
   padding: 0 !important;
 }
@@ -289,15 +294,23 @@ div.calendar div.row div.cell:last-child {
   border-right: none;
 }
 
-div.calendar div.row div.cell:hover div.ib-arrow-top-right {
-  display: block;
+@media screen and (min-width: 451px) {
+  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-icon {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-icon {
+    display: none;
+  }
 }
 
 div.calendar div.row:last-child {
   border-bottom: none;
 }
 
-div.calendar div.ib-arrow-top-right {
+div.calendar div.ib-arrow-expand-left-right-icon {
   animation: fade-in-effect ease 2s;
   -webkit-animation: fade-in-effect ease 2s;
   -moz-animation: fade-in-effect ease 2s;
@@ -1245,7 +1258,7 @@ div.calendar div.list-all-week-events-view div.contents div.day:last-child {
 */
 div.event-editor {
   width: calc(100% - (10px * 2));
-  max-width: 370px;
+  max-width: 420px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -1262,6 +1275,11 @@ div.event-editor {
 
 div.event-editor div.ib-close {
   float: right;
+}
+
+div.event-editor div.tab-content {
+  height: 245px;
+  margin-bottom: 20px;
 }
 
 div.event-editor div.view {
@@ -1347,9 +1365,8 @@ div.event-editor div.view input:disabled {
 }
 
 div.event-editor div.view textarea {
-  height: 70px;
+  height: 90px;
   resize: none;
-  margin-bottom: 20px;
 }
 
 div.event-editor div.view p {
@@ -2365,54 +2382,6 @@ div.configuration div.title-bar {
   text-align: center;
 }
 
-div.configuration div.controls-tab,
-div.configuration div.controls-tab-selected {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  padding: 10px;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom: none !important;
-  text-align: center;
-  display: inline-block;
-  margin-left: 5px;
-}
-
-div.configuration div.controls-tab-selected {
-  border: 1px solid #282828;
-  background-color: #282828;
-  color: #F5F5F5;
-}
-
-div.configuration div.controls-tab {
-  border: 1px solid #A8A8A8;
-  background-color: #F5F5F5;
-  color: #282828;
-}
-
-div.configuration div.controls-tab:hover {
-  cursor: pointer;
-  border: 1px solid #282828;
-  background-color: #282828;
-  color: #F5F5F5;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-div.configuration div.controls-container {
-  border: 1px solid #A8A8A8;
-  border-radius: 0.25rem;
-  outline: none;
-  height: 150px;
-  padding: 10px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
 div.configuration div.contents {
   padding: 10px;
 }
@@ -2453,6 +2422,10 @@ div.configuration div.contents input[type="text"]:focus {
 
 div.configuration div.contents input[type="text"]:hover {
   border: 1px solid #282828;
+}
+
+div.configuration div.contents div.tab-content {
+  height: 150px;
 }
 
 div.configuration div.split input,
@@ -2539,6 +2512,57 @@ div.configuration input[type="button"].cancel:not(:disabled):active {
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Tabs
+    -------------------------------------------------------------------------
+*/
+div.calendar-dialog div.tab {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  padding: 10px;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom: none !important;
+  text-align: center;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+div.calendar-dialog div.tab-control-selected {
+  border: 1px solid #282828;
+  background-color: #282828;
+  color: #F5F5F5;
+}
+
+div.calendar-dialog div.tab-control {
+  border: 1px solid #A8A8A8;
+  background-color: #F5F5F5;
+  color: #282828;
+}
+
+div.calendar-dialog div.tab-control:hover {
+  cursor: pointer;
+  border: 1px solid #282828;
+  background-color: #282828;
+  color: #F5F5F5;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+div.calendar-dialog div.tab-content {
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /*
@@ -2793,6 +2817,11 @@ div.calendar-drop-down-menu {
   -o-user-select: none;
   user-select: none;
   cursor: default;
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   background-color: #DCDCDC;
   border: 1px solid #282828;
   color: #282828;
@@ -2810,8 +2839,12 @@ div.calendar-drop-down-menu div.menu-text {
   display: inline-block;
 }
 
+div.calendar-drop-down-menu div.bold {
+  font-weight: 900;
+}
+
 div.calendar-drop-down-menu div.ib-plus-icon,
-div.calendar-drop-down-menu div.ib-arrow-top-right-icon,
+div.calendar-drop-down-menu div.ib-arrow-expand-left-right-icon,
 div.calendar-drop-down-menu div.ib-hamburger-icon {
   margin-right: 10px;
 }
@@ -2834,8 +2867,9 @@ div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before {
   background-color: #F5F5F5;
 }
 
-div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon,
-div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon {
+div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon,
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:after,
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before {
   border-color: #F5F5F5;
 }
 
@@ -3585,32 +3619,6 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
 }
 
-.ib-arrow-top-right-icon {
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-  position: relative;
-  width: 9px;
-  height: 9px;
-  border-right: 3px solid #282828;
-  border-top: 3px solid #282828;
-  border-radius: 3px;
-}
-
-.ib-arrow-top-right-icon:hover {
-  -webkit-transition: all .3s;
-  transition: all .3s;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.ib-arrow-top-right-icon:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.5;
-}
-
 .ib-hamburger-icon {
   width: 12px;
   height: 12px;
@@ -3649,30 +3657,48 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
 }
 
-.ib-arrow-top-right {
+.ib-arrow-expand-left-right-icon {
   width: 12px;
   height: 12px;
   display: inline-block;
   position: relative;
-  width: 9px;
-  height: 9px;
-  border-right: 3px solid #282828;
-  border-top: 3px solid #282828;
-  border-radius: 3px;
 }
 
-.ib-arrow-top-right:hover {
+.ib-arrow-expand-left-right-icon:hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-top-right:active {
+.ib-arrow-expand-left-right-icon:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
+}
+
+.ib-arrow-expand-left-right-icon:before, .ib-arrow-expand-left-right-icon:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-arrow-expand-left-right-icon:before {
+  border-left: 3px solid #282828;
+  border-bottom: 3px solid #282828;
+  width: 6px;
+  height: 6px;
+  bottom: 0;
+  left: 0;
+}
+
+.ib-arrow-expand-left-right-icon:after {
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  width: 6px;
+  height: 6px;
+  top: 0;
+  right: 0;
 }
 
 .ib-refresh-medium {

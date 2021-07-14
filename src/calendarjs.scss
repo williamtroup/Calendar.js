@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.8a
+ * Calendar.js Library v0.9.9
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -226,6 +226,11 @@ div.calendar {
                     font-size: xx-small;
                 }
 
+                &.month-name:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+
                 &.blank {
                     padding: 0 !important;
                 }
@@ -235,8 +240,14 @@ div.calendar {
                 border-right: none;
             }
 
-            &:hover div.ib-arrow-top-right {
-                display: block;
+            &:hover div.ib-arrow-expand-left-right-icon {
+                @media screen and (min-width: $minimum-width) {
+                    display: block;
+                }
+                
+                @media screen and (max-width: $maximum-width) {
+                    display: none;
+                }
             }
         }
 
@@ -245,7 +256,7 @@ div.calendar {
         }
     }
 
-    div.ib-arrow-top-right {
+    div.ib-arrow-expand-left-right-icon {
         @include fade-in-effect-animation(2s);
         position: absolute;
         right: 5px;
@@ -740,7 +751,12 @@ div.calendar {
 */
 
 div.event-editor {
-    @include dialog-styles(370px);
+    @include dialog-styles(420px);
+
+    div.tab-content {
+        height: 245px;
+        margin-bottom: $spacing * 2;
+    }
 
     div.view {
         position: relative;
@@ -778,9 +794,8 @@ div.event-editor {
         }
     
         textarea {
-            height: 70px;
+            height: 90px;
             resize: none;
-            margin-bottom: $spacing * 2;
         }
 
         p {
@@ -1041,46 +1056,6 @@ div.configuration {
     @include dialog-styles(350px);
     @include dialog-title-bar;
 
-    div.controls-tab,
-    div.controls-tab-selected {
-        @include no-selection-allowed;
-        padding: $spacing;
-        border-top-left-radius: $border-view-radius;
-        border-top-right-radius: $border-view-radius;
-        border-bottom: none !important;
-        text-align: center;
-        display: inline-block;
-        margin-left: $spacing / 2;
-    }
-
-    div.controls-tab-selected {
-        border: $standard-border-size solid $dark-color;
-        background-color: $dark-color;
-        color: $light-color;
-    }
-
-    div.controls-tab {
-        border: $standard-border-size solid $input-border-color;
-        background-color: $light-color;
-        color: $dark-color;
-
-        &:hover {
-            cursor: pointer;
-            border: $standard-border-size solid $dark-color;
-            background-color: $dark-color;
-            color: $light-color;
-            transition: $transition;
-        }
-    }
-
-    div.controls-container {
-        @include input-style;
-        height: 150px;
-        padding: $spacing;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
     div.contents {
         padding: $spacing;
         
@@ -1092,6 +1067,10 @@ div.configuration {
 
         input[type="text"] {
             @include input-fields;
+        }
+
+        div.tab-content {
+            height: 150px;
         }
     }
 
@@ -1105,6 +1084,53 @@ div.configuration {
         @include dialog-button-styles;
         @include button(ok, $light-color, $ok-color);
         @include button(cancel, $light-color, $alert-color);
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Tabs
+    -------------------------------------------------------------------------
+*/
+
+div.calendar-dialog {
+    div.tab {
+        @include no-selection-allowed;
+        padding: $spacing;
+        border-top-left-radius: $border-view-radius;
+        border-top-right-radius: $border-view-radius;
+        border-bottom: none !important;
+        text-align: center;
+        display: inline-block;
+        margin-left: $spacing / 2;
+    }
+
+    div.tab-control-selected {
+        border: $standard-border-size solid $dark-color;
+        background-color: $dark-color;
+        color: $light-color;
+    }
+
+    div.tab-control {
+        border: $standard-border-size solid $input-border-color;
+        background-color: $light-color;
+        color: $dark-color;
+
+        &:hover {
+            cursor: pointer;
+            border: $standard-border-size solid $dark-color;
+            background-color: $dark-color;
+            color: $light-color;
+            transition: $transition;
+        }
+    }
+
+    div.tab-content {
+        @include input-style;
+        padding: $spacing;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 }
 
@@ -1313,6 +1339,7 @@ div.calendar-tooltip-event {
 
 div.calendar-drop-down-menu {
     @include no-selection-allowed;
+    @include fade-in-effect-animation(0.5s);
     background-color: #DCDCDC;
     border: $standard-border-size solid $dark-color;
     color: $dark-color;
@@ -1329,8 +1356,12 @@ div.calendar-drop-down-menu {
         display: inline-block;
     }
 
+    div.bold {
+        font-weight: 900;
+    }
+
     div.ib-plus-icon,
-    div.ib-arrow-top-right-icon,
+    div.ib-arrow-expand-left-right-icon,
     div.ib-hamburger-icon {
         margin-right: $spacing;
     }
@@ -1351,8 +1382,9 @@ div.calendar-drop-down-menu {
             background-color: $light-color;
         }
 
-        &:hover div.ib-arrow-top-right-icon,
-        &:hover div.ib-hamburger-icon {
+        &:hover div.ib-hamburger-icon,
+        &:hover div.ib-arrow-expand-left-right-icon:after,
+        &:hover div.ib-arrow-expand-left-right-icon:before {
             border-color: $light-color;
         }
 
@@ -1454,8 +1486,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-contract-left-right";
 @import "foundation/buttons/octagon-hollow";
 @import "foundation/menus/plus-icon";
-@import "foundation/menus/arrow-top-right-icon";
 @import "foundation/menus/hamburger-icon";
-@import "foundation/small/arrow-top-right";
+@import "foundation/menus/arrow-expand-left-right-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
