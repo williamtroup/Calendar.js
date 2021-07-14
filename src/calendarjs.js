@@ -4557,25 +4557,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( contents !== "" ) {
             var tempLink = createElement( "a" ),
-                mimeTypeStart = "text",
-                mimeTypeEnd = type,
-                extension = type;
-
-            if ( type === "text" ) {
-                mimeTypeEnd = "plain";
-                extension = "txt";
-            } else if ( type === "ical" ) {
-                mimeTypeEnd = "calendar";
-                extension = "ics";
-            } else if ( type === "json" ) {
-                mimeTypeStart = "application";
-            } else if ( type === "md" ) {
-                mimeTypeEnd = "x-markdown";
-            } else if ( type === "html" ) {
-                mimeTypeEnd = "html";
-            } else if ( type === "tsv" ) {
-                mimeTypeEnd = "tab-separated-values";
-            }
+                fileAttributes = getExportFileAttributes( type ),
+                mimeTypeStart = fileAttributes[ 0 ],
+                mimeTypeEnd = fileAttributes[ 1 ],
+                extension = fileAttributes[ 2 ];
 
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
@@ -4588,6 +4573,35 @@ function calendarJs( id, options, startDateTime ) {
     
             triggerOptionsEvent( "onEventsExported" );
         }
+    }
+
+    function getExportFileAttributes( exportType ) {
+        var mimeTypeStart = "text",
+            mimeTypeEnd = exportType,
+            extension = exportType;
+
+        if ( exportType === "text" ) {
+            mimeTypeEnd = "plain";
+            extension = "txt";
+
+        } else if ( exportType === "ical" ) {
+            mimeTypeEnd = "calendar";
+            extension = "ics";
+
+        } else if ( exportType === "json" ) {
+            mimeTypeStart = "application";
+
+        } else if ( exportType === "md" ) {
+            mimeTypeEnd = "x-markdown";
+
+        } else if ( exportType === "html" ) {
+            mimeTypeEnd = "html";
+
+        } else if ( exportType === "tsv" ) {
+            mimeTypeEnd = "tab-separated-values";
+        }
+
+        return [ mimeTypeStart, mimeTypeEnd, extension ];
     }
 
     function getExportEvents( events ) {
