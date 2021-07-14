@@ -754,7 +754,7 @@ div.event-editor {
     @include dialog-styles(420px);
 
     div.tab-content {
-        height: 265px;
+        height: 245px;
         margin-bottom: $spacing * 2;
     }
 
@@ -794,7 +794,7 @@ div.event-editor {
         }
     
         textarea {
-            height: 110px;
+            height: 90px;
             resize: none;
         }
 

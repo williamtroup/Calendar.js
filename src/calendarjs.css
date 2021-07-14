@@ -1278,7 +1278,7 @@ div.event-editor div.ib-close {
 }
 
 div.event-editor div.tab-content {
-  height: 265px;
+  height: 245px;
   margin-bottom: 20px;
 }
 
@@ -1365,7 +1365,7 @@ div.event-editor div.view input:disabled {
 }
 
 div.event-editor div.view textarea {
-  height: 110px;
+  height: 90px;
   resize: none;
 }
 
