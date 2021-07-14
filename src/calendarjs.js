@@ -3851,9 +3851,9 @@ function calendarJs( id, options, startDateTime ) {
             showTabContents( tab, _element_ConfigurationDialog_Organizer, _element_ConfigurationDialog );
         } );
 
-        _element_ConfigurationDialog_Groups = buildTabContainer( contents, true );
-        _element_ConfigurationDialog_Display = buildTabContainer( contents );
-        _element_ConfigurationDialog_Organizer = buildTabContainer( contents );
+        _element_ConfigurationDialog_Groups = buildTabContents( contents, true );
+        _element_ConfigurationDialog_Display = buildTabContents( contents );
+        _element_ConfigurationDialog_Organizer = buildTabContents( contents );
 
         _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
@@ -4140,7 +4140,7 @@ function calendarJs( id, options, startDateTime ) {
         };
     }
 
-    function buildTabContainer( container, selected ) {
+    function buildTabContents( container, selected ) {
         selected = isDefined( selected ) ? selected : false;
 
         var tabContainer = createElement( "div", "checkboxContainer tab-content custom-scroll-bars" );
