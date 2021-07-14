@@ -184,6 +184,8 @@
  * @property    {string}    removeEventsTooltipText                     The tooltip text that should be used for for the "Remove Events" button.
  * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal").
  * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?").
+ * @property    {string}    eventText                                   The text that should be displayed for the "Event" label.
+ * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
  */
 
 
@@ -277,6 +279,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
+        _element_ConfigurationDialog_Tab_Event = null,
+        _element_ConfigurationDialog_Tab_Repeats = null,
+        _element_ConfigurationDialog_Tab_Extra = null,
         _element_EventEditorDialog_DisabledArea = null,
         _element_EventEditorDialog_TitleBar = null,
         _element_EventEditorDialog_DateFrom = null,
@@ -2889,10 +2894,44 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         view.appendChild( contents );
 
-        createTextHeaderElement( contents, _options.titleText );
+        var tabsContainer = buildTabContainer( contents );
+
+        buildTab( tabsContainer, _options.eventText, function( tab ) {
+            showTabContents( tab, _element_ConfigurationDialog_Tab_Event, _element_EventEditorDialog );
+        }, true );
+        
+        buildTab( tabsContainer, _options.repeatsText.replace( ":", "" ), function( tab ) {
+            showTabContents( tab, _element_ConfigurationDialog_Tab_Repeats, _element_EventEditorDialog );
+        } );
+        
+        buildTab( tabsContainer, _options.optionalText, function( tab ) {
+            showTabContents( tab, _element_ConfigurationDialog_Tab_Extra, _element_EventEditorDialog );
+        } );
+        
+        _element_ConfigurationDialog_Tab_Event = buildTabContents( contents, true, false );
+        _element_ConfigurationDialog_Tab_Repeats = buildTabContents( contents, false, false );
+        _element_ConfigurationDialog_Tab_Extra = buildTabContents( contents, false, false );
+
+        buildEventEditorEventTabContent();
+        buildEventEditorRepeatsTabContent();
+        buildEventEditorExtraTabContent();
+
+        _element_EventEditorDialog_ErrorMessage = createElement( "p", "error" );
+        contents.appendChild( _element_EventEditorDialog_ErrorMessage );
+
+        var buttonsSplitContainer = createElement( "div", "split" );
+        contents.appendChild( buttonsSplitContainer );
+
+        _element_EventEditorDialog_OKButton = createButtonElement( buttonsSplitContainer, _options.addText, "ok", eventDialogEvent_OK );
+        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
+        _element_EventEditorDialog_RemoveButton = createButtonElement( contents, _options.removeEventText, "remove", eventDialogEvent_Remove );
+    }
+
+    function buildEventEditorEventTabContent() {
+        createTextHeaderElement( _element_ConfigurationDialog_Tab_Event, _options.titleText );
 
         var inputTitleContainer = createElement( "div", "input-title-container" );
-        contents.appendChild( inputTitleContainer );
+        _element_ConfigurationDialog_Tab_Event.appendChild( inputTitleContainer );
 
         _element_EventEditorDialog_Title = createElement( "input", null, "text" );
         inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
@@ -2903,10 +2942,10 @@ function calendarJs( id, options, startDateTime ) {
 
         createButtonElement( inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText );
 
-        createTextHeaderElement( contents, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
+        createTextHeaderElement( _element_ConfigurationDialog_Tab_Event, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
         var fromSplitContainer = createElement( "div", "split" );
-        contents.appendChild( fromSplitContainer );
+        _element_ConfigurationDialog_Tab_Event.appendChild( fromSplitContainer );
 
         _element_EventEditorDialog_DateFrom = createElement( "input" );
         _element_EventEditorDialog_DateFrom.onchange = isAllDayChanged;
@@ -2920,7 +2959,7 @@ function calendarJs( id, options, startDateTime ) {
         setInputType( _element_EventEditorDialog_TimeFrom, "time" );
 
         var toSplitContainer = createElement( "div", "split" );
-        contents.appendChild( toSplitContainer );
+        _element_ConfigurationDialog_Tab_Event.appendChild( toSplitContainer );
 
         _element_EventEditorDialog_DateTo = createElement( "input" );
         _element_EventEditorDialog_DateTo.onchange = isAllDayChanged;
@@ -2933,12 +2972,12 @@ function calendarJs( id, options, startDateTime ) {
 
         setInputType( _element_EventEditorDialog_TimeTo, "time" );
 
-        _element_EventEditorDialog_IsAllDay = buildCheckBox( contents, _options.isAllDayText, isAllDayChanged )[ 0 ];
+        _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_ConfigurationDialog_Tab_Event, _options.isAllDayText, isAllDayChanged )[ 0 ];
+    }
 
-        createTextHeaderElement( contents, _options.repeatsText );
-
+    function buildEventEditorRepeatsTabContent() {
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
-        contents.appendChild( radioButtonsContainer );
+        _element_ConfigurationDialog_Tab_Repeats.appendChild( radioButtonsContainer );
 
         _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent );
@@ -2948,15 +2987,17 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
 
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = createButtonElement( radioButtonsContainer, "...", "repeat-options", showEventEditorRepeatOptionsDialog, _options.repeatOptionsTitle );
+    }
 
+    function buildEventEditorExtraTabContent() {
         var inputFields1TextSplitContainer = createElement( "div", "split" );
-        contents.appendChild( inputFields1TextSplitContainer );
+        _element_ConfigurationDialog_Tab_Extra.appendChild( inputFields1TextSplitContainer );
 
         createTextHeaderElement( inputFields1TextSplitContainer, _options.locationText );
         createTextHeaderElement( inputFields1TextSplitContainer, _options.groupText );
 
         var inputFields1SplitContainer = createElement( "div", "split" );
-        contents.appendChild( inputFields1SplitContainer );
+        _element_ConfigurationDialog_Tab_Extra.appendChild( inputFields1SplitContainer );
 
         _element_EventEditorDialog_Location = createElement( "input", null, "text" );
         inputFields1SplitContainer.appendChild( _element_EventEditorDialog_Location );
@@ -2972,24 +3013,14 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Group.maxLength = _options.maximumEventGroupLength ;
         }
 
-        createTextHeaderElement( contents, _options.descriptionText );
+        createTextHeaderElement( _element_ConfigurationDialog_Tab_Extra, _options.descriptionText );
 
         _element_EventEditorDialog_Description = createElement( "textarea", "custom-scroll-bars" );
-        contents.appendChild( _element_EventEditorDialog_Description );
+        _element_ConfigurationDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Description );
 
         if ( _options.maximumEventDescriptionLength > 0 ) {
             _element_EventEditorDialog_Description.maxLength = _options.maximumEventDescriptionLength ;
         }
-
-        _element_EventEditorDialog_ErrorMessage = createElement( "p", "error" );
-        contents.appendChild( _element_EventEditorDialog_ErrorMessage );
-
-        var buttonsSplitContainer = createElement( "div", "split" );
-        contents.appendChild( buttonsSplitContainer );
-
-        _element_EventEditorDialog_OKButton = createButtonElement( buttonsSplitContainer, _options.addText, "ok", eventDialogEvent_OK );
-        createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
-        _element_EventEditorDialog_RemoveButton = createButtonElement( contents, _options.removeEventText, "remove", eventDialogEvent_Remove );
     }
 
     function addNewEvent() {
@@ -3037,6 +3068,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function showEventEditingDialog( eventDetails, overrideTodayDate ) {
         addNode( _document.body, _element_DisabledBackground );
+        selectFirstTab( _element_EventEditorDialog );
 
         if ( isDefined( eventDetails ) ) {
             _element_EventEditorDialog_OKButton.value = _options.updateText;
@@ -3851,8 +3883,8 @@ function calendarJs( id, options, startDateTime ) {
         } );
 
         _element_ConfigurationDialog_Groups = buildTabContents( contents, true );
-        _element_ConfigurationDialog_Display = buildTabContents( contents );
-        _element_ConfigurationDialog_Organizer = buildTabContents( contents );
+        _element_ConfigurationDialog_Display = buildTabContents( contents, false, false );
+        _element_ConfigurationDialog_Organizer = buildTabContents( contents, false, false );
 
         _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
@@ -4135,7 +4167,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildTab( container, text, onClickEvent, selected ) {
         selected = isDefined( selected ) ? selected : false;
 
-        var className = "tab-control" + ( selected ? "-selected" : "" ),
+        var className = "tab tab-control" + ( selected ? "-selected" : "" ),
             tab = createElement( "div", className );
 
         tab.innerText = text;
@@ -4146,11 +4178,16 @@ function calendarJs( id, options, startDateTime ) {
         };
     }
 
-    function buildTabContents( container, selected ) {
+    function buildTabContents( container, selected, canScroll ) {
         selected = isDefined( selected ) ? selected : false;
+        canScroll = isDefined( canScroll ) ? canScroll : true;
 
-        var tabContainer = createElement( "div", "checkboxContainer tab-content custom-scroll-bars" );
+        var tabContainer = createElement( "div", "checkboxContainer tab-content" );
         container.appendChild( tabContainer );
+
+        if ( canScroll ) {
+            tabContainer.className += " custom-scroll-bars";
+        }
 
         if ( !selected ) {
             tabContainer.style.display = "none";
@@ -4166,15 +4203,24 @@ function calendarJs( id, options, startDateTime ) {
             allContentsLength = allContents.length;
     
         for ( var tabIndex = 0; tabIndex < tabsLength; tabIndex++ ) {
-            tabs[ tabIndex ].className = "tab-control";
+            tabs[ tabIndex ].className = "tab tab-control";
         }
     
         for ( var allContentsIndex = 0; allContentsIndex < allContentsLength; allContentsIndex++ ) {
             allContents[ allContentsIndex ].style.display = "none";
         }
     
-        tab.className = "tab-control-selected";
+        tab.className = "tab tab-control-selected";
         contents.style.display = "block";
+    }
+
+    function selectFirstTab( container ) {
+        var tabs = container.getElementsByClassName( "tab" ),
+            tabsLength = tabs.length;
+        
+        if ( tabsLength > 0 ) {
+            tabs[ 0 ].click();
+        }
     }
 
 
@@ -6385,6 +6431,14 @@ function calendarJs( id, options, startDateTime ) {
         
         if ( !isDefined( _options.confirmEventsRemoveMessage ) ) {
             _options.confirmEventsRemoveMessage = "Removing these events cannot be undone.  Do you want to continue?";
+        }
+
+        if ( !isDefined( _options.eventText ) ) {
+            _options.eventText = "Event";
+        }
+
+        if ( !isDefined( _options.optionalText ) ) {
+            _options.optionalText = "Optional";
         }
     }
 

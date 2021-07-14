@@ -11,6 +11,7 @@
 - The "Expand Day" button on the main display now uses a new expand button (similar to other buttons).
 - Added support to export events to the TSV (tab separated values) file format.
 - The CSS class names used for the tabs (in the Configuration dialog) have been moved and renamed.
+- The "Add Event" dialog has been split up into separate tabs (due to size getting to large for smaller displays).
 - 
 
 ### Version 0.9.8a:

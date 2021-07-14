@@ -156,6 +156,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | removeEventsTooltipText | The tooltip text that should be used for for the "Remove Events" button. |
 | *string* | confirmEventsRemoveTitle | The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal"). |
 | *string* | confirmEventsRemoveMessage | The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?"). |
+| *string* | eventText | The text that should be displayed for the "Event" label. |
+| *string* | optionalText | The text that should be displayed for the "Optional" label. |
 
 <br/>
 
