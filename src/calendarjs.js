@@ -3836,8 +3836,7 @@ function calendarJs( id, options, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_ConfigurationDialog.appendChild( contents );
 
-        var tabsContainer = createElement( "div" );
-        contents.appendChild( tabsContainer );
+        var tabsContainer = buildTabContainer( contents );
 
         buildTab( tabsContainer, _options.groupsTabText, function( tab ) {
             showTabContents( tab, _element_ConfigurationDialog_Groups, _element_ConfigurationDialog );
@@ -4125,6 +4124,13 @@ function calendarJs( id, options, startDateTime ) {
      * Tabs
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    function buildTabContainer( container ) {
+        var tabsContainer = createElement( "div" );
+        container.appendChild( tabsContainer );
+
+        return tabsContainer;
+    }
 
     function buildTab( container, text, onClickEvent, selected ) {
         selected = isDefined( selected ) ? selected : false;
