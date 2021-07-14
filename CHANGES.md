@@ -9,6 +9,7 @@
 - The month names shown in the main display (for the previous/next month) can now be clicked to quickly jump to that month.
 - The "Expand Day" button on the main display is now only shown on larger screens (prevents overlapping).
 - The "Expand Day" button on the main display now uses a new expand button (similar to other buttons).
+- Added support to export events to the TSV (tab separated values) file format.
 - 
 
 ### Version 0.9.8a:

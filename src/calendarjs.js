@@ -351,6 +351,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_iCAL = null,
         _element_SelectExportTypeDialog_Option_MD = null,
         _element_SelectExportTypeDialog_Option_HTML = null,
+        _element_SelectExportTypeDialog_Option_TSV = null,
         _element_SelectExportTypeDialog_ExportEvents = null,
         _element_Tooltip = null,
         _element_Tooltip_Title = null,
@@ -3510,6 +3511,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer, "iCAL", "ExportType" );
         _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer, "MD", "ExportType" );
         _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer, "HTML", "ExportType" );
+        _element_SelectExportTypeDialog_Option_TSV = buildRadioButton( radioButtonsContainer, "TSV", "ExportType" );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -3547,6 +3549,8 @@ function calendarJs( id, options, startDateTime ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "md" );
         } else if ( _element_SelectExportTypeDialog_Option_HTML.checked ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "html" );
+        } else if ( _element_SelectExportTypeDialog_Option_TSV.checked ) {
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "tsv" );
         }
     }
 
@@ -4547,6 +4551,8 @@ function calendarJs( id, options, startDateTime ) {
             contents = getMdContents( contentsEvents );
         } else if ( type === "html" ) {
             contents = getHtmlContents( contentsEvents );
+        } else if ( type === "tsv" ) {
+            contents = getTsvContents( contentsEvents );
         }
 
         if ( contents !== "" ) {
@@ -4567,6 +4573,8 @@ function calendarJs( id, options, startDateTime ) {
                 mimeTypeEnd = "x-markdown";
             } else if ( type === "html" ) {
                 mimeTypeEnd = "html";
+            } else if ( type === "tsv" ) {
+                mimeTypeEnd = "tab-separated-values";
             }
 
             tempLink.style.display = "none";
@@ -5043,6 +5051,55 @@ function calendarJs( id, options, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Exporting To TSV
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getTsvContents( orderedEvents ) {
+        var orderedEventLength = orderedEvents.length,
+            exportHeaders = getExportHeaders(),
+            headers = exportHeaders[ 0 ],
+            headersLength = exportHeaders[ 1 ],
+            csvHeaders = [],
+            csvContents = [];
+
+        for ( var headerIndex = 0; headerIndex < headersLength; headerIndex++ ) {
+            csvHeaders.push( getTsvValue( headers[ headerIndex ] ) );
+        }
+        
+        csvContents.push( getTsvValueLine( csvHeaders ) );
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
+            storeTsvData( csvContents, orderedEvents[ orderedEventIndex ] );
+        }
+
+        return csvContents.join( "\n" );
+    }
+
+    function storeTsvData( csvContents, eventDetails ) {
+        var eventContents = getExportRow( eventDetails ),
+            eventContentsLength = eventContents.length;
+
+        for ( var eventContentsIndex = 0; eventContentsIndex < eventContentsLength; eventContentsIndex++ ) {
+            eventContents[ eventContentsIndex ] = getTsvValue( eventContents[ eventContentsIndex ] );
+        }
+
+        csvContents.push( getTsvValueLine( eventContents ) );
+    }
+
+    function getTsvValue( text ) {
+        text = text.replace(/\\/g, '\\\\');
+
+        return text;
+    }
+
+    function getTsvValueLine( csvValues ) {
+        return csvValues.join( "\t" );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Main Controls (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -5187,7 +5244,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @fires onEventsExported
      * 
-     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", and "html").
+     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
