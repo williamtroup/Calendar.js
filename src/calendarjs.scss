@@ -1361,7 +1361,7 @@ div.calendar-drop-down-menu {
     }
 
     div.ib-plus-icon,
-    div.ib-arrow-top-right-icon,
+    div.ib-arrow-expand-left-right-small,
     div.ib-hamburger-icon {
         margin-right: $spacing;
     }
@@ -1382,8 +1382,9 @@ div.calendar-drop-down-menu {
             background-color: $light-color;
         }
 
-        &:hover div.ib-arrow-top-right-icon,
-        &:hover div.ib-hamburger-icon {
+        &:hover div.ib-hamburger-icon,
+        &:hover div.ib-arrow-expand-left-right-small:after,
+        &:hover div.ib-arrow-expand-left-right-small:before {
             border-color: $light-color;
         }
 
@@ -1485,7 +1486,6 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-contract-left-right";
 @import "foundation/buttons/octagon-hollow";
 @import "foundation/menus/plus-icon";
-@import "foundation/menus/arrow-top-right-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/small/arrow-expand-left-right-small";
 @import "foundation/small/refresh-medium";

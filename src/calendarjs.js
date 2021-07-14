@@ -2724,7 +2724,7 @@ function calendarJs( id, options, startDateTime ) {
             buildMenuSeparator( _element_DropDownMenu_Day );
         }
 
-        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-arrow-top-right-icon", _options.expandDayTooltipText, function() {
+        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-arrow-expand-left-right-small", _options.expandDayTooltipText, function() {
             showFullDayView( _element_DropDownMenu_Day_DateSelected, true );
         } );
 
