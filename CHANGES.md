@@ -1,19 +1,18 @@
 # Calendar.js - Change Log:
 
 ### Version 0.9.9:
-- Optimizations and clean ups to the core code (less repeating code, more functions, etc).
+- Optimizations and cleanups to the core code (less repeating code, more functions, etc).
 - The context menus now open with a minor fade effect.
-- The local timezone is now determined when adding new event, ensuring that it's added to the right day.
+- The local timezone is now determined when adding a new event, ensuring that it's added to the right day.
 - The "Add Event" context menu item is now bold by default.
 - The "Remove Events" buttons (shown in the views) are now only shown when manual event editing is enabled.
 - The month names shown in the main display (for the previous/next month) can now be clicked to quickly jump to that month.
 - The "Expand Day" button on the main display is now only shown on larger screens (prevents overlapping).
 - The "Expand Day" button on the main display now uses a new expand button (similar to other buttons).
-- Added support to export events to the TSV (tab separated values) file format.
+- Added support to export events to the TSV (tab-separated values) file format.
 - The CSS class names used for the tabs (in the Configuration dialog) have been moved and renamed.
-- The "Add Event" dialog has been split up into separate tabs (due to size getting to large for smaller displays).
+- The "Add Event" dialog has been split up into separate tabs (due to the size getting too large for smaller displays).
 - Added "url" support for events (when a notification is clicked, if set, the URL will be opened in a new window).
-- 
 
 ### Version 0.9.8a:
 - Reverted date changes from 0.9.8.
