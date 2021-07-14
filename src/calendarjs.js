@@ -3839,45 +3839,26 @@ function calendarJs( id, options, startDateTime ) {
         var tabsContainer = createElement( "div" );
         contents.appendChild( tabsContainer );
 
-        var visibleGroupsTab = createElement( "div", "controls-tab-selected" );
-        visibleGroupsTab.innerText = _options.groupsTabText;
-        tabsContainer.appendChild( visibleGroupsTab );
+        buildTab( tabsContainer, _options.groupsTabText, function( tab ) {
+            showTabContents( tab, _element_ConfigurationDialog_Groups, _element_ConfigurationDialog );
+        }, true );
 
-        visibleGroupsTab.onclick = function () {
-            showTabContents( visibleGroupsTab, _element_ConfigurationDialog_Groups );
-        };
+        buildTab( tabsContainer, _options.displayTabText, function( tab ) {
+            showTabContents( tab, _element_ConfigurationDialog_Display, _element_ConfigurationDialog );
+        } );
 
-        var displayTab = createElement( "div", "controls-tab" );
-        displayTab.innerText = _options.displayTabText;
-        tabsContainer.appendChild( displayTab );
+        buildTab( tabsContainer, _options.organizerTabText, function( tab ) {
+            showTabContents( tab, _element_ConfigurationDialog_Organizer, _element_ConfigurationDialog );
+        } );
 
-        displayTab.onclick = function () {
-            showTabContents( displayTab, _element_ConfigurationDialog_Display );
-        };
-
-        var organizerTab = createElement( "div", "controls-tab" );
-        organizerTab.innerText = _options.organizerTabText;
-        tabsContainer.appendChild( organizerTab );
-
-        organizerTab.onclick = function () {
-            showTabContents( organizerTab, _element_ConfigurationDialog_Organizer );
-        };
-
-        _element_ConfigurationDialog_Groups = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
-        contents.appendChild( _element_ConfigurationDialog_Groups );
-
-        _element_ConfigurationDialog_Display = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
-        _element_ConfigurationDialog_Display.style.display = "none";
-        contents.appendChild( _element_ConfigurationDialog_Display );
+        _element_ConfigurationDialog_Groups = buildTabContainer( contents, true );
+        _element_ConfigurationDialog_Display = buildTabContainer( contents );
+        _element_ConfigurationDialog_Organizer = buildTabContainer( contents );
 
         _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
-
-        _element_ConfigurationDialog_Organizer = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
-        _element_ConfigurationDialog_Organizer.style.display = "none";
-        contents.appendChild( _element_ConfigurationDialog_Organizer );
 
         createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
 
@@ -3894,24 +3875,6 @@ function calendarJs( id, options, startDateTime ) {
 
         createButtonElement( buttonsSplitContainer, _options.okText, "ok", configurationDialogEvent_OK );
         createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
-    }
-
-    function showTabContents( tab, contents ) {
-        var tabs = _element_ConfigurationDialog.getElementsByClassName( "controls-tab-selected" ),
-            tabsLength = tabs.length,
-            allContents = _element_ConfigurationDialog.getElementsByClassName( "controls-container " ),
-            allContentsLength = allContents.length;
-
-        for ( var tabIndex = 0; tabIndex < tabsLength; tabIndex++ ) {
-            tabs[ tabIndex ].className = "controls-tab";
-        }
-
-        for ( var allContentsIndex = 0; allContentsIndex < allContentsLength; allContentsIndex++ ) {
-            allContents[ allContentsIndex ].style.display = "none";
-        }
-
-        tab.className = "controls-tab-selected";
-        contents.style.display = "block";
     }
 
     function buildConfigurationGroupOptions() {
@@ -4154,6 +4117,58 @@ function calendarJs( id, options, startDateTime ) {
         element.onmousemove = function( e ) {
             showTooltip( e, null, text, overrideShow );
         };
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Tabs
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildTab( container, text, onClickEvent, selected ) {
+        selected = isDefined( selected ) ? selected : false;
+
+        var className = "controls-tab" + ( selected ? "-selected" : "" ),
+            tab = createElement( "div", className );
+
+        tab.innerText = text;
+        container.appendChild( tab );
+
+        tab.onclick = function () {
+            onClickEvent( tab );
+        };
+    }
+
+    function buildTabContainer( container, selected ) {
+        selected = isDefined( selected ) ? selected : false;
+
+        var tabContainer = createElement( "div", "checkboxContainer controls-container custom-scroll-bars" );
+        container.appendChild( tabContainer );
+
+        if ( !selected ) {
+            tabContainer.style.display = "none";
+        }
+
+        return tabContainer;
+    }
+
+    function showTabContents( tab, contents, container ) {
+        var tabs = container.getElementsByClassName( "controls-tab-selected" ),
+            tabsLength = tabs.length,
+            allContents = container.getElementsByClassName( "controls-container " ),
+            allContentsLength = allContents.length;
+    
+        for ( var tabIndex = 0; tabIndex < tabsLength; tabIndex++ ) {
+            tabs[ tabIndex ].className = "controls-tab";
+        }
+    
+        for ( var allContentsIndex = 0; allContentsIndex < allContentsLength; allContentsIndex++ ) {
+            allContents[ allContentsIndex ].style.display = "none";
+        }
+    
+        tab.className = "controls-tab-selected";
+        contents.style.display = "block";
     }
 
 
