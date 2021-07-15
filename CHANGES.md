@@ -1,6 +1,9 @@
 # Calendar.js - Change Log:
 
 ### Version 1.0.0:
+- Added context menu support to the Full Day view (allowing events to be cleared, or added).
+- Fixed a fault that prevented the event context menu from rebuilding when manual editing is re-enabled.
+- 
 
 ### Version 0.9.9:
 - Optimizations and cleanups to the core code (less repeating code, more functions, etc).
