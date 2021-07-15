@@ -184,7 +184,7 @@
  * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
  * @property    {string}    removeEventsTooltipText                     The tooltip text that should be used for for the "Remove Events" button.
  * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal").
- * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?").
+ * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these non-repeating events cannot be undone.  Do you want to continue?").
  * @property    {string}    eventText                                   The text that should be displayed for the "Event" label.
  * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
  * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
@@ -505,7 +505,7 @@ function calendarJs( id, options, startDateTime ) {
         return events;
     }
 
-    function removeEventsOnSpecificDate( date, compareFunc ) {
+    function removeNonRepeatingEventsOnSpecificDate( date, compareFunc ) {
         addNode( _document.body, _element_DisabledBackground );
 
         var onNoEvent = function() {
@@ -516,7 +516,8 @@ function calendarJs( id, options, startDateTime ) {
             onNoEvent();
 
             getAllEventsFunc( function( event ) {
-                if ( compareFunc( event.from, date ) ) {
+                var repeatEvery = getNumber( event.repeatEvery );
+                if ( repeatEvery === _const_Repeat_Never && compareFunc( event.from, date ) ) {
                     _this.removeEvent( event.id, false );
                 }
             } );
@@ -1958,8 +1959,8 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.manualEditingEnabled ) { 
                 buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
-                    removeEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
-                } );                
+                    removeNonRepeatingEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
+                } );
             }
 
             buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
@@ -2293,8 +2294,8 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( _options.manualEditingEnabled ) { 
                 buildToolbarButton( dayHeader, "ib-close", _options.removeEventsTooltipText, function() {
-                    removeEventsOnSpecificDate( removeEventsDate, doDatesMatch );
-                } );                
+                    removeNonRepeatingEventsOnSpecificDate( removeEventsDate, doDatesMatch );
+                } );
             }
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
@@ -2812,7 +2813,7 @@ function calendarJs( id, options, startDateTime ) {
             buildMenuSeparator( _element_DropDownMenu_FullDay );
 
             buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
-                removeEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
+                removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
             } );
         }
     }
@@ -6488,7 +6489,7 @@ function calendarJs( id, options, startDateTime ) {
         }
         
         if ( !isDefined( _options.confirmEventsRemoveMessage ) ) {
-            _options.confirmEventsRemoveMessage = "Removing these events cannot be undone.  Do you want to continue?";
+            _options.confirmEventsRemoveMessage = "Removing these non-repeating events cannot be undone.  Do you want to continue?";
         }
 
         if ( !isDefined( _options.eventText ) ) {

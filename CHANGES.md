@@ -4,6 +4,7 @@
 - Added context menu support to the Full Day view (allowing events to be cleared, or added).
 - Fixed a fault that prevented the event context menu from rebuilding when manual editing is re-enabled.
 - Reordered the event context menu and added new icons.
+- When using the "Remove Events" option (anywhere), it now only removes non-repeating events (confirmation text updated).
 - 
 
 ### Version 0.9.9:
