@@ -2751,8 +2751,14 @@ function calendarJs( id, options, startDateTime ) {
         if ( _options.manualEditingEnabled ) {
             _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
             _document.body.appendChild( _element_DropDownMenu_Event );
+
+            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle, function() {
+                showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
+            }, true );
+
+            buildMenuSeparator( _element_DropDownMenu_Event );
             
-            buildMenuItem( _element_DropDownMenu_Event, _options.removeEventText, function() {
+            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
                 addNode( _document.body, _element_DisabledBackground );
     
                 var onNoEvent = function() {
@@ -2786,12 +2792,6 @@ function calendarJs( id, options, startDateTime ) {
         
                 showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
             } );
-
-            buildMenuSeparator( _element_DropDownMenu_Event );
-    
-            buildMenuItem( _element_DropDownMenu_Event, _options.editEventTitle, function() {
-                showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
-            } );
         }
     }
 
@@ -2815,16 +2815,6 @@ function calendarJs( id, options, startDateTime ) {
                 removeEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
             } );
         }
-    }
-
-    function buildMenuItem( container, text, onClickEvent ) {
-        var editEvent = createElement( "div", "item" );
-        editEvent.innerText = text;
-        container.appendChild( editEvent );
-
-        editEvent.onclick = function() {
-            onClickEvent();
-        };
     }
 
     function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {

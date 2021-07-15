@@ -3,6 +3,7 @@
 ### Version 1.0.0:
 - Added context menu support to the Full Day view (allowing events to be cleared, or added).
 - Fixed a fault that prevented the event context menu from rebuilding when manual editing is re-enabled.
+- Reordered the event context menu and added new icons.
 - 
 
 ### Version 0.9.9:
