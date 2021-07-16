@@ -6006,7 +6006,7 @@ function calendarJs( id, options, startDateTime ) {
             _options.useOnlyDotEventsForMainDisplay = false;
         }
 
-        if ( !isDefined( _options.visibleDays ) ) {
+        if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
         }
 
@@ -6075,7 +6075,7 @@ function calendarJs( id, options, startDateTime ) {
             _options.listWeekEventsTooltipText = "View Current Week Events";
         }
 
-        if ( !isDefined( _options.dayHeaderNames ) ) {
+        if ( isInvalidOptionArray( _options.dayHeaderNames, 7 ) ) {
             _options.dayHeaderNames = [
                 "Mon",
                 "Tue",
@@ -6087,7 +6087,7 @@ function calendarJs( id, options, startDateTime ) {
             ];
         }
 
-        if ( !isDefined( _options.dayNames ) ) {
+        if ( isInvalidOptionArray( _options.dayNames, 7 ) ) {
             _options.dayNames = [
                 "Monday",
                 "Tuesday",
@@ -6099,7 +6099,7 @@ function calendarJs( id, options, startDateTime ) {
             ];
         }
 
-        if ( !isDefined( _options.monthNames ) ) {
+        if ( isInvalidOptionArray( _options.monthNames, 12 ) ) {
             _options.monthNames = [
                 "January",
                 "February",
@@ -6503,6 +6503,12 @@ function calendarJs( id, options, startDateTime ) {
         if ( !isDefined( _options.urlText ) ) {
             _options.urlText = "Url:";
         }
+    }
+
+    function isInvalidOptionArray( array, minimumLength ) {
+        minimumLength = isDefined( minimumLength ) ? minimumLength : 1;
+
+        return !isDefinedArray( array ) || array.length < minimumLength;
     }
 
     function checkForBrowserNotificationsPermission() {

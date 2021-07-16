@@ -5,6 +5,7 @@
 - Fixed a fault that prevented the event context menu from rebuilding when manual editing is re-enabled.
 - Reordered the event context menu and added new icons.
 - When using the "Remove Events" option (anywhere), it now only removes non-repeating events (confirmation text updated).
+- Array options are now checked correctly to make sure they are an array and contain the right number of items.
 - 
 
 ### Version 0.9.9:
