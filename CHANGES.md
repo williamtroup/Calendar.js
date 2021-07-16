@@ -6,6 +6,7 @@
 - Reordered the event context menu and added new icons.
 - When using the "Remove Events" option (anywhere), it now only removes non-repeating events (confirmation text updated).
 - Array options are now checked correctly to make sure they are an array and contain the right number of items.
+- The "visibleDays" option is now taken into account when showing the Weekly view (so only visible days will show).
 - 
 
 ### Version 0.9.9:

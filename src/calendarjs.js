@@ -2070,9 +2070,11 @@ function calendarJs( id, options, startDateTime ) {
                         dayContents = containers[ 0 ],
                         dayHeader = containers[ 1 ];
     
-                    var added = buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, nextDate );
-                    if ( added ) {
-                        addedNow = true;
+                    if ( dayContents !== null && dayHeader !== null ) {
+                        var added = buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, nextDate );
+                        if ( added ) {
+                            addedNow = true;
+                        }
                     }
                 }
 
@@ -2140,8 +2142,10 @@ function calendarJs( id, options, startDateTime ) {
                         dayContents = containers[ 0 ],
                         dayHeader = containers[ 1 ];
 
-                    buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, newFromDate );
-                    added = true;
+                    if ( dayContents !== null && dayHeader !== null ) {
+                        buildListAllWeekEventsEvent( orderedEvent, dayHeader, dayContents, newFromDate );
+                        added = true;
+                    }
                 }
             }
         }
@@ -2268,7 +2272,7 @@ function calendarJs( id, options, startDateTime ) {
             dayHeader = null,
             removeEventsDate = new Date( date );
 
-        if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
+        if ( !_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) && _options.visibleDays.indexOf( weekDayNumber ) > -1 ) {
             var expandDate = new Date( date ),
                 expandFunction = function() {
                     showFullDayView( expandDate, true );
@@ -2318,9 +2322,11 @@ function calendarJs( id, options, startDateTime ) {
             _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = [ dayContents, dayHeader ];
         } else {
 
-            var existingContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
-            dayContents = existingContents[ 0 ];
-            dayHeader = existingContents[ 1 ];
+            if ( _element_ListAllWeekEventsView_Contents_FullView_Contents.hasOwnProperty( dateID ) ) {
+                var existingContents = _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ];
+                dayContents = existingContents[ 0 ];
+                dayHeader = existingContents[ 1 ];
+            }
         }
 
         return [ dayContents, dayHeader ];
