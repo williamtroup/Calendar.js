@@ -2315,9 +2315,12 @@ function calendarJs( id, options, startDateTime ) {
             dayContents.appendChild( noEventsTextContainer );
 
             createSpanElement( noEventsTextContainer, _options.noEventsAvailableText );
-            createSpanElement( noEventsTextContainer, " " + _options.clickText + " " );
-            createSpanElement( noEventsTextContainer, _options.hereText, "link", addEventFunction );
-            createSpanElement( noEventsTextContainer, " " + _options.toAddANewEventText );
+
+            if ( _options.manualEditingEnabled ) {
+                createSpanElement( noEventsTextContainer, " " + _options.clickText + " " );
+                createSpanElement( noEventsTextContainer, _options.hereText, "link", addEventFunction );
+                createSpanElement( noEventsTextContainer, " " + _options.toAddANewEventText );
+            }
 
             _element_ListAllWeekEventsView_Contents_FullView_Contents[ dateID ] = [ dayContents, dayHeader ];
         } else {
