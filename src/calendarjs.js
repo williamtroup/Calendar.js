@@ -65,6 +65,7 @@
  * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
  * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
  * @property    {Object}    onOptionsUpdated                            Specifies an event that will be triggered when the options are updated (passes the options to the function).
+ * @property    {Object}    onNotificationClicked                       Specifies an event that will be triggered when a notification is clicked (passes the event to the function).
  */
 
 
@@ -1421,6 +1422,8 @@ function calendarJs( id, options, startDateTime ) {
                     } else {
                         window.open( url, "_blank" );
                     }
+
+                    triggerOptionsEventWithData( "onNotificationClicked", event );
                 };
             }
         }

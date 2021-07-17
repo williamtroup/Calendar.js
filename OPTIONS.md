@@ -183,3 +183,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
 | onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |
 | onOptionsUpdated | Specifies an event that will be triggered when the options are updated (passes the options to the function). |
+| onNotificationClicked | Specifies an event that will be triggered when a notification is clicked (passes the event to the function). |
