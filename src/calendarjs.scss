@@ -176,6 +176,10 @@ div.calendar {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
         }
 
+        div.scrollY {
+            overflow-y: auto !important;
+        }
+
         div.cell {
             display: inline-block;
             text-align: center;

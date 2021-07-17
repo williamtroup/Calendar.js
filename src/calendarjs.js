@@ -225,6 +225,7 @@
  * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
  * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
  * @property    {Object[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
+ * @property    {boolean}   allowEventScrollingOnMainDisplay            States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
  */
 
 
@@ -631,10 +632,14 @@ function calendarJs( id, options, startDateTime ) {
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
                 if ( _options.visibleDays.indexOf( columnDataIndex ) > -1 ) {
                     var columnDataNumber = ( rowIndex * 7 ) + ( columnDataIndex + 1 ),
-                        columnData = createElement( "div", getCellName() );
+                        columnData = createElement( "div", getCellName( _options.allowEventScrollingOnMainDisplay ) );
 
                     columnData.id = _elementID_DayElement + columnDataNumber;
                     rowData.appendChild( columnData );
+
+                    if ( _options.allowEventScrollingOnMainDisplay ) {
+                        columnData.className += " scrollY";
+                    }
 
                     if ( _options.minimumDayHeight > 0 ) {
                         columnData.style.height = _options.minimumDayHeight + "px";
@@ -644,8 +649,16 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function getCellName() {
-        return _elementClassName_Cell + " cell-" + _options.visibleDays.length;
+    function getCellName( addScrollBars ) {
+        addScrollBars = isDefined( addScrollBars ) ? addScrollBars : false;
+
+        var className = _elementClassName_Cell + " cell-" + _options.visibleDays.length;
+        if ( addScrollBars ) {
+            className += " custom-scroll-bars";
+        }
+
+
+        return className;
     }
 
     function getAdjustedAllDayEvent( event ) {
@@ -6020,6 +6033,14 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
+        }
+
+        if ( !isDefined( _options.allowEventScrollingOnMainDisplay ) ) {
+            _options.allowEventScrollingOnMainDisplay = false;
+
+            if ( _options.allowEventScrollingOnMainDisplay ) {
+                _options.maximumEventsPerDayDisplay = 0;
+            }
         }
 
         setTranslationStringOptions();

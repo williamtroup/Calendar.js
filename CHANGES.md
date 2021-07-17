@@ -9,6 +9,7 @@
 - The "visibleDays" option is now taken into account when showing the Weekly view (so only visible days will show).
 - Fixed a fault that allowed events to be added in the Weekly view when manual event adding/editing is disabled.
 - Added new event "onNotificationClicked", which is triggered when an event notification is clicked.
+- Added new option "allowEventScrollingOnMainDisplay", which allows days in the main display to be scrolled (see documentation).
 - 
 
 ### Version 0.9.9:

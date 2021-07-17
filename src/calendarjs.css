@@ -228,6 +228,10 @@ div.calendar div.row div.cell-7 {
   width: calc(100% - (20px + 1px) / 7);
 }
 
+div.calendar div.row div.scrollY {
+  overflow-y: auto !important;
+}
+
 div.calendar div.row div.cell {
   display: inline-block;
   text-align: center;
