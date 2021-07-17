@@ -657,7 +657,6 @@ function calendarJs( id, options, startDateTime ) {
             className += " custom-scroll-bars";
         }
 
-
         return className;
     }
 
