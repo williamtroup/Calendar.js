@@ -201,3 +201,8 @@ Sets the specific options that should be used.
 ***Parameter: newOptions***: '*Object*' - All the options that should be set (refer to "Options" documentation for properties).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States of the "onOptionsUpdated" event should be triggered.
+
+### **addHoliday( *holiday* )**:
+Adds a new holiday.
+<br>
+***Parameter: holiday***: '*Object*' - The holiday to add (refer to "Holiday" documentation for properties).

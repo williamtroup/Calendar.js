@@ -43,6 +43,7 @@
             <button onclick="setOptions();">Set Options</button>
             <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
             <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
+            <button onclick="addNewHoliday();">Add New Holiday</button>
             <br />
     
             <h2>Export Events:</h2>
@@ -246,6 +247,25 @@
                     group: "Group 1"
                 }
             ];
+        }
+
+        function addNewHoliday() {
+            var today = new Date();
+
+            var holiday1 = {
+                day: today.getDate(),
+                month: today.getMonth() + 1,
+                title: "A New Holiday",
+            };
+
+            var holiday2 = {
+                day: today.getDate(),
+                month: today.getMonth() + 1,
+                title: "Another Holiday",
+            };
+            
+            calendarInstance.addHoliday( holiday1 );
+            calendarInstance.addHoliday( holiday2 );
         }
     </script>
 </html>

@@ -5919,6 +5919,19 @@ function calendarJs( id, options, startDateTime ) {
         }
     };
 
+    /**
+     * addHoliday().
+     * 
+     * Adds a new holiday.
+     * 
+     * @param       {Object}    holiday                                     The holiday to add (refer to "Holiday" documentation for properties).
+     */
+    this.addHoliday = function( holiday ) {
+        _options.holidays.push( holiday );
+
+        build( _currentDate, true );
+    };
+
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
 
