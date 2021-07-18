@@ -228,6 +228,7 @@
  * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
  * @property    {Object[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {boolean}   allowEventScrollingOnMainDisplay            States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
+ * @property    {string}    urlWindowTarget                             States the target that an event Url should be opened in (defaults to _blank for a new window).
  */
 
 
@@ -1444,7 +1445,7 @@ function calendarJs( id, options, startDateTime ) {
                     if ( url === "" ) {
                         showEventEditingDialog( event );
                     } else {
-                        _window.open( url, "_blank" );
+                        _window.open( url, _options.urlWindowTarget );
                     }
 
                     triggerOptionsEventWithData( "onNotificationClicked", event );
@@ -2835,7 +2836,7 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         _element_DropDownMenu_Event_OpenUrl = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-top-right-icon", _options.openUrlText, function() {
-            _window.open( _element_DropDownMenu_Event_EventDetails.url, "_blank" );
+            _window.open( _element_DropDownMenu_Event_EventDetails.url, _options.urlWindowTarget );
         } );
     }
 
@@ -6138,6 +6139,10 @@ function calendarJs( id, options, startDateTime ) {
             if ( _options.allowEventScrollingOnMainDisplay ) {
                 _options.maximumEventsPerDayDisplay = 0;
             }
+        }
+
+        if ( !isDefined( _options.urlWindowTarget ) ) {
+            _options.urlWindowTarget = "_blank";
         }
 
         setTranslationStringOptions();

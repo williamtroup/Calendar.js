@@ -14,6 +14,7 @@
 - Added "Open Url" support to the event context menu (only available if a Url has been set for the event).
 - Fixed a fault that prevented the cached window object being used to open new windows.
 - Added "Visible Days" tab to the Configuration dialog, allowing the visible days in the display to be toggled.
+- Added new option "urlWindowTarget", which states the target for a event Url that is opened (defaults to _blank for a new window).
 - 
 
 ### Version 0.9.9:
