@@ -1084,6 +1084,15 @@ function calendarJs( id, options, startDateTime ) {
         return result;
     }
 
+    function setMinimumDate( input, date ) {
+        if ( input.type === "date" ) {
+            var day = ( "0" + date.getDate() ).slice( -2 ),
+                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+            input.setAttribute( "min", date.getFullYear() + "-" + month + "-" + day );
+        }
+    }
+
     function setTimeOnDate( date, timeData ) {
         var hours = 0,
             minutes = 0,
@@ -3177,6 +3186,12 @@ function calendarJs( id, options, startDateTime ) {
 
         var fromDate = getSelectedDate( _element_EventEditorDialog_DateFrom ),
             toDate = getSelectedDate( _element_EventEditorDialog_DateTo );
+
+        setMinimumDate( _element_EventEditorDialog_DateTo, fromDate );
+
+        if ( fromDate > toDate ) {
+            setSelectedDate( fromDate, _element_EventEditorDialog_DateTo );
+        }
 
         if ( toDate > fromDate || toDate < fromDate ) {
             disabled = true;
