@@ -189,6 +189,7 @@
  * @property    {string}    eventText                                   The text that should be displayed for the "Event" label.
  * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
  * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
+ * @property    {string}    openUrlText                                 The text that should be displayed for the "Open Url" label.
  */
 
 
@@ -377,6 +378,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Event = null,
         _element_DropDownMenu_Event_EventDetails = null,
         _element_DropDownMenu_Event_FormattedDateSelected = null,
+        _element_DropDownMenu_Event_OpenUrlSeparator = null,
+        _element_DropDownMenu_Event_OpenUrl = null,
         _element_DropDownMenu_FullDay = null,
         _element_SearchDialog = null,
         _element_SearchDialog_MinimizedRestoreButton = null,
@@ -2771,6 +2774,7 @@ function calendarJs( id, options, startDateTime ) {
         if ( _element_DropDownMenu_Event !== null ) {
             removeNode( _document.body, _element_DropDownMenu_Event );
             _element_DropDownMenu_Event = null;
+            _element_DropDownMenu_Event_OpenUrlSeparator = null;
         }
 
         if ( _options.manualEditingEnabled ) {
@@ -2817,7 +2821,13 @@ function calendarJs( id, options, startDateTime ) {
         
                 showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
             } );
+
+            _element_DropDownMenu_Event_OpenUrlSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
         }
+
+        _element_DropDownMenu_Event_OpenUrl = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-top-right-icon", _options.openUrlText, function() {
+            _window.open( _element_DropDownMenu_Event_EventDetails.url, "_blank" );
+        } );
     }
 
     function buildFullDayViewDropDownMenu() {
@@ -2861,10 +2871,16 @@ function calendarJs( id, options, startDateTime ) {
         menuItem.onclick = function() {
             onClickEvent();
         };
+
+        return menuItem;
     }
 
     function buildMenuSeparator( container ) {
-        container.appendChild( createElement( "div", "separator" ) );
+        var separator = createElement( "div", "separator" );
+
+        container.appendChild( separator );
+
+        return separator;
     }
 
     function showDayDropDownMenu( e, date ) {
@@ -2878,6 +2894,21 @@ function calendarJs( id, options, startDateTime ) {
     function showEventDropDownMenu( e, eventDetails, selectedDate ) {
         _element_DropDownMenu_Event_EventDetails = eventDetails;
         _element_DropDownMenu_Event_FormattedDateSelected = isDefined( selectedDate ) ? selectedDate : null;
+
+        var url = getString( eventDetails.url, null ),
+            display = "none";
+
+        if ( url !== null && url !== "" ) {
+            display = "block";
+        } else {
+            display = "none";
+        }
+
+        if ( _element_DropDownMenu_Event_OpenUrlSeparator !== null ) {
+            _element_DropDownMenu_Event_OpenUrlSeparator.style.display = display;
+        }
+        
+        _element_DropDownMenu_Event_OpenUrl.style.display = display;
 
         hideAllDropDowns();
         cancelBubble( e );
@@ -6547,6 +6578,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.urlText ) ) {
             _options.urlText = "Url:";
+        }
+
+        if ( !isDefined( _options.openUrlText ) ) {
+            _options.openUrlText = "Open Url";
         }
     }
 

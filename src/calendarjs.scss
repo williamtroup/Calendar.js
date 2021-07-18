@@ -1367,7 +1367,8 @@ div.calendar-drop-down-menu {
     div.ib-plus-icon,
     div.ib-arrow-expand-left-right-icon,
     div.ib-hamburger-icon,
-    div.ib-close-icon {
+    div.ib-close-icon,
+    div.ib-arrow-top-right-icon {
         margin-right: $spacing;
     }
 
@@ -1391,7 +1392,8 @@ div.calendar-drop-down-menu {
 
         &:hover div.ib-hamburger-icon,
         &:hover div.ib-arrow-expand-left-right-icon:after,
-        &:hover div.ib-arrow-expand-left-right-icon:before {
+        &:hover div.ib-arrow-expand-left-right-icon:before,
+        &:hover div.ib-arrow-top-right-icon {
             border-color: $light-color;
         }
 
@@ -1496,5 +1498,6 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/arrow-expand-left-right-icon";
 @import "foundation/menus/close-icon";
+@import "foundation/menus/arrow-top-right-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";

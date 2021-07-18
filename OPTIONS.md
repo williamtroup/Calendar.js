@@ -160,6 +160,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventText | The text that should be displayed for the "Event" label. |
 | *string* | optionalText | The text that should be displayed for the "Optional" label. |
 | *string* | urlText | The text that should be displayed for the "Url:" label. |
+| *string* | openUrlText | The text that should be displayed for the "Open Url" label. |
 
 <br/>
 

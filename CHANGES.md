@@ -11,6 +11,7 @@
 - Added new event "onNotificationClicked", which is triggered when an event notification is clicked.
 - Added new option "allowEventScrollingOnMainDisplay", which allows days in the main display to be scrolled (see documentation).
 - Added new public function addHoliday, which will add a new holiday and re-draw the calender.
+- Added "Open Url" support to the event context menu (only available if a Url has been set for the event).
 - 
 
 ### Version 0.9.9:
