@@ -1435,7 +1435,7 @@ function calendarJs( id, options, startDateTime ) {
                     if ( url === "" ) {
                         showEventEditingDialog( event );
                     } else {
-                        window.open( url, "_blank" );
+                        _window.open( url, "_blank" );
                     }
 
                     triggerOptionsEventWithData( "onNotificationClicked", event );

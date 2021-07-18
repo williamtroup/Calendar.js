@@ -12,6 +12,7 @@
 - Added new option "allowEventScrollingOnMainDisplay", which allows days in the main display to be scrolled (see documentation).
 - Added new public function addHoliday, which will add a new holiday and re-draw the calender.
 - Added "Open Url" support to the event context menu (only available if a Url has been set for the event).
+- Fixed a fault that prevented the cached window object being used to open new windows.
 - 
 
 ### Version 0.9.9:
