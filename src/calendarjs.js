@@ -5920,14 +5920,14 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
-     * addHoliday().
+     * addHolidays().
      * 
-     * Adds a new holiday.
+     * Adds new holidays.
      * 
-     * @param       {Object}    holiday                                     The holiday to add (refer to "Holiday" documentation for properties).
+     * @param       {Object[]}  holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
      */
-    this.addHoliday = function( holiday ) {
-        _options.holidays.push( holiday );
+    this.addHolidays = function( holidays ) {
+        _options.holidays = _options.holidays.concat( holidays );
 
         build( _currentDate, true );
     };
