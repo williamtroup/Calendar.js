@@ -17,6 +17,7 @@
 - Added new option "urlWindowTarget", which states the target for a event Url that is opened (defaults to _blank for a new window).
 - Added "Enable day name headers in the main display" option to "Display" on the Configuration dialog.
 - Added the "Today" button to the Full Day view for quickly jumping to the current date.
+- Added a "This Week" button to the Weekly view for quickly jumping to the current week.
 - 
 
 ### Version 0.9.9:

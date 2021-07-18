@@ -164,6 +164,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | openUrlText | The text that should be displayed for the "Open Url" label. |
 | *string* | visibleDaysTabText | The text that should be displayed for the "Visible Days" tab. |
 | *string* | enableDayNameHeadersInMainDisplayText | The text that should be displayed for the "Enable day name headers in the main display" label. |
+| *string* | thisWeekTooltipText | The tooltip text that should be used for for the "This Week" button. |
 
 <br/>
 

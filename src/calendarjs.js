@@ -192,6 +192,7 @@
  * @property    {string}    openUrlText                                 The text that should be displayed for the "Open Url" label.
  * @property    {string}    visibleDaysTabText                          The text that should be displayed for the "Visible Days" tab.
  * @property    {string}    enableDayNameHeadersInMainDisplayText       The text that should be displayed for the "Enable day name headers in the main display" label.
+ * @property    {string}    thisWeekTooltipText                         The tooltip text that should be used for for the "This Week" button.
  */
 
 
@@ -2067,6 +2068,8 @@ function calendarJs( id, options, startDateTime ) {
             _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
+        buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
+
         _element_ListAllWeekEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_ListAllWeekEventsView.appendChild( _element_ListAllWeekEventsView_Contents );
     }
@@ -2386,6 +2389,12 @@ function calendarJs( id, options, startDateTime ) {
 
     function onNextWeek() {
         moveDateForwardOneWeek( _element_ListAllWeekEventsView_DateSelected );
+        showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
+    }
+
+    function onThisWeek() {
+        _element_ListAllWeekEventsView_DateSelected = new Date();
+        
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
     }
 
@@ -6662,6 +6671,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.enableDayNameHeadersInMainDisplayText ) ) {
             _options.enableDayNameHeadersInMainDisplayText = "Enable day name headers in the main display";
+        }
+
+        if ( !isDefined( _options.thisWeekTooltipText ) ) {
+            _options.thisWeekTooltipText = "This Week";
         }
     }
 
