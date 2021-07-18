@@ -191,6 +191,7 @@
  * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
  * @property    {string}    openUrlText                                 The text that should be displayed for the "Open Url" label.
  * @property    {string}    visibleDaysTabText                          The text that should be displayed for the "Visible Days" tab.
+ * @property    {string}    enableDayNameHeadersInMainDisplayText       The text that should be displayed for the "Enable day name headers in the main display" label.
  */
 
 
@@ -412,6 +413,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableBrowserNotifications = null,
         _element_ConfigurationDialog_Display_EnableTooltips = null,
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null,
+        _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null,
         _element_ConfigurationDialog_Organizer_Name = null,
         _element_ConfigurationDialog_Organizer_Email = null,
         _element_ConfigurationDialog_VisibleDays_Mon = null,
@@ -4010,6 +4012,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
 
         createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
 
@@ -4111,6 +4114,7 @@ function calendarJs( id, options, startDateTime ) {
         _options.eventNotificationsEnabled = _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked;
         _options.tooltipsEnabled = _element_ConfigurationDialog_Display_EnableTooltips.checked;
         _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked;
+        _options.showDayNamesInMainDisplay = _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
         _options.visibleDays = visibleDays;
@@ -4135,6 +4139,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
         _element_ConfigurationDialog_Display_EnableTooltips.checked = _options.tooltipsEnabled;
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
+        _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
         _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
         _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
         _element_ConfigurationDialog_VisibleDays_Mon.checked = _options.visibleDays.indexOf( 0 ) > -1;
@@ -6645,6 +6650,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.visibleDaysTabText ) ) {
             _options.visibleDaysTabText = "Visible Days";
+        }
+
+        if ( !isDefined( _options.enableDayNameHeadersInMainDisplayText ) ) {
+            _options.enableDayNameHeadersInMainDisplayText = "Enable day name headers in the main display";
         }
     }
 
