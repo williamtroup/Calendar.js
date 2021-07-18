@@ -2892,23 +2892,16 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function showEventDropDownMenu( e, eventDetails, selectedDate ) {
+        var url = getString( eventDetails.url ),
+            display = url !== "" ? "block" : "none";
+
         _element_DropDownMenu_Event_EventDetails = eventDetails;
         _element_DropDownMenu_Event_FormattedDateSelected = isDefined( selectedDate ) ? selectedDate : null;
-
-        var url = getString( eventDetails.url, null ),
-            display = "none";
-
-        if ( url !== null && url !== "" ) {
-            display = "block";
-        } else {
-            display = "none";
-        }
+        _element_DropDownMenu_Event_OpenUrl.style.display = display;
 
         if ( _element_DropDownMenu_Event_OpenUrlSeparator !== null ) {
             _element_DropDownMenu_Event_OpenUrlSeparator.style.display = display;
         }
-        
-        _element_DropDownMenu_Event_OpenUrl.style.display = display;
 
         hideAllDropDowns();
         cancelBubble( e );
