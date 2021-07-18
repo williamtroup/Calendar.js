@@ -1256,13 +1256,9 @@ function calendarJs( id, options, startDateTime ) {
                     }
                 };
 
-                if ( _options.manualEditingEnabled ) {
-                    var formattedDate = toStorageFormattedDate( dayDate );
-
-                    event.oncontextmenu = function( e ) {
-                        showEventDropDownMenu( e, eventDetails, formattedDate );
-                    };
-                }
+                event.oncontextmenu = function( e ) {
+                    showEventDropDownMenu( e, eventDetails, formattedDayDate );
+                };
     
                 if ( _options.manualEditingEnabled ) {
                     event.onclick = function() {
@@ -1664,11 +1660,9 @@ function calendarJs( id, options, startDateTime ) {
                 _element_FullDayView_Contents_Hours.appendChild( event );
             }
     
-            if ( _options.manualEditingEnabled ) {
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails, formattedDate );
-                };
-            }
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails, formattedDate );
+            };
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
@@ -1915,11 +1909,9 @@ function calendarJs( id, options, startDateTime ) {
 
             container.appendChild( event );
     
-            if ( _options.manualEditingEnabled ) {
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails );
-                };
-            }
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
     
             makeEventDraggable( event, eventDetails, eventDetails.from );
             setEventClassesAndColors( event, eventDetails );
@@ -2235,11 +2227,9 @@ function calendarJs( id, options, startDateTime ) {
             var event = createElement( "div", getEventClassName() );
             container.appendChild( event );
     
-            if ( _options.manualEditingEnabled ) {
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails, formattedDate );
-                };
-            }
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails, formattedDate );
+            };
     
             makeEventDraggable( event, eventDetails, displayDate );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
@@ -2815,10 +2805,10 @@ function calendarJs( id, options, startDateTime ) {
             _element_DropDownMenu_Event_OpenUrlSeparator = null;
         }
 
-        if ( _options.manualEditingEnabled ) {
-            _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
-            _document.body.appendChild( _element_DropDownMenu_Event );
+        _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
+        _document.body.appendChild( _element_DropDownMenu_Event );
 
+        if ( _options.manualEditingEnabled ) {
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle, function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
             }, true );
@@ -2941,9 +2931,11 @@ function calendarJs( id, options, startDateTime ) {
             _element_DropDownMenu_Event_OpenUrlSeparator.style.display = display;
         }
 
-        hideAllDropDowns();
-        cancelBubble( e );
-        showElementAtMousePosition( e, _element_DropDownMenu_Event );
+        if ( display === "block" || _element_DropDownMenu_Event.childElementCount > 2 ) {
+            hideAllDropDowns();
+            cancelBubble( e );
+            showElementAtMousePosition( e, _element_DropDownMenu_Event );
+        }
     }
 
     function showFullDayDropDownMenu( e ) {
