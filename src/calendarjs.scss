@@ -1057,7 +1057,7 @@ div.search {
 */
 
 div.configuration {
-    @include dialog-styles(350px);
+    @include dialog-styles(400px);
     @include dialog-title-bar;
 
     div.contents {

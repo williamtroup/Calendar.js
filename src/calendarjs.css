@@ -2354,7 +2354,7 @@ div.search div.ib-square-hollow {
 */
 div.configuration {
   width: calc(100% - (10px * 2));
-  max-width: 350px;
+  max-width: 400px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
