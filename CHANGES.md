@@ -1,5 +1,24 @@
 # Calendar.js - Change Log:
 
+### Version 1.0.0:
+- Added context menu support to the Full Day view (allowing events to be cleared, or added).
+- Fixed a fault that prevented the event context menu from rebuilding when manual editing is re-enabled.
+- Reordered the event context menu and added new icons.
+- When using the "Remove Events" option (anywhere), it now only removes non-repeating events (confirmation text updated).
+- Array options are now checked correctly to make sure they are an array and contain the right number of items.
+- The "visibleDays" option is now taken into account when showing the Weekly view (so only visible days will show).
+- Fixed a fault that allowed events to be added in the Weekly view when manual event adding/editing is disabled.
+- Added new event "onNotificationClicked", which is triggered when an event notification is clicked.
+- Added new option "allowEventScrollingOnMainDisplay", which allows days in the main display to be scrolled (see documentation).
+- Added new public function addHolidays, which will add new holidays and re-draw the calendar.
+- Added "Open Url" support to the event context menu (only available if a Url has been set for the event).
+- Fixed a fault that prevented the cached window object from being used to open new windows.
+- Added "Visible Days" tab to the Configuration dialog, allowing the visible days in the display to be toggled.
+- Added new option "urlWindowTarget", which states the target for an event Url that is opened (defaults to _blank for a new window).
+- Added "Enable day name headers in the main display" option to "Display" on the Configuration dialog.
+- Added the "Today" button to the Full Day view for quickly jumping to the current date.
+- Added a "This Week" button to the Weekly view for quickly jumping to the current week.
+
 ### Version 0.9.9:
 - Optimizations and cleanups to the core code (less repeating code, more functions, etc).
 - The context menus now open with a minor fade effect.

@@ -36,6 +36,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
 | *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
 | *Object[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
+| *boolean* | allowEventScrollingOnMainDisplay | States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true). |
+| *string* | urlWindowTarget | States the target that an event Url should be opened in (defaults to _blank for a new window). |
 
 <br/>
 
@@ -155,10 +157,14 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | organizerTabText | The text that should be displayed for the "Organizer" tab. |
 | *string* | removeEventsTooltipText | The tooltip text that should be used for for the "Remove Events" button. |
 | *string* | confirmEventsRemoveTitle | The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal"). |
-| *string* | confirmEventsRemoveMessage | The text for the confirmation message shown when removing events (defaults to "Removing these events cannot be undone.  Do you want to continue?"). |
+| *string* | confirmEventsRemoveMessage | The text for the confirmation message shown when removing events (defaults to "Removing these non-repeating events cannot be undone.  Do you want to continue?"). |
 | *string* | eventText | The text that should be displayed for the "Event" label. |
 | *string* | optionalText | The text that should be displayed for the "Optional" label. |
 | *string* | urlText | The text that should be displayed for the "Url:" label. |
+| *string* | openUrlText | The text that should be displayed for the "Open Url" label. |
+| *string* | visibleDaysTabText | The text that should be displayed for the "Visible Days" tab. |
+| *string* | enableDayNameHeadersInMainDisplayText | The text that should be displayed for the "Enable day name headers in the main display" label. |
+| *string* | thisWeekTooltipText | The tooltip text that should be used for for the "This Week" button. |
 
 <br/>
 
@@ -183,3 +189,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
 | onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |
 | onOptionsUpdated | Specifies an event that will be triggered when the options are updated (passes the options to the function). |
+| onNotificationClicked | Specifies an event that will be triggered when a notification is clicked (passes the event to the function). |

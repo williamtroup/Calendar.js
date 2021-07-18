@@ -1,0 +1,23 @@
+@import "icon";
+
+.ib-close-icon {
+    @include button;
+
+    &:before,
+    &:after {
+        width: $border-width;
+        height: $size + $border-width / 2;
+        background-color: $dark-color;
+        border-radius: $border-radius;
+        left: ($size / 2) - $border-width / 2;
+        top: -($border-width / 4);
+    }
+
+    &:before {
+        @include transform-rotate(45deg);
+    }
+
+    &:after {
+        @include transform-rotate(-45deg);
+    }
+}

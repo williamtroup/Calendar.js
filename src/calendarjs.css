@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.9
+ * Calendar.js Library v1.0.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -226,6 +226,10 @@ div.calendar div.row div.cell-6 {
 
 div.calendar div.row div.cell-7 {
   width: calc(100% - (20px + 1px) / 7);
+}
+
+div.calendar div.row div.scrollY {
+  overflow-y: auto !important;
 }
 
 div.calendar div.row div.cell {
@@ -637,7 +641,8 @@ div.calendar div.full-day-view div.title-bar div.ib-close,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
+div.calendar div.full-day-view div.title-bar div.ib-pin {
   float: right;
 }
 
@@ -897,7 +902,8 @@ div.calendar div.list-all-events-view div.title-bar div.ib-close,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right,
+div.calendar div.list-all-events-view div.title-bar div.ib-pin {
   float: right;
 }
 
@@ -1092,7 +1098,8 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-close,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-pin {
   float: right;
 }
 
@@ -2350,7 +2357,7 @@ div.search div.ib-square-hollow {
 */
 div.configuration {
   width: calc(100% - (10px * 2));
-  max-width: 350px;
+  max-width: 400px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -2845,7 +2852,9 @@ div.calendar-drop-down-menu div.bold {
 
 div.calendar-drop-down-menu div.ib-plus-icon,
 div.calendar-drop-down-menu div.ib-arrow-expand-left-right-icon,
-div.calendar-drop-down-menu div.ib-hamburger-icon {
+div.calendar-drop-down-menu div.ib-hamburger-icon,
+div.calendar-drop-down-menu div.ib-close-icon,
+div.calendar-drop-down-menu div.ib-arrow-top-right-icon {
   margin-right: 10px;
 }
 
@@ -2863,13 +2872,16 @@ div.calendar-drop-down-menu div.item:hover {
 
 div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:before,
 div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:after,
-div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before {
+div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before,
+div.calendar-drop-down-menu div.item:hover div.ib-close-icon:before,
+div.calendar-drop-down-menu div.item:hover div.ib-close-icon:after {
   background-color: #F5F5F5;
 }
 
 div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon,
 div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:after,
-div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before {
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before,
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon {
   border-color: #F5F5F5;
 }
 
@@ -3699,6 +3711,77 @@ div.calendar-drop-down-menu div.separator {
   height: 6px;
   top: 0;
   right: 0;
+}
+
+.ib-close-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+
+.ib-close-icon:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-close-icon:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-close-icon:before, .ib-close-icon:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-close-icon:before, .ib-close-icon:after {
+  width: 3px;
+  height: 13.5px;
+  background-color: #282828;
+  border-radius: 3px;
+  left: 4.5px;
+  top: -0.75px;
+}
+
+.ib-close-icon:before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.ib-close-icon:after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.ib-arrow-top-right-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-right: 3px solid #282828;
+  border-top: 3px solid #282828;
+  border-radius: 3px;
+}
+
+.ib-arrow-top-right-icon:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-arrow-top-right-icon:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .ib-refresh-medium {

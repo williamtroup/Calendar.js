@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js - Minimized - v0.9.9</title>
+        <title>Calendar.js - Minimized - v1.0.0</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="src/calendarjs.min.css" />
@@ -9,7 +9,7 @@
     </head>
     
     <body>
-        <h1>Welcome to Calendar.js v0.9.9:</h1>
+        <h1>Welcome to Calendar.js v1.0.0:</h1>
 
         <div class="contents">
             <p>Click <a href="calendarjs.html" target="_self">here</a> to jump to the un-minimized version.</p>
@@ -43,6 +43,7 @@
             <button onclick="setOptions();">Set Options</button>
             <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
             <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
+            <button onclick="addNewHoliday();">Add New Holiday</button>
             <br />
     
             <h2>Export Events:</h2>
@@ -112,7 +113,8 @@
                 maximumEventGroupLength: 10,
                 showDayNamesInMainDisplay: false,
                 tooltipsEnabled: false,
-                visibleDays: [ 0, 1, 2, 3, 4 ]
+                visibleDays: [ 0, 1, 2, 3, 4 ],
+                allowEventScrollingOnMainDisplay: true
             } );
         }
 
@@ -245,6 +247,24 @@
                     group: "Group 1"
                 }
             ];
+        }
+
+        function addNewHoliday() {
+            var today = new Date();
+
+            var holiday1 = {
+                day: today.getDate(),
+                month: today.getMonth() + 1,
+                title: "A New Holiday",
+            };
+
+            var holiday2 = {
+                day: today.getDate(),
+                month: today.getMonth() + 1,
+                title: "Another Holiday",
+            };
+            
+            calendarInstance.addHolidays( [ holiday1, holiday2 ] );
         }
     </script>
 </html>

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v0.9.9
+ * Calendar.js Library v1.0.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -176,6 +176,10 @@ div.calendar {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
         }
 
+        div.scrollY {
+            overflow-y: auto !important;
+        }
+
         div.cell {
             display: inline-block;
             text-align: center;
@@ -193,7 +197,7 @@ div.calendar {
             }
 
             span {
-                display: inline-block;;
+                display: inline-block;
                 padding: 4px;
                 padding-left: 0px;
                 padding-right: 0px;
@@ -1053,7 +1057,7 @@ div.search {
 */
 
 div.configuration {
-    @include dialog-styles(350px);
+    @include dialog-styles(400px);
     @include dialog-title-bar;
 
     div.contents {
@@ -1349,7 +1353,7 @@ div.calendar-drop-down-menu {
     position: absolute;
     display: none;
     cursor: pointer !important;
-    font-size: smaller !important;;
+    font-size: smaller !important;
     z-index: 1000;
 
     div.menu-text {
@@ -1362,7 +1366,9 @@ div.calendar-drop-down-menu {
 
     div.ib-plus-icon,
     div.ib-arrow-expand-left-right-icon,
-    div.ib-hamburger-icon {
+    div.ib-hamburger-icon,
+    div.ib-close-icon,
+    div.ib-arrow-top-right-icon {
         margin-right: $spacing;
     }
 
@@ -1378,13 +1384,16 @@ div.calendar-drop-down-menu {
 
         &:hover div.ib-plus-icon:before,
         &:hover div.ib-plus-icon:after,
-        &:hover div.ib-hamburger-icon:before {
+        &:hover div.ib-hamburger-icon:before,
+        &:hover div.ib-close-icon:before,
+        &:hover div.ib-close-icon:after  {
             background-color: $light-color;
         }
 
         &:hover div.ib-hamburger-icon,
         &:hover div.ib-arrow-expand-left-right-icon:after,
-        &:hover div.ib-arrow-expand-left-right-icon:before {
+        &:hover div.ib-arrow-expand-left-right-icon:before,
+        &:hover div.ib-arrow-top-right-icon {
             border-color: $light-color;
         }
 
@@ -1488,5 +1497,7 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/arrow-expand-left-right-icon";
+@import "foundation/menus/close-icon";
+@import "foundation/menus/arrow-top-right-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
