@@ -1499,6 +1499,8 @@ function calendarJs( id, options, startDateTime ) {
             _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
+        buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
+
         _element_FullDayView_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_FullDayView.appendChild( _element_FullDayView_Contents );
 
@@ -1774,6 +1776,12 @@ function calendarJs( id, options, startDateTime ) {
 
     function onNextDay() {
         moveDateForwardOneDay( _element_FullDayView_DateSelected );
+        showFullDayView( _element_FullDayView_DateSelected, true );
+    }
+
+    function onToday() {
+        _element_FullDayView_DateSelected = new Date();
+            
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 

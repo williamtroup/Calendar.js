@@ -641,7 +641,8 @@ div.calendar div.full-day-view div.title-bar div.ib-close,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
+div.calendar div.full-day-view div.title-bar div.ib-pin {
   float: right;
 }
 
@@ -901,7 +902,8 @@ div.calendar div.list-all-events-view div.title-bar div.ib-close,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right,
+div.calendar div.list-all-events-view div.title-bar div.ib-pin {
   float: right;
 }
 
@@ -1096,7 +1098,8 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-close,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-pin {
   float: right;
 }
 

@@ -16,6 +16,7 @@
 - Added "Visible Days" tab to the Configuration dialog, allowing the visible days in the display to be toggled.
 - Added new option "urlWindowTarget", which states the target for a event Url that is opened (defaults to _blank for a new window).
 - Added "Enable day name headers in the main display" option to "Display" on the Configuration dialog.
+- Added the "Today" button to the Full Day view for quickly jumping to the current date.
 - 
 
 ### Version 0.9.9:
