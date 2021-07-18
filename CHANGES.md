@@ -4,6 +4,7 @@
 - A selectable "To" date can no longer be smaller than a "From" date (in browsers where the DatePicker is supported).
 - Fixed a fault that prevented the main display from building correctly when manual event editing is disabled.
 - Fixed a fault that prevented the event context menu showing (for showing Open Url option) when manual editing is disabled.
+- Fixed some very bad naming for internal objects (no functional changes).
 - 
 
 ### Version 1.0.0:

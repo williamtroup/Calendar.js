@@ -288,9 +288,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
-        _element_ConfigurationDialog_Tab_Event = null,
-        _element_ConfigurationDialog_Tab_Repeats = null,
-        _element_ConfigurationDialog_Tab_Extra = null,
+        _element_EventEditorDialog_Tab_Event = null,
+        _element_EventEditorDialog_Tab_Repeats = null,
+        _element_EventEditorDialog_Tab_Extra = null,
         _element_EventEditorDialog_DisabledArea = null,
         _element_EventEditorDialog_TitleBar = null,
         _element_EventEditorDialog_DateFrom = null,
@@ -3023,20 +3023,20 @@ function calendarJs( id, options, startDateTime ) {
         var tabsContainer = buildTabContainer( contents );
 
         buildTab( tabsContainer, _options.eventText, function( tab ) {
-            showTabContents( tab, _element_ConfigurationDialog_Tab_Event, _element_EventEditorDialog );
+            showTabContents( tab, _element_EventEditorDialog_Tab_Event, _element_EventEditorDialog );
         }, true );
         
         buildTab( tabsContainer, _options.repeatsText.replace( ":", "" ), function( tab ) {
-            showTabContents( tab, _element_ConfigurationDialog_Tab_Repeats, _element_EventEditorDialog );
+            showTabContents( tab, _element_EventEditorDialog_Tab_Repeats, _element_EventEditorDialog );
         } );
         
         buildTab( tabsContainer, _options.optionalText, function( tab ) {
-            showTabContents( tab, _element_ConfigurationDialog_Tab_Extra, _element_EventEditorDialog );
+            showTabContents( tab, _element_EventEditorDialog_Tab_Extra, _element_EventEditorDialog );
         } );
         
-        _element_ConfigurationDialog_Tab_Event = buildTabContents( contents, true, false );
-        _element_ConfigurationDialog_Tab_Repeats = buildTabContents( contents, false, false );
-        _element_ConfigurationDialog_Tab_Extra = buildTabContents( contents, false, false );
+        _element_EventEditorDialog_Tab_Event = buildTabContents( contents, true, false );
+        _element_EventEditorDialog_Tab_Repeats = buildTabContents( contents, false, false );
+        _element_EventEditorDialog_Tab_Extra = buildTabContents( contents, false, false );
 
         buildEventEditorEventTabContent();
         buildEventEditorRepeatsTabContent();
@@ -3054,10 +3054,10 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildEventEditorEventTabContent() {
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Event, _options.titleText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Event, _options.titleText );
 
         var inputTitleContainer = createElement( "div", "input-title-container" );
-        _element_ConfigurationDialog_Tab_Event.appendChild( inputTitleContainer );
+        _element_EventEditorDialog_Tab_Event.appendChild( inputTitleContainer );
 
         _element_EventEditorDialog_Title = createElement( "input", null, "text" );
         inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
@@ -3068,10 +3068,10 @@ function calendarJs( id, options, startDateTime ) {
 
         createButtonElement( inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText );
 
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Event, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Event, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
         var fromSplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Event.appendChild( fromSplitContainer );
+        _element_EventEditorDialog_Tab_Event.appendChild( fromSplitContainer );
 
         _element_EventEditorDialog_DateFrom = createElement( "input" );
         _element_EventEditorDialog_DateFrom.onchange = isAllDayChanged;
@@ -3085,7 +3085,7 @@ function calendarJs( id, options, startDateTime ) {
         setInputType( _element_EventEditorDialog_TimeFrom, "time" );
 
         var toSplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Event.appendChild( toSplitContainer );
+        _element_EventEditorDialog_Tab_Event.appendChild( toSplitContainer );
 
         _element_EventEditorDialog_DateTo = createElement( "input" );
         _element_EventEditorDialog_DateTo.onchange = isAllDayChanged;
@@ -3098,12 +3098,12 @@ function calendarJs( id, options, startDateTime ) {
 
         setInputType( _element_EventEditorDialog_TimeTo, "time" );
 
-        _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_ConfigurationDialog_Tab_Event, _options.isAllDayText, isAllDayChanged )[ 0 ];
+        _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChanged )[ 0 ];
     }
 
     function buildEventEditorRepeatsTabContent() {
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
-        _element_ConfigurationDialog_Tab_Repeats.appendChild( radioButtonsContainer );
+        _element_EventEditorDialog_Tab_Repeats.appendChild( radioButtonsContainer );
 
         _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent );
@@ -3117,13 +3117,13 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildEventEditorExtraTabContent() {
         var inputFields1TextSplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( inputFields1TextSplitContainer );
+        _element_EventEditorDialog_Tab_Extra.appendChild( inputFields1TextSplitContainer );
 
         createTextHeaderElement( inputFields1TextSplitContainer, _options.locationText );
         createTextHeaderElement( inputFields1TextSplitContainer, _options.groupText );
 
         var inputFields1SplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( inputFields1SplitContainer );
+        _element_EventEditorDialog_Tab_Extra.appendChild( inputFields1SplitContainer );
 
         _element_EventEditorDialog_Location = createElement( "input", null, "text" );
         inputFields1SplitContainer.appendChild( _element_EventEditorDialog_Location );
@@ -3139,19 +3139,19 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Group.maxLength = _options.maximumEventGroupLength ;
         }
 
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Extra, _options.descriptionText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Extra, _options.descriptionText );
 
         _element_EventEditorDialog_Description = createElement( "textarea", "custom-scroll-bars" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Description );
+        _element_EventEditorDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Description );
 
         if ( _options.maximumEventDescriptionLength > 0 ) {
             _element_EventEditorDialog_Description.maxLength = _options.maximumEventDescriptionLength ;
         }
 
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Extra, _options.urlText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Extra, _options.urlText );
 
         _element_EventEditorDialog_Url = createElement( "input", null, "text" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Url );
+        _element_EventEditorDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Url );
     }
 
     function addNewEvent() {
