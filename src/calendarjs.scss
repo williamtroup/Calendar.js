@@ -589,6 +589,18 @@ div.calendar {
                 div.hour {
                     background-color: $light-color;
                     border-bottom: $standard-border-size solid $dark-color;
+                    position: relative;
+
+                    &:before {
+                        border-bottom: $standard-border-size dashed $input-border-color;
+                        width: calc(100% - (#{$time-hours-width} + #{$spacing * 2}));
+                        height: ($time-hours-height + $spacing * 2) - $standard-border-size;
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: $time-hours-width + $spacing * 2;
+                    }
 
                     div.hour-text {
                         width: $time-hours-width;

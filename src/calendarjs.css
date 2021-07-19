@@ -735,6 +735,18 @@ div.calendar div.full-day-view div.contents div.contents-events div.time-arrow d
 div.calendar div.full-day-view div.contents div.contents-events div.hour {
   background-color: #F5F5F5;
   border-bottom: 1px solid #282828;
+  position: relative;
+}
+
+div.calendar div.full-day-view div.contents div.contents-events div.hour:before {
+  border-bottom: 1px dashed #A8A8A8;
+  width: calc(100% - (80px + 20px));
+  height: 59px;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 100px;
 }
 
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
