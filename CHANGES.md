@@ -5,7 +5,6 @@
 - Fixed a fault that prevented the main display from building correctly when manual event editing is disabled.
 - Fixed a fault that prevented the event context menu showing (for showing Open Url option) when manual editing is disabled.
 - Fixed some very bad naming for internal objects (no functional changes).
-- 
 
 ### Version 1.0.0:
 - Added context menu support to the Full Day view (allowing events to be cleared, or added).
