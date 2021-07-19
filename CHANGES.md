@@ -3,6 +3,7 @@
 ### Version 1.0.2:
 - Fixed a fault that allowed all the visible days in the Configuration window to be turned off (causing huge display issues).
 - The public function destroy() will now remove all drop down menus and dialogs from the document body.
+- Fixed a sizing issue for overlays that caused them to be 1 pixel out (causing a slightly gap).
 - 
 
 ### Version 1.0.1:
