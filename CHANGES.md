@@ -1,5 +1,7 @@
 # Calendar.js - Change Log:
 
+### Version 1.0.2:
+
 ### Version 1.0.1:
 - A selectable "To" date can no longer be smaller than a "From" date (in browsers where the DatePicker is supported).
 - Fixed a fault that prevented the main display from building correctly when manual event editing is disabled.
