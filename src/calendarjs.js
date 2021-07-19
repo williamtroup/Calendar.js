@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.0.0
+ * Calendar.js Library v1.0.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -288,9 +288,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
-        _element_ConfigurationDialog_Tab_Event = null,
-        _element_ConfigurationDialog_Tab_Repeats = null,
-        _element_ConfigurationDialog_Tab_Extra = null,
+        _element_EventEditorDialog_Tab_Event = null,
+        _element_EventEditorDialog_Tab_Repeats = null,
+        _element_EventEditorDialog_Tab_Extra = null,
         _element_EventEditorDialog_DisabledArea = null,
         _element_EventEditorDialog_TitleBar = null,
         _element_EventEditorDialog_DateFrom = null,
@@ -1084,6 +1084,15 @@ function calendarJs( id, options, startDateTime ) {
         return result;
     }
 
+    function setMinimumDate( input, date ) {
+        if ( input.type === "date" ) {
+            var day = ( "0" + date.getDate() ).slice( -2 ),
+                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+            input.setAttribute( "min", date.getFullYear() + "-" + month + "-" + day );
+        }
+    }
+
     function setTimeOnDate( date, timeData ) {
         var hours = 0,
             minutes = 0,
@@ -1247,13 +1256,9 @@ function calendarJs( id, options, startDateTime ) {
                     }
                 };
 
-                if ( _options.manualEditingEnabled ) {
-                    var formattedDate = toStorageFormattedDate( dayDate );
-
-                    event.oncontextmenu = function( e ) {
-                        showEventDropDownMenu( e, eventDetails, formattedDate );
-                    };
-                }
+                event.oncontextmenu = function( e ) {
+                    showEventDropDownMenu( e, eventDetails, formattedDayDate );
+                };
     
                 if ( _options.manualEditingEnabled ) {
                     event.onclick = function() {
@@ -1655,11 +1660,9 @@ function calendarJs( id, options, startDateTime ) {
                 _element_FullDayView_Contents_Hours.appendChild( event );
             }
     
-            if ( _options.manualEditingEnabled ) {
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails, formattedDate );
-                };
-            }
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails, formattedDate );
+            };
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
@@ -1906,11 +1909,9 @@ function calendarJs( id, options, startDateTime ) {
 
             container.appendChild( event );
     
-            if ( _options.manualEditingEnabled ) {
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails );
-                };
-            }
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails );
+            };
     
             makeEventDraggable( event, eventDetails, eventDetails.from );
             setEventClassesAndColors( event, eventDetails );
@@ -2226,11 +2227,9 @@ function calendarJs( id, options, startDateTime ) {
             var event = createElement( "div", getEventClassName() );
             container.appendChild( event );
     
-            if ( _options.manualEditingEnabled ) {
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails, formattedDate );
-                };
-            }
+            event.oncontextmenu = function( e ) {
+                showEventDropDownMenu( e, eventDetails, formattedDate );
+            };
     
             makeEventDraggable( event, eventDetails, displayDate );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
@@ -2806,10 +2805,10 @@ function calendarJs( id, options, startDateTime ) {
             _element_DropDownMenu_Event_OpenUrlSeparator = null;
         }
 
-        if ( _options.manualEditingEnabled ) {
-            _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
-            _document.body.appendChild( _element_DropDownMenu_Event );
+        _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
+        _document.body.appendChild( _element_DropDownMenu_Event );
 
+        if ( _options.manualEditingEnabled ) {
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle, function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
             }, true );
@@ -2932,9 +2931,11 @@ function calendarJs( id, options, startDateTime ) {
             _element_DropDownMenu_Event_OpenUrlSeparator.style.display = display;
         }
 
-        hideAllDropDowns();
-        cancelBubble( e );
-        showElementAtMousePosition( e, _element_DropDownMenu_Event );
+        if ( display === "block" || _element_DropDownMenu_Event.childElementCount > 2 ) {
+            hideAllDropDowns();
+            cancelBubble( e );
+            showElementAtMousePosition( e, _element_DropDownMenu_Event );
+        }
     }
 
     function showFullDayDropDownMenu( e ) {
@@ -3022,20 +3023,20 @@ function calendarJs( id, options, startDateTime ) {
         var tabsContainer = buildTabContainer( contents );
 
         buildTab( tabsContainer, _options.eventText, function( tab ) {
-            showTabContents( tab, _element_ConfigurationDialog_Tab_Event, _element_EventEditorDialog );
+            showTabContents( tab, _element_EventEditorDialog_Tab_Event, _element_EventEditorDialog );
         }, true );
         
         buildTab( tabsContainer, _options.repeatsText.replace( ":", "" ), function( tab ) {
-            showTabContents( tab, _element_ConfigurationDialog_Tab_Repeats, _element_EventEditorDialog );
+            showTabContents( tab, _element_EventEditorDialog_Tab_Repeats, _element_EventEditorDialog );
         } );
         
         buildTab( tabsContainer, _options.optionalText, function( tab ) {
-            showTabContents( tab, _element_ConfigurationDialog_Tab_Extra, _element_EventEditorDialog );
+            showTabContents( tab, _element_EventEditorDialog_Tab_Extra, _element_EventEditorDialog );
         } );
         
-        _element_ConfigurationDialog_Tab_Event = buildTabContents( contents, true, false );
-        _element_ConfigurationDialog_Tab_Repeats = buildTabContents( contents, false, false );
-        _element_ConfigurationDialog_Tab_Extra = buildTabContents( contents, false, false );
+        _element_EventEditorDialog_Tab_Event = buildTabContents( contents, true, false );
+        _element_EventEditorDialog_Tab_Repeats = buildTabContents( contents, false, false );
+        _element_EventEditorDialog_Tab_Extra = buildTabContents( contents, false, false );
 
         buildEventEditorEventTabContent();
         buildEventEditorRepeatsTabContent();
@@ -3053,10 +3054,10 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildEventEditorEventTabContent() {
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Event, _options.titleText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Event, _options.titleText );
 
         var inputTitleContainer = createElement( "div", "input-title-container" );
-        _element_ConfigurationDialog_Tab_Event.appendChild( inputTitleContainer );
+        _element_EventEditorDialog_Tab_Event.appendChild( inputTitleContainer );
 
         _element_EventEditorDialog_Title = createElement( "input", null, "text" );
         inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
@@ -3067,10 +3068,10 @@ function calendarJs( id, options, startDateTime ) {
 
         createButtonElement( inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText );
 
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Event, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Event, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
         var fromSplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Event.appendChild( fromSplitContainer );
+        _element_EventEditorDialog_Tab_Event.appendChild( fromSplitContainer );
 
         _element_EventEditorDialog_DateFrom = createElement( "input" );
         _element_EventEditorDialog_DateFrom.onchange = isAllDayChanged;
@@ -3084,7 +3085,7 @@ function calendarJs( id, options, startDateTime ) {
         setInputType( _element_EventEditorDialog_TimeFrom, "time" );
 
         var toSplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Event.appendChild( toSplitContainer );
+        _element_EventEditorDialog_Tab_Event.appendChild( toSplitContainer );
 
         _element_EventEditorDialog_DateTo = createElement( "input" );
         _element_EventEditorDialog_DateTo.onchange = isAllDayChanged;
@@ -3097,12 +3098,12 @@ function calendarJs( id, options, startDateTime ) {
 
         setInputType( _element_EventEditorDialog_TimeTo, "time" );
 
-        _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_ConfigurationDialog_Tab_Event, _options.isAllDayText, isAllDayChanged )[ 0 ];
+        _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChanged )[ 0 ];
     }
 
     function buildEventEditorRepeatsTabContent() {
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
-        _element_ConfigurationDialog_Tab_Repeats.appendChild( radioButtonsContainer );
+        _element_EventEditorDialog_Tab_Repeats.appendChild( radioButtonsContainer );
 
         _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton( radioButtonsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent );
@@ -3116,13 +3117,13 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildEventEditorExtraTabContent() {
         var inputFields1TextSplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( inputFields1TextSplitContainer );
+        _element_EventEditorDialog_Tab_Extra.appendChild( inputFields1TextSplitContainer );
 
         createTextHeaderElement( inputFields1TextSplitContainer, _options.locationText );
         createTextHeaderElement( inputFields1TextSplitContainer, _options.groupText );
 
         var inputFields1SplitContainer = createElement( "div", "split" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( inputFields1SplitContainer );
+        _element_EventEditorDialog_Tab_Extra.appendChild( inputFields1SplitContainer );
 
         _element_EventEditorDialog_Location = createElement( "input", null, "text" );
         inputFields1SplitContainer.appendChild( _element_EventEditorDialog_Location );
@@ -3138,19 +3139,19 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Group.maxLength = _options.maximumEventGroupLength ;
         }
 
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Extra, _options.descriptionText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Extra, _options.descriptionText );
 
         _element_EventEditorDialog_Description = createElement( "textarea", "custom-scroll-bars" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Description );
+        _element_EventEditorDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Description );
 
         if ( _options.maximumEventDescriptionLength > 0 ) {
             _element_EventEditorDialog_Description.maxLength = _options.maximumEventDescriptionLength ;
         }
 
-        createTextHeaderElement( _element_ConfigurationDialog_Tab_Extra, _options.urlText );
+        createTextHeaderElement( _element_EventEditorDialog_Tab_Extra, _options.urlText );
 
         _element_EventEditorDialog_Url = createElement( "input", null, "text" );
-        _element_ConfigurationDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Url );
+        _element_EventEditorDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Url );
     }
 
     function addNewEvent() {
@@ -3177,6 +3178,12 @@ function calendarJs( id, options, startDateTime ) {
 
         var fromDate = getSelectedDate( _element_EventEditorDialog_DateFrom ),
             toDate = getSelectedDate( _element_EventEditorDialog_DateTo );
+
+        setMinimumDate( _element_EventEditorDialog_DateTo, fromDate );
+
+        if ( fromDate > toDate ) {
+            setSelectedDate( fromDate, _element_EventEditorDialog_DateTo );
+        }
 
         if ( toDate > fromDate || toDate < fromDate ) {
             disabled = true;
@@ -5983,7 +5990,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.0.0";
+        return "1.0.1";
     };
 
 
