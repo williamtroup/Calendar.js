@@ -4194,7 +4194,7 @@ function calendarJs( id, options, startDateTime ) {
             configGroup = getGroupName( group ),
             visible = true;
         
-        if ( isDefined( _configuration.visibleGroups ) ) {
+        if ( group !== "" && isDefined( _configuration.visibleGroups ) ) {
             visible = _configuration.visibleGroups.indexOf( configGroup ) > -1;
         }
 

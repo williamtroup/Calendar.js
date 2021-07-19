@@ -5,6 +5,7 @@
 - The public function destroy() will now remove all drop down menus and dialogs from the document body.
 - Fixed a sizing issue for overlays that caused them to be 1 pixel out (causing a slightly gap).
 - Added half-hour separator lines on the Full Day view (dashed and CSS controlled).
+- Fixed a fault that prevented new events (without a group name assigned) from showing up (after saving configuration changes).
 - 
 
 ### Version 1.0.1:
