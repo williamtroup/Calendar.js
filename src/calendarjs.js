@@ -4141,7 +4141,10 @@ function calendarJs( id, options, startDateTime ) {
         _options.showDayNamesInMainDisplay = _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
-        _options.visibleDays = visibleDays;
+
+        if ( visibleDays.length > 0 ) {
+            _options.visibleDays = visibleDays;
+        }
 
         _initialized = false;
 

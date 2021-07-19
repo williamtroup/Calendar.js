@@ -1,6 +1,8 @@
 # Calendar.js - Change Log:
 
 ### Version 1.0.2:
+- Fixed a fault that allowed all the visible days in the Configuration window to be turned off (causing huge display issues).
+- 
 
 ### Version 1.0.1:
 - A selectable "To" date can no longer be smaller than a "From" date (in browsers where the DatePicker is supported).
