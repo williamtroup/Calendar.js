@@ -5430,6 +5430,9 @@ function calendarJs( id, options, startDateTime ) {
     this.destroy = function() {
         _element_Calendar.className = "";
         _element_Calendar.innerHTML = "";
+
+        clearElementsByClassName( _document.body, "calendar-dialog" );
+        clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
     };
 
 
