@@ -1115,6 +1115,14 @@ function calendarJs( id, options, startDateTime ) {
         date.setMinutes( minutes );
     }
 
+    function getHoursAndMinutesFromMinutes( totalMinutes ) {
+        var hours = ( totalMinutes / 60 ),
+            remainingHours = Math.floor( hours ),
+            remainingMinutes = Math.round( ( hours - remainingHours ) * 60 );
+
+        return [ remainingHours, remainingMinutes ];
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1482,6 +1490,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_Contents_AllDayEvents.appendChild( allDayText );
 
         _element_FullDayView_Contents_Hours = createElement( "div", "contents-events" );
+        _element_FullDayView_Contents_Hours.ondblclick = fullDayViewDoubleClick;
         _element_FullDayView_Contents.appendChild( _element_FullDayView_Contents_Hours );
 
         for ( var hour = 0; hour < 24; hour++ ) {
@@ -1498,6 +1507,17 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         buildFullDayViewTimeArrow();
+    }
+
+    function fullDayViewDoubleClick( e ) {
+        var contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
+            contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
+            scrollPosition = getScrollPosition(),
+            pixelsPerMinute = contentHoursHeight / _minutesInDay,
+            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
+            hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
+        
+        showEventEditingDialog( null, _element_FullDayView_DateSelected, hoursMinutes );
     }
 
     function updateFullDayViewFromEventEdit() {
@@ -1613,7 +1633,8 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", getEventClassName() );
-
+            event.ondblclick = cancelBubble;
+            
             if ( eventDetails.isAllDay ) {
                 _element_FullDayView_Contents_AllDayEvents.appendChild( event );
             } else {
@@ -3163,7 +3184,7 @@ function calendarJs( id, options, startDateTime ) {
         repeatEveryEvent();
     }
 
-    function showEventEditingDialog( eventDetails, overrideTodayDate ) {
+    function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues ) {
         addNode( _document.body, _element_DisabledBackground );
         selectFirstTab( _element_EventEditorDialog );
 
@@ -3226,8 +3247,6 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_RemoveButton.style.display = "none";
             _element_EventEditorDialog_TitleBar.innerText = _options.addEventTitle;
             _element_EventEditorDialog_EventDetails = {};
-            _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
-            _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
             _element_EventEditorDialog_IsAllDay.checked = false;
             _element_EventEditorDialog_Title.value = "";
             _element_EventEditorDialog_Description.value = "";
@@ -3246,6 +3265,16 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Sat.checked = false;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = false;
             _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
+
+            if ( !isDefinedArray( overrideTimeValues ) ) {
+                _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
+                _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
+            } else {
+                var newTimeToDisplay = padNumber( overrideTimeValues[ 0 ] ) + ":" + padNumber( overrideTimeValues[ 1 ] );
+
+                _element_EventEditorDialog_TimeFrom.value = newTimeToDisplay;
+                _element_EventEditorDialog_TimeTo.value = newTimeToDisplay;
+            }
 
             setSelectedDate( today, _element_EventEditorDialog_DateFrom );
             setSelectedDate( today, _element_EventEditorDialog_DateTo );
@@ -4651,6 +4680,34 @@ function calendarJs( id, options, startDateTime ) {
             console.error( e.message );
             input.type = "text";
         }
+    }
+
+    function getOffset( element ) {
+        var left = 0,
+            top = 0;
+
+        while ( element && !isNaN( element.offsetLeft ) && !isNaN( element.offsetTop ) ) {
+            left += element.offsetLeft - element.scrollLeft;
+            top += element.offsetTop - element.scrollTop;
+
+            element = element.offsetParent;
+        }
+
+        return {
+            left: left,
+            top: top
+        };
+    }
+
+    function getScrollPosition() {
+        var doc = _document.documentElement,
+            left = ( _window.pageXOffset || doc.scrollLeft )  - ( doc.clientLeft || 0 ),
+            top = ( _window.pageYOffset || doc.scrollTop ) - ( doc.clientTop || 0 );
+
+        return {
+            left: left,
+            top: top
+        };
     }
 
 

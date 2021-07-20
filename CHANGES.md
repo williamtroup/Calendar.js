@@ -2,6 +2,7 @@
 
 ### Version 1.0.3:
 - When attempting to fire a browser notification, if the Api is not supported, errors are no longer reported (see the console).
+- Added double-click support to the Full Day view to add new events, showing the correct time based on the area clicked.
 - 
 
 ### Version 1.0.2:
