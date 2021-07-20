@@ -1208,7 +1208,7 @@ function calendarJs( id, options, startDateTime ) {
             formattedDayDate = toStorageFormattedDate( dayDate );
 
         if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
-            checkEventForNotifications( dayDate, eventDetails );
+            checkEventForBrowserNotifications( dayDate, eventDetails );
             
             var eventClassName = getEventClassName(),
                 events = elementDay.getElementsByClassName( eventClassName );
@@ -4389,7 +4389,7 @@ function calendarJs( id, options, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function checkEventForNotifications( date, event ) {
+    function checkEventForBrowserNotifications( date, event ) {
         runBrowserNotificationAction( function() {
             if ( isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( event.id ) ) {
                 var newFrom = new Date(),
