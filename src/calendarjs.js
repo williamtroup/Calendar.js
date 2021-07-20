@@ -4390,54 +4390,65 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function checkEventForNotifications( date, event ) {
-        if (  _options.eventNotificationsEnabled && isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( event.id ) ) {
-            var newFrom = new Date(),
-                newTo = new Date(),
-                today = new Date(),
-                repeatEvery = getNumber( event.repeatEvery );
-
-            newFrom.setHours( event.from.getHours(), event.from.getMinutes(), 0, 0 );
-            newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0, 0 );
-
-            if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.from ) ) {
-                newFrom.setHours( 0, 0, 0, 0 );
-            }
-
-            if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.to ) ) {
-                newTo.setHours( 23, 59, 59, 99 );
-            }
-            
-            if ( today >= newFrom && today <= newTo ) {
-                _eventNotificationsTriggered[ event.id ] = true;
-
-                var notification = new Notification( _options.eventNotificationTitle, {
-                    body: _options.eventNotificationBody.replace( "{0}", event.title ),
-                });
+        runBrowserNotificationAction( function() {
+            if ( isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( event.id ) ) {
+                var newFrom = new Date(),
+                    newTo = new Date(),
+                    today = new Date(),
+                    repeatEvery = getNumber( event.repeatEvery );
     
-                notification.onclick = function() {
-                    var url = getString( event.url );
-
-                    if ( url === "" ) {
-                        showEventEditingDialog( event );
-                    } else {
-                        _window.open( url, _options.urlWindowTarget );
-                    }
-
-                    triggerOptionsEventWithData( "onNotificationClicked", event );
-                };
+                newFrom.setHours( event.from.getHours(), event.from.getMinutes(), 0, 0 );
+                newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0, 0 );
+    
+                if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.from ) ) {
+                    newFrom.setHours( 0, 0, 0, 0 );
+                }
+    
+                if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.to ) ) {
+                    newTo.setHours( 23, 59, 59, 99 );
+                }
+                
+                if ( today >= newFrom && today <= newTo ) {
+                    _eventNotificationsTriggered[ event.id ] = true;
+    
+                    var notification = new Notification( _options.eventNotificationTitle, {
+                        body: _options.eventNotificationBody.replace( "{0}", event.title ),
+                    });
+        
+                    notification.onclick = function() {
+                        var url = getString( event.url );
+    
+                        if ( url === "" ) {
+                            showEventEditingDialog( event );
+                        } else {
+                            _window.open( url, _options.urlWindowTarget );
+                        }
+    
+                        triggerOptionsEventWithData( "onNotificationClicked", event );
+                    };
+                }
             }
-        }
+        }, false );
     }
 
     function checkForBrowserNotificationsPermission() {
+        runBrowserNotificationAction( function() {
+            if ( Notification.permission !== "granted" ) {
+                Notification.requestPermission();
+            }
+        } );
+    }
+
+    function runBrowserNotificationAction( action, writeConsoleLog ) {
+        writeConsoleLog = isDefined( writeConsoleLog ) ? writeConsoleLog : true;
+
         if ( _options.eventNotificationsEnabled ) {
             if ( !Notification ) {
-                console.error( "Browser notifications API unavailable." );
-            } else {
-
-                if ( Notification.permission !== "granted" ) {
-                    Notification.requestPermission();
+                if ( writeConsoleLog ) {
+                    console.error( "Browser notifications API unavailable." );
                 }
+            } else {
+                action();
             }
         }
     }

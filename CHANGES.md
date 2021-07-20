@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.0.3:
+- When attempting to fire a browser notification, if the Api is not support, errors are no longer reported (see the console).
 - 
 
 ### Version 1.0.2:
