@@ -4886,7 +4886,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function getExportDownloadFilename( extension ) {
         var date = new Date(),
-            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() ) + "-" + date.getFullYear(),
+            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() + 1 ) + "-" + date.getFullYear(),
             timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
 
         return _options.exportStartFilename + datePart + "_" + timePart + "." + extension;
@@ -4900,7 +4900,7 @@ function calendarJs( id, options, startDateTime ) {
         var result = _options.repeatsNever;
 
         if ( isDefined( eventDate ) ) {
-            var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
+            var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() + 1 ) + "/" + eventDate.getFullYear(),
                 time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
 
             result = date + " " + time;
@@ -4997,7 +4997,7 @@ function calendarJs( id, options, startDateTime ) {
     function getICalDateTimeString( eventDate ) {
         var format = [];
         format.push( eventDate.getFullYear() );
-        format.push( padNumber( eventDate.getMonth() ) );
+        format.push( padNumber( eventDate.getMonth() + 1 ) );
         format.push( padNumber( eventDate.getDate() ) );
         format.push( "T" );
         format.push( padNumber( eventDate.getHours() ) );
