@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+### Version 1.0.2:
+- Fixed a fault that allowed all the visible days in the Configuration window to be turned off (causing huge display issues).
+- The public function destroy() will now remove all drop-down menus and dialogs from the document body.
+- Fixed a sizing issue for overlays that caused them to be 1 pixel out (causing a slight gap).
+- Added half-hour separator lines on the Full Day view (dashed and CSS controlled).
+- Fixed a fault that prevented new events (without a group name assigned) from showing up (after saving configuration changes).
+- Fixed all export dates for content and filenames being 1 month out every time.
+
 ### Version 1.0.1:
 - A selectable "To" date can no longer be smaller than a "From" date (in browsers where the DatePicker is supported).
 - Fixed a fault that prevented the main display from building correctly when manual event editing is disabled.

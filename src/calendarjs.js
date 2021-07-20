@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.0.1
+ * Calendar.js Library v1.0.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -4141,7 +4141,10 @@ function calendarJs( id, options, startDateTime ) {
         _options.showDayNamesInMainDisplay = _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
-        _options.visibleDays = visibleDays;
+
+        if ( visibleDays.length > 0 ) {
+            _options.visibleDays = visibleDays;
+        }
 
         _initialized = false;
 
@@ -4191,7 +4194,7 @@ function calendarJs( id, options, startDateTime ) {
             configGroup = getGroupName( group ),
             visible = true;
         
-        if ( isDefined( _configuration.visibleGroups ) ) {
+        if ( group !== "" && isDefined( _configuration.visibleGroups ) ) {
             visible = _configuration.visibleGroups.indexOf( configGroup ) > -1;
         }
 
@@ -4883,7 +4886,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function getExportDownloadFilename( extension ) {
         var date = new Date(),
-            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() ) + "-" + date.getFullYear(),
+            datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() + 1 ) + "-" + date.getFullYear(),
             timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
 
         return _options.exportStartFilename + datePart + "_" + timePart + "." + extension;
@@ -4897,7 +4900,7 @@ function calendarJs( id, options, startDateTime ) {
         var result = _options.repeatsNever;
 
         if ( isDefined( eventDate ) ) {
-            var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() ) + "/" + eventDate.getFullYear(),
+            var date = padNumber( eventDate.getDate() ) + "/" + padNumber( eventDate.getMonth() + 1 ) + "/" + eventDate.getFullYear(),
                 time = padNumber( eventDate.getHours() ) + ":" + padNumber( eventDate.getMinutes() );
 
             result = date + " " + time;
@@ -4994,7 +4997,7 @@ function calendarJs( id, options, startDateTime ) {
     function getICalDateTimeString( eventDate ) {
         var format = [];
         format.push( eventDate.getFullYear() );
-        format.push( padNumber( eventDate.getMonth() ) );
+        format.push( padNumber( eventDate.getMonth() + 1 ) );
         format.push( padNumber( eventDate.getDate() ) );
         format.push( "T" );
         format.push( padNumber( eventDate.getHours() ) );
@@ -5427,6 +5430,9 @@ function calendarJs( id, options, startDateTime ) {
     this.destroy = function() {
         _element_Calendar.className = "";
         _element_Calendar.innerHTML = "";
+
+        clearElementsByClassName( _document.body, "calendar-dialog" );
+        clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
     };
 
 
@@ -5990,7 +5996,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.0.1";
+        return "1.0.2";
     };
 
 
