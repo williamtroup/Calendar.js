@@ -4409,26 +4409,30 @@ function calendarJs( id, options, startDateTime ) {
                 }
                 
                 if ( today >= newFrom && today <= newTo ) {
-                    _eventNotificationsTriggered[ event.id ] = true;
-    
-                    var notification = new Notification( _options.eventNotificationTitle, {
-                        body: _options.eventNotificationBody.replace( "{0}", event.title ),
-                    });
-        
-                    notification.onclick = function() {
-                        var url = getString( event.url );
-    
-                        if ( url === "" ) {
-                            showEventEditingDialog( event );
-                        } else {
-                            _window.open( url, _options.urlWindowTarget );
-                        }
-    
-                        triggerOptionsEventWithData( "onNotificationClicked", event );
-                    };
+                    launchBrowserNotificationForEvent( event );
                 }
             }
         }, false );
+    }
+
+    function launchBrowserNotificationForEvent( event ) {
+        _eventNotificationsTriggered[ event.id ] = true;
+    
+        var notification = new Notification( _options.eventNotificationTitle, {
+            body: _options.eventNotificationBody.replace( "{0}", event.title ),
+        });
+
+        notification.onclick = function() {
+            var url = getString( event.url );
+
+            if ( url === "" ) {
+                showEventEditingDialog( event );
+            } else {
+                _window.open( url, _options.urlWindowTarget );
+            }
+
+            triggerOptionsEventWithData( "onNotificationClicked", event );
+        };
     }
 
     function checkForBrowserNotificationsPermission() {
