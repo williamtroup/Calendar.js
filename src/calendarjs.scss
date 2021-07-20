@@ -1261,6 +1261,10 @@ div.calendar-dialog {
                 &:disabled ~ span.text {
                     opacity: 0.5;
                 }
+                
+                &:disabled ~ span.check-mark {
+                    border: $standard-border-size solid $dark-color !important;
+                }
             }
     
             span.check-mark {

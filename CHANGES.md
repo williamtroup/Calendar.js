@@ -5,7 +5,8 @@
 - Added double-click support to the Full Day view to add new events, showing the correct time based on the area clicked.
 - Added support for custom repeat periods for events (either by Daily, Weekly, Monthly, or Yearly).
 - Fixed based documentation for the "repeatsEvery" property for events.
-- Input fields that are disabled no longer show a hover effect.
+- Fixed the input fields showing a hover effect when they are disabled.
+- Fixed the radio buttons showing a hover effect when they are disabled.
 - 
 
 ### Version 1.0.2:

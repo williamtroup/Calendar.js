@@ -2740,6 +2740,11 @@ div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ 
   opacity: 0.5;
 }
 
+div.calendar div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark,
+div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark {
+  border: 1px solid #282828 !important;
+}
+
 div.calendar div.radioButtonContainer label.radioButton span.check-mark,
 div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark {
   position: absolute;
