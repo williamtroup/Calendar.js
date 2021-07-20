@@ -1145,7 +1145,8 @@ div.calendar-dialog {
     }
 
     div.tab-content {
-        @include input-style;
+        border: 1px solid $input-border-color;
+        border-radius: $border-view-radius;
         padding: $spacing;
         overflow-x: hidden;
         overflow-y: auto;

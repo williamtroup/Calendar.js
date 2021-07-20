@@ -2604,7 +2604,6 @@ div.calendar-dialog div.tab-control:hover {
 div.calendar-dialog div.tab-content {
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
-  outline: none;
   padding: 10px;
   overflow-x: hidden;
   overflow-y: auto;
