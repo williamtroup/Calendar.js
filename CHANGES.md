@@ -7,7 +7,7 @@
 - Fixed base documentation for the "repeatsEvery" property for events.
 - Fixed the input fields showing a hover effect when they are disabled.
 - Fixed the radio buttons showing a hover effect when they are disabled.
-- Fixed some overload SCSS issues when styling thd tab content containers.
+- Fixed some overload SCSS issues when styling the tab content containers.
 - 
 
 ### Version 1.0.2:
