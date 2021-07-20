@@ -800,11 +800,13 @@ div.event-editor {
         }
         
         input:not([type="button"]),
+        select,
         textarea {
             @include input-fields;
         }
     
-        input:disabled {
+        input:disabled,
+        select:disabled {
             @include no-selection-allowed;
             background-color: $light-color;
         }

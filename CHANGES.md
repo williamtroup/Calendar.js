@@ -3,6 +3,9 @@
 ### Version 1.0.3:
 - When attempting to fire a browser notification, if the Api is not supported, errors are no longer reported (see the console).
 - Added double-click support to the Full Day view to add new events, showing the correct time based on the area clicked.
+- Added support for custom repeat periods for events (either by Daily, Weekly, Monthly, or Yearly).
+- Fixed based documentation for the "repeatsEvery" property for events.
+- Input fields that are disabled no longer show a hover effect.
 - 
 
 ### Version 1.0.2:

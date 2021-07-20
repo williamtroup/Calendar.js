@@ -1343,6 +1343,7 @@ div.event-editor div.view div.contents {
 }
 
 div.event-editor div.view input:not([type="button"]),
+div.event-editor div.view select,
 div.event-editor div.view textarea {
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
@@ -1357,23 +1358,27 @@ div.event-editor div.view textarea {
 }
 
 div.event-editor div.view input:not([type="button"]):last-child,
+div.event-editor div.view select:last-child,
 div.event-editor div.view textarea:last-child {
   margin-bottom: 0;
 }
 
 div.event-editor div.view input:not([type="button"]):focus,
+div.event-editor div.view select:focus,
 div.event-editor div.view textarea:focus {
   border: 1px solid #282828 !important;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.event-editor div.view input:not([type="button"]):hover,
-div.event-editor div.view textarea:hover {
+div.event-editor div.view input:not([type="button"]):not(:disabled):hover,
+div.event-editor div.view select:not(:disabled):hover,
+div.event-editor div.view textarea:not(:disabled):hover {
   border: 1px solid #282828;
 }
 
-div.event-editor div.view input:disabled {
+div.event-editor div.view input:disabled,
+div.event-editor div.view select:disabled {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1406,6 +1411,7 @@ div.event-editor div.view p.error {
 }
 
 div.event-editor div.view div.split input,
+div.event-editor div.view div.split select,
 div.event-editor div.view div.split div.split-contents,
 div.event-editor div.view div.split p {
   width: calc(50% - (10px / 2));
@@ -1415,12 +1421,14 @@ div.event-editor div.view div.split p {
 }
 
 div.event-editor div.view div.split input:first-child,
+div.event-editor div.view div.split select:first-child,
 div.event-editor div.view div.split div.split-contents:first-child,
 div.event-editor div.view div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor div.view div.split input:last-child,
+div.event-editor div.view div.split select:last-child,
 div.event-editor div.view div.split div.split-contents:last-child,
 div.event-editor div.view div.split p:last-child {
   margin-right: 0;
@@ -1641,12 +1649,13 @@ div.event-editor-colors input[type="text"]:focus {
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.event-editor-colors input[type="color"]:hover,
-div.event-editor-colors input[type="text"]:hover {
+div.event-editor-colors input[type="color"]:not(:disabled):hover,
+div.event-editor-colors input[type="text"]:not(:disabled):hover {
   border: 1px solid #282828;
 }
 
 div.event-editor-colors div.split input,
+div.event-editor-colors div.split select,
 div.event-editor-colors div.split div.split-contents,
 div.event-editor-colors div.split p {
   width: calc(50% - (10px / 2));
@@ -1656,12 +1665,14 @@ div.event-editor-colors div.split p {
 }
 
 div.event-editor-colors div.split input:first-child,
+div.event-editor-colors div.split select:first-child,
 div.event-editor-colors div.split div.split-contents:first-child,
 div.event-editor-colors div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor-colors div.split input:last-child,
+div.event-editor-colors div.split select:last-child,
 div.event-editor-colors div.split div.split-contents:last-child,
 div.event-editor-colors div.split p:last-child {
   margin-right: 0;
@@ -1817,8 +1828,8 @@ div.event-editor-repeat-options textarea:focus {
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.event-editor-repeat-options input:not([type="button"]):hover,
-div.event-editor-repeat-options textarea:hover {
+div.event-editor-repeat-options input:not([type="button"]):not(:disabled):hover,
+div.event-editor-repeat-options textarea:not(:disabled):hover {
   border: 1px solid #282828;
 }
 
@@ -1827,6 +1838,7 @@ div.event-editor-repeat-options label.checkbox {
 }
 
 div.event-editor-repeat-options div.split input,
+div.event-editor-repeat-options div.split select,
 div.event-editor-repeat-options div.split div.split-contents,
 div.event-editor-repeat-options div.split p {
   width: calc(50% - (10px / 2));
@@ -1836,12 +1848,14 @@ div.event-editor-repeat-options div.split p {
 }
 
 div.event-editor-repeat-options div.split input:first-child,
+div.event-editor-repeat-options div.split select:first-child,
 div.event-editor-repeat-options div.split div.split-contents:first-child,
 div.event-editor-repeat-options div.split p:first-child {
   margin-left: 0;
 }
 
 div.event-editor-repeat-options div.split input:last-child,
+div.event-editor-repeat-options div.split select:last-child,
 div.event-editor-repeat-options div.split div.split-contents:last-child,
 div.event-editor-repeat-options div.split p:last-child {
   margin-right: 0;
@@ -1970,6 +1984,7 @@ div.confirmation label.checkbox {
 }
 
 div.confirmation div.split input,
+div.confirmation div.split select,
 div.confirmation div.split div.split-contents,
 div.confirmation div.split p {
   width: calc(50% - (10px / 2));
@@ -1979,12 +1994,14 @@ div.confirmation div.split p {
 }
 
 div.confirmation div.split input:first-child,
+div.confirmation div.split select:first-child,
 div.confirmation div.split div.split-contents:first-child,
 div.confirmation div.split p:first-child {
   margin-left: 0;
 }
 
 div.confirmation div.split input:last-child,
+div.confirmation div.split select:last-child,
 div.confirmation div.split div.split-contents:last-child,
 div.confirmation div.split p:last-child {
   margin-right: 0;
@@ -2099,6 +2116,7 @@ div.select-export-type div.contents {
 }
 
 div.select-export-type div.split input,
+div.select-export-type div.split select,
 div.select-export-type div.split div.split-contents,
 div.select-export-type div.split p {
   width: calc(50% - (10px / 2));
@@ -2108,12 +2126,14 @@ div.select-export-type div.split p {
 }
 
 div.select-export-type div.split input:first-child,
+div.select-export-type div.split select:first-child,
 div.select-export-type div.split div.split-contents:first-child,
 div.select-export-type div.split p:first-child {
   margin-left: 0;
 }
 
 div.select-export-type div.split input:last-child,
+div.select-export-type div.split select:last-child,
 div.select-export-type div.split div.split-contents:last-child,
 div.select-export-type div.split p:last-child {
   margin-right: 0;
@@ -2257,11 +2277,12 @@ div.search input[type="text"]:focus {
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.search input[type="text"]:hover {
+div.search input[type="text"]:not(:disabled):hover {
   border: 1px solid #282828;
 }
 
 div.search div.split input,
+div.search div.split select,
 div.search div.split div.split-contents,
 div.search div.split p {
   width: calc(50% - (10px / 2));
@@ -2271,12 +2292,14 @@ div.search div.split p {
 }
 
 div.search div.split input:first-child,
+div.search div.split select:first-child,
 div.search div.split div.split-contents:first-child,
 div.search div.split p:first-child {
   margin-left: 0;
 }
 
 div.search div.split input:last-child,
+div.search div.split select:last-child,
 div.search div.split div.split-contents:last-child,
 div.search div.split p:last-child {
   margin-right: 0;
@@ -2439,7 +2462,7 @@ div.configuration div.contents input[type="text"]:focus {
           box-shadow: 0 0 1pt 1pt #282828;
 }
 
-div.configuration div.contents input[type="text"]:hover {
+div.configuration div.contents input[type="text"]:not(:disabled):hover {
   border: 1px solid #282828;
 }
 
@@ -2448,6 +2471,7 @@ div.configuration div.contents div.tab-content {
 }
 
 div.configuration div.split input,
+div.configuration div.split select,
 div.configuration div.split div.split-contents,
 div.configuration div.split p {
   width: calc(50% - (10px / 2));
@@ -2457,12 +2481,14 @@ div.configuration div.split p {
 }
 
 div.configuration div.split input:first-child,
+div.configuration div.split select:first-child,
 div.configuration div.split div.split-contents:first-child,
 div.configuration div.split p:first-child {
   margin-left: 0;
 }
 
 div.configuration div.split input:last-child,
+div.configuration div.split select:last-child,
 div.configuration div.split div.split-contents:last-child,
 div.configuration div.split p:last-child {
   margin-right: 0;

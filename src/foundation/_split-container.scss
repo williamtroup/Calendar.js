@@ -1,5 +1,6 @@
 div.split {
     input,
+    select,
     div.split-contents,
     p {
         width: calc(50% - (#{$spacing} / 2));

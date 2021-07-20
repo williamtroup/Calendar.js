@@ -21,7 +21,7 @@
  * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
  * @property    {boolean}   isAllDay                                    States if this event is for all-day.
- * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every Month, 4 = Every Year).
+ * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every 2 Weeks, 4 = Every Month, 5 = Every Year, 6 = Custom).
  * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated.
  * @property    {Object[]}  seriesIgnoreDates                           States the dates (string format) that should be ignored when an event is repeated.
  * @property    {Object}    created                                     The date that the event was created.
@@ -30,6 +30,8 @@
  * @property    {Object}    repeatEnds                                  The date when a repeating series should end.
  * @property    {string}    group                                       The name of the group the event belongs to.
  * @property    {string}    url                                         The URL that is associated with the event.
+ * @property    {number}    repeatEveryCustomType                       States the custom repeating period (0 = Daily, 1 = Weekly, 2 = Monthly, 3 = Yearly).
+ * @property    {number}    repeatEveryCustomValue                      States the custom repeating period value (for example, 1 day, week, month, or year).
  */
 
 
@@ -140,6 +142,7 @@
  * @property    {string}    repeatsEvery2WeeksText                      The text that should be displayed for the "Every 2 Weeks" label.
  * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
  * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
+ * @property    {string}    repeatsCustomText                           The text that should be displayed for the "Custom:" label.
  * @property    {string}    repeatOptionsTitle                          The text that should be displayed for the "Repeat Options" label.
  * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
  * @property    {string}    includeText                                 The text that should be displayed for the "Include:" label.
@@ -193,6 +196,11 @@
  * @property    {string}    visibleDaysTabText                          The text that should be displayed for the "Visible Days" tab.
  * @property    {string}    enableDayNameHeadersInMainDisplayText       The text that should be displayed for the "Enable day name headers in the main display" label.
  * @property    {string}    thisWeekTooltipText                         The tooltip text that should be used for for the "This Week" button.
+ * @property    {string}    dailyText                                   The text that should be displayed for the "Daily" label.
+ * @property    {string}    weeklyText                                  The text that should be displayed for the "Weekly" label.
+ * @property    {string}    monthlyText                                 The text that should be displayed for the "Monthly" label.
+ * @property    {string}    yearlyText                                  The text that should be displayed for the "Yearly" label.
+ * @property    {string}    repeatsByCustomSettingsText                 The text that should be displayed for the "By Custom Settings" label.
  */
 
 
@@ -272,6 +280,11 @@ function calendarJs( id, options, startDateTime ) {
         _const_Repeat_Every2Weeks = 3,
         _const_Repeat_EveryMonth = 4,
         _const_Repeat_EveryYear = 5,
+        _const_Repeat_Custom = 6,
+        _const_Repeat_CustomType_Daily = 0,
+        _const_Repeat_CustomType_Weekly = 1,
+        _const_Repeat_CustomType_Monthly = 2,
+        _const_Repeat_CustomType_Yearly = 3,
         _elementID_Day = "day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
@@ -309,7 +322,10 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Every2Weeks = null,
         _element_EventEditorDialog_RepeatEvery_EveryMonth = null,
         _element_EventEditorDialog_RepeatEvery_EveryYear = null,
+        _element_EventEditorDialog_RepeatEvery_Custom = null,
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = null,
+        _element_EventEditorDialog_RepeatEvery_Custom_Type = null,
+        _element_EventEditorDialog_RepeatEvery_Custom_Value = null,
         _element_EventEditorDialog_ErrorMessage = null,
         _element_EventEditorDialog_EventDetails = {},
         _element_EventEditorDialog_OKButton = null,
@@ -748,7 +764,7 @@ function calendarJs( id, options, startDateTime ) {
 
         for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
             buildYearSelectorDropDownYear( date.getFullYear() );
-            moveDateForwardOneYear( date );
+            moveDateForwardYear( date );
         }
 
         _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
@@ -994,28 +1010,32 @@ function calendarJs( id, options, startDateTime ) {
         date.setDate( date.getDate() - 1 );
     }
 
-    function moveDateForwardOneDay( date ) {
-        date.setDate( date.getDate() + 1 );
-    }
-
     function moveDateBackOneWeek( date ) {
         date.setDate( date.getDate() - 7 );
     }
 
-    function moveDateForwardOneWeek( date ) {
-        date.setDate( date.getDate() + 7 );
+    function moveDateForwardDay( date, dayCount ) {
+        dayCount = isDefinedNumber( dayCount ) ? dayCount : 1;
+
+        date.setDate( date.getDate() + dayCount );
     }
 
-    function moveDateForwardTwoWeeks( date ) {
-        date.setDate( date.getDate() + 14 );
+    function moveDateForwardWeek( date, weekCount ) {
+        weekCount = isDefinedNumber( weekCount ) ? weekCount : 1;
+
+        date.setDate( date.getDate() + ( weekCount * 7 ) );
     }
 
-    function moveDateForwardOneMonth( date ) {
-        date.setMonth( date.getMonth() + 1 );
+    function moveDateForwardMonth( date, monthCount ) {
+        monthCount = isDefinedNumber( monthCount ) ? monthCount : 1;
+
+        date.setMonth( date.getMonth() + monthCount );
     }
 
-    function moveDateForwardOneYear( date ) {
-        date.setFullYear( date.getFullYear() + 1 );
+    function moveDateForwardYear( date, yearCount ) {
+        yearCount = isDefinedNumber( yearCount ) ? yearCount : 1;
+
+        date.setFullYear( date.getFullYear() + yearCount );
     }
 
     function getFriendlyTimeBetweenTwoDate( date1, date2 ) {
@@ -1154,15 +1174,31 @@ function calendarJs( id, options, startDateTime ) {
             var repeatEvery = getNumber( orderedEvent.repeatEvery );
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneDay );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardDay, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneWeek );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
-                    buildRepeatedDayEvents( orderedEvent, moveDateForwardTwoWeeks );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, 2 );
                 }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneMonth );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    buildRepeatedDayEvents( orderedEvent, moveDateForwardOneYear );
+                    buildRepeatedDayEvents( orderedEvent, moveDateForwardYear, 1 );
+                } else if ( repeatEvery === _const_Repeat_Custom ) {
+
+                    var repeatEveryCustomType = getNumber( orderedEvent.repeatEveryCustomType ),
+                        repeatEveryCustomValue = getNumber( orderedEvent.repeatEveryCustomValue );
+                    
+                    if ( repeatEveryCustomValue > 0 ) {
+                        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+                            buildRepeatedDayEvents( orderedEvent, moveDateForwardDay, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+                            buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+                            buildRepeatedDayEvents( orderedEvent, moveDateForwardMonth, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+                            buildRepeatedDayEvents( orderedEvent, moveDateForwardYear, repeatEveryCustomValue );
+                        }
+                    }
                 }
             }
         }
@@ -1171,12 +1207,12 @@ function calendarJs( id, options, startDateTime ) {
         startAutoRefreshTimer();
     }
 
-    function buildRepeatedDayEvents( orderedEvent, dateFunc ) {
+    function buildRepeatedDayEvents( orderedEvent, dateFunc, dateFuncForwardValue ) {
         var newFromDate = new Date( orderedEvent.from ),
             excludeDays = getArray( orderedEvent.repeatEveryExcludeDays );
 
         while ( newFromDate < _largestDateInView ) {
-            dateFunc( newFromDate );
+            dateFunc( newFromDate, dateFuncForwardValue );
 
             var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
 
@@ -1199,7 +1235,7 @@ function calendarJs( id, options, startDateTime ) {
     
                 var nextDayDate = new Date( orderedEvent.from );
                 for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
-                    moveDateForwardOneDay( nextDayDate );
+                    moveDateForwardDay( nextDayDate );
     
                     var elementNextDay = getDayElement( nextDayDate );
                     if ( elementNextDay !== null ) {
@@ -1555,21 +1591,37 @@ function calendarJs( id, options, startDateTime ) {
                     break;
                 }
 
-                moveDateForwardOneDay( nextDate );
+                moveDateForwardDay( nextDate );
             }
             
             var repeatEvery = getNumber( event.repeatEvery );
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneDay );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardDay, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneWeek );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardTwoWeeks );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 2 );
                 }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneMonth );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardOneYear );
+                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardYear, 1 );
+                } else if ( repeatEvery === _const_Repeat_Custom ) {
+
+                    var repeatEveryCustomType = getNumber( event.repeatEveryCustomType ),
+                        repeatEveryCustomValue = getNumber( event.repeatEveryCustomValue );
+                    
+                    if ( repeatEveryCustomValue > 0 ) {
+                        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardDay, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardMonth, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardYear, repeatEveryCustomValue );
+                        }
+                    }
                 }
             }
         } );
@@ -1608,12 +1660,12 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc ) {
+    function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
         var newFromDate = new Date( event.from ),
             excludeDays = getArray( event.repeatEveryExcludeDays );
     
         while ( newFromDate < date ) {
-            dateFunc( newFromDate );
+            dateFunc( newFromDate, dateFuncForwardValue );
 
             var repeatEnded = !( !isDefined( event.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, event.repeatEnds ) );
 
@@ -1760,7 +1812,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function onNextDay() {
-        moveDateForwardOneDay( _element_FullDayView_DateSelected );
+        moveDateForwardDay( _element_FullDayView_DateSelected );
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
@@ -2101,7 +2153,7 @@ function calendarJs( id, options, startDateTime ) {
                     }
                 }
 
-                moveDateForwardOneDay( nextDate );
+                moveDateForwardDay( nextDate );
             }
 
             if ( addedNow ) {
@@ -2113,15 +2165,31 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( repeatEvery > _const_Repeat_Never ) {
                 if ( repeatEvery === _const_Repeat_EveryDay ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneDay );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardDay, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneWeek );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardTwoWeeks );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 2 );
                 }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneMonth );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
-                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardOneYear );
+                    repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardYear, 1 );
+                } else if ( repeatEvery === _const_Repeat_Custom ) {
+
+                    var repeatEveryCustomType = getNumber( orderedEvent.repeatEveryCustomType ),
+                        repeatEveryCustomValue = getNumber( orderedEvent.repeatEveryCustomValue );
+                    
+                    if ( repeatEveryCustomValue > 0 ) {
+                        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+                            repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardDay, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+                            repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+                            repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardMonth, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+                            repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardYear, repeatEveryCustomValue );
+                        }
+                    }
                 }
             }
 
@@ -2149,13 +2217,13 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc ) {
+    function buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc, dateFuncForwardValue ) {
         var newFromDate = new Date( orderedEvent.from ),
             excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
             added = false;
     
         while ( newFromDate < weekEndDate ) {
-            dateFunc( newFromDate );
+            dateFunc( newFromDate, dateFuncForwardValue );
 
             var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
             
@@ -2281,7 +2349,7 @@ function calendarJs( id, options, startDateTime ) {
 
         do {
             buildListAllEventsDay( startOfWeek );
-            moveDateForwardOneDay( startOfWeek );
+            moveDateForwardDay( startOfWeek );
 
         } while ( startOfWeek < weekEndDate );
     }
@@ -2368,7 +2436,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function onNextWeek() {
-        moveDateForwardOneWeek( _element_ListAllWeekEventsView_DateSelected );
+        moveDateForwardWeek( _element_ListAllWeekEventsView_DateSelected );
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
     }
 
@@ -3092,8 +3160,30 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Every2Weeks = buildRadioButton( radioButtonsContainer, _options.repeatsEvery2WeeksText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryMonth = buildRadioButton( radioButtonsContainer, _options.repeatsEveryMonthText, "RepeatType", repeatEveryEvent );
         _element_EventEditorDialog_RepeatEvery_EveryYear = buildRadioButton( radioButtonsContainer, _options.repeatsEveryYearText, "RepeatType", repeatEveryEvent );
+        _element_EventEditorDialog_RepeatEvery_Custom = buildRadioButton( radioButtonsContainer, _options.repeatsCustomText, "RepeatType", repeatEveryEvent );
 
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = createButtonElement( radioButtonsContainer, "...", "repeat-options", showEventEditorRepeatOptionsDialog, _options.repeatOptionsTitle );
+
+        var toSplitContainer = createElement( "div", "split" );
+        _element_EventEditorDialog_Tab_Repeats.appendChild( toSplitContainer );
+
+        _element_EventEditorDialog_RepeatEvery_Custom_Type = createElement( "select" );
+        toSplitContainer.appendChild( _element_EventEditorDialog_RepeatEvery_Custom_Type );
+
+        createSelectOption( _element_EventEditorDialog_RepeatEvery_Custom_Type, _options.dailyText, _const_Repeat_CustomType_Daily );
+        createSelectOption( _element_EventEditorDialog_RepeatEvery_Custom_Type, _options.weeklyText, _const_Repeat_CustomType_Weekly );
+        createSelectOption( _element_EventEditorDialog_RepeatEvery_Custom_Type, _options.monthlyText, _const_Repeat_CustomType_Monthly );
+        createSelectOption( _element_EventEditorDialog_RepeatEvery_Custom_Type, _options.yearlyText, _const_Repeat_CustomType_Yearly );
+
+        _element_EventEditorDialog_RepeatEvery_Custom_Value = createElement( "input", null, "number" );
+        toSplitContainer.appendChild( _element_EventEditorDialog_RepeatEvery_Custom_Value );
+    }
+
+    function createSelectOption( select, text, value ) {
+        var option = createElement( "option" );
+        option.value = value;
+        option.text = text;
+        select.appendChild( option );
     }
 
     function buildEventEditorExtraTabContent() {
@@ -3141,6 +3231,8 @@ function calendarJs( id, options, startDateTime ) {
 
     function repeatEveryEvent() {
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.disabled = _element_EventEditorDialog_RepeatEvery_Never.checked;
+        _element_EventEditorDialog_RepeatEvery_Custom_Type.disabled = !_element_EventEditorDialog_RepeatEvery_Custom.checked;
+        _element_EventEditorDialog_RepeatEvery_Custom_Value.disabled = !_element_EventEditorDialog_RepeatEvery_Custom.checked;
     }
 
     function isAllDayChanged() {
@@ -3179,7 +3271,10 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_RepeatEvery_Every2Weeks.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_Custom.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_Custom_Type.disabled = disabled;
+        _element_EventEditorDialog_RepeatEvery_Custom_Value.disabled = disabled;
 
         repeatEveryEvent();
     }
@@ -3204,6 +3299,8 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
             _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
             _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
+            _element_EventEditorDialog_RepeatEvery_Custom_Type.value = getNumber( eventDetails.repeatEveryCustomType );
+            _element_EventEditorDialog_RepeatEvery_Custom_Value.value = getNumber( eventDetails.repeatEveryCustomValue );
 
             setSelectedDate( eventDetails.from, _element_EventEditorDialog_DateFrom );
             setSelectedDate( eventDetails.to, _element_EventEditorDialog_DateTo );
@@ -3221,6 +3318,8 @@ function calendarJs( id, options, startDateTime ) {
                 _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
             } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                 _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
+            } else if ( repeatEvery === _const_Repeat_Custom ) {
+                _element_EventEditorDialog_RepeatEvery_Custom.checked = true;
             }
 
             var excludeDays = getArray( eventDetails.repeatEveryExcludeDays );
@@ -3265,6 +3364,8 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorRepeatOptionsDialog_Sat.checked = false;
             _element_EventEditorRepeatOptionsDialog_Sun.checked = false;
             _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
+            _element_EventEditorDialog_RepeatEvery_Custom_Type.value = _const_Repeat_CustomType_Daily;
+            _element_EventEditorDialog_RepeatEvery_Custom_Value.value = "0";
 
             if ( !isDefinedArray( overrideTimeValues ) ) {
                 _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
@@ -3308,10 +3409,20 @@ function calendarJs( id, options, startDateTime ) {
                 location = trimString( _element_EventEditorDialog_Location.value ),
                 group = trimString( _element_EventEditorDialog_Group.value ),
                 repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null ),
-                url = trimString( _element_EventEditorDialog_Url.value );
+                url = trimString( _element_EventEditorDialog_Url.value ),
+                repeatEveryCustomType = parseInt( _element_EventEditorDialog_RepeatEvery_Custom_Type.value ),
+                repeatEveryCustomValue = parseInt( _element_EventEditorDialog_RepeatEvery_Custom_Value.value );
 
             setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
             setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
+
+            if ( isNaN( repeatEveryCustomType ) ) {
+                repeatEveryCustomType = _const_Repeat_CustomType_Daily;
+            }
+
+            if ( isNaN( repeatEveryCustomValue ) ) {
+                repeatEveryCustomValue = 0;
+            }
 
             if ( toDate < fromDate ) {
                 showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
@@ -3333,7 +3444,9 @@ function calendarJs( id, options, startDateTime ) {
                     colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
                     repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays,
                     repeatEnds: repeatEnds,
-                    url: url
+                    url: url,
+                    repeatEveryCustomType: repeatEveryCustomType,
+                    repeatEveryCustomValue: repeatEveryCustomValue
                 };
     
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
@@ -3348,6 +3461,8 @@ function calendarJs( id, options, startDateTime ) {
                     newEvent.repeatEvery = _const_Repeat_EveryMonth;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
                     newEvent.repeatEvery = _const_Repeat_EveryYear;
+                } else if ( _element_EventEditorDialog_RepeatEvery_Custom.checked ) {
+                    newEvent.repeatEvery = _const_Repeat_Custom;
                 }
 
                 if ( !isExistingEvent ) {
@@ -5026,7 +5141,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function getRepeatsText( value ) {
-        var result = _options.repeatsNever,
+        var result = _options.dailyText,
             repeatEvery = getNumber( value );
 
         if ( repeatEvery === _const_Repeat_EveryDay ) {
@@ -5039,6 +5154,25 @@ function calendarJs( id, options, startDateTime ) {
             result = _options.repeatsEveryMonthText;
         } else if ( repeatEvery === _const_Repeat_EveryYear ) {
             result = _options.repeatsEveryYearText;
+        } else if ( repeatEvery === _const_Repeat_Custom ) {
+            result = _options.repeatsByCustomSettingsText;
+        }
+
+        return result;
+    }
+
+    function getRepeatsCustomTypeText( value ) {
+        var result = _options.dailyText,
+            repeatEveryCustomType = getNumber( value );
+
+        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+            result = _options.dailyText;
+        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+            result = _options.weeklyText;
+        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+            result = _options.monthlyText;
+        }  else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+            result = _options.yearlyText;
         }
 
         return result;
@@ -5078,6 +5212,8 @@ function calendarJs( id, options, startDateTime ) {
         } else if ( typeof value === "number" ) {
             if ( name === "repeatEvery" && !forJson ) {
                 result = getRepeatsText( value );
+            } else if ( name === "repeatEveryCustomType" && !forJson ) {
+                result = getRepeatsCustomTypeText( value );
             } else {
                 result = value.toString();
             }
@@ -6569,6 +6705,10 @@ function calendarJs( id, options, startDateTime ) {
         if ( !isDefined( _options.repeatsEveryYearText ) ) {
             _options.repeatsEveryYearText = "Every Year";
         }
+
+        if ( !isDefined( _options.repeatsCustomText ) ) {
+            _options.repeatsCustomText = "Custom:";
+        }
         
         if ( !isDefined( _options.repeatOptionsTitle ) ) {
             _options.repeatOptionsTitle = "Repeat Options";
@@ -6780,6 +6920,26 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.thisWeekTooltipText ) ) {
             _options.thisWeekTooltipText = "This Week";
+        }
+
+        if ( !isDefined( _options.dailyText ) ) {
+            _options.dailyText = "Daily";
+        }
+
+        if ( !isDefined( _options.weeklyText ) ) {
+            _options.weeklyText = "Weekly";
+        }
+
+        if ( !isDefined( _options.monthlyText ) ) {
+            _options.monthlyText = "Monthly";
+        }
+
+        if ( !isDefined( _options.yearlyText ) ) {
+            _options.yearlyText = "Yearly";
+        }
+
+        if ( !isDefined( _options.repeatsByCustomSettingsText ) ) {
+            _options.repeatsByCustomSettingsText = "By Custom Settings";
         }
     }
 

@@ -208,7 +208,7 @@ $input-hover-color: $dark-color;
         box-shadow: 0 0 1pt 1pt $dark-color;
     }
 
-    &:hover {
+    &:not(:disabled):hover {
         border: 1px solid $input-hover-color;
     }
 }
