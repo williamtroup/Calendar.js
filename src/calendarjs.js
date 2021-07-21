@@ -1238,7 +1238,7 @@ function calendarJs( id, options, startDateTime ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, 2 );
-                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardYear, 1 );
@@ -1662,7 +1662,7 @@ function calendarJs( id, options, startDateTime ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 2 );
-                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardYear, 1 );
@@ -2236,7 +2236,7 @@ function calendarJs( id, options, startDateTime ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 2 );
-                }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _const_Repeat_EveryYear ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardYear, 1 );
@@ -5256,7 +5256,7 @@ function calendarJs( id, options, startDateTime ) {
             result = _options.repeatsEveryWeekText;
         } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
             result = _options.repeatsEvery2WeeksText;
-        }  else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+        } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
             result = _options.repeatsEveryMonthText;
         } else if ( repeatEvery === _const_Repeat_EveryYear ) {
             result = _options.repeatsEveryYearText;
@@ -5277,7 +5277,7 @@ function calendarJs( id, options, startDateTime ) {
             result = _options.weeklyText;
         } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
             result = _options.monthlyText;
-        }  else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
             result = _options.yearlyText;
         }
 
