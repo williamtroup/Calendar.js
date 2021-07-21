@@ -17,7 +17,7 @@ Features include:
 - Search support.
 - Repeat every Day, Week, Month, or Year (with exclusion days support).
 - Customizable holidays.
-- Navigation keys (when full-screen mode is activated):
+- Navigation keys (in full-screen mode):
   1. Left:  Moves to the previous month.
   2. Right:  Moves to the next month.
   3. Escape:  Close the active dialog, or full-screen mode.
@@ -26,10 +26,9 @@ Features include:
   7. Ctrl/Command + F:  Opens the search dialog.
   8. Ctrl/Command + Left:  Moves to the previous year.
   9. Ctrl/Command + Right:  Moves to the next year.
-- Navigation keys (when full-screen mode is not activated):
-  1. Escape:  Closes the active dialog.
 - Navigation keys (global):
-  1. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
+  1. Escape:  Closes the active dialog.
+  2. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
