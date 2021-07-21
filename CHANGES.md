@@ -9,6 +9,7 @@
 - Fixed the radio buttons showing a hover effect when they are disabled.
 - Fixed some overload SCSS issues when styling the tab content containers.
 - Added "lastUpdated" support for events (only updated if the event is actually changed).
+- Added "LAST-MODIFIED" support for iCal exports, and "lastUpdated" to all other export types.
 - Fixed some very bad spelling mistakes in the documentation.
 - 
 
