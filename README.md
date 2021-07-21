@@ -20,12 +20,14 @@ Features include:
 - Navigation keys (when full-screen mode is activated):
   1. Left:  Moves to the previous month.
   2. Right:  Moves to the next month.
-  3. Escape:  Closes full-screen mode.
+  3. Escape:  Close the active dialog, or full-screen mode.
   4. Down:  Jumps to the current month.
   6. F5:  Refreshes the current view.
   7. Ctrl/Command + F:  Opens the search dialog.
   8. Ctrl/Command + Left:  Moves to the previous year.
   9. Ctrl/Command + Right:  Moves to the next year.
+- Navigation keys (when full-screen mode is not activated):
+  1. Escape:  Closes the active dialog.
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
