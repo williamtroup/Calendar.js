@@ -1140,6 +1140,10 @@ div.calendar-dialog {
             color: $light-color;
             transition: $transition;
         }
+
+        &:active {
+            @include opacity-active-effect(0.7);
+        }
     }
 
     div.tab-content {

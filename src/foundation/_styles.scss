@@ -53,10 +53,10 @@ $input-hover-color: $dark-color;
     opacity: 0.6;
 }
 
-@mixin opacity-active-effect {
+@mixin opacity-active-effect($opacity-default: 0.4) {
     transition: all .2s;
     cursor: pointer;
-    opacity: 0.4;
+    opacity: $opacity-default;
 }
 
 @mixin word-wrap-with-new-lines {

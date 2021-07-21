@@ -16,6 +16,7 @@
 - Added global Ctrl/Command + Shift + A support to open the Add Event window (when manual editing is enabled).
 - Code changes to make the KeyCodes a little easier to read.
 - Added global Ctrl/Command + Shift + F support to open the Search dialog (instead of Ctrl/Command + F in full screen mode).
+- Added :active css selector for the tab control headers (for all dialogs that use them).
 - 
 
 ### Version 1.0.2:
