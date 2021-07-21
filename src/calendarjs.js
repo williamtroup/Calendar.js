@@ -889,13 +889,8 @@ function calendarJs( id, options, startDateTime ) {
                 showSearchDialog();
 
             } else if ( e.keyCode === _keys.escape ) {
-                if ( _openDialogs.length > 0 ) {
-                    closeActiveDialog();
-                } else {
-                    
-                    if ( isMainDisplayVisible ) {
-                        headerDoubleClick();
-                    }
+                if ( !closeActiveDialog() && isMainDisplayVisible ) {
+                    headerDoubleClick();
                 }
 
             } else if ( e.keyCode === _keys.left && isMainDisplayVisible ) {
@@ -912,7 +907,7 @@ function calendarJs( id, options, startDateTime ) {
             }
         } else {
 
-            if ( e.keyCode === _keys.escape && _openDialogs.length > 0 ) {
+            if ( e.keyCode === _keys.escape ) {
                 closeActiveDialog();
             }
         }
@@ -935,12 +930,20 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function closeActiveDialog() {
-        var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
-        if ( isFunction( lastFunc ) ) {
-            
-            _openDialogs.pop();
-            lastFunc( false );
+        var done = false;
+
+        if ( _openDialogs.length > 0 ) {
+            var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
+
+            if ( isFunction( lastFunc ) ) {    
+                _openDialogs.pop();
+                lastFunc( false );
+            }
+
+            done = true;
         }
+
+        return done;
     }
 
 
