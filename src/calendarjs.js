@@ -1550,13 +1550,15 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function fullDayViewDoubleClick( e ) {
-        var contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
-            scrollPosition = getScrollPosition(),
-            pixelsPerMinute = getFullDayPixelsPerMinute(),
-            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
-            hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
-        
-        showEventEditingDialog( null, _element_FullDayView_DateSelected, hoursMinutes );
+        if ( _options.manualEditingEnabled ) {
+            var contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
+                scrollPosition = getScrollPosition(),
+                pixelsPerMinute = getFullDayPixelsPerMinute(),
+                minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
+                hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
+            
+            showEventEditingDialog( null, _element_FullDayView_DateSelected, hoursMinutes );
+        }
     }
 
     function updateFullDayViewFromEventEdit() {
