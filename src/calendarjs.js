@@ -32,6 +32,7 @@
  * @property    {string}    url                                         The URL that is associated with the event.
  * @property    {number}    repeatEveryCustomType                       States the custom repeating period (0 = Daily, 1 = Weekly, 2 = Monthly, 3 = Yearly).
  * @property    {number}    repeatEveryCustomValue                      States the custom repeating period value (for example, 1 day, week, month, or year).
+ * @property    {Object}    lastUpdated                                 The date that the event was last updated.
  */
 
 
@@ -201,6 +202,7 @@
  * @property    {string}    monthlyText                                 The text that should be displayed for the "Monthly" label.
  * @property    {string}    yearlyText                                  The text that should be displayed for the "Yearly" label.
  * @property    {string}    repeatsByCustomSettingsText                 The text that should be displayed for the "By Custom Settings" label.
+ * @property    {string}    lastUpdatedText                             The text that should be displayed for the "Last Updated:" label.
  */
 
 
@@ -5293,6 +5295,7 @@ function calendarJs( id, options, startDateTime ) {
                 _options.repeatDaysToExcludeText,
                 _options.seriesIgnoreDatesText,
                 _options.createdText,
+                _options.lastUpdatedText,
                 _options.organizerNameText,
                 _options.organizerEmailAddressText,
                 _options.urlText
@@ -5320,6 +5323,7 @@ function calendarJs( id, options, startDateTime ) {
         eventContents.push( getArrayDays( eventDetails.repeatEveryExcludeDays ) );
         eventContents.push( getArrayText( eventDetails.seriesIgnoreDates ) );
         eventContents.push( getStringFromDateTime( eventDetails.created ) );
+        eventContents.push( getStringFromDateTime( eventDetails.lastUpdated ) );
         eventContents.push( getString( eventDetails.organizerName ) );
         eventContents.push( getString( eventDetails.organizerEmailAddress ) );
         eventContents.push( getString( eventDetails.url ) );
@@ -5500,6 +5504,7 @@ function calendarJs( id, options, startDateTime ) {
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
             contents.push( "CREATED:" + getICalDateTimeString( orderedEvent.created ) );
+            contents.push( "LAST-MODIFIED:" + getICalDateTimeString( orderedEvent.lastUpdated ) );
             contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
@@ -5854,8 +5859,8 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventsSet
      * 
      * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States of the "onEventsSet" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventsSet" event should be triggered.
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
         triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
@@ -5876,8 +5881,8 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventsAdded
      * 
      * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States of the "onEventsAdded" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventsAdded" event should be triggered.
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
@@ -5887,7 +5892,7 @@ function calendarJs( id, options, startDateTime ) {
         for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
             var event = events[ eventIndex ];
 
-            this.addEvent( event, false, false );
+            this.addEvent( event, false, false, false );
         }
 
         if ( triggerEvent ) {
@@ -5908,13 +5913,16 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventAdded
      * 
      * @param       {Object}    event                                       The event (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States of the "onEventAdded" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventAdded" event should be triggered.
+     * @param       {boolean}   setLastUpdated                              States if the "lastUpdated" date should be set (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was added.
      */
-    this.addEvent = function( event, updateEvents, triggerEvent ) {
+    this.addEvent = function( event, updateEvents, triggerEvent, setLastUpdated ) {
         var added = false;
+        
+        setLastUpdated = isDefined( setLastUpdated ) ? setLastUpdated : true;
 
         if ( isDefinedString( event.from ) ) {
             event.from = new Date( event.from );
@@ -5930,6 +5938,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( isDefinedString( event.created ) ) {
             event.created = new Date( event.created );
+        }
+
+        if ( isDefinedString( event.lastUpdated ) ) {
+            event.lastUpdated = new Date( event.lastUpdated );
         }
 
         if ( event.from <= event.to ) {
@@ -5974,6 +5986,10 @@ function calendarJs( id, options, startDateTime ) {
                     event.created = new Date();
                 }
 
+                if ( setLastUpdated ) {
+                    event.lastUpdated = new Date();
+                }
+
                 _events[ storageDate ][ storageGuid ] = getAdjustedAllDayEvent( event );
                 added = true;
 
@@ -5999,8 +6015,8 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventsUpdated
      * 
      * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States of the "onEventsUpdated" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
      */
      this.updateEvents = function( events, updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
@@ -6032,8 +6048,8 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @param       {string}    id                                          The ID of the event.
      * @param       {Object}    event                                       The event (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States of the "onEventUpdated" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventUpdated" event should be triggered.
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
@@ -6064,8 +6080,8 @@ function calendarJs( id, options, startDateTime ) {
      * @param       {Object}    from                                        The new from date.
      * @param       {Object}    to                                          The new to date.
      * @param       {Object}    repeatEnds                                  The new repeat ends day.
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States of the "onEventUpdated" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventUpdated" event should be triggered.
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
@@ -6106,8 +6122,8 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventRemoved
      * 
      * @param       {string}    id                                          The ID of the event.
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States of the "onEventRemoved" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventRemoved" event should be triggered.
      * 
      * @returns     {boolean}                                               States if the event was removed.
      */
@@ -6145,7 +6161,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @fires       onEventsCleared
      * 
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.clearEvents = function( updateEvents ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
@@ -6221,7 +6237,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @fires       onGroupsCleared
      * 
-     * @param       {boolean}   updateEvents                                States of the calendar display should be updated (defaults to true).
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.clearAllGroups = function( updateEvents ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
@@ -6264,7 +6280,7 @@ function calendarJs( id, options, startDateTime ) {
      * Sets the specific options that should be used.
      * 
      * @param       {Object}    newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
-     * @param       {boolean}   triggerEvent                                States of the "onOptionsUpdated" event should be triggered.
+     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
      */
     this.setOptions = function( newOptions, triggerEvent ) {
         newOptions = getOptions( newOptions );
@@ -6962,6 +6978,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.repeatsByCustomSettingsText ) ) {
             _options.repeatsByCustomSettingsText = "By Custom Settings";
+        }
+
+        if ( !isDefined( _options.lastUpdatedText ) ) {
+            _options.lastUpdatedText = "Last Updated:";
         }
     }
 

@@ -25,3 +25,4 @@ Below is the format that is expected for an event object when calling "addEvents
 | *string* | url | The URL that is associated with the event. |
 | *number* | repeatEveryCustomType | States the custom repeating period (0 = Daily, 1 = Weekly, 2 = Monthly, 3 = Yearly). |
 | *number* | repeatEveryCustomValue | States the custom repeating period value (for example, 1 day, week, month, or year). |
+| *Object* | lastUpdated | The date that the event was last updated. |

@@ -8,6 +8,8 @@
 - Fixed the input fields showing a hover effect when they are disabled.
 - Fixed the radio buttons showing a hover effect when they are disabled.
 - Fixed some overload SCSS issues when styling the tab content containers.
+- Added "lastUpdated" support for events (only updated if the event is actually changed).
+- Fixed some very bad spelling mistakes in the documentation.
 - 
 
 ### Version 1.0.2:
