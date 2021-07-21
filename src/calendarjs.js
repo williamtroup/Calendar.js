@@ -276,6 +276,7 @@ function calendarJs( id, options, startDateTime ) {
         _cachedStyles = null,
         _isFullScreenModeActivated = false,
         _isDateToday = false,
+        _openDialogs = [],
         _const_Repeat_Never = 0,
         _const_Repeat_EveryDay = 1,
         _const_Repeat_EveryWeek = 2,
@@ -863,32 +864,61 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function onWindowKeyDown( e ) {
-        if ( _isFullScreenModeActivated && isOnlyMainDisplayVisible() ) {
-            if ( e.keyCode === 37 && isControlKey( e ) ) {
+        if ( _isFullScreenModeActivated ) {
+            var isMainDisplayVisible = isOnlyMainDisplayVisible();
+
+            if ( e.keyCode === 37 && isControlKey( e ) && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveBackYear();
-            } else if ( e.keyCode === 39 && isControlKey( e ) ) {
+
+            } else if ( e.keyCode === 39 && isControlKey( e ) && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveForwardYear();
-            } else if ( e.keyCode === 70 && isControlKey( e ) ) {
+
+            } else if ( e.keyCode === 70 && isControlKey( e ) && isMainDisplayVisible ) {
                 e.preventDefault();
                 showSearchDialog();
+
             } else if ( e.keyCode === 27 ) {
-                headerDoubleClick();
-            } else if ( e.keyCode === 37 ) {
+                if ( _openDialogs.length > 0 ) {
+                    closeActiveDialog();
+                } else {
+                    if ( isMainDisplayVisible ) {
+                        headerDoubleClick();
+                    }
+                }
+
+            } else if ( e.keyCode === 37 && isMainDisplayVisible ) {
                 moveBackMonth();
-            } else if ( e.keyCode === 39 ) {
+
+            } else if ( e.keyCode === 39 && isMainDisplayVisible ) {
                 moveForwardMonth();
-            } else if ( e.keyCode === 40 ) {
+
+            } else if ( e.keyCode === 40 && isMainDisplayVisible ) {
                 moveToday();
-            } else if ( e.keyCode === 116 ) {
+                
+            } else if ( e.keyCode === 116 && isMainDisplayVisible ) {
                 refreshViews();
+            }
+        } else {
+
+            if ( e.keyCode === 27 && _openDialogs.length > 0 ) {
+                closeActiveDialog();
             }
         }
     }
 
     function isControlKey( e ) {
         return e.ctrlKey || e.metaKey;
+    }
+
+    function closeActiveDialog() {
+        var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
+        if ( isFunction( lastFunc ) ) {
+            
+            _openDialogs.pop();
+            lastFunc( false );
+        }
     }
 
 
@@ -3404,6 +3434,7 @@ function calendarJs( id, options, startDateTime ) {
         buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
         isAllDayChanged();
 
+        _openDialogs.push( eventDialogEvent_Cancel );
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
         _element_EventEditorDialog_Title.focus();
@@ -3510,10 +3541,11 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function eventDialogEvent_Cancel() {
-        _element_EventEditorDialog.style.display = "none";
-
+    function eventDialogEvent_Cancel( popCloseWindowEvent ) {
+        removeLastCloseWindowEvent( popCloseWindowEvent );
         removeNode( _document.body, _element_DisabledBackground );
+
+        _element_EventEditorDialog.style.display = "none";
     }
 
     function eventDialogEvent_Remove() {
@@ -3609,12 +3641,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_EventDetails.colorBorder = _element_EventEditorColorsDialog_ColorBorder.value;
     }
 
-    function eventColorsDialogEvent_Cancel() {
+    function eventColorsDialogEvent_Cancel( popCloseWindowEvent ) {
+        removeLastCloseWindowEvent( popCloseWindowEvent );
+
         _element_EventEditorColorsDialog.style.display = "none";
         _element_EventEditorDialog_DisabledArea.style.display = "none";
     }
 
     function showEventEditorColorsDialog() {
+        _openDialogs.push( eventColorsDialogEvent_Cancel );
         _element_EventEditorColorsDialog.style.display = "block";
         _element_EventEditorDialog_DisabledArea.style.display = "block";
     }
@@ -3703,12 +3738,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays = repeatEveryExcludeDays;
     }
 
-    function eventRepeatOptionsDialogEvent_Cancel() {
+    function eventRepeatOptionsDialogEvent_Cancel( popCloseWindowEvent ) {
+        removeLastCloseWindowEvent( popCloseWindowEvent );
+
         _element_EventEditorRepeatOptionsDialog.style.display = "none";
         _element_EventEditorDialog_DisabledArea.style.display = "none";
     }
 
     function showEventEditorRepeatOptionsDialog() {
+        _openDialogs.push( eventRepeatOptionsDialogEvent_Cancel );
         _element_EventEditorRepeatOptionsDialog.style.display = "block";
         _element_EventEditorDialog_DisabledArea.style.display = "block";
     }
@@ -3756,6 +3794,7 @@ function calendarJs( id, options, startDateTime ) {
     function showConfirmationDialog( title, message, onYesEvent, onNoEvent, showRemoveAllEventsCheckBox ) {
         showRemoveAllEventsCheckBox = isDefined( showRemoveAllEventsCheckBox ) ? showRemoveAllEventsCheckBox : false;
 
+        _openDialogs.push( false );
         _element_ConfirmationDialog.style.display = "block";
         _element_ConfirmationDialog_TitleBar.innerText = title;
         _element_ConfirmationDialog_Message.innerText = message;
@@ -3777,6 +3816,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function hideConfirmationDialog() {
+        _openDialogs.pop();
         _element_ConfirmationDialog.style.display = "none";
     }
 
@@ -3825,13 +3865,17 @@ function calendarJs( id, options, startDateTime ) {
 
     function showSelectExportTypeDialog( events ) {
         addNode( _document.body, _element_DisabledBackground );
+
+        _openDialogs.push( hideSelectExportTypeDialog );
         _element_SelectExportTypeDialog.style.display = "block";
         _element_SelectExportTypeDialog_ExportEvents = events;
         _element_SelectExportTypeDialog_Option_CSV.checked = true;
     }
 
-    function hideSelectExportTypeDialog() {
+    function hideSelectExportTypeDialog( popCloseWindowEvent ) {
+        removeLastCloseWindowEvent( popCloseWindowEvent );
         removeNode( _document.body, _element_DisabledBackground );
+
         _element_SelectExportTypeDialog.style.display = "none";
     }
 
@@ -4307,11 +4351,14 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_VisibleDays_Sat.checked = _options.visibleDays.indexOf( 5 ) > -1;
         _element_ConfigurationDialog_VisibleDays_Sun.checked = _options.visibleDays.indexOf( 6 ) > -1;
 
+        _openDialogs.push( hideConfigurationDialog );
         _element_ConfigurationDialog.style.display = "block";
     }
 
-    function hideConfigurationDialog() {
+    function hideConfigurationDialog( popCloseWindowEvent ) {
+        removeLastCloseWindowEvent( popCloseWindowEvent );
         removeNode( _document.body, _element_DisabledBackground );
+
         _element_ConfigurationDialog.style.display = "none";
     }
 
@@ -4849,6 +4896,14 @@ function calendarJs( id, options, startDateTime ) {
             left: left,
             top: top
         };
+    }
+
+    function removeLastCloseWindowEvent( popCloseWindowEvent ) {
+        popCloseWindowEvent = isDefined( popCloseWindowEvent ) ? popCloseWindowEvent : true;
+        
+        if ( popCloseWindowEvent ) {
+            _openDialogs.pop();
+        }
     }
 
 
