@@ -876,15 +876,15 @@ function calendarJs( id, options, startDateTime ) {
         if ( _isFullScreenModeActivated ) {
             var isMainDisplayVisible = isOnlyMainDisplayVisible();
 
-            if ( e.keyCode === _keys.left && isControlKey( e ) && isMainDisplayVisible ) {
+            if ( isControlKey( e ) &&e.keyCode === _keys.left && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveBackYear();
 
-            } else if ( e.keyCode === _keys.right && isControlKey( e ) && isMainDisplayVisible ) {
+            } else if ( isControlKey( e ) &&e.keyCode === _keys.right && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveForwardYear();
 
-            } else if ( e.keyCode === _keys.f && isControlKey( e ) && isMainDisplayVisible ) {
+            } else if ( isControlKey( e ) &&e.keyCode === _keys.f && isMainDisplayVisible ) {
                 e.preventDefault();
                 showSearchDialog();
 
@@ -912,7 +912,7 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
 
-        if ( e.keyCode === _keys.a && isControlKey( e ) && isShiftKey( e ) ) {
+        if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keys.a ) {
             e.preventDefault();
 
             if ( _options.manualEditingEnabled ) {
