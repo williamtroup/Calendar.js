@@ -277,6 +277,15 @@ function calendarJs( id, options, startDateTime ) {
         _isFullScreenModeActivated = false,
         _isDateToday = false,
         _openDialogs = [],
+        _keys = {
+            escape: 27,
+            left: 37,
+            right: 39,
+            down: 40,
+            a: 65,
+            f: 70,
+            f5: 116
+        },
         _const_Repeat_Never = 0,
         _const_Repeat_EveryDay = 1,
         _const_Repeat_EveryWeek = 2,
@@ -867,45 +876,58 @@ function calendarJs( id, options, startDateTime ) {
         if ( _isFullScreenModeActivated ) {
             var isMainDisplayVisible = isOnlyMainDisplayVisible();
 
-            if ( e.keyCode === 37 && isControlKey( e ) && isMainDisplayVisible ) {
+            if ( e.keyCode === _keys.left && isControlKey( e ) && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveBackYear();
 
-            } else if ( e.keyCode === 39 && isControlKey( e ) && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keys.right && isControlKey( e ) && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveForwardYear();
 
-            } else if ( e.keyCode === 70 && isControlKey( e ) && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keys.f && isControlKey( e ) && isMainDisplayVisible ) {
                 e.preventDefault();
                 showSearchDialog();
 
-            } else if ( e.keyCode === 27 ) {
+            } else if ( e.keyCode === _keys.escape ) {
                 if ( _openDialogs.length > 0 ) {
                     closeActiveDialog();
                 } else {
+                    
                     if ( isMainDisplayVisible ) {
                         headerDoubleClick();
                     }
                 }
 
-            } else if ( e.keyCode === 37 && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keys.left && isMainDisplayVisible ) {
                 moveBackMonth();
 
-            } else if ( e.keyCode === 39 && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keys.right && isMainDisplayVisible ) {
                 moveForwardMonth();
 
-            } else if ( e.keyCode === 40 && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keys.down && isMainDisplayVisible ) {
                 moveToday();
                 
-            } else if ( e.keyCode === 116 && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keys.f5 && isMainDisplayVisible ) {
                 refreshViews();
             }
         } else {
 
-            if ( e.keyCode === 27 && _openDialogs.length > 0 ) {
+            if ( e.keyCode === _keys.escape && _openDialogs.length > 0 ) {
                 closeActiveDialog();
             }
         }
+
+        if ( e.keyCode === _keys.a && isControlKey( e ) && isShiftKey( e ) ) {
+            e.preventDefault();
+
+            if ( _options.manualEditingEnabled ) {
+                showEventEditingDialog( null, new Date() );
+            }
+        }
+    }
+
+    function isShiftKey( e ) {
+        return e.shiftKey;
     }
 
     function isControlKey( e ) {

@@ -28,6 +28,8 @@ Features include:
   9. Ctrl/Command + Right:  Moves to the next year.
 - Navigation keys (when full-screen mode is not activated):
   1. Escape:  Closes the active dialog.
+- Navigation keys (global):
+  1. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).

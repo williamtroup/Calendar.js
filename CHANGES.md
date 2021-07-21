@@ -12,7 +12,9 @@
 - Added "LAST-MODIFIED" support for iCal exports, and "lastUpdated" to all other export types.
 - Fixed some very bad spelling mistakes in the documentation.
 - The events onPreviousMonth, onNextMonth, onPreviousYear, onNextYear, and onSetDate now have the new date passed to them.
-- Added escape support for open dialogs (not Confirmation Messages or Search) in all screen modes.
+- Added global Escape key support for open dialogs (not Confirmation Messages or Search).
+- Added global Ctrl/Command + Shift + A support to open the Add Event window (when manual editing is enabled).
+- Code changes to make the KeyCodes a little easier to read.
 - 
 
 ### Version 1.0.2:
