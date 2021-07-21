@@ -180,10 +180,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 
 | Name: | Description: |
 | --- | --- |
-| onPreviousMonth | Specifies an event that will be triggered when the "Previous Month" button is pressed. |
-| onNextMonth | Specifies an event that will be triggered when the "Next Month" button is pressed. |
-| onPreviousYear | Specifies an event that will be triggered when moving to the previous year. |
-| onNextYear | Specifies an event that will be triggered when moving to the next year. |
+| onPreviousMonth | Specifies an event that will be triggered when the "Previous Month" button is pressed (passes the new date to the function). |
+| onNextMonth | Specifies an event that will be triggered when the "Next Month" button is pressed (passes the new date to the function). |
+| onPreviousYear | Specifies an event that will be triggered when moving to the previous year (passes the new date to the function). |
+| onNextYear | Specifies an event that will be triggered when moving to the next year (passes the new date to the function). |
 | onToday | Specifies an event that will be triggered when the "Today" button is pressed. |
 | onEventAdded | Specifies an event that will be triggered when an event is added (passes the event to the function). |
 | onEventUpdated | Specifies an event that will be triggered when an event is updated (passes the event to the function). |
@@ -191,7 +191,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsAdded | Specifies an event that will be triggered when events are added (passes the events to the function). |
 | onEventsCleared | Specifies an event that will be triggered when the events are cleared. |
 | onEventsExported | Specifies an event that will be triggered when the "Export Events" button is pressed. |
-| onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |
+| onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally (passes the new date to the function). |
 | onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
 | onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
 | onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |

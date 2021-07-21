@@ -52,10 +52,10 @@
  * 
  * These are the properties that store the events that should be fired when various actions are triggered.
  *
- * @property    {Object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed.
- * @property    {Object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed.
- * @property    {Object}    onPreviousYear                              Specifies an event that will be triggered when moving to the previous year.
- * @property    {Object}    onNextYear                                  Specifies an event that will be triggered when moving to the next year.
+ * @property    {Object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed (passes the new date to the function).
+ * @property    {Object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed (passes the new date to the function).
+ * @property    {Object}    onPreviousYear                              Specifies an event that will be triggered when moving to the previous year (passes the new date to the function).
+ * @property    {Object}    onNextYear                                  Specifies an event that will be triggered when moving to the next year (passes the new date to the function).
  * @property    {Object}    onToday                                     Specifies an event that will be triggered when the "Today" button is pressed.
  * @property    {Object}    onEventAdded                                Specifies an event that will be triggered when an event is added (passes the event to the function).
  * @property    {Object}    onEventUpdated                              Specifies an event that will be triggered when an event is updated (passes the event to the function).
@@ -63,7 +63,7 @@
  * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
  * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
  * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
- * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally.
+ * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally (passes the new date to the function).
  * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
  * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
  * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
@@ -5773,8 +5773,10 @@ function calendarJs( id, options, startDateTime ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
     this.setCurrentDisplayDate = function( date ) {
-        build( new Date( date ) );
-        triggerOptionsEvent( "onSetDate" );
+        var newDate = new Date( date );
+
+        build( newDate );
+        triggerOptionsEventWithData( "onSetDate", newDate );
     };
 
     /**
@@ -5808,7 +5810,7 @@ function calendarJs( id, options, startDateTime ) {
         previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
         build( previousMonth );
-        triggerOptionsEvent( "onPreviousMonth" );
+        triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
     }
 
     function moveForwardMonth() {
@@ -5816,7 +5818,7 @@ function calendarJs( id, options, startDateTime ) {
         nextMonth.setMonth( nextMonth.getMonth() + 1 );
 
         build( nextMonth );
-        triggerOptionsEvent( "onNextMonth" );
+        triggerOptionsEventWithData( "onNextMonth", nextMonth );
     }
 
     function moveBackYear() {
@@ -5824,7 +5826,7 @@ function calendarJs( id, options, startDateTime ) {
         previousYear.setFullYear( previousYear.getFullYear() - 1 );
 
         build( previousYear );
-        triggerOptionsEvent( "onPreviousYear" );
+        triggerOptionsEventWithData( "onPreviousYear", previousYear );
     }
 
     function moveForwardYear() {
@@ -5832,7 +5834,7 @@ function calendarJs( id, options, startDateTime ) {
         nextYear.setFullYear( nextYear.getFullYear() + 1 );
 
         build( nextYear );
-        triggerOptionsEvent( "onNextYear" );
+        triggerOptionsEventWithData( "onNextYear", nextYear );
     }
 
     function moveToday() {

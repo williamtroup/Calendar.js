@@ -11,6 +11,7 @@
 - Added "lastUpdated" support for events (only updated if the event is actually changed).
 - Added "LAST-MODIFIED" support for iCal exports, and "lastUpdated" to all other export types.
 - Fixed some very bad spelling mistakes in the documentation.
+- The events onPreviousMonth, onNextMonth, onPreviousYear, onNextYear, and onSetDate now have the new date passed to them.
 - 
 
 ### Version 1.0.2:
