@@ -15,6 +15,7 @@
 - Added global Escape key support for open dialogs (not Confirmation Messages or Search).
 - Added global Ctrl/Command + Shift + A support to open the Add Event window (when manual editing is enabled).
 - Code changes to make the KeyCodes a little easier to read.
+- Added global Ctrl/Command + Shift + F support to open the Search dialog (instead of Ctrl/Command + F in full screen mode).
 - 
 
 ### Version 1.0.2:
