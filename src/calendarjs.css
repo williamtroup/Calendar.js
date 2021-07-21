@@ -1343,7 +1343,6 @@ div.event-editor div.view div.contents {
 }
 
 div.event-editor div.view input:not([type="button"]),
-div.event-editor div.view select,
 div.event-editor div.view textarea {
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
@@ -1358,13 +1357,11 @@ div.event-editor div.view textarea {
 }
 
 div.event-editor div.view input:not([type="button"]):last-child,
-div.event-editor div.view select:last-child,
 div.event-editor div.view textarea:last-child {
   margin-bottom: 0;
 }
 
 div.event-editor div.view input:not([type="button"]):focus,
-div.event-editor div.view select:focus,
 div.event-editor div.view textarea:focus {
   border: 1px solid #282828 !important;
   -webkit-box-shadow: 0 0 1pt 1pt #282828;
@@ -1372,13 +1369,11 @@ div.event-editor div.view textarea:focus {
 }
 
 div.event-editor div.view input:not([type="button"]):not(:disabled):hover,
-div.event-editor div.view select:not(:disabled):hover,
 div.event-editor div.view textarea:not(:disabled):hover {
   border: 1px solid #282828;
 }
 
-div.event-editor div.view input:disabled,
-div.event-editor div.view select:disabled {
+div.event-editor div.view input:disabled {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1418,6 +1413,7 @@ div.event-editor div.view div.split p {
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 div.event-editor div.view div.split input:first-child,
@@ -1432,6 +1428,10 @@ div.event-editor div.view div.split select:last-child,
 div.event-editor div.view div.split div.split-contents:last-child,
 div.event-editor div.view div.split p:last-child {
   margin-right: 0;
+}
+
+div.event-editor div.view div.split-margin {
+  margin-left: 25px;
 }
 
 div.event-editor div.view input[type="button"] {
@@ -1662,6 +1662,7 @@ div.event-editor-colors div.split p {
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 div.event-editor-colors div.split input:first-child,
@@ -1676,6 +1677,10 @@ div.event-editor-colors div.split select:last-child,
 div.event-editor-colors div.split div.split-contents:last-child,
 div.event-editor-colors div.split p:last-child {
   margin-right: 0;
+}
+
+div.event-editor-colors div.split-margin {
+  margin-left: 25px;
 }
 
 div.event-editor-colors div.split {
@@ -1845,6 +1850,7 @@ div.event-editor-repeat-options div.split p {
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 div.event-editor-repeat-options div.split input:first-child,
@@ -1859,6 +1865,10 @@ div.event-editor-repeat-options div.split select:last-child,
 div.event-editor-repeat-options div.split div.split-contents:last-child,
 div.event-editor-repeat-options div.split p:last-child {
   margin-right: 0;
+}
+
+div.event-editor-repeat-options div.split-margin {
+  margin-left: 25px;
 }
 
 div.event-editor-repeat-options div.split {
@@ -1991,6 +2001,7 @@ div.confirmation div.split p {
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 div.confirmation div.split input:first-child,
@@ -2005,6 +2016,10 @@ div.confirmation div.split select:last-child,
 div.confirmation div.split div.split-contents:last-child,
 div.confirmation div.split p:last-child {
   margin-right: 0;
+}
+
+div.confirmation div.split-margin {
+  margin-left: 25px;
 }
 
 div.confirmation div.split {
@@ -2123,6 +2138,7 @@ div.select-export-type div.split p {
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 div.select-export-type div.split input:first-child,
@@ -2137,6 +2153,10 @@ div.select-export-type div.split select:last-child,
 div.select-export-type div.split div.split-contents:last-child,
 div.select-export-type div.split p:last-child {
   margin-right: 0;
+}
+
+div.select-export-type div.split-margin {
+  margin-left: 25px;
 }
 
 div.select-export-type div.split {
@@ -2289,6 +2309,7 @@ div.search div.split p {
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 div.search div.split input:first-child,
@@ -2303,6 +2324,10 @@ div.search div.split select:last-child,
 div.search div.split div.split-contents:last-child,
 div.search div.split p:last-child {
   margin-right: 0;
+}
+
+div.search div.split-margin {
+  margin-left: 25px;
 }
 
 div.search div.split:last-child {
@@ -2478,6 +2503,7 @@ div.configuration div.split p {
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 div.configuration div.split input:first-child,
@@ -2492,6 +2518,10 @@ div.configuration div.split select:last-child,
 div.configuration div.split div.split-contents:last-child,
 div.configuration div.split p:last-child {
   margin-right: 0;
+}
+
+div.configuration div.split-margin {
+  margin-left: 25px;
 }
 
 div.configuration div.split {
