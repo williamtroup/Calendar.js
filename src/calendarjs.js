@@ -290,7 +290,6 @@ function calendarJs( id, options, startDateTime ) {
         _elementID_YearSelected = "year-selected-",
         _elementClassName_Row = "row",
         _elementClassName_Cell = "cell",
-        _minutesInDay = 1440,
         _element_Calendar = null,
         _element_Calendar_AllVisibleEvents = [],
         _element_HeaderDateDisplay = null,
@@ -1549,10 +1548,9 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function fullDayViewDoubleClick( e ) {
-        var contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
-            contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
+        var contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
             scrollPosition = getScrollPosition(),
-            pixelsPerMinute = contentHoursHeight / _minutesInDay,
+            pixelsPerMinute = getFullDayPixelsPerMinute(),
             minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
             hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
         
@@ -1771,7 +1769,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function setEventPositionAndGetScrollTop( displayDate, event, eventDetails ) {
         var contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
-            pixelsPerMinute = contentHoursHeight / _minutesInDay,
+            pixelsPerMinute = getFullDayPixelsPerMinute(),
             minutesTop = _options.spacing,
             minutesHeight = null;
 
@@ -1825,6 +1823,13 @@ function calendarJs( id, options, startDateTime ) {
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
+    function getFullDayPixelsPerMinute() {
+        var contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
+            pixelsPerMinute = contentHoursHeight / 1440;
+
+        return pixelsPerMinute;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1844,8 +1849,7 @@ function calendarJs( id, options, startDateTime ) {
         var topPosition = 0;
 
         if ( isFullDayTimeArrowVisible() ) {
-            var contentHoursHeight = _element_FullDayView_Contents_Hours.offsetHeight,
-                pixelsPerMinute = contentHoursHeight / _minutesInDay,
+            var pixelsPerMinute = getFullDayPixelsPerMinute(),
                 top = pixelsPerMinute * getMinutesIntoDay( new Date() );
 
             _element_FullDayView_TimeArrow.style.display = "block";
