@@ -3,6 +3,7 @@
 ### Version 1.1.1:
 - Decreased the width/height of the hour/half hour display shown on the side in the Full Day view.
 - Fixed the font-size for the drop-down menus now adhering to the default font-size media rules.
+- The headers in the exported file types (except CSV/TSV/MD) are now sorted in alphabetical order.
 - 
 
 ### Version 1.1.0:

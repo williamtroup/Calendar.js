@@ -5413,6 +5413,20 @@ function calendarJs( id, options, startDateTime ) {
         return eventContents;
     }
 
+    function getOrderedEventPropertyNameList( event ) {
+        var propertyNames = [];
+
+        for ( var propertyName in event ) {
+            if ( event.hasOwnProperty( propertyName ) ) {
+                propertyNames.push( propertyName );
+            }
+        }
+
+        propertyNames.sort();
+
+        return propertyNames;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -5479,11 +5493,15 @@ function calendarJs( id, options, startDateTime ) {
         contents.push( "<Events>" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ];
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                propertyNames = getOrderedEventPropertyNameList( orderedEvent ),
+                propertyNamesLength = propertyNames.length;
 
             contents.push( "<Event>" );
 
-            for ( var propertyName in orderedEvent ) {
+            for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
+                var propertyName = propertyNames[ propertyNameIndex ];
+
                 if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
                     var newPropertyName = getPropertyName( propertyName );
                     
@@ -5514,11 +5532,15 @@ function calendarJs( id, options, startDateTime ) {
         contents.push( "\"events\": [" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ];
-            
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                propertyNames = getOrderedEventPropertyNameList( orderedEvent ),
+                propertyNamesLength = propertyNames.length;
+
             contents.push( "{" );
 
-            for ( var propertyName in orderedEvent ) {
+            for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
+                var propertyName = propertyNames[ propertyNameIndex ];
+
                 if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
                     contents.push( "\"" + propertyName + "\":" + getPropertyValue( propertyName, orderedEvent[ propertyName ], true ) + "," );
                 }
@@ -5548,9 +5570,13 @@ function calendarJs( id, options, startDateTime ) {
             orderedEventLength = orderedEvents.length;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ];
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                propertyNames = getOrderedEventPropertyNameList( orderedEvent ),
+                propertyNamesLength = propertyNames.length;
 
-            for ( var propertyName in orderedEvent ) {
+            for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
+                var propertyName = propertyNames[ propertyNameIndex ];
+
                 if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
                     contents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
                 }
@@ -5647,12 +5673,16 @@ function calendarJs( id, options, startDateTime ) {
         contents.push( "<body>" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ];
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                propertyNames = getOrderedEventPropertyNameList( orderedEvent ),
+                propertyNamesLength = propertyNames.length;
 
             contents.push( "<h3><b>" + orderedEvent.id + ":</b></h3>" );
             contents.push( "<ul>" );
 
-            for ( var propertyName in orderedEvent ) {
+            for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
+                var propertyName = propertyNames[ propertyNameIndex ];
+
                 if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
                     contents.push( "<li><b>" + getPropertyName( propertyName ) + "</b>: " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</li>" );
                 }
