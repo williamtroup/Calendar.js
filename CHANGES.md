@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.0.3:
-- When attempting to fire a browser notification, if the Api is not supported, errors are no longer reported (see the console).
+- When attempting to fire a browser notification, if the API is not supported, errors are no longer reported (see the console).
 - Added double-click support to the Full Day view to add new events, showing the correct time based on the area clicked.
 - Added support for custom repeat periods for events (either by Daily, Weekly, Monthly, or Yearly).
 - Fixed base documentation for the "repeatsEvery" property for events.
@@ -15,9 +15,8 @@
 - Added global Escape key support for open dialogs (not Confirmation Messages or Search).
 - Added global Ctrl/Command + Shift + A support to open the Add Event window (when manual editing is enabled).
 - Code changes to make the KeyCodes a little easier to read.
-- Added global Ctrl/Command + Shift + F support to open the Search dialog (instead of Ctrl/Command + F in full screen mode).
-- Added :active css selector for the tab control headers (for all dialogs that use them).
-- 
+- Added global Ctrl/Command + Shift + F support to open the Search dialog (instead of Ctrl/Command + F in full-screen mode).
+- Added :active CSS selector for the tab control headers (for all dialogs that use them).
 
 ### Version 1.0.2:
 - Fixed a fault that allowed all the visible days in the Configuration window to be turned off (causing huge display issues).
