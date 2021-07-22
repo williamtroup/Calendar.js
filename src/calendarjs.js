@@ -6346,7 +6346,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.0.3";
+        return "1.1.0";
     };
 
 
