@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.1.1:
+- Decreased the width/height of the hour/half hour display shown on the side in the Full Day view.
 - 
 
 ### Version 1.1.0:
