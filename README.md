@@ -15,7 +15,7 @@ Features include:
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV.
 - Full-screen mode (double clicking the title bar).
 - Search support.
-- Repeat every Day, Week, Month, or Year (with exclusion days support).
+- Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support).
 - Customizable holidays.
 - Navigation keys (in full-screen mode):
   1. Left:  Moves to the previous month.
