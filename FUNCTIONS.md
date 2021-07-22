@@ -73,9 +73,9 @@ Sets the events and clears any existing ones.
 <br>
 ***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onEventsSet" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsSet" event should be triggered.
 
 ### **addEvents( *events*, *updateEvents*, *triggerEvent* )**:
 Adds an array of new events.
@@ -84,20 +84,22 @@ Adds an array of new events.
 <br>
 ***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onEventsAdded" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsAdded" event should be triggered.
 
-### **addEvent( *event*, *updateEvents*, *triggerEvent* )**:
+### **addEvent( *event*, *updateEvents*, *triggerEvent*, *setLastUpdated* )**:
 Adds a of new event.
 <br>
 ***Fires***:  onEventAdded
 <br>
 ***Parameter: event***: '*Object*' - The event (refer to "Event" documentation for properties).
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onEventAdded" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventAdded" event should be triggered.
+<br>
+***Parameter: setLastUpdated***: '*boolean*' - States if the "lastUpdated" date should be set (defaults to true).
 
 ### **updateEvents( *events*, *updateEvents*, *triggerEvent* )**:
 Updates an array of existing events.
@@ -106,9 +108,9 @@ Updates an array of existing events.
 <br>
 ***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onEventsUpdated" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsUpdated" event should be triggered.
 
 ### **updateEvent( *id*, *event*, *updateEvents*, *triggerEvent* )**:
 Updates an existing event.
@@ -119,9 +121,9 @@ Updates an existing event.
 <br>
 ***Parameter: event***: '*Object*' - The event (refer to "Event" documentation for properties).
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onEventUpdated" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventUpdated" event should be triggered.
 <br>
 ***Returns***: '*boolean*' - States if the event was updated.
 
@@ -138,9 +140,9 @@ Updates an existing events from, to, and repeatEnds dates.
 <br>
 ***Parameter: repeatEnds***: '*Object*' - The new repeat ends day.
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onEventUpdated" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventUpdated" event should be triggered.
 <br>
 ***Returns***: '*boolean*' - States if the event was updated.
 
@@ -151,9 +153,9 @@ Removes an event.
 <br>
 ***Parameter: id***: '*string*' - The ID of the event.
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onEventRemoved" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventRemoved" event should be triggered.
 <br>
 ***Returns***: '*boolean*' - States if the event was removed.
 
@@ -162,7 +164,7 @@ Clears all the events.
 <br>
 ***Fires***:  onEventsCleared
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 
 ### **getEvents()**:
 Returns an array of the events available.
@@ -186,7 +188,7 @@ Clears all the event groups.
 <br>
 ***Fires***:  onGroupsCleared
 <br>
-***Parameter: updateEvents***: '*boolean*' - States of the calendar display should be updated (defaults to true).
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 
 ### **getVersion()**:
 Returns the version of Calendar.js.
@@ -200,7 +202,7 @@ Sets the specific options that should be used.
 <br>
 ***Parameter: newOptions***: '*Object*' - All the options that should be set (refer to "Options" documentation for properties).
 <br>
-***Parameter: triggerEvent***: '*boolean*' - States of the "onOptionsUpdated" event should be triggered.
+***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
 
 ### **addHolidays( *holidays* )**:
 Adds new holidays.

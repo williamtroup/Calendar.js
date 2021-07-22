@@ -1,11 +1,13 @@
 div.split {
     input,
+    select,
     div.split-contents,
     p {
         width: calc(50% - (#{$spacing} / 2));
         margin-right: $spacing / 2;
         margin-left: $spacing / 2;
         display: inline-block;
+        vertical-align: top;
 
         &:first-child {
             margin-left: 0;
@@ -15,4 +17,8 @@ div.split {
             margin-right: 0;
         }
     }
+}
+
+div.split-margin {
+    margin-left: 25px;
 }

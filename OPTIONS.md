@@ -112,6 +112,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | repeatsEvery2WeeksText | The text that should be displayed for the "Every 2 Weeks" label. |
 | *string* | repeatsEveryMonthText | The text that should be displayed for the "Every Month" label. |
 | *string* | repeatsEveryYearText | The text that should be displayed for the "Every Year" label. |
+| *string* | repeatsCustomText | The text that should be displayed for the "Custom:" label. |
 | *string* | repeatOptionsTitle | The text that should be displayed for the "Repeat Options" label. |
 | *string* | moreText | The text that should be displayed for the "More" label. |
 | *string* | includeText | The text that should be displayed for the "Include:" label. |
@@ -165,6 +166,12 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | visibleDaysTabText | The text that should be displayed for the "Visible Days" tab. |
 | *string* | enableDayNameHeadersInMainDisplayText | The text that should be displayed for the "Enable day name headers in the main display" label. |
 | *string* | thisWeekTooltipText | The tooltip text that should be used for for the "This Week" button. |
+| *string* | dailyText | The text that should be displayed for the "Daily" label. |
+| *string* | weeklyText | The text that should be displayed for the "Weekly" label. |
+| *string* | monthlyText | The text that should be displayed for the "Monthly" label. |
+| *string* | yearlyText | The text that should be displayed for the "Yearly" label. |
+| *string* | repeatsByCustomSettingsText | The text that should be displayed for the "By Custom Settings" label. |
+| *string* | lastUpdatedText | The text that should be displayed for the "Last Updated:" label. |
 
 <br/>
 
@@ -173,10 +180,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 
 | Name: | Description: |
 | --- | --- |
-| onPreviousMonth | Specifies an event that will be triggered when the "Previous Month" button is pressed. |
-| onNextMonth | Specifies an event that will be triggered when the "Next Month" button is pressed. |
-| onPreviousYear | Specifies an event that will be triggered when moving to the previous year. |
-| onNextYear | Specifies an event that will be triggered when moving to the next year. |
+| onPreviousMonth | Specifies an event that will be triggered when the "Previous Month" button is pressed (passes the new date to the function). |
+| onNextMonth | Specifies an event that will be triggered when the "Next Month" button is pressed (passes the new date to the function). |
+| onPreviousYear | Specifies an event that will be triggered when moving to the previous year (passes the new date to the function). |
+| onNextYear | Specifies an event that will be triggered when moving to the next year (passes the new date to the function). |
 | onToday | Specifies an event that will be triggered when the "Today" button is pressed. |
 | onEventAdded | Specifies an event that will be triggered when an event is added (passes the event to the function). |
 | onEventUpdated | Specifies an event that will be triggered when an event is updated (passes the event to the function). |
@@ -184,7 +191,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsAdded | Specifies an event that will be triggered when events are added (passes the events to the function). |
 | onEventsCleared | Specifies an event that will be triggered when the events are cleared. |
 | onEventsExported | Specifies an event that will be triggered when the "Export Events" button is pressed. |
-| onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally. |
+| onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally (passes the new date to the function). |
 | onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
 | onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
 | onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |

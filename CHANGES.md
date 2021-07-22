@@ -1,5 +1,23 @@
 # Calendar.js - Change Log:
 
+### Version 1.1.0:
+- When attempting to fire a browser notification, if the API is not supported, errors are no longer reported (see the console).
+- Added double-click support to the Full Day view to add new events, showing the correct time based on the area clicked.
+- Added support for custom repeat periods for events (either by Daily, Weekly, Monthly, or Yearly).
+- Fixed base documentation for the "repeatsEvery" property for events.
+- Fixed the input fields showing a hover effect when they are disabled.
+- Fixed the radio buttons showing a hover effect when they are disabled.
+- Fixed some overload SCSS issues when styling the tab content containers.
+- Added "lastUpdated" support for events (only updated if the event is actually changed).
+- Added "LAST-MODIFIED" support for iCal exports, and "lastUpdated" to all other export types.
+- Fixed some very bad spelling mistakes in the documentation.
+- The events onPreviousMonth, onNextMonth, onPreviousYear, onNextYear, and onSetDate now have the new date passed to them.
+- Added global Escape key support for open dialogs (not Confirmation Messages or Search).
+- Added global Ctrl/Command + Shift + A support to open the Add Event window (when manual editing is enabled).
+- Code changes to make the KeyCodes a little easier to read.
+- Added global Ctrl/Command + Shift + F support to open the Search dialog (instead of Ctrl/Command + F in full-screen mode).
+- Added :active CSS selector for the tab control headers (for all dialogs that use them).
+
 ### Version 1.0.2:
 - Fixed a fault that allowed all the visible days in the Configuration window to be turned off (causing huge display issues).
 - The public function destroy() will now remove all drop-down menus and dialogs from the document body.

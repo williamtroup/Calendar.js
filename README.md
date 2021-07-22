@@ -1,4 +1,4 @@
-# Welcome to Calendar.js v1.0.2:
+# Welcome to Calendar.js v1.1.0:
 
 This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
 
@@ -15,17 +15,20 @@ Features include:
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV.
 - Full-screen mode (double clicking the title bar).
 - Search support.
-- Repeat every Day, Week, Month, or Year (with exclusion days support).
+- Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support).
 - Customizable holidays.
-- Navigation keys (when full-screen mode is activated):
+- Navigation keys (in full-screen mode):
   1. Left:  Moves to the previous month.
   2. Right:  Moves to the next month.
-  3. Escape:  Closes full-screen mode.
+  3. Escape:  Close the active dialog, or full-screen mode.
   4. Down:  Jumps to the current month.
-  6. F5:  Refreshes the current view.
-  7. Ctrl/Command + F:  Opens the search dialog.
-  8. Ctrl/Command + Left:  Moves to the previous year.
-  9. Ctrl/Command + Right:  Moves to the next year.
+  5. F5:  Refreshes the current view.
+  6. Ctrl/Command + Left:  Moves to the previous year.
+  7. Ctrl/Command + Right:  Moves to the next year.
+- Navigation keys (global):
+  1. Escape:  Closes the active dialog.
+  2. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
+  3. Ctrl/Command + Shift + F:  Opens the search dialog.
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).

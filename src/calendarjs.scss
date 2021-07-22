@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.0.2
+ * Calendar.js Library v1.1.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1140,10 +1140,15 @@ div.calendar-dialog {
             color: $light-color;
             transition: $transition;
         }
+
+        &:active {
+            @include opacity-active-effect(0.7);
+        }
     }
 
     div.tab-content {
-        @include input-style;
+        border: 1px solid $input-border-color;
+        border-radius: $border-view-radius;
         padding: $spacing;
         overflow-x: hidden;
         overflow-y: auto;
@@ -1258,6 +1263,10 @@ div.calendar-dialog {
                 &:disabled ~ span.check-mark,
                 &:disabled ~ span.text {
                     opacity: 0.5;
+                }
+                
+                &:disabled ~ span.check-mark {
+                    border: $standard-border-size solid $dark-color !important;
                 }
             }
     
