@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.1.0
+ * Calendar.js Library v1.1.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -430,7 +430,6 @@ div.calendar {
             div.event-no-hover {
                 border-radius: $border-view-radius;
                 background-color: $event-color;
-                font-size: 0.7rem !important;
                 padding: 3px;
                 color: $light-color;
                 margin-top: 5px;
@@ -1374,7 +1373,6 @@ div.calendar-drop-down-menu {
     position: absolute;
     display: none;
     cursor: pointer !important;
-    font-size: smaller !important;
     z-index: 1000;
 
     div.menu-text {

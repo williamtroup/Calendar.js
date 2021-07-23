@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.1.0
+ * Calendar.js Library v1.1.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -499,7 +499,6 @@ div.calendar div.row div.cell div.event,
 div.calendar div.row div.cell div.event-no-hover {
   border-radius: 0.25rem;
   background-color: #484848;
-  font-size: 0.7rem !important;
   padding: 3px;
   color: #F5F5F5;
   margin-top: 5px;
@@ -682,7 +681,7 @@ div.calendar div.full-day-view div.contents div.content-events-all-day {
 }
 
 div.calendar div.full-day-view div.contents div.content-events-all-day div.all-day-text {
-  width: 80px;
+  width: 70px;
   padding: 10px;
   background-color: #F5F5F5;
   color: #282828;
@@ -696,7 +695,7 @@ div.calendar div.full-day-view div.contents div.content-events-all-day div.all-d
 div.calendar div.full-day-view div.contents div.content-events-all-day div.event,
 div.calendar div.full-day-view div.contents div.content-events-all-day div.event-no-hover {
   position: static !important;
-  margin-left: 110px !important;
+  margin-left: 100px !important;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -707,8 +706,8 @@ div.calendar div.full-day-view div.contents div.contents-events {
 
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
-  width: calc(100% - 80px - (10px * 2) - 1px);
-  left: 101px;
+  width: calc(100% - 70px - (10px * 2) - 1px);
+  left: 91px;
   top: 0;
   z-index: 10;
   height: 12px;
@@ -740,18 +739,18 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
 
 div.calendar div.full-day-view div.contents div.contents-events div.hour:before {
   border-bottom: 1px dashed #A8A8A8;
-  width: calc(100% - (80px + 20px));
-  height: 59px;
+  width: calc(100% - (70px + 20px));
+  height: 54px;
   content: '';
   display: block;
   position: absolute;
   top: 0;
-  left: 100px;
+  left: 90px;
 }
 
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
-  width: 80px;
-  height: 40px;
+  width: 70px;
+  height: 35px;
   padding: 10px;
   background-color: #F5F5F5;
   color: #282828;
@@ -863,8 +862,8 @@ div.calendar div.full-day-view div.contents div.event-no-hover {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
-  width: calc(100% - 80px - (10px * 6) - (10px / 2));
-  left: 110px;
+  width: calc(100% - 70px - (10px * 6) - (10px / 2));
+  left: 100px;
   overflow: hidden;
 }
 
@@ -2917,7 +2916,6 @@ div.calendar-drop-down-menu {
   position: absolute;
   display: none;
   cursor: pointer !important;
-  font-size: smaller !important;
   z-index: 1000;
 }
 

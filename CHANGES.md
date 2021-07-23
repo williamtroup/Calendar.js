@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+### Version 1.1.1:
+- Decreased the width/height of the hour/half hour display shown on the side in the Full Day view.
+- Fixed the font size for the drop-down menus not adhering to the default font-size media rules.
+- The headers in the exported file types (except CSV/TSV/MD) are now sorted in alphabetical order.
+- Massive improvements to the README.md file.
+
 ### Version 1.1.0:
 - When attempting to fire a browser notification, if the API is not supported, errors are no longer reported (see the console).
 - Added double-click support to the Full Day view to add new events, showing the correct time based on the area clicked.
