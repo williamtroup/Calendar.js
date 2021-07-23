@@ -1,10 +1,13 @@
-# Welcome to Calendar.js v1.1.1:
-
-This is a JavaScript calendar library that is fully responsive and compatible with all modern browsers.
+<span style="display:block;text-align:center">![Icon](images/main-icon.png)</span>
+<h1 align="center">Calendar.js</h1>
+<p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
+<p align="center">v1.1.1</p>
+<br />
 
 ![CalendarJs](images/main.png)
 
-Features include:
+<h1>What features does Calendar.js have?</h1>
+
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events.
@@ -32,40 +35,146 @@ Features include:
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
-<br>
+<br />
+<br />
 
-## Recent Changes:
+<h1>What browsers are supported?</h1>
 
-To see all the latest changes, click [here](CHANGES.md).
-<br>
-<br>
+All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 
-## Options:
-
-To see all the available options, click [here](OPTIONS.md).
+Limited support is available for Internet Explorer, but this will seize by the end of 2021.
 <br>
 <br>
 
-## Event Object Format:
+<h1>What are the most recent changes?</h1>
 
-To see how an event object should be formatted, click [here](EVENT.md).
+To see a list of all the most recent changes, click [here](CHANGES.md).
 <br>
 <br>
 
-## Holiday Object Format:
+<h1>How do I get started?</h1>
 
-To see how an holiday object should be formatted, click [here](HOLIDAY.md).
+To get started using Calendar.js, do the following steps:
 <br>
 <br>
 
-## Public Functions:
+### 1. Prerequisites:
 
-To see all the available public functions, click [here](FUNCTIONS.md).
+You will also need to set the page character encoding to UTF-8. This can be included in the head of your HTML as follows:
+
+```markdown
+<meta charset="utf-8" />
+```
+<br>
+
+### 2. Include Files:
+
+```markdown
+<link rel="stylesheet" href="src/calendarjs.css" />
+<script src="src/calendarjs.js"></script>
+```
+<br>
+
+### 3. Create DOM Container:
+
+```markdown
+<div id="calendar"></div>
+```
+<br>
+
+### 4. Initialize Calendar.Js:
+
+```markdown
+<script> 
+  var calendarInstance = calendarJs( "calendar", {
+    manualEditingEnabled: true
+    // All your options can be set here
+  } ); 
+</script>
+```
+<br>
+
+### 5. Finishing Up:
+
+That's it! Nice and simple. Please refer to the code if you need more help (fully documented).
 <br>
 <br>
 
-## Getting Started:
+<h1>How do I go about customizing Calendar.js and add events?</h1>
 
-To get started, download the source code and run the "calendarjs.html" file.  This will show an example of a calendar with most option enabled.
+To customize, and get more out of Calendar.js, please read through following documentation.
+<br>
+<br>
 
-For further help with configuration, everything is documented in the unminimized "src/calendarjs.js" JavaScript file.
+### 1. Options:
+
+Options (which can be set when initializing, or afterwards) allow you to customize how Calendar.js will look and function. YOu can set them manual as follows:
+
+```markdown
+<script> 
+  calendarInstance.setOptions( {
+      manualEditingEnabled: false,
+      maximumEventsPerDayDisplay: 0,
+      visibleDays: [ 0, 1, 2, 3, 4 ]
+  } );
+</script>
+```
+
+To see a list of all the available options you can use, click [here](OPTIONS.md).
+<br>
+<br>
+
+### 2. Event Object Format:
+
+An event is defined as a JavaScript object, as follows:
+
+```markdown
+<script> 
+  var event = {
+      from: new Date(),
+      to: new Date(),
+      title: "A New Event",
+      description: "A description of the event"
+  };
+</script>
+```
+
+You can add a new event by using one of the add public functions, as follows:
+
+```markdown
+<script> 
+  calendarInstance.addEvent( event );
+</script>
+```
+
+
+To see a list of all the available event properties and how they should be formatted, click [here](EVENT.md).
+<br>
+<br>
+
+### 3. Holiday Object Format:
+
+A holiday is a piece of text that is shown under the day number in the month it is assigned to.  You can set these holidays in the options, or add them manually as follows:
+
+```markdown
+<script> 
+  var holiday1 = {
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      title: "A New Holiday",
+  };
+  
+  // This is a public function that you can call
+  calendarInstance.addHolidays( [ holiday1 ] );
+</script>
+```
+
+To see a list of all the available holiday properties and how they should be formatted, click [here](HOLIDAY.md).
+<br>
+<br>
+
+### 4. Public Functions:
+
+To see a list of all the public functions available, click [here](FUNCTIONS.md).
+<br>
+<br>
