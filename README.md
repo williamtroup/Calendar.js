@@ -1,4 +1,3 @@
-<span style="display:block;text-align:center">![Icon](images/main-icon.png)</span>
 <h1 align="center">Calendar.js</h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
 <p align="center">v1.1.1</p>
