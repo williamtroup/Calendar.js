@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.1.2:
+- 
+
 ### Version 1.1.1:
 - Decreased the width/height of the hour/half hour display shown on the side in the Full Day view.
 - Fixed the font size for the drop-down menus not adhering to the default font-size media rules.
