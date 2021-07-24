@@ -69,6 +69,7 @@
  * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
  * @property    {Object}    onOptionsUpdated                            Specifies an event that will be triggered when the options are updated (passes the options to the function).
  * @property    {Object}    onNotificationClicked                       Specifies an event that will be triggered when a notification is clicked (passes the event to the function).
+ * @property    {Object}    onSearchOptionsUpdated                      Specifies an event that will be triggered when the search options are updated (passes the search options to the function).
  */
 
 
@@ -246,6 +247,24 @@
 
 
 /**
+ * Search Options.
+ * 
+ * These are the search options that are used to control how Calendar.js search works.
+ *
+ * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).  
+ * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to true).
+ * @property    {boolean}   searchTitle                                 States if the "title" property for the event should be searched (false to true).
+ * @property    {boolean}   searchLocation                              States if the "location" property for the event should be searched (false to false).
+ * @property    {boolean}   searchDescription                           States if the "description" property for the event should be searched (false to false).
+ * @property    {boolean}   searchGroup                                 States if the "group" property for the event should be searched (false to false).
+ * @property    {boolean}   searchUrl                                   States if the "url" property for the event should be searched (false to false).
+ * @property    {boolean}   startsWith                                  States if the search should run a "starts with" check (defaults to false).
+ * @property    {boolean}   endsWith                                    States if the search should run a "ends with" check (defaults to false).
+ * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
+ */
+
+
+/**
  * calendarJs().
  * 
  * The main Calendar.js class.
@@ -258,6 +277,18 @@
  */
 function calendarJs( id, options, startDateTime ) {
     var _options = {},
+        _optionsForSearch = {
+            matchCase: false,
+            showAdvanced: true,
+            searchTitle: true,
+            searchLocation: false,
+            searchDescription: false,
+            searchGroup: false,
+            searchUrl: false,
+            startsWith: false,
+            endsWith: false,
+            contains: true
+        },
         _this = this,
         _currentDate = null,
         _largestDateInView = null,
@@ -4017,7 +4048,7 @@ function calendarJs( id, options, startDateTime ) {
         var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
         _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
 
-        _element_SearchDialog_MatchCase = buildCheckBox( checkboxOptionsContainer, _options.matchCaseText, searchForTextChanged )[ 0 ];
+        _element_SearchDialog_MatchCase = buildCheckBox( checkboxOptionsContainer, _options.matchCaseText, searchOptionsChanged )[ 0 ];
         _element_SearchDialog_Advanced = buildCheckBox( checkboxOptionsContainer, _options.advancedText, searchAdvancedChecked )[ 0 ];
         _element_SearchDialog_Advanced.checked = true;
 
@@ -4038,11 +4069,11 @@ function calendarJs( id, options, startDateTime ) {
         var checkboxContainer = createElement( "div", "checkboxContainer" );
         splitContents1.appendChild( checkboxContainer );
 
-        _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchForTextChanged )[ 0 ];
-        _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged )[ 0 ];
-        _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchForTextChanged )[ 0 ];
-        _element_SearchDialog_Include_Group = buildCheckBox( checkboxContainer, _options.groupText.replace( ":", "" ), searchForTextChanged )[ 0 ];
-        _element_SearchDialog_Include_Url = buildCheckBox( checkboxContainer, _options.urlText.replace( ":", "" ), searchForTextChanged )[ 0 ];
+        _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Group = buildCheckBox( checkboxContainer, _options.groupText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Url = buildCheckBox( checkboxContainer, _options.urlText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
 
         _element_SearchDialog_Include_Title.checked = true;
 
@@ -4051,9 +4082,9 @@ function calendarJs( id, options, startDateTime ) {
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
         splitContents2.appendChild( radioButtonsContainer );
 
-        _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchForTextChanged );
-        _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchForTextChanged );
-        _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchForTextChanged );
+        _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchOptionsChanged );
+        _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchOptionsChanged );
+        _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchOptionsChanged );
 
         _element_SearchDialog_Option_Contains.checked = true;
 
@@ -4072,6 +4103,8 @@ function calendarJs( id, options, startDateTime ) {
         } else {
             _element_SearchDialog_Advanced_Container.style.display = "none";
         }
+        
+        storeSearchOptions();
     }
 
     function searchOnTitleBarMouseDown( e ) {
@@ -4096,6 +4129,11 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function searchOptionsChanged() {
+        storeSearchOptions();
+        searchForTextChanged();
+    }
+
     function searchForTextChanged() {
         if ( _element_SearchDialog_SearchResults.length > 0 ) {
             removeElementsClassName( _element_Calendar, " focused-event" );
@@ -4116,11 +4154,11 @@ function calendarJs( id, options, startDateTime ) {
     
             centerSearchDialog();
             searchForTextChanged();
+            setupSearchOptions();
+            hideFullDayView();
+            hideOverlay( _element_ListAllEventsView );
+            hideOverlay( _element_ListAllWeekEventsView );
         }
-
-        hideFullDayView();
-        hideOverlay( _element_ListAllEventsView );
-        hideOverlay( _element_ListAllWeekEventsView );
 
         if ( !isSearchDialogContentVisible() ) {
             minimizeRestoreDialog();
@@ -4265,6 +4303,34 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return found;
+    }
+
+    function storeSearchOptions() {
+        _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
+        _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
+        _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
+        _optionsForSearch.searchLocation = _element_SearchDialog_Include_Location.checked;
+        _optionsForSearch.searchDescription = _element_SearchDialog_Include_Description.checked;
+        _optionsForSearch.searchGroup = _element_SearchDialog_Include_Group.checked;
+        _optionsForSearch.searchUrl = _element_SearchDialog_Include_Url.checked;
+        _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
+        _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
+        _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
+
+        triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+    }
+
+    function setupSearchOptions() {
+        _element_SearchDialog_MatchCase.checked = _optionsForSearch.matchCase;
+        _element_SearchDialog_Advanced.checked = _optionsForSearch.showAdvanced;
+        _element_SearchDialog_Include_Title.checked = _optionsForSearch.searchTitle;
+        _element_SearchDialog_Include_Location.checked = _optionsForSearch.searchLocation;
+        _element_SearchDialog_Include_Description.checked = _optionsForSearch.searchDescription;
+        _element_SearchDialog_Include_Group.checked = _optionsForSearch.searchGroup;
+        _element_SearchDialog_Include_Url.checked = _optionsForSearch.searchUrl;
+        _element_SearchDialog_Option_StartsWith.checked = _optionsForSearch.startsWith;
+        _element_SearchDialog_Option_EndsWith.checked = _optionsForSearch.endsWith;
+        _element_SearchDialog_Option_Contains.checked = _optionsForSearch.contains;
     }
 
 
@@ -6500,6 +6566,31 @@ function calendarJs( id, options, startDateTime ) {
             _initialized = false;
 
             build( _currentDate, true );
+        }
+    };
+
+    /**
+     * setSearchOptions().
+     * 
+     * @fires       onSearchOptionsUpdated
+     * 
+     * Sets the specific search options that should be used.
+     * 
+     * @param       {Object}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
+     * @param       {boolean}   triggerEvent                                States if the "onSearchOptionsUpdated" event should be triggered.
+     */
+    this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
+        newSearchOptions = getOptions( newSearchOptions );
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        for ( var propertyName in newSearchOptions ) {
+            if ( newSearchOptions.hasOwnProperty( propertyName ) ) {
+                _optionsForSearch[ propertyName ] = newSearchOptions[ propertyName ];
+            }
+        }
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
         }
     };
 

@@ -107,7 +107,7 @@ To customize, and get more out of Calendar.js, please read through following doc
 
 ### 1. Options:
 
-Options (which can be set when initializing, or afterwards) allow you to customize how Calendar.js will look and function. YOu can set them manual as follows:
+Options (which can be set when initializing, or afterwards) allow you to customize how Calendar.js will look and function. You can set them manually as follows:
 
 ```markdown
 <script> 
@@ -175,5 +175,21 @@ To see a list of all the available holiday properties and how they should be for
 ### 4. Public Functions:
 
 To see a list of all the public functions available, click [here](FUNCTIONS.md).
+<br>
+<br>
+
+### 5. Search Options:
+
+Search Options allow you to customize how Calendar.js Search dialog will function. You can set them manually as follows:
+
+```markdown
+<script> 
+  calendarInstance.setSearchOptions( {
+      matchCase: false
+  } );
+</script>
+```
+
+To see a list of all the available search options you can use, click [here](SEARCH_OPTIONS.md).
 <br>
 <br>

@@ -7,6 +7,10 @@
 - Added support to search by Group and Url in the Search dialog.
 - Added a new checkbox called "Advanced" to the Search dialog, which wil hide the additional search options (saves screen space).
 - When opening the Search dialog via the global key, all open overlays (Day, Weekly and All) views are closed.
+- Search options now has its own internal configuration and can be set by the new public function "setSearchOptions()".
+- Added base documentation for the new search options and new "SEARCH_OPTIONS.md".
+- Added new event "onSearchOptionsUpdated", which is fired every time the search options are changed (via UI or code).
+- Fixed some spelling issues in some more spelling and grammar mistakes in the existing documentation.
 - 
 
 ### Version 1.1.1:
