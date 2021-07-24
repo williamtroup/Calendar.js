@@ -830,8 +830,24 @@ function calendarJs( id, options, startDateTime ) {
 
         var year = getElementByID( _elementID_YearSelected + _currentDate.getFullYear() );
         if ( year !== null ) {
-            year.className += " current-year-selected";
+            year.className += " year-selected";
         }
+
+        var yearsHandledForEvents = [];
+
+        getAllEventsFunc( function( event ) {
+            var fromYear = event.from.getFullYear();
+
+            if ( yearsHandledForEvents.indexOf( fromYear ) === -1 ) {
+                
+                var yearEvents = getElementByID( _elementID_YearSelected + fromYear );
+                if ( yearEvents !== null && yearEvents.className.indexOf( " year-selected" ) === -1 ) {
+                    yearEvents.className += " year-has-events";
+                }
+
+                yearsHandledForEvents.push( fromYear );
+            }
+        } );
 
         return year;
     }

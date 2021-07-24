@@ -2,6 +2,8 @@
 
 ### Version 1.1.2:
 - The Full Day view no longer shows days that are hidden (the Today button is also hidden to prevent jumping to a hidden day).
+- Renamed the CSS class :current-year-selector to :year-selected.
+- Added support to shown the years that contain events in the years down-down menu (new CSS class :year-has-events).
 - 
 
 ### Version 1.1.1:

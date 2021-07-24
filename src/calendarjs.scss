@@ -361,9 +361,14 @@ div.calendar {
                         }
                     }
 
-                    div.current-year-selected {
+                    div.year-selected {
                         background-color: $dark-color;
                         color: $light-color;
+                    }
+
+                    div.year-has-events {
+                        background-color: #DCDCDC;
+                        color: $dark-color;
                     }
                 }
             }

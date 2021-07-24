@@ -440,9 +440,14 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   opacity: 0.4;
 }
 
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.current-year-selected {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-selected {
   background-color: #282828;
   color: #F5F5F5;
+}
+
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-has-events {
+  background-color: #DCDCDC;
+  color: #282828;
 }
 
 div.calendar div.header-date div {

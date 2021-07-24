@@ -143,7 +143,9 @@
                 firstDayInNextMonth = new Date(),
                 lastDayInNextMonth = new Date(),
                 today = new Date(),
-                today3HoursAhead = new Date();
+                today3HoursAhead = new Date(),
+                previousYear = new Date(),
+                nextYear = new Date();
 
             previousDay.setDate( previousDay.getDate() - 1 );
             today11.setHours( 11 );
@@ -162,7 +164,28 @@
             today3HoursAhead.setHours( 23, 59, 0, 0 );
             today3HoursAhead.setDate( today3HoursAhead.getDate() + 3 );
 
+            previousYear.setFullYear( previousYear.getFullYear() - 1 );
+            nextYear.setFullYear( nextYear.getFullYear() + 1 );
+
             return [
+                {
+                    from: previousYear,
+                    to: previousYear,
+                    title: "Previous Year",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: true,
+                    group: "Group 2"
+                },
+                {
+                    from: nextYear,
+                    to: nextYear,
+                    title: "Next Year",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    isAllDay: true,
+                    group: "Group 2"
+                },
                 {
                     from: previousDay,
                     to: previousDay,
