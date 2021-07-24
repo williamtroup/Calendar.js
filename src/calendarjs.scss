@@ -1031,6 +1031,10 @@ div.search {
             margin: 0;
             margin-bottom: 8px;
         }
+
+        div.advanced div.split {
+            margin-top: $spacing / 2 !important;
+        }
     }
     
     input[type="text"] {

@@ -172,6 +172,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | yearlyText | The text that should be displayed for the "Yearly" label. |
 | *string* | repeatsByCustomSettingsText | The text that should be displayed for the "By Custom Settings" label. |
 | *string* | lastUpdatedText | The text that should be displayed for the "Last Updated:" label. |
+| *string* | advancedText | The text that should be displayed for the "Advanced" label. |
 
 <br/>
 

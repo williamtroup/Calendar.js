@@ -2278,6 +2278,10 @@ div.search div.contents p {
   margin-bottom: 8px;
 }
 
+div.search div.contents div.advanced div.split {
+  margin-top: 5px !important;
+}
+
 div.search input[type="text"] {
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;

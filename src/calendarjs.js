@@ -203,6 +203,7 @@
  * @property    {string}    yearlyText                                  The text that should be displayed for the "Yearly" label.
  * @property    {string}    repeatsByCustomSettingsText                 The text that should be displayed for the "By Custom Settings" label.
  * @property    {string}    lastUpdatedText                             The text that should be displayed for the "Last Updated:" label.
+ * @property    {string}    advancedText                                The text that should be displayed for the "Advanced" label.
  */
 
 
@@ -421,6 +422,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Contents = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
+        _element_SearchDialog_Advanced = null,
+        _element_SearchDialog_Advanced_Container = null,
         _element_SearchDialog_Include_Title = null,
         _element_SearchDialog_Include_Location = null,
         _element_SearchDialog_Include_Description = null,
@@ -4008,10 +4011,18 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_For.onkeypress = searchOnEnter;
         _element_SearchDialog_Contents.appendChild( _element_SearchDialog_For );
         
-        _element_SearchDialog_MatchCase = buildCheckBox( _element_SearchDialog_Contents, _options.matchCaseText, searchForTextChanged )[ 0 ];
+        var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
+        _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
+
+        _element_SearchDialog_MatchCase = buildCheckBox( checkboxOptionsContainer, _options.matchCaseText, searchForTextChanged )[ 0 ];
+        _element_SearchDialog_Advanced = buildCheckBox( checkboxOptionsContainer, _options.advancedText, searchAdvancedChecked )[ 0 ];
+        _element_SearchDialog_Advanced.checked = true;
+
+        _element_SearchDialog_Advanced_Container = createElement( "div", "advanced" );
+        _element_SearchDialog_Contents.appendChild( _element_SearchDialog_Advanced_Container );
 
         var optionsSplitContainer = createElement( "div", "split" );
-        _element_SearchDialog_Contents.appendChild( optionsSplitContainer );
+        _element_SearchDialog_Advanced_Container.appendChild( optionsSplitContainer );
 
         var splitContents1 = createElement( "div", "split-contents" );
         optionsSplitContainer.appendChild( splitContents1 );
@@ -4050,6 +4061,14 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Next = createButtonElement( buttonsSplitContainer, _options.nextText, "next", searchOnNext );
 
         _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
+    }
+
+    function searchAdvancedChecked() {
+        if ( _element_SearchDialog_Advanced.checked ) {
+            _element_SearchDialog_Advanced_Container.style.display = "block";
+        } else {
+            _element_SearchDialog_Advanced_Container.style.display = "none";
+        }
     }
 
     function searchOnTitleBarMouseDown( e ) {
@@ -7153,6 +7172,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.lastUpdatedText ) ) {
             _options.lastUpdatedText = "Last Updated:";
+        }
+
+        if ( !isDefined( _options.advancedText ) ) {
+            _options.advancedText = "Advanced";
         }
     }
 
