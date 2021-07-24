@@ -1568,10 +1568,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_Title = createElement( "div", "title" );
         titleBar.appendChild( _element_FullDayView_Title );
 
-        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
-            hideOverlay( _element_FullDayView );
-            _element_FullDayView_DateSelected = null;
-        } );
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
 
         if ( _options.manualEditingEnabled ) {
             buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
@@ -1746,6 +1743,12 @@ function calendarJs( id, options, startDateTime ) {
                 _element_FullDayView_ExportEventsButton.style.display = "inline-block";
             }
         }
+    }
+
+    function hideFullDayView() {
+        hideOverlay( _element_FullDayView );
+
+        _element_FullDayView_DateSelected = null;
     }
 
     function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
@@ -4114,6 +4117,10 @@ function calendarJs( id, options, startDateTime ) {
             centerSearchDialog();
             searchForTextChanged();
         }
+
+        hideFullDayView();
+        hideOverlay( _element_ListAllEventsView );
+        hideOverlay( _element_ListAllWeekEventsView );
 
         if ( !isSearchDialogContentVisible() ) {
             minimizeRestoreDialog();
