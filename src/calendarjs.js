@@ -424,6 +424,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Include_Title = null,
         _element_SearchDialog_Include_Location = null,
         _element_SearchDialog_Include_Description = null,
+        _element_SearchDialog_Include_Group = null,
+        _element_SearchDialog_Include_Url = null,
         _element_SearchDialog_Option_StartsWith = null,
         _element_SearchDialog_Option_EndsWith = null,
         _element_SearchDialog_Option_Contains = null,
@@ -4025,6 +4027,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchForTextChanged )[ 0 ];
         _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged )[ 0 ];
         _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchForTextChanged )[ 0 ];
+        _element_SearchDialog_Include_Group = buildCheckBox( checkboxContainer, _options.groupText.replace( ":", "" ), searchForTextChanged )[ 0 ];
+        _element_SearchDialog_Include_Url = buildCheckBox( checkboxContainer, _options.urlText.replace( ":", "" ), searchForTextChanged )[ 0 ];
 
         _element_SearchDialog_Include_Title.checked = true;
 
@@ -4158,12 +4162,16 @@ function calendarJs( id, options, startDateTime ) {
                     var title = getString( event.title ),
                         location = getString( event.location ),
                         description = getString( event.description ),
+                        group = getString( event.group ),
+                        url = getString( event.url ),
                         found = false;
 
                     if ( !matchCase ) {
                         title = title.toLowerCase();
                         description = description.toLowerCase();
                         location = location.toLowerCase();
+                        group = group.toLowerCase();
+                        url = url.toLowerCase();
                     }
 
                     if ( _element_SearchDialog_Include_Title.checked && isSearchTextAvailable( title, search ) ) {
@@ -4171,6 +4179,10 @@ function calendarJs( id, options, startDateTime ) {
                     } else if ( _element_SearchDialog_Include_Location.checked && isSearchTextAvailable( location, search ) ) {
                         found = true;
                     } else if ( _element_SearchDialog_Include_Description.checked && isSearchTextAvailable( description, search ) ) {
+                        found = true;
+                    } else if ( _element_SearchDialog_Include_Group.checked && isSearchTextAvailable( group, search ) ) {
+                        found = true;
+                    } else if ( _element_SearchDialog_Include_Url.checked && isSearchTextAvailable( url, search ) ) {
                         found = true;
                     }
 
