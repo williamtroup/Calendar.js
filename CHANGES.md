@@ -3,7 +3,7 @@
 ### Version 1.1.2:
 - The Full Day view no longer shows days that are hidden (the Today button is also hidden to prevent jumping to a hidden day).
 - Renamed the CSS class "current-year-selector" to "year-selected".
-- Added support to shown the years that contain events in the years down-down menu (new CSS class "year-has-events").
+- Added support to show the years that contain events in the years down-down menu (new CSS class "year-has-events").
 - Added support to search by Group and Url in the Search dialog.
 - Added a new checkbox called "Advanced" to the Search dialog, which wil hide the additional search options (saves screen space).
 - When opening the Search dialog via the global key, all open overlays (Day, Weekly and All) views are closed.
