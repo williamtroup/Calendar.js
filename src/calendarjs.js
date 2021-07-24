@@ -366,6 +366,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [],
         _element_FullDayView_ExportEventsButton = null,
         _element_FullDayView_FullScreenButton = null,
+        _element_FullDayView_TodayButton = null,
         _element_FullDayView_TimeArrow = null,
         _element_ListAllEventsView = null,
         _element_ListAllEventsView_ExportEventsButton = null,
@@ -1568,7 +1569,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
-        buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
+        _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
 
         _element_FullDayView_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_FullDayView.appendChild( _element_FullDayView_Contents );
@@ -1624,6 +1625,12 @@ function calendarJs( id, options, startDateTime ) {
 
     function showFullDayView( date, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
+
+        if ( _options.visibleDays.length < 7 ) {
+            _element_FullDayView_TodayButton.style.display = "none";
+        } else {
+            _element_FullDayView_TodayButton.style.display = "inline-block";
+        }
 
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_DateSelected = new Date( date );
@@ -1868,11 +1875,33 @@ function calendarJs( id, options, startDateTime ) {
 
     function onPreviousDay() {
         moveDateBackOneDay( _element_FullDayView_DateSelected );
+
+        if ( _options.visibleDays.length < 7 ) {
+            var weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+
+            while ( _options.visibleDays.indexOf( weekDayNumber ) === -1 ) {
+                moveDateBackOneDay( _element_FullDayView_DateSelected );
+    
+                weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+            }
+        }
+
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
     function onNextDay() {
         moveDateForwardDay( _element_FullDayView_DateSelected );
+
+        if ( _options.visibleDays.length < 7 ) {
+            var weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+
+            while ( _options.visibleDays.indexOf( weekDayNumber ) === -1 ) {
+                moveDateForwardDay( _element_FullDayView_DateSelected );
+    
+                weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+            }
+        }
+
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 

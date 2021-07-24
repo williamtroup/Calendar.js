@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.1.2:
+- The Full Day view no longer shows days that are hidden (the Today button is also hidden to prevent jumping to a hidden day).
 - 
 
 ### Version 1.1.1:
