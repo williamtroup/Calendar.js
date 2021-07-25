@@ -172,6 +172,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | yearlyText | The text that should be displayed for the "Yearly" label. |
 | *string* | repeatsByCustomSettingsText | The text that should be displayed for the "By Custom Settings" label. |
 | *string* | lastUpdatedText | The text that should be displayed for the "Last Updated:" label. |
+| *string* | advancedText | The text that should be displayed for the "Advanced" label. |
 
 <br/>
 
@@ -197,3 +198,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |
 | onOptionsUpdated | Specifies an event that will be triggered when the options are updated (passes the options to the function). |
 | onNotificationClicked | Specifies an event that will be triggered when a notification is clicked (passes the event to the function). |
+| onSearchOptionsUpdated | Specifies an event that will be triggered when the search options are updated (passes the search options to the function). |

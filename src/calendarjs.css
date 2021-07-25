@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.1.1
+ * Calendar.js Library v1.1.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -440,9 +440,14 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   opacity: 0.4;
 }
 
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.current-year-selected {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-selected {
   background-color: #282828;
   color: #F5F5F5;
+}
+
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-has-events {
+  background-color: #DCDCDC;
+  color: #282828;
 }
 
 div.calendar div.header-date div {
@@ -2271,6 +2276,10 @@ div.search div.contents p {
   cursor: default;
   margin: 0;
   margin-bottom: 8px;
+}
+
+div.search div.contents div.advanced div.split {
+  margin-top: 5px !important;
 }
 
 div.search input[type="text"] {

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.1.1
+ * Calendar.js Library v1.1.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -69,6 +69,7 @@
  * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
  * @property    {Object}    onOptionsUpdated                            Specifies an event that will be triggered when the options are updated (passes the options to the function).
  * @property    {Object}    onNotificationClicked                       Specifies an event that will be triggered when a notification is clicked (passes the event to the function).
+ * @property    {Object}    onSearchOptionsUpdated                      Specifies an event that will be triggered when the search options are updated (passes the search options to the function).
  */
 
 
@@ -203,6 +204,7 @@
  * @property    {string}    yearlyText                                  The text that should be displayed for the "Yearly" label.
  * @property    {string}    repeatsByCustomSettingsText                 The text that should be displayed for the "By Custom Settings" label.
  * @property    {string}    lastUpdatedText                             The text that should be displayed for the "Last Updated:" label.
+ * @property    {string}    advancedText                                The text that should be displayed for the "Advanced" label.
  */
 
 
@@ -245,6 +247,24 @@
 
 
 /**
+ * Search Options.
+ * 
+ * These are the search options that are used to control how Calendar.js search works.
+ *
+ * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).  
+ * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to true).
+ * @property    {boolean}   searchTitle                                 States if the "title" property for the event should be searched (false to true).
+ * @property    {boolean}   searchLocation                              States if the "location" property for the event should be searched (false to false).
+ * @property    {boolean}   searchDescription                           States if the "description" property for the event should be searched (false to false).
+ * @property    {boolean}   searchGroup                                 States if the "group" property for the event should be searched (false to false).
+ * @property    {boolean}   searchUrl                                   States if the "url" property for the event should be searched (false to false).
+ * @property    {boolean}   startsWith                                  States if the search should run a "starts with" check (defaults to false).
+ * @property    {boolean}   endsWith                                    States if the search should run a "ends with" check (defaults to false).
+ * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
+ */
+
+
+/**
  * calendarJs().
  * 
  * The main Calendar.js class.
@@ -257,6 +277,18 @@
  */
 function calendarJs( id, options, startDateTime ) {
     var _options = {},
+        _optionsForSearch = {
+            matchCase: false,
+            showAdvanced: true,
+            searchTitle: true,
+            searchLocation: false,
+            searchDescription: false,
+            searchGroup: false,
+            searchUrl: false,
+            startsWith: false,
+            endsWith: false,
+            contains: true
+        },
         _this = this,
         _currentDate = null,
         _largestDateInView = null,
@@ -270,6 +302,7 @@ function calendarJs( id, options, startDateTime ) {
         _initialized = false,
         _initializedDocumentEvents = false,
         _events = {},
+        _timer_CallSearchOptionsEvent = null,
         _timer_RefreshMainDisplay = null,
         _eventDetails_Dragged_DateFrom = null,
         _eventDetails_Dragged = null,
@@ -366,6 +399,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [],
         _element_FullDayView_ExportEventsButton = null,
         _element_FullDayView_FullScreenButton = null,
+        _element_FullDayView_TodayButton = null,
         _element_FullDayView_TimeArrow = null,
         _element_ListAllEventsView = null,
         _element_ListAllEventsView_ExportEventsButton = null,
@@ -420,9 +454,13 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Contents = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
+        _element_SearchDialog_Advanced = null,
+        _element_SearchDialog_Advanced_Container = null,
         _element_SearchDialog_Include_Title = null,
         _element_SearchDialog_Include_Location = null,
         _element_SearchDialog_Include_Description = null,
+        _element_SearchDialog_Include_Group = null,
+        _element_SearchDialog_Include_Url = null,
         _element_SearchDialog_Option_StartsWith = null,
         _element_SearchDialog_Option_EndsWith = null,
         _element_SearchDialog_Option_Contains = null,
@@ -829,8 +867,24 @@ function calendarJs( id, options, startDateTime ) {
 
         var year = getElementByID( _elementID_YearSelected + _currentDate.getFullYear() );
         if ( year !== null ) {
-            year.className += " current-year-selected";
+            year.className += " year-selected";
         }
+
+        var yearsHandledForEvents = [];
+
+        getAllEventsFunc( function( event ) {
+            var fromYear = event.from.getFullYear();
+
+            if ( yearsHandledForEvents.indexOf( fromYear ) === -1 ) {
+                
+                var yearEvents = getElementByID( _elementID_YearSelected + fromYear );
+                if ( yearEvents !== null && yearEvents.className.indexOf( " year-selected" ) === -1 ) {
+                    yearEvents.className += " year-has-events";
+                }
+
+                yearsHandledForEvents.push( fromYear );
+            }
+        } );
 
         return year;
     }
@@ -1546,10 +1600,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_Title = createElement( "div", "title" );
         titleBar.appendChild( _element_FullDayView_Title );
 
-        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
-            hideOverlay( _element_FullDayView );
-            _element_FullDayView_DateSelected = null;
-        } );
+        buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
 
         if ( _options.manualEditingEnabled ) {
             buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
@@ -1568,7 +1619,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
 
-        buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
+        _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
 
         _element_FullDayView_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_FullDayView.appendChild( _element_FullDayView_Contents );
@@ -1624,6 +1675,12 @@ function calendarJs( id, options, startDateTime ) {
 
     function showFullDayView( date, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
+
+        if ( _options.visibleDays.length < 7 ) {
+            _element_FullDayView_TodayButton.style.display = "none";
+        } else {
+            _element_FullDayView_TodayButton.style.display = "inline-block";
+        }
 
         _element_FullDayView_Title.innerText = "";
         _element_FullDayView_DateSelected = new Date( date );
@@ -1718,6 +1775,12 @@ function calendarJs( id, options, startDateTime ) {
                 _element_FullDayView_ExportEventsButton.style.display = "inline-block";
             }
         }
+    }
+
+    function hideFullDayView() {
+        hideOverlay( _element_FullDayView );
+
+        _element_FullDayView_DateSelected = null;
     }
 
     function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
@@ -1868,11 +1931,33 @@ function calendarJs( id, options, startDateTime ) {
 
     function onPreviousDay() {
         moveDateBackOneDay( _element_FullDayView_DateSelected );
+
+        if ( _options.visibleDays.length < 7 ) {
+            var weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+
+            while ( _options.visibleDays.indexOf( weekDayNumber ) === -1 ) {
+                moveDateBackOneDay( _element_FullDayView_DateSelected );
+    
+                weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+            }
+        }
+
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
     function onNextDay() {
         moveDateForwardDay( _element_FullDayView_DateSelected );
+
+        if ( _options.visibleDays.length < 7 ) {
+            var weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+
+            while ( _options.visibleDays.indexOf( weekDayNumber ) === -1 ) {
+                moveDateForwardDay( _element_FullDayView_DateSelected );
+    
+                weekDayNumber = getWeekdayNumber( _element_FullDayView_DateSelected );
+            }
+        }
+
         showFullDayView( _element_FullDayView_DateSelected, true );
     }
 
@@ -3961,10 +4046,18 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_For.onkeypress = searchOnEnter;
         _element_SearchDialog_Contents.appendChild( _element_SearchDialog_For );
         
-        _element_SearchDialog_MatchCase = buildCheckBox( _element_SearchDialog_Contents, _options.matchCaseText, searchForTextChanged )[ 0 ];
+        var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
+        _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
+
+        _element_SearchDialog_MatchCase = buildCheckBox( checkboxOptionsContainer, _options.matchCaseText, searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Advanced = buildCheckBox( checkboxOptionsContainer, _options.advancedText, searchAdvancedChecked )[ 0 ];
+        _element_SearchDialog_Advanced.checked = true;
+
+        _element_SearchDialog_Advanced_Container = createElement( "div", "advanced" );
+        _element_SearchDialog_Contents.appendChild( _element_SearchDialog_Advanced_Container );
 
         var optionsSplitContainer = createElement( "div", "split" );
-        _element_SearchDialog_Contents.appendChild( optionsSplitContainer );
+        _element_SearchDialog_Advanced_Container.appendChild( optionsSplitContainer );
 
         var splitContents1 = createElement( "div", "split-contents" );
         optionsSplitContainer.appendChild( splitContents1 );
@@ -3977,9 +4070,11 @@ function calendarJs( id, options, startDateTime ) {
         var checkboxContainer = createElement( "div", "checkboxContainer" );
         splitContents1.appendChild( checkboxContainer );
 
-        _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchForTextChanged )[ 0 ];
-        _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchForTextChanged )[ 0 ];
-        _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchForTextChanged )[ 0 ];
+        _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Location = buildCheckBox( checkboxContainer, _options.locationText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Description = buildCheckBox( checkboxContainer, _options.descriptionText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Group = buildCheckBox( checkboxContainer, _options.groupText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
+        _element_SearchDialog_Include_Url = buildCheckBox( checkboxContainer, _options.urlText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
 
         _element_SearchDialog_Include_Title.checked = true;
 
@@ -3988,9 +4083,9 @@ function calendarJs( id, options, startDateTime ) {
         var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
         splitContents2.appendChild( radioButtonsContainer );
 
-        _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchForTextChanged );
-        _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchForTextChanged );
-        _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchForTextChanged );
+        _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchOptionsChanged );
+        _element_SearchDialog_Option_EndsWith = buildRadioButton( radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchOptionsChanged );
+        _element_SearchDialog_Option_Contains = buildRadioButton( radioButtonsContainer, _options.containsText, "SearchOptionType", searchOptionsChanged );
 
         _element_SearchDialog_Option_Contains.checked = true;
 
@@ -4001,6 +4096,16 @@ function calendarJs( id, options, startDateTime ) {
         _element_SearchDialog_Next = createButtonElement( buttonsSplitContainer, _options.nextText, "next", searchOnNext );
 
         _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
+    }
+
+    function searchAdvancedChecked() {
+        if ( _element_SearchDialog_Advanced.checked ) {
+            _element_SearchDialog_Advanced_Container.style.display = "block";
+        } else {
+            _element_SearchDialog_Advanced_Container.style.display = "none";
+        }
+        
+        storeSearchOptions();
     }
 
     function searchOnTitleBarMouseDown( e ) {
@@ -4025,6 +4130,11 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function searchOptionsChanged() {
+        storeSearchOptions();
+        searchForTextChanged();
+    }
+
     function searchForTextChanged() {
         if ( _element_SearchDialog_SearchResults.length > 0 ) {
             removeElementsClassName( _element_Calendar, " focused-event" );
@@ -4045,6 +4155,10 @@ function calendarJs( id, options, startDateTime ) {
     
             centerSearchDialog();
             searchForTextChanged();
+            setupSearchOptions();
+            hideFullDayView();
+            hideOverlay( _element_ListAllEventsView );
+            hideOverlay( _element_ListAllWeekEventsView );
         }
 
         if ( !isSearchDialogContentVisible() ) {
@@ -4113,12 +4227,16 @@ function calendarJs( id, options, startDateTime ) {
                     var title = getString( event.title ),
                         location = getString( event.location ),
                         description = getString( event.description ),
+                        group = getString( event.group ),
+                        url = getString( event.url ),
                         found = false;
 
                     if ( !matchCase ) {
                         title = title.toLowerCase();
                         description = description.toLowerCase();
                         location = location.toLowerCase();
+                        group = group.toLowerCase();
+                        url = url.toLowerCase();
                     }
 
                     if ( _element_SearchDialog_Include_Title.checked && isSearchTextAvailable( title, search ) ) {
@@ -4126,6 +4244,10 @@ function calendarJs( id, options, startDateTime ) {
                     } else if ( _element_SearchDialog_Include_Location.checked && isSearchTextAvailable( location, search ) ) {
                         found = true;
                     } else if ( _element_SearchDialog_Include_Description.checked && isSearchTextAvailable( description, search ) ) {
+                        found = true;
+                    } else if ( _element_SearchDialog_Include_Group.checked && isSearchTextAvailable( group, search ) ) {
+                        found = true;
+                    } else if ( _element_SearchDialog_Include_Url.checked && isSearchTextAvailable( url, search ) ) {
                         found = true;
                     }
 
@@ -4182,6 +4304,40 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return found;
+    }
+
+    function storeSearchOptions() {
+        _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
+        _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
+        _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
+        _optionsForSearch.searchLocation = _element_SearchDialog_Include_Location.checked;
+        _optionsForSearch.searchDescription = _element_SearchDialog_Include_Description.checked;
+        _optionsForSearch.searchGroup = _element_SearchDialog_Include_Group.checked;
+        _optionsForSearch.searchUrl = _element_SearchDialog_Include_Url.checked;
+        _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
+        _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
+        _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
+
+        if ( _timer_CallSearchOptionsEvent !== null ) {
+            clearTimeout( _timer_CallSearchOptionsEvent );
+        }
+
+        _timer_CallSearchOptionsEvent = setTimeout( function() {
+            triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+        }, 2000 );
+    }
+
+    function setupSearchOptions() {
+        _element_SearchDialog_MatchCase.checked = _optionsForSearch.matchCase;
+        _element_SearchDialog_Advanced.checked = _optionsForSearch.showAdvanced;
+        _element_SearchDialog_Include_Title.checked = _optionsForSearch.searchTitle;
+        _element_SearchDialog_Include_Location.checked = _optionsForSearch.searchLocation;
+        _element_SearchDialog_Include_Description.checked = _optionsForSearch.searchDescription;
+        _element_SearchDialog_Include_Group.checked = _optionsForSearch.searchGroup;
+        _element_SearchDialog_Include_Url.checked = _optionsForSearch.searchUrl;
+        _element_SearchDialog_Option_StartsWith.checked = _optionsForSearch.startsWith;
+        _element_SearchDialog_Option_EndsWith.checked = _optionsForSearch.endsWith;
+        _element_SearchDialog_Option_Contains.checked = _optionsForSearch.contains;
     }
 
 
@@ -6376,7 +6532,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.1.1";
+        return "1.1.2";
     };
 
 
@@ -6417,6 +6573,31 @@ function calendarJs( id, options, startDateTime ) {
             _initialized = false;
 
             build( _currentDate, true );
+        }
+    };
+
+    /**
+     * setSearchOptions().
+     * 
+     * @fires       onSearchOptionsUpdated
+     * 
+     * Sets the specific search options that should be used.
+     * 
+     * @param       {Object}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
+     * @param       {boolean}   triggerEvent                                States if the "onSearchOptionsUpdated" event should be triggered.
+     */
+    this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
+        newSearchOptions = getOptions( newSearchOptions );
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        for ( var propertyName in newSearchOptions ) {
+            if ( newSearchOptions.hasOwnProperty( propertyName ) ) {
+                _optionsForSearch[ propertyName ] = newSearchOptions[ propertyName ];
+            }
+        }
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
         }
     };
 
@@ -7096,6 +7277,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.lastUpdatedText ) ) {
             _options.lastUpdatedText = "Last Updated:";
+        }
+
+        if ( !isDefined( _options.advancedText ) ) {
+            _options.advancedText = "Advanced";
         }
     }
 

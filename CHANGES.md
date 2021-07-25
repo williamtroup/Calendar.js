@@ -1,5 +1,17 @@
 # Calendar.js - Change Log:
 
+### Version 1.1.2:
+- The Full Day view no longer shows days that are hidden (the Today button is also hidden to prevent jumping to a hidden day).
+- Renamed the CSS class "current-year-selector" to "year-selected".
+- Added support to show the years that contain events in the year's down-down menu (new CSS class "year-has-events").
+- Added support to search by Group and Url in the Search dialog.
+- Added a new checkbox called "Advanced" to the Search dialog, which will hide the additional search options (saves screen space).
+- When opening the Search dialog via the global key, all open overlays (Day, Weekly and All) views are closed.
+- Search options now has its own internal configuration and can be set by the new public function "setSearchOptions()".
+- Added base documentation for the new search options and new "SEARCH_OPTIONS.md".
+- Added new event "onSearchOptionsUpdated", which is fired every time the search options are changed (via UI or code).
+- Fixed some spelling issues in some more spelling and grammar mistakes in the existing documentation.
+
 ### Version 1.1.1:
 - Decreased the width/height of the hour/half hour display shown on the side in the Full Day view.
 - Fixed the font size for the drop-down menus not adhering to the default font-size media rules.
