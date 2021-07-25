@@ -2990,7 +2990,7 @@ function calendarJs( id, options, startDateTime ) {
         _document.body.appendChild( _element_DropDownMenu_Day );
 
         if ( _options.manualEditingEnabled ) {
-            buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle, function() {
+            buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle + "...", function() {
                 showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
             }, true );
     
@@ -3027,7 +3027,7 @@ function calendarJs( id, options, startDateTime ) {
         _document.body.appendChild( _element_DropDownMenu_Event );
 
         if ( _options.manualEditingEnabled ) {
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle, function() {
+            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
             }, true );
 
@@ -3095,7 +3095,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_DropDownMenu_FullDay = createElement( "div", "calendar-drop-down-menu" );
             _document.body.appendChild( _element_DropDownMenu_FullDay );
 
-            buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle, function() {
+            buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
                 showEventEditingDialog( null, _element_FullDayView_DateSelected );
             }, true );
     
