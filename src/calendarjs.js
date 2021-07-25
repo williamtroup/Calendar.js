@@ -302,6 +302,7 @@ function calendarJs( id, options, startDateTime ) {
         _initialized = false,
         _initializedDocumentEvents = false,
         _events = {},
+        _timer_CallSearchOptionsEvent = null,
         _timer_RefreshMainDisplay = null,
         _eventDetails_Dragged_DateFrom = null,
         _eventDetails_Dragged = null,
@@ -4317,7 +4318,13 @@ function calendarJs( id, options, startDateTime ) {
         _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
         _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
 
-        triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+        if ( _timer_CallSearchOptionsEvent !== null ) {
+            clearTimeout( _timer_CallSearchOptionsEvent );
+        }
+
+        _timer_CallSearchOptionsEvent = setTimeout( function() {
+            triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+        }, 2000 );
     }
 
     function setupSearchOptions() {
