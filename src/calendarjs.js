@@ -205,6 +205,8 @@
  * @property    {string}    repeatsByCustomSettingsText                 The text that should be displayed for the "By Custom Settings" label.
  * @property    {string}    lastUpdatedText                             The text that should be displayed for the "Last Updated:" label.
  * @property    {string}    advancedText                                The text that should be displayed for the "Advanced" label.
+ * @property    {string}    copyText                                    The text that should be displayed for the "Copy" label.
+ * @property    {string}    pasteText                                   The text that should be displayed for the "Paste" label.
  */
 
 
@@ -310,6 +312,7 @@ function calendarJs( id, options, startDateTime ) {
         _isFullScreenModeActivated = false,
         _isDateToday = false,
         _openDialogs = [],
+        _copiedEventDetails = null,
         _keys = {
             escape: 27,
             left: 37,
@@ -442,6 +445,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_Tooltip_ShowTimer = null,
         _element_Tooltip_EventDetails = null,
         _element_DropDownMenu_Day = null,
+        _element_DropDownMenu_Day_Paste_Separator = null,
+        _element_DropDownMenu_Day_Paste = null,
         _element_DropDownMenu_Day_DateSelected = null,
         _element_DropDownMenu_Event = null,
         _element_DropDownMenu_Event_EventDetails = null,
@@ -449,6 +454,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_Event_OpenUrlSeparator = null,
         _element_DropDownMenu_Event_OpenUrl = null,
         _element_DropDownMenu_FullDay = null,
+        _element_DropDownMenu_FullDay_Paste_Separator = null,
+        _element_DropDownMenu_FullDay_Paste = null,
         _element_SearchDialog = null,
         _element_SearchDialog_MinimizedRestoreButton = null,
         _element_SearchDialog_Contents = null,
@@ -2974,6 +2981,9 @@ function calendarJs( id, options, startDateTime ) {
     function buildDayDropDownMenu() {
         if ( _element_DropDownMenu_Day !== null ) {
             removeNode( _document.body, _element_DropDownMenu_Day );
+
+            _element_DropDownMenu_Day_Paste_Separator = null;
+            _element_DropDownMenu_Day_Paste = null;
         }
 
         _element_DropDownMenu_Day = createElement( "div", "calendar-drop-down-menu" );
@@ -2996,6 +3006,14 @@ function calendarJs( id, options, startDateTime ) {
         buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-hamburger-icon", _options.viewWeekEventsText, function() {
             showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
         } );
+
+        if ( _options.manualEditingEnabled ) {
+            _element_DropDownMenu_Day_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_Day );
+            
+            _element_DropDownMenu_Day_Paste = buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-circle-icon", _options.pasteText, function() {
+                addClonedEventToDate( _element_DropDownMenu_Day_DateSelected );
+            } );
+        }
     }
 
     function buildEventDropDownMenu() {
@@ -3015,6 +3033,12 @@ function calendarJs( id, options, startDateTime ) {
 
             buildMenuSeparator( _element_DropDownMenu_Event );
             
+            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
+                _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails );
+            } );
+
+            buildMenuSeparator( _element_DropDownMenu_Event );
+
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
                 addNode( _document.body, _element_DisabledBackground );
     
@@ -3061,7 +3085,10 @@ function calendarJs( id, options, startDateTime ) {
     function buildFullDayViewDropDownMenu() {
         if ( _element_DropDownMenu_FullDay !== null ) {
             removeNode( _document.body, _element_DropDownMenu_FullDay );
+
             _element_DropDownMenu_FullDay = null;
+            _element_DropDownMenu_FullDay_Paste_Separator = null;
+            _element_DropDownMenu_FullDay_Paste = null;
         }
 
         if ( _options.manualEditingEnabled ) {
@@ -3077,6 +3104,14 @@ function calendarJs( id, options, startDateTime ) {
             buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
                 removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
             } );
+
+            if ( _options.manualEditingEnabled ) {
+                _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+                
+                _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
+                    addClonedEventToDate( _element_FullDayView_DateSelected );
+                } );
+            }
         }
     }
 
@@ -3114,6 +3149,13 @@ function calendarJs( id, options, startDateTime ) {
     function showDayDropDownMenu( e, date ) {
         _element_DropDownMenu_Day_DateSelected = new Date( date );
 
+        if ( _element_DropDownMenu_Day_Paste !== null ) {
+            var display = _copiedEventDetails !== null ? "block" : "none";
+
+            _element_DropDownMenu_Day_Paste_Separator.style.display = display;
+            _element_DropDownMenu_Day_Paste.style.display = display;
+        }
+
         hideAllDropDowns();
         cancelBubble( e );
         showElementAtMousePosition( e, _element_DropDownMenu_Day );
@@ -3140,6 +3182,13 @@ function calendarJs( id, options, startDateTime ) {
 
     function showFullDayDropDownMenu( e ) {
         if ( _element_DropDownMenu_FullDay !== null ) {
+            if ( _element_DropDownMenu_FullDay_Paste !== null ) {
+                var display = _copiedEventDetails !== null ? "block" : "none";
+    
+                _element_DropDownMenu_FullDay_Paste_Separator.style.display = display;
+                _element_DropDownMenu_FullDay_Paste.style.display = display;
+            }
+
             hideAllDropDowns();
             cancelBubble( e );
             showElementAtMousePosition( e, _element_DropDownMenu_FullDay );
@@ -5086,6 +5135,35 @@ function calendarJs( id, options, startDateTime ) {
             _openDialogs.pop();
         }
     }
+
+    function cloneEventDetails( value ) {
+        var object = JSON.parse( JSON.stringify( value ) );
+        object.from = new Date( object.from );
+        object.to = new Date( object.to );
+
+        if ( isDefined( object.repeatEnds ) ) {
+            object.repeatEnds = new Date( object.repeatEnds );
+        }
+        
+        delete object.created;
+        delete object.lastUpdated;
+        delete object.id;
+
+        return object;
+    }
+
+    function addClonedEventToDate( date ) {
+        var newEvent = cloneEventDetails( _copiedEventDetails );
+        newEvent.from.setDate( date.getDate() );
+        newEvent.from.setMonth( date.getMonth() );
+        newEvent.from.setFullYear( date.getFullYear() );
+        newEvent.to.setDate( date.getDate() );
+        newEvent.to.setMonth( date.getMonth() );
+        newEvent.to.setFullYear( date.getFullYear() );
+        newEvent.id = null;
+
+        _this.addEvent( newEvent );
+    } 
 
 
     /*
@@ -7281,6 +7359,14 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.advancedText ) ) {
             _options.advancedText = "Advanced";
+        }
+
+        if ( !isDefined( _options.copyText ) ) {
+            _options.copyText = "Copy";
+        }
+
+        if ( !isDefined( _options.pasteText ) ) {
+            _options.pasteText = "Paste";
         }
     }
 

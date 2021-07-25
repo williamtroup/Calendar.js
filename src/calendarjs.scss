@@ -1396,7 +1396,9 @@ div.calendar-drop-down-menu {
     div.ib-arrow-expand-left-right-icon,
     div.ib-hamburger-icon,
     div.ib-close-icon,
-    div.ib-arrow-top-right-icon {
+    div.ib-arrow-top-right-icon,
+    div.ib-circle-hollow-icon,
+    div.ib-circle-icon {
         margin-right: $spacing;
     }
 
@@ -1414,14 +1416,16 @@ div.calendar-drop-down-menu {
         &:hover div.ib-plus-icon:after,
         &:hover div.ib-hamburger-icon:before,
         &:hover div.ib-close-icon:before,
-        &:hover div.ib-close-icon:after  {
+        &:hover div.ib-close-icon:after,
+        &:hover div.ib-circle-icon {
             background-color: $light-color;
         }
 
         &:hover div.ib-hamburger-icon,
         &:hover div.ib-arrow-expand-left-right-icon:after,
         &:hover div.ib-arrow-expand-left-right-icon:before,
-        &:hover div.ib-arrow-top-right-icon {
+        &:hover div.ib-arrow-top-right-icon,
+        &:hover div.ib-circle-hollow-icon {
             border-color: $light-color;
         }
 
@@ -1527,5 +1531,7 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/arrow-expand-left-right-icon";
 @import "foundation/menus/close-icon";
 @import "foundation/menus/arrow-top-right-icon";
+@import "foundation/menus/circle-icon";
+@import "foundation/menus/circle-hollow-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";

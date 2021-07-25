@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.2.0:
+- Added Copy and Paste support of events (events can be pasted on the main display, or Full Day view).
 - 
 
 ### Version 1.1.2:
