@@ -1403,7 +1403,7 @@ div.calendar-drop-down-menu {
     }
 
     div.item {
-        padding: $spacing;
+        padding: $spacing - $spacing / 4;
         padding-right: $spacing * 3;
 
         &:hover {
