@@ -3504,7 +3504,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_EventDetails = eventDetails;
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
-            _element_EventEditorDialog_IsAllDay.checked = eventDetails.isAllDay;
+            _element_EventEditorDialog_IsAllDay.checked = getBoolean( eventDetails.isAllDay, false );
             _element_EventEditorDialog_ShowAlerts.checked = getBoolean( eventDetails.showAlerts, true );
             _element_EventEditorDialog_Title.value = getString( eventDetails.title );
             _element_EventEditorDialog_Description.value = getString( eventDetails.description );
