@@ -33,6 +33,7 @@
  * @property    {number}    repeatEveryCustomType                       States the custom repeating period (0 = Daily, 1 = Weekly, 2 = Monthly, 3 = Yearly).
  * @property    {number}    repeatEveryCustomValue                      States the custom repeating period value (for example, 1 day, week, month, or year).
  * @property    {Object}    lastUpdated                                 The date that the event was last updated.
+ * @property    {boolean}   showAlerts                                  States if browser notifications should be shown for this event (defaults to true).
  */
 
 
@@ -208,6 +209,7 @@
  * @property    {string}    copyText                                    The text that should be displayed for the "Copy" label.
  * @property    {string}    pasteText                                   The text that should be displayed for the "Paste" label.
  * @property    {string}    duplicateText                               The text that should be displayed for the "Duplicate" label.
+ * @property    {string}    showAlertsText                              The text that should be displayed for the "Show Alerts" label.
  */
 
 
@@ -362,6 +364,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog_DateTo = null,
         _element_EventEditorDialog_TimeTo = null,
         _element_EventEditorDialog_IsAllDay = null,
+        _element_EventEditorDialog_ShowAlerts = null,
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
@@ -3359,6 +3362,7 @@ function calendarJs( id, options, startDateTime ) {
         setInputType( _element_EventEditorDialog_TimeTo, "time" );
 
         _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChanged )[ 0 ];
+        _element_EventEditorDialog_ShowAlerts = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.showAlertsText )[ 0 ];
     }
 
     function buildEventEditorRepeatsTabContent() {
@@ -3501,6 +3505,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
             _element_EventEditorDialog_IsAllDay.checked = eventDetails.isAllDay;
+            _element_EventEditorDialog_ShowAlerts.checked = getBoolean( eventDetails.showAlerts, true );
             _element_EventEditorDialog_Title.value = getString( eventDetails.title );
             _element_EventEditorDialog_Description.value = getString( eventDetails.description );
             _element_EventEditorDialog_Location.value = getString( eventDetails.location );
@@ -3567,6 +3572,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_TitleBar.innerText = _options.addEventTitle;
             _element_EventEditorDialog_EventDetails = {};
             _element_EventEditorDialog_IsAllDay.checked = false;
+            _element_EventEditorDialog_ShowAlerts.checked = true;
             _element_EventEditorDialog_Title.value = "";
             _element_EventEditorDialog_Description.value = "";
             _element_EventEditorDialog_Location.value = "";
@@ -3666,6 +3672,7 @@ function calendarJs( id, options, startDateTime ) {
                     location: location,
                     group: group,
                     isAllDay: _element_EventEditorDialog_IsAllDay.checked,
+                    showAlerts: _element_EventEditorDialog_ShowAlerts.checked,
                     color: _element_EventEditorDialog_EventDetails.color,
                     colorText: _element_EventEditorDialog_EventDetails.colorText,
                     colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
@@ -4859,24 +4866,26 @@ function calendarJs( id, options, startDateTime ) {
     function checkEventForBrowserNotifications( date, event ) {
         runBrowserNotificationAction( function() {
             if ( isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( event.id ) ) {
-                var newFrom = new Date(),
-                    newTo = new Date(),
-                    today = new Date(),
-                    repeatEvery = getNumber( event.repeatEvery );
-    
-                newFrom.setHours( event.from.getHours(), event.from.getMinutes(), 0, 0 );
-                newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0, 0 );
-    
-                if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.from ) ) {
-                    newFrom.setHours( 0, 0, 0, 0 );
-                }
-    
-                if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.to ) ) {
-                    newTo.setHours( 23, 59, 59, 99 );
-                }
-                
-                if ( today >= newFrom && today <= newTo ) {
-                    launchBrowserNotificationForEvent( event );
+                if ( !isDefinedBoolean( event.showAlerts ) || event.showAlerts ) {
+                    var newFrom = new Date(),
+                        newTo = new Date(),
+                        today = new Date(),
+                        repeatEvery = getNumber( event.repeatEvery );
+        
+                    newFrom.setHours( event.from.getHours(), event.from.getMinutes(), 0, 0 );
+                    newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0, 0 );
+        
+                    if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.from ) ) {
+                        newFrom.setHours( 0, 0, 0, 0 );
+                    }
+        
+                    if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.to ) ) {
+                        newTo.setHours( 23, 59, 59, 99 );
+                    }
+                    
+                    if ( today >= newFrom && today <= newTo ) {
+                        launchBrowserNotificationForEvent( event );
+                    }
                 }
             }
         }, false );
@@ -5492,6 +5501,12 @@ function calendarJs( id, options, startDateTime ) {
         defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
 
         return isDefinedBoolean( value ) ? value ? 1 : 0 : defaultValue;
+    }
+
+    function getBoolean( value, defaultValue  ) {
+        defaultValue = isDefined( defaultValue ) ? defaultValue : false;
+
+        return isDefinedBoolean( value ) ? value : defaultValue;
     }
 
     function getArray( value, defaultValue ) {
@@ -7403,6 +7418,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.duplicateText ) ) {
             _options.duplicateText = "Duplicate";
+        }
+
+        if ( !isDefined( _options.showAlertsText ) ) {
+            _options.showAlertsText = "Show Alerts";
         }
     }
 
