@@ -1,0 +1,15 @@
+@import "icon";
+
+.ib-minus-icon {
+    @include button-no-before-after;
+
+    &:before {
+        @include button-after-before-setup;
+        @include top-center;
+        background-color: $dark-color;
+        width: 100%;
+        height: $border-width;
+        border-radius: $border-radius;
+        left: 0;
+    }
+}

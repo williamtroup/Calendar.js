@@ -4,6 +4,7 @@
 - Added Copy and Paste support of events (events can be pasted on the main display, or Full Day view).
 - Context drop-down menu items that open dialogs now have a "..." at the end to indicate this.
 - Decreased the default padding size that is used foe the drop-down context menus.
+- Added Duplicate context menu support support for events (will show the details in the Event Editor dialog).
 - 
 
 ### Version 1.1.2:

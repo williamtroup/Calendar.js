@@ -207,6 +207,7 @@
  * @property    {string}    advancedText                                The text that should be displayed for the "Advanced" label.
  * @property    {string}    copyText                                    The text that should be displayed for the "Copy" label.
  * @property    {string}    pasteText                                   The text that should be displayed for the "Paste" label.
+ * @property    {string}    duplicateText                               The text that should be displayed for the "Duplicate" label.
  */
 
 
@@ -3039,6 +3040,13 @@ function calendarJs( id, options, startDateTime ) {
 
             buildMenuSeparator( _element_DropDownMenu_Event );
 
+            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText, function() {
+                showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
+                setEventEditingDialogInDuplicateMode();
+            } );
+
+            buildMenuSeparator( _element_DropDownMenu_Event );
+
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
                 addNode( _document.body, _element_DisabledBackground );
     
@@ -3597,6 +3605,15 @@ function calendarJs( id, options, startDateTime ) {
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
         _element_EventEditorDialog_Title.focus();
+    }
+
+    function setEventEditingDialogInDuplicateMode() {
+        _element_EventEditorDialog_OKButton.value = _options.addText;
+        _element_EventEditorDialog_RemoveButton.style.display = "none";
+        _element_EventEditorDialog_TitleBar.innerText = _options.addEventTitle;
+        _element_EventEditorDialog_EventDetails = cloneEventDetails( _element_EventEditorDialog_EventDetails );
+
+        buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
     }
 
     function eventDialogEvent_OK() {
@@ -7367,6 +7384,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.pasteText ) ) {
             _options.pasteText = "Paste";
+        }
+
+        if ( !isDefined( _options.duplicateText ) ) {
+            _options.duplicateText = "Duplicate";
         }
     }
 
