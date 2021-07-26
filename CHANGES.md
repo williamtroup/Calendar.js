@@ -5,6 +5,9 @@
 - Context drop-down menu items that open dialogs now have a "..." at the end to indicate this.
 - Decreased the default padding size that is used foe the drop-down context menus.
 - Added Duplicate context menu support support for events (will show the details in the Event Editor dialog).
+- Added new setting "defaultEventBackgroundColor", which states the default event background color that should be used.
+- Added new setting "defaultEventTextColor", which states the default event text color that should be used.
+- Added new setting "defaultEventBorderColor", which states the default event border color that should be used.
 - 
 
 ### Version 1.1.2:

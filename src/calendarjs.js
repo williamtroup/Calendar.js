@@ -246,6 +246,9 @@
  * @property    {Object[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {boolean}   allowEventScrollingOnMainDisplay            States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
  * @property    {string}    urlWindowTarget                             States the target that an event Url should be opened in (defaults to _blank for a new window).
+ * @property    {string}    defaultEventBackgroundColor                 States the default background color that should be used for events (defaults to "#484848").
+ * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
+ * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  */
 
 
@@ -3503,9 +3506,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Location.value = getString( eventDetails.location );
             _element_EventEditorDialog_Group.value = getString( eventDetails.group );
             _element_EventEditorDialog_Url.value = getString( eventDetails.url );
-            _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, "#484848" );
-            _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, "#F5F5F5" );
-            _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, "#282828" );
+            _element_EventEditorColorsDialog_Color.value = getString( eventDetails.color, _options.defaultEventBackgroundColor );
+            _element_EventEditorColorsDialog_ColorText.value = getString( eventDetails.colorText, _options.defaultEventTextColor );
+            _element_EventEditorColorsDialog_ColorBorder.value = getString( eventDetails.colorBorder, _options.defaultEventBorderColor );
             _element_EventEditorDialog_RepeatEvery_Custom_Value.value = getNumber( eventDetails.repeatEveryCustomValue, 1 );
 
             setSelectedDate( eventDetails.from, _element_EventEditorDialog_DateFrom );
@@ -3569,9 +3572,9 @@ function calendarJs( id, options, startDateTime ) {
             _element_EventEditorDialog_Location.value = "";
             _element_EventEditorDialog_Group.value = "";
             _element_EventEditorDialog_Url.value = "";
-            _element_EventEditorColorsDialog_Color.value = "#484848";
-            _element_EventEditorColorsDialog_ColorText.value = "#F5F5F5";
-            _element_EventEditorColorsDialog_ColorBorder.value = "#282828";
+            _element_EventEditorColorsDialog_Color.value = _options.defaultEventBackgroundColor;
+            _element_EventEditorColorsDialog_ColorText.value = _options.defaultEventTextColor;
+            _element_EventEditorColorsDialog_ColorBorder.value = _options.defaultEventBorderColor;
             _element_EventEditorDialog_RepeatEvery_Never.checked = true;
             _element_EventEditorRepeatOptionsDialog_Mon.checked = false;
             _element_EventEditorRepeatOptionsDialog_Tue.checked = false;
@@ -6834,6 +6837,18 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.urlWindowTarget ) ) {
             _options.urlWindowTarget = "_blank";
+        }
+
+        if ( !isDefined( _options.defaultEventBackgroundColor ) ) {
+            _options.defaultEventBackgroundColor = "#484848";
+        }
+
+        if ( !isDefined( _options.defaultEventTextColor ) ) {
+            _options.defaultEventTextColor = "#F5F5F5";
+        }
+
+        if ( !isDefined( _options.defaultEventBorderColor ) ) {
+            _options.defaultEventBorderColor = "#282828";
         }
 
         setTranslationStringOptions();
