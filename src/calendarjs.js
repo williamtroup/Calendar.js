@@ -1789,6 +1789,8 @@ function calendarJs( id, options, startDateTime ) {
                 _element_FullDayView_ExportEventsButton.style.display = "inline-block";
             }
         }
+        
+        adjustFullDayEventsThatOverlap();
     }
 
     function hideFullDayView() {
@@ -1986,6 +1988,103 @@ function calendarJs( id, options, startDateTime ) {
             pixelsPerMinute = contentHoursHeight / 1440;
 
         return pixelsPerMinute;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Full Day View - Overlapping Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function adjustFullDayEventsThatOverlap() {
+        var eventsElements = _element_FullDayView_Contents_Hours.getElementsByClassName( getEventClassName() ),
+            events = [].slice.call( eventsElements ),
+            eventsLength = events.length;
+    
+        if ( eventsLength > 1 ) {
+            events.sort( sortOverlappingEventElementsByOffsetTop );
+
+            for ( var eventIndex1 = 0; eventIndex1 < eventsLength; eventIndex1++ ) {
+                var event1 = events[ eventIndex1 ];
+    
+                for ( var eventIndex2 = 0; eventIndex2 < eventsLength; eventIndex2++ ) {
+                    if ( eventIndex2 !== eventIndex1 ) {
+                        var event2 = events[ eventIndex2 ],
+                            overlaps = doEventElementsOverlap( event1, event2 );
+
+                        if ( overlaps ) {
+                            var event1Position = getString( event1.getAttribute( "event-position" ) ),
+                                event2Position = getString( event2.getAttribute( "event-position" ) );
+
+                            if ( event1Position === "" && event2Position === "" ) {
+                                setOverlappingEventWidth( event1 );
+                                setOverlappingEventWidth( event2 );
+                                setOverlappingEventLeft( event2, event1 );
+
+                                event1.setAttribute( "event-position", "left" );
+                                event2.setAttribute( "event-position", "right" );
+                            
+                            } else if ( event1Position === "" && event2Position === "right" ) {
+                                setOverlappingEventWidth( event1 );
+
+                                event1.setAttribute( "event-position", "left" );
+                                event2.setAttribute( "event-position", "right" );
+                            
+                            } else if ( event1Position === "" && event2Position === "left" ) {
+                                setOverlappingEventLeft( event1, event2 );
+                                setOverlappingEventWidth( event1 );
+
+                                event1.setAttribute( "event-position", "right" );
+                                event2.setAttribute( "event-position", "left" );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function setOverlappingEventWidth( event ) {
+        event.style.width = ( event.offsetWidth / 2 ) - ( ( _options.spacing * 3 ) + _options.spacing / 4 ) + "px";
+    }
+
+    function setOverlappingEventLeft( event1, event2 ) {
+        event1.style.left = ( event2.offsetLeft + event2.offsetWidth + _options.spacing ) + "px";
+    }
+
+    function sortOverlappingEventElementsByOffsetTop( event1, event2 ) {
+        var result = 0;
+
+        if ( event1.offsetTop < event2.offsetTop ) {
+            result = -1;
+        } else if ( event1.offsetTop > event2.offsetTop ) {
+            result = 1;
+        }
+
+        return result;
+    }
+    
+    function doEventElementsOverlap( element1, element2 ) {
+        var result = true,
+            offsetLeft1 = element1.offsetLeft,
+            offsetTop1 = element1.offsetTop,
+            height1 = element1.offsetHeight,
+            width1 = element1.offsetWidth,
+            topPlusHeight1 = offsetTop1 + height1,
+            leftPlusWidth1 = offsetLeft1 + width1,
+            offsetLeft2 = element2.offsetLeft,
+            offsetTop2 = element2.offsetTop,
+            height2 = element2.offsetHeight,
+            width2 = element2.offsetWidth,
+            topPlusHeight2 = offsetTop2 + height2,
+            leftPlusWidth2 = offsetLeft2 + width2;
+    
+        if ( topPlusHeight1 < offsetTop2 || offsetTop1 > topPlusHeight2 || leftPlusWidth1 < offsetLeft2 || offsetLeft1 > leftPlusWidth2 ) {
+            result = false;
+        }
+    
+        return result;
     }
 
 

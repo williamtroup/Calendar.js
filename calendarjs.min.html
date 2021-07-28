@@ -145,7 +145,17 @@
                 today = new Date(),
                 today3HoursAhead = new Date(),
                 previousYear = new Date(),
-                nextYear = new Date();
+                nextYear = new Date(),
+                overlappingEvent1 = new Date(),
+                overlappingEventTo1 = new Date(),
+                overlappingEvent2 = new Date(),
+                overlappingEventTo2 = new Date(),
+                overlappingEvent3 = new Date(),
+                overlappingEventTo3 = new Date(),
+                overlappingEvent4 = new Date(),
+                overlappingEventTo4 = new Date(),
+                overlappingEvent5 = new Date(),
+                overlappingEventTo5 = new Date();
 
             previousDay.setDate( previousDay.getDate() - 1 );
             today11.setHours( 11 );
@@ -167,7 +177,68 @@
             previousYear.setFullYear( previousYear.getFullYear() - 1 );
             nextYear.setFullYear( nextYear.getFullYear() + 1 );
 
+            overlappingEvent1.setDate( overlappingEvent1.getDate() - 3 );
+            overlappingEventTo1.setDate( overlappingEventTo1.getDate() - 3 );
+            overlappingEvent2.setDate( overlappingEvent2.getDate() - 3 );
+            overlappingEventTo2.setDate( overlappingEventTo2.getDate() - 3 );
+            overlappingEvent3.setDate( overlappingEvent3.getDate() - 3 );
+            overlappingEventTo3.setDate( overlappingEventTo3.getDate() - 3 );
+            overlappingEvent4.setDate( overlappingEvent4.getDate() - 3 );
+            overlappingEventTo4.setDate( overlappingEventTo4.getDate() - 3 );
+            overlappingEvent5.setDate( overlappingEvent5.getDate() - 3 );
+            overlappingEventTo5.setDate( overlappingEventTo5.getDate() - 3 );
+            overlappingEvent1.setHours( 0, 10, 0, 0 );
+            overlappingEventTo1.setHours( 1, 10, 0, 0 );
+            overlappingEvent2.setHours( 0, 35, 0, 0 );
+            overlappingEventTo2.setHours( 1, 35, 0, 0 );
+            overlappingEvent3.setHours( 1, 20, 0, 0 );
+            overlappingEventTo3.setHours( 2, 20, 0, 0 );
+            overlappingEvent4.setHours( 2, 0, 0, 0 );
+            overlappingEventTo4.setHours( 3, 0, 0, 0 );
+            overlappingEvent5.setHours( 3, 30, 0, 0 );
+            overlappingEventTo5.setHours( 4, 40, 0, 0 );
+
             return [
+                {
+                    from: overlappingEvent1,
+                    to: overlappingEventTo1,
+                    title: "Overlapping Event 1",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group 1"
+                },
+                {
+                    from: overlappingEvent2,
+                    to: overlappingEventTo2,
+                    title: "Overlapping Event 2",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group 1"
+                },
+                {
+                    from: overlappingEvent3,
+                    to: overlappingEventTo3,
+                    title: "Overlapping Event 3",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group 1"
+                },
+                {
+                    from: overlappingEvent4,
+                    to: overlappingEventTo4,
+                    title: "Overlapping Event 4",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group 1"
+                },
+                {
+                    from: overlappingEvent5,
+                    to: overlappingEventTo5,
+                    title: "Overlapping Event 5",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group 1"
+                },
                 {
                     from: previousYear,
                     to: previousYear,

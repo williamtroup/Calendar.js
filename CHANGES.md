@@ -9,6 +9,7 @@
 - Added new setting "defaultEventTextColor", which states the default event text color that should be used.
 - Added new setting "defaultEventBorderColor", which states the default event border color that should be used.
 - Added "showAlerts" property support to Events with UI support (states if browser alerts should be shown, defaults to true).
+- Added stacking of overlapping events support to the Full Day view (2 columns to start with).
 - 
 
 ### Version 1.1.2:
