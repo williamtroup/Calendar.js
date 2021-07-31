@@ -10,7 +10,7 @@
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events.
-- Copy & Paste for events.
+- Copy & Paste, and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons).
