@@ -38,6 +38,9 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Object[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *boolean* | allowEventScrollingOnMainDisplay | States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true). |
 | *string* | urlWindowTarget | States the target that an event Url should be opened in (defaults to _blank for a new window). |
+| *string* | defaultEventBackgroundColor | States the default background color that should be used for events (defaults to "#484848"). |
+| *string* | defaultEventTextColor | States the default text color that should be used for events (defaults to "#F5F5F5"). |
+| *string* | defaultEventBorderColor | States the default border color that should be used for events (defaults to "#282828"). |
 
 <br/>
 
@@ -173,6 +176,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | repeatsByCustomSettingsText | The text that should be displayed for the "By Custom Settings" label. |
 | *string* | lastUpdatedText | The text that should be displayed for the "Last Updated:" label. |
 | *string* | advancedText | The text that should be displayed for the "Advanced" label. |
+| *string* | copyText | The text that should be displayed for the "Copy" label. |
+| *string* | pasteText | The text that should be displayed for the "Paste" label. |
+| *string* | duplicateText | The text that should be displayed for the "Duplicate" label. |
+| *string* | showAlertsText | The text that should be displayed for the "Show Alerts" label. |
 
 <br/>
 

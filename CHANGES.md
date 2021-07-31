@@ -1,5 +1,16 @@
 # Calendar.js - Change Log:
 
+### Version 1.2.0:
+- Added Copy and Paste support of events (events can be pasted on the main display, or Full Day view).
+- Context drop-down menu items that open dialogs now have a "..." at the end to indicate this.
+- Decreased the default padding size that is used for the drop-down context menus.
+- Added Duplicate context menu support for events (will show the details in the Event Editor dialog).
+- Added new setting "defaultEventBackgroundColor", which states the default event background color that should be used.
+- Added new setting "defaultEventTextColor", which states the default event text color that should be used.
+- Added new setting "defaultEventBorderColor", which states the default event border color that should be used.
+- Added "showAlerts" property support to Events with UI support (states if browser alerts should be shown, defaults to true).
+- Added stacking of overlapping events support to the Full Day view (2 columns to start with).
+
 ### Version 1.1.2:
 - The Full Day view no longer shows days that are hidden (the Today button is also hidden to prevent jumping to a hidden day).
 - Renamed the CSS class "current-year-selector" to "year-selected".

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.1.2
+ * Calendar.js Library v1.2.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1396,12 +1396,15 @@ div.calendar-drop-down-menu {
     div.ib-arrow-expand-left-right-icon,
     div.ib-hamburger-icon,
     div.ib-close-icon,
-    div.ib-arrow-top-right-icon {
+    div.ib-arrow-top-right-icon,
+    div.ib-circle-hollow-icon,
+    div.ib-circle-icon,
+    div.ib-minus-icon {
         margin-right: $spacing;
     }
 
     div.item {
-        padding: $spacing;
+        padding: $spacing - $spacing / 5;
         padding-right: $spacing * 3;
 
         &:hover {
@@ -1414,14 +1417,17 @@ div.calendar-drop-down-menu {
         &:hover div.ib-plus-icon:after,
         &:hover div.ib-hamburger-icon:before,
         &:hover div.ib-close-icon:before,
-        &:hover div.ib-close-icon:after  {
+        &:hover div.ib-close-icon:after,
+        &:hover div.ib-circle-icon,
+        &:hover div.ib-minus-icon:before {
             background-color: $light-color;
         }
 
         &:hover div.ib-hamburger-icon,
         &:hover div.ib-arrow-expand-left-right-icon:after,
         &:hover div.ib-arrow-expand-left-right-icon:before,
-        &:hover div.ib-arrow-top-right-icon {
+        &:hover div.ib-arrow-top-right-icon,
+        &:hover div.ib-circle-hollow-icon {
             border-color: $light-color;
         }
 
@@ -1527,5 +1533,8 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/arrow-expand-left-right-icon";
 @import "foundation/menus/close-icon";
 @import "foundation/menus/arrow-top-right-icon";
+@import "foundation/menus/circle-icon";
+@import "foundation/menus/circle-hollow-icon";
+@import "foundation/menus/minus-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";

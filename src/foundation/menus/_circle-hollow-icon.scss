@@ -1,0 +1,9 @@
+@import "icon";
+
+.ib-circle-hollow-icon {
+    @include button-no-before-after;
+    border: $border;
+    width: $size - $border-width * 2;
+    height: $size - $border-width * 2;
+    border-radius: 50%;
+}
