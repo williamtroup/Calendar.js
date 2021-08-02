@@ -1540,11 +1540,10 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function removeElementsClassName( container, className ) {
-        var elements = container.getElementsByClassName( className ),
-            elementsLength = elements.length;
+        var elements = container.getElementsByClassName( className );
 
-        for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
-            elements[ elementIndex ].className = elements[ elementIndex ].className.replace( className, "" );
+        while ( elements[ 0 ] ) {
+            elements[ 0 ].className = elements[ 0 ].className.replace( className, "" );
         }
     }
   

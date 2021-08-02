@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.0:
+- Fixed a fault that would cause removeElementsClassName() to fail when handling more than one DOM element.
 - 
 
 ### Version 1.2.0:
