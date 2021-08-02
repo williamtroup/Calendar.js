@@ -522,12 +522,8 @@ function calendarJs( id, options, startDateTime ) {
         fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
 
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
-            startDay = firstDay.getDay(),
+            startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay(),
             totalDaysInMonth = getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
-
-        if ( startDay === 0 ) {
-            startDay = 7;
-        }
 
         hideAllDropDowns();
 
