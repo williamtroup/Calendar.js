@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.0:
+- 
+
 ### Version 1.2.0:
 - Added Copy and Paste support of events (events can be pasted on the main display, or Full Day view).
 - Context drop-down menu items that open dialogs now have a "..." at the end to indicate this.
