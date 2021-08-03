@@ -297,6 +297,30 @@ function calendarJs( id, options, startDateTime ) {
             endsWith: false,
             contains: true
         },
+        _keyCodes = {
+            escape: 27,
+            left: 37,
+            right: 39,
+            down: 40,
+            a: 65,
+            f: 70,
+            f5: 116
+        },
+        _repeatType = {
+            never: 0,
+            everyDay: 1,
+            everyWeek: 2,
+            every2Weeks: 3,
+            everyMonth: 4,
+            everyYear: 5,
+            custom: 6
+        },
+        _repeatCustomType = {
+            daily: 0,
+            weekly: 1,
+            monthly: 2,
+            yearly: 3
+        },
         _this = this,
         _currentDate = null,
         _largestDateInView = null,
@@ -319,26 +343,6 @@ function calendarJs( id, options, startDateTime ) {
         _isDateToday = false,
         _openDialogs = [],
         _copiedEventDetails = null,
-        _keys = {
-            escape: 27,
-            left: 37,
-            right: 39,
-            down: 40,
-            a: 65,
-            f: 70,
-            f5: 116
-        },
-        _const_Repeat_Never = 0,
-        _const_Repeat_EveryDay = 1,
-        _const_Repeat_EveryWeek = 2,
-        _const_Repeat_Every2Weeks = 3,
-        _const_Repeat_EveryMonth = 4,
-        _const_Repeat_EveryYear = 5,
-        _const_Repeat_Custom = 6,
-        _const_Repeat_CustomType_Daily = 0,
-        _const_Repeat_CustomType_Weekly = 1,
-        _const_Repeat_CustomType_Monthly = 2,
-        _const_Repeat_CustomType_Yearly = 3,
         _elementID_Day = "day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
@@ -613,7 +617,7 @@ function calendarJs( id, options, startDateTime ) {
 
             getAllEventsFunc( function( event ) {
                 var repeatEvery = getNumber( event.repeatEvery );
-                if ( repeatEvery === _const_Repeat_Never && compareFunc( event.from, date ) ) {
+                if ( repeatEvery === _repeatType.never && compareFunc( event.from, date ) ) {
                     _this.removeEvent( event.id, false );
                 }
             } );
@@ -940,46 +944,46 @@ function calendarJs( id, options, startDateTime ) {
         if ( _isFullScreenModeActivated ) {
             var isMainDisplayVisible = isOnlyMainDisplayVisible();
 
-            if ( isControlKey( e ) && e.keyCode === _keys.left && isMainDisplayVisible ) {
+            if ( isControlKey( e ) && e.keyCode === _keyCodes.left && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveBackYear();
 
-            } else if ( isControlKey( e ) && e.keyCode === _keys.right && isMainDisplayVisible ) {
+            } else if ( isControlKey( e ) && e.keyCode === _keyCodes.right && isMainDisplayVisible ) {
                 e.preventDefault();
                 moveForwardYear();
 
-            } else if ( e.keyCode === _keys.escape ) {
+            } else if ( e.keyCode === _keyCodes.escape ) {
                 if ( !closeActiveDialog() && isMainDisplayVisible ) {
                     headerDoubleClick();
                 }
 
-            } else if ( e.keyCode === _keys.left && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keyCodes.left && isMainDisplayVisible ) {
                 moveBackMonth();
 
-            } else if ( e.keyCode === _keys.right && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keyCodes.right && isMainDisplayVisible ) {
                 moveForwardMonth();
 
-            } else if ( e.keyCode === _keys.down && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keyCodes.down && isMainDisplayVisible ) {
                 moveToday();
                 
-            } else if ( e.keyCode === _keys.f5 && isMainDisplayVisible ) {
+            } else if ( e.keyCode === _keyCodes.f5 && isMainDisplayVisible ) {
                 refreshViews();
             }
         } else {
             
-            if ( e.keyCode === _keys.escape ) {
+            if ( e.keyCode === _keyCodes.escape ) {
                 closeActiveDialog();
             }
         }
 
-        if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keys.a ) {
+        if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.a ) {
             e.preventDefault();
 
             if ( _options.manualEditingEnabled ) {
                 showEventEditingDialog( null, new Date() );
             }
         
-        } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keys.f ) {
+        } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
             e.preventDefault();
             showSearchDialog();
         } 
@@ -1295,30 +1299,30 @@ function calendarJs( id, options, startDateTime ) {
             }
 
             var repeatEvery = getNumber( orderedEvent.repeatEvery );
-            if ( repeatEvery > _const_Repeat_Never ) {
-                if ( repeatEvery === _const_Repeat_EveryDay ) {
+            if ( repeatEvery > _repeatType.never ) {
+                if ( repeatEvery === _repeatType.everyDay ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardDay, 1 );
-                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                } else if ( repeatEvery === _repeatType.everyWeek ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, 1 );
-                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                } else if ( repeatEvery === _repeatType.every2Weeks ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, 2 );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _repeatType.everyMonth ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardMonth, 1 );
-                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                } else if ( repeatEvery === _repeatType.everyYear ) {
                     buildRepeatedDayEvents( orderedEvent, moveDateForwardYear, 1 );
-                } else if ( repeatEvery === _const_Repeat_Custom ) {
+                } else if ( repeatEvery === _repeatType.custom ) {
 
                     var repeatEveryCustomType = getNumber( orderedEvent.repeatEveryCustomType ),
                         repeatEveryCustomValue = getNumber( orderedEvent.repeatEveryCustomValue );
                     
                     if ( repeatEveryCustomValue > 0 ) {
-                        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+                        if ( repeatEveryCustomType === _repeatCustomType.daily ) {
                             buildRepeatedDayEvents( orderedEvent, moveDateForwardDay, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
                             buildRepeatedDayEvents( orderedEvent, moveDateForwardWeek, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
                             buildRepeatedDayEvents( orderedEvent, moveDateForwardMonth, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
                             buildRepeatedDayEvents( orderedEvent, moveDateForwardYear, repeatEveryCustomValue );
                         }
                     }
@@ -1390,7 +1394,7 @@ function calendarJs( id, options, startDateTime ) {
 
                 if ( !_options.useOnlyDotEventsForMainDisplay ) {
                     var repeatEvery = getNumber( eventDetails.repeatEvery );
-                    if ( repeatEvery > _const_Repeat_Never ) {
+                    if ( repeatEvery > _repeatType.never ) {
                         var icon = createElement( "div", "ib-refresh-small" );
                         icon.style.borderColor = event.style.color;
                         event.appendChild( icon );
@@ -1574,7 +1578,7 @@ function calendarJs( id, options, startDateTime ) {
         var repeatEvery = getNumber( eventDetails.repeatEvery ),
             toDate = new Date( eventDetails.to );
         
-        if ( repeatEvery > _const_Repeat_Never ) {
+        if ( repeatEvery > _repeatType.never ) {
             var newCurrentDate = new Date( date );
             newCurrentDate.setHours( toDate.getHours(), toDate.getMinutes() );
 
@@ -1721,30 +1725,30 @@ function calendarJs( id, options, startDateTime ) {
             }
             
             var repeatEvery = getNumber( event.repeatEvery );
-            if ( repeatEvery > _const_Repeat_Never ) {
-                if ( repeatEvery === _const_Repeat_EveryDay ) {
+            if ( repeatEvery > _repeatType.never ) {
+                if ( repeatEvery === _repeatType.everyDay ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardDay, 1 );
-                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                } else if ( repeatEvery === _repeatType.everyWeek ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 1 );
-                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                } else if ( repeatEvery === _repeatType.every2Weeks ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 2 );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _repeatType.everyMonth ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardMonth, 1 );
-                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                } else if ( repeatEvery === _repeatType.everyYear ) {
                     buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardYear, 1 );
-                } else if ( repeatEvery === _const_Repeat_Custom ) {
+                } else if ( repeatEvery === _repeatType.custom ) {
 
                     var repeatEveryCustomType = getNumber( event.repeatEveryCustomType ),
                         repeatEveryCustomValue = getNumber( event.repeatEveryCustomValue );
                     
                     if ( repeatEveryCustomValue > 0 ) {
-                        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+                        if ( repeatEveryCustomType === _repeatCustomType.daily ) {
                             buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardDay, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
                             buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
                             buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardMonth, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
                             buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardYear, repeatEveryCustomValue );
                         }
                     }
@@ -1836,7 +1840,7 @@ function calendarJs( id, options, startDateTime ) {
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( repeatEvery > _const_Repeat_Never ) {
+            if ( repeatEvery > _repeatType.never ) {
                 var icon = createElement( "div", "ib-refresh-medium" );
                 icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
@@ -1865,7 +1869,7 @@ function calendarJs( id, options, startDateTime ) {
                     duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
         
-                if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                     var repeats = createElement( "div", "repeats" );
                     repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
                     event.appendChild( repeats );
@@ -1909,7 +1913,7 @@ function calendarJs( id, options, startDateTime ) {
         if ( !eventDetails.isAllDay ) {
             var repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( doDatesMatch( eventDetails.from, displayDate ) || repeatEvery > _const_Repeat_Never ) {
+            if ( doDatesMatch( eventDetails.from, displayDate ) || repeatEvery > _repeatType.never ) {
                 minutesTop = pixelsPerMinute * getMinutesIntoDay( eventDetails.from );
             }
 
@@ -2211,7 +2215,7 @@ function calendarJs( id, options, startDateTime ) {
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( repeatEvery > _const_Repeat_Never ) {
+            if ( repeatEvery > _repeatType.never ) {
                 var icon = createElement( "div", "ib-refresh-medium" );
                 icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
@@ -2240,7 +2244,7 @@ function calendarJs( id, options, startDateTime ) {
                 duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
             }
     
-            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                 var repeats = createElement( "div", "repeats" );
                 repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
                 event.appendChild( repeats );
@@ -2422,30 +2426,30 @@ function calendarJs( id, options, startDateTime ) {
             var repeatEvery = getNumber( orderedEvent.repeatEvery ),
                 repeatAdded = false;
 
-            if ( repeatEvery > _const_Repeat_Never ) {
-                if ( repeatEvery === _const_Repeat_EveryDay ) {
+            if ( repeatEvery > _repeatType.never ) {
+                if ( repeatEvery === _repeatType.everyDay ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardDay, 1 );
-                } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+                } else if ( repeatEvery === _repeatType.everyWeek ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 1 );
-                } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+                } else if ( repeatEvery === _repeatType.every2Weeks ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 2 );
-                } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+                } else if ( repeatEvery === _repeatType.everyMonth ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardMonth, 1 );
-                } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+                } else if ( repeatEvery === _repeatType.everyYear ) {
                     repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardYear, 1 );
-                } else if ( repeatEvery === _const_Repeat_Custom ) {
+                } else if ( repeatEvery === _repeatType.custom ) {
 
                     var repeatEveryCustomType = getNumber( orderedEvent.repeatEveryCustomType ),
                         repeatEveryCustomValue = getNumber( orderedEvent.repeatEveryCustomValue );
                     
                     if ( repeatEveryCustomValue > 0 ) {
-                        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+                        if ( repeatEveryCustomType === _repeatCustomType.daily ) {
                             repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardDay, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
                             repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
                             repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardMonth, repeatEveryCustomValue );
-                        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+                        } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
                             repeatAdded = buildAllWeekRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardYear, repeatEveryCustomValue );
                         }
                     }
@@ -2545,7 +2549,7 @@ function calendarJs( id, options, startDateTime ) {
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( repeatEvery > _const_Repeat_Never ) {
+            if ( repeatEvery > _repeatType.never ) {
                 var icon = createElement( "div", "ib-refresh-medium" );
                 icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
@@ -2573,7 +2577,7 @@ function calendarJs( id, options, startDateTime ) {
                 duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
             }
     
-            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                 var repeats = createElement( "div", "repeats" );
                 repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
                 event.appendChild( repeats );
@@ -3177,7 +3181,7 @@ function calendarJs( id, options, startDateTime ) {
                 };
 
                 var repeatEvery = getNumber( _element_DropDownMenu_Event_EventDetails.repeatEvery ),
-                    showCheckBox = repeatEvery > _const_Repeat_Never && _element_DropDownMenu_Event_FormattedDateSelected !== null;
+                    showCheckBox = repeatEvery > _repeatType.never && _element_DropDownMenu_Event_FormattedDateSelected !== null;
         
                 showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
             } );
@@ -3614,30 +3618,30 @@ function calendarJs( id, options, startDateTime ) {
             setSelectedDate( eventDetails.to, _element_EventEditorDialog_DateTo );
 
             var repeatEvery = getNumber( eventDetails.repeatEvery );
-            if ( repeatEvery === _const_Repeat_Never ) {
+            if ( repeatEvery === _repeatType.never ) {
                 _element_EventEditorDialog_RepeatEvery_Never.checked = true;
-            } else if ( repeatEvery === _const_Repeat_EveryDay ) {
+            } else if ( repeatEvery === _repeatType.everyDay ) {
                 _element_EventEditorDialog_RepeatEvery_EveryDay.checked = true;
-            } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+            } else if ( repeatEvery === _repeatType.everyWeek ) {
                 _element_EventEditorDialog_RepeatEvery_EveryWeek.checked = true;
-            } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+            } else if ( repeatEvery === _repeatType.every2Weeks ) {
                 _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked = true;
-            } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+            } else if ( repeatEvery === _repeatType.everyMonth ) {
                 _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
-            } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+            } else if ( repeatEvery === _repeatType.everyYear ) {
                 _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
-            } else if ( repeatEvery === _const_Repeat_Custom ) {
+            } else if ( repeatEvery === _repeatType.custom ) {
                 _element_EventEditorDialog_RepeatEvery_Custom.checked = true;
             }
 
             var repeatEveryCustomType = getNumber( eventDetails.repeatEveryCustomType );
-            if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+            if ( repeatEveryCustomType === _repeatCustomType.daily ) {
                 _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked = true;
-            } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+            } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
                 _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly.checked = true;
-            } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+            } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
                 _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly.checked = true;
-            } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+            } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
                 _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly.checked = true;
             }
 
@@ -3777,29 +3781,29 @@ function calendarJs( id, options, startDateTime ) {
                 };
 
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
-                    newEvent.repeatEvery = _const_Repeat_Never;
+                    newEvent.repeatEvery = _repeatType.never;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryDay.checked ) {
-                    newEvent.repeatEvery = _const_Repeat_EveryDay;
+                    newEvent.repeatEvery = _repeatType.everyDay;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryWeek.checked ) {
-                    newEvent.repeatEvery = _const_Repeat_EveryWeek;
+                    newEvent.repeatEvery = _repeatType.everyWeek;
                 } else if ( _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked ) {
-                    newEvent.repeatEvery = _const_Repeat_Every2Weeks;
+                    newEvent.repeatEvery = _repeatType.every2Weeks;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryMonth.checked ) {
-                    newEvent.repeatEvery = _const_Repeat_EveryMonth;
+                    newEvent.repeatEvery = _repeatType.everyMonth;
                 } else if ( _element_EventEditorDialog_RepeatEvery_EveryYear.checked ) {
-                    newEvent.repeatEvery = _const_Repeat_EveryYear;
+                    newEvent.repeatEvery = _repeatType.everyYear;
                 } else if ( _element_EventEditorDialog_RepeatEvery_Custom.checked ) {
-                    newEvent.repeatEvery = _const_Repeat_Custom;
+                    newEvent.repeatEvery = _repeatType.custom;
                 }
 
                 if ( _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked ) {
-                    newEvent.repeatEveryCustomType = _const_Repeat_CustomType_Daily;
+                    newEvent.repeatEveryCustomType = _repeatCustomType.daily;
                 } else if ( _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly.checked ) {
-                    newEvent.repeatEveryCustomType = _const_Repeat_CustomType_Weekly;
+                    newEvent.repeatEveryCustomType = _repeatCustomType.weekly;
                 } else if ( _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly.checked ) {
-                    newEvent.repeatEveryCustomType = _const_Repeat_CustomType_Monthly;
+                    newEvent.repeatEveryCustomType = _repeatCustomType.monthly;
                 } else if ( _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly.checked ) {
-                    newEvent.repeatEveryCustomType = _const_Repeat_CustomType_Yearly;
+                    newEvent.repeatEveryCustomType = _repeatCustomType.yearly;
                 }
 
                 if ( !isExistingEvent ) {
@@ -4797,7 +4801,7 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_TotalTime );
 
                         var repeatEvery = getNumber( eventDetails.repeatEvery );
-                        if ( repeatEvery > _const_Repeat_Never ) {
+                        if ( repeatEvery > _repeatType.never ) {
                             var icon = createElement( "div", "ib-refresh-medium" );
                             icon.style.borderColor = _element_Tooltip_Title.style.color;
                             _element_Tooltip_Title.appendChild( icon );
@@ -4805,7 +4809,7 @@ function calendarJs( id, options, startDateTime ) {
                         
                         _element_Tooltip_Title.innerHTML += eventDetails.title;
 
-                        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _const_Repeat_Never ) {
+                        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                             _element_Tooltip_Repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
                             addNode( _element_Tooltip, _element_Tooltip_Repeats );
                         } else {
@@ -4969,11 +4973,11 @@ function calendarJs( id, options, startDateTime ) {
                     newFrom.setHours( event.from.getHours(), event.from.getMinutes(), 0, 0 );
                     newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0, 0 );
         
-                    if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.from ) ) {
+                    if ( repeatEvery === _repeatType.never && !isDateToday( event.from ) ) {
                         newFrom.setHours( 0, 0, 0, 0 );
                     }
         
-                    if ( repeatEvery === _const_Repeat_Never && !isDateToday( event.to ) ) {
+                    if ( repeatEvery === _repeatType.never && !isDateToday( event.to ) ) {
                         newTo.setHours( 23, 59, 59, 99 );
                     }
                     
@@ -5613,17 +5617,17 @@ function calendarJs( id, options, startDateTime ) {
         var result = _options.dailyText,
             repeatEvery = getNumber( value );
 
-        if ( repeatEvery === _const_Repeat_EveryDay ) {
+        if ( repeatEvery === _repeatType.everyDay ) {
             result = _options.repeatsEveryDayText;
-        } else if ( repeatEvery === _const_Repeat_EveryWeek ) {
+        } else if ( repeatEvery === _repeatType.everyWeek ) {
             result = _options.repeatsEveryWeekText;
-        } else if ( repeatEvery === _const_Repeat_Every2Weeks ) {
+        } else if ( repeatEvery === _repeatType.every2Weeks ) {
             result = _options.repeatsEvery2WeeksText;
-        } else if ( repeatEvery === _const_Repeat_EveryMonth ) {
+        } else if ( repeatEvery === _repeatType.everyMonth ) {
             result = _options.repeatsEveryMonthText;
-        } else if ( repeatEvery === _const_Repeat_EveryYear ) {
+        } else if ( repeatEvery === _repeatType.everyYear ) {
             result = _options.repeatsEveryYearText;
-        } else if ( repeatEvery === _const_Repeat_Custom ) {
+        } else if ( repeatEvery === _repeatType.custom ) {
             result = _options.repeatsByCustomSettingsText;
         }
 
@@ -5634,13 +5638,13 @@ function calendarJs( id, options, startDateTime ) {
         var result = _options.dailyText,
             repeatEveryCustomType = getNumber( value );
 
-        if ( repeatEveryCustomType === _const_Repeat_CustomType_Daily ) {
+        if ( repeatEveryCustomType === _repeatCustomType.daily ) {
             result = _options.dailyText;
-        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Weekly ) {
+        } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
             result = _options.weeklyText;
-        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Monthly ) {
+        } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
             result = _options.monthlyText;
-        } else if ( repeatEveryCustomType === _const_Repeat_CustomType_Yearly ) {
+        } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
             result = _options.yearlyText;
         }
 
