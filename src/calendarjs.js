@@ -3764,22 +3764,22 @@ function calendarJs( id, options, startDateTime ) {
 
                 var isExistingEvent = isDefined( _element_EventEditorDialog_EventDetails.id ),
                     newEvent = {
-                    from: fromDate,
-                    to: toDate,
-                    title: title,
-                    description: description,
-                    location: location,
-                    group: group,
-                    isAllDay: _element_EventEditorDialog_IsAllDay.checked,
-                    showAlerts: _element_EventEditorDialog_ShowAlerts.checked,
-                    color: _element_EventEditorDialog_EventDetails.color,
-                    colorText: _element_EventEditorDialog_EventDetails.colorText,
-                    colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
-                    repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays,
-                    repeatEnds: repeatEnds,
-                    url: url,
-                    repeatEveryCustomValue: repeatEveryCustomValue
-                };
+                        from: fromDate,
+                        to: toDate,
+                        title: title,
+                        description: description,
+                        location: location,
+                        group: group,
+                        isAllDay: _element_EventEditorDialog_IsAllDay.checked,
+                        showAlerts: _element_EventEditorDialog_ShowAlerts.checked,
+                        color: _element_EventEditorDialog_EventDetails.color,
+                        colorText: _element_EventEditorDialog_EventDetails.colorText,
+                        colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
+                        repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays,
+                        repeatEnds: repeatEnds,
+                        url: url,
+                        repeatEveryCustomValue: repeatEveryCustomValue
+                    };
 
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
                     newEvent.repeatEvery = _repeatType.never;
