@@ -4,7 +4,7 @@
 - Fixed a fault that would cause removeElementsClassName() to fail when handling more than one DOM element.
 - Internal structure changes for constant values and code cleanups, enhancements, etc.
 - Fixed a fault that allowed the "repeatEnds" date to be smaller than the events "to" date.
-- The "Clear Events" buttons on the Title Bar for the Weekly/All Event views are now on the left side.
+- The "Remove Events" buttons on the Title Bar for the Weekly/All Event views are now on the left side.
 - 
 
 ### Version 1.2.0:
