@@ -2293,12 +2293,6 @@ function calendarJs( id, options, startDateTime ) {
             header.ondblclick = expandFunction;
             month.appendChild( header );
 
-            if ( _options.manualEditingEnabled ) { 
-                buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
-                    removeNonRepeatingEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
-                } );
-            }
-
             buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
@@ -2306,6 +2300,12 @@ function calendarJs( id, options, startDateTime ) {
 
                 buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
                     showEventEditingDialog( null, addNewEventDate );
+                } );
+            }
+
+            if ( _options.manualEditingEnabled ) { 
+                buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
+                    removeNonRepeatingEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
                 } );
             }
 
@@ -2648,16 +2648,16 @@ function calendarJs( id, options, startDateTime ) {
 
             buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
 
-            if ( _options.manualEditingEnabled ) { 
-                buildToolbarButton( dayHeader, "ib-close", _options.removeEventsTooltipText, function() {
-                    removeNonRepeatingEventsOnSpecificDate( removeEventsDate, doDatesMatch );
-                } );
-            }
-
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
                 buildToolbarButton( dayHeader, "ib-plus", _options.addEventTooltipText, addEventFunction );
+            }
+
+            if ( _options.manualEditingEnabled ) { 
+                buildToolbarButton( dayHeader, "ib-close", _options.removeEventsTooltipText, function() {
+                    removeNonRepeatingEventsOnSpecificDate( removeEventsDate, doDatesMatch );
+                } );
             }
 
             dayContents = createElement( "div", "events" );
