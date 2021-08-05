@@ -3,6 +3,7 @@
 ### Version 1.3.0:
 - Fixed a fault that would cause removeElementsClassName() to fail when handling more than one DOM element.
 - Internal structure changes for constant values and code cleanups, enhancements, etc.
+- Fixed a fault that allowed the "repeatEnds" date to be smaller than the events "to" date.
 - 
 
 ### Version 1.2.0:

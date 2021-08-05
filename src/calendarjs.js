@@ -3563,6 +3563,7 @@ function calendarJs( id, options, startDateTime ) {
             toDate = getSelectedDate( _element_EventEditorDialog_DateTo );
 
         setMinimumDate( _element_EventEditorDialog_DateTo, fromDate );
+        setMinimumDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, toDate );
 
         if ( fromDate > toDate ) {
             setSelectedDate( fromDate, _element_EventEditorDialog_DateTo );
