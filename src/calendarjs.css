@@ -385,6 +385,7 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   z-index: 1500;
   display: none;
   overflow: hidden;
+  font-weight: 500;
 }
 
 @media screen and (min-width: 451px) {

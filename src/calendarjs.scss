@@ -318,6 +318,7 @@ div.calendar {
                 z-index: 1500;
                 display: none;
                 overflow: hidden;
+                font-weight: 500;
 
                 @media screen and (min-width: $minimum-width) {
                     top: calc(#{$spacing} + #{$large-font-size});
