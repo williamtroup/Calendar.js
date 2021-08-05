@@ -6,6 +6,7 @@
 - Fixed a fault that allowed the "repeatEnds" date to be smaller than the events "to" date.
 - The "Remove Events" buttons on the Title Bar for the Weekly/All Event views are now on the left side.
 - Decreased the font-weight for the years drop down menu (on the main display).
+- The title bars now use a shared font-weight (defaults to 900), which fixes some dialogs using the wrong value.
 - 
 
 ### Version 1.2.0:

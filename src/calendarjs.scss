@@ -278,7 +278,7 @@ div.calendar {
 
 div.calendar {  
     div.header-date {
-        font-weight: 900;
+        font-weight: $title-bar-font-weight;
         background-color: $dark-color;
         color: $light-color;
         text-align: center;
@@ -680,6 +680,7 @@ div.calendar {
                     background-color: $dark-color;
                     color: $light-color;
                     padding: $spacing;
+                    font-weight: $title-bar-font-weight;
 
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
@@ -736,6 +737,7 @@ div.calendar {
                     background-color: $dark-color;
                     color: $light-color;
                     padding: $spacing;
+                    font-weight: $title-bar-font-weight;
 
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
