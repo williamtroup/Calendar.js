@@ -29,6 +29,7 @@ $time-hours-height: 35px;
 $time-arrow-line-height: 12px;
 $link-color: #2471A3;
 $input-hover-color: $dark-color;
+$title-bar-font-weight: 900;
 
 @mixin fade-in-effect-animation($seconds) {
     animation: fade-in-effect ease $seconds;
@@ -220,5 +221,6 @@ $input-hover-color: $dark-color;
         color: $light-color;
         padding: $spacing;
         text-align: center;
+        font-weight: $title-bar-font-weight;
     }
 }

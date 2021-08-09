@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.2.0
+ * Calendar.js Library v1.2.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -385,6 +385,7 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   z-index: 1500;
   display: none;
   overflow: hidden;
+  font-weight: 500;
 }
 
 @media screen and (min-width: 451px) {
@@ -975,6 +976,7 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
+  font-weight: 900;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right,
@@ -1177,6 +1179,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
   background-color: #282828;
   color: #F5F5F5;
   padding: 10px;
+  font-weight: 900;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
@@ -1320,6 +1323,7 @@ div.event-editor div.view div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+  font-weight: 900;
 }
 
 div.event-editor div.view div.input-title-container {
@@ -1609,6 +1613,7 @@ div.event-editor-colors div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+  font-weight: 900;
 }
 
 div.event-editor-colors div.contents {
@@ -1789,6 +1794,7 @@ div.event-editor-repeat-options div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+  font-weight: 900;
 }
 
 div.event-editor-repeat-options div.contents {
@@ -1977,6 +1983,7 @@ div.confirmation div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+  font-weight: 900;
 }
 
 div.confirmation div.contents {
@@ -2128,6 +2135,7 @@ div.select-export-type div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+  font-weight: 900;
 }
 
 div.select-export-type div.contents {
@@ -2261,6 +2269,7 @@ div.search div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+  font-weight: 900;
 }
 
 div.search div.contents {
@@ -2455,6 +2464,7 @@ div.configuration div.title-bar {
   color: #F5F5F5;
   padding: 10px;
   text-align: center;
+  font-weight: 900;
 }
 
 div.configuration div.contents {
