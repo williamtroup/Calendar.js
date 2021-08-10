@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.2.2:
+- 
+
 ### Version 1.2.1:
 - Fixed a fault that would cause removeElementsClassName() to fail when handling more than one DOM element.
 - Internal structure changes for constant values and code cleanups, enhancements, etc.
