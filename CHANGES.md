@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.2.2:
+- Events must now be double clicked to be edited (remove the over effects, which cause display issues in the views).
 - 
 
 ### Version 1.2.1:

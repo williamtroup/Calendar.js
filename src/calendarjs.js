@@ -1381,11 +1381,10 @@ function calendarJs( id, options, startDateTime ) {
         if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
             checkEventForBrowserNotifications( dayDate, eventDetails );
             
-            var eventClassName = getEventClassName(),
-                events = elementDay.getElementsByClassName( eventClassName );
+            var events = elementDay.getElementsByClassName( "event" );
 
             if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
-                var event = createElement( "div", eventClassName ),
+                var event = createElement( "div", "event" ),
                     eventTitle = eventDetails.title;
 
                 if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
@@ -1432,7 +1431,8 @@ function calendarJs( id, options, startDateTime ) {
                 };
     
                 if ( _options.manualEditingEnabled ) {
-                    event.onclick = function() {
+                    event.ondblclick = function( e ) {
+                        cancelBubble( e );
                         showEventEditingDialog( eventDetails );
                     };
                 }
@@ -1521,7 +1521,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function clearEventsFromDay( elementDay ) {
         if ( elementDay !== null ) {
-            clearElementsByClassName( elementDay, getEventClassName() );
+            clearElementsByClassName( elementDay, "event" );
             clearElementsByClassName( elementDay, "plus-x-events" );
         }
     }
@@ -1586,10 +1586,6 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return toDate;
-    }
-
-    function getEventClassName() {
-        return _options.manualEditingEnabled ? "event" : "event-no-hover";
     }
 
 
@@ -1700,7 +1696,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [];
         _element_FullDayView_Contents_AllDayEvents.style.display = "block";
 
-        clearElementsByClassName( _element_FullDayView_Contents, getEventClassName() );
+        clearElementsByClassName( _element_FullDayView_Contents, "event" );
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
 
@@ -1822,7 +1818,7 @@ function calendarJs( id, options, startDateTime ) {
             formattedDate = toStorageFormattedDate( displayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
-            var event = createElement( "div", getEventClassName() );
+            var event = createElement( "div", "event" );
             event.ondblclick = cancelBubble;
             
             if ( eventDetails.isAllDay ) {
@@ -1889,7 +1885,8 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                event.onclick = function() {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
             }
@@ -1997,7 +1994,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function adjustFullDayEventsThatOverlap() {
-        var eventsElements = _element_FullDayView_Contents_Hours.getElementsByClassName( getEventClassName() ),
+        var eventsElements = _element_FullDayView_Contents_Hours.getElementsByClassName( "event" ),
             events = [].slice.call( eventsElements ),
             eventsLength = events.length;
     
@@ -2201,7 +2198,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllEventsEvent( eventDetails ) {
         if ( isEventVisible( eventDetails ) ) {
             var container = buildListAllEventsMonth( eventDetails.from ),
-                event = createElement( "div", getEventClassName() );
+                event = createElement( "div", "event" );
 
             container.appendChild( event );
     
@@ -2263,7 +2260,8 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                event.onclick = function() {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
             }
@@ -2536,7 +2534,7 @@ function calendarJs( id, options, startDateTime ) {
             clearElementsByClassName( container, "no-events-text" );
             showElementsByClassName( header, "ib-close" );
 
-            var event = createElement( "div", getEventClassName() );
+            var event = createElement( "div", "event" );
             container.appendChild( event );
     
             event.oncontextmenu = function( e ) {
@@ -2596,7 +2594,8 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                event.onclick = function() {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
             }

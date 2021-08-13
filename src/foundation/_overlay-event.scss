@@ -8,8 +8,7 @@ div.all-day {
     background-color: $event-color-all-day !important;
 }
 
-div.event,
-div.event-no-hover {
+div.event {
     @include word-wrap-with-new-lines;
     border-radius: $border-view-radius;
     background-color: $event-color;
@@ -38,14 +37,6 @@ div.event-no-hover {
     div.ib-refresh-medium {
         margin-right: $spacing / 2;
     }
-}
-
-div.event:hover {
-    @include opacity-hover-effect;
-}
-
-div.event:active {
-    @include opacity-active-effect;
 }
 
 &:last-child {

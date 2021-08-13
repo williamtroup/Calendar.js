@@ -432,8 +432,7 @@ div.calendar {
 div.calendar {
     div.row {
         div.cell {
-            div.event,
-            div.event-no-hover {
+            div.event {
                 border-radius: $border-view-radius;
                 background-color: $event-color;
                 padding: 3px;
@@ -474,14 +473,6 @@ div.calendar {
                 &:last-child {
                     margin-bottom: 5;
                 }
-            }
-
-            div.event:hover {
-                @include opacity-hover-effect;
-            }
-            
-            div.event:active {
-                @include opacity-active-effect;
             }
             
             div.expired {
@@ -552,8 +543,7 @@ div.calendar {
                     height: 100%;
                 }
                 
-                div.event,
-                div.event-no-hover {
+                div.event {
                     position: static !important;
                     margin-left: $time-hours-width + ($spacing * 3) !important;
                     margin-top: $spacing;
@@ -641,8 +631,7 @@ div.calendar {
 
             @import "foundation/overlay-event";
 
-            div.event,
-            div.event-no-hover {
+            div.event {
                 position: absolute;
                 margin-left: 0;
                 margin-right: 0;
