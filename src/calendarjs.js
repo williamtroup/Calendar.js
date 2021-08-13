@@ -2992,7 +2992,9 @@ function calendarJs( id, options, startDateTime ) {
     function dropEventOnDay( e, year, month, day ) {
         cancelBubble( e );
 
-        if ( _eventDetails_Dragged !== null ) {
+        var dropDate = new Date( year, month, day );
+        if ( _eventDetails_Dragged !== null && !doDatesMatch( _eventDetails_Dragged_DateFrom, dropDate ) ) {
+            
             if ( !isDefined( day ) ) {
                 var totalDaysInMonth = getTotalDaysInMonth( year, month );
                 day = _eventDetails_Dragged.from.getDate();
