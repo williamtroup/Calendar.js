@@ -346,8 +346,6 @@ function calendarJs( id, options, startDateTime ) {
         _elementID_Day = "day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
-        _elementClassName_Row = "row",
-        _elementClassName_Cell = "cell",
         _element_Calendar = null,
         _element_Calendar_AllVisibleEvents = [],
         _element_HeaderDateDisplay = null,
@@ -705,7 +703,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDayNamesHeader() {
         if ( _options.showDayNamesInMainDisplay ) {
-            var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
+            var headerRow = createElement( "div", "row header-days" ),
                 headerNamesLength = _options.dayHeaderNames.length;
 
             _element_Calendar.appendChild( headerRow );
@@ -724,7 +722,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDayRows() {
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
-            var rowData = createElement( "div", _elementClassName_Row );
+            var rowData = createElement( "div", "row" );
             _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
@@ -750,7 +748,7 @@ function calendarJs( id, options, startDateTime ) {
     function getCellName( addScrollBars ) {
         addScrollBars = isDefined( addScrollBars ) ? addScrollBars : false;
 
-        var className = _elementClassName_Cell + " cell-" + _options.visibleDays.length;
+        var className = "cell cell-" + _options.visibleDays.length;
         if ( addScrollBars ) {
             className += " custom-scroll-bars";
         }
