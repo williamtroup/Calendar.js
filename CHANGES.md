@@ -4,6 +4,7 @@
 - Events must now be double clicked to be edited (removed the hover effects, which caused display issues in the views).
 - Fixed a fault that would cause the main display to update when dropping an event on its original date.
 - Internal changes for content variables defined in the base of the class.
+- Added CLASS.md to the project to explain the parameters available for the class constructor.
 - 
 
 ### Version 1.2.1:

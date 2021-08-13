@@ -96,6 +96,11 @@ You will also need to set the page character encoding to UTF-8. This can be incl
   } ); 
 </script>
 ```
+
+<br>
+
+To see the options available for the class constructor, click [here](CLASS.md).
+<br>
 <br>
 
 ### 5. Finishing Up:
