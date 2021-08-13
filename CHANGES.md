@@ -5,6 +5,7 @@
 - Fixed a fault that would cause the main display to update when dropping an event on its original date.
 - Internal changes for content variables defined in the base of the class.
 - Added CLASS.md to the project to explain the parameters available for the class constructor.
+- Mass documentation improvements based on some of the more recent changes.
 - 
 
 ### Version 1.2.1:
