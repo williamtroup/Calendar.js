@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+### Version 1.2.2:
+- Events must now be double-clicked to be edited (removed the hover effects, which caused display issues in the views).
+- Fixed a fault that would cause the main display to update when dropping an event on its original date.
+- Internal changes for content variables defined in the base of the class.
+- Added CLASS.md to the project to explain the parameters available for the class constructor.
+- Mass documentation improvements are based on some of the more recent changes.
+
 ### Version 1.2.1:
 - Fixed a fault that would cause removeElementsClassName() to fail when handling more than one DOM element.
 - Internal structure changes for constant values and code cleanups, enhancements, etc.

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.2.1
+ * Calendar.js Library v1.2.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -501,8 +501,7 @@ div.calendar div.header-date div.ib-arrow-contract-left-right {
     Calendar.js - Day Events
     -------------------------------------------------------------------------
 */
-div.calendar div.row div.cell div.event,
-div.calendar div.row div.cell div.event-no-hover {
+div.calendar div.row div.cell div.event {
   border-radius: 0.25rem;
   background-color: #484848;
   padding: 3px;
@@ -516,26 +515,22 @@ div.calendar div.row div.cell div.event-no-hover {
 }
 
 @media screen and (min-width: 451px) {
-  div.calendar div.row div.cell div.event,
-  div.calendar div.row div.cell div.event-no-hover {
+  div.calendar div.row div.cell div.event {
     font-size: 0.7rem !important;
   }
 }
 
 @media screen and (max-width: 450px) {
-  div.calendar div.row div.cell div.event,
-  div.calendar div.row div.cell div.event-no-hover {
+  div.calendar div.row div.cell div.event {
     font-size: 0.5rem !important;
   }
 }
 
-div.calendar div.row div.cell div.event:last-child,
-div.calendar div.row div.cell div.event-no-hover:last-child {
+div.calendar div.row div.cell div.event:last-child {
   margin-bottom: 0;
 }
 
-div.calendar div.row div.cell div.event div.ib-refresh-small,
-div.calendar div.row div.cell div.event-no-hover div.ib-refresh-small {
+div.calendar div.row div.cell div.event div.ib-refresh-small {
   margin-right: 5px;
 }
 
@@ -551,20 +546,6 @@ div.calendar div.row div.cell div.event-circle {
 
 div.calendar div.row div.cell div.event-circle:last-child {
   margin-bottom: 5;
-}
-
-div.calendar div.row div.cell div.event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.row div.cell div.event:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
 }
 
 div.calendar div.row div.cell div.expired {
@@ -698,8 +679,7 @@ div.calendar div.full-day-view div.contents div.content-events-all-day div.all-d
   height: 100%;
 }
 
-div.calendar div.full-day-view div.contents div.content-events-all-day div.event,
-div.calendar div.full-day-view div.contents div.content-events-all-day div.event-no-hover {
+div.calendar div.full-day-view div.contents div.content-events-all-day div.event {
   position: static !important;
   margin-left: 100px !important;
   margin-top: 10px;
@@ -796,8 +776,7 @@ div.calendar div.full-day-view div.contents div.all-day {
   background-color: #1b3752 !important;
 }
 
-div.calendar div.full-day-view div.contents div.event,
-div.calendar div.full-day-view div.contents div.event-no-hover {
+div.calendar div.full-day-view div.contents div.event {
   white-space: pre-line;
   -ms-word-break: break-all;
   word-break: break-all;
@@ -811,18 +790,15 @@ div.calendar div.full-day-view div.contents div.event-no-hover {
   border-left: 7px solid #282828;
 }
 
-div.calendar div.full-day-view div.contents div.event div,
-div.calendar div.full-day-view div.contents div.event-no-hover div {
+div.calendar div.full-day-view div.contents div.event div {
   margin-bottom: 5px;
 }
 
-div.calendar div.full-day-view div.contents div.event div:last-child,
-div.calendar div.full-day-view div.contents div.event-no-hover div:last-child {
+div.calendar div.full-day-view div.contents div.event div:last-child {
   margin-bottom: 0;
 }
 
-div.calendar div.full-day-view div.contents div.event div.title,
-div.calendar div.full-day-view div.contents div.event-no-hover div.title {
+div.calendar div.full-day-view div.contents div.event div.title {
   font-weight: 900;
 }
 
@@ -830,41 +806,20 @@ div.calendar div.full-day-view div.contents div.event div.date,
 div.calendar div.full-day-view div.contents div.event div.duration,
 div.calendar div.full-day-view div.contents div.event div.description,
 div.calendar div.full-day-view div.contents div.event div.location,
-div.calendar div.full-day-view div.contents div.event div.repeats,
-div.calendar div.full-day-view div.contents div.event-no-hover div.date,
-div.calendar div.full-day-view div.contents div.event-no-hover div.duration,
-div.calendar div.full-day-view div.contents div.event-no-hover div.description,
-div.calendar div.full-day-view div.contents div.event-no-hover div.location,
-div.calendar div.full-day-view div.contents div.event-no-hover div.repeats {
+div.calendar div.full-day-view div.contents div.event div.repeats {
   font-size: smaller;
   font-weight: 300;
 }
 
-div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium,
-div.calendar div.full-day-view div.contents div.event-no-hover div.ib-refresh-medium {
+div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium {
   margin-right: 5px;
-}
-
-div.calendar div.full-day-view div.contents div.event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.full-day-view div.contents div.event:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
 }
 
 div.calendar div.full-day-view div.contents:last-child {
   margin-bottom: 0;
 }
 
-div.calendar div.full-day-view div.contents div.event,
-div.calendar div.full-day-view div.contents div.event-no-hover {
+div.calendar div.full-day-view div.contents div.event {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
@@ -999,8 +954,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.all-
   background-color: #1b3752 !important;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.events div.event,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover {
+div.calendar div.list-all-events-view div.contents div.month div.events div.event {
   white-space: pre-line;
   -ms-word-break: break-all;
   word-break: break-all;
@@ -1014,18 +968,15 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   border-left: 7px solid #282828;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.events div.event div,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div {
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div {
   margin-bottom: 5px;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.events div.event div:last-child,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div:last-child {
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div:last-child {
   margin-bottom: 0;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.events div.event div.title,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.title {
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div.title {
   font-weight: 900;
 }
 
@@ -1033,33 +984,13 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.duration,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.description,
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.location,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event div.repeats,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.date,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.duration,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.description,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.location,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.repeats {
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div.repeats {
   font-size: smaller;
   font-weight: 300;
 }
 
-div.calendar div.list-all-events-view div.contents div.month div.events div.event div.ib-refresh-medium,
-div.calendar div.list-all-events-view div.contents div.month div.events div.event-no-hover div.ib-refresh-medium {
+div.calendar div.list-all-events-view div.contents div.month div.events div.event div.ib-refresh-medium {
   margin-right: 5px;
-}
-
-div.calendar div.list-all-events-view div.contents div.month div.events div.event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.list-all-events-view div.contents div.month div.events div.event:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events:last-child {
@@ -1206,8 +1137,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.a
   background-color: #1b3752 !important;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event {
   white-space: pre-line;
   -ms-word-break: break-all;
   word-break: break-all;
@@ -1221,18 +1151,15 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   border-left: 7px solid #282828;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div {
   margin-bottom: 5px;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div:last-child,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div:last-child {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div:last-child {
   margin-bottom: 0;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.title,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.title {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.title {
   font-weight: 900;
 }
 
@@ -1240,33 +1167,13 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.duration,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.description,
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.location,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.repeats,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.date,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.duration,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.description,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.location,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.repeats {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.repeats {
   font-size: smaller;
   font-weight: 300;
 }
 
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.ib-refresh-medium,
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event-no-hover div.ib-refresh-medium {
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.ib-refresh-medium {
   margin-right: 5px;
-}
-
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event:hover {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-div.calendar div.list-all-week-events-view div.contents div.day div.events div.event:active {
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  cursor: pointer;
-  opacity: 0.4;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events:last-child {

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.2.1
+ * Calendar.js Library v1.2.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -346,8 +346,6 @@ function calendarJs( id, options, startDateTime ) {
         _elementID_Day = "day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
-        _elementClassName_Row = "row",
-        _elementClassName_Cell = "cell",
         _element_Calendar = null,
         _element_Calendar_AllVisibleEvents = [],
         _element_HeaderDateDisplay = null,
@@ -705,7 +703,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDayNamesHeader() {
         if ( _options.showDayNamesInMainDisplay ) {
-            var headerRow = createElement( "div", _elementClassName_Row + " header-days" ),
+            var headerRow = createElement( "div", "row header-days" ),
                 headerNamesLength = _options.dayHeaderNames.length;
 
             _element_Calendar.appendChild( headerRow );
@@ -724,7 +722,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDayRows() {
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
-            var rowData = createElement( "div", _elementClassName_Row );
+            var rowData = createElement( "div", "row" );
             _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
@@ -750,7 +748,7 @@ function calendarJs( id, options, startDateTime ) {
     function getCellName( addScrollBars ) {
         addScrollBars = isDefined( addScrollBars ) ? addScrollBars : false;
 
-        var className = _elementClassName_Cell + " cell-" + _options.visibleDays.length;
+        var className = "cell cell-" + _options.visibleDays.length;
         if ( addScrollBars ) {
             className += " custom-scroll-bars";
         }
@@ -1381,11 +1379,10 @@ function calendarJs( id, options, startDateTime ) {
         if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
             checkEventForBrowserNotifications( dayDate, eventDetails );
             
-            var eventClassName = getEventClassName(),
-                events = elementDay.getElementsByClassName( eventClassName );
+            var events = elementDay.getElementsByClassName( "event" );
 
             if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
-                var event = createElement( "div", eventClassName ),
+                var event = createElement( "div", "event" ),
                     eventTitle = eventDetails.title;
 
                 if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
@@ -1432,7 +1429,8 @@ function calendarJs( id, options, startDateTime ) {
                 };
     
                 if ( _options.manualEditingEnabled ) {
-                    event.onclick = function() {
+                    event.ondblclick = function( e ) {
+                        cancelBubble( e );
                         showEventEditingDialog( eventDetails );
                     };
                 }
@@ -1521,7 +1519,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function clearEventsFromDay( elementDay ) {
         if ( elementDay !== null ) {
-            clearElementsByClassName( elementDay, getEventClassName() );
+            clearElementsByClassName( elementDay, "event" );
             clearElementsByClassName( elementDay, "plus-x-events" );
         }
     }
@@ -1586,10 +1584,6 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         return toDate;
-    }
-
-    function getEventClassName() {
-        return _options.manualEditingEnabled ? "event" : "event-no-hover";
     }
 
 
@@ -1700,7 +1694,7 @@ function calendarJs( id, options, startDateTime ) {
         _element_FullDayView_EventsShown = [];
         _element_FullDayView_Contents_AllDayEvents.style.display = "block";
 
-        clearElementsByClassName( _element_FullDayView_Contents, getEventClassName() );
+        clearElementsByClassName( _element_FullDayView_Contents, "event" );
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
 
@@ -1822,7 +1816,7 @@ function calendarJs( id, options, startDateTime ) {
             formattedDate = toStorageFormattedDate( displayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
-            var event = createElement( "div", getEventClassName() );
+            var event = createElement( "div", "event" );
             event.ondblclick = cancelBubble;
             
             if ( eventDetails.isAllDay ) {
@@ -1889,7 +1883,8 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                event.onclick = function() {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
             }
@@ -1997,7 +1992,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function adjustFullDayEventsThatOverlap() {
-        var eventsElements = _element_FullDayView_Contents_Hours.getElementsByClassName( getEventClassName() ),
+        var eventsElements = _element_FullDayView_Contents_Hours.getElementsByClassName( "event" ),
             events = [].slice.call( eventsElements ),
             eventsLength = events.length;
     
@@ -2201,7 +2196,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildListAllEventsEvent( eventDetails ) {
         if ( isEventVisible( eventDetails ) ) {
             var container = buildListAllEventsMonth( eventDetails.from ),
-                event = createElement( "div", getEventClassName() );
+                event = createElement( "div", "event" );
 
             container.appendChild( event );
     
@@ -2263,7 +2258,8 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                event.onclick = function() {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
             }
@@ -2536,7 +2532,7 @@ function calendarJs( id, options, startDateTime ) {
             clearElementsByClassName( container, "no-events-text" );
             showElementsByClassName( header, "ib-close" );
 
-            var event = createElement( "div", getEventClassName() );
+            var event = createElement( "div", "event" );
             container.appendChild( event );
     
             event.oncontextmenu = function( e ) {
@@ -2596,7 +2592,8 @@ function calendarJs( id, options, startDateTime ) {
             }
     
             if ( _options.manualEditingEnabled ) {
-                event.onclick = function() {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
             }
@@ -2993,7 +2990,9 @@ function calendarJs( id, options, startDateTime ) {
     function dropEventOnDay( e, year, month, day ) {
         cancelBubble( e );
 
-        if ( _eventDetails_Dragged !== null ) {
+        var dropDate = new Date( year, month, day );
+        if ( _eventDetails_Dragged !== null && !doDatesMatch( _eventDetails_Dragged_DateFrom, dropDate ) ) {
+            
             if ( !isDefined( day ) ) {
                 var totalDaysInMonth = getTotalDaysInMonth( year, month );
                 day = _eventDetails_Dragged.from.getDate();
@@ -6744,7 +6743,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.2.1";
+        return "1.2.2";
     };
 
 
