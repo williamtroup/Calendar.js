@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.0:
+- Added missing background-color and color CSS values for tabs and tab contents.
 - 
 
 ### Version 1.2.2:

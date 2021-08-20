@@ -1130,8 +1130,6 @@ div.calendar-dialog {
 
     div.tab-control {
         border: $standard-border-size solid $input-border-color;
-        background-color: $light-color;
-        color: $dark-color;
 
         &:hover {
             cursor: pointer;
@@ -1144,6 +1142,12 @@ div.calendar-dialog {
         &:active {
             @include opacity-active-effect(0.7);
         }
+    }
+
+    div.tab-control,
+    div.tab-content {
+        background-color: $light-color;
+        color: $dark-color;
     }
 
     div.tab-content {
