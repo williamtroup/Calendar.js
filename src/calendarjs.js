@@ -72,6 +72,8 @@
  * @property    {Object}    onNotificationClicked                       Specifies an event that will be triggered when a notification is clicked (passes the event to the function).
  * @property    {Object}    onSearchOptionsUpdated                      Specifies an event that will be triggered when the search options are updated (passes the search options to the function).
  * @property    {Object}    onFullScreenModeChanged                     Specifies an event that will be triggered when the full-screen mode is changed (passes a flag to state if its on/off).
+ * @property    {Object}    onEventsSetFromJSON                         Specifies an event that will be triggered when events are set from JSON and the originals are cleared (passes the JSON to the function).
+ * @property    {Object}    onEventsAddedFromJSON                       Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function).
  */
 
 
@@ -3052,14 +3054,7 @@ function calendarJs( id, options, startDateTime ) {
             var reader = new FileReader();
 
             reader.onload = function( event ) {
-                var data = event.target.result,
-                    dataObject = getObjectFromString( data );
-    
-                if ( isDefinedArray( dataObject ) ) { 
-                    _this.addEvents( dataObject );
-                } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
-                    _this.addEvents( dataObject.events );
-                }
+                _this.addEventsFromJson( event.target.result );
             };
     
             reader.readAsText( e.dataTransfer.files[ 0 ] );
@@ -6378,6 +6373,33 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
+     * setEventsFromJson().
+     * 
+     * Sets new events from JSON data and clears any existing ones.
+     * 
+     * @fires       onEventsSetFromJSON
+     * 
+     * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventsSetFromJSON" event should be triggered.
+     */
+    this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        var dataObject = getObjectFromString( json );
+
+        if ( isDefinedArray( dataObject ) ) { 
+            this.setEvents( dataObject, updateEvents, false );
+        } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
+            this.setEvents( dataObject.events, updateEvents, false );
+        }
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithData( "onEventsSetFromJSON", json );
+        }
+    };
+
+    /**
      * addEvents().
      * 
      * Adds an array of new events.
@@ -6406,6 +6428,33 @@ function calendarJs( id, options, startDateTime ) {
         if ( updateEvents ) {
             buildDayEvents();
             refreshOpenedViews();
+        }
+    };
+
+    /**
+     * addEventsFromJson().
+     * 
+     * Adds new events from JSON data.
+     * 
+     * @fires       onEventsAddedFromJSON
+     * 
+     * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventsAddedFromJSON" event should be triggered.
+     */
+    this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        var dataObject = getObjectFromString( json );
+
+        if ( isDefinedArray( dataObject ) ) { 
+            this.addEvents( dataObject, updateEvents, false );
+        } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
+            this.addEvents( dataObject.events, updateEvents, false );
+        }
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithData( "onEventsAddedFromJSON", json );
         }
     };
 

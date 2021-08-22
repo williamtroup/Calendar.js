@@ -77,6 +77,17 @@ Sets the events and clears any existing ones.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsSet" event should be triggered.
 
+### **setEventsFromJson( *json*, *updateEvents*, *triggerEvent* )**:
+Sets new events from JSON data and clears any existing ones.
+<br>
+***Fires***:  onEventsSetFromJSON
+<br>
+***Parameter: json***: '*string*' - The JSON string containing the events (refer to "Day Event" documentation for properties).
+<br>
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsSetFromJSON" event should be triggered.
+
 ### **addEvents( *events*, *updateEvents*, *triggerEvent* )**:
 Adds an array of new events.
 <br>
@@ -87,6 +98,17 @@ Adds an array of new events.
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsAdded" event should be triggered.
+
+### **addEventsFromJson( *json*, *updateEvents*, *triggerEvent* )**:
+Adds new events from JSON data.
+<br>
+***Fires***:  onEventsAddedFromJSON
+<br>
+***Parameter: json***: '*json*' - The JSON string containing the events (refer to "Day Event" documentation for properties).
+<br>
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsAddedFromJSON" event should be triggered.
 
 ### **addEvent( *event*, *updateEvents*, *triggerEvent*, *setLastUpdated* )**:
 Adds a of new event.

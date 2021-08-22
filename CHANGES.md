@@ -6,6 +6,9 @@
 - Added new setting "showExtraMainDisplayToolbarButtons", which states if the extra toolbar buttons are visible (defaults to true).
 - Fixed a fault that prevented the Full Day view refreshing when the Calendar goes to and from full screen mode.
 - Added new setting event "onFullScreenModeChanged", which is triggered when the full-screen mode is changed (if enabled).
+- Added new public function setEventsFromJson(), which sets new events from a JSON string (clears all others).
+- Added new public function addEventsFromJson(), which adds new events from a JSON string.
+- Added new events "onEventsSetFromJSON" and "onEventsAddedFromJSON" for the new public functions.
 - 
 
 ### Version 1.2.2:
