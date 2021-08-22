@@ -8,7 +8,7 @@
 - Added new setting event "onFullScreenModeChanged", which is triggered when the full-screen mode is changed (if enabled).
 - Added new public function setEventsFromJson(), which sets new events from a JSON string (clears all others).
 - Added new public function addEventsFromJson(), which adds new events from a JSON string.
-- Added new events "onEventsSetFromJSON" and "onEventsAddedFromJSON" for the new public functions.
+- Added new setting events "onEventsSetFromJSON" and "onEventsAddedFromJSON" for the new public functions.
 - 
 
 ### Version 1.2.2:
