@@ -71,6 +71,7 @@
  * @property    {Object}    onOptionsUpdated                            Specifies an event that will be triggered when the options are updated (passes the options to the function).
  * @property    {Object}    onNotificationClicked                       Specifies an event that will be triggered when a notification is clicked (passes the event to the function).
  * @property    {Object}    onSearchOptionsUpdated                      Specifies an event that will be triggered when the search options are updated (passes the search options to the function).
+ * @property    {Object}    onFullScreenModeChanged                     Specifies an event that will be triggered when the full-screen mode is changed (passes a flag to state if its on/off).
  */
 
 
@@ -794,6 +795,7 @@ function calendarJs( id, options, startDateTime ) {
 
             updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
             refreshOpenedViews();
+            triggerOptionsEventWithData( "onFullScreenModeChanged", true );
         }
     }
 
@@ -805,6 +807,7 @@ function calendarJs( id, options, startDateTime ) {
 
             updateExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
             refreshOpenedViews();
+            triggerOptionsEventWithData( "onFullScreenModeChanged", false );
         }
     }
 

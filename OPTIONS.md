@@ -207,3 +207,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onOptionsUpdated | Specifies an event that will be triggered when the options are updated (passes the options to the function). |
 | onNotificationClicked | Specifies an event that will be triggered when a notification is clicked (passes the event to the function). |
 | onSearchOptionsUpdated | Specifies an event that will be triggered when the search options are updated (passes the search options to the function). |
+| onFullScreenModeChanged | Specifies an event that will be triggered when the full-screen mode is changed (passes a flag to state if its on/off). |
