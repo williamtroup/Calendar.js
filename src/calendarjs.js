@@ -793,6 +793,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_Calendar.removeAttribute( "style" );
 
             updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
+            refreshOpenedViews();
         }
     }
 
@@ -803,6 +804,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_Calendar.style.cssText = _cachedStyles;
 
             updateExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
+            refreshOpenedViews();
         }
     }
 
