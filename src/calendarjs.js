@@ -251,6 +251,7 @@
  * @property    {string}    defaultEventBackgroundColor                 States the default background color that should be used for events (defaults to "#484848").
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
+ * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
  */
 
 
@@ -655,6 +656,9 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function buildDateHeader() {
+        _element_HeaderDateDisplay_ExportEventsButton = null;
+        _element_HeaderDateDisplay_FullScreenButton = null;
+
         _element_HeaderDateDisplay = createElement( "div", "header-date" );
         _element_Calendar.appendChild( _element_HeaderDateDisplay );
 
@@ -663,32 +667,38 @@ function calendarJs( id, options, startDateTime ) {
         }
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
-        buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
-        buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
-        buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
-        buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
+
+        if ( _options.showExtraMainDisplayToolbarButtons ) {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
+        }
+
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
 
-        if ( _options.manualEditingEnabled ) {
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-plus", _options.addEventTooltipText, addNewEvent );
-        }
-
-        if ( _options.exportEventsEnabled ) {
-            _element_HeaderDateDisplay_ExportEventsButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                showSelectExportTypeDialog( _element_Calendar_AllVisibleEvents );
+        if ( _options.showExtraMainDisplayToolbarButtons ) {
+            if ( _options.manualEditingEnabled ) {
+                buildToolbarButton( _element_HeaderDateDisplay, "ib-plus", _options.addEventTooltipText, addNewEvent );
+            }
+    
+            if ( _options.exportEventsEnabled ) {
+                _element_HeaderDateDisplay_ExportEventsButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
+                    showSelectExportTypeDialog( _element_Calendar_AllVisibleEvents );
+                } );
+            }
+            
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-eye", _options.listAllEventsTooltipText, function() {
+                showListAllEventsView( true );
             } );
-        }
-        
-        buildToolbarButton( _element_HeaderDateDisplay, "ib-eye", _options.listAllEventsTooltipText, function() {
-            showListAllEventsView( true );
-        } );
-
-        buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.listWeekEventsTooltipText, function() {
-            showListAllWeekEventsView( null, true );
-        } );
-
-        if ( _options.fullScreenModeEnabled ) {
-            _element_HeaderDateDisplay_FullScreenButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+    
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.listWeekEventsTooltipText, function() {
+                showListAllWeekEventsView( null, true );
+            } );
+    
+            if ( _options.fullScreenModeEnabled ) {
+                _element_HeaderDateDisplay_FullScreenButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+            }
         }
 
         var titleContainer = createElement( "div", "title-container" );
@@ -797,10 +807,10 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function updateExpandButtons( className, tooltipText ) {
-        _element_HeaderDateDisplay_FullScreenButton.className = className;
-        _element_FullDayView_FullScreenButton.className = className;
-        _element_ListAllEventsView_FullScreenButton.className = className;
-        _element_ListAllWeekEventsView_FullScreenButton.className = className;
+        setElementClassName( _element_HeaderDateDisplay_FullScreenButton, className );
+        setElementClassName( _element_FullDayView_FullScreenButton, className );
+        setElementClassName( _element_ListAllEventsView_FullScreenButton, className );
+        setElementClassName( _element_ListAllWeekEventsView_FullScreenButton, className );
 
         addToolTip( _element_HeaderDateDisplay_FullScreenButton, tooltipText );
         addToolTip( _element_FullDayView_FullScreenButton, tooltipText );
@@ -4876,9 +4886,11 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function addToolTip( element, text, overrideShow ) {
-        element.onmousemove = function( e ) {
-            showTooltip( e, null, text, overrideShow );
-        };
+        if ( element !== null ) {
+            element.onmousemove = function( e ) {
+                showTooltip( e, null, text, overrideShow );
+            };
+        }
     }
 
 
@@ -5290,7 +5302,13 @@ function calendarJs( id, options, startDateTime ) {
         newEvent.id = null;
 
         _this.addEvent( newEvent );
-    } 
+    }
+
+    function setElementClassName( element, className ) {
+        if ( element !== null ) {
+            element.className = className;
+        }
+    }
 
 
     /*
@@ -6962,6 +6980,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.defaultEventBorderColor ) ) {
             _options.defaultEventBorderColor = "#282828";
+        }
+
+        if ( !isDefined( _options.showExtraMainDisplayToolbarButtons ) ) {
+            _options.showExtraMainDisplayToolbarButtons = true;
         }
 
         setTranslationStringOptions();

@@ -2,6 +2,8 @@
 
 ### Version 1.3.0:
 - Added missing background-color and color CSS values for tabs and tab contents.
+- Fixed a fault that caused the main display toolbar buttons to not update correctly when the options are set manually.
+- Added new setting "showExtraMainDisplayToolbarButtons", which states if the extra toolbar buttons are visible (defaults to true).
 - 
 
 ### Version 1.2.2:
