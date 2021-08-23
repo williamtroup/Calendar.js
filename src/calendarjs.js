@@ -897,6 +897,7 @@ function calendarJs( id, options, startDateTime ) {
 
         } else {
             _element_Calendar.className = "calendar calendar-hidden";
+            hideAllDropDowns();
         }
 
         _datePickerVisible = !_datePickerVisible;
@@ -905,6 +906,8 @@ function calendarJs( id, options, startDateTime ) {
     function hideDatePickerMode() {
         if ( _datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-hidden";
+            hideAllDropDowns();
+
             _datePickerVisible = false;
         }
     }
