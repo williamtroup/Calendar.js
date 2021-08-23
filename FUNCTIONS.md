@@ -71,7 +71,7 @@ Sets the events and clears any existing ones.
 <br>
 ***Fires***:  onEventsSet
 <br>
-***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
+***Parameter: events***: '*Object[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -82,7 +82,7 @@ Sets new events from JSON data and clears any existing ones.
 <br>
 ***Fires***:  onEventsSetFromJSON
 <br>
-***Parameter: json***: '*string*' - The JSON string containing the events (refer to "Day Event" documentation for properties).
+***Parameter: json***: '*string*' - The JSON string containing the events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -93,7 +93,7 @@ Adds an array of new events.
 <br>
 ***Fires***:  onEventsAdded
 <br>
-***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
+***Parameter: events***: '*Object[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -104,7 +104,7 @@ Adds new events from JSON data.
 <br>
 ***Fires***:  onEventsAddedFromJSON
 <br>
-***Parameter: json***: '*json*' - The JSON string containing the events (refer to "Day Event" documentation for properties).
+***Parameter: json***: '*json*' - The JSON string containing the events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -115,7 +115,7 @@ Adds a of new event.
 <br>
 ***Fires***:  onEventAdded
 <br>
-***Parameter: event***: '*Object*' - The event (refer to "Event" documentation for properties).
+***Parameter: event***: '*Object*' - The event (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -128,7 +128,7 @@ Updates an array of existing events.
 <br>
 ***Fires***:  onEventsUpdated
 <br>
-***Parameter: events***: '*Object[]*' - The array of events (refer to "Event" documentation for properties).
+***Parameter: events***: '*Object[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -141,7 +141,7 @@ Updates an existing event.
 <br>
 ***Parameter: id***: '*string*' - The ID of the event.
 <br>
-***Parameter: event***: '*Object*' - The event (refer to "Event" documentation for properties).
+***Parameter: event***: '*Object*' - The event (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
