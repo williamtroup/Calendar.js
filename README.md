@@ -39,6 +39,7 @@ Calendar.js
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
+- DatePicker mode (just assign to the ID of an text input).
 <br />
 <br />
 
