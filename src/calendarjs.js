@@ -680,6 +680,13 @@ function calendarJs( id, options, startDateTime ) {
             _element_HeaderDateDisplay.ondblclick = headerDoubleClick;
         }
 
+        if ( _datePickerModeEnabled ) {
+            _element_HeaderDateDisplay.onclick = function( e ) {
+                cancelBubble( e );
+                hideAllDropDowns();
+            };
+        }
+
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
 
         if ( _options.showExtraMainDisplayToolbarButtons ) {
@@ -904,9 +911,15 @@ function calendarJs( id, options, startDateTime ) {
 
     function setDatePickerDate( e, date ) {
         cancelBubble( e );
-        setSelectedDate( date, _datePickerInput );
-        hideDatePickerMode();
-        triggerOptionsEventWithData( "onDatePickerDateChanged", date );
+
+        if ( !isYearSelectorDropDownVisible() ) {
+            setSelectedDate( date, _datePickerInput );
+            hideDatePickerMode();
+            triggerOptionsEventWithData( "onDatePickerDateChanged", date );
+            
+        } else {
+            hideAllDropDowns();
+        }
     } 
 
 
