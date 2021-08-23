@@ -103,6 +103,22 @@ div.full-screen-view div.plus-x-events {
   display: none !important;
 }
 
+div.calendar-input {
+  width: 400px;
+}
+
+div.calendar-input div.ib-arrow-expand-left-right-icon {
+  display: none !important;
+}
+
+div.calendar-hidden {
+  display: none;
+}
+
+div.calendar-shown {
+  display: block;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Layout

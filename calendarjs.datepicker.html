@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - DatePicker Mode</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="src/calendarjs.css" />
+        <script src="src/calendarjs.js"></script>
+    </head>
+
+    <body>
+        <h1 id="header">Welcome to Calendar.js - DatePicker Mode</h1>
+
+        <div class="contents">
+            <input type="text" id="myCalendar" value="15/01/2018" />
+        </div>
+    </body>
+
+    <script>
+        var calendarInstance = new calendarJs( "myCalendar" );
+
+        document.title += " - v" + calendarInstance.getVersion();
+    </script>
+</html>

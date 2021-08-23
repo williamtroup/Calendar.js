@@ -210,3 +210,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onFullScreenModeChanged | Specifies an event that will be triggered when the full-screen mode is changed (passes a flag to state if its on/off). |
 | onEventsSetFromJSON | Specifies an event that will be triggered when events are set from JSON and the originals are cleared (passes the JSON to the function). |
 | onEventsAddedFromJSON | Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function). |
+| onDatePickerDateChanged | Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function). |

@@ -66,6 +66,22 @@ div.full-screen-view {
     }
 }
 
+div.calendar-input {
+    width: 400px;
+
+    div.ib-arrow-expand-left-right-icon {
+        display: none !important;
+    }
+}
+
+div.calendar-hidden {
+    display: none;
+}
+
+div.calendar-shown {
+    display: block;
+}
+
  
 /*
     -------------------------------------------------------------------------
