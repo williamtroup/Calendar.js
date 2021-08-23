@@ -5173,7 +5173,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function startAutoRefreshTimer() {
-        if ( _timer_RefreshMainDisplay === null && _options.autoRefreshTimerDelay > 0 ) {
+        if ( _timer_RefreshMainDisplay === null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled ) {
             _timer_RefreshMainDisplay = setInterval( function() {
                 refreshViews();
             }, _options.autoRefreshTimerDelay );
@@ -5181,7 +5181,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function clearAutoRefreshTimer() {
-        if ( _timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 ) {
+        if ( _timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled ) {
             clearTimeout( _timer_RefreshMainDisplay );
             _timer_RefreshMainDisplay = null;
         }
