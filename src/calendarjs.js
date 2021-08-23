@@ -988,22 +988,24 @@ function calendarJs( id, options, startDateTime ) {
         if ( year !== null ) {
             year.className += " year-selected";
         }
+        
+        if ( !_datePickerModeEnabled ) {
+            var yearsHandledForEvents = [];
 
-        var yearsHandledForEvents = [];
-
-        getAllEventsFunc( function( event ) {
-            var fromYear = event.from.getFullYear();
-
-            if ( yearsHandledForEvents.indexOf( fromYear ) === -1 ) {
-                
-                var yearEvents = getElementByID( _elementID_YearSelected + fromYear );
-                if ( yearEvents !== null && yearEvents.className.indexOf( " year-selected" ) === -1 ) {
-                    yearEvents.className += " year-has-events";
+            getAllEventsFunc( function( event ) {
+                var fromYear = event.from.getFullYear();
+    
+                if ( yearsHandledForEvents.indexOf( fromYear ) === -1 ) {
+                    
+                    var yearEvents = getElementByID( _elementID_YearSelected + fromYear );
+                    if ( yearEvents !== null && yearEvents.className.indexOf( " year-selected" ) === -1 ) {
+                        yearEvents.className += " year-has-events";
+                    }
+    
+                    yearsHandledForEvents.push( fromYear );
                 }
-
-                yearsHandledForEvents.push( fromYear );
-            }
-        } );
+            } );
+        }
 
         return year;
     }
@@ -1487,65 +1489,67 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
             checkEventForBrowserNotifications( dayDate, eventDetails );
-            
-            var events = elementDay.getElementsByClassName( "event" );
 
-            if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
-                var event = createElement( "div", "event" ),
-                    eventTitle = eventDetails.title;
+            if ( !_datePickerModeEnabled ) {
+                var events = elementDay.getElementsByClassName( "event" );
 
-                if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                    eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
-                }
-
-                if ( !_options.useOnlyDotEventsForMainDisplay ) {
-                    var repeatEvery = getNumber( eventDetails.repeatEvery );
-                    if ( repeatEvery > _repeatType.never ) {
-                        var icon = createElement( "div", "ib-refresh-small" );
-                        icon.style.borderColor = event.style.color;
-                        event.appendChild( icon );
-                    }
-
-                    event.innerHTML += eventTitle;
-
-                } else {
-                    event.className += " event-circle";
-                }
-                
-                elementDay.appendChild( event );
-
-                makeEventDraggable( event, eventDetails, dayDate );
-                setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
-
-                if ( doDatesMatch( eventDetails.from, dayDate ) ) {
-                    event.id = _elementID_Day + eventDetails.id;
-
-                    if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
-                        event.className += " focused-event";
-                    }
-                }
-
-                event.onmousemove = function( e ) {
-                    if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
-                        cancelBubble( e );
-                    } else {
-                        showTooltip( e, eventDetails );
-                    }
-                };
-
-                event.oncontextmenu = function( e ) {
-                    showEventDropDownMenu( e, eventDetails, formattedDayDate );
-                };
+                if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
+                    var event = createElement( "div", "event" ),
+                        eventTitle = eventDetails.title;
     
-                if ( _options.manualEditingEnabled ) {
-                    event.ondblclick = function( e ) {
-                        cancelBubble( e );
-                        showEventEditingDialog( eventDetails );
+                    if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                        eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
+                    }
+    
+                    if ( !_options.useOnlyDotEventsForMainDisplay ) {
+                        var repeatEvery = getNumber( eventDetails.repeatEvery );
+                        if ( repeatEvery > _repeatType.never ) {
+                            var icon = createElement( "div", "ib-refresh-small" );
+                            icon.style.borderColor = event.style.color;
+                            event.appendChild( icon );
+                        }
+    
+                        event.innerHTML += eventTitle;
+    
+                    } else {
+                        event.className += " event-circle";
+                    }
+                    
+                    elementDay.appendChild( event );
+    
+                    makeEventDraggable( event, eventDetails, dayDate );
+                    setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
+    
+                    if ( doDatesMatch( eventDetails.from, dayDate ) ) {
+                        event.id = _elementID_Day + eventDetails.id;
+    
+                        if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                            event.className += " focused-event";
+                        }
+                    }
+    
+                    event.onmousemove = function( e ) {
+                        if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
+                            cancelBubble( e );
+                        } else {
+                            showTooltip( e, eventDetails );
+                        }
                     };
+    
+                    event.oncontextmenu = function( e ) {
+                        showEventDropDownMenu( e, eventDetails, formattedDayDate );
+                    };
+        
+                    if ( _options.manualEditingEnabled ) {
+                        event.ondblclick = function( e ) {
+                            cancelBubble( e );
+                            showEventEditingDialog( eventDetails );
+                        };
+                    }
+    
+                } else {
+                    buildDayEventPlusText( elementDay, dayDate );
                 }
-
-            } else {
-                buildDayEventPlusText( elementDay, dayDate );
             }
         }
     }
