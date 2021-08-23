@@ -214,6 +214,7 @@
  * @property    {string}    pasteText                                   The text that should be displayed for the "Paste" label.
  * @property    {string}    duplicateText                               The text that should be displayed for the "Duplicate" label.
  * @property    {string}    showAlertsText                              The text that should be displayed for the "Show Alerts" label.
+ * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
  */
 
 
@@ -853,6 +854,7 @@ function calendarJs( id, options, startDateTime ) {
     function buildDatePickerMode( element ) {
         _datePickerInput = element;
         _datePickerInput.readOnly = true;
+        _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;
 
         var parent = element.parentNode;
@@ -7724,6 +7726,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.showAlertsText ) ) {
             _options.showAlertsText = "Show Alerts";
+        }
+
+        if ( !isDefined( _options.selectDatePlaceholderText ) ) {
+            _options.selectDatePlaceholderText = "Select date...";
         }
     }
 

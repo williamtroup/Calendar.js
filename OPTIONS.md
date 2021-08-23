@@ -181,6 +181,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | pasteText | The text that should be displayed for the "Paste" label. |
 | *string* | duplicateText | The text that should be displayed for the "Duplicate" label. |
 | *string* | showAlertsText | The text that should be displayed for the "Show Alerts" label. |
+| *string* | selectDatePlaceholderText | The text that should be displayed for the "Select date..." date-picker placeholder text. |
 
 <br/>
 
