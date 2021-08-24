@@ -442,9 +442,11 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   overflow-y: auto;
   width: inherit;
   height: inherit;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
   padding: 0 !important;
+  background-color: #F5F5F5 !important;
 }
 
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year {

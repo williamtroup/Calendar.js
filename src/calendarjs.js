@@ -5329,7 +5329,7 @@ function calendarJs( id, options, startDateTime ) {
             element = _document.getElementById( id );
         } else {
 
-            var elements = _document.getElementById( _elementID ).getElementsByTagName( "*" ),
+            var elements = _element_Calendar.getElementsByTagName( "*" ),
                 elementsLength = elements.length;
 
             for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {

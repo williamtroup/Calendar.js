@@ -369,9 +369,11 @@ div.calendar {
                     overflow-y: auto;
                     width: inherit;
                     height: inherit;
-                    margin-left: 0;
-                    margin-right: 0;
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    margin-top: 0 !important;
                     padding: 0 !important;
+                    background-color: $light-color !important;
     
                     div.year {
                         display: inline-block;
