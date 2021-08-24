@@ -104,7 +104,7 @@ div.full-screen-view div.plus-x-events {
 }
 
 div.calendar-date-picker {
-  width: 300px;
+  position: relative;
 }
 
 div.calendar-date-picker div.calendar-hidden {
@@ -117,6 +117,9 @@ div.calendar-date-picker div.calendar-shown {
 
 div.calendar-date-picker div.calendar {
   font-size: 0.7rem !important;
+  position: absolute;
+  width: 300px;
+  z-index: 1000;
 }
 
 div.calendar-date-picker div.calendar div.cell {

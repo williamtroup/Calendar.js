@@ -67,7 +67,7 @@ div.full-screen-view {
 }
 
 div.calendar-date-picker {
-    width: 300px;
+    position: relative;
 
     div.calendar-hidden {
         display: none;
@@ -79,6 +79,9 @@ div.calendar-date-picker {
 
     div.calendar {
         font-size: $small-font-size !important;
+        position: absolute;
+        width: 300px;
+        z-index: 1000;
 
         div.cell {
             padding: $spacing / 2 !important;

@@ -856,6 +856,7 @@ function calendarJs( id, options, startDateTime ) {
         _datePickerInput.readOnly = true;
         _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;
+        _elementID = newGuid();
 
         var parent = element.parentNode;
         parent.removeChild( _datePickerInput );
@@ -865,10 +866,11 @@ function calendarJs( id, options, startDateTime ) {
         container.appendChild( _datePickerInput );
 
         _element_Calendar = createElement( "div", "calendar calendar-hidden" );
+        _element_Calendar.id = _elementID;
         container.appendChild( _element_Calendar );
 
         _datePickerInput.onclick = toggleDatePickerModeVisible;
-        _document.onclick = hideDatePickerMode;
+        _document.addEventListener( "click", hideDatePickerMode );
 
         _options.exportEventsEnabled = false;
         _options.manualEditingEnabled = false;
@@ -882,6 +884,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function toggleDatePickerModeVisible( e ) {
         cancelBubble( e );
+        closeAnyOtherDatePickers();
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
@@ -925,7 +928,21 @@ function calendarJs( id, options, startDateTime ) {
         } else {
             hideAllDropDowns();
         }
-    } 
+    }
+
+    function closeAnyOtherDatePickers() {
+        var elements = _document.getElementsByClassName( "calendar calendar-shown" ),
+            elementsArray = [].slice.call( elements ),
+            elementsArrayLength = elementsArray.length;
+
+        for ( var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++ ) {
+            var element = elementsArray[ elementsArrayIndex ];
+
+            if ( element.id !== _elementID ) {
+                element.className = "calendar calendar-hidden";
+            }
+        }
+    }
 
 
     /*
@@ -5295,14 +5312,35 @@ function calendarJs( id, options, startDateTime ) {
 
     function getElementByID( id ) {
         if ( !_elements.hasOwnProperty( id ) || _elements[ id ] === null ) {
-            _elements[ id ] = _document.getElementById( id );
+            _elements[ id ] = getInternalElementByID( id );
         }
 
         if ( !_document.body.contains( _elements[ id ] ) ) {
-            _elements[ id ] = _document.getElementById( id );
+            _elements[ id ] = getInternalElementByID( id );
         }
 
         return _elements[ id ];
+    }
+
+    function getInternalElementByID( id ) {
+        var element = null;
+
+        if ( _element_Calendar === null ) {
+            element = _document.getElementById( id );
+        } else {
+
+            var elements = _document.getElementById( _elementID ).getElementsByTagName( "*" ),
+                elementsLength = elements.length;
+
+            for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
+                if ( elements[ elementIndex ].id === id ) {
+                    element = elements[ elementIndex ];
+                    break;
+                }
+            }
+        }
+
+        return element;
     }
 
     function addNode( parent, node ) {

@@ -6,22 +6,35 @@
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="src/calendarjs.css" />
         <script src="src/calendarjs.js"></script>
+
+        <style>
+            .contents {
+                margin-top: 20px;
+                background-color: lightgrey;
+                padding: 30px;
+            }
+        </style>
     </head>
 
     <body>
         <h1 id="header">Welcome to Calendar.js - DatePicker Mode</h1>
 
         <div class="contents">
-            <input type="text" id="myCalendar" value="15/01/2018" />
+            <input type="text" id="myCalendar1" value="15/01/2018" />
+        </div>
+
+        <div class="contents">
+            <input type="text" id="myCalendar2" value="15/05/2019" />
         </div>
     </body>
 
     <script>
-        var calendarInstance = new calendarJs( "myCalendar" );
+        var calendarInstance1 = new calendarJs( "myCalendar1" ),
+            calendarInstance2 = new calendarJs( "myCalendar2" );
 
-        document.title += " - v" + calendarInstance.getVersion();
+        document.title += " - v" + calendarInstance1.getVersion();
 
-        calendarInstance.addEvent( {
+        calendarInstance1.addEvent( {
             from: new Date(),
             to: new Date(),
             title: "Event 1",

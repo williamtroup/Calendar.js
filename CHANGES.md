@@ -10,6 +10,7 @@
 - Added new public function addEventsFromJson(), which adds new events from a JSON string.
 - Added new setting events "onEventsSetFromJSON" and "onEventsAddedFromJSON" for the new public functions.
 - Added DatePicker mode support (the element to assigned to is checked and made a DatePicker if the element is an input field).
+- Added support to use more than 1 Calendar in a page (sorry for the delay).
 - 
 
 ### Version 1.2.2:
