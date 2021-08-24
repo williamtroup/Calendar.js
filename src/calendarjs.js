@@ -754,7 +754,7 @@ function calendarJs( id, options, startDateTime ) {
 
     function buildDayRows() {
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
-            var rowData = createElement( "div", "row" );
+            var rowData = createElement( "div", "row days" );
             _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {

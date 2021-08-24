@@ -83,6 +83,14 @@ div.calendar-date-picker {
         div.cell {
             padding: $spacing / 2 !important;
         }
+
+        div.days {
+            div.cell:hover {
+                cursor: pointer;
+                background-color: $day-date-picker-hover-color;
+                transition: $transition;
+            }
+        }
     }
 
     div.ib-arrow-expand-left-right-icon {

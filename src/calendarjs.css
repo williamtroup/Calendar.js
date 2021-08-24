@@ -123,6 +123,13 @@ div.calendar-date-picker div.calendar div.cell {
   padding: 5px !important;
 }
 
+div.calendar-date-picker div.calendar div.days div.cell:hover {
+  cursor: pointer;
+  background-color: #a7a7a7;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
 div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
   display: none !important;
 }
