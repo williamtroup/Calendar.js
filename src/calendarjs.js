@@ -873,16 +873,21 @@ function calendarJs( id, options, startDateTime ) {
         _datePickerInput.onclick = toggleDatePickerModeVisible;
         _document.addEventListener( "click", hideDatePickerMode );
 
-        _options.exportEventsEnabled = false;
-        _options.manualEditingEnabled = false;
-        _options.fullScreenModeEnabled = false;
-        _options.eventNotificationsEnabled = false;
-        _options.showPreviousNextMonthNamesInMainDisplay = false;
-        _options.showPreviousNextMonthNamesInMainDisplay = false;
-        _options.showExtraMainDisplayToolbarButtons = false;
-        _options.holidays = [];
-
+        resetOptionsForDatePickerMode();
         storeDataPickerSelectedDate();
+    }
+
+    function resetOptionsForDatePickerMode() {
+        if ( _datePickerModeEnabled ) {
+            _options.exportEventsEnabled = false;
+            _options.manualEditingEnabled = false;
+            _options.fullScreenModeEnabled = false;
+            _options.eventNotificationsEnabled = false;
+            _options.showPreviousNextMonthNamesInMainDisplay = false;
+            _options.showPreviousNextMonthNamesInMainDisplay = false;
+            _options.showExtraMainDisplayToolbarButtons = false;
+            _options.holidays = [];
+        }
     }
 
     function toggleDatePickerModeVisible( e ) {
@@ -7034,6 +7039,7 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
 
+        resetOptionsForDatePickerMode();
         checkForBrowserNotificationsPermission();
 
         if ( _initialized ) {
