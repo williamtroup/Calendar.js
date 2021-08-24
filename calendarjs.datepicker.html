@@ -8,7 +8,7 @@
         <script src="src/calendarjs.js"></script>
 
         <style>
-            .contents {
+            .date-picker {
                 margin-top: 20px;
                 background-color: lightgrey;
                 padding: 30px;
@@ -19,19 +19,20 @@
     <body>
         <h1 id="header">Welcome to Calendar.js - DatePicker Mode</h1>
 
-        <div class="contents">
+        <div class="contents date-picker">
             <input type="text" id="myCalendar1" value="15/01/2018" />
         </div>
 
-        <div class="contents">
+        <div class="contents date-picker">
             <input type="text" id="myCalendar2" value="15/05/2019" />
         </div>
-
         <br>
-    
-        <h2>Date Selection:</h2>
-        <button onclick="alert( calendarInstance1.getSelectedDatePickerDate() );">Get Selected Date Picker Date (1)</button>
-        <button onclick="alert( calendarInstance2.getSelectedDatePickerDate() );">Get Selected Date Picker Date (2)</button>
+
+        <div class="contents">
+            <h2>Date Selection:</h2>
+            <button onclick="alert( calendarInstance1.getSelectedDatePickerDate() );">Get Selected Date Picker Date (1)</button>
+            <button onclick="alert( calendarInstance2.getSelectedDatePickerDate() );">Get Selected Date Picker Date (2)</button>
+        </div>
     </body>
 
     <script>
