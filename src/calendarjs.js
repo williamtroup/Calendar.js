@@ -860,7 +860,7 @@ function calendarJs( id, options, startDateTime ) {
         var parent = element.parentNode;
         parent.removeChild( _datePickerInput );
 
-        var container = createElement( "div", "calendar-input" );
+        var container = createElement( "div", "calendar-date-picker" );
         parent.appendChild( container );
         container.appendChild( _datePickerInput );
 
@@ -2974,10 +2974,10 @@ function calendarJs( id, options, startDateTime ) {
 
             dayElement.innerHTML = "";
             dayText.className = dayMutedClass;
-            dayText.className += dayIsToday ? " today" : "";
+            dayText.className += dayIsToday && !_datePickerModeEnabled ? " today" : "";
             dayText.innerText = actualDay;
 
-            if ( actualDay === 1 ) {
+            if ( actualDay === 1 && !_datePickerModeEnabled ) {
                 dayText.className += " first-day";
             }
 

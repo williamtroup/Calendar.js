@@ -22,7 +22,7 @@ div.calendar-dialog textarea {
   div.calendar-dialog,
   div.calendar-dialog input,
   div.calendar-dialog textarea {
-    font-size: 0.9rem !important;
+    font-size: 0.9rem;
   }
 }
 
@@ -34,7 +34,7 @@ div.calendar-dialog textarea {
   div.calendar-dialog,
   div.calendar-dialog input,
   div.calendar-dialog textarea {
-    font-size: 0.7rem !important;
+    font-size: 0.7rem;
   }
 }
 
@@ -103,20 +103,28 @@ div.full-screen-view div.plus-x-events {
   display: none !important;
 }
 
-div.calendar-input {
-  width: 400px;
+div.calendar-date-picker {
+  width: 300px;
 }
 
-div.calendar-input div.ib-arrow-expand-left-right-icon {
-  display: none !important;
-}
-
-div.calendar-hidden {
+div.calendar-date-picker div.calendar-hidden {
   display: none;
 }
 
-div.calendar-shown {
+div.calendar-date-picker div.calendar-shown {
   display: block;
+}
+
+div.calendar-date-picker div.calendar {
+  font-size: 0.7rem !important;
+}
+
+div.calendar-date-picker div.calendar div.cell {
+  padding: 5px !important;
+}
+
+div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
+  display: none !important;
 }
 
 /*
