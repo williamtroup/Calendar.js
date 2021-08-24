@@ -82,6 +82,7 @@ div.calendar-date-picker {
         position: absolute;
         width: 300px;
         z-index: 1000;
+        box-shadow: 4px 4px 4px #282828;
 
         div.cell {
             padding: $spacing / 2 !important;
