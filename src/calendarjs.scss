@@ -94,6 +94,10 @@ div.calendar-date-picker {
                 background-color: $day-date-picker-hover-color;
                 transition: $transition;
             }
+
+            div.cell:active {
+                @include opacity-active-effect;
+            }
         }
     }
 

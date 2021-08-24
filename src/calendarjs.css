@@ -135,6 +135,13 @@ div.calendar-date-picker div.calendar div.days div.cell:hover {
   transition: all 0.3s;
 }
 
+div.calendar-date-picker div.calendar div.days div.cell:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
   display: none !important;
 }
