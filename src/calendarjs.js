@@ -949,7 +949,7 @@ function calendarJs( id, options, startDateTime ) {
         var values = _datePickerInput.value.split( "/" );
         if ( values.length === 3 ) {
 
-            var newDate = new Date( values[ 2 ], values[ 1 ], values[ 0 ] );
+            var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
             if ( newDate instanceof Date && !isNaN( newDate ) ) {
                 if ( isDefinedFunction( func ) ) {
                     func( newDate );
