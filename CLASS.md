@@ -11,4 +11,4 @@ The main Calendar.js class.
 <br>
 ***Parameter: options***: '*Object*' - All the configurable options that should be used (refer to ["Options"](OPTIONS.md) documentation for properties).
 <br>
-***Parameter: startDateTime***: '*Object*' - The date that the calendar should start from by default (defaults to today).
+***Parameter: startDateTime***: '*Object*' - The date that the calendar should start from (defaults to today).

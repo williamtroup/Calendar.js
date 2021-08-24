@@ -287,7 +287,7 @@
  * 
  * @param       {string}    id                                          The ID of the element that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
- * @param       {Object}    startDateTime                               The date that the calendar should start from by default (defaults to today).
+ * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
  */
 function calendarJs( id, options, startDateTime ) {
     var _options = {},
