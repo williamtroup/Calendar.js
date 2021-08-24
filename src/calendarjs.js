@@ -6761,7 +6761,7 @@ function calendarJs( id, options, startDateTime ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
      */
-     this.updateEvents = function( events, updateEvents, triggerEvent ) {
+    this.updateEvents = function( events, updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
         triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
@@ -6828,7 +6828,7 @@ function calendarJs( id, options, startDateTime ) {
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
-     this.updateEventDateTimes = function( id, from, to, repeatEnds, updateEvents, triggerEvent ) {
+    this.updateEventDateTimes = function( id, from, to, repeatEnds, updateEvents, triggerEvent ) {
         var updated = false;
 
         getAllEventsFunc( function( event ) {
