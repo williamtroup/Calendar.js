@@ -49,6 +49,11 @@ Returns the current date that is being used in the main display.
 <br>
 ***Returns***: '*Object*' - A Date() object (day is always set to the 1st).
 
+### **getSelectedDatePickerDate()**:
+Returns the current date that has been selected in DatePicker mode.
+<br>
+***Returns***: '*Object*' - A Date() object.
+
 ### **setCurrentDisplayDate( *date* )**:
 Sets the current date that is being used in the main display.
 <br>

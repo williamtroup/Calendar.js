@@ -332,6 +332,7 @@ function calendarJs( id, options, startDateTime ) {
         _datePickerModeEnabled = false,
         _datePickerVisible = false,
         _currentDate = null,
+        _currentDateForDatePicker = null,
         _largestDateInView = null,
         _elementTypes = {},
         _elements = {},
@@ -880,6 +881,8 @@ function calendarJs( id, options, startDateTime ) {
         _options.showPreviousNextMonthNamesInMainDisplay = false;
         _options.showExtraMainDisplayToolbarButtons = false;
         _options.holidays = [];
+
+        storeDataPickerSelectedDate();
     }
 
     function toggleDatePickerModeVisible( e ) {
@@ -890,14 +893,7 @@ function calendarJs( id, options, startDateTime ) {
             _element_Calendar.className = "calendar calendar-shown";
 
             if ( _datePickerInput.value !== "" ) {
-                var values = _datePickerInput.value.split( "/" );
-                if ( values.length === 3 ) {
-
-                    var newDate = new Date( values[ 2 ], values[ 1 ], values[ 0 ] );
-                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
-                        build( newDate );
-                    }
-                }
+                storeDataPickerSelectedDate( build );
             }
 
         } else {
@@ -940,6 +936,21 @@ function calendarJs( id, options, startDateTime ) {
 
             if ( element.id !== _elementID ) {
                 element.className = "calendar calendar-hidden";
+            }
+        }
+    }
+
+    function storeDataPickerSelectedDate( func ) {
+        var values = _datePickerInput.value.split( "/" );
+        if ( values.length === 3 ) {
+
+            var newDate = new Date( values[ 2 ], values[ 1 ], values[ 0 ] );
+            if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                if ( isDefinedFunction( func ) ) {
+                    func( newDate );
+                }
+                
+                _currentDateForDatePicker = newDate;
             }
         }
     }
@@ -6418,6 +6429,17 @@ function calendarJs( id, options, startDateTime ) {
      */
     this.getCurrentDisplayDate = function() {
         return new Date( _currentDate );
+    };
+
+    /**
+     * getSelectedDatePickerDate().
+     * 
+     * Returns the current date that has been selected in DatePicker mode.
+     * 
+     * @returns     {Object}                                                A Date() object.
+     */
+    this.getSelectedDatePickerDate = function() {
+        return new Date( _currentDateForDatePicker );
     };
 
     /**
