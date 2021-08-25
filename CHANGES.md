@@ -12,6 +12,7 @@
 - Added DatePicker mode support (the element to assign to is checked and made a DatePicker if it's an input field).
 - Added support to use more than 1 Calendar in a page (sorry for the delay).
 - Fixed a fault that caused the Years drop-down list to appear strange when inside a node with a the same class name.
+- Added a close button to the event tooltips.
 - 
 
 ### Version 1.2.2:

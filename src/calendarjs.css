@@ -2865,6 +2865,17 @@ div.calendar-tooltip-event {
   max-width: 300px;
 }
 
+div.calendar-tooltip-event div.ib-close {
+  position: absolute !important;
+  display: block !important;
+  right: 10px;
+  top: 10px;
+}
+
+div.calendar-tooltip-event div.ib-close::before, div.calendar-tooltip-event div.ib-close::after {
+  background-color: #282828;
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Drop-Down Menu
