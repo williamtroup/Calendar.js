@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.2.2
+ * Calendar.js Library v1.3.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -22,7 +22,7 @@ div.calendar-dialog textarea {
   div.calendar-dialog,
   div.calendar-dialog input,
   div.calendar-dialog textarea {
-    font-size: 0.9rem !important;
+    font-size: 0.9rem;
   }
 }
 
@@ -34,7 +34,7 @@ div.calendar-dialog textarea {
   div.calendar-dialog,
   div.calendar-dialog input,
   div.calendar-dialog textarea {
-    font-size: 0.7rem !important;
+    font-size: 0.7rem;
   }
 }
 
@@ -100,6 +100,49 @@ div.full-screen-view div.header-days {
 }
 
 div.full-screen-view div.plus-x-events {
+  display: none !important;
+}
+
+div.calendar-date-picker {
+  position: relative;
+}
+
+div.calendar-date-picker div.calendar-hidden {
+  display: none;
+}
+
+div.calendar-date-picker div.calendar-shown {
+  display: block;
+}
+
+div.calendar-date-picker div.calendar {
+  font-size: 0.7rem !important;
+  position: absolute;
+  width: 300px;
+  z-index: 1000;
+  -webkit-box-shadow: 4px 4px 4px #282828;
+          box-shadow: 4px 4px 4px #282828;
+}
+
+div.calendar-date-picker div.calendar div.cell {
+  padding: 5px !important;
+}
+
+div.calendar-date-picker div.calendar div.days div.cell:hover {
+  cursor: pointer;
+  background-color: #a7a7a7;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+div.calendar-date-picker div.calendar div.days div.cell:active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
   display: none !important;
 }
 
@@ -408,9 +451,11 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   overflow-y: auto;
   width: inherit;
   height: inherit;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
   padding: 0 !important;
+  background-color: #F5F5F5 !important;
 }
 
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year {
@@ -2543,8 +2588,6 @@ div.calendar-dialog div.tab-control-selected {
 
 div.calendar-dialog div.tab-control {
   border: 1px solid #A8A8A8;
-  background-color: #F5F5F5;
-  color: #282828;
 }
 
 div.calendar-dialog div.tab-control:hover {
@@ -2561,6 +2604,12 @@ div.calendar-dialog div.tab-control:active {
   transition: all .2s;
   cursor: pointer;
   opacity: 0.7;
+}
+
+div.calendar-dialog div.tab-control,
+div.calendar-dialog div.tab-content {
+  background-color: #F5F5F5;
+  color: #282828;
 }
 
 div.calendar-dialog div.tab-content {
@@ -2786,6 +2835,7 @@ div.calendar-tooltip-event div:last-child {
 div.calendar-tooltip div.title,
 div.calendar-tooltip-event div.title {
   font-weight: 900;
+  width: calc(100% - 12px - 10px);
 }
 
 div.calendar-tooltip div.date,
@@ -2814,6 +2864,17 @@ div.calendar-tooltip {
 
 div.calendar-tooltip-event {
   max-width: 300px;
+}
+
+div.calendar-tooltip-event div.ib-close {
+  position: absolute !important;
+  display: block !important;
+  right: 10px;
+  top: 10px;
+}
+
+div.calendar-tooltip-event div.ib-close::before, div.calendar-tooltip-event div.ib-close::after {
+  background-color: #282828;
 }
 
 /*

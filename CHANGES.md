@@ -1,5 +1,19 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.0:
+- Added missing background-color and color CSS values for tabs and tab contents.
+- Fixed a fault that caused the main display toolbar buttons to not update correctly when the options are set manually.
+- Added new setting "showExtraMainDisplayToolbarButtons", which states if the extra toolbar buttons are visible (defaults to true).
+- Fixed a fault that prevented the Full Day view from refreshing when the Calendar goes to and from full-screen mode.
+- Added new setting event "onFullScreenModeChanged", which is triggered when the full-screen mode is changed (if enabled).
+- Added new public function setEventsFromJson(), which sets new events from a JSON string (clears all others).
+- Added new public function addEventsFromJson(), which adds new events from a JSON string.
+- Added new setting events "onEventsSetFromJSON" and "onEventsAddedFromJSON" for the new public functions.
+- Added DatePicker mode support (the element to assign to is checked and made a DatePicker if it's an input field).
+- Added support to use more than 1 Calendar in a page (sorry for the delay).
+- Fixed a fault that caused the Years drop-down list to appear strange when inside a node with the same class name.
+- Added a close button to the event tooltips.
+
 ### Version 1.2.2:
 - Events must now be double-clicked to be edited (removed the hover effects, which caused display issues in the views).
 - Fixed a fault that would cause the main display to update when dropping an event on its original date.

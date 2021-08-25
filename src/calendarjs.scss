@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.2.2
+ * Calendar.js Library v1.3.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -18,11 +18,11 @@ div.calendar-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and (min-width: $minimum-width) {
-        font-size: $large-font-size !important;
+        font-size: $large-font-size;
     }
     
     @media screen and (max-width: $maximum-width) {
-        font-size: $small-font-size !important;
+        font-size: $small-font-size;
     }
 
     div.overlay-shown {
@@ -62,6 +62,46 @@ div.full-screen-view {
     }
 
     div.plus-x-events {
+        display: none !important;
+    }
+}
+
+div.calendar-date-picker {
+    position: relative;
+
+    div.calendar-hidden {
+        display: none;
+    }
+    
+    div.calendar-shown {
+        display: block;
+    }
+
+    div.calendar {
+        font-size: $small-font-size !important;
+        position: absolute;
+        width: 300px;
+        z-index: 1000;
+        box-shadow: 4px 4px 4px #282828;
+
+        div.cell {
+            padding: $spacing / 2 !important;
+        }
+
+        div.days {
+            div.cell:hover {
+                cursor: pointer;
+                background-color: $day-date-picker-hover-color;
+                transition: $transition;
+            }
+
+            div.cell:active {
+                @include opacity-active-effect;
+            }
+        }
+    }
+
+    div.ib-arrow-expand-left-right-icon {
         display: none !important;
     }
 }
@@ -334,9 +374,11 @@ div.calendar {
                     overflow-y: auto;
                     width: inherit;
                     height: inherit;
-                    margin-left: 0;
-                    margin-right: 0;
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    margin-top: 0 !important;
                     padding: 0 !important;
+                    background-color: $light-color !important;
     
                     div.year {
                         display: inline-block;
@@ -1130,8 +1172,6 @@ div.calendar-dialog {
 
     div.tab-control {
         border: $standard-border-size solid $input-border-color;
-        background-color: $light-color;
-        color: $dark-color;
 
         &:hover {
             cursor: pointer;
@@ -1144,6 +1184,12 @@ div.calendar-dialog {
         &:active {
             @include opacity-active-effect(0.7);
         }
+    }
+
+    div.tab-control,
+    div.tab-content {
+        background-color: $light-color;
+        color: $dark-color;
     }
 
     div.tab-content {
@@ -1330,6 +1376,7 @@ div.calendar-tooltip-event {
 
     div.title {
         font-weight: 900;
+        width: calc(100% - 12px - #{$spacing});
     }
 
     div.date,
@@ -1353,6 +1400,18 @@ div.calendar-tooltip {
 
 div.calendar-tooltip-event {
     max-width: 300px;
+
+    div.ib-close {
+        position: absolute !important;
+        display: block !important;
+        right: $spacing;
+        top: $spacing;
+
+        &::before,
+        &::after {
+            background-color: $dark-color;
+        }
+    }
 }
 
 

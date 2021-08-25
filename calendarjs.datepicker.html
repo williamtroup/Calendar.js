@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - DatePicker Mode</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="src/calendarjs.css" />
+        <script src="src/calendarjs.js"></script>
+
+        <style>
+            .date-picker {
+                margin-top: 20px;
+                background-color: lightgrey;
+                padding: 30px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1 id="header">Welcome to Calendar.js - DatePicker Mode</h1>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar1" value="15/01/2018" />
+        </div>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar2" value="15/05/2019" />
+        </div>
+        <br>
+
+        <div class="contents">
+            <h2>Date Selection:</h2>
+            <button onclick="alert( calendarInstance1.getSelectedDatePickerDate() );">Get Selected Date Picker Date (1)</button>
+            <button onclick="alert( calendarInstance2.getSelectedDatePickerDate() );">Get Selected Date Picker Date (2)</button>
+        </div>
+    </body>
+
+    <script>
+        var calendarInstance1 = new calendarJs( "myCalendar1" ),
+            calendarInstance2 = new calendarJs( "myCalendar2" );
+
+        document.title += " - v" + calendarInstance1.getVersion();
+
+        calendarInstance1.addEvent( {
+            from: new Date(),
+            to: new Date(),
+            title: "Event 1",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "Teams Meeting",
+            group: "Group 1"
+        }, )
+    </script>
+</html>
