@@ -2835,6 +2835,7 @@ div.calendar-tooltip-event div:last-child {
 div.calendar-tooltip div.title,
 div.calendar-tooltip-event div.title {
   font-weight: 900;
+  width: calc(100% - 12px - 10px);
 }
 
 div.calendar-tooltip div.date,

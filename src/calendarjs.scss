@@ -1376,6 +1376,7 @@ div.calendar-tooltip-event {
 
     div.title {
         font-weight: 900;
+        width: calc(100% - 12px - #{$spacing});
     }
 
     div.date,
