@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.1:
+- Fixed a fault that caused the repeating event images to have an :hover and :active behavior.
 - 
 
 ### Version 1.3.0:

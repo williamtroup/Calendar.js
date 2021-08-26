@@ -1556,7 +1556,7 @@ function calendarJs( id, options, startDateTime ) {
                     if ( !_options.useOnlyDotEventsForMainDisplay ) {
                         var repeatEvery = getNumber( eventDetails.repeatEvery );
                         if ( repeatEvery > _repeatType.never ) {
-                            var icon = createElement( "div", "ib-refresh-small" );
+                            var icon = createElement( "div", "ib-refresh-small ib-no-hover ib-no-active" );
                             icon.style.borderColor = event.style.color;
                             event.appendChild( icon );
                         }
@@ -2000,7 +2000,7 @@ function calendarJs( id, options, startDateTime ) {
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
             if ( repeatEvery > _repeatType.never ) {
-                var icon = createElement( "div", "ib-refresh-medium" );
+                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                 icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
             }
@@ -2376,7 +2376,7 @@ function calendarJs( id, options, startDateTime ) {
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
             if ( repeatEvery > _repeatType.never ) {
-                var icon = createElement( "div", "ib-refresh-medium" );
+                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                 icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
             }
@@ -2711,7 +2711,7 @@ function calendarJs( id, options, startDateTime ) {
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
             if ( repeatEvery > _repeatType.never ) {
-                var icon = createElement( "div", "ib-refresh-medium" );
+                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                 icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
             }
@@ -4972,7 +4972,7 @@ function calendarJs( id, options, startDateTime ) {
 
                         var repeatEvery = getNumber( eventDetails.repeatEvery );
                         if ( repeatEvery > _repeatType.never ) {
-                            var icon = createElement( "div", "ib-refresh-medium" );
+                            var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                             icon.style.borderColor = _element_Tooltip_Title.style.color;
                             _element_Tooltip_Title.appendChild( icon );
                         }
