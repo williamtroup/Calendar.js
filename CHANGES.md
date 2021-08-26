@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.1:
+- 
+
 ### Version 1.3.0:
 - Added missing background-color and color CSS values for tabs and tab contents.
 - Fixed a fault that caused the main display toolbar buttons to not update correctly when the options are set manually.

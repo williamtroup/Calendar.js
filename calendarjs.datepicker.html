@@ -40,6 +40,7 @@
             calendarInstance2 = new calendarJs( "myCalendar2" );
 
         document.title += " - v" + calendarInstance1.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance1.getVersion();
 
         calendarInstance1.addEvent( {
             from: new Date(),
