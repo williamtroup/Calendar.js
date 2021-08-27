@@ -2820,6 +2820,10 @@ function calendarJs( id, options, startDateTime ) {
             dayHeader.ondblclick = expandFunction;
             day.appendChild( dayHeader );
 
+            dayHeader.oncontextmenu = function( e ) {
+                showDayHeaderDropDownMenu( e, weekDayNumber );
+            };
+
             buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
