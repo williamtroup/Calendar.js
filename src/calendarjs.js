@@ -1557,7 +1557,7 @@ function calendarJs( id, options, startDateTime ) {
             if ( !_datePickerModeEnabled ) {
                 var events = elementDay.getElementsByClassName( "event" );
 
-                if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 ) {
+                if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay ) {
                     var event = createElement( "div", "event" ),
                         eventTitle = eventDetails.title;
     
