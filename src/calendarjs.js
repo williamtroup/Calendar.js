@@ -215,6 +215,7 @@
  * @property    {string}    duplicateText                               The text that should be displayed for the "Duplicate" label.
  * @property    {string}    showAlertsText                              The text that should be displayed for the "Show Alerts" label.
  * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
+ * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
  */
 
 
@@ -476,6 +477,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_DropDownMenu_FullDay = null,
         _element_DropDownMenu_FullDay_Paste_Separator = null,
         _element_DropDownMenu_FullDay_Paste = null,
+        _element_DropDownMenu_HeaderDay = null,
+        _element_DropDownMenu_HeaderDay_SelectedDay = null,
         _element_SearchDialog = null,
         _element_SearchDialog_MinimizedRestoreButton = null,
         _element_SearchDialog_Contents = null,
@@ -744,14 +747,22 @@ function calendarJs( id, options, startDateTime ) {
 
             for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
                 if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                    var headerName = _options.dayHeaderNames[ headerNameIndex ],
-                        header = createElement( "div", getCellName() );
-
-                    header.innerText = headerName;
-                    headerRow.appendChild( header );
+                    buildDayNamesHeaderItem( headerRow, headerNameIndex );
                 }
             }
         }
+    }
+
+    function buildDayNamesHeaderItem( headerRow, headerNameIndex ) {
+        var headerName = _options.dayHeaderNames[ headerNameIndex ],
+            header = createElement( "div", getCellName() );
+
+        header.innerText = headerName;
+        headerRow.appendChild( header );
+
+        header.oncontextmenu = function( e ) {
+            showDayHeaderDropDownMenu( e, headerNameIndex );
+        };
     }
 
     function buildDayRows() {
@@ -1095,6 +1106,7 @@ function calendarJs( id, options, startDateTime ) {
         hideDayDropDownMenu();
         hideEventDropDownMenu();
         hideFullDayDropDownMenu();
+        hideHeaderDayDropDownMenu();
         hideYearSelectorDropDown();
         hideTooltip();
     }
@@ -3244,6 +3256,7 @@ function calendarJs( id, options, startDateTime ) {
         buildDayDropDownMenu();
         buildEventDropDownMenu();
         buildFullDayViewDropDownMenu();
+        buildDayHeaderDropDownMenu();
     }
 
     function buildDayDropDownMenu() {
@@ -3390,6 +3403,25 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function buildDayHeaderDropDownMenu() {
+        if ( _element_DropDownMenu_HeaderDay !== null ) {
+            removeNode( _document.body, _element_DropDownMenu_HeaderDay );
+
+            _element_DropDownMenu_HeaderDay = null;
+        }
+
+        _element_DropDownMenu_HeaderDay = createElement( "div", "calendar-drop-down-menu" );
+        _document.body.appendChild( _element_DropDownMenu_HeaderDay );
+
+        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-minus-icon", _options.hideDayText, function() {
+            _options.visibleDays.splice( _options.visibleDays.indexOf( _element_DropDownMenu_HeaderDay_SelectedDay ), 1 );
+            _initialized = false;
+
+            triggerOptionsEventWithData( "onOptionsUpdated", _options );
+            build( _currentDate, true );
+        }, true );
+    }
+
     function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
         isBold = isDefined( isBold ) ? isBold : false;
 
@@ -3472,6 +3504,16 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function showDayHeaderDropDownMenu( e, selectedDay ) {
+        if ( _options.visibleDays.length > 1 && !_datePickerModeEnabled ) {
+            _element_DropDownMenu_HeaderDay_SelectedDay = selectedDay;
+
+            hideAllDropDowns();
+            cancelBubble( e );
+            showElementAtMousePosition( e, _element_DropDownMenu_HeaderDay );
+        }
+    }
+
     function hideDayDropDownMenu() {
         if ( isDayDropDownMenuVisible() ) {
             _element_DropDownMenu_Day.style.display = "none";
@@ -3490,6 +3532,12 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
+    function hideHeaderDayDropDownMenu() {
+        if ( isHeaderDayDropDownMenuVisible() ) {
+            _element_DropDownMenu_HeaderDay.style.display = "none";
+        }
+    }
+
     function isDayDropDownMenuVisible() {
         return _element_DropDownMenu_Day !== null && _element_DropDownMenu_Day.style.display === "block";
     }
@@ -3500,6 +3548,10 @@ function calendarJs( id, options, startDateTime ) {
 
     function isFullDayDropDownMenuVisible() {
         return _element_DropDownMenu_FullDay !== null && _element_DropDownMenu_FullDay.style.display === "block";
+    }
+
+    function isHeaderDayDropDownMenuVisible() {
+        return _element_DropDownMenu_HeaderDay !== null && _element_DropDownMenu_HeaderDay.style.display === "block";
     }
 
 
@@ -7802,6 +7854,10 @@ function calendarJs( id, options, startDateTime ) {
 
         if ( !isDefined( _options.selectDatePlaceholderText ) ) {
             _options.selectDatePlaceholderText = "Select date...";
+        }
+
+        if ( !isDefined( _options.hideDayText ) ) {
+            _options.hideDayText = "Hide Day";
         }
     }
 
