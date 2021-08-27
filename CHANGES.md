@@ -4,6 +4,7 @@
 - Fixed a fault that caused the repeating event images to have an :hover and :active behavior.
 - Added "Hide Day" context menu support for the day headers (when more than 1 day is visible).
 - The "useOnlyDotEventsForMainDisplay" setting now overrides the "maximumEventsPerDayDisplay" setting.
+- Removed lots of duplicate code from the core that was no longer required.
 - 
 
 ### Version 1.3.0:
