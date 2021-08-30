@@ -240,7 +240,11 @@ Sets the specific search options that should be used.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onSearchOptionsUpdated" event should be triggered.
 
-### **addHolidays( *holidays* )**:
+### **addHolidays( *holidays*, *triggerEvent* )**:
 Adds new holidays.
 <br>
+***Fires***:  onOptionsUpdated
+<br>
 ***Parameter: holidays***: '*Object*' - The holidays to add (refer to "Holiday" documentation for properties).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
