@@ -3091,17 +3091,16 @@ function calendarJs( id, options, startDateTime ) {
     function getHoliday( date ) {
         var result = null,
             holidayTextItems = [],
+            holidayTextItemsAnyCase = [],
             holidaysLength = _options.holidays.length;
 
         for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            var holiday = _options.holidays[ holidayIndex ];
+            var holiday = _options.holidays[ holidayIndex ],
+                holidayText = getString( holiday.title, "" );
 
-            if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 ) {
-                var holidayText = getString( holiday.title, null );
-                
-                if ( holidayText !== null ) {
-                    holidayTextItems.push( holidayText );
-                }
+            if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                holidayTextItems.push( holidayText );
+                holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
             }
         }
 

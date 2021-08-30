@@ -6,6 +6,7 @@
 - The "useOnlyDotEventsForMainDisplay" setting now overrides the "maximumEventsPerDayDisplay" setting.
 - Removed lots of duplicate code from the core that was no longer required.
 - Added addHolidays() parameter "triggerEvent", which will fire the "onOptionsUpdated" event (if available).
+- Fixed a fault that allowed holidays with the same text to be added to the same day.
 - 
 
 ### Version 1.3.0:
