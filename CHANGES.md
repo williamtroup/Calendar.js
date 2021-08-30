@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.2:
+- 
+
 ### Version 1.3.1:
 - Fixed a fault that caused the repeating event images to have an :hover and :active behaviour.
 - Added "Hide Day" context menu support for the day headers (when more than 1 day is visible).
