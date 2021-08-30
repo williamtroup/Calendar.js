@@ -1,13 +1,12 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.1:
-- Fixed a fault that caused the repeating event images to have an :hover and :active behavior.
+- Fixed a fault that caused the repeating event images to have an :hover and :active behaviour.
 - Added "Hide Day" context menu support for the day headers (when more than 1 day is visible).
 - The "useOnlyDotEventsForMainDisplay" setting now overrides the "maximumEventsPerDayDisplay" setting.
 - Removed lots of duplicate code from the core that was no longer required.
 - Added addHolidays() parameter "triggerEvent", which will fire the "onOptionsUpdated" event (if available).
 - Fixed a fault that allowed holidays with the same text to be added to the same day.
-- 
 
 ### Version 1.3.0:
 - Added missing background-color and color CSS values for tabs and tab contents.
