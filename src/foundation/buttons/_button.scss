@@ -14,11 +14,11 @@ $border: $border-width solid $light-color;
 @mixin button-no-before-after {
     @include button-size;
 
-    &:hover {
+    &:not(.ib-no-hover):hover {
         @include button-hover;
     }
 
-    &:active {
+    &:not(.ib-no-active):active {
         @include button-active;
     }
 }

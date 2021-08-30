@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.0
+ * Calendar.js Library v1.3.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -3075,14 +3075,14 @@ div.calendar-drop-down-menu div.separator {
   border-right: 16px solid #F5F5F5;
 }
 
-.ib-arrow-left-full:hover {
+.ib-arrow-left-full:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-left-full:active {
+.ib-arrow-left-full:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3099,14 +3099,14 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 50%;
 }
 
-.ib-pin:hover {
+.ib-pin:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-pin:active {
+.ib-pin:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3148,14 +3148,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-refresh:hover {
+.ib-refresh:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-refresh:active {
+.ib-refresh:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3194,14 +3194,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-search:hover {
+.ib-search:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-search:active {
+.ib-search:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3243,14 +3243,14 @@ div.calendar-drop-down-menu div.separator {
   height: 8px;
 }
 
-.ib-hamburger:hover {
+.ib-hamburger:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-hamburger:active {
+.ib-hamburger:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3281,14 +3281,14 @@ div.calendar-drop-down-menu div.separator {
   height: 8px;
 }
 
-.ib-eye:hover {
+.ib-eye:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-eye:active {
+.ib-eye:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3317,14 +3317,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-arrow-down-full-line:hover {
+.ib-arrow-down-full-line:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-down-full-line:active {
+.ib-arrow-down-full-line:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3363,14 +3363,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-plus:hover {
+.ib-plus:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-plus:active {
+.ib-plus:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3416,14 +3416,14 @@ div.calendar-drop-down-menu div.separator {
   border-left: 16px solid #F5F5F5;
 }
 
-.ib-arrow-right-full:hover {
+.ib-arrow-right-full:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-right-full:active {
+.ib-arrow-right-full:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3437,14 +3437,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-minus:hover {
+.ib-minus:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-minus:active {
+.ib-minus:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3475,14 +3475,14 @@ div.calendar-drop-down-menu div.separator {
   height: 8px;
 }
 
-.ib-square-hollow:hover {
+.ib-square-hollow:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-square-hollow:active {
+.ib-square-hollow:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3496,14 +3496,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-close:hover {
+.ib-close:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-close:active {
+.ib-close:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3541,14 +3541,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-arrow-expand-left-right:hover {
+.ib-arrow-expand-left-right:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-expand-left-right:active {
+.ib-arrow-expand-left-right:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3585,14 +3585,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-arrow-contract-left-right:hover {
+.ib-arrow-contract-left-right:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-contract-left-right:active {
+.ib-arrow-contract-left-right:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3629,14 +3629,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-octagon-hollow:hover {
+.ib-octagon-hollow:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-octagon-hollow:active {
+.ib-octagon-hollow:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3712,14 +3712,14 @@ div.calendar-drop-down-menu div.separator {
   height: 6px;
 }
 
-.ib-hamburger-icon:hover {
+.ib-hamburger-icon:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-hamburger-icon:active {
+.ib-hamburger-icon:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3746,14 +3746,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-arrow-expand-left-right-icon:hover {
+.ib-arrow-expand-left-right-icon:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-expand-left-right-icon:active {
+.ib-arrow-expand-left-right-icon:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3790,14 +3790,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-close-icon:hover {
+.ib-close-icon:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-close-icon:active {
+.ib-close-icon:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3840,14 +3840,14 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 3px;
 }
 
-.ib-arrow-top-right-icon:hover {
+.ib-arrow-top-right-icon:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-arrow-top-right-icon:active {
+.ib-arrow-top-right-icon:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3863,14 +3863,14 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 50%;
 }
 
-.ib-circle-icon:hover {
+.ib-circle-icon:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-circle-icon:active {
+.ib-circle-icon:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3888,14 +3888,14 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 50%;
 }
 
-.ib-circle-hollow-icon:hover {
+.ib-circle-hollow-icon:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-circle-hollow-icon:active {
+.ib-circle-hollow-icon:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3909,14 +3909,14 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
 }
 
-.ib-minus-icon:hover {
+.ib-minus-icon:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-minus-icon:active {
+.ib-minus-icon:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3944,14 +3944,14 @@ div.calendar-drop-down-menu div.separator {
   border-color: #F5F5F5;
 }
 
-.ib-refresh-medium:hover {
+.ib-refresh-medium:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-refresh-medium:active {
+.ib-refresh-medium:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -3991,14 +3991,14 @@ div.calendar-drop-down-menu div.separator {
   border-color: #F5F5F5;
 }
 
-.ib-refresh-small:hover {
+.ib-refresh-small:not(.ib-no-hover):hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.ib-refresh-small:active {
+.ib-refresh-small:not(.ib-no-active):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
