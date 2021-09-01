@@ -6941,12 +6941,17 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventsCleared
      * 
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventsCleared" event should be triggered.
      */
-    this.clearEvents = function( updateEvents ) {
+    this.clearEvents = function( updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
         _events = {};
 
-        triggerOptionsEvent( "onEventsCleared" );
+        if ( triggerEvent ) {
+            triggerOptionsEvent( "onEventsCleared" );
+        }
 
         if ( updateEvents ) {
             buildDayEvents();
@@ -7017,15 +7022,19 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onGroupsCleared
      * 
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
      */
-    this.clearAllGroups = function( updateEvents ) {
+    this.clearAllGroups = function( updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
         getAllEventsFunc( function( event ) {
             event.group = null;
         } );
 
-        triggerOptionsEvent( "onGroupsCleared" );
+        if ( triggerEvent ) {
+            triggerOptionsEvent( "onGroupsCleared" );
+        }
 
         if ( updateEvents ) {
             buildDayEvents();

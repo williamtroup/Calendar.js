@@ -186,12 +186,14 @@ Removes an event.
 <br>
 ***Returns***: '*boolean*' - States if the event was removed.
 
-### **clearEvents( *updateEvents* )**:
+### **clearEvents( *updateEvents*, *triggerEvent* )**:
 Clears all the events.
 <br>
 ***Fires***:  onEventsCleared
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsCleared" event should be triggered.
 
 ### **getEvents()**:
 Returns an array of the events available.
@@ -210,12 +212,14 @@ Returns an array of group names being used.
 <br>
 ***Returns***: '*Object[]*' - An array of the group names.
 
-### **clearAllGroups( *updateEvents* )**:
+### **clearAllGroups( *updateEvents*, *triggerEvent* )**:
 Clears all the event groups.
 <br>
 ***Fires***:  onGroupsCleared
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupsCleared" event should be triggered.
 
 ### **getVersion()**:
 Returns the version of Calendar.js.
