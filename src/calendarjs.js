@@ -6478,6 +6478,22 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
+     * setCurrentDisplayDate().
+     * 
+     * Sets the current date that is being used in the main display.
+     * 
+     * @fires onSetDate
+     * 
+     * @param       {Object}    date                                        The Date() object to set.
+     */
+     this.setCurrentDisplayDate = function( date ) {
+        var newDate = new Date( date );
+
+        build( newDate );
+        triggerOptionsEventWithData( "onSetDate", newDate );
+    };
+
+    /**
      * getSelectedDatePickerDate().
      * 
      * Returns the current date that has been selected in DatePicker mode.
@@ -6489,19 +6505,19 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
-     * setCurrentDisplayDate().
+     * setSelectedDatePickerDate().
      * 
-     * Sets the current date that is being used in the main display.
+     * Sets the current date that is being used in DatePicker mode.
      * 
-     * @fires onSetDate
+     * @fires onDatePickerDateChanged
      * 
      * @param       {Object}    date                                        The Date() object to set.
      */
-    this.setCurrentDisplayDate = function( date ) {
+    this.setSelectedDatePickerDate = function( date ) {
         var newDate = new Date( date );
 
-        build( newDate );
-        triggerOptionsEventWithData( "onSetDate", newDate );
+        setSelectedDate( newDate, _datePickerInput );
+        triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
     };
 
     /**
