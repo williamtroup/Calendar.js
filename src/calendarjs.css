@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.1
+ * Calendar.js Library v1.3.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -126,6 +126,11 @@ div.calendar-date-picker div.calendar {
 
 div.calendar-date-picker div.calendar div.cell {
   padding: 5px !important;
+}
+
+div.calendar-date-picker div.calendar div.days div.cell-today {
+  background-color: #282828 !important;
+  color: #F5F5F5 !important;
 }
 
 div.calendar-date-picker div.calendar div.days div.cell:hover {

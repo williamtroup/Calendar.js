@@ -29,9 +29,14 @@
         <br>
 
         <div class="contents">
-            <h2>Date Selection:</h2>
+            <h2>Get Date:</h2>
             <button onclick="alert( calendarInstance1.getSelectedDatePickerDate() );">Get Selected Date Picker Date (1)</button>
             <button onclick="alert( calendarInstance2.getSelectedDatePickerDate() );">Get Selected Date Picker Date (2)</button>
+            <br>
+
+            <h2>Set Date:</h2>
+            <button onclick="calendarInstance1.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (1)</button>
+            <button onclick="calendarInstance2.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (2)</button>
         </div>
     </body>
 

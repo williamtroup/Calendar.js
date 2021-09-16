@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.1
+ * Calendar.js Library v1.3.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -695,8 +695,11 @@ function calendarJs( id, options, startDateTime ) {
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
 
-        if ( _options.showExtraMainDisplayToolbarButtons ) {
+        if ( _datePickerModeEnabled || _options.showExtraMainDisplayToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
+        }
+
+        if ( _options.showExtraMainDisplayToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
             buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
             buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
@@ -3023,6 +3026,13 @@ function calendarJs( id, options, startDateTime ) {
             includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
             dayElement.innerHTML = "";
+
+            if ( _datePickerModeEnabled && dayIsToday ) {
+                dayElement.className += " cell-today";
+            } else {
+                dayElement.className = dayElement.className.replace( " cell-today", "" );
+            }
+
             dayText.className = dayMutedClass;
             dayText.className += dayIsToday && !_datePickerModeEnabled ? " today" : "";
             dayText.innerText = actualDay;
@@ -6468,6 +6478,22 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
+     * setCurrentDisplayDate().
+     * 
+     * Sets the current date that is being used in the main display.
+     * 
+     * @fires onSetDate
+     * 
+     * @param       {Object}    date                                        The Date() object to set.
+     */
+     this.setCurrentDisplayDate = function( date ) {
+        var newDate = new Date( date );
+
+        build( newDate );
+        triggerOptionsEventWithData( "onSetDate", newDate );
+    };
+
+    /**
      * getSelectedDatePickerDate().
      * 
      * Returns the current date that has been selected in DatePicker mode.
@@ -6479,19 +6505,19 @@ function calendarJs( id, options, startDateTime ) {
     };
 
     /**
-     * setCurrentDisplayDate().
+     * setSelectedDatePickerDate().
      * 
-     * Sets the current date that is being used in the main display.
+     * Sets the current date that is being used in DatePicker mode.
      * 
-     * @fires onSetDate
+     * @fires onDatePickerDateChanged
      * 
      * @param       {Object}    date                                        The Date() object to set.
      */
-    this.setCurrentDisplayDate = function( date ) {
+    this.setSelectedDatePickerDate = function( date ) {
         var newDate = new Date( date );
 
-        build( newDate );
-        triggerOptionsEventWithData( "onSetDate", newDate );
+        setSelectedDate( newDate, _datePickerInput );
+        triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
     };
 
     /**
@@ -6941,12 +6967,17 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onEventsCleared
      * 
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onEventsCleared" event should be triggered.
      */
-    this.clearEvents = function( updateEvents ) {
+    this.clearEvents = function( updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
         _events = {};
 
-        triggerOptionsEvent( "onEventsCleared" );
+        if ( triggerEvent ) {
+            triggerOptionsEvent( "onEventsCleared" );
+        }
 
         if ( updateEvents ) {
             buildDayEvents();
@@ -7017,15 +7048,19 @@ function calendarJs( id, options, startDateTime ) {
      * @fires       onGroupsCleared
      * 
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
      */
-    this.clearAllGroups = function( updateEvents ) {
+    this.clearAllGroups = function( updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
         getAllEventsFunc( function( event ) {
             event.group = null;
         } );
 
-        triggerOptionsEvent( "onGroupsCleared" );
+        if ( triggerEvent ) {
+            triggerOptionsEvent( "onGroupsCleared" );
+        }
 
         if ( updateEvents ) {
             buildDayEvents();
@@ -7041,7 +7076,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.1";
+        return "1.3.2";
     };
 
 

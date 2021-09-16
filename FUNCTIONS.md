@@ -49,15 +49,22 @@ Returns the current date that is being used in the main display.
 <br>
 ***Returns***: '*Object*' - A Date() object (day is always set to the 1st).
 
+### **setCurrentDisplayDate( *date* )**:
+Sets the current date that is being used in the main display.
+<br>
+***Fires***:  onSetDate
+<br>
+***Parameter: date***: '*Object*' - The Date() object to set.
+
 ### **getSelectedDatePickerDate()**:
 Returns the current date that has been selected in DatePicker mode.
 <br>
 ***Returns***: '*Object*' - A Date() object.
 
-### **setCurrentDisplayDate( *date* )**:
-Sets the current date that is being used in the main display.
+### **setSelectedDatePickerDate( *date* )**:
+Sets the current date that is being used in DatePicker mode.
 <br>
-***Fires***:  onSetDate
+***Fires***:  onDatePickerDateChanged
 <br>
 ***Parameter: date***: '*Object*' - The Date() object to set.
 
@@ -186,12 +193,14 @@ Removes an event.
 <br>
 ***Returns***: '*boolean*' - States if the event was removed.
 
-### **clearEvents( *updateEvents* )**:
+### **clearEvents( *updateEvents*, *triggerEvent* )**:
 Clears all the events.
 <br>
 ***Fires***:  onEventsCleared
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onEventsCleared" event should be triggered.
 
 ### **getEvents()**:
 Returns an array of the events available.
@@ -210,12 +219,14 @@ Returns an array of group names being used.
 <br>
 ***Returns***: '*Object[]*' - An array of the group names.
 
-### **clearAllGroups( *updateEvents* )**:
+### **clearAllGroups( *updateEvents*, *triggerEvent* )**:
 Clears all the event groups.
 <br>
 ***Fires***:  onGroupsCleared
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupsCleared" event should be triggered.
 
 ### **getVersion()**:
 Returns the version of Calendar.js.

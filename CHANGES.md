@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.2:
+- Added clearEvents() parameter "triggerEvent", which will fire the "onEventsCleared" event (if available).
+- Added clearAllGroups() parameter "triggerEvent", which will fire the "onGroupsCleared" event (if available).
+- The "Today" button on the main display toolbar is now shown when in DatePicker mode.
+- When the calendar is in DatePicker mode, the current day is now highlighted fully in the display.
+- Added public function setSelectedDatePickerDate(), which will set the currently selected a date in DatePicker mode.
+
 ### Version 1.3.1:
 - Fixed a fault that caused the repeating event images to have an :hover and :active behaviour.
 - Added "Hide Day" context menu support for the day headers (when more than 1 day is visible).
