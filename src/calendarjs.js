@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.2
+ * Calendar.js Library v1.3.3
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -347,6 +347,7 @@ function calendarJs( id, options, startDateTime ) {
         _events = {},
         _timer_CallSearchOptionsEvent = null,
         _timer_RefreshMainDisplay = null,
+        _timer_RefreshMainDisplay_Enabled = true,
         _eventDetails_Dragged_DateFrom = null,
         _eventDetails_Dragged = null,
         _cachedStyles = null,
@@ -5247,7 +5248,7 @@ function calendarJs( id, options, startDateTime ) {
      */
 
     function startAutoRefreshTimer() {
-        if ( _timer_RefreshMainDisplay === null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled ) {
+        if ( _timer_RefreshMainDisplay === null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
             _timer_RefreshMainDisplay = setInterval( function() {
                 refreshViews();
             }, _options.autoRefreshTimerDelay );
@@ -5255,7 +5256,7 @@ function calendarJs( id, options, startDateTime ) {
     }
 
     function clearAutoRefreshTimer() {
-        if ( _timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled ) {
+        if ( _timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
             clearTimeout( _timer_RefreshMainDisplay );
             _timer_RefreshMainDisplay = null;
         }
@@ -6379,6 +6380,8 @@ function calendarJs( id, options, startDateTime ) {
      * Starts the auto-refresh timer (if enabled).
      */
     this.startTheAutoRefreshTimer = function() {
+        _timer_RefreshMainDisplay_Enabled = true;
+
         startAutoRefreshTimer();
     };
 
@@ -6389,6 +6392,8 @@ function calendarJs( id, options, startDateTime ) {
      */
     this.stopTheAutoRefreshTimer = function() {
         clearAutoRefreshTimer();
+        
+        _timer_RefreshMainDisplay_Enabled = false;
     };
 
     /**
@@ -7076,7 +7081,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.2";
+        return "1.3.3";
     };
 
 
