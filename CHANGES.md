@@ -6,7 +6,6 @@
 - The "Today" button on the main display toolbar is now shown when in DatePicker mode.
 - When the calendar is in DatePicker mode, the current day is now highlighted fully in the display.
 - Added public function setSelectedDatePickerDate(), which will set the currently selected a date in DatePicker mode.
-- 
 
 ### Version 1.3.1:
 - Fixed a fault that caused the repeating event images to have an :hover and :active behaviour.
