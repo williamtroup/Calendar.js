@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.4.0:
+- 
+
 ### Version 1.3.3:
 - Fixed a fault that prevented the auto-refresh timer from being disabled from the "Configuration" dialog.
 
