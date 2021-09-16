@@ -3026,6 +3026,13 @@ function calendarJs( id, options, startDateTime ) {
             includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
             dayElement.innerHTML = "";
+
+            if ( _datePickerModeEnabled && dayIsToday ) {
+                dayElement.className += " cell-today";
+            } else {
+                dayElement.className = dayElement.className.replace( " cell-today", "" );
+            }
+
             dayText.className = dayMutedClass;
             dayText.className += dayIsToday && !_datePickerModeEnabled ? " today" : "";
             dayText.innerText = actualDay;
