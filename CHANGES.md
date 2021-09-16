@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.3:
+- 
+
 ### Version 1.3.2:
 - Added clearEvents() parameter "triggerEvent", which will fire the "onEventsCleared" event (if available).
 - Added clearAllGroups() parameter "triggerEvent", which will fire the "onGroupsCleared" event (if available).
