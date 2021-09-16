@@ -3,6 +3,7 @@
 ### Version 1.3.2:
 - Added clearEvents() parameter "triggerEvent", which will fire the "onEventsCleared" event (if available).
 - Added clearAllGroups() parameter "triggerEvent", which will fire the "onGroupsCleared" event (if available).
+- The "Today" button on the main display toolbar is now shown when in DatePicker mode.
 - 
 
 ### Version 1.3.1:
