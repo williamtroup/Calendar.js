@@ -277,6 +277,8 @@
  * @property    {boolean}   startsWith                                  States if the search should run a "starts with" check (defaults to false).
  * @property    {boolean}   endsWith                                    States if the search should run a "ends with" check (defaults to false).
  * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
+ * @property    {number}    left                                        States the left position of the dialog (defaults to null).
+ * @property    {number}    top                                         States the top position of the dialog (defaults to null).
  */
 
 
@@ -303,7 +305,9 @@ function calendarJs( id, options, startDateTime ) {
             searchUrl: false,
             startsWith: false,
             endsWith: false,
-            contains: true
+            contains: true,
+            left: null,
+            top: null
         },
         _keyCodes = {
             escape: 27,
@@ -4504,6 +4508,8 @@ function calendarJs( id, options, startDateTime ) {
         if ( _element_SearchDialog_IsMoving ) {
             _element_SearchDialog_IsMoving = false;
             _element_SearchDialog_Moved = true;
+
+            storeSearchOptions();
         }
     }
 
@@ -4547,8 +4553,18 @@ function calendarJs( id, options, startDateTime ) {
 
     function centerSearchDialog() {
         if ( !_element_SearchDialog_Moved ) {
-            _element_SearchDialog.style.left = ( _window.innerWidth / 2 - _element_SearchDialog.offsetWidth / 2 ) + "px";
-            _element_SearchDialog.style.top = ( _window.innerHeight / 2 - _element_SearchDialog.offsetHeight / 2 ) + "px";
+
+            if ( isDefinedNumber( _optionsForSearch.left ) ) {
+                _element_SearchDialog.style.left = _optionsForSearch.left + "px";
+            } else {
+                _element_SearchDialog.style.left = ( _window.innerWidth / 2 - _element_SearchDialog.offsetWidth / 2 ) + "px";
+            }
+    
+            if ( isDefinedNumber( _optionsForSearch.top ) ) {
+                _element_SearchDialog.style.top = _optionsForSearch.top + "px";
+            } else {
+                _element_SearchDialog.style.top = ( _window.innerHeight / 2 - _element_SearchDialog.offsetHeight / 2 ) + "px";
+            }
         }
     }
 
@@ -4694,6 +4710,8 @@ function calendarJs( id, options, startDateTime ) {
         _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
         _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
         _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
+        _optionsForSearch.left = _element_SearchDialog.offsetLeft;
+        _optionsForSearch.top = _element_SearchDialog.offsetTop;
 
         if ( _timer_CallSearchOptionsEvent !== null ) {
             clearTimeout( _timer_CallSearchOptionsEvent );

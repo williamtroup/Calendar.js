@@ -3,6 +3,7 @@
 ### Version 1.4.0:
 - Added new setting "openInFullScreenMode", which states if the calendar should be rendered in full screen mode.
 - The "Enable browser notifications" options in the "Configuration" dialog is now tabbed in slightly (shows which is belongs to).
+- Added new search settings "left" and "top", which states the left/top positions that should be used for the "Search" dialog.
 - 
 
 ### Version 1.3.3:

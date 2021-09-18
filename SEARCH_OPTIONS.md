@@ -18,3 +18,5 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 | *boolean* | startsWith | States if the search should run a "starts with" check (defaults to false). |
 | *boolean* | endsWith | States if the search should run a "ends with" check (defaults to false). |
 | *boolean* | contains | States if the search should run a "contains with" check (defaults to true). |
+| *number* | left | States the left position of the dialog (defaults to null). |
+| *number* | top | States the top position of the dialog (defaults to null). |
