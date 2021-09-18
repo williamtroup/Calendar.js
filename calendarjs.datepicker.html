@@ -41,8 +41,12 @@
     </body>
 
     <script>
-        var calendarInstance1 = new calendarJs( "myCalendar1" ),
-            calendarInstance2 = new calendarJs( "myCalendar2" );
+        var calendarInstance1 = new calendarJs( "myCalendar1", {
+                openInFullScreenMode: true
+            } ),
+            calendarInstance2 = new calendarJs( "myCalendar2", {
+                openInFullScreenMode: true
+            } );
 
         document.title += " - v" + calendarInstance1.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance1.getVersion();

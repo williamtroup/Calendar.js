@@ -258,6 +258,7 @@
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
+ * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
  */
 
 
@@ -7973,6 +7974,10 @@ function calendarJs( id, options, startDateTime ) {
 
         buildDefaultOptions( options );
         build( startDateTime, true );
+
+        if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
+            turnOnFullScreenMode();
+        }
 
     } ) ( document, window );
 }

@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.0:
+- Added new setting "openInFullScreenMode", which states if the calendar should be rendered in full screen mode.
 - 
 
 ### Version 1.3.3:
