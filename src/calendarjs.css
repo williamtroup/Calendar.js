@@ -2635,6 +2635,16 @@ div.calendar-dialog div.checkboxContainer label.checkbox {
   margin-bottom: 5px !important;
 }
 
+div.calendar label.checkbox-tabbed-in,
+div.calendar-dialog label.checkbox-tabbed-in {
+  margin-left: 25px;
+}
+
+div.calendar label.checkbox-tabbed-down,
+div.calendar-dialog label.checkbox-tabbed-down {
+  margin-top: 5px;
+}
+
 div.calendar label.checkbox,
 div.calendar-dialog label.checkbox {
   -moz-user-select: none;

@@ -4765,8 +4765,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_VisibleDays = buildTabContents( contents, false, false );
 
         _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
-        _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
-        _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in" )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down" )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
 
@@ -5558,11 +5558,13 @@ function calendarJs( id, options, startDateTime ) {
         return input;
     }
 
-    function buildCheckBox( container, labelText, onChangeEvent, name, checked ) {
+    function buildCheckBox( container, labelText, onChangeEvent, name, checked, extraClassName ) {
+        extraClassName = isDefined( extraClassName ) ? " " + extraClassName : "";
+
         var lineContents = createElement( "div" );
         container.appendChild( lineContents );
 
-        var label = createElement( "label", "checkbox" );
+        var label = createElement( "label", "checkbox" + extraClassName );
         label.innerText = labelText;
         lineContents.appendChild( label );
 

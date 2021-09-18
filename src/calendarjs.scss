@@ -1215,17 +1215,27 @@ div.calendar-dialog {
 
 div.calendar,
 div.calendar-dialog {
+    $checkbox-size-with-spacing: 25px;
+
     div.checkboxContainer {
         label.checkbox {
             margin-bottom: $spacing / 2 !important;
         }
     }
 
+    label.checkbox-tabbed-in {
+        margin-left: $checkbox-size-with-spacing;
+    }
+
+    label.checkbox-tabbed-down {
+        margin-top: 5px;
+    }
+
     label.checkbox {
         @include no-selection-allowed;
         display: inline-block;
         position: relative;
-        padding-left: 25px;
+        padding-left: $checkbox-size-with-spacing;
         padding-top: 1px;
         margin-bottom: $spacing;
         color: $dark-color;
