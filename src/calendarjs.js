@@ -7177,6 +7177,8 @@ function calendarJs( id, options, startDateTime ) {
         newSearchOptions = getOptions( newSearchOptions );
         triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
 
+        hideSearchDialog();
+
         for ( var propertyName in newSearchOptions ) {
             if ( newSearchOptions.hasOwnProperty( propertyName ) ) {
                 _optionsForSearch[ propertyName ] = newSearchOptions[ propertyName ];

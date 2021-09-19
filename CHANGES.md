@@ -5,6 +5,7 @@
 - The "Enable browser notifications" options in the "Configuration" dialog is now tabbed in slightly (shows which is belongs to).
 - Added new search settings "left" and "top", which states the left/top positions that should be used for the "Search" dialog.
 - Added "Edit" button support on the event tooltips (next to the "Close" button).  They are now stacked and and CSS controlled.
+- Calling the public function setSearchOptions() will now close the "Search" dialog and reset the last search.
 - 
 
 ### Version 1.3.3:

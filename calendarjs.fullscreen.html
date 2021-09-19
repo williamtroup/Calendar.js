@@ -40,6 +40,7 @@
 
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
+            <button onclick="setSearchOptions();">Set Search Options</button>
             <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
             <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
             <button onclick="addNewHoliday();">Add New Holiday</button>
@@ -120,6 +121,13 @@
                 visibleDays: [ 0, 1, 2, 3, 4 ],
                 allowEventScrollingOnMainDisplay: true,
                 showExtraMainDisplayToolbarButtons: false
+            } );
+        }
+
+        function setSearchOptions() {
+            calendarInstance.setSearchOptions( {
+                left: 10,
+                top: 10
             } );
         }
 
