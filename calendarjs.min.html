@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js - Minimized -</title>
+        <title>Calendar.js - Minimized</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="src/calendarjs.min.css" />
@@ -9,11 +9,9 @@
     </head>
     
     <body>
-        <h1 id="header">Welcome to Calendar.js</h1>
+        <h1 id="header">Welcome to Calendar.js - Minimized</h1>
 
         <div class="contents">
-            <p>Click <a href="calendarjs.html" target="_self">here</a> to jump to the un-minimized version.</p>
-
             <div id="myCalendar" style="max-width: 800px;">
                 <p>Some data that should be cleared.</p>
             </div>
@@ -42,6 +40,7 @@
             
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
+            <button onclick="setSearchOptions();">Set Search Options</button>
             <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
             <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
             <button onclick="addNewHoliday();">Add New Holiday</button>
@@ -79,8 +78,8 @@
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
         } );
 
-        document.title += " v" + calendarInstance.getVersion();
-        document.getElementById( "header" ).innerText += " v" + calendarInstance.getVersion();
+        document.title += " - v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
 
         calendarInstance.addEvents( getEvents() );
 
@@ -120,6 +119,13 @@
                 visibleDays: [ 0, 1, 2, 3, 4 ],
                 allowEventScrollingOnMainDisplay: true,
                 showExtraMainDisplayToolbarButtons: false
+            } );
+        }
+
+        function setSearchOptions() {
+            calendarInstance.setSearchOptions( {
+                left: 10,
+                top: 10
             } );
         }
 

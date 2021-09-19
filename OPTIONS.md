@@ -42,6 +42,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | defaultEventTextColor | States the default text color that should be used for events (defaults to "#F5F5F5"). |
 | *string* | defaultEventBorderColor | States the default border color that should be used for events (defaults to "#282828"). |
 | *boolean* | showExtraMainDisplayToolbarButtons | States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true). |
+| *boolean* | openInFullScreenMode | States if full screen mode should be turned on when the calendar is rendered (defaults to false). |
 
 <br/>
 

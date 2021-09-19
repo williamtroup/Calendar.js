@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.3
+ * Calendar.js Library v1.3.4
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -258,6 +258,7 @@
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
+ * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
  */
 
 
@@ -276,6 +277,8 @@
  * @property    {boolean}   startsWith                                  States if the search should run a "starts with" check (defaults to false).
  * @property    {boolean}   endsWith                                    States if the search should run a "ends with" check (defaults to false).
  * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
+ * @property    {number}    left                                        States the left position of the dialog (defaults to null).
+ * @property    {number}    top                                         States the top position of the dialog (defaults to null).
  */
 
 
@@ -302,7 +305,9 @@ function calendarJs( id, options, startDateTime ) {
             searchUrl: false,
             startsWith: false,
             endsWith: false,
-            contains: true
+            contains: true,
+            left: null,
+            top: null
         },
         _keyCodes = {
             escape: 27,
@@ -457,7 +462,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_TSV = null,
         _element_SelectExportTypeDialog_ExportEvents = null,
         _element_Tooltip = null,
-        _element_Tooltip_CloseButton = null,
+        _element_Tooltip_TitleButtons = null,
+        _element_Tooltip_TitleButtons_CloseButton = null,
+        _element_Tooltip_TitleButtons_EditButton = null,
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
         _element_Tooltip_TotalTime = null,
@@ -824,8 +831,10 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function turnOnFullScreenMode() {
-        if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
+    function turnOnFullScreenMode( onLoad ) {
+        onLoad = isDefined( onLoad ) ? onLoad : false;
+
+        if ( !_isFullScreenModeActivated && ( _options.fullScreenModeEnabled || onLoad ) ) {
             _cachedStyles = _element_Calendar.style.cssText;
             _isFullScreenModeActivated = true;
             _element_Calendar.className += " full-screen-view";
@@ -833,7 +842,10 @@ function calendarJs( id, options, startDateTime ) {
 
             updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
             refreshOpenedViews();
-            triggerOptionsEventWithData( "onFullScreenModeChanged", true );
+
+            if ( !onLoad ) {
+                triggerOptionsEventWithData( "onFullScreenModeChanged", true );
+            }
         }
     }
 
@@ -4503,6 +4515,8 @@ function calendarJs( id, options, startDateTime ) {
         if ( _element_SearchDialog_IsMoving ) {
             _element_SearchDialog_IsMoving = false;
             _element_SearchDialog_Moved = true;
+
+            storeSearchOptions();
         }
     }
 
@@ -4546,8 +4560,18 @@ function calendarJs( id, options, startDateTime ) {
 
     function centerSearchDialog() {
         if ( !_element_SearchDialog_Moved ) {
-            _element_SearchDialog.style.left = ( _window.innerWidth / 2 - _element_SearchDialog.offsetWidth / 2 ) + "px";
-            _element_SearchDialog.style.top = ( _window.innerHeight / 2 - _element_SearchDialog.offsetHeight / 2 ) + "px";
+
+            if ( isDefinedNumber( _optionsForSearch.left ) ) {
+                _element_SearchDialog.style.left = _optionsForSearch.left + "px";
+            } else {
+                _element_SearchDialog.style.left = ( _window.innerWidth / 2 - _element_SearchDialog.offsetWidth / 2 ) + "px";
+            }
+    
+            if ( isDefinedNumber( _optionsForSearch.top ) ) {
+                _element_SearchDialog.style.top = _optionsForSearch.top + "px";
+            } else {
+                _element_SearchDialog.style.top = ( _window.innerHeight / 2 - _element_SearchDialog.offsetHeight / 2 ) + "px";
+            }
         }
     }
 
@@ -4693,6 +4717,8 @@ function calendarJs( id, options, startDateTime ) {
         _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
         _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
         _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
+        _optionsForSearch.left = _element_SearchDialog.offsetLeft;
+        _optionsForSearch.top = _element_SearchDialog.offsetTop;
 
         if ( _timer_CallSearchOptionsEvent !== null ) {
             clearTimeout( _timer_CallSearchOptionsEvent );
@@ -4764,8 +4790,8 @@ function calendarJs( id, options, startDateTime ) {
         _element_ConfigurationDialog_VisibleDays = buildTabContents( contents, false, false );
 
         _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
-        _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText )[ 0 ];
-        _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in" )[ 0 ];
+        _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down" )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
 
@@ -4964,7 +4990,13 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip = createElement( "div" );
             _document.body.appendChild( _element_Tooltip );
 
-            _element_Tooltip_CloseButton = createElement( "div", "ib-close" );
+            _element_Tooltip_TitleButtons_CloseButton = createElement( "div", "ib-close" );
+            _element_Tooltip_TitleButtons_EditButton = createElement( "div", "ib-plus" );
+
+            _element_Tooltip_TitleButtons = createElement( "div", "title-buttons" );
+            _element_Tooltip_TitleButtons.appendChild( _element_Tooltip_TitleButtons_CloseButton );
+            _element_Tooltip_TitleButtons.appendChild( _element_Tooltip_TitleButtons_EditButton );
+
             _element_Tooltip_Title = createElement( "div", "title" );
             _element_Tooltip_Date = createElement( "div", "date" );
             _element_Tooltip_TotalTime = createElement( "div", "duration" );
@@ -4972,7 +5004,10 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip_Description = createElement( "div", "description" );
             _element_Tooltip_Location = createElement( "div", "location" );
 
-            _element_Tooltip_CloseButton.onclick = hideTooltip;
+            _element_Tooltip_TitleButtons_CloseButton.onclick = hideTooltip;
+            _element_Tooltip_TitleButtons_EditButton.onclick = function() {
+                showEventEditingDialog( _element_Tooltip_EventDetails );
+            };
 
             document.body.addEventListener( "mousemove", hideTooltip );
         }
@@ -5001,7 +5036,7 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.innerHTML = "";
                         _element_Tooltip_Title.innerHTML = "";
                         _element_Tooltip_TotalTime.innerHTML = "";
-                        _element_Tooltip.appendChild( _element_Tooltip_CloseButton );
+                        _element_Tooltip.appendChild( _element_Tooltip_TitleButtons );
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip.appendChild( _element_Tooltip_TotalTime );
@@ -5557,11 +5592,13 @@ function calendarJs( id, options, startDateTime ) {
         return input;
     }
 
-    function buildCheckBox( container, labelText, onChangeEvent, name, checked ) {
+    function buildCheckBox( container, labelText, onChangeEvent, name, checked, extraClassName ) {
+        extraClassName = isDefined( extraClassName ) ? " " + extraClassName : "";
+
         var lineContents = createElement( "div" );
         container.appendChild( lineContents );
 
-        var label = createElement( "label", "checkbox" );
+        var label = createElement( "label", "checkbox" + extraClassName );
         label.innerText = labelText;
         lineContents.appendChild( label );
 
@@ -7081,7 +7118,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.3";
+        return "1.3.4";
     };
 
 
@@ -7139,6 +7176,8 @@ function calendarJs( id, options, startDateTime ) {
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         newSearchOptions = getOptions( newSearchOptions );
         triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        hideSearchDialog();
 
         for ( var propertyName in newSearchOptions ) {
             if ( newSearchOptions.hasOwnProperty( propertyName ) ) {
@@ -7973,6 +8012,10 @@ function calendarJs( id, options, startDateTime ) {
 
         buildDefaultOptions( options );
         build( startDateTime, true );
+
+        if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
+            turnOnFullScreenMode( true );
+        }
 
     } ) ( document, window );
 }

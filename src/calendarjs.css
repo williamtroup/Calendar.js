@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.3
+ * Calendar.js Library v1.3.4
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -2635,6 +2635,16 @@ div.calendar-dialog div.checkboxContainer label.checkbox {
   margin-bottom: 5px !important;
 }
 
+div.calendar label.checkbox-tabbed-in,
+div.calendar-dialog label.checkbox-tabbed-in {
+  margin-left: 25px;
+}
+
+div.calendar label.checkbox-tabbed-down,
+div.calendar-dialog label.checkbox-tabbed-down {
+  margin-top: 5px;
+}
+
 div.calendar label.checkbox,
 div.calendar-dialog label.checkbox {
   -moz-user-select: none;
@@ -2840,7 +2850,7 @@ div.calendar-tooltip-event div:last-child {
 div.calendar-tooltip div.title,
 div.calendar-tooltip-event div.title {
   font-weight: 900;
-  width: calc(100% - 12px - 10px);
+  width: calc(100% - 24px - 10px);
 }
 
 div.calendar-tooltip div.date,
@@ -2871,14 +2881,21 @@ div.calendar-tooltip-event {
   max-width: 300px;
 }
 
-div.calendar-tooltip-event div.ib-close {
+div.calendar-tooltip-event div.title-buttons {
   position: absolute !important;
-  display: block !important;
   right: 10px;
   top: 10px;
 }
 
-div.calendar-tooltip-event div.ib-close::before, div.calendar-tooltip-event div.ib-close::after {
+div.calendar-tooltip-event div.title-buttons div.ib-close,
+div.calendar-tooltip-event div.title-buttons div.ib-plus {
+  margin-left: 5px;
+  float: right;
+}
+
+div.calendar-tooltip-event div.title-buttons div.ib-close::before, div.calendar-tooltip-event div.title-buttons div.ib-close::after,
+div.calendar-tooltip-event div.title-buttons div.ib-plus::before,
+div.calendar-tooltip-event div.title-buttons div.ib-plus::after {
   background-color: #282828;
 }
 
