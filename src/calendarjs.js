@@ -831,8 +831,10 @@ function calendarJs( id, options, startDateTime ) {
         }
     }
 
-    function turnOnFullScreenMode() {
-        if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
+    function turnOnFullScreenMode( onLoad ) {
+        onLoad = isDefined( onLoad ) ? onLoad : false;
+
+        if ( !_isFullScreenModeActivated && ( _options.fullScreenModeEnabled || onLoad ) ) {
             _cachedStyles = _element_Calendar.style.cssText;
             _isFullScreenModeActivated = true;
             _element_Calendar.className += " full-screen-view";
@@ -840,7 +842,10 @@ function calendarJs( id, options, startDateTime ) {
 
             updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
             refreshOpenedViews();
-            triggerOptionsEventWithData( "onFullScreenModeChanged", true );
+
+            if ( !onLoad ) {
+                triggerOptionsEventWithData( "onFullScreenModeChanged", true );
+            }
         }
     }
 
@@ -8007,7 +8012,7 @@ function calendarJs( id, options, startDateTime ) {
         build( startDateTime, true );
 
         if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
-            turnOnFullScreenMode();
+            turnOnFullScreenMode( true );
         }
 
     } ) ( document, window );
