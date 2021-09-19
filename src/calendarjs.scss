@@ -1416,15 +1416,20 @@ div.calendar-tooltip {
 div.calendar-tooltip-event {
     max-width: 300px;
 
-    div.ib-close {
+    div.title-buttons {
         position: absolute !important;
-        display: block !important;
         right: $spacing;
         top: $spacing;
 
-        &::before,
-        &::after {
-            background-color: $dark-color;
+        div.ib-close,
+        div.ib-plus {
+            margin-left: $spacing / 2;
+            float: right;
+
+            &::before,
+            &::after {
+                background-color: $dark-color;
+            }
         }
     }
 }

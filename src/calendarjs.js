@@ -462,7 +462,9 @@ function calendarJs( id, options, startDateTime ) {
         _element_SelectExportTypeDialog_Option_TSV = null,
         _element_SelectExportTypeDialog_ExportEvents = null,
         _element_Tooltip = null,
-        _element_Tooltip_CloseButton = null,
+        _element_Tooltip_TitleButtons = null,
+        _element_Tooltip_TitleButtons_CloseButton = null,
+        _element_Tooltip_TitleButtons_EditButton = null,
         _element_Tooltip_Title = null,
         _element_Tooltip_Date = null,
         _element_Tooltip_TotalTime = null,
@@ -4983,7 +4985,13 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip = createElement( "div" );
             _document.body.appendChild( _element_Tooltip );
 
-            _element_Tooltip_CloseButton = createElement( "div", "ib-close" );
+            _element_Tooltip_TitleButtons_CloseButton = createElement( "div", "ib-close" );
+            _element_Tooltip_TitleButtons_EditButton = createElement( "div", "ib-plus" );
+
+            _element_Tooltip_TitleButtons = createElement( "div", "title-buttons" );
+            _element_Tooltip_TitleButtons.appendChild( _element_Tooltip_TitleButtons_CloseButton );
+            _element_Tooltip_TitleButtons.appendChild( _element_Tooltip_TitleButtons_EditButton );
+
             _element_Tooltip_Title = createElement( "div", "title" );
             _element_Tooltip_Date = createElement( "div", "date" );
             _element_Tooltip_TotalTime = createElement( "div", "duration" );
@@ -4991,7 +4999,10 @@ function calendarJs( id, options, startDateTime ) {
             _element_Tooltip_Description = createElement( "div", "description" );
             _element_Tooltip_Location = createElement( "div", "location" );
 
-            _element_Tooltip_CloseButton.onclick = hideTooltip;
+            _element_Tooltip_TitleButtons_CloseButton.onclick = hideTooltip;
+            _element_Tooltip_TitleButtons_EditButton.onclick = function() {
+                showEventEditingDialog( _element_Tooltip_EventDetails );
+            };
 
             document.body.addEventListener( "mousemove", hideTooltip );
         }
@@ -5020,7 +5031,7 @@ function calendarJs( id, options, startDateTime ) {
                         _element_Tooltip.innerHTML = "";
                         _element_Tooltip_Title.innerHTML = "";
                         _element_Tooltip_TotalTime.innerHTML = "";
-                        _element_Tooltip.appendChild( _element_Tooltip_CloseButton );
+                        _element_Tooltip.appendChild( _element_Tooltip_TitleButtons );
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip.appendChild( _element_Tooltip_TotalTime );
