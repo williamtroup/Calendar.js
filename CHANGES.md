@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.5:
+- All settings passed to the constructor now have to use the right type (otherwise they will be rejected).
 - 
 
 ### Version 1.3.4:
