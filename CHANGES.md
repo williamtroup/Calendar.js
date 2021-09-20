@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.5:
+- 
+
 ### Version 1.3.4:
 - Added new setting "openInFullScreenMode", which states if the calendar should be rendered in full-screen mode.
 - The "Enable browser notifications" options in the "Configuration" dialog is now tabbed in slightly (shows which it belongs to).
