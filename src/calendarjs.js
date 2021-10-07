@@ -887,6 +887,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         container.appendChild( _element_Calendar );
 
         _datePickerInput.onclick = toggleDatePickerModeVisible;
+        _datePickerInput.onkeydown = onDatePickerInputKeyDown;
         _document.addEventListener( "click", hideDatePickerMode );
 
         resetOptionsForDatePickerMode();
@@ -923,6 +924,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         _datePickerVisible = !_datePickerVisible;
+    }
+
+    function onDatePickerInputKeyDown( e ) {
+        if ( e.keyCode === _keyCodes.escape && _datePickerVisible ) {
+            _element_Calendar.className = "calendar calendar-hidden";
+            _datePickerVisible = !_datePickerVisible;
+            
+            hideAllDropDowns();
+        }
     }
 
     function hideDatePickerMode() {

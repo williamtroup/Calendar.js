@@ -4,6 +4,7 @@
 - All settings passed to the constructor now have to use the right type (otherwise they will be rejected).
 - The constructor now accepts the search options as the 3rd parameter (startDateTime is now the 4th).
 - Added support to check the default search options passed via the constructor.
+- In DatePicker mode, pressing escape in the text field will now close the calendar.
 - 
 
 ### Version 1.3.4:
