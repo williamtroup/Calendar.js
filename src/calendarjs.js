@@ -978,7 +978,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
             if ( newDate instanceof Date && !isNaN( newDate ) ) {
                 if ( isDefinedFunction( func ) ) {
-                    func( newDate );
+                    func( new Date( newDate ) );
                 }
                 
                 _currentDateForDatePicker = newDate;
