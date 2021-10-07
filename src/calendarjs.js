@@ -951,6 +951,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             setSelectedDate( date, _datePickerInput );
             hideDatePickerMode();
             triggerOptionsEventWithData( "onDatePickerDateChanged", date );
+
+            _currentDateForDatePicker = new Date( date );
             
         } else {
             hideAllDropDowns();
