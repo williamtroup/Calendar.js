@@ -291,24 +291,12 @@
  * 
  * @param       {string}    id                                          The ID of the element that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
+ * @param       {Object}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
  * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
  */
-function calendarJs( id, options, startDateTime ) {
+function calendarJs( id, options, searchOptions, startDateTime ) {
     var _options = {},
-        _optionsForSearch = {
-            matchCase: false,
-            showAdvanced: true,
-            searchTitle: true,
-            searchLocation: false,
-            searchDescription: false,
-            searchGroup: false,
-            searchUrl: false,
-            startsWith: false,
-            endsWith: false,
-            contains: true,
-            left: null,
-            top: null
-        },
+        _optionsForSearch = {},
         _keyCodes = {
             escape: 27,
             left: 37,
@@ -7359,6 +7347,58 @@ function calendarJs( id, options, startDateTime ) {
         checkForBrowserNotificationsPermission();
     }
 
+    function buildDefaultSearchOptions( newSearchOptions ) {
+        _optionsForSearch = getOptions( newSearchOptions );
+
+        if ( !isDefinedBoolean( _optionsForSearch.matchCase ) ) {
+            _optionsForSearch.matchCase = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.showAdvanced ) ) {
+            _optionsForSearch.showAdvanced = true;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchTitle ) ) {
+            _optionsForSearch.searchTitle = true;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchLocation ) ) {
+            _optionsForSearch.searchLocation = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchDescription ) ) {
+            _optionsForSearch.searchDescription = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchGroup ) ) {
+            _optionsForSearch.searchGroup = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchUrl ) ) {
+            _optionsForSearch.searchUrl = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.startsWith ) ) {
+            _optionsForSearch.startsWith = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.endsWith ) ) {
+            _optionsForSearch.endsWith = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.contains ) ) {
+            _optionsForSearch.contains = true;
+        }
+
+        if ( !isDefinedNumber( _optionsForSearch.left ) ) {
+            _optionsForSearch.left = null;
+        }
+
+        if ( !isDefinedNumber( _optionsForSearch.top ) ) {
+            _optionsForSearch.top = null;
+        }
+    }
+
     function setTranslationStringOptions() {
         if ( !isDefinedString( _options.previousMonthTooltipText ) ) {
             _options.previousMonthTooltipText = "Previous Month";
@@ -8011,6 +8051,7 @@ function calendarJs( id, options, startDateTime ) {
         _elementID = id;
 
         buildDefaultOptions( options );
+        buildDefaultSearchOptions( searchOptions );
         build( startDateTime, true );
 
         if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
