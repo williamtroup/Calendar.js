@@ -6,7 +6,6 @@
 - Added support to check the default search options passed via the constructor and apply defaults if anything is wrong.
 - In DatePicker mode, pressing escape in the text field will now close the calendar.
 - Fixed a fault that caused getSelectedDatePickerDate() to return the wrong date (set internally incorrectly).
-- 
 
 ### Version 1.3.4:
 - Added new setting "openInFullScreenMode", which states if the calendar should be rendered in full-screen mode.
