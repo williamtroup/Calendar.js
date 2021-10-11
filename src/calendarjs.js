@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.4
+ * Calendar.js Library v1.3.5
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -291,24 +291,12 @@
  * 
  * @param       {string}    id                                          The ID of the element that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
+ * @param       {Object}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
  * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
  */
-function calendarJs( id, options, startDateTime ) {
+function calendarJs( id, options, searchOptions, startDateTime ) {
     var _options = {},
-        _optionsForSearch = {
-            matchCase: false,
-            showAdvanced: true,
-            searchTitle: true,
-            searchLocation: false,
-            searchDescription: false,
-            searchGroup: false,
-            searchUrl: false,
-            startsWith: false,
-            endsWith: false,
-            contains: true,
-            left: null,
-            top: null
-        },
+        _optionsForSearch = {},
         _keyCodes = {
             escape: 27,
             left: 37,
@@ -899,6 +887,7 @@ function calendarJs( id, options, startDateTime ) {
         container.appendChild( _element_Calendar );
 
         _datePickerInput.onclick = toggleDatePickerModeVisible;
+        _datePickerInput.onkeydown = onDatePickerInputKeyDown;
         _document.addEventListener( "click", hideDatePickerMode );
 
         resetOptionsForDatePickerMode();
@@ -937,6 +926,15 @@ function calendarJs( id, options, startDateTime ) {
         _datePickerVisible = !_datePickerVisible;
     }
 
+    function onDatePickerInputKeyDown( e ) {
+        if ( e.keyCode === _keyCodes.escape && _datePickerVisible ) {
+            _element_Calendar.className = "calendar calendar-hidden";
+            _datePickerVisible = !_datePickerVisible;
+            
+            hideAllDropDowns();
+        }
+    }
+
     function hideDatePickerMode() {
         if ( _datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-hidden";
@@ -953,6 +951,8 @@ function calendarJs( id, options, startDateTime ) {
             setSelectedDate( date, _datePickerInput );
             hideDatePickerMode();
             triggerOptionsEventWithData( "onDatePickerDateChanged", date );
+
+            _currentDateForDatePicker = new Date( date );
             
         } else {
             hideAllDropDowns();
@@ -980,7 +980,7 @@ function calendarJs( id, options, startDateTime ) {
             var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
             if ( newDate instanceof Date && !isNaN( newDate ) ) {
                 if ( isDefinedFunction( func ) ) {
-                    func( newDate );
+                    func( new Date( newDate ) );
                 }
                 
                 _currentDateForDatePicker = newDate;
@@ -7118,7 +7118,7 @@ function calendarJs( id, options, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.4";
+        return "1.3.5";
     };
 
 
@@ -7215,111 +7215,111 @@ function calendarJs( id, options, startDateTime ) {
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
 
-        if ( !isDefined( _options.showDayNumberOrdinals ) ) {
+        if ( !isDefinedBoolean( _options.showDayNumberOrdinals ) ) {
             _options.showDayNumberOrdinals = true;
         }
 
-        if ( !isDefined( _options.dragAndDropForEventsEnabled ) ) {
+        if ( !isDefinedBoolean( _options.dragAndDropForEventsEnabled ) ) {
             _options.dragAndDropForEventsEnabled = true;
         }
 
-        if ( !isDefined( _options.maximumEventsPerDayDisplay ) ) {
+        if ( !isDefinedNumber( _options.maximumEventsPerDayDisplay ) ) {
             _options.maximumEventsPerDayDisplay = 3;
         }
 
-        if ( !isDefined( _options.extraSelectableYearsAhead ) ) {
+        if ( !isDefinedNumber( _options.extraSelectableYearsAhead ) ) {
             _options.extraSelectableYearsAhead = 51;
         }
 
-        if ( !isDefined( _options.exportEventsEnabled ) ) {
+        if ( !isDefinedBoolean( _options.exportEventsEnabled ) ) {
             _options.exportEventsEnabled = true;
         }
 
-        if ( !isDefined( _options.manualEditingEnabled ) ) {
+        if ( !isDefinedBoolean( _options.manualEditingEnabled ) ) {
             _options.manualEditingEnabled = true;
         }
 
-        if ( !isDefined( _options.showTimesInMainCalendarEvents ) ) {
+        if ( !isDefinedBoolean( _options.showTimesInMainCalendarEvents ) ) {
             _options.showTimesInMainCalendarEvents = false;
         }
 
-        if ( !isDefined( _options.autoRefreshTimerDelay ) ) {
+        if ( !isDefinedNumber( _options.autoRefreshTimerDelay ) ) {
             _options.autoRefreshTimerDelay = 30000;
         }
 
-        if ( !isDefined( _options.fullScreenModeEnabled ) ) {
+        if ( !isDefinedBoolean( _options.fullScreenModeEnabled ) ) {
             _options.fullScreenModeEnabled = true;
         }
 
-        if ( !isDefined( _options.eventTooltipDelay ) ) {
+        if ( !isDefinedNumber( _options.eventTooltipDelay ) ) {
             _options.eventTooltipDelay = 1000;
         }
 
-        if ( !isDefined( _options.minimumDayHeight ) ) {
+        if ( !isDefinedNumber( _options.minimumDayHeight ) ) {
             _options.minimumDayHeight = 0;
         }
 
-        if ( !isDefined( _options.holidays ) ) {
+        if ( !isDefinedArray( _options.holidays ) ) {
             _options.holidays = getStandardHolidays();
         }
 
-        if ( !isDefined( _options.organizerName ) ) {
+        if ( !isDefinedString( _options.organizerName ) ) {
             _options.organizerName = "";
         }
         
-        if ( !isDefined( _options.organizerEmailAddress ) ) {
+        if ( !isDefinedString( _options.organizerEmailAddress ) ) {
             _options.organizerEmailAddress = "";
         }
 
-        if ( !isDefined( _options.spacing ) ) {
+        if ( !isDefinedNumber( _options.spacing ) ) {
             _options.spacing = 10;
         }
 
-        if ( !isDefined( _options.showAllDayEventDetailsInFullDayView ) ) {
+        if ( !isDefinedBoolean( _options.showAllDayEventDetailsInFullDayView ) ) {
             _options.showAllDayEventDetailsInFullDayView = false;
         }
 
-        if ( !isDefined( _options.showWeekNumbersInTitles ) ) {
+        if ( !isDefinedBoolean( _options.showWeekNumbersInTitles ) ) {
             _options.showWeekNumbersInTitles = false;
         }
 
-        if ( !isDefined( _options.showTimelineArrowOnFullDayView ) ) {
+        if ( !isDefinedBoolean( _options.showTimelineArrowOnFullDayView ) ) {
             _options.showTimelineArrowOnFullDayView = true;
         }
 
-        if ( !isDefined( _options.maximumEventTitleLength ) ) {
+        if ( !isDefinedNumber( _options.maximumEventTitleLength ) ) {
             _options.maximumEventTitleLength = 0;
         }
 
-        if ( !isDefined( _options.maximumEventDescriptionLength ) ) {
+        if ( !isDefinedNumber( _options.maximumEventDescriptionLength ) ) {
             _options.maximumEventDescriptionLength = 0;
         }
 
-        if ( !isDefined( _options.maximumEventLocationLength ) ) {
+        if ( !isDefinedNumber( _options.maximumEventLocationLength ) ) {
             _options.maximumEventLocationLength = 0;
         }
 
-        if ( !isDefined( _options.maximumEventGroupLength ) ) {
+        if ( !isDefinedNumber( _options.maximumEventGroupLength ) ) {
             _options.maximumEventGroupLength = 0;
         }
 
-        if ( !isDefined( _options.eventNotificationsEnabled ) ) {
+        if ( !isDefinedBoolean( _options.eventNotificationsEnabled ) ) {
             _options.eventNotificationsEnabled = false;
         }
 
-        if ( !isDefined( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
+        if ( !isDefinedBoolean( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
             _options.showPreviousNextMonthNamesInMainDisplay = true;
         }
 
-        if ( !isDefined( _options.showDayNamesInMainDisplay ) ) {
+        if ( !isDefinedBoolean( _options.showDayNamesInMainDisplay ) ) {
             _options.showDayNamesInMainDisplay = true;
         }
 
-        if ( !isDefined( _options.tooltipsEnabled ) ) {
+        if ( !isDefinedBoolean( _options.tooltipsEnabled ) ) {
             _options.tooltipsEnabled = true;
         }
 
-        if ( !isDefined( _options.useOnlyDotEventsForMainDisplay ) ) {
+        if ( !isDefinedBoolean( _options.useOnlyDotEventsForMainDisplay ) ) {
             _options.useOnlyDotEventsForMainDisplay = false;
         }
 
@@ -7327,7 +7327,7 @@ function calendarJs( id, options, startDateTime ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
         }
 
-        if ( !isDefined( _options.allowEventScrollingOnMainDisplay ) ) {
+        if ( !isDefinedBoolean( _options.allowEventScrollingOnMainDisplay ) ) {
             _options.allowEventScrollingOnMainDisplay = false;
 
             if ( _options.allowEventScrollingOnMainDisplay ) {
@@ -7335,23 +7335,23 @@ function calendarJs( id, options, startDateTime ) {
             }
         }
 
-        if ( !isDefined( _options.urlWindowTarget ) ) {
+        if ( !isDefinedString( _options.urlWindowTarget ) ) {
             _options.urlWindowTarget = "_blank";
         }
 
-        if ( !isDefined( _options.defaultEventBackgroundColor ) ) {
+        if ( !isDefinedString( _options.defaultEventBackgroundColor ) ) {
             _options.defaultEventBackgroundColor = "#484848";
         }
 
-        if ( !isDefined( _options.defaultEventTextColor ) ) {
+        if ( !isDefinedString( _options.defaultEventTextColor ) ) {
             _options.defaultEventTextColor = "#F5F5F5";
         }
 
-        if ( !isDefined( _options.defaultEventBorderColor ) ) {
+        if ( !isDefinedString( _options.defaultEventBorderColor ) ) {
             _options.defaultEventBorderColor = "#282828";
         }
 
-        if ( !isDefined( _options.showExtraMainDisplayToolbarButtons ) ) {
+        if ( !isDefinedBoolean( _options.showExtraMainDisplayToolbarButtons ) ) {
             _options.showExtraMainDisplayToolbarButtons = true;
         }
 
@@ -7359,64 +7359,116 @@ function calendarJs( id, options, startDateTime ) {
         checkForBrowserNotificationsPermission();
     }
 
+    function buildDefaultSearchOptions( newSearchOptions ) {
+        _optionsForSearch = getOptions( newSearchOptions );
+
+        if ( !isDefinedBoolean( _optionsForSearch.matchCase ) ) {
+            _optionsForSearch.matchCase = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.showAdvanced ) ) {
+            _optionsForSearch.showAdvanced = true;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchTitle ) ) {
+            _optionsForSearch.searchTitle = true;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchLocation ) ) {
+            _optionsForSearch.searchLocation = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchDescription ) ) {
+            _optionsForSearch.searchDescription = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchGroup ) ) {
+            _optionsForSearch.searchGroup = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.searchUrl ) ) {
+            _optionsForSearch.searchUrl = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.startsWith ) ) {
+            _optionsForSearch.startsWith = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.endsWith ) ) {
+            _optionsForSearch.endsWith = false;
+        }
+
+        if ( !isDefinedBoolean( _optionsForSearch.contains ) ) {
+            _optionsForSearch.contains = true;
+        }
+
+        if ( !isDefinedNumber( _optionsForSearch.left ) ) {
+            _optionsForSearch.left = null;
+        }
+
+        if ( !isDefinedNumber( _optionsForSearch.top ) ) {
+            _optionsForSearch.top = null;
+        }
+    }
+
     function setTranslationStringOptions() {
-        if ( !isDefined( _options.previousMonthTooltipText ) ) {
+        if ( !isDefinedString( _options.previousMonthTooltipText ) ) {
             _options.previousMonthTooltipText = "Previous Month";
         }
 
-        if ( !isDefined( _options.nextMonthTooltipText ) ) {
+        if ( !isDefinedString( _options.nextMonthTooltipText ) ) {
             _options.nextMonthTooltipText = "Next Month";
         }
 
-        if ( !isDefined( _options.previousDayTooltipText ) ) {
+        if ( !isDefinedString( _options.previousDayTooltipText ) ) {
             _options.previousDayTooltipText = "Previous Day";
         }
 
-        if ( !isDefined( _options.nextDayTooltipText ) ) {
+        if ( !isDefinedString( _options.nextDayTooltipText ) ) {
             _options.nextDayTooltipText = "Next Day";
         }
 
-        if ( !isDefined( _options.previousWeekTooltipText ) ) {
+        if ( !isDefinedString( _options.previousWeekTooltipText ) ) {
             _options.previousWeekTooltipText = "Previous Week";
         }
 
-        if ( !isDefined( _options.nextWeekTooltipText ) ) {
+        if ( !isDefinedString( _options.nextWeekTooltipText ) ) {
             _options.nextWeekTooltipText = "Next Week";
         }
 
-        if ( !isDefined( _options.addEventTooltipText ) ) {
+        if ( !isDefinedString( _options.addEventTooltipText ) ) {
             _options.addEventTooltipText = "Add Event";
         }
 
-        if ( !isDefined( _options.closeTooltipText ) ) {
+        if ( !isDefinedString( _options.closeTooltipText ) ) {
             _options.closeTooltipText = "Close";
         }
 
-        if ( !isDefined( _options.exportEventsTooltipText ) ) {
+        if ( !isDefinedString( _options.exportEventsTooltipText ) ) {
             _options.exportEventsTooltipText = "Export Events";
         }
 
-        if ( !isDefined( _options.todayTooltipText ) ) {
+        if ( !isDefinedString( _options.todayTooltipText ) ) {
             _options.todayTooltipText = "Today";
         }
 
-        if ( !isDefined( _options.refreshTooltipText ) ) {
+        if ( !isDefinedString( _options.refreshTooltipText ) ) {
             _options.refreshTooltipText = "Refresh";
         }
 
-        if ( !isDefined( _options.searchTooltipText ) ) {
+        if ( !isDefinedString( _options.searchTooltipText ) ) {
             _options.searchTooltipText = "Search";
         }
 
-        if ( !isDefined( _options.expandDayTooltipText ) ) {
+        if ( !isDefinedString( _options.expandDayTooltipText ) ) {
             _options.expandDayTooltipText = "Expand Day";
         }
 
-        if ( !isDefined( _options.listAllEventsTooltipText ) ) {
+        if ( !isDefinedString( _options.listAllEventsTooltipText ) ) {
             _options.listAllEventsTooltipText = "View All Events";
         }
 
-        if ( !isDefined( _options.listWeekEventsTooltipText ) ) {
+        if ( !isDefinedString( _options.listWeekEventsTooltipText ) ) {
             _options.listWeekEventsTooltipText = "View Current Week Events";
         }
 
@@ -7461,463 +7513,463 @@ function calendarJs( id, options, startDateTime ) {
             ];
         }
 
-        if ( !isDefined( _options.fromText ) ) {
+        if ( !isDefinedString( _options.fromText ) ) {
             _options.fromText = "From:";
         }
 
-        if ( !isDefined( _options.toText ) ) {
+        if ( !isDefinedString( _options.toText ) ) {
             _options.toText = "To:";
         }
 
-        if ( !isDefined( _options.isAllDayText ) ) {
+        if ( !isDefinedString( _options.isAllDayText ) ) {
             _options.isAllDayText = "Is All-Day";
         }
 
-        if ( !isDefined( _options.titleText ) ) {
+        if ( !isDefinedString( _options.titleText ) ) {
             _options.titleText = "Title:";
         }
 
-        if ( !isDefined( _options.descriptionText ) ) {
+        if ( !isDefinedString( _options.descriptionText ) ) {
             _options.descriptionText = "Description:";
         }
 
-        if ( !isDefined( _options.locationText ) ) {
+        if ( !isDefinedString( _options.locationText ) ) {
             _options.locationText = "Location:";
         }
 
-        if ( !isDefined( _options.addText ) ) {
+        if ( !isDefinedString( _options.addText ) ) {
             _options.addText = "Add";
         }
 
-        if ( !isDefined( _options.updateText ) ) {
+        if ( !isDefinedString( _options.updateText ) ) {
             _options.updateText = "Update";
         }
 
-        if ( !isDefined( _options.cancelText ) ) {
+        if ( !isDefinedString( _options.cancelText ) ) {
             _options.cancelText = "Cancel";
         }
 
-        if ( !isDefined( _options.removeEventText ) ) {
+        if ( !isDefinedString( _options.removeEventText ) ) {
             _options.removeEventText = "Remove";
         }
 
-        if ( !isDefined( _options.addEventTitle ) ) {
+        if ( !isDefinedString( _options.addEventTitle ) ) {
             _options.addEventTitle = "Add Event";
         }
 
-        if ( !isDefined( _options.editEventTitle ) ) {
+        if ( !isDefinedString( _options.editEventTitle ) ) {
             _options.editEventTitle = "Edit Event";
         }
 
-        if ( !isDefined( _options.exportStartFilename ) ) {
+        if ( !isDefinedString( _options.exportStartFilename ) ) {
             _options.exportStartFilename = "exported_events_";
         }
 
-        if ( !isDefined( _options.fromTimeErrorMessage ) ) {
+        if ( !isDefinedString( _options.fromTimeErrorMessage ) ) {
             _options.fromTimeErrorMessage = "Please select a valid 'From' time.";
         }
 
-        if ( !isDefined( _options.toTimeErrorMessage ) ) {
+        if ( !isDefinedString( _options.toTimeErrorMessage ) ) {
             _options.toTimeErrorMessage = "Please select a valid 'To' time.";
         }
 
-        if ( !isDefined( _options.toSmallerThanFromErrorMessage ) ) {
+        if ( !isDefinedString( _options.toSmallerThanFromErrorMessage ) ) {
             _options.toSmallerThanFromErrorMessage = "Please select a 'To' date that is larger than the 'From' date.";
         }
 
-        if ( !isDefined( _options.titleErrorMessage ) ) {
+        if ( !isDefinedString( _options.titleErrorMessage ) ) {
             _options.titleErrorMessage = "Please enter a value in the 'Title' field (no empty space).";
         }
 
-        if ( !isDefined( _options.stText ) ) {
+        if ( !isDefinedString( _options.stText ) ) {
             _options.stText = "st";
         }
 
-        if ( !isDefined( _options.ndText ) ) {
+        if ( !isDefinedString( _options.ndText ) ) {
             _options.ndText = "nd";
         }
 
-        if ( !isDefined( _options.rdText ) ) {
+        if ( !isDefinedString( _options.rdText ) ) {
             _options.rdText = "rd";
         }
 
-        if ( !isDefined( _options.thText ) ) {
+        if ( !isDefinedString( _options.thText ) ) {
             _options.thText = "th";
         }
 
-        if ( !isDefined( _options.yesText ) ) {
+        if ( !isDefinedString( _options.yesText ) ) {
             _options.yesText = "Yes";
         }
 
-        if ( !isDefined( _options.noText ) ) {
+        if ( !isDefinedString( _options.noText ) ) {
             _options.noText = "No";
         }
 
-        if ( !isDefined( _options.allDayText ) ) {
+        if ( !isDefinedString( _options.allDayText ) ) {
             _options.allDayText = "All-Day";
         }
 
-        if ( !isDefined( _options.allEventsText ) ) {
+        if ( !isDefinedString( _options.allEventsText ) ) {
             _options.allEventsText = "All Events";
         }
 
-        if ( !isDefined( _options.toTimeText ) ) {
+        if ( !isDefinedString( _options.toTimeText ) ) {
             _options.toTimeText = "to";
         }
         
-        if ( !isDefined( _options.confirmEventRemoveTitle ) ) {
+        if ( !isDefinedString( _options.confirmEventRemoveTitle ) ) {
             _options.confirmEventRemoveTitle = "Confirm Event Removal";
         }
         
-        if ( !isDefined( _options.confirmEventRemoveMessage ) ) {
+        if ( !isDefinedString( _options.confirmEventRemoveMessage ) ) {
             _options.confirmEventRemoveMessage = "Removing this event cannot be undone.  Do you want to continue?";
         }
         
-        if ( !isDefined( _options.okText ) ) {
+        if ( !isDefinedString( _options.okText ) ) {
             _options.okText = "OK";
         }
         
-        if ( !isDefined( _options.selectExportTypeTitle ) ) {
+        if ( !isDefinedString( _options.selectExportTypeTitle ) ) {
             _options.selectExportTypeTitle = "Select Export Type";
         }
         
-        if ( !isDefined( _options.selectColorsText ) ) {
+        if ( !isDefinedString( _options.selectColorsText ) ) {
             _options.selectColorsText = "Select Colors";
         }
         
-        if ( !isDefined( _options.backgroundColorText ) ) {
+        if ( !isDefinedString( _options.backgroundColorText ) ) {
             _options.backgroundColorText = "Background Color:";
         }
         
-        if ( !isDefined( _options.textColorText ) ) {
+        if ( !isDefinedString( _options.textColorText ) ) {
             _options.textColorText = "Text Color:";
         }
         
-        if ( !isDefined( _options.borderColorText ) ) {
+        if ( !isDefinedString( _options.borderColorText ) ) {
             _options.borderColorText = "Border Color:";
         }
         
-        if ( !isDefined( _options.searchEventsTitle ) ) {
+        if ( !isDefinedString( _options.searchEventsTitle ) ) {
             _options.searchEventsTitle = "Search Events";
         }
         
-        if ( !isDefined( _options.previousText ) ) {
+        if ( !isDefinedString( _options.previousText ) ) {
             _options.previousText = "Previous";
         }
         
-        if ( !isDefined( _options.nextText ) ) {
+        if ( !isDefinedString( _options.nextText ) ) {
             _options.nextText = "Next";
         }
         
-        if ( !isDefined( _options.matchCaseText ) ) {
+        if ( !isDefinedString( _options.matchCaseText ) ) {
             _options.matchCaseText = "Match Case";
         }
         
-        if ( !isDefined( _options.repeatsText ) ) {
+        if ( !isDefinedString( _options.repeatsText ) ) {
             _options.repeatsText = "Repeats:";
         }
         
-        if ( !isDefined( _options.repeatDaysToExcludeText ) ) {
+        if ( !isDefinedString( _options.repeatDaysToExcludeText ) ) {
             _options.repeatDaysToExcludeText = "Repeat Days To Exclude:";
         }
         
-        if ( !isDefined( _options.daysToExcludeText ) ) {
+        if ( !isDefinedString( _options.daysToExcludeText ) ) {
             _options.daysToExcludeText = "Days To Exclude:";
         }
         
-        if ( !isDefined( _options.seriesIgnoreDatesText ) ) {
+        if ( !isDefinedString( _options.seriesIgnoreDatesText ) ) {
             _options.seriesIgnoreDatesText = "Series Ignore Dates:";
         }
         
-        if ( !isDefined( _options.repeatsNever ) ) {
+        if ( !isDefinedString( _options.repeatsNever ) ) {
             _options.repeatsNever = "Never";
         }
         
-        if ( !isDefined( _options.repeatsEveryDayText ) ) {
+        if ( !isDefinedString( _options.repeatsEveryDayText ) ) {
             _options.repeatsEveryDayText = "Every Day";
         }
         
-        if ( !isDefined( _options.repeatsEveryWeekText ) ) {
+        if ( !isDefinedString( _options.repeatsEveryWeekText ) ) {
             _options.repeatsEveryWeekText = "Every Week";
         }
 
-        if ( !isDefined( _options.repeatsEvery2WeeksText ) ) {
+        if ( !isDefinedString( _options.repeatsEvery2WeeksText ) ) {
             _options.repeatsEvery2WeeksText = "Every 2 Weeks";
         }
         
-        if ( !isDefined( _options.repeatsEveryMonthText ) ) {
+        if ( !isDefinedString( _options.repeatsEveryMonthText ) ) {
             _options.repeatsEveryMonthText = "Every Month";
         }
         
-        if ( !isDefined( _options.repeatsEveryYearText ) ) {
+        if ( !isDefinedString( _options.repeatsEveryYearText ) ) {
             _options.repeatsEveryYearText = "Every Year";
         }
 
-        if ( !isDefined( _options.repeatsCustomText ) ) {
+        if ( !isDefinedString( _options.repeatsCustomText ) ) {
             _options.repeatsCustomText = "Custom:";
         }
         
-        if ( !isDefined( _options.repeatOptionsTitle ) ) {
+        if ( !isDefinedString( _options.repeatOptionsTitle ) ) {
             _options.repeatOptionsTitle = "Repeat Options";
         }
         
-        if ( !isDefined( _options.moreText ) ) {
+        if ( !isDefinedString( _options.moreText ) ) {
             _options.moreText = "More";
         }
         
-        if ( !isDefined( _options.includeText ) ) {
+        if ( !isDefinedString( _options.includeText ) ) {
             _options.includeText = "Include:";
         }
         
-        if ( !isDefined( _options.minimizedTooltipText ) ) {
+        if ( !isDefinedString( _options.minimizedTooltipText ) ) {
             _options.minimizedTooltipText = "Minimize";
         }
         
-        if ( !isDefined( _options.restoreTooltipText ) ) {
+        if ( !isDefinedString( _options.restoreTooltipText ) ) {
             _options.restoreTooltipText = "Restore";
         }
         
-        if ( !isDefined( _options.removeAllEventsInSeriesText ) ) {
+        if ( !isDefinedString( _options.removeAllEventsInSeriesText ) ) {
             _options.removeAllEventsInSeriesText = "Remove All Events In Series";
         }
         
-        if ( !isDefined( _options.createdText ) ) {
+        if ( !isDefinedString( _options.createdText ) ) {
             _options.createdText = "Created:";
         }
         
-        if ( !isDefined( _options.organizerNameText ) ) {
+        if ( !isDefinedString( _options.organizerNameText ) ) {
             _options.organizerNameText = "Organizer:";
         }
         
-        if ( !isDefined( _options.organizerEmailAddressText ) ) {
+        if ( !isDefinedString( _options.organizerEmailAddressText ) ) {
             _options.organizerEmailAddressText = "Organizer Email:";
         }
         
-        if ( !isDefined( _options.enableFullScreenTooltipText ) ) {
+        if ( !isDefinedString( _options.enableFullScreenTooltipText ) ) {
             _options.enableFullScreenTooltipText = "Turn On Full-Screen Mode";
         }
         
-        if ( !isDefined( _options.disableFullScreenTooltipText ) ) {
+        if ( !isDefinedString( _options.disableFullScreenTooltipText ) ) {
             _options.disableFullScreenTooltipText = "Turn Off Full-Screen Mode";
         }
         
-        if ( !isDefined( _options.idText ) ) {
+        if ( !isDefinedString( _options.idText ) ) {
             _options.idText = "ID:";
         }
         
-        if ( !isDefined( _options.expandMonthTooltipText ) ) {
+        if ( !isDefinedString( _options.expandMonthTooltipText ) ) {
             _options.expandMonthTooltipText = "Expand Month";
         }
         
-        if ( !isDefined( _options.repeatEndsText ) ) {
+        if ( !isDefinedString( _options.repeatEndsText ) ) {
             _options.repeatEndsText = "Repeat Ends:";
         }
         
-        if ( !isDefined( _options.noEventsAvailableText ) ) {
+        if ( !isDefinedString( _options.noEventsAvailableText ) ) {
             _options.noEventsAvailableText = "No events available.";
         }
         
-        if ( !isDefined( _options.viewWeekEventsText ) ) {
+        if ( !isDefinedString( _options.viewWeekEventsText ) ) {
             _options.viewWeekEventsText = "View Week Events";
         }
         
-        if ( !isDefined( _options.noEventsAvailableFullText ) ) {
+        if ( !isDefinedString( _options.noEventsAvailableFullText ) ) {
             _options.noEventsAvailableFullText = "There are no events available to view.";
         }
         
-        if ( !isDefined( _options.clickText ) ) {
+        if ( !isDefinedString( _options.clickText ) ) {
             _options.clickText = "Click";
         }
         
-        if ( !isDefined( _options.hereText ) ) {
+        if ( !isDefinedString( _options.hereText ) ) {
             _options.hereText = "here";
         }
         
-        if ( !isDefined( _options.toAddANewEventText ) ) {
+        if ( !isDefinedString( _options.toAddANewEventText ) ) {
             _options.toAddANewEventText = "to add a new event.";
         }
         
-        if ( !isDefined( _options.weekText ) ) {
+        if ( !isDefinedString( _options.weekText ) ) {
             _options.weekText = "Week";
         }
         
-        if ( !isDefined( _options.groupText ) ) {
+        if ( !isDefinedString( _options.groupText ) ) {
             _options.groupText = "Group:";
         }
         
-        if ( !isDefined( _options.configurationTooltipText ) ) {
+        if ( !isDefinedString( _options.configurationTooltipText ) ) {
             _options.configurationTooltipText = "Configuration";
         }
         
-        if ( !isDefined( _options.configurationTitleText ) ) {
+        if ( !isDefinedString( _options.configurationTitleText ) ) {
             _options.configurationTitleText = "Configuration";
         }
         
-        if ( !isDefined( _options.groupsTabText ) ) {
+        if ( !isDefinedString( _options.groupsTabText ) ) {
             _options.groupsTabText = "Groups";
         }
         
-        if ( !isDefined( _options.eventNotificationTitle ) ) {
+        if ( !isDefinedString( _options.eventNotificationTitle ) ) {
             _options.eventNotificationTitle = "Calendar.js";
         }
         
-        if ( !isDefined( _options.eventNotificationBody ) ) {
+        if ( !isDefinedString( _options.eventNotificationBody ) ) {
             _options.eventNotificationBody = "The event '{0}' has started.";
         }
 
-        if ( !isDefined( _options.optionsText ) ) {
+        if ( !isDefinedString( _options.optionsText ) ) {
             _options.optionsText = "Options:";
         }
 
-        if ( !isDefined( _options.startsWithText ) ) {
+        if ( !isDefinedString( _options.startsWithText ) ) {
             _options.startsWithText = "Starts With";
         }
 
-        if ( !isDefined( _options.endsWithText ) ) {
+        if ( !isDefinedString( _options.endsWithText ) ) {
             _options.endsWithText = "Ends With";
         }
 
-        if ( !isDefined( _options.containsText ) ) {
+        if ( !isDefinedString( _options.containsText ) ) {
             _options.containsText = "Contains";
         }
 
-        if ( !isDefined( _options.displayTabText ) ) {
+        if ( !isDefinedString( _options.displayTabText ) ) {
             _options.displayTabText = "Display";
         }
         
-        if ( !isDefined( _options.enableAutoRefreshForEventsText ) ) {
+        if ( !isDefinedString( _options.enableAutoRefreshForEventsText ) ) {
             _options.enableAutoRefreshForEventsText = "Enable auto-refresh for events";
         }
 
-        if ( !isDefined( _options.enableBrowserNotificationsText ) ) {
+        if ( !isDefinedString( _options.enableBrowserNotificationsText ) ) {
             _options.enableBrowserNotificationsText = "Enable browser notifications";
         }
 
-        if ( !isDefined( _options.enableTooltipsText ) ) {
+        if ( !isDefinedString( _options.enableTooltipsText ) ) {
             _options.enableTooltipsText = "Enable tooltips";
         }
 
-        if ( !isDefined( _options.dayText ) ) {
+        if ( !isDefinedString( _options.dayText ) ) {
             _options.dayText = "day";
         }
 
-        if ( !isDefined( _options.daysText ) ) {
+        if ( !isDefinedString( _options.daysText ) ) {
             _options.daysText = "days";
         }
 
-        if ( !isDefined( _options.hourText ) ) {
+        if ( !isDefinedString( _options.hourText ) ) {
             _options.hourText = "hour";
         }
 
-        if ( !isDefined( _options.hoursText ) ) {
+        if ( !isDefinedString( _options.hoursText ) ) {
             _options.hoursText = "hours";
         }
 
-        if ( !isDefined( _options.minuteText ) ) {
+        if ( !isDefinedString( _options.minuteText ) ) {
             _options.minuteText = "minute";
         }
 
-        if ( !isDefined( _options.minutesText ) ) {
+        if ( !isDefinedString( _options.minutesText ) ) {
             _options.minutesText = "minutes";
         }
 
-        if ( !isDefined( _options.enableDragAndDropForEventText ) ) {
+        if ( !isDefinedString( _options.enableDragAndDropForEventText ) ) {
             _options.enableDragAndDropForEventText = "Enable drag & drop for events";
         }
 
-        if ( !isDefined( _options.organizerTabText ) ) {
+        if ( !isDefinedString( _options.organizerTabText ) ) {
             _options.organizerTabText = "Organizer";
         }
 
-        if ( !isDefined( _options.removeEventsTooltipText ) ) {
+        if ( !isDefinedString( _options.removeEventsTooltipText ) ) {
             _options.removeEventsTooltipText = "Remove Events";
         }
 
-        if ( !isDefined( _options.confirmEventsRemoveTitle ) ) {
+        if ( !isDefinedString( _options.confirmEventsRemoveTitle ) ) {
             _options.confirmEventsRemoveTitle = "Confirm Events Removal";
         }
         
-        if ( !isDefined( _options.confirmEventsRemoveMessage ) ) {
+        if ( !isDefinedString( _options.confirmEventsRemoveMessage ) ) {
             _options.confirmEventsRemoveMessage = "Removing these non-repeating events cannot be undone.  Do you want to continue?";
         }
 
-        if ( !isDefined( _options.eventText ) ) {
+        if ( !isDefinedString( _options.eventText ) ) {
             _options.eventText = "Event";
         }
 
-        if ( !isDefined( _options.optionalText ) ) {
+        if ( !isDefinedString( _options.optionalText ) ) {
             _options.optionalText = "Optional";
         }
 
-        if ( !isDefined( _options.urlText ) ) {
+        if ( !isDefinedString( _options.urlText ) ) {
             _options.urlText = "Url:";
         }
 
-        if ( !isDefined( _options.openUrlText ) ) {
+        if ( !isDefinedString( _options.openUrlText ) ) {
             _options.openUrlText = "Open Url";
         }
 
-        if ( !isDefined( _options.visibleDaysTabText ) ) {
+        if ( !isDefinedString( _options.visibleDaysTabText ) ) {
             _options.visibleDaysTabText = "Visible Days";
         }
 
-        if ( !isDefined( _options.enableDayNameHeadersInMainDisplayText ) ) {
+        if ( !isDefinedString( _options.enableDayNameHeadersInMainDisplayText ) ) {
             _options.enableDayNameHeadersInMainDisplayText = "Enable day name headers in the main display";
         }
 
-        if ( !isDefined( _options.thisWeekTooltipText ) ) {
+        if ( !isDefinedString( _options.thisWeekTooltipText ) ) {
             _options.thisWeekTooltipText = "This Week";
         }
 
-        if ( !isDefined( _options.dailyText ) ) {
+        if ( !isDefinedString( _options.dailyText ) ) {
             _options.dailyText = "Daily";
         }
 
-        if ( !isDefined( _options.weeklyText ) ) {
+        if ( !isDefinedString( _options.weeklyText ) ) {
             _options.weeklyText = "Weekly";
         }
 
-        if ( !isDefined( _options.monthlyText ) ) {
+        if ( !isDefinedString( _options.monthlyText ) ) {
             _options.monthlyText = "Monthly";
         }
 
-        if ( !isDefined( _options.yearlyText ) ) {
+        if ( !isDefinedString( _options.yearlyText ) ) {
             _options.yearlyText = "Yearly";
         }
 
-        if ( !isDefined( _options.repeatsByCustomSettingsText ) ) {
+        if ( !isDefinedString( _options.repeatsByCustomSettingsText ) ) {
             _options.repeatsByCustomSettingsText = "By Custom Settings";
         }
 
-        if ( !isDefined( _options.lastUpdatedText ) ) {
+        if ( !isDefinedString( _options.lastUpdatedText ) ) {
             _options.lastUpdatedText = "Last Updated:";
         }
 
-        if ( !isDefined( _options.advancedText ) ) {
+        if ( !isDefinedString( _options.advancedText ) ) {
             _options.advancedText = "Advanced";
         }
 
-        if ( !isDefined( _options.copyText ) ) {
+        if ( !isDefinedString( _options.copyText ) ) {
             _options.copyText = "Copy";
         }
 
-        if ( !isDefined( _options.pasteText ) ) {
+        if ( !isDefinedString( _options.pasteText ) ) {
             _options.pasteText = "Paste";
         }
 
-        if ( !isDefined( _options.duplicateText ) ) {
+        if ( !isDefinedString( _options.duplicateText ) ) {
             _options.duplicateText = "Duplicate";
         }
 
-        if ( !isDefined( _options.showAlertsText ) ) {
+        if ( !isDefinedString( _options.showAlertsText ) ) {
             _options.showAlertsText = "Show Alerts";
         }
 
-        if ( !isDefined( _options.selectDatePlaceholderText ) ) {
+        if ( !isDefinedString( _options.selectDatePlaceholderText ) ) {
             _options.selectDatePlaceholderText = "Select date...";
         }
 
-        if ( !isDefined( _options.hideDayText ) ) {
+        if ( !isDefinedString( _options.hideDayText ) ) {
             _options.hideDayText = "Hide Day";
         }
     }
@@ -8011,6 +8063,7 @@ function calendarJs( id, options, startDateTime ) {
         _elementID = id;
 
         buildDefaultOptions( options );
+        buildDefaultSearchOptions( searchOptions );
         build( startDateTime, true );
 
         if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {

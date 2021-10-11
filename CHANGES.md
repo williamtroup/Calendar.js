@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.5:
+- All settings passed to the constructor now have to use the right type (otherwise they will be rejected).
+- The constructor now accepts the search options as the 3rd parameter (startDateTime is now the 4th).
+- Added support to check the default search options passed via the constructor and apply defaults if anything is wrong.
+- In DatePicker mode, pressing escape in the text field will now close the calendar.
+- Fixed a fault that caused getSelectedDatePickerDate() to return the wrong date (set internally incorrectly).
+
 ### Version 1.3.4:
 - Added new setting "openInFullScreenMode", which states if the calendar should be rendered in full-screen mode.
 - The "Enable browser notifications" options in the "Configuration" dialog is now tabbed in slightly (shows which it belongs to).
