@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.0:
+- Fixed a fault that prevented the Calendar from jumping to the previous/next month when click the months in the main display.
 - 
 
 ### Version 1.3.5:
