@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.6:
+- Fixed a fault that prevented the Calendar from jumping to the previous/next month when clicking the months in the main display.
+
 ### Version 1.3.5:
 - All settings passed to the constructor now have to use the right type (otherwise they will be rejected).
 - The constructor now accepts the search options as the 3rd parameter (startDateTime is now the 4th).

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.5
+ * Calendar.js Library v1.3.6
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -6589,7 +6589,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     };
 
     function moveBackMonth( e ) {
-        if ( e !== null ) {
+        if ( isDefined( e ) ) {
             cancelBubble( e );
         }
 
@@ -6601,7 +6601,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function moveForwardMonth( e ) {
-        if ( e !== null ) {
+        if ( isDefined( e ) ) {
             cancelBubble( e );
         }
 
@@ -7118,7 +7118,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.5";
+        return "1.3.6";
     };
 
 
