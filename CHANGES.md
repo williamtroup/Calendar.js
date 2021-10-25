@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.7:
+- Added public function isFullScreenActivated(), which states if full-screen mode is activated.
 - 
 
 ### Version 1.3.6:

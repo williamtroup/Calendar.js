@@ -10,6 +10,11 @@ Turns on the full-screen mode (if enabled).
 ### **turnOffFullScreen()**:
 Turns off the full-screen mode (if enabled).
 
+### **isFullScreenActivated()**:
+States if full-screen mode is activated.
+<br>
+***Returns***: '*boolean*' - States if full-screen mode is activated.
+
 ### **startTheAutoRefreshTimer()**:
 Starts the auto-refresh timer (if enabled).
 

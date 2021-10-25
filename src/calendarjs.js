@@ -6412,6 +6412,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     };
 
     /**
+     * isFullScreenActivated().
+     * 
+     * States if full-screen mode is activated.
+     * 
+     * @returns     {boolean}                                               States if full-screen mode is activated.
+     */
+    this.isFullScreenActivated = function() {
+        return _isFullScreenModeActivated;
+    };
+
+    /**
      * startTheAutoRefreshTimer().
      * 
      * Starts the auto-refresh timer (if enabled).
