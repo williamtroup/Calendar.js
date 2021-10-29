@@ -184,6 +184,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | showAlertsText | The text that should be displayed for the "Show Alerts" label. |
 | *string* | selectDatePlaceholderText | The text that should be displayed for the "Select date..." date-picker placeholder text. |
 | *string* | hideDayText | The text that should be displayed for the "Hide Day" date-picker placeholder text. |
+| *string* | notSearchText | The text that should be displayed for the "Not (opposite)" label. |
 
 <br/>
 

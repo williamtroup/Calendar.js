@@ -216,6 +216,7 @@
  * @property    {string}    showAlertsText                              The text that should be displayed for the "Show Alerts" label.
  * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
  * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
+ * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
  */
 
 
@@ -267,7 +268,8 @@
  * 
  * These are the search options that are used to control how Calendar.js search works.
  *
- * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).  
+ * @property    {boolean}   not                                         States if the search should be a not search (defaults to false).
+ * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).
  * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to true).
  * @property    {boolean}   searchTitle                                 States if the "title" property for the event should be searched (false to true).
  * @property    {boolean}   searchLocation                              States if the "location" property for the event should be searched (false to false).
@@ -482,6 +484,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_SearchDialog_Contents = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
+        _element_SearchDialog_Not = null,
         _element_SearchDialog_Advanced = null,
         _element_SearchDialog_Advanced_Container = null,
         _element_SearchDialog_Include_Title = null,
@@ -4448,6 +4451,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
         _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
 
+        _element_SearchDialog_Not = buildCheckBox( checkboxOptionsContainer, _options.notSearchText, searchOptionsChanged )[ 0 ];
         _element_SearchDialog_MatchCase = buildCheckBox( checkboxOptionsContainer, _options.matchCaseText, searchOptionsChanged )[ 0 ];
         _element_SearchDialog_Advanced = buildCheckBox( checkboxOptionsContainer, _options.advancedText, searchAdvancedChecked )[ 0 ];
         _element_SearchDialog_Advanced.checked = true;
@@ -4629,7 +4633,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function searchOnNext() {
         if ( _element_SearchDialog_SearchResults.length === 0 ) {
-            var matchCase = _element_SearchDialog_MatchCase.checked,
+            var not = _element_SearchDialog_Not.checked,
+                matchCase = _element_SearchDialog_MatchCase.checked,
                 search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
                 monthYearsFound = {};
 
@@ -4660,6 +4665,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                         found = true;
                     } else if ( _element_SearchDialog_Include_Url.checked && isSearchTextAvailable( url, search ) ) {
                         found = true;
+                    }
+
+                    if ( not ) {
+                        found = !found;
                     }
 
                     if ( found ) {
@@ -4718,6 +4727,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function storeSearchOptions() {
+        _optionsForSearch.not = _element_SearchDialog_Not.checked;
         _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
         _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
         _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
@@ -4741,6 +4751,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function setupSearchOptions() {
+        _element_SearchDialog_Not.checked = _optionsForSearch.not;
         _element_SearchDialog_MatchCase.checked = _optionsForSearch.matchCase;
         _element_SearchDialog_Advanced.checked = _optionsForSearch.showAdvanced;
         _element_SearchDialog_Include_Title.checked = _optionsForSearch.searchTitle;
@@ -7384,6 +7395,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function buildDefaultSearchOptions( newSearchOptions ) {
         _optionsForSearch = getOptions( newSearchOptions );
 
+        if ( !isDefinedBoolean( _optionsForSearch.not ) ) {
+            _optionsForSearch.not = false;
+        }
+
         if ( !isDefinedBoolean( _optionsForSearch.matchCase ) ) {
             _optionsForSearch.matchCase = false;
         }
@@ -7993,6 +8008,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.hideDayText ) ) {
             _options.hideDayText = "Hide Day";
+        }
+
+        if ( !isDefinedString( _options.notSearchText ) ) {
+            _options.notSearchText = "Not (opposite)";
         }
     }
 
