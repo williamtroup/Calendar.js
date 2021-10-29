@@ -7144,6 +7144,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     };
 
     /**
+     * clearClipboard().
+     * 
+     * Clears the internal clipboard.
+     */
+    this.clearClipboard = function() {
+        _copiedEventDetails = null;
+    };
+
+    /**
      * getVersion().
      * 
      * Returns the version of Calendar.js.

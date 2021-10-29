@@ -4,6 +4,7 @@
 - Added public function isFullScreenActivated(), which states if full-screen mode is activated.
 - The "Remove Events" context menu item in the Full Day view is only visible when events are available.
 - Added support for "Not (opposite)" searches in the "Search" dialog (with custom setting support included).
+- Added public function clearClipboard(), which clears the internal clipboard.
 - 
 
 ### Version 1.3.6:

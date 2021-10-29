@@ -233,6 +233,9 @@ Clears all the event groups.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupsCleared" event should be triggered.
 
+### **clearClipboard()**:
+Clears the internal clipboard.
+
 ### **getVersion()**:
 Returns the version of Calendar.js.
 <br>
