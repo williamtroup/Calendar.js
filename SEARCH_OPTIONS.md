@@ -8,8 +8,8 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
-| *boolean* | matchCase | States character case searching is strict (defaults to false). |
 | *boolean* | not | States if the search should be a not search (defaults to false). |
+| *boolean* | matchCase | States character case searching is strict (defaults to false). |
 | *boolean* | showAdvanced | States if the advanced options should be shown (defaults to true). |
 | *boolean* | searchTitle | States if the "title" property for the event should be searched (false to true). |
 | *boolean* | searchLocation | States if the "location" property for the event should be searched (false to false). |
