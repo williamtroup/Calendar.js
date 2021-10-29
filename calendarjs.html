@@ -111,7 +111,7 @@
             reader.readAsText(file);
             reader.onload = function() {
                 console.log(reader.result);
-                addEventsFromJson(reader.result);
+                calendarInstance.addEventsFromJson(reader.result);
             };
            reader.onerror = function() {
                 console.log(reader.error);
