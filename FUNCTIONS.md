@@ -10,6 +10,11 @@ Turns on the full-screen mode (if enabled).
 ### **turnOffFullScreen()**:
 Turns off the full-screen mode (if enabled).
 
+### **isFullScreenActivated()**:
+States if full-screen mode is activated.
+<br>
+***Returns***: '*boolean*' - States if full-screen mode is activated.
+
 ### **startTheAutoRefreshTimer()**:
 Starts the auto-refresh timer (if enabled).
 
@@ -227,6 +232,14 @@ Clears all the event groups.
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupsCleared" event should be triggered.
+
+### **getClipboardEvent()**:
+Returns the event copied in the clipboard.
+<br>
+***Returns***: '*Object*' - The copied event details.
+
+### **clearClipboard()**:
+Clears the internal clipboard.
 
 ### **getVersion()**:
 Returns the version of Calendar.js.

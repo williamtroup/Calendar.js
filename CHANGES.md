@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.7:
+- Added public function isFullScreenActivated(), which states if full-screen mode is activated.
+- The "Remove Events" context menu item in the Full Day view is only visible when events are available.
+- Added support for "Not (opposite)" searches in the "Search" dialog (with custom setting support included).
+- Added public function clearClipboard(), which clears the internal clipboard.
+- Added public function getClipboardEvent(), which returns the event details that have been copied to the internal clipboard.
+
 ### Version 1.3.6:
 - Fixed a fault that prevented the Calendar from jumping to the previous/next month when clicking the months in the main display.
 

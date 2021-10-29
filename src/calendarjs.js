@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.6
+ * Calendar.js Library v1.3.7
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -216,6 +216,7 @@
  * @property    {string}    showAlertsText                              The text that should be displayed for the "Show Alerts" label.
  * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
  * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
+ * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
  */
 
 
@@ -267,7 +268,8 @@
  * 
  * These are the search options that are used to control how Calendar.js search works.
  *
- * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).  
+ * @property    {boolean}   not                                         States if the search should be a not search (defaults to false).
+ * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).
  * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to true).
  * @property    {boolean}   searchTitle                                 States if the "title" property for the event should be searched (false to true).
  * @property    {boolean}   searchLocation                              States if the "location" property for the event should be searched (false to false).
@@ -471,6 +473,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_DropDownMenu_Event_OpenUrlSeparator = null,
         _element_DropDownMenu_Event_OpenUrl = null,
         _element_DropDownMenu_FullDay = null,
+        _element_DropDownMenu_FullDay_RemoveEvents_Separator = null,
+        _element_DropDownMenu_FullDay_RemoveEvents = null,
         _element_DropDownMenu_FullDay_Paste_Separator = null,
         _element_DropDownMenu_FullDay_Paste = null,
         _element_DropDownMenu_HeaderDay = null,
@@ -480,6 +484,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_SearchDialog_Contents = null,
         _element_SearchDialog_For = null,
         _element_SearchDialog_MatchCase = null,
+        _element_SearchDialog_Not = null,
         _element_SearchDialog_Advanced = null,
         _element_SearchDialog_Advanced_Container = null,
         _element_SearchDialog_Include_Title = null,
@@ -3401,6 +3406,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             removeNode( _document.body, _element_DropDownMenu_FullDay );
 
             _element_DropDownMenu_FullDay = null;
+            _element_DropDownMenu_FullDay_RemoveEvents_Separator = null;
+            _element_DropDownMenu_FullDay_RemoveEvents = null;
             _element_DropDownMenu_FullDay_Paste_Separator = null;
             _element_DropDownMenu_FullDay_Paste = null;
         }
@@ -3412,10 +3419,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
                 showEventEditingDialog( null, _element_FullDayView_DateSelected );
             }, true );
-    
-            buildMenuSeparator( _element_DropDownMenu_FullDay );
 
-            buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
+            _element_DropDownMenu_FullDay_RemoveEvents_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+
+            _element_DropDownMenu_FullDay_RemoveEvents = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
                 removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
             } );
 
@@ -3518,10 +3525,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function showFullDayDropDownMenu( e ) {
         if ( _element_DropDownMenu_FullDay !== null ) {
             if ( _element_DropDownMenu_FullDay_Paste !== null ) {
-                var display = _copiedEventDetails !== null ? "block" : "none";
+                var pasteDisplay = _copiedEventDetails !== null ? "block" : "none";
     
-                _element_DropDownMenu_FullDay_Paste_Separator.style.display = display;
-                _element_DropDownMenu_FullDay_Paste.style.display = display;
+                _element_DropDownMenu_FullDay_Paste_Separator.style.display = pasteDisplay;
+                _element_DropDownMenu_FullDay_Paste.style.display = pasteDisplay;
+            }
+
+            if ( _element_FullDayView_EventsShown !== null ) {
+                var removeEventsDisplay = _element_FullDayView_EventsShown.length > 0 ? "block" : "none";
+
+                _element_DropDownMenu_FullDay_RemoveEvents_Separator.style.display = removeEventsDisplay;
+                _element_DropDownMenu_FullDay_RemoveEvents.style.display = removeEventsDisplay;
             }
 
             hideAllDropDowns();
@@ -4437,6 +4451,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
         _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
 
+        _element_SearchDialog_Not = buildCheckBox( checkboxOptionsContainer, _options.notSearchText, searchOptionsChanged )[ 0 ];
         _element_SearchDialog_MatchCase = buildCheckBox( checkboxOptionsContainer, _options.matchCaseText, searchOptionsChanged )[ 0 ];
         _element_SearchDialog_Advanced = buildCheckBox( checkboxOptionsContainer, _options.advancedText, searchAdvancedChecked )[ 0 ];
         _element_SearchDialog_Advanced.checked = true;
@@ -4618,7 +4633,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function searchOnNext() {
         if ( _element_SearchDialog_SearchResults.length === 0 ) {
-            var matchCase = _element_SearchDialog_MatchCase.checked,
+            var not = _element_SearchDialog_Not.checked,
+                matchCase = _element_SearchDialog_MatchCase.checked,
                 search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
                 monthYearsFound = {};
 
@@ -4649,6 +4665,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                         found = true;
                     } else if ( _element_SearchDialog_Include_Url.checked && isSearchTextAvailable( url, search ) ) {
                         found = true;
+                    }
+
+                    if ( not ) {
+                        found = !found;
                     }
 
                     if ( found ) {
@@ -4707,6 +4727,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function storeSearchOptions() {
+        _optionsForSearch.not = _element_SearchDialog_Not.checked;
         _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
         _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
         _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
@@ -4730,6 +4751,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function setupSearchOptions() {
+        _element_SearchDialog_Not.checked = _optionsForSearch.not;
         _element_SearchDialog_MatchCase.checked = _optionsForSearch.matchCase;
         _element_SearchDialog_Advanced.checked = _optionsForSearch.showAdvanced;
         _element_SearchDialog_Include_Title.checked = _optionsForSearch.searchTitle;
@@ -6412,6 +6434,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     };
 
     /**
+     * isFullScreenActivated().
+     * 
+     * States if full-screen mode is activated.
+     * 
+     * @returns     {boolean}                                               States if full-screen mode is activated.
+     */
+    this.isFullScreenActivated = function() {
+        return _isFullScreenModeActivated;
+    };
+
+    /**
      * startTheAutoRefreshTimer().
      * 
      * Starts the auto-refresh timer (if enabled).
@@ -7111,6 +7144,26 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     };
 
     /**
+     * getClipboardEvent().
+     * 
+     * Returns the event copied in the clipboard.
+     * 
+     * @returns     {Object}                                                The copied event details.
+     */
+    this.getClipboardEvent = function() {
+        return _copiedEventDetails;
+    };
+
+    /**
+     * clearClipboard().
+     * 
+     * Clears the internal clipboard.
+     */
+    this.clearClipboard = function() {
+        _copiedEventDetails = null;
+    };
+
+    /**
      * getVersion().
      * 
      * Returns the version of Calendar.js.
@@ -7118,7 +7171,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.6";
+        return "1.3.7";
     };
 
 
@@ -7361,6 +7414,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDefaultSearchOptions( newSearchOptions ) {
         _optionsForSearch = getOptions( newSearchOptions );
+
+        if ( !isDefinedBoolean( _optionsForSearch.not ) ) {
+            _optionsForSearch.not = false;
+        }
 
         if ( !isDefinedBoolean( _optionsForSearch.matchCase ) ) {
             _optionsForSearch.matchCase = false;
@@ -7971,6 +8028,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.hideDayText ) ) {
             _options.hideDayText = "Hide Day";
+        }
+
+        if ( !isDefinedString( _options.notSearchText ) ) {
+            _options.notSearchText = "Not (opposite)";
         }
     }
 

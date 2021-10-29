@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Calendar.js - Minimized</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="src/calendarjs.min.css" />
         <script src="src/calendarjs.min.js"></script>
@@ -36,6 +36,8 @@
             <h2>Additional Data:</h2>
             <button onclick="alert( calendarInstance.getAllGroups() );">Get All Groups</button>
             <button onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
+            <button onclick="alert( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
+            <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <button onclick="alert( calendarInstance.getVersion() );">Get Version</button>
             
             <h2>Options:</h2>
@@ -60,6 +62,7 @@
             <h2>Main Controls:</h2>
             <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
             <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
+            <button onclick="alert( calendarInstance.isFullScreenActivated() );">Is Full-Screen Activated</button>
             <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
             <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
             <button onclick="calendarInstance.destroy();">Destroy</button>
