@@ -233,6 +233,11 @@ Clears all the event groups.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupsCleared" event should be triggered.
 
+### **getClipboardEvent()**:
+Returns the event copied in the clipboard.
+<br>
+***Returns***: '*Object*' - The copied event details.
+
 ### **clearClipboard()**:
 Clears the internal clipboard.
 

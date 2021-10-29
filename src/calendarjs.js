@@ -7144,6 +7144,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     };
 
     /**
+     * getClipboardEvent().
+     * 
+     * Returns the event copied in the clipboard.
+     * 
+     * @returns     {Object}                                                The copied event details.
+     */
+    this.getClipboardEvent = function() {
+        return _copiedEventDetails;
+    };
+
+    /**
      * clearClipboard().
      * 
      * Clears the internal clipboard.
