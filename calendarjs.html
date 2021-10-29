@@ -58,7 +58,7 @@
             <br />
             
             <h2>Import Events</h2>
-            <input type="file" onchange="importJson(this)">
+            <input id="importjson" type="file" onchange="importJson(this)">
             <br />
     
             <h2>Main Controls:</h2>
@@ -112,6 +112,7 @@
             reader.onload = function() {
                 console.log(reader.result);
                 calendarInstance.addEventsFromJson(reader.result);
+                document.getElementById("importjson").value = "";
             };
            reader.onerror = function() {
                 console.log(reader.error);
