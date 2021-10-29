@@ -471,6 +471,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_DropDownMenu_Event_OpenUrlSeparator = null,
         _element_DropDownMenu_Event_OpenUrl = null,
         _element_DropDownMenu_FullDay = null,
+        _element_DropDownMenu_FullDay_RemoveEvents_Separator = null,
+        _element_DropDownMenu_FullDay_RemoveEvents = null,
         _element_DropDownMenu_FullDay_Paste_Separator = null,
         _element_DropDownMenu_FullDay_Paste = null,
         _element_DropDownMenu_HeaderDay = null,
@@ -3401,6 +3403,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             removeNode( _document.body, _element_DropDownMenu_FullDay );
 
             _element_DropDownMenu_FullDay = null;
+            _element_DropDownMenu_FullDay_RemoveEvents_Separator = null;
+            _element_DropDownMenu_FullDay_RemoveEvents = null;
             _element_DropDownMenu_FullDay_Paste_Separator = null;
             _element_DropDownMenu_FullDay_Paste = null;
         }
@@ -3412,10 +3416,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
                 showEventEditingDialog( null, _element_FullDayView_DateSelected );
             }, true );
-    
-            buildMenuSeparator( _element_DropDownMenu_FullDay );
 
-            buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
+            _element_DropDownMenu_FullDay_RemoveEvents_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+
+            _element_DropDownMenu_FullDay_RemoveEvents = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
                 removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
             } );
 
@@ -3518,10 +3522,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function showFullDayDropDownMenu( e ) {
         if ( _element_DropDownMenu_FullDay !== null ) {
             if ( _element_DropDownMenu_FullDay_Paste !== null ) {
-                var display = _copiedEventDetails !== null ? "block" : "none";
+                var pasteDisplay = _copiedEventDetails !== null ? "block" : "none";
     
-                _element_DropDownMenu_FullDay_Paste_Separator.style.display = display;
-                _element_DropDownMenu_FullDay_Paste.style.display = display;
+                _element_DropDownMenu_FullDay_Paste_Separator.style.display = pasteDisplay;
+                _element_DropDownMenu_FullDay_Paste.style.display = pasteDisplay;
+            }
+
+            if ( _element_FullDayView_EventsShown !== null ) {
+                var removeEventsDisplay = _element_FullDayView_EventsShown.length > 0 ? "block" : "none";
+
+                _element_DropDownMenu_FullDay_RemoveEvents_Separator.style.display = removeEventsDisplay;
+                _element_DropDownMenu_FullDay_RemoveEvents.style.display = removeEventsDisplay;
             }
 
             hideAllDropDowns();

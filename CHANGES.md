@@ -2,6 +2,7 @@
 
 ### Version 1.3.7:
 - Added public function isFullScreenActivated(), which states if full-screen mode is activated.
+- The "Remove Events" context menu item in the Full Day view is only visible when events are available.
 - 
 
 ### Version 1.3.6:
