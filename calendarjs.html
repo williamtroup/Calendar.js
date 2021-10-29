@@ -56,6 +56,10 @@
             <button onclick="calendarInstance.exportAllEvents( 'html' );">Export All Events (html)</button>
             <button onclick="calendarInstance.exportAllEvents( 'tsv' );">Export All Events (tsv)</button>
             <br />
+            
+            <h2>Import Events</h2>
+            <input type="file" onchange="importJson(this)">
+            <br />
     
             <h2>Main Controls:</h2>
             <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
@@ -100,6 +104,19 @@
         function daysInMonth( year, month ) {
             return new Date( year, month + 1, 0 ).getDate();
         }
+
+        function importJson(input) {
+            let file = input.files[0];
+            let reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = function() {
+                console.log(reader.result);
+                addEventsFromJson(reader.result);
+            };
+           reader.onerror = function() {
+                console.log(reader.error);
+           };
+         }
 
         function setOptions() {
             calendarInstance.setOptions( {
