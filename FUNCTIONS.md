@@ -233,6 +233,17 @@ Clears all the event groups.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupsCleared" event should be triggered.
 
+### **removeGroup( *groupName*, *updateEvents*, *triggerEvent* )**:
+Removes a group by name.
+<br>
+***Fires***:  onGroupRemoved
+<br>
+***Parameter: groupName***: '*string*' - The name of the group to remove.
+<br>
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupRemoved" event should be triggered.
+
 ### **getClipboardEvent()**:
 Returns the event copied in the clipboard.
 <br>

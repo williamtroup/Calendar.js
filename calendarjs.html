@@ -33,13 +33,20 @@
             <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
             <br>
 
-            <h2>Additional Data:</h2>
+            <h2>Groups:</h2>
             <button onclick="alert( calendarInstance.getAllGroups() );">Get All Groups</button>
             <button onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
             <button onclick="calendarInstance.removeGroup( 'Group 1' );">Remove Group</button>
+            <br>
+
+            <h2>Internal Clipboard:</h2>
             <button onclick="alert( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
             <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
+            <br>
+
+            <h2>Additional Data:</h2>
             <button onclick="alert( calendarInstance.getVersion() );">Get Version</button>
+            <br>
 
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>

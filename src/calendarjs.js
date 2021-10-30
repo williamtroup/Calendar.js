@@ -7101,7 +7101,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Get/Set Additional Data (public)
+     * Add/Remove Groups (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -7153,7 +7153,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @param       {string}    groupName                                   The name of the group to remove.
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
+     * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
         updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
@@ -7177,6 +7177,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     };
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Internal Clipboard (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
     /**
      * getClipboardEvent().
      * 
@@ -7196,6 +7203,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.clearClipboard = function() {
         _copiedEventDetails = null;
     };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Get/Set Additional Data (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
 
     /**
      * getVersion().
