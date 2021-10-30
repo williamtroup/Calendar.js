@@ -3,6 +3,7 @@
 ### Version 1.3.8:
 - Added public function removeGroup(), which removes a group by name (and fires a new custom event).
 - Organized the public functions into more areas to make them easier to find.
+- Moved all test files to use console.log() instead of alert() so that the details can be fully seen.
 - 
 
 ### Version 1.3.7:

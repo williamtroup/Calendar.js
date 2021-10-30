@@ -28,24 +28,24 @@
             <button onclick="setEvents();">Set Events</button>
             <button onclick="removeEvent();">Remove Event</button>
             <button onclick="calendarInstance.clearEvents();">Clear Events</button>
-            <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
-            <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+            <button onclick="console.log( calendarInstance.getEvent( '1234-5678-9' ) );">Get Event</button>
+            <button onclick="console.log( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
             <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
             <br>
 
             <h2>Groups:</h2>
-            <button onclick="alert( calendarInstance.getAllGroups() );">Get All Groups</button>
+            <button onclick="console.log( calendarInstance.getAllGroups() );">Get All Groups</button>
             <button onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
             <button onclick="calendarInstance.removeGroup( 'Group 1' );">Remove Group</button>
             <br>
 
             <h2>Internal Clipboard:</h2>
-            <button onclick="alert( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
+            <button onclick="console.log( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
             <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <br>
 
             <h2>Additional Data:</h2>
-            <button onclick="alert( calendarInstance.getVersion() );">Get Version</button>
+            <button onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
             <br>
 
             <h2>Options:</h2>
@@ -59,7 +59,7 @@
             <h2>Main Controls:</h2>
             <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
             <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
-            <button onclick="alert( calendarInstance.isFullScreenActivated() );">Is Full-Screen Activated</button>
+            <button onclick="console.log( calendarInstance.isFullScreenActivated() );">Is Full-Screen Activated</button>
             <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
             <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
             <button onclick="calendarInstance.destroy();">Destroy</button>
