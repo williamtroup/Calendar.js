@@ -17,11 +17,13 @@
             </div>
             <br>
     
-            <h2>Move Back/Forward By Month/Year:</h2>
+            <h2>Navigation:</h2>
             <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
             <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
             <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
             <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
+            <button onclick="console.log( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
             <br>
     
             <h2>Events:</h2>
@@ -29,8 +31,6 @@
             <button onclick="removeEvent();">Remove Event</button>
             <button onclick="calendarInstance.clearEvents();">Clear Events</button>
             <button onclick="console.log( calendarInstance.getEvent( '1234-5678-9' ) );">Get Event</button>
-            <button onclick="console.log( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
-            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
             <br>
 
             <h2>Groups:</h2>
