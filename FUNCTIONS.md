@@ -244,6 +244,11 @@ Removes a group by name.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupRemoved" event should be triggered.
 
+### **setClipboardEvent( *event* )**:
+Set the clipboard event.
+<br>
+***Parameter: event***: '*Object*' - The event to set (refer to "Day Event" documentation for properties).
+
 ### **getClipboardEvent()**:
 Returns the event copied in the clipboard.
 <br>

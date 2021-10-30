@@ -40,6 +40,7 @@
             <br>
 
             <h2>Internal Clipboard:</h2>
+            <button onclick="calendarInstance.setClipboardEvent( getCopiedEvent() );">Set Clipboard Event</button>
             <button onclick="console.log( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
             <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <br>
@@ -352,6 +353,21 @@
                     group: "Group 1"
                 }
             ];
+        }
+
+        function getCopiedEvent() {
+            var today = new Date(),
+                todayPlus1Hour = new Date();
+
+            todayPlus1Hour.setHours( today.getHours() + 1 );
+
+            return {
+                from: today,
+                to: todayPlus1Hour,
+                title: "Copied Event",
+                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                group: "Group 1"
+            }
         }
 
         function addNewHoliday() {

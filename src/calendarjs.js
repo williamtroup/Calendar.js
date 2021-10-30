@@ -7185,6 +7185,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
 
     /**
+     * setClipboardEvent().
+     * 
+     * Set the clipboard event.
+     * 
+     * @param       {Object}    event                                       The event to set (refer to "Day Event" documentation for properties).
+     */
+    this.setClipboardEvent = function( event ) {
+        _copiedEventDetails = cloneEventDetails( event );
+    };
+
+    /**
      * getClipboardEvent().
      * 
      * Returns the event copied in the clipboard.
