@@ -75,6 +75,7 @@
  * @property    {Object}    onEventsSetFromJSON                         Specifies an event that will be triggered when events are set from JSON and the originals are cleared (passes the JSON to the function).
  * @property    {Object}    onEventsAddedFromJSON                       Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function).
  * @property    {Object}    onDatePickerDateChanged                     Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function).
+ * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
  */
 
 
@@ -7135,6 +7136,39 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( triggerEvent ) {
             triggerOptionsEvent( "onGroupsCleared" );
+        }
+
+        if ( updateEvents ) {
+            buildDayEvents();
+            refreshOpenedViews();
+        }
+    };
+
+    /**
+     * removeGroup().
+     * 
+     * Removes a group by name.
+     * 
+     * @fires       onGroupRemoved
+     * 
+     * @param       {string}    groupName                                   The name of the group to remove.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
+     */
+    this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        var checkGroupName = groupName.toLowerCase();
+
+        getAllEventsFunc( function( event ) {
+            if ( event.group !== null && event.group.toLowerCase() === checkGroupName ) {
+                event.group = null;
+            }
+        } );
+
+        if ( triggerEvent ) {
+            triggerOptionsEvent( "onGroupRemoved", groupName );
         }
 
         if ( updateEvents ) {

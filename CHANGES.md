@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.8:
+- Added public function removeGroup(), which removes a group by name (and fires a new custom event).
 - 
 
 ### Version 1.3.7:
