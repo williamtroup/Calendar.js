@@ -218,6 +218,7 @@
  * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
  * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
  * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
+ * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
  */
 
 
@@ -261,6 +262,7 @@
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
  * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
+ * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  */
 
 
@@ -433,6 +435,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ListAllWeekEventsView_Contents = null,
         _element_ListAllWeekEventsView_Contents_FullView = {},
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {},
+        _element_ListAllWeekEventsView_Contents_FullView_Events = {},
         _element_ListAllWeekEventsView_EventsShown = [],
         _element_ListAllWeekEventsView_DateSelected = null,
         _element_ConfirmationDialog = null,
@@ -515,6 +518,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableTooltips = null,
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null,
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null,
+        _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null,
         _element_ConfigurationDialog_Organizer_Name = null,
         _element_ConfigurationDialog_Organizer_Email = null,
         _element_ConfigurationDialog_VisibleDays_Mon = null,
@@ -2574,6 +2578,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ListAllWeekEventsView_Contents.innerHTML = "";
         _element_ListAllWeekEventsView_Contents_FullView = {};
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
+        _element_ListAllWeekEventsView_Contents_FullView_Events = {};
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
 
@@ -2657,8 +2662,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         for ( var dateID in _element_ListAllWeekEventsView_Contents_FullView ) {
-            if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
-                _element_ListAllWeekEventsView_Contents.appendChild( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
+            if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) && _element_ListAllWeekEventsView_Contents_FullView_Events.hasOwnProperty( dateID ) ) {
+                if ( _options.showEmptyDaysInWeekView || _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ].length > 0 ) {
+                    _element_ListAllWeekEventsView_Contents.appendChild( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
+                }
             }
         }
 
@@ -2724,6 +2731,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
         var added = false,
+            weekDayNumber = getWeekdayNumber( displayDate ),
+            dateID = displayDate.getFullYear() + displayDate.getMonth() + weekDayNumber,
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             formattedDate = toStorageFormattedDate( displayDate );
 
@@ -2734,6 +2743,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var event = createElement( "div", "event" );
             container.appendChild( event );
     
+            _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ].push( event );
+
             event.oncontextmenu = function( e ) {
                 showEventDropDownMenu( e, eventDetails, formattedDate );
             };
@@ -2831,6 +2842,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             var day = createElement( "div", "day" );
             _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
+            _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ] = [];
 
             if ( isWeekendDay( date ) ) {
                 day.className += " weekend-day";
@@ -4817,6 +4829,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down" )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
+        _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = buildCheckBox( _element_ConfigurationDialog_Display, _options.showEmptyDaysInWeekViewText )[ 0 ];
 
         createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
 
@@ -4919,6 +4932,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _options.tooltipsEnabled = _element_ConfigurationDialog_Display_EnableTooltips.checked;
         _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked;
         _options.showDayNamesInMainDisplay = _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked;
+        _options.showEmptyDaysInWeekView = _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
 
@@ -4947,6 +4961,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableTooltips.checked = _options.tooltipsEnabled;
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
+        _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked = _options.showEmptyDaysInWeekView;
         _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
         _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
         _element_ConfigurationDialog_VisibleDays_Mon.checked = _options.visibleDays.indexOf( 0 ) > -1;
@@ -7467,6 +7482,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _options.showExtraMainDisplayToolbarButtons = true;
         }
 
+        if ( !isDefinedBoolean( _options.showEmptyDaysInWeekView ) ) {
+            _options.showEmptyDaysInWeekView = true;
+        }
+
         setTranslationStringOptions();
         checkForBrowserNotificationsPermission();
     }
@@ -8091,6 +8110,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.notSearchText ) ) {
             _options.notSearchText = "Not (opposite)";
+        }
+
+        if ( !isDefinedString( _options.showEmptyDaysInWeekViewText ) ) {
+            _options.showEmptyDaysInWeekViewText = "Show empty days in the week view";
         }
     }
 

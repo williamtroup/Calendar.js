@@ -5,6 +5,8 @@
 - Organized the public functions into more areas to make them easier to find.
 - Moved all test files to use console.log() instead of alert() so that the details can be fully seen.
 - Added public function setClipboardEvent(), which sets the internal clipboard event.
+- Added new setting "showEmptyDaysInWeekView", which states if empty days should be shown in the week view (defaults to true).
+- Added new option "Show empty days in the week view" to Configuration > Display.
 - 
 
 ### Version 1.3.7:
