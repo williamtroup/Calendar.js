@@ -263,6 +263,7 @@
  * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
  * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
  * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
+ * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
  */
 
 
@@ -4992,8 +4993,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             configGroup = getGroupName( group ),
             visible = true;
         
-        if ( group !== "" && isDefined( _configuration.visibleGroups ) ) {
-            visible = _configuration.visibleGroups.indexOf( configGroup ) > -1;
+        if ( group !== "" ) {
+            if ( isDefined( _configuration.visibleGroups ) ) {
+                visible = _configuration.visibleGroups.indexOf( configGroup ) > -1;
+            }
+        } else {
+            visible = !_options.hideEventsWithoutGroupAssigned;
         }
 
         return visible;
@@ -7484,6 +7489,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.showEmptyDaysInWeekView ) ) {
             _options.showEmptyDaysInWeekView = true;
+        }
+
+        if ( !isDefinedBoolean( _options.hideEventsWithoutGroupAssigned ) ) {
+            _options.hideEventsWithoutGroupAssigned = false;
         }
 
         setTranslationStringOptions();

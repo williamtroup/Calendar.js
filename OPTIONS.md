@@ -44,6 +44,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showExtraMainDisplayToolbarButtons | States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true). |
 | *boolean* | openInFullScreenMode | States if full screen mode should be turned on when the calendar is rendered (defaults to false). |
 | *boolean* | showEmptyDaysInWeekView | States if empty days should be shown in the Week view (defaults to true). |
+| *boolean* | hideEventsWithoutGroupAssigned | States if events without a group should be hidden (defaults to false). |
 
 <br/>
 

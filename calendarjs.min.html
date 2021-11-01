@@ -119,7 +119,8 @@
                 tooltipsEnabled: false,
                 visibleDays: [ 0, 1, 2, 3, 4 ],
                 allowEventScrollingOnMainDisplay: true,
-                showExtraMainDisplayToolbarButtons: false
+                showExtraMainDisplayToolbarButtons: false,
+                hideEventsWithoutGroupAssigned: true
             } );
         }
 
@@ -316,8 +317,7 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 4,
-                    group: "Group 2"
+                    repeatEvery: 4
                 },
                 {
                     from: firstDayInNextMonth,
@@ -328,8 +328,7 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 4,
-                    group: "Group 2"
+                    repeatEvery: 4
                 },
                 {
                     from: lastDayInNextMonth,
@@ -339,8 +338,7 @@
                     location: "Teams Meeting",
                     isAllDay: true,
                     color: "#0000FF",
-                    repeatEvery: 2,
-                    group: "Group 2"
+                    repeatEvery: 2
                 },
                 {
                     from: today,

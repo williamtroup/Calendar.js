@@ -7,6 +7,7 @@
 - Added public function setClipboardEvent(), which sets the internal clipboard event.
 - Added new setting "showEmptyDaysInWeekView", which states if empty days should be shown in the week view (defaults to true).
 - Added new option "Show empty days in the week view" to Configuration > Display.
+- Added new setting "hideEventsWithoutGroupAssigned", which states if events without a group should be hidden (defaults to false).
 - 
 
 ### Version 1.3.7:
