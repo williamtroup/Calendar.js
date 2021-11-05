@@ -1,5 +1,14 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.8:
+- Added public function removeGroup(), which removes a group by name (and fires a new custom event).
+- Organized the public functions into more areas to make them easier to find.
+- Moved all test files to use console.log() instead of alert() so that the details can be fully seen.
+- Added public function setClipboardEvent(), which sets the internal clipboard event.
+- Added new setting "showEmptyDaysInWeekView", which states if empty days should be shown in the week view (defaults to true).
+- Added new option "Show empty days in the week view" to Configuration > Display.
+- Added new setting "hideEventsWithoutGroupAssigned", which states if events without a group should be hidden (defaults to false).
+
 ### Version 1.3.7:
 - Added public function isFullScreenActivated(), which states if full-screen mode is activated.
 - The "Remove Events" context menu item in the Full Day view is only visible when events are available.

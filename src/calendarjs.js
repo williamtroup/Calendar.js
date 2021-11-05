@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.7
+ * Calendar.js Library v1.3.8
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -75,6 +75,7 @@
  * @property    {Object}    onEventsSetFromJSON                         Specifies an event that will be triggered when events are set from JSON and the originals are cleared (passes the JSON to the function).
  * @property    {Object}    onEventsAddedFromJSON                       Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function).
  * @property    {Object}    onDatePickerDateChanged                     Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function).
+ * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
  */
 
 
@@ -217,6 +218,7 @@
  * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
  * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
  * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
+ * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
  */
 
 
@@ -260,6 +262,8 @@
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
  * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
+ * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
+ * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
  */
 
 
@@ -432,6 +436,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ListAllWeekEventsView_Contents = null,
         _element_ListAllWeekEventsView_Contents_FullView = {},
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {},
+        _element_ListAllWeekEventsView_Contents_FullView_Events = {},
         _element_ListAllWeekEventsView_EventsShown = [],
         _element_ListAllWeekEventsView_DateSelected = null,
         _element_ConfirmationDialog = null,
@@ -514,6 +519,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableTooltips = null,
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null,
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null,
+        _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null,
         _element_ConfigurationDialog_Organizer_Name = null,
         _element_ConfigurationDialog_Organizer_Email = null,
         _element_ConfigurationDialog_VisibleDays_Mon = null,
@@ -2573,6 +2579,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ListAllWeekEventsView_Contents.innerHTML = "";
         _element_ListAllWeekEventsView_Contents_FullView = {};
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
+        _element_ListAllWeekEventsView_Contents_FullView_Events = {};
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
 
@@ -2656,8 +2663,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         for ( var dateID in _element_ListAllWeekEventsView_Contents_FullView ) {
-            if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) ) {
-                _element_ListAllWeekEventsView_Contents.appendChild( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
+            if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) && _element_ListAllWeekEventsView_Contents_FullView_Events.hasOwnProperty( dateID ) ) {
+                if ( _options.showEmptyDaysInWeekView || _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ].length > 0 ) {
+                    _element_ListAllWeekEventsView_Contents.appendChild( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
+                }
             }
         }
 
@@ -2723,6 +2732,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
         var added = false,
+            weekDayNumber = getWeekdayNumber( displayDate ),
+            dateID = displayDate.getFullYear() + displayDate.getMonth() + weekDayNumber,
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             formattedDate = toStorageFormattedDate( displayDate );
 
@@ -2733,6 +2744,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var event = createElement( "div", "event" );
             container.appendChild( event );
     
+            _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ].push( event );
+
             event.oncontextmenu = function( e ) {
                 showEventDropDownMenu( e, eventDetails, formattedDate );
             };
@@ -2830,6 +2843,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             var day = createElement( "div", "day" );
             _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
+            _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ] = [];
 
             if ( isWeekendDay( date ) ) {
                 day.className += " weekend-day";
@@ -4816,6 +4830,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down" )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
+        _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = buildCheckBox( _element_ConfigurationDialog_Display, _options.showEmptyDaysInWeekViewText )[ 0 ];
 
         createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
 
@@ -4918,6 +4933,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _options.tooltipsEnabled = _element_ConfigurationDialog_Display_EnableTooltips.checked;
         _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked;
         _options.showDayNamesInMainDisplay = _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked;
+        _options.showEmptyDaysInWeekView = _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
 
@@ -4946,6 +4962,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableTooltips.checked = _options.tooltipsEnabled;
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
+        _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked = _options.showEmptyDaysInWeekView;
         _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
         _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
         _element_ConfigurationDialog_VisibleDays_Mon.checked = _options.visibleDays.indexOf( 0 ) > -1;
@@ -4976,8 +4993,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             configGroup = getGroupName( group ),
             visible = true;
         
-        if ( group !== "" && isDefined( _configuration.visibleGroups ) ) {
-            visible = _configuration.visibleGroups.indexOf( configGroup ) > -1;
+        if ( group !== "" ) {
+            if ( isDefined( _configuration.visibleGroups ) ) {
+                visible = _configuration.visibleGroups.indexOf( configGroup ) > -1;
+            }
+        } else {
+            visible = !_options.hideEventsWithoutGroupAssigned;
         }
 
         return visible;
@@ -7100,7 +7121,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Get/Set Additional Data (public)
+     * Add/Remove Groups (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -7144,6 +7165,57 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     };
 
     /**
+     * removeGroup().
+     * 
+     * Removes a group by name.
+     * 
+     * @fires       onGroupRemoved
+     * 
+     * @param       {string}    groupName                                   The name of the group to remove.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
+     */
+    this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+
+        var checkGroupName = groupName.toLowerCase();
+
+        getAllEventsFunc( function( event ) {
+            if ( event.group !== null && event.group.toLowerCase() === checkGroupName ) {
+                event.group = null;
+            }
+        } );
+
+        if ( triggerEvent ) {
+            triggerOptionsEvent( "onGroupRemoved", groupName );
+        }
+
+        if ( updateEvents ) {
+            buildDayEvents();
+            refreshOpenedViews();
+        }
+    };
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Internal Clipboard (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * setClipboardEvent().
+     * 
+     * Set the clipboard event.
+     * 
+     * @param       {Object}    event                                       The event to set (refer to "Day Event" documentation for properties).
+     */
+    this.setClipboardEvent = function( event ) {
+        _copiedEventDetails = cloneEventDetails( event );
+    };
+
+    /**
      * getClipboardEvent().
      * 
      * Returns the event copied in the clipboard.
@@ -7163,6 +7235,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _copiedEventDetails = null;
     };
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Get/Set Additional Data (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
     /**
      * getVersion().
      * 
@@ -7171,7 +7250,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.7";
+        return "1.3.8";
     };
 
 
@@ -7406,6 +7485,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.showExtraMainDisplayToolbarButtons ) ) {
             _options.showExtraMainDisplayToolbarButtons = true;
+        }
+
+        if ( !isDefinedBoolean( _options.showEmptyDaysInWeekView ) ) {
+            _options.showEmptyDaysInWeekView = true;
+        }
+
+        if ( !isDefinedBoolean( _options.hideEventsWithoutGroupAssigned ) ) {
+            _options.hideEventsWithoutGroupAssigned = false;
         }
 
         setTranslationStringOptions();
@@ -8032,6 +8119,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.notSearchText ) ) {
             _options.notSearchText = "Not (opposite)";
+        }
+
+        if ( !isDefinedString( _options.showEmptyDaysInWeekViewText ) ) {
+            _options.showEmptyDaysInWeekViewText = "Show empty days in the week view";
         }
     }
 

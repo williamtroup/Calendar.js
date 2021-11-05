@@ -17,28 +17,37 @@
             </div>
             <br>
     
-            <h2>Move Back/Forward By Month/Year:</h2>
+            <h2>Navigation:</h2>
             <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
             <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
             <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
             <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
+            <button onclick="console.log( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
             <br>
     
             <h2>Events:</h2>
             <button onclick="setEvents();">Set Events</button>
             <button onclick="removeEvent();">Remove Event</button>
             <button onclick="calendarInstance.clearEvents();">Clear Events</button>
-            <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
-            <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
-            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
+            <button onclick="console.log( calendarInstance.getEvent( '1234-5678-9' ) );">Get Event</button>
+            <br>
+
+            <h2>Groups:</h2>
+            <button onclick="console.log( calendarInstance.getAllGroups() );">Get All Groups</button>
+            <button onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
+            <button onclick="calendarInstance.removeGroup( 'Group 1' );">Remove Group</button>
+            <br>
+
+            <h2>Internal Clipboard:</h2>
+            <button onclick="calendarInstance.setClipboardEvent( getCopiedEvent() );">Set Clipboard Event</button>
+            <button onclick="console.log( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
+            <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <br>
 
             <h2>Additional Data:</h2>
-            <button onclick="alert( calendarInstance.getAllGroups() );">Get All Groups</button>
-            <button onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
-            <button onclick="alert( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
-            <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
-            <button onclick="alert( calendarInstance.getVersion() );">Get Version</button>
+            <button onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
+            <br>
             
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
@@ -48,21 +57,10 @@
             <button onclick="addNewHoliday();">Add New Holiday</button>
             <br />
     
-            <h2>Export Events:</h2>
-            <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'ical' );">Export All Events (ical)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'md' );">Export All Events (md)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'html' );">Export All Events (html)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'tsv' );">Export All Events (tsv)</button>
-            <br />
-    
             <h2>Main Controls:</h2>
             <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
             <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
-            <button onclick="alert( calendarInstance.isFullScreenActivated() );">Is Full-Screen Activated</button>
+            <button onclick="console.log( calendarInstance.isFullScreenActivated() );">Is Full-Screen Activated</button>
             <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
             <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
             <button onclick="calendarInstance.destroy();">Destroy</button>
@@ -121,7 +119,8 @@
                 tooltipsEnabled: false,
                 visibleDays: [ 0, 1, 2, 3, 4 ],
                 allowEventScrollingOnMainDisplay: true,
-                showExtraMainDisplayToolbarButtons: false
+                showExtraMainDisplayToolbarButtons: false,
+                hideEventsWithoutGroupAssigned: true
             } );
         }
 
@@ -318,8 +317,7 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 4,
-                    group: "Group 2"
+                    repeatEvery: 4
                 },
                 {
                     from: firstDayInNextMonth,
@@ -330,8 +328,7 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 4,
-                    group: "Group 2"
+                    repeatEvery: 4
                 },
                 {
                     from: lastDayInNextMonth,
@@ -341,8 +338,7 @@
                     location: "Teams Meeting",
                     isAllDay: true,
                     color: "#0000FF",
-                    repeatEvery: 2,
-                    group: "Group 2"
+                    repeatEvery: 2
                 },
                 {
                     from: today,
@@ -355,6 +351,21 @@
                     group: "Group 1"
                 }
             ];
+        }
+
+        function getCopiedEvent() {
+            var today = new Date(),
+                todayPlus1Hour = new Date();
+
+            todayPlus1Hour.setHours( today.getHours() + 1 );
+
+            return {
+                from: today,
+                to: todayPlus1Hour,
+                title: "Copied Event",
+                description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                group: "Group 1"
+            }
         }
 
         function addNewHoliday() {

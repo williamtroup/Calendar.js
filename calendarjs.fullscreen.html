@@ -16,53 +16,6 @@
                 <p>Some data that should be cleared.</p>
             </div>
             <br>
-    
-            <h2>Move Back/Forward By Month/Year:</h2>
-            <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
-            <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
-            <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
-            <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
-            <br>
-    
-            <h2>Events:</h2>
-            <button onclick="setEvents();">Set Events</button>
-            <button onclick="removeEvent();">Remove Event</button>
-            <button onclick="calendarInstance.clearEvents();">Clear Events</button>
-            <button onclick="alert( calendarInstance.getEvent( '1234-5678-9' ).id );">Get Event</button>
-            <button onclick="alert( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
-            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
-            <br>
-
-            <h2>Additional Data:</h2>
-            <button onclick="alert( calendarInstance.getAllGroups() );">Get All Groups</button>
-            <button onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
-            <button onclick="alert( calendarInstance.getVersion() );">Get Version</button>
-
-            <h2>Options:</h2>
-            <button onclick="setOptions();">Set Options</button>
-            <button onclick="setSearchOptions();">Set Search Options</button>
-            <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
-            <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
-            <button onclick="addNewHoliday();">Add New Holiday</button>
-            <br />
-    
-            <h2>Export Events:</h2>
-            <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'ical' );">Export All Events (ical)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'md' );">Export All Events (md)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'html' );">Export All Events (html)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'tsv' );">Export All Events (tsv)</button>
-            <br />
-    
-            <h2>Main Controls:</h2>
-            <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
-            <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
-            <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
-            <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
-            <button onclick="calendarInstance.destroy();">Destroy</button>
         </div>
     </body>
 
@@ -85,63 +38,8 @@
 
         calendarInstance.addEvents( getEvents() );
 
-        function turnOnEventNotifications() {
-            calendarInstance.setOptions( {
-                eventNotificationsEnabled: true
-            } );
-        }
-
-        function setEvents() {
-            calendarInstance.setEvents( getEvents() );
-        }
-
-        function removeEvent() {
-            calendarInstance.removeEvent( new Date(), "Test Title 2" );
-        }
-
         function daysInMonth( year, month ) {
             return new Date( year, month + 1, 0 ).getDate();
-        }
-
-        function setOptions() {
-            calendarInstance.setOptions( {
-                minimumDayHeight: 70,
-                manualEditingEnabled: false,
-                exportEventsEnabled: false,
-                showDayNumberOrdinals: false,
-                fullScreenModeEnabled: false,
-                maximumEventsPerDayDisplay: 0,
-                showTimelineArrowOnFullDayView: false,
-                maximumEventTitleLength: 10,
-                maximumEventDescriptionLength: 10,
-                maximumEventLocationLength: 10,
-                maximumEventGroupLength: 10,
-                showDayNamesInMainDisplay: false,
-                tooltipsEnabled: false,
-                visibleDays: [ 0, 1, 2, 3, 4 ],
-                allowEventScrollingOnMainDisplay: true,
-                showExtraMainDisplayToolbarButtons: false
-            } );
-        }
-
-        function setSearchOptions() {
-            calendarInstance.setSearchOptions( {
-                left: 10,
-                top: 10
-            } );
-        }
-
-        function onlyDotsDisplay() {
-            calendarInstance.setOptions( {
-                useOnlyDotEventsForMainDisplay: true
-            } );
-        }
-
-        function setCurrentDisplayDate() {
-            var newDate = new Date();
-            newDate.setMonth( newDate.getMonth() + 3 );
-
-            calendarInstance.setCurrentDisplayDate( newDate );
         }
 
         function getEvents() {
@@ -354,24 +252,6 @@
                     group: "Group 1"
                 }
             ];
-        }
-
-        function addNewHoliday() {
-            var today = new Date();
-
-            var holiday1 = {
-                day: today.getDate(),
-                month: today.getMonth() + 1,
-                title: "A New Holiday",
-            };
-
-            var holiday2 = {
-                day: today.getDate(),
-                month: today.getMonth() + 1,
-                title: "Another Holiday",
-            };
-            
-            calendarInstance.addHolidays( [ holiday1, holiday2 ] );
         }
     </script>
 </html>
