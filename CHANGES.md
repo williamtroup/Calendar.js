@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.3.9:
+- Added default holiday for "Remembrance Day".
 - 
 
 ### Version 1.3.8:

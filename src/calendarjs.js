@@ -8168,6 +8168,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 title: "Halloween"
             },
             {
+                day: 11,
+                month: 11,
+                title: "Remembrance Day"
+            },
+            {
                 day: 24,
                 month: 12,
                 title: "Christmas Eve"
