@@ -357,6 +357,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _copiedEventDetails = null,
         _elementID_Day = "day-",
         _elementID_Month = "month-",
+        _elementID_WeekDay = "week-day-",
+        _elementID_FullDay = "full-day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
         _element_Calendar = null,
@@ -1186,7 +1188,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             
             } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                 e.preventDefault();
-                showSearchDialog( !isOverlayVisible( _element_ListAllEventsView ) );
+                showSearchDialog();
             }
         }
     }
@@ -1828,6 +1830,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+
         if ( _options.fullScreenModeEnabled ) {
             _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
@@ -2037,6 +2041,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
+            if ( doDatesMatch( eventDetails.from, displayDate ) ) {
+                event.id = _elementID_FullDay + eventDetails.id;
+
+                if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                    event.className += " focused-event";
+                }
+            }
+
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -2360,9 +2372,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
-        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, function() {
-            showSearchDialog( false );
-        } );
+        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -2573,6 +2583,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
@@ -2765,6 +2777,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             makeEventDraggable( event, eventDetails, displayDate );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
+            if ( doDatesMatch( eventDetails.from, displayDate ) ) {
+                event.id = _elementID_WeekDay + eventDetails.id;
+
+                if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                    event.className += " focused-event";
+                }
+            }
+
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -4593,10 +4613,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_SearchDialog_FocusedEventID = null;
     }
 
-    function showSearchDialog( hideAllEventsOverlay ) {
+    function showSearchDialog() {
         if ( _element_SearchDialog.style.display !== "block" ) {
-            hideAllEventsOverlay = isDefined( hideAllEventsOverlay ) ? hideAllEventsOverlay : false;
-
             _element_SearchDialog_SearchResults = [];
             _element_SearchDialog.style.display = "block";
             _element_SearchDialog_For.value = "";
@@ -4604,12 +4622,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             centerSearchDialog();
             searchForTextChanged();
             setupSearchOptions();
-            hideFullDayView();
-            hideOverlay( _element_ListAllWeekEventsView );
-
-            if ( hideAllEventsOverlay ) {
-                hideOverlay( _element_ListAllEventsView );
-            }
         }
 
         if ( !isSearchDialogContentVisible() ) {
@@ -4679,13 +4691,25 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function searchOnNext() {
         if ( _element_SearchDialog_SearchResults.length === 0 ) {
-            var not = _element_SearchDialog_Not.checked,
+            var startingID = _elementID_Day,
+                not = _element_SearchDialog_Not.checked,
                 matchCase = _element_SearchDialog_MatchCase.checked,
                 search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
                 monthYearsFound = {},
                 orderedEvents = getOrderedEvents( getAllEvents() ),
-                orderedEventsLength = orderedEvents.length;
+                orderedEventsLength = orderedEvents.length,
+                isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
+                isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
+                isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
             
+            if ( isFullDayViewVisible ) {
+                startingID = _elementID_FullDay;
+            } else if ( isAllEventsViewVisible ) {
+                startingID = _elementID_Month;
+            } else if ( isAllWeekEventsViewVisible ) {
+                startingID = _elementID_WeekDay;
+            }
+
             for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
                 var event = orderedEvents[ orderedEventIndex ];
 
@@ -4722,15 +4746,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     }
 
                     if ( found ) {
-                        if ( isOverlayVisible( _element_ListAllEventsView ) ) {
-                            _element_SearchDialog_SearchResults.push( event );
-                        } else {
-                            
-                            var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
-    
-                            if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                        var eventElement = getElementByID( startingID + event.id );
+                        if ( eventElement !== null ) {
+
+                            if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
                                 _element_SearchDialog_SearchResults.push( event );
-                                monthYearsFound[ monthYear ] = true;
+                            } else {
+                                
+                                var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+        
+                                if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                                    _element_SearchDialog_SearchResults.push( event );
+                                    monthYearsFound[ monthYear ] = true;
+                                }
                             }
                         }
                     }
@@ -4754,12 +4782,18 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function updatedFocusedElementAfterSearch( eventDetails ) {
         var startingID = _elementID_Day,
-            isAllEventOverlayVisible = isOverlayVisible( _element_ListAllEventsView );
+            isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
+            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
+            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
         
         removeElementsClassName( _element_Calendar, " focused-event" );
 
-        if ( isAllEventOverlayVisible ) {
+        if ( isFullDayViewVisible ) {
+            startingID = _elementID_FullDay;
+        } else if ( isAllEventsViewVisible ) {
             startingID = _elementID_Month;
+        } else if ( isAllWeekEventsViewVisible ) {
+            startingID = _elementID_WeekDay;
         }
 
         var event = getElementByID( startingID + eventDetails.id );
@@ -4767,7 +4801,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             event.className += " focused-event";
             _element_SearchDialog_FocusedEventID = eventDetails.id;
 
-            if ( isAllEventOverlayVisible ) {
+            if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
                 event.scrollIntoView();
             }
         }

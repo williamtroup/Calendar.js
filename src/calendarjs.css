@@ -645,6 +645,10 @@ div.calendar div.full-day-view {
   visibility: hidden;
 }
 
+div.calendar div.full-day-view div.ib-search {
+  float: right !important;
+}
+
 div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
 }
@@ -1124,6 +1128,10 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-pin {
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
     display: none !important;
   }
+}
+
+div.calendar div.list-all-week-events-view div.ib-search {
+  float: right !important;
 }
 
 div.calendar div.list-all-week-events-view div.contents {

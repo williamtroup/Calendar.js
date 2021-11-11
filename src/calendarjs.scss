@@ -561,6 +561,10 @@ div.calendar {
     div.full-day-view {
         @include full-size-view-display(2);
 
+        div.ib-search {
+            float: right !important;
+        }
+
         span.holiday {
             font-weight: 300 !important;
         }
@@ -759,6 +763,10 @@ div.calendar {
         @include full-size-view-display;
 
         @import "foundation/overlay-title-bar";
+
+        div.ib-search {
+            float: right !important;
+        }
 
         div.contents {
             @include overlay-contents;
