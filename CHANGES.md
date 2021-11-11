@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.3.9:
+- Added default holiday for "Remembrance Day".
+
 ### Version 1.3.8:
 - Added public function removeGroup(), which removes a group by name (and fires a new custom event).
 - Organized the public functions into more areas to make them easier to find.
