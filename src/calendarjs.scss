@@ -269,13 +269,15 @@ div.calendar {
                 }
 
                 &.holiday,
+                &.holiday-link,
                 &.month-name,
                 &.blank {
                     display: block;
                     font-size: xx-small;
                 }
 
-                &.month-name:hover {
+                &.month-name:hover,
+                &.holiday-link:hover {
                     text-decoration: underline;
                     cursor: pointer;
                 }

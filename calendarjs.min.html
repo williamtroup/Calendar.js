@@ -374,13 +374,19 @@
             var holiday1 = {
                 day: today.getDate(),
                 month: today.getMonth() + 1,
-                title: "A New Holiday",
+                title: "Google Day",
+                onClick: function() {
+                    document.location = "https://www.google.com/";
+                }
             };
 
             var holiday2 = {
                 day: today.getDate(),
                 month: today.getMonth() + 1,
-                title: "Another Holiday",
+                title: "Calendar.js Day",
+                onClick: function() {
+                    document.location = "https://github.com/williamtroup/Calendar.js";
+                }
             };
             
             calendarInstance.addHolidays( [ holiday1, holiday2 ] );

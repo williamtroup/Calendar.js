@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.0:
+- Added support for custom events for holidays shown in the main display (using a new "onClick" holiday property).
 - 
 
 ### Version 1.3.9:

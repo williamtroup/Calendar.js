@@ -328,12 +328,12 @@ div.calendar div.row div.cell span.first-day {
   color: #282828;
 }
 
-div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name, div.calendar div.row div.cell span.blank {
+div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.holiday-link, div.calendar div.row div.cell span.month-name, div.calendar div.row div.cell span.blank {
   display: block;
   font-size: xx-small;
 }
 
-div.calendar div.row div.cell span.month-name:hover {
+div.calendar div.row div.cell span.month-name:hover, div.calendar div.row div.cell span.holiday-link:hover {
   text-decoration: underline;
   cursor: pointer;
 }

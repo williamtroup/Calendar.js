@@ -45,6 +45,7 @@
  * @property    {number}    day                                         The day that the holiday occurs.
  * @property    {number}    month                                       The month that the holiday occurs.
  * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
+ * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
  */
 
 
@@ -1902,7 +1903,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
 
-        var holidayText = getHoliday( date ),
+        var holidayText = getHolidaysText( date ),
             orderedEvents = [];
 
         if ( holidayText !== null ) {
@@ -3109,10 +3110,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 }, true );
             }
 
-            var holidayText = getHoliday( dayDate );
-            if ( holidayText !== null ) {
-                createSpanElement( dayElement, holidayText, "holiday" + dayMutedClass );
-            }
+            addHolidays( dayDate, dayMutedClass, dayElement );
 
             if ( _options.manualEditingEnabled ) {
                 dayElement.ondblclick = function() {
@@ -3130,7 +3128,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function getHoliday( date ) {
+    function getHolidaysText( date ) {
         var result = null,
             holidayTextItems = [],
             holidayTextItemsAnyCase = [],
@@ -3151,6 +3149,24 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         return result;
+    }
+
+    function addHolidays( date, dayMutedClass, dayElement ) {
+        var holidayTextItemsAnyCase = [],
+            holidaysLength = _options.holidays.length;
+
+        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+            var holiday = _options.holidays[ holidayIndex ],
+                holidayText = getString( holiday.title, "" );
+
+            if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                var className = isDefined( holiday.onClick ) ? "holiday-link" : "holiday";
+                
+                createSpanElement( dayElement, holidayText, className + dayMutedClass, holiday.onClick, true );
+
+                holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+            }
+        }
     }
 
     
@@ -5420,15 +5436,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function createSpanElement( container, text, className, event, cancelDblClick ) {
         cancelDblClick = isDefined( cancelDblClick ) ? cancelDblClick : false;
 
-        var element = createElement( "span", className );
+        var element = createElement( "span", className ),
+            isEventDefined = isDefined( event );
+
         element.innerText = text;        
         container.appendChild( element );
 
-        if ( isDefined( event ) ) {
+        if ( isEventDefined ) {
             element.onclick = event;
         }
 
-        if ( cancelDblClick ) {
+        if ( cancelDblClick && isEventDefined ) {
             element.ondblclick = cancelBubble;
         }
     }
