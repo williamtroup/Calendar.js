@@ -356,6 +356,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _openDialogs = [],
         _copiedEventDetails = null,
         _elementID_Day = "day-",
+        _elementID_Month = "month-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
         _element_Calendar = null,
@@ -1185,7 +1186,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             
             } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                 e.preventDefault();
-                showSearchDialog();
+                showSearchDialog( !isOverlayVisible( _element_ListAllEventsView ) );
             }
         }
     }
@@ -2359,6 +2360,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, function() {
+            showSearchDialog( false );
+        } );
+
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
@@ -2412,6 +2417,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             makeEventDraggable( event, eventDetails, eventDetails.from );
             setEventClassesAndColors( event, eventDetails );
     
+            event.id = _elementID_Month + eventDetails.id;
+    
+            if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                event.className += " focused-event";
+            }
+
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -4582,8 +4593,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_SearchDialog_FocusedEventID = null;
     }
 
-    function showSearchDialog() {
+    function showSearchDialog( hideAllEventsOverlay ) {
         if ( _element_SearchDialog.style.display !== "block" ) {
+            hideAllEventsOverlay = isDefined( hideAllEventsOverlay ) ? hideAllEventsOverlay : false;
+
             _element_SearchDialog_SearchResults = [];
             _element_SearchDialog.style.display = "block";
             _element_SearchDialog_For.value = "";
@@ -4592,8 +4605,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             searchForTextChanged();
             setupSearchOptions();
             hideFullDayView();
-            hideOverlay( _element_ListAllEventsView );
             hideOverlay( _element_ListAllWeekEventsView );
+
+            if ( hideAllEventsOverlay ) {
+                hideOverlay( _element_ListAllEventsView );
+            }
         }
 
         if ( !isSearchDialogContentVisible() ) {
@@ -4666,9 +4682,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var not = _element_SearchDialog_Not.checked,
                 matchCase = _element_SearchDialog_MatchCase.checked,
                 search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
-                monthYearsFound = {};
+                monthYearsFound = {},
+                orderedEvents = getOrderedEvents( getAllEvents() ),
+                orderedEventsLength = orderedEvents.length;
+            
+            for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+                var event = orderedEvents[ orderedEventIndex ];
 
-            getAllEventsFunc( function( event ) {
                 if ( isEventVisible( event ) ) {
                     var title = getString( event.title ),
                         location = getString( event.location ),
@@ -4702,15 +4722,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     }
 
                     if ( found ) {
-                        var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
-
-                        if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                        if ( isOverlayVisible( _element_ListAllEventsView ) ) {
                             _element_SearchDialog_SearchResults.push( event );
-                            monthYearsFound[ monthYear ] = true;
+                        } else {
+                            
+                            var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+    
+                            if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                                _element_SearchDialog_SearchResults.push( event );
+                                monthYearsFound[ monthYear ] = true;
+                            }
                         }
                     }
                 }
-            } );
+            }
 
         } else {
             _element_SearchDialog_SearchIndex++;
@@ -4728,12 +4753,23 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function updatedFocusedElementAfterSearch( eventDetails ) {
+        var startingID = _elementID_Day,
+            isAllEventOverlayVisible = isOverlayVisible( _element_ListAllEventsView );
+        
         removeElementsClassName( _element_Calendar, " focused-event" );
 
-        var event = getElementByID( _elementID_Day + eventDetails.id );
+        if ( isAllEventOverlayVisible ) {
+            startingID = _elementID_Month;
+        }
+
+        var event = getElementByID( startingID + eventDetails.id );
         if ( event !== null ) {
             event.className += " focused-event";
             _element_SearchDialog_FocusedEventID = eventDetails.id;
+
+            if ( isAllEventOverlayVisible ) {
+                event.scrollIntoView();
+            }
         }
     }
 

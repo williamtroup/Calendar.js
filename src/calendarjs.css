@@ -949,6 +949,10 @@ div.calendar div.list-all-events-view div.title-bar div.ib-pin {
   }
 }
 
+div.calendar div.list-all-events-view div.ib-search {
+  float: right !important;
+}
+
 div.calendar div.list-all-events-view div.contents {
   display: inline-block;
   padding: 10px;

@@ -2,6 +2,8 @@
 
 ### Version 1.4.0:
 - Added support for custom events for holidays shown in the main display (using a new "onClick" holiday property).
+- Added search support to the All Events view.
+- Fixed a fault that caused the Search dialog to iterate through the events in the wrong order.
 - 
 
 ### Version 1.3.9:

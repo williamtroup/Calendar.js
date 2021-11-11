@@ -705,6 +705,10 @@ div.calendar {
 
         @import "foundation/overlay-title-bar";
 
+        div.ib-search {
+            float: right !important;
+        }
+
         div.contents {
             @include overlay-contents;
 
