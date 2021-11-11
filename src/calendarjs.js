@@ -2891,7 +2891,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 showDayHeaderDropDownMenu( e, weekDayNumber );
             };
 
-            buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
+            buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + " " );
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 

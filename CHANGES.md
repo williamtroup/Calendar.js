@@ -4,6 +4,7 @@
 - Added support for custom events for holidays shown in the main display (using a new "onClick" holiday property).
 - Added search support to the Full Day, Weekly, and All Events views.
 - Fixed a fault that caused the Search dialog to iterate through the events in the wrong order.
+- Removed the "," shown in the title bars in the Weekly view.
 - 
 
 ### Version 1.3.9:
