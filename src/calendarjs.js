@@ -2901,6 +2901,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + " " );
 
+            var holidayText = getHolidaysText( date );
+            if ( holidayText !== null ) {
+                createSpanElement( dayHeader, " (" + holidayText + ")" );
+            }
+
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
             if ( _options.manualEditingEnabled ) {
