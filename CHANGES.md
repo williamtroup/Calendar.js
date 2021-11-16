@@ -5,6 +5,7 @@
 - Added search support to the Full Day, Weekly, and All Events views.
 - Fixed a fault that caused the Search dialog to iterate through the events in the wrong order.
 - Removed the "," shown in the title bars in the Weekly view.
+- More KeyCodes are now shared via the common object.
 - 
 
 ### Version 1.3.9:

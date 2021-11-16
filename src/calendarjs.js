@@ -305,6 +305,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     var _options = {},
         _optionsForSearch = {},
         _keyCodes = {
+            enter: 13,
             escape: 27,
             left: 37,
             right: 39,
@@ -4682,9 +4683,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function searchOnEnter( e ) {
-        if ( e.keyCode === 13 && isControlKey( e ) && !_element_SearchDialog_Previous.disabled ) {
+        if ( e.keyCode === _keyCodes.enter && isControlKey( e ) && !_element_SearchDialog_Previous.disabled ) {
             searchOnPrevious();
-        } else if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
+        } else if ( e.keyCode === _keyCodes.enter && !_element_SearchDialog_Next.disabled ) {
             searchOnNext();
         }
     }
