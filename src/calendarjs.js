@@ -265,6 +265,7 @@
  * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
  * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
+ * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  */
 
 
@@ -3173,42 +3174,47 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function getHolidaysText( date ) {
-        var result = null,
-            holidayTextItems = [],
-            holidayTextItemsAnyCase = [],
-            holidaysLength = _options.holidays.length;
+        var result = null;
 
-        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            var holiday = _options.holidays[ holidayIndex ],
-                holidayText = getString( holiday.title, "" );
+        if ( _options.showHolidays ) {
+            var holidayTextItems = [],
+                holidayTextItemsAnyCase = [],
+                holidaysLength = _options.holidays.length;
 
-            if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                holidayTextItems.push( holidayText );
-                holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, "" );
+
+                if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                    holidayTextItems.push( holidayText );
+                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+                }
             }
-        }
 
-        if ( holidayTextItems.length > 0 ) {
-            result = holidayTextItems.join( ", " );
+            if ( holidayTextItems.length > 0 ) {
+                result = holidayTextItems.join( ", " );
+            }
         }
 
         return result;
     }
 
     function addHolidays( date, dayMutedClass, dayElement ) {
-        var holidayTextItemsAnyCase = [],
-            holidaysLength = _options.holidays.length;
+        if ( _options.showHolidays ) {
+            var holidayTextItemsAnyCase = [],
+                holidaysLength = _options.holidays.length;
 
-        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            var holiday = _options.holidays[ holidayIndex ],
-                holidayText = getString( holiday.title, "" );
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, "" );
 
-            if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                var className = isDefined( holiday.onClick ) ? "holiday-link" : "holiday";
-                
-                createSpanElement( dayElement, holidayText, className + dayMutedClass, holiday.onClick, true );
+                if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                    var className = isDefined( holiday.onClick ) ? "holiday-link" : "holiday";
+                    
+                    createSpanElement( dayElement, holidayText, className + dayMutedClass, holiday.onClick, true );
 
-                holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+                }
             }
         }
     }
@@ -7594,6 +7600,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.hideEventsWithoutGroupAssigned ) ) {
             _options.hideEventsWithoutGroupAssigned = false;
+        }
+
+        if ( !isDefinedBoolean( _options.showHolidays ) ) {
+            _options.showHolidays = true;
         }
 
         setTranslationStringOptions();

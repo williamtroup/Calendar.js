@@ -45,6 +45,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | openInFullScreenMode | States if full screen mode should be turned on when the calendar is rendered (defaults to false). |
 | *boolean* | showEmptyDaysInWeekView | States if empty days should be shown in the Week view (defaults to true). |
 | *boolean* | hideEventsWithoutGroupAssigned | States if events without a group should be hidden (defaults to false). |
+| *boolean* | showHolidays | States if the holidays should be shown (defaults to true). |
 
 <br/>
 

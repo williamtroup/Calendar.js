@@ -9,6 +9,7 @@
 - Pressing escape while one of the overlays is open (when no other dialog is open) will close them.
 - Holidays are now shown in the Weekly view day title bars.
 - The holiday text shown in the title bars now uses a new custom CSS block called "light-title-bar-text" (which is lighter).
+- Added new setting "showHolidays", which states if the holidays should be shown (defaults to true).
 - 
 
 ### Version 1.3.9:
