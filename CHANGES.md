@@ -6,6 +6,7 @@
 - Fixed a fault that caused the Search dialog to iterate through the events in the wrong order.
 - Removed the "," shown in the title bars in the Weekly view.
 - More KeyCodes are now shared via the common object.
+- Pressing escape while one of the overlays is open (when no other dialog is open) will close them.
 - 
 
 ### Version 1.3.9:

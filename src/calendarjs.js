@@ -1216,6 +1216,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             done = true;
         }
 
+        if ( !done && ( isOverlayVisible( _element_FullDayView ) || isOverlayVisible( _element_ListAllEventsView ) || isOverlayVisible( _element_ListAllWeekEventsView ) ) ) {
+            hideOverlay( _element_FullDayView );
+            hideOverlay( _element_ListAllEventsView );
+            hideOverlay( _element_ListAllWeekEventsView );
+            done = true;
+        }
+
         return done;
     }
 
