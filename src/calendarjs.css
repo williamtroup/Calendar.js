@@ -49,6 +49,16 @@ div.calendar-dialog textarea div.overlay-shown {
   visibility: visible !important;
 }
 
+div.calendar span.light-title-bar-text,
+div.calendar-tooltip span.light-title-bar-text,
+div.calendar-tooltip-event span.light-title-bar-text,
+div.calendar-drop-down-menu span.light-title-bar-text,
+div.calendar-dialog span.light-title-bar-text,
+div.calendar-dialog input span.light-title-bar-text,
+div.calendar-dialog textarea span.light-title-bar-text {
+  font-weight: 300 !important;
+}
+
 div.disabled-background {
   top: 0;
   left: 0;

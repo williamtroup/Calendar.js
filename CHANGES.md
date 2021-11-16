@@ -8,6 +8,7 @@
 - More KeyCodes are now shared via the common object.
 - Pressing escape while one of the overlays is open (when no other dialog is open) will close them.
 - Holidays are now shown in the Weekly view day title bars.
+- The holiday text shown in the title bars now uses a new custom CSS block called "light-title-bar-text" (which is lighter).
 - 
 
 ### Version 1.3.9:

@@ -1920,7 +1920,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             orderedEvents = [];
 
         if ( holidayText !== null ) {
-            createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")" );
+            createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")", "light-title-bar-text" );
         }
 
         getAllEventsFunc( function( event ) {
@@ -2903,7 +2903,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             var holidayText = getHolidaysText( date );
             if ( holidayText !== null ) {
-                createSpanElement( dayHeader, " (" + holidayText + ")" );
+                createSpanElement( dayHeader, " (" + holidayText + ")", "light-title-bar-text" );
             }
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
