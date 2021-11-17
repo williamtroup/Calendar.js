@@ -189,6 +189,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | hideDayText | The text that should be displayed for the "Hide Day" date-picker placeholder text. |
 | *string* | notSearchText | The text that should be displayed for the "Not (opposite)" label. |
 | *string* | showEmptyDaysInWeekViewText | The text that should be displayed for the "Show empty days in the week view" label. |
+| *string* | showHolidaysInTheDisplaysText | The text that should be displayed for the "Show holidays in the main display and title bars" label. |
 
 <br/>
 

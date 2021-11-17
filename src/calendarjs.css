@@ -2489,7 +2489,7 @@ div.configuration div.contents input[type="text"]:not(:disabled):hover {
 }
 
 div.configuration div.contents div.tab-content {
-  height: 150px;
+  height: 155px;
 }
 
 div.configuration div.split input,

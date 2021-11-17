@@ -220,6 +220,7 @@
  * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
  * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
  * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
+ * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  */
 
 
@@ -526,6 +527,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null,
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null,
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null,
+        _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = null,
         _element_ConfigurationDialog_Organizer_Name = null,
         _element_ConfigurationDialog_Organizer_Email = null,
         _element_ConfigurationDialog_VisibleDays_Mon = null,
@@ -4936,6 +4938,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = buildCheckBox( _element_ConfigurationDialog_Display, _options.showEmptyDaysInWeekViewText )[ 0 ];
+        _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = buildCheckBox( _element_ConfigurationDialog_Display, _options.showHolidaysInTheDisplaysText )[ 0 ];
 
         createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
 
@@ -5039,6 +5042,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked;
         _options.showDayNamesInMainDisplay = _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked;
         _options.showEmptyDaysInWeekView = _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked;
+        _options.showHolidays = _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
 
@@ -5068,6 +5072,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked = _options.showEmptyDaysInWeekView;
+        _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
         _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
         _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
         _element_ConfigurationDialog_VisibleDays_Mon.checked = _options.visibleDays.indexOf( 0 ) > -1;
@@ -8234,6 +8239,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.showEmptyDaysInWeekViewText ) ) {
             _options.showEmptyDaysInWeekViewText = "Show empty days in the week view";
+        }
+
+        if ( !isDefinedString( _options.showHolidaysInTheDisplaysText ) ) {
+            _options.showHolidaysInTheDisplaysText = "Show holidays in the main display and title bars";
         }
     }
 
