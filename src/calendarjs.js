@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.9
+ * Calendar.js Library v1.4.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -45,6 +45,7 @@
  * @property    {number}    day                                         The day that the holiday occurs.
  * @property    {number}    month                                       The month that the holiday occurs.
  * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
+ * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
  */
 
 
@@ -219,6 +220,7 @@
  * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
  * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
  * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
+ * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  */
 
 
@@ -264,6 +266,7 @@
  * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
  * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
+ * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  */
 
 
@@ -304,6 +307,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     var _options = {},
         _optionsForSearch = {},
         _keyCodes = {
+            enter: 13,
             escape: 27,
             left: 37,
             right: 39,
@@ -355,6 +359,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _openDialogs = [],
         _copiedEventDetails = null,
         _elementID_Day = "day-",
+        _elementID_Month = "month-",
+        _elementID_WeekDay = "week-day-",
+        _elementID_FullDay = "full-day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
         _element_Calendar = null,
@@ -520,6 +527,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null,
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null,
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null,
+        _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = null,
         _element_ConfigurationDialog_Organizer_Name = null,
         _element_ConfigurationDialog_Organizer_Email = null,
         _element_ConfigurationDialog_VisibleDays_Mon = null,
@@ -1211,6 +1219,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             done = true;
         }
 
+        if ( !done && ( isOverlayVisible( _element_FullDayView ) || isOverlayVisible( _element_ListAllEventsView ) || isOverlayVisible( _element_ListAllWeekEventsView ) ) ) {
+            hideOverlay( _element_FullDayView );
+            hideOverlay( _element_ListAllEventsView );
+            hideOverlay( _element_ListAllWeekEventsView );
+            done = true;
+        }
+
         return done;
     }
 
@@ -1826,6 +1841,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+
         if ( _options.fullScreenModeEnabled ) {
             _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
@@ -1902,11 +1919,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
 
-        var holidayText = getHoliday( date ),
+        var holidayText = getHolidaysText( date ),
             orderedEvents = [];
 
         if ( holidayText !== null ) {
-            createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")" );
+            createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")", "light-title-bar-text" );
         }
 
         getAllEventsFunc( function( event ) {
@@ -2035,6 +2052,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
+            if ( doDatesMatch( eventDetails.from, displayDate ) ) {
+                event.id = _elementID_FullDay + eventDetails.id;
+
+                if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                    event.className += " focused-event";
+                }
+            }
+
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -2358,6 +2383,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
@@ -2411,6 +2438,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             makeEventDraggable( event, eventDetails, eventDetails.from );
             setEventClassesAndColors( event, eventDetails );
     
+            event.id = _elementID_Month + eventDetails.id;
+    
+            if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                event.className += " focused-event";
+            }
+
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -2560,6 +2593,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
             } );
         }
+
+        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -2753,6 +2788,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             makeEventDraggable( event, eventDetails, displayDate );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
+            if ( doDatesMatch( eventDetails.from, displayDate ) ) {
+                event.id = _elementID_WeekDay + eventDetails.id;
+
+                if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+                    event.className += " focused-event";
+                }
+            }
+
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -2859,7 +2902,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 showDayHeaderDropDownMenu( e, weekDayNumber );
             };
 
-            buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + ", " );
+            buildDayDisplay( dayHeader, date, _options.dayNames[ weekDayNumber ] + " " );
+
+            var holidayText = getHolidaysText( date );
+            if ( holidayText !== null ) {
+                createSpanElement( dayHeader, " (" + holidayText + ")", "light-title-bar-text" );
+            }
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
 
@@ -3109,10 +3157,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 }, true );
             }
 
-            var holidayText = getHoliday( dayDate );
-            if ( holidayText !== null ) {
-                createSpanElement( dayElement, holidayText, "holiday" + dayMutedClass );
-            }
+            addHolidays( dayDate, dayMutedClass, dayElement );
 
             if ( _options.manualEditingEnabled ) {
                 dayElement.ondblclick = function() {
@@ -3130,27 +3175,50 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function getHoliday( date ) {
-        var result = null,
-            holidayTextItems = [],
-            holidayTextItemsAnyCase = [],
-            holidaysLength = _options.holidays.length;
+    function getHolidaysText( date ) {
+        var result = null;
 
-        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            var holiday = _options.holidays[ holidayIndex ],
-                holidayText = getString( holiday.title, "" );
+        if ( _options.showHolidays ) {
+            var holidayTextItems = [],
+                holidayTextItemsAnyCase = [],
+                holidaysLength = _options.holidays.length;
 
-            if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                holidayTextItems.push( holidayText );
-                holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, "" );
+
+                if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                    holidayTextItems.push( holidayText );
+                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+                }
+            }
+
+            if ( holidayTextItems.length > 0 ) {
+                result = holidayTextItems.join( ", " );
             }
         }
 
-        if ( holidayTextItems.length > 0 ) {
-            result = holidayTextItems.join( ", " );
-        }
-
         return result;
+    }
+
+    function addHolidays( date, dayMutedClass, dayElement ) {
+        if ( _options.showHolidays ) {
+            var holidayTextItemsAnyCase = [],
+                holidaysLength = _options.holidays.length;
+
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, "" );
+
+                if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                    var className = isDefined( holiday.onClick ) ? "holiday-link" : "holiday";
+                    
+                    createSpanElement( dayElement, holidayText, className + dayMutedClass, holiday.onClick, true );
+
+                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+                }
+            }
+        }
     }
 
     
@@ -4575,9 +4643,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             centerSearchDialog();
             searchForTextChanged();
             setupSearchOptions();
-            hideFullDayView();
-            hideOverlay( _element_ListAllEventsView );
-            hideOverlay( _element_ListAllWeekEventsView );
         }
 
         if ( !isSearchDialogContentVisible() ) {
@@ -4638,21 +4703,37 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function searchOnEnter( e ) {
-        if ( e.keyCode === 13 && isControlKey( e ) && !_element_SearchDialog_Previous.disabled ) {
+        if ( e.keyCode === _keyCodes.enter && isControlKey( e ) && !_element_SearchDialog_Previous.disabled ) {
             searchOnPrevious();
-        } else if ( e.keyCode === 13 && !_element_SearchDialog_Next.disabled ) {
+        } else if ( e.keyCode === _keyCodes.enter && !_element_SearchDialog_Next.disabled ) {
             searchOnNext();
         }
     }
 
     function searchOnNext() {
         if ( _element_SearchDialog_SearchResults.length === 0 ) {
-            var not = _element_SearchDialog_Not.checked,
+            var startingID = _elementID_Day,
+                not = _element_SearchDialog_Not.checked,
                 matchCase = _element_SearchDialog_MatchCase.checked,
                 search = !matchCase ? _element_SearchDialog_For.value.toLowerCase() : _element_SearchDialog_For.value,
-                monthYearsFound = {};
+                monthYearsFound = {},
+                orderedEvents = getOrderedEvents( getAllEvents() ),
+                orderedEventsLength = orderedEvents.length,
+                isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
+                isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
+                isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
+            
+            if ( isFullDayViewVisible ) {
+                startingID = _elementID_FullDay;
+            } else if ( isAllEventsViewVisible ) {
+                startingID = _elementID_Month;
+            } else if ( isAllWeekEventsViewVisible ) {
+                startingID = _elementID_WeekDay;
+            }
 
-            getAllEventsFunc( function( event ) {
+            for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+                var event = orderedEvents[ orderedEventIndex ];
+
                 if ( isEventVisible( event ) ) {
                     var title = getString( event.title ),
                         location = getString( event.location ),
@@ -4686,15 +4767,24 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     }
 
                     if ( found ) {
-                        var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+                        var eventElement = getElementByID( startingID + event.id );
+                        if ( eventElement !== null ) {
 
-                        if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
-                            _element_SearchDialog_SearchResults.push( event );
-                            monthYearsFound[ monthYear ] = true;
+                            if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
+                                _element_SearchDialog_SearchResults.push( event );
+                            } else {
+                                
+                                var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+        
+                                if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
+                                    _element_SearchDialog_SearchResults.push( event );
+                                    monthYearsFound[ monthYear ] = true;
+                                }
+                            }
                         }
                     }
                 }
-            } );
+            }
 
         } else {
             _element_SearchDialog_SearchIndex++;
@@ -4712,12 +4802,29 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function updatedFocusedElementAfterSearch( eventDetails ) {
+        var startingID = _elementID_Day,
+            isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
+            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
+            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
+        
         removeElementsClassName( _element_Calendar, " focused-event" );
 
-        var event = getElementByID( _elementID_Day + eventDetails.id );
+        if ( isFullDayViewVisible ) {
+            startingID = _elementID_FullDay;
+        } else if ( isAllEventsViewVisible ) {
+            startingID = _elementID_Month;
+        } else if ( isAllWeekEventsViewVisible ) {
+            startingID = _elementID_WeekDay;
+        }
+
+        var event = getElementByID( startingID + eventDetails.id );
         if ( event !== null ) {
             event.className += " focused-event";
             _element_SearchDialog_FocusedEventID = eventDetails.id;
+
+            if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
+                event.scrollIntoView();
+            }
         }
     }
 
@@ -4831,6 +4938,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDragAndDropForEventText )[ 0 ];
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = buildCheckBox( _element_ConfigurationDialog_Display, _options.showEmptyDaysInWeekViewText )[ 0 ];
+        _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = buildCheckBox( _element_ConfigurationDialog_Display, _options.showHolidaysInTheDisplaysText )[ 0 ];
 
         createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerNameText );
 
@@ -4934,6 +5042,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _options.dragAndDropForEventsEnabled = _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked;
         _options.showDayNamesInMainDisplay = _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked;
         _options.showEmptyDaysInWeekView = _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked;
+        _options.showHolidays = _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
 
@@ -4963,6 +5072,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
         _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView.checked = _options.showEmptyDaysInWeekView;
+        _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
         _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
         _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
         _element_ConfigurationDialog_VisibleDays_Mon.checked = _options.visibleDays.indexOf( 0 ) > -1;
@@ -5420,15 +5530,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function createSpanElement( container, text, className, event, cancelDblClick ) {
         cancelDblClick = isDefined( cancelDblClick ) ? cancelDblClick : false;
 
-        var element = createElement( "span", className );
+        var element = createElement( "span", className ),
+            isEventDefined = isDefined( event );
+
         element.innerText = text;        
         container.appendChild( element );
 
-        if ( isDefined( event ) ) {
+        if ( isEventDefined ) {
             element.onclick = event;
         }
 
-        if ( cancelDblClick ) {
+        if ( cancelDblClick && isEventDefined ) {
             element.ondblclick = cancelBubble;
         }
     }
@@ -7250,7 +7362,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.3.9";
+        return "1.4.0";
     };
 
 
@@ -7493,6 +7605,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.hideEventsWithoutGroupAssigned ) ) {
             _options.hideEventsWithoutGroupAssigned = false;
+        }
+
+        if ( !isDefinedBoolean( _options.showHolidays ) ) {
+            _options.showHolidays = true;
         }
 
         setTranslationStringOptions();
@@ -8123,6 +8239,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.showEmptyDaysInWeekViewText ) ) {
             _options.showEmptyDaysInWeekViewText = "Show empty days in the week view";
+        }
+
+        if ( !isDefinedString( _options.showHolidaysInTheDisplaysText ) ) {
+            _options.showHolidaysInTheDisplaysText = "Show holidays in the main display and title bars";
         }
     }
 

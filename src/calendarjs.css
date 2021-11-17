@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.3.9
+ * Calendar.js Library v1.4.0
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -47,6 +47,16 @@ div.calendar-dialog input div.overlay-shown,
 div.calendar-dialog textarea div.overlay-shown {
   top: 0 !important;
   visibility: visible !important;
+}
+
+div.calendar span.light-title-bar-text,
+div.calendar-tooltip span.light-title-bar-text,
+div.calendar-tooltip-event span.light-title-bar-text,
+div.calendar-drop-down-menu span.light-title-bar-text,
+div.calendar-dialog span.light-title-bar-text,
+div.calendar-dialog input span.light-title-bar-text,
+div.calendar-dialog textarea span.light-title-bar-text {
+  font-weight: 300 !important;
 }
 
 div.disabled-background {
@@ -328,12 +338,12 @@ div.calendar div.row div.cell span.first-day {
   color: #282828;
 }
 
-div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.month-name, div.calendar div.row div.cell span.blank {
+div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.holiday-link, div.calendar div.row div.cell span.month-name, div.calendar div.row div.cell span.blank {
   display: block;
   font-size: xx-small;
 }
 
-div.calendar div.row div.cell span.month-name:hover {
+div.calendar div.row div.cell span.month-name:hover, div.calendar div.row div.cell span.holiday-link:hover {
   text-decoration: underline;
   cursor: pointer;
 }
@@ -645,6 +655,10 @@ div.calendar div.full-day-view {
   visibility: hidden;
 }
 
+div.calendar div.full-day-view div.ib-search {
+  float: right !important;
+}
+
 div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
 }
@@ -949,6 +963,10 @@ div.calendar div.list-all-events-view div.title-bar div.ib-pin {
   }
 }
 
+div.calendar div.list-all-events-view div.ib-search {
+  float: right !important;
+}
+
 div.calendar div.list-all-events-view div.contents {
   display: inline-block;
   padding: 10px;
@@ -1120,6 +1138,10 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-pin {
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
     display: none !important;
   }
+}
+
+div.calendar div.list-all-week-events-view div.ib-search {
+  float: right !important;
 }
 
 div.calendar div.list-all-week-events-view div.contents {
@@ -2467,7 +2489,7 @@ div.configuration div.contents input[type="text"]:not(:disabled):hover {
 }
 
 div.configuration div.contents div.tab-content {
-  height: 150px;
+  height: 155px;
 }
 
 div.configuration div.split input,
