@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.4.1:
+- 
+
 ### Version 1.4.0:
 - Added support for custom events for holidays shown in the main display (using a new "onClick" holiday property).
 - Added search support to the Full Day, Weekly, and All Events views.
