@@ -4638,7 +4638,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( _element_SearchDialog.style.display !== "block" ) {
             _element_SearchDialog_SearchResults = [];
             _element_SearchDialog.style.display = "block";
-            _element_SearchDialog_For.value = "";
     
             centerSearchDialog();
             searchForTextChanged();
@@ -4650,6 +4649,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         _element_SearchDialog_For.focus();
+        _element_SearchDialog_For.select();
     }
 
     function centerSearchDialog() {

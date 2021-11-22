@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.1:
+- The Search dialogs text field is no longer cleared when closed and re-opened.  It is now focused and all the text is selected.
 - 
 
 ### Version 1.4.0:
