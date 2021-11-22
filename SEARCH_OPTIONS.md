@@ -8,6 +8,7 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
+| *string* | lastSearchText | States the last search text that was used (defaults to ""). |
 | *boolean* | not | States if the search should be a not search (defaults to false). |
 | *boolean* | matchCase | States character case searching is strict (defaults to false). |
 | *boolean* | showAdvanced | States if the advanced options should be shown (defaults to true). |

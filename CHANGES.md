@@ -2,6 +2,8 @@
 
 ### Version 1.4.1:
 - The Search dialogs text field is no longer cleared when closed and re-opened.  It is now focused and all the text is selected.
+- Added "lastSearchText" support to the Search Options used in the Search dialog (configurable setting).
+- The event "onSearchOptionsUpdated" now only sets the settings when the timer runs.
 - 
 
 ### Version 1.4.0:
