@@ -5,6 +5,7 @@
 - Added "lastSearchText" support to the Search Options used in the Search dialog (configurable setting).
 - The event "onSearchOptionsUpdated" now only sets the settings when the timer runs.
 - Added a "Close" button to the main display toolbar when the calendar is in DatePicker mode.
+- The "Export Events" dialog is now split into two columns to side height spacing on smaller screens.
 - 
 
 ### Version 1.4.0:

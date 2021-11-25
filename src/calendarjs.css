@@ -2122,6 +2122,10 @@ div.select-export-type div.contents {
   padding: 10px;
 }
 
+div.select-export-type div.contents div.split {
+  margin-top: 0;
+}
+
 div.select-export-type div.split input,
 div.select-export-type div.split select,
 div.select-export-type div.split div.split-contents,

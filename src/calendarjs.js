@@ -4443,17 +4443,24 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_SelectExportTypeDialog.appendChild( contents );
 
-        var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
-        contents.appendChild( radioButtonsContainer );
+        var radioButtonsSplitContainer = createElement( "div", "split" );
+        contents.appendChild( radioButtonsSplitContainer );
 
-        _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer, "CSV", "ExportType" );
-        _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer, "XML", "ExportType" );
-        _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
-        _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
-        _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer, "iCAL", "ExportType" );
-        _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer, "MD", "ExportType" );
-        _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer, "HTML", "ExportType" );
-        _element_SelectExportTypeDialog_Option_TSV = buildRadioButton( radioButtonsContainer, "TSV", "ExportType" );
+        var radioButtonsContainer1 = createElement( "div", "radioButtonsContainer split-contents" );
+        radioButtonsSplitContainer.appendChild( radioButtonsContainer1 );
+
+        var radioButtonsContainer2 = createElement( "div", "radioButtonsContainer split-contents" );
+        radioButtonsSplitContainer.appendChild( radioButtonsContainer2 );
+
+        _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
+        _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer1, "XML", "ExportType" );
+        _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer1, "JSON", "ExportType" );
+        _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TEXT", "ExportType" );
+
+        _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer2, "iCAL", "ExportType" );
+        _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer2, "MD", "ExportType" );
+        _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer2, "HTML", "ExportType" );
+        _element_SelectExportTypeDialog_Option_TSV = buildRadioButton( radioButtonsContainer2, "TSV", "ExportType" );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
