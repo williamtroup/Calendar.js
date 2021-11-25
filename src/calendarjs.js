@@ -723,6 +723,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
 
+        if ( _datePickerModeEnabled ) {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode );
+        }
+
         if ( _options.showExtraMainDisplayToolbarButtons ) {
             if ( _options.manualEditingEnabled ) {
                 buildToolbarButton( _element_HeaderDateDisplay, "ib-plus", _options.addEventTooltipText, addNewEvent );

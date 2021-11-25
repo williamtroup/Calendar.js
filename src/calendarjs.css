@@ -524,6 +524,7 @@ div.calendar div.header-date div.ib-octagon-hollow {
   float: left;
 }
 
+div.calendar div.header-date div.ib-close,
 div.calendar div.header-date div.ib-hamburger,
 div.calendar div.header-date div.ib-eye,
 div.calendar div.header-date div.ib-arrow-down-full-line,
