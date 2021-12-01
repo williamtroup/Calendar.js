@@ -6,7 +6,6 @@
 - The event "onSearchOptionsUpdated" now only sets the settings when the timer runs.
 - Added a "Close" button to the main display toolbar when the calendar is in DatePicker mode.
 - The "Export Events" dialog is now split into two columns to side height spacing on smaller screens.
-- 
 
 ### Version 1.4.0:
 - Added support for custom events for holidays shown in the main display (using a new "onClick" holiday property).
