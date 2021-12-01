@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.0
+ * Calendar.js Library v1.4.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -441,6 +441,7 @@ div.calendar {
             float: left;
         }
 
+        div.ib-close,
         div.ib-hamburger,
         div.ib-eye,
         div.ib-arrow-down-full-line,
@@ -1054,6 +1055,10 @@ div.select-export-type {
 
     div.contents {
         padding: $spacing;
+
+        div.split {
+            margin-top: 0;
+        }
     }
     
     @import "foundation/split-container";

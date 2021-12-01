@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.0
+ * Calendar.js Library v1.4.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -524,6 +524,7 @@ div.calendar div.header-date div.ib-octagon-hollow {
   float: left;
 }
 
+div.calendar div.header-date div.ib-close,
 div.calendar div.header-date div.ib-hamburger,
 div.calendar div.header-date div.ib-eye,
 div.calendar div.header-date div.ib-arrow-down-full-line,
@@ -2119,6 +2120,10 @@ div.select-export-type div.title-bar {
 
 div.select-export-type div.contents {
   padding: 10px;
+}
+
+div.select-export-type div.contents div.split {
+  margin-top: 0;
 }
 
 div.select-export-type div.split input,

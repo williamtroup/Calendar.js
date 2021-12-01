@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.0
+ * Calendar.js Library v1.4.1
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -275,6 +275,7 @@
  * 
  * These are the search options that are used to control how Calendar.js search works.
  *
+ * @property    {string}    lastSearchText                              States the last search text that was used (defaults to "").
  * @property    {boolean}   not                                         States if the search should be a not search (defaults to false).
  * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).
  * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to true).
@@ -721,6 +722,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
+
+        if ( _datePickerModeEnabled ) {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode );
+        }
 
         if ( _options.showExtraMainDisplayToolbarButtons ) {
             if ( _options.manualEditingEnabled ) {
@@ -4438,17 +4443,24 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var contents = createElement( "div", "contents" );
         _element_SelectExportTypeDialog.appendChild( contents );
 
-        var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
-        contents.appendChild( radioButtonsContainer );
+        var radioButtonsSplitContainer = createElement( "div", "split" );
+        contents.appendChild( radioButtonsSplitContainer );
 
-        _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer, "CSV", "ExportType" );
-        _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer, "XML", "ExportType" );
-        _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer, "JSON", "ExportType" );
-        _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer, "TEXT", "ExportType" );
-        _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer, "iCAL", "ExportType" );
-        _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer, "MD", "ExportType" );
-        _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer, "HTML", "ExportType" );
-        _element_SelectExportTypeDialog_Option_TSV = buildRadioButton( radioButtonsContainer, "TSV", "ExportType" );
+        var radioButtonsContainer1 = createElement( "div", "radioButtonsContainer split-contents" );
+        radioButtonsSplitContainer.appendChild( radioButtonsContainer1 );
+
+        var radioButtonsContainer2 = createElement( "div", "radioButtonsContainer split-contents" );
+        radioButtonsSplitContainer.appendChild( radioButtonsContainer2 );
+
+        _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
+        _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer1, "XML", "ExportType" );
+        _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer1, "JSON", "ExportType" );
+        _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TEXT", "ExportType" );
+
+        _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer2, "iCAL", "ExportType" );
+        _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer2, "MD", "ExportType" );
+        _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer2, "HTML", "ExportType" );
+        _element_SelectExportTypeDialog_Option_TSV = buildRadioButton( radioButtonsContainer2, "TSV", "ExportType" );
 
         var buttonsSplitContainer = createElement( "div", "split" );
         contents.appendChild( buttonsSplitContainer );
@@ -4632,13 +4644,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_SearchDialog_SearchResults = [];
         _element_SearchDialog_SearchIndex = 0;
         _element_SearchDialog_FocusedEventID = null;
+
+        storeSearchOptions();
     }
 
     function showSearchDialog() {
         if ( _element_SearchDialog.style.display !== "block" ) {
             _element_SearchDialog_SearchResults = [];
             _element_SearchDialog.style.display = "block";
-            _element_SearchDialog_For.value = "";
     
             centerSearchDialog();
             searchForTextChanged();
@@ -4650,6 +4663,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         _element_SearchDialog_For.focus();
+        _element_SearchDialog_For.select();
     }
 
     function centerSearchDialog() {
@@ -4848,30 +4862,32 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function storeSearchOptions() {
-        _optionsForSearch.not = _element_SearchDialog_Not.checked;
-        _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
-        _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
-        _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
-        _optionsForSearch.searchLocation = _element_SearchDialog_Include_Location.checked;
-        _optionsForSearch.searchDescription = _element_SearchDialog_Include_Description.checked;
-        _optionsForSearch.searchGroup = _element_SearchDialog_Include_Group.checked;
-        _optionsForSearch.searchUrl = _element_SearchDialog_Include_Url.checked;
-        _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
-        _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
-        _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
-        _optionsForSearch.left = _element_SearchDialog.offsetLeft;
-        _optionsForSearch.top = _element_SearchDialog.offsetTop;
-
         if ( _timer_CallSearchOptionsEvent !== null ) {
             clearTimeout( _timer_CallSearchOptionsEvent );
         }
 
         _timer_CallSearchOptionsEvent = setTimeout( function() {
+            _optionsForSearch.lastSearchText = _element_SearchDialog_For.value;
+            _optionsForSearch.not = _element_SearchDialog_Not.checked;
+            _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
+            _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
+            _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
+            _optionsForSearch.searchLocation = _element_SearchDialog_Include_Location.checked;
+            _optionsForSearch.searchDescription = _element_SearchDialog_Include_Description.checked;
+            _optionsForSearch.searchGroup = _element_SearchDialog_Include_Group.checked;
+            _optionsForSearch.searchUrl = _element_SearchDialog_Include_Url.checked;
+            _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
+            _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
+            _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
+            _optionsForSearch.left = _element_SearchDialog.offsetLeft;
+            _optionsForSearch.top = _element_SearchDialog.offsetTop;
+
             triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
         }, 2000 );
     }
 
     function setupSearchOptions() {
+        _element_SearchDialog_For.value = _optionsForSearch.lastSearchText;
         _element_SearchDialog_Not.checked = _optionsForSearch.not;
         _element_SearchDialog_MatchCase.checked = _optionsForSearch.matchCase;
         _element_SearchDialog_Advanced.checked = _optionsForSearch.showAdvanced;
@@ -7362,7 +7378,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.4.0";
+        return "1.4.1";
     };
 
 
@@ -7617,6 +7633,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDefaultSearchOptions( newSearchOptions ) {
         _optionsForSearch = getOptions( newSearchOptions );
+
+        if ( !isDefinedString( _optionsForSearch.lastSearchText ) ) {
+            _optionsForSearch.lastSearchText = "";
+        }
 
         if ( !isDefinedBoolean( _optionsForSearch.not ) ) {
             _optionsForSearch.not = false;
