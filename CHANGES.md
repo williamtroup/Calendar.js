@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.2:
+- Fixed a fault that allowed HTML to be injected into the display for events, tooltips, overlays, etc.
 - 
 
 ### Version 1.4.1:

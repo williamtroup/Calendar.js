@@ -1620,7 +1620,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                             event.appendChild( icon );
                         }
     
-                        event.innerHTML += eventTitle;
+                        event.innerHTML += stripHTMLTagsFromText( eventTitle );
     
                     } else {
                         event.className += " event-circle";
@@ -2074,7 +2074,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 title.appendChild( icon );
             }
             
-            title.innerHTML += eventDetails.title;
+            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
             event.appendChild( title );
     
             if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
@@ -2458,7 +2458,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 title.appendChild( icon );
             }
             
-            title.innerHTML += eventDetails.title;
+            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
             event.appendChild( title );
     
             var startTime = createElement( "div", "date" );
@@ -2810,7 +2810,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 title.appendChild( icon );
             }
             
-            title.innerHTML += eventDetails.title;
+            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
             event.appendChild( title );
 
             var startTime = createElement( "div", "date" );
@@ -5217,7 +5217,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                             _element_Tooltip_Title.appendChild( icon );
                         }
                         
-                        _element_Tooltip_Title.innerHTML += eventDetails.title;
+                        _element_Tooltip_Title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
 
                         if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                             _element_Tooltip_Repeats.innerText = _options.repeatsText.replace( ":", "" ) + " " + getRepeatsText( eventDetails.repeatEvery );
@@ -5732,6 +5732,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( element !== null ) {
             element.className = className;
         }
+    }
+
+    function stripHTMLTagsFromText( text ) {
+        var div = createElement( "div" );
+        div.innerHTML = text;
+
+        return div.innerText;
     }
 
 
