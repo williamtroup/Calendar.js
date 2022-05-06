@@ -3540,6 +3540,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             triggerOptionsEventWithData( "onOptionsUpdated", _options );
             build( _currentDate, true );
         }, true );
+
+        buildMenuSeparator( _element_DropDownMenu_HeaderDay );
+
+        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysTabText + "...", function() {
+            selectTab( _element_ConfigurationDialog, 3 );
+            showConfigurationDialog();
+        } );
     }
 
     function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
@@ -3908,7 +3915,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues ) {
         addNode( _document.body, _element_DisabledBackground );
-        selectFirstTab( _element_EventEditorDialog );
+        selectTab( _element_EventEditorDialog );
 
         if ( isDefined( eventDetails ) ) {
             _element_EventEditorDialog_OKButton.value = _options.updateText;
@@ -5358,12 +5365,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         contents.style.display = "block";
     }
 
-    function selectFirstTab( container ) {
+    function selectTab( container, tabIndex ) {
+        tabIndex = isDefined( tabIndex ) ? tabIndex : 0;
+
         var tabs = container.getElementsByClassName( "tab" ),
             tabsLength = tabs.length;
         
         if ( tabsLength > 0 ) {
-            tabs[ 0 ].click();
+            tabs[ tabIndex ].click();
         }
     }
 

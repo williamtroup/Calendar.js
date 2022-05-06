@@ -2,6 +2,7 @@
 
 ### Version 1.4.2:
 - Fixed a fault that allowed HTML to be injected into the display for events, tooltips, overlays, etc.
+- Added "Visible Days..." drop down menu support to the Day headers in the main display (opens the "Configuration" dialog).
 - 
 
 ### Version 1.4.1:

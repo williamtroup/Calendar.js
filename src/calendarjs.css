@@ -2970,7 +2970,8 @@ div.calendar-drop-down-menu div.ib-close-icon,
 div.calendar-drop-down-menu div.ib-arrow-top-right-icon,
 div.calendar-drop-down-menu div.ib-circle-hollow-icon,
 div.calendar-drop-down-menu div.ib-circle-icon,
-div.calendar-drop-down-menu div.ib-minus-icon {
+div.calendar-drop-down-menu div.ib-minus-icon,
+div.calendar-drop-down-menu div.ib-octagon-hollow-icon {
   margin-right: 10px;
 }
 
@@ -3000,7 +3001,9 @@ div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon,
 div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:after,
 div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before,
 div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon,
-div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon {
+div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon,
+div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:before,
+div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:after {
   border-color: #F5F5F5;
 }
 
@@ -3983,6 +3986,52 @@ div.calendar-drop-down-menu div.separator {
   height: 3px;
   border-radius: 3px;
   left: 0;
+}
+
+.ib-octagon-hollow-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+
+.ib-octagon-hollow-icon:not(.ib-no-hover):hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ib-octagon-hollow-icon:not(.ib-no-active):active {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-octagon-hollow-icon:before, .ib-octagon-hollow-icon:after {
+  position: absolute;
+  content: "";
+}
+
+.ib-octagon-hollow-icon:before {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  border: 3px solid #282828;
+  width: 3px;
+  height: 3px;
+  left: 1.5px;
+  top: 1.5px;
+}
+
+.ib-octagon-hollow-icon:after {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  border: 3px solid #282828;
+  width: 3px;
+  height: 3px;
+  left: 1.5px;
+  top: 1.5px;
 }
 
 .ib-refresh-medium {
