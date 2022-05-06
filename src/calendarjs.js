@@ -221,7 +221,7 @@
  * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
  * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
- * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events.
+ * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
  */
 
 
@@ -8370,7 +8370,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( !isDefinedString( _options.newEventDefaultTitle ) ) {
-            _options.newEventDefaultTitle = "New Event";
+            _options.newEventDefaultTitle = "* New Event";
         }
     }
 
