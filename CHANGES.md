@@ -3,6 +3,7 @@
 ### Version 1.4.2:
 - Fixed a fault that allowed HTML to be injected into the display for events, tooltips, overlays, etc.
 - Added "Visible Days..." drop down menu support to the Day headers in the main display (opens the "Configuration" dialog).
+- Added new setting "useTemplateWhenAddingNewEvent" which adds a template event when "Add Event" is pressed (defaults to true).
 - 
 
 ### Version 1.4.1:

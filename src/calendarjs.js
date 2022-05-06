@@ -221,6 +221,7 @@
  * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
  * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
+ * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events.
  */
 
 
@@ -267,6 +268,7 @@
  * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
  * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
+ * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
  */
 
 
@@ -1834,7 +1836,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
 
         if ( _options.manualEditingEnabled ) {
-            buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+            buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
+                if ( _options.useTemplateWhenAddingNewEvent ) {
+                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
+    
+                    showEventEditingDialog( newBlankTemplateEvent );
+                } else {
+                    addNewEvent();
+                }
+            } );
         }
 
         buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextDay );
@@ -1896,7 +1906,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
                 hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
             
-            showEventEditingDialog( null, _element_FullDayView_DateSelected, hoursMinutes );
+            if ( _options.useTemplateWhenAddingNewEvent ) {
+                var newBlankTemplateEventTime = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] ),
+                    newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected, newBlankTemplateEventTime, newBlankTemplateEventTime );
+
+                showEventEditingDialog( newBlankTemplateEvent );
+            } else {
+                showEventEditingDialog( null, _element_FullDayView_DateSelected, hoursMinutes );
+            }
         }
     }
 
@@ -2537,7 +2554,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
 
                 buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
-                    showEventEditingDialog( null, addNewEventDate );
+                    if ( _options.useTemplateWhenAddingNewEvent ) {
+                        var newBlankTemplateEvent = buildBlankTemplateEvent( addNewEventDate, addNewEventDate );
+
+                        showEventEditingDialog( newBlankTemplateEvent );
+                    } else {
+                        showEventEditingDialog( null, addNewEventDate );
+                    }
                 } );
             }
 
@@ -2886,7 +2909,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     showFullDayView( expandDate, true );
                 },
                 addEventFunction = function() {
-                    showEventEditingDialog( null, expandDate );
+                    if ( _options.useTemplateWhenAddingNewEvent ) {
+                        var newBlankTemplateEvent = buildBlankTemplateEvent( expandDate, expandDate );
+
+                        showEventEditingDialog( newBlankTemplateEvent );
+                    } else {
+                        showEventEditingDialog( null, expandDate );
+                    }
                 };
 
             var day = createElement( "div", "day" );
@@ -3166,7 +3195,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             if ( _options.manualEditingEnabled ) {
                 dayElement.ondblclick = function() {
-                    showEventEditingDialog( null, dayDate );
+                    if ( _options.useTemplateWhenAddingNewEvent ) {
+                        var newBlankTemplateEvent = buildBlankTemplateEvent( dayDate, dayDate );
+
+                        showEventEditingDialog( newBlankTemplateEvent );
+                    } else {
+                        showEventEditingDialog( null, dayDate );
+                    }
                 };
 
                 makeAreaDroppable( dayElement, year, month, actualDay );
@@ -3390,7 +3425,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( _options.manualEditingEnabled ) {
             buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle + "...", function() {
-                showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
+                if ( _options.useTemplateWhenAddingNewEvent ) {
+                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_DropDownMenu_Day_DateSelected, _element_DropDownMenu_Day_DateSelected );
+
+                    showEventEditingDialog( newBlankTemplateEvent );
+                } else {
+                    showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
+                }
             }, true );
     
             buildMenuSeparator( _element_DropDownMenu_Day );
@@ -3504,7 +3545,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _document.body.appendChild( _element_DropDownMenu_FullDay );
 
             buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
-                showEventEditingDialog( null, _element_FullDayView_DateSelected );
+                if ( _options.useTemplateWhenAddingNewEvent ) {
+                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
+
+                    showEventEditingDialog( newBlankTemplateEvent );
+                } else {
+                    showEventEditingDialog( null, _element_FullDayView_DateSelected );
+                }
             }, true );
 
             _element_DropDownMenu_FullDay_RemoveEvents_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
@@ -4185,6 +4232,43 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         updateFullDayViewFromEventEdit();
         updateViewAllEventsViewFromEventEdit();
         updateViewAllWeekEventsViewFromEventEdit();
+    }
+
+    function buildBlankTemplateEvent( fromDate, toDate, fromTime, toTime ) {
+        fromTime = isDefined( fromTime ) ? fromTime : "09:00";
+        toTime = isDefined( toTime ) ? fromTime : "09:00";
+
+        setTimeOnDate( fromDate, fromTime );
+        setTimeOnDate( toDate, toTime );
+
+        var newEvent = {
+            from: fromDate,
+            to: toDate,
+            title: _options.newEventDefaultTitle,
+            description: "",
+            location: "",
+            group: "",
+            isAllDay: false,
+            showAlerts: true,
+            color: _options.defaultEventBackgroundColor,
+            colorText: _options.defaultEventTextColor,
+            colorBorder: _options.defaultEventBorderColor,
+            repeatEveryExcludeDays: [],
+            repeatEnds: null,
+            url: "",
+            repeatEveryCustomValue: "",
+            repeatEvery: _repeatType.never,
+            repeatEveryCustomType: _repeatCustomType.daily,
+            organizerName: "",
+            organizerEmailAddress: "",
+        };
+
+        _this.addEvent( newEvent, false );
+
+        buildDayEvents();
+        refreshOpenedViews();
+
+        return newEvent;
     }
 
 
@@ -7643,6 +7727,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _options.showHolidays = true;
         }
 
+        if ( !isDefinedBoolean( _options.useTemplateWhenAddingNewEvent ) ) {
+            _options.useTemplateWhenAddingNewEvent = true;
+        }
+
         setTranslationStringOptions();
         checkForBrowserNotificationsPermission();
     }
@@ -8279,6 +8367,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.showHolidaysInTheDisplaysText ) ) {
             _options.showHolidaysInTheDisplaysText = "Show holidays in the main display and title bars";
+        }
+
+        if ( !isDefinedString( _options.newEventDefaultTitle ) ) {
+            _options.newEventDefaultTitle = "New Event";
         }
     }
 
