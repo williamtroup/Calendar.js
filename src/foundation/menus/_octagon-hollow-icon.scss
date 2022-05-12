@@ -1,0 +1,23 @@
+@import "icon";
+
+.ib-octagon-hollow-icon {
+    @include button;
+
+    &:before {
+        @include transform-rotate(-45deg);
+        border: $border;
+        width: $size - $border-width * 3;
+        height: $size - $border-width * 3;
+        left: $border-width / 2;
+        top: $border-width / 2;
+    }
+
+    &:after {
+        @include transform-rotate(90deg);
+        border: $border;
+        width: $size - $border-width * 3;
+        height: $size - $border-width * 3;
+        left: $border-width / 2;
+        top: $border-width / 2;
+    }
+}

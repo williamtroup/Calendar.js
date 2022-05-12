@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.1
+ * Calendar.js Library v1.4.2
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1493,7 +1493,8 @@ div.calendar-drop-down-menu {
     div.ib-arrow-top-right-icon,
     div.ib-circle-hollow-icon,
     div.ib-circle-icon,
-    div.ib-minus-icon {
+    div.ib-minus-icon,
+    div.ib-octagon-hollow-icon {
         margin-right: $spacing;
     }
 
@@ -1521,7 +1522,9 @@ div.calendar-drop-down-menu {
         &:hover div.ib-arrow-expand-left-right-icon:after,
         &:hover div.ib-arrow-expand-left-right-icon:before,
         &:hover div.ib-arrow-top-right-icon,
-        &:hover div.ib-circle-hollow-icon {
+        &:hover div.ib-circle-hollow-icon,
+        &:hover div.ib-octagon-hollow-icon:before,
+        &:hover div.ib-octagon-hollow-icon:after {
             border-color: $light-color;
         }
 
@@ -1630,5 +1633,6 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/circle-icon";
 @import "foundation/menus/circle-hollow-icon";
 @import "foundation/menus/minus-icon";
+@import "foundation/menus/octagon-hollow-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
