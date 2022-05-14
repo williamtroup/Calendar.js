@@ -1,8 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.3:
-- Fixed a fault that caused string arrays to not include speech marks when exporting events to specific formats.
-- 
+- Fixed a fault that caused string arrays to not include speech marks when exporting (prevented excluded repeat days importing).
 
 ### Version 1.4.2:
 - Fixed a fault that allowed HTML to be injected into the display for events, tooltips, overlays, etc.
