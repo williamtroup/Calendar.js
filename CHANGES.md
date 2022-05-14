@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.4.3:
+- Fixed a fault that caused string arrays to not include speech marks when exporting (prevented excluded repeat days importing).
+
 ### Version 1.4.2:
 - Fixed a fault that allowed HTML to be injected into the display for events, tooltips, overlays, etc.
 - Added "Visible Days..." drop-down menu support to the Day headers in the main display (opens the "Configuration" dialog).

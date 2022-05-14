@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.2
+ * Calendar.js Library v1.4.3
  *
  * Copyright 2021 Bunoon
  * Released under the GNU AGPLv3 license
@@ -6195,8 +6195,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         return result;
     }
 
-    function getArrayText( value ) {
-        return getArray( value ).join( "," );
+    function getArrayText( value, includeSpeechMarks ) {
+        includeSpeechMarks = isDefined( includeSpeechMarks ) ? includeSpeechMarks : false;
+
+        var array = getArray( value );
+
+        if ( includeSpeechMarks ) {
+            var arrayLength = array.length;
+
+            for ( var arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++ ) {
+                array[ arrayIndex ] = "\"" + array[ arrayIndex ] + "\"";
+            }
+        }
+
+        return array.join( "," );
     }
 
     function getPropertyName( name ) {
@@ -6220,7 +6232,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } else {
 
                 if ( forJson ) {
-                    result = "[" + getArrayText( value ) + "]";
+                    result = "[" + getArrayText( value, true ) + "]";
                 } else {
                     result = getArrayText( value );
                 }
@@ -7478,7 +7490,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.4.2";
+        return "1.4.3";
     };
 
 
