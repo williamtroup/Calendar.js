@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.3:
+- Fixed a fault that caused string arrays to not include speech marks when exporting events to specific formats.
 - 
 
 ### Version 1.4.2:
