@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.4.4:
+- 
+
 ### Version 1.4.3:
 - Fixed a fault that caused string arrays to not include speech marks when exporting (prevented excluded repeat days importing).
 
