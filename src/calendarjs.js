@@ -2067,7 +2067,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", "event" );
             event.ondblclick = cancelBubble;
-            
+
+            event.onclick = function ( e ) {
+                increaseEventZIndex( e, event );
+            };
+
             if ( eventDetails.isAllDay ) {
                 _element_FullDayView_Contents_AllDayEvents.appendChild( event );
             } else {
@@ -2239,6 +2243,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             pixelsPerMinute = contentHoursHeight / 1440;
 
         return pixelsPerMinute;
+    }
+
+    function increaseEventZIndex( e, event ) {
+        cancelBubble( e );
+
+        var zIndex = getStyleValueByName( event, "z-index" );
+        if ( zIndex === null || zIndex === "auto" ) {
+            zIndex = 1;
+        } else {
+            zIndex = parseInt( zIndex ) + 1;
+        }
+
+        event.style.zIndex = zIndex.toString();
     }
 
 
@@ -5842,6 +5859,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         div.innerHTML = text;
 
         return div.innerText;
+    }
+
+    function getStyleValueByName( element, stylePropertyName ) {
+        var value = null;
+
+        if ( _window.getComputedStyle ) {
+            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+        }  
+        else if ( element.currentStyle ) {
+            value = element.currentStyle[ stylePropertyName ];
+        }                     
+
+        return value;
     }
 
 
