@@ -238,7 +238,7 @@
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
  * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
- * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
+ * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full-screen mode (defaults to true).
  * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
  * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
  * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
@@ -264,11 +264,12 @@
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
- * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
+ * @property    {boolean}   openInFullScreenMode                        States if full-screen mode should be turned on when the calendar is rendered (defaults to false).
  * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
  * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
+ * @property    {boolean}   useEscapeKeyToExitFullScreenMode            States if the escape key should exit full-screen mode (if enabled, defaults to true).
  */
 
 
@@ -317,7 +318,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             down: 40,
             a: 65,
             f: 70,
-            f5: 116
+            f5: 116,
+            f11: 122
         },
         _repeatType = {
             never: 0,
@@ -1167,7 +1169,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     moveForwardYear();
     
                 } else if ( e.keyCode === _keyCodes.escape ) {
-                    if ( !closeActiveDialog() && isMainDisplayVisible ) {
+                    if ( !closeActiveDialog() && isMainDisplayVisible && _options.useEscapeKeyToExitFullScreenMode ) {
                         headerDoubleClick();
                     }
     
@@ -1200,6 +1202,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                 e.preventDefault();
                 showSearchDialog();
+
+            } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
+                e.preventDefault();
+                headerDoubleClick();
             }
         }
     }
@@ -7745,6 +7751,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.useTemplateWhenAddingNewEvent ) ) {
             _options.useTemplateWhenAddingNewEvent = true;
+        }
+
+        if ( !isDefinedBoolean( _options.useEscapeKeyToExitFullScreenMode ) ) {
+            _options.useEscapeKeyToExitFullScreenMode = true;
         }
 
         setTranslationStringOptions();
