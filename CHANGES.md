@@ -2,6 +2,7 @@
 
 ### Version 1.4.4:
 - Minor comment updates to headers.
+- Added parameter "updateEvents" support to the public function addHolidays().
 - 
 
 ### Version 1.4.3:

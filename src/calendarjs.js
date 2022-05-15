@@ -7571,9 +7571,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @param       {Object[]}  holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
-    this.addHolidays = function( holidays, triggerEvent ) {
+    this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
 
         _options.holidays = _options.holidays.concat( holidays );
 
@@ -7581,7 +7583,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             triggerOptionsEventWithData( "onOptionsUpdated", _options );
         }
 
-        build( _currentDate, true );
+        if ( updateEvents ) {
+            build( _currentDate, true );
+        }
     };
 
     function buildDefaultOptions( newOptions ) {
