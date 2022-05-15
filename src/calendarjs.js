@@ -3711,6 +3711,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         return element !== null && element.style.display === "block";
     }
 
+    function areDropDownMenusVisible() {
+        return isDropDownMenuVisible( _element_DropDownMenu_Day ) || isDropDownMenuVisible( _element_DropDownMenu_Event ) || isDropDownMenuVisible( _element_DropDownMenu_FullDay ) || isDropDownMenuVisible( _element_DropDownMenu_HeaderDay );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -5288,7 +5292,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDropDownMenuVisible( _element_DropDownMenu_Day ) && !isDropDownMenuVisible( _element_DropDownMenu_Event ) ) ) {
+                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() ) ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -5579,7 +5583,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function isOnlyMainDisplayVisible() {
-        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDropDownMenuVisible( _element_DropDownMenu_Day ) && !isDropDownMenuVisible( _element_DropDownMenu_Event );
+        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible();
     }
 
     
