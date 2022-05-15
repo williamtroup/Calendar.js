@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.4.4:
+- Minor comment updates to headers.
 - 
 
 ### Version 1.4.3:
