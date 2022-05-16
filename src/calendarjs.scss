@@ -252,7 +252,8 @@ div.calendar {
                 padding-right: 0px;
                 border-radius: $border-view-radius;
         
-                &.day-muted {
+                &.day-muted,
+                &.no-click {
                     opacity: 0.3;
                 }
         

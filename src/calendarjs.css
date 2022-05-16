@@ -319,7 +319,7 @@ div.calendar div.row div.cell span {
   border-radius: 0.25rem;
 }
 
-div.calendar div.row div.cell span.day-muted {
+div.calendar div.row div.cell span.day-muted, div.calendar div.row div.cell span.no-click {
   opacity: 0.3;
 }
 

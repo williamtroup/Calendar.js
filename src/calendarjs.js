@@ -947,8 +947,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             if ( _datePickerInput.value !== "" ) {
                 storeDataPickerSelectedDate( build );
             }
-
         } else {
+
             _element_Calendar.className = "calendar calendar-hidden";
             hideAllDropDowns();
         }
@@ -2121,6 +2121,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                         duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                     }
                 } else {
+
                     buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
 
                     duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
@@ -2518,6 +2519,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
             } else {
+
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
 
                 duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
@@ -2810,8 +2812,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, false );
             createSpanElement( _element_ListAllWeekEventsView_Title, ", " + weekStartDate.getFullYear() );
-
         } else {
+
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, true );
             createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, true );
@@ -2875,6 +2877,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
             } else {
+
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
 
                 duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
@@ -3174,19 +3177,25 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 dayElement.className = dayElement.className.replace( " cell-today", "" );
             }
 
-            if ( _options.minimumDatePickerDate !== null ) {
-                allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( _options.minimumDatePickerDate, dayDate );
+            if ( _datePickerModeEnabled ) {
+                if ( _options.minimumDatePickerDate !== null ) {
+                    allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( _options.minimumDatePickerDate, dayDate );
+                }
+    
+                if ( allowDatePickerHoverAndSelect && _options.maximumDatePickerDate !== null ) {
+                    allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( dayDate, _options.maximumDatePickerDate );
+                }
+    
+                if ( !allowDatePickerHoverAndSelect ) {
+                    dayElement.className += " no-click";
+                    dayText.className = "no-click";
+                }
+                
+            } else {
+                dayText.className = "";
             }
 
-            if ( allowDatePickerHoverAndSelect && _options.maximumDatePickerDate !== null ) {
-                allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( dayDate, _options.maximumDatePickerDate );
-            }
-
-            if ( !allowDatePickerHoverAndSelect ) {
-                dayElement.className += " no-click";
-            }
-
-            dayText.className = dayMutedClass;
+            dayText.className += dayMutedClass;
             dayText.className += dayIsToday && !_datePickerModeEnabled ? " today" : "";
             dayText.innerText = actualDay;
 
@@ -4111,6 +4120,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
                 _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
             } else {
+
                 var newTimeToDisplay = padNumber( overrideTimeValues[ 0 ] ) + ":" + padNumber( overrideTimeValues[ 1 ] );
 
                 _element_EventEditorDialog_TimeFrom.value = newTimeToDisplay;
@@ -5388,8 +5398,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                                 _element_Tooltip_Date.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
                                 _element_Tooltip_TotalTime.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                             }
-                            
                         } else {
+
                             buildDateTimeToDateTimeDisplay( _element_Tooltip_Date, eventDetails.from, eventDetails.to );
 
                             _element_Tooltip_TotalTime.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
