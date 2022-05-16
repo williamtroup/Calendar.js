@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.4
+ * Calendar.js Library v1.4.5
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -3166,7 +3166,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
             dayElement.innerHTML = "";
-
+            dayElement.className = dayElement.className.replace( " no-click", "" );
+            
             if ( _datePickerModeEnabled && dayIsToday ) {
                 dayElement.className += " cell-today";
             } else {
@@ -7553,7 +7554,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.4.4";
+        return "1.4.5";
     };
 
 

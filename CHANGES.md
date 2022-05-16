@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+### Version 1.4.5:
+- Added new setting "minimumDatePickerDate", which states the minimum date to use while in DatePicker mode.
+- Added new setting "maximumDatePickerDate", which states the maximum date to use while in DatePicker mode.
+- 
+
 ### Version 1.4.4:
 - Minor comment updates to headers.
 - Added parameter "updateEvents" support to the public function addHolidays().
