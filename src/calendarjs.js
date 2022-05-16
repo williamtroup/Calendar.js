@@ -1,7 +1,7 @@
 /*
- * Calendar.js Library v1.4.3
+ * Calendar.js Library v1.4.4
  *
- * Copyright 2021 Bunoon
+ * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
  */
 
@@ -238,7 +238,7 @@
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
  * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
- * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full screen mode (defaults to true).
+ * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full-screen mode (defaults to true).
  * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
  * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
  * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
@@ -264,11 +264,12 @@
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
- * @property    {boolean}   openInFullScreenMode                        States if full screen mode should be turned on when the calendar is rendered (defaults to false).
+ * @property    {boolean}   openInFullScreenMode                        States if full-screen mode should be turned on when the calendar is rendered (defaults to false).
  * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
  * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
+ * @property    {boolean}   useEscapeKeyToExitFullScreenMode            States if the escape key should exit full-screen mode (if enabled, defaults to true).
  */
 
 
@@ -317,7 +318,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             down: 40,
             a: 65,
             f: 70,
-            f5: 116
+            f5: 116,
+            f11: 122
         },
         _repeatType = {
             never: 0,
@@ -1167,7 +1169,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     moveForwardYear();
     
                 } else if ( e.keyCode === _keyCodes.escape ) {
-                    if ( !closeActiveDialog() && isMainDisplayVisible ) {
+                    if ( !closeActiveDialog() && isMainDisplayVisible && _options.useEscapeKeyToExitFullScreenMode ) {
                         headerDoubleClick();
                     }
     
@@ -1200,6 +1202,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                 e.preventDefault();
                 showSearchDialog();
+
+            } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
+                e.preventDefault();
+                headerDoubleClick();
             }
         }
     }
@@ -2061,7 +2067,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", "event" );
             event.ondblclick = cancelBubble;
-            
+
+            event.onclick = function ( e ) {
+                increaseEventZIndex( e, event );
+            };
+
             if ( eventDetails.isAllDay ) {
                 _element_FullDayView_Contents_AllDayEvents.appendChild( event );
             } else {
@@ -2233,6 +2243,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             pixelsPerMinute = contentHoursHeight / 1440;
 
         return pixelsPerMinute;
+    }
+
+    function increaseEventZIndex( e, event ) {
+        cancelBubble( e );
+
+        var zIndex = getStyleValueByName( event, "z-index" );
+        if ( zIndex === null || zIndex === "auto" ) {
+            zIndex = 1;
+        } else {
+            zIndex = parseInt( zIndex ) + 1;
+        }
+
+        event.style.zIndex = zIndex.toString();
     }
 
 
@@ -3703,6 +3726,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function isDropDownMenuVisible( element ) {
         return element !== null && element.style.display === "block";
+    }
+
+    function areDropDownMenusVisible() {
+        return isDropDownMenuVisible( _element_DropDownMenu_Day ) || isDropDownMenuVisible( _element_DropDownMenu_Event ) || isDropDownMenuVisible( _element_DropDownMenu_FullDay ) || isDropDownMenuVisible( _element_DropDownMenu_HeaderDay );
     }
 
 
@@ -5282,7 +5309,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDropDownMenuVisible( _element_DropDownMenu_Day ) && !isDropDownMenuVisible( _element_DropDownMenu_Event ) ) ) {
+                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() ) ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -5573,7 +5600,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function isOnlyMainDisplayVisible() {
-        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !isDropDownMenuVisible( _element_DropDownMenu_Day ) && !isDropDownMenuVisible( _element_DropDownMenu_Event );
+        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible();
     }
 
     
@@ -5832,6 +5859,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         div.innerHTML = text;
 
         return div.innerText;
+    }
+
+    function getStyleValueByName( element, stylePropertyName ) {
+        var value = null;
+
+        if ( _window.getComputedStyle ) {
+            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+        }  
+        else if ( element.currentStyle ) {
+            value = element.currentStyle[ stylePropertyName ];
+        }                     
+
+        return value;
     }
 
 
@@ -7490,7 +7530,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.4.3";
+        return "1.4.4";
     };
 
 
@@ -7571,9 +7611,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @param       {Object[]}  holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
-    this.addHolidays = function( holidays, triggerEvent ) {
+    this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
 
         _options.holidays = _options.holidays.concat( holidays );
 
@@ -7581,7 +7623,47 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             triggerOptionsEventWithData( "onOptionsUpdated", _options );
         }
 
-        build( _currentDate, true );
+        if ( updateEvents ) {
+            build( _currentDate, true );
+        }
+    };
+
+    /**
+     * removeHolidays().
+     * 
+     * @fires       onOptionsUpdated
+     * 
+     * Removes holidays.
+     * 
+     * @param       {Object[]}  holidayNames                                The names of the holidays to remove (case sensitive).
+     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     */
+    this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+
+        var holidaysLength = _options.holidays.length,
+            holidaysRemaining = [];
+
+        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+            var holiday = _options.holidays[ holidayIndex ],
+                holidayText = getString( holiday.title, "" );
+
+            if ( holidayNames.indexOf( holidayText ) === -1 ) {
+                holidaysRemaining.push( holiday );
+            }
+        }
+
+        _options.holidays = holidaysRemaining;
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithData( "onOptionsUpdated", _options );
+        }
+
+        if ( updateEvents ) {
+            build( _currentDate, true );
+        }
     };
 
     function buildDefaultOptions( newOptions ) {
@@ -7741,6 +7823,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.useTemplateWhenAddingNewEvent ) ) {
             _options.useTemplateWhenAddingNewEvent = true;
+        }
+
+        if ( !isDefinedBoolean( _options.useEscapeKeyToExitFullScreenMode ) ) {
+            _options.useEscapeKeyToExitFullScreenMode = true;
         }
 
         setTranslationStringOptions();

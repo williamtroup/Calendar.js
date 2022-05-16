@@ -280,7 +280,7 @@ Sets the specific search options that should be used.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onSearchOptionsUpdated" event should be triggered.
 
-### **addHolidays( *holidays*, *triggerEvent* )**:
+### **addHolidays( *holidays*, *triggerEvent*, *updateEvents* )**:
 Adds new holidays.
 <br>
 ***Fires***:  onOptionsUpdated
@@ -288,3 +288,16 @@ Adds new holidays.
 ***Parameter: holidays***: '*Object*' - The holidays to add (refer to "Holiday" documentation for properties).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
+<br>
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+
+### **removeHolidays( *holidayNames*, *triggerEvent*, *updateEvents* )**:
+Removes holidays.
+<br>
+***Fires***:  onOptionsUpdated
+<br>
+***Parameter: holidayNames***: '*Object*' - The names of the holidays to remove (case sensitive).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
+<br>
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).

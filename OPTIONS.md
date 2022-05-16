@@ -16,7 +16,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
 | *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
 | *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
-| *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full screen mode (defaults to true). |
+| *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full-screen mode (defaults to true). |
 | *number* | eventTooltipDelay | The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds). |
 | *number* | minimumDayHeight | States the height the main calendar days should used (defaults to 0 - auto). |
 | *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
@@ -42,11 +42,12 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | defaultEventTextColor | States the default text color that should be used for events (defaults to "#F5F5F5"). |
 | *string* | defaultEventBorderColor | States the default border color that should be used for events (defaults to "#282828"). |
 | *boolean* | showExtraMainDisplayToolbarButtons | States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true). |
-| *boolean* | openInFullScreenMode | States if full screen mode should be turned on when the calendar is rendered (defaults to false). |
+| *boolean* | openInFullScreenMode | States if full-screen mode should be turned on when the calendar is rendered (defaults to false). |
 | *boolean* | showEmptyDaysInWeekView | States if empty days should be shown in the Week view (defaults to true). |
 | *boolean* | hideEventsWithoutGroupAssigned | States if events without a group should be hidden (defaults to false). |
 | *boolean* | showHolidays | States if the holidays should be shown (defaults to true). |
 | *boolean* | useTemplateWhenAddingNewEvent | States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true). |
+| *boolean* | useEscapeKeyToExitFullScreenMode | States if the escape key should exit full-screen mode (if enabled, defaults to true). |
 
 <br/>
 

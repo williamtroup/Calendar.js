@@ -1,5 +1,14 @@
 # Calendar.js - Change Log:
 
+### Version 1.4.4:
+- Minor comment updates to headers.
+- Added parameter "updateEvents" support to the public function addHolidays().
+- Added new setting "useEscapeKeyToExitFullScreenMode", which states if the Escape key should exit full-screen mode (if enabled).
+- Added global Ctrl/Command + Shift + F11 support to toggle between full-screen mode (if enabled).
+- Fixed a fault that caused the display to refresh and tooltips to be shown when one of the drop-down menus is open.
+- In the Full Day view, when clicking an event that overlaps another, it will now be brought to the front.
+- Added public function removeHolidays(), which removes a list of holidays by name.
+
 ### Version 1.4.3:
 - Fixed a fault that caused string arrays to not include speech marks when exporting (prevented excluded repeat days importing).
 
@@ -489,7 +498,7 @@
 - Added transition effects to disabled inputs and check-marks.
 - Renamed some of the settings to reflect the default text changes for dates shown on events (starts from, finishes, etc).
 - The day name (Monday-Sunday) is now shown on the full day view.
-- Fixed a fault that caused the full screen mode to activate when double clicking on buttons and the year selector.
+- Fixed a fault that caused the full-screen mode to activate when double clicking on buttons and the year selector.
 - Added context menu support for days (Add Event, Expand Day).
 - Renamed tooltip "View Week Events" to "View Current Week Events".
 - Fixed the tooltip text being selectable.
@@ -513,7 +522,7 @@
 - A confirmation dialog is now shown when removing an event.
 - Added "Select Export Type" dialog, with CSV, XML, JSON and TEXT support now available.
 - exportAllEvents() now takes a type parameter (accepts csv (default), xml, json and text).
-- Added support for full screen mode (double click the main title bar) with optional on/off setting.
+- Added support for full-screen mode (double click the main title bar) with optional on/off setting.
 - Fixed "click" and "resize" events in the document/window being overridden.
 - Fixed a fault that prevented the year drop down menu being cantered correctly.
 - The "Expand Day" button is now less intrusive and indicates what it will do.
