@@ -20,11 +20,11 @@
         <h1 id="header">Welcome to Calendar.js - DatePicker Mode</h1>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar1" value="15/01/2018" />
+            <input type="text" id="myCalendar1" value="01/05/2022" />
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar2" value="15/05/2019" />
+            <input type="text" id="myCalendar2" value="15/05/2022" />
         </div>
         <br>
 
@@ -42,10 +42,12 @@
 
     <script>
         var calendarInstance1 = new calendarJs( "myCalendar1", {
-                openInFullScreenMode: true
+                openInFullScreenMode: true,
+                minimumDatePickerDate: new Date()
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
-                openInFullScreenMode: true
+                openInFullScreenMode: true,
+                maximumDatePickerDate: new Date()
             } );
 
         document.title += " - v" + calendarInstance1.getVersion();

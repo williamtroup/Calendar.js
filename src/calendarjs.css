@@ -143,14 +143,14 @@ div.calendar-date-picker div.calendar div.days div.cell-today {
   color: #F5F5F5 !important;
 }
 
-div.calendar-date-picker div.calendar div.days div.cell:hover {
+div.calendar-date-picker div.calendar div.days div.cell:not(.no-click):hover {
   cursor: pointer;
   background-color: #a7a7a7;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
-div.calendar-date-picker div.calendar div.days div.cell:active {
+div.calendar-date-picker div.calendar div.days div.cell:not(.no-click):active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;

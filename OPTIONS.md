@@ -48,6 +48,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showHolidays | States if the holidays should be shown (defaults to true). |
 | *boolean* | useTemplateWhenAddingNewEvent | States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true). |
 | *boolean* | useEscapeKeyToExitFullScreenMode | States if the escape key should exit full-screen mode (if enabled, defaults to true). |
+| *Object* | minimumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
+| *Object* | maximumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 
 <br/>
 

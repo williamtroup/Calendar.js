@@ -270,6 +270,8 @@
  * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
  * @property    {boolean}   useEscapeKeyToExitFullScreenMode            States if the escape key should exit full-screen mode (if enabled, defaults to true).
+ * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
+ * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  */
 
 
@@ -3158,7 +3160,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
                 dayText = createElement( "span" ),
                 dayDate = new Date( year, month, actualDay ),
-                dayMutedClass = isMuted ? " day-muted" : "";
+                dayMutedClass = isMuted ? " day-muted" : "",
+                allowDatePickerHoverAndSelect = true;
             
             includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
@@ -3168,6 +3171,18 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 dayElement.className += " cell-today";
             } else {
                 dayElement.className = dayElement.className.replace( " cell-today", "" );
+            }
+
+            if ( _options.minimumDatePickerDate !== null ) {
+                allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( _options.minimumDatePickerDate, dayDate );
+            }
+
+            if ( allowDatePickerHoverAndSelect && _options.maximumDatePickerDate !== null ) {
+                allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( dayDate, _options.maximumDatePickerDate );
+            }
+
+            if ( !allowDatePickerHoverAndSelect ) {
+                dayElement.className += " no-click";
             }
 
             dayText.className = dayMutedClass;
@@ -3231,9 +3246,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             }
 
             if ( _datePickerModeEnabled ) {
-                dayElement.onclick = function( e ) {
-                    setDatePickerDate( e, dayDate );
-                };
+                if ( allowDatePickerHoverAndSelect ) {
+                    dayElement.onclick = function( e ) {
+                        setDatePickerDate( e, dayDate );
+                    };
+                } else {
+                    dayElement.onclick = cancelBubble;
+                }
             }
         }
     }
@@ -6048,6 +6067,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         return isDefinedString( object ) && object !== "";
     }
 
+    function isDefinedDate( object ) {
+        return isDefinedObject( object ) && object instanceof Date;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -7827,6 +7850,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.useEscapeKeyToExitFullScreenMode ) ) {
             _options.useEscapeKeyToExitFullScreenMode = true;
+        }
+
+        if ( !isDefinedDate( _options.minimumDatePickerDate ) ) {
+            _options.minimumDatePickerDate = null;
+        }
+
+        if ( !isDefinedDate( _options.maximumDatePickerDate ) ) {
+            _options.maximumDatePickerDate = null;
         }
 
         setTranslationStringOptions();
