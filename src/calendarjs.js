@@ -772,6 +772,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var headerRow = createElement( "div", "row header-days" ),
                 headerNamesLength = _options.dayHeaderNames.length;
 
+            if ( _datePickerModeEnabled ) {
+                headerRow.onclick = cancelBubble;
+            }
+
             _element_Calendar.appendChild( headerRow );
 
             for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
