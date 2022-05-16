@@ -1022,6 +1022,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
+    function isDateValidForDatePicker( newDate ) {
+        var newDateAllowed = true;
+
+        if ( _options.minimumDatePickerDate !== null ) {
+            newDateAllowed = isDateSmallerOrEqualToDate( _options.minimumDatePickerDate, newDate );
+        }
+
+        if ( newDateAllowed && _options.maximumDatePickerDate !== null ) {
+            newDateAllowed = isDateSmallerOrEqualToDate( newDate, _options.maximumDatePickerDate );
+        }
+
+        return newDateAllowed;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3184,13 +3198,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             }
 
             if ( _datePickerModeEnabled ) {
-                if ( _options.minimumDatePickerDate !== null ) {
-                    allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( _options.minimumDatePickerDate, dayDate );
-                }
-    
-                if ( allowDatePickerHoverAndSelect && _options.maximumDatePickerDate !== null ) {
-                    allowDatePickerHoverAndSelect = isDateSmallerOrEqualToDate( dayDate, _options.maximumDatePickerDate );
-                }
+                allowDatePickerHoverAndSelect = isDateValidForDatePicker( dayDate );
     
                 if ( !allowDatePickerHoverAndSelect ) {
                     dayElement.className += " cell-no-click";
@@ -6930,10 +6938,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
     this.setSelectedDatePickerDate = function( date ) {
-        var newDate = new Date( date );
-
-        setSelectedDate( newDate, _datePickerInput );
-        triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+        var newDate = new Date( date ),
+            newDateAllowed = isDateValidForDatePicker( newDate );
+        
+        if ( newDateAllowed ) {
+            setSelectedDate( newDate, _datePickerInput );
+            triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+        }
     };
 
     /**
