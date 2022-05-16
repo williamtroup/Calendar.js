@@ -3169,12 +3169,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
             dayElement.innerHTML = "";
-            dayElement.className = dayElement.className.replace( " no-click", "" );
+            dayElement.className = dayElement.className.replace( " cell-today", "" ).replace( " cell-selected", "" ).replace( " cell-no-click", "" );
             
             if ( _datePickerModeEnabled && dayIsToday ) {
                 dayElement.className += " cell-today";
-            } else {
-                dayElement.className = dayElement.className.replace( " cell-today", "" );
+            }
+
+            if ( _datePickerModeEnabled && !dayIsToday && doDatesMatch( dayDate, _currentDateForDatePicker ) ) {
+                dayElement.className += " cell-selected";
             }
 
             if ( _datePickerModeEnabled ) {
@@ -3187,7 +3189,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 }
     
                 if ( !allowDatePickerHoverAndSelect ) {
-                    dayElement.className += " no-click";
+                    dayElement.className += " cell-no-click";
                     dayText.className = "no-click";
                 }
                 

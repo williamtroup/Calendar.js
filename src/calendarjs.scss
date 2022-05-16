@@ -98,13 +98,17 @@ div.calendar-date-picker {
                 color: $light-color !important;
             }
 
-            div.cell:not(.no-click):hover {
+            div.cell-selected {
+                background-color: $day-date-picker-hover-color !important;
+            }
+
+            div.cell:not(.cell-no-click):hover {
                 cursor: pointer;
                 background-color: $day-date-picker-hover-color;
                 transition: $transition;
             }
 
-            div.cell:not(.no-click):active {
+            div.cell:not(.cell-no-click):active {
                 @include opacity-active-effect;
             }
         }

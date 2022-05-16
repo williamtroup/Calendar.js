@@ -3,6 +3,7 @@
 ### Version 1.4.5:
 - Added new setting "minimumDatePickerDate", which states the minimum date to use while in DatePicker mode.
 - Added new setting "maximumDatePickerDate", which states the maximum date to use while in DatePicker mode.
+- The date selected in DatePicker mode is now highlighted in the calendar display.
 - 
 
 ### Version 1.4.4:
