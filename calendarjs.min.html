@@ -54,7 +54,8 @@
             <button onclick="setSearchOptions();">Set Search Options</button>
             <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
             <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
-            <button onclick="addNewHoliday();">Add New Holiday</button>
+            <button onclick="addNewHolidays();">Add Holidays</button>
+            <button onclick="removeNewHolidays();">Remove Holidays</button>
             <br />
     
             <h2>Main Controls:</h2>
@@ -369,7 +370,7 @@
             }
         }
 
-        function addNewHoliday() {
+        function addNewHolidays() {
             var today = new Date();
 
             var holiday1 = {
@@ -391,6 +392,10 @@
             };
             
             calendarInstance.addHolidays( [ holiday1, holiday2 ] );
+        }
+
+        function removeNewHolidays() {
+            calendarInstance.removeHolidays( [ "Google Day", "Calendar.js Day" ] );
         }
     </script>
 </html>
