@@ -7,6 +7,7 @@
 - Added global Ctrl/Command + Shift + F11 support to toggle between full screen mode (if enabled).
 - Fixed a fault that caused the display to refresh and tooltips to be shown when one of the drop-down menus is open.
 - In the Full Day view, when clicking an event that overlaps another, it will now be brought to the front.
+- Added public function removeHolidays(), which removes a list of holidays by name.
 - 
 
 ### Version 1.4.3:

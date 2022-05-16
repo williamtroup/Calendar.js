@@ -7628,6 +7628,44 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     };
 
+    /**
+     * removeHolidays().
+     * 
+     * @fires       onOptionsUpdated
+     * 
+     * Removes holidays.
+     * 
+     * @param       {Object[]}  holidayNames                                The names of the holidays to remove (case sensitive).
+     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
+     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     */
+    this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
+        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+
+        var holidaysLength = _options.holidays.length,
+            holidaysRemaining = [];
+
+        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+            var holiday = _options.holidays[ holidayIndex ],
+                holidayText = getString( holiday.title, "" );
+
+            if ( holidayNames.indexOf( holidayText ) === -1 ) {
+                holidaysRemaining.push( holiday );
+            }
+        }
+
+        _options.holidays = holidaysRemaining;
+
+        if ( triggerEvent ) {
+            triggerOptionsEventWithData( "onOptionsUpdated", _options );
+        }
+
+        if ( updateEvents ) {
+            build( _currentDate, true );
+        }
+    };
+
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
 

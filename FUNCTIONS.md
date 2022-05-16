@@ -290,3 +290,14 @@ Adds new holidays.
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+
+### **removeHolidays( *holidayNames*, *triggerEvent*, *updateEvents* )**:
+Removes holidays.
+<br>
+***Fires***:  onOptionsUpdated
+<br>
+***Parameter: holidayNames***: '*Object*' - The names of the holidays to remove (case sensitive).
+<br>
+***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
+<br>
+***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
