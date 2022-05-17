@@ -4688,6 +4688,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         titleBar.innerText = _options.searchEventsTitle;
         titleBar.onmousedown = searchOnTitleBarMouseDown;
         titleBar.onmouseup = searchOnTitleBarMouseUp;
+        titleBar.oncontextmenu = searchOnTitleBarMouseUp;
         titleBar.ondblclick = minimizeRestoreDialog;
         _element_SearchDialog.appendChild( titleBar );
 

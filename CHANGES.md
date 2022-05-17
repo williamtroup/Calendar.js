@@ -5,6 +5,7 @@
 - Added new setting "maximumDatePickerDate", which states the maximum date to use while in DatePicker mode.
 - The date selected in DatePicker mode is now highlighted in the calendar display.
 - Fixed a fault that caused the calendar to close when clicking in the days header (in DatePicker mode).
+- Fixed a fault that caused the Search dialog to move uncontrollable when open on a context menu on the title bar.
 - 
 
 ### Version 1.4.4:
