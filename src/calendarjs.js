@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.4
+ * Calendar.js Library v1.4.5
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -270,6 +270,8 @@
  * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
  * @property    {boolean}   useEscapeKeyToExitFullScreenMode            States if the escape key should exit full-screen mode (if enabled, defaults to true).
+ * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
+ * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  */
 
 
@@ -770,6 +772,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var headerRow = createElement( "div", "row header-days" ),
                 headerNamesLength = _options.dayHeaderNames.length;
 
+            if ( _datePickerModeEnabled ) {
+                headerRow.onclick = cancelBubble;
+            }
+
             _element_Calendar.appendChild( headerRow );
 
             for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
@@ -945,8 +951,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             if ( _datePickerInput.value !== "" ) {
                 storeDataPickerSelectedDate( build );
             }
-
         } else {
+
             _element_Calendar.className = "calendar calendar-hidden";
             hideAllDropDowns();
         }
@@ -1014,6 +1020,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 _currentDateForDatePicker = newDate;
             }
         }
+    }
+
+    function isDateValidForDatePicker( newDate ) {
+        var newDateAllowed = true;
+
+        if ( _options.minimumDatePickerDate !== null ) {
+            newDateAllowed = isDateSmallerOrEqualToDate( _options.minimumDatePickerDate, newDate );
+        }
+
+        if ( newDateAllowed && _options.maximumDatePickerDate !== null ) {
+            newDateAllowed = isDateSmallerOrEqualToDate( newDate, _options.maximumDatePickerDate );
+        }
+
+        return newDateAllowed;
     }
 
 
@@ -2119,6 +2139,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                         duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                     }
                 } else {
+
                     buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
 
                     duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
@@ -2516,6 +2537,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
             } else {
+
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
 
                 duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
@@ -2808,8 +2830,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, false );
             createSpanElement( _element_ListAllWeekEventsView_Title, ", " + weekStartDate.getFullYear() );
-
         } else {
+
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, true );
             createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
             buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, true );
@@ -2873,6 +2895,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                 }
             } else {
+
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
 
                 duration.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
@@ -3158,19 +3181,35 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
                 dayText = createElement( "span" ),
                 dayDate = new Date( year, month, actualDay ),
-                dayMutedClass = isMuted ? " day-muted" : "";
+                dayMutedClass = isMuted ? " day-muted" : "",
+                allowDatePickerHoverAndSelect = true;
             
             includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
 
             dayElement.innerHTML = "";
-
+            dayElement.className = dayElement.className.replace( " cell-today", "" ).replace( " cell-selected", "" ).replace( " cell-no-click", "" );
+            
             if ( _datePickerModeEnabled && dayIsToday ) {
                 dayElement.className += " cell-today";
-            } else {
-                dayElement.className = dayElement.className.replace( " cell-today", "" );
             }
 
-            dayText.className = dayMutedClass;
+            if ( _datePickerModeEnabled && !dayIsToday && doDatesMatch( dayDate, _currentDateForDatePicker ) ) {
+                dayElement.className += " cell-selected";
+            }
+
+            if ( _datePickerModeEnabled ) {
+                allowDatePickerHoverAndSelect = isDateValidForDatePicker( dayDate );
+    
+                if ( !allowDatePickerHoverAndSelect ) {
+                    dayElement.className += " cell-no-click";
+                    dayText.className = "no-click";
+                }
+                
+            } else {
+                dayText.className = "";
+            }
+
+            dayText.className += dayMutedClass;
             dayText.className += dayIsToday && !_datePickerModeEnabled ? " today" : "";
             dayText.innerText = actualDay;
 
@@ -3231,9 +3270,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             }
 
             if ( _datePickerModeEnabled ) {
-                dayElement.onclick = function( e ) {
-                    setDatePickerDate( e, dayDate );
-                };
+                if ( allowDatePickerHoverAndSelect ) {
+                    dayElement.onclick = function( e ) {
+                        setDatePickerDate( e, dayDate );
+                    };
+                } else {
+                    dayElement.onclick = cancelBubble;
+                }
             }
         }
     }
@@ -4091,6 +4134,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
                 _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
             } else {
+
                 var newTimeToDisplay = padNumber( overrideTimeValues[ 0 ] ) + ":" + padNumber( overrideTimeValues[ 1 ] );
 
                 _element_EventEditorDialog_TimeFrom.value = newTimeToDisplay;
@@ -4644,6 +4688,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         titleBar.innerText = _options.searchEventsTitle;
         titleBar.onmousedown = searchOnTitleBarMouseDown;
         titleBar.onmouseup = searchOnTitleBarMouseUp;
+        titleBar.oncontextmenu = searchOnTitleBarMouseUp;
         titleBar.ondblclick = minimizeRestoreDialog;
         _element_SearchDialog.appendChild( titleBar );
 
@@ -5368,8 +5413,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                                 _element_Tooltip_Date.innerText = getTimeToTimeDisplay( eventDetails.from, eventDetails.to );
                                 _element_Tooltip_TotalTime.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
                             }
-                            
                         } else {
+
                             buildDateTimeToDateTimeDisplay( _element_Tooltip_Date, eventDetails.from, eventDetails.to );
 
                             _element_Tooltip_TotalTime.innerText = getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to );
@@ -6046,6 +6091,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function isDefinedStringAndSet( object ) {
         return isDefinedString( object ) && object !== "";
+    }
+
+    function isDefinedDate( object ) {
+        return isDefinedObject( object ) && object instanceof Date;
     }
 
 
@@ -6890,10 +6939,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
     this.setSelectedDatePickerDate = function( date ) {
-        var newDate = new Date( date );
-
-        setSelectedDate( newDate, _datePickerInput );
-        triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+        var newDate = new Date( date ),
+            newDateAllowed = isDateValidForDatePicker( newDate );
+        
+        if ( newDateAllowed ) {
+            setSelectedDate( newDate, _datePickerInput );
+            triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+        }
     };
 
     /**
@@ -7530,7 +7582,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.4.4";
+        return "1.4.5";
     };
 
 
@@ -7827,6 +7879,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.useEscapeKeyToExitFullScreenMode ) ) {
             _options.useEscapeKeyToExitFullScreenMode = true;
+        }
+
+        if ( !isDefinedDate( _options.minimumDatePickerDate ) ) {
+            _options.minimumDatePickerDate = null;
+        }
+
+        if ( !isDefinedDate( _options.maximumDatePickerDate ) ) {
+            _options.maximumDatePickerDate = null;
         }
 
         setTranslationStringOptions();

@@ -20,11 +20,15 @@
         <h1 id="header">Welcome to Calendar.js - DatePicker Mode</h1>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar1" value="15/01/2018" />
+            <input type="text" id="myCalendar1" value="01/05/2022" />
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar2" value="15/05/2019" />
+            <input type="text" id="myCalendar2" value="15/05/2022" />
+        </div>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar3" value="30/05/2022" />
         </div>
         <br>
 
@@ -32,19 +36,26 @@
             <h2>Get Date:</h2>
             <button onclick="console.log( calendarInstance1.getSelectedDatePickerDate() );">Get Selected Date Picker Date (1)</button>
             <button onclick="console.log( calendarInstance2.getSelectedDatePickerDate() );">Get Selected Date Picker Date (2)</button>
+            <button onclick="console.log( calendarInstance3.getSelectedDatePickerDate() );">Get Selected Date Picker Date (3)</button>
             <br>
 
             <h2>Set Date:</h2>
             <button onclick="calendarInstance1.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (1)</button>
             <button onclick="calendarInstance2.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (2)</button>
+            <button onclick="calendarInstance3.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (3)</button>
         </div>
     </body>
 
     <script>
         var calendarInstance1 = new calendarJs( "myCalendar1", {
-                openInFullScreenMode: true
+                openInFullScreenMode: true,
+                minimumDatePickerDate: new Date()
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
+                openInFullScreenMode: true,
+                maximumDatePickerDate: new Date()
+            } ),
+            calendarInstance3 = new calendarJs( "myCalendar3", {
                 openInFullScreenMode: true
             } );
 

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.4
+ * Calendar.js Library v1.4.5
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -98,13 +98,17 @@ div.calendar-date-picker {
                 color: $light-color !important;
             }
 
-            div.cell:hover {
+            div.cell-selected {
+                background-color: $day-date-picker-hover-color !important;
+            }
+
+            div.cell:not(.cell-no-click):hover {
                 cursor: pointer;
                 background-color: $day-date-picker-hover-color;
                 transition: $transition;
             }
 
-            div.cell:active {
+            div.cell:not(.cell-no-click):active {
                 @include opacity-active-effect;
             }
         }
@@ -252,7 +256,8 @@ div.calendar {
                 padding-right: 0px;
                 border-radius: $border-view-radius;
         
-                &.day-muted {
+                &.day-muted,
+                &.no-click {
                     opacity: 0.3;
                 }
         
