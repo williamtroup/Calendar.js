@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.5.0:
+- 
+
 ### Version 1.4.5:
 - Added new setting "minimumDatePickerDate", which states the minimum date to use while in DatePicker mode.
 - Added new setting "maximumDatePickerDate", which states the maximum date to use while in DatePicker mode.
