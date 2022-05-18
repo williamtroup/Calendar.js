@@ -222,6 +222,7 @@
  * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
+ * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
  */
 
 
@@ -4167,7 +4168,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function eventDialogEvent_OK() {
         var fromTime = _element_EventEditorDialog_TimeFrom.value.split( ":" ),
             toTime = _element_EventEditorDialog_TimeTo.value.split( ":" ),
-            title = trimString( _element_EventEditorDialog_Title.value );
+            title = trimString( _element_EventEditorDialog_Title.value ),
+            url = trimString( _element_EventEditorDialog_Url.value );
 
         if ( fromTime.length < 2 ) {
             showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
@@ -4175,6 +4177,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             showEventDialogErrorMessage( _options.toTimeErrorMessage, _element_EventEditorDialog_TimeTo );
         } else if ( title === "" ) {
             showEventDialogErrorMessage( _options.titleErrorMessage, _element_EventEditorDialog_Title );
+        } else if ( url.length > 0 && !isValidUrl( url ) ) {
+            showEventDialogErrorMessage( _options.urlErrorMessage, _element_EventEditorDialog_Title );
         }
         else {
 
@@ -4184,7 +4188,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 location = trimString( _element_EventEditorDialog_Location.value ),
                 group = trimString( _element_EventEditorDialog_Group.value ),
                 repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null ),
-                url = trimString( _element_EventEditorDialog_Url.value ),
                 repeatEveryCustomValue = parseInt( _element_EventEditorDialog_RepeatEvery_Custom_Value.value );
 
             setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
@@ -6128,6 +6131,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         return isDefinedObject( object ) && object instanceof Date;
     }
 
+    function isValidUrl( url ) {
+        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( url );
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -7214,7 +7221,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 title = getString( event.title ),
                 description = getString( event.description ),
                 location = getString( event.location ),
-                group = getString( event.group );
+                group = getString( event.group ),
+                url = getString( event.url );
 
             if ( !_events.hasOwnProperty( storageDate ) ) {
                 _events[ storageDate ] = {};
@@ -7244,6 +7252,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                 if ( _options.maximumEventGroupLength > 0 && group !== "" && group.length > _options.maximumEventGroupLength ) {
                     event.group = event.group.substring( 0, _options.maximumEventGroupLength );
+                }
+
+                if ( url !== "" && !isValidUrl( url ) ) {
+                    event.url = "";
                 }
 
                 if ( !isDefined( event.created ) ) {
@@ -8560,6 +8572,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.newEventDefaultTitle ) ) {
             _options.newEventDefaultTitle = "* New Event";
+        }
+
+        if ( !isDefinedString( _options.urlErrorMessage ) ) {
+            _options.urlErrorMessage = "Please enter a valid Url in the 'Url' field (or leave blank).";
         }
     }
 

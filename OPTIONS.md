@@ -195,6 +195,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | showEmptyDaysInWeekViewText | The text that should be displayed for the "Show empty days in the week view" label. |
 | *string* | showHolidaysInTheDisplaysText | The text that should be displayed for the "Show holidays in the main display and title bars" label. |
 | *string* | newEventDefaultTitle | The default title that should be used for new events (defaults to "* New Event"). |
+| *string* | urlErrorMessage | The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label. |
 
 <br/>
 
