@@ -480,6 +480,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_Tooltip_Repeats = null,
         _element_Tooltip_Description = null,
         _element_Tooltip_Location = null,
+        _element_Tooltip_Url = null,
         _element_Tooltip_ShowTimer = null,
         _element_Tooltip_EventDetails = null,
         _element_DropDownMenu_Day = null,
@@ -5335,6 +5336,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _element_Tooltip_Repeats = createElement( "div", "repeats" );
             _element_Tooltip_Description = createElement( "div", "description" );
             _element_Tooltip_Location = createElement( "div", "location" );
+            _element_Tooltip_Url = createElement( "div", "url" );
 
             _element_Tooltip_TitleButtons_CloseButton.onclick = hideTooltip;
             _element_Tooltip_TitleButtons_EditButton.onclick = function() {
@@ -5372,6 +5374,21 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Title );
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip.appendChild( _element_Tooltip_TotalTime );
+
+                        if ( isDefinedStringAndSet( eventDetails.url ) ) {
+                            _element_Tooltip_Url.innerText = getShortUrlString( eventDetails.url );
+                            addNode( _element_Tooltip, _element_Tooltip_Url );
+
+                            _element_Tooltip_Url.onclick = function( e ) {
+                                cancelBubble( e );
+                                window.open( eventDetails.url );
+                            };
+
+                        } else {
+                            _element_Tooltip_Url.innerText = "";
+                            _element_Tooltip_Url.onclick = null;
+                            removeNode( _element_Tooltip, _element_Tooltip_Url );
+                        }
 
                         var repeatEvery = getNumber( eventDetails.repeatEvery );
                         if ( repeatEvery > _repeatType.never ) {
@@ -6044,6 +6061,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function endsWith( data, end ) {
         return data.substring( data.length - end.length, data.length ) === end;
+    }
+
+    function getShortUrlString( url, maxLength ) {
+        var result = url;
+
+        maxLength = isDefined( maxLength ) ? maxLength : 30;
+
+        if ( url.length > maxLength ) {
+            var sideLength = maxLength % 2 === 0 ? maxLength / 2 : ( maxLength - 1 ) / 2;
+
+            result = url.substring( 0, sideLength ) + "..." + url.substring( url.length - sideLength );
+        }
+
+        return result;
     }
 
 

@@ -1426,8 +1426,18 @@ div.calendar-tooltip-event {
     div.duration,
     div.description,
     div.location,
-    div.repeats {
+    div.repeats,
+    div.url {
         font-size: smaller;
+    }
+
+    div.url {
+        color: blue;
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
     }
 
     div.ib-refresh-medium {

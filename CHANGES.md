@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.5.0:
+- Added Url support to event tooltips (can be clicked, which opens the Url in a new window/tab).
 - 
 
 ### Version 1.4.5:
