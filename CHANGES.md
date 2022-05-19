@@ -5,6 +5,7 @@
 - Only valid Urls can now be entered in the Event Editor dialog (an error message is shown for invalid entries).
 - Events that contain an invalid Url when added/updated via public functions are now cleared.
 - Added new setting "allowHtmlInDisplay", which allows HTML to be used in the display (defaults to false).
+- Fixed a fault that caused the year drop-down menu to jump around when a year is clicked (and not set the year).
 - 
 
 ### Version 1.4.5:
