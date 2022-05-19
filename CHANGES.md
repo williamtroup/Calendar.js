@@ -6,6 +6,7 @@
 - Events that contain an invalid Url when added/updated via public functions are now cleared.
 - Added new setting "allowHtmlInDisplay", which allows HTML to be used in the display (defaults to false).
 - Fixed a fault that caused the year drop-down menu to jump around when a year is clicked (and not set the year).
+- Added new event "onEventUrlClicked", which is triggered when an event Url is clicked (passes the Url to the function).
 - 
 
 ### Version 1.4.5:

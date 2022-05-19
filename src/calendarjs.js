@@ -77,6 +77,7 @@
  * @property    {Object}    onEventsAddedFromJSON                       Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function).
  * @property    {Object}    onDatePickerDateChanged                     Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function).
  * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
+ * @property    {Object}    onEventUrlClicked                           Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function).
  */
 
 
@@ -3594,7 +3595,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         _element_DropDownMenu_Event_OpenUrl = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-top-right-icon", _options.openUrlText, function() {
-            _window.open( _element_DropDownMenu_Event_EventDetails.url, _options.urlWindowTarget );
+            openEventUrl( _element_DropDownMenu_Event_EventDetails.url );
         } );
     }
 
@@ -5390,7 +5391,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                             _element_Tooltip_Url.onclick = function( e ) {
                                 cancelBubble( e );
-                                window.open( eventDetails.url, _options.urlWindowTarget );
+                                openEventUrl( eventDetails.url );
                             };
 
                         } else {
@@ -5605,7 +5606,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             if ( url === "" ) {
                 showEventEditingDialog( event );
             } else {
-                _window.open( url, _options.urlWindowTarget );
+                openEventUrl( url );
             }
 
             triggerOptionsEventWithData( "onNotificationClicked", event );
@@ -5632,6 +5633,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 action();
             }
         }
+    }
+
+    function openEventUrl( url ) {
+        _window.open( url, _options.urlWindowTarget );
+
+        triggerOptionsEvent( "onEventUrlClicked", url );
     }
 
 
