@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.5.0
+ * Calendar.js Library v1.5.1
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1077,9 +1077,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         year.onclick = function( e ) {
             cancelBubble( e );
 
-            _currentDate.setFullYear( actualYear );
+            if ( _currentDate.getFullYear() !== actualYear ) {
+                _currentDate.setFullYear( actualYear );
 
-            build( _currentDate );
+                build( _currentDate );
+            }
+
             hideYearSelectorDropDown();
         };
     }
@@ -7651,7 +7654,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.5.0";
+        return "1.5.1";
     };
 
 
