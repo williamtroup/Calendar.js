@@ -3,6 +3,7 @@
 ### Version 1.5.1:
 - Clicking the currently displayed year in the year drop-down menu no longer causes an update to the display.
 - The public function setCurrentDisplayDate() will only set the date if its different from the display date.
+- The public function setSelectedDatePickerDate() will now close the date picker (if it's open).
 - 
 
 ### Version 1.5.0:

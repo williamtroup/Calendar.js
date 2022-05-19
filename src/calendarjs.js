@@ -7012,6 +7012,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             newDateAllowed = isDateValidForDatePicker( newDate );
         
         if ( newDateAllowed ) {
+            hideDatePickerMode();
             setSelectedDate( newDate, _datePickerInput );
             triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
         }
