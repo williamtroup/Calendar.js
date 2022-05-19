@@ -1018,11 +1018,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
             if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                _currentDateForDatePicker = newDate;
+                
                 if ( isDefinedFunction( func ) ) {
                     func( new Date( newDate ) );
                 }
-                
-                _currentDateForDatePicker = newDate;
             }
         }
     }
