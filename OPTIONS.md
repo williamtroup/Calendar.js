@@ -50,6 +50,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | useEscapeKeyToExitFullScreenMode | States if the escape key should exit full-screen mode (if enabled, defaults to true). |
 | *Object* | minimumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *Object* | maximumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
+| *boolean* | allowHtmlInDisplay | States if HTML can be used in the display (defaults to false). |
 
 <br/>
 
