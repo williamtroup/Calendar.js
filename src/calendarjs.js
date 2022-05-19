@@ -5390,7 +5390,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                             _element_Tooltip_Url.onclick = function( e ) {
                                 cancelBubble( e );
-                                window.open( eventDetails.url );
+                                window.open( eventDetails.url, _options.urlWindowTarget );
                             };
 
                         } else {
