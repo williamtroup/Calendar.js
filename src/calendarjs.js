@@ -6981,8 +6981,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      this.setCurrentDisplayDate = function( date ) {
         var newDate = new Date( date );
 
-        build( newDate );
-        triggerOptionsEventWithData( "onSetDate", newDate );
+        if ( !doDatesMatch( _currentDate, newDate ) ) {
+            build( newDate );
+            triggerOptionsEventWithData( "onSetDate", newDate );
+        }
     };
 
     /**
