@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+### Version 1.5.0:
+- Added Url support to event tooltips (can be clicked, which opens the Url in a new window/tab).
+- Only valid URLs can now be entered in the Event Editor dialog (an error message is shown for invalid entries).
+- Events that contain an invalid Url when added/updated via public functions are now cleared.
+- Added new setting "allowHtmlInDisplay", which allows HTML to be used in the display (defaults to false).
+- Fixed a fault that caused the year drop-down menu to jump around when a year is clicked (and not set the year).
+- Added new event "onEventUrlClicked", which is triggered when an event Url is clicked (passes the Url to the function).
+
 ### Version 1.4.5:
 - Added new setting "minimumDatePickerDate", which states the minimum date to use while in DatePicker mode.
 - Added new setting "maximumDatePickerDate", which states the maximum date to use while in DatePicker mode.

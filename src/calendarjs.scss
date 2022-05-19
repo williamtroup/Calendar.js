@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.4.5
+ * Calendar.js Library v1.5.0
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -345,7 +345,7 @@ div.calendar {
         position: relative;
 
         div.title-container {
-            display: inline;
+            display: inline-block;
             position: relative;
 
             span {
@@ -1426,8 +1426,18 @@ div.calendar-tooltip-event {
     div.duration,
     div.description,
     div.location,
-    div.repeats {
+    div.repeats,
+    div.url {
         font-size: smaller;
+    }
+
+    div.url {
+        color: blue;
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
     }
 
     div.ib-refresh-medium {

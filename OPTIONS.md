@@ -50,6 +50,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | useEscapeKeyToExitFullScreenMode | States if the escape key should exit full-screen mode (if enabled, defaults to true). |
 | *Object* | minimumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *Object* | maximumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
+| *boolean* | allowHtmlInDisplay | States if HTML can be used in the display (defaults to false). |
 
 <br/>
 
@@ -195,6 +196,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | showEmptyDaysInWeekViewText | The text that should be displayed for the "Show empty days in the week view" label. |
 | *string* | showHolidaysInTheDisplaysText | The text that should be displayed for the "Show holidays in the main display and title bars" label. |
 | *string* | newEventDefaultTitle | The default title that should be used for new events (defaults to "* New Event"). |
+| *string* | urlErrorMessage | The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label. |
 
 <br/>
 
@@ -226,3 +228,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventsAddedFromJSON | Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function). |
 | onDatePickerDateChanged | Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function). |
 | onGroupRemoved | Specifies an event that will be triggered when a group is removed (passes the group removed to the function). |
+| onEventUrlClicked | Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function). |
