@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.5.0
+ * Calendar.js Library v1.5.1
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1018,11 +1018,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
             if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                _currentDateForDatePicker = newDate;
+                
                 if ( isDefinedFunction( func ) ) {
                     func( new Date( newDate ) );
                 }
-                
-                _currentDateForDatePicker = newDate;
             }
         }
     }
@@ -1077,9 +1077,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         year.onclick = function( e ) {
             cancelBubble( e );
 
-            _currentDate.setFullYear( actualYear );
+            if ( _currentDate.getFullYear() !== actualYear ) {
+                _currentDate.setFullYear( actualYear );
 
-            build( _currentDate );
+                build( _currentDate );
+            }
+
             hideYearSelectorDropDown();
         };
     }
@@ -6978,8 +6981,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      this.setCurrentDisplayDate = function( date ) {
         var newDate = new Date( date );
 
-        build( newDate );
-        triggerOptionsEventWithData( "onSetDate", newDate );
+        if ( !doDatesMatch( _currentDate, newDate ) ) {
+            build( newDate );
+            triggerOptionsEventWithData( "onSetDate", newDate );
+        }
     };
 
     /**
@@ -7006,7 +7011,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var newDate = new Date( date ),
             newDateAllowed = isDateValidForDatePicker( newDate );
         
-        if ( newDateAllowed ) {
+        if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
+            hideDatePickerMode();
             setSelectedDate( newDate, _datePickerInput );
             triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
         }
@@ -7651,7 +7657,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.5.0";
+        return "1.5.1";
     };
 
 

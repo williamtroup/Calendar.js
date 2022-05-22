@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+### Version 1.5.1:
+- Clicking the currently displayed year in the year drop-down menu no longer causes an update to the display.
+- The public function setCurrentDisplayDate() will only set the date if it's different from the display date.
+- The public function setSelectedDatePickerDate() will now close the DatePicker (if it's open).
+- Fixed a fault that caused the DatePicker to show the incorrect selected date (until it's opened again).
+- The public function setSelectedDatePickerDate() will only set the date if it's different from the DatePickers selected date.
+
 ### Version 1.5.0:
 - Added Url support to event tooltips (can be clicked, which opens the Url in a new window/tab).
 - Only valid URLs can now be entered in the Event Editor dialog (an error message is shown for invalid entries).
