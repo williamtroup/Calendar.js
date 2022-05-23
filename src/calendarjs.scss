@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.5.1
+ * Calendar.js Library v1.5.2
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -200,6 +200,7 @@ div.calendar {
         font-weight: 300;
         background-color: $light-color;
         color: $dark-color;
+        width: 100%;
 
         div.cell-1 {
             width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}));
