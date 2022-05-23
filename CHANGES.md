@@ -4,6 +4,7 @@
 - All public function will now only accept the right types for parameters (including the constructor).
 - Fixed a fault that caused the wrong input field to be focused when an invalid Url is entered in the Event Editor dialog.
 - The Url input field in the Event Editor dialog is now of type "url".
+- When dragging an event, the day is was dragged from no longer shows a hover effect (as it cannot be dropped there).
 - 
 
 ### Version 1.5.2:

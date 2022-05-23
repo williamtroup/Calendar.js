@@ -3356,20 +3356,22 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function makeAreaDroppable( element, year, month, actualDay ) {
         if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            var areaDate = new Date( year, month, actualDay );
+
             element.ondragover = function( e ) {
-                showDraggingEffect( e, element );
+                showDraggingEffect( e, element, areaDate );
             };
         
             element.ondragenter = function( e ) {
-                showDraggingEffect( e, element );
+                showDraggingEffect( e, element, areaDate );
             };
         
             element.ondragleave = function( e ) {
-                hideDraggingEffect( e, element );
+                hideDraggingEffect( e, element, areaDate );
             };
         
             element.ondrop = function( e ) {
-                hideDraggingEffect( e, element );
+                hideDraggingEffect( e, element, areaDate );
 
                 if ( e.dataTransfer.files.length === 0 ) {
                     dropEventOnDay( e, year, month, actualDay );
@@ -3380,18 +3382,18 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function showDraggingEffect( e, dayElement ) {
+    function showDraggingEffect( e, dayElement, areaDate ) {
         cancelBubble( e );
 
-        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) === -1 ) {
+        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) === -1 && !doDatesMatch( _eventDetails_Dragged_DateFrom, areaDate ) ) {
             dayElement.className += " drag-over";
         }
     }
 
-    function hideDraggingEffect( e, dayElement ) {
+    function hideDraggingEffect( e, dayElement, areaDate ) {
         cancelBubble( e );
 
-        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) > -1 ) {
+        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) > -1 && !doDatesMatch( _eventDetails_Dragged_DateFrom, areaDate ) ) {
             dayElement.className = dayElement.className.replace( " drag-over", "" );
         }
     }
