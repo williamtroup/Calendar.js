@@ -251,6 +251,7 @@ div.calendar {
             }
 
             span {
+                pointer-events: none;
                 display: inline-block;
                 padding: 4px;
                 padding-left: 0px;

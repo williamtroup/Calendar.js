@@ -317,6 +317,7 @@ div.calendar div.row div.cell {
 }
 
 div.calendar div.row div.cell span {
+  pointer-events: none;
   display: inline-block;
   padding: 4px;
   padding-left: 0px;
