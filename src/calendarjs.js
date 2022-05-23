@@ -3351,6 +3351,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
             };
+
+            event.ondragend = function() {
+                _eventDetails_Dragged_DateFrom = null;
+                _eventDetails_Dragged = null;
+            };
         }
     }
 
@@ -5371,7 +5376,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() ) ) {
+                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null ) ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -5682,7 +5687,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function isOnlyMainDisplayVisible() {
-        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible();
+        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null;
     }
 
     
