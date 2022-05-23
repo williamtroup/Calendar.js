@@ -6,7 +6,7 @@
 - The Url input field in the Event Editor dialog is now of type "url".
 - When dragging an event, the day is was dragged from no longer shows a hover effect (as it cannot be dropped there).
 - Fixed a fault that caused the Tooltips to show up when dragging events in FireFox.
-- Fixed some of the flicking that occurs when dragging events over other days (when hovering over text).
+- Fixed the flicking that occurs when dragging events over other days (when hovering over text and events).
 - 
 
 ### Version 1.5.2:

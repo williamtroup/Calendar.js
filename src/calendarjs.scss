@@ -44,6 +44,10 @@ div.disabled-area {
     display: none;
 }
 
+div.prevent-pointer-events {
+    pointer-events: none;
+}
+
 div.full-screen-view {
     @include full-size-view;
     z-index: 500;

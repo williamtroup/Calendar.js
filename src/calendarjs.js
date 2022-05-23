@@ -3350,11 +3350,27 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             event.ondragstart = function() {
                 _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
+
+                var events = _element_Calendar.getElementsByClassName( "event" ),
+                    eventsLength = events.length;
+            
+                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                    if ( events[ eventIndex ] !== event ) {
+                        events[ eventIndex ].className += " prevent-pointer-events";
+                    }
+                }
             };
 
             event.ondragend = function() {
                 _eventDetails_Dragged_DateFrom = null;
                 _eventDetails_Dragged = null;
+
+                var events = _element_Calendar.getElementsByClassName( "event" ),
+                    eventsLength = events.length;
+            
+                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                    events[ eventIndex ].className = events[ eventIndex ].className.replace( " prevent-pointer-events", "" );
+                }
             };
         }
     }

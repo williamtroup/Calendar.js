@@ -82,6 +82,10 @@ div.disabled-area {
   display: none;
 }
 
+div.prevent-pointer-events {
+  pointer-events: none;
+}
+
 div.full-screen-view {
   top: 0;
   left: 0;
