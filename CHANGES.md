@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.5.3:
+- 
+
 ### Version 1.5.2:
 - Fixed a fault in Safari that caused the day names header to not resize correctly on initial load.
 
