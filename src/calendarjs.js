@@ -556,7 +556,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
 
     function build( newStartDateTime, fullRebuild ) {
-        _currentDate = isDefined( newStartDateTime ) ? newStartDateTime : new Date();
+        _currentDate = isDefinedDate( newStartDateTime ) ? newStartDateTime : new Date();
         _currentDate.setDate( 1 );
         _currentDate.setHours( 0, 0, 0, 0 );
         _isDateToday = isDateTodaysMonthAndYear( _currentDate );
@@ -7029,7 +7029,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
-            type = !isDefined( type ) ? "csv" : type;
+            type = !isDefinedString( type ) ? "csv" : type;
 
             exportEvents( null, type );
         }
@@ -7112,7 +7112,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsSet" event should be triggered.
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
         _events = {};
 
         this.addEvents( events, updateEvents, false );
@@ -7134,7 +7134,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsSetFromJSON" event should be triggered.
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var dataObject = getObjectFromString( json );
 
@@ -7161,8 +7161,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsAdded" event should be triggered.
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var eventsLength = events.length;
         for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -7193,7 +7193,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsAddedFromJSON" event should be triggered.
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var dataObject = getObjectFromString( json );
 
@@ -7225,7 +7225,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.addEvent = function( event, updateEvents, triggerEvent, setLastUpdated ) {
         var added = false;
         
-        setLastUpdated = isDefined( setLastUpdated ) ? setLastUpdated : true;
+        setLastUpdated = !isDefinedBoolean( setLastUpdated ) ? true : setLastUpdated;
 
         if ( isDefinedString( event.from ) ) {
             event.from = new Date( event.from );
@@ -7261,8 +7261,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             }
 
             if ( !_events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
                 if ( !isDefined( event.id ) ) {
                     event.id = storageGuid;
@@ -7290,7 +7290,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     event.url = "";
                 }
 
-                if ( !isDefined( event.created ) ) {
+                if ( !isDefinedDate( event.created ) ) {
                     event.created = new Date();
                 }
 
@@ -7327,8 +7327,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var eventsLength = events.length;
         for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -7364,8 +7364,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.updateEvent = function( id, event, updateEvents, triggerEvent ) {
         var updated = this.removeEvent( id, false, false );
         if ( updated ) {
-            updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
             updated = this.addEvent( event, updateEvents, false );
 
@@ -7398,8 +7398,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         getAllEventsFunc( function( event ) {
             if ( event.id === id ) {
-                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
                 event.from = from;
                 event.to = to;
@@ -7440,8 +7440,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         getAllEventsFunc( function( event, storageDate, storageGuid ) {
             if ( storageGuid === id ) {
-                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
                 delete _events[ storageDate ][ storageGuid ];
                 removed = true;
@@ -7473,8 +7473,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsCleared" event should be triggered.
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         _events = {};
 
@@ -7554,8 +7554,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         getAllEventsFunc( function( event ) {
             event.group = null;
@@ -7583,8 +7583,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var checkGroupName = groupName.toLowerCase();
 
@@ -7690,7 +7690,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         checkForBrowserNotificationsPermission();
 
         if ( _initialized ) {
-            triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
             if ( triggerEvent ) {
                 triggerOptionsEventWithData( "onOptionsUpdated", _options );
@@ -7714,7 +7714,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         newSearchOptions = getOptions( newSearchOptions );
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         hideSearchDialog();
 
@@ -7741,8 +7741,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
 
         _options.holidays = _options.holidays.concat( holidays );
 
@@ -7767,8 +7767,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
 
         var holidaysLength = _options.holidays.length,
             holidaysRemaining = [];
@@ -8616,7 +8616,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function isInvalidOptionArray( array, minimumLength ) {
-        minimumLength = isDefined( minimumLength ) ? minimumLength : 1;
+        minimumLength = isDefinedNumber( minimumLength ) ? minimumLength : 1;
 
         return !isDefinedArray( array ) || array.length < minimumLength;
     }
@@ -8708,12 +8708,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _window = windowObject;
         _elementID = id;
 
-        buildDefaultOptions( options );
-        buildDefaultSearchOptions( searchOptions );
-        build( startDateTime, true );
-
-        if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
-            turnOnFullScreenMode( true );
+        if ( isDefinedString( _elementID ) ) {
+            buildDefaultOptions( options );
+            buildDefaultSearchOptions( searchOptions );
+            build( startDateTime, true );
+    
+            if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
+                turnOnFullScreenMode( true );
+            }
         }
 
     } ) ( document, window );

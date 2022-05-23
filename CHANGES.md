@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.5.3:
+- All public function will now only accept the right types for parameters (including the constructor).
 - 
 
 ### Version 1.5.2:
