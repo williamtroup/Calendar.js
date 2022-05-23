@@ -3973,7 +3973,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         createTextHeaderElement( _element_EventEditorDialog_Tab_Extra, _options.urlText );
 
-        _element_EventEditorDialog_Url = createElement( "input", null, "text" );
+        _element_EventEditorDialog_Url = createElement( "input", null, "url" );
         _element_EventEditorDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Url );
     }
 

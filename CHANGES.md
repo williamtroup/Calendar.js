@@ -3,6 +3,7 @@
 ### Version 1.5.3:
 - All public function will now only accept the right types for parameters (including the constructor).
 - Fixed a fault that caused the wrong input field to be focused when an invalid Url is entered in the Event Editor dialog.
+- The Url input field in the Event Editor dialog is now of type "url".
 - 
 
 ### Version 1.5.2:
