@@ -3324,7 +3324,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     holidayText = getString( holiday.title, "" );
 
                 if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                    var className = isDefined( holiday.onClick ) ? "holiday-link" : "holiday";
+                    var className = isDefinedFunction( holiday.onClick ) ? "holiday-link" : "holiday";
                     
                     createSpanElement( dayElement, holidayText, className + dayMutedClass, holiday.onClick, true );
 
@@ -5747,7 +5747,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         cancelDblClick = isDefined( cancelDblClick ) ? cancelDblClick : false;
 
         var element = createElement( "span", className ),
-            isEventDefined = isDefined( event );
+            isEventDefined = isDefinedFunction( event );
  
         setNodeText( element, text );    
         container.appendChild( element );
