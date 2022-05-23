@@ -4186,7 +4186,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         } else if ( title === "" ) {
             showEventDialogErrorMessage( _options.titleErrorMessage, _element_EventEditorDialog_Title );
         } else if ( url.length > 0 && !isValidUrl( url ) ) {
-            showEventDialogErrorMessage( _options.urlErrorMessage, _element_EventEditorDialog_Title );
+            showEventDialogErrorMessage( _options.urlErrorMessage, _element_EventEditorDialog_Url );
         }
         else {
 
