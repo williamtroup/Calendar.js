@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.5.1
+ * Calendar.js Library v1.5.2
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -260,6 +260,7 @@ div.calendar div.row {
   font-weight: 300;
   background-color: #F5F5F5;
   color: #282828;
+  width: 100%;
 }
 
 div.calendar div.row div.cell-1 {
