@@ -3343,7 +3343,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function makeEventDraggable( event, eventDetails, dragFromDate, container ) {
         if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-            var draggedFromDate = new Date( dragFromDate );
+            var draggedFromDate = new Date( dragFromDate ),
+                isDateWeekendDay = isWeekendDay( draggedFromDate ),
+                dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
 
             event.setAttribute( "draggable", true );
             
@@ -3352,7 +3354,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 _eventDetails_Dragged = eventDetails;
 
                 if ( isDefined( container ) ) {
-                    container.className += " drag-not-allowed";
+                    container.className += dragDisabledClass;
                 }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),
@@ -3370,7 +3372,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 _eventDetails_Dragged = null;
 
                 if ( isDefined( container ) ) {
-                    container.className = container.className.replace( " drag-not-allowed", "" );
+                    container.className = container.className.replace( dragDisabledClass, "" );
                 }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),

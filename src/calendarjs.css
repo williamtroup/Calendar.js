@@ -220,7 +220,11 @@ div.calendar div.drag-over {
 }
 
 div.calendar div.drag-not-allowed {
-  background: repeating-linear-gradient(135deg, #F5F5F5, #F5F5F5 10px, rgba(255, 0, 0, 0.1) 10px, rgba(255, 0, 0, 0.1) 20px);
+  background: repeating-linear-gradient(135deg, #F5F5F5, #F5F5F5 10px, rgba(40, 40, 40, 0.1) 10px, rgba(40, 40, 40, 0.1) 20px);
+}
+
+div.calendar div.drag-not-allowed-weekend-day {
+  background: repeating-linear-gradient(135deg, #E0E0E0, #E0E0E0 10px, rgba(40, 40, 40, 0.2) 10px, rgba(40, 40, 40, 0.2) 20px);
 }
 
 div.calendar div.no-events-available-text {
@@ -1184,6 +1188,14 @@ div.calendar div.list-all-week-events-view div.contents div.no-events-text {
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.no-events-text span {
+  pointer-events: none;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.no-events-text span.link {
+  pointer-events: auto;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day {

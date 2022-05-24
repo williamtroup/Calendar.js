@@ -177,6 +177,16 @@ div.calendar {
         );
     }
 
+    div.drag-not-allowed-weekend-day {
+        background: repeating-linear-gradient(
+            135deg,
+            $day-names-color,
+            $day-names-color $spacing,
+            $area-disabled-stripped-weekend-day $spacing,
+            $area-disabled-stripped-weekend-day $spacing * 2
+        );
+    }
+
     div.no-events-available-text {
         position: absolute;
         left: 50%;
@@ -801,6 +811,14 @@ div.calendar {
                 margin-top: $spacing;
                 margin-bottom: $spacing;
                 text-align: center;
+                
+                span {
+                    pointer-events: none;
+                }
+
+                span.link {
+                    pointer-events: auto;
+                }
             }
 
             div.day {
