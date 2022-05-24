@@ -31,6 +31,7 @@ $time-arrow-line-height: 12px;
 $link-color: #2471A3;
 $input-hover-color: $dark-color;
 $title-bar-font-weight: 900;
+$area-disabled-stripped: rgba( 255, 0, 0, 0.1 );
 
 @mixin fade-in-effect-animation($seconds) {
     animation: fade-in-effect ease $seconds;

@@ -167,6 +167,16 @@ div.calendar {
         transition: $transition-faster;
     }
 
+    div.drag-not-allowed {
+        background: repeating-linear-gradient(
+            135deg,
+            $light-color,
+            $light-color $spacing,
+            $area-disabled-stripped $spacing,
+            $area-disabled-stripped $spacing * 2
+        );
+    }
+
     div.no-events-available-text {
         position: absolute;
         left: 50%;

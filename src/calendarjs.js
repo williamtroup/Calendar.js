@@ -1664,7 +1664,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     
                     elementDay.appendChild( event );
     
-                    makeEventDraggable( event, eventDetails, dayDate );
+                    makeEventDraggable( event, eventDetails, dayDate, elementDay );
                     setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
     
                     if ( doDatesMatch( eventDetails.from, dayDate ) ) {
@@ -3341,7 +3341,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function makeEventDraggable( event, eventDetails, dragFromDate ) {
+    function makeEventDraggable( event, eventDetails, dragFromDate, container ) {
         if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
             var draggedFromDate = new Date( dragFromDate );
 
@@ -3350,6 +3350,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             event.ondragstart = function() {
                 _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
+
+                if ( isDefined( container ) ) {
+                    container.className += " drag-not-allowed";
+                }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),
                     eventsLength = events.length;
@@ -3364,6 +3368,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             event.ondragend = function() {
                 _eventDetails_Dragged_DateFrom = null;
                 _eventDetails_Dragged = null;
+
+                if ( isDefined( container ) ) {
+                    container.className = container.className.replace( " drag-not-allowed", "" );
+                }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),
                     eventsLength = events.length;

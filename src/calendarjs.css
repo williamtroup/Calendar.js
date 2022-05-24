@@ -219,6 +219,10 @@ div.calendar div.drag-over {
   transition: all 0.2s;
 }
 
+div.calendar div.drag-not-allowed {
+  background: repeating-linear-gradient(135deg, #F5F5F5, #F5F5F5 10px, rgba(255, 0, 0, 0.1) 10px, rgba(255, 0, 0, 0.1) 20px);
+}
+
 div.calendar div.no-events-available-text {
   position: absolute;
   left: 50%;
