@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.5.2
+ * Calendar.js Library v1.5.3
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -556,7 +556,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
 
     function build( newStartDateTime, fullRebuild ) {
-        _currentDate = isDefined( newStartDateTime ) ? newStartDateTime : new Date();
+        _currentDate = isDefinedDate( newStartDateTime ) ? newStartDateTime : new Date();
         _currentDate.setDate( 1 );
         _currentDate.setHours( 0, 0, 0, 0 );
         _isDateToday = isDateTodaysMonthAndYear( _currentDate );
@@ -1664,7 +1664,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     
                     elementDay.appendChild( event );
     
-                    makeEventDraggable( event, eventDetails, dayDate );
+                    makeEventDraggable( event, eventDetails, dayDate, elementDay );
                     setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
     
                     if ( doDatesMatch( eventDetails.from, dayDate ) ) {
@@ -3324,7 +3324,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     holidayText = getString( holiday.title, "" );
 
                 if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                    var className = isDefined( holiday.onClick ) ? "holiday-link" : "holiday";
+                    var className = isDefinedFunction( holiday.onClick ) ? "holiday-link" : "holiday";
                     
                     createSpanElement( dayElement, holidayText, className + dayMutedClass, holiday.onClick, true );
 
@@ -3341,35 +3341,68 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function makeEventDraggable( event, eventDetails, dragFromDate ) {
+    function makeEventDraggable( event, eventDetails, dragFromDate, container ) {
         if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-            var draggedFromDate = new Date( dragFromDate );
+            var draggedFromDate = new Date( dragFromDate ),
+                isDateWeekendDay = isWeekendDay( draggedFromDate ),
+                dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
 
             event.setAttribute( "draggable", true );
             
             event.ondragstart = function() {
                 _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
+
+                if ( isDefined( container ) ) {
+                    container.className += dragDisabledClass;
+                }
+
+                var events = _element_Calendar.getElementsByClassName( "event" ),
+                    eventsLength = events.length;
+            
+                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                    if ( events[ eventIndex ] !== event ) {
+                        events[ eventIndex ].className += " prevent-pointer-events";
+                    }
+                }
+            };
+
+            event.ondragend = function() {
+                _eventDetails_Dragged_DateFrom = null;
+                _eventDetails_Dragged = null;
+
+                if ( isDefined( container ) ) {
+                    container.className = container.className.replace( dragDisabledClass, "" );
+                }
+
+                var events = _element_Calendar.getElementsByClassName( "event" ),
+                    eventsLength = events.length;
+            
+                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                    events[ eventIndex ].className = events[ eventIndex ].className.replace( " prevent-pointer-events", "" );
+                }
             };
         }
     }
 
     function makeAreaDroppable( element, year, month, actualDay ) {
         if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            var areaDate = new Date( year, month, actualDay );
+
             element.ondragover = function( e ) {
-                showDraggingEffect( e, element );
+                showDraggingEffect( e, element, areaDate );
             };
         
             element.ondragenter = function( e ) {
-                showDraggingEffect( e, element );
+                showDraggingEffect( e, element, areaDate );
             };
         
             element.ondragleave = function( e ) {
-                hideDraggingEffect( e, element );
+                hideDraggingEffect( e, element, areaDate );
             };
         
             element.ondrop = function( e ) {
-                hideDraggingEffect( e, element );
+                hideDraggingEffect( e, element, areaDate );
 
                 if ( e.dataTransfer.files.length === 0 ) {
                     dropEventOnDay( e, year, month, actualDay );
@@ -3380,18 +3413,18 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function showDraggingEffect( e, dayElement ) {
+    function showDraggingEffect( e, dayElement, areaDate ) {
         cancelBubble( e );
 
-        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) === -1 ) {
+        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) === -1 && !doDatesMatch( _eventDetails_Dragged_DateFrom, areaDate ) ) {
             dayElement.className += " drag-over";
         }
     }
 
-    function hideDraggingEffect( e, dayElement ) {
+    function hideDraggingEffect( e, dayElement, areaDate ) {
         cancelBubble( e );
 
-        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) > -1 ) {
+        if ( _eventDetails_Dragged !== null && dayElement.className.indexOf( " drag-over" ) > -1 && !doDatesMatch( _eventDetails_Dragged_DateFrom, areaDate ) ) {
             dayElement.className = dayElement.className.replace( " drag-over", "" );
         }
     }
@@ -3973,7 +4006,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         createTextHeaderElement( _element_EventEditorDialog_Tab_Extra, _options.urlText );
 
-        _element_EventEditorDialog_Url = createElement( "input", null, "text" );
+        _element_EventEditorDialog_Url = createElement( "input", null, "url" );
         _element_EventEditorDialog_Tab_Extra.appendChild( _element_EventEditorDialog_Url );
     }
 
@@ -4186,7 +4219,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         } else if ( title === "" ) {
             showEventDialogErrorMessage( _options.titleErrorMessage, _element_EventEditorDialog_Title );
         } else if ( url.length > 0 && !isValidUrl( url ) ) {
-            showEventDialogErrorMessage( _options.urlErrorMessage, _element_EventEditorDialog_Title );
+            showEventDialogErrorMessage( _options.urlErrorMessage, _element_EventEditorDialog_Url );
         }
         else {
 
@@ -5369,7 +5402,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
             _element_Tooltip_ShowTimer = setTimeout( function() {
-                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() ) ) {
+                if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null ) ) {
                     text = isDefined( text ) ? text : "";
 
                     _element_Tooltip.className = text === "" ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -5680,7 +5713,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function isOnlyMainDisplayVisible() {
-        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible();
+        return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null;
     }
 
     
@@ -5747,7 +5780,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         cancelDblClick = isDefined( cancelDblClick ) ? cancelDblClick : false;
 
         var element = createElement( "span", className ),
-            isEventDefined = isDefined( event );
+            isEventDefined = isDefinedFunction( event );
  
         setNodeText( element, text );    
         container.appendChild( element );
@@ -7029,7 +7062,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled ) {
-            type = !isDefined( type ) ? "csv" : type;
+            type = !isDefinedString( type ) ? "csv" : type;
 
             exportEvents( null, type );
         }
@@ -7112,7 +7145,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsSet" event should be triggered.
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
         _events = {};
 
         this.addEvents( events, updateEvents, false );
@@ -7134,7 +7167,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsSetFromJSON" event should be triggered.
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var dataObject = getObjectFromString( json );
 
@@ -7161,8 +7194,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsAdded" event should be triggered.
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var eventsLength = events.length;
         for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -7193,7 +7226,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsAddedFromJSON" event should be triggered.
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var dataObject = getObjectFromString( json );
 
@@ -7225,7 +7258,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.addEvent = function( event, updateEvents, triggerEvent, setLastUpdated ) {
         var added = false;
         
-        setLastUpdated = isDefined( setLastUpdated ) ? setLastUpdated : true;
+        setLastUpdated = !isDefinedBoolean( setLastUpdated ) ? true : setLastUpdated;
 
         if ( isDefinedString( event.from ) ) {
             event.from = new Date( event.from );
@@ -7261,8 +7294,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             }
 
             if ( !_events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
                 if ( !isDefined( event.id ) ) {
                     event.id = storageGuid;
@@ -7290,7 +7323,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     event.url = "";
                 }
 
-                if ( !isDefined( event.created ) ) {
+                if ( !isDefinedDate( event.created ) ) {
                     event.created = new Date();
                 }
 
@@ -7327,8 +7360,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var eventsLength = events.length;
         for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -7364,8 +7397,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.updateEvent = function( id, event, updateEvents, triggerEvent ) {
         var updated = this.removeEvent( id, false, false );
         if ( updated ) {
-            updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
             updated = this.addEvent( event, updateEvents, false );
 
@@ -7398,8 +7431,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         getAllEventsFunc( function( event ) {
             if ( event.id === id ) {
-                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
                 event.from = from;
                 event.to = to;
@@ -7440,8 +7473,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         getAllEventsFunc( function( event, storageDate, storageGuid ) {
             if ( storageGuid === id ) {
-                updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
                 delete _events[ storageDate ][ storageGuid ];
                 removed = true;
@@ -7473,8 +7506,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsCleared" event should be triggered.
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         _events = {};
 
@@ -7554,8 +7587,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         getAllEventsFunc( function( event ) {
             event.group = null;
@@ -7583,8 +7616,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         var checkGroupName = groupName.toLowerCase();
 
@@ -7657,7 +7690,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.5.2";
+        return "1.5.3";
     };
 
 
@@ -7690,7 +7723,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         checkForBrowserNotificationsPermission();
 
         if ( _initialized ) {
-            triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
             if ( triggerEvent ) {
                 triggerOptionsEventWithData( "onOptionsUpdated", _options );
@@ -7714,7 +7747,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         newSearchOptions = getOptions( newSearchOptions );
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
         hideSearchDialog();
 
@@ -7741,8 +7774,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
 
         _options.holidays = _options.holidays.concat( holidays );
 
@@ -7767,8 +7800,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
-        triggerEvent = !isDefined( triggerEvent ) ? true : triggerEvent;
-        updateEvents = !isDefined( updateEvents ) ? true : updateEvents;
+        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
 
         var holidaysLength = _options.holidays.length,
             holidaysRemaining = [];
@@ -8616,7 +8649,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function isInvalidOptionArray( array, minimumLength ) {
-        minimumLength = isDefined( minimumLength ) ? minimumLength : 1;
+        minimumLength = isDefinedNumber( minimumLength ) ? minimumLength : 1;
 
         return !isDefinedArray( array ) || array.length < minimumLength;
     }
@@ -8708,12 +8741,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _window = windowObject;
         _elementID = id;
 
-        buildDefaultOptions( options );
-        buildDefaultSearchOptions( searchOptions );
-        build( startDateTime, true );
-
-        if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
-            turnOnFullScreenMode( true );
+        if ( isDefinedString( _elementID ) ) {
+            buildDefaultOptions( options );
+            buildDefaultSearchOptions( searchOptions );
+            build( startDateTime, true );
+    
+            if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
+                turnOnFullScreenMode( true );
+            }
         }
 
     } ) ( document, window );

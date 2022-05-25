@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+### Version 1.5.3:
+- All public functions will now only accept the right types for parameters (including the constructor).
+- Fixed a fault that caused the wrong input field to be focused when an invalid Url is entered in the Event Editor dialog.
+- The Url input field in the Event Editor dialog is now of type "URL".
+- When dragging an event, the day it was dragged from now shows a disabled stripped effect (as it cannot be dropped there).
+- Fixed a fault that caused the Tooltips to show up when dragging events in FireFox.
+- Fixed the flicking that occurs when dragging events over other days (when hovering over text and events).
+
 ### Version 1.5.2:
 - Fixed a fault in Safari that caused the day names header to not resize correctly on initial load.
 

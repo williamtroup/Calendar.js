@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.5.2
+ * Calendar.js Library v1.5.3
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -42,6 +42,10 @@ div.disabled-background {
 div.disabled-area {
     @include disabled-area(absolute);
     display: none;
+}
+
+div.prevent-pointer-events {
+    pointer-events: none;
 }
 
 div.full-screen-view {
@@ -163,6 +167,26 @@ div.calendar {
         transition: $transition-faster;
     }
 
+    div.drag-not-allowed {
+        background: repeating-linear-gradient(
+            135deg,
+            $light-color,
+            $light-color $spacing,
+            $area-disabled-stripped $spacing,
+            $area-disabled-stripped $spacing * 2
+        );
+    }
+
+    div.drag-not-allowed-weekend-day {
+        background: repeating-linear-gradient(
+            135deg,
+            $day-names-color,
+            $day-names-color $spacing,
+            $area-disabled-stripped-weekend-day $spacing,
+            $area-disabled-stripped-weekend-day $spacing * 2
+        );
+    }
+
     div.no-events-available-text {
         position: absolute;
         left: 50%;
@@ -251,6 +275,7 @@ div.calendar {
             }
 
             span {
+                pointer-events: none;
                 display: inline-block;
                 padding: 4px;
                 padding-left: 0px;
@@ -786,6 +811,14 @@ div.calendar {
                 margin-top: $spacing;
                 margin-bottom: $spacing;
                 text-align: center;
+                
+                span {
+                    pointer-events: none;
+                }
+
+                span.link {
+                    pointer-events: auto;
+                }
             }
 
             div.day {
