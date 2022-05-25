@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.5.4:
+- The DatePicker mode now adds a base style called "calendar-date-picker-input" to the input box.
 - 
 
 ### Version 1.5.3:

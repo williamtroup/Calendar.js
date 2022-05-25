@@ -909,6 +909,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDatePickerMode( element ) {
         _datePickerInput = element;
+        _datePickerInput.className = "calendar-date-picker-input",
         _datePickerInput.readOnly = true;
         _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;

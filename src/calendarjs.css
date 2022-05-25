@@ -121,6 +121,33 @@ div.calendar-date-picker {
   position: relative;
 }
 
+div.calendar-date-picker input.calendar-date-picker-input {
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  width: auto;
+  padding: .375rem .75rem;
+  color: #282828;
+  margin-bottom: 0;
+  background-color: #FFFFFF;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+div.calendar-date-picker input.calendar-date-picker-input:last-child {
+  margin-bottom: 0;
+}
+
+div.calendar-date-picker input.calendar-date-picker-input:focus {
+  border: 1px solid #282828 !important;
+  -webkit-box-shadow: 0 0 1pt 1pt #282828;
+          box-shadow: 0 0 1pt 1pt #282828;
+}
+
+div.calendar-date-picker input.calendar-date-picker-input:not(:disabled):hover {
+  border: 1px solid #282828;
+}
+
 div.calendar-date-picker div.calendar-hidden {
   display: none;
 }
@@ -136,6 +163,8 @@ div.calendar-date-picker div.calendar {
   z-index: 1000;
   -webkit-box-shadow: 4px 4px 4px #282828;
           box-shadow: 4px 4px 4px #282828;
+  margin-top: 1px;
+  margin-left: -1px;
 }
 
 div.calendar-date-picker div.calendar div.cell {

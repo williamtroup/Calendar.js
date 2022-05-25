@@ -190,12 +190,12 @@ $area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
     outline: none;
 }
 
-@mixin input-fields($height: 0px) {
+@mixin input-fields($height: 0px, $width: 100%, $margin-bottom: $spacing) {
     @include input-style;
-    width: 100%;
+    width: $width;
     padding: .375rem .75rem;
     color: $dark-color;
-    margin-bottom: $spacing;
+    margin-bottom: $margin-bottom;
     background-color: $input-background-color;
     transition: $transition;
 

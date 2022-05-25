@@ -77,6 +77,10 @@ div.full-screen-view {
 div.calendar-date-picker {
     position: relative;
 
+    input.calendar-date-picker-input {
+        @include input-fields($width: auto, $margin-bottom: 0);
+    }
+
     div.calendar-hidden {
         display: none;
     }
@@ -91,6 +95,8 @@ div.calendar-date-picker {
         width: 300px;
         z-index: 1000;
         box-shadow: 4px 4px 4px #282828;
+        margin-top: $standard-border-size;
+        margin-left: -$standard-border-size;
 
         div.cell {
             padding: $spacing / 2 !important;
