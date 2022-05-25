@@ -275,6 +275,7 @@
  * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
+ * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
  */
 
 
@@ -297,6 +298,22 @@
  * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
  * @property    {number}    left                                        States the left position of the dialog (defaults to null).
  * @property    {number}    top                                         States the top position of the dialog (defaults to null).
+ */
+
+
+/**
+ * Date Display Formats.
+ * 
+ * These are the formatter options are used to state how dates are displayed (where supported).
+ *
+ * {dd}                                                                 The day number padded with a zero (if required).
+ * {d}                                                                  The day number.
+ * {o}                                                                  The day ordinal.
+ * {mmm}                                                                The month name.
+ * {mm}                                                                 The month number padded with a zero (if required).
+ * {m}                                                                  The month number.
+ * {yyyy}                                                               The full year.
+ * {yy}                                                                 The short two digit year.
  */
 
 
@@ -909,7 +926,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDatePickerMode( element ) {
         _datePickerInput = element;
-        _datePickerInput.className = "calendar-date-picker-input",
+        _datePickerInput.className = "calendar-date-picker-input";
         _datePickerInput.readOnly = true;
         _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;
@@ -931,7 +948,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _document.addEventListener( "click", hideDatePickerMode );
 
         resetOptionsForDatePickerMode();
-        storeDataPickerSelectedDate();
+        getDataPickerInputValueDate();
     }
 
     function resetOptionsForDatePickerMode() {
@@ -953,10 +970,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
-
-            if ( _datePickerInput.value !== "" ) {
-                storeDataPickerSelectedDate( build );
-            }
+            build();
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
@@ -988,15 +1002,35 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         cancelBubble( e );
 
         if ( !isYearSelectorDropDownVisible() ) {
-            setSelectedDate( date, _datePickerInput );
-            hideDatePickerMode();
-            triggerOptionsEventWithData( "onDatePickerDateChanged", date );
+            var newDate = new Date( date );
 
-            _currentDateForDatePicker = new Date( date );
+            hideDatePickerMode();
+            updateDatePickerInputValueDisplay( date );
+            triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+
+            _currentDateForDatePicker = newDate;
             
         } else {
             hideAllDropDowns();
         }
+    }
+
+    function updateDatePickerInputValueDisplay( date ) {
+        var inputValue = _options.datePickerSelectedDateFormat;
+
+        inputValue = inputValue.replace( "{dd}", padNumber( date.getDate() ) );
+        inputValue = inputValue.replace( "{d}", date.getDate() );
+
+        inputValue = inputValue.replace( "{o}", getDayOrdinal( date.getDate() ) );
+
+        inputValue = inputValue.replace( "{mmm}", _options.monthNames[ date.getMonth() ] );
+        inputValue = inputValue.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
+        inputValue = inputValue.replace( "{m}", date.getMonth() + 1 );
+
+        inputValue = inputValue.replace( "{yyyy}", date.getFullYear() );
+        inputValue = inputValue.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+
+        _datePickerInput.value = inputValue;
     }
 
     function closeAnyOtherDatePickers() {
@@ -1013,17 +1047,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function storeDataPickerSelectedDate( func ) {
+    function getDataPickerInputValueDate() {
         var values = _datePickerInput.value.split( "/" );
         if ( values.length === 3 ) {
 
             var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
             if ( newDate instanceof Date && !isNaN( newDate ) ) {
                 _currentDateForDatePicker = newDate;
-                
-                if ( isDefinedFunction( func ) ) {
-                    func( new Date( newDate ) );
-                }
+
+                updateDatePickerInputValueDisplay( newDate );
             }
         }
     }
@@ -7047,8 +7079,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         
         if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
             hideDatePickerMode();
-            setSelectedDate( newDate, _datePickerInput );
+            updateDatePickerInputValueDisplay( newDate );
             triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+
+            _currentDateForDatePicker = new Date( date );
         }
     };
 
@@ -8000,6 +8034,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.allowHtmlInDisplay ) ) {
             _options.allowHtmlInDisplay = false;
+        }
+
+        if ( !isDefinedString( _options.datePickerSelectedDateFormat ) ) {
+            _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
         }
 
         setTranslationStringOptions();

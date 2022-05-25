@@ -53,10 +53,12 @@
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
-                maximumDatePickerDate: new Date()
+                maximumDatePickerDate: new Date(),
+                datePickerSelectedDateFormat: "{dd}/{mm}/{yyyy}"
             } ),
             calendarInstance3 = new calendarJs( "myCalendar3", {
-                openInFullScreenMode: true
+                openInFullScreenMode: true,
+                datePickerSelectedDateFormat: "{d}-{m}-{yy}"
             } );
 
         document.title += " - v" + calendarInstance1.getVersion();
