@@ -1278,6 +1278,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 e.preventDefault();
                 headerDoubleClick();
             }
+        } else {
+
+            if ( _datePickerVisible ) {
+                if ( e.keyCode === _keyCodes.left ) {
+                    moveBackMonth();
+    
+                } else if ( e.keyCode === _keyCodes.right ) {
+                    moveForwardMonth();
+    
+                } else if ( e.keyCode === _keyCodes.down ) {
+                    moveToday();
+                }
+            }
         }
     }
 
