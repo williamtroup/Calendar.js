@@ -1281,7 +1281,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         } else {
 
             if ( _datePickerVisible ) {
-                if ( e.keyCode === _keyCodes.left ) {
+                if ( isControlKey( e ) && e.keyCode === _keyCodes.left ) {
+                    e.preventDefault();
+                    moveBackYear();
+    
+                } else if ( isControlKey( e ) && e.keyCode === _keyCodes.right ) {
+                    e.preventDefault();
+                    moveForwardYear();
+
+                } else if ( e.keyCode === _keyCodes.left ) {
                     moveBackMonth();
     
                 } else if ( e.keyCode === _keyCodes.right ) {
