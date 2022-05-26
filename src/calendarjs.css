@@ -1344,7 +1344,7 @@ div.event-editor div.ib-close {
 }
 
 div.event-editor div.tab-content {
-  height: 248px;
+  height: 249px;
   margin-bottom: 20px;
 }
 
@@ -2192,6 +2192,10 @@ div.select-export-type div.contents div.split {
   margin-top: 0;
 }
 
+div.select-export-type div.contents div.split:last-child {
+  margin-top: 20px;
+}
+
 div.select-export-type div.split input,
 div.select-export-type div.split select,
 div.select-export-type div.split div.split-contents,
@@ -2219,10 +2223,6 @@ div.select-export-type div.split p:last-child {
 
 div.select-export-type div.split-margin {
   margin-left: 25px;
-}
-
-div.select-export-type div.split {
-  margin-top: 20px;
 }
 
 div.select-export-type input[type="button"] {
@@ -2564,7 +2564,7 @@ div.configuration div.contents input[type="text"]:not(:disabled):hover {
 }
 
 div.configuration div.contents div.tab-content {
-  height: 155px;
+  height: 165px;
 }
 
 div.configuration div.split input,
@@ -2815,7 +2815,6 @@ div.calendar-dialog label.checkbox:hover span.check-mark {
 */
 div.calendar div.radioButtonsContainer,
 div.calendar-dialog div.radioButtonsContainer {
-  margin-bottom: 10px;
   position: relative;
 }
 
@@ -2903,7 +2902,7 @@ div.calendar-dialog div.radioButtonContainer label.radioButton:hover span.check-
 
 div.calendar div.radioButtonContainer:last-child,
 div.calendar-dialog div.radioButtonContainer:last-child {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 /*

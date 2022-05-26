@@ -878,7 +878,7 @@ div.event-editor {
     @include dialog-styles(420px);
 
     div.tab-content {
-        height: 248px;
+        height: 249px;
         margin-bottom: $spacing * 2;
     }
 
@@ -1104,14 +1104,14 @@ div.select-export-type {
 
         div.split {
             margin-top: 0;
+
+            &:last-child {
+                margin-top: $spacing * 2;
+            }
         }
     }
     
     @import "foundation/split-container";
-
-    div.split {
-        margin-top: $spacing * 2;
-    }
 
     input[type="button"] {
         @include dialog-button-styles;
@@ -1202,7 +1202,7 @@ div.configuration {
         }
 
         div.tab-content {
-            height: 155px;
+            height: 165px;
         }
     }
 
@@ -1363,7 +1363,6 @@ div.calendar-dialog {
 div.calendar,
 div.calendar-dialog {
     div.radioButtonsContainer {
-        margin-bottom: $spacing;
         position: relative;
     }
 
@@ -1431,7 +1430,7 @@ div.calendar-dialog {
         }
 
         &:last-child {
-            margin-bottom: $spacing;
+            margin-bottom: 0;
         }
     }
 }

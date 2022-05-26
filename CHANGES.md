@@ -10,6 +10,7 @@
 - Clicking on a event link in the tooltips will now force the tooltip to close after opening the new tab/window.
 - Added "DOCTYPE html" support to testing files and fixed rendering issues occurring in this mode (sorry for the delay in this).
 - Fixed a fault that would cause the "Search" dialog to appear in the top-left when first opened.
+- Fixed some spacing issues that caused scroll bars to appear in some of the tabs.
 - 
 
 ### Version 1.5.3:
