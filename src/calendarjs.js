@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.5.3
+ * Calendar.js Library v1.6.0
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -275,6 +275,7 @@
  * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
+ * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
  */
 
 
@@ -297,6 +298,22 @@
  * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
  * @property    {number}    left                                        States the left position of the dialog (defaults to null).
  * @property    {number}    top                                         States the top position of the dialog (defaults to null).
+ */
+
+
+/**
+ * Date Display Formats.
+ * 
+ * These are the formatter options are used to state how dates are displayed (where supported).
+ *
+ * {dd}                                                                 The day number padded with a zero (if required).
+ * {d}                                                                  The day number.
+ * {o}                                                                  The day ordinal.
+ * {mmm}                                                                The month name.
+ * {mm}                                                                 The month number padded with a zero (if required).
+ * {m}                                                                  The month number.
+ * {yyyy}                                                               The full year.
+ * {yy}                                                                 The short two digit year.
  */
 
 
@@ -382,6 +399,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_HeaderDateDisplay_YearSelector_Contents = null,
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_HeaderDateDisplay_FullScreenButton = null,
+        _element_HeaderDateDisplay_SearchButton = null,
         _element_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
@@ -441,15 +459,18 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_FullDayView_FullScreenButton = null,
         _element_FullDayView_TodayButton = null,
         _element_FullDayView_TimeArrow = null,
+        _element_FullDayView_SearchButton = null,
         _element_ListAllEventsView = null,
         _element_ListAllEventsView_ExportEventsButton = null,
         _element_ListAllEventsView_FullScreenButton = null,
+        _element_ListAllEventsView_SearchButton = null,
         _element_ListAllEventsView_Contents = null,
         _element_ListAllEventsView_EventsShown = [],
         _element_ListAllWeekEventsView = null,
         _element_ListAllWeekEventsView_Title = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
         _element_ListAllWeekEventsView_FullScreenButton = null,
+        _element_ListAllWeekEventsView_SearchButton = null,
         _element_ListAllWeekEventsView_Contents = null,
         _element_ListAllWeekEventsView_Contents_FullView = {},
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {},
@@ -704,6 +725,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function buildDateHeader() {
         _element_HeaderDateDisplay_ExportEventsButton = null;
         _element_HeaderDateDisplay_FullScreenButton = null;
+        _element_HeaderDateDisplay_SearchButton = null;
 
         _element_HeaderDateDisplay = createElement( "div", "header-date" );
         _element_Calendar.appendChild( _element_HeaderDateDisplay );
@@ -727,7 +749,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( _options.showExtraMainDisplayToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
+
+            _element_HeaderDateDisplay_SearchButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
+            
             buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
         }
 
@@ -909,6 +933,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDatePickerMode( element ) {
         _datePickerInput = element;
+        _datePickerInput.className = "calendar-date-picker-input";
         _datePickerInput.readOnly = true;
         _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;
@@ -930,7 +955,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _document.addEventListener( "click", hideDatePickerMode );
 
         resetOptionsForDatePickerMode();
-        storeDataPickerSelectedDate();
+        getDataPickerInputValueDate();
     }
 
     function resetOptionsForDatePickerMode() {
@@ -952,10 +977,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
-
-            if ( _datePickerInput.value !== "" ) {
-                storeDataPickerSelectedDate( build );
-            }
+            build();
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
@@ -987,15 +1009,35 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         cancelBubble( e );
 
         if ( !isYearSelectorDropDownVisible() ) {
-            setSelectedDate( date, _datePickerInput );
-            hideDatePickerMode();
-            triggerOptionsEventWithData( "onDatePickerDateChanged", date );
+            var newDate = new Date( date );
 
-            _currentDateForDatePicker = new Date( date );
+            hideDatePickerMode();
+            updateDatePickerInputValueDisplay( date );
+            triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+
+            _currentDateForDatePicker = newDate;
             
         } else {
             hideAllDropDowns();
         }
+    }
+
+    function updateDatePickerInputValueDisplay( date ) {
+        var inputValue = _options.datePickerSelectedDateFormat;
+
+        inputValue = inputValue.replace( "{dd}", padNumber( date.getDate() ) );
+        inputValue = inputValue.replace( "{d}", date.getDate() );
+
+        inputValue = inputValue.replace( "{o}", getDayOrdinal( date.getDate() ) );
+
+        inputValue = inputValue.replace( "{mmm}", _options.monthNames[ date.getMonth() ] );
+        inputValue = inputValue.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
+        inputValue = inputValue.replace( "{m}", date.getMonth() + 1 );
+
+        inputValue = inputValue.replace( "{yyyy}", date.getFullYear() );
+        inputValue = inputValue.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+
+        _datePickerInput.value = inputValue;
     }
 
     function closeAnyOtherDatePickers() {
@@ -1012,17 +1054,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function storeDataPickerSelectedDate( func ) {
+    function getDataPickerInputValueDate() {
         var values = _datePickerInput.value.split( "/" );
         if ( values.length === 3 ) {
 
             var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
             if ( newDate instanceof Date && !isNaN( newDate ) ) {
                 _currentDateForDatePicker = newDate;
-                
-                if ( isDefinedFunction( func ) ) {
-                    func( new Date( newDate ) );
-                }
+
+                updateDatePickerInputValueDisplay( newDate );
             }
         }
     }
@@ -1229,11 +1269,35 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             
             } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                 e.preventDefault();
-                showSearchDialog();
+
+                if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
+                    showSearchDialog();
+                }
 
             } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
                 e.preventDefault();
                 headerDoubleClick();
+            }
+        } else {
+
+            if ( _datePickerVisible ) {
+                if ( isControlKey( e ) && e.keyCode === _keyCodes.left ) {
+                    e.preventDefault();
+                    moveBackYear();
+    
+                } else if ( isControlKey( e ) && e.keyCode === _keyCodes.right ) {
+                    e.preventDefault();
+                    moveForwardYear();
+
+                } else if ( e.keyCode === _keyCodes.left ) {
+                    moveBackMonth();
+    
+                } else if ( e.keyCode === _keyCodes.right ) {
+                    moveForwardMonth();
+    
+                } else if ( e.keyCode === _keyCodes.down ) {
+                    moveToday();
+                }
             }
         }
     }
@@ -1264,6 +1328,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             hideOverlay( _element_FullDayView );
             hideOverlay( _element_ListAllEventsView );
             hideOverlay( _element_ListAllWeekEventsView );
+
+            _element_FullDayView_EventsShown = [];
+            _element_ListAllEventsView_EventsShown = [];
+            _element_ListAllWeekEventsView_EventsShown = [];
+            
             done = true;
         }
 
@@ -1586,7 +1655,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             }
         }
     
-        updateExportButtonsVisibleState( _element_Calendar_AllVisibleEvents.length );
+        updateMainHeaderButtonsVisibleStates( _element_Calendar_AllVisibleEvents.length );
         startAutoRefreshTimer();
     }
 
@@ -1727,13 +1796,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function updateExportButtonsVisibleState( orderedEventsLength ) {
+    function updateMainHeaderButtonsVisibleStates( orderedEventsLength ) {
         if ( _options.exportEventsEnabled ) {
-            if ( orderedEventsLength === 0 ) {
-                _element_HeaderDateDisplay_ExportEventsButton.style.display = "none";
-            } else {
-                _element_HeaderDateDisplay_ExportEventsButton.style.display = "inline-block";
-            }
+            updateToolbarButtonVisibleState( _element_HeaderDateDisplay_ExportEventsButton, orderedEventsLength );
+        }
+
+        if ( _element_HeaderDateDisplay_SearchButton !== null ) {
+            updateToolbarButtonVisibleState( _element_HeaderDateDisplay_SearchButton, orderedEventsLength );
         }
     }
 
@@ -1892,7 +1961,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
-        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+        _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -2056,13 +2125,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( _options.exportEventsEnabled ) {
-            if ( _element_FullDayView_EventsShown.length === 0 ) {
-                _element_FullDayView_ExportEventsButton.style.display = "none";
-            } else {
-                _element_FullDayView_ExportEventsButton.style.display = "inline-block";
-            }
+            updateToolbarButtonVisibleState( _element_FullDayView_ExportEventsButton, _element_FullDayView_EventsShown.length );
         }
-        
+
+        updateToolbarButtonVisibleState( _element_FullDayView_SearchButton, _element_FullDayView_EventsShown.length );
         adjustFullDayEventsThatOverlap();
     }
 
@@ -2070,6 +2136,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         hideOverlay( _element_FullDayView );
 
         _element_FullDayView_DateSelected = null;
+        _element_FullDayView_EventsShown = [];
     }
 
     function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
@@ -2446,6 +2513,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         titleBar.appendChild( title );
 
         buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
+            _element_ListAllEventsView_EventsShown = [];
+
             hideOverlay( _element_ListAllEventsView );
         } );
 
@@ -2459,7 +2528,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
-        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+        _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -2488,12 +2557,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
         
         if ( _options.exportEventsEnabled ) {
-            if ( _element_ListAllEventsView_EventsShown.length === 0 ) {
-                _element_ListAllEventsView_ExportEventsButton.style.display = "none";
-            } else {
-                _element_ListAllEventsView_ExportEventsButton.style.display = "inline-block";
-            }
+            updateToolbarButtonVisibleState( _element_ListAllEventsView_ExportEventsButton, _element_ListAllEventsView_EventsShown.length );
         }
+
+        updateToolbarButtonVisibleState( _element_ListAllEventsView_SearchButton, _element_ListAllEventsView_EventsShown.length );
 
         if ( _element_ListAllEventsView_EventsShown.length === 0 ) {
             buildNoEventsAvailableText( _element_ListAllEventsView_Contents, addNewEvent );
@@ -2587,6 +2654,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( monthContents === null ) {
             var expandMonthDate = new Date( date ),
                 expandFunction = function() {
+                    _element_ListAllEventsView_EventsShown = [];
+
                     hideOverlay( _element_ListAllEventsView );
                     build( expandMonthDate );
                 };
@@ -2659,6 +2728,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         titleBar.appendChild( _element_ListAllWeekEventsView_Title );
 
         buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
+            _element_ListAllWeekEventsView_EventsShown = [];
+
             hideOverlay( _element_ListAllWeekEventsView );
         } );
 
@@ -2675,7 +2746,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
-        buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+        _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -2787,12 +2858,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( _options.exportEventsEnabled ) {
-            if ( _element_ListAllWeekEventsView_EventsShown.length === 0 ) {
-                _element_ListAllWeekEventsView_ExportEventsButton.style.display = "none";
-            } else {
-                _element_ListAllWeekEventsView_ExportEventsButton.style.display = "inline-block";
-            }
+            updateToolbarButtonVisibleState( _element_ListAllWeekEventsView_ExportEventsButton, _element_ListAllWeekEventsView_EventsShown.length );
         }
+
+        updateToolbarButtonVisibleState( _element_ListAllWeekEventsView_SearchButton, _element_ListAllWeekEventsView_EventsShown.length );
 
         if ( _element_ListAllWeekEventsView_EventsShown.length === 0 ) {
             buildNoEventsAvailableText( _element_ListAllWeekEventsView_Contents, addNewEvent );
@@ -3200,7 +3269,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 dayElement.className += " cell-today";
             }
 
-            if ( _datePickerModeEnabled && !dayIsToday && doDatesMatch( dayDate, _currentDateForDatePicker ) ) {
+            if ( _datePickerModeEnabled && !dayIsToday && _currentDateForDatePicker !== null && doDatesMatch( dayDate, _currentDateForDatePicker ) ) {
                 dayElement.className += " cell-selected";
             }
 
@@ -4894,8 +4963,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function hideSearchDialog() {
-        _element_SearchDialog.style.display = "none";
-        searchForTextChanged();
+        if ( _element_SearchDialog.style.display === "block" ) {
+            _element_SearchDialog.style.display = "none";
+            searchForTextChanged();
+        }
     }
 
     function minimizeRestoreDialog() {
@@ -5428,6 +5499,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                             _element_Tooltip_Url.onclick = function( e ) {
                                 cancelBubble( e );
                                 openEventUrl( eventDetails.url );
+                                hideTooltip();
                             };
 
                         } else {
@@ -5998,6 +6070,16 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             element.innerText = stripHTMLTagsFromText( text );
         } else {
             element.innerHTML = text;
+        }
+    }
+
+    function updateToolbarButtonVisibleState( button, count ) {
+        if ( button !== null ) {
+            if ( count === 0 ) {
+                button.style.display = "none";
+            } else {
+                button.style.display = "inline-block";
+            }
         }
     }
 
@@ -7046,8 +7128,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         
         if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
             hideDatePickerMode();
-            setSelectedDate( newDate, _datePickerInput );
+            updateDatePickerInputValueDisplay( newDate );
             triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+
+            _currentDateForDatePicker = new Date( date );
         }
     };
 
@@ -7690,7 +7774,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.5.3";
+        return "1.6.0";
     };
 
 
@@ -7999,6 +8083,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedBoolean( _options.allowHtmlInDisplay ) ) {
             _options.allowHtmlInDisplay = false;
+        }
+
+        if ( !isDefinedString( _options.datePickerSelectedDateFormat ) ) {
+            _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
         }
 
         setTranslationStringOptions();

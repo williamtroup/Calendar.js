@@ -1,5 +1,17 @@
 # Calendar.js - Change Log:
 
+### Version 1.6.0:
+- The DatePicker mode now adds a base style called "calendar-date-picker-input" to the input box.
+- Added a new setting "datePickerSelectedDateFormat", which allows the selected date (in the input field) in DatePicker mode to be formatted (see documentation).
+- Fixed a fault that prevented the public function setSelectedDatePickerDate() from setting the DatePicker date.
+- The "Search" button on all toolbars is now only visible when events are available.
+- The keyboard shortcut keys for Left, Right, Control+Left, Control+Right, and Down are now supported in DatePicker mode.
+- Added protective check around showing the selected DatePicker date.
+- Clicking on an event link in the tooltips will now force the tooltip to close after opening the new tab/window.
+- Added "DOCTYPE html" support to testing files and fixed rendering issues occurring in this mode (sorry for the delay in this).
+- Fixed a fault that would cause the "Search" dialog to appear in the top-left when first opened.
+- Fixed some spacing issues that caused scroll bars to appear in some of the tabs.
+
 ### Version 1.5.3:
 - All public functions will now only accept the right types for parameters (including the constructor).
 - Fixed a fault that caused the wrong input field to be focused when an invalid Url is entered in the Event Editor dialog.
