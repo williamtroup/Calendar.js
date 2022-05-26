@@ -101,6 +101,7 @@ $area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
     overflow-x: hidden;
     overflow-y: auto;
     width: calc(100% - (#{$spacing} * 2));
+    margin-top: -($standard-border-size * 4);
 
     @media screen and (min-width: $minimum-width) {
         height: calc(100% - ((#{$spacing} * 4) + #{$large-font-size}) - #{$standard-border-size});
@@ -198,6 +199,7 @@ $area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
     margin-bottom: $margin-bottom;
     background-color: $input-background-color;
     transition: $transition;
+    box-sizing: border-box;
 
     @if $height > 0px {
         height: $height;

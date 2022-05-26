@@ -132,6 +132,8 @@ div.calendar-date-picker input.calendar-date-picker-input {
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.calendar-date-picker input.calendar-date-picker-input:last-child {
@@ -771,6 +773,7 @@ div.calendar div.full-day-view div.contents {
   overflow-y: auto;
   width: 100%;
   padding: 0 !important;
+  margin-top: -4px;
 }
 
 div.calendar div.full-day-view div.contents div.content-events-all-day {
@@ -1022,6 +1025,7 @@ div.calendar div.list-all-events-view div.contents {
   overflow-x: hidden;
   overflow-y: auto;
   width: calc(100% - (10px * 2));
+  margin-top: -4px;
 }
 
 @media screen and (min-width: 451px) {
@@ -1199,6 +1203,7 @@ div.calendar div.list-all-week-events-view div.contents {
   overflow-x: hidden;
   overflow-y: auto;
   width: calc(100% - (10px * 2));
+  margin-top: -4px;
 }
 
 @media screen and (min-width: 451px) {
@@ -1339,7 +1344,7 @@ div.event-editor div.ib-close {
 }
 
 div.event-editor div.tab-content {
-  height: 245px;
+  height: 248px;
   margin-bottom: 20px;
 }
 
@@ -1397,6 +1402,8 @@ div.event-editor div.view textarea {
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor div.view input:not([type="button"]):last-child,
@@ -1678,6 +1685,8 @@ div.event-editor-colors input[type="text"] {
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   height: 40px;
 }
 
@@ -1864,6 +1873,8 @@ div.event-editor-repeat-options textarea {
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor-repeat-options input:not([type="button"]):last-child,
@@ -2341,6 +2352,8 @@ div.search input[type="text"] {
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.search input[type="text"]:last-child {
@@ -2532,6 +2545,8 @@ div.configuration div.contents input[type="text"] {
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.configuration div.contents input[type="text"]:last-child {

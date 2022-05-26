@@ -71,6 +71,12 @@ You will also need to set the page character encoding to UTF-8. This can be incl
 ```markdown
 <meta charset="utf-8" />
 ```
+
+Also, make sure you include the "DOCTYPE html" tag at the top of your email, as follows:
+
+```markdown
+<!DOCTYPE html>
+```
 <br>
 
 ### 2. Include Files:
