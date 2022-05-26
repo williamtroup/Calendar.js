@@ -4963,8 +4963,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function hideSearchDialog() {
-        _element_SearchDialog.style.display = "none";
-        searchForTextChanged();
+        if ( _element_SearchDialog.style.display === "block" ) {
+            _element_SearchDialog.style.display = "none";
+            searchForTextChanged();
+        }
     }
 
     function minimizeRestoreDialog() {

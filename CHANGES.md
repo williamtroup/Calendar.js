@@ -9,6 +9,7 @@
 - Added protective check around showing the selected DatePicker date.
 - Clicking on a event link in the tooltips will now force the tooltip to close after opening the new tab/window.
 - Added "DOCTYPE html" support to testing files and fixed all rendering issues occur in this mode (sorry for the delay in this).
+- Fixed a fault that would cause the "Search" dialog to appear in the top-left when first opened.
 - 
 
 ### Version 1.5.3:
