@@ -1,6 +1,6 @@
 # Calendar.js - Change Log:
 
-### Version 1.5.4:
+### Version 1.6.0:
 - The DatePicker mode now adds a base style called "calendar-date-picker-input" to the input box.
 - Added a new setting "datePickerSelectedDateFormat", which allows the selected date (in the input field) in DatePicker mode to be formatted (see documentation).
 - Fixed a fault that prevented the public function setSelectedDatePickerDate() from setting the DatePicker date.
