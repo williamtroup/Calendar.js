@@ -8,6 +8,7 @@
 - The keyboard shortcut keys for Left, Right, Control+Left, Control+Right, and Down are now supported in DatePicker mode.
 - Added protective check around showing the selected DatePicker date.
 - Clicking on a event link in the tooltips will now force the tooltip to close after opening the new tab/window.
+- HTML testing file improvements to prevent quirks mode.
 - 
 
 ### Version 1.5.3:
