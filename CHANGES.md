@@ -6,6 +6,7 @@
 - Fixed a fault that prevented the public function setSelectedDatePickerDate() from setting the DatePicker date.
 - The "Search" button on all toolbars is now only visible when events are available.
 - The keyboard shortcut keys for Left, Right, Control+Left, Control+Right, and Down are now supported in DatePicker mode.
+- Added protective check around showing the selected DatePicker date.
 - 
 
 ### Version 1.5.3:

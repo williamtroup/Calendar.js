@@ -3269,7 +3269,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 dayElement.className += " cell-today";
             }
 
-            if ( _datePickerModeEnabled && !dayIsToday && doDatesMatch( dayDate, _currentDateForDatePicker ) ) {
+            if ( _datePickerModeEnabled && !dayIsToday && _currentDateForDatePicker !== null && doDatesMatch( dayDate, _currentDateForDatePicker ) ) {
                 dayElement.className += " cell-selected";
             }
 
