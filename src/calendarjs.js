@@ -5497,6 +5497,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                             _element_Tooltip_Url.onclick = function( e ) {
                                 cancelBubble( e );
                                 openEventUrl( eventDetails.url );
+                                hideTooltip();
                             };
 
                         } else {
