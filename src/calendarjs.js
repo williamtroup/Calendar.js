@@ -2663,7 +2663,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var month = createElement( "div", "month" );
             _element_ListAllEventsView_Contents.appendChild( month );
 
-            makeAreaDroppable( month, date.getFullYear(), date.getMonth() );
+            makeAreaDroppable( month, date.getFullYear(), date.getMonth(), date.getDate() );
 
             var header = createElement( "div", "header" );
             setNodeText( header, _options.monthNames[ date.getMonth() ] + " " + date.getFullYear() );

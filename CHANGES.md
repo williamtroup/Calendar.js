@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.6.1:
+- Fixed a fault that caused an invalid date to be formed when dragging & dropping in the "All Events" view.
 - 
 
 ### Version 1.6.0:
