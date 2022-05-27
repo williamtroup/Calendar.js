@@ -2663,8 +2663,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var month = createElement( "div", "month" );
             _element_ListAllEventsView_Contents.appendChild( month );
 
-            makeAreaDroppable( month, date.getFullYear(), date.getMonth(), date.getDate() );
-
             var header = createElement( "div", "header" );
             setNodeText( header, _options.monthNames[ date.getMonth() ] + " " + date.getFullYear() );
             header.ondblclick = expandFunction;
@@ -2695,6 +2693,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
             month.appendChild( monthContents );
+
+            makeAreaDroppable( monthContents, date.getFullYear(), date.getMonth(), date.getDate() );
         }
 
         return monthContents;
@@ -3048,8 +3048,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 day.className += " weekend-day";
             }
 
-            makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
-
             dayHeader = createElement( "div", "header" );
             dayHeader.ondblclick = expandFunction;
             day.appendChild( dayHeader );
@@ -3079,6 +3077,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
+
+            makeAreaDroppable( dayContents, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
             var noEventsTextContainer = createElement( "div", "no-events-text" );
             dayContents.appendChild( noEventsTextContainer );

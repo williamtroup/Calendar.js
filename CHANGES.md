@@ -2,6 +2,7 @@
 
 ### Version 1.6.1:
 - Fixed a fault that caused an invalid date to be formed when dragging & dropping in the "All Events" view.
+- Fixed a fault that allowed events to be dropped on the title bars in the "Weekly" and "All Events" views.
 - 
 
 ### Version 1.6.0:
