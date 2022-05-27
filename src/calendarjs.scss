@@ -780,8 +780,7 @@ div.calendar {
                 }
 
                 div.events {
-                    margin-top: $spacing;
-                    margin-bottom: $spacing;
+                    padding: $spacing;
 
                     @import "foundation/overlay-event";
                 }
@@ -853,8 +852,7 @@ div.calendar {
                 }
 
                 div.events {
-                    margin-top: $spacing;
-                    margin-bottom: $spacing;
+                    padding: $spacing;
 
                     @import "foundation/overlay-event";
                 }

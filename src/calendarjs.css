@@ -900,8 +900,6 @@ div.calendar div.full-day-view div.contents div.event {
   padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
   border-left: 7px solid #282828;
 }
 
@@ -928,6 +926,10 @@ div.calendar div.full-day-view div.contents div.event div.repeats {
 
 div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium {
   margin-right: 5px;
+}
+
+div.calendar div.full-day-view div.contents div.event:last-child {
+  margin-bottom: 0;
 }
 
 div.calendar div.full-day-view div.contents:last-child {
@@ -1062,8 +1064,7 @@ div.calendar div.list-all-events-view div.contents div.month div.header div.ib-c
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.expired {
@@ -1083,8 +1084,6 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
   border-left: 7px solid #282828;
 }
 
@@ -1111,6 +1110,10 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div.ib-refresh-medium {
   margin-right: 5px;
+}
+
+div.calendar div.list-all-events-view div.contents div.month div.events div.event:last-child {
+  margin-bottom: 0;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events:last-child {
@@ -1258,8 +1261,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header div.i
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.expired {
@@ -1279,8 +1281,6 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
   border-left: 7px solid #282828;
 }
 
@@ -1307,6 +1307,10 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div.ib-refresh-medium {
   margin-right: 5px;
+}
+
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event:last-child {
+  margin-bottom: 0;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events:last-child {
