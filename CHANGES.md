@@ -10,6 +10,7 @@
 - The "+ More" link shown in the main display cells now only allows the actual text to be clicked (not the entire width).
 - The link shown in the event tooltips now only allows a hover and click event for the actual text (not the entire width).
 - Fixed a fault that caused the "Advanced" area on the "Search" dialog to remain visible when turned off (when loaded).
+- The "Advanced" option for the "Search" dialog is now turned off by default.
 - 
 
 ### Version 1.6.0:
