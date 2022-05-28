@@ -1124,7 +1124,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events:last-chi
 }
 
 div.calendar div.list-all-events-view div.contents div.month:last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 1px !important;
 }
 
 /*
@@ -1318,7 +1318,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events:last-
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day:last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 1px !important;
 }
 
 /*

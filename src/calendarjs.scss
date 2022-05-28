@@ -789,7 +789,7 @@ div.calendar {
                 }
 
                 &:last-child {
-                    margin-bottom: 0 !important;
+                    margin-bottom: $standard-border-size !important;
                 }
             }
         }
@@ -858,7 +858,7 @@ div.calendar {
                 }
 
                 &:last-child {
-                    margin-bottom: 0 !important;
+                    margin-bottom: $standard-border-size !important;
                 }
             }
         }
