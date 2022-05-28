@@ -7,6 +7,7 @@
 - Added support for the drag & drop disabled stripped effect to the "Weekly" and "All Events" views.
 - Any area that cannot have an event dropped onto it no longer shows the drop status on the mouse pointer.
 - Fixed more flicking effects when dragging events in the "Weekly" view.
+- The "+ More" link shown in the main display cells now only allows the actual text to be clicked (not the entire width).
 - 
 
 ### Version 1.6.0:

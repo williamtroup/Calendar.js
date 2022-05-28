@@ -575,9 +575,12 @@ div.calendar {
             }
 
             div.plus-x-events {
+                display: inline-block;
                 font-size: smaller;
                 text-align: center;
-                margin-top: $spacing;
+                margin-top: $spacing / 2;
+                margin-left: auto;
+                margin-right: auto;
 
                 &:hover {
                     @include opacity-hover-effect;

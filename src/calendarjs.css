@@ -667,9 +667,12 @@ div.calendar div.row div.cell div.all-day {
 }
 
 div.calendar div.row div.cell div.plus-x-events {
+  display: inline-block;
   font-size: smaller;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 div.calendar div.row div.cell div.plus-x-events:hover {
