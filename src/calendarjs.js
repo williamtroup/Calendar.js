@@ -287,7 +287,7 @@
  * @property    {string}    lastSearchText                              States the last search text that was used (defaults to "").
  * @property    {boolean}   not                                         States if the search should be a not search (defaults to false).
  * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).
- * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to true).
+ * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to false).
  * @property    {boolean}   searchTitle                                 States if the "title" property for the event should be searched (false to true).
  * @property    {boolean}   searchLocation                              States if the "location" property for the event should be searched (false to false).
  * @property    {boolean}   searchDescription                           States if the "description" property for the event should be searched (false to false).
@@ -4945,9 +4945,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _element_SearchDialog_SearchResults = [];
             _element_SearchDialog.style.display = "block";
     
-            centerSearchDialog();
             searchForTextChanged();
             setupSearchOptions();
+            centerSearchDialog();
         }
 
         if ( !isSearchDialogContentVisible() ) {
@@ -5193,6 +5193,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_SearchDialog_Option_StartsWith.checked = _optionsForSearch.startsWith;
         _element_SearchDialog_Option_EndsWith.checked = _optionsForSearch.endsWith;
         _element_SearchDialog_Option_Contains.checked = _optionsForSearch.contains;
+
+        if ( _element_SearchDialog_Advanced.checked ) {
+            _element_SearchDialog_Advanced_Container.style.display = "block";
+        } else {
+            _element_SearchDialog_Advanced_Container.style.display = "none";
+        }
     }
 
 
@@ -8122,7 +8128,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( !isDefinedBoolean( _optionsForSearch.showAdvanced ) ) {
-            _optionsForSearch.showAdvanced = true;
+            _optionsForSearch.showAdvanced = false;
         }
 
         if ( !isDefinedBoolean( _optionsForSearch.searchTitle ) ) {
