@@ -1225,14 +1225,11 @@ div.calendar div.list-all-week-events-view div.contents div.no-events-text {
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
-}
-
-div.calendar div.list-all-week-events-view div.contents div.no-events-text span {
   pointer-events: none;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.no-events-text span.link {
-  pointer-events: auto;
+  pointer-events: auto !important;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day {

@@ -817,13 +817,10 @@ div.calendar {
                 margin-top: $spacing;
                 margin-bottom: $spacing;
                 text-align: center;
-                
-                span {
-                    pointer-events: none;
-                }
+                pointer-events: none;
 
                 span.link {
-                    pointer-events: auto;
+                    pointer-events: auto !important;
                 }
             }
 

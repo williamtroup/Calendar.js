@@ -6,6 +6,7 @@
 - Fixed a fault that caused the drop content areas to be too small, while increasing the spacing for empty days (in "Weekly" view).
 - Added support for the drag & drop disabled stripped effect to the "Weekly" and "All Events" views.
 - Any area that cannot have an event dropped onto it no longer shows the drop status on the mouse pointer.
+- Fixed more flicking effects when dragging events in the "Weekly" view.
 - 
 
 ### Version 1.6.0:
