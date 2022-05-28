@@ -2578,7 +2578,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 showEventDropDownMenu( e, eventDetails );
             };
     
-            makeEventDraggable( event, eventDetails, eventDetails.from );
+            makeEventDraggable( event, eventDetails, eventDetails.from, container );
             setEventClassesAndColors( event, eventDetails );
     
             event.id = _elementID_Month + eventDetails.id;
@@ -2935,7 +2935,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 showEventDropDownMenu( e, eventDetails, formattedDate );
             };
     
-            makeEventDraggable( event, eventDetails, displayDate );
+            makeEventDraggable( event, eventDetails, displayDate, container );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
@@ -3424,6 +3424,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                 if ( isDefined( container ) ) {
                     container.className += dragDisabledClass;
+
+                    makeAreaNonDroppable( container );
                 }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),
@@ -3442,6 +3444,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                 if ( isDefined( container ) ) {
                     container.className = container.className.replace( dragDisabledClass, "" );
+
+                    makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
                 }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),
@@ -3479,6 +3483,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     dropFileOnDisplay( e );
                 }
             };
+        }
+    }
+
+    function makeAreaNonDroppable( element ) {
+        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            element.ondragover = null;
+            element.ondragenter = null;
+            element.ondragleave = null;
+            element.ondrop = null;
         }
     }
 
