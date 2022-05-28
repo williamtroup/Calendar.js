@@ -2971,6 +2971,7 @@ div.calendar-tooltip-event div.url {
 div.calendar-tooltip div.url,
 div.calendar-tooltip-event div.url {
   color: blue;
+  display: inline-block;
 }
 
 div.calendar-tooltip div.url:hover,
