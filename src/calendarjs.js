@@ -1207,6 +1207,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( !_initializedDocumentEvents ) {
             _document.body.addEventListener( "click", hideAllDropDowns );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
+            _document.addEventListener( "scroll", hideAllDropDowns );
             _document.addEventListener( "keydown", onWindowKeyDown );
             _window.addEventListener( "resize", hideAllDropDowns );
             _window.addEventListener( "resize", centerSearchDialog );
