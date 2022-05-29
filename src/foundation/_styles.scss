@@ -156,6 +156,7 @@ $area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
     &.#{$name} {
         color: $color;
         background-color: $background-color;
+        box-sizing: border-box;
 
         &:not(:disabled):hover {
             @include opacity-hover-effect;

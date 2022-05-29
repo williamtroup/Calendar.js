@@ -9,15 +9,29 @@ a:visited {
 }
 
 h1 {
-    background-color: lightgray;
-    color: black;
-    padding: 10px;
-    border-bottom: 1px black solid;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin: 0;
+    background-color: lightgray !important;
+    color: black !important;
+    padding: 10px !important;
+    border-bottom: 1px black solid !important;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+    margin: 0 !important;
+}
+
+h2 {
+    display: block !important;
+    font-size: 1.5em !important;
+    margin-block-start: 0.83em !important;
+    margin-block-end: 0.83em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    font-weight: bold !important;
 }
 
 div.contents {
     padding: 10px;
+}
+
+.btn {
+    margin: 3px !important;
 }

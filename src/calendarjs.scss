@@ -33,6 +33,17 @@ div.calendar-dialog textarea {
     span.light-title-bar-text {
         font-weight: 300 !important;
     }
+
+    * {
+        box-sizing: content-box;
+        line-height: normal;
+
+        &:before,
+        &:after {
+            box-sizing: content-box;
+            line-height: normal;
+        }
+    }
 }
 
 div.disabled-background {
@@ -55,7 +66,7 @@ div.full-screen-view {
     border-radius: 0 !important;
     border: none !important;
 
-    div.row {
+    div.row-cells {
         @media screen and (min-width: $minimum-width) {
             height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$large-font-size} * 2)))) / 6);
         }
@@ -221,7 +232,7 @@ div.calendar {
         }
     }
     
-    div.row {
+    div.row-cells {
         border-bottom: $standard-border-size solid $grid-border-color;
         display: -ms-flexbox;
         display: flex;
@@ -521,7 +532,7 @@ div.calendar {
 */
 
 div.calendar {
-    div.row {
+    div.row-cells {
         div.cell {
             div.event {
                 border-radius: $border-view-radius;

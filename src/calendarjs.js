@@ -797,7 +797,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDayNamesHeader() {
         if ( _options.showDayNamesInMainDisplay ) {
-            var headerRow = createElement( "div", "row header-days" ),
+            var headerRow = createElement( "div", "row-cells header-days" ),
                 headerNamesLength = _options.dayHeaderNames.length;
 
             if ( _datePickerModeEnabled ) {
@@ -829,7 +829,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDayRows() {
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
-            var rowData = createElement( "div", "row days" );
+            var rowData = createElement( "div", "row-cells days" );
             _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {

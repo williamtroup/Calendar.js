@@ -41,6 +41,7 @@ Calendar.js
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
 - DatePicker mode (just assign to the ID of an text input).
 - HTML text support (off by default).
+- Fully supports the Bootstrap library!
 <br />
 <br />
 
