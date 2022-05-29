@@ -8109,7 +8109,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
         }
 
-        if ( isInvalidOptionArray( _options.weekendDays ) ) {
+        if ( isInvalidOptionArray( _options.weekendDays, 0 ) ) {
             _options.weekendDays = [ 0, 6 ];
         }
 
