@@ -52,6 +52,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Object* | maximumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *boolean* | allowHtmlInDisplay | States if HTML can be used in the display (defaults to false). |
 | *string* | datePickerSelectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
+| *Object[]* | weekendDays | States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 
 <br/>
 

@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.6.2:
+- Added new setting "weekendDays", which states the day numbers that should be treated as weekend days.
 - 
 
 ### Version 1.6.1:

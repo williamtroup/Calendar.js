@@ -276,6 +276,7 @@
  * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
  * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
+ * @property    {Object[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  */
 
 
@@ -1455,7 +1456,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function isWeekendDay( date ) {
-        return date.getDay() === 6 || date.getDay() === 0;
+        return _options.weekendDays.indexOf( date.getDay() ) >= 0;
     }
 
     function moveDateBackOneDay( date ) {
@@ -8106,6 +8107,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.datePickerSelectedDateFormat ) ) {
             _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
+        }
+
+        if ( isInvalidOptionArray( _options.weekendDays ) ) {
+            _options.weekendDays = [ 0, 6 ];
         }
 
         setTranslationStringOptions();
