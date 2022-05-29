@@ -1,5 +1,20 @@
 # Calendar.js - Change Log:
 
+### Version 1.6.1:
+- Fixed a fault that caused an invalid date to be formed when dragging & dropping in the "All Events" view.
+- Fixed a fault that allowed events to be dropped on the title bars in the "Weekly" and "All Events" views.
+- Fixed a fault that caused the drop content areas to be too small, while increasing the spacing for empty days (in "Weekly" view).
+- Added support for the drag & drop disabled stripped effect to the "Weekly" and "All Events" views.
+- Any area that cannot have an event dropped onto it no longer shows the drop status on the mouse pointer.
+- Fixed more flicking effects when dragging events in the "Weekly" view.
+- The "+ More" link shown in the main display cells now only allows the actual text to be clicked (not the entire width).
+- The link shown in the event tooltips now only allows a hover and click event for the actual text (not the entire width).
+- Fixed a fault that caused the "Advanced" area on the "Search" dialog to remain visible when turned off (when loaded).
+- The "Advanced" option for the "Search" dialog is now turned off by default.
+- Improved the spacing that is shown in different views for the last item in the list.
+- Added full support for the bootstrap library (the "row" CSS selector has been renamed to "row-cells").
+- Fixed the spacing used in the title bar when the calendar is in DatePicker mode.
+
 ### Version 1.6.0:
 - The DatePicker mode now adds a base style called "calendar-date-picker-input" to the input box.
 - Added a new setting "datePickerSelectedDateFormat", which allows the selected date (in the input field) in DatePicker mode to be formatted (see documentation).

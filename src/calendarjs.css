@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.0
+ * Calendar.js Library v1.6.1
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -59,6 +59,36 @@ div.calendar-dialog textarea span.light-title-bar-text {
   font-weight: 300 !important;
 }
 
+div.calendar *,
+div.calendar-tooltip *,
+div.calendar-tooltip-event *,
+div.calendar-drop-down-menu *,
+div.calendar-dialog *,
+div.calendar-dialog input *,
+div.calendar-dialog textarea * {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  line-height: normal;
+}
+
+div.calendar *:before, div.calendar *:after,
+div.calendar-tooltip *:before,
+div.calendar-tooltip *:after,
+div.calendar-tooltip-event *:before,
+div.calendar-tooltip-event *:after,
+div.calendar-drop-down-menu *:before,
+div.calendar-drop-down-menu *:after,
+div.calendar-dialog *:before,
+div.calendar-dialog *:after,
+div.calendar-dialog input *:before,
+div.calendar-dialog input *:after,
+div.calendar-dialog textarea *:before,
+div.calendar-dialog textarea *:after {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  line-height: normal;
+}
+
 div.disabled-background {
   top: 0;
   left: 0;
@@ -98,13 +128,13 @@ div.full-screen-view {
 }
 
 @media screen and (min-width: 451px) {
-  div.full-screen-view div.row {
+  div.full-screen-view div.row-cells {
     height: calc((100% - ((1px * 10) + ((10px * 4) + (0.9rem * 2)))) / 6);
   }
 }
 
 @media screen and (max-width: 450px) {
-  div.full-screen-view div.row {
+  div.full-screen-view div.row-cells {
     height: calc((100% - ((1px * 10) + ((10px * 3) + (0.7rem * 2)))) / 6);
   }
 }
@@ -156,6 +186,10 @@ div.calendar-date-picker div.calendar-hidden {
 
 div.calendar-date-picker div.calendar-shown {
   display: block;
+}
+
+div.calendar-date-picker div.header-date div.title-container {
+  font-size: 0.9rem !important;
 }
 
 div.calendar-date-picker div.calendar {
@@ -293,7 +327,7 @@ div.calendar span.link:active {
   opacity: 0.4;
 }
 
-div.calendar div.row {
+div.calendar div.row-cells {
   border-bottom: 1px solid #B0B0B0;
   display: -ms-flexbox;
   display: -webkit-box;
@@ -306,39 +340,39 @@ div.calendar div.row {
   width: 100%;
 }
 
-div.calendar div.row div.cell-1 {
+div.calendar div.row-cells div.cell-1 {
   width: calc(100% - (20px + 1px));
 }
 
-div.calendar div.row div.cell-2 {
+div.calendar div.row-cells div.cell-2 {
   width: calc(100% - (20px + 1px) / 2);
 }
 
-div.calendar div.row div.cell-3 {
+div.calendar div.row-cells div.cell-3 {
   width: calc(100% - (20px + 1px) / 3);
 }
 
-div.calendar div.row div.cell-4 {
+div.calendar div.row-cells div.cell-4 {
   width: calc(100% - (20px + 1px) / 4);
 }
 
-div.calendar div.row div.cell-5 {
+div.calendar div.row-cells div.cell-5 {
   width: calc(100% - (20px + 1px) / 5);
 }
 
-div.calendar div.row div.cell-6 {
+div.calendar div.row-cells div.cell-6 {
   width: calc(100% - (20px + 1px) / 6);
 }
 
-div.calendar div.row div.cell-7 {
+div.calendar div.row-cells div.cell-7 {
   width: calc(100% - (20px + 1px) / 7);
 }
 
-div.calendar div.row div.scrollY {
+div.calendar div.row-cells div.scrollY {
   overflow-y: auto !important;
 }
 
-div.calendar div.row div.cell {
+div.calendar div.row-cells div.cell {
   display: inline-block;
   text-align: center;
   border-right: 1px solid #B0B0B0;
@@ -348,18 +382,18 @@ div.calendar div.row div.cell {
 }
 
 @media screen and (min-width: 451px) {
-  div.calendar div.row div.cell {
+  div.calendar div.row-cells div.cell {
     padding: 10px;
   }
 }
 
 @media screen and (max-width: 450px) {
-  div.calendar div.row div.cell {
+  div.calendar div.row-cells div.cell {
     padding: 5px;
   }
 }
 
-div.calendar div.row div.cell span {
+div.calendar div.row-cells div.cell span {
   pointer-events: none;
   display: inline-block;
   padding: 4px;
@@ -368,56 +402,56 @@ div.calendar div.row div.cell span {
   border-radius: 0.25rem;
 }
 
-div.calendar div.row div.cell span.day-muted, div.calendar div.row div.cell span.no-click {
+div.calendar div.row-cells div.cell span.day-muted, div.calendar div.row-cells div.cell span.no-click {
   opacity: 0.3;
 }
 
-div.calendar div.row div.cell span.today, div.calendar div.row div.cell span.first-day {
+div.calendar div.row-cells div.cell span.today, div.calendar div.row-cells div.cell span.first-day {
   padding-left: 7px;
   padding-right: 7px;
 }
 
-div.calendar div.row div.cell span.today {
+div.calendar div.row-cells div.cell span.today {
   background-color: #282828 !important;
   color: #F5F5F5 !important;
 }
 
-div.calendar div.row div.cell span.first-day {
+div.calendar div.row-cells div.cell span.first-day {
   background-color: #C8C8C8;
   color: #282828;
 }
 
-div.calendar div.row div.cell span.holiday, div.calendar div.row div.cell span.holiday-link, div.calendar div.row div.cell span.month-name, div.calendar div.row div.cell span.blank {
+div.calendar div.row-cells div.cell span.holiday, div.calendar div.row-cells div.cell span.holiday-link, div.calendar div.row-cells div.cell span.month-name, div.calendar div.row-cells div.cell span.blank {
   display: block;
   font-size: xx-small;
 }
 
-div.calendar div.row div.cell span.month-name:hover, div.calendar div.row div.cell span.holiday-link:hover {
+div.calendar div.row-cells div.cell span.month-name:hover, div.calendar div.row-cells div.cell span.holiday-link:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-div.calendar div.row div.cell span.blank {
+div.calendar div.row-cells div.cell span.blank {
   padding: 0 !important;
 }
 
-div.calendar div.row div.cell:last-child {
+div.calendar div.row-cells div.cell:last-child {
   border-right: none;
 }
 
 @media screen and (min-width: 451px) {
-  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-icon {
+  div.calendar div.row-cells div.cell:hover div.ib-arrow-expand-left-right-icon {
     display: block;
   }
 }
 
 @media screen and (max-width: 450px) {
-  div.calendar div.row div.cell:hover div.ib-arrow-expand-left-right-icon {
+  div.calendar div.row-cells div.cell:hover div.ib-arrow-expand-left-right-icon {
     display: none;
   }
 }
 
-div.calendar div.row:last-child {
+div.calendar div.row-cells:last-child {
   border-bottom: none;
 }
 
@@ -611,7 +645,7 @@ div.calendar div.header-date div.ib-arrow-contract-left-right {
     Calendar.js - Day Events
     -------------------------------------------------------------------------
 */
-div.calendar div.row div.cell div.event {
+div.calendar div.row-cells div.cell div.event {
   border-radius: 0.25rem;
   background-color: #484848;
   padding: 3px;
@@ -625,26 +659,26 @@ div.calendar div.row div.cell div.event {
 }
 
 @media screen and (min-width: 451px) {
-  div.calendar div.row div.cell div.event {
+  div.calendar div.row-cells div.cell div.event {
     font-size: 0.7rem !important;
   }
 }
 
 @media screen and (max-width: 450px) {
-  div.calendar div.row div.cell div.event {
+  div.calendar div.row-cells div.cell div.event {
     font-size: 0.5rem !important;
   }
 }
 
-div.calendar div.row div.cell div.event:last-child {
+div.calendar div.row-cells div.cell div.event:last-child {
   margin-bottom: 0;
 }
 
-div.calendar div.row div.cell div.event div.ib-refresh-small {
+div.calendar div.row-cells div.cell div.event div.ib-refresh-small {
   margin-right: 5px;
 }
 
-div.calendar div.row div.cell div.event-circle {
+div.calendar div.row-cells div.cell div.event-circle {
   display: inline-block;
   border-radius: 50% !important;
   border-left: none !important;
@@ -654,25 +688,28 @@ div.calendar div.row div.cell div.event-circle {
   margin-right: 2.5px;
 }
 
-div.calendar div.row div.cell div.event-circle:last-child {
+div.calendar div.row-cells div.cell div.event-circle:last-child {
   margin-bottom: 5;
 }
 
-div.calendar div.row div.cell div.expired {
+div.calendar div.row-cells div.cell div.expired {
   opacity: 0.7;
 }
 
-div.calendar div.row div.cell div.all-day {
+div.calendar div.row-cells div.cell div.all-day {
   background-color: #1b3752 !important;
 }
 
-div.calendar div.row div.cell div.plus-x-events {
+div.calendar div.row-cells div.cell div.plus-x-events {
+  display: inline-block;
   font-size: smaller;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-div.calendar div.row div.cell div.plus-x-events:hover {
+div.calendar div.row-cells div.cell div.plus-x-events:hover {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
@@ -680,7 +717,7 @@ div.calendar div.row div.cell div.plus-x-events:hover {
   text-decoration: underline;
 }
 
-div.calendar div.row div.cell div.plus-x-events:active {
+div.calendar div.row-cells div.cell div.plus-x-events:active {
   -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
@@ -900,8 +937,6 @@ div.calendar div.full-day-view div.contents div.event {
   padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
   border-left: 7px solid #282828;
 }
 
@@ -928,6 +963,10 @@ div.calendar div.full-day-view div.contents div.event div.repeats {
 
 div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium {
   margin-right: 5px;
+}
+
+div.calendar div.full-day-view div.contents div.event:last-child {
+  margin-bottom: 0;
 }
 
 div.calendar div.full-day-view div.contents:last-child {
@@ -1062,8 +1101,7 @@ div.calendar div.list-all-events-view div.contents div.month div.header div.ib-c
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.events div.expired {
@@ -1083,8 +1121,6 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
   border-left: 7px solid #282828;
 }
 
@@ -1113,12 +1149,16 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   margin-right: 5px;
 }
 
+div.calendar div.list-all-events-view div.contents div.month div.events div.event:last-child {
+  margin-bottom: 0;
+}
+
 div.calendar div.list-all-events-view div.contents div.month div.events:last-child {
   margin-bottom: 0;
 }
 
 div.calendar div.list-all-events-view div.contents div.month:last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 1px !important;
 }
 
 /*
@@ -1222,14 +1262,11 @@ div.calendar div.list-all-week-events-view div.contents div.no-events-text {
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
-}
-
-div.calendar div.list-all-week-events-view div.contents div.no-events-text span {
   pointer-events: none;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.no-events-text span.link {
-  pointer-events: auto;
+  pointer-events: auto !important;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day {
@@ -1258,8 +1295,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header div.i
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.expired {
@@ -1279,8 +1315,6 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   padding: 10px;
   color: #F5F5F5;
   margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
   border-left: 7px solid #282828;
 }
 
@@ -1309,12 +1343,16 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   margin-right: 5px;
 }
 
+div.calendar div.list-all-week-events-view div.contents div.day div.events div.event:last-child {
+  margin-bottom: 0;
+}
+
 div.calendar div.list-all-week-events-view div.contents div.day div.events:last-child {
   margin-bottom: 0;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day:last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 1px !important;
 }
 
 /*
@@ -1510,6 +1548,8 @@ div.event-editor div.view input[type="button"]:disabled {
 div.event-editor div.view input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].ok:not(:disabled):hover {
@@ -1529,6 +1569,8 @@ div.event-editor div.view input[type="button"].ok:not(:disabled):active {
 div.event-editor div.view input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].cancel:not(:disabled):hover {
@@ -1548,6 +1590,8 @@ div.event-editor div.view input[type="button"].cancel:not(:disabled):active {
 div.event-editor div.view input[type="button"].remove {
   color: #F5F5F5;
   background-color: #282828;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].remove:not(:disabled):hover {
@@ -1567,6 +1611,8 @@ div.event-editor div.view input[type="button"].remove:not(:disabled):active {
 div.event-editor div.view input[type="button"].select-colors {
   color: #F5F5F5;
   background-color: #6c757d;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].select-colors:not(:disabled):hover {
@@ -1586,6 +1632,8 @@ div.event-editor div.view input[type="button"].select-colors:not(:disabled):acti
 div.event-editor div.view input[type="button"].repeat-options {
   color: #F5F5F5;
   background-color: #6c757d;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].repeat-options:not(:disabled):hover {
@@ -1766,6 +1814,8 @@ div.event-editor-colors input[type="button"]:disabled {
 div.event-editor-colors input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor-colors input[type="button"].ok:not(:disabled):hover {
@@ -1785,6 +1835,8 @@ div.event-editor-colors input[type="button"].ok:not(:disabled):active {
 div.event-editor-colors input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor-colors input[type="button"].cancel:not(:disabled):hover {
@@ -1957,6 +2009,8 @@ div.event-editor-repeat-options input[type="button"]:disabled {
 div.event-editor-repeat-options input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor-repeat-options input[type="button"].ok:not(:disabled):hover {
@@ -1976,6 +2030,8 @@ div.event-editor-repeat-options input[type="button"].ok:not(:disabled):active {
 div.event-editor-repeat-options input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.event-editor-repeat-options input[type="button"].cancel:not(:disabled):hover {
@@ -2109,6 +2165,8 @@ div.confirmation input[type="button"]:disabled {
 div.confirmation input[type="button"].yes {
   color: #F5F5F5;
   background-color: #289345;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.confirmation input[type="button"].yes:not(:disabled):hover {
@@ -2128,6 +2186,8 @@ div.confirmation input[type="button"].yes:not(:disabled):active {
 div.confirmation input[type="button"].no {
   color: #F5F5F5;
   background-color: #C60000;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.confirmation input[type="button"].no:not(:disabled):hover {
@@ -2251,6 +2311,8 @@ div.select-export-type input[type="button"]:disabled {
 div.select-export-type input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.select-export-type input[type="button"].ok:not(:disabled):hover {
@@ -2270,6 +2332,8 @@ div.select-export-type input[type="button"].ok:not(:disabled):active {
 div.select-export-type input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.select-export-type input[type="button"].cancel:not(:disabled):hover {
@@ -2429,6 +2493,8 @@ div.search input[type="button"]:disabled {
 div.search input[type="button"].next {
   color: #F5F5F5;
   background-color: #289345;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.search input[type="button"].next:not(:disabled):hover {
@@ -2448,6 +2514,8 @@ div.search input[type="button"].next:not(:disabled):active {
 div.search input[type="button"].previous {
   color: #F5F5F5;
   background-color: #6c757d;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.search input[type="button"].previous:not(:disabled):hover {
@@ -2626,6 +2694,8 @@ div.configuration input[type="button"]:disabled {
 div.configuration input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.configuration input[type="button"].ok:not(:disabled):hover {
@@ -2645,6 +2715,8 @@ div.configuration input[type="button"].ok:not(:disabled):active {
 div.configuration input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div.configuration input[type="button"].cancel:not(:disabled):hover {
@@ -2967,6 +3039,7 @@ div.calendar-tooltip-event div.url {
 div.calendar-tooltip div.url,
 div.calendar-tooltip-event div.url {
   color: blue;
+  display: inline-block;
 }
 
 div.calendar-tooltip div.url:hover,

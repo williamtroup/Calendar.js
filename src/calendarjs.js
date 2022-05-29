@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.0
+ * Calendar.js Library v1.6.1
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -287,7 +287,7 @@
  * @property    {string}    lastSearchText                              States the last search text that was used (defaults to "").
  * @property    {boolean}   not                                         States if the search should be a not search (defaults to false).
  * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).
- * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to true).
+ * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to false).
  * @property    {boolean}   searchTitle                                 States if the "title" property for the event should be searched (false to true).
  * @property    {boolean}   searchLocation                              States if the "location" property for the event should be searched (false to false).
  * @property    {boolean}   searchDescription                           States if the "description" property for the event should be searched (false to false).
@@ -797,7 +797,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDayNamesHeader() {
         if ( _options.showDayNamesInMainDisplay ) {
-            var headerRow = createElement( "div", "row header-days" ),
+            var headerRow = createElement( "div", "row-cells header-days" ),
                 headerNamesLength = _options.dayHeaderNames.length;
 
             if ( _datePickerModeEnabled ) {
@@ -829,7 +829,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function buildDayRows() {
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
-            var rowData = createElement( "div", "row days" );
+            var rowData = createElement( "div", "row-cells days" );
             _element_Calendar.appendChild( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
@@ -2578,7 +2578,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 showEventDropDownMenu( e, eventDetails );
             };
     
-            makeEventDraggable( event, eventDetails, eventDetails.from );
+            makeEventDraggable( event, eventDetails, eventDetails.from, container );
             setEventClassesAndColors( event, eventDetails );
     
             event.id = _elementID_Month + eventDetails.id;
@@ -2663,8 +2663,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var month = createElement( "div", "month" );
             _element_ListAllEventsView_Contents.appendChild( month );
 
-            makeAreaDroppable( month, date.getFullYear(), date.getMonth() );
-
             var header = createElement( "div", "header" );
             setNodeText( header, _options.monthNames[ date.getMonth() ] + " " + date.getFullYear() );
             header.ondblclick = expandFunction;
@@ -2695,6 +2693,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
             month.appendChild( monthContents );
+
+            makeAreaDroppable( monthContents, date.getFullYear(), date.getMonth(), date.getDate() );
         }
 
         return monthContents;
@@ -2935,7 +2935,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 showEventDropDownMenu( e, eventDetails, formattedDate );
             };
     
-            makeEventDraggable( event, eventDetails, displayDate );
+            makeEventDraggable( event, eventDetails, displayDate, container );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
     
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
@@ -3048,8 +3048,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 day.className += " weekend-day";
             }
 
-            makeAreaDroppable( day, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
-
             dayHeader = createElement( "div", "header" );
             dayHeader.ondblclick = expandFunction;
             day.appendChild( dayHeader );
@@ -3079,6 +3077,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
+
+            makeAreaDroppable( dayContents, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
             var noEventsTextContainer = createElement( "div", "no-events-text" );
             dayContents.appendChild( noEventsTextContainer );
@@ -3424,6 +3424,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                 if ( isDefined( container ) ) {
                     container.className += dragDisabledClass;
+
+                    makeAreaNonDroppable( container );
                 }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),
@@ -3442,6 +3444,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                 if ( isDefined( container ) ) {
                     container.className = container.className.replace( dragDisabledClass, "" );
+
+                    makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
                 }
 
                 var events = _element_Calendar.getElementsByClassName( "event" ),
@@ -3479,6 +3483,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     dropFileOnDisplay( e );
                 }
             };
+        }
+    }
+
+    function makeAreaNonDroppable( element ) {
+        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            element.ondragover = null;
+            element.ondragenter = null;
+            element.ondragleave = null;
+            element.ondrop = null;
         }
     }
 
@@ -4932,9 +4945,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _element_SearchDialog_SearchResults = [];
             _element_SearchDialog.style.display = "block";
     
-            centerSearchDialog();
             searchForTextChanged();
             setupSearchOptions();
+            centerSearchDialog();
         }
 
         if ( !isSearchDialogContentVisible() ) {
@@ -5180,6 +5193,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_SearchDialog_Option_StartsWith.checked = _optionsForSearch.startsWith;
         _element_SearchDialog_Option_EndsWith.checked = _optionsForSearch.endsWith;
         _element_SearchDialog_Option_Contains.checked = _optionsForSearch.contains;
+
+        if ( _element_SearchDialog_Advanced.checked ) {
+            _element_SearchDialog_Advanced_Container.style.display = "block";
+        } else {
+            _element_SearchDialog_Advanced_Container.style.display = "none";
+        }
     }
 
 
@@ -7774,7 +7793,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.0";
+        return "1.6.1";
     };
 
 
@@ -8109,7 +8128,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( !isDefinedBoolean( _optionsForSearch.showAdvanced ) ) {
-            _optionsForSearch.showAdvanced = true;
+            _optionsForSearch.showAdvanced = false;
         }
 
         if ( !isDefinedBoolean( _optionsForSearch.searchTitle ) ) {

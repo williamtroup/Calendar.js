@@ -11,7 +11,7 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 | *string* | lastSearchText | States the last search text that was used (defaults to ""). |
 | *boolean* | not | States if the search should be a not search (defaults to false). |
 | *boolean* | matchCase | States character case searching is strict (defaults to false). |
-| *boolean* | showAdvanced | States if the advanced options should be shown (defaults to true). |
+| *boolean* | showAdvanced | States if the advanced options should be shown (defaults to false). |
 | *boolean* | searchTitle | States if the "title" property for the event should be searched (false to true). |
 | *boolean* | searchLocation | States if the "location" property for the event should be searched (false to false). |
 | *boolean* | searchDescription | States if the "description" property for the event should be searched (false to false). |

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.0
+ * Calendar.js Library v1.6.1
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -33,6 +33,17 @@ div.calendar-dialog textarea {
     span.light-title-bar-text {
         font-weight: 300 !important;
     }
+
+    * {
+        box-sizing: content-box;
+        line-height: normal;
+
+        &:before,
+        &:after {
+            box-sizing: content-box;
+            line-height: normal;
+        }
+    }
 }
 
 div.disabled-background {
@@ -55,7 +66,7 @@ div.full-screen-view {
     border-radius: 0 !important;
     border: none !important;
 
-    div.row {
+    div.row-cells {
         @media screen and (min-width: $minimum-width) {
             height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$large-font-size} * 2)))) / 6);
         }
@@ -87,6 +98,12 @@ div.calendar-date-picker {
     
     div.calendar-shown {
         display: block;
+    }
+
+    div.header-date {
+        div.title-container {
+            font-size: $large-font-size !important;
+        }
     }
 
     div.calendar {
@@ -221,7 +238,7 @@ div.calendar {
         }
     }
     
-    div.row {
+    div.row-cells {
         border-bottom: $standard-border-size solid $grid-border-color;
         display: -ms-flexbox;
         display: flex;
@@ -521,7 +538,7 @@ div.calendar {
 */
 
 div.calendar {
-    div.row {
+    div.row-cells {
         div.cell {
             div.event {
                 border-radius: $border-view-radius;
@@ -575,9 +592,12 @@ div.calendar {
             }
 
             div.plus-x-events {
+                display: inline-block;
                 font-size: smaller;
                 text-align: center;
-                margin-top: $spacing;
+                margin-top: $spacing / 2;
+                margin-left: auto;
+                margin-right: auto;
 
                 &:hover {
                     @include opacity-hover-effect;
@@ -780,14 +800,13 @@ div.calendar {
                 }
 
                 div.events {
-                    margin-top: $spacing;
-                    margin-bottom: $spacing;
+                    padding: $spacing;
 
                     @import "foundation/overlay-event";
                 }
 
                 &:last-child {
-                    margin-bottom: 0 !important;
+                    margin-bottom: $standard-border-size !important;
                 }
             }
         }
@@ -818,13 +837,10 @@ div.calendar {
                 margin-top: $spacing;
                 margin-bottom: $spacing;
                 text-align: center;
-                
-                span {
-                    pointer-events: none;
-                }
+                pointer-events: none;
 
                 span.link {
-                    pointer-events: auto;
+                    pointer-events: auto !important;
                 }
             }
 
@@ -853,14 +869,13 @@ div.calendar {
                 }
 
                 div.events {
-                    margin-top: $spacing;
-                    margin-bottom: $spacing;
+                    padding: $spacing;
 
                     @import "foundation/overlay-event";
                 }
 
                 &:last-child {
-                    margin-bottom: 0 !important;
+                    margin-bottom: $standard-border-size !important;
                 }
             }
         }
@@ -1473,6 +1488,7 @@ div.calendar-tooltip-event {
 
     div.url {
         color: blue;
+        display: inline-block;
 
         &:hover {
             cursor: pointer;
