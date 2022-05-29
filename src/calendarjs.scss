@@ -100,6 +100,12 @@ div.calendar-date-picker {
         display: block;
     }
 
+    div.header-date {
+        div.title-container {
+            font-size: $large-font-size !important;
+        }
+    }
+
     div.calendar {
         font-size: $small-font-size !important;
         position: absolute;

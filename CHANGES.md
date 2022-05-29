@@ -13,6 +13,7 @@
 - The "Advanced" option for the "Search" dialog is now turned off by default.
 - Improved the spacing that is shown in different views for the listen item in the list.
 - Added full support for the bootstrap library! (the "row" CSS selector has been renamed to "row-cells").
+- Fixed the spacing used in the title bar when the calendar is in DatePicker mode.
 - 
 
 ### Version 1.6.0:
