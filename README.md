@@ -17,7 +17,7 @@ Calendar.js
 - Copy & Paste, and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
-- Fully styled in CSS/SASS (including the buttons).
+- Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
 - Custom events for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV.
 - Full-screen mode (double clicking the title bar).
@@ -41,7 +41,6 @@ Calendar.js
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
 - DatePicker mode (just assign to the ID of an text input).
 - HTML text support (off by default).
-- Fully supports the Bootstrap library!
 <br />
 <br />
 
