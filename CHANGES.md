@@ -14,7 +14,6 @@
 - Improved the spacing that is shown in different views for the last item in the list.
 - Added full support for the bootstrap library (the "row" CSS selector has been renamed to "row-cells").
 - Fixed the spacing used in the title bar when the calendar is in DatePicker mode.
-- 
 
 ### Version 1.6.0:
 - The DatePicker mode now adds a base style called "calendar-date-picker-input" to the input box.
