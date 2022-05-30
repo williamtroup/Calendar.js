@@ -4,6 +4,7 @@
 - Added new setting "weekendDays", which states the day numbers that should be treated as weekend days.
 - Fixed a fault that causes the drop-down menus and tooltips to move around when scrolling the document body.
 - Fixed the spacing used in the title bar when the calendar is viewed on a mobile device.
+- Added a colon to the "Advanced" checkbox on the "Search" dialog (to make it more obvious that it opens up).
 - 
 
 ### Version 1.6.1:

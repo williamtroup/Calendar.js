@@ -4841,7 +4841,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         _element_SearchDialog_Not = buildCheckBox( checkboxOptionsContainer, _options.notSearchText, searchOptionsChanged )[ 0 ];
         _element_SearchDialog_MatchCase = buildCheckBox( checkboxOptionsContainer, _options.matchCaseText, searchOptionsChanged )[ 0 ];
-        _element_SearchDialog_Advanced = buildCheckBox( checkboxOptionsContainer, _options.advancedText, searchAdvancedChecked )[ 0 ];
+        _element_SearchDialog_Advanced = buildCheckBox( checkboxOptionsContainer, _options.advancedText + ":", searchAdvancedChecked )[ 0 ];
         _element_SearchDialog_Advanced.checked = true;
 
         _element_SearchDialog_Advanced_Container = createElement( "div", "advanced" );
