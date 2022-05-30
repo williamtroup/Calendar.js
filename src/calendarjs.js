@@ -7057,7 +7057,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Moves to the previous month.
      * 
      * @public
-     * @fires onPreviousMonth
+     * @fires       onPreviousMonth
      */
     this.moveToPreviousMonth = function() {
         moveBackMonth();
@@ -7069,7 +7069,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Moves to the next month.
      * 
      * @public
-     * @fires onNextMonth
+     * @fires       onNextMonth
      */
     this.moveToNextMonth = function() {
         moveForwardMonth();
@@ -7081,7 +7081,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Moves to the previous year.
      * 
      * @public
-     * @fires onPreviousYear
+     * @fires       onPreviousYear
      */
     this.moveToPreviousYear = function() {
         moveBackYear();
@@ -7093,7 +7093,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Moves to the next year.
      * 
      * @public
-     * @fires onNextYear
+     * @fires       onNextYear
      */
     this.moveToNextYear = function() {
         moveForwardYear();
@@ -7105,7 +7105,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Moves to the current month.
      * 
      * @public
-     * @fires onToday
+     * @fires       onToday
      */
     this.moveToToday = function() {
         moveToday();
@@ -7130,7 +7130,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Sets the current date that is being used in the main display.
      * 
      * @public
-     * @fires onSetDate
+     * @fires       onSetDate
      * 
      * @param       {Object}    date                                        The Date() object to set.
      */
@@ -7162,7 +7162,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Sets the current date that is being used in DatePicker mode.
      * 
      * @public
-     * @fires onDatePickerDateChanged
+     * @fires       onDatePickerDateChanged
      * 
      * @param       {Object}    date                                        The Date() object to set.
      */
@@ -7185,7 +7185,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Exports all the events into a downloadable file.
      * 
      * @public
-     * @fires onEventsExported
+     * @fires       onEventsExported
      * 
      * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
      */
