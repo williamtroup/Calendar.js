@@ -19,7 +19,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full-screen mode (defaults to true). |
 | *number* | eventTooltipDelay | The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds). |
 | *number* | minimumDayHeight | States the height the main calendar days should used (defaults to 0 - auto). |
-| *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
+| *Holiday[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | organizerName | The default name of the organizer (defaults to empty string). |
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
 | *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |

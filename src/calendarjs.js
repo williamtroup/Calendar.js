@@ -11,6 +11,8 @@
  * Day Event.
  * 
  * This is the object format that is used to store the details about a day event.
+ * 
+ * @typedef     {Object}    Event
  *
  * @property    {string}    id                                          The ID for the event (set automatically if not available).
  * @property    {string}    title                                       The title of the event.
@@ -42,6 +44,8 @@
  * Holiday.
  * 
  * This is the object format that is used to display a holiday.
+ * 
+ * @typedef     {Object}    Holiday
  *
  * @property    {number}    day                                         The day that the holiday occurs.
  * @property    {number}    month                                       The month that the holiday occurs.
@@ -51,7 +55,9 @@
 
 
 /**
- * Options - Events.
+ * Options.
+ * 
+ * @typedef     {Object}    Options
  * 
  * These are the properties that store the events that should be fired when various actions are triggered.
  *
@@ -79,11 +85,6 @@
  * @property    {Object}    onDatePickerDateChanged                     Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function).
  * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
  * @property    {Object}    onEventUrlClicked                           Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function).
- */
-
-
-/**
- * Options - Translatable Strings.
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -225,11 +226,6 @@
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
- */
-
-
-/**
- * Options.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -244,7 +240,7 @@
  * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full-screen mode (defaults to true).
  * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
  * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
- * @property    {Object[]}  holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
+ * @property    {Holiday[]} holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
  * @property    {string}    organizerName                               The default name of the organizer (defaults to empty string).
  * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins (defaults to 10).
@@ -285,6 +281,8 @@
  * Search Options.
  * 
  * These are the search options that are used to control how Calendar.js search works.
+ * 
+ * @typedef     {Object}    Search
  *
  * @property    {string}    lastSearchText                              States the last search text that was used (defaults to "").
  * @property    {boolean}   not                                         States if the search should be a not search (defaults to false).
@@ -327,8 +325,8 @@
  * @class
  * 
  * @param       {string}    id                                          The ID of the element that should be used to display the calendar (or input to assign a DatePicker).
- * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
- * @param       {Object}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
+ * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
+ * @param       {Search}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
  * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
  */
 function calendarJs( id, options, searchOptions, startDateTime ) {
@@ -7246,7 +7244,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @fires       onEventsSet
      * 
-     * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
+     * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States if the "onEventsSet" event should be triggered.
      */
@@ -7295,7 +7293,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @fires       onEventsAdded
      * 
-     * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
+     * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States if the "onEventsAdded" event should be triggered.
      */
@@ -7354,7 +7352,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @fires       onEventAdded
      * 
-     * @param       {Object}    event                                       The event (refer to "Day Event" documentation for properties).
+     * @param       {Event}     event                                       The event (refer to "Day Event" documentation for properties).
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States if the "onEventAdded" event should be triggered.
      * @param       {boolean}   setLastUpdated                              States if the "lastUpdated" date should be set (defaults to true).
@@ -7461,7 +7459,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @fires       onEventsUpdated
      * 
-     * @param       {Object[]}  events                                      The array of events (refer to "Day Event" documentation for properties).
+     * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
      */
@@ -7494,7 +7492,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @fires       onEventUpdated
      * 
      * @param       {string}    id                                          The ID of the event.
-     * @param       {Object}    event                                       The event (refer to "Day Event" documentation for properties).
+     * @param       {Event}     event                                       The event (refer to "Day Event" documentation for properties).
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   triggerEvent                                States if the "onEventUpdated" event should be triggered.
      * 
@@ -7632,7 +7630,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns an array of the events available.
      * 
-     * @returns     {Object[]}                                              An array of events.
+     * @returns     {Event[]}                                               An array of events.
      */
     this.getEvents = function() {
         return getOrderedEvents( getAllEvents() );
@@ -7645,7 +7643,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * @param       {string}    id                                          The ID of the event to get.
      * 
-     * @returns     {Object}                                                The event details (or null if the ID cannot be found).
+     * @returns     {Event}                                                 The event details (or null if the ID cannot be found).
      */
     this.getEvent = function( id ) {
         var returnEvent = null;
@@ -7676,7 +7674,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns an array of group names being used.
      * 
-     * @returns     {Object[]}                                              An array of the group names.
+     * @returns     {string[]}                                              An array of the group names.
      */
     this.getAllGroups = function() {
         return getGroups();
@@ -7755,7 +7753,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Set the clipboard event.
      * 
-     * @param       {Object}    event                                       The event to set (refer to "Day Event" documentation for properties).
+     * @param       {Event}    event                                        The event to set (refer to "Day Event" documentation for properties).
      */
     this.setClipboardEvent = function( event ) {
         _copiedEventDetails = cloneEventDetails( event );
@@ -7766,7 +7764,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns the event copied in the clipboard.
      * 
-     * @returns     {Object}                                                The copied event details.
+     * @returns     {Event}                                                 The copied event details.
      */
     this.getClipboardEvent = function() {
         return _copiedEventDetails;
@@ -7813,7 +7811,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Sets the specific options that should be used.
      * 
-     * @param       {Object}    newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
+     * @param       {Options}   newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
      */
     this.setOptions = function( newOptions, triggerEvent ) {
@@ -7848,7 +7846,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Sets the specific search options that should be used.
      * 
-     * @param       {Object}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
+     * @param       {Search}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onSearchOptionsUpdated" event should be triggered.
      */
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
@@ -7875,7 +7873,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Adds new holidays.
      * 
-     * @param       {Object[]}  holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
+     * @param       {Holiday[]} holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
@@ -7901,7 +7899,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Removes holidays.
      * 
-     * @param       {Object[]}  holidayNames                                The names of the holidays to remove (case sensitive).
+     * @param       {string[]}  holidayNames                                The names of the holidays to remove (case sensitive).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
