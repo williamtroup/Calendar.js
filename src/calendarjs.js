@@ -1,8 +1,9 @@
-/*
- * Calendar.js Library v1.6.2
- *
- * Copyright 2022 Bunoon
- * Released under the GNU AGPLv3 license
+/**
+ * @file        Calendar.js Library
+ * @version     v1.6.2
+ * @author      Bunoon
+ * @license     GNU AGPLv3
+ * @copyright   Bunoon 2022
  */
 
  
