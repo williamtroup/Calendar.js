@@ -210,7 +210,7 @@ Clears all the events.
 ### **getEvents()**:
 Returns an array of the events available.
 <br>
-***Returns***: '*Object[]*' - An array of the event.
+***Returns***: '*Object[]*' - An array of events.
 
 ### **getEvent( *id* )**:
 Returns an event that matches the ID passed.

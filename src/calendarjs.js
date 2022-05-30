@@ -22,7 +22,7 @@
  * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
  * @property    {boolean}   isAllDay                                    States if this event is for all-day.
  * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every 2 Weeks, 4 = Every Month, 5 = Every Year, 6 = Custom).
- * @property    {Object[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated.
+ * @property    {number[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated.
  * @property    {Object[]}  seriesIgnoreDates                           States the dates (string format) that should be ignored when an event is repeated.
  * @property    {Object}    created                                     The date that the event was created.
  * @property    {string}    organizerName                               The name of the organizer.
@@ -101,9 +101,9 @@
  * @property    {string}    refreshTooltipText                          The tooltip text that should be used for for the "Refresh" button.
  * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
  * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
- * @property    {Object[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
- * @property    {Object[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
- * @property    {Object[]}  monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
+ * @property    {string[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
+ * @property    {string[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {string[]}  monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
  * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All-Day" label.
@@ -259,7 +259,7 @@
  * @property    {boolean}   showDayNamesInMainDisplay                   States if the day names header should be shown in the main display (defaults to true).
  * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
  * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
- * @property    {Object[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
+ * @property    {number[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {boolean}   allowEventScrollingOnMainDisplay            States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
  * @property    {string}    urlWindowTarget                             States the target that an event Url should be opened in (defaults to _blank for a new window).
  * @property    {string}    defaultEventBackgroundColor                 States the default background color that should be used for events (defaults to "#484848").
@@ -276,7 +276,7 @@
  * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
  * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
- * @property    {Object[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
+ * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  */
 
 
@@ -7631,7 +7631,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns an array of the events available.
      * 
-     * @returns     {Object[]}                                              An array of the event.
+     * @returns     {Object[]}                                              An array of events.
      */
     this.getEvents = function() {
         return getOrderedEvents( getAllEvents() );
