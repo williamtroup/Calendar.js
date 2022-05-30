@@ -3,6 +3,7 @@
 ### Version 1.6.2:
 - Added new setting "weekendDays", which states the day numbers that should be treated as weekend days.
 - Fixed a fault that causes the drop-down menus and tooltips to move around when scrolling the document body.
+- Fixed the spacing used in the title bar when the calendar is viewed on a mobile device.
 - 
 
 ### Version 1.6.1:

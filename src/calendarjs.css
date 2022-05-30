@@ -487,6 +487,7 @@ div.calendar div.header-date {
 div.calendar div.header-date div.title-container {
   display: inline-block;
   position: relative;
+  font-size: 0.9rem !important;
 }
 
 div.calendar div.header-date div.title-container span {
