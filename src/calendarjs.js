@@ -322,6 +322,7 @@
  * 
  * The main Calendar.js class.
  * 
+ * @public
  * @class
  * 
  * @param       {string}    id                                          The ID of the element that should be used to display the calendar (or input to assign a DatePicker).
@@ -6971,6 +6972,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * turnOnFullScreen().
      * 
      * Turns on the full-screen mode (if enabled).
+     * 
+     * @public
      */
     this.turnOnFullScreen = function() {
         turnOnFullScreenMode();
@@ -6980,6 +6983,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * turnOffFullScreen().
      * 
      * Turns off the full-screen mode (if enabled).
+     * 
+     * @public
      */
     this.turnOffFullScreen = function() {
         turnOffFullScreenMode();
@@ -6989,6 +6994,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * isFullScreenActivated().
      * 
      * States if full-screen mode is activated.
+     * 
+     * @public
      * 
      * @returns     {boolean}                                               States if full-screen mode is activated.
      */
@@ -7000,6 +7007,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * startTheAutoRefreshTimer().
      * 
      * Starts the auto-refresh timer (if enabled).
+     * 
+     * @public
      */
     this.startTheAutoRefreshTimer = function() {
         _timer_RefreshMainDisplay_Enabled = true;
@@ -7011,6 +7020,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * stopTheAutoRefreshTimer().
      * 
      * Stops the auto-refresh timer (if enabled).
+     * 
+     * @public
      */
     this.stopTheAutoRefreshTimer = function() {
         clearAutoRefreshTimer();
@@ -7022,6 +7033,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * destroy().
      * 
      * Removes the calendar from the DOM.
+     * 
+     * @public
      */
     this.destroy = function() {
         _element_Calendar.className = "";
@@ -7043,6 +7056,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Moves to the previous month.
      * 
+     * @public
      * @fires onPreviousMonth
      */
     this.moveToPreviousMonth = function() {
@@ -7054,6 +7068,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Moves to the next month.
      * 
+     * @public
      * @fires onNextMonth
      */
     this.moveToNextMonth = function() {
@@ -7065,6 +7080,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Moves to the previous year.
      * 
+     * @public
      * @fires onPreviousYear
      */
     this.moveToPreviousYear = function() {
@@ -7076,6 +7092,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Moves to the next year.
      * 
+     * @public
      * @fires onNextYear
      */
     this.moveToNextYear = function() {
@@ -7087,6 +7104,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Moves to the current month.
      * 
+     * @public
      * @fires onToday
      */
     this.moveToToday = function() {
@@ -7097,6 +7115,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * getCurrentDisplayDate().
      * 
      * Returns the current date that is being used in the main display.
+     * 
+     * @public
      * 
      * @returns     {Object}                                                A Date() object (day is always set to the 1st).
      */
@@ -7109,6 +7129,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Sets the current date that is being used in the main display.
      * 
+     * @public
      * @fires onSetDate
      * 
      * @param       {Object}    date                                        The Date() object to set.
@@ -7127,6 +7148,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns the current date that has been selected in DatePicker mode.
      * 
+     * @public
+     * 
      * @returns     {Object}                                                A Date() object.
      */
     this.getSelectedDatePickerDate = function() {
@@ -7138,6 +7161,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Sets the current date that is being used in DatePicker mode.
      * 
+     * @public
      * @fires onDatePickerDateChanged
      * 
      * @param       {Object}    date                                        The Date() object to set.
@@ -7160,6 +7184,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Exports all the events into a downloadable file.
      * 
+     * @public
      * @fires onEventsExported
      * 
      * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
@@ -7176,6 +7201,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * refresh().
      * 
      * Refreshes all of the views.
+     * 
+     * @public
      */
     this.refresh = function() {
         refreshViews();
@@ -7242,6 +7269,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Sets the events and clears any existing ones.
      * 
+     * @public
      * @fires       onEventsSet
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
@@ -7264,6 +7292,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Sets new events from JSON data and clears any existing ones.
      * 
+     * @public
      * @fires       onEventsSetFromJSON
      * 
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
@@ -7291,6 +7320,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Adds an array of new events.
      * 
+     * @public
      * @fires       onEventsAdded
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
@@ -7323,6 +7353,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Adds new events from JSON data.
      * 
+     * @public
      * @fires       onEventsAddedFromJSON
      * 
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
@@ -7350,6 +7381,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Adds a of new event.
      * 
+     * @public
      * @fires       onEventAdded
      * 
      * @param       {Event}     event                                       The event (refer to "Day Event" documentation for properties).
@@ -7457,6 +7489,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Updates an array of existing events.
      * 
+     * @public
      * @fires       onEventsUpdated
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
@@ -7489,6 +7522,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Updates an existing event.
      * 
+     * @public
      * @fires       onEventUpdated
      * 
      * @param       {string}    id                                          The ID of the event.
@@ -7519,6 +7553,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Updates an existing events from, to, and repeatEnds dates.
      * 
+     * @public
      * @fires       onEventUpdated
      * 
      * @param       {string}    id                                          The ID of the event.
@@ -7564,6 +7599,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Removes an event.
      * 
+     * @public
      * @fires       onEventRemoved
      * 
      * @param       {string}    id                                          The ID of the event.
@@ -7604,6 +7640,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Clears all the events.
      * 
+     * @public
      * @fires       onEventsCleared
      * 
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
@@ -7630,6 +7667,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns an array of the events available.
      * 
+     * @public
+     * 
      * @returns     {Event[]}                                               An array of events.
      */
     this.getEvents = function() {
@@ -7640,6 +7679,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * getEvent().
      * 
      * Returns an event that matches the ID passed.
+     * 
+     * @public
      * 
      * @param       {string}    id                                          The ID of the event to get.
      * 
@@ -7674,6 +7715,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns an array of group names being used.
      * 
+     * @public
+     * 
      * @returns     {string[]}                                              An array of the group names.
      */
     this.getAllGroups = function() {
@@ -7685,6 +7728,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Clears all the event groups.
      * 
+     * @public
      * @fires       onGroupsCleared
      * 
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
@@ -7713,6 +7757,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Removes a group by name.
      * 
+     * @public
      * @fires       onGroupRemoved
      * 
      * @param       {string}    groupName                                   The name of the group to remove.
@@ -7753,6 +7798,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Set the clipboard event.
      * 
+     * @public
+     * 
      * @param       {Event}    event                                        The event to set (refer to "Day Event" documentation for properties).
      */
     this.setClipboardEvent = function( event ) {
@@ -7764,6 +7811,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns the event copied in the clipboard.
      * 
+     * @public
+     * 
      * @returns     {Event}                                                 The copied event details.
      */
     this.getClipboardEvent = function() {
@@ -7774,6 +7823,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * clearClipboard().
      * 
      * Clears the internal clipboard.
+     * 
+     * @public
      */
     this.clearClipboard = function() {
         _copiedEventDetails = null;
@@ -7791,6 +7842,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * 
      * Returns the version of Calendar.js.
      * 
+     * @public
+     * 
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
@@ -7807,9 +7860,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     /**
      * setOptions().
      * 
-     * @fires       onOptionsUpdated
-     * 
      * Sets the specific options that should be used.
+     * 
+     * @public
+     * @fires       onOptionsUpdated
      * 
      * @param       {Options}   newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
@@ -7842,9 +7896,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     /**
      * setSearchOptions().
      * 
-     * @fires       onSearchOptionsUpdated
-     * 
      * Sets the specific search options that should be used.
+     * 
+     * @public
+     * @fires       onSearchOptionsUpdated
      * 
      * @param       {Search}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onSearchOptionsUpdated" event should be triggered.
@@ -7869,9 +7924,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     /**
      * addHolidays().
      * 
-     * @fires       onOptionsUpdated
-     * 
      * Adds new holidays.
+     * 
+     * @public
+     * @fires       onOptionsUpdated
      * 
      * @param       {Holiday[]} holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
@@ -7895,9 +7951,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     /**
      * removeHolidays().
      * 
-     * @fires       onOptionsUpdated
-     * 
      * Removes holidays.
+     * 
+     * @public
+     * @fires       onOptionsUpdated
      * 
      * @param       {string[]}  holidayNames                                The names of the holidays to remove (case sensitive).
      * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
