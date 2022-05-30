@@ -1,5 +1,5 @@
 /**
- * @file        Calendar.js Library
+ * @file        Calendar.js
  * @version     v1.6.2
  * @author      Bunoon
  * @license     GNU AGPLv3
