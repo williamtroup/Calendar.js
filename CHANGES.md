@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.0:
+- 
+
 ### Version 1.6.2:
 - Added new setting "weekendDays", which states the day numbers that should be treated as weekend days.
 - Fixed a fault that causes the drop-down menus and tooltips to move around when scrolling the document body.
