@@ -6,7 +6,6 @@
 - Fixed the spacing used in the title bar when the calendar is viewed on a mobile device.
 - Added a colon to the "Advanced" checkbox on the "Search" dialog (to make it more obvious that it opens up).
 - Documentation improvements in the code and the .md documentation files to match up to JSDoc specifications.
-- 
 
 ### Version 1.6.1:
 - Fixed a fault that caused an invalid date to be formed when dragging & dropping in the "All Events" view.
