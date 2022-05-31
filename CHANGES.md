@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.7.0:
+- Fixed a fault that caused DatePicker mode to render all the dialogs and drop-down menus when they are not needed.
 - 
 
 ### Version 1.6.2:
