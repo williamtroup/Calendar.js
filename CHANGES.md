@@ -2,6 +2,7 @@
 
 ### Version 1.7.0:
 - Fixed a fault that caused DatePicker mode to render all the dialogs and drop-down menus when they are not needed.
+- Fixed a fault that would cause the DatePicker mode to show only the current month when opened (not the selected).
 - 
 
 ### Version 1.6.2:

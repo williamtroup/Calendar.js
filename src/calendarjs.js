@@ -978,7 +978,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
-            build();
+            build( new Date( _currentDateForDatePicker ) );
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
