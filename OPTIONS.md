@@ -19,7 +19,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full-screen mode (defaults to true). |
 | *number* | eventTooltipDelay | The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds). |
 | *number* | minimumDayHeight | States the height the main calendar days should used (defaults to 0 - auto). |
-| *Object[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
+| *Holiday[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | organizerName | The default name of the organizer (defaults to empty string). |
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to empty string). |
 | *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |
@@ -35,7 +35,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
 | *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
-| *Object[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
+| *number[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *boolean* | allowEventScrollingOnMainDisplay | States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true). |
 | *string* | urlWindowTarget | States the target that an event Url should be opened in (defaults to _blank for a new window). |
 | *string* | defaultEventBackgroundColor | States the default background color that should be used for events (defaults to "#484848"). |
@@ -52,6 +52,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Object* | maximumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *boolean* | allowHtmlInDisplay | States if HTML can be used in the display (defaults to false). |
 | *string* | datePickerSelectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
+| *number[]* | weekendDays | States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 
 <br/>
 
@@ -75,9 +76,9 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | refreshTooltipText | The tooltip text that should be used for for the "Refresh" button. |
 | *string* | searchTooltipText | The tooltip text that should be used for for the "Search" button. |
 | *string* | expandDayTooltipText | The tooltip text that should be used for for the "Expand Day" button. |
-| *Object[]* | dayHeaderNames | The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]'). |
-| *Object[]* | dayNames | The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]'). |
-| *Object[]* | monthNames | The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]'). |
+| *string[]* | dayHeaderNames | The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]'). |
+| *string[]* | dayNames | The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]'). |
+| *string[]* | monthNames | The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]'). |
 | *string* | fromText | The text that should be displayed for the "From:" label. |
 | *string* | toText | The text that should be displayed for the "To:" label. |
 | *string* | isAllDayText | The text that should be displayed for the "Is All-Day" label. |

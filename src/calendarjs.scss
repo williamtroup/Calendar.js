@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.1
+ * Calendar.js Library v1.6.2
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -396,6 +396,7 @@ div.calendar {
         div.title-container {
             display: inline-block;
             position: relative;
+            font-size: $large-font-size !important;
 
             span {
                 white-space: nowrap;

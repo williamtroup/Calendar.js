@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+### Version 1.6.2:
+- Added new setting "weekendDays", which states the day numbers that should be treated as weekend days.
+- Fixed a fault that causes the drop-down menus and tooltips to move around when scrolling the document body.
+- Fixed the spacing used in the title bar when the calendar is viewed on a mobile device.
+- Added a colon to the "Advanced" checkbox on the "Search" dialog (to make it more obvious that it opens up).
+- Documentation improvements in the code and the .md documentation files to match up to JSDoc specifications.
+
 ### Version 1.6.1:
 - Fixed a fault that caused an invalid date to be formed when dragging & dropping in the "All Events" view.
 - Fixed a fault that allowed events to be dropped on the title bars in the "Weekly" and "All Events" views.

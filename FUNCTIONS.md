@@ -88,7 +88,7 @@ Sets the events and clears any existing ones.
 <br>
 ***Fires***:  onEventsSet
 <br>
-***Parameter: events***: '*Object[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
+***Parameter: events***: '*Event[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -110,7 +110,7 @@ Adds an array of new events.
 <br>
 ***Fires***:  onEventsAdded
 <br>
-***Parameter: events***: '*Object[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
+***Parameter: events***: '*Event[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -132,7 +132,7 @@ Adds a of new event.
 <br>
 ***Fires***:  onEventAdded
 <br>
-***Parameter: event***: '*Object*' - The event (refer to ["Event"](EVENT.md) documentation for properties).
+***Parameter: event***: '*Event*' - The event (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -145,7 +145,7 @@ Updates an array of existing events.
 <br>
 ***Fires***:  onEventsUpdated
 <br>
-***Parameter: events***: '*Object[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
+***Parameter: events***: '*Event[]*' - The array of events (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -158,7 +158,7 @@ Updates an existing event.
 <br>
 ***Parameter: id***: '*string*' - The ID of the event.
 <br>
-***Parameter: event***: '*Object*' - The event (refer to ["Event"](EVENT.md) documentation for properties).
+***Parameter: event***: '*Event*' - The event (refer to ["Event"](EVENT.md) documentation for properties).
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
@@ -210,7 +210,7 @@ Clears all the events.
 ### **getEvents()**:
 Returns an array of the events available.
 <br>
-***Returns***: '*Object[]*' - An array of the event.
+***Returns***: '*Event[]*' - An array of events.
 
 ### **getEvent( *id* )**:
 Returns an event that matches the ID passed.
@@ -222,7 +222,7 @@ Returns an event that matches the ID passed.
 ### **getAllGroups()**:
 Returns an array of group names being used.
 <br>
-***Returns***: '*Object[]*' - An array of the group names.
+***Returns***: '*string[]*' - An array of the group names.
 
 ### **clearAllGroups( *updateEvents*, *triggerEvent* )**:
 Clears all the event groups.
@@ -247,12 +247,12 @@ Removes a group by name.
 ### **setClipboardEvent( *event* )**:
 Set the clipboard event.
 <br>
-***Parameter: event***: '*Object*' - The event to set (refer to "Day Event" documentation for properties).
+***Parameter: event***: '*Event*' - The event to set (refer to "Day Event" documentation for properties).
 
 ### **getClipboardEvent()**:
 Returns the event copied in the clipboard.
 <br>
-***Returns***: '*Object*' - The copied event details.
+***Returns***: '*Event*' - The copied event details.
 
 ### **clearClipboard()**:
 Clears the internal clipboard.
@@ -267,7 +267,7 @@ Sets the specific options that should be used.
 <br>
 ***Fires***:  onOptionsUpdated
 <br>
-***Parameter: newOptions***: '*Object*' - All the options that should be set (refer to ["Options"](OPTIONS.md) documentation for properties).
+***Parameter: newOptions***: '*Options*' - All the options that should be set (refer to ["Options"](OPTIONS.md) documentation for properties).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
 
@@ -276,7 +276,7 @@ Sets the specific search options that should be used.
 <br>
 ***Fires***:  onSearchOptionsUpdated
 <br>
-***Parameter: newSearchOptions***: '*Object*' - All the search options that should be set (refer to ["Search Options"](SEARCH_OPTIONS.md) documentation for properties).
+***Parameter: newSearchOptions***: '*Search*' - All the search options that should be set (refer to ["Search Options"](SEARCH_OPTIONS.md) documentation for properties).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onSearchOptionsUpdated" event should be triggered.
 
@@ -285,7 +285,7 @@ Adds new holidays.
 <br>
 ***Fires***:  onOptionsUpdated
 <br>
-***Parameter: holidays***: '*Object*' - The holidays to add (refer to "Holiday" documentation for properties).
+***Parameter: holidays***: '*Holiday[]*' - The holidays to add (refer to "Holiday" documentation for properties).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
 <br>
@@ -296,7 +296,7 @@ Removes holidays.
 <br>
 ***Fires***:  onOptionsUpdated
 <br>
-***Parameter: holidayNames***: '*Object*' - The names of the holidays to remove (case sensitive).
+***Parameter: holidayNames***: '*string[]*' - The names of the holidays to remove (case sensitive).
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
 <br>

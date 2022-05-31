@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.1
+ * Calendar.js Library v1.6.2
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -487,6 +487,7 @@ div.calendar div.header-date {
 div.calendar div.header-date div.title-container {
   display: inline-block;
   position: relative;
+  font-size: 0.9rem !important;
 }
 
 div.calendar div.header-date div.title-container span {

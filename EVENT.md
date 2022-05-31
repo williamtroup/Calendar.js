@@ -15,7 +15,7 @@ Below is the format that is expected for an event object when calling "addEvents
 | *string* | colorBorder | The color that should be used for the event border (overrides all others). |
 | *boolean* | isAllDay | States if this event is for all-day. |
 | *number* | repeatEvery | States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every 2 Weeks, 4 = Every Month, 5 = Every Year, 6 = Custom). |
-| *Object[]* | repeatEveryExcludeDays | States the days that should be excluded when an event is repeated. |
+| *number[]* | repeatEveryExcludeDays | States the days that should be excluded when an event is repeated. |
 | *Object[]* | seriesIgnoreDates | States the dates (string format) that should be ignored when an event is repeated. |
 | *Object* | created | The date that the event was created. |
 | *string* | organizerName | The name of the organizer. |
