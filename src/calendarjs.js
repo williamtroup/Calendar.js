@@ -1056,16 +1056,24 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function getDataPickerInputValueDate() {
-        var values = _datePickerInput.value.split( "/" );
+        var values = _datePickerInput.value.split( "/" ),
+            valuesDate = null;
+
         if ( values.length === 3 ) {
 
-            var newDate = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
-            if ( newDate instanceof Date && !isNaN( newDate ) ) {
-                _currentDateForDatePicker = newDate;
-
-                updateDatePickerInputValueDisplay( newDate );
+            var newDateFromValues = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
+            if ( newDateFromValues instanceof Date && !isNaN( newDateFromValues ) ) {
+                valuesDate = newDateFromValues;
             }
         }
+
+        if ( valuesDate === null ) {
+            valuesDate = new Date();
+        } else {
+            updateDatePickerInputValueDisplay( valuesDate );
+        }
+
+        _currentDateForDatePicker = valuesDate;
     }
 
     function isDateValidForDatePicker( newDate ) {
