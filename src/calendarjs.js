@@ -978,7 +978,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
-            build( new Date( _currentDateForDatePicker ) );
+            build( new Date( _currentDateForDatePicker ), !_initialized );
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
@@ -7918,7 +7918,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
             _initialized = false;
 
-            build( _currentDate, true );
+            if ( !_datePickerModeEnabled || _datePickerVisible ) {
+                build( _currentDate, true );
+            }
         }
     };
 
