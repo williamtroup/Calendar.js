@@ -1011,7 +1011,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isYearSelectorDropDownVisible() ) {
             var newDate = new Date( date );
-
+            newDate.setHours( 0, 0, 0, 0 );
+            
             hideDatePickerMode();
             updateDatePickerInputValueDisplay( date );
             triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
@@ -1072,6 +1073,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         } else {
             updateDatePickerInputValueDisplay( valuesDate );
         }
+
+        valuesDate.setHours( 0, 0, 0, 0 );
 
         _currentDateForDatePicker = valuesDate;
     }
@@ -7195,11 +7198,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             newDateAllowed = isDateValidForDatePicker( newDate );
         
         if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
+            newDate.setHours( 0, 0, 0, 0 );
+
             hideDatePickerMode();
             updateDatePickerInputValueDisplay( newDate );
             triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
 
-            _currentDateForDatePicker = new Date( date );
+            _currentDateForDatePicker = newDate;
         }
     };
 

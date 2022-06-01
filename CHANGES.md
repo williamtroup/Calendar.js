@@ -4,6 +4,7 @@
 - Fixed a fault that caused DatePicker mode to render all the dialogs and drop-down menus when they are not needed.
 - Fixed a fault that would cause the DatePicker mode to show only the current month when opened (not the selected).
 - Fixed a fault that caused DatePicker mode to show the default date when an invalid value is specified in the input value.
+- Fixed a fault that caused hours, minutes, and seconds, to be included in Dates returned in DatePicker mode.
 - 
 
 ### Version 1.6.2:
