@@ -5778,9 +5778,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function runBrowserNotificationAction( action, writeConsoleLog ) {
-        writeConsoleLog = isDefined( writeConsoleLog ) ? writeConsoleLog : true;
+        if ( _options.eventNotificationsEnabled && !_datePickerModeEnabled ) {
+            writeConsoleLog = isDefined( writeConsoleLog ) ? writeConsoleLog : true;
 
-        if ( _options.eventNotificationsEnabled ) {
             if ( !Notification ) {
                 if ( writeConsoleLog ) {
                     console.error( "Browser notifications API unavailable." );
@@ -7003,7 +7003,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @public
      */
     this.turnOnFullScreen = function() {
-        turnOnFullScreenMode();
+        if ( !_datePickerModeEnabled ) {
+            turnOnFullScreenMode();
+        }
     };
 
     /**
@@ -7014,7 +7016,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @public
      */
     this.turnOffFullScreen = function() {
-        turnOffFullScreenMode();
+        if ( !_datePickerModeEnabled ) {
+            turnOffFullScreenMode();
+        }
     };
 
     /**
@@ -7038,9 +7042,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @public
      */
     this.startTheAutoRefreshTimer = function() {
-        _timer_RefreshMainDisplay_Enabled = true;
+        if ( !_datePickerModeEnabled ) {
+            _timer_RefreshMainDisplay_Enabled = true;
 
-        startAutoRefreshTimer();
+            startAutoRefreshTimer();
+        }
     };
 
     /**
@@ -7051,9 +7057,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @public
      */
     this.stopTheAutoRefreshTimer = function() {
-        clearAutoRefreshTimer();
+        if ( !_datePickerModeEnabled ) {
+            clearAutoRefreshTimer();
         
-        _timer_RefreshMainDisplay_Enabled = false;
+            _timer_RefreshMainDisplay_Enabled = false;
+        }
     };
 
     /**
@@ -7162,11 +7170,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
      this.setCurrentDisplayDate = function( date ) {
-        var newDate = new Date( date );
+        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+            var newDate = new Date( date );
 
-        if ( !doDatesMatch( _currentDate, newDate ) ) {
-            build( newDate );
-            triggerOptionsEventWithData( "onSetDate", newDate );
+            if ( !doDatesMatch( _currentDate, newDate ) ) {
+                build( newDate );
+                triggerOptionsEventWithData( "onSetDate", newDate );
+            }
         }
     };
 
@@ -7180,7 +7190,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {Object}                                                A Date() object.
      */
     this.getSelectedDatePickerDate = function() {
-        return new Date( _currentDateForDatePicker );
+        return _datePickerModeEnabled ? new Date( _currentDateForDatePicker ) : null;
     };
 
     /**
@@ -7194,17 +7204,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
     this.setSelectedDatePickerDate = function( date ) {
-        var newDate = new Date( date ),
-            newDateAllowed = isDateValidForDatePicker( newDate );
-        
-        if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
-            newDate.setHours( 0, 0, 0, 0 );
+        if ( _datePickerModeEnabled ) {
+            var newDate = new Date( date ),
+                newDateAllowed = isDateValidForDatePicker( newDate );
+            
+            if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
+                newDate.setHours( 0, 0, 0, 0 );
 
-            hideDatePickerMode();
-            updateDatePickerInputValueDisplay( newDate );
-            triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+                hideDatePickerMode();
+                updateDatePickerInputValueDisplay( newDate );
+                triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
 
-            _currentDateForDatePicker = newDate;
+                _currentDateForDatePicker = newDate;
+            }
         }
     };
 
@@ -7219,7 +7231,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
      */
     this.exportAllEvents = function( type ) {
-        if ( _options.exportEventsEnabled ) {
+        if ( _options.exportEventsEnabled && !_datePickerModeEnabled ) {
             type = !isDefinedString( type ) ? "csv" : type;
 
             exportEvents( null, type );
@@ -7234,7 +7246,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @public
      */
     this.refresh = function() {
-        refreshViews();
+        if ( !_datePickerModeEnabled ) {
+            refreshViews();
+        }
     };
 
     function moveBackMonth( e ) {
@@ -7242,11 +7256,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             cancelBubble( e );
         }
 
-        var previousMonth = new Date( _currentDate );
-        previousMonth.setMonth( previousMonth.getMonth() - 1 );
-
-        build( previousMonth );
-        triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+            var previousMonth = new Date( _currentDate );
+            previousMonth.setMonth( previousMonth.getMonth() - 1 );
+    
+            build( previousMonth );
+            triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+        }
     }
 
     function moveForwardMonth( e ) {
@@ -7254,35 +7270,43 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             cancelBubble( e );
         }
 
-        var nextMonth = new Date( _currentDate );
-        nextMonth.setMonth( nextMonth.getMonth() + 1 );
-
-        build( nextMonth );
-        triggerOptionsEventWithData( "onNextMonth", nextMonth );
+        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+            var nextMonth = new Date( _currentDate );
+            nextMonth.setMonth( nextMonth.getMonth() + 1 );
+    
+            build( nextMonth );
+            triggerOptionsEventWithData( "onNextMonth", nextMonth );
+        }
     }
 
     function moveBackYear() {
-        var previousYear = new Date( _currentDate );
-        previousYear.setFullYear( previousYear.getFullYear() - 1 );
-
-        build( previousYear );
-        triggerOptionsEventWithData( "onPreviousYear", previousYear );
+        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+            var previousYear = new Date( _currentDate );
+            previousYear.setFullYear( previousYear.getFullYear() - 1 );
+    
+            build( previousYear );
+            triggerOptionsEventWithData( "onPreviousYear", previousYear );
+        }
     }
 
     function moveForwardYear() {
-        var nextYear = new Date( _currentDate );
-        nextYear.setFullYear( nextYear.getFullYear() + 1 );
-
-        build( nextYear );
-        triggerOptionsEventWithData( "onNextYear", nextYear );
+        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+            var nextYear = new Date( _currentDate );
+            nextYear.setFullYear( nextYear.getFullYear() + 1 );
+    
+            build( nextYear );
+            triggerOptionsEventWithData( "onNextYear", nextYear );
+        }
     }
 
     function moveToday() {
-        var today = new Date();
+        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+            var today = new Date();
 
-        if ( _currentDate.getMonth() !== today.getMonth() || _currentDate.getFullYear() !== today.getFullYear() ) {
-            build();
-            triggerOptionsEvent( "onToday" );
+            if ( _currentDate.getMonth() !== today.getMonth() || _currentDate.getFullYear() !== today.getFullYear() ) {
+                build();
+                triggerOptionsEvent( "onToday" );
+            }
         }
     }
 
@@ -7306,13 +7330,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsSet" event should be triggered.
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-        _events = {};
-
-        this.addEvents( events, updateEvents, false );
-
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onEventsSet", events );
+        if ( !_datePickerModeEnabled ) {
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            _events = {};
+    
+            this.addEvents( events, updateEvents, false );
+    
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onEventsSet", events );
+            }
         }
     };
 
@@ -7329,18 +7355,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsSetFromJSON" event should be triggered.
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        if ( !_datePickerModeEnabled ) {
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
-        var dataObject = getObjectFromString( json );
-
-        if ( isDefinedArray( dataObject ) ) { 
-            this.setEvents( dataObject, updateEvents, false );
-        } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
-            this.setEvents( dataObject.events, updateEvents, false );
-        }
-
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onEventsSetFromJSON", json );
+            var dataObject = getObjectFromString( json );
+    
+            if ( isDefinedArray( dataObject ) ) { 
+                this.setEvents( dataObject, updateEvents, false );
+            } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
+                this.setEvents( dataObject.events, updateEvents, false );
+            }
+    
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onEventsSetFromJSON", json );
+            }
         }
     };
 
@@ -7357,23 +7385,25 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsAdded" event should be triggered.
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
-        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-
-        var eventsLength = events.length;
-        for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-            var event = events[ eventIndex ];
-
-            this.addEvent( event, false, false, false );
-        }
-
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onEventsAdded", events );
-        }
-
-        if ( updateEvents ) {
-            buildDayEvents();
-            refreshOpenedViews();
+        if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+            var eventsLength = events.length;
+            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                var event = events[ eventIndex ];
+    
+                this.addEvent( event, false, false, false );
+            }
+    
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onEventsAdded", events );
+            }
+    
+            if ( updateEvents ) {
+                buildDayEvents();
+                refreshOpenedViews();
+            }
         }
     };
 
@@ -7390,18 +7420,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsAddedFromJSON" event should be triggered.
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        if ( !_datePickerModeEnabled ) {
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
-        var dataObject = getObjectFromString( json );
-
-        if ( isDefinedArray( dataObject ) ) { 
-            this.addEvents( dataObject, updateEvents, false );
-        } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
-            this.addEvents( dataObject.events, updateEvents, false );
-        }
-
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onEventsAddedFromJSON", json );
+            var dataObject = getObjectFromString( json );
+    
+            if ( isDefinedArray( dataObject ) ) { 
+                this.addEvents( dataObject, updateEvents, false );
+            } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
+                this.addEvents( dataObject.events, updateEvents, false );
+            }
+    
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onEventsAddedFromJSON", json );
+            }
         }
     };
 
@@ -7422,90 +7454,92 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
     this.addEvent = function( event, updateEvents, triggerEvent, setLastUpdated ) {
         var added = false;
-        
-        setLastUpdated = !isDefinedBoolean( setLastUpdated ) ? true : setLastUpdated;
 
-        if ( isDefinedString( event.from ) ) {
-            event.from = new Date( event.from );
-        }
+        if ( !_datePickerModeEnabled ) {
+            setLastUpdated = !isDefinedBoolean( setLastUpdated ) ? true : setLastUpdated;
 
-        if ( isDefinedString( event.to ) ) {
-            event.to = new Date( event.to );
-        }
-
-        if ( isDefinedString( event.repeatEnds ) ) {
-            event.repeatEnds = new Date( event.repeatEnds );
-        }
-
-        if ( isDefinedString( event.created ) ) {
-            event.created = new Date( event.created );
-        }
-
-        if ( isDefinedString( event.lastUpdated ) ) {
-            event.lastUpdated = new Date( event.lastUpdated );
-        }
-
-        if ( event.from <= event.to ) {
-            var storageDate = toStorageDate( event.from ),
-                storageGuid = newGuid(),
-                title = getString( event.title ),
-                description = getString( event.description ),
-                location = getString( event.location ),
-                group = getString( event.group ),
-                url = getString( event.url );
-
-            if ( !_events.hasOwnProperty( storageDate ) ) {
-                _events[ storageDate ] = {};
+            if ( isDefinedString( event.from ) ) {
+                event.from = new Date( event.from );
             }
-
-            if ( !_events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-
-                if ( !isDefined( event.id ) ) {
-                    event.id = storageGuid;
-                } else {
-                    storageGuid = event.id;
+    
+            if ( isDefinedString( event.to ) ) {
+                event.to = new Date( event.to );
+            }
+    
+            if ( isDefinedString( event.repeatEnds ) ) {
+                event.repeatEnds = new Date( event.repeatEnds );
+            }
+    
+            if ( isDefinedString( event.created ) ) {
+                event.created = new Date( event.created );
+            }
+    
+            if ( isDefinedString( event.lastUpdated ) ) {
+                event.lastUpdated = new Date( event.lastUpdated );
+            }
+    
+            if ( event.from <= event.to ) {
+                var storageDate = toStorageDate( event.from ),
+                    storageGuid = newGuid(),
+                    title = getString( event.title ),
+                    description = getString( event.description ),
+                    location = getString( event.location ),
+                    group = getString( event.group ),
+                    url = getString( event.url );
+    
+                if ( !_events.hasOwnProperty( storageDate ) ) {
+                    _events[ storageDate ] = {};
                 }
-
-                if ( _options.maximumEventTitleLength > 0 && title !== "" && title.length > _options.maximumEventTitleLength ) {
-                    event.title = event.title.substring( 0, _options.maximumEventTitleLength );
-                }
-
-                if ( _options.maximumEventDescriptionLength > 0 && description !== "" && description.length > _options.maximumEventDescriptionLength ) {
-                    event.description = event.description.substring( 0, _options.maximumEventDescriptionLength );
-                }
-
-                if ( _options.maximumEventLocationLength > 0 && location !== "" && location.length > _options.maximumEventLocationLength ) {
-                    event.location = event.location.substring( 0, _options.maximumEventLocationLength );
-                }
-
-                if ( _options.maximumEventGroupLength > 0 && group !== "" && group.length > _options.maximumEventGroupLength ) {
-                    event.group = event.group.substring( 0, _options.maximumEventGroupLength );
-                }
-
-                if ( url !== "" && !isValidUrl( url ) ) {
-                    event.url = "";
-                }
-
-                if ( !isDefinedDate( event.created ) ) {
-                    event.created = new Date();
-                }
-
-                if ( setLastUpdated ) {
-                    event.lastUpdated = new Date();
-                }
-
-                _events[ storageDate ][ storageGuid ] = getAdjustedAllDayEvent( event );
-                added = true;
-
-                if ( triggerEvent ) {
-                    triggerOptionsEventWithData( "onEventAdded", event );
-                }
-        
-                if ( updateEvents ) {
-                    buildDayEvents();
-                    refreshOpenedViews();
+    
+                if ( !_events[ storageDate ].hasOwnProperty( storageGuid ) ) {
+                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+                    if ( !isDefined( event.id ) ) {
+                        event.id = storageGuid;
+                    } else {
+                        storageGuid = event.id;
+                    }
+    
+                    if ( _options.maximumEventTitleLength > 0 && title !== "" && title.length > _options.maximumEventTitleLength ) {
+                        event.title = event.title.substring( 0, _options.maximumEventTitleLength );
+                    }
+    
+                    if ( _options.maximumEventDescriptionLength > 0 && description !== "" && description.length > _options.maximumEventDescriptionLength ) {
+                        event.description = event.description.substring( 0, _options.maximumEventDescriptionLength );
+                    }
+    
+                    if ( _options.maximumEventLocationLength > 0 && location !== "" && location.length > _options.maximumEventLocationLength ) {
+                        event.location = event.location.substring( 0, _options.maximumEventLocationLength );
+                    }
+    
+                    if ( _options.maximumEventGroupLength > 0 && group !== "" && group.length > _options.maximumEventGroupLength ) {
+                        event.group = event.group.substring( 0, _options.maximumEventGroupLength );
+                    }
+    
+                    if ( url !== "" && !isValidUrl( url ) ) {
+                        event.url = "";
+                    }
+    
+                    if ( !isDefinedDate( event.created ) ) {
+                        event.created = new Date();
+                    }
+    
+                    if ( setLastUpdated ) {
+                        event.lastUpdated = new Date();
+                    }
+    
+                    _events[ storageDate ][ storageGuid ] = getAdjustedAllDayEvent( event );
+                    added = true;
+    
+                    if ( triggerEvent ) {
+                        triggerOptionsEventWithData( "onEventAdded", event );
+                    }
+            
+                    if ( updateEvents ) {
+                        buildDayEvents();
+                        refreshOpenedViews();
+                    }
                 }
             }
         }
@@ -7526,23 +7560,25 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
-        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-
-        var eventsLength = events.length;
-        for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-            var event = events[ eventIndex ];
-
-            this.updateEvent( event.id, event, false, false );
-        }
-
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onEventsUpdated", events );
-        }
-
-        if ( updateEvents ) {
-            buildDayEvents();
-            refreshOpenedViews();
+        if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+            var eventsLength = events.length;
+            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                var event = events[ eventIndex ];
+    
+                this.updateEvent( event.id, event, false, false );
+            }
+    
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onEventsUpdated", events );
+            }
+    
+            if ( updateEvents ) {
+                buildDayEvents();
+                refreshOpenedViews();
+            }
         }
     };
 
@@ -7562,18 +7598,23 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {boolean}                                               States if the event was updated.
      */
     this.updateEvent = function( id, event, updateEvents, triggerEvent ) {
-        var updated = this.removeEvent( id, false, false );
-        if ( updated ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        var updated = false;
 
-            updated = this.addEvent( event, updateEvents, false );
+        if ( !_datePickerModeEnabled ) {
+            updated = this.removeEvent( id, false, false );
 
-            if ( updated && triggerEvent ) {
-                triggerOptionsEventWithData( "onEventUpdated", event );
+            if ( updated ) {
+                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+                updated = this.addEvent( event, updateEvents, false );
+    
+                if ( updated && triggerEvent ) {
+                    triggerOptionsEventWithData( "onEventUpdated", event );
+                }
             }
         }
-        
+
         return updated;
     };
 
@@ -7597,28 +7638,30 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.updateEventDateTimes = function( id, from, to, repeatEnds, updateEvents, triggerEvent ) {
         var updated = false;
 
-        getAllEventsFunc( function( event ) {
-            if ( event.id === id ) {
-                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-
-                event.from = from;
-                event.to = to;
-                event.repeatEnds = repeatEnds;
-                updated = true;
-
-                if ( triggerEvent ) {
-                    triggerOptionsEventWithData( "onEventUpdated", event );
+        if ( !_datePickerModeEnabled ) {
+            getAllEventsFunc( function( event ) {
+                if ( event.id === id ) {
+                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+                    event.from = from;
+                    event.to = to;
+                    event.repeatEnds = repeatEnds;
+                    updated = true;
+    
+                    if ( triggerEvent ) {
+                        triggerOptionsEventWithData( "onEventUpdated", event );
+                    }
+    
+                    if ( updateEvents ) {
+                        buildDayEvents();
+                        refreshOpenedViews();
+                    }
+    
+                    return true;
                 }
-
-                if ( updateEvents ) {
-                    buildDayEvents();
-                    refreshOpenedViews();
-                }
-
-                return true;
-            }
-        } );
+            } );
+        }
         
         return updated;
     };
@@ -7640,26 +7683,28 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.removeEvent = function( id, updateEvents, triggerEvent ) {
         var removed = false;
 
-        getAllEventsFunc( function( event, storageDate, storageGuid ) {
-            if ( storageGuid === id ) {
-                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-
-                delete _events[ storageDate ][ storageGuid ];
-                removed = true;
-
-                if ( triggerEvent ) {
-                    triggerOptionsEventWithData( "onEventRemoved", event );
+        if ( !_datePickerModeEnabled ) {
+            getAllEventsFunc( function( event, storageDate, storageGuid ) {
+                if ( storageGuid === id ) {
+                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+                    delete _events[ storageDate ][ storageGuid ];
+                    removed = true;
+    
+                    if ( triggerEvent ) {
+                        triggerOptionsEventWithData( "onEventRemoved", event );
+                    }
+    
+                    if ( updateEvents ) {
+                        buildDayEvents();
+                        refreshOpenedViews();
+                    }
+    
+                    return true;
                 }
-
-                if ( updateEvents ) {
-                    buildDayEvents();
-                    refreshOpenedViews();
-                }
-
-                return true;
-            }
-        } );
+            } );
+        }
 
         return removed;
     };
@@ -7676,18 +7721,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onEventsCleared" event should be triggered.
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
-        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-
-        _events = {};
-
-        if ( triggerEvent ) {
-            triggerOptionsEvent( "onEventsCleared" );
-        }
-
-        if ( updateEvents ) {
-            buildDayEvents();
-            refreshOpenedViews();
+        if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+            _events = {};
+    
+            if ( triggerEvent ) {
+                triggerOptionsEvent( "onEventsCleared" );
+            }
+    
+            if ( updateEvents ) {
+                buildDayEvents();
+                refreshOpenedViews();
+            }
         }
     };
 
@@ -7701,7 +7748,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {Event[]}                                               An array of events.
      */
     this.getEvents = function() {
-        return getOrderedEvents( getAllEvents() );
+        var events = [];
+
+        if ( !_datePickerModeEnabled ) {
+            events = getOrderedEvents( getAllEvents() );
+        }
+
+        return events;
     };
 
     /**
@@ -7718,12 +7771,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     this.getEvent = function( id ) {
         var returnEvent = null;
 
-        getAllEventsFunc( function( event ) {
-            if ( event.id === id ) {
-                returnEvent = event;
-                return true;
-            }
-        } );
+        if ( !_datePickerModeEnabled ) {
+            getAllEventsFunc( function( event ) {
+                if ( event.id === id ) {
+                    returnEvent = event;
+                    return true;
+                }
+            } );
+        }
 
         return returnEvent;
     };
@@ -7764,20 +7819,22 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
-        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
-        getAllEventsFunc( function( event ) {
-            event.group = null;
-        } );
+            getAllEventsFunc( function( event ) {
+                event.group = null;
+            } );
 
-        if ( triggerEvent ) {
-            triggerOptionsEvent( "onGroupsCleared" );
-        }
+            if ( triggerEvent ) {
+                triggerOptionsEvent( "onGroupsCleared" );
+            }
 
-        if ( updateEvents ) {
-            buildDayEvents();
-            refreshOpenedViews();
+            if ( updateEvents ) {
+                buildDayEvents();
+                refreshOpenedViews();
+            }
         }
     };
 
@@ -7794,24 +7851,26 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
-        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+        if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
-        var checkGroupName = groupName.toLowerCase();
+            var checkGroupName = groupName.toLowerCase();
 
-        getAllEventsFunc( function( event ) {
-            if ( event.group !== null && event.group.toLowerCase() === checkGroupName ) {
-                event.group = null;
+            getAllEventsFunc( function( event ) {
+                if ( event.group !== null && event.group.toLowerCase() === checkGroupName ) {
+                    event.group = null;
+                }
+            } );
+
+            if ( triggerEvent ) {
+                triggerOptionsEvent( "onGroupRemoved", groupName );
             }
-        } );
 
-        if ( triggerEvent ) {
-            triggerOptionsEvent( "onGroupRemoved", groupName );
-        }
-
-        if ( updateEvents ) {
-            buildDayEvents();
-            refreshOpenedViews();
+            if ( updateEvents ) {
+                buildDayEvents();
+                refreshOpenedViews();
+            }
         }
     };
 
@@ -7936,19 +7995,21 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   triggerEvent                                States if the "onSearchOptionsUpdated" event should be triggered.
      */
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
-        newSearchOptions = getOptions( newSearchOptions );
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-
-        hideSearchDialog();
-
-        for ( var propertyName in newSearchOptions ) {
-            if ( newSearchOptions.hasOwnProperty( propertyName ) ) {
-                _optionsForSearch[ propertyName ] = newSearchOptions[ propertyName ];
+        if ( !_datePickerModeEnabled ) {
+            newSearchOptions = getOptions( newSearchOptions );
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+            hideSearchDialog();
+    
+            for ( var propertyName in newSearchOptions ) {
+                if ( newSearchOptions.hasOwnProperty( propertyName ) ) {
+                    _optionsForSearch[ propertyName ] = newSearchOptions[ propertyName ];
+                }
             }
-        }
-
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+    
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+            }
         }
     };
 
@@ -7965,17 +8026,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-
-        _options.holidays = _options.holidays.concat( holidays );
-
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onOptionsUpdated", _options );
-        }
-
-        if ( updateEvents ) {
-            build( _currentDate, true );
+        if ( !_datePickerModeEnabled ) {
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+    
+            _options.holidays = _options.holidays.concat( holidays );
+    
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+            }
+    
+            if ( updateEvents ) {
+                build( _currentDate, true );
+            }   
         }
     };
 
@@ -7992,29 +8055,31 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
-        triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-        updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+        if ( !_datePickerModeEnabled ) {
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
 
-        var holidaysLength = _options.holidays.length,
-            holidaysRemaining = [];
+            var holidaysLength = _options.holidays.length,
+                holidaysRemaining = [];
 
-        for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-            var holiday = _options.holidays[ holidayIndex ],
-                holidayText = getString( holiday.title, "" );
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, "" );
 
-            if ( holidayNames.indexOf( holidayText ) === -1 ) {
-                holidaysRemaining.push( holiday );
+                if ( holidayNames.indexOf( holidayText ) === -1 ) {
+                    holidaysRemaining.push( holiday );
+                }
             }
-        }
 
-        _options.holidays = holidaysRemaining;
+            _options.holidays = holidaysRemaining;
 
-        if ( triggerEvent ) {
-            triggerOptionsEventWithData( "onOptionsUpdated", _options );
-        }
+            if ( triggerEvent ) {
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+            }
 
-        if ( updateEvents ) {
-            build( _currentDate, true );
+            if ( updateEvents ) {
+                build( _currentDate, true );
+            }
         }
     };
 
