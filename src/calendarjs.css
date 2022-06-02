@@ -159,7 +159,7 @@ div.calendar-date-picker input.calendar-date-picker-input {
   padding: .375rem .75rem;
   line-height: 21px;
   color: #282828;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   background-color: #FFFFFF;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;

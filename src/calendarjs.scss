@@ -89,7 +89,7 @@ div.calendar-date-picker {
     position: relative;
 
     input.calendar-date-picker-input {
-        @include input-fields($width: auto, $margin-bottom: 0);
+        @include input-fields($width: auto, $margin-bottom: 0 !important);
     }
 
     div.calendar-hidden {
