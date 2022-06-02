@@ -4847,10 +4847,14 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             titleBar.ondblclick = minimizeRestoreDialog;
             _element_SearchDialog.appendChild( titleBar );
     
-            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSearchDialog );
+            var closeButton = buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSearchDialog );
+            closeButton.onmousedown = cancelBubble;
+            closeButton.onmouseup = cancelBubble;
             
             _element_SearchDialog_MinimizedRestoreButton = buildToolbarButton( titleBar, "ib-minus", _options.minimizedTooltipText, minimizeRestoreDialog );
-    
+            _element_SearchDialog_MinimizedRestoreButton.onmousedown = cancelBubble;
+            _element_SearchDialog_MinimizedRestoreButton.onmouseup = cancelBubble;
+
             _element_SearchDialog_Contents = createElement( "div", "contents" );
             _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
     
@@ -4921,6 +4925,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _element_SearchDialog_Advanced_Container.style.display = "none";
         }
         
+        centerSearchDialog();
         storeSearchOptions();
     }
 
@@ -5200,8 +5205,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
             _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
             _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
-            _optionsForSearch.left = _element_SearchDialog.offsetLeft;
-            _optionsForSearch.top = _element_SearchDialog.offsetTop;
+
+            if ( _element_SearchDialog_Moved ) {
+                _optionsForSearch.left = _element_SearchDialog.offsetLeft;
+                _optionsForSearch.top = _element_SearchDialog.offsetTop;
+            }
 
             triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
         }, 2000 );

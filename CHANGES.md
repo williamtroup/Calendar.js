@@ -4,6 +4,7 @@
 - Fixed a fault that caused the checkout/radio button input boxes to show up in the display.
 - The "Organizer Email" field in the "Configuration" dialog is now an email input field.
 - Fixed a fault that allowed the DatePicker input box to have its margin bottom overridden by other CSS selectors.
+- When selecting "Advanced" in the "Search" dialog, the dialog is now centered in the window (if it has not been moved manually).
 - 
 
 ### Version 1.6.3:
