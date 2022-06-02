@@ -193,13 +193,14 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | duplicateText | The text that should be displayed for the "Duplicate" label. |
 | *string* | showAlertsText | The text that should be displayed for the "Show Alerts" label. |
 | *string* | selectDatePlaceholderText | The text that should be displayed for the "Select date..." date-picker placeholder text. |
-| *string* | hideDayText | The text that should be displayed for the "Hide Day" date-picker placeholder text. |
+| *string* | hideDayText | The text that should be displayed for the "Hide Day" label. |
 | *string* | notSearchText | The text that should be displayed for the "Not (opposite)" label. |
 | *string* | showEmptyDaysInWeekViewText | The text that should be displayed for the "Show empty days in the week view" label. |
 | *string* | showHolidaysInTheDisplaysText | The text that should be displayed for the "Show holidays in the main display and title bars" label. |
 | *string* | newEventDefaultTitle | The default title that should be used for new events (defaults to "* New Event"). |
 | *string* | urlErrorMessage | The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label. |
 | *string* | dropDownMenuSymbol | The character symbol that is shown for a drop-down menu (defaults to "▾"). |
+| *string* | searchTextBoxPlaceholder | The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc..."). |
 
 <br/>
 

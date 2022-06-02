@@ -227,6 +227,7 @@
  * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
  * @property    {string}    dropDownMenuSymbol                          The character symbol that is shown for a drop-down menu (defaults to "▾").
+ * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -4874,6 +4875,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
     
             _element_SearchDialog_For = createElement( "input", null, "text" );
+            _element_SearchDialog_For.placeholder = _options.searchTextBoxPlaceholder;
             _element_SearchDialog_For.oninput = searchForTextChanged;
             _element_SearchDialog_For.onpropertychange = searchForTextChanged;
             _element_SearchDialog_For.onkeypress = searchOnEnter;
@@ -8939,6 +8941,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.dropDownMenuSymbol ) ) {
             _options.dropDownMenuSymbol = "▾";
+        }
+
+        if ( !isDefinedString( _options.searchTextBoxPlaceholder ) ) {
+            _options.searchTextBoxPlaceholder = "Search title, description, etc...";
         }
     }
 

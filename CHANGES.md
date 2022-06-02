@@ -9,6 +9,7 @@
 - Fixed a fault that prevented the "Refresh" button on the main displays title bar from doing anything.
 - Added "Refresh" title bar button support across available views (on the left side, as with the main display).
 - Added new setting "dropDownMenuSymbol", which states the drop-down menu character to use on the main display (defaults to "▾").
+- Added new setting "searchTextBoxPlaceholder", which states the placeholder text for "Search" dialogs input field.
 - 
 
 ### Version 1.6.3:
