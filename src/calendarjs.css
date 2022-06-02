@@ -165,6 +165,7 @@ div.calendar-date-picker input.calendar-date-picker-input {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.calendar-date-picker input.calendar-date-picker-input:last-child {
@@ -1445,6 +1446,7 @@ div.event-editor div.view textarea {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.event-editor div.view input:not([type="button"]):last-child,
@@ -1477,6 +1479,7 @@ div.event-editor div.view input:disabled {
 div.event-editor div.view textarea {
   height: 90px;
   resize: none;
+  max-height: none;
 }
 
 div.event-editor div.view p {
@@ -1739,6 +1742,7 @@ div.event-editor-colors input[type="text"] {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
   height: 40px;
 }
 
@@ -1932,6 +1936,7 @@ div.event-editor-repeat-options textarea {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.event-editor-repeat-options input:not([type="button"]):last-child,
@@ -2424,6 +2429,7 @@ div.search input[type="text"] {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.search input[type="text"]:last-child {
@@ -2622,6 +2628,7 @@ div.configuration div.contents input[type="text"] {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.configuration div.contents input[type="text"]:last-child {

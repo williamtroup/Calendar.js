@@ -936,6 +936,7 @@ div.event-editor {
         textarea {
             height: 90px;
             resize: none;
+            max-height: none;
         }
 
         p {

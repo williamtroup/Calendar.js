@@ -202,6 +202,7 @@ $area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
     background-color: $input-background-color;
     transition: $transition;
     box-sizing: border-box;
+    max-height: 35px;
 
     @if $height > 0px {
         height: $height;
