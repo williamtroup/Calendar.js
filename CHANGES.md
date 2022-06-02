@@ -1,5 +1,15 @@
 # Calendar.js - Change Log:
 
+### Version 1.6.3:
+- Fixed a fault that caused DatePicker mode to render all the dialogs and drop-down menus when they are not needed.
+- Fixed a fault that would cause the DatePicker mode to show only the current month when opened (not the selected).
+- Fixed a fault that caused DatePicker mode to show the default date when an invalid value is specified in the input value.
+- Fixed a fault that caused hours, minutes, and seconds, to be included in Dates returned in DatePicker mode.
+- Fixed a fault in the public function setOptions() which triggered a full rebuild in DatePicker mode (and it's hidden).
+- Public functions that affect the date displayed will only fire if not in DatePicker mode, or the DatePicker is visible.
+- Fixed a fault that allowed all Event, Group, Holiday (and others) public functions to trigger rebuilds in DatePicker mode.
+- Fixed a fault that caused input boxes to have the wrong line height.  They now all use one SCSS value.
+
 ### Version 1.6.2:
 - Added new setting "weekendDays", which states the day numbers that should be treated as weekend days.
 - Fixed a fault that causes the drop-down menus and tooltips to move around when scrolling the document body.

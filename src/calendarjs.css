@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.2
+ * Calendar.js Library v1.6.3
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -157,6 +157,7 @@ div.calendar-date-picker input.calendar-date-picker-input {
   outline: none;
   width: auto;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 0;
   background-color: #FFFFFF;
@@ -164,6 +165,7 @@ div.calendar-date-picker input.calendar-date-picker-input {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.calendar-date-picker input.calendar-date-picker-input:last-child {
@@ -1383,7 +1385,7 @@ div.event-editor div.ib-close {
 }
 
 div.event-editor div.tab-content {
-  height: 249px;
+  height: 258px;
   margin-bottom: 20px;
 }
 
@@ -1436,6 +1438,7 @@ div.event-editor div.view textarea {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -1443,6 +1446,7 @@ div.event-editor div.view textarea {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.event-editor div.view input:not([type="button"]):last-child,
@@ -1475,6 +1479,7 @@ div.event-editor div.view input:disabled {
 div.event-editor div.view textarea {
   height: 90px;
   resize: none;
+  max-height: none;
 }
 
 div.event-editor div.view p {
@@ -1729,6 +1734,7 @@ div.event-editor-colors input[type="text"] {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -1736,6 +1742,7 @@ div.event-editor-colors input[type="text"] {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
   height: 40px;
 }
 
@@ -1921,6 +1928,7 @@ div.event-editor-repeat-options textarea {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -1928,6 +1936,7 @@ div.event-editor-repeat-options textarea {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.event-editor-repeat-options input:not([type="button"]):last-child,
@@ -2412,6 +2421,7 @@ div.search input[type="text"] {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -2419,6 +2429,7 @@ div.search input[type="text"] {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.search input[type="text"]:last-child {
@@ -2609,6 +2620,7 @@ div.configuration div.contents input[type="text"] {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -2616,6 +2628,7 @@ div.configuration div.contents input[type="text"] {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  max-height: 35px;
 }
 
 div.configuration div.contents input[type="text"]:last-child {

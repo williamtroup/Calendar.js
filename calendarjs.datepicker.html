@@ -31,6 +31,10 @@
         <div class="contents date-picker">
             <input type="text" id="myCalendar3" value="30/05/2022" />
         </div>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar4" value="" />
+        </div>
         <br>
 
         <div class="contents">
@@ -38,12 +42,14 @@
             <button onclick="console.log( calendarInstance1.getSelectedDatePickerDate() );">Get Selected Date Picker Date (1)</button>
             <button onclick="console.log( calendarInstance2.getSelectedDatePickerDate() );">Get Selected Date Picker Date (2)</button>
             <button onclick="console.log( calendarInstance3.getSelectedDatePickerDate() );">Get Selected Date Picker Date (3)</button>
+            <button onclick="console.log( calendarInstance4.getSelectedDatePickerDate() );">Get Selected Date Picker Date (4)</button>
             <br>
 
             <h2>Set Date:</h2>
             <button onclick="calendarInstance1.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (1)</button>
             <button onclick="calendarInstance2.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (2)</button>
             <button onclick="calendarInstance3.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (3)</button>
+            <button onclick="calendarInstance4.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (4)</button>
         </div>
     </body>
 
@@ -60,6 +66,9 @@
             calendarInstance3 = new calendarJs( "myCalendar3", {
                 openInFullScreenMode: true,
                 datePickerSelectedDateFormat: "{d}-{m}-{yy}"
+            } ),
+            calendarInstance4 = new calendarJs( "myCalendar4", {
+                openInFullScreenMode: true
             } );
 
         document.title += " - v" + calendarInstance1.getVersion();
