@@ -8,6 +8,7 @@
 - Overlay views (Full Day, All Events, Weekly) now have their titles centered and the buttons both sides (like the main display).
 - Fixed a fault that prevented the "Refresh" button on the main displays title bar from doing anything.
 - Added "Refresh" title bar button support across available views (on the left side, as with the main display).
+- Added new setting "dropDownMenuSymbol", which states the drop-down menu character to use on the main display (defaults to "▾").
 - 
 
 ### Version 1.6.3:

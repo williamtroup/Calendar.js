@@ -226,6 +226,7 @@
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
+ * @property    {string}    dropDownMenuSymbol                          The character symbol that is shown for a drop-down menu (defaults to "▾").
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -612,7 +613,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             buildDropDownMenus();
         }
 
-        _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " ▾";
+        _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
     }
 
 
@@ -8934,6 +8935,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.urlErrorMessage ) ) {
             _options.urlErrorMessage = "Please enter a valid Url in the 'Url' field (or leave blank).";
+        }
+
+        if ( !isDefinedString( _options.dropDownMenuSymbol ) ) {
+            _options.dropDownMenuSymbol = "▾";
         }
     }
 
