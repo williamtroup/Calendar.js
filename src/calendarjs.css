@@ -157,6 +157,7 @@ div.calendar-date-picker input.calendar-date-picker-input {
   outline: none;
   width: auto;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 0;
   background-color: #FFFFFF;
@@ -1383,7 +1384,7 @@ div.event-editor div.ib-close {
 }
 
 div.event-editor div.tab-content {
-  height: 249px;
+  height: 258px;
   margin-bottom: 20px;
 }
 
@@ -1436,6 +1437,7 @@ div.event-editor div.view textarea {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -1729,6 +1731,7 @@ div.event-editor-colors input[type="text"] {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -1921,6 +1924,7 @@ div.event-editor-repeat-options textarea {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -2412,6 +2416,7 @@ div.search input[type="text"] {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
@@ -2609,6 +2614,7 @@ div.configuration div.contents input[type="text"] {
   outline: none;
   width: 100%;
   padding: .375rem .75rem;
+  line-height: 21px;
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;

@@ -8,6 +8,7 @@
 - Fixed a fault in the public function setOptions() which triggered a full rebuild in DatePicker mode (and it's hidden).
 - Public functions that effect the date displayed will only fire if not in DatePicker mode, or the DatePicker is visible.
 - Fixed a fault that allowed all Event, Group, Holiday (and others) public functions to trigger rebuilds in DatePicker mode.
+- Fixed a fault that caused input boxes to have thw wrong line height.  They now all use one SCSS value.
 - 
 
 ### Version 1.6.2:
