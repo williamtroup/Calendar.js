@@ -1951,6 +1951,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_FullDayView_Title = createElement( "div", "title" );
         titleBar.appendChild( _element_FullDayView_Title );
 
+        buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextDay );
         buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
 
         if ( _options.manualEditingEnabled ) {
@@ -1964,8 +1965,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 }
             } );
         }
-
-        buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextDay );
+        
         buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay );
 
         if ( _options.exportEventsEnabled ) {
@@ -1974,13 +1974,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
         _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
-
-        _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
 
         _element_FullDayView_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_FullDayView.appendChild( _element_FullDayView_Contents );
@@ -2740,6 +2739,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _element_ListAllWeekEventsView_Title = createElement( "div", "title" );
         titleBar.appendChild( _element_ListAllWeekEventsView_Title );
 
+        buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextWeek );
+
         buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
             _element_ListAllWeekEventsView_EventsShown = [];
 
@@ -2750,7 +2751,6 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
         }
 
-        buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextWeek );
         buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek );
 
         if ( _options.exportEventsEnabled ) {
@@ -2759,13 +2759,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
+
         _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
             _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
         }
-
-        buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
 
         _element_ListAllWeekEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_ListAllWeekEventsView.appendChild( _element_ListAllWeekEventsView_Contents );

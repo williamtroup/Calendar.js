@@ -5,6 +5,7 @@
 - The "Organizer Email" field in the "Configuration" dialog is now an email input field.
 - Fixed a fault that allowed the DatePicker input box to have its margin bottom overridden by other CSS selectors.
 - When selecting "Advanced" in the "Search" dialog, the dialog is now centered in the window (if it has not been moved manually).
+- Overlay views (Full Day, All Events, Weekly) now have their titles centered and the buttons both sides (like the main display).
 - 
 
 ### Version 1.6.3:

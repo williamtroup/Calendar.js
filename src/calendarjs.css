@@ -750,36 +750,40 @@ div.calendar div.full-day-view span.holiday {
 }
 
 div.calendar div.full-day-view div.title-bar {
-  width: calc(100% - 10px - 5px);
+  width: calc(100% - 10px);
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 5px;
   padding-right: 5px;
   background-color: #282828;
   color: #F5F5F5;
-}
-
-div.calendar div.full-day-view div.title-bar div {
-  margin-left: 5px;
-  margin-right: 5px;
+  text-align: center;
 }
 
 div.calendar div.full-day-view div.title-bar div.title {
   font-weight: 900 !important;
+  display: inline-block;
+}
+
+div.calendar div.full-day-view div.title-bar div {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.full-day-view div.title-bar div.ib-pin,
+div.calendar div.full-day-view div.title-bar div.ib-refresh,
+div.calendar div.full-day-view div.title-bar div.ib-search {
   float: left;
-  margin-left: 0;
 }
 
 div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.full-day-view div.title-bar div.ib-plus,
 div.calendar div.full-day-view div.title-bar div.ib-close,
-div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
-div.calendar div.full-day-view div.title-bar div.ib-pin,
-div.calendar div.full-day-view div.title-bar div.ib-search {
+div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
 }
 
@@ -788,7 +792,9 @@ div.calendar div.full-day-view div.title-bar div.ib-search {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-day-view div.title-bar div.ib-search,
+  div.calendar div.full-day-view div.title-bar div.ib-refresh {
     display: inline-block;
   }
 }
@@ -798,7 +804,9 @@ div.calendar div.full-day-view div.title-bar div.ib-search {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-day-view div.title-bar div.ib-search,
+  div.calendar div.full-day-view div.title-bar div.ib-refresh {
     display: none !important;
   }
 }
@@ -810,7 +818,6 @@ div.calendar div.full-day-view div.contents {
   overflow-y: auto;
   width: 100%;
   padding: 0 !important;
-  margin-top: -4px;
 }
 
 div.calendar div.full-day-view div.contents div.content-events-all-day {
@@ -1001,36 +1008,40 @@ div.calendar div.list-all-events-view {
 }
 
 div.calendar div.list-all-events-view div.title-bar {
-  width: calc(100% - 10px - 5px);
+  width: calc(100% - 10px);
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 5px;
   padding-right: 5px;
   background-color: #282828;
   color: #F5F5F5;
-}
-
-div.calendar div.list-all-events-view div.title-bar div {
-  margin-left: 5px;
-  margin-right: 5px;
+  text-align: center;
 }
 
 div.calendar div.list-all-events-view div.title-bar div.title {
   font-weight: 900 !important;
+  display: inline-block;
+}
+
+div.calendar div.list-all-events-view div.title-bar div {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.list-all-events-view div.title-bar div.ib-pin,
+div.calendar div.list-all-events-view div.title-bar div.ib-refresh,
+div.calendar div.list-all-events-view div.title-bar div.ib-search {
   float: left;
-  margin-left: 0;
 }
 
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.list-all-events-view div.title-bar div.ib-plus,
 div.calendar div.list-all-events-view div.title-bar div.ib-close,
-div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right,
-div.calendar div.list-all-events-view div.title-bar div.ib-pin,
-div.calendar div.list-all-events-view div.title-bar div.ib-search {
+div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
 }
 
@@ -1039,7 +1050,9 @@ div.calendar div.list-all-events-view div.title-bar div.ib-search {
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.list-all-events-view div.title-bar div.ib-search,
+  div.calendar div.list-all-events-view div.title-bar div.ib-refresh {
     display: inline-block;
   }
 }
@@ -1049,7 +1062,9 @@ div.calendar div.list-all-events-view div.title-bar div.ib-search {
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right {
+  div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.list-all-events-view div.title-bar div.ib-search,
+  div.calendar div.list-all-events-view div.title-bar div.ib-refresh {
     display: none !important;
   }
 }
@@ -1061,7 +1076,6 @@ div.calendar div.list-all-events-view div.contents {
   overflow-x: hidden;
   overflow-y: auto;
   width: calc(100% - (10px * 2));
-  margin-top: -4px;
 }
 
 @media screen and (min-width: 451px) {
@@ -1177,36 +1191,40 @@ div.calendar div.list-all-week-events-view {
 }
 
 div.calendar div.list-all-week-events-view div.title-bar {
-  width: calc(100% - 10px - 5px);
+  width: calc(100% - 10px);
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 5px;
   padding-right: 5px;
   background-color: #282828;
   color: #F5F5F5;
-}
-
-div.calendar div.list-all-week-events-view div.title-bar div {
-  margin-left: 5px;
-  margin-right: 5px;
+  text-align: center;
 }
 
 div.calendar div.list-all-week-events-view div.title-bar div.title {
   font-weight: 900 !important;
+  display: inline-block;
+}
+
+div.calendar div.list-all-week-events-view div.title-bar div {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-pin,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-search {
   float: left;
-  margin-left: 0;
 }
 
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-plus,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-close,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-pin,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-search {
+div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
 }
 
@@ -1215,7 +1233,9 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-search {
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-search,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh {
     display: inline-block;
   }
 }
@@ -1225,7 +1245,9 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-search {
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-search,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh {
     display: none !important;
   }
 }
@@ -1237,7 +1259,6 @@ div.calendar div.list-all-week-events-view div.contents {
   overflow-x: hidden;
   overflow-y: auto;
   width: calc(100% - (10px * 2));
-  margin-top: -4px;
 }
 
 @media screen and (min-width: 451px) {
