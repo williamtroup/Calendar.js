@@ -1327,7 +1327,7 @@ div.calendar-dialog {
         color: $dark-color;
 
         input {
-            display: none;
+            display: none !important;
 
             &:checked ~ span.check-mark {
                 background-color: $dark-color !important;
@@ -1395,7 +1395,7 @@ div.calendar-dialog {
             color: $dark-color;
     
             input {
-                display: none;
+                display: none !important;
     
                 &:checked ~ span.check-mark {
                     background-color: $dark-color !important;

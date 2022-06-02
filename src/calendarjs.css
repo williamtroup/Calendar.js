@@ -2846,7 +2846,7 @@ div.calendar-dialog label.checkbox {
 
 div.calendar label.checkbox input,
 div.calendar-dialog label.checkbox input {
-  display: none;
+  display: none !important;
 }
 
 div.calendar label.checkbox input:checked ~ span.check-mark,
@@ -2926,7 +2926,7 @@ div.calendar-dialog div.radioButtonContainer label.radioButton {
 
 div.calendar div.radioButtonContainer label.radioButton input,
 div.calendar-dialog div.radioButtonContainer label.radioButton input {
-  display: none;
+  display: none !important;
 }
 
 div.calendar div.radioButtonContainer label.radioButton input:checked ~ span.check-mark,
