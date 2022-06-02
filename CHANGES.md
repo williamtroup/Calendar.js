@@ -2,6 +2,7 @@
 
 ### Version 1.6.4:
 - Fixed a fault that caused the checkout/radio button input boxes to show up in the display.
+- The "Organizer Email" field in the "Configuration" dialog is now an email input field.
 - 
 
 ### Version 1.6.3:

@@ -1214,7 +1214,8 @@ div.configuration {
             margin-bottom: 8px;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        input[type="email"] {
             @include input-fields;
         }
 

@@ -5291,7 +5291,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     
             createTextHeaderElement( _element_ConfigurationDialog_Organizer, _options.organizerEmailAddressText );
     
-            _element_ConfigurationDialog_Organizer_Email = createElement( "input", null, "text" );
+            _element_ConfigurationDialog_Organizer_Email = createElement( "input", null, "email" );
             _element_ConfigurationDialog_Organizer.appendChild( _element_ConfigurationDialog_Organizer_Email );
     
             var buttonsSplitContainer = createElement( "div", "split" );
