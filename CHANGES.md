@@ -6,6 +6,8 @@
 - Fixed a fault that allowed the DatePicker input box to have its margin bottom overridden by other CSS selectors.
 - When selecting "Advanced" in the "Search" dialog, the dialog is now centered in the window (if it has not been moved manually).
 - Overlay views (Full Day, All Events, Weekly) now have their titles centered and the buttons both sides (like the main display).
+- Fixed a fault that prevented the "Refresh" button on the main displays title bar from doing anything.
+- Added "Refresh" title bar button support across available views (on the left side, as with the main display).
 - 
 
 ### Version 1.6.3:

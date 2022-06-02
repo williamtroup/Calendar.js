@@ -749,7 +749,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( _options.showExtraMainDisplayToolbarButtons ) {
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, refreshViews );
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, function() {
+                refreshViews( true );
+            } );
 
             _element_HeaderDateDisplay_SearchButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
             
@@ -1975,6 +1977,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
+
+        buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+            refreshViews( true );
+        } );
+
         _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
@@ -2540,6 +2547,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             } );
         }
 
+        buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+            refreshViews( true );
+        } );
+
         _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
         if ( _options.fullScreenModeEnabled ) {
@@ -2760,6 +2771,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
+        buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+            refreshViews( true );
+        } );
 
         _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
 
@@ -5827,8 +5841,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function refreshViews() {
-        if ( isOnlyMainDisplayVisible() ) {
+    function refreshViews( fromButton ) {
+        fromButton = isDefined( fromButton ) ? fromButton : false;
+
+        if ( isOnlyMainDisplayVisible() || fromButton ) {
             refreshOpenedViews();
             updateFullDayViewTimeArrowPosition();
 
