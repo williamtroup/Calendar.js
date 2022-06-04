@@ -10,6 +10,7 @@
 - Added "Refresh" title bar button support across available views (on the left side, as with the main display).
 - Added new setting "dropDownMenuSymbol", which states the drop-down menu character to use on the main display (defaults to "▾").
 - Added new setting "searchTextBoxPlaceholder", which states the placeholder text for "Search" dialogs input field.
+- Fixed a spacing issue with the last Group Name checkbox in the "Configuration" dialog (in the "Groups" tab).
 - 
 
 ### Version 1.6.3:

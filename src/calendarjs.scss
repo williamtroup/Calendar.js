@@ -1295,6 +1295,10 @@ div.calendar-dialog {
         label.checkbox {
             margin-bottom: $spacing / 2 !important;
         }
+
+        div:last-child label.checkbox {
+            margin-bottom: 0 !important;
+        }
     }
 
     label.checkbox-tabbed-in {
