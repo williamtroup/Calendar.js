@@ -1815,11 +1815,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function updateMainHeaderButtonsVisibleStates( orderedEventsLength ) {
         if ( _options.exportEventsEnabled ) {
-            updateToolbarButtonVisibleState( _element_HeaderDateDisplay_ExportEventsButton, orderedEventsLength );
+            updateToolbarButtonVisibleState( _element_HeaderDateDisplay_ExportEventsButton, orderedEventsLength > 0 );
         }
 
         if ( _element_HeaderDateDisplay_SearchButton !== null ) {
-            updateToolbarButtonVisibleState( _element_HeaderDateDisplay_SearchButton, orderedEventsLength );
+            updateToolbarButtonVisibleState( _element_HeaderDateDisplay_SearchButton, orderedEventsLength > 0 );
         }
     }
 
@@ -2055,13 +2055,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function showFullDayView( date, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        if ( _element_FullDayView_TodayButton !== null ) {
-            if ( _options.visibleDays.length < 7 ) {
-                _element_FullDayView_TodayButton.style.display = "none";
-            } else {
-                _element_FullDayView_TodayButton.style.display = "inline-block";
-            }
-        }
+        updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, _options.visibleDays.length == 7 );
 
         _element_FullDayView_Title.innerHTML = "";
         _element_FullDayView_DateSelected = new Date( date );
@@ -2150,10 +2144,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( _options.exportEventsEnabled ) {
-            updateToolbarButtonVisibleState( _element_FullDayView_ExportEventsButton, _element_FullDayView_EventsShown.length );
+            updateToolbarButtonVisibleState( _element_FullDayView_ExportEventsButton, _element_FullDayView_EventsShown.length > 0 );
         }
 
-        updateToolbarButtonVisibleState( _element_FullDayView_SearchButton, _element_FullDayView_EventsShown.length );
+        updateToolbarButtonVisibleState( _element_FullDayView_SearchButton, _element_FullDayView_EventsShown.length > 0 );
         adjustFullDayEventsThatOverlap();
     }
 
@@ -2588,10 +2582,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
         
         if ( _options.exportEventsEnabled ) {
-            updateToolbarButtonVisibleState( _element_ListAllEventsView_ExportEventsButton, _element_ListAllEventsView_EventsShown.length );
+            updateToolbarButtonVisibleState( _element_ListAllEventsView_ExportEventsButton, _element_ListAllEventsView_EventsShown.length > 0 );
         }
 
-        updateToolbarButtonVisibleState( _element_ListAllEventsView_SearchButton, _element_ListAllEventsView_EventsShown.length );
+        updateToolbarButtonVisibleState( _element_ListAllEventsView_SearchButton, _element_ListAllEventsView_EventsShown.length > 0 );
 
         if ( _element_ListAllEventsView_EventsShown.length === 0 ) {
             buildNoEventsAvailableText( _element_ListAllEventsView_Contents, addNewEvent );
@@ -2895,10 +2889,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( _options.exportEventsEnabled ) {
-            updateToolbarButtonVisibleState( _element_ListAllWeekEventsView_ExportEventsButton, _element_ListAllWeekEventsView_EventsShown.length );
+            updateToolbarButtonVisibleState( _element_ListAllWeekEventsView_ExportEventsButton, _element_ListAllWeekEventsView_EventsShown.length > 0 );
         }
 
-        updateToolbarButtonVisibleState( _element_ListAllWeekEventsView_SearchButton, _element_ListAllWeekEventsView_EventsShown.length );
+        updateToolbarButtonVisibleState( _element_ListAllWeekEventsView_SearchButton, _element_ListAllWeekEventsView_EventsShown.length > 0 );
 
         if ( _element_ListAllWeekEventsView_EventsShown.length === 0 ) {
             buildNoEventsAvailableText( _element_ListAllWeekEventsView_Contents, addNewEvent );
@@ -5573,6 +5567,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                         _element_Tooltip.appendChild( _element_Tooltip_Date );
                         _element_Tooltip.appendChild( _element_Tooltip_TotalTime );
 
+                        updateToolbarButtonVisibleState( _element_Tooltip_TitleButtons_EditButton, _options.manualEditingEnabled );
+
                         if ( isDefinedStringAndSet( eventDetails.url ) ) {
                             setNodeText( _element_Tooltip_Url, getShortUrlString( eventDetails.url ) );
                             addNode( _element_Tooltip, _element_Tooltip_Url );
@@ -6156,9 +6152,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function updateToolbarButtonVisibleState( button, count ) {
+    function updateToolbarButtonVisibleState( button, flag ) {
         if ( button !== null ) {
-            if ( count === 0 ) {
+            if ( !flag ) {
                 button.style.display = "none";
             } else {
                 button.style.display = "inline-block";

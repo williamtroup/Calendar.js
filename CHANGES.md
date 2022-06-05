@@ -13,6 +13,7 @@
 - Fixed a spacing issue with the last Group Name checkbox in the "Configuration" dialog (in the "Groups" tab).
 - Renamed the setting "showExtraMainDisplayToolbarButtons" to "showExtraToolbarButtons" (this now applies to overlay views as well).
 - Fixed a fault that prevented the Full Day view from option when "showExtraToolbarButtons" is set to false.
+- Fixed a fault that caused the "+" button on the event Tooltip to be visible when manual event editing is disabled.
 - 
 
 ### Version 1.6.3:
