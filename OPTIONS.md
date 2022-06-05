@@ -41,7 +41,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | defaultEventBackgroundColor | States the default background color that should be used for events (defaults to "#484848"). |
 | *string* | defaultEventTextColor | States the default text color that should be used for events (defaults to "#F5F5F5"). |
 | *string* | defaultEventBorderColor | States the default border color that should be used for events (defaults to "#282828"). |
-| *boolean* | showExtraMainDisplayToolbarButtons | States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true). |
+| *boolean* | showExtraToolbarButtons | States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true). |
 | *boolean* | openInFullScreenMode | States if full-screen mode should be turned on when the calendar is rendered (defaults to false). |
 | *boolean* | showEmptyDaysInWeekView | States if empty days should be shown in the Week view (defaults to true). |
 | *boolean* | hideEventsWithoutGroupAssigned | States if events without a group should be hidden (defaults to false). |

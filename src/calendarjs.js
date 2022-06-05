@@ -264,7 +264,7 @@
  * @property    {string}    defaultEventBackgroundColor                 States the default background color that should be used for events (defaults to "#484848").
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
- * @property    {boolean}   showExtraMainDisplayToolbarButtons          States if the extra toolbar buttons on the main display (except Previous/Next Month) are visible (defaults to true).
+ * @property    {boolean}   showExtraToolbarButtons                     States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
  * @property    {boolean}   openInFullScreenMode                        States if full-screen mode should be turned on when the calendar is rendered (defaults to false).
  * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
@@ -746,11 +746,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
 
-        if ( _datePickerModeEnabled || _options.showExtraMainDisplayToolbarButtons ) {
+        if ( _datePickerModeEnabled || _options.showExtraToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
         }
 
-        if ( _options.showExtraMainDisplayToolbarButtons ) {
+        if ( _options.showExtraToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, function() {
                 refreshViews( true );
             } );
@@ -766,7 +766,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode );
         }
 
-        if ( _options.showExtraMainDisplayToolbarButtons ) {
+        if ( _options.showExtraToolbarButtons ) {
             if ( _options.manualEditingEnabled ) {
                 buildToolbarButton( _element_HeaderDateDisplay, "ib-plus", _options.addEventTooltipText, addNewEvent );
             }
@@ -971,7 +971,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _options.eventNotificationsEnabled = false;
             _options.showPreviousNextMonthNamesInMainDisplay = false;
             _options.showPreviousNextMonthNamesInMainDisplay = false;
-            _options.showExtraMainDisplayToolbarButtons = false;
+            _options.showExtraToolbarButtons = false;
             _options.holidays = [];
         }
     }
@@ -1958,7 +1958,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextDay );
         buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
 
-        if ( _options.manualEditingEnabled ) {
+        if ( _options.manualEditingEnabled && _options.showExtraToolbarButtons ) {
             buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
                 if ( _options.useTemplateWhenAddingNewEvent ) {
                     var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
@@ -1972,22 +1972,24 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         
         buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay );
 
-        if ( _options.exportEventsEnabled ) {
+        if ( _options.exportEventsEnabled && _options.showExtraToolbarButtons ) {
             _element_FullDayView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
                 showSelectExportTypeDialog( _element_FullDayView_EventsShown );
             } );
         }
 
-        _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
+        if ( _options.showExtraToolbarButtons ) {
+            _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
 
-        buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-            refreshViews( true );
-        } );
-
-        _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-
-        if ( _options.fullScreenModeEnabled ) {
-            _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+            buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+                refreshViews( true );
+            } );
+    
+            _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+    
+            if ( _options.fullScreenModeEnabled ) {
+                _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+            }
         }
 
         _element_FullDayView_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -2053,10 +2055,12 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     function showFullDayView( date, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        if ( _options.visibleDays.length < 7 ) {
-            _element_FullDayView_TodayButton.style.display = "none";
-        } else {
-            _element_FullDayView_TodayButton.style.display = "inline-block";
+        if ( _element_FullDayView_TodayButton !== null ) {
+            if ( _options.visibleDays.length < 7 ) {
+                _element_FullDayView_TodayButton.style.display = "none";
+            } else {
+                _element_FullDayView_TodayButton.style.display = "inline-block";
+            }
         }
 
         _element_FullDayView_Title.innerHTML = "";
@@ -2539,24 +2543,26 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             hideOverlay( _element_ListAllEventsView );
         } );
 
-        if ( _options.manualEditingEnabled ) {
-            buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
-        }
-
-        if ( _options.exportEventsEnabled ) {
-            _element_ListAllEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                showSelectExportTypeDialog( _element_ListAllEventsView_EventsShown );
+        if ( _options.showExtraToolbarButtons ) {
+            if ( _options.manualEditingEnabled ) {
+                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+            }
+    
+            if ( _options.exportEventsEnabled ) {
+                _element_ListAllEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
+                    showSelectExportTypeDialog( _element_ListAllEventsView_EventsShown );
+                } );
+            }
+    
+            buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+                refreshViews( true );
             } );
-        }
-
-        buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-            refreshViews( true );
-        } );
-
-        _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-
-        if ( _options.fullScreenModeEnabled ) {
-            _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+    
+            _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+    
+            if ( _options.fullScreenModeEnabled ) {
+                _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+            }
         }
 
         _element_ListAllEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -2760,27 +2766,29 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             hideOverlay( _element_ListAllWeekEventsView );
         } );
 
-        if ( _options.manualEditingEnabled ) {
+        if ( _options.manualEditingEnabled && _options.showExtraToolbarButtons ) {
             buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
         }
 
         buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek );
 
-        if ( _options.exportEventsEnabled ) {
-            _element_ListAllWeekEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
+        if ( _options.showExtraToolbarButtons ) {
+            if ( _options.exportEventsEnabled ) {
+                _element_ListAllWeekEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
+                    showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
+                } );
+            }
+    
+            buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
+            buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+                refreshViews( true );
             } );
-        }
-
-        buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
-        buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-            refreshViews( true );
-        } );
-
-        _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-
-        if ( _options.fullScreenModeEnabled ) {
-            _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+    
+            _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+    
+            if ( _options.fullScreenModeEnabled ) {
+                _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+            }
         }
 
         _element_ListAllWeekEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -8249,8 +8257,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _options.defaultEventBorderColor = "#282828";
         }
 
-        if ( !isDefinedBoolean( _options.showExtraMainDisplayToolbarButtons ) ) {
-            _options.showExtraMainDisplayToolbarButtons = true;
+        if ( !isDefinedBoolean( _options.showExtraToolbarButtons ) ) {
+            _options.showExtraToolbarButtons = true;
         }
 
         if ( !isDefinedBoolean( _options.showEmptyDaysInWeekView ) ) {
