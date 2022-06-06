@@ -55,7 +55,8 @@ div.disabled-area {
     display: none;
 }
 
-div.prevent-pointer-events {
+div.prevent-pointer-events,
+span.prevent-pointer-events {
     pointer-events: none;
 }
 
@@ -298,7 +299,6 @@ div.calendar {
             }
 
             span {
-                pointer-events: none;
                 display: inline-block;
                 padding: 4px;
                 padding-left: 0px;
@@ -332,11 +332,6 @@ div.calendar {
                 &.blank {
                     display: block;
                     font-size: xx-small;
-                }
-
-                &.holiday-link,
-                &.month-name {
-                    pointer-events: auto;
                 }
 
                 &.month-name:hover,

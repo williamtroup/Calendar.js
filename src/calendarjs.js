@@ -3459,12 +3459,18 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaNonDroppable( container );
                 }
 
-                var events = _element_Calendar.getElementsByClassName( "event" ),
-                    eventsLength = events.length;
+                var cells = _element_Calendar.getElementsByClassName( "cell" ),
+                    cellsLength = cells.length;
             
-                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                    if ( events[ eventIndex ] !== event ) {
-                        events[ eventIndex ].className += " prevent-pointer-events";
+                for ( var cellIndex = 0; cellIndex < cellsLength; cellIndex++ ) {
+                    var cell = cells[ cellIndex ],
+                        cellChildren = cell.children,
+                        cellChildrenLength = cellChildren.length;
+
+                    for ( var cellChildrenIndex = 0; cellChildrenIndex < cellChildrenLength; cellChildrenIndex++ ) {
+                        if ( cellChildren[ cellChildrenIndex ] !== event ) {
+                            cellChildren[ cellChildrenIndex ].className += " prevent-pointer-events";
+                        }
                     }
                 }
             };
@@ -3479,11 +3485,19 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
                 }
 
-                var events = _element_Calendar.getElementsByClassName( "event" ),
-                    eventsLength = events.length;
+                var cells = _element_Calendar.getElementsByClassName( "cell" ),
+                    cellsLength = cells.length;
             
-                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                    events[ eventIndex ].className = events[ eventIndex ].className.replace( " prevent-pointer-events", "" );
+                for ( var cellIndex = 0; cellIndex < cellsLength; cellIndex++ ) {
+                    var cell = cells[ cellIndex ],
+                        cellChildren = cell.children,
+                        cellChildrenLength = cellChildren.length;
+
+                    for ( var cellChildrenIndex = 0; cellChildrenIndex < cellChildrenLength; cellChildrenIndex++ ) {
+                        if ( cellChildren[ cellChildrenIndex ] !== event ) {
+                            cellChildren[ cellChildrenIndex ].className = cellChildren[ cellChildrenIndex ].className.replace( " prevent-pointer-events", "" );
+                        }
+                    }
                 }
             };
         }
