@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.3
+ * Calendar.js Library v1.6.4
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -89,7 +89,7 @@ div.calendar-date-picker {
     position: relative;
 
     input.calendar-date-picker-input {
-        @include input-fields($width: auto, $margin-bottom: 0);
+        @include input-fields($width: auto, $margin-bottom: 0 !important);
     }
 
     div.calendar-hidden {
@@ -332,6 +332,11 @@ div.calendar {
                 &.blank {
                     display: block;
                     font-size: xx-small;
+                }
+
+                &.holiday-link,
+                &.month-name {
+                    pointer-events: auto;
                 }
 
                 &.month-name:hover,
@@ -624,10 +629,6 @@ div.calendar {
     div.full-day-view {
         @include full-size-view-display(2);
 
-        div.ib-search {
-            float: right !important;
-        }
-
         span.holiday {
             font-weight: 300 !important;
         }
@@ -641,7 +642,6 @@ div.calendar {
             overflow-y: auto;
             width: 100%;
             padding: 0 !important;
-            margin-top: -($standard-border-size * 4);
 
             div.content-events-all-day {
                 position: relative;
@@ -773,10 +773,6 @@ div.calendar {
 
         @import "foundation/overlay-title-bar";
 
-        div.ib-search {
-            float: right !important;
-        }
-
         div.contents {
             @include overlay-contents;
 
@@ -826,10 +822,6 @@ div.calendar {
         @include full-size-view-display;
 
         @import "foundation/overlay-title-bar";
-
-        div.ib-search {
-            float: right !important;
-        }
 
         div.contents {
             @include overlay-contents;
@@ -1214,7 +1206,8 @@ div.configuration {
             margin-bottom: 8px;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        input[type="email"] {
             @include input-fields;
         }
 
@@ -1307,6 +1300,10 @@ div.calendar-dialog {
         label.checkbox {
             margin-bottom: $spacing / 2 !important;
         }
+
+        div:last-child label.checkbox {
+            margin-bottom: 0 !important;
+        }
     }
 
     label.checkbox-tabbed-in {
@@ -1327,7 +1324,7 @@ div.calendar-dialog {
         color: $dark-color;
 
         input {
-            display: none;
+            display: none !important;
 
             &:checked ~ span.check-mark {
                 background-color: $dark-color !important;
@@ -1395,7 +1392,7 @@ div.calendar-dialog {
             color: $dark-color;
     
             input {
-                display: none;
+                display: none !important;
     
                 &:checked ~ span.check-mark {
                     background-color: $dark-color !important;

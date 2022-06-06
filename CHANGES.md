@@ -1,5 +1,21 @@
 # Calendar.js - Change Log:
 
+### Version 1.6.4:
+- Fixed a fault that caused the checkout/radio button input boxes to show up in the display.
+- The "Organizer Email" field in the "Configuration" dialog is now an email input field.
+- Fixed a fault that allowed the DatePicker input box to have its margin-bottom overridden by other CSS selectors.
+- When selecting "Advanced" in the "Search" dialog, the dialog is now centred in the window (if it has not been moved manually).
+- Overlay views (Full Day, All Events, Weekly) now have their titles centred and the buttons on both sides (like the main display).
+- Fixed a fault that prevented the "Refresh" button on the main displays title bar from doing anything.
+- Added "Refresh" title bar button support across available views (on the left side, as with the main display).
+- Added a new setting "dropDownMenuSymbol", which states the drop-down menu character to use on the main display (defaults to "▾").
+- Added new setting "searchTextBoxPlaceholder", which states the placeholder text for "Search" dialogs input field.
+- Fixed a spacing issue with the last Group Name checkbox in the "Configuration" dialog (in the "Groups" tab).
+- Renamed the setting "showExtraMainDisplayToolbarButtons" to "showExtraToolbarButtons" (this now applies to overlay views as well).
+- Fixed a fault that prevented the Full Day view from option when "showExtraToolbarButtons" is set to false.
+- Fixed a fault that caused the "+" button on the event Tooltip to be visible when manual event editing is disabled.
+- Fixed the holiday/month names links not working in the main display (CSS fault, sorry).
+
 ### Version 1.6.3:
 - Fixed a fault that caused DatePicker mode to render all the dialogs and drop-down menus when they are not needed.
 - Fixed a fault that would cause the DatePicker mode to show only the current month when opened (not the selected).

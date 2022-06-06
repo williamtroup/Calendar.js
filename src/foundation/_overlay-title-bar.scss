@@ -1,34 +1,39 @@
 @import "styles";
 
 div.title-bar {
-    width: calc(100% - #{$spacing} - #{$spacing / 2});
+    width: calc(100% - #{$spacing});
     display: inline-block;
     padding-top: $spacing;
     padding-bottom: $spacing;
-    padding-left: $spacing;
+    padding-left: $spacing / 2;
     padding-right: $spacing / 2;
     background-color: $dark-color;
     color: $light-color;
-
-    div {
-        margin-left: $spacing / 2;
-        margin-right: $spacing / 2;
-    }
+    text-align: center;
 
     div.title {
         font-weight: 900 !important;
+        display: inline-block;
+    }
+
+    div {
+        margin-left: $spacing / 2 !important;
+        margin-right: $spacing / 2 !important;
+    }
+
+    div.ib-arrow-left-full,
+    div.ib-pin,
+    div.ib-refresh,
+    div.ib-search {
         float: left;
-        margin-left: 0;
     }
 
     div.ib-arrow-down-full-line,
     div.ib-plus,
     div.ib-close,
-    div.ib-arrow-left-full,
     div.ib-arrow-right-full,
     div.ib-arrow-expand-left-right,
-    div.ib-arrow-contract-left-right,
-    div.ib-pin {
+    div.ib-arrow-contract-left-right {
         float: right;
     }
 
@@ -37,7 +42,9 @@ div.title-bar {
         div.ib-arrow-left-full,
         div.ib-arrow-right-full,
         div.ib-arrow-expand-left-right,
-        div.ib-arrow-contract-left-right {
+        div.ib-arrow-contract-left-right,
+        div.ib-search,
+        div.ib-refresh {
             display: inline-block;
         }
     }
@@ -47,7 +54,9 @@ div.title-bar {
         div.ib-arrow-left-full,
         div.ib-arrow-right-full,
         div.ib-arrow-expand-left-right,
-        div.ib-arrow-contract-left-right {
+        div.ib-arrow-contract-left-right,
+        div.ib-search,
+        div.ib-refresh {
             display: none !important;
         }
     }
