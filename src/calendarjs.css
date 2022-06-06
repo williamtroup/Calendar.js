@@ -428,6 +428,10 @@ div.calendar div.row-cells div.cell span.holiday, div.calendar div.row-cells div
   font-size: xx-small;
 }
 
+div.calendar div.row-cells div.cell span.holiday-link, div.calendar div.row-cells div.cell span.month-name {
+  pointer-events: auto;
+}
+
 div.calendar div.row-cells div.cell span.month-name:hover, div.calendar div.row-cells div.cell span.holiday-link:hover {
   text-decoration: underline;
   cursor: pointer;

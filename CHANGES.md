@@ -14,6 +14,7 @@
 - Renamed the setting "showExtraMainDisplayToolbarButtons" to "showExtraToolbarButtons" (this now applies to overlay views as well).
 - Fixed a fault that prevented the Full Day view from option when "showExtraToolbarButtons" is set to false.
 - Fixed a fault that caused the "+" button on the event Tooltip to be visible when manual event editing is disabled.
+- Fixed the holiday/month names links not working in the main display (CSS fault, sorry).
 - 
 
 ### Version 1.6.3:

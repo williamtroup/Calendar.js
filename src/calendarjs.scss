@@ -334,6 +334,11 @@ div.calendar {
                     font-size: xx-small;
                 }
 
+                &.holiday-link,
+                &.month-name {
+                    pointer-events: auto;
+                }
+
                 &.month-name:hover,
                 &.holiday-link:hover {
                     text-decoration: underline;
