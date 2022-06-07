@@ -3459,20 +3459,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaNonDroppable( container );
                 }
 
-                var cells = _element_Calendar.getElementsByClassName( "cell" ),
-                    cellsLength = cells.length;
-            
-                for ( var cellIndex = 0; cellIndex < cellsLength; cellIndex++ ) {
-                    var cell = cells[ cellIndex ],
-                        cellChildren = cell.children,
-                        cellChildrenLength = cellChildren.length;
-
-                    for ( var cellChildrenIndex = 0; cellChildrenIndex < cellChildrenLength; cellChildrenIndex++ ) {
-                        if ( cellChildren[ cellChildrenIndex ] !== event ) {
-                            cellChildren[ cellChildrenIndex ].className += " prevent-pointer-events";
-                        }
-                    }
-                }
+                updateCellElements( function( element ) {
+                    element.className += " prevent-pointer-events";
+                }, event );
             };
 
             event.ondragend = function() {
@@ -3485,20 +3474,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
                 }
 
-                var cells = _element_Calendar.getElementsByClassName( "cell" ),
-                    cellsLength = cells.length;
-            
-                for ( var cellIndex = 0; cellIndex < cellsLength; cellIndex++ ) {
-                    var cell = cells[ cellIndex ],
-                        cellChildren = cell.children,
-                        cellChildrenLength = cellChildren.length;
-
-                    for ( var cellChildrenIndex = 0; cellChildrenIndex < cellChildrenLength; cellChildrenIndex++ ) {
-                        if ( cellChildren[ cellChildrenIndex ] !== event ) {
-                            cellChildren[ cellChildrenIndex ].className = cellChildren[ cellChildrenIndex ].className.replace( " prevent-pointer-events", "" );
-                        }
-                    }
-                }
+                updateCellElements( function( element ) {
+                    element.className = element.className.replace( " prevent-pointer-events", "" );
+                }, event );
             };
         }
     }
@@ -6172,6 +6150,23 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 button.style.display = "none";
             } else {
                 button.style.display = "inline-block";
+            }
+        }
+    }
+
+    function updateCellElements( func, ignoreElement ) {
+        var cells = _element_Calendar.getElementsByClassName( "cell" ),
+            cellsLength = cells.length;
+
+        for ( var cellIndex = 0; cellIndex < cellsLength; cellIndex++ ) {
+            var cell = cells[ cellIndex ],
+                cellChildren = cell.children,
+                cellChildrenLength = cellChildren.length;
+
+            for ( var cellChildrenIndex = 0; cellChildrenIndex < cellChildrenLength; cellChildrenIndex++ ) {
+                if ( cellChildren[ cellChildrenIndex ] !== ignoreElement ) {
+                    func( cellChildren[ cellChildrenIndex ] );
+                }
             }
         }
     }
