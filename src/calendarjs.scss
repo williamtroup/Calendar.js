@@ -825,11 +825,6 @@ div.calendar {
                 margin-top: $spacing;
                 margin-bottom: $spacing;
                 text-align: center;
-                pointer-events: none;
-
-                span.link {
-                    pointer-events: auto !important;
-                }
             }
 
             div.day {

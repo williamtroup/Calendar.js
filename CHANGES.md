@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.6.5:
-- Minor CSS assignment improvements when events are dragged and dropped via the mai display.
+- Minor CSS assignment improvements when events are dragged and dropped via the main display.
 - 
 
 ### Version 1.6.4:

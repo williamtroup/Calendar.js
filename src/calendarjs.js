@@ -3459,7 +3459,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaNonDroppable( container );
                 }
 
-                updateCellElements( function( element ) {
+                updateContainerClassChildren( "cell", function( element ) {
+                    element.className += " prevent-pointer-events";
+                }, event );
+
+                updateContainerClassChildren( "events", function( element ) {
                     element.className += " prevent-pointer-events";
                 }, event );
             };
@@ -3474,7 +3478,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
                 }
 
-                updateCellElements( function( element ) {
+                updateContainerClassChildren( "cell", function( element ) {
+                    element.className = element.className.replace( " prevent-pointer-events", "" );
+                }, event );
+                
+                updateContainerClassChildren( "events", function( element ) {
                     element.className = element.className.replace( " prevent-pointer-events", "" );
                 }, event );
             };
@@ -6154,18 +6162,18 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function updateCellElements( func, ignoreElement ) {
-        var cells = _element_Calendar.getElementsByClassName( "cell" ),
-            cellsLength = cells.length;
+    function updateContainerClassChildren( containerClass, func, ignoreElement ) {
+        var elements = _element_Calendar.getElementsByClassName( containerClass ),
+            elementsLength = elements.length;
 
-        for ( var cellIndex = 0; cellIndex < cellsLength; cellIndex++ ) {
-            var cell = cells[ cellIndex ],
-                cellChildren = cell.children,
-                cellChildrenLength = cellChildren.length;
+        for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
+            var element = elements[ elementIndex ],
+                elementChildren = element.children,
+                elementChildrenLength = elementChildren.length;
 
-            for ( var cellChildrenIndex = 0; cellChildrenIndex < cellChildrenLength; cellChildrenIndex++ ) {
-                if ( cellChildren[ cellChildrenIndex ] !== ignoreElement ) {
-                    func( cellChildren[ cellChildrenIndex ] );
+            for ( var elementChildrenIndex = 0; elementChildrenIndex < elementChildrenLength; elementChildrenIndex++ ) {
+                if ( elementChildren[ elementChildrenIndex ] !== ignoreElement ) {
+                    func( elementChildren[ elementChildrenIndex ] );
                 }
             }
         }
