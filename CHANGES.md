@@ -2,6 +2,7 @@
 
 ### Version 1.6.5:
 - Minor CSS assignment improvements when events are dragged and dropped via the main display.
+- Fixed a fault that caused the optional parameters for public functions to be checked multiple times.
 - 
 
 ### Version 1.6.4:

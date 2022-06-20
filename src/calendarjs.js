@@ -7687,11 +7687,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var updated = false;
 
         if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+
             getAllEventsFunc( function( event ) {
                 if ( event.id === id ) {
-                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-    
                     event.from = from;
                     event.to = to;
                     event.repeatEnds = repeatEnds;
@@ -7732,11 +7732,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var removed = false;
 
         if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            
             getAllEventsFunc( function( event, storageDate, storageGuid ) {
                 if ( storageGuid === id ) {
-                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-    
                     delete _events[ storageDate ][ storageGuid ];
                     removed = true;
     
