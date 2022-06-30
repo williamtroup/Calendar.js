@@ -5010,7 +5010,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function centerSearchDialog() {
-        if ( !_element_SearchDialog_Moved ) {
+        if ( !_element_SearchDialog_Moved && !_datePickerModeEnabled ) {
 
             if ( isDefinedNumber( _optionsForSearch.left ) ) {
                 _element_SearchDialog.style.left = _optionsForSearch.left + "px";

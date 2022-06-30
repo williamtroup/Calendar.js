@@ -3,6 +3,7 @@
 ### Version 1.6.5:
 - Minor CSS assignment improvements when events are dragged and dropped via the main display.
 - Fixed a fault that caused the optional parameters for public functions to be checked multiple times.
+- Fixed a script error that occurred when resizing the browser window while Date Picker mode is enabled.
 - 
 
 ### Version 1.6.4:
