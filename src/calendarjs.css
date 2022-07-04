@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.6.4
+ * Calendar.js Library v1.6.5
  *
  * Copyright 2022 Bunoon
  * Released under the GNU AGPLv3 license
@@ -112,7 +112,8 @@ div.disabled-area {
   display: none;
 }
 
-div.prevent-pointer-events {
+div.prevent-pointer-events,
+span.prevent-pointer-events {
   pointer-events: none;
 }
 
@@ -396,7 +397,6 @@ div.calendar div.row-cells div.cell {
 }
 
 div.calendar div.row-cells div.cell span {
-  pointer-events: none;
   display: inline-block;
   padding: 4px;
   padding-left: 0px;
@@ -426,10 +426,6 @@ div.calendar div.row-cells div.cell span.first-day {
 div.calendar div.row-cells div.cell span.holiday, div.calendar div.row-cells div.cell span.holiday-link, div.calendar div.row-cells div.cell span.month-name, div.calendar div.row-cells div.cell span.blank {
   display: block;
   font-size: xx-small;
-}
-
-div.calendar div.row-cells div.cell span.holiday-link, div.calendar div.row-cells div.cell span.month-name {
-  pointer-events: auto;
 }
 
 div.calendar div.row-cells div.cell span.month-name:hover, div.calendar div.row-cells div.cell span.holiday-link:hover {
@@ -1281,11 +1277,6 @@ div.calendar div.list-all-week-events-view div.contents div.no-events-text {
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
-  pointer-events: none;
-}
-
-div.calendar div.list-all-week-events-view div.contents div.no-events-text span.link {
-  pointer-events: auto !important;
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day {

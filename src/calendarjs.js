@@ -1,6 +1,6 @@
 /**
  * @file        Calendar.js
- * @version     v1.6.4
+ * @version     v1.6.5
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2022
@@ -3459,14 +3459,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaNonDroppable( container );
                 }
 
-                var events = _element_Calendar.getElementsByClassName( "event" ),
-                    eventsLength = events.length;
-            
-                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                    if ( events[ eventIndex ] !== event ) {
-                        events[ eventIndex ].className += " prevent-pointer-events";
-                    }
-                }
+                updateContainerClassChildren( "cell", function( element ) {
+                    element.className += " prevent-pointer-events";
+                }, event );
+
+                updateContainerClassChildren( "events", function( element ) {
+                    element.className += " prevent-pointer-events";
+                }, event );
             };
 
             event.ondragend = function() {
@@ -3479,12 +3478,13 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
                 }
 
-                var events = _element_Calendar.getElementsByClassName( "event" ),
-                    eventsLength = events.length;
-            
-                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                    events[ eventIndex ].className = events[ eventIndex ].className.replace( " prevent-pointer-events", "" );
-                }
+                updateContainerClassChildren( "cell", function( element ) {
+                    element.className = element.className.replace( " prevent-pointer-events", "" );
+                }, event );
+                
+                updateContainerClassChildren( "events", function( element ) {
+                    element.className = element.className.replace( " prevent-pointer-events", "" );
+                }, event );
             };
         }
     }
@@ -5010,7 +5010,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function centerSearchDialog() {
-        if ( !_element_SearchDialog_Moved ) {
+        if ( !_element_SearchDialog_Moved && !_datePickerModeEnabled ) {
 
             if ( isDefinedNumber( _optionsForSearch.left ) ) {
                 _element_SearchDialog.style.left = _optionsForSearch.left + "px";
@@ -6158,6 +6158,23 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 button.style.display = "none";
             } else {
                 button.style.display = "inline-block";
+            }
+        }
+    }
+
+    function updateContainerClassChildren( containerClass, func, ignoreElement ) {
+        var elements = _element_Calendar.getElementsByClassName( containerClass ),
+            elementsLength = elements.length;
+
+        for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
+            var element = elements[ elementIndex ],
+                elementChildren = element.children,
+                elementChildrenLength = elementChildren.length;
+
+            for ( var elementChildrenIndex = 0; elementChildrenIndex < elementChildrenLength; elementChildrenIndex++ ) {
+                if ( elementChildren[ elementChildrenIndex ] !== ignoreElement ) {
+                    func( elementChildren[ elementChildrenIndex ] );
+                }
             }
         }
     }
@@ -7670,11 +7687,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var updated = false;
 
         if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+
             getAllEventsFunc( function( event ) {
                 if ( event.id === id ) {
-                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-    
                     event.from = from;
                     event.to = to;
                     event.repeatEnds = repeatEnds;
@@ -7715,11 +7732,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         var removed = false;
 
         if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            
             getAllEventsFunc( function( event, storageDate, storageGuid ) {
                 if ( storageGuid === id ) {
-                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-    
                     delete _events[ storageDate ][ storageGuid ];
                     removed = true;
     
@@ -7966,7 +7983,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.4";
+        return "1.6.5";
     };
 
 
