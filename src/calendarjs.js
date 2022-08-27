@@ -1,6 +1,6 @@
 /**
  * @file        Calendar.js
- * @version     v1.6.5
+ * @version     v1.6.6
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2022
@@ -7983,7 +7983,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.5";
+        return "1.6.6";
     };
 
 
