@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.6.6:
+- Added a new setting "currentMonthTooltipText" (defaults to "Current Month") which is used for the "Today" button on the main display.
 - 
 
 ### Version 1.6.5:

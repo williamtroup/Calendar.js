@@ -228,6 +228,7 @@
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
  * @property    {string}    dropDownMenuSymbol                          The character symbol that is shown for a drop-down menu (defaults to "▾").
  * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
+ * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -747,7 +748,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
 
         if ( _datePickerModeEnabled || _options.showExtraToolbarButtons ) {
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.currentMonthTooltipText, moveToday );
         }
 
         if ( _options.showExtraToolbarButtons ) {
@@ -8966,6 +8967,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.searchTextBoxPlaceholder ) ) {
             _options.searchTextBoxPlaceholder = "Search title, description, etc...";
+        }
+
+        if ( !isDefinedString( _options.currentMonthTooltipText ) ) {
+            _options.currentMonthTooltipText = "Current Month";
         }
     }
 
