@@ -2241,6 +2241,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                     setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                 }
+
+                if ( duration.innerText === "" ) {
+                    event.removeChild( duration );
+                }
         
                 if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                     var repeats = createElement( "div", "repeats" );
@@ -2643,6 +2647,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
             }
+
+            if ( duration.innerText === "" ) {
+                event.removeChild( duration );
+            }
     
             if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                 var repeats = createElement( "div", "repeats" );
@@ -3007,6 +3015,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+            }
+
+            if ( duration.innerText === "" ) {
+                event.removeChild( duration );
             }
     
             if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
@@ -5630,6 +5642,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                             buildDateTimeToDateTimeDisplay( _element_Tooltip_Date, eventDetails.from, eventDetails.to );
                             setNodeText( _element_Tooltip_TotalTime, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+                        }
+
+                        if ( _element_Tooltip_TotalTime.innerText === "" ) {
+                            _element_Tooltip.removeChild( _element_Tooltip_TotalTime );
                         }
                     }
 

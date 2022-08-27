@@ -2,6 +2,7 @@
 
 ### Version 1.6.6:
 - Added a new setting "currentMonthTooltipText" (defaults to "Current Month") which is used for the "Today" button on the main display.
+- Fixed a fault that caused the "duration" label to be added to the displays when empty (was causing some spacing issues).
 - 
 
 ### Version 1.6.5:
