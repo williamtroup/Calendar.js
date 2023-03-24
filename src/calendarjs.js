@@ -1,9 +1,9 @@
 /**
  * @file        Calendar.js
- * @version     v1.6.5
+ * @version     v1.6.6
  * @author      Bunoon
  * @license     GNU AGPLv3
- * @copyright   Bunoon 2022
+ * @copyright   Bunoon 2023
  */
 
  
@@ -228,6 +228,7 @@
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
  * @property    {string}    dropDownMenuSymbol                          The character symbol that is shown for a drop-down menu (defaults to "▾").
  * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
+ * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -747,7 +748,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
 
         if ( _datePickerModeEnabled || _options.showExtraToolbarButtons ) {
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.todayTooltipText, moveToday );
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.currentMonthTooltipText, moveToday );
         }
 
         if ( _options.showExtraToolbarButtons ) {
@@ -2240,6 +2241,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                     setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                 }
+
+                if ( duration.innerText === "" ) {
+                    event.removeChild( duration );
+                }
         
                 if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                     var repeats = createElement( "div", "repeats" );
@@ -2642,6 +2647,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
             }
+
+            if ( duration.innerText === "" ) {
+                event.removeChild( duration );
+            }
     
             if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
                 var repeats = createElement( "div", "repeats" );
@@ -3006,6 +3015,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
                 buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+            }
+
+            if ( duration.innerText === "" ) {
+                event.removeChild( duration );
             }
     
             if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
@@ -5630,6 +5643,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                             buildDateTimeToDateTimeDisplay( _element_Tooltip_Date, eventDetails.from, eventDetails.to );
                             setNodeText( _element_Tooltip_TotalTime, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                         }
+
+                        if ( _element_Tooltip_TotalTime.innerText === "" ) {
+                            _element_Tooltip.removeChild( _element_Tooltip_TotalTime );
+                        }
                     }
 
                     showElementAtMousePosition( e, _element_Tooltip );
@@ -7983,7 +8000,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.5";
+        return "1.6.6";
     };
 
 
@@ -8966,6 +8983,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !isDefinedString( _options.searchTextBoxPlaceholder ) ) {
             _options.searchTextBoxPlaceholder = "Search title, description, etc...";
+        }
+
+        if ( !isDefinedString( _options.currentMonthTooltipText ) ) {
+            _options.currentMonthTooltipText = "Current Month";
         }
     }
 

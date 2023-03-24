@@ -201,6 +201,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | urlErrorMessage | The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label. |
 | *string* | dropDownMenuSymbol | The character symbol that is shown for a drop-down menu (defaults to "▾"). |
 | *string* | searchTextBoxPlaceholder | The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc..."). |
+| *string* | currentMonthTooltipText | The text that should be displayed for the "Current Month" label. |
 
 <br/>
 
