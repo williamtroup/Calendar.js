@@ -3,7 +3,7 @@
  * @version     v1.6.6
  * @author      Bunoon
  * @license     GNU AGPLv3
- * @copyright   Bunoon 2022
+ * @copyright   Bunoon 2023
  */
 
  
