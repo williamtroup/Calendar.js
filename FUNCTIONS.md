@@ -262,6 +262,11 @@ Returns the version of Calendar.js.
 <br>
 ***Returns***: '*string*' - The version number.
 
+### **getId()**:
+Returns the ID of this Calendar.js instance.
+<br>
+***Returns***: '*string*' - The Calendar ID.
+
 ### **setOptions( *newOptions*, *triggerEvent* )**:
 Sets the specific options that should be used.
 <br>

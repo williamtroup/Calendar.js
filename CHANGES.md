@@ -4,6 +4,8 @@
 - Added support to pass an element directly to the constructor (instead of an ID).
 - Added jQuery plugin support (will load a new instance of the calendar against any DOM element).
 - Improved documentation header for the main JS file.
+- Added public function "getId()", which will return the element ID of the calendar instance.
+- Added back in version stamp into the minimized version of the main JS file.
 - 
 
 ### Version 1.6.6:

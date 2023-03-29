@@ -8019,6 +8019,19 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         return "1.7.0";
     };
 
+    /**
+     * getId().
+     * 
+     * Returns the ID of this Calendar.js instance.
+     * 
+     * @public
+     * 
+     * @returns     {string}                                                The Calendar ID.
+     */
+    this.getId = function() {
+        return _elementID;
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
