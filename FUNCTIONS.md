@@ -84,6 +84,8 @@ Exports all the events into a downloadable file.
 
 ### **refresh()**:
 Refreshes all of the views.
+<br>
+***Fires***:  onRefresh
 
 ### **setEvents( *events*, *updateEvents*, *triggerEvent* )**:
 Sets the events and clears any existing ones.

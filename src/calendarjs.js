@@ -90,6 +90,7 @@
  * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
  * @property    {Object}    onEventUrlClicked                           Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function).
  * @property    {Object}    onDestroy                                   Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function).
+ * @property    {Object}    onRefresh                                   Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -766,7 +767,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
 
         if ( _options.showExtraToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
 
             _element_HeaderDateDisplay_SearchButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -1282,7 +1283,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
                     moveToday();
                     
                 } else if ( e.keyCode === _keyCodes.f5 && isMainDisplayVisible ) {
-                    refreshViews();
+                    refreshViews( false, true );
                 }
             } else {
                 
@@ -1996,7 +1997,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
 
             buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
     
             _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -2567,7 +2568,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             }
     
             buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
     
             _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -2797,7 +2798,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
     
             buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
             buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
     
             _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -5878,8 +5879,9 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         }
     }
 
-    function refreshViews( fromButton ) {
+    function refreshViews( fromButton, triggerEvent ) {
         fromButton = isDefined( fromButton ) ? fromButton : false;
+        triggerEvent = isDefined( triggerEvent ) ? triggerEvent : false;
 
         if ( isOnlyMainDisplayVisible() || fromButton ) {
             refreshOpenedViews();
@@ -5889,6 +5891,10 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
                 build();
             } else {
                 buildDayEvents();
+            }
+
+            if ( triggerEvent ) {
+                triggerOptionsEvent( "onRefresh" );
             }
         }
     }
@@ -7329,10 +7335,11 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
      * Refreshes all of the views.
      * 
      * @public
+     * @fires       onRefresh
      */
     this.refresh = function() {
         if ( !_datePickerModeEnabled ) {
-            refreshViews();
+            refreshViews( false, true );
         }
     };
 
