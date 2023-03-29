@@ -8,6 +8,7 @@
 - Added back in version stamp into the minimized version of the main JS file.
 - Added new custom event "onDestroy", which is triggered when a Calendar instance is destroyed (the Calendar ID is passed).
 - Added new custom event "onRefresh", which is triggered when the Calendar is manually refreshed.
+- Updated documentation regarding use within Internet Explorer.
 - 
 
 ### Version 1.6.6:
