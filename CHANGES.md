@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.7.1:
-- 
+- Added basic NPM support (as requested).
 
 ### Version 1.7.0:
 - Added support to pass an element directly to the constructor (instead of an ID, which is still supported).
