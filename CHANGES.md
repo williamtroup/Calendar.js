@@ -2,6 +2,8 @@
 
 ### Version 1.7.0:
 - Added support to pass an element directly to the constructor (instead of an ID).
+- Added jQuery plugin support (will load a new instance of the calendar against any DOM element).
+- Improved documentation header for the main JS file.
 - 
 
 ### Version 1.6.6:
