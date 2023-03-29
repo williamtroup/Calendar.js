@@ -91,6 +91,8 @@
  * @property    {Object}    onEventUrlClicked                           Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function).
  * @property    {Object}    onDestroy                                   Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function).
  * @property    {Object}    onRefresh                                   Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called).
+ * @property    {Object}    onDatePickerOpened                          Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function).
+ * @property    {Object}    onDatePickerClosed                          Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -997,11 +999,15 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
+
             build( new Date( _currentDateForDatePicker ), !_initialized );
+            triggerOptionsEventWithData( "onDatePickerOpened", _elementID );
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
+            
             hideAllDropDowns();
+            triggerOptionsEventWithData( "onDatePickerClosed", _elementID );
         }
 
         _datePickerVisible = !_datePickerVisible;
@@ -1009,19 +1015,17 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
 
     function onDatePickerInputKeyDown( e ) {
         if ( e.keyCode === _keyCodes.escape && _datePickerVisible ) {
-            _element_Calendar.className = "calendar calendar-hidden";
-            _datePickerVisible = !_datePickerVisible;
-            
-            hideAllDropDowns();
+            hideDatePickerMode();
         }
     }
 
     function hideDatePickerMode() {
         if ( _datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-hidden";
-            hideAllDropDowns();
-
             _datePickerVisible = false;
+
+            hideAllDropDowns();
+            triggerOptionsEventWithData( "onDatePickerClosed", _elementID );
         }
     }
 

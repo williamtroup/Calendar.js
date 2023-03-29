@@ -236,3 +236,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventUrlClicked | Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function). |
 | onDestroy | Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function). |
 | onRefresh | Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called). |
+| onDatePickerOpened | Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function). |
+| onDatePickerClosed | Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function). |
