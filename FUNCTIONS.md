@@ -23,6 +23,8 @@ Stops the auto-refresh timer (if enabled).
 
 ### **destroy()**:
 Removes the calendar from the DOM.
+<br>
+***Fires***:  onDestroy
 
 ### **moveToPreviousMonth()**:
 Moves to the previous month.

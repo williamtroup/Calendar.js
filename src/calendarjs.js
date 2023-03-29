@@ -89,6 +89,7 @@
  * @property    {Object}    onDatePickerDateChanged                     Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function).
  * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
  * @property    {Object}    onEventUrlClicked                           Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function).
+ * @property    {Object}    onDestroy                                   Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -7151,6 +7152,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
      * Removes the calendar from the DOM.
      * 
      * @public
+     * @fires       onDestroy
      */
     this.destroy = function() {
         _element_Calendar.className = "";
@@ -7158,6 +7160,8 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
 
         clearElementsByClassName( _document.body, "calendar-dialog" );
         clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
+
+        triggerOptionsEvent( "onDestroy", _elementID );
     };
 
 
