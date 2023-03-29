@@ -11,6 +11,7 @@
 - Updated documentation regarding use within Internet Explorer.
 - Added new custom event "onDatePickerOpened", which is triggered when a DatePicker is opened (the Calendar ID is passed).
 - Added new custom event "onDatePickerClosed", which is triggered when a DatePicker is closed (the Calendar ID is passed).
+- Fixed a spacing issue in the "Search" dialog that pressed the advanced options right up to the contents before it.
 - 
 
 ### Version 1.6.6:
