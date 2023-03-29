@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v1.6.6</p>
+<p align="center">v1.7.0</p>
 <br />
 
 ![CalendarJs](images/main.png)
@@ -48,7 +48,7 @@ Calendar.js
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 
-Limited support is available for Internet Explorer, but this will seize by the end of 2021.
+Limited support is still available for Internet Explorer. However, use within this browser is not recommended.
 <br>
 <br>
 
@@ -98,7 +98,14 @@ Also, make sure you include the "DOCTYPE html" tag at the top of your email, as 
 
 ```markdown
 <script> 
-  var calendarInstance = calendarJs( "calendar", {
+  var calendarInstance1 = calendarJs( "calendar", {
+    manualEditingEnabled: true
+    // All your options can be set here
+  } );
+
+  // OR
+  var calendarElement = document.getElementById( "calendar" );
+  var calendarInstance2 = calendarJs( calendarElement, {
     manualEditingEnabled: true
     // All your options can be set here
   } ); 

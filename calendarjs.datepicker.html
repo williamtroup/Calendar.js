@@ -50,25 +50,39 @@
             <button onclick="calendarInstance2.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (2)</button>
             <button onclick="calendarInstance3.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (3)</button>
             <button onclick="calendarInstance4.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (4)</button>
+
+            <h2>Get ID:</h2>
+            <button onclick="console.log( calendarInstance1.getId() );">Get ID (1)</button>
+            <button onclick="console.log( calendarInstance2.getId() );">Get ID (2)</button>
+            <button onclick="console.log( calendarInstance3.getId() );">Get ID (3)</button>
+            <button onclick="console.log( calendarInstance4.getId() );">Get ID (4)</button>
         </div>
     </body>
 
     <script>
         var calendarInstance1 = new calendarJs( "myCalendar1", {
                 openInFullScreenMode: true,
-                minimumDatePickerDate: new Date()
+                minimumDatePickerDate: new Date(),
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
                 maximumDatePickerDate: new Date(),
-                datePickerSelectedDateFormat: "{dd}/{mm}/{yyyy}"
+                datePickerSelectedDateFormat: "{dd}/{mm}/{yyyy}",
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
             } ),
             calendarInstance3 = new calendarJs( "myCalendar3", {
                 openInFullScreenMode: true,
-                datePickerSelectedDateFormat: "{d}-{m}-{yy}"
+                datePickerSelectedDateFormat: "{d}-{m}-{yy}",
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
             } ),
             calendarInstance4 = new calendarJs( "myCalendar4", {
-                openInFullScreenMode: true
+                openInFullScreenMode: true,
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
             } );
 
         document.title += " - v" + calendarInstance1.getVersion();
@@ -81,6 +95,14 @@
             description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
             location: "Teams Meeting",
             group: "Group 1"
-        }, )
+        });
+
+        function datePickerOpened( calendarId ) {
+            console.log( "Opened: " + calendarId );
+        }
+
+        function datePickerClosed( calendarId ) {
+            console.log( "Closed: " + calendarId );
+        }
     </script>
 </html>

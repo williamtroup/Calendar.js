@@ -11,7 +11,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNumberOrdinals | States if the day ordinal values should be shown (defaults to true). |
 | *boolean* | dragAndDropForEventsEnabled | States if dragging and dropping events around the days of the month is enabled (defaults to true). |
 | *number* | maximumEventsPerDayDisplay | The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it). |
-| *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 51). |
+| *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 100). |
 | *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
 | *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
@@ -234,3 +234,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onDatePickerDateChanged | Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function). |
 | onGroupRemoved | Specifies an event that will be triggered when a group is removed (passes the group removed to the function). |
 | onEventUrlClicked | Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function). |
+| onDestroy | Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function). |
+| onRefresh | Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called). |
+| onDatePickerOpened | Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function). |
+| onDatePickerClosed | Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function). |

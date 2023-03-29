@@ -23,6 +23,8 @@ Stops the auto-refresh timer (if enabled).
 
 ### **destroy()**:
 Removes the calendar from the DOM.
+<br>
+***Fires***:  onDestroy
 
 ### **moveToPreviousMonth()**:
 Moves to the previous month.
@@ -82,6 +84,8 @@ Exports all the events into a downloadable file.
 
 ### **refresh()**:
 Refreshes all of the views.
+<br>
+***Fires***:  onRefresh
 
 ### **setEvents( *events*, *updateEvents*, *triggerEvent* )**:
 Sets the events and clears any existing ones.
@@ -261,6 +265,11 @@ Clears the internal clipboard.
 Returns the version of Calendar.js.
 <br>
 ***Returns***: '*string*' - The version number.
+
+### **getId()**:
+Returns the ID of this Calendar.js instance.
+<br>
+***Returns***: '*string*' - The Calendar ID.
 
 ### **setOptions( *newOptions*, *triggerEvent* )**:
 Sets the specific options that should be used.

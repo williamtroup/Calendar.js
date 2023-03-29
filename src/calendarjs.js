@@ -1,6 +1,10 @@
 /**
- * @file        Calendar.js
- * @version     v1.6.6
+ * Calendar.js
+ * 
+ * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
+ * 
+ * @file        calendarjs.js
+ * @version     v1.7.0
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -85,6 +89,10 @@
  * @property    {Object}    onDatePickerDateChanged                     Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function).
  * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
  * @property    {Object}    onEventUrlClicked                           Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function).
+ * @property    {Object}    onDestroy                                   Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function).
+ * @property    {Object}    onRefresh                                   Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called).
+ * @property    {Object}    onDatePickerOpened                          Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function).
+ * @property    {Object}    onDatePickerClosed                          Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -235,7 +243,7 @@
  * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
  * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
  * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
- * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
+ * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 100).
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
@@ -328,12 +336,12 @@
  * @public
  * @class
  * 
- * @param       {string}    id                                          The ID of the element that should be used to display the calendar (or input to assign a DatePicker).
+ * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
  * @param       {Search}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
  * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
  */
-function calendarJs( id, options, searchOptions, startDateTime ) {
+function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
     var _options = {},
         _optionsForSearch = {},
         _keyCodes = {
@@ -389,6 +397,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         _isDateToday = false,
         _openDialogs = [],
         _copiedEventDetails = null,
+        _year_Minimum = 1900,
+        _year_Maximum = null,
         _elementID_Day = "day-",
         _elementID_Month = "month-",
         _elementID_WeekDay = "week-day-",
@@ -714,7 +724,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function buildContainer() {
-        var element = getElementByID( _elementID );
+        var element;
+
+        if ( !isDefinedDOMElement( _elementID ) ) {
+            element = getElementByID( _elementID );
+        } else {
+
+            element = _elementID;
+            _elementID = element.id;
+        }
 
         if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
             buildDatePickerMode( element );
@@ -753,7 +771,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( _options.showExtraToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
 
             _element_HeaderDateDisplay_SearchButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -983,11 +1001,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
+
             build( new Date( _currentDateForDatePicker ), !_initialized );
+            triggerOptionsEventWithData( "onDatePickerOpened", _elementID );
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
+            
             hideAllDropDowns();
+            triggerOptionsEventWithData( "onDatePickerClosed", _elementID );
         }
 
         _datePickerVisible = !_datePickerVisible;
@@ -995,19 +1017,17 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function onDatePickerInputKeyDown( e ) {
         if ( e.keyCode === _keyCodes.escape && _datePickerVisible ) {
-            _element_Calendar.className = "calendar calendar-hidden";
-            _datePickerVisible = !_datePickerVisible;
-            
-            hideAllDropDowns();
+            hideDatePickerMode();
         }
     }
 
     function hideDatePickerMode() {
         if ( _datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-hidden";
-            hideAllDropDowns();
-
             _datePickerVisible = false;
+
+            hideAllDropDowns();
+            triggerOptionsEventWithData( "onDatePickerClosed", _elementID );
         }
     }
 
@@ -1106,7 +1126,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      */
 
     function buildYearSelectorDropDown( container ) {
-        var date = new Date( 1900, 1, 1 ),
+        var date = new Date( _year_Minimum, 1, 1 ),
             dateCurrent = new Date(),
             dateYearsTotal = ( dateCurrent.getFullYear() - date.getFullYear() ) + _options.extraSelectableYearsAhead;
 
@@ -1121,6 +1141,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             moveDateForwardYear( date );
         }
 
+        _year_Maximum = date.getFullYear() - 1;
         _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
     }
 
@@ -1269,7 +1290,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                     moveToday();
                     
                 } else if ( e.keyCode === _keyCodes.f5 && isMainDisplayVisible ) {
-                    refreshViews();
+                    refreshViews( false, true );
                 }
             } else {
                 
@@ -1983,7 +2004,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
 
             buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
     
             _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -2554,7 +2575,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             }
     
             buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
     
             _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -2784,7 +2805,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     
             buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
             buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-                refreshViews( true );
+                refreshViews( true, true );
             } );
     
             _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
@@ -5865,8 +5886,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
     }
 
-    function refreshViews( fromButton ) {
+    function refreshViews( fromButton, triggerEvent ) {
         fromButton = isDefined( fromButton ) ? fromButton : false;
+        triggerEvent = isDefined( triggerEvent ) ? triggerEvent : false;
 
         if ( isOnlyMainDisplayVisible() || fromButton ) {
             refreshOpenedViews();
@@ -5876,6 +5898,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 build();
             } else {
                 buildDayEvents();
+            }
+
+            if ( triggerEvent ) {
+                triggerOptionsEvent( "onRefresh" );
             }
         }
     }
@@ -6386,6 +6412,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
     function isDefinedDate( object ) {
         return isDefinedObject( object ) && object instanceof Date;
+    }
+
+    function isDefinedDOMElement( object ) {
+        return isDefinedObject( object ) && object.tagName !== undefined;
     }
 
     function isValidUrl( url ) {
@@ -7135,6 +7165,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Removes the calendar from the DOM.
      * 
      * @public
+     * @fires       onDestroy
      */
     this.destroy = function() {
         _element_Calendar.className = "";
@@ -7142,6 +7173,8 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
 
         clearElementsByClassName( _document.body, "calendar-dialog" );
         clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
+
+        triggerOptionsEvent( "onDestroy", _elementID );
     };
 
 
@@ -7239,8 +7272,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var newDate = new Date( date );
 
             if ( !doDatesMatch( _currentDate, newDate ) ) {
-                build( newDate );
-                triggerOptionsEventWithData( "onSetDate", newDate );
+                if ( newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum ) {
+                    build( newDate );
+                    triggerOptionsEventWithData( "onSetDate", newDate );
+                }
             }
         }
     };
@@ -7274,13 +7309,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
                 newDateAllowed = isDateValidForDatePicker( newDate );
             
             if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
-                newDate.setHours( 0, 0, 0, 0 );
+                if ( newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum ) {
+                    newDate.setHours( 0, 0, 0, 0 );
 
-                hideDatePickerMode();
-                updateDatePickerInputValueDisplay( newDate );
-                triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
-
-                _currentDateForDatePicker = newDate;
+                    hideDatePickerMode();
+                    updateDatePickerInputValueDisplay( newDate );
+                    triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+    
+                    _currentDateForDatePicker = newDate;
+                }
             }
         }
     };
@@ -7309,10 +7346,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * Refreshes all of the views.
      * 
      * @public
+     * @fires       onRefresh
      */
     this.refresh = function() {
         if ( !_datePickerModeEnabled ) {
-            refreshViews();
+            refreshViews( false, true );
         }
     };
 
@@ -7324,9 +7362,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( !_datePickerModeEnabled || _datePickerVisible ) {
             var previousMonth = new Date( _currentDate );
             previousMonth.setMonth( previousMonth.getMonth() - 1 );
-    
-            build( previousMonth );
-            triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+
+            if ( previousMonth.getFullYear() >= _year_Minimum ) {
+                build( previousMonth );
+                triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+            }
         }
     }
 
@@ -7338,9 +7378,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( !_datePickerModeEnabled || _datePickerVisible ) {
             var nextMonth = new Date( _currentDate );
             nextMonth.setMonth( nextMonth.getMonth() + 1 );
-    
-            build( nextMonth );
-            triggerOptionsEventWithData( "onNextMonth", nextMonth );
+
+            if ( nextMonth.getFullYear() <= _year_Maximum ) {
+                build( nextMonth );
+                triggerOptionsEventWithData( "onNextMonth", nextMonth );
+            }
         }
     }
 
@@ -7349,8 +7391,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
             var previousYear = new Date( _currentDate );
             previousYear.setFullYear( previousYear.getFullYear() - 1 );
     
-            build( previousYear );
-            triggerOptionsEventWithData( "onPreviousYear", previousYear );
+            if ( previousYear.getFullYear() >= _year_Minimum ) {
+                build( previousYear );
+                triggerOptionsEventWithData( "onPreviousYear", previousYear );
+            }
         }
     }
 
@@ -7358,9 +7402,11 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         if ( !_datePickerModeEnabled || _datePickerVisible ) {
             var nextYear = new Date( _currentDate );
             nextYear.setFullYear( nextYear.getFullYear() + 1 );
-    
-            build( nextYear );
-            triggerOptionsEventWithData( "onNextYear", nextYear );
+
+            if ( nextYear.getFullYear() <= _year_Maximum ) {
+                build( nextYear );
+                triggerOptionsEventWithData( "onNextYear", nextYear );
+            }
         }
     }
 
@@ -8000,7 +8046,20 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.6.6";
+        return "1.7.0";
+    };
+
+    /**
+     * getId().
+     * 
+     * Returns the ID of this Calendar.js instance.
+     * 
+     * @public
+     * 
+     * @returns     {string}                                                The Calendar ID.
+     */
+    this.getId = function() {
+        return _elementID;
     };
 
 
@@ -8164,7 +8223,7 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         }
 
         if ( !isDefinedNumber( _options.extraSelectableYearsAhead ) ) {
-            _options.extraSelectableYearsAhead = 51;
+            _options.extraSelectableYearsAhead = 100;
         }
 
         if ( !isDefinedBoolean( _options.exportEventsEnabled ) ) {
@@ -9081,9 +9140,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     ( function ( documentObject, windowObject ) {
         _document = documentObject;
         _window = windowObject;
-        _elementID = id;
+        _elementID = elementOrId;
 
-        if ( isDefinedString( _elementID ) ) {
+        if ( isDefinedString( _elementID ) || isDefinedDOMElement( _elementID ) ) {
             buildDefaultOptions( options );
             buildDefaultSearchOptions( searchOptions );
             build( startDateTime, true );

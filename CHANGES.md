@@ -1,5 +1,20 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.0:
+- Added support to pass an element directly to the constructor (instead of an ID, which is still supported).
+- Added jQuery plugin support (will load a new instance of the calendar against any DOM element).
+- Improved documentation header for the main JS file.
+- Added public function "getId()", which will return the element ID of the calendar instance.
+- Added back in version stamp into the minimized version of the main JS file.
+- Added a new custom event "onDestroy", which is triggered when a Calendar instance is destroyed (the Calendar ID is passed).
+- Added a new custom event "onRefresh", which is triggered when the Calendar is manually refreshed.
+- Updated documentation regarding use within Internet Explorer.
+- Added new custom event "onDatePickerOpened", which is triggered when a DatePicker is opened (the Calendar ID is passed).
+- Added new custom event "onDatePickerClosed", which is triggered when a DatePicker is closed (the Calendar ID is passed).
+- Fixed a spacing issue in the "Search" dialog that pressed the advanced options right up to the contents before it.
+- Changed the default value for setting "extraSelectableYearsAhead", which is now 100 instead of 51.
+- Fixed a fault that allowed the Calendar to be skipped over the minimum/maximum year specified in the year drop-down.
+
 ### Version 1.6.6:
 - Added a new setting "currentMonthTooltipText" (defaults to "Current Month") which is used for the "Today" button on the main display.
 - Fixed a fault that caused the "duration" label to be added to the displays when empty (was causing some spacing issues).
