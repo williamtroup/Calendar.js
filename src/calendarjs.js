@@ -328,12 +328,12 @@
  * @public
  * @class
  * 
- * @param       {string}    id                                          The ID of the element that should be used to display the calendar (or input to assign a DatePicker).
+ * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
  * @param       {Search}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
  * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
  */
-function calendarJs( id, options, searchOptions, startDateTime ) {
+function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
     var _options = {},
         _optionsForSearch = {},
         _keyCodes = {
@@ -714,7 +714,15 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     }
 
     function buildContainer() {
-        var element = getElementByID( _elementID );
+        var element;
+
+        if ( !isDefinedDOMElement( _elementID ) ) {
+            element = getElementByID( _elementID );
+        } else {
+
+            element = _elementID;
+            _elementID = element.id;
+        }
 
         if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
             buildDatePickerMode( element );
@@ -6388,6 +6396,10 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
         return isDefinedObject( object ) && object instanceof Date;
     }
 
+    function isDefinedDOMElement( object ) {
+        return isDefinedObject( object ) && object.tagName !== undefined;
+    }
+
     function isValidUrl( url ) {
         return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( url );
     }
@@ -9081,9 +9093,9 @@ function calendarJs( id, options, searchOptions, startDateTime ) {
     ( function ( documentObject, windowObject ) {
         _document = documentObject;
         _window = windowObject;
-        _elementID = id;
+        _elementID = elementOrId;
 
-        if ( isDefinedString( _elementID ) ) {
+        if ( isDefinedString( _elementID ) || isDefinedDOMElement( _elementID ) ) {
             buildDefaultOptions( options );
             buildDefaultSearchOptions( searchOptions );
             build( startDateTime, true );

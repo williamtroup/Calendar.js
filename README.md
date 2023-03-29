@@ -98,7 +98,14 @@ Also, make sure you include the "DOCTYPE html" tag at the top of your email, as 
 
 ```markdown
 <script> 
-  var calendarInstance = calendarJs( "calendar", {
+  var calendarInstance1 = calendarJs( "calendar", {
+    manualEditingEnabled: true
+    // All your options can be set here
+  } );
+
+  // OR
+  var calendarElement = document.getElementById( "calendar" );
+  var calendarInstance2 = calendarJs( calendarElement, {
     manualEditingEnabled: true
     // All your options can be set here
   } ); 
