@@ -12,6 +12,8 @@
 - Added new custom event "onDatePickerOpened", which is triggered when a DatePicker is opened (the Calendar ID is passed).
 - Added new custom event "onDatePickerClosed", which is triggered when a DatePicker is closed (the Calendar ID is passed).
 - Fixed a spacing issue in the "Search" dialog that pressed the advanced options right up to the contents before it.
+- Changed the default value for setting "extraSelectableYearsAhead", which is now 100 instead of 51.
+- Fixed a fault that allowed the Calendar to be skipped over the minimum/maximum year specified in the year drop-down.
 - 
 
 ### Version 1.6.6:

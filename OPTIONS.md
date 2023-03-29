@@ -11,7 +11,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNumberOrdinals | States if the day ordinal values should be shown (defaults to true). |
 | *boolean* | dragAndDropForEventsEnabled | States if dragging and dropping events around the days of the month is enabled (defaults to true). |
 | *number* | maximumEventsPerDayDisplay | The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it). |
-| *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 51). |
+| *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 100). |
 | *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
 | *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |

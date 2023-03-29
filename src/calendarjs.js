@@ -243,7 +243,7 @@
  * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
  * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
  * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
- * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 51).
+ * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 100).
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
@@ -397,6 +397,8 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         _isDateToday = false,
         _openDialogs = [],
         _copiedEventDetails = null,
+        _year_Minimum = 1900,
+        _year_Maximum = null,
         _elementID_Day = "day-",
         _elementID_Month = "month-",
         _elementID_WeekDay = "week-day-",
@@ -1124,7 +1126,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
      */
 
     function buildYearSelectorDropDown( container ) {
-        var date = new Date( 1900, 1, 1 ),
+        var date = new Date( _year_Minimum, 1, 1 ),
             dateCurrent = new Date(),
             dateYearsTotal = ( dateCurrent.getFullYear() - date.getFullYear() ) + _options.extraSelectableYearsAhead;
 
@@ -1139,6 +1141,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             moveDateForwardYear( date );
         }
 
+        _year_Maximum = date.getFullYear() - 1;
         _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
     }
 
@@ -7269,8 +7272,10 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             var newDate = new Date( date );
 
             if ( !doDatesMatch( _currentDate, newDate ) ) {
-                build( newDate );
-                triggerOptionsEventWithData( "onSetDate", newDate );
+                if ( newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum ) {
+                    build( newDate );
+                    triggerOptionsEventWithData( "onSetDate", newDate );
+                }
             }
         }
     };
@@ -7304,13 +7309,15 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
                 newDateAllowed = isDateValidForDatePicker( newDate );
             
             if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
-                newDate.setHours( 0, 0, 0, 0 );
+                if ( newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum ) {
+                    newDate.setHours( 0, 0, 0, 0 );
 
-                hideDatePickerMode();
-                updateDatePickerInputValueDisplay( newDate );
-                triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
-
-                _currentDateForDatePicker = newDate;
+                    hideDatePickerMode();
+                    updateDatePickerInputValueDisplay( newDate );
+                    triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+    
+                    _currentDateForDatePicker = newDate;
+                }
             }
         }
     };
@@ -7355,9 +7362,11 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         if ( !_datePickerModeEnabled || _datePickerVisible ) {
             var previousMonth = new Date( _currentDate );
             previousMonth.setMonth( previousMonth.getMonth() - 1 );
-    
-            build( previousMonth );
-            triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+
+            if ( previousMonth.getFullYear() >= _year_Minimum ) {
+                build( previousMonth );
+                triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+            }
         }
     }
 
@@ -7369,9 +7378,11 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         if ( !_datePickerModeEnabled || _datePickerVisible ) {
             var nextMonth = new Date( _currentDate );
             nextMonth.setMonth( nextMonth.getMonth() + 1 );
-    
-            build( nextMonth );
-            triggerOptionsEventWithData( "onNextMonth", nextMonth );
+
+            if ( nextMonth.getFullYear() <= _year_Maximum ) {
+                build( nextMonth );
+                triggerOptionsEventWithData( "onNextMonth", nextMonth );
+            }
         }
     }
 
@@ -7380,8 +7391,10 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             var previousYear = new Date( _currentDate );
             previousYear.setFullYear( previousYear.getFullYear() - 1 );
     
-            build( previousYear );
-            triggerOptionsEventWithData( "onPreviousYear", previousYear );
+            if ( previousYear.getFullYear() >= _year_Minimum ) {
+                build( previousYear );
+                triggerOptionsEventWithData( "onPreviousYear", previousYear );
+            }
         }
     }
 
@@ -7389,9 +7402,11 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         if ( !_datePickerModeEnabled || _datePickerVisible ) {
             var nextYear = new Date( _currentDate );
             nextYear.setFullYear( nextYear.getFullYear() + 1 );
-    
-            build( nextYear );
-            triggerOptionsEventWithData( "onNextYear", nextYear );
+
+            if ( nextYear.getFullYear() <= _year_Maximum ) {
+                build( nextYear );
+                triggerOptionsEventWithData( "onNextYear", nextYear );
+            }
         }
     }
 
@@ -8208,7 +8223,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         }
 
         if ( !isDefinedNumber( _options.extraSelectableYearsAhead ) ) {
-            _options.extraSelectableYearsAhead = 51;
+            _options.extraSelectableYearsAhead = 100;
         }
 
         if ( !isDefinedBoolean( _options.exportEventsEnabled ) ) {
