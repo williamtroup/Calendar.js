@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.1:
+- 
+
 ### Version 1.7.0:
 - Added support to pass an element directly to the constructor (instead of an ID, which is still supported).
 - Added jQuery plugin support (will load a new instance of the calendar against any DOM element).

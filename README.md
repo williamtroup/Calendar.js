@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v1.7.0</p>
+<p align="center">v1.7.1</p>
 <br />
 
 ![CalendarJs](images/main.png)
@@ -41,6 +41,7 @@ Calendar.js
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
 - DatePicker mode (just assign to the ID of an text input).
 - HTML text support (off by default).
+- jQuery plugin for quickly creating Calendars.
 <br />
 <br />
 
