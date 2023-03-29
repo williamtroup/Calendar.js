@@ -1,0 +1,33 @@
+{
+    "name": "jcalendar.js",
+    "title": "Calendar.js",
+    "description": "A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.",
+    "version": "1.7.1",
+    "main": "src/calendarjs.js",
+    "homepage": "https://williamtroup.github.io/Calendar.js/",
+    "author": {
+      "name": "Bunoon"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/williamtroup/Calendar.js"
+    },
+    "keywords": [
+      "javascript",
+      "frontend",
+      "calendar",
+      "datepicker",
+      "fullcalendar",
+      "daily",
+      "monthly",
+      "yearly",
+      "javascript-calendar",
+      "calendar-events",
+      "browser-notifications",
+      "calendarjs"
+    ],
+    "bugs": {
+      "url": "https://github.com/williamtroup/Calendar.js/issues"
+    },
+    "license": "MIT"
+  }
