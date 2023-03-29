@@ -48,7 +48,7 @@ Calendar.js
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 
-Limited support is available for Internet Explorer, but this will seize by the end of 2021.
+Limited support is still available for Internet Explorer. However, use within this browser is not recommended.
 <br>
 <br>
 
