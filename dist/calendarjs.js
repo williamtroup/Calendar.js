@@ -93,6 +93,7 @@
  * @property    {Object}    onRefresh                                   Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called).
  * @property    {Object}    onDatePickerOpened                          Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function).
  * @property    {Object}    onDatePickerClosed                          Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function).
+ * @property    {Object}    onRender                                    Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -385,6 +386,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         _window = null,
         _elementID = null,
         _initialized = false,
+        _initializedFirstTime = false,
         _initializedDocumentEvents = false,
         _events = {},
         _timer_CallSearchOptionsEvent = null,
@@ -720,6 +722,11 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             buildDocumentEvents();
             
             _initialized = true;
+
+            if ( !_initializedFirstTime ) {
+                triggerOptionsEventWithData( "onRender", _elementID );
+                _initializedFirstTime = true;
+            }
         }
     }
 
