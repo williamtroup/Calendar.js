@@ -27,7 +27,7 @@
     } );
 
     function findElementsByAttributeAndCreateInstances( tagType ) {
-        var elements = documentObject.getElementsByTagName( tagType ),
+        var elements = getElementsByTagName( tagType ),
             elementsLength = elements.length;
 
         for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
@@ -43,6 +43,18 @@
                 element.removeAttribute( _attribute_Name );
             }
         }
+    }
+
+    function getElementsByTagName( tagType ) {
+        var result = [],
+            elements = documentObject.getElementsByTagName( tagType ),
+            elementsLength = elements.length;
+
+        for ( var elementIndex = 0; elementIndex < elementsLength; elementIndex++ ) {
+            result.push( elements[ elementIndex ] );
+        }
+
+        return result;
     }
 
     function isDefined( data ) {

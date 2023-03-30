@@ -740,6 +740,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             element = _elementID;
             _elementID = element.id;
+
+            if ( !isDefinedString( _elementID ) ) {
+                _elementID = newGuid();
+                element.id = _elementID;
+            }
         }
 
         if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
@@ -969,7 +974,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _datePickerInput.readOnly = true;
         _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;
-        _elementID = newGuid();
 
         var parent = element.parentNode;
         parent.removeChild( _datePickerInput );
