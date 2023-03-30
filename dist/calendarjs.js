@@ -342,6 +342,8 @@
  * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
  * @param       {Search}    searchOptions                               All the configurable search options that should be used (refer to "Search Options" documentation for properties).
+ * 
+ * @returns     {Object}                                                The Calendar.js instance.
  */
 function calendarJs( elementOrId, options, searchOptions ) {
     var _options = {},

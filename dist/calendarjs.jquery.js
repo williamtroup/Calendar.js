@@ -11,31 +11,22 @@
  */
 
 (function ( $ ) {
-    $.fn.calendarJs = function( options, loadOptions ) {
+    /**
+     * calendarJs().
+     * 
+     * Created new instances of the Calendar.js class for each element.
+     * 
+     * @public
+     * 
+     * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
+     * 
+     * @returns     {Object}                                                The Calendar.JS instances created.
+     */
+    $.fn.calendarJs = function( options ) {
         var instances = [];
-
-        var setOptions = function() {
-            if ( loadOptions !== null && typeof loadOptions === "object" ) {
-                if ( loadOptions.loadedEvent === undefined ) {
-                    loadOptions.loadedEvent = null;
-                }
-            }
-        };
-
-        var createInstance = function( element ) {
-            var instance = new calendarJs( element, options );
-
-            if ( loadOptions.loadedEvent !== null ) {
-                loadOptions.loadedEvent();
-            }
-
-            instances.push( instance );
-        };
-
-        setOptions();
-
+        
         this.each(function() {
-            createInstance( this );
+            instances.push( new calendarJs( this, options ) );
         });
         
         return instances;
