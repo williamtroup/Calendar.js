@@ -12,6 +12,8 @@
 
 (function ( $ ) {
     $.fn.calendarJs = function( options, loadOptions ) {
+        var instances = [];
+
         var setOptions = function() {
             if ( loadOptions !== null && typeof loadOptions === "object" ) {
                 if ( loadOptions.loadedEvent === undefined ) {
@@ -20,15 +22,22 @@
             }
         };
 
+        var createInstance = function( element ) {
+            var instance = new calendarJs( element, options );
+
+            if ( loadOptions.loadedEvent !== null ) {
+                loadOptions.loadedEvent();
+            }
+
+            instances.push( instance );
+        };
+
         setOptions();
 
-        var element = $( this )[ 0 ],
-            calendarInstance = new calendarJs( element, options );
-
-        if ( loadOptions.loadedEvent !== null ) {
-            loadOptions.loadedEvent();
-        }
-
-        return calendarInstance;
+        this.each(function() {
+            createInstance( this );
+        });
+        
+        return instances;
     };
 } ( jQuery ) );

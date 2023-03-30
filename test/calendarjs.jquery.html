@@ -22,10 +22,35 @@
                 <p>Some data that should be cleared.</p>
             </div>
         </div>
+
+        <div class="contents">
+            <div class="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
+
+        <div class="contents">
+            <div class="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
     </body>
 
     <script>
         var calendarInstance = $( "#myCalendar" ).calendarJs( { 
+            exportEventsEnabled: true, 
+            manualEditingEnabled: true, 
+            showTimesInMainCalendarEvents: false,
+            minimumDayHeight: 0,
+            manualEditingEnabled: true,
+            organizerName: "Your Name",
+            organizerEmailAddress: "your@email.address",
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+        }, {
+            loadedEvent: null
+        } )[ 0 ];
+
+        var calendarInstances = $( ".myCalendar" ).calendarJs( { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
             showTimesInMainCalendarEvents: false,

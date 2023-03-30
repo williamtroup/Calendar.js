@@ -10,6 +10,7 @@
 - Removed calendarJs() constructor parameter "startDateTime" (use the new "initialDateTime" instead).
 - Added new setting "searchOptions" (defaults to empty object), which is an alternate way to get Search Options into the calendar instance.
 - Fixed a fault that caused DatePicker mode to override the DOM element ID it is being assigned to (now only set if not available).
+- Added multiple DOM element support to the jQuery plugin (will return all the calendarJs instances created).
 - 
 
 ### Version 1.7.1:
