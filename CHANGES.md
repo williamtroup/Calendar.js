@@ -6,6 +6,8 @@
 - Improved the testing HTML files.  They now state what each one is for at the top.
 - Added a new custom event "onRender", which is triggered when a Calendar is rendered for the first time (the Calendar ID is passed).
 - Added Data-Binding support to quickly create new Calendars without writing Javascript.
+- Added new setting "initialDateTime" (defaults to todays Date), which states the selected date the calendar should display.
+- Removed calendarJs() constructor parameter "startDateTime" (use the new "initialDateTime" instead).
 - 
 
 ### Version 1.7.1:

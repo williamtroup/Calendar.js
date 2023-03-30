@@ -286,6 +286,7 @@
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
  * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
+ * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
  */
 
 
@@ -340,9 +341,8 @@
  * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
  * @param       {Search}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
- * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
  */
-function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
+function calendarJs( elementOrId, options, searchOptions ) {
     var _options = {},
         _optionsForSearch = {},
         _keyCodes = {
@@ -8397,6 +8397,10 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             _options.weekendDays = [ 0, 6 ];
         }
 
+        if ( !isDefinedDate( _options.initialDateTime ) ) {
+            _options.initialDateTime = null;
+        }
+
         setTranslationStringOptions();
         checkForBrowserNotificationsPermission();
     }
@@ -9152,7 +9156,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         if ( isDefinedString( _elementID ) || isDefinedDOMElement( _elementID ) ) {
             buildDefaultOptions( options );
             buildDefaultSearchOptions( searchOptions );
-            build( startDateTime, true );
+            build( options.initialDateTime, true );
     
             if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
                 turnOnFullScreenMode( true );
