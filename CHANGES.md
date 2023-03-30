@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.7.2:
+- Moved all the testing HTML files into a new subfolder called "test".
 - 
 
 ### Version 1.7.1:
