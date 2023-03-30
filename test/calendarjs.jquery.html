@@ -5,17 +5,32 @@
         <title>Calendar.js - jQuery</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
         <link rel="stylesheet" href="css/styles.css" />
-        <link rel="stylesheet" href="src/calendarjs.css" />
+        <link rel="stylesheet" href="../dist/calendarjs.css" />
         <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-        <script src="src/calendarjs.js"></script>
-        <script src="src/calendarjs.jquery.js"></script>
+        <script src="../dist/calendarjs.js"></script>
+        <script src="../dist/calendarjs.jquery.js"></script>
     </head>
 
     <body>
-        <h1 id="header">Calendar.js - jQuery</h1>
+        <div class="header">
+            <h1 id="header">Calendar.js - jQuery</h1>
+            <p>A test that shows Calendar.js working when triggered from the jQuery plugin.</p>
+        </div>
 
         <div class="contents">
             <div id="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
+
+        <div class="contents">
+            <div class="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
+
+        <div class="contents">
+            <div class="myCalendar" style="max-width: 800px;">
                 <p>Some data that should be cleared.</p>
             </div>
         </div>
@@ -23,6 +38,19 @@
 
     <script>
         var calendarInstance = $( "#myCalendar" ).calendarJs( { 
+            exportEventsEnabled: true, 
+            manualEditingEnabled: true, 
+            showTimesInMainCalendarEvents: false,
+            minimumDayHeight: 0,
+            manualEditingEnabled: true,
+            organizerName: "Your Name",
+            organizerEmailAddress: "your@email.address",
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+        }, {
+            loadedEvent: null
+        } )[ 0 ];
+
+        var calendarInstances = $( ".myCalendar" ).calendarJs( { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
             showTimesInMainCalendarEvents: false,

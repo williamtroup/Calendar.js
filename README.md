@@ -4,10 +4,10 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v1.7.1</p>
+<p align="center">v1.7.2</p>
 <br />
 
-![CalendarJs](images/main.png)
+![CalendarJs](docs/images/main.png)
 
 <h1>What features does Calendar.js have?</h1>
 
@@ -42,6 +42,7 @@ Calendar.js
 - DatePicker mode (just assign to the ID of an text input).
 - HTML text support (off by default).
 - jQuery plugin for quickly creating Calendars.
+- Data-Binding support to quickly create new Calendars without writing Javascript!
 <br />
 <br />
 
@@ -83,8 +84,8 @@ Also, make sure you include the "DOCTYPE html" tag at the top of your email, as 
 ### 2. Include Files:
 
 ```markdown
-<link rel="stylesheet" href="src/calendarjs.css" />
-<script src="src/calendarjs.js"></script>
+<link rel="stylesheet" href="dist/calendarjs.css" />
+<script src="dist/calendarjs.js"></script>
 ```
 <br>
 
@@ -115,7 +116,7 @@ Also, make sure you include the "DOCTYPE html" tag at the top of your email, as 
 
 <br>
 
-To see the options available for the class constructor, click [here](CLASS.md).
+To see the options available for the class constructor, click [here](CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
 <br>
 <br>
 

@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.js
- * @version     v1.7.1
+ * @version     v1.7.2
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -93,6 +93,7 @@
  * @property    {Object}    onRefresh                                   Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called).
  * @property    {Object}    onDatePickerOpened                          Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function).
  * @property    {Object}    onDatePickerClosed                          Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function).
+ * @property    {Object}    onRender                                    Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -285,6 +286,9 @@
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
  * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
+ * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
+ * @property    {Object}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
+ * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
  */
 
 
@@ -338,10 +342,11 @@
  * 
  * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
- * @param       {Search}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
- * @param       {Object}    startDateTime                               The date that the calendar should start from (defaults to today).
+ * @param       {Search}    searchOptions                               All the configurable search options that should be used (refer to "Search Options" documentation for properties).
+ * 
+ * @returns     {Object}                                                The Calendar.js instance.
  */
-function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
+function calendarJs( elementOrId, options, searchOptions ) {
     var _options = {},
         _optionsForSearch = {},
         _keyCodes = {
@@ -385,6 +390,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         _window = null,
         _elementID = null,
         _initialized = false,
+        _initializedFirstTime = false,
         _initializedDocumentEvents = false,
         _events = {},
         _timer_CallSearchOptionsEvent = null,
@@ -718,8 +724,17 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             buildDayNamesHeader();
             buildDayRows();
             buildDocumentEvents();
-            
+
             _initialized = true;
+
+            if ( isDefinedArray( _options.events ) ) {
+                _this.addEvents( _options.events, false, false, false );
+            }
+
+            if ( !_initializedFirstTime ) {
+                triggerOptionsEventWithData( "onRender", _elementID );
+                _initializedFirstTime = true;
+            }
         }
     }
 
@@ -732,6 +747,10 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
 
             element = _elementID;
             _elementID = element.id;
+
+            if ( !isDefinedString( _elementID ) ) {
+                _elementID = newGuid();
+            }
         }
 
         if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
@@ -961,7 +980,6 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         _datePickerInput.readOnly = true;
         _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;
-        _elementID = newGuid();
 
         var parent = element.parentNode;
         parent.removeChild( _datePickerInput );
@@ -8046,7 +8064,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.7.1";
+        return "1.7.2";
     };
 
     /**
@@ -8390,12 +8408,20 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
             _options.weekendDays = [ 0, 6 ];
         }
 
+        if ( !isDefinedDate( _options.initialDateTime ) ) {
+            _options.initialDateTime = null;
+        }
+
+        if ( !isDefinedArray( _options.events ) ) {
+            _options.events = null;
+        }
+
         setTranslationStringOptions();
         checkForBrowserNotificationsPermission();
     }
 
     function buildDefaultSearchOptions( newSearchOptions ) {
-        _optionsForSearch = getOptions( newSearchOptions );
+        _optionsForSearch = getOptions( newSearchOptions, _options.searchOptions );
 
         if ( !isDefinedString( _optionsForSearch.lastSearchText ) ) {
             _optionsForSearch.lastSearchText = "";
@@ -9055,9 +9081,14 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         return !isDefinedArray( array ) || array.length < minimumLength;
     }
 
-    function getOptions( newOptions ) {
-        if ( !isDefined( newOptions ) || typeof newOptions !== "object" ) {
-            newOptions = {};
+    function getOptions( newOptions, alternateOptions ) {
+        if ( !isDefinedObject( newOptions ) ) {
+
+            if ( !isDefinedObject( alternateOptions ) ) {
+                newOptions = {};
+            } else {
+                newOptions = alternateOptions;
+            }
         }
 
         return newOptions;
@@ -9145,7 +9176,7 @@ function calendarJs( elementOrId, options, searchOptions, startDateTime ) {
         if ( isDefinedString( _elementID ) || isDefinedDOMElement( _elementID ) ) {
             buildDefaultOptions( options );
             buildDefaultSearchOptions( searchOptions );
-            build( startDateTime, true );
+            build( options.initialDateTime, true );
     
             if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
                 turnOnFullScreenMode( true );

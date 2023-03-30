@@ -1,5 +1,20 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.2:
+- Moved all the testing HTML files into a new subfolder called "test".
+- Moved all compiled code into a new folder called "dist".  "src" now only contains SASS files.
+- Improved the testing HTML files.  They now state what each one is for at the top.
+- Added a new custom event "onRender", which is triggered when a Calendar is rendered for the first time (the Calendar ID is passed).
+- Added Data-Binding support to quickly create new Calendars without writing Javascript.
+- Added a new setting "initialDateTime" (defaults to today's Date), which states the selected date the calendar should display.
+- Removed calendarJs() constructor parameter "startDateTime" (use the new "initialDateTime" instead).
+- Added a new setting "searchOptions" (defaults to an empty object), which is an alternate way to get Search Options into the calendar instance.
+- Fixed a fault that caused DatePicker mode to overwrite the DOM element ID it is being assigned to (now only set if not available).
+- Added multiple DOM element support to the jQuery plugin (will return all the calendarJs instances created).
+- Removed the "loadOptions" from the jQuery plugin (no longer needed) and added documentation.
+- Documentation improvements across the core project.
+- Added a new setting "events" (defaults to null), which states the initial events that should be rendered in the calendar when it's first rendered.
+
 ### Version 1.7.1:
 - Added basic NPM support (as requested).
 

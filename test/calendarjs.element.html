@@ -2,15 +2,18 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js - Large Data</title>
+        <title>Calendar.js - Element</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
         <link rel="stylesheet" href="css/styles.css" />
-        <link rel="stylesheet" href="src/calendarjs.css" />
-        <script src="src/calendarjs.js"></script>
+        <link rel="stylesheet" href="../dist/calendarjs.css" />
+        <script src="../dist/calendarjs.js"></script>
     </head>
 
     <body>
-        <h1 id="header">Calendar.js - Large Data</h1>
+        <div class="header">
+            <h1 id="header">Calendar.js - Element</h1>
+            <p>A test that shows Calendar.js being triggered against a DOM element.</p>
+        </div>
 
         <div class="contents">
             <div id="myCalendar" style="max-width: 800px;">
@@ -20,7 +23,9 @@
     </body>
 
     <script>
-        var calendarInstance = new calendarJs( "myCalendar", { 
+        var calendarElement = document.getElementById( "myCalendar" );
+
+        var calendarInstance = new calendarJs( calendarElement, { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
             showTimesInMainCalendarEvents: false,
