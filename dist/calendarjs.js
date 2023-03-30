@@ -745,7 +745,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( !isDefinedString( _elementID ) ) {
                 _elementID = newGuid();
-                element.id = _elementID;
             }
         }
 
