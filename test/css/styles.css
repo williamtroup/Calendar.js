@@ -8,7 +8,7 @@ a:visited {
     color: blue;
 }
 
-h1 {
+div.header {
     background-color: lightgray !important;
     color: black !important;
     padding: 10px !important;
@@ -16,6 +16,16 @@ h1 {
     margin-block-start: 0 !important;
     margin-block-end: 0 !important;
     margin: 0 !important;
+}
+
+div.header h1,
+div.header p {
+    margin: 0;
+    padding: 0;
+}
+
+div.header h1 {
+    margin-bottom: 8px;
 }
 
 h2 {

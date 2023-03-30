@@ -3,6 +3,7 @@
 ### Version 1.7.2:
 - Moved all the testing HTML files into a new subfolder called "test".
 - Moved all compiled coded into a new folder called "dist".  "src" now only contains SASS files.
+- Improved the testing HTML files.  They now state what each one is for at the top.
 - 
 
 ### Version 1.7.1:
