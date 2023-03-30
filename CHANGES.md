@@ -8,6 +8,7 @@
 - Added Data-Binding support to quickly create new Calendars without writing Javascript.
 - Added new setting "initialDateTime" (defaults to todays Date), which states the selected date the calendar should display.
 - Removed calendarJs() constructor parameter "startDateTime" (use the new "initialDateTime" instead).
+- Added new setting "searchOptions" (defaults to empty object), which is an alternate way to get Search Options into the calendar instance.
 - 
 
 ### Version 1.7.1:

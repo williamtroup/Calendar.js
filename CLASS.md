@@ -11,4 +11,4 @@ The main Calendar.js class.
 <br>
 ***Parameter: options***: '*Object*' - All the configurable options that should be used (refer to ["Options"](OPTIONS.md) documentation for properties).
 <br>
-***Parameter: options***: '*Object*' - All the configurable options that should be used (refer to ["Search Options"](SEARCH_OPTIONS.md) documentation for properties).
+***Parameter: options***: '*Object*' - All the configurable search options that should be used (refer to ["Search Options"](SEARCH_OPTIONS.md) documentation for properties).

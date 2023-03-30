@@ -54,7 +54,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | datePickerSelectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *number[]* | weekendDays | States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *Object* | initialDateTime | States the date that the calendar should start from when first loaded (defaults to today). |
-
+| *Object* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
 <br/>
 
 ### Translatable String Options:

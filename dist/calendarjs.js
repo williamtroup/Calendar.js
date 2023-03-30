@@ -287,6 +287,7 @@
  * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
+ * @property    {Object}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
  */
 
 
@@ -340,7 +341,7 @@
  * 
  * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
  * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
- * @param       {Search}    searchOptions                               All the configurable options that should be used (refer to "Search Options" documentation for properties).
+ * @param       {Search}    searchOptions                               All the configurable search options that should be used (refer to "Search Options" documentation for properties).
  */
 function calendarJs( elementOrId, options, searchOptions ) {
     var _options = {},
@@ -8406,7 +8407,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildDefaultSearchOptions( newSearchOptions ) {
-        _optionsForSearch = getOptions( newSearchOptions );
+        _optionsForSearch = getOptions( newSearchOptions, _options.searchOptions );
 
         if ( !isDefinedString( _optionsForSearch.lastSearchText ) ) {
             _optionsForSearch.lastSearchText = "";
@@ -9066,9 +9067,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return !isDefinedArray( array ) || array.length < minimumLength;
     }
 
-    function getOptions( newOptions ) {
-        if ( !isDefined( newOptions ) || typeof newOptions !== "object" ) {
-            newOptions = {};
+    function getOptions( newOptions, alternateOptions ) {
+        if ( !isDefinedObject( newOptions ) ) {
+
+            if ( !isDefinedObject( alternateOptions ) ) {
+                newOptions = {};
+            } else {
+                newOptions = alternateOptions;
+            }
         }
 
         return newOptions;
