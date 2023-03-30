@@ -13,6 +13,7 @@
 - Added multiple DOM element support to the jQuery plugin (will return all the calendarJs instances created).
 - Removed the "loadOptions" from the jQuery plugin (no longer needed) and added documentation.
 - Documentation improvements across the core project.
+- Added new setting "events" (defaults to null), which states the initial events that should be rendered in the calendar when its first rendered.
 - 
 
 ### Version 1.7.1:

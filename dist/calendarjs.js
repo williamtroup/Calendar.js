@@ -288,6 +288,7 @@
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
  * @property    {Object}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
+ * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
  */
 
 
@@ -723,8 +724,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildDayNamesHeader();
             buildDayRows();
             buildDocumentEvents();
-            
+
             _initialized = true;
+
+            if ( isDefinedArray( _options.events ) ) {
+                _this.addEvents( _options.events, false, false, false );
+            }
 
             if ( !_initializedFirstTime ) {
                 triggerOptionsEventWithData( "onRender", _elementID );
@@ -8405,6 +8410,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedDate( _options.initialDateTime ) ) {
             _options.initialDateTime = null;
+        }
+
+        if ( !isDefinedArray( _options.events ) ) {
+            _options.events = null;
         }
 
         setTranslationStringOptions();

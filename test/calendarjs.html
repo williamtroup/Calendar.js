@@ -82,13 +82,12 @@
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
-            showExtraToolbarButtons: true
+            showExtraToolbarButtons: true,
+            events: getEvents()
         } );
 
         document.title += " v" + calendarInstance.getVersion();
         document.getElementById( "header" ).innerText += " v" + calendarInstance.getVersion();
-
-        calendarInstance.addEvents( getEvents() );
 
         function turnOnEventNotifications() {
             calendarInstance.setOptions( {

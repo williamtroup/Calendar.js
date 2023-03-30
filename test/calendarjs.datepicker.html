@@ -68,7 +68,8 @@
                 openInFullScreenMode: true,
                 minimumDatePickerDate: new Date(),
                 onDatePickerOpened: datePickerOpened,
-                onDatePickerClosed: datePickerClosed
+                onDatePickerClosed: datePickerClosed,
+                events: getEvents()
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
@@ -92,14 +93,7 @@
         document.title += " - v" + calendarInstance1.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance1.getVersion();
 
-        calendarInstance1.addEvent( {
-            from: new Date(),
-            to: new Date(),
-            title: "Event 1",
-            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
-            location: "Teams Meeting",
-            group: "Group 1"
-        });
+        calendarInstance1.addEvents( getEvents() );
 
         function datePickerOpened( calendarId ) {
             console.log( "Opened: " + calendarId );
@@ -107,6 +101,21 @@
 
         function datePickerClosed( calendarId ) {
             console.log( "Closed: " + calendarId );
+        }
+
+        function getEvents() {
+            var result = [
+                {
+                    from: new Date(),
+                    to: new Date(),
+                    title: "Event 1",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group 1"
+                }
+            ];
+
+            return result;
         }
     </script>
 </html>
