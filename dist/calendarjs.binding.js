@@ -14,7 +14,7 @@
 /**
  * calendarJs()
  * 
- * DOM element data binding trigger that will create calendarJs() instances and assign them to the element.
+ * A data binding trigger that will create calendarJs() instances and assign them to the configured elements.
  * 
  * @public
  */
