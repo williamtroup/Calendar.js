@@ -7,7 +7,7 @@ Calendar.js
 <p align="center">v1.7.2</p>
 <br />
 
-![CalendarJs](images/main.png)
+![CalendarJs](docs/images/main.png)
 
 <h1>What features does Calendar.js have?</h1>
 
