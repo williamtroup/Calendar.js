@@ -39,6 +39,8 @@
                 if ( jsonOptions !== null ) {
                     var _ = new calendarJs( element, jsonOptions );
                 }
+
+                element.removeAttribute( _attribute_Name );
             }
         }
     }
