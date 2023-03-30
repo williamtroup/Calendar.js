@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.2:
+- 
+
 ### Version 1.7.1:
 - Added basic NPM support (as requested).
 
