@@ -83,8 +83,8 @@ Also, make sure you include the "DOCTYPE html" tag at the top of your email, as 
 ### 2. Include Files:
 
 ```markdown
-<link rel="stylesheet" href="src/calendarjs.css" />
-<script src="src/calendarjs.js"></script>
+<link rel="stylesheet" href="dist/calendarjs.css" />
+<script src="dist/calendarjs.js"></script>
 ```
 <br>
 
