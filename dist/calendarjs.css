@@ -66,8 +66,7 @@ div.calendar-drop-down-menu *,
 div.calendar-dialog *,
 div.calendar-dialog input *,
 div.calendar-dialog textarea * {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   line-height: normal;
 }
 
@@ -84,8 +83,7 @@ div.calendar-dialog input *:before,
 div.calendar-dialog input *:after,
 div.calendar-dialog textarea *:before,
 div.calendar-dialog textarea *:after {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   line-height: normal;
 }
 
@@ -162,10 +160,8 @@ div.calendar-date-picker input.calendar-date-picker-input {
   color: #282828;
   margin-bottom: 0 !important;
   background-color: #FFFFFF;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   max-height: 35px;
 }
 
@@ -175,8 +171,7 @@ div.calendar-date-picker input.calendar-date-picker-input:last-child {
 
 div.calendar-date-picker input.calendar-date-picker-input:focus {
   border: 1px solid #282828 !important;
-  -webkit-box-shadow: 0 0 1pt 1pt #282828;
-          box-shadow: 0 0 1pt 1pt #282828;
+  box-shadow: 0 0 1pt 1pt #282828;
 }
 
 div.calendar-date-picker input.calendar-date-picker-input:not(:disabled):hover {
@@ -200,8 +195,7 @@ div.calendar-date-picker div.calendar {
   position: absolute;
   width: 300px;
   z-index: 1000;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   margin-top: 1px;
   margin-left: -1px;
 }
@@ -222,12 +216,10 @@ div.calendar-date-picker div.calendar div.days div.cell-selected {
 div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
   background-color: #a7a7a7;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
 div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -243,9 +235,6 @@ div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
     -------------------------------------------------------------------------
 */
 div.calendar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -266,8 +255,7 @@ div.calendar p {
 }
 
 div.calendar div.focused-event {
-  -webkit-animation: focused-event-effect 2s infinite;
-          animation: focused-event-effect 2s infinite;
+  animation: focused-event-effect 2s infinite;
 }
 
 div.calendar div.header-days {
@@ -283,7 +271,6 @@ div.calendar div.weekend-day {
 
 div.calendar div.drag-over {
   background-color: rgba(135, 206, 250, 0.4) !important;
-  -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
 
@@ -299,8 +286,7 @@ div.calendar div.no-events-available-text {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   text-align: center;
   width: 100%;
   max-width: 300px;
@@ -317,14 +303,12 @@ div.calendar span.link {
 }
 
 div.calendar span.link:hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.calendar span.link:active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -332,10 +316,7 @@ div.calendar span.link:active {
 
 div.calendar div.row-cells {
   border-bottom: 1px solid #B0B0B0;
-  display: -ms-flexbox;
-  display: -webkit-box;
   display: flex;
-  -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
   font-weight: 300;
   background-color: #F5F5F5;
@@ -498,14 +479,12 @@ div.calendar div.header-date div.title-container span {
 }
 
 div.calendar div.header-date div.title-container span:hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.calendar div.header-date div.title-container span:active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -522,8 +501,7 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   height: 200px;
   border: 1px solid #282828;
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   background-color: #F5F5F5;
   border-radius: 0.25rem;
   z-index: 1500;
@@ -576,12 +554,10 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   background-color: #282828;
   color: #F5F5F5;
   cursor: pointer;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -713,7 +689,6 @@ div.calendar div.row-cells div.cell div.plus-x-events {
 }
 
 div.calendar div.row-cells div.cell div.plus-x-events:hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
@@ -721,7 +696,6 @@ div.calendar div.row-cells div.cell div.plus-x-events:hover {
 }
 
 div.calendar div.row-cells div.cell div.plus-x-events:active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -740,7 +714,6 @@ div.calendar div.full-day-view {
   position: absolute;
   z-index: 2;
   background-color: #F5F5F5;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   visibility: hidden;
 }
@@ -1002,7 +975,6 @@ div.calendar div.list-all-events-view {
   position: absolute;
   z-index: 1;
   background-color: #F5F5F5;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   visibility: hidden;
 }
@@ -1185,7 +1157,6 @@ div.calendar div.list-all-week-events-view {
   position: absolute;
   z-index: 1;
   background-color: #F5F5F5;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   visibility: hidden;
 }
@@ -1378,13 +1349,11 @@ div.event-editor {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 div.event-editor div.ib-close {
@@ -1401,9 +1370,6 @@ div.event-editor div.view {
 }
 
 div.event-editor div.view div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1415,16 +1381,12 @@ div.event-editor div.view div.title-bar {
 }
 
 div.event-editor div.view div.input-title-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-bottom: 10px;
 }
 
 div.event-editor div.view div.input-title-container input[type="text"] {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  flex-grow: 1;
   margin-bottom: 0 !important;
 }
 
@@ -1449,10 +1411,8 @@ div.event-editor div.view textarea {
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   max-height: 35px;
 }
 
@@ -1464,8 +1424,7 @@ div.event-editor div.view textarea:last-child {
 div.event-editor div.view input:not([type="button"]):focus,
 div.event-editor div.view textarea:focus {
   border: 1px solid #282828 !important;
-  -webkit-box-shadow: 0 0 1pt 1pt #282828;
-          box-shadow: 0 0 1pt 1pt #282828;
+  box-shadow: 0 0 1pt 1pt #282828;
 }
 
 div.event-editor div.view input:not([type="button"]):not(:disabled):hover,
@@ -1474,9 +1433,6 @@ div.event-editor div.view textarea:not(:disabled):hover {
 }
 
 div.event-editor div.view input:disabled {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1490,9 +1446,6 @@ div.event-editor div.view textarea {
 }
 
 div.event-editor div.view p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1536,9 +1489,6 @@ div.event-editor div.view div.split-margin {
 }
 
 div.event-editor div.view input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1561,19 +1511,16 @@ div.event-editor div.view input[type="button"]:disabled {
 div.event-editor div.view input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].ok:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor div.view input[type="button"].ok:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1582,19 +1529,16 @@ div.event-editor div.view input[type="button"].ok:not(:disabled):active {
 div.event-editor div.view input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].cancel:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor div.view input[type="button"].cancel:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1603,19 +1547,16 @@ div.event-editor div.view input[type="button"].cancel:not(:disabled):active {
 div.event-editor div.view input[type="button"].remove {
   color: #F5F5F5;
   background-color: #282828;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].remove:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor div.view input[type="button"].remove:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1624,19 +1565,16 @@ div.event-editor div.view input[type="button"].remove:not(:disabled):active {
 div.event-editor div.view input[type="button"].select-colors {
   color: #F5F5F5;
   background-color: #6c757d;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].select-colors:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor div.view input[type="button"].select-colors:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1645,19 +1583,16 @@ div.event-editor div.view input[type="button"].select-colors:not(:disabled):acti
 div.event-editor div.view input[type="button"].repeat-options {
   color: #F5F5F5;
   background-color: #6c757d;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor div.view input[type="button"].repeat-options:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor div.view input[type="button"].repeat-options:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1692,13 +1627,11 @@ div.event-editor-colors {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 div.event-editor-colors div.ib-close {
@@ -1706,9 +1639,6 @@ div.event-editor-colors div.ib-close {
 }
 
 div.event-editor-colors div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1724,9 +1654,6 @@ div.event-editor-colors div.contents {
 }
 
 div.event-editor-colors div.contents p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1745,10 +1672,8 @@ div.event-editor-colors input[type="text"] {
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   max-height: 35px;
   height: 40px;
 }
@@ -1761,8 +1686,7 @@ div.event-editor-colors input[type="text"]:last-child {
 div.event-editor-colors input[type="color"]:focus,
 div.event-editor-colors input[type="text"]:focus {
   border: 1px solid #282828 !important;
-  -webkit-box-shadow: 0 0 1pt 1pt #282828;
-          box-shadow: 0 0 1pt 1pt #282828;
+  box-shadow: 0 0 1pt 1pt #282828;
 }
 
 div.event-editor-colors input[type="color"]:not(:disabled):hover,
@@ -1804,9 +1728,6 @@ div.event-editor-colors div.split {
 }
 
 div.event-editor-colors input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1829,19 +1750,16 @@ div.event-editor-colors input[type="button"]:disabled {
 div.event-editor-colors input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor-colors input[type="button"].ok:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor-colors input[type="button"].ok:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1850,19 +1768,16 @@ div.event-editor-colors input[type="button"].ok:not(:disabled):active {
 div.event-editor-colors input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor-colors input[type="button"].cancel:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor-colors input[type="button"].cancel:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1881,13 +1796,11 @@ div.event-editor-repeat-options {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 div.event-editor-repeat-options div.ib-close {
@@ -1895,9 +1808,6 @@ div.event-editor-repeat-options div.ib-close {
 }
 
 div.event-editor-repeat-options div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1913,9 +1823,6 @@ div.event-editor-repeat-options div.contents {
 }
 
 div.event-editor-repeat-options div.contents p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -1939,10 +1846,8 @@ div.event-editor-repeat-options textarea {
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   max-height: 35px;
 }
 
@@ -1954,8 +1859,7 @@ div.event-editor-repeat-options textarea:last-child {
 div.event-editor-repeat-options input:not([type="button"]):focus,
 div.event-editor-repeat-options textarea:focus {
   border: 1px solid #282828 !important;
-  -webkit-box-shadow: 0 0 1pt 1pt #282828;
-          box-shadow: 0 0 1pt 1pt #282828;
+  box-shadow: 0 0 1pt 1pt #282828;
 }
 
 div.event-editor-repeat-options input:not([type="button"]):not(:disabled):hover,
@@ -2001,9 +1905,6 @@ div.event-editor-repeat-options div.split {
 }
 
 div.event-editor-repeat-options input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2026,19 +1927,16 @@ div.event-editor-repeat-options input[type="button"]:disabled {
 div.event-editor-repeat-options input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor-repeat-options input[type="button"].ok:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor-repeat-options input[type="button"].ok:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2047,19 +1945,16 @@ div.event-editor-repeat-options input[type="button"].ok:not(:disabled):active {
 div.event-editor-repeat-options input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.event-editor-repeat-options input[type="button"].cancel:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.event-editor-repeat-options input[type="button"].cancel:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2078,13 +1973,11 @@ div.confirmation {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 div.confirmation div.ib-close {
@@ -2092,9 +1985,6 @@ div.confirmation div.ib-close {
 }
 
 div.confirmation div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2110,9 +2000,6 @@ div.confirmation div.contents {
 }
 
 div.confirmation div.contents div.message {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2157,9 +2044,6 @@ div.confirmation div.split {
 }
 
 div.confirmation input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2182,19 +2066,16 @@ div.confirmation input[type="button"]:disabled {
 div.confirmation input[type="button"].yes {
   color: #F5F5F5;
   background-color: #289345;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.confirmation input[type="button"].yes:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.confirmation input[type="button"].yes:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2203,19 +2084,16 @@ div.confirmation input[type="button"].yes:not(:disabled):active {
 div.confirmation input[type="button"].no {
   color: #F5F5F5;
   background-color: #C60000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.confirmation input[type="button"].no:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.confirmation input[type="button"].no:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2234,13 +2112,11 @@ div.select-export-type {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 div.select-export-type div.ib-close {
@@ -2248,9 +2124,6 @@ div.select-export-type div.ib-close {
 }
 
 div.select-export-type div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2303,9 +2176,6 @@ div.select-export-type div.split-margin {
 }
 
 div.select-export-type input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2328,19 +2198,16 @@ div.select-export-type input[type="button"]:disabled {
 div.select-export-type input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.select-export-type input[type="button"].ok:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.select-export-type input[type="button"].ok:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2349,19 +2216,16 @@ div.select-export-type input[type="button"].ok:not(:disabled):active {
 div.select-export-type input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.select-export-type input[type="button"].cancel:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.select-export-type input[type="button"].cancel:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2380,8 +2244,7 @@ div.search {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   z-index: 1000;
 }
 
@@ -2390,9 +2253,6 @@ div.search div.ib-close {
 }
 
 div.search div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2408,9 +2268,6 @@ div.search div.contents {
 }
 
 div.search div.contents p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2432,10 +2289,8 @@ div.search input[type="text"] {
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   max-height: 35px;
 }
 
@@ -2445,8 +2300,7 @@ div.search input[type="text"]:last-child {
 
 div.search input[type="text"]:focus {
   border: 1px solid #282828 !important;
-  -webkit-box-shadow: 0 0 1pt 1pt #282828;
-          box-shadow: 0 0 1pt 1pt #282828;
+  box-shadow: 0 0 1pt 1pt #282828;
 }
 
 div.search input[type="text"]:not(:disabled):hover {
@@ -2487,9 +2341,6 @@ div.search div.split:last-child {
 }
 
 div.search input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2512,19 +2363,16 @@ div.search input[type="button"]:disabled {
 div.search input[type="button"].next {
   color: #F5F5F5;
   background-color: #289345;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.search input[type="button"].next:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.search input[type="button"].next:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2533,19 +2381,16 @@ div.search input[type="button"].next:not(:disabled):active {
 div.search input[type="button"].previous {
   color: #F5F5F5;
   background-color: #6c757d;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.search input[type="button"].previous:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.search input[type="button"].previous:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2579,13 +2424,11 @@ div.configuration {
   border: 1px solid #282828;
   position: fixed;
   display: none;
-  -webkit-box-shadow: 4px 4px 4px #282828;
-          box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px #282828;
   z-index: 1500;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 div.configuration div.ib-close {
@@ -2593,9 +2436,6 @@ div.configuration div.ib-close {
 }
 
 div.configuration div.title-bar {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2611,9 +2451,6 @@ div.configuration div.contents {
 }
 
 div.configuration div.contents p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2632,10 +2469,8 @@ div.configuration div.contents input[type="email"] {
   color: #282828;
   margin-bottom: 10px;
   background-color: #FFFFFF;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   max-height: 35px;
 }
 
@@ -2647,8 +2482,7 @@ div.configuration div.contents input[type="email"]:last-child {
 div.configuration div.contents input[type="text"]:focus,
 div.configuration div.contents input[type="email"]:focus {
   border: 1px solid #282828 !important;
-  -webkit-box-shadow: 0 0 1pt 1pt #282828;
-          box-shadow: 0 0 1pt 1pt #282828;
+  box-shadow: 0 0 1pt 1pt #282828;
 }
 
 div.configuration div.contents input[type="text"]:not(:disabled):hover,
@@ -2694,9 +2528,6 @@ div.configuration div.split {
 }
 
 div.configuration input[type="button"] {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2719,19 +2550,16 @@ div.configuration input[type="button"]:disabled {
 div.configuration input[type="button"].ok {
   color: #F5F5F5;
   background-color: #289345;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.configuration input[type="button"].ok:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.configuration input[type="button"].ok:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2740,19 +2568,16 @@ div.configuration input[type="button"].ok:not(:disabled):active {
 div.configuration input[type="button"].cancel {
   color: #F5F5F5;
   background-color: #C60000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 div.configuration input[type="button"].cancel:not(:disabled):hover {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
 
 div.configuration input[type="button"].cancel:not(:disabled):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2764,9 +2589,6 @@ div.configuration input[type="button"].cancel:not(:disabled):active {
     -------------------------------------------------------------------------
 */
 div.calendar-dialog div.tab {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2794,12 +2616,10 @@ div.calendar-dialog div.tab-control:hover {
   border: 1px solid #282828;
   background-color: #282828;
   color: #F5F5F5;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
 div.calendar-dialog div.tab-control:active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.7;
@@ -2846,9 +2666,6 @@ div.calendar-dialog label.checkbox-tabbed-down {
 
 div.calendar label.checkbox,
 div.calendar-dialog label.checkbox {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2886,13 +2703,11 @@ div.calendar-dialog label.checkbox span.check-mark {
   background-color: #FFFFFF;
   border-radius: 0.25rem;
   border: 1px solid #A8A8A8;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
 div.calendar label.checkbox span.check-mark:before,
 div.calendar-dialog label.checkbox span.check-mark:before {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   content: "";
   position: absolute;
@@ -2927,9 +2742,6 @@ div.calendar-dialog div.radioButtonContainer {
 
 div.calendar div.radioButtonContainer label.radioButton,
 div.calendar-dialog div.radioButtonContainer label.radioButton {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -2978,13 +2790,11 @@ div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark {
   background-color: #FFFFFF;
   border-radius: 50%;
   border: 1px solid #A8A8A8;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
 div.calendar div.radioButtonContainer label.radioButton span.check-mark:before,
 div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark:before {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   content: "";
   position: absolute;
@@ -3019,9 +2829,6 @@ div.calendar-tooltip-event {
   -moz-animation: fade-in-effect ease 1s;
   -o-animation: fade-in-effect ease 1s;
   -ms-animation: fade-in-effect ease 1s;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -3117,9 +2924,6 @@ div.calendar-tooltip-event div.title-buttons div.ib-plus::after {
     -------------------------------------------------------------------------
 */
 div.calendar-drop-down-menu {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   cursor: default;
@@ -3168,7 +2972,6 @@ div.calendar-drop-down-menu div.item {
 div.calendar-drop-down-menu div.item:hover {
   background-color: #282828;
   color: #F5F5F5;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -3193,7 +2996,6 @@ div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:after {
 }
 
 div.calendar-drop-down-menu div.item:active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.4;
@@ -3213,12 +3015,10 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .custom-scroll-bars::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px gray;
   box-shadow: inset 0 0 6px gray;
 }
 
 .custom-scroll-bars::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: inset 0 0 6px gray;
   box-shadow: inset 0 0 6px gray;
   background: #F5F5F5;
 }
@@ -3236,14 +3036,6 @@ div.calendar-drop-down-menu div.separator {
     Calendar.js - Effects
     -------------------------------------------------------------------------
 */
-@-webkit-keyframes fade-in-effect {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 @keyframes fade-in-effect {
   0% {
     opacity: 0;
@@ -3253,45 +3045,18 @@ div.calendar-drop-down-menu div.separator {
   }
 }
 
-@-webkit-keyframes focused-event-effect {
-  0% {
-    -webkit-box-shadow: 0 0 0 0 #C60000;
-            box-shadow: 0 0 0 0 #C60000;
-    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
-            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
-  }
-  70% {
-    -webkit-box-shadow: 0 0 0 10px #C60000;
-            box-shadow: 0 0 0 10px #C60000;
-    -webkit-box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
-            box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
-  }
-  100% {
-    -webkit-box-shadow: 0 0 0 0 #C60000;
-            box-shadow: 0 0 0 0 #C60000;
-    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
-            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
-  }
-}
-
 @keyframes focused-event-effect {
   0% {
-    -webkit-box-shadow: 0 0 0 0 #C60000;
-            box-shadow: 0 0 0 0 #C60000;
-    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
-            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+    box-shadow: 0 0 0 0 #C60000;
+    box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
   }
   70% {
-    -webkit-box-shadow: 0 0 0 10px #C60000;
-            box-shadow: 0 0 0 10px #C60000;
-    -webkit-box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
-            box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+    box-shadow: 0 0 0 10px #C60000;
+    box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
   }
   100% {
-    -webkit-box-shadow: 0 0 0 0 #C60000;
-            box-shadow: 0 0 0 0 #C60000;
-    -webkit-box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
-            box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
+    box-shadow: 0 0 0 0 #C60000;
+    box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
   }
 }
 
@@ -3313,14 +3078,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-arrow-left-full:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-arrow-left-full:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3337,14 +3100,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-pin:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-pin:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3357,8 +3118,7 @@ div.calendar-drop-down-menu div.separator {
 
 .ib-pin:before {
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   background-color: #F5F5F5;
   width: 4px;
   height: calc(100% - 4px - 2px);
@@ -3369,8 +3129,7 @@ div.calendar-drop-down-menu div.separator {
 
 .ib-pin:after {
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   background-color: #F5F5F5;
   width: 4px;
   height: 4px;
@@ -3386,14 +3145,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-refresh:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-refresh:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3432,14 +3189,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-search:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-search:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3460,7 +3215,6 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-search:after {
-  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   width: 4px;
   height: 8px;
@@ -3481,14 +3235,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-hamburger:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-hamburger:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3498,8 +3250,7 @@ div.calendar-drop-down-menu div.separator {
   position: absolute;
   content: "";
   top: 50%;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   background-color: #F5F5F5;
   width: 100%;
   height: 4px;
@@ -3519,14 +3270,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-eye:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-eye:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3536,11 +3285,9 @@ div.calendar-drop-down-menu div.separator {
   position: absolute;
   content: "";
   left: calc(50% - 2px);
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   top: 50%;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   background-color: #F5F5F5;
   width: 4px;
   height: 4px;
@@ -3555,14 +3302,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-arrow-down-full-line:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-arrow-down-full-line:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3585,8 +3330,7 @@ div.calendar-drop-down-menu div.separator {
 
 .ib-arrow-down-full-line:after {
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   width: 8px;
   height: 8px;
   background-color: #F5F5F5;
@@ -3601,14 +3345,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-plus:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-plus:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3621,8 +3363,7 @@ div.calendar-drop-down-menu div.separator {
 
 .ib-plus:before {
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   background-color: #F5F5F5;
   width: 4px;
   height: 100%;
@@ -3632,8 +3373,7 @@ div.calendar-drop-down-menu div.separator {
 
 .ib-plus:after {
   top: 50%;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   background-color: #F5F5F5;
   width: 100%;
   height: 4px;
@@ -3654,14 +3394,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-arrow-right-full:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-arrow-right-full:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3675,14 +3413,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-minus:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-minus:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3692,8 +3428,7 @@ div.calendar-drop-down-menu div.separator {
   position: absolute;
   content: "";
   top: 50%;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   background-color: #F5F5F5;
   width: 100%;
   height: 4px;
@@ -3713,14 +3448,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-square-hollow:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-square-hollow:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3734,14 +3467,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-close:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-close:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3762,12 +3493,10 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-close:before {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
 .ib-close:after {
-  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
@@ -3779,14 +3508,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-arrow-expand-left-right:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-arrow-expand-left-right:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3823,14 +3550,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-arrow-contract-left-right:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-arrow-contract-left-right:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3867,14 +3592,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-octagon-hollow:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-octagon-hollow:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3886,7 +3609,6 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-octagon-hollow:before {
-  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   border: 4px solid #F5F5F5;
   width: 4px;
@@ -3896,7 +3618,6 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-octagon-hollow:after {
-  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   border: 4px solid #F5F5F5;
   width: 4px;
@@ -3916,8 +3637,7 @@ div.calendar-drop-down-menu div.separator {
   position: absolute;
   content: "";
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   background-color: #282828;
   width: 3px;
   height: 100%;
@@ -3929,8 +3649,7 @@ div.calendar-drop-down-menu div.separator {
   position: absolute;
   content: "";
   top: 50%;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   background-color: #282828;
   width: 100%;
   height: 3px;
@@ -3950,14 +3669,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-hamburger-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-hamburger-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -3967,8 +3684,7 @@ div.calendar-drop-down-menu div.separator {
   position: absolute;
   content: "";
   top: 50%;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   background-color: #282828;
   width: 100%;
   height: 3px;
@@ -3984,14 +3700,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-arrow-expand-left-right-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-arrow-expand-left-right-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4028,14 +3742,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-close-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-close-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4056,12 +3768,10 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-close-icon:before {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
 .ib-close-icon:after {
-  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
@@ -4078,14 +3788,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-arrow-top-right-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-arrow-top-right-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4101,14 +3809,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-circle-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-circle-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4126,14 +3832,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-circle-hollow-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-circle-hollow-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4147,14 +3851,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-minus-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-minus-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4164,8 +3866,7 @@ div.calendar-drop-down-menu div.separator {
   position: absolute;
   content: "";
   top: 50%;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   background-color: #282828;
   width: 100%;
   height: 3px;
@@ -4181,14 +3882,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-octagon-hollow-icon:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-octagon-hollow-icon:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4200,7 +3899,6 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-octagon-hollow-icon:before {
-  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   border: 3px solid #282828;
   width: 3px;
@@ -4210,7 +3908,6 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-octagon-hollow-icon:after {
-  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   border: 3px solid #282828;
   width: 3px;
@@ -4228,14 +3925,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-refresh-medium:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-refresh-medium:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
@@ -4275,14 +3970,12 @@ div.calendar-drop-down-menu div.separator {
 }
 
 .ib-refresh-small:not(.ib-no-hover):hover {
-  -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
   opacity: 0.7;
 }
 
 .ib-refresh-small:not(.ib-no-active):active {
-  -webkit-transition: all .2s;
   transition: all .2s;
   cursor: pointer;
   opacity: 0.5;
