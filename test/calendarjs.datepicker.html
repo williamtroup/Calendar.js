@@ -36,7 +36,7 @@
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar4" value="" />
+            <input type="text" class="myCalendar4" value="" />
         </div>
         <br>
 
@@ -63,7 +63,8 @@
     </body>
 
     <script>
-        var calendarInstance1 = new calendarJs( "myCalendar1", {
+        var calendarElement4 = document.getElementsByClassName( "myCalendar4" )[ 0 ],
+            calendarInstance1 = new calendarJs( "myCalendar1", {
                 openInFullScreenMode: true,
                 minimumDatePickerDate: new Date(),
                 onDatePickerOpened: datePickerOpened,
@@ -82,7 +83,7 @@
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed
             } ),
-            calendarInstance4 = new calendarJs( "myCalendar4", {
+            calendarInstance4 = new calendarJs( calendarElement4, {
                 openInFullScreenMode: true,
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed
