@@ -116,7 +116,7 @@ Also, make sure you include the "DOCTYPE html" tag at the top of your email, as 
 
 <br>
 
-To see the options available for the class constructor, click [here](CLASS.md).
+To see the options available for the class constructor, click [here](CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
 <br>
 <br>
 
