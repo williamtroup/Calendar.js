@@ -5,6 +5,7 @@
 - Moved all compiled coded into a new folder called "dist".  "src" now only contains SASS files.
 - Improved the testing HTML files.  They now state what each one is for at the top.
 - Added a new custom event "onRender", which is triggered when a Calendar is rendered for the first time (the Calendar ID is passed).
+- Added Data-Binding support to quickly create new Calendars without writing Javascript.
 - 
 
 ### Version 1.7.1:

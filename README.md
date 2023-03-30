@@ -42,6 +42,7 @@ Calendar.js
 - DatePicker mode (just assign to the ID of an text input).
 - HTML text support (off by default).
 - jQuery plugin for quickly creating Calendars.
+- Data-Binding support to quickly create new Calendars without writing Javascript!
 <br />
 <br />
 
