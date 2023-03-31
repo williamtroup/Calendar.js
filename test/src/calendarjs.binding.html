@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - Data-Binding</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendarjs.css" />
+        <script src="../../src/calendarjs.js"></script>
+        <script src="../../src/calendarjs.binding.js"></script>
+
+        <style>
+            .date-picker {
+                margin-top: 20px;
+                background-color: lightgrey;
+                padding: 30px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Data-Binding</h1>
+            <p>A test that shows Calendar.js working when DOM element attribute bindings are used.</p>
+        </div>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar1" value="01/05/2022" data-binding-calendar='{ "maximumDatePickerDate": new Date() }' />
+        </div>
+        <br>
+
+        <div class="contents">
+            <div style="max-width: 800px;" data-binding-calendar='{ "showExtraToolbarButtons": true }'>
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
+
+        <div class="contents">
+            <div style="max-width: 800px;" data-binding-calendar='{ "showExtraToolbarButtons": true }'>
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
+
+        <script>
+            var calendarInstance = new calendarJs();
+
+            document.title += " - v" + calendarInstance.getVersion();
+            document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+        </script>
+    </body>
+</html>

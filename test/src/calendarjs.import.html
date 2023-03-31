@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - Exporting/Importing</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendarjs.css" />
+        <script src="../../src/calendarjs.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Exporting/Importing</h1>
+            <p>A test that shows Calendar.js working, with options to test the Export/Import public functions.</p>
+        </div>
+
+        <div class="contents">
+            <div id="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+            <br>
+    
+            <h2>Events:</h2>
+            <button onclick="calendarInstance.clearEvents();">Clear Events</button>
+
+            <h2>Export Events:</h2>
+            <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'ical' );">Export All Events (ical)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'md' );">Export All Events (md)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'html' );">Export All Events (html)</button>
+            <button onclick="calendarInstance.exportAllEvents( 'tsv' );">Export All Events (tsv)</button>
+            <br />
+
+            <h2>Import Events:</h2>
+            <input id="importjson" type="file" onchange="importJsonFile( this );">
+            <br />
+        </div>
+    </body>
+
+    <script>
+        var calendarInstance = new calendarJs( "myCalendar", { 
+            exportEventsEnabled: true, 
+            manualEditingEnabled: true, 
+            showTimesInMainCalendarEvents: false,
+            minimumDayHeight: 0,
+            manualEditingEnabled: true,
+            organizerName: "Your Name",
+            organizerEmailAddress: "your@email.address",
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+        } );
+
+        document.title += " v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+
+        function importJsonFile( input ) {
+            var file = input.files[ 0 ],
+                reader = new FileReader();
+
+            reader.readAsText( file );
+
+            reader.onload = function() {
+                calendarInstance.addEventsFromJson( reader.result );
+            };
+
+            reader.onerror = function() {
+                console.log( reader.error );
+            };
+        }
+    </script>
+</html>

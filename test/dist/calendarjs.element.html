@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - Element</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendarjs.css" />
+        <script src="../../dist/calendarjs.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Element</h1>
+            <p>A test that shows Calendar.js being triggered against a DOM element.</p>
+        </div>
+
+        <div class="contents">
+            <div id="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        var calendarElement = document.getElementById( "myCalendar" );
+
+        var calendarInstance = new calendarJs( calendarElement, { 
+            exportEventsEnabled: true, 
+            manualEditingEnabled: true, 
+            showTimesInMainCalendarEvents: false,
+            minimumDayHeight: 0,
+            manualEditingEnabled: true,
+            organizerName: "Your Name",
+            organizerEmailAddress: "your@email.address",
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+        } );
+
+        document.title += " - v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+
+        calendarInstance.addEvents( getEvents() );
+
+        function getEvents() {
+            var events = [];
+
+            for ( var eventIndex = 0; eventIndex < 2000; eventIndex++ ) {
+                var today = new Date();
+                today.setDate( Math.floor( ( Math.random() * 28 ) + 1 ) );
+                today.setHours( Math.floor( ( Math.random() * 23 ) + 1 ) );
+                today.setMinutes( Math.floor( ( Math.random() * 59 ) + 1 ) );
+
+                var newEvent = {
+                    from: today,
+                    to: today,
+                    title: "Event " + ( eventIndex + 1 ),
+                    description: "This is a description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group " + ( eventIndex + 1 )
+                };
+
+                events.push( newEvent );
+            }
+
+            return events;
+        }
+    </script>
+</html>
