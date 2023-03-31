@@ -40,5 +40,12 @@
                 <p>Some data that should be cleared.</p>
             </div>
         </div>
+
+        <script>
+            var calendarInstance = new calendarJs();
+
+            document.title += " - v" + calendarInstance.getVersion();
+            document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+        </script>
     </body>
 </html>

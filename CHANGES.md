@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.7.4:
+- Binding test HTML file now shows the right Calendar.js version.
 - 
 
 ### Version 1.7.3:
