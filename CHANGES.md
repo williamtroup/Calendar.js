@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.3:
+- "dist" now contains undocumented versions of the JS files, whereas "src" contains the full documented JS files.
+
 ### Version 1.7.2:
 - Moved all the testing HTML files into a new subfolder called "test".
 - Moved all compiled code into a new folder called "dist".  "src" now only contains SASS files.
