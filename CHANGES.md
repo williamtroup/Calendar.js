@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.4:
+- 
+
 ### Version 1.7.3:
 - "dist" now contains undocumented versions of the JS files, whereas "src" contains the full documented JS files.
 
