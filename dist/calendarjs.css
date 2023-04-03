@@ -1070,8 +1070,8 @@ div.calendar div.list-all-events-view div.contents div.month {
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.header {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: #282828 !important;
+  color: #F5F5F5 !important;
   padding: 10px;
   font-weight: 900;
 }
@@ -1258,8 +1258,8 @@ div.calendar div.list-all-week-events-view div.contents div.day {
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.header {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: #282828 !important;
+  color: #F5F5F5 !important;
   padding: 10px;
   font-weight: 900;
 }

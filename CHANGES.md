@@ -2,6 +2,7 @@
 
 ### Version 1.7.5:
 - More documentation improvements.
+- Fixed a fault that caused the testing styles to override the main calendar styles.
 - 
 
 ### Version 1.7.4:

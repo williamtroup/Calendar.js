@@ -778,8 +778,8 @@ div.calendar {
                 margin-bottom: $spacing;
 
                 div.header {
-                    background-color: $dark-color;
-                    color: $light-color;
+                    background-color: $dark-color !important;
+                    color: $light-color !important;
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
@@ -834,8 +834,8 @@ div.calendar {
                 margin-bottom: $spacing;
 
                 div.header {
-                    background-color: $dark-color;
-                    color: $light-color;
+                    background-color: $dark-color !important;
+                    color: $light-color !important;
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
