@@ -55,6 +55,7 @@
  * @property    {number}    month                                       The month that the holiday occurs.
  * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
  * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
+ * @property    {string}    onClickUrl                                  Specifies a URL that will opened when the holiday is clicked (overrides "onClick").
  */
 
 
@@ -3476,14 +3477,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     holidayText = getString( holiday.title, "" );
 
                 if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== "" && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                    var className = isDefinedFunction( holiday.onClick ) ? "holiday-link" : "holiday";
-                    
-                    createSpanElement( dayElement, holidayText, className + dayMutedClass, holiday.onClick, true );
+                    addHolidayText( holiday, dayElement, holidayText, dayMutedClass );
 
                     holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
                 }
             }
         }
+    }
+
+    function addHolidayText( holiday, dayElement, holidayText, dayMutedClass ) {
+        var className = isDefinedFunction( holiday.onClick ) || isDefinedString( holiday.onClickUrl ) ? "holiday-link" : "holiday",
+            onClickEvent = holiday.onClick;
+        
+        if ( isDefinedString( holiday.onClickUrl ) ) {
+            onClickEvent = function() {
+                _window.open( holiday.onClickUrl, _options.urlWindowTarget );
+            };
+        }
+
+        createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true );
     }
 
     
@@ -9099,52 +9111,62 @@ function calendarJs( elementOrId, options, searchOptions ) {
             {
                 day: 1,
                 month: 1,
-                title: "New Year's Day"
+                title: "New Year's Day",
+                onClickUrl: "https://en.wikipedia.org/wiki/New_Year%27s_Day"
             },
             {
                 day: 14,
                 month: 2,
-                title: "Valentine's Day"
+                title: "Valentine's Day",
+                onClickUrl: "https://en.wikipedia.org/wiki/Valentine%27s_Days"
             },
             {
                 day: 1,
                 month: 4,
-                title: "April Fools' Day"
+                title: "April Fools' Day",
+                onClickUrl: "https://en.wikipedia.org/wiki/April_Fools%27_Day"
             },
             {
                 day: 22,
                 month: 4,
-                title: "Earth Day"
+                title: "Earth Day",
+                onClickUrl: "https://en.wikipedia.org/wiki/Earth_Day"
             },
             {
                 day: 31,
                 month: 10,
-                title: "Halloween"
+                title: "Halloween",
+                onClickUrl: "https://en.wikipedia.org/wiki/Halloween"
             },
             {
                 day: 11,
                 month: 11,
-                title: "Remembrance Day"
+                title: "Remembrance Day",
+                onClickUrl: "https://en.wikipedia.org/wiki/Remembrance_Day"
             },
             {
                 day: 24,
                 month: 12,
-                title: "Christmas Eve"
+                title: "Christmas Eve",
+                onClickUrl: "https://en.wikipedia.org/wiki/Christmas_Eve"
             },
             {
                 day: 25,
                 month: 12,
-                title: "Christmas Day"
+                title: "Christmas Day",
+                onClickUrl: "https://en.wikipedia.org/wiki/Christmas"
             },
             {
                 day: 26,
                 month: 12,
-                title: "Boxing Day"
+                title: "Boxing Day",
+                onClickUrl: "https://en.wikipedia.org/wiki/Boxing_Day"
             },
             {
                 day: 31,
                 month: 12,
-                title: "New Year's Eve"
+                title: "New Year's Eve",
+                onClickUrl: "https://en.wikipedia.org/wiki/New_Year%27s_Eve"
             }
         ];
     }

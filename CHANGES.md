@@ -5,6 +5,8 @@
 - Fixed a fault that caused the testing styles to override the main calendar styles.
 - Added missing version header for the minimized CSS file.
 - Fixed a fault that caused the last event dot to appear slightly below the line.
+- Added holiday property "onClickUrl" (overrides "onClick"), which will open the URL is a configured target window.
+- Added default "onClickUrl" properties for the holidays that are built in (default to Wiki links).
 - 
 
 ### Version 1.7.4:
