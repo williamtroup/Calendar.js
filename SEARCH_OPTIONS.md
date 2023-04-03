@@ -1,6 +1,6 @@
 # Calendar.js - Options:
 
-Below are all the options that can be passed to the Calendar.js function "setSearchOptions()".
+Below are all the options that can be passed to the Calendar.js function "setSearchOptions()".  These options can also be passed directly via the "Options" ([see](OPTIONS.md)).
 
 
 ### Search Options:

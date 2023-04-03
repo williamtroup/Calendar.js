@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.7.5:
+- More documentation improvements.
 - 
 
 ### Version 1.7.4:
