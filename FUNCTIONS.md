@@ -335,3 +335,8 @@ Removes holidays.
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+
+### **getHolidays()**:
+Returns the holidays.
+<br>
+***Returns***: '*Holiday[]*' - All the holidays.

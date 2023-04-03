@@ -8237,6 +8237,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     };
 
+    /**
+     * getHolidays().
+     * 
+     * Returns the holidays.
+     * 
+     * @public
+     * 
+     * @returns     {Holiday[]}                                             All the holidays.
+     */
+    this.getHolidays = function() {
+        return _options.holidays;
+    };
+
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
 

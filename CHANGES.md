@@ -7,7 +7,8 @@
 - Fixed a fault that caused the last event dot to appear slightly below the line.
 - Added holiday property "onClickUrl" (overrides "onClick"), which will open the URL is a configured target window.
 - Added default "onClickUrl" properties for the holidays that are built in (default to Wiki links).
-- 
+- Added public function "getHolidays()", which will return all the holidays in the Options.
+-  
 
 ### Version 1.7.4:
 - Binding test HTML file now shows the right Calendar.js version.

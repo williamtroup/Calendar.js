@@ -5025,6 +5025,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   };
+  this.getHolidays = function() {
+    return _options.holidays;
+  };
   function buildDefaultOptions(newOptions) {
     _options = getOptions(newOptions);
     if (!isDefinedBoolean(_options.showDayNumberOrdinals)) {
