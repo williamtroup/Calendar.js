@@ -4,6 +4,8 @@ Below is a list of all the public functions that can be called from a Calendar.j
 <br>
 <br>
 
+<h1>Main controls:</h1>
+
 ### **turnOnFullScreen()**:
 Turns on the full-screen mode (if enabled).
 
@@ -25,6 +27,9 @@ Stops the auto-refresh timer (if enabled).
 Removes the calendar from the DOM.
 <br>
 ***Fires***:  onDestroy
+
+<br>
+<h1>Navigation, Exporting and Refreshing:</h1>
 
 ### **moveToPreviousMonth()**:
 Moves to the previous month.
@@ -86,6 +91,10 @@ Exports all the events into a downloadable file.
 Refreshes all of the views.
 <br>
 ***Fires***:  onRefresh
+
+
+<br>
+<h1>Add/Remove Events:</h1>
 
 ### **setEvents( *events*, *updateEvents*, *triggerEvent* )**:
 Sets the events and clears any existing ones.
@@ -223,6 +232,10 @@ Returns an event that matches the ID passed.
 <br>
 ***Returns***: '*object*' - The event details (or null if the ID cannot be found).
 
+
+<br>
+<h1>Add/Remove Groups:</h1>
+
 ### **getAllGroups()**:
 Returns an array of group names being used.
 <br>
@@ -248,6 +261,10 @@ Removes a group by name.
 <br>
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onGroupRemoved" event should be triggered.
 
+
+<br>
+<h1>Internal Clipboard:</h1>
+
 ### **setClipboardEvent( *event* )**:
 Set the clipboard event.
 <br>
@@ -261,6 +278,10 @@ Returns the event copied in the clipboard.
 ### **clearClipboard()**:
 Clears the internal clipboard.
 
+
+<br>
+<h1>Get/Set Additional Data:</h1>
+
 ### **getVersion()**:
 Returns the version of Calendar.js.
 <br>
@@ -270,6 +291,10 @@ Returns the version of Calendar.js.
 Returns the ID of this Calendar.js instance.
 <br>
 ***Returns***: '*string*' - The Calendar ID.
+
+
+<br>
+<h1>Setting Options:</h1>
 
 ### **setOptions( *newOptions*, *triggerEvent* )**:
 Sets the specific options that should be used.
@@ -310,3 +335,8 @@ Removes holidays.
 ***Parameter: triggerEvent***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered.
 <br>
 ***Parameter: updateEvents***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+
+### **getHolidays()**:
+Returns the holidays.
+<br>
+***Returns***: '*Holiday[]*' - All the holidays.

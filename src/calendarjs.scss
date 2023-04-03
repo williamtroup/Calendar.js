@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.7.4
+ * Calendar.js Library v1.7.5
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -580,7 +580,7 @@ div.calendar {
                 margin-right: 2.5px;
 
                 &:last-child {
-                    margin-bottom: 5;
+                    margin-bottom: 5px;
                 }
             }
             
@@ -778,8 +778,8 @@ div.calendar {
                 margin-bottom: $spacing;
 
                 div.header {
-                    background-color: $dark-color;
-                    color: $light-color;
+                    background-color: $dark-color !important;
+                    color: $light-color !important;
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
@@ -834,8 +834,8 @@ div.calendar {
                 margin-bottom: $spacing;
 
                 div.header {
-                    background-color: $dark-color;
-                    color: $light-color;
+                    background-color: $dark-color !important;
+                    color: $light-color !important;
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 

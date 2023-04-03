@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.7.4
+ * Calendar.js Library v1.7.5
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -668,7 +668,7 @@ div.calendar div.row-cells div.cell div.event-circle {
 }
 
 div.calendar div.row-cells div.cell div.event-circle:last-child {
-  margin-bottom: 5;
+  margin-bottom: 5px;
 }
 
 div.calendar div.row-cells div.cell div.expired {
@@ -1070,8 +1070,8 @@ div.calendar div.list-all-events-view div.contents div.month {
 }
 
 div.calendar div.list-all-events-view div.contents div.month div.header {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: #282828 !important;
+  color: #F5F5F5 !important;
   padding: 10px;
   font-weight: 900;
 }
@@ -1258,8 +1258,8 @@ div.calendar div.list-all-week-events-view div.contents div.day {
 }
 
 div.calendar div.list-all-week-events-view div.contents div.day div.header {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: #282828 !important;
+  color: #F5F5F5 !important;
   padding: 10px;
   font-weight: 900;
 }

@@ -1,5 +1,14 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.5:
+- More documentation improvements.
+- Fixed a fault that caused the testing styles to override the main calendar styles.
+- Added missing version header for the minimized CSS file.
+- Fixed a fault that caused the last event dot to appear slightly below the line.
+- Added holiday property "onClickUrl" (overrides "onClick"), which will open the URL is a configured target window.
+- Added default "onClickUrl" properties for the holidays that are built in (default to Wiki links).
+- Added public function "getHolidays()", which will return all the holidays in the Options.
+
 ### Version 1.7.4:
 - Binding test HTML file now shows the right Calendar.js version.
 - Added "src" and "dist" testing HTML files (will do this a clean way in the future).
