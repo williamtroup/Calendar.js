@@ -4,6 +4,7 @@
 - More documentation improvements.
 - Fixed a fault that caused the testing styles to override the main calendar styles.
 - Added missing version header for the minimized CSS file.
+- Fixed a fault that caused the last event dot to appear slightly below the line.
 - 
 
 ### Version 1.7.4:

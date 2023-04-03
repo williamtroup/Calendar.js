@@ -668,7 +668,7 @@ div.calendar div.row-cells div.cell div.event-circle {
 }
 
 div.calendar div.row-cells div.cell div.event-circle:last-child {
-  margin-bottom: 5;
+  margin-bottom: 5px;
 }
 
 div.calendar div.row-cells div.cell div.expired {
