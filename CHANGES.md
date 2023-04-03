@@ -1,5 +1,9 @@
 # Calendar.js - Change Log:
 
+### Version 1.7.4:
+- Binding test HTML file now shows the right Calendar.js version.
+- Added "src" and "dist" testing HTML files (will do this a clean way in the future).
+
 ### Version 1.7.3:
 - "dist" now contains undocumented versions of the JS files, whereas "src" contains the full documented JS files.
 
