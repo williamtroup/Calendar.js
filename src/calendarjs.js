@@ -314,6 +314,7 @@
  * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
  * @property    {number}    left                                        States the left position of the dialog (defaults to null).
  * @property    {number}    top                                         States the top position of the dialog (defaults to null).
+ * @property    {string[]}  history                                     States the dropdown search history that should be display (used previously, defaults to []).
  */
 
 
@@ -569,6 +570,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SearchDialog_SearchResults = [],
         _element_SearchDialog_SearchIndex = 0,
         _element_SearchDialog_FocusedEventID = null,
+        _element_SearchDialog_History_DropDown = null,
+        _element_SearchDialog_History_DropDown_DisplayTimer = null,
         _element_ConfigurationDialog = null,
         _element_ConfigurationDialog_Groups = null,
         _element_ConfigurationDialog_Display = null,
@@ -1277,6 +1280,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         hideDropDownMenu( _element_DropDownMenu_Event );
         hideDropDownMenu( _element_DropDownMenu_FullDay );
         hideDropDownMenu( _element_DropDownMenu_HeaderDay );
+        hideDropDownMenu( _element_SearchDialog_History_DropDown );
         hideYearSelectorDropDown();
         hideTooltip();
     }
@@ -3991,7 +3995,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function areDropDownMenusVisible() {
-        return isDropDownMenuVisible( _element_DropDownMenu_Day ) || isDropDownMenuVisible( _element_DropDownMenu_Event ) || isDropDownMenuVisible( _element_DropDownMenu_FullDay ) || isDropDownMenuVisible( _element_DropDownMenu_HeaderDay );
+        return isDropDownMenuVisible( _element_DropDownMenu_Day ) || isDropDownMenuVisible( _element_DropDownMenu_Event ) || isDropDownMenuVisible( _element_DropDownMenu_FullDay ) || isDropDownMenuVisible( _element_DropDownMenu_HeaderDay ) || isDropDownMenuVisible( _element_SearchDialog_History_DropDown );
     }
 
 
@@ -4939,13 +4943,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_SearchDialog_Contents = createElement( "div", "contents" );
             _element_SearchDialog.appendChild( _element_SearchDialog_Contents );
+
+            var historyContainer = createElement( "div", "history-container" );
+            _element_SearchDialog_Contents.appendChild( historyContainer );
     
             _element_SearchDialog_For = createElement( "input", null, "text" );
             _element_SearchDialog_For.placeholder = _options.searchTextBoxPlaceholder;
             _element_SearchDialog_For.oninput = searchForTextChanged;
             _element_SearchDialog_For.onpropertychange = searchForTextChanged;
             _element_SearchDialog_For.onkeypress = searchOnEnter;
-            _element_SearchDialog_Contents.appendChild( _element_SearchDialog_For );
+            historyContainer.appendChild( _element_SearchDialog_For );
+
+            _element_SearchDialog_History_DropDown = createElement( "div", "history-dropdown custom-scroll-bars" );
+            historyContainer.appendChild( _element_SearchDialog_History_DropDown );
             
             var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
             _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
@@ -5038,10 +5048,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function searchOptionsChanged() {
         storeSearchOptions();
-        searchForTextChanged();
+        searchForTextChanged( false );
     }
 
-    function searchForTextChanged() {
+    function searchForTextChanged( showHistoryDropDown ) {
+        showHistoryDropDown = isDefined( showHistoryDropDown ) ? showHistoryDropDown : true;
+
         if ( _element_SearchDialog_SearchResults.length > 0 ) {
             removeElementsClassName( _element_Calendar, " focused-event" );
         }
@@ -5052,6 +5064,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SearchDialog_SearchIndex = 0;
         _element_SearchDialog_FocusedEventID = null;
 
+        if ( showHistoryDropDown ) {
+            showSearchHistoryDropDown();
+        }
+        
         storeSearchOptions();
     }
 
@@ -5060,7 +5076,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_SearchDialog_SearchResults = [];
             _element_SearchDialog.style.display = "block";
     
-            searchForTextChanged();
+            searchForTextChanged( false );
             setupSearchOptions();
             centerSearchDialog();
         }
@@ -5130,6 +5146,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             searchOnPrevious();
         } else if ( e.keyCode === _keyCodes.enter && !_element_SearchDialog_Next.disabled ) {
             searchOnNext();
+        } else {
+            showSearchHistoryDropDown();
         }
     }
 
@@ -5153,6 +5171,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else if ( isAllWeekEventsViewVisible ) {
                 startingID = _elementID_WeekDay;
             }
+
+            storeSearchOptions( true );
 
             for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
                 var event = orderedEvents[ orderedEventIndex ];
@@ -5270,31 +5290,56 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return found;
     }
 
-    function storeSearchOptions() {
+    function storeSearchOptions( storeSearchHistory ) {
+        storeSearchHistory = isDefined( storeSearchHistory ) ? storeSearchHistory : false;
+
         if ( _timer_CallSearchOptionsEvent !== null ) {
             clearTimeout( _timer_CallSearchOptionsEvent );
         }
 
         _timer_CallSearchOptionsEvent = setTimeout( function() {
-            _optionsForSearch.lastSearchText = _element_SearchDialog_For.value;
-            _optionsForSearch.not = _element_SearchDialog_Not.checked;
-            _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
-            _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
-            _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
-            _optionsForSearch.searchLocation = _element_SearchDialog_Include_Location.checked;
-            _optionsForSearch.searchDescription = _element_SearchDialog_Include_Description.checked;
-            _optionsForSearch.searchGroup = _element_SearchDialog_Include_Group.checked;
-            _optionsForSearch.searchUrl = _element_SearchDialog_Include_Url.checked;
-            _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
-            _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
-            _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
+            var searchForText = trimString( _element_SearchDialog_For.value ),
+                searchForTextAddedToHistory = true,
+                historyLength = _optionsForSearch.history.length;
 
-            if ( _element_SearchDialog_Moved ) {
-                _optionsForSearch.left = _element_SearchDialog.offsetLeft;
-                _optionsForSearch.top = _element_SearchDialog.offsetTop;
+            if ( storeSearchHistory ) {
+                searchForTextAddedToHistory = false;
+
+                for ( var historyIndex = 0; historyIndex < historyLength; historyIndex++ ) {
+                    var historyText = _optionsForSearch.history[ historyIndex ];
+    
+                    if ( historyText.toLowerCase() === searchForText.toLowerCase() ) {
+                        searchForTextAddedToHistory = true;
+                        break;
+                    }
+                }
+    
+                if ( !searchForTextAddedToHistory ) {
+                    _optionsForSearch.history.push( searchForText );
+                }
             }
 
-            triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+            if ( !storeSearchHistory || searchForTextAddedToHistory ) {
+                _optionsForSearch.lastSearchText = searchForText;
+                _optionsForSearch.not = _element_SearchDialog_Not.checked;
+                _optionsForSearch.matchCase = _element_SearchDialog_MatchCase.checked;
+                _optionsForSearch.showAdvanced = _element_SearchDialog_Advanced.checked;
+                _optionsForSearch.searchTitle = _element_SearchDialog_Include_Title.checked;
+                _optionsForSearch.searchLocation = _element_SearchDialog_Include_Location.checked;
+                _optionsForSearch.searchDescription = _element_SearchDialog_Include_Description.checked;
+                _optionsForSearch.searchGroup = _element_SearchDialog_Include_Group.checked;
+                _optionsForSearch.searchUrl = _element_SearchDialog_Include_Url.checked;
+                _optionsForSearch.startsWith = _element_SearchDialog_Option_StartsWith.checked;
+                _optionsForSearch.endsWith = _element_SearchDialog_Option_EndsWith.checked;
+                _optionsForSearch.contains = _element_SearchDialog_Option_Contains.checked;
+    
+                if ( _element_SearchDialog_Moved ) {
+                    _optionsForSearch.left = _element_SearchDialog.offsetLeft;
+                    _optionsForSearch.top = _element_SearchDialog.offsetTop;
+                }
+    
+                triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
+            }
         }, 2000 );
     }
 
@@ -5317,6 +5362,63 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else {
             _element_SearchDialog_Advanced_Container.style.display = "none";
         }
+    }
+
+    function showSearchHistoryDropDown() {
+        var historyLength = _optionsForSearch.history.length;
+
+        if ( historyLength > 0 ) {
+            if ( _element_SearchDialog_History_DropDown_DisplayTimer !== null ) {
+                clearTimeout( _element_SearchDialog_History_DropDown_DisplayTimer );
+            }
+    
+            _element_SearchDialog_History_DropDown_DisplayTimer = setTimeout( function() {
+                var lookupText = _element_SearchDialog_For.value,
+                    lookupTextFound = false;
+
+                if ( trimString( lookupText ) !== "" ) {
+                    _optionsForSearch.history.sort();
+                    _element_SearchDialog_History_DropDown.innerHTML = "";
+    
+                    for ( var historyIndex = 0; historyIndex < historyLength; historyIndex++ ) {
+                        var historyText = _optionsForSearch.history[ historyIndex ];
+    
+                        if ( startsWithAnyCase( historyText, lookupText ) && historyText.toLowerCase() !== lookupText.toLowerCase() ) {
+                            addSearchHistoryDropDownItem( _optionsForSearch.history[ historyIndex ], lookupText.length );
+                            lookupTextFound = true;
+                        }
+                    }
+                }
+
+                if ( lookupTextFound ) {
+                    _element_SearchDialog_History_DropDown.style.display = "block";
+                } else {
+                    _element_SearchDialog_History_DropDown.style.display = "none";
+                }
+            }, 150 );
+        }
+    }
+
+    function addSearchHistoryDropDownItem( historyText, startBoldLength ) {
+        var historyDropDownItem = createElement( "div", "history-dropdown-item" );
+        _element_SearchDialog_History_DropDown.appendChild( historyDropDownItem );
+
+        var boldText = createElement( "span", "search-search" );
+        setNodeText( boldText, historyText.substring( 0, startBoldLength ) );
+        historyDropDownItem.appendChild( boldText );
+
+        var remainingText = createElement( "span" );
+        setNodeText( remainingText, historyText.substring( startBoldLength ) );
+        historyDropDownItem.appendChild( remainingText );
+
+        historyDropDownItem.onclick = function( e ) {
+            cancelBubble( e );
+
+            _element_SearchDialog_History_DropDown.style.display = "none";
+            _element_SearchDialog_For.value = historyText;
+            _element_SearchDialog_For.selectionStart = _element_SearchDialog_For.selectionEnd = _element_SearchDialog_For.value.length;
+            _element_SearchDialog_For.focus();
+        };
     }
 
 
@@ -6373,6 +6475,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function startsWith( data, start ) {
         return data.substring( 0, start.length ) === start;
+    }
+
+    function startsWithAnyCase( data, start ) {
+        return data.substring( 0, start.length ).toLowerCase() === start.toLowerCase();
     }
 
     function endsWith( data, end ) {
@@ -8502,6 +8608,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedNumber( _optionsForSearch.top ) ) {
             _optionsForSearch.top = null;
+        }
+
+        if ( !isDefinedArray( _optionsForSearch.history ) ) {
+            _optionsForSearch.history = [];
         }
     }
 

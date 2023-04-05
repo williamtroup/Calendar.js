@@ -1132,6 +1132,53 @@ div.search {
 
     div.contents {
         padding: $spacing;
+
+        div.history-container {
+            position: relative;
+            margin-bottom: $spacing;
+            overflow-y: visible;
+
+            input {
+                margin-bottom: $spacing / 2 !important;
+            }
+
+            div.history-dropdown {
+                @include input-style;
+                background-color: $input-background-color;
+                position: absolute;
+                width: calc(100% - 2px);
+                max-height: 200px;
+                z-index: 2000;
+                border: 1px solid $dark-color !important;
+                box-shadow: 0 0 1pt 1pt $dark-color;
+                display: none;
+                overflow-x: hidden;
+                overflow-y: auto;
+
+                div.history-dropdown-item {
+                    padding: $spacing;
+                    border-bottom: 1px solid $input-border-color;
+
+                    span.search-search {
+                        font-weight: 900 !important;
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    &:hover {
+                        background-color: $day-names-color;
+                        transition: $transition;
+                        cursor: pointer;
+                    }
+            
+                    &:active {
+                        @include opacity-active-effect;
+                    }
+                }
+            }
+        }
         
         p {
             @include no-selection-allowed;

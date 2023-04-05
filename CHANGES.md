@@ -1,6 +1,8 @@
 # Calendar.js - Change Log:
 
 ### Version 1.7.6:
+- Added full search history support on the "Search Dialog".
+- Added new search setting "history", which is used to state the existing search history (is updated when new entries are added).
 - 
 
 ### Version 1.7.5:

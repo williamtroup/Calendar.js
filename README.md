@@ -21,7 +21,7 @@ Calendar.js
 - Custom events for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV.
 - Full-screen mode (double clicking the title bar).
-- Search support.
+- Search support (with search history).
 - Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support).
 - Customizable holidays.
 - Navigation keys (in full-screen mode):
