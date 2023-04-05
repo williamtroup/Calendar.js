@@ -405,6 +405,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _isDateToday = false,
         _openDialogs = [],
         _copiedEventDetails = null,
+        _previousDaysVisibleBeforeSingleDayView = [],
         _year_Minimum = 1900,
         _year_Maximum = null,
         _elementID_Day = "day-",
@@ -872,6 +873,41 @@ function calendarJs( elementOrId, options, searchOptions ) {
         header.oncontextmenu = function( e ) {
             showDayHeaderDropDownMenu( e, headerNameIndex );
         };
+
+        header.ondblclick = function( e ) {
+            toggleSingleDayView( headerNameIndex );
+        };
+    }
+
+    function toggleSingleDayView( headerNameIndex ) {
+        if ( !_datePickerModeEnabled ) {
+            if ( _previousDaysVisibleBeforeSingleDayView.length === 0 ) {
+                var visibleDaysLength = _options.visibleDays.length;
+    
+                for ( var visibleDayIndex = 0; visibleDayIndex < visibleDaysLength; visibleDayIndex++ ) {
+                    _previousDaysVisibleBeforeSingleDayView.push( _options.visibleDays[ visibleDayIndex ] );
+                }
+    
+                _options.visibleDays = [];
+                _options.visibleDays.push( headerNameIndex );
+            } else {
+    
+                _options.visibleDays = [];
+    
+                var originalVisibleDaysLength = _previousDaysVisibleBeforeSingleDayView.length;
+    
+                for ( var previousVisibleDayIndex = 0; previousVisibleDayIndex < originalVisibleDaysLength; previousVisibleDayIndex++ ) {
+                    _options.visibleDays.push( _previousDaysVisibleBeforeSingleDayView[ previousVisibleDayIndex ] );
+                }
+    
+                _previousDaysVisibleBeforeSingleDayView = [];
+            }
+    
+            _initialized = false;
+    
+            triggerOptionsEventWithData( "onOptionsUpdated", _options );
+            build( _currentDate, true );
+        }
     }
 
     function buildDayRows() {
@@ -5586,6 +5622,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( visibleDays.length > 0 ) {
             _options.visibleDays = visibleDays;
+            _previousDaysVisibleBeforeSingleDayView = [];
         }
 
         _initialized = false;
@@ -8469,6 +8506,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
+            _previousDaysVisibleBeforeSingleDayView = [];
         }
 
         if ( !isDefinedBoolean( _options.allowEventScrollingOnMainDisplay ) ) {
