@@ -889,6 +889,9 @@ function calendarJs(elementOrId, options, searchOptions) {
             if (_element_SearchDialog_FocusedEventID === eventDetails.id) {
               event.className += " focused-event";
             }
+            if (_copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut) {
+              event.className += " cut-event";
+            }
           }
           event.onmousemove = function(e) {
             if (_element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id) {
@@ -1209,6 +1212,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (_element_SearchDialog_FocusedEventID === eventDetails.id) {
           event.className += " focused-event";
         }
+        if (_copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut) {
+          event.className += " cut-event";
+        }
       }
       var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
       if (repeatEvery > _repeatType.never) {
@@ -1477,6 +1483,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_element_SearchDialog_FocusedEventID === eventDetails.id) {
         event.className += " focused-event";
       }
+      if (_copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut) {
+        event.className += " cut-event";
+      }
       var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
       if (repeatEvery > _repeatType.never) {
         var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
@@ -1736,6 +1745,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         event.id = _elementID_WeekDay + eventDetails.id;
         if (_element_SearchDialog_FocusedEventID === eventDetails.id) {
           event.className += " focused-event";
+        }
+        if (_copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut) {
+          event.className += " cut-event";
         }
       }
       var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
@@ -2255,6 +2267,18 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildMenuItemWithIcon(_element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
         _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
         _copiedEventDetails_Cut = true;
+        var startingID = _elementID_Day, isFullDayViewVisible = isOverlayVisible(_element_FullDayView), isAllEventsViewVisible = isOverlayVisible(_element_ListAllEventsView), isAllWeekEventsViewVisible = isOverlayVisible(_element_ListAllWeekEventsView);
+        if (isFullDayViewVisible) {
+          startingID = _elementID_FullDay;
+        } else if (isAllEventsViewVisible) {
+          startingID = _elementID_Month;
+        } else if (isAllWeekEventsViewVisible) {
+          startingID = _elementID_WeekDay;
+        }
+        var event = getElementByID(startingID + _element_DropDownMenu_Event_EventDetails.id);
+        if (event !== null) {
+          event.className += " cut-event";
+        }
       });
       buildMenuSeparator(_element_DropDownMenu_Event);
       buildMenuItemWithIcon(_element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
