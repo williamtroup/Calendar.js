@@ -233,6 +233,9 @@ div.calendar p {
 div.calendar div.focused-event {
   animation: focused-event-effect 2s infinite;
 }
+div.calendar div.cut-event {
+  opacity: 0.2 !important;
+}
 div.calendar div.header-days {
   font-weight: 900 !important;
   background-color: #E0E0E0 !important;
@@ -2705,7 +2708,8 @@ div.calendar-drop-down-menu div.ib-arrow-top-right-icon,
 div.calendar-drop-down-menu div.ib-circle-hollow-icon,
 div.calendar-drop-down-menu div.ib-circle-icon,
 div.calendar-drop-down-menu div.ib-minus-icon,
-div.calendar-drop-down-menu div.ib-octagon-hollow-icon {
+div.calendar-drop-down-menu div.ib-octagon-hollow-icon,
+div.calendar-drop-down-menu div.ib-pipe-icon {
   margin-right: 10px;
 }
 div.calendar-drop-down-menu div.item {
@@ -2717,7 +2721,7 @@ div.calendar-drop-down-menu div.item:hover {
   color: #F5F5F5;
   transition: all 0.3s;
 }
-div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon:before {
+div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon:before {
   background-color: #F5F5F5;
 }
 div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:after {
@@ -3564,6 +3568,34 @@ div.calendar-drop-down-menu div.separator {
   height: 3px;
   left: 1.5px;
   top: 1.5px;
+}
+
+.ib-pipe-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+.ib-pipe-icon:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-pipe-icon:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-pipe-icon:before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  transform: translate(-50%);
+  background-color: #282828;
+  width: 3px;
+  height: 100%;
+  border-radius: 3px;
+  top: 0;
 }
 
 .ib-refresh-medium {

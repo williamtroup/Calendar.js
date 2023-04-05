@@ -174,6 +174,10 @@ div.calendar {
     div.focused-event {
         animation: focused-event-effect 2s infinite;
     }
+
+    div.cut-event {
+        opacity: 0.2 !important;
+    }
     
     div.header-days {
         font-weight: 900 !important;
@@ -1601,7 +1605,8 @@ div.calendar-drop-down-menu {
     div.ib-circle-hollow-icon,
     div.ib-circle-icon,
     div.ib-minus-icon,
-    div.ib-octagon-hollow-icon {
+    div.ib-octagon-hollow-icon,
+    div.ib-pipe-icon {
         margin-right: $spacing;
     }
 
@@ -1621,7 +1626,8 @@ div.calendar-drop-down-menu {
         &:hover div.ib-close-icon:before,
         &:hover div.ib-close-icon:after,
         &:hover div.ib-circle-icon,
-        &:hover div.ib-minus-icon:before {
+        &:hover div.ib-minus-icon:before,
+        &:hover div.ib-pipe-icon:before {
             background-color: $light-color;
         }
 
@@ -1741,5 +1747,6 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/circle-hollow-icon";
 @import "foundation/menus/minus-icon";
 @import "foundation/menus/octagon-hollow-icon";
+@import "foundation/menus/pipe-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";

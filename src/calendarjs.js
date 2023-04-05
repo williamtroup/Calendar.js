@@ -239,6 +239,7 @@
  * @property    {string}    dropDownMenuSymbol                          The character symbol that is shown for a drop-down menu (defaults to "▾").
  * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
  * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
+ * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -405,6 +406,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _isDateToday = false,
         _openDialogs = [],
         _copiedEventDetails = null,
+        _copiedEventDetails_Cut = false,
         _previousDaysVisibleBeforeSingleDayView = [],
         _year_Minimum = 1900,
         _year_Maximum = null,
@@ -3776,7 +3778,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Day_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_Day );
             
             _element_DropDownMenu_Day_Paste = buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-circle-icon", _options.pasteText, function() {
-                addClonedEventToDate( _element_DropDownMenu_Day_DateSelected );
+                addClonedEventToDate( _element_DropDownMenu_Day_DateSelected, _copiedEventDetails_Cut );
             } );
         }
     }
@@ -3795,6 +3797,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
             }, true );
+
+            buildMenuSeparator( _element_DropDownMenu_Event );
+
+            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
+                _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
+                _copiedEventDetails_Cut = true;
+            } );
 
             buildMenuSeparator( _element_DropDownMenu_Event );
             
@@ -3889,7 +3898,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
                 
                 _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
-                    addClonedEventToDate( _element_FullDayView_DateSelected );
+                    addClonedEventToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
                 } );
             }
         }
@@ -6311,17 +6320,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return object;
     }
 
-    function addClonedEventToDate( date ) {
-        var newEvent = cloneEventDetails( _copiedEventDetails );
+    function addClonedEventToDate( date, cut ) {
+        var newEvent = !cut ? cloneEventDetails( _copiedEventDetails ) : _copiedEventDetails;
         newEvent.from.setDate( date.getDate() );
         newEvent.from.setMonth( date.getMonth() );
         newEvent.from.setFullYear( date.getFullYear() );
         newEvent.to.setDate( date.getDate() );
         newEvent.to.setMonth( date.getMonth() );
         newEvent.to.setFullYear( date.getFullYear() );
-        newEvent.id = null;
 
-        _this.addEvent( newEvent );
+        if ( !cut ) {
+            newEvent.id = null;
+
+            _this.addEvent( newEvent );
+        } else {
+            
+            _copiedEventDetails = null;
+            _copiedEventDetails_Cut = false;
+
+            buildDayEvents();
+            refreshOpenedViews();
+        }
     }
 
     function setElementClassName( element, className ) {
@@ -9245,6 +9264,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedString( _options.currentMonthTooltipText ) ) {
             _options.currentMonthTooltipText = "Current Month";
+        }
+
+        if ( !isDefinedString( _options.cutText ) ) {
+            _options.cutText = "Cut";
         }
     }
 

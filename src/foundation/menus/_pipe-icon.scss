@@ -1,0 +1,15 @@
+@import "icon";
+
+.ib-pipe-icon {
+    @include button-no-before-after;
+
+    &:before {
+        @include button-after-before-setup;
+        @include left-center;
+        background-color: $dark-color;
+        width: $border-width;
+        height: 100%;
+        border-radius: $border-radius;
+        top: 0;
+    }
+}
