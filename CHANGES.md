@@ -5,7 +5,7 @@
 - Added new search setting "history", which is used to state the existing search history (is updated when new entries are added).
 - Added single day (in month) view toggle support (simply double click on the day name header you want to view).
 - Added "Cut" support across events (like copy, but instead moves the event to the desired date).
-- Added a "Copy" class effect, which shows in the UI which event has been copied.
+- Added a "Copy" CSS class, which is applied to the event in the UI that you are copying.
 - 
 
 ### Version 1.7.5:
