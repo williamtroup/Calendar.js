@@ -3820,7 +3820,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
                 _copiedEventDetails_Cut = true;
 
-                var startingID = _elementID_Day,
+                var startingID = null,
                     isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
                     isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
                     isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
@@ -3833,9 +3833,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     startingID = _elementID_WeekDay;
                 }
         
-                var event = getElementByID( startingID + _element_DropDownMenu_Event_EventDetails.id );
-                if ( event !== null ) {
-                    event.className += " cut-event";
+                var event1 = getElementByID( _elementID_Day + _element_DropDownMenu_Event_EventDetails.id );
+                if ( event1 !== null ) {
+                    event1.className += " cut-event";
+                }
+
+                if ( startingID !== null ) {
+                    var event2 = getElementByID( startingID + _element_DropDownMenu_Event_EventDetails.id );
+                    if ( event2 !== null ) {
+                        event2.className += " cut-event";
+                    }
                 }
             } );
 

@@ -2267,7 +2267,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildMenuItemWithIcon(_element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
         _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
         _copiedEventDetails_Cut = true;
-        var startingID = _elementID_Day, isFullDayViewVisible = isOverlayVisible(_element_FullDayView), isAllEventsViewVisible = isOverlayVisible(_element_ListAllEventsView), isAllWeekEventsViewVisible = isOverlayVisible(_element_ListAllWeekEventsView);
+        var startingID = null, isFullDayViewVisible = isOverlayVisible(_element_FullDayView), isAllEventsViewVisible = isOverlayVisible(_element_ListAllEventsView), isAllWeekEventsViewVisible = isOverlayVisible(_element_ListAllWeekEventsView);
         if (isFullDayViewVisible) {
           startingID = _elementID_FullDay;
         } else if (isAllEventsViewVisible) {
@@ -2275,9 +2275,15 @@ function calendarJs(elementOrId, options, searchOptions) {
         } else if (isAllWeekEventsViewVisible) {
           startingID = _elementID_WeekDay;
         }
-        var event = getElementByID(startingID + _element_DropDownMenu_Event_EventDetails.id);
-        if (event !== null) {
-          event.className += " cut-event";
+        var event1 = getElementByID(_elementID_Day + _element_DropDownMenu_Event_EventDetails.id);
+        if (event1 !== null) {
+          event1.className += " cut-event";
+        }
+        if (startingID !== null) {
+          var event2 = getElementByID(startingID + _element_DropDownMenu_Event_EventDetails.id);
+          if (event2 !== null) {
+            event2.className += " cut-event";
+          }
         }
       });
       buildMenuSeparator(_element_DropDownMenu_Event);
