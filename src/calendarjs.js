@@ -1846,6 +1846,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
                             event.className += " cut-event";
                         }
+
+                        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
+                            event.className += " copy-event";
+                        }
                     }
     
                     event.onmousemove = function( e ) {
@@ -2298,6 +2302,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
                     event.className += " cut-event";
                 }
+
+                if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
+                    event.className += " copy-event";
+                }
             }
 
             var title = createElement( "div", "title" ),
@@ -2711,6 +2719,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.className += " cut-event";
             }
 
+            if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
+                event.className += " copy-event";
+            }
+
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -3081,6 +3093,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
                     event.className += " cut-event";
+                }
+
+                if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
+                    event.className += " copy-event";
                 }
             }
 
@@ -3820,36 +3836,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
                 _copiedEventDetails_Cut = true;
 
-                var startingID = null,
-                    isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
-                    isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
-                    isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
-        
-                if ( isFullDayViewVisible ) {
-                    startingID = _elementID_FullDay;
-                } else if ( isAllEventsViewVisible ) {
-                    startingID = _elementID_Month;
-                } else if ( isAllWeekEventsViewVisible ) {
-                    startingID = _elementID_WeekDay;
-                }
-        
-                var event1 = getElementByID( _elementID_Day + _element_DropDownMenu_Event_EventDetails.id );
-                if ( event1 !== null ) {
-                    event1.className += " cut-event";
-                }
-
-                if ( startingID !== null ) {
-                    var event2 = getElementByID( startingID + _element_DropDownMenu_Event_EventDetails.id );
-                    if ( event2 !== null ) {
-                        event2.className += " cut-event";
-                    }
-                }
+                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "cut-event" );
             } );
 
             buildMenuSeparator( _element_DropDownMenu_Event );
             
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
-                _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails );
+                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
+                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
+                }
+
+                _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails, false );
+                _copiedEventDetails_Cut = false;
+
+                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "copy-event" );
             } );
 
             buildMenuSeparator( _element_DropDownMenu_Event );
@@ -4067,6 +4067,43 @@ function calendarJs( elementOrId, options, searchOptions ) {
             hideAllDropDowns();
             cancelBubble( e );
             showElementAtMousePosition( e, _element_DropDownMenu_HeaderDay );
+        }
+    }
+
+    function updateEventClasses( id, className, remove ) {
+        remove = isDefined( remove ) ? remove : false;
+
+        var startingID = null,
+            isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
+            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
+            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
+
+        if ( isFullDayViewVisible ) {
+            startingID = _elementID_FullDay;
+        } else if ( isAllEventsViewVisible ) {
+            startingID = _elementID_Month;
+        } else if ( isAllWeekEventsViewVisible ) {
+            startingID = _elementID_WeekDay;
+        }
+
+        var event1 = getElementByID( _elementID_Day + id );
+        if ( event1 !== null ) {
+            if ( !remove ) {
+                event1.className += " " + className;
+            } else {
+                event1.className = event1.className.replace( " " + className, "" );
+            }
+        }
+
+        if ( startingID !== null ) {
+            var event2 = getElementByID( startingID + id );
+            if ( event2 !== null ) {
+                if ( !remove ) {
+                    event2.className += " " + className;
+                } else {
+                    event2.className = event2.className.replace( " " + className, "" );
+                }
+            }
         }
     }
 
@@ -6345,7 +6382,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function cloneEventDetails( value ) {
+    function cloneEventDetails( value, deleteId ) {
+        deleteId = isDefined( deleteId ) ? deleteId : true;
+
         var object = JSON.parse( JSON.stringify( value ) );
         object.from = new Date( object.from );
         object.to = new Date( object.to );
@@ -6356,7 +6395,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
         delete object.created;
         delete object.lastUpdated;
-        delete object.id;
+
+        if ( deleteId ) {
+            delete object.id;
+        }
 
         return object;
     }
@@ -6378,6 +6420,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             _copiedEventDetails = null;
             _copiedEventDetails_Cut = false;
+
+            triggerOptionsEventWithData( "onEventUpdated", newEvent );
 
             buildDayEvents();
             refreshOpenedViews();

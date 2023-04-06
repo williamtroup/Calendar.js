@@ -236,6 +236,9 @@ div.calendar div.focused-event {
 div.calendar div.cut-event {
   opacity: 0.2 !important;
 }
+div.calendar div.copy-event {
+  opacity: 0.5 !important;
+}
 div.calendar div.header-days {
   font-weight: 900 !important;
   background-color: #E0E0E0 !important;
