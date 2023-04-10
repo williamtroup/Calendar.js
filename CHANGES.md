@@ -1,6 +1,6 @@
 # Calendar.js - Change Log:
 
-### Version 1.7.6:
+### Version 1.8.0:
 - Added full search history support on the "Search Dialog".
 - Added new search setting "history", which is used to state the existing search history (is updated when new entries are added).
 - Added single day (in month) view toggle support (simply double click on the day name header you want to view).
