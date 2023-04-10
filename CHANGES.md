@@ -7,6 +7,7 @@
 - Added "Cut" support across events (like copy, but instead moves the event to the desired date).
 - Added a "Copy" CSS class, which is applied to the event in the UI that you are copying.
 - Added the "Configuration" toolbar button on all views (with the same visibility rules at the main display).
+- Added support to move all dialogs around the browser (instead of just the "Search" window).
 - 
 
 ### Version 1.7.5:

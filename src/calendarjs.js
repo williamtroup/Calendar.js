@@ -418,6 +418,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _elementID_YearSelected = "year-selected-",
         _element_Calendar = null,
         _element_Calendar_AllVisibleEvents = [],
+        _element_MoveDialog = null,
+        _element_MoveDialog_IsMoving = false,
+        _element_MoveDialog_X = 0,
+        _element_MoveDialog_Y = 0,
         _element_HeaderDateDisplay = null,
         _element_HeaderDateDisplay_Text = null,
         _element_HeaderDateDisplay_YearSelector = null,
@@ -566,10 +570,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SearchDialog_Option_Contains = null,
         _element_SearchDialog_Previous = null,
         _element_SearchDialog_Next = null,
-        _element_SearchDialog_IsMoving = false,
         _element_SearchDialog_Moved = false,
-        _element_SearchDialog_X = 0,
-        _element_SearchDialog_Y = 0,
         _element_SearchDialog_SearchResults = [],
         _element_SearchDialog_SearchIndex = 0,
         _element_SearchDialog_FocusedEventID = null,
@@ -1304,6 +1305,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( !_initializedDocumentEvents ) {
             _document.body.addEventListener( "click", hideAllDropDowns );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
+            _document.body.addEventListener( "mousemove", onMoveDocumentMouseMove );
             _document.addEventListener( "scroll", hideAllDropDowns );
             _document.addEventListener( "keydown", onWindowKeyDown );
             _window.addEventListener( "resize", hideAllDropDowns );
@@ -4168,6 +4170,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_EventEditorDialog_TitleBar = createElement( "div", "title-bar" );
             view.appendChild( _element_EventEditorDialog_TitleBar );
+
+            _element_EventEditorDialog_TitleBar.onmousedown = function( e ) {
+                onMoveTitleBarMouseDown( e, _element_EventEditorDialog );
+            };
+
+            _element_EventEditorDialog_TitleBar.onmouseup = function() {
+                onMoveTitleBarMouseUp( null );
+            };
+
+            _element_EventEditorDialog_TitleBar.oncontextmenu = function() {
+                onMoveTitleBarMouseUp( null );
+            };
     
             var contents = createElement( "div", "contents" );
             view.appendChild( contents );
@@ -4720,6 +4734,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.selectColorsText );
             _element_EventEditorColorsDialog.appendChild( titleBar );
+
+            titleBar.onmousedown = function( e ) {
+                onMoveTitleBarMouseDown( e, _element_EventEditorColorsDialog );
+            };
+
+            titleBar.onmouseup = function() {
+                onMoveTitleBarMouseUp( null );
+            };
+
+            titleBar.oncontextmenu = function() {
+                onMoveTitleBarMouseUp( null );
+            };
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventColorsDialogEvent_Cancel, true );
     
@@ -4795,6 +4821,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.repeatOptionsTitle );
             _element_EventEditorRepeatOptionsDialog.appendChild( titleBar );
+
+            titleBar.onmousedown = function( e ) {
+                onMoveTitleBarMouseDown( e, _element_EventEditorRepeatOptionsDialog );
+            };
+
+            titleBar.onmouseup = function() {
+                onMoveTitleBarMouseUp( null );
+            };
+
+            titleBar.oncontextmenu = function() {
+                onMoveTitleBarMouseUp( null );
+            };
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventRepeatOptionsDialogEvent_Cancel, true );
     
@@ -4967,6 +5005,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.selectExportTypeTitle );
             _element_SelectExportTypeDialog.appendChild( titleBar );
+
+            titleBar.onmousedown = function( e ) {
+                onMoveTitleBarMouseDown( e, _element_SelectExportTypeDialog );
+            };
+
+            titleBar.onmouseup = function() {
+                onMoveTitleBarMouseUp( null );
+            };
+
+            titleBar.oncontextmenu = function() {
+                onMoveTitleBarMouseUp( null );
+            };
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSelectExportTypeDialog, true );
     
@@ -5053,14 +5103,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog = createElement( "div", "calendar-dialog search" );
             _document.body.appendChild( _element_SearchDialog );
+
+            var titleBarMouseUpFunc = function() {
+                _element_SearchDialog_Moved = true;
+
+                storeSearchOptions();
+            };
     
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.searchEventsTitle );
-            titleBar.onmousedown = searchOnTitleBarMouseDown;
-            titleBar.onmouseup = searchOnTitleBarMouseUp;
-            titleBar.oncontextmenu = searchOnTitleBarMouseUp;
-            titleBar.ondblclick = minimizeRestoreDialog;
             _element_SearchDialog.appendChild( titleBar );
+
+            titleBar.onmousedown = function( e ) {
+                onMoveTitleBarMouseDown( e, _element_SearchDialog );
+            };
+
+            titleBar.onmouseup = function() {
+                onMoveTitleBarMouseUp( titleBarMouseUpFunc );
+            };
+
+            titleBar.oncontextmenu = function() {
+                onMoveTitleBarMouseUp( titleBarMouseUpFunc );
+            };
+
+            titleBar.ondblclick = minimizeRestoreDialog;
     
             var closeButton = buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSearchDialog );
             closeButton.onmousedown = cancelBubble;
@@ -5135,8 +5201,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog_Previous = createButtonElement( buttonsSplitContainer, _options.previousText, "previous", searchOnPrevious );
             _element_SearchDialog_Next = createButtonElement( buttonsSplitContainer, _options.nextText, "next", searchOnNext );
-    
-            _document.body.addEventListener( "mousemove", searchOnDocumentMouseMove );
         }
     }
 
@@ -5149,30 +5213,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
         centerSearchDialog();
         storeSearchOptions();
-    }
-
-    function searchOnTitleBarMouseDown( e ) {
-        if ( !_element_SearchDialog_IsMoving ) {
-            _element_SearchDialog_IsMoving = true;
-            _element_SearchDialog_X = e.pageX - _element_SearchDialog.offsetLeft;
-            _element_SearchDialog_Y = e.pageY - _element_SearchDialog.offsetTop;
-        }
-    }
-
-    function searchOnDocumentMouseMove( e ) {
-        if ( _element_SearchDialog_IsMoving ) {
-            _element_SearchDialog.style.left = ( e.pageX - _element_SearchDialog_X ) + "px";
-            _element_SearchDialog.style.top = ( e.pageY - _element_SearchDialog_Y ) + "px";
-        }
-    }
-
-    function searchOnTitleBarMouseUp() {
-        if ( _element_SearchDialog_IsMoving ) {
-            _element_SearchDialog_IsMoving = false;
-            _element_SearchDialog_Moved = true;
-
-            storeSearchOptions();
-        }
     }
 
     function searchOptionsChanged() {
@@ -5569,6 +5609,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.configurationTitleText );
             _element_ConfigurationDialog.appendChild( titleBar );
+
+            titleBar.onmousedown = function( e ) {
+                onMoveTitleBarMouseDown( e, _element_ConfigurationDialog );
+            };
+
+            titleBar.onmouseup = function() {
+                onMoveTitleBarMouseUp( null );
+            };
+
+            titleBar.oncontextmenu = function() {
+                onMoveTitleBarMouseUp( null );
+            };
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, configurationDialogEvent_Cancel, true );
     
@@ -5965,6 +6017,40 @@ function calendarJs( elementOrId, options, searchOptions ) {
             element.onmousemove = function( e ) {
                 showTooltip( e, null, text, overrideShow );
             };
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Moving Dialogs
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function onMoveTitleBarMouseDown( e, dialog ) {
+        if ( !_element_MoveDialog_IsMoving ) {
+            _element_MoveDialog = dialog;
+            _element_MoveDialog_IsMoving = true;
+            _element_MoveDialog_X = e.pageX - _element_MoveDialog.offsetLeft;
+            _element_MoveDialog_Y = e.pageY - _element_MoveDialog.offsetTop;
+        }
+    }
+
+    function onMoveTitleBarMouseUp( func ) {
+        if ( _element_MoveDialog_IsMoving ) {
+            _element_MoveDialog_IsMoving = false;
+            _element_MoveDialog = null;
+
+            if ( func !== null ) {
+                func();
+            }
+        }
+    }
+
+    function onMoveDocumentMouseMove( e ) {
+        if ( _element_MoveDialog_IsMoving ) {
+            _element_MoveDialog.style.left = ( e.pageX - _element_MoveDialog_X ) + "px";
+            _element_MoveDialog.style.top = ( e.pageY - _element_MoveDialog_Y ) + "px";
         }
     }
 
