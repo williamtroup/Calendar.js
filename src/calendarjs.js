@@ -2078,6 +2078,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
     
+            buildToolbarButton( titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
+
             if ( _options.fullScreenModeEnabled ) {
                 _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
             }
@@ -2657,6 +2659,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
     
+            buildToolbarButton( titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
+
             if ( _options.fullScreenModeEnabled ) {
                 _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
             }
@@ -2894,7 +2898,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
     
             _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-    
+
+            buildToolbarButton( titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
+            
             if ( _options.fullScreenModeEnabled ) {
                 _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
             }

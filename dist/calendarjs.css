@@ -662,7 +662,8 @@ div.calendar div.full-day-view div.title-bar div {
 div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-day-view div.title-bar div.ib-pin,
 div.calendar div.full-day-view div.title-bar div.ib-refresh,
-div.calendar div.full-day-view div.title-bar div.ib-search {
+div.calendar div.full-day-view div.title-bar div.ib-search,
+div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow {
   float: left;
 }
 div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
@@ -680,7 +681,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
-  div.calendar div.full-day-view div.title-bar div.ib-refresh {
+  div.calendar div.full-day-view div.title-bar div.ib-refresh,
+  div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow {
     display: inline-block;
   }
 }
@@ -691,7 +693,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
-  div.calendar div.full-day-view div.title-bar div.ib-refresh {
+  div.calendar div.full-day-view div.title-bar div.ib-refresh,
+  div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow {
     display: none !important;
   }
 }
@@ -885,7 +888,8 @@ div.calendar div.list-all-events-view div.title-bar div {
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-pin,
 div.calendar div.list-all-events-view div.title-bar div.ib-refresh,
-div.calendar div.list-all-events-view div.title-bar div.ib-search {
+div.calendar div.list-all-events-view div.title-bar div.ib-search,
+div.calendar div.list-all-events-view div.title-bar div.ib-octagon-hollow {
   float: left;
 }
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
@@ -903,7 +907,8 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-r
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.list-all-events-view div.title-bar div.ib-search,
-  div.calendar div.list-all-events-view div.title-bar div.ib-refresh {
+  div.calendar div.list-all-events-view div.title-bar div.ib-refresh,
+  div.calendar div.list-all-events-view div.title-bar div.ib-octagon-hollow {
     display: inline-block;
   }
 }
@@ -914,7 +919,8 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-r
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.list-all-events-view div.title-bar div.ib-search,
-  div.calendar div.list-all-events-view div.title-bar div.ib-refresh {
+  div.calendar div.list-all-events-view div.title-bar div.ib-refresh,
+  div.calendar div.list-all-events-view div.title-bar div.ib-octagon-hollow {
     display: none !important;
   }
 }
@@ -1042,7 +1048,8 @@ div.calendar div.list-all-week-events-view div.title-bar div {
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-pin,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-search {
+div.calendar div.list-all-week-events-view div.title-bar div.ib-search,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-octagon-hollow {
   float: left;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
@@ -1060,7 +1067,8 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-l
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-search,
-  div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-octagon-hollow {
     display: inline-block;
   }
 }
@@ -1071,7 +1079,8 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-l
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.list-all-week-events-view div.title-bar div.ib-search,
-  div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh {
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh,
+  div.calendar div.list-all-week-events-view div.title-bar div.ib-octagon-hollow {
     display: none !important;
   }
 }
