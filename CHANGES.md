@@ -8,6 +8,7 @@
 - Added a "Copy" CSS class, which is applied to the event in the UI that you are copying.
 - Added the "Configuration" toolbar button on all views (with the same visibility rules at the main display).
 - Added support to move all dialogs around the browser (instead of just the "Search" window).
+- Holiday links in the main display are now hidden on mobiles by default (CSS controlled).
 - 
 
 ### Version 1.7.5:

@@ -371,6 +371,11 @@ div.calendar div.row-cells div.cell span.month-name:hover, div.calendar div.row-
 div.calendar div.row-cells div.cell span.blank {
   padding: 0 !important;
 }
+@media screen and (max-width: 450px) {
+  div.calendar div.row-cells div.cell span.holiday, div.calendar div.row-cells div.cell span.holiday-link {
+    display: none;
+  }
+}
 div.calendar div.row-cells div.cell:last-child {
   border-right: none;
 }

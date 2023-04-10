@@ -351,6 +351,13 @@ div.calendar {
                 &.blank {
                     padding: 0 !important;
                 }
+
+                @media screen and (max-width: $maximum-width) {
+                    &.holiday,
+                    &.holiday-link {
+                        display: none;
+                    }
+                }
             }
 
             &:last-child {
