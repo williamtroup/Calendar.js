@@ -7,7 +7,7 @@
 - Added "Cut" support across events (like copy, but instead moves the event to the desired date).
 - Added a "Copy" CSS class, which is applied to the event in the UI that you are copying.
 - Added the "Configuration" toolbar button on all views (with the same visibility rules at the main display).
-- Added support to move all dialogs around the browser (instead of just the "Search" window).
+- Added support to move all dialogs around the browser (instead of just the "Search" dialog).
 - Holiday links in the main display are now hidden on mobiles by default (CSS controlled).
 - Pressing escape (once all other actions are done) will clear the Copied/Cut event from the internal clipboard.
 - 
