@@ -3534,6 +3534,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     dayElement.onclick = cancelBubble;
                 }
             }
+
+            if ( _options.useOnlyDotEventsForMainDisplay ) {
+                dayElement.appendChild( createElement( "div", "dots-separator" ) );
+            }
         }
     }
 

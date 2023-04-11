@@ -306,9 +306,12 @@ div.calendar {
                 padding: $spacing / 2;
             }
 
-            div.separator {
+            div.separator,
+            div.dots-separator {
                 height: 2px;
+            }
 
+            div.separator {
                 @media screen and (max-width: $maximum-width) {
                     display: none;
                 }

@@ -338,7 +338,8 @@ div.calendar div.row-cells div.cell {
     padding: 5px;
   }
 }
-div.calendar div.row-cells div.cell div.separator {
+div.calendar div.row-cells div.cell div.separator,
+div.calendar div.row-cells div.cell div.dots-separator {
   height: 2px;
 }
 @media screen and (max-width: 450px) {
