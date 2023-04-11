@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.8.1:
+- Fixed a fault that caused an error to occur when initializing Calendar.js without any options.
 - 
 
 ### Version 1.8.0:

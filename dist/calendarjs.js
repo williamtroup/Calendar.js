@@ -5943,7 +5943,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isDefinedString(_elementID) || isDefinedDOMElement(_elementID)) {
       buildDefaultOptions(options);
       buildDefaultSearchOptions(searchOptions);
-      build(options.initialDateTime, true);
+      build(_options.initialDateTime, true);
       if (isDefinedBoolean(_options.openInFullScreenMode) && _options.openInFullScreenMode && !_datePickerModeEnabled) {
         turnOnFullScreenMode(true);
       }
