@@ -4,6 +4,7 @@
 - Fixed a fault that caused an error to occur when initializing Calendar.js without any options.
 - Fixed a fault that caused holiday link hover effect to use the full cell width (now just the text size).
 - Added a separator CSS class and object that gets added between each holiday item in the main display.
+- Fixed a fault that caused full-screen mode to be closed updating configuration from the "Configuration" dialog.
 - 
 
 ### Version 1.8.0:

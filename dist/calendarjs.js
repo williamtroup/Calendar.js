@@ -45,6 +45,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildTooltip();
       buildDropDownMenus();
     }
+    if (_isFullScreenModeActivated && !_datePickerModeEnabled) {
+      forceTurnOnFullScreenMode();
+    }
     _element_HeaderDateDisplay_Text.innerText = _options.monthNames[_currentDate.getMonth()] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
   }
   function getAllEvents() {
@@ -281,18 +284,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       turnOffFullScreenMode();
     }
   }
-  function turnOnFullScreenMode(onLoad) {
-    onLoad = isDefined(onLoad) ? onLoad : false;
-    if (!_isFullScreenModeActivated && (_options.fullScreenModeEnabled || onLoad)) {
-      _cachedStyles = _element_Calendar.style.cssText;
-      _isFullScreenModeActivated = true;
-      _element_Calendar.className += " full-screen-view";
-      _element_Calendar.removeAttribute("style");
-      updateExpandButtons("ib-arrow-contract-left-right", _options.disableFullScreenTooltipText);
-      refreshOpenedViews();
-      if (!onLoad) {
-        triggerOptionsEventWithData("onFullScreenModeChanged", true);
-      }
+  function turnOnFullScreenMode() {
+    if (!_isFullScreenModeActivated && _options.fullScreenModeEnabled) {
+      forceTurnOnFullScreenMode();
+      triggerOptionsEventWithData("onFullScreenModeChanged", true);
     }
   }
   function turnOffFullScreenMode() {
@@ -304,6 +299,14 @@ function calendarJs(elementOrId, options, searchOptions) {
       refreshOpenedViews();
       triggerOptionsEventWithData("onFullScreenModeChanged", false);
     }
+  }
+  function forceTurnOnFullScreenMode() {
+    _cachedStyles = _element_Calendar.style.cssText;
+    _isFullScreenModeActivated = true;
+    _element_Calendar.className += " full-screen-view";
+    _element_Calendar.removeAttribute("style");
+    updateExpandButtons("ib-arrow-contract-left-right", _options.disableFullScreenTooltipText);
+    refreshOpenedViews();
   }
   function updateExpandButtons(className, tooltipText) {
     setElementClassName(_element_HeaderDateDisplay_FullScreenButton, className);
@@ -5949,7 +5952,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildDefaultSearchOptions(searchOptions);
       build(_options.initialDateTime, true);
       if (isDefinedBoolean(_options.openInFullScreenMode) && _options.openInFullScreenMode && !_datePickerModeEnabled) {
-        turnOnFullScreenMode(true);
+        forceTurnOnFullScreenMode();
       }
     }
   })(document, window);
