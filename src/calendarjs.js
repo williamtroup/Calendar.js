@@ -3588,7 +3588,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
         }
 
-        createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true );
+        createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true, true );
     }
 
     
@@ -6341,8 +6341,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         container.appendChild( element );
     }
 
-    function createSpanElement( container, text, className, event, cancelDblClick ) {
+    function createSpanElement( container, text, className, event, cancelDblClick, addSeparator ) {
         cancelDblClick = isDefined( cancelDblClick ) ? cancelDblClick : false;
+        addSeparator = isDefined( addSeparator ) ? addSeparator : false;
+
+        if ( addSeparator ) {
+            container.appendChild( createElement( "div", "separator" ) );
+        }
 
         var element = createElement( "span", className ),
             isEventDefined = isDefinedFunction( event );
