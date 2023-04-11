@@ -2,15 +2,14 @@
 
 ### Version 1.8.0:
 - Added full search history support on the "Search Dialog".
-- Added new search setting "history", which is used to state the existing search history (is updated when new entries are added).
-- Added single day (in month) view toggle support (simply double click on the day name header you want to view).
+- Added a new search setting "history", which is used to state the existing search history (is updated when new entries are added).
+- Added single-day (in the month) view toggle support (simply double-click on the day name header you want to view).
 - Added "Cut" support across events (like copy, but instead moves the event to the desired date).
 - Added a "Copy" CSS class, which is applied to the event in the UI that you are copying.
 - Added the "Configuration" toolbar button on all views (with the same visibility rules at the main display).
 - Added support to move all dialogs around the browser (instead of just the "Search" dialog).
 - Holiday links in the main display are now hidden on mobiles by default (CSS controlled).
 - Pressing escape (once all other actions are done) will clear the Copied/Cut event from the internal clipboard.
-- 
 
 ### Version 1.7.5:
 - More documentation improvements.
