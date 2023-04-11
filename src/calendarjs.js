@@ -4201,17 +4201,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_EventEditorDialog_TitleBar = createElement( "div", "title-bar" );
             view.appendChild( _element_EventEditorDialog_TitleBar );
 
-            _element_EventEditorDialog_TitleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_EventEditorDialog );
-            };
-
-            _element_EventEditorDialog_TitleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            _element_EventEditorDialog_TitleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( _element_EventEditorDialog_TitleBar, _element_EventEditorDialog, null );
     
             var contents = createElement( "div", "contents" );
             view.appendChild( contents );
@@ -4765,17 +4755,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.selectColorsText );
             _element_EventEditorColorsDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_EventEditorColorsDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_EventEditorColorsDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventColorsDialogEvent_Cancel, true );
     
@@ -4852,17 +4832,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.repeatOptionsTitle );
             _element_EventEditorRepeatOptionsDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_EventEditorRepeatOptionsDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_EventEditorRepeatOptionsDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventRepeatOptionsDialogEvent_Cancel, true );
     
@@ -5036,17 +5006,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.selectExportTypeTitle );
             _element_SelectExportTypeDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_SelectExportTypeDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_SelectExportTypeDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSelectExportTypeDialog, true );
     
@@ -5133,28 +5093,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog = createElement( "div", "calendar-dialog search" );
             _document.body.appendChild( _element_SearchDialog );
-
-            var titleBarMouseUpFunc = function() {
-                _element_SearchDialog_Moved = true;
-
-                storeSearchOptions();
-            };
     
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.searchEventsTitle );
             _element_SearchDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_SearchDialog );
-            };
+            makeDialogMovable( titleBar, _element_SearchDialog, function() {
+                _element_SearchDialog_Moved = true;
 
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( titleBarMouseUpFunc );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( titleBarMouseUpFunc );
-            };
+                storeSearchOptions();
+            } );
 
             titleBar.ondblclick = minimizeRestoreDialog;
     
@@ -5640,17 +5588,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.configurationTitleText );
             _element_ConfigurationDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_ConfigurationDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_ConfigurationDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, configurationDialogEvent_Cancel, true );
     
@@ -6056,6 +5994,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Moving Dialogs
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    function makeDialogMovable( titleBar, dialog, mouseUpFunc ) {
+        titleBar.onmousedown = function( e ) {
+            onMoveTitleBarMouseDown( e, dialog );
+        };
+
+        titleBar.onmouseup = function() {
+            onMoveTitleBarMouseUp( mouseUpFunc );
+        };
+
+        titleBar.oncontextmenu = function() {
+            onMoveTitleBarMouseUp( null );
+        };
+    }
 
     function onMoveTitleBarMouseDown( e, dialog ) {
         if ( !_element_MoveDialog_IsMoving ) {
