@@ -9,6 +9,7 @@
 - Added the "Configuration" toolbar button on all views (with the same visibility rules at the main display).
 - Added support to move all dialogs around the browser (instead of just the "Search" window).
 - Holiday links in the main display are now hidden on mobiles by default (CSS controlled).
+- Pressing escape (once all other actions are done) will clear the Copied/Cut event from the internal clipboard.
 - 
 
 ### Version 1.7.5:

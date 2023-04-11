@@ -1438,6 +1438,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
+        if ( !done && _copiedEventDetails !== null ) {
+            if ( _copiedEventDetails_Cut ) {
+                updateEventClasses( _copiedEventDetails.id, "cut-event", true );
+            } else {
+                updateEventClasses( _copiedEventDetails.id, "copy-event", true );
+            }
+
+            _copiedEventDetails = null;
+            _copiedEventDetails_Cut = false;
+        }
+
         return done;
     }
 
@@ -3841,6 +3852,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildMenuSeparator( _element_DropDownMenu_Event );
 
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
+                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
+                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
+                }
+
+                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
+                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
+                }
+
                 _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
                 _copiedEventDetails_Cut = true;
 
@@ -3852,6 +3871,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
                 if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
                     updateEventClasses( _copiedEventDetails.id, "cut-event", true );
+                }
+
+                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
+                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
                 }
 
                 _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails, false );
