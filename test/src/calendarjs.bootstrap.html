@@ -87,7 +87,18 @@
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
-            showExtraToolbarButtons: true
+            showExtraToolbarButtons: true,
+            searchOptions: {
+                history: [
+                    "Regular Event",
+                    "Test",
+                    "At The Top",
+                    "Zero",
+                    "Title 1",
+                    "Title 2",
+                    "Title That Is Longer"
+                ]
+            }
         } );
 
         document.title += " - v" + calendarInstance.getVersion();

@@ -24,7 +24,8 @@ div.title-bar {
     div.ib-arrow-left-full,
     div.ib-pin,
     div.ib-refresh,
-    div.ib-search {
+    div.ib-search,
+    div.ib-octagon-hollow {
         float: left;
     }
 
@@ -44,7 +45,8 @@ div.title-bar {
         div.ib-arrow-expand-left-right,
         div.ib-arrow-contract-left-right,
         div.ib-search,
-        div.ib-refresh {
+        div.ib-refresh,
+        div.ib-octagon-hollow {
             display: inline-block;
         }
     }
@@ -56,7 +58,8 @@ div.title-bar {
         div.ib-arrow-expand-left-right,
         div.ib-arrow-contract-left-right,
         div.ib-search,
-        div.ib-refresh {
+        div.ib-refresh,
+        div.ib-octagon-hollow {
             display: none !important;
         }
     }

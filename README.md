@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v1.7.5</p>
+<p align="center">v1.8.0</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -14,14 +14,14 @@ Calendar.js
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events.
-- Copy & Paste, and Duplication of events.
+- Cut, Copy, Paste, and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
 - Custom events for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV.
 - Full-screen mode (double clicking the title bar).
-- Search support.
+- Search support (with search history).
 - Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support).
 - Customizable holidays.
 - Navigation keys (in full-screen mode):
