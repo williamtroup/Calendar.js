@@ -3503,7 +3503,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     } else {
                         moveBackMonth();
                     }
-                }, true );
+                }, true, true );
             }
 
             addHolidays( dayDate, dayMutedClass, dayElement );
