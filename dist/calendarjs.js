@@ -1,4 +1,4 @@
-/*! Calendar.js v1.8.0 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v1.8.1 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _options = {}, _optionsForSearch = {}, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, f:70, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _this = this, _datePickerInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, 
   _elements = {}, _configuration = {}, _eventNotificationsTriggered = {}, _document = null, _window = null, _elementID = null, _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = false, _events = {}, _timer_CallSearchOptionsEvent = null, _timer_RefreshMainDisplay = null, _timer_RefreshMainDisplay_Enabled = true, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = 
@@ -5209,7 +5209,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _copiedEventDetails = null;
   };
   this.getVersion = function() {
-    return "1.8.0";
+    return "1.8.1";
   };
   this.getId = function() {
     return _elementID;
