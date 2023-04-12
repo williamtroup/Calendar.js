@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.2:
+- 
+
 ### Version 1.8.1:
 - Fixed a fault that caused an error to occur when initializing Calendar.js without any options.
 - Fixed a fault that caused holiday link hover effect to use the full cell width (now just the text size).
