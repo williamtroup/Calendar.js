@@ -1213,7 +1213,14 @@ div.search {
         }
 
         div.advanced {
-            margin-top: $spacing / 2 !important;
+            background-color: $day-names-color;
+            padding: $spacing;
+            margin-top: $spacing !important;
+            border-radius: $border-view-radius;
+
+            div.split {
+                margin-top: 0 !important;
+            }
         }
     }
     
