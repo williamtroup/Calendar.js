@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.js
- * @version     v1.8.0
+ * @version     v1.8.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -639,6 +639,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildDropDownMenus();
         }
 
+        if ( _isFullScreenModeActivated && !_datePickerModeEnabled ) {
+            forceTurnOnFullScreenMode();
+        }
+
         _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
     }
 
@@ -968,21 +972,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function turnOnFullScreenMode( onLoad ) {
-        onLoad = isDefined( onLoad ) ? onLoad : false;
-
-        if ( !_isFullScreenModeActivated && ( _options.fullScreenModeEnabled || onLoad ) ) {
-            _cachedStyles = _element_Calendar.style.cssText;
-            _isFullScreenModeActivated = true;
-            _element_Calendar.className += " full-screen-view";
-            _element_Calendar.removeAttribute( "style" );
-
-            updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
-            refreshOpenedViews();
-
-            if ( !onLoad ) {
-                triggerOptionsEventWithData( "onFullScreenModeChanged", true );
-            }
+    function turnOnFullScreenMode() {
+        if ( !_isFullScreenModeActivated && _options.fullScreenModeEnabled ) {
+            forceTurnOnFullScreenMode();
+            triggerOptionsEventWithData( "onFullScreenModeChanged", true );
         }
     }
 
@@ -996,6 +989,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             refreshOpenedViews();
             triggerOptionsEventWithData( "onFullScreenModeChanged", false );
         }
+    }
+
+    function forceTurnOnFullScreenMode() {
+        _cachedStyles = _element_Calendar.style.cssText;
+        _isFullScreenModeActivated = true;
+        _element_Calendar.className += " full-screen-view";
+        _element_Calendar.removeAttribute( "style" );
+
+        updateExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
+        refreshOpenedViews();
     }
 
     function updateExpandButtons( className, tooltipText ) {
@@ -3503,7 +3506,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     } else {
                         moveBackMonth();
                     }
-                }, true );
+                }, true, true );
             }
 
             addHolidays( dayDate, dayMutedClass, dayElement );
@@ -3530,6 +3533,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } else {
                     dayElement.onclick = cancelBubble;
                 }
+            }
+
+            if ( _options.useOnlyDotEventsForMainDisplay ) {
+                dayElement.appendChild( createElement( "div", "dots-separator" ) );
             }
         }
     }
@@ -3588,7 +3595,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
         }
 
-        createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true );
+        createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true, true );
     }
 
     
@@ -4194,17 +4201,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_EventEditorDialog_TitleBar = createElement( "div", "title-bar" );
             view.appendChild( _element_EventEditorDialog_TitleBar );
 
-            _element_EventEditorDialog_TitleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_EventEditorDialog );
-            };
-
-            _element_EventEditorDialog_TitleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            _element_EventEditorDialog_TitleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( _element_EventEditorDialog_TitleBar, _element_EventEditorDialog, null );
     
             var contents = createElement( "div", "contents" );
             view.appendChild( contents );
@@ -4758,17 +4755,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.selectColorsText );
             _element_EventEditorColorsDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_EventEditorColorsDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_EventEditorColorsDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventColorsDialogEvent_Cancel, true );
     
@@ -4845,17 +4832,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.repeatOptionsTitle );
             _element_EventEditorRepeatOptionsDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_EventEditorRepeatOptionsDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_EventEditorRepeatOptionsDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventRepeatOptionsDialogEvent_Cancel, true );
     
@@ -5029,17 +5006,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.selectExportTypeTitle );
             _element_SelectExportTypeDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_SelectExportTypeDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_SelectExportTypeDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSelectExportTypeDialog, true );
     
@@ -5126,28 +5093,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog = createElement( "div", "calendar-dialog search" );
             _document.body.appendChild( _element_SearchDialog );
-
-            var titleBarMouseUpFunc = function() {
-                _element_SearchDialog_Moved = true;
-
-                storeSearchOptions();
-            };
     
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.searchEventsTitle );
             _element_SearchDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_SearchDialog );
-            };
+            makeDialogMovable( titleBar, _element_SearchDialog, function() {
+                _element_SearchDialog_Moved = true;
 
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( titleBarMouseUpFunc );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( titleBarMouseUpFunc );
-            };
+                storeSearchOptions();
+            } );
 
             titleBar.ondblclick = minimizeRestoreDialog;
     
@@ -5633,17 +5588,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( titleBar, _options.configurationTitleText );
             _element_ConfigurationDialog.appendChild( titleBar );
 
-            titleBar.onmousedown = function( e ) {
-                onMoveTitleBarMouseDown( e, _element_ConfigurationDialog );
-            };
-
-            titleBar.onmouseup = function() {
-                onMoveTitleBarMouseUp( null );
-            };
-
-            titleBar.oncontextmenu = function() {
-                onMoveTitleBarMouseUp( null );
-            };
+            makeDialogMovable( titleBar, _element_ConfigurationDialog, null );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, configurationDialogEvent_Cancel, true );
     
@@ -6050,6 +5995,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
+    function makeDialogMovable( titleBar, dialog, mouseUpFunc ) {
+        titleBar.onmousedown = function( e ) {
+            onMoveTitleBarMouseDown( e, dialog );
+        };
+
+        titleBar.onmouseup = function() {
+            onMoveTitleBarMouseUp( mouseUpFunc );
+        };
+
+        titleBar.oncontextmenu = function() {
+            onMoveTitleBarMouseUp( null );
+        };
+    }
+
     function onMoveTitleBarMouseDown( e, dialog ) {
         if ( !_element_MoveDialog_IsMoving ) {
             _element_MoveDialog = dialog;
@@ -6341,8 +6300,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         container.appendChild( element );
     }
 
-    function createSpanElement( container, text, className, event, cancelDblClick ) {
+    function createSpanElement( container, text, className, event, cancelDblClick, addSeparator ) {
         cancelDblClick = isDefined( cancelDblClick ) ? cancelDblClick : false;
+        addSeparator = isDefined( addSeparator ) ? addSeparator : false;
+
+        if ( addSeparator ) {
+            container.appendChild( createElement( "div", "separator" ) );
+        }
 
         var element = createElement( "span", className ),
             isEventDefined = isDefinedFunction( event );
@@ -8438,7 +8402,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.8.0";
+        return "1.8.1";
     };
 
     /**
@@ -9582,10 +9546,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( isDefinedString( _elementID ) || isDefinedDOMElement( _elementID ) ) {
             buildDefaultOptions( options );
             buildDefaultSearchOptions( searchOptions );
-            build( options.initialDateTime, true );
+            build( _options.initialDateTime, true );
     
             if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
-                turnOnFullScreenMode( true );
+                forceTurnOnFullScreenMode();
             }
         }
 

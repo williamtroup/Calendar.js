@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.0
+ * Calendar.js Library v1.8.1
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -338,6 +338,15 @@ div.calendar div.row-cells div.cell {
     padding: 5px;
   }
 }
+div.calendar div.row-cells div.cell div.separator,
+div.calendar div.row-cells div.cell div.dots-separator {
+  height: 2px;
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.row-cells div.cell div.separator {
+    display: none;
+  }
+}
 div.calendar div.row-cells div.cell span {
   display: inline-block;
   padding: 4px;
@@ -361,7 +370,7 @@ div.calendar div.row-cells div.cell span.first-day {
   color: #282828;
 }
 div.calendar div.row-cells div.cell span.holiday, div.calendar div.row-cells div.cell span.holiday-link, div.calendar div.row-cells div.cell span.month-name, div.calendar div.row-cells div.cell span.blank {
-  display: block;
+  display: inline-block;
   font-size: xx-small;
 }
 div.calendar div.row-cells div.cell span.month-name:hover, div.calendar div.row-cells div.cell span.holiday-link:hover {

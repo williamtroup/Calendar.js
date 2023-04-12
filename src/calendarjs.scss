@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.0
+ * Calendar.js Library v1.8.1
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -306,6 +306,17 @@ div.calendar {
                 padding: $spacing / 2;
             }
 
+            div.separator,
+            div.dots-separator {
+                height: 2px;
+            }
+
+            div.separator {
+                @media screen and (max-width: $maximum-width) {
+                    display: none;
+                }
+            }
+
             span {
                 display: inline-block;
                 padding: 4px;
@@ -338,7 +349,7 @@ div.calendar {
                 &.holiday-link,
                 &.month-name,
                 &.blank {
-                    display: block;
+                    display: inline-block;
                     font-size: xx-small;
                 }
 
