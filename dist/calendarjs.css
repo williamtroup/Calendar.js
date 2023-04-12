@@ -613,6 +613,9 @@ div.calendar div.row-cells div.cell div.event-circle:last-child {
 div.calendar div.row-cells div.cell div.expired {
   opacity: 0.7;
 }
+div.calendar div.row-cells div.cell div.not-in-current-month {
+  opacity: 0.1;
+}
 div.calendar div.row-cells div.cell div.all-day {
   background-color: #1b3752 !important;
 }

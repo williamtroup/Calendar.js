@@ -291,6 +291,7 @@
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
  * @property    {Object}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
  * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
+ * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the mai display, defaults to true).
  */
 
 
@@ -1852,7 +1853,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     elementDay.appendChild( event );
     
                     makeEventDraggable( event, eventDetails, dayDate, elementDay );
-                    setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ) );
+                    setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
     
                     if ( doDatesMatch( eventDetails.from, dayDate ) ) {
                         event.id = _elementID_Day + eventDetails.id;
@@ -2006,9 +2007,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
   
-    function setEventClassesAndColors( event, eventDetails, toDate ) {
+    function setEventClassesAndColors( event, eventDetails, toDate, setNotInMonthCss ) {
+        setNotInMonthCss = isDefined( setNotInMonthCss ) ? setNotInMonthCss : false;
+
         if ( isDefined( toDate ) && toDate < new Date() ) {
             event.className += " expired";
+        }
+
+        if ( setNotInMonthCss && isDefined( toDate ) && ( toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth() ) ) {
+            event.className += " not-in-current-month";
         }
 
         if ( isDefinedStringAndSet( eventDetails.color ) ) {
@@ -8768,6 +8775,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedArray( _options.events ) ) {
             _options.events = null;
+        }
+
+        if ( !isDefinedBoolean( _options.applyCssToEventsNotInCurrentMonth ) ) {
+            _options.applyCssToEventsNotInCurrentMonth = true;
         }
 
         setTranslationStringOptions();

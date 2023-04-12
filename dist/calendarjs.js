@@ -898,7 +898,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           }
           elementDay.appendChild(event);
           makeEventDraggable(event, eventDetails, dayDate, elementDay);
-          setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, dayDate));
+          setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, dayDate), _options.applyCssToEventsNotInCurrentMonth);
           if (doDatesMatch(eventDetails.from, dayDate)) {
             event.id = _elementID_Day + eventDetails.id;
             if (_element_SearchDialog_FocusedEventID === eventDetails.id) {
@@ -1009,9 +1009,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       elements[0].className = elements[0].className.replace(className, "");
     }
   }
-  function setEventClassesAndColors(event, eventDetails, toDate) {
+  function setEventClassesAndColors(event, eventDetails, toDate, setNotInMonthCss) {
+    setNotInMonthCss = isDefined(setNotInMonthCss) ? setNotInMonthCss : false;
     if (isDefined(toDate) && toDate < new Date()) {
       event.className += " expired";
+    }
+    if (setNotInMonthCss && isDefined(toDate) && (toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth())) {
+      event.className += " not-in-current-month";
     }
     if (isDefinedStringAndSet(eventDetails.color)) {
       event.style.backgroundColor = eventDetails.color;
@@ -5402,6 +5406,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (!isDefinedArray(_options.events)) {
       _options.events = null;
+    }
+    if (!isDefinedBoolean(_options.applyCssToEventsNotInCurrentMonth)) {
+      _options.applyCssToEventsNotInCurrentMonth = true;
     }
     setTranslationStringOptions();
     checkForBrowserNotificationsPermission();

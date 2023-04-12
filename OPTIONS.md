@@ -56,6 +56,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Object* | initialDateTime | States the date that the calendar should start from when first loaded (defaults to today). |
 | *Object* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
 | *Event[]* | events | States the events that will be shown when the calendar first renders (defaults to null). |
+| *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the mai display, defaults to true). |
 <br/>
 
 ### Translatable String Options:
