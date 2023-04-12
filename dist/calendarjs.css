@@ -509,7 +509,7 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   cursor: pointer;
   transition: all 0.3s;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:active {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:active:not(.year-selected) {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -517,6 +517,7 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-selected {
   background-color: #282828;
   color: #F5F5F5;
+  cursor: default !important;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-has-events {
   background-color: #DCDCDC;

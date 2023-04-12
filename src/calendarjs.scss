@@ -491,7 +491,7 @@ div.calendar {
                             transition: $transition;
                         }
     
-                        &:active {
+                        &:active:not(.year-selected) {
                             @include opacity-active-effect;
                         }
                     }
@@ -499,6 +499,7 @@ div.calendar {
                     div.year-selected {
                         background-color: $dark-color;
                         color: $light-color;
+                        cursor: default !important;
                     }
 
                     div.year-has-events {

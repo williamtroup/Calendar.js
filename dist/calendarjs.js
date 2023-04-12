@@ -492,6 +492,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     var year = getElementByID(_elementID_YearSelected + _currentDate.getFullYear());
     if (year !== null) {
       year.className += " year-selected";
+      year.onclick = cancelBubble;
+      year.ondblclick = cancelBubble;
     }
     if (!_datePickerModeEnabled) {
       var yearsHandledForEvents = [];
