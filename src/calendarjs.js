@@ -1151,8 +1151,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             valuesDate = null;
 
         if ( values.length === 3 ) {
-
             var newDateFromValues = new Date( parseInt( values[ 2 ] ), parseInt( values[ 1 ] ) - 1, parseInt( values[ 0 ] ) );
+            
             if ( newDateFromValues instanceof Date && !isNaN( newDateFromValues ) ) {
                 valuesDate = newDateFromValues;
             }
