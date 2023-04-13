@@ -1857,18 +1857,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                     if ( doDatesMatch( eventDetails.from, dayDate ) ) {
                         event.id = _elementID_Day + eventDetails.id;
-    
-                        if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
-                            event.className += " focused-event";
-                        }
 
-                        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
-                            event.className += " cut-event";
-                        }
-
-                        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
-                            event.className += " copy-event";
-                        }
+                        setEventClassesForActions( event, eventDetails );
                     }
     
                     event.onmousemove = function( e ) {
@@ -2033,6 +2023,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( eventDetails.isAllDay ) {
                 event.className += " all-day";
             }
+        }
+    }
+
+    function setEventClassesForActions( event, eventDetails ) {
+        if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+            event.className += " focused-event";
+        }
+
+        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
+            event.className += " cut-event";
+        }
+
+        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
+            event.className += " copy-event";
         }
     }
 
@@ -2322,17 +2326,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
                 event.id = _elementID_FullDay + eventDetails.id;
 
-                if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
-                    event.className += " focused-event";
-                }
-
-                if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
-                    event.className += " cut-event";
-                }
-
-                if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
-                    event.className += " copy-event";
-                }
+                setEventClassesForActions( event, eventDetails );
             }
 
             var title = createElement( "div", "title" ),
@@ -2737,20 +2731,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             makeEventDraggable( event, eventDetails, eventDetails.from, container );
             setEventClassesAndColors( event, eventDetails );
-    
+            setEventClassesForActions( event, eventDetails );
+
             event.id = _elementID_Month + eventDetails.id;
-    
-            if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
-                event.className += " focused-event";
-            }
-
-            if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
-                event.className += " cut-event";
-            }
-
-            if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
-                event.className += " copy-event";
-            }
 
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
@@ -3118,17 +3101,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
                 event.id = _elementID_WeekDay + eventDetails.id;
 
-                if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
-                    event.className += " focused-event";
-                }
-
-                if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
-                    event.className += " cut-event";
-                }
-
-                if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
-                    event.className += " copy-event";
-                }
+                setEventClassesForActions( event, eventDetails );
             }
 
             var title = createElement( "div", "title" ),

@@ -4,6 +4,7 @@
 - The "Advanced" criteria in the "Search" dialog is now styled to standout from the rest of the options (much clearer).
 - Fixed a fault that allowed the year selected (in the year drop-down) to be selected again (removed hover, active, and click event).
 - Added new setting "applyCssToEventsNotInCurrentMonth" (defaults to true), which adds extra CSS to events not in the current month (on the main display).
+- Removed code duplication for setting CSS classes for events when specific actions have been performed.
 - 
 
 ### Version 1.8.1:
