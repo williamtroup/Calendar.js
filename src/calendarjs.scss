@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.1
+ * Calendar.js Library v1.8.2
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -491,7 +491,7 @@ div.calendar {
                             transition: $transition;
                         }
     
-                        &:active {
+                        &:active:not(.year-selected) {
                             @include opacity-active-effect;
                         }
                     }
@@ -499,6 +499,7 @@ div.calendar {
                     div.year-selected {
                         background-color: $dark-color;
                         color: $light-color;
+                        cursor: default !important;
                     }
 
                     div.year-has-events {
@@ -612,6 +613,10 @@ div.calendar {
             
             div.expired {
                 opacity: $event-expired-opacity;
+            }
+
+            div.not-in-current-month {
+                opacity: 0.1;
             }
 
             div.all-day {
@@ -1213,7 +1218,14 @@ div.search {
         }
 
         div.advanced {
-            margin-top: $spacing / 2 !important;
+            background-color: $day-names-color;
+            padding: $spacing;
+            margin-top: $spacing !important;
+            border-radius: $border-view-radius;
+
+            div.split {
+                margin-top: 0 !important;
+            }
         }
     }
     
