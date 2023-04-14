@@ -6,7 +6,6 @@
 - Added new setting "applyCssToEventsNotInCurrentMonth" (defaults to true), which adds extra CSS to events not in the current month (on the main display).
 - Removed code duplication for setting CSS classes for events when specific actions have been performed.
 - Fixed a fault that caused all other views to be rendered in DatePicker mode (never shown, but not needed).
-- 
 
 ### Version 1.8.1:
 - Fixed a fault that caused an error to occur when initializing Calendar.js without any options.
