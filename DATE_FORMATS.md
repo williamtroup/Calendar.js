@@ -4,6 +4,7 @@ These are the formatter options are used to state how dates are displayed (where
 
 | Formatter: | Description: |
 | --- | --- |
+| {dn} | The day name. |
 | {dd} | The day number padded with a zero (if required). |
 | {d} | The day number. |
 | {o} | The day ordinal. |

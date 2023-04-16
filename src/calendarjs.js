@@ -325,6 +325,7 @@
  * 
  * These are the formatter options are used to state how dates are displayed (where supported).
  *
+ * {dn}                                                                 The day name.
  * {dd}                                                                 The day number padded with a zero (if required).
  * {d}                                                                  The day number.
  * {o}                                                                  The day ordinal.
@@ -644,7 +645,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             forceTurnOnFullScreenMode();
         }
 
-        _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+        if ( _element_Calendar !== null ) {
+            _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+        }
     }
 
 
@@ -730,23 +733,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildLayout() {
         if ( !_initialized ) {
             buildContainer();
-            buildListAllEventsView();
-            buildListAllWeekEventsView();
-            buildFullDayView();
-            buildDateHeader();
-            buildDayNamesHeader();
-            buildDayRows();
-            buildDocumentEvents();
 
-            _initialized = true;
-
-            if ( isDefinedArray( _options.events ) ) {
-                _this.addEvents( _options.events, false, false, false );
-            }
-
-            if ( !_initializedFirstTime ) {
-                triggerOptionsEventWithData( "onRender", _elementID );
-                _initializedFirstTime = true;
+            if ( _element_Calendar !== null ) {
+                buildListAllEventsView();
+                buildListAllWeekEventsView();
+                buildFullDayView();
+                buildDateHeader();
+                buildDayNamesHeader();
+                buildDayRows();
+                buildDocumentEvents();
+    
+                _initialized = true;
+    
+                if ( isDefinedArray( _options.events ) ) {
+                    _this.addEvents( _options.events, false, false, false );
+                }
+    
+                if ( !_initializedFirstTime ) {
+                    triggerOptionsEventWithData( "onRender", _elementID );
+                    _initializedFirstTime = true;
+                }
             }
         }
     }
@@ -766,13 +772,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
-            buildDatePickerMode( element );
-        } else {
-
-            _element_Calendar = element;
-            _element_Calendar.className = "calendar";
-            _element_Calendar.innerHTML = "";
+        if ( element !== null ) {
+            if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
+                buildDatePickerMode( element );
+            } else {
+    
+                _element_Calendar = element;
+                _element_Calendar.className = "calendar";
+                _element_Calendar.innerHTML = "";
+            }
         }
     }
 
@@ -1115,7 +1123,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function updateDatePickerInputValueDisplay( date ) {
-        var inputValue = _options.datePickerSelectedDateFormat;
+        var inputValue = _options.datePickerSelectedDateFormat,
+            weekDayNumber = getWeekdayNumber( date );
+
+        inputValue = inputValue.replace( "{dn}", _options.dayNames[ weekDayNumber ] );
 
         inputValue = inputValue.replace( "{dd}", padNumber( date.getDate() ) );
         inputValue = inputValue.replace( "{d}", date.getDate() );
@@ -9540,7 +9551,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildDefaultSearchOptions( searchOptions );
             build( _options.initialDateTime, true );
     
-            if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
+            if ( _element_Calendar !== null && isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
                 forceTurnOnFullScreenMode();
             }
         }

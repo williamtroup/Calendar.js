@@ -1,6 +1,8 @@
 # Calendar.js - Change Log:
 
 ### Version 1.8.3:
+- Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
+- Added {dn} Date Format support (for DatePicker mode).  This formatter shows the Day Name (which is pulled from the string settings).
 - 
 
 ### Version 1.8.2:
