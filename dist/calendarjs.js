@@ -398,15 +398,17 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function updateDatePickerInputValueDisplay(date) {
     var inputValue = _options.datePickerSelectedDateFormat, weekDayNumber = getWeekdayNumber(date);
-    inputValue = inputValue.replace("{dn}", _options.dayNames[weekDayNumber]);
+    inputValue = inputValue.replace("{dddd}", _options.dayNames[weekDayNumber]);
     inputValue = inputValue.replace("{dd}", padNumber(date.getDate()));
     inputValue = inputValue.replace("{d}", date.getDate());
     inputValue = inputValue.replace("{o}", getDayOrdinal(date.getDate()));
-    inputValue = inputValue.replace("{mmm}", _options.monthNames[date.getMonth()]);
+    inputValue = inputValue.replace("{mmmm}", _options.monthNames[date.getMonth()]);
     inputValue = inputValue.replace("{mm}", padNumber(date.getMonth() + 1));
     inputValue = inputValue.replace("{m}", date.getMonth() + 1);
     inputValue = inputValue.replace("{yyyy}", date.getFullYear());
+    inputValue = inputValue.replace("{yyy}", date.getFullYear().toString().substring(1));
     inputValue = inputValue.replace("{yy}", date.getFullYear().toString().substring(2));
+    inputValue = inputValue.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
     _datePickerInput.value = inputValue;
   }
   function closeAnyOtherDatePickers() {
@@ -5388,7 +5390,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _options.allowHtmlInDisplay = false;
     }
     if (!isDefinedString(_options.datePickerSelectedDateFormat)) {
-      _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
+      _options.datePickerSelectedDateFormat = "{d}{o} {mmmm} {yyyy}";
     }
     if (isInvalidOptionArray(_options.weekendDays, 0)) {
       _options.weekendDays = [0, 6];

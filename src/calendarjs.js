@@ -286,7 +286,7 @@
  * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
- * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
+ * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see DatePicker display formats for options).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
  * @property    {Object}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
@@ -325,15 +325,17 @@
  * 
  * These are the formatter options are used to state how dates are displayed (where supported).
  *
- * {dn}                                                                 The day name.
- * {dd}                                                                 The day number padded with a zero (if required).
- * {d}                                                                  The day number.
+ * {dddd}                                                               The full name of the day of the week.
+ * {dd}                                                                 The day of the month, from 01 through 31.
+ * {d}                                                                  The day of the month, from 1 through 31.
  * {o}                                                                  The day ordinal.
- * {mmm}                                                                The month name.
- * {mm}                                                                 The month number padded with a zero (if required).
- * {m}                                                                  The month number.
- * {yyyy}                                                               The full year.
- * {yy}                                                                 The short two digit year.
+ * {mmmm}                                                               The full name of the month.
+ * {mm}                                                                 The month, from 01 through 12.
+ * {m}                                                                  The month, from 1 through 12.
+ * {yyyy}                                                               The year as a four-digit number.
+ * {yyy}                                                                The year, from 000 to 999.
+ * {yy}                                                                 The year, from 00 to 99.
+ * {y}                                                                  The year, from 0 to 99.
  */
 
 
@@ -1126,19 +1128,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var inputValue = _options.datePickerSelectedDateFormat,
             weekDayNumber = getWeekdayNumber( date );
 
-        inputValue = inputValue.replace( "{dn}", _options.dayNames[ weekDayNumber ] );
-
+        inputValue = inputValue.replace( "{dddd}", _options.dayNames[ weekDayNumber ] );
         inputValue = inputValue.replace( "{dd}", padNumber( date.getDate() ) );
         inputValue = inputValue.replace( "{d}", date.getDate() );
 
         inputValue = inputValue.replace( "{o}", getDayOrdinal( date.getDate() ) );
 
-        inputValue = inputValue.replace( "{mmm}", _options.monthNames[ date.getMonth() ] );
+        inputValue = inputValue.replace( "{mmmm}", _options.monthNames[ date.getMonth() ] );
         inputValue = inputValue.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
         inputValue = inputValue.replace( "{m}", date.getMonth() + 1 );
 
         inputValue = inputValue.replace( "{yyyy}", date.getFullYear() );
+        inputValue = inputValue.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
         inputValue = inputValue.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+        inputValue = inputValue.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         _datePickerInput.value = inputValue;
     }
@@ -8752,7 +8755,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( !isDefinedString( _options.datePickerSelectedDateFormat ) ) {
-            _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
+            _options.datePickerSelectedDateFormat = "{d}{o} {mmmm} {yyyy}";
         }
 
         if ( isInvalidOptionArray( _options.weekendDays, 0 ) ) {

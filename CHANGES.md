@@ -2,7 +2,11 @@
 
 ### Version 1.8.3:
 - Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
-- Added {dn} Date Format support (for DatePicker mode).  This formatter shows the Day Name (which is pulled from the string settings).
+- Added {dddd} Date Format support (for DatePicker mode), which will show the full day name.
+- Added {y} Date Format support (for DatePicker mode), which shows the year, from 0 to 99.
+- Improved Date Format documentation (makes a little more sense now).
+- Added {yyy} Date Format support (for DatePicker mode), which shows the year, from 000 to 999.
+- Renamed {mmm} Date Format to {mmmm} (it still shows the full name of the month).
 - 
 
 ### Version 1.8.2:
