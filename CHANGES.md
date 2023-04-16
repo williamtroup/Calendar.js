@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.4:
+- 
+
 ### Version 1.8.3:
 - Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
 - Added {dddd} Date Format support (for DatePicker mode), which will show the full name of the day of the week.
