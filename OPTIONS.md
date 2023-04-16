@@ -80,8 +80,10 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | searchTooltipText | The tooltip text that should be used for for the "Search" button. |
 | *string* | expandDayTooltipText | The tooltip text that should be used for for the "Expand Day" button. |
 | *string[]* | dayHeaderNames | The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]'). |
-| *string[]* | dayNames | The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]'). |
-| *string[]* | monthNames | The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]'). |
+| *string[]* | dayNames | The full day names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]'). |
+| *string[]* | dayNamesAbbreviated | The abbreviated day names (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]'). |
+| *string[]* | monthNames | The full month names (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]'). |
+| *string[]* | monthNamesAbbreviated | The abbreviated month names (defaults to '[ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]'). |
 | *string* | fromText | The text that should be displayed for the "From:" label. |
 | *string* | toText | The text that should be displayed for the "To:" label. |
 | *string* | isAllDayText | The text that should be displayed for the "Is All-Day" label. |

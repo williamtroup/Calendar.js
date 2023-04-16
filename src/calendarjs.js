@@ -114,8 +114,10 @@
  * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
  * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
  * @property    {string[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
- * @property    {string[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
- * @property    {string[]}  monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
+ * @property    {string[]}  dayNames                                    The full day names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {string[]}  dayNamesAbbreviated                         The abbreviated day names (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
+ * @property    {string[]}  monthNames                                  The full month names (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
+ * @property    {string[]}  monthNamesAbbreviated                       The abbreviated month names (defaults to '[ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
  * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All-Day" label.
@@ -326,10 +328,12 @@
  * These are the formatter options are used to state how dates are displayed (where supported).
  *
  * {dddd}                                                               The full name of the day of the week.
+ * {ddd}                                                                The abbreviated name of the day of the week.
  * {dd}                                                                 The day of the month, from 01 through 31.
  * {d}                                                                  The day of the month, from 1 through 31.
  * {o}                                                                  The day ordinal.
  * {mmmm}                                                               The full name of the month.
+ * {mmm}                                                                The abbreviated name of the month.
  * {mm}                                                                 The month, from 01 through 12.
  * {m}                                                                  The month, from 1 through 12.
  * {yyyy}                                                               The year as a four-digit number.
@@ -1129,12 +1133,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             weekDayNumber = getWeekdayNumber( date );
 
         inputValue = inputValue.replace( "{dddd}", _options.dayNames[ weekDayNumber ] );
+        inputValue = inputValue.replace( "{ddd}", _options.dayNamesAbbreviated[ weekDayNumber ] );
         inputValue = inputValue.replace( "{dd}", padNumber( date.getDate() ) );
         inputValue = inputValue.replace( "{d}", date.getDate() );
 
         inputValue = inputValue.replace( "{o}", getDayOrdinal( date.getDate() ) );
 
         inputValue = inputValue.replace( "{mmmm}", _options.monthNames[ date.getMonth() ] );
+        inputValue = inputValue.replace( "{mmm}", _options.monthNamesAbbreviated[ date.getMonth() ] );
         inputValue = inputValue.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
         inputValue = inputValue.replace( "{m}", date.getMonth() + 1 );
 
@@ -8927,6 +8933,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             ];
         }
 
+        if ( isInvalidOptionArray( _options.dayNamesAbbreviated, 7 ) ) {
+            _options.dayNamesAbbreviated = [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ];
+        }
+
         if ( isInvalidOptionArray( _options.monthNames, 12 ) ) {
             _options.monthNames = [
                 "January",
@@ -8941,6 +8959,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 "October",
                 "November",
                 "December"
+            ];
+        }
+
+        if ( isInvalidOptionArray( _options.monthNamesAbbreviated, 12 ) ) {
+            _options.monthNamesAbbreviated = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
             ];
         }
 

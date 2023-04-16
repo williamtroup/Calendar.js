@@ -399,10 +399,12 @@ function calendarJs(elementOrId, options, searchOptions) {
   function updateDatePickerInputValueDisplay(date) {
     var inputValue = _options.datePickerSelectedDateFormat, weekDayNumber = getWeekdayNumber(date);
     inputValue = inputValue.replace("{dddd}", _options.dayNames[weekDayNumber]);
+    inputValue = inputValue.replace("{ddd}", _options.dayNamesAbbreviated[weekDayNumber]);
     inputValue = inputValue.replace("{dd}", padNumber(date.getDate()));
     inputValue = inputValue.replace("{d}", date.getDate());
     inputValue = inputValue.replace("{o}", getDayOrdinal(date.getDate()));
     inputValue = inputValue.replace("{mmmm}", _options.monthNames[date.getMonth()]);
+    inputValue = inputValue.replace("{mmm}", _options.monthNamesAbbreviated[date.getMonth()]);
     inputValue = inputValue.replace("{mm}", padNumber(date.getMonth() + 1));
     inputValue = inputValue.replace("{m}", date.getMonth() + 1);
     inputValue = inputValue.replace("{yyyy}", date.getFullYear());
@@ -5507,8 +5509,14 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isInvalidOptionArray(_options.dayNames, 7)) {
       _options.dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     }
+    if (isInvalidOptionArray(_options.dayNamesAbbreviated, 7)) {
+      _options.dayNamesAbbreviated = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    }
     if (isInvalidOptionArray(_options.monthNames, 12)) {
       _options.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    }
+    if (isInvalidOptionArray(_options.monthNamesAbbreviated, 12)) {
+      _options.monthNamesAbbreviated = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     }
     if (!isDefinedString(_options.fromText)) {
       _options.fromText = "From:";

@@ -7,6 +7,10 @@
 - Improved Date Format documentation (makes a little more sense now).
 - Added {yyy} Date Format support (for DatePicker mode), which shows the year, from 000 to 999.
 - Renamed {mmm} Date Format to {mmmm} (it still shows the full name of the month).
+- Added new setting "dayNamesAbbreviated" (defaults to "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun").
+- Added new setting "monthNamesAbbreviated" (defaults to "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec").
+- Added {ddd} Date Format support (for DatePicker mode), which will show the abbreviated name of the day of the week.
+- Added {mmm} Date Format support (for DatePicker mode), which will show the abbreviated name of the month.
 - 
 
 ### Version 1.8.2:
