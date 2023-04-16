@@ -2,7 +2,7 @@
 
 ### Version 1.8.3:
 - Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
-- Added {dddd} Date Format support (for DatePicker mode), which will show the full day name.
+- Added {dddd} Date Format support (for DatePicker mode), which will show the full name of the day of the week.
 - Added {y} Date Format support (for DatePicker mode), which shows the year, from 0 to 99.
 - Improved Date Format documentation (makes a little more sense now).
 - Added {yyy} Date Format support (for DatePicker mode), which shows the year, from 000 to 999.
