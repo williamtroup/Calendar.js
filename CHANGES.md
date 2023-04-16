@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.3:
+- 
+
 ### Version 1.8.2:
 - The "Advanced" criteria in the "Search" dialog is now styled to standout from the rest of the options (much clearer).
 - Fixed a fault that allowed the year selected (in the year drop-down) to be selected again (removed hover, active, and click event).
