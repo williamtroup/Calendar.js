@@ -20,7 +20,7 @@
      * 
      * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
      * 
-     * @returns     {Object}                                                The Calendar.JS instances created.
+     * @returns     {Object}                                                The Calendar.js instances created.
      */
     $.fn.calendarJs = function( options ) {
         var instances = [];
