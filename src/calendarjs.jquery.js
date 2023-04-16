@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.jquery.js
- * @version     v1.8.2
+ * @version     v1.8.3
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -20,7 +20,7 @@
      * 
      * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
      * 
-     * @returns     {Object}                                                The Calendar.JS instances created.
+     * @returns     {Object}                                                The Calendar.js instances created.
      */
     $.fn.calendarJs = function( options ) {
         var instances = [];

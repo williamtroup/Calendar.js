@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.js
- * @version     v1.8.2
+ * @version     v1.8.3
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -114,8 +114,10 @@
  * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
  * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
  * @property    {string[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
- * @property    {string[]}  dayNames                                    The full names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
- * @property    {string[]}  monthNames                                  The names to use for months (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
+ * @property    {string[]}  dayNames                                    The full day names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
+ * @property    {string[]}  dayNamesAbbreviated                         The abbreviated day names (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
+ * @property    {string[]}  monthNames                                  The full month names (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
+ * @property    {string[]}  monthNamesAbbreviated                       The abbreviated month names (defaults to '[ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]').
  * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
  * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
  * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All-Day" label.
@@ -286,7 +288,7 @@
  * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
- * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmm} {yyyy}", see DatePicker display formats for options).
+ * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see DatePicker display formats for options).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
  * @property    {Object}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
@@ -325,14 +327,19 @@
  * 
  * These are the formatter options are used to state how dates are displayed (where supported).
  *
- * {dd}                                                                 The day number padded with a zero (if required).
- * {d}                                                                  The day number.
+ * {dddd}                                                               The full name of the day of the week.
+ * {ddd}                                                                The abbreviated name of the day of the week.
+ * {dd}                                                                 The day of the month, from 01 through 31.
+ * {d}                                                                  The day of the month, from 1 through 31.
  * {o}                                                                  The day ordinal.
- * {mmm}                                                                The month name.
- * {mm}                                                                 The month number padded with a zero (if required).
- * {m}                                                                  The month number.
- * {yyyy}                                                               The full year.
- * {yy}                                                                 The short two digit year.
+ * {mmmm}                                                               The full name of the month.
+ * {mmm}                                                                The abbreviated name of the month.
+ * {mm}                                                                 The month, from 01 through 12.
+ * {m}                                                                  The month, from 1 through 12.
+ * {yyyy}                                                               The year as a four-digit number.
+ * {yyy}                                                                The year, from 000 to 999.
+ * {yy}                                                                 The year, from 00 to 99.
+ * {y}                                                                  The year, from 0 to 99.
  */
 
 
@@ -644,7 +651,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             forceTurnOnFullScreenMode();
         }
 
-        _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+        if ( _element_Calendar !== null ) {
+            _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+        }
     }
 
 
@@ -730,23 +739,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildLayout() {
         if ( !_initialized ) {
             buildContainer();
-            buildListAllEventsView();
-            buildListAllWeekEventsView();
-            buildFullDayView();
-            buildDateHeader();
-            buildDayNamesHeader();
-            buildDayRows();
-            buildDocumentEvents();
 
-            _initialized = true;
-
-            if ( isDefinedArray( _options.events ) ) {
-                _this.addEvents( _options.events, false, false, false );
-            }
-
-            if ( !_initializedFirstTime ) {
-                triggerOptionsEventWithData( "onRender", _elementID );
-                _initializedFirstTime = true;
+            if ( _element_Calendar !== null ) {
+                buildListAllEventsView();
+                buildListAllWeekEventsView();
+                buildFullDayView();
+                buildDateHeader();
+                buildDayNamesHeader();
+                buildDayRows();
+                buildDocumentEvents();
+    
+                _initialized = true;
+    
+                if ( isDefinedArray( _options.events ) ) {
+                    _this.addEvents( _options.events, false, false, false );
+                }
+    
+                if ( !_initializedFirstTime ) {
+                    triggerOptionsEventWithData( "onRender", _elementID );
+                    _initializedFirstTime = true;
+                }
             }
         }
     }
@@ -766,13 +778,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
-            buildDatePickerMode( element );
-        } else {
-
-            _element_Calendar = element;
-            _element_Calendar.className = "calendar";
-            _element_Calendar.innerHTML = "";
+        if ( element !== null ) {
+            if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
+                buildDatePickerMode( element );
+            } else {
+    
+                _element_Calendar = element;
+                _element_Calendar.className = "calendar";
+                _element_Calendar.innerHTML = "";
+            }
         }
     }
 
@@ -1115,19 +1129,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function updateDatePickerInputValueDisplay( date ) {
-        var inputValue = _options.datePickerSelectedDateFormat;
+        var inputValue = _options.datePickerSelectedDateFormat,
+            weekDayNumber = getWeekdayNumber( date );
 
+        inputValue = inputValue.replace( "{dddd}", _options.dayNames[ weekDayNumber ] );
+        inputValue = inputValue.replace( "{ddd}", _options.dayNamesAbbreviated[ weekDayNumber ] );
         inputValue = inputValue.replace( "{dd}", padNumber( date.getDate() ) );
         inputValue = inputValue.replace( "{d}", date.getDate() );
 
         inputValue = inputValue.replace( "{o}", getDayOrdinal( date.getDate() ) );
 
-        inputValue = inputValue.replace( "{mmm}", _options.monthNames[ date.getMonth() ] );
+        inputValue = inputValue.replace( "{mmmm}", _options.monthNames[ date.getMonth() ] );
+        inputValue = inputValue.replace( "{mmm}", _options.monthNamesAbbreviated[ date.getMonth() ] );
         inputValue = inputValue.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
         inputValue = inputValue.replace( "{m}", date.getMonth() + 1 );
 
         inputValue = inputValue.replace( "{yyyy}", date.getFullYear() );
+        inputValue = inputValue.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
         inputValue = inputValue.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+        inputValue = inputValue.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         _datePickerInput.value = inputValue;
     }
@@ -8390,7 +8410,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.8.2";
+        return "1.8.3";
     };
 
     /**
@@ -8741,7 +8761,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( !isDefinedString( _options.datePickerSelectedDateFormat ) ) {
-            _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
+            _options.datePickerSelectedDateFormat = "{d}{o} {mmmm} {yyyy}";
         }
 
         if ( isInvalidOptionArray( _options.weekendDays, 0 ) ) {
@@ -8913,6 +8933,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             ];
         }
 
+        if ( isInvalidOptionArray( _options.dayNamesAbbreviated, 7 ) ) {
+            _options.dayNamesAbbreviated = [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ];
+        }
+
         if ( isInvalidOptionArray( _options.monthNames, 12 ) ) {
             _options.monthNames = [
                 "January",
@@ -8927,6 +8959,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 "October",
                 "November",
                 "December"
+            ];
+        }
+
+        if ( isInvalidOptionArray( _options.monthNamesAbbreviated, 12 ) ) {
+            _options.monthNamesAbbreviated = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
             ];
         }
 
@@ -9540,7 +9589,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildDefaultSearchOptions( searchOptions );
             build( _options.initialDateTime, true );
     
-            if ( isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
+            if ( _element_Calendar !== null && isDefinedBoolean( _options.openInFullScreenMode ) && _options.openInFullScreenMode && !_datePickerModeEnabled ) {
                 forceTurnOnFullScreenMode();
             }
         }

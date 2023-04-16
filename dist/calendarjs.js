@@ -1,4 +1,4 @@
-/*! Calendar.js v1.8.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v1.8.3 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _options = {}, _optionsForSearch = {}, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, f:70, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _this = this, _datePickerInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, 
   _elements = {}, _configuration = {}, _eventNotificationsTriggered = {}, _document = null, _window = null, _elementID = null, _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = false, _events = {}, _timer_CallSearchOptionsEvent = null, _timer_RefreshMainDisplay = null, _timer_RefreshMainDisplay_Enabled = true, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = 
@@ -48,7 +48,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_isFullScreenModeActivated && !_datePickerModeEnabled) {
       forceTurnOnFullScreenMode();
     }
-    _element_HeaderDateDisplay_Text.innerText = _options.monthNames[_currentDate.getMonth()] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+    if (_element_Calendar !== null) {
+      _element_HeaderDateDisplay_Text.innerText = _options.monthNames[_currentDate.getMonth()] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+    }
   }
   function getAllEvents() {
     var events = [];
@@ -103,20 +105,22 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildLayout() {
     if (!_initialized) {
       buildContainer();
-      buildListAllEventsView();
-      buildListAllWeekEventsView();
-      buildFullDayView();
-      buildDateHeader();
-      buildDayNamesHeader();
-      buildDayRows();
-      buildDocumentEvents();
-      _initialized = true;
-      if (isDefinedArray(_options.events)) {
-        _this.addEvents(_options.events, false, false, false);
-      }
-      if (!_initializedFirstTime) {
-        triggerOptionsEventWithData("onRender", _elementID);
-        _initializedFirstTime = true;
+      if (_element_Calendar !== null) {
+        buildListAllEventsView();
+        buildListAllWeekEventsView();
+        buildFullDayView();
+        buildDateHeader();
+        buildDayNamesHeader();
+        buildDayRows();
+        buildDocumentEvents();
+        _initialized = true;
+        if (isDefinedArray(_options.events)) {
+          _this.addEvents(_options.events, false, false, false);
+        }
+        if (!_initializedFirstTime) {
+          triggerOptionsEventWithData("onRender", _elementID);
+          _initializedFirstTime = true;
+        }
       }
     }
   }
@@ -131,12 +135,14 @@ function calendarJs(elementOrId, options, searchOptions) {
         _elementID = newGuid();
       }
     }
-    if (element.tagName.toLowerCase() === "input" && element.type === "text") {
-      buildDatePickerMode(element);
-    } else {
-      _element_Calendar = element;
-      _element_Calendar.className = "calendar";
-      _element_Calendar.innerHTML = "";
+    if (element !== null) {
+      if (element.tagName.toLowerCase() === "input" && element.type === "text") {
+        buildDatePickerMode(element);
+      } else {
+        _element_Calendar = element;
+        _element_Calendar.className = "calendar";
+        _element_Calendar.innerHTML = "";
+      }
     }
   }
   function buildDateHeader() {
@@ -391,15 +397,20 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function updateDatePickerInputValueDisplay(date) {
-    var inputValue = _options.datePickerSelectedDateFormat;
+    var inputValue = _options.datePickerSelectedDateFormat, weekDayNumber = getWeekdayNumber(date);
+    inputValue = inputValue.replace("{dddd}", _options.dayNames[weekDayNumber]);
+    inputValue = inputValue.replace("{ddd}", _options.dayNamesAbbreviated[weekDayNumber]);
     inputValue = inputValue.replace("{dd}", padNumber(date.getDate()));
     inputValue = inputValue.replace("{d}", date.getDate());
     inputValue = inputValue.replace("{o}", getDayOrdinal(date.getDate()));
-    inputValue = inputValue.replace("{mmm}", _options.monthNames[date.getMonth()]);
+    inputValue = inputValue.replace("{mmmm}", _options.monthNames[date.getMonth()]);
+    inputValue = inputValue.replace("{mmm}", _options.monthNamesAbbreviated[date.getMonth()]);
     inputValue = inputValue.replace("{mm}", padNumber(date.getMonth() + 1));
     inputValue = inputValue.replace("{m}", date.getMonth() + 1);
     inputValue = inputValue.replace("{yyyy}", date.getFullYear());
+    inputValue = inputValue.replace("{yyy}", date.getFullYear().toString().substring(1));
     inputValue = inputValue.replace("{yy}", date.getFullYear().toString().substring(2));
+    inputValue = inputValue.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
     _datePickerInput.value = inputValue;
   }
   function closeAnyOtherDatePickers() {
@@ -5172,7 +5183,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _copiedEventDetails = null;
   };
   this.getVersion = function() {
-    return "1.8.2";
+    return "1.8.3";
   };
   this.getId = function() {
     return _elementID;
@@ -5381,7 +5392,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _options.allowHtmlInDisplay = false;
     }
     if (!isDefinedString(_options.datePickerSelectedDateFormat)) {
-      _options.datePickerSelectedDateFormat = "{d}{o} {mmm} {yyyy}";
+      _options.datePickerSelectedDateFormat = "{d}{o} {mmmm} {yyyy}";
     }
     if (isInvalidOptionArray(_options.weekendDays, 0)) {
       _options.weekendDays = [0, 6];
@@ -5498,8 +5509,14 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isInvalidOptionArray(_options.dayNames, 7)) {
       _options.dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     }
+    if (isInvalidOptionArray(_options.dayNamesAbbreviated, 7)) {
+      _options.dayNamesAbbreviated = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    }
     if (isInvalidOptionArray(_options.monthNames, 12)) {
       _options.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    }
+    if (isInvalidOptionArray(_options.monthNamesAbbreviated, 12)) {
+      _options.monthNamesAbbreviated = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     }
     if (!isDefinedString(_options.fromText)) {
       _options.fromText = "From:";
@@ -5910,7 +5927,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildDefaultOptions(options);
       buildDefaultSearchOptions(searchOptions);
       build(_options.initialDateTime, true);
-      if (isDefinedBoolean(_options.openInFullScreenMode) && _options.openInFullScreenMode && !_datePickerModeEnabled) {
+      if (_element_Calendar !== null && isDefinedBoolean(_options.openInFullScreenMode) && _options.openInFullScreenMode && !_datePickerModeEnabled) {
         forceTurnOnFullScreenMode();
       }
     }

@@ -1,5 +1,17 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.3:
+- Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
+- Added {dddd} Date Format support (for DatePicker mode), which will show the full name of the day of the week.
+- Added {y} Date Format support (for DatePicker mode), which shows the year, from 0 to 99.
+- Improved Date Format documentation (makes a little more sense now).
+- Added {yyy} Date Format support (for DatePicker mode), which shows the year, from 000 to 999.
+- Renamed {mmm} Date Format to {mmmm} (it still shows the full name of the month).
+- Added a new setting "dayNamesAbbreviated" (defaults to "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun").
+- Added a new setting "monthNamesAbbreviated" (defaults to "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec").
+- Added {ddd} Date Format support (for DatePicker mode), which will show the abbreviated name of the day of the week.
+- Added {mmm} Date Format support (for DatePicker mode), which will show the abbreviated name of the month.
+
 ### Version 1.8.2:
 - The "Advanced" criteria in the "Search" dialog is now styled to standout from the rest of the options (much clearer).
 - Fixed a fault that allowed the year selected (in the year drop-down) to be selected again (removed hover, active, and click event).
