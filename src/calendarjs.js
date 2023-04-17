@@ -7632,7 +7632,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
      this.setCurrentDisplayDate = function( date ) {
-        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+        if ( isDefinedDate( date ) && ( !_datePickerModeEnabled || _datePickerVisible ) ) {
             var newDate = new Date( date );
 
             if ( !doDatesMatch( _currentDate, newDate ) ) {
@@ -7668,7 +7668,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
     this.setSelectedDatePickerDate = function( date ) {
-        if ( _datePickerModeEnabled ) {
+        if ( isDefinedDate( date ) && _datePickerModeEnabled ) {
             var newDate = new Date( date ),
                 newDateAllowed = isDateValidForDatePicker( newDate );
             
@@ -8246,7 +8246,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     this.getEvent = function( id ) {
         var returnEvent = null;
 
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedString( id ) && !_datePickerModeEnabled ) {
             getAllEventsFunc( function( event ) {
                 if ( event.id === id ) {
                     returnEvent = event;
@@ -8326,7 +8326,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedString( groupName ) && !_datePickerModeEnabled ) {
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
@@ -8366,7 +8366,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Event}    event                                        The event to set (refer to "Day Event" documentation for properties).
      */
     this.setClipboardEvent = function( event ) {
-        _copiedEventDetails = cloneEventDetails( event );
+        if ( isDefinedObject( event ) ) {
+            _copiedEventDetails = cloneEventDetails( event );
+        }
     };
 
     /**
@@ -8514,7 +8516,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedArray( holidays ) && !_datePickerModeEnabled ) {
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
     
@@ -8543,7 +8545,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedArray( holidayNames ) && !_datePickerModeEnabled ) {
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
 

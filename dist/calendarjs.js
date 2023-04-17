@@ -4804,7 +4804,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return new Date(_currentDate);
   };
   this.setCurrentDisplayDate = function(date) {
-    if (!_datePickerModeEnabled || _datePickerVisible) {
+    if (isDefinedDate(date) && (!_datePickerModeEnabled || _datePickerVisible)) {
       var newDate = new Date(date);
       if (!doDatesMatch(_currentDate, newDate)) {
         if (newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum) {
@@ -4818,7 +4818,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return _datePickerModeEnabled ? new Date(_currentDateForDatePicker) : null;
   };
   this.setSelectedDatePickerDate = function(date) {
-    if (_datePickerModeEnabled) {
+    if (isDefinedDate(date) && _datePickerModeEnabled) {
       var newDate = new Date(date), newDateAllowed = isDateValidForDatePicker(newDate);
       if (newDateAllowed && !doDatesMatch(newDate, _currentDateForDatePicker)) {
         if (newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum) {
@@ -5122,7 +5122,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   };
   this.getEvent = function(id) {
     var returnEvent = null;
-    if (!_datePickerModeEnabled) {
+    if (isDefinedString(id) && !_datePickerModeEnabled) {
       getAllEventsFunc(function(event) {
         if (event.id === id) {
           returnEvent = event;
@@ -5155,7 +5155,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.removeGroup = function(groupName, updateEvents, triggerEvent) {
-    if (!_datePickerModeEnabled) {
+    if (isDefinedString(groupName) && !_datePickerModeEnabled) {
       updateEvents = !isDefinedBoolean(updateEvents) ? true : updateEvents;
       triggerEvent = !isDefinedBoolean(triggerEvent) ? true : triggerEvent;
       var checkGroupName = groupName.toLowerCase();
@@ -5174,7 +5174,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.setClipboardEvent = function(event) {
-    _copiedEventDetails = cloneEventDetails(event);
+    if (isDefinedObject(event)) {
+      _copiedEventDetails = cloneEventDetails(event);
+    }
   };
   this.getClipboardEvent = function() {
     return _copiedEventDetails;
@@ -5224,7 +5226,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.addHolidays = function(holidays, triggerEvent, updateEvents) {
-    if (!_datePickerModeEnabled) {
+    if (isDefinedArray(holidays) && !_datePickerModeEnabled) {
       triggerEvent = !isDefinedBoolean(triggerEvent) ? true : triggerEvent;
       updateEvents = !isDefinedBoolean(updateEvents) ? true : updateEvents;
       _options.holidays = _options.holidays.concat(holidays);
@@ -5237,7 +5239,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.removeHolidays = function(holidayNames, triggerEvent, updateEvents) {
-    if (!_datePickerModeEnabled) {
+    if (isDefinedArray(holidayNames) && !_datePickerModeEnabled) {
       triggerEvent = !isDefinedBoolean(triggerEvent) ? true : triggerEvent;
       updateEvents = !isDefinedBoolean(updateEvents) ? true : updateEvents;
       var holidaysLength = _options.holidays.length, holidaysRemaining = [];

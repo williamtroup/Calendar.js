@@ -1,6 +1,13 @@
 # Calendar.js - Change Log:
 
 ### Version 1.8.4:
+- The public function setCurrentDisplayDate() will now only accept a valid date object.
+- The public function setSelectedDatePickerDate() will now only accept a valid date object.
+- The public function getEvent() will now only accept a valid string ID.
+- The public function removeGroup() will now only accept a valid string group name.
+- The public function setClipboardEvent() will now only accept a valid object event.
+- The public function addHolidays() will now only accept a valid array of holidays.
+- The public function removeHolidays() will now only accept a valid array of string holiday names.
 - 
 
 ### Version 1.8.3:
