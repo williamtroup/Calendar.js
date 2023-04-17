@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.5:
+- 
+
 ### Version 1.8.4:
 - The public function setCurrentDisplayDate() will now only accept a valid date object.
 - The public function setSelectedDatePickerDate() will now only accept a valid date object.
