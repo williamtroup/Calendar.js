@@ -1391,10 +1391,6 @@ div.calendar-dialog {
         margin-top: 5px;
     }
 
-    label.checkbox:has(> input:disabled) {
-        opacity: 0.5;
-    }
-
     label.checkbox {
         @include no-selection-allowed;
         display: inline-block;
@@ -1414,6 +1410,15 @@ div.calendar-dialog {
 
             &:checked ~ span.check-mark:before {
                 display: block;
+            }
+
+            &:disabled ~ span.check-mark,
+            &:disabled ~ span.text {
+                opacity: 0.5;
+            }
+            
+            &:disabled ~ span.check-mark {
+                border: $standard-border-size solid $dark-color !important;
             }
         }
 
@@ -1464,10 +1469,6 @@ div.calendar-dialog {
     div.radioButtonContainer {
         margin-bottom: $spacing / 2;
 
-        label.radioButton:has(> input:disabled) {
-            opacity: 0.5;
-        }
-
         label.radioButton {
             @include no-selection-allowed;
             display: inline-block;
@@ -1486,6 +1487,15 @@ div.calendar-dialog {
     
                 &:checked ~ span.check-mark:before {
                     display: block;
+                }
+
+                &:disabled ~ span.check-mark,
+                &:disabled ~ span.text {
+                    opacity: 0.5;
+                }
+                
+                &:disabled ~ span.check-mark {
+                    border: $standard-border-size solid $dark-color !important;
                 }
             }
     

@@ -4287,7 +4287,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     var lineContents = createElement("div");
     container.appendChild(lineContents);
     var label = createElement("label", "checkbox" + extraClassName);
-    setNodeText(label, labelText);
     lineContents.appendChild(label);
     var input = createElement("input", null, "checkbox");
     label.appendChild(input);
@@ -4301,6 +4300,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       input.checked = checked;
     }
     label.appendChild(createElement("span", "check-mark"));
+    createSpanElement(label, labelText, "text");
     return [input, label];
   }
   function buildToolbarButton(container, cssClass, tooltipText, onClickEvent, overrideShow) {

@@ -6668,7 +6668,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         container.appendChild( lineContents );
 
         var label = createElement( "label", "checkbox" + extraClassName );
-        setNodeText( label, labelText );
         lineContents.appendChild( label );
 
         var input = createElement( "input", null, "checkbox" );
@@ -6687,6 +6686,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         label.appendChild( createElement( "span", "check-mark" ) );
+
+        createSpanElement( label, labelText, "text" );
 
         return [ input, label ];
     }
