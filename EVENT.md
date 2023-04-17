@@ -27,3 +27,4 @@ Below is the format that is expected for an event object when calling "addEvents
 | *number* | repeatEveryCustomValue | States the custom repeating period value (for example, 1 day, week, month, or year). |
 | *Object* | lastUpdated | The date that the event was last updated. |
 | *boolean* | showAlerts | States if browser notifications should be shown for this event (defaults to true). |
+| *boolean* | locked | States if this event is locked and cannot be edited (it can still be removed, defaults to false). |

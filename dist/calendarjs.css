@@ -1282,7 +1282,8 @@ div.event-editor div.view input:not([type=button]):not(:disabled):hover,
 div.event-editor div.view textarea:not(:disabled):hover {
   border: 1px solid #282828;
 }
-div.event-editor div.view input:disabled {
+div.event-editor div.view input:disabled,
+div.event-editor div.view textarea:disabled {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -1290,6 +1291,7 @@ div.event-editor div.view input:disabled {
   user-select: none;
   cursor: default;
   background-color: #F5F5F5;
+  color: #A8A8A8;
 }
 div.event-editor div.view textarea {
   height: 90px;
@@ -2463,6 +2465,10 @@ div.calendar label.checkbox-tabbed-down,
 div.calendar-dialog label.checkbox-tabbed-down {
   margin-top: 5px;
 }
+div.calendar label.checkbox:has(> input:disabled),
+div.calendar-dialog label.checkbox:has(> input:disabled) {
+  opacity: 0.5;
+}
 div.calendar label.checkbox,
 div.calendar-dialog label.checkbox {
   -moz-user-select: none;
@@ -2536,6 +2542,10 @@ div.calendar div.radioButtonContainer,
 div.calendar-dialog div.radioButtonContainer {
   margin-bottom: 5px;
 }
+div.calendar div.radioButtonContainer label.radioButton:has(> input:disabled),
+div.calendar-dialog div.radioButtonContainer label.radioButton:has(> input:disabled) {
+  opacity: 0.5;
+}
 div.calendar div.radioButtonContainer label.radioButton,
 div.calendar-dialog div.radioButtonContainer label.radioButton {
   -moz-user-select: none;
@@ -2562,15 +2572,6 @@ div.calendar-dialog div.radioButtonContainer label.radioButton input:checked ~ s
 div.calendar div.radioButtonContainer label.radioButton input:checked ~ span.check-mark:before,
 div.calendar-dialog div.radioButtonContainer label.radioButton input:checked ~ span.check-mark:before {
   display: block;
-}
-div.calendar div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark, div.calendar div.radioButtonContainer label.radioButton input:disabled ~ span.text,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ span.text {
-  opacity: 0.5;
-}
-div.calendar div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark {
-  border: 1px solid #282828 !important;
 }
 div.calendar div.radioButtonContainer label.radioButton span.check-mark,
 div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark {
