@@ -2,7 +2,7 @@
     "name": "jcalendar.js",
     "title": "Calendar.js",
     "description": "A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.",
-    "version": "1.8.3",
+    "version": "1.8.4",
     "main": "dist/calendarjs.js",
     "homepage": "https://williamtroup.github.io/Calendar.js/",
     "author": {

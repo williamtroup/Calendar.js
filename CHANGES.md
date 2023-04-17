@@ -1,5 +1,17 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.4:
+- The public function setCurrentDisplayDate() will now only accept a valid date object.
+- The public function setSelectedDatePickerDate() will now only accept a valid date object.
+- The public function getEvent() will now only accept a valid string ID.
+- The public function removeGroup() will now only accept a valid string group name.
+- The public function setClipboardEvent() will now only accept a valid object event.
+- The public function addHolidays() will now only accept a valid array of holidays.
+- The public function removeHolidays() will now only accept a valid array of string holiday names.
+- Added "locked" property support for events, which states if an event can be edited (it can still be removed).
+- Added disabled text colour support for input fields.
+- Improved the disabled CSS that is applied to check boxes/radio buttons that are disabled.
+
 ### Version 1.8.3:
 - Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
 - Added {dddd} Date Format support (for DatePicker mode), which will show the full name of the day of the week.

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.3
+ * Calendar.js Library v1.8.4
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -941,9 +941,11 @@ div.event-editor {
             @include input-fields;
         }
     
-        input:disabled {
+        input:disabled,
+        textarea:disabled {
             @include no-selection-allowed;
             background-color: $light-color;
+            color: $input-border-color;
         }
     
         textarea {
@@ -1408,6 +1410,15 @@ div.calendar-dialog {
 
             &:checked ~ span.check-mark:before {
                 display: block;
+            }
+
+            &:disabled ~ span.check-mark,
+            &:disabled ~ span.text {
+                opacity: 0.5;
+            }
+            
+            &:disabled ~ span.check-mark {
+                border: $standard-border-size solid $dark-color !important;
             }
         }
 

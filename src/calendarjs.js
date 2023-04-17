@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.js
- * @version     v1.8.3
+ * @version     v1.8.4
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -41,6 +41,7 @@
  * @property    {number}    repeatEveryCustomValue                      States the custom repeating period value (for example, 1 day, week, month, or year).
  * @property    {Object}    lastUpdated                                 The date that the event was last updated.
  * @property    {boolean}   showAlerts                                  States if browser notifications should be shown for this event (defaults to true).
+ * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
  */
 
 
@@ -451,6 +452,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_IsAllDay = null,
         _element_EventEditorDialog_ShowAlerts = null,
         _element_EventEditorDialog_Title = null,
+        _element_EventEditorDialog_SelectColors = null,
         _element_EventEditorDialog_Description = null,
         _element_EventEditorDialog_Location = null,
         _element_EventEditorDialog_Group = null,
@@ -4261,7 +4263,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_EventEditorDialog_Title.maxLength = _options.maximumEventTitleLength ;
         }
 
-        createButtonElement( inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText );
+        var isAllDayChangedEvent = function() {
+            isAllDayChanged( null );
+        };
+
+        _element_EventEditorDialog_SelectColors = createButtonElement( inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText );
 
         createTextHeaderElement( _element_EventEditorDialog_Tab_Event, _options.fromText.replace( ":", "" ) + "/" + _options.toText );
 
@@ -4269,7 +4275,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_Tab_Event.appendChild( fromSplitContainer );
 
         _element_EventEditorDialog_DateFrom = createElement( "input" );
-        _element_EventEditorDialog_DateFrom.onchange = isAllDayChanged;
+        _element_EventEditorDialog_DateFrom.onchange = isAllDayChangedEvent;
         fromSplitContainer.appendChild( _element_EventEditorDialog_DateFrom );
 
         setInputType( _element_EventEditorDialog_DateFrom, "date" );
@@ -4283,7 +4289,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_Tab_Event.appendChild( toSplitContainer );
 
         _element_EventEditorDialog_DateTo = createElement( "input" );
-        _element_EventEditorDialog_DateTo.onchange = isAllDayChanged;
+        _element_EventEditorDialog_DateTo.onchange = isAllDayChangedEvent;
         toSplitContainer.appendChild( _element_EventEditorDialog_DateTo );
 
         setInputType( _element_EventEditorDialog_DateTo, "date" );
@@ -4293,7 +4299,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         setInputType( _element_EventEditorDialog_TimeTo, "time" );
 
-        _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChanged )[ 0 ];
+        _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChangedEvent )[ 0 ];
         _element_EventEditorDialog_ShowAlerts = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.showAlertsText )[ 0 ];
     }
 
@@ -4379,14 +4385,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_RepeatEvery_Custom_Value.disabled = !_element_EventEditorDialog_RepeatEvery_Custom.checked;
     }
 
-    function isAllDayChanged() {
-        var disabled = false;
+    function isAllDayChanged( eventDetails ) {
+        eventDetails = isDefined( eventDetails ) ? eventDetails : _element_EventEditorDialog_EventDetails;
 
-        if ( _element_EventEditorDialog_IsAllDay.checked ) {
-            _element_EventEditorDialog_DateTo.value = _element_EventEditorDialog_DateFrom.value;
-            _element_EventEditorDialog_TimeFrom.value = "00:00";
-            _element_EventEditorDialog_TimeTo.value = "23:59";
+        var disabled = false,
+            locked = isDefined( eventDetails ) && isDefinedBoolean( eventDetails.locked ) ? eventDetails.locked : false;
+
+        if ( locked ) {
             disabled = true;
+        } else {
+
+            if ( _element_EventEditorDialog_IsAllDay.checked ) {
+                _element_EventEditorDialog_DateTo.value = _element_EventEditorDialog_DateFrom.value;
+                _element_EventEditorDialog_TimeFrom.value = "00:00";
+                _element_EventEditorDialog_TimeTo.value = "23:59";
+                disabled = true;
+            }
         }
 
         _element_EventEditorDialog_DateTo.disabled = disabled;
@@ -4403,11 +4417,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setSelectedDate( fromDate, _element_EventEditorDialog_DateTo );
         }
 
-        if ( toDate > fromDate || toDate < fromDate ) {
-            disabled = true;
-            _element_EventEditorDialog_RepeatEvery_Never.checked = true;
-        } else {
-            disabled = false;
+        if ( !locked ) {
+            if ( toDate > fromDate || toDate < fromDate ) {
+                disabled = true;
+                _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+            } else {
+                disabled = false;
+            }
         }
 
         _element_EventEditorDialog_RepeatEvery_Never.disabled = disabled;
@@ -4423,7 +4439,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly.disabled = disabled;
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly.disabled = disabled;
-        repeatEveryEvent();
+
+        if ( !locked ) {
+            repeatEveryEvent();
+        }
     }
 
     function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues ) {
@@ -4544,12 +4563,39 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
+        setLockedStatusForEventEditingDialog( eventDetails );
         isAllDayChanged();
 
         _openDialogs.push( eventDialogEvent_Cancel );
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
         _element_EventEditorDialog_Title.focus();
+    }
+
+    function setLockedStatusForEventEditingDialog( eventDetails ) {
+        var locked = isEventLocked( eventDetails );
+
+        _element_EventEditorDialog_OKButton.disabled = locked;
+        _element_EventEditorDialog_DateFrom.disabled = locked;
+        _element_EventEditorDialog_DateTo.disabled = locked;
+        _element_EventEditorDialog_TimeFrom.disabled = locked;
+        _element_EventEditorDialog_TimeTo.disabled = locked;
+        _element_EventEditorDialog_IsAllDay.disabled = locked;
+        _element_EventEditorDialog_ShowAlerts.disabled = locked;
+        _element_EventEditorDialog_Title.disabled = locked;
+        _element_EventEditorDialog_SelectColors.disabled = locked;
+        _element_EventEditorDialog_Description.disabled = locked;
+        _element_EventEditorDialog_Location.disabled = locked;
+        _element_EventEditorDialog_Group.disabled = locked;
+        _element_EventEditorDialog_Url.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_Never.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_EveryDay.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_EveryWeek.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_Every2Weeks.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_EveryMonth.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_EveryYear.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_Custom.disabled = locked;
+        _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton.disabled = locked;
     }
 
     function setEventEditingDialogInDuplicateMode() {
@@ -4741,6 +4787,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         refreshOpenedViews();
 
         return newEvent;
+    }
+
+    function isEventLocked( eventDetails ) {
+        return isDefined( eventDetails ) && isDefinedBoolean( eventDetails.locked ) ? eventDetails.locked : false;
     }
 
 
@@ -6618,7 +6668,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         container.appendChild( lineContents );
 
         var label = createElement( "label", "checkbox" + extraClassName );
-        setNodeText( label, labelText );
         lineContents.appendChild( label );
 
         var input = createElement( "input", null, "checkbox" );
@@ -6637,6 +6686,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         label.appendChild( createElement( "span", "check-mark" ) );
+
+        createSpanElement( label, labelText, "text" );
 
         return [ input, label ];
     }
@@ -7632,7 +7683,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
      this.setCurrentDisplayDate = function( date ) {
-        if ( !_datePickerModeEnabled || _datePickerVisible ) {
+        if ( isDefinedDate( date ) && ( !_datePickerModeEnabled || _datePickerVisible ) ) {
             var newDate = new Date( date );
 
             if ( !doDatesMatch( _currentDate, newDate ) ) {
@@ -7668,7 +7719,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Object}    date                                        The Date() object to set.
      */
     this.setSelectedDatePickerDate = function( date ) {
-        if ( _datePickerModeEnabled ) {
+        if ( isDefinedDate( date ) && _datePickerModeEnabled ) {
             var newDate = new Date( date ),
                 newDateAllowed = isDateValidForDatePicker( newDate );
             
@@ -8246,7 +8297,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     this.getEvent = function( id ) {
         var returnEvent = null;
 
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedString( id ) && !_datePickerModeEnabled ) {
             getAllEventsFunc( function( event ) {
                 if ( event.id === id ) {
                     returnEvent = event;
@@ -8326,7 +8377,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedString( groupName ) && !_datePickerModeEnabled ) {
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
@@ -8366,7 +8417,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Event}    event                                        The event to set (refer to "Day Event" documentation for properties).
      */
     this.setClipboardEvent = function( event ) {
-        _copiedEventDetails = cloneEventDetails( event );
+        if ( isDefinedObject( event ) ) {
+            _copiedEventDetails = cloneEventDetails( event );
+        }
     };
 
     /**
@@ -8410,7 +8463,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.8.3";
+        return "1.8.4";
     };
 
     /**
@@ -8514,7 +8567,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedArray( holidays ) && !_datePickerModeEnabled ) {
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
     
@@ -8543,7 +8596,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
-        if ( !_datePickerModeEnabled ) {
+        if ( isDefinedArray( holidayNames ) && !_datePickerModeEnabled ) {
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
 
