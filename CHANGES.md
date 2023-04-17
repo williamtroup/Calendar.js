@@ -9,9 +9,8 @@
 - The public function addHolidays() will now only accept a valid array of holidays.
 - The public function removeHolidays() will now only accept a valid array of string holiday names.
 - Added "locked" property support for events, which states if an event can be edited (it can still be removed).
-- Added disabled text color support for input fields.
+- Added disabled text colour support for input fields.
 - Improved the disabled CSS that is applied to check boxes/radio buttons that are disabled.
-- 
 
 ### Version 1.8.3:
 - Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
