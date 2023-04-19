@@ -18,7 +18,7 @@
      * 
      * @public
      * 
-     * @param       {Object}    options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
+     * @param       {Object}    [options]                                   All the configurable options that should be used (refer to "Options" documentation for properties).
      * 
      * @returns     {Object}                                                The Calendar.js instances created.
      */

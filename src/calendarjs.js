@@ -356,8 +356,8 @@
  * @class
  * 
  * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
- * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
- * @param       {Search}    searchOptions                               All the configurable search options that should be used (refer to "Search Options" documentation for properties).
+ * @param       {Options}   [options]                                   All the configurable options that should be used (refer to "Options" documentation for properties).
+ * @param       {Search}    [searchOptions]                             All the configurable search options that should be used (refer to "Search Options" documentation for properties).
  * 
  * @returns     {Object}                                                The Calendar.js instance.
  */
@@ -7757,7 +7757,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * @fires       onEventsExported
      * 
-     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
+     * @param       {string}    [type]                                      The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled && !_datePickerModeEnabled ) {
@@ -7864,8 +7864,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsSet
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsSet" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsSet" event should be triggered (defaults to true).
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7889,8 +7889,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsSetFromJSON
      * 
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsSetFromJSON" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsSetFromJSON" event should be triggered (defaults to true).
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7919,8 +7919,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsAdded
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsAdded" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsAdded" event should be triggered (defaults to true).
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7954,8 +7954,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsAddedFromJSON
      * 
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsAddedFromJSON" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsAddedFromJSON" event should be triggered (defaults to true).
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7984,9 +7984,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventAdded
      * 
      * @param       {Event}     event                                       The event (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventAdded" event should be triggered.
-     * @param       {boolean}   setLastUpdated                              States if the "lastUpdated" date should be set (defaults to true).
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventAdded" event should be triggered (defaults to true).
+     * @param       {boolean}   [setLastUpdated]                            States if the "lastUpdated" date should be set (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was added.
      */
@@ -8094,8 +8094,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsUpdated
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsUpdated" event should be triggered (defaults to true).
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8130,8 +8130,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {string}    id                                          The ID of the event.
      * @param       {Event}     event                                       The event (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventUpdated" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventUpdated" event should be triggered (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
@@ -8168,8 +8168,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Object}    from                                        The new from date.
      * @param       {Object}    to                                          The new to date.
      * @param       {Object}    repeatEnds                                  The new repeat ends day.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventUpdated" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventUpdated" event should be triggered (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
@@ -8213,8 +8213,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventRemoved
      * 
      * @param       {string}    id                                          The ID of the event.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventRemoved" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventRemoved" event should be triggered (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was removed.
      */
@@ -8255,8 +8255,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * @fires       onEventsCleared
      * 
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsCleared" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsCleared" event should be triggered (defaults to true).
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8353,8 +8353,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * @fires       onGroupsCleared
      * 
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onGroupsCleared" event should be triggered (defaults to true).
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8385,8 +8385,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onGroupRemoved
      * 
      * @param       {string}    groupName                                   The name of the group to remove.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onGroupRemoved" event should be triggered (defaults to true).
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
         if ( isDefinedString( groupName ) && !_datePickerModeEnabled ) {
@@ -8507,7 +8507,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onOptionsUpdated
      * 
      * @param       {Options}   newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
-     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
+     * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
      */
     this.setOptions = function( newOptions, triggerEvent ) {
         newOptions = getOptions( newOptions );
@@ -8545,7 +8545,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onSearchOptionsUpdated
      * 
      * @param       {Search}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
-     * @param       {boolean}   triggerEvent                                States if the "onSearchOptionsUpdated" event should be triggered.
+     * @param       {boolean}   [triggerEvent]                              States if the "onSearchOptionsUpdated" event should be triggered (defaults to true).
      */
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8575,8 +8575,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onOptionsUpdated
      * 
      * @param       {Holiday[]} holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
-     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidays ) && !_datePickerModeEnabled ) {
@@ -8604,8 +8604,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onOptionsUpdated
      * 
      * @param       {string[]}  holidayNames                                The names of the holidays to remove (case sensitive).
-     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidayNames ) && !_datePickerModeEnabled ) {

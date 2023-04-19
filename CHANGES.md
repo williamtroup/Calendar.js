@@ -8,7 +8,7 @@
   - "radioButtonsContainer" is now "radio-buttons-container".
   - "radioButtonContainer" is now "radio-button-container".
   - "radioButton" is now "radio-button".
-- Minor improvements to the documentation.
+- Improvements to the documentation and added support to show which parameters are option for public functions.
 - 
 
 ### Version 1.8.5:
