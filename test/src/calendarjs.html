@@ -87,7 +87,9 @@
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
             showExtraToolbarButtons: true,
-            events: getEvents()
+            events: getEvents(),
+            onEventDragStart: onDragEventStart,
+            onEventDragStop: onDragEventStop
         } );
 
         document.title += " v" + calendarInstance.getVersion();
@@ -363,6 +365,14 @@
                     group: "Group 1"
                 }
             ];
+        }
+
+        function onDragEventStart( eventDetails ) {
+            console.log( "Event drag started: " + eventDetails.id );
+        }
+
+        function onDragEventStop( eventDetails ) {
+            console.log( "Event drag stopped: " + eventDetails.id );
         }
 
         function getCopiedEvent() {

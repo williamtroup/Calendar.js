@@ -2118,6 +2118,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var draggedFromDate = new Date(dragFromDate), isDateWeekendDay = isWeekendDay(draggedFromDate), dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
       event.setAttribute("draggable", true);
       event.ondragstart = function() {
+        triggerOptionsEventWithData("onEventDragStart", eventDetails);
         _eventDetails_Dragged_DateFrom = draggedFromDate;
         _eventDetails_Dragged = eventDetails;
         if (isDefined(container)) {
@@ -2132,6 +2133,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }, event);
       };
       event.ondragend = function() {
+        triggerOptionsEventWithData("onEventDragStop", _eventDetails_Dragged);
         _eventDetails_Dragged_DateFrom = null;
         _eventDetails_Dragged = null;
         if (isDefined(container)) {

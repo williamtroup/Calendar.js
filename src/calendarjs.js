@@ -96,6 +96,8 @@
  * @property    {Object}    onDatePickerOpened                          Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function).
  * @property    {Object}    onDatePickerClosed                          Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function).
  * @property    {Object}    onRender                                    Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function).
+ * @property    {Object}    onEventDragStart                            Specifies an event that will be triggered when dragging an event is started (passes the event to the function).
+ * @property    {Object}    onEventDragStop                             Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -3624,6 +3626,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.setAttribute( "draggable", true );
             
             event.ondragstart = function() {
+                triggerOptionsEventWithData( "onEventDragStart", eventDetails );
+
                 _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
 
@@ -3643,6 +3647,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
 
             event.ondragend = function() {
+                triggerOptionsEventWithData( "onEventDragStop", _eventDetails_Dragged );
+
                 _eventDetails_Dragged_DateFrom = null;
                 _eventDetails_Dragged = null;
 

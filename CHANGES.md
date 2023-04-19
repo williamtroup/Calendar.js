@@ -2,6 +2,8 @@
 
 ### Version 1.8.5:
 - Added a custom CSS class foe the text headers used in the Advanced area of the Search dialog.
+- Added a new custom event "onEventDragStart", which is triggered when dragging an event is started (the event tails are passed to the function).
+- Added a new custom event "onEventDragStop", which is triggered when dragging an event is stopped (the event tails are passed to the function).
 - 
 
 ### Version 1.8.4:
