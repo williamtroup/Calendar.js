@@ -8,6 +8,7 @@
   - "radioButtonsContainer" is now "radio-buttons-container".
   - "radioButtonContainer" is now "radio-button-container".
   - "radioButton" is now "radio-button".
+- Minor improvements to the documentation.
 - 
 
 ### Version 1.8.5:
