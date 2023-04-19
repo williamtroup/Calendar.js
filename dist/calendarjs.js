@@ -3239,7 +3239,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       optionsSplitContainer.appendChild(splitContents1);
       var splitContents2 = createElement("div", "split-contents");
       optionsSplitContainer.appendChild(splitContents2);
-      createTextHeaderElement(splitContents1, _options.includeText);
+      createTextHeaderElement(splitContents1, _options.includeText, "textHeader");
       var checkboxContainer = createElement("div", "checkboxContainer");
       splitContents1.appendChild(checkboxContainer);
       _element_SearchDialog_Include_Title = buildCheckBox(checkboxContainer, _options.titleText.replace(":", ""), searchOptionsChanged)[0];
@@ -3248,7 +3248,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SearchDialog_Include_Group = buildCheckBox(checkboxContainer, _options.groupText.replace(":", ""), searchOptionsChanged)[0];
       _element_SearchDialog_Include_Url = buildCheckBox(checkboxContainer, _options.urlText.replace(":", ""), searchOptionsChanged)[0];
       _element_SearchDialog_Include_Title.checked = true;
-      createTextHeaderElement(splitContents2, _options.optionsText);
+      createTextHeaderElement(splitContents2, _options.optionsText, "textHeader");
       var radioButtonsContainer = createElement("div", "radioButtonsContainer");
       splitContents2.appendChild(radioButtonsContainer);
       _element_SearchDialog_Option_StartsWith = buildRadioButton(radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchOptionsChanged);
@@ -4063,10 +4063,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     return result;
   }
-  function createTextHeaderElement(container, text) {
+  function createTextHeaderElement(container, text, className) {
     var element = createElement("p");
     setNodeText(element, text);
     container.appendChild(element);
+    if (isDefined(className)) {
+      element.className = className;
+    }
   }
   function createSpanElement(container, text, className, event, cancelDblClick, addSeparator) {
     cancelDblClick = isDefined(cancelDblClick) ? cancelDblClick : false;

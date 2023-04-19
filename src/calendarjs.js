@@ -5208,7 +5208,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var splitContents2 = createElement( "div", "split-contents" );
             optionsSplitContainer.appendChild( splitContents2 );
     
-            createTextHeaderElement( splitContents1, _options.includeText );
+            createTextHeaderElement( splitContents1, _options.includeText, "textHeader" );
     
             var checkboxContainer = createElement( "div", "checkboxContainer" );
             splitContents1.appendChild( checkboxContainer );
@@ -5221,7 +5221,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog_Include_Title.checked = true;
     
-            createTextHeaderElement( splitContents2, _options.optionsText );
+            createTextHeaderElement( splitContents2, _options.optionsText, "textHeader" );
     
             var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
             splitContents2.appendChild( radioButtonsContainer );
@@ -6352,10 +6352,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return result;
     }
 
-    function createTextHeaderElement( container, text ) {
+    function createTextHeaderElement( container, text, className ) {
         var element = createElement( "p" );
         setNodeText( element, text );
         container.appendChild( element );
+
+        if ( isDefined( className ) ) {
+            element.className = className;
+        }
     }
 
     function createSpanElement( container, text, className, event, cancelDblClick, addSeparator ) {

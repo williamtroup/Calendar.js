@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.8.5:
+- Added a custom CSS class foe the text headers used in the Advanced area of the Search dialog.
 - 
 
 ### Version 1.8.4:
