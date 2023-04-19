@@ -1373,7 +1373,7 @@ div.calendar,
 div.calendar-dialog {
     $checkbox-size-with-spacing: 25px;
 
-    div.checkboxContainer {
+    div.checkbox-container {
         label.checkbox {
             margin-bottom: $spacing / 2 !important;
         }
@@ -1462,18 +1462,18 @@ div.calendar-dialog {
 
 div.calendar,
 div.calendar-dialog {
-    p.textHeader {
+    p.text-header {
         font-weight: 700 !important;
     }
 
-    div.radioButtonsContainer {
+    div.radio-buttons-container {
         position: relative;
     }
 
-    div.radioButtonContainer {
+    div.radio-button-container {
         margin-bottom: $spacing / 2;
 
-        label.radioButton {
+        label.radio-button {
             @include no-selection-allowed;
             display: inline-block;
             position: relative;

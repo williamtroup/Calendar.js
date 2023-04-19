@@ -2,6 +2,12 @@
 
 ### Version 1.8.6:
 - Fixed the testing HTML for the minimized version of Calendar.js.
+- Renamed the following CSS classes (sorry, this will cause some style breakages):
+  - "checkboxContainer" is now "checkbox-container".
+  - "textHeader" is now "text-header".
+  - "radioButtonsContainer" is now "radio-buttons-container".
+  - "radioButtonContainer" is now "radio-button-container".
+  - "radioButton" is now "radio-button".
 - 
 
 ### Version 1.8.5:

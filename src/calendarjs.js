@@ -4312,7 +4312,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildEventEditorRepeatsTabContent() {
-        var radioButtonsRepeatsContainer = createElement( "div", "radioButtonsContainer" );
+        var radioButtonsRepeatsContainer = createElement( "div", "radio-buttons-container" );
         _element_EventEditorDialog_Tab_Repeats.appendChild( radioButtonsRepeatsContainer );
 
         _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsRepeatsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
@@ -4332,7 +4332,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_RepeatEvery_Custom_Value.setAttribute( "min", "1" );
         toSplitContainer.appendChild( _element_EventEditorDialog_RepeatEvery_Custom_Value );
 
-        var radioButtonsCustomRepeatsContainer = createElement( "div", "radioButtonsContainer split-contents" );
+        var radioButtonsCustomRepeatsContainer = createElement( "div", "radio-buttons-container split-contents" );
         toSplitContainer.appendChild( radioButtonsCustomRepeatsContainer );
 
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = buildRadioButton( radioButtonsCustomRepeatsContainer, _options.dailyText, "RepeatCustomType" );
@@ -5082,10 +5082,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var radioButtonsSplitContainer = createElement( "div", "split" );
             contents.appendChild( radioButtonsSplitContainer );
     
-            var radioButtonsContainer1 = createElement( "div", "radioButtonsContainer split-contents" );
+            var radioButtonsContainer1 = createElement( "div", "radio-buttons-container split-contents" );
             radioButtonsSplitContainer.appendChild( radioButtonsContainer1 );
     
-            var radioButtonsContainer2 = createElement( "div", "radioButtonsContainer split-contents" );
+            var radioButtonsContainer2 = createElement( "div", "radio-buttons-container split-contents" );
             radioButtonsSplitContainer.appendChild( radioButtonsContainer2 );
     
             _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
@@ -5196,7 +5196,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_SearchDialog_History_DropDown = createElement( "div", "history-dropdown custom-scroll-bars" );
             historyContainer.appendChild( _element_SearchDialog_History_DropDown );
             
-            var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
+            var checkboxOptionsContainer = createElement( "div", "checkbox-container" );
             _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
     
             _element_SearchDialog_Not = buildCheckBox( checkboxOptionsContainer, _options.notSearchText, searchOptionsChanged )[ 0 ];
@@ -5216,9 +5216,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var splitContents2 = createElement( "div", "split-contents" );
             optionsSplitContainer.appendChild( splitContents2 );
     
-            createTextHeaderElement( splitContents1, _options.includeText, "textHeader" );
+            createTextHeaderElement( splitContents1, _options.includeText, "text-header" );
     
-            var checkboxContainer = createElement( "div", "checkboxContainer" );
+            var checkboxContainer = createElement( "div", "checkbox-container" );
             splitContents1.appendChild( checkboxContainer );
     
             _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
@@ -5229,9 +5229,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog_Include_Title.checked = true;
     
-            createTextHeaderElement( splitContents2, _options.optionsText, "textHeader" );
+            createTextHeaderElement( splitContents2, _options.optionsText, "text-header" );
     
-            var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
+            var radioButtonsContainer = createElement( "div", "radio-buttons-container" );
             splitContents2.appendChild( radioButtonsContainer );
     
             _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchOptionsChanged );
@@ -6134,7 +6134,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         selected = isDefined( selected ) ? selected : false;
         canScroll = isDefined( canScroll ) ? canScroll : true;
 
-        var tabContainer = createElement( "div", "checkboxContainer tab-content" );
+        var tabContainer = createElement( "div", "checkbox-container tab-content" );
         container.appendChild( tabContainer );
 
         if ( canScroll ) {
@@ -6652,10 +6652,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildRadioButton( container, labelText, groupName, onChangeEvent ) {
-        var lineContents = createElement( "div", "radioButtonContainer" );
+        var lineContents = createElement( "div", "radio-button-container" );
         container.appendChild( lineContents );
 
-        var label = createElement( "label", "radioButton" );
+        var label = createElement( "label", "radio-button" );
         lineContents.appendChild( label );
 
         var input = createElement( "input", null, "radio" );
