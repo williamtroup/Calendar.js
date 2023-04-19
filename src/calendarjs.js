@@ -3618,7 +3618,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function makeEventDraggable( event, eventDetails, dragFromDate, container ) {
-        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+        if ( !isEventLocked( eventDetails ) && _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
             var draggedFromDate = new Date( dragFromDate ),
                 isDateWeekendDay = isWeekendDay( draggedFromDate ),
                 dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
