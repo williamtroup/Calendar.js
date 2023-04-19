@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 1.8.6:
+- Fixed the testing HTML for the minimized version of Calendar.js.
 - 
 
 ### Version 1.8.5:
