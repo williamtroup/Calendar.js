@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.5:
+- Added a custom CSS class for the text headers used in the Advanced area of the Search dialog.
+- Added a new custom event "onEventDragStart", which is triggered when dragging an event is started (the event details are passed to the function).
+- Added a new custom event "onEventDragStop", which is triggered when dragging an event is stopped (the event details are passed to the function).
+- Fixed a fault that allowed locked events to be dragged (in all views).
+- Added a new custom event "onEventDragDrop", which is triggered an event being dragged is dropped (the event details and target drop date are passed to the function).
+
 ### Version 1.8.4:
 - The public function setCurrentDisplayDate() will now only accept a valid date object.
 - The public function setSelectedDatePickerDate() will now only accept a valid date object.

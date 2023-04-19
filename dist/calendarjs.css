@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.4
+ * Calendar.js Library v1.8.5
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -2539,6 +2539,10 @@ div.calendar-dialog label.checkbox:hover span.check-mark {
     Calendar.js - Radio Button
     -------------------------------------------------------------------------
 */
+div.calendar p.textHeader,
+div.calendar-dialog p.textHeader {
+  font-weight: 700 !important;
+}
 div.calendar div.radioButtonsContainer,
 div.calendar-dialog div.radioButtonsContainer {
   position: relative;

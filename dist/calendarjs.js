@@ -1,4 +1,4 @@
-/*! Calendar.js v1.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v1.8.5 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _options = {}, _optionsForSearch = {}, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, f:70, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _this = this, _datePickerInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, 
   _elements = {}, _configuration = {}, _eventNotificationsTriggered = {}, _document = null, _window = null, _elementID = null, _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = false, _events = {}, _timer_CallSearchOptionsEvent = null, _timer_RefreshMainDisplay = null, _timer_RefreshMainDisplay_Enabled = true, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = 
@@ -2114,10 +2114,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     createSpanElement(dayElement, holidayText, className + dayMutedClass, onClickEvent, true, true);
   }
   function makeEventDraggable(event, eventDetails, dragFromDate, container) {
-    if (_options.dragAndDropForEventsEnabled && _options.manualEditingEnabled) {
+    if (!isEventLocked(eventDetails) && _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled) {
       var draggedFromDate = new Date(dragFromDate), isDateWeekendDay = isWeekendDay(draggedFromDate), dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
       event.setAttribute("draggable", true);
       event.ondragstart = function() {
+        triggerOptionsEventWithData("onEventDragStart", eventDetails);
         _eventDetails_Dragged_DateFrom = draggedFromDate;
         _eventDetails_Dragged = eventDetails;
         if (isDefined(container)) {
@@ -2132,6 +2133,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }, event);
       };
       event.ondragend = function() {
+        triggerOptionsEventWithData("onEventDragStop", _eventDetails_Dragged);
         _eventDetails_Dragged_DateFrom = null;
         _eventDetails_Dragged = null;
         if (isDefined(container)) {
@@ -2193,6 +2195,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     cancelBubble(e);
     var dropDate = new Date(year, month, day);
     if (_eventDetails_Dragged !== null && !doDatesMatch(_eventDetails_Dragged_DateFrom, dropDate)) {
+      triggerOptionsEventWithMultipleData("onEventDragDrop", _eventDetails_Dragged, dropDate);
       if (!isDefined(day)) {
         var totalDaysInMonth = getTotalDaysInMonth(year, month);
         day = _eventDetails_Dragged.from.getDate();
@@ -3239,7 +3242,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       optionsSplitContainer.appendChild(splitContents1);
       var splitContents2 = createElement("div", "split-contents");
       optionsSplitContainer.appendChild(splitContents2);
-      createTextHeaderElement(splitContents1, _options.includeText);
+      createTextHeaderElement(splitContents1, _options.includeText, "textHeader");
       var checkboxContainer = createElement("div", "checkboxContainer");
       splitContents1.appendChild(checkboxContainer);
       _element_SearchDialog_Include_Title = buildCheckBox(checkboxContainer, _options.titleText.replace(":", ""), searchOptionsChanged)[0];
@@ -3248,7 +3251,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SearchDialog_Include_Group = buildCheckBox(checkboxContainer, _options.groupText.replace(":", ""), searchOptionsChanged)[0];
       _element_SearchDialog_Include_Url = buildCheckBox(checkboxContainer, _options.urlText.replace(":", ""), searchOptionsChanged)[0];
       _element_SearchDialog_Include_Title.checked = true;
-      createTextHeaderElement(splitContents2, _options.optionsText);
+      createTextHeaderElement(splitContents2, _options.optionsText, "textHeader");
       var radioButtonsContainer = createElement("div", "radioButtonsContainer");
       splitContents2.appendChild(radioButtonsContainer);
       _element_SearchDialog_Option_StartsWith = buildRadioButton(radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchOptionsChanged);
@@ -4063,10 +4066,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     return result;
   }
-  function createTextHeaderElement(container, text) {
+  function createTextHeaderElement(container, text, className) {
     var element = createElement("p");
     setNodeText(element, text);
     container.appendChild(element);
+    if (isDefined(className)) {
+      element.className = className;
+    }
   }
   function createSpanElement(container, text, className, event, cancelDblClick, addSeparator) {
     cancelDblClick = isDefined(cancelDblClick) ? cancelDblClick : false;
@@ -5225,7 +5231,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _copiedEventDetails = null;
   };
   this.getVersion = function() {
-    return "1.8.4";
+    return "1.8.5";
   };
   this.getId = function() {
     return _elementID;
@@ -5959,6 +5965,11 @@ function calendarJs(elementOrId, options, searchOptions) {
   function triggerOptionsEventWithData(name, data) {
     if (_options !== null && isDefinedFunction(_options[name])) {
       _options[name](data);
+    }
+  }
+  function triggerOptionsEventWithMultipleData(name, data1, data2) {
+    if (_options !== null && isDefinedFunction(_options[name])) {
+      _options[name](data1, data2);
     }
   }
   (function(documentObject, windowObject) {

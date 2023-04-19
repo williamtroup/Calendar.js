@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.js
- * @version     v1.8.4
+ * @version     v1.8.5
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -96,6 +96,9 @@
  * @property    {Object}    onDatePickerOpened                          Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function).
  * @property    {Object}    onDatePickerClosed                          Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function).
  * @property    {Object}    onRender                                    Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function).
+ * @property    {Object}    onEventDragStart                            Specifies an event that will be triggered when dragging an event is started (passes the event to the function).
+ * @property    {Object}    onEventDragStop                             Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function).
+ * @property    {Object}    onEventDragDrop                             Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -3616,7 +3619,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function makeEventDraggable( event, eventDetails, dragFromDate, container ) {
-        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+        if ( !isEventLocked( eventDetails ) && _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
             var draggedFromDate = new Date( dragFromDate ),
                 isDateWeekendDay = isWeekendDay( draggedFromDate ),
                 dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
@@ -3624,6 +3627,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.setAttribute( "draggable", true );
             
             event.ondragstart = function() {
+                triggerOptionsEventWithData( "onEventDragStart", eventDetails );
+
                 _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
 
@@ -3643,6 +3648,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
 
             event.ondragend = function() {
+                triggerOptionsEventWithData( "onEventDragStop", _eventDetails_Dragged );
+
                 _eventDetails_Dragged_DateFrom = null;
                 _eventDetails_Dragged = null;
 
@@ -3721,7 +3728,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var dropDate = new Date( year, month, day );
         if ( _eventDetails_Dragged !== null && !doDatesMatch( _eventDetails_Dragged_DateFrom, dropDate ) ) {
-            
+            triggerOptionsEventWithMultipleData( "onEventDragDrop", _eventDetails_Dragged, dropDate );
+
             if ( !isDefined( day ) ) {
                 var totalDaysInMonth = getTotalDaysInMonth( year, month );
                 day = _eventDetails_Dragged.from.getDate();
@@ -5208,7 +5216,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var splitContents2 = createElement( "div", "split-contents" );
             optionsSplitContainer.appendChild( splitContents2 );
     
-            createTextHeaderElement( splitContents1, _options.includeText );
+            createTextHeaderElement( splitContents1, _options.includeText, "textHeader" );
     
             var checkboxContainer = createElement( "div", "checkboxContainer" );
             splitContents1.appendChild( checkboxContainer );
@@ -5221,7 +5229,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog_Include_Title.checked = true;
     
-            createTextHeaderElement( splitContents2, _options.optionsText );
+            createTextHeaderElement( splitContents2, _options.optionsText, "textHeader" );
     
             var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
             splitContents2.appendChild( radioButtonsContainer );
@@ -6352,10 +6360,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return result;
     }
 
-    function createTextHeaderElement( container, text ) {
+    function createTextHeaderElement( container, text, className ) {
         var element = createElement( "p" );
         setNodeText( element, text );
         container.appendChild( element );
+
+        if ( isDefined( className ) ) {
+            element.className = className;
+        }
     }
 
     function createSpanElement( container, text, className, event, cancelDblClick, addSeparator ) {
@@ -8463,7 +8475,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.8.4";
+        return "1.8.5";
     };
 
     /**
@@ -9622,6 +9634,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function triggerOptionsEventWithData( name, data ) {
         if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
             _options[ name ]( data );
+        }
+    }
+
+    function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
+        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
+            _options[ name ]( data1, data2 );
         }
     }
 

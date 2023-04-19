@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.4
+ * Calendar.js Library v1.8.5
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1462,6 +1462,10 @@ div.calendar-dialog {
 
 div.calendar,
 div.calendar-dialog {
+    p.textHeader {
+        font-weight: 700 !important;
+    }
+
     div.radioButtonsContainer {
         position: relative;
     }

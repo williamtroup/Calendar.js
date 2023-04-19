@@ -98,7 +98,10 @@
                     "Title 2",
                     "Title That Is Longer"
                 ]
-            }
+            },
+            onEventDragStart: onDragEventStart,
+            onEventDragStop: onDragEventStop,
+            onEventDragDrop: onDragEventDrop
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
@@ -376,6 +379,18 @@
                     group: "Group 1"
                 }
             ];
+        }
+
+        function onDragEventStart( eventDetails ) {
+            console.log( "Event drag started: " + eventDetails.id );
+        }
+
+        function onDragEventStop( eventDetails ) {
+            console.log( "Event drag stopped: " + eventDetails.id );
+        }
+
+        function onDragEventDrop( eventDetails, dropDate ) {
+            console.log( "Event drag dropped: " + eventDetails.id + ". Date dropped: " + dropDate );
         }
 
         function getCopiedEvent() {
