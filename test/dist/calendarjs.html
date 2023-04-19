@@ -89,7 +89,8 @@
             showExtraToolbarButtons: true,
             events: getEvents(),
             onEventDragStart: onDragEventStart,
-            onEventDragStop: onDragEventStop
+            onEventDragStop: onDragEventStop,
+            onEventDragDrop: onDragEventDrop
         } );
 
         document.title += " v" + calendarInstance.getVersion();
@@ -373,6 +374,10 @@
 
         function onDragEventStop( eventDetails ) {
             console.log( "Event drag stopped: " + eventDetails.id );
+        }
+
+        function onDragEventDrop( eventDetails, dropDate ) {
+            console.log( "Event drag dropped: " + eventDetails.id + ". Date dropped: " + dropDate );
         }
 
         function getCopiedEvent() {

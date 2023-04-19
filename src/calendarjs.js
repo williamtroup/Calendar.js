@@ -98,6 +98,7 @@
  * @property    {Object}    onRender                                    Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function).
  * @property    {Object}    onEventDragStart                            Specifies an event that will be triggered when dragging an event is started (passes the event to the function).
  * @property    {Object}    onEventDragStop                             Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function).
+ * @property    {Object}    onEventDragDrop                             Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -3727,7 +3728,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var dropDate = new Date( year, month, day );
         if ( _eventDetails_Dragged !== null && !doDatesMatch( _eventDetails_Dragged_DateFrom, dropDate ) ) {
-            
+            triggerOptionsEventWithMultipleData( "onEventDragDrop", _eventDetails_Dragged, dropDate );
+
             if ( !isDefined( day ) ) {
                 var totalDaysInMonth = getTotalDaysInMonth( year, month );
                 day = _eventDetails_Dragged.from.getDate();
@@ -9632,6 +9634,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function triggerOptionsEventWithData( name, data ) {
         if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
             _options[ name ]( data );
+        }
+    }
+
+    function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
+        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
+            _options[ name ]( data1, data2 );
         }
     }
 

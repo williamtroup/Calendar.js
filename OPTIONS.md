@@ -247,3 +247,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onRender | Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function). |
 | onEventDragStart | Specifies an event that will be triggered when dragging an event is started (passes the event to the function). |
 | onEventDragStop | Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function). |
+| onEventDragDrop | Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function). |

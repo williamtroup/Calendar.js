@@ -2195,6 +2195,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     cancelBubble(e);
     var dropDate = new Date(year, month, day);
     if (_eventDetails_Dragged !== null && !doDatesMatch(_eventDetails_Dragged_DateFrom, dropDate)) {
+      triggerOptionsEventWithMultipleData("onEventDragDrop", _eventDetails_Dragged, dropDate);
       if (!isDefined(day)) {
         var totalDaysInMonth = getTotalDaysInMonth(year, month);
         day = _eventDetails_Dragged.from.getDate();
@@ -5964,6 +5965,11 @@ function calendarJs(elementOrId, options, searchOptions) {
   function triggerOptionsEventWithData(name, data) {
     if (_options !== null && isDefinedFunction(_options[name])) {
       _options[name](data);
+    }
+  }
+  function triggerOptionsEventWithMultipleData(name, data1, data2) {
+    if (_options !== null && isDefinedFunction(_options[name])) {
+      _options[name](data1, data2);
     }
   }
   (function(documentObject, windowObject) {
