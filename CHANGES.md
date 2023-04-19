@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 1.8.6:
+- 
+
 ### Version 1.8.5:
 - Added a custom CSS class for the text headers used in the Advanced area of the Search dialog.
 - Added a new custom event "onEventDragStart", which is triggered when dragging an event is started (the event details are passed to the function).
@@ -16,7 +19,7 @@
 - The public function addHolidays() will now only accept a valid array of holidays.
 - The public function removeHolidays() will now only accept a valid array of string holiday names.
 - Added "locked" property support for events, which states if an event can be edited (it can still be removed).
-- Added disabled text colour support for input fields.
+- Added disabled text color support for input fields.
 - Improved the disabled CSS that is applied to check boxes/radio buttons that are disabled.
 
 ### Version 1.8.3:
