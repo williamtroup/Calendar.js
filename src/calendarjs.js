@@ -566,6 +566,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_FullDay_Paste_Separator = null,
         _element_DropDownMenu_FullDay_Paste = null,
         _element_DropDownMenu_HeaderDay = null,
+        _element_DropDownMenu_HeaderDay_HideDay = null,
+        _element_DropDownMenu_HeaderDay_HideDay_Separator = null,
         _element_DropDownMenu_HeaderDay_SelectedDay = null,
         _element_SearchDialog = null,
         _element_SearchDialog_MinimizedRestoreButton = null,
@@ -910,15 +912,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function toggleSingleDayView( headerNameIndex ) {
         if ( !_datePickerModeEnabled ) {
+            var updateDisplay = false;
+
             if ( _previousDaysVisibleBeforeSingleDayView.length === 0 ) {
                 var visibleDaysLength = _options.visibleDays.length;
-    
-                for ( var visibleDayIndex = 0; visibleDayIndex < visibleDaysLength; visibleDayIndex++ ) {
-                    _previousDaysVisibleBeforeSingleDayView.push( _options.visibleDays[ visibleDayIndex ] );
+
+                if ( visibleDaysLength > 1 ) {
+                    for ( var visibleDayIndex = 0; visibleDayIndex < visibleDaysLength; visibleDayIndex++ ) {
+                        _previousDaysVisibleBeforeSingleDayView.push( _options.visibleDays[ visibleDayIndex ] );
+                    }
+        
+                    _options.visibleDays = [];
+                    _options.visibleDays.push( headerNameIndex );
+
+                    updateDisplay = true;
                 }
-    
-                _options.visibleDays = [];
-                _options.visibleDays.push( headerNameIndex );
             } else {
     
                 _options.visibleDays = [];
@@ -930,12 +938,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
     
                 _previousDaysVisibleBeforeSingleDayView = [];
+
+                updateDisplay = true;
             }
     
-            _initialized = false;
+            if ( updateDisplay ) {
+                _initialized = false;
     
-            triggerOptionsEventWithData( "onOptionsUpdated", _options );
-            build( _currentDate, true );
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                build( _currentDate, true );
+            }
         }
     }
 
@@ -4065,7 +4077,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_HeaderDay = createElement( "div", "calendar-drop-down-menu" );
         _document.body.appendChild( _element_DropDownMenu_HeaderDay );
 
-        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-minus-icon", _options.hideDayText, function() {
+        _element_DropDownMenu_HeaderDay_HideDay = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-minus-icon", _options.hideDayText, function() {
             _options.visibleDays.splice( _options.visibleDays.indexOf( _element_DropDownMenu_HeaderDay_SelectedDay ), 1 );
             _initialized = false;
 
@@ -4073,7 +4085,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             build( _currentDate, true );
         }, true );
 
-        buildMenuSeparator( _element_DropDownMenu_HeaderDay );
+        _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
 
         buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysTabText + "...", function() {
             selectTab( _element_ConfigurationDialog, 3 );
@@ -4171,8 +4183,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showDayHeaderDropDownMenu( e, selectedDay ) {
-        if ( _options.visibleDays.length > 1 && !_datePickerModeEnabled ) {
+        if ( !_datePickerModeEnabled ) {
             _element_DropDownMenu_HeaderDay_SelectedDay = selectedDay;
+
+            var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none";
+
+            _element_DropDownMenu_HeaderDay_HideDay.style.display = hideDayDisplay;
+            _element_DropDownMenu_HeaderDay_HideDay_Separator.style.display = hideDayDisplay;
 
             hideAllDropDowns();
             cancelBubble( e );
