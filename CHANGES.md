@@ -9,6 +9,7 @@
   - "radioButtonContainer" is now "radio-button-container".
   - "radioButton" is now "radio-button".
 - Improvements to the documentation and added support to show which parameters are option for public functions.
+- Fixed a fault that caused the expand button in the main display (in the cells) to remain visible when dragging an event.
 - 
 
 ### Version 1.8.5:

@@ -207,6 +207,10 @@ div.calendar {
             $area-disabled-stripped $spacing,
             $area-disabled-stripped $spacing * 2
         );
+
+        div.ib-arrow-expand-left-right-icon {
+            display: none !important;
+        }
     }
 
     div.drag-not-allowed-weekend-day {
@@ -217,6 +221,10 @@ div.calendar {
             $area-disabled-stripped-weekend-day $spacing,
             $area-disabled-stripped-weekend-day $spacing * 2
         );
+
+        div.ib-arrow-expand-left-right-icon {
+            display: none !important;
+        }
     }
 
     div.no-events-available-text {
