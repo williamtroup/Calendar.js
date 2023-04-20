@@ -924,11 +924,22 @@ function calendarJs(elementOrId, options, searchOptions) {
           event.oncontextmenu = function(e) {
             showEventDropDownMenu(e, eventDetails, formattedDayDate);
           };
+          if (isOptionEventSet("onEventClick")) {
+            event.onclick = function() {
+              triggerOptionsEventWithData("onEventClick", eventDetails);
+            };
+          }
           if (_options.manualEditingEnabled) {
             event.ondblclick = function(e) {
               cancelBubble(e);
               showEventEditingDialog(eventDetails);
             };
+          } else {
+            if (isOptionEventSet("onEventDoubleClick")) {
+              event.ondblclick = function() {
+                triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+              };
+            }
           }
         } else {
           buildDayEventPlusText(elementDay, dayDate);
@@ -1293,11 +1304,22 @@ function calendarJs(elementOrId, options, searchOptions) {
           event.appendChild(description);
         }
       }
+      if (isOptionEventSet("onEventClick")) {
+        event.onclick = function() {
+          triggerOptionsEventWithData("onEventClick", eventDetails);
+        };
+      }
       if (_options.manualEditingEnabled) {
         event.ondblclick = function(e) {
           cancelBubble(e);
           showEventEditingDialog(eventDetails);
         };
+      } else {
+        if (isOptionEventSet("onEventDoubleClick")) {
+          event.ondblclick = function() {
+            triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+          };
+        }
       }
       if (!eventDetails.isAllDay) {
         scrollTop = setEventPositionAndGetScrollTop(displayDate, event, eventDetails);
@@ -1559,11 +1581,22 @@ function calendarJs(elementOrId, options, searchOptions) {
         setNodeText(description, eventDetails.description);
         event.appendChild(description);
       }
+      if (isOptionEventSet("onEventClick")) {
+        event.onclick = function() {
+          triggerOptionsEventWithData("onEventClick", eventDetails);
+        };
+      }
       if (_options.manualEditingEnabled) {
         event.ondblclick = function(e) {
           cancelBubble(e);
           showEventEditingDialog(eventDetails);
         };
+      } else {
+        if (isOptionEventSet("onEventDoubleClick")) {
+          event.ondblclick = function() {
+            triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+          };
+        }
       }
       _element_ListAllEventsView_EventsShown.push(eventDetails);
     }
@@ -1821,11 +1854,22 @@ function calendarJs(elementOrId, options, searchOptions) {
         setNodeText(description, eventDetails.description);
         event.appendChild(description);
       }
+      if (isOptionEventSet("onEventClick")) {
+        event.onclick = function() {
+          triggerOptionsEventWithData("onEventClick", eventDetails);
+        };
+      }
       if (_options.manualEditingEnabled) {
         event.ondblclick = function(e) {
           cancelBubble(e);
           showEventEditingDialog(eventDetails);
         };
+      } else {
+        if (isOptionEventSet("onEventDoubleClick")) {
+          event.ondblclick = function() {
+            triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+          };
+        }
       }
       added = true;
     }
@@ -4799,6 +4843,24 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getTsvValueLine(csvValues) {
     return csvValues.join("\t");
   }
+  function isOptionEventSet(name) {
+    return isDefinedFunction(_options[name]);
+  }
+  function triggerOptionsEvent(name) {
+    if (_options !== null && isOptionEventSet(name)) {
+      _options[name]();
+    }
+  }
+  function triggerOptionsEventWithData(name, data) {
+    if (_options !== null && isOptionEventSet(name)) {
+      _options[name](data);
+    }
+  }
+  function triggerOptionsEventWithMultipleData(name, data1, data2) {
+    if (_options !== null && isOptionEventSet(name)) {
+      _options[name](data1, data2);
+    }
+  }
   this.turnOnFullScreen = function() {
     if (!_datePickerModeEnabled) {
       turnOnFullScreenMode();
@@ -5956,21 +6018,6 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getStandardHolidays() {
     return [{day:1, month:1, title:"New Year's Day", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Day"}, {day:14, month:2, title:"Valentine's Day", onClickUrl:"https://en.wikipedia.org/wiki/Valentine%27s_Days"}, {day:1, month:4, title:"April Fools' Day", onClickUrl:"https://en.wikipedia.org/wiki/April_Fools%27_Day"}, {day:22, month:4, title:"Earth Day", onClickUrl:"https://en.wikipedia.org/wiki/Earth_Day"}, {day:31, month:10, title:"Halloween", onClickUrl:"https://en.wikipedia.org/wiki/Halloween"}, 
     {day:11, month:11, title:"Remembrance Day", onClickUrl:"https://en.wikipedia.org/wiki/Remembrance_Day"}, {day:24, month:12, title:"Christmas Eve", onClickUrl:"https://en.wikipedia.org/wiki/Christmas_Eve"}, {day:25, month:12, title:"Christmas Day", onClickUrl:"https://en.wikipedia.org/wiki/Christmas"}, {day:26, month:12, title:"Boxing Day", onClickUrl:"https://en.wikipedia.org/wiki/Boxing_Day"}, {day:31, month:12, title:"New Year's Eve", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Eve"}];
-  }
-  function triggerOptionsEvent(name) {
-    if (_options !== null && isDefinedFunction(_options[name])) {
-      _options[name]();
-    }
-  }
-  function triggerOptionsEventWithData(name, data) {
-    if (_options !== null && isDefinedFunction(_options[name])) {
-      _options[name](data);
-    }
-  }
-  function triggerOptionsEventWithMultipleData(name, data1, data2) {
-    if (_options !== null && isDefinedFunction(_options[name])) {
-      _options[name](data1, data2);
-    }
   }
   (function(documentObject, windowObject) {
     _document = documentObject;

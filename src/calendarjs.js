@@ -99,6 +99,8 @@
  * @property    {Object}    onEventDragStart                            Specifies an event that will be triggered when dragging an event is started (passes the event to the function).
  * @property    {Object}    onEventDragStop                             Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function).
  * @property    {Object}    onEventDragDrop                             Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function).
+ * @property    {Object}    onEventClick                                Specifies an event that will be triggered when an event is clicked (passes the event to the function).
+ * @property    {Object}    onEventDoubleClick                          Specifies an event that will be triggered when an event is double clicked (when editing mode is disabled, passes the event to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -1897,12 +1899,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event.oncontextmenu = function( e ) {
                         showEventDropDownMenu( e, eventDetails, formattedDayDate );
                     };
+
+                    if ( isOptionEventSet( "onEventClick" ) ) {
+                        event.onclick = function() {
+                            triggerOptionsEventWithData( "onEventClick", eventDetails );
+                        };
+                    }
         
                     if ( _options.manualEditingEnabled ) {
                         event.ondblclick = function( e ) {
                             cancelBubble( e );
                             showEventEditingDialog( eventDetails );
                         };
+                    } else {
+
+                        if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                            event.ondblclick = function() {
+                                triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                            };
+                        }
                     }
     
                 } else {
@@ -2410,12 +2425,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event.appendChild( description );
                 }
             }
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.onclick = function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                };
+            }
     
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
             }
             
             if ( !eventDetails.isAllDay ) {
@@ -2816,12 +2844,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( description, eventDetails.description );
                 event.appendChild( description );
             }
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.onclick = function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                };
+            }
     
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
             }
 
             _element_ListAllEventsView_EventsShown.push( eventDetails );
@@ -3187,12 +3228,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( description, eventDetails.description );
                 event.appendChild( description );
             }
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.onclick = function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                };
+            }
     
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
             }
 
             added = true;
@@ -7513,6 +7567,35 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Triggering Custom Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function isOptionEventSet( name ) {
+        return isDefinedFunction( _options[ name ] );
+    }
+
+    function triggerOptionsEvent( name ) {
+        if ( _options !== null && isOptionEventSet( name ) ) {
+            _options[ name ]();
+        }
+    }
+
+    function triggerOptionsEventWithData( name, data ) {
+        if ( _options !== null && isOptionEventSet( name ) ) {
+            _options[ name ]( data );
+        }
+    }
+
+    function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
+        if ( _options !== null && isOptionEventSet( name ) ) {
+            _options[ name ]( data1, data2 );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Main Controls (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -9623,24 +9706,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 onClickUrl: "https://en.wikipedia.org/wiki/New_Year%27s_Eve"
             }
         ];
-    }
-
-    function triggerOptionsEvent( name ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]();
-        }
-    }
-
-    function triggerOptionsEventWithData( name, data ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]( data );
-        }
-    }
-
-    function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]( data1, data2 );
-        }
     }
 
     

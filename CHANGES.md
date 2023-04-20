@@ -10,6 +10,8 @@
   - "radioButton" is now "radio-button".
 - Improvements to the documentation and added support to show which parameters are option for public functions.
 - Fixed a fault that caused the expand button in the main display (in the cells) to remain visible when dragging an event.
+- Added a new custom event "onEventClick", which is triggered when an event is clicked (passes the event details).
+- Added a new custom event "onEventDoubleClick", which is triggered when an event is double clicked (passes the event details).  This event is only fired if event editing is disabled.
 - 
 
 ### Version 1.8.5:

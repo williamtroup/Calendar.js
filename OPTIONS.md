@@ -248,3 +248,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | onEventDragStart | Specifies an event that will be triggered when dragging an event is started (passes the event to the function). |
 | onEventDragStop | Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function). |
 | onEventDragDrop | Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function). |
+| onEventClick | Specifies an event that will be triggered when an event is clicked (passes the event to the function). |
+| onEventDoubleClick | Specifies an event that will be triggered when an event is double clicked (when editing mode is disabled, passes the event to the function). |
