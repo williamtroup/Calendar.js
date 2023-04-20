@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.5
+ * Calendar.js Library v1.8.6
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -255,8 +255,14 @@ div.calendar div.drag-over {
 div.calendar div.drag-not-allowed {
   background: repeating-linear-gradient(135deg, #F5F5F5, #F5F5F5 10px, rgba(40, 40, 40, 0.1) 10px, rgba(40, 40, 40, 0.1) 20px);
 }
+div.calendar div.drag-not-allowed div.ib-arrow-expand-left-right-icon {
+  display: none !important;
+}
 div.calendar div.drag-not-allowed-weekend-day {
   background: repeating-linear-gradient(135deg, #E0E0E0, #E0E0E0 10px, rgba(40, 40, 40, 0.2) 10px, rgba(40, 40, 40, 0.2) 20px);
+}
+div.calendar div.drag-not-allowed-weekend-day div.ib-arrow-expand-left-right-icon {
+  display: none !important;
 }
 div.calendar div.no-events-available-text {
   position: absolute;
@@ -2449,12 +2455,12 @@ div.calendar-dialog div.tab-content {
     Calendar.js - CheckBox
     -------------------------------------------------------------------------
 */
-div.calendar div.checkboxContainer label.checkbox,
-div.calendar-dialog div.checkboxContainer label.checkbox {
+div.calendar div.checkbox-container label.checkbox,
+div.calendar-dialog div.checkbox-container label.checkbox {
   margin-bottom: 5px !important;
 }
-div.calendar div.checkboxContainer div:last-child label.checkbox,
-div.calendar-dialog div.checkboxContainer div:last-child label.checkbox {
+div.calendar div.checkbox-container div:last-child label.checkbox,
+div.calendar-dialog div.checkbox-container div:last-child label.checkbox {
   margin-bottom: 0 !important;
 }
 div.calendar label.checkbox-tabbed-in,
@@ -2539,20 +2545,20 @@ div.calendar-dialog label.checkbox:hover span.check-mark {
     Calendar.js - Radio Button
     -------------------------------------------------------------------------
 */
-div.calendar p.textHeader,
-div.calendar-dialog p.textHeader {
+div.calendar p.text-header,
+div.calendar-dialog p.text-header {
   font-weight: 700 !important;
 }
-div.calendar div.radioButtonsContainer,
-div.calendar-dialog div.radioButtonsContainer {
+div.calendar div.radio-buttons-container,
+div.calendar-dialog div.radio-buttons-container {
   position: relative;
 }
-div.calendar div.radioButtonContainer,
-div.calendar-dialog div.radioButtonContainer {
+div.calendar div.radio-button-container,
+div.calendar-dialog div.radio-button-container {
   margin-bottom: 5px;
 }
-div.calendar div.radioButtonContainer label.radioButton,
-div.calendar-dialog div.radioButtonContainer label.radioButton {
+div.calendar div.radio-button-container label.radio-button,
+div.calendar-dialog div.radio-button-container label.radio-button {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -2565,30 +2571,30 @@ div.calendar-dialog div.radioButtonContainer label.radioButton {
   padding-top: 1px;
   color: #282828;
 }
-div.calendar div.radioButtonContainer label.radioButton input,
-div.calendar-dialog div.radioButtonContainer label.radioButton input {
+div.calendar div.radio-button-container label.radio-button input,
+div.calendar-dialog div.radio-button-container label.radio-button input {
   display: none !important;
 }
-div.calendar div.radioButtonContainer label.radioButton input:checked ~ span.check-mark,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:checked ~ span.check-mark {
+div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark,
+div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark {
   background-color: #282828 !important;
   border: 1px solid #282828 !important;
 }
-div.calendar div.radioButtonContainer label.radioButton input:checked ~ span.check-mark:before,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:checked ~ span.check-mark:before {
+div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark:before,
+div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark:before {
   display: block;
 }
-div.calendar div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark, div.calendar div.radioButtonContainer label.radioButton input:disabled ~ span.text,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ span.text {
+div.calendar div.radio-button-container label.radio-button input:disabled ~ span.check-mark, div.calendar div.radio-button-container label.radio-button input:disabled ~ span.text,
+div.calendar-dialog div.radio-button-container label.radio-button input:disabled ~ span.check-mark,
+div.calendar-dialog div.radio-button-container label.radio-button input:disabled ~ span.text {
   opacity: 0.5;
 }
-div.calendar div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark,
-div.calendar-dialog div.radioButtonContainer label.radioButton input:disabled ~ span.check-mark {
+div.calendar div.radio-button-container label.radio-button input:disabled ~ span.check-mark,
+div.calendar-dialog div.radio-button-container label.radio-button input:disabled ~ span.check-mark {
   border: 1px solid #282828 !important;
 }
-div.calendar div.radioButtonContainer label.radioButton span.check-mark,
-div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark {
+div.calendar div.radio-button-container label.radio-button span.check-mark,
+div.calendar-dialog div.radio-button-container label.radio-button span.check-mark {
   position: absolute;
   top: 0;
   left: 0;
@@ -2599,8 +2605,8 @@ div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark {
   border: 1px solid #A8A8A8;
   transition: all 0.3s;
 }
-div.calendar div.radioButtonContainer label.radioButton span.check-mark:before,
-div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark:before {
+div.calendar div.radio-button-container label.radio-button span.check-mark:before,
+div.calendar-dialog div.radio-button-container label.radio-button span.check-mark:before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -2614,12 +2620,12 @@ div.calendar-dialog div.radioButtonContainer label.radioButton span.check-mark:b
   background-color: #F5F5F5;
   border-radius: 50%;
 }
-div.calendar div.radioButtonContainer label.radioButton:hover span.check-mark,
-div.calendar-dialog div.radioButtonContainer label.radioButton:hover span.check-mark {
+div.calendar div.radio-button-container label.radio-button:hover span.check-mark,
+div.calendar-dialog div.radio-button-container label.radio-button:hover span.check-mark {
   border: 1px solid #282828;
 }
-div.calendar div.radioButtonContainer:last-child,
-div.calendar-dialog div.radioButtonContainer:last-child {
+div.calendar div.radio-button-container:last-child,
+div.calendar-dialog div.radio-button-container:last-child {
   margin-bottom: 0;
 }
 

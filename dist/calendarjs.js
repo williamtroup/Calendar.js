@@ -1,4 +1,4 @@
-/*! Calendar.js v1.8.5 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v1.8.6 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _options = {}, _optionsForSearch = {}, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, f:70, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _this = this, _datePickerInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, 
   _elements = {}, _configuration = {}, _eventNotificationsTriggered = {}, _document = null, _window = null, _elementID = null, _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = false, _events = {}, _timer_CallSearchOptionsEvent = null, _timer_RefreshMainDisplay = null, _timer_RefreshMainDisplay_Enabled = true, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = 
@@ -924,11 +924,22 @@ function calendarJs(elementOrId, options, searchOptions) {
           event.oncontextmenu = function(e) {
             showEventDropDownMenu(e, eventDetails, formattedDayDate);
           };
+          if (isOptionEventSet("onEventClick")) {
+            event.onclick = function() {
+              triggerOptionsEventWithData("onEventClick", eventDetails);
+            };
+          }
           if (_options.manualEditingEnabled) {
             event.ondblclick = function(e) {
               cancelBubble(e);
               showEventEditingDialog(eventDetails);
             };
+          } else {
+            if (isOptionEventSet("onEventDoubleClick")) {
+              event.ondblclick = function() {
+                triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+              };
+            }
           }
         } else {
           buildDayEventPlusText(elementDay, dayDate);
@@ -1293,11 +1304,22 @@ function calendarJs(elementOrId, options, searchOptions) {
           event.appendChild(description);
         }
       }
+      if (isOptionEventSet("onEventClick")) {
+        event.onclick = function() {
+          triggerOptionsEventWithData("onEventClick", eventDetails);
+        };
+      }
       if (_options.manualEditingEnabled) {
         event.ondblclick = function(e) {
           cancelBubble(e);
           showEventEditingDialog(eventDetails);
         };
+      } else {
+        if (isOptionEventSet("onEventDoubleClick")) {
+          event.ondblclick = function() {
+            triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+          };
+        }
       }
       if (!eventDetails.isAllDay) {
         scrollTop = setEventPositionAndGetScrollTop(displayDate, event, eventDetails);
@@ -1559,11 +1581,22 @@ function calendarJs(elementOrId, options, searchOptions) {
         setNodeText(description, eventDetails.description);
         event.appendChild(description);
       }
+      if (isOptionEventSet("onEventClick")) {
+        event.onclick = function() {
+          triggerOptionsEventWithData("onEventClick", eventDetails);
+        };
+      }
       if (_options.manualEditingEnabled) {
         event.ondblclick = function(e) {
           cancelBubble(e);
           showEventEditingDialog(eventDetails);
         };
+      } else {
+        if (isOptionEventSet("onEventDoubleClick")) {
+          event.ondblclick = function() {
+            triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+          };
+        }
       }
       _element_ListAllEventsView_EventsShown.push(eventDetails);
     }
@@ -1821,11 +1854,22 @@ function calendarJs(elementOrId, options, searchOptions) {
         setNodeText(description, eventDetails.description);
         event.appendChild(description);
       }
+      if (isOptionEventSet("onEventClick")) {
+        event.onclick = function() {
+          triggerOptionsEventWithData("onEventClick", eventDetails);
+        };
+      }
       if (_options.manualEditingEnabled) {
         event.ondblclick = function(e) {
           cancelBubble(e);
           showEventEditingDialog(eventDetails);
         };
+      } else {
+        if (isOptionEventSet("onEventDoubleClick")) {
+          event.ondblclick = function() {
+            triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+          };
+        }
       }
       added = true;
     }
@@ -2608,7 +2652,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_EventEditorDialog_ShowAlerts = buildCheckBox(_element_EventEditorDialog_Tab_Event, _options.showAlertsText)[0];
   }
   function buildEventEditorRepeatsTabContent() {
-    var radioButtonsRepeatsContainer = createElement("div", "radioButtonsContainer");
+    var radioButtonsRepeatsContainer = createElement("div", "radio-buttons-container");
     _element_EventEditorDialog_Tab_Repeats.appendChild(radioButtonsRepeatsContainer);
     _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton(radioButtonsRepeatsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent);
     _element_EventEditorDialog_RepeatEvery_EveryDay = buildRadioButton(radioButtonsRepeatsContainer, _options.repeatsEveryDayText, "RepeatType", repeatEveryEvent);
@@ -2623,7 +2667,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_EventEditorDialog_RepeatEvery_Custom_Value = createElement("input", null, "number");
     _element_EventEditorDialog_RepeatEvery_Custom_Value.setAttribute("min", "1");
     toSplitContainer.appendChild(_element_EventEditorDialog_RepeatEvery_Custom_Value);
-    var radioButtonsCustomRepeatsContainer = createElement("div", "radioButtonsContainer split-contents");
+    var radioButtonsCustomRepeatsContainer = createElement("div", "radio-buttons-container split-contents");
     toSplitContainer.appendChild(radioButtonsCustomRepeatsContainer);
     _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = buildRadioButton(radioButtonsCustomRepeatsContainer, _options.dailyText, "RepeatCustomType");
     _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly = buildRadioButton(radioButtonsCustomRepeatsContainer, _options.weeklyText, "RepeatCustomType");
@@ -3145,9 +3189,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SelectExportTypeDialog.appendChild(contents);
       var radioButtonsSplitContainer = createElement("div", "split");
       contents.appendChild(radioButtonsSplitContainer);
-      var radioButtonsContainer1 = createElement("div", "radioButtonsContainer split-contents");
+      var radioButtonsContainer1 = createElement("div", "radio-buttons-container split-contents");
       radioButtonsSplitContainer.appendChild(radioButtonsContainer1);
-      var radioButtonsContainer2 = createElement("div", "radioButtonsContainer split-contents");
+      var radioButtonsContainer2 = createElement("div", "radio-buttons-container split-contents");
       radioButtonsSplitContainer.appendChild(radioButtonsContainer2);
       _element_SelectExportTypeDialog_Option_CSV = buildRadioButton(radioButtonsContainer1, "CSV", "ExportType");
       _element_SelectExportTypeDialog_Option_XML = buildRadioButton(radioButtonsContainer1, "XML", "ExportType");
@@ -3228,7 +3272,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       historyContainer.appendChild(_element_SearchDialog_For);
       _element_SearchDialog_History_DropDown = createElement("div", "history-dropdown custom-scroll-bars");
       historyContainer.appendChild(_element_SearchDialog_History_DropDown);
-      var checkboxOptionsContainer = createElement("div", "checkboxContainer");
+      var checkboxOptionsContainer = createElement("div", "checkbox-container");
       _element_SearchDialog_Contents.appendChild(checkboxOptionsContainer);
       _element_SearchDialog_Not = buildCheckBox(checkboxOptionsContainer, _options.notSearchText, searchOptionsChanged)[0];
       _element_SearchDialog_MatchCase = buildCheckBox(checkboxOptionsContainer, _options.matchCaseText, searchOptionsChanged)[0];
@@ -3242,8 +3286,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       optionsSplitContainer.appendChild(splitContents1);
       var splitContents2 = createElement("div", "split-contents");
       optionsSplitContainer.appendChild(splitContents2);
-      createTextHeaderElement(splitContents1, _options.includeText, "textHeader");
-      var checkboxContainer = createElement("div", "checkboxContainer");
+      createTextHeaderElement(splitContents1, _options.includeText, "text-header");
+      var checkboxContainer = createElement("div", "checkbox-container");
       splitContents1.appendChild(checkboxContainer);
       _element_SearchDialog_Include_Title = buildCheckBox(checkboxContainer, _options.titleText.replace(":", ""), searchOptionsChanged)[0];
       _element_SearchDialog_Include_Location = buildCheckBox(checkboxContainer, _options.locationText.replace(":", ""), searchOptionsChanged)[0];
@@ -3251,8 +3295,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SearchDialog_Include_Group = buildCheckBox(checkboxContainer, _options.groupText.replace(":", ""), searchOptionsChanged)[0];
       _element_SearchDialog_Include_Url = buildCheckBox(checkboxContainer, _options.urlText.replace(":", ""), searchOptionsChanged)[0];
       _element_SearchDialog_Include_Title.checked = true;
-      createTextHeaderElement(splitContents2, _options.optionsText, "textHeader");
-      var radioButtonsContainer = createElement("div", "radioButtonsContainer");
+      createTextHeaderElement(splitContents2, _options.optionsText, "text-header");
+      var radioButtonsContainer = createElement("div", "radio-buttons-container");
       splitContents2.appendChild(radioButtonsContainer);
       _element_SearchDialog_Option_StartsWith = buildRadioButton(radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchOptionsChanged);
       _element_SearchDialog_Option_EndsWith = buildRadioButton(radioButtonsContainer, _options.endsWithText, "SearchOptionType", searchOptionsChanged);
@@ -3922,7 +3966,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildTabContents(container, selected, canScroll) {
     selected = isDefined(selected) ? selected : false;
     canScroll = isDefined(canScroll) ? canScroll : true;
-    var tabContainer = createElement("div", "checkboxContainer tab-content");
+    var tabContainer = createElement("div", "checkbox-container tab-content");
     container.appendChild(tabContainer);
     if (canScroll) {
       tabContainer.className += " custom-scroll-bars";
@@ -4274,9 +4318,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildRadioButton(container, labelText, groupName, onChangeEvent) {
-    var lineContents = createElement("div", "radioButtonContainer");
+    var lineContents = createElement("div", "radio-button-container");
     container.appendChild(lineContents);
-    var label = createElement("label", "radioButton");
+    var label = createElement("label", "radio-button");
     lineContents.appendChild(label);
     var input = createElement("input", null, "radio");
     input.name = groupName;
@@ -4799,6 +4843,24 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getTsvValueLine(csvValues) {
     return csvValues.join("\t");
   }
+  function isOptionEventSet(name) {
+    return isDefinedFunction(_options[name]);
+  }
+  function triggerOptionsEvent(name) {
+    if (_options !== null && isOptionEventSet(name)) {
+      _options[name]();
+    }
+  }
+  function triggerOptionsEventWithData(name, data) {
+    if (_options !== null && isOptionEventSet(name)) {
+      _options[name](data);
+    }
+  }
+  function triggerOptionsEventWithMultipleData(name, data1, data2) {
+    if (_options !== null && isOptionEventSet(name)) {
+      _options[name](data1, data2);
+    }
+  }
   this.turnOnFullScreen = function() {
     if (!_datePickerModeEnabled) {
       turnOnFullScreenMode();
@@ -5231,7 +5293,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _copiedEventDetails = null;
   };
   this.getVersion = function() {
-    return "1.8.5";
+    return "1.8.6";
   };
   this.getId = function() {
     return _elementID;
@@ -5956,21 +6018,6 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getStandardHolidays() {
     return [{day:1, month:1, title:"New Year's Day", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Day"}, {day:14, month:2, title:"Valentine's Day", onClickUrl:"https://en.wikipedia.org/wiki/Valentine%27s_Days"}, {day:1, month:4, title:"April Fools' Day", onClickUrl:"https://en.wikipedia.org/wiki/April_Fools%27_Day"}, {day:22, month:4, title:"Earth Day", onClickUrl:"https://en.wikipedia.org/wiki/Earth_Day"}, {day:31, month:10, title:"Halloween", onClickUrl:"https://en.wikipedia.org/wiki/Halloween"}, 
     {day:11, month:11, title:"Remembrance Day", onClickUrl:"https://en.wikipedia.org/wiki/Remembrance_Day"}, {day:24, month:12, title:"Christmas Eve", onClickUrl:"https://en.wikipedia.org/wiki/Christmas_Eve"}, {day:25, month:12, title:"Christmas Day", onClickUrl:"https://en.wikipedia.org/wiki/Christmas"}, {day:26, month:12, title:"Boxing Day", onClickUrl:"https://en.wikipedia.org/wiki/Boxing_Day"}, {day:31, month:12, title:"New Year's Eve", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Eve"}];
-  }
-  function triggerOptionsEvent(name) {
-    if (_options !== null && isDefinedFunction(_options[name])) {
-      _options[name]();
-    }
-  }
-  function triggerOptionsEventWithData(name, data) {
-    if (_options !== null && isDefinedFunction(_options[name])) {
-      _options[name](data);
-    }
-  }
-  function triggerOptionsEventWithMultipleData(name, data1, data2) {
-    if (_options !== null && isDefinedFunction(_options[name])) {
-      _options[name](data1, data2);
-    }
   }
   (function(documentObject, windowObject) {
     _document = documentObject;

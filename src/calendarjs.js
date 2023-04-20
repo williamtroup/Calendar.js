@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.js
- * @version     v1.8.5
+ * @version     v1.8.6
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -99,6 +99,8 @@
  * @property    {Object}    onEventDragStart                            Specifies an event that will be triggered when dragging an event is started (passes the event to the function).
  * @property    {Object}    onEventDragStop                             Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function).
  * @property    {Object}    onEventDragDrop                             Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function).
+ * @property    {Object}    onEventClick                                Specifies an event that will be triggered when an event is clicked (passes the event to the function).
+ * @property    {Object}    onEventDoubleClick                          Specifies an event that will be triggered when an event is double clicked (when editing mode is disabled, passes the event to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -295,7 +297,7 @@
  * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see DatePicker display formats for options).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
- * @property    {Object}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
+ * @property    {Search}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
  * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true).
  */
@@ -356,8 +358,8 @@
  * @class
  * 
  * @param       {Object}    elementOrId                                 The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
- * @param       {Options}   options                                     All the configurable options that should be used (refer to "Options" documentation for properties).
- * @param       {Search}    searchOptions                               All the configurable search options that should be used (refer to "Search Options" documentation for properties).
+ * @param       {Options}   [options]                                   All the configurable options that should be used (refer to "Options" documentation for properties).
+ * @param       {Search}    [searchOptions]                             All the configurable search options that should be used (refer to "Search Options" documentation for properties).
  * 
  * @returns     {Object}                                                The Calendar.js instance.
  */
@@ -1897,12 +1899,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event.oncontextmenu = function( e ) {
                         showEventDropDownMenu( e, eventDetails, formattedDayDate );
                     };
+
+                    if ( isOptionEventSet( "onEventClick" ) ) {
+                        event.onclick = function() {
+                            triggerOptionsEventWithData( "onEventClick", eventDetails );
+                        };
+                    }
         
                     if ( _options.manualEditingEnabled ) {
                         event.ondblclick = function( e ) {
                             cancelBubble( e );
                             showEventEditingDialog( eventDetails );
                         };
+                    } else {
+
+                        if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                            event.ondblclick = function() {
+                                triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                            };
+                        }
                     }
     
                 } else {
@@ -2410,12 +2425,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event.appendChild( description );
                 }
             }
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.onclick = function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                };
+            }
     
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
             }
             
             if ( !eventDetails.isAllDay ) {
@@ -2816,12 +2844,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( description, eventDetails.description );
                 event.appendChild( description );
             }
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.onclick = function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                };
+            }
     
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
             }
 
             _element_ListAllEventsView_EventsShown.push( eventDetails );
@@ -3187,12 +3228,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( description, eventDetails.description );
                 event.appendChild( description );
             }
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.onclick = function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                };
+            }
     
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
                     showEventEditingDialog( eventDetails );
                 };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
             }
 
             added = true;
@@ -4312,7 +4366,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildEventEditorRepeatsTabContent() {
-        var radioButtonsRepeatsContainer = createElement( "div", "radioButtonsContainer" );
+        var radioButtonsRepeatsContainer = createElement( "div", "radio-buttons-container" );
         _element_EventEditorDialog_Tab_Repeats.appendChild( radioButtonsRepeatsContainer );
 
         _element_EventEditorDialog_RepeatEvery_Never = buildRadioButton( radioButtonsRepeatsContainer, _options.repeatsNever, "RepeatType", repeatEveryEvent );
@@ -4332,7 +4386,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_RepeatEvery_Custom_Value.setAttribute( "min", "1" );
         toSplitContainer.appendChild( _element_EventEditorDialog_RepeatEvery_Custom_Value );
 
-        var radioButtonsCustomRepeatsContainer = createElement( "div", "radioButtonsContainer split-contents" );
+        var radioButtonsCustomRepeatsContainer = createElement( "div", "radio-buttons-container split-contents" );
         toSplitContainer.appendChild( radioButtonsCustomRepeatsContainer );
 
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = buildRadioButton( radioButtonsCustomRepeatsContainer, _options.dailyText, "RepeatCustomType" );
@@ -5082,10 +5136,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var radioButtonsSplitContainer = createElement( "div", "split" );
             contents.appendChild( radioButtonsSplitContainer );
     
-            var radioButtonsContainer1 = createElement( "div", "radioButtonsContainer split-contents" );
+            var radioButtonsContainer1 = createElement( "div", "radio-buttons-container split-contents" );
             radioButtonsSplitContainer.appendChild( radioButtonsContainer1 );
     
-            var radioButtonsContainer2 = createElement( "div", "radioButtonsContainer split-contents" );
+            var radioButtonsContainer2 = createElement( "div", "radio-buttons-container split-contents" );
             radioButtonsSplitContainer.appendChild( radioButtonsContainer2 );
     
             _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
@@ -5196,7 +5250,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_SearchDialog_History_DropDown = createElement( "div", "history-dropdown custom-scroll-bars" );
             historyContainer.appendChild( _element_SearchDialog_History_DropDown );
             
-            var checkboxOptionsContainer = createElement( "div", "checkboxContainer" );
+            var checkboxOptionsContainer = createElement( "div", "checkbox-container" );
             _element_SearchDialog_Contents.appendChild( checkboxOptionsContainer );
     
             _element_SearchDialog_Not = buildCheckBox( checkboxOptionsContainer, _options.notSearchText, searchOptionsChanged )[ 0 ];
@@ -5216,9 +5270,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var splitContents2 = createElement( "div", "split-contents" );
             optionsSplitContainer.appendChild( splitContents2 );
     
-            createTextHeaderElement( splitContents1, _options.includeText, "textHeader" );
+            createTextHeaderElement( splitContents1, _options.includeText, "text-header" );
     
-            var checkboxContainer = createElement( "div", "checkboxContainer" );
+            var checkboxContainer = createElement( "div", "checkbox-container" );
             splitContents1.appendChild( checkboxContainer );
     
             _element_SearchDialog_Include_Title = buildCheckBox( checkboxContainer, _options.titleText.replace( ":", "" ), searchOptionsChanged )[ 0 ];
@@ -5229,9 +5283,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog_Include_Title.checked = true;
     
-            createTextHeaderElement( splitContents2, _options.optionsText, "textHeader" );
+            createTextHeaderElement( splitContents2, _options.optionsText, "text-header" );
     
-            var radioButtonsContainer = createElement( "div", "radioButtonsContainer" );
+            var radioButtonsContainer = createElement( "div", "radio-buttons-container" );
             splitContents2.appendChild( radioButtonsContainer );
     
             _element_SearchDialog_Option_StartsWith = buildRadioButton( radioButtonsContainer, _options.startsWithText, "SearchOptionType", searchOptionsChanged );
@@ -6134,7 +6188,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         selected = isDefined( selected ) ? selected : false;
         canScroll = isDefined( canScroll ) ? canScroll : true;
 
-        var tabContainer = createElement( "div", "checkboxContainer tab-content" );
+        var tabContainer = createElement( "div", "checkbox-container tab-content" );
         container.appendChild( tabContainer );
 
         if ( canScroll ) {
@@ -6652,10 +6706,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildRadioButton( container, labelText, groupName, onChangeEvent ) {
-        var lineContents = createElement( "div", "radioButtonContainer" );
+        var lineContents = createElement( "div", "radio-button-container" );
         container.appendChild( lineContents );
 
-        var label = createElement( "label", "radioButton" );
+        var label = createElement( "label", "radio-button" );
         lineContents.appendChild( label );
 
         var input = createElement( "input", null, "radio" );
@@ -7513,6 +7567,35 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Triggering Custom Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function isOptionEventSet( name ) {
+        return isDefinedFunction( _options[ name ] );
+    }
+
+    function triggerOptionsEvent( name ) {
+        if ( _options !== null && isOptionEventSet( name ) ) {
+            _options[ name ]();
+        }
+    }
+
+    function triggerOptionsEventWithData( name, data ) {
+        if ( _options !== null && isOptionEventSet( name ) ) {
+            _options[ name ]( data );
+        }
+    }
+
+    function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
+        if ( _options !== null && isOptionEventSet( name ) ) {
+            _options[ name ]( data1, data2 );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Main Controls (public)
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -7757,7 +7840,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * @fires       onEventsExported
      * 
-     * @param       {string}    type                                        The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
+     * @param       {string}    [type]                                      The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled && !_datePickerModeEnabled ) {
@@ -7864,8 +7947,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsSet
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsSet" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsSet" event should be triggered (defaults to true).
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7889,8 +7972,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsSetFromJSON
      * 
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsSetFromJSON" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsSetFromJSON" event should be triggered (defaults to true).
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7919,8 +8002,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsAdded
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsAdded" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsAdded" event should be triggered (defaults to true).
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7954,8 +8037,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsAddedFromJSON
      * 
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsAddedFromJSON" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsAddedFromJSON" event should be triggered (defaults to true).
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -7984,9 +8067,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventAdded
      * 
      * @param       {Event}     event                                       The event (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventAdded" event should be triggered.
-     * @param       {boolean}   setLastUpdated                              States if the "lastUpdated" date should be set (defaults to true).
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventAdded" event should be triggered (defaults to true).
+     * @param       {boolean}   [setLastUpdated]                            States if the "lastUpdated" date should be set (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was added.
      */
@@ -8094,8 +8177,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsUpdated
      * 
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsUpdated" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsUpdated" event should be triggered (defaults to true).
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8130,8 +8213,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {string}    id                                          The ID of the event.
      * @param       {Event}     event                                       The event (refer to "Day Event" documentation for properties).
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventUpdated" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventUpdated" event should be triggered (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
@@ -8168,8 +8251,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Object}    from                                        The new from date.
      * @param       {Object}    to                                          The new to date.
      * @param       {Object}    repeatEnds                                  The new repeat ends day.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventUpdated" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventUpdated" event should be triggered (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
@@ -8213,8 +8296,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventRemoved
      * 
      * @param       {string}    id                                          The ID of the event.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventRemoved" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventRemoved" event should be triggered (defaults to true).
      * 
      * @returns     {boolean}                                               States if the event was removed.
      */
@@ -8255,8 +8338,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * @fires       onEventsCleared
      * 
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onEventsCleared" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventsCleared" event should be triggered (defaults to true).
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8353,8 +8436,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * @fires       onGroupsCleared
      * 
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onGroupsCleared" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onGroupsCleared" event should be triggered (defaults to true).
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8385,8 +8468,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onGroupRemoved
      * 
      * @param       {string}    groupName                                   The name of the group to remove.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
-     * @param       {boolean}   triggerEvent                                States if the "onGroupRemoved" event should be triggered.
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onGroupRemoved" event should be triggered (defaults to true).
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
         if ( isDefinedString( groupName ) && !_datePickerModeEnabled ) {
@@ -8475,7 +8558,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "1.8.5";
+        return "1.8.6";
     };
 
     /**
@@ -8507,7 +8590,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onOptionsUpdated
      * 
      * @param       {Options}   newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
-     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
+     * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
      */
     this.setOptions = function( newOptions, triggerEvent ) {
         newOptions = getOptions( newOptions );
@@ -8545,7 +8628,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onSearchOptionsUpdated
      * 
      * @param       {Search}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
-     * @param       {boolean}   triggerEvent                                States if the "onSearchOptionsUpdated" event should be triggered.
+     * @param       {boolean}   [triggerEvent]                              States if the "onSearchOptionsUpdated" event should be triggered (defaults to true).
      */
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -8575,8 +8658,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onOptionsUpdated
      * 
      * @param       {Holiday[]} holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
-     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidays ) && !_datePickerModeEnabled ) {
@@ -8604,8 +8687,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onOptionsUpdated
      * 
      * @param       {string[]}  holidayNames                                The names of the holidays to remove (case sensitive).
-     * @param       {boolean}   triggerEvent                                States if the "onOptionsUpdated" event should be triggered.
-     * @param       {boolean}   updateEvents                                States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidayNames ) && !_datePickerModeEnabled ) {
@@ -9623,24 +9706,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 onClickUrl: "https://en.wikipedia.org/wiki/New_Year%27s_Eve"
             }
         ];
-    }
-
-    function triggerOptionsEvent( name ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]();
-        }
-    }
-
-    function triggerOptionsEventWithData( name, data ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]( data );
-        }
-    }
-
-    function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
-        if ( _options !== null && isDefinedFunction( _options[ name ] ) ) {
-            _options[ name ]( data1, data2 );
-        }
     }
 
     

@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v1.8.5</p>
+<p align="center">v1.8.6</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -18,7 +18,7 @@ Calendar.js
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
-- Custom events for actions (adding/updating/removing events, skipping months, etc).
+- Custom triggers for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV.
 - Full-screen mode (double clicking the title bar).
 - Search support (with search history).
@@ -134,7 +134,7 @@ To customize, and get more out of Calendar.js, please read through following doc
 
 ### 1. Options:
 
-Options (which can be set when initializing, or afterwards) allow you to customize how Calendar.js will look and function. You can set them manually as follows:
+Options (which can be set when initializing, or afterwards) allow you to customize how Calendar.js will look and function.  The options are also used to set the custom triggers you want to fire when specific actions occur.  You can set them manually as follows:
 
 ```markdown
 <script> 
@@ -147,6 +147,8 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 ```
 
 To see a list of all the available options you can use, click [here](OPTIONS.md).
+
+To see a list of all the available custom triggers you can use, click [here](CUSTOM_TRIGGERS.md).
 <br>
 <br>
 

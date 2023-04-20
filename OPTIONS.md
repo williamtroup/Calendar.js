@@ -54,7 +54,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | datePickerSelectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *number[]* | weekendDays | States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *Object* | initialDateTime | States the date that the calendar should start from when first loaded (defaults to today). |
-| *Object* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
+| *Search* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
 | *Event[]* | events | States the events that will be shown when the calendar first renders (defaults to null). |
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true). |
 <br/>
@@ -208,43 +208,3 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | searchTextBoxPlaceholder | The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc..."). |
 | *string* | currentMonthTooltipText | The text that should be displayed for the "Current Month" label. |
 | *string* | cutText | The text that should be displayed for the "Cut" label. |
-
-<br/>
-
-### Event Options:
-<br/>
-
-| Name: | Description: |
-| --- | --- |
-| onPreviousMonth | Specifies an event that will be triggered when the "Previous Month" button is pressed (passes the new date to the function). |
-| onNextMonth | Specifies an event that will be triggered when the "Next Month" button is pressed (passes the new date to the function). |
-| onPreviousYear | Specifies an event that will be triggered when moving to the previous year (passes the new date to the function). |
-| onNextYear | Specifies an event that will be triggered when moving to the next year (passes the new date to the function). |
-| onToday | Specifies an event that will be triggered when the "Today" button is pressed. |
-| onEventAdded | Specifies an event that will be triggered when an event is added (passes the event to the function). |
-| onEventUpdated | Specifies an event that will be triggered when an event is updated (passes the event to the function). |
-| onEventRemoved | Specifies an event that will be triggered when an event is removed (passes the event to the function). |
-| onEventsAdded | Specifies an event that will be triggered when events are added (passes the events to the function). |
-| onEventsCleared | Specifies an event that will be triggered when the events are cleared. |
-| onEventsExported | Specifies an event that will be triggered when the "Export Events" button is pressed. |
-| onSetMonth | Specifies an event that will be triggered when the date on the main display is set externally (passes the new date to the function). |
-| onEventsSet | Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function). |
-| onGroupsCleared | Specifies an event that will be triggered when the event groups are cleared. |
-| onEventsUpdated | Specifies an event that will be triggered when events are updated (passes the events to the function). |
-| onOptionsUpdated | Specifies an event that will be triggered when the options are updated (passes the options to the function). |
-| onNotificationClicked | Specifies an event that will be triggered when a notification is clicked (passes the event to the function). |
-| onSearchOptionsUpdated | Specifies an event that will be triggered when the search options are updated (passes the search options to the function). |
-| onFullScreenModeChanged | Specifies an event that will be triggered when the full-screen mode is changed (passes a flag to state if its on/off). |
-| onEventsSetFromJSON | Specifies an event that will be triggered when events are set from JSON and the originals are cleared (passes the JSON to the function). |
-| onEventsAddedFromJSON | Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function). |
-| onDatePickerDateChanged | Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function). |
-| onGroupRemoved | Specifies an event that will be triggered when a group is removed (passes the group removed to the function). |
-| onEventUrlClicked | Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function). |
-| onDestroy | Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function). |
-| onRefresh | Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called). |
-| onDatePickerOpened | Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function). |
-| onDatePickerClosed | Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function). |
-| onRender | Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function). |
-| onEventDragStart | Specifies an event that will be triggered when dragging an event is started (passes the event to the function). |
-| onEventDragStop | Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function). |
-| onEventDragDrop | Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function). |

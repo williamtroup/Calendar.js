@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.5
+ * Calendar.js Library v1.8.6
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -207,6 +207,10 @@ div.calendar {
             $area-disabled-stripped $spacing,
             $area-disabled-stripped $spacing * 2
         );
+
+        div.ib-arrow-expand-left-right-icon {
+            display: none !important;
+        }
     }
 
     div.drag-not-allowed-weekend-day {
@@ -217,6 +221,10 @@ div.calendar {
             $area-disabled-stripped-weekend-day $spacing,
             $area-disabled-stripped-weekend-day $spacing * 2
         );
+
+        div.ib-arrow-expand-left-right-icon {
+            display: none !important;
+        }
     }
 
     div.no-events-available-text {
@@ -1373,7 +1381,7 @@ div.calendar,
 div.calendar-dialog {
     $checkbox-size-with-spacing: 25px;
 
-    div.checkboxContainer {
+    div.checkbox-container {
         label.checkbox {
             margin-bottom: $spacing / 2 !important;
         }
@@ -1462,18 +1470,18 @@ div.calendar-dialog {
 
 div.calendar,
 div.calendar-dialog {
-    p.textHeader {
+    p.text-header {
         font-weight: 700 !important;
     }
 
-    div.radioButtonsContainer {
+    div.radio-buttons-container {
         position: relative;
     }
 
-    div.radioButtonContainer {
+    div.radio-button-container {
         margin-bottom: $spacing / 2;
 
-        label.radioButton {
+        label.radio-button {
             @include no-selection-allowed;
             display: inline-block;
             position: relative;
