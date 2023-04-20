@@ -13,7 +13,6 @@
 - Added a new custom event "onEventClick", which is triggered when an event is clicked (passes the event details).
 - Added a new custom event "onEventDoubleClick", which is triggered when an event is double clicked (passes the event details).  This event is only fired if event editing is disabled.
 - Added improved documentation for custom triggers (explains what can be passed, when they are called, etc).
-- 
 
 ### Version 1.8.5:
 - Added a custom CSS class for the text headers used in the Advanced area of the Search dialog.
