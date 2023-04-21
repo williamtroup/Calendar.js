@@ -850,7 +850,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     showSelectExportTypeDialog( _element_Calendar_AllVisibleEvents );
                 } );
             }
-            
+        }
+
+        if ( !_datePickerModeEnabled ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-eye", _options.listAllEventsTooltipText, function() {
                 showListAllEventsView( true );
             } );
@@ -858,7 +860,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.listWeekEventsTooltipText, function() {
                 showListAllWeekEventsView( null, true );
             } );
-    
+        }
+
+        if ( _options.showExtraToolbarButtons ) {
             if ( _options.fullScreenModeEnabled ) {
                 _element_HeaderDateDisplay_FullScreenButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
             }
