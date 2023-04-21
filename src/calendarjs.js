@@ -1114,26 +1114,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function saveSideMenuSelections() {
-        setTimeout( function() {
-            var checkboxes = _element_SideMenu_Content_Groups.getElementsByTagName( "input" ),
-                checkboxesLength = checkboxes.length,
-                visibleGroups = [];
-            
-            if ( checkboxesLength > 0 ) {
-                for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
-                    var checkbox = checkboxes[ checkboxIndex ];
+        var checkboxes = _element_SideMenu_Content_Groups.getElementsByTagName( "input" ),
+            checkboxesLength = checkboxes.length,
+            visibleGroups = [];
+        
+        if ( checkboxesLength > 0 ) {
+            for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
+                var checkbox = checkboxes[ checkboxIndex ];
 
-                    if ( checkbox.checked ) {
-                        visibleGroups.push( checkbox.name );
-                    }
+                if ( checkbox.checked ) {
+                    visibleGroups.push( checkbox.name );
                 }
             }
+        }
 
-            _configuration.visibleGroups = visibleGroups;
-            _initialized = false;
+        _configuration.visibleGroups = visibleGroups;
 
-            build( _currentDate, true );
-        }, 500 );
+        refreshViews( true, false );
     }
 
     function buildSideMenuGroupOptions() {
