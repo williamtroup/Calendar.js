@@ -439,18 +439,33 @@ div.calendar div.side-menu {
   position: absolute;
   width: 250px;
   height: 100%;
-  left: -252px;
+  left: -254px;
   top: 0;
-  color: #F5F5F5;
+  color: #282828;
   z-index: 1001;
   transition: all 0.3s linear;
-  background-color: #282828;
-  border-right: 2px solid #F5F5F5;
+  background-color: #D0D0D0;
+  border-right: 4px solid #484848;
 }
 div.calendar div.side-menu div.ib-close {
   position: absolute;
   right: 10px;
   top: 10px;
+}
+div.calendar div.side-menu div.ib-close::after, div.calendar div.side-menu div.ib-close::before {
+  background-color: #282828 !important;
+}
+div.calendar div.side-menu div.content {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 28px;
+}
+div.calendar div.side-menu div.content p.text-header {
+  margin-bottom: 10px;
+}
+div.calendar div.side-menu div.content label.checkbox {
+  margin-bottom: 5px;
+  margin-left: 10px;
 }
 div.calendar div.side-menu-open {
   left: 0 !important;
@@ -2500,23 +2515,28 @@ div.calendar-dialog div.tab-content {
     -------------------------------------------------------------------------
 */
 div.calendar div.checkbox-container label.checkbox,
-div.calendar-dialog div.checkbox-container label.checkbox {
+div.calendar-dialog div.checkbox-container label.checkbox,
+div.calendar div.side-menu div.checkbox-container label.checkbox {
   margin-bottom: 5px !important;
 }
 div.calendar div.checkbox-container div:last-child label.checkbox,
-div.calendar-dialog div.checkbox-container div:last-child label.checkbox {
+div.calendar-dialog div.checkbox-container div:last-child label.checkbox,
+div.calendar div.side-menu div.checkbox-container div:last-child label.checkbox {
   margin-bottom: 0 !important;
 }
 div.calendar label.checkbox-tabbed-in,
-div.calendar-dialog label.checkbox-tabbed-in {
+div.calendar-dialog label.checkbox-tabbed-in,
+div.calendar div.side-menu label.checkbox-tabbed-in {
   margin-left: 25px;
 }
 div.calendar label.checkbox-tabbed-down,
-div.calendar-dialog label.checkbox-tabbed-down {
+div.calendar-dialog label.checkbox-tabbed-down,
+div.calendar div.side-menu label.checkbox-tabbed-down {
   margin-top: 5px;
 }
 div.calendar label.checkbox,
-div.calendar-dialog label.checkbox {
+div.calendar-dialog label.checkbox,
+div.calendar div.side-menu label.checkbox {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -2531,29 +2551,36 @@ div.calendar-dialog label.checkbox {
   color: #282828;
 }
 div.calendar label.checkbox input,
-div.calendar-dialog label.checkbox input {
+div.calendar-dialog label.checkbox input,
+div.calendar div.side-menu label.checkbox input {
   display: none !important;
 }
 div.calendar label.checkbox input:checked ~ span.check-mark,
-div.calendar-dialog label.checkbox input:checked ~ span.check-mark {
+div.calendar-dialog label.checkbox input:checked ~ span.check-mark,
+div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark {
   background-color: #282828 !important;
   border: 1px solid #282828 !important;
 }
 div.calendar label.checkbox input:checked ~ span.check-mark:before,
-div.calendar-dialog label.checkbox input:checked ~ span.check-mark:before {
+div.calendar-dialog label.checkbox input:checked ~ span.check-mark:before,
+div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark:before {
   display: block;
 }
 div.calendar label.checkbox input:disabled ~ span.check-mark, div.calendar label.checkbox input:disabled ~ span.text,
 div.calendar-dialog label.checkbox input:disabled ~ span.check-mark,
-div.calendar-dialog label.checkbox input:disabled ~ span.text {
+div.calendar-dialog label.checkbox input:disabled ~ span.text,
+div.calendar div.side-menu label.checkbox input:disabled ~ span.check-mark,
+div.calendar div.side-menu label.checkbox input:disabled ~ span.text {
   opacity: 0.5;
 }
 div.calendar label.checkbox input:disabled ~ span.check-mark,
-div.calendar-dialog label.checkbox input:disabled ~ span.check-mark {
+div.calendar-dialog label.checkbox input:disabled ~ span.check-mark,
+div.calendar div.side-menu label.checkbox input:disabled ~ span.check-mark {
   border: 1px solid #282828 !important;
 }
 div.calendar label.checkbox span.check-mark,
-div.calendar-dialog label.checkbox span.check-mark {
+div.calendar-dialog label.checkbox span.check-mark,
+div.calendar div.side-menu label.checkbox span.check-mark {
   position: absolute;
   top: 0;
   left: 0;
@@ -2565,7 +2592,8 @@ div.calendar-dialog label.checkbox span.check-mark {
   transition: all 0.3s;
 }
 div.calendar label.checkbox span.check-mark:before,
-div.calendar-dialog label.checkbox span.check-mark:before {
+div.calendar-dialog label.checkbox span.check-mark:before,
+div.calendar div.side-menu label.checkbox span.check-mark:before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -2580,7 +2608,8 @@ div.calendar-dialog label.checkbox span.check-mark:before {
   border-width: 0 3px 3px 0;
 }
 div.calendar label.checkbox:hover span.check-mark,
-div.calendar-dialog label.checkbox:hover span.check-mark {
+div.calendar-dialog label.checkbox:hover span.check-mark,
+div.calendar div.side-menu label.checkbox:hover span.check-mark {
   border: 1px solid #282828;
 }
 

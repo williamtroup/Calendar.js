@@ -402,7 +402,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _largestDateInView = null,
         _elementTypes = {},
         _elements = {},
-        _configuration = {},
+        _configuration = {
+            visibleGroups: null
+        },
         _eventNotificationsTriggered = {},
         _document = null,
         _window = null,
@@ -445,10 +447,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_HeaderDateDisplay_SearchButton = null,
         _element_DisabledBackground = null,
-
         _element_SideMenu = null,
+        _element_SideMenu_Content = null,
+        _element_SideMenu_Content_Groups = null,
         _element_SideMenu_DisabledBackground = null,
-
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
         _element_EventEditorDialog_Tab_Repeats = null,
@@ -599,7 +601,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SearchDialog_History_DropDown = null,
         _element_SearchDialog_History_DropDown_DisplayTimer = null,
         _element_ConfigurationDialog = null,
-        _element_ConfigurationDialog_Groups = null,
         _element_ConfigurationDialog_Display = null,
         _element_ConfigurationDialog_Organizer = null,
         _element_ConfigurationDialog_VisibleDays = null,
@@ -1081,24 +1082,78 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullSideMenu() {
-        _element_SideMenu = createElement( "div", "side-menu" );
+        _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars" );
         _element_Calendar.appendChild( _element_SideMenu );
 
         var closeButton = createElement( "div", "ib-close" );
         closeButton.onclick = hideSideMenu;
         _element_SideMenu.appendChild( closeButton );
 
+        _element_SideMenu_Content = createElement( "div", "content" );
+        _element_SideMenu.appendChild( _element_SideMenu_Content );
+
+        _element_SideMenu_Content_Groups = createElement( "div" );
+        _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Groups );
+
         addToolTip( closeButton, _options.closeTooltipText );
     }
 
     function showSideMenu() {
+        buildSideMenuGroupOptions();
+
         _element_SideMenu.className += " side-menu-open";
         _element_SideMenu_DisabledBackground.style.display = "block";
     }
 
     function hideSideMenu() {
-        _element_SideMenu.className = "side-menu";
+        _element_SideMenu.className = "side-menu custom-scroll-bars";
         _element_SideMenu_DisabledBackground.style.display = "none";
+
+        saveSideMenuSelections();
+    }
+
+    function saveSideMenuSelections() {
+        setTimeout( function() {
+            var checkboxes = _element_SideMenu_Content_Groups.getElementsByTagName( "input" ),
+                checkboxesLength = checkboxes.length,
+                visibleGroups = [];
+            
+            if ( checkboxesLength > 0 ) {
+                for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
+                    var checkbox = checkboxes[ checkboxIndex ];
+
+                    if ( checkbox.checked ) {
+                        visibleGroups.push( checkbox.name );
+                    }
+                }
+            }
+
+            _configuration.visibleGroups = visibleGroups;
+            _initialized = false;
+
+            build( _currentDate, true );
+        }, 500 );
+    }
+
+    function buildSideMenuGroupOptions() {
+        _element_SideMenu_Content_Groups.innerHTML = "";
+
+        var groups = getGroups(),
+            groupsLength = groups.length;
+
+        createTextHeaderElement( _element_SideMenu_Content_Groups, _options.groupsTabText + ":", "text-header" );
+
+        for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
+            var groupName = groups[ groupIndex ],
+                configGroupName = getGroupName( groupName ),
+                visible = true;
+            
+            if ( isDefined( _configuration.visibleGroups ) ) {
+                visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
+            }
+
+            buildCheckBox( _element_SideMenu_Content_Groups, groupName, null, configGroupName, visible );
+        }
     }
 
 
@@ -4146,7 +4201,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
 
         buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysTabText + "...", function() {
-            selectTab( _element_ConfigurationDialog, 3 );
+            selectTab( _element_ConfigurationDialog, 2 );
             showConfigurationDialog();
         } );
     }
@@ -5792,13 +5847,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             var tabsContainer = buildTabContainer( contents );
     
-            buildTab( tabsContainer, _options.groupsTabText, function( tab ) {
-                showTabContents( tab, _element_ConfigurationDialog_Groups, _element_ConfigurationDialog );
-            }, true );
-    
             buildTab( tabsContainer, _options.displayTabText, function( tab ) {
                 showTabContents( tab, _element_ConfigurationDialog_Display, _element_ConfigurationDialog );
-            } );
+            }, true );
     
             buildTab( tabsContainer, _options.organizerTabText, function( tab ) {
                 showTabContents( tab, _element_ConfigurationDialog_Organizer, _element_ConfigurationDialog );
@@ -5808,8 +5859,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showTabContents( tab, _element_ConfigurationDialog_VisibleDays, _element_ConfigurationDialog );
             } );
     
-            _element_ConfigurationDialog_Groups = buildTabContents( contents, true );
-            _element_ConfigurationDialog_Display = buildTabContents( contents, false, false );
+            _element_ConfigurationDialog_Display = buildTabContents( contents, true, false );
             _element_ConfigurationDialog_Organizer = buildTabContents( contents, false, false );
             _element_ConfigurationDialog_VisibleDays = buildTabContents( contents, false, false );
     
@@ -5847,43 +5897,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildConfigurationGroupOptions() {
-        _element_ConfigurationDialog_Groups.innerHTML = "";
-
-        var groups = getGroups(),
-            groupsLength = groups.length;
-
-        for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
-            var groupName = groups[ groupIndex ],
-                configGroupName = getGroupName( groupName ),
-                visible = true;
-            
-            if ( isDefined( _configuration.visibleGroups ) ) {
-                visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
-            }
-
-            buildCheckBox( _element_ConfigurationDialog_Groups, groupName, null, configGroupName, visible );
-        }
-    }
-
     function configurationDialogEvent_OK() {
-        var checkboxes = _element_ConfigurationDialog_Groups.getElementsByTagName( "input" ),
-            checkboxesLength = checkboxes.length,
-            visibleDays = [];
-        
-        if ( checkboxesLength > 0 ) {
-            _configuration.visibleGroups = [];
-        
-            for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
-                var checkbox = checkboxes[ checkboxIndex ];
-                if ( checkbox.checked ) {
-                    _configuration.visibleGroups.push( checkbox.name );
-                }
-            }
-
-        } else {
-            _configuration.visibleGroups = null;
-        }
+        var visibleDays = [];
 
         if ( _element_ConfigurationDialog_Display_EnableAutoRefresh.checked ) {
             _this.startTheAutoRefreshTimer();
@@ -5947,7 +5962,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showConfigurationDialog() {
         addNode( _document.body, _element_DisabledBackground );
-        buildConfigurationGroupOptions();
 
         _element_ConfigurationDialog_Display_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
         _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
@@ -5977,10 +5991,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfigurationDialog.style.display = "none";
     }
 
-    function getGroupName( group ) {
-        return group.toLowerCase();
-    }
-
     function isEventVisible( event ) {
         var group = getString( event.group ),
             configGroup = getGroupName( group ),
@@ -5995,23 +6005,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return visible;
-    }
-
-    function getGroups() {
-        var groups = [],
-            groupsAnyCase = [];
-
-        getAllEventsFunc( function( event ) {
-            var group = getString( event.group );
-            if ( group !== "" && groupsAnyCase.indexOf( group.toLowerCase() ) === -1 ) {
-                groups.push( group );
-                groupsAnyCase.push( group.toLowerCase() );
-            }
-        } );
-
-        groups.sort();
-
-        return groups;
     }
 
 
@@ -6433,6 +6426,34 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function isOnlyMainDisplayVisible() {
         return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Groups
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getGroupName( group ) {
+        return group.toLowerCase();
+    }
+
+    function getGroups() {
+        var groups = [],
+            groupsAnyCase = [];
+
+        getAllEventsFunc( function( event ) {
+            var group = getString( event.group );
+            if ( group !== "" && groupsAnyCase.indexOf( group.toLowerCase() ) === -1 ) {
+                groups.push( group );
+                groupsAnyCase.push( group.toLowerCase() );
+            }
+        } );
+
+        groups.sort();
+
+        return groups;
     }
 
     
