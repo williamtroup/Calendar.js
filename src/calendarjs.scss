@@ -427,21 +427,16 @@ div.calendar {
         height: 100%;
         left: -($side-menu-width + $side-menu-right-border-width);
         top: 0;
-        color: $dark-color;
+        color: $light-color !important;
         z-index: 1001;
         transition: all .3s linear;
-        background-color: $side-menu-background-color;
-        border-right: $side-menu-right-border-width solid $side-menu-right-border-color;
+        background-color: $dark-color;
+        border-right: $side-menu-right-border-width solid $light-color;
         
         div.ib-close {
             position: absolute;
             right: $spacing;
             top: $spacing;
-
-            &::after,
-            &::before {
-                background-color: $dark-color !important;
-            }
         }
 
         div.content {
@@ -456,6 +451,15 @@ div.calendar {
             label.checkbox {
                 margin-bottom: $spacing / 2;
                 margin-left: $spacing;
+                color: $light-color !important;
+
+                span.check-mark {
+                    background-color: $light-color !important;
+
+                    &::before {
+                        border-color: $dark-color !important;
+                    }
+                }
             }
         }
     }
@@ -1474,8 +1478,8 @@ div.calendar div.side-menu {
             display: none !important;
 
             &:checked ~ span.check-mark {
-                background-color: $dark-color !important;
-                border: $standard-border-size solid $dark-color !important;
+                background-color: $dark-color;
+                border: $standard-border-size solid $dark-color;
             }
 
             &:checked ~ span.check-mark:before {

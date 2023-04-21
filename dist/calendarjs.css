@@ -441,19 +441,16 @@ div.calendar div.side-menu {
   height: 100%;
   left: -254px;
   top: 0;
-  color: #282828;
+  color: #F5F5F5 !important;
   z-index: 1001;
   transition: all 0.3s linear;
-  background-color: #D0D0D0;
-  border-right: 4px solid #484848;
+  background-color: #282828;
+  border-right: 4px solid #F5F5F5;
 }
 div.calendar div.side-menu div.ib-close {
   position: absolute;
   right: 10px;
   top: 10px;
-}
-div.calendar div.side-menu div.ib-close::after, div.calendar div.side-menu div.ib-close::before {
-  background-color: #282828 !important;
 }
 div.calendar div.side-menu div.content {
   padding-left: 10px;
@@ -466,6 +463,13 @@ div.calendar div.side-menu div.content p.text-header {
 div.calendar div.side-menu div.content label.checkbox {
   margin-bottom: 5px;
   margin-left: 10px;
+  color: #F5F5F5 !important;
+}
+div.calendar div.side-menu div.content label.checkbox span.check-mark {
+  background-color: #F5F5F5 !important;
+}
+div.calendar div.side-menu div.content label.checkbox span.check-mark::before {
+  border-color: #282828 !important;
 }
 div.calendar div.side-menu-open {
   left: 0 !important;
@@ -2558,8 +2562,8 @@ div.calendar div.side-menu label.checkbox input {
 div.calendar label.checkbox input:checked ~ span.check-mark,
 div.calendar-dialog label.checkbox input:checked ~ span.check-mark,
 div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark {
-  background-color: #282828 !important;
-  border: 1px solid #282828 !important;
+  background-color: #282828;
+  border: 1px solid #282828;
 }
 div.calendar label.checkbox input:checked ~ span.check-mark:before,
 div.calendar-dialog label.checkbox input:checked ~ span.check-mark:before,
