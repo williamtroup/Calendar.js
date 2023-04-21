@@ -157,7 +157,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | groupText | The text that should be displayed for the "Group:" label. |
 | *string* | configurationTooltipText | The tooltip text that should be used for for the "Configuration" button. |
 | *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
-| *string* | groupsTabText | The text that should be displayed for the "Groups" tab. |
+| *string* | groupsText | The text that should be displayed for the "Groups" label. |
 | *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
 | *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
 | *string* | optionsText | The text that should be displayed for the "Options:" label. |

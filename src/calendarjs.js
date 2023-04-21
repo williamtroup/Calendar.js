@@ -197,7 +197,7 @@
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
  * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
- * @property    {string}    groupsTabText                               The text that should be displayed for the "Groups" tab.
+ * @property    {string}    groupsText                                  The text that should be displayed for the "Groups" label.
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
  * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
  * @property    {string}    optionsText                                 The text that should be displayed for the "Options:" label.
@@ -1141,7 +1141,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var groups = getGroups(),
             groupsLength = groups.length;
 
-        createTextHeaderElement( _element_SideMenu_Content_Groups, _options.groupsTabText + ":", "text-header" );
+        createTextHeaderElement( _element_SideMenu_Content_Groups, _options.groupsText + ":", "text-header" );
 
         for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
             var groupName = groups[ groupIndex ],
@@ -9515,8 +9515,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.configurationTitleText = "Configuration";
         }
         
-        if ( !isDefinedString( _options.groupsTabText ) ) {
-            _options.groupsTabText = "Groups";
+        if ( !isDefinedString( _options.groupsText ) ) {
+            _options.groupsText = "Groups";
         }
         
         if ( !isDefinedString( _options.eventNotificationTitle ) ) {
