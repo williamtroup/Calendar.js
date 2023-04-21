@@ -1,5 +1,8 @@
 # Calendar.js - Change Log:
 
+### Version 2.0.0:
+- 
+
 ### Version 1.8.7:
 - The main display Day Name header context menu is now shown when only one day is visible (Hide Day is hidden).
 - Fixed a fault that caused the calendar to rebuild when double-clicking on a day name when all other days are hidden (not in single-day toggle mode).
