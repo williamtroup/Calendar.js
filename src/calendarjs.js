@@ -857,7 +857,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showListAllEventsView( true );
             } );
     
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.listWeekEventsTooltipText, function() {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger-side", _options.listWeekEventsTooltipText, function() {
                 showListAllWeekEventsView( null, true );
             } );
         }
@@ -3916,7 +3916,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildMenuSeparator( _element_DropDownMenu_Day );
 
-        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-hamburger-icon", _options.viewWeekEventsText, function() {
+        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-hamburger-side-icon", _options.viewWeekEventsText, function() {
             showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
         } );
 

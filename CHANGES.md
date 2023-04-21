@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ### Version 2.0.0:
+- The "View Current Week Events" button is now the same, but flipped.
 - 
 
 ### Version 1.8.7:

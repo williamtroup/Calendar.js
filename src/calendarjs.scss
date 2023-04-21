@@ -532,7 +532,7 @@ div.calendar {
         }
 
         div.ib-close,
-        div.ib-hamburger,
+        div.ib-hamburger-side,
         div.ib-eye,
         div.ib-arrow-down-full-line,
         div.ib-plus,
@@ -545,7 +545,7 @@ div.calendar {
         @media screen and (min-width: $minimum-width) {
             div.ib-refresh,
             div.ib-search,
-            div.ib-hamburger,
+            div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow {
@@ -556,7 +556,7 @@ div.calendar {
         @media screen and (max-width: $maximum-width) {
             div.ib-refresh,
             div.ib-search,
-            div.ib-hamburger,
+            div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow {
@@ -1657,7 +1657,7 @@ div.calendar-drop-down-menu {
 
     div.ib-plus-icon,
     div.ib-arrow-expand-left-right-icon,
-    div.ib-hamburger-icon,
+    div.ib-hamburger-side-icon,
     div.ib-close-icon,
     div.ib-arrow-top-right-icon,
     div.ib-circle-hollow-icon,
@@ -1680,7 +1680,7 @@ div.calendar-drop-down-menu {
 
         &:hover div.ib-plus-icon:before,
         &:hover div.ib-plus-icon:after,
-        &:hover div.ib-hamburger-icon:before,
+        &:hover div.ib-hamburger-side-icon:before,
         &:hover div.ib-close-icon:before,
         &:hover div.ib-close-icon:after,
         &:hover div.ib-circle-icon,
@@ -1689,7 +1689,7 @@ div.calendar-drop-down-menu {
             background-color: $light-color;
         }
 
-        &:hover div.ib-hamburger-icon,
+        &:hover div.ib-hamburger-side-icon,
         &:hover div.ib-arrow-expand-left-right-icon:after,
         &:hover div.ib-arrow-expand-left-right-icon:before,
         &:hover div.ib-arrow-top-right-icon,
@@ -1786,6 +1786,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/refresh";
 @import "foundation/buttons/search";
 @import "foundation/buttons/hamburger";
+@import "foundation/buttons/hamburger-side";
 @import "foundation/buttons/eye";
 @import "foundation/buttons/arrow-down-full-line";
 @import "foundation/buttons/plus";
@@ -1798,6 +1799,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/octagon-hollow";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
+@import "foundation/menus/hamburger-side-icon";
 @import "foundation/menus/arrow-expand-left-right-icon";
 @import "foundation/menus/close-icon";
 @import "foundation/menus/arrow-top-right-icon";
