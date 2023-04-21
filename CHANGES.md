@@ -2,10 +2,9 @@
 
 ### Version 1.8.7:
 - The main display Day Name header context menu is now shown when only one day is visible (Hide Day is hidden).
-- Fixed a fault that caused the calendar rebuild when double clicking on a day name when all other days are hidden (not in single day toggle mode).
+- Fixed a fault that caused the calendar to rebuild when double-clicking on a day name when all other days are hidden (not in single-day toggle mode).
 - Added shared size variable for the focus border for all input elements (slightly larger size now).
 - When the option "showExtraToolbarButtons" is set to false, the "View All Events" and "View Current Week Event" toolbar buttons now remain visible.
-- 
 
 ### Version 1.8.6:
 - Fixed the testing HTML for the minimized version of Calendar.js.
