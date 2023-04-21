@@ -421,6 +421,44 @@ div.calendar div.ib-arrow-expand-left-right-icon {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Layout - Side Menu
+    -------------------------------------------------------------------------
+*/
+div.calendar div.side-menu-disabled-background {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  position: absolute;
+  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+}
+div.calendar div.side-menu {
+  position: absolute;
+  width: 250px;
+  height: 100%;
+  left: -252px;
+  top: 0;
+  color: #F5F5F5;
+  z-index: 1001;
+  transition: all 0.3s linear;
+  background-color: #282828;
+  border-right: 2px solid #F5F5F5;
+}
+div.calendar div.side-menu div.ib-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+div.calendar div.side-menu-open {
+  left: 0 !important;
+  transition: all 0.3s linear;
+}
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Layout - Date Header
     -------------------------------------------------------------------------
 */
@@ -537,7 +575,8 @@ div.calendar div.header-date div.ib-arrow-left-full,
 div.calendar div.header-date div.ib-pin,
 div.calendar div.header-date div.ib-refresh,
 div.calendar div.header-date div.ib-search,
-div.calendar div.header-date div.ib-octagon-hollow {
+div.calendar div.header-date div.ib-octagon-hollow,
+div.calendar div.header-date div.ib-hamburger {
   float: left;
 }
 div.calendar div.header-date div.ib-close,
@@ -553,6 +592,7 @@ div.calendar div.header-date div.ib-arrow-contract-left-right {
 @media screen and (min-width: 451px) {
   div.calendar div.header-date div.ib-refresh,
   div.calendar div.header-date div.ib-search,
+  div.calendar div.header-date div.ib-hamburger,
   div.calendar div.header-date div.ib-hamburger-side,
   div.calendar div.header-date div.ib-eye,
   div.calendar div.header-date div.ib-arrow-down-full-line,
@@ -687,7 +727,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-day-view div.title-bar div.ib-pin,
 div.calendar div.full-day-view div.title-bar div.ib-refresh,
 div.calendar div.full-day-view div.title-bar div.ib-search,
-div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow {
+div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.full-day-view div.title-bar div.ib-hamburger {
   float: left;
 }
 div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
@@ -913,7 +954,8 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-pin,
 div.calendar div.list-all-events-view div.title-bar div.ib-refresh,
 div.calendar div.list-all-events-view div.title-bar div.ib-search,
-div.calendar div.list-all-events-view div.title-bar div.ib-octagon-hollow {
+div.calendar div.list-all-events-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.list-all-events-view div.title-bar div.ib-hamburger {
   float: left;
 }
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
@@ -1073,7 +1115,8 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-pin,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-search,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-octagon-hollow {
+div.calendar div.list-all-week-events-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-hamburger {
   float: left;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,

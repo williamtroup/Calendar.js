@@ -411,6 +411,44 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Layout - Side Menu
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {  
+    div.side-menu-disabled-background {
+        @include disabled-area(absolute);
+        display: none;
+    }
+
+    div.side-menu {
+        position: absolute;
+        width: $side-menu-width;
+        height: 100%;
+        left: -($side-menu-width + $side-menu-right-border-width);
+        top: 0;
+        color: $light-color;
+        z-index: 1001;
+        transition: all .3s linear;
+        background-color: $dark-color;
+        border-right: $side-menu-right-border-width solid $light-color;
+        
+        div.ib-close {
+            position: absolute;
+            right: $spacing;
+            top: $spacing;
+        }
+    }
+
+    div.side-menu-open {
+        left: 0 !important;
+        transition: all .3s linear;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Layout - Date Header
     -------------------------------------------------------------------------
 */
@@ -527,7 +565,8 @@ div.calendar {
         div.ib-pin,
         div.ib-refresh,
         div.ib-search,
-        div.ib-octagon-hollow {
+        div.ib-octagon-hollow,
+        div.ib-hamburger {
             float: left;
         }
 
@@ -545,6 +584,7 @@ div.calendar {
         @media screen and (min-width: $minimum-width) {
             div.ib-refresh,
             div.ib-search,
+            div.ib-hamburger,
             div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,

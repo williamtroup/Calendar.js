@@ -248,6 +248,7 @@
  * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
  * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
  * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
+ * @property    {string}    showMenuTooltipText                         The tooltip text that should be used for for the "Show Menu" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -444,6 +445,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_HeaderDateDisplay_SearchButton = null,
         _element_DisabledBackground = null,
+
+        _element_SideMenu = null,
+        _element_SideMenu_DisabledBackground = null,
+
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
         _element_EventEditorDialog_Tab_Repeats = null,
@@ -750,6 +755,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildContainer();
 
             if ( _element_Calendar !== null ) {
+                buildSideMenu();
                 buildListAllEventsView();
                 buildListAllWeekEventsView();
                 buildFullDayView();
@@ -818,6 +824,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
         }
 
+        buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
 
         if ( _datePickerModeEnabled || _options.showExtraToolbarButtons ) {
@@ -1049,6 +1056,49 @@ function calendarJs( elementOrId, options, searchOptions ) {
         addToolTip( _element_FullDayView_FullScreenButton, tooltipText );
         addToolTip( _element_ListAllEventsView_FullScreenButton, tooltipText );
         addToolTip( _element_ListAllWeekEventsView_FullScreenButton, tooltipText );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Side-Menu
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildSideMenu() {
+        if ( !_datePickerModeEnabled ) {
+            buildSideMenuDisabledBackground();
+            buildFullSideMenu();
+        }
+    }
+
+    function buildSideMenuDisabledBackground() {
+        if ( _element_SideMenu_DisabledBackground === null ) {
+            _element_SideMenu_DisabledBackground = createElement( "div", "side-menu-disabled-background" );
+            _element_SideMenu_DisabledBackground.onclick = hideSideMenu;
+            _element_Calendar.appendChild( _element_SideMenu_DisabledBackground );
+        }
+    }
+
+    function buildFullSideMenu() {
+        _element_SideMenu = createElement( "div", "side-menu" );
+        _element_Calendar.appendChild( _element_SideMenu );
+
+        var closeButton = createElement( "div", "ib-close" );
+        closeButton.onclick = hideSideMenu;
+        _element_SideMenu.appendChild( closeButton );
+
+        addToolTip( closeButton, _options.closeTooltipText );
+    }
+
+    function showSideMenu() {
+        _element_SideMenu.className += " side-menu-open";
+        _element_SideMenu_DisabledBackground.style.display = "block";
+    }
+
+    function hideSideMenu() {
+        _element_SideMenu.className = "side-menu";
+        _element_SideMenu_DisabledBackground.style.display = "none";
     }
 
 
@@ -2147,6 +2197,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
             
+            buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay );
     
             if ( _options.exportEventsEnabled && _options.showExtraToolbarButtons ) {
@@ -2743,6 +2794,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         showSelectExportTypeDialog( _element_ListAllEventsView_EventsShown );
                     } );
                 }
+
+                buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
         
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -2978,6 +3031,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
             }
     
+            buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek );
     
             if ( _options.showExtraToolbarButtons ) {
@@ -9642,6 +9696,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedString( _options.cutText ) ) {
             _options.cutText = "Cut";
+        }
+
+        if ( !isDefinedString( _options.showMenuTooltipText ) ) {
+            _options.showMenuTooltipText = "Show Menu";
         }
     }
 

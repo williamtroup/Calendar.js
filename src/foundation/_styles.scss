@@ -34,6 +34,8 @@ $title-bar-font-weight: 900;
 $area-disabled-stripped: rgba( 40, 40, 40, 0.1 );
 $area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
 $input-box-shadow-size: 2px;
+$side-menu-width: 250px;
+$side-menu-right-border-width: 2px;
 
 @mixin fade-in-effect-animation($seconds) {
     animation: fade-in-effect ease $seconds;
