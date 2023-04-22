@@ -423,13 +423,15 @@ div.calendar {
 
     div.side-menu {
         position: absolute;
+        padding: $spacing;
+        padding-top: $spacing + 16px;
         width: $side-menu-width;
-        height: 100%;
-        left: -($side-menu-width + $side-menu-right-border-width);
+        height: calc(100% - (($spacing * 2) + 16px));
+        left: -($side-menu-width + $side-menu-right-border-width + ($spacing * 2));
         top: 0;
         color: $light-color !important;
         z-index: 1001;
-        transition: all .3s linear;
+        transition: all .3s linear; 
         background-color: $dark-color;
         border-right: $side-menu-right-border-width solid $light-color;
         border-radius: $border-view-radius;
@@ -443,11 +445,13 @@ div.calendar {
         }
 
         div.content-section {
-            padding-left: $spacing;
-            padding-right: $spacing;
+            padding: $spacing;
             margin-top: $spacing;
+            border-radius: $border-view-radius;
+            background-color: #474545;
 
             p.text-header {
+                margin-top: 0 !important;
                 margin-bottom: $spacing;
             }
 
@@ -463,10 +467,6 @@ div.calendar {
                         border-color: $dark-color !important;
                     }
                 }
-            }
-
-            &:last-of-type {
-                margin-bottom: $spacing;
             }
         }
     }

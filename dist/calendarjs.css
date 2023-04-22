@@ -437,9 +437,11 @@ div.calendar div.side-menu-disabled-background {
 }
 div.calendar div.side-menu {
   position: absolute;
+  padding: 10px;
+  padding-top: 26px;
   width: 250px;
-  height: 100%;
-  left: -254px;
+  height: calc(100% - 36px);
+  left: -274px;
   top: 0;
   color: #F5F5F5 !important;
   z-index: 1001;
@@ -456,11 +458,13 @@ div.calendar div.side-menu div.ib-close {
   top: 10px;
 }
 div.calendar div.side-menu div.content-section {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
   margin-top: 10px;
+  border-radius: 0.25rem;
+  background-color: #474545;
 }
 div.calendar div.side-menu div.content-section p.text-header {
+  margin-top: 0 !important;
   margin-bottom: 10px;
 }
 div.calendar div.side-menu div.content-section label.checkbox {
@@ -473,9 +477,6 @@ div.calendar div.side-menu div.content-section label.checkbox span.check-mark {
 }
 div.calendar div.side-menu div.content-section label.checkbox span.check-mark::before {
   border-color: #282828 !important;
-}
-div.calendar div.side-menu div.content-section:last-of-type {
-  margin-bottom: 10px;
 }
 div.calendar div.side-menu-open {
   left: 0 !important;
