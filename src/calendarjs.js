@@ -1143,18 +1143,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var groups = getGroups(),
             groupsLength = groups.length;
 
-        createTextHeaderElement( _element_SideMenu_Content_Groups, _options.groupsText + ":", "text-header" );
+        if ( groupsLength > 0 ) {
+            createTextHeaderElement( _element_SideMenu_Content_Groups, _options.groupsText + ":", "text-header" );
 
-        for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
-            var groupName = groups[ groupIndex ],
-                configGroupName = getGroupName( groupName ),
-                visible = true;
-            
-            if ( isDefined( _configuration.visibleGroups ) ) {
-                visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
+            for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
+                var groupName = groups[ groupIndex ],
+                    configGroupName = getGroupName( groupName ),
+                    visible = true;
+                
+                if ( isDefined( _configuration.visibleGroups ) ) {
+                    visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
+                }
+    
+                buildCheckBox( _element_SideMenu_Content_Groups, groupName, null, configGroupName, visible );
             }
-
-            buildCheckBox( _element_SideMenu_Content_Groups, groupName, null, configGroupName, visible );
         }
     }
 
