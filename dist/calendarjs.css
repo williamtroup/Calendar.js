@@ -467,6 +467,7 @@ div.calendar div.side-menu div.content div.content-section {
   margin-top: 10px;
   border-radius: 0.25rem;
   background-color: #474545;
+  border: 1px solid #575555;
 }
 div.calendar div.side-menu div.content div.content-section p.text-header {
   margin-top: 0 !important;
@@ -2194,6 +2195,7 @@ div.search div.contents div.advanced {
   padding: 10px;
   margin-top: 10px !important;
   border-radius: 0.25rem;
+  border: 1px solid #D0D0D0;
 }
 div.search div.contents div.advanced div.split {
   margin-top: 0 !important;

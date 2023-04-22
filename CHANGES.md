@@ -15,6 +15,7 @@
 - Added a new custom event "onVisibleGroupsChanged", which is triggered when the visible groups are changed (passes the visible group names).
 - Added a new custom event "onVisibleEventTypesChanged", which is triggered when the visible event types are changed (passes the visible event type IDs).
 - The public function "refresh()" will now refresh any view that is visible.
+- Added a light border around the "Advanced" area on the "Search" dialog.
 - 
 
 ### Version 1.8.7:

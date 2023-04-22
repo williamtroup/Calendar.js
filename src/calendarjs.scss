@@ -456,6 +456,7 @@ div.calendar {
                 margin-top: $spacing;
                 border-radius: $border-view-radius;
                 background-color: #474545;
+                border: $standard-border-size solid #575555;
     
                 p.text-header {
                     margin-top: 0 !important;
@@ -1313,6 +1314,7 @@ div.search {
             padding: $spacing;
             margin-top: $spacing !important;
             border-radius: $border-view-radius;
+            border: $standard-border-size solid #D0D0D0;
 
             div.split {
                 margin-top: 0 !important;
