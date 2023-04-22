@@ -5,6 +5,7 @@
 - MAJOR: Added side menu for the whole Calendar, which allows Groups and Event Types to be toggled easily.
 - Added new public functions "addEventType()" and "removeEventType()", for adding adding and removing event types.
 - Added new public functions "setVisibleGroups()", which will set the group name that are visible.
+- Added new public functions "setVisibleEventTypes()", which will set the event types that are visible.
 - Removed the "Groups" tab from the "Configuration" dialog (as its all in the side menu now).
 - The "View Current Week Events" button is now the same, but flipped.
 - When events are added/updated, the group they are assigned (if new) is made visible by default.

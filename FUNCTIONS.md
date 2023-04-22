@@ -252,6 +252,15 @@ Removes an event type.
 <br>
 ***Returns***: '*boolean*' - States if the event type was removed.
 
+### **setVisibleEventTypes( *[ids]*, *[triggerEvent]* )**:
+Set which events types are visible.
+<br>
+***Fires***:  onVisibleEventTypesChanged
+<br>
+***Parameter: ids***: '*number[]*' - The IDs of the event types to make visible.
+<br>
+***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleEventTypesChanged" event should be triggered (defaults to true).
+
 
 <br>
 <h1>Add/Remove Groups:</h1>

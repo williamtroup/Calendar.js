@@ -8753,6 +8753,39 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return result;
     };
 
+    /**
+     * setVisibleEventTypes().
+     * 
+     * Set which events types are visible.
+     * 
+     * @public
+     * @fires       onVisibleEventTypesChanged
+     * 
+     * @param       {number[]}  ids                                         The IDs of the event types to make visible.
+     * @param       {boolean}   [triggerEvent]                              States if the "onVisibleEventTypesChanged" event should be triggered (defaults to true).
+     */
+    this.setVisibleEventTypes = function( ids, triggerEvent ) {
+        if ( isDefinedArray( ids ) && !_datePickerModeEnabled ) {
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+
+            _configuration.visibleEventTypes = [];
+
+            var idsLength = ids.length;
+
+            for ( var idIndex = 0; idIndex < idsLength; idIndex++ ) {
+                if ( _configuration.visibleEventTypes.indexOf( ids[ idIndex ] ) === -1 ) {
+                    _configuration.visibleEventTypes.push( ids[ idIndex ] );
+                }
+            }
+
+            refreshViews( true, false );
+
+            if ( triggerEvent ) {
+                triggerOptionsEvent( "onVisibleEventTypesChanged", _configuration.visibleEventTypes );
+            }
+        }
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
