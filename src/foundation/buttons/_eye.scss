@@ -9,7 +9,7 @@
 
     &::before {
         @include button-after-before-setup;
-        @include left-center-minus($border-width / 2);
+        @include left-center-minus(calc($border-width / 2));
         @include top-center;
         background-color: $light-color;
         width: $border-width;

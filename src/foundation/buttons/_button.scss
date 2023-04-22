@@ -1,6 +1,6 @@
 $light-color: #F5F5F5;
 $size: 16px;
-$border-width: $size / 4;
+$border-width: calc($size / 4);
 $border-radius: $border-width;
 $border: $border-width solid $light-color;
 

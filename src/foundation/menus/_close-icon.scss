@@ -6,11 +6,11 @@
     &::before,
     &::after {
         width: $border-width;
-        height: $size + $border-width / 2;
+        height: $size + calc($border-width / 2);
         background-color: $dark-color;
         border-radius: $border-radius;
-        left: ($size / 2) - $border-width / 2;
-        top: -($border-width / 4);
+        left: calc($size / 2) - calc($border-width / 2);
+        top: -(calc($border-width / 4));
     }
 
     &::before {
