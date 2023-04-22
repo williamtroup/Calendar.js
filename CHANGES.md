@@ -1,6 +1,9 @@
 # Calendar.js - Change Log:
 
 ### Version 2.0.0:
+- MAJOR: Added Event Type support for events (under a new tab called Type).
+- MAJOR: Added side menu for the whole Calendar, which allows Groups and Event Types to be toggled easily.
+- Removed the "Groups" tab from the "Configuration" dialog (as its all in the side menu now).
 - The "View Current Week Events" button is now the same, but flipped.
 - When events are added/updated, the group they are assigned (if new) is made visible by default.
 - The "locked" property is now included in the CSV export result.
