@@ -444,7 +444,7 @@ div.calendar div.side-menu {
   left: -275px;
   top: 0;
   color: #F5F5F5 !important;
-  z-index: 1001;
+  z-index: 1500;
   transition: all 0.3s linear;
   background-color: #282828;
   border-right: 5px solid #F5F5F5;
@@ -2115,7 +2115,7 @@ div.search {
   position: fixed;
   display: none;
   box-shadow: 4px 4px 4px #282828;
-  z-index: 1003;
+  z-index: 999;
 }
 div.search div.ib-close {
   float: right;

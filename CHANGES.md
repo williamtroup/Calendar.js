@@ -24,6 +24,7 @@
 - Added a light border around the "Advanced" area on the "Search" dialog.
 - Added global Ctrl/Command + Shift + E support to open the Export Events dialog (when exporting is enabled).
 - All tab container now use the custom scroll bar styles whenever they are required.
+- Fixed some issues around the z-indexes used for dialogs.  The search dialog is now shown under the main disabled background.
 - 
 
 ### Version 1.8.7:

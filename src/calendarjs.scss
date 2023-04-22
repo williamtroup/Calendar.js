@@ -430,7 +430,7 @@ div.calendar {
         left: -($side-menu-width + $side-menu-right-border-width + ($spacing * 2));
         top: 0;
         color: $light-color !important;
-        z-index: 1001;
+        z-index: 1500;
         transition: all .3s linear; 
         background-color: $dark-color;
         border-right: $side-menu-right-border-width solid $light-color;
@@ -1249,7 +1249,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(300px, false, 1003);
+    @include dialog-styles(300px, false, 999);
     @include dialog-title-bar;
 
     div.contents {
