@@ -217,3 +217,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventTypeTask | The text that should be displayed for the "Task" event label. |
 | *string* | lockedText | The text that should be displayed for the "Locked:" label. |
 | *string* | typeText | The text that should be displayed for the "Type:" label. |
+| *string* | sideMenuHeaderText | The text that should be displayed for the "Calendar.js" side menu header label. |

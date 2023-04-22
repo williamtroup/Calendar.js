@@ -424,9 +424,9 @@ div.calendar {
     div.side-menu {
         position: absolute;
         padding: $spacing;
-        padding-top: $spacing + 16px;
+        padding-top: $spacing;
         width: $side-menu-width;
-        height: calc(100% - (($spacing * 2) + 16px));
+        height: calc(100% - ($spacing * 2));
         left: -($side-menu-width + $side-menu-right-border-width + ($spacing * 2));
         top: 0;
         color: $light-color !important;
@@ -437,6 +437,12 @@ div.calendar {
         border-radius: $border-view-radius;
         overflow-x: hidden;
         overflow-y: auto;
+
+        p.main-header {
+            margin: 0 !important;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
         
         div.ib-close {
             position: absolute;

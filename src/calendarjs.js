@@ -258,6 +258,7 @@
  * @property    {string}    eventTypeTask                               The text that should be displayed for the "Task" event label.
  * @property    {string}    lockedText                                  The text that should be displayed for the "Locked:" label.
  * @property    {string}    typeText                                    The text that should be displayed for the "Type:" label.
+ * @property    {string}    sideMenuHeaderText                          The text that should be displayed for the "Calendar.js" side menu header label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -1119,6 +1120,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullSideMenu() {
         _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars" );
         _element_Calendar.appendChild( _element_SideMenu );
+
+        createTextHeaderElement( _element_SideMenu, _options.sideMenuHeaderText, "main-header" );
 
         _element_SideMenu_Sections = createElement( "div" );
         _element_SideMenu.appendChild( _element_SideMenu_Sections );
@@ -9972,6 +9975,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedString( _options.typeText ) ) {
             _options.typeText = "Type:";
+        }
+
+        if ( !isDefinedString( _options.sideMenuHeaderText ) ) {
+            _options.sideMenuHeaderText = "Calendar.js";
         }
     }
 

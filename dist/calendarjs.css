@@ -438,9 +438,9 @@ div.calendar div.side-menu-disabled-background {
 div.calendar div.side-menu {
   position: absolute;
   padding: 10px;
-  padding-top: 26px;
+  padding-top: 10px;
   width: 250px;
-  height: calc(100% - 36px);
+  height: calc(100% - 20px);
   left: -274px;
   top: 0;
   color: #F5F5F5 !important;
@@ -451,6 +451,11 @@ div.calendar div.side-menu {
   border-radius: 0.25rem;
   overflow-x: hidden;
   overflow-y: auto;
+}
+div.calendar div.side-menu p.main-header {
+  margin: 0 !important;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 div.calendar div.side-menu div.ib-close {
   position: absolute;
