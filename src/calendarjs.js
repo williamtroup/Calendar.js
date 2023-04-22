@@ -469,6 +469,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _elementID_FullDay = "full-day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_YearSelected = "year-selected-",
+        _element_Rows = [],
+        _element_DisabledBackground = null,
         _element_Calendar = null,
         _element_Calendar_AllVisibleEvents = [],
         _element_MoveDialog = null,
@@ -482,7 +484,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_HeaderDateDisplay_SearchButton = null,
-        _element_DisabledBackground = null,
+        _element_DayNamesHeader = null,
         _element_SideMenu = null,
         _element_SideMenu_Content = null,
         _element_SideMenu_Content_Section_Groups = null,
@@ -665,13 +667,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function build( newStartDateTime, fullRebuild ) {
+    function build( newStartDateTime, fullRebuild, forceRefreshViews ) {
         _currentDate = isDefinedDate( newStartDateTime ) ? newStartDateTime : new Date();
         _currentDate.setDate( 1 );
         _currentDate.setHours( 0, 0, 0, 0 );
         _isDateToday = isDateTodaysMonthAndYear( _currentDate );
 
         fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
+        forceRefreshViews = isDefined( forceRefreshViews ) ? forceRefreshViews : false;
 
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
             startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay(),
@@ -702,6 +705,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _isFullScreenModeActivated && !_datePickerModeEnabled ) {
             forceTurnOnFullScreenMode();
+        }
+
+        if ( forceRefreshViews ) {
+            refreshViews( true, false );
         }
 
         if ( _element_Calendar !== null ) {
@@ -818,28 +825,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildContainer() {
-        var element;
+        if ( _element_Calendar === null ) {
+            var element;
 
-        if ( !isDefinedDOMElement( _elementID ) ) {
-            element = getElementByID( _elementID );
-        } else {
-
-            element = _elementID;
-            _elementID = element.id;
-
-            if ( !isDefinedString( _elementID ) ) {
-                _elementID = newGuid();
-            }
-        }
-
-        if ( element !== null ) {
-            if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
-                buildDatePickerMode( element );
+            if ( !isDefinedDOMElement( _elementID ) ) {
+                element = getElementByID( _elementID );
             } else {
     
-                _element_Calendar = element;
-                _element_Calendar.className = "calendar";
-                _element_Calendar.innerHTML = "";
+                element = _elementID;
+                _elementID = element.id;
+    
+                if ( !isDefinedString( _elementID ) ) {
+                    _elementID = newGuid();
+                }
+            }
+    
+            if ( element !== null ) {
+                if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
+                    buildDatePickerMode( element );
+                } else {
+        
+                    _element_Calendar = element;
+                    _element_Calendar.className = "calendar";
+                    _element_Calendar.innerHTML = "";
+                }
             }
         }
     }
@@ -849,8 +858,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_FullScreenButton = null;
         _element_HeaderDateDisplay_SearchButton = null;
 
-        _element_HeaderDateDisplay = createElement( "div", "header-date" );
-        _element_Calendar.appendChild( _element_HeaderDateDisplay );
+        var wasAddedAlready = _element_HeaderDateDisplay !== null;
+
+        if ( wasAddedAlready ) {
+            _element_HeaderDateDisplay.innerHTML = "";
+        }
+
+        if ( !wasAddedAlready ) {
+            _element_HeaderDateDisplay = createElement( "div", "header-date" );
+            _element_Calendar.appendChild( _element_HeaderDateDisplay );
+        }
 
         if ( _options.fullScreenModeEnabled ) {
             _element_HeaderDateDisplay.ondblclick = headerDoubleClick;
@@ -928,20 +945,34 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildDayNamesHeader() {
+        var wasAddedAlready = _element_DayNamesHeader !== null;
+        
         if ( _options.showDayNamesInMainDisplay ) {
-            var headerRow = createElement( "div", "row-cells header-days" ),
-                headerNamesLength = _options.dayHeaderNames.length;
+            var headerNamesLength = _options.dayHeaderNames.length;
 
-            if ( _datePickerModeEnabled ) {
-                headerRow.onclick = cancelBubble;
+            if ( wasAddedAlready ) {
+                _element_DayNamesHeader.innerHTML = "";
             }
 
-            _element_Calendar.appendChild( headerRow );
+            if ( !wasAddedAlready ) {
+                _element_DayNamesHeader = createElement( "div", "row-cells header-days" );
+                _element_Calendar.appendChild( _element_DayNamesHeader );
+            }
+
+            if ( _datePickerModeEnabled ) {
+                _element_DayNamesHeader.onclick = cancelBubble;
+            }
 
             for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
                 if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                    buildDayNamesHeaderItem( headerRow, headerNameIndex );
+                    buildDayNamesHeaderItem( _element_DayNamesHeader, headerNameIndex );
                 }
+            }
+        } else {
+
+            if ( wasAddedAlready ) {
+                _element_DayNamesHeader.parentNode.removeChild( _element_DayNamesHeader );
+                _element_DayNamesHeader = null;
             }
         }
     }
@@ -1005,9 +1036,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildDayRows() {
+        if ( _element_Rows.length > 0 ) {
+            var rowsLength = _element_Rows.length;
+            
+            for ( var rowsIndex = 0; rowsIndex < rowsLength; rowsIndex++ ) {
+                _element_Rows[ rowsIndex ].parentNode.removeChild( _element_Rows[ rowsIndex ] );
+            }
+
+            _element_Rows = [];
+        }
+
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
             var rowData = createElement( "div", "row-cells days" );
             _element_Calendar.appendChild( rowData );
+
+            _element_Rows.push( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
                 if ( _options.visibleDays.indexOf( columnDataIndex ) > -1 ) {
@@ -1108,7 +1151,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildSideMenu() {
-        if ( !_datePickerModeEnabled ) {
+        if ( !_datePickerModeEnabled && _element_SideMenu === null ) {
             buildSideMenuDisabledBackground();
             buildFullSideMenu();
         }
@@ -2369,8 +2412,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullDayView() {
         if ( !_datePickerModeEnabled ) {
-            _element_FullDayView = createElement( "div", "full-day-view" );
-            _element_Calendar.appendChild( _element_FullDayView );
+            var wasAddedAlready = _element_FullDayView !== null;
+
+            if ( wasAddedAlready ) {
+                _element_FullDayView.innerHTML = "";
+            }
+
+            if ( !wasAddedAlready ) {
+                _element_FullDayView = createElement( "div", "full-day-view" );
+                _element_Calendar.appendChild( _element_FullDayView );
+            }
     
             var titleBar = createElement( "div", "title-bar" );
             _element_FullDayView.appendChild( titleBar );
@@ -2967,8 +3018,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildListAllEventsView() {
         if ( !_datePickerModeEnabled ) {
-            _element_ListAllEventsView = createElement( "div", "list-all-events-view" );
-            _element_Calendar.appendChild( _element_ListAllEventsView );
+            var wasAddedAlready = _element_ListAllEventsView !== null;
+
+            if ( wasAddedAlready ) {
+                _element_ListAllEventsView.innerHTML = "";
+            }
+
+            if ( !wasAddedAlready ) {
+                _element_ListAllEventsView = createElement( "div", "list-all-events-view" );
+                _element_Calendar.appendChild( _element_ListAllEventsView );
+            }
     
             var titleBar = createElement( "div", "title-bar" );
             _element_ListAllEventsView.appendChild( titleBar );
@@ -3211,8 +3270,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildListAllWeekEventsView() {
         if ( !_datePickerModeEnabled ) {
-            _element_ListAllWeekEventsView = createElement( "div", "list-all-week-events-view" );
-            _element_Calendar.appendChild( _element_ListAllWeekEventsView );
+            var wasAddedAlready = _element_ListAllWeekEventsView !== null;
+
+            if ( wasAddedAlready ) {
+                _element_ListAllWeekEventsView.innerHTML = "";
+            }
+
+            if ( !wasAddedAlready ) {
+                _element_ListAllWeekEventsView = createElement( "div", "list-all-week-events-view" );
+                _element_Calendar.appendChild( _element_ListAllWeekEventsView );
+            }
     
             var titleBar = createElement( "div", "title-bar" );
             _element_ListAllWeekEventsView.appendChild( titleBar );
@@ -6154,7 +6221,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         triggerOptionsEventWithData( "onOptionsUpdated", _options );
         checkForBrowserNotificationsPermission();
         hideConfigurationDialog();
-        build( _currentDate, true );
+        build( _currentDate, true, true );
     }
 
     function configurationDialogEvent_Cancel() {
