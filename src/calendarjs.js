@@ -1186,13 +1186,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildSideMenuGroups() {
-        _element_SideMenu_Section_Groups = createElement( "div", "content-section" );
-        _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_Groups );
-
         var groups = getGroups(),
             groupsLength = groups.length;
 
         if ( groupsLength > 0 ) {
+            _element_SideMenu_Section_Groups = createElement( "div", "content-section" );
+            _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_Groups );
+
             createTextHeaderElement( _element_SideMenu_Section_Groups, _options.groupsText + ":", "text-header" );
 
             for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
@@ -1210,16 +1210,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildSideMenuEventTypes() {
-        var headerAdded = false;
-
-        _element_SideMenu_Section_EventTypes = createElement( "div", "content-section" );
-        _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_EventTypes );
+        var sectionAndHeaderAdded = false;
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
-                if ( !headerAdded ) {
+                if ( !sectionAndHeaderAdded ) {
+                    _element_SideMenu_Section_EventTypes = createElement( "div", "content-section" );
+                    _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_EventTypes );
+                    
                     createTextHeaderElement( _element_SideMenu_Section_EventTypes, _options.eventTypesText + ":", "text-header" );
-                    headerAdded = true;
+                    sectionAndHeaderAdded = true;
                 }
 
                 var visible = true;
