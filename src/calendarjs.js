@@ -480,6 +480,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_SearchButton = null,
         _element_DisabledBackground = null,
         _element_SideMenu = null,
+        _element_SideMenu_Sections = null,
         _element_SideMenu_Section_Groups = null,
         _element_SideMenu_Section_EventTypes = null,
         _element_SideMenu_DisabledBackground = null,
@@ -1118,16 +1119,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullSideMenu() {
         _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars" );
         _element_Calendar.appendChild( _element_SideMenu );
-    }
 
-    function showSideMenu() {
-        _element_SideMenu.innerHTML = "";
+        _element_SideMenu_Sections = createElement( "div" );
+        _element_SideMenu.appendChild( _element_SideMenu_Sections );
 
         var closeButton = createElement( "div", "ib-close" );
         closeButton.onclick = hideSideMenu;
         _element_SideMenu.appendChild( closeButton );
 
         addToolTip( closeButton, _options.closeTooltipText );
+    }
+
+    function showSideMenu() {
+        _element_SideMenu_Sections.innerHTML = "";
 
         buildSideMenuGroups();
         buildSideMenuEventTypes();
@@ -1180,7 +1184,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildSideMenuGroups() {
         _element_SideMenu_Section_Groups = createElement( "div", "content-section" );
-        _element_SideMenu.appendChild( _element_SideMenu_Section_Groups );
+        _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_Groups );
 
         var groups = getGroups(),
             groupsLength = groups.length;
@@ -1206,7 +1210,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var headerAdded = false;
 
         _element_SideMenu_Section_EventTypes = createElement( "div", "content-section" );
-        _element_SideMenu.appendChild( _element_SideMenu_Section_EventTypes );
+        _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_EventTypes );
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
