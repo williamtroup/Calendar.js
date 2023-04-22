@@ -9,6 +9,8 @@
 - The "locked" property is now included in the CSV export result.
 - Added left margin spacing to the "Advanced" options in the "Search" dialog.
 - Removed all deprecated SASS math divide usages.
+- Added a new custom event "onVisibleGroupsChanged", which is triggered when the visible groups are changed (passes the visible group names).
+- Added a new custom event "onVisibleEventTypesChanged", which is triggered when the visible event types are changed (passes the visible event type IDs).
 - 
 
 ### Version 1.8.7:

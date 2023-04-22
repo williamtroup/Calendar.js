@@ -102,6 +102,8 @@
  * @property    {Object}    onEventDragDrop                             Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function).
  * @property    {Object}    onEventClick                                Specifies an event that will be triggered when an event is clicked (passes the event to the function).
  * @property    {Object}    onEventDoubleClick                          Specifies an event that will be triggered when an event is double clicked (when editing mode is disabled, passes the event to the function).
+ * @property    {Object}    onVisibleGroupsChanged                      Specifies an event that will be triggered when the visible groups are changed (passes the visible group names to the function).
+ * @property    {Object}    onVisibleEventTypesChanged                  Specifies an event that will be triggered when the visible event types are changed (passes the visible event type IDs to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -1157,10 +1159,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function saveSideMenuSelections() {
         if ( _element_SideMenu_Content_Section_Groups !== null ) {
             _configuration.visibleGroups = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_Groups );
+
+            triggerOptionsEventWithData( "onVisibleGroupsChanged", _configuration.visibleGroups );
         }
         
         if ( _element_SideMenu_Content_Section_EventTypes !== null ) {
             _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_EventTypes, true );
+
+            triggerOptionsEventWithData( "onVisibleEventTypesChanged", _configuration.visibleEventTypes );
         }
 
         refreshViews( true, false );
