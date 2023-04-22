@@ -37,11 +37,12 @@
  * @property    {Object}    repeatEnds                                  The date when a repeating series should end.
  * @property    {string}    group                                       The name of the group the event belongs to.
  * @property    {string}    url                                         The URL that is associated with the event.
- * @property    {number}    repeatEveryCustomType                       States the custom repeating period (0 = Daily, 1 = Weekly, 2 = Monthly, 3 = Yearly).
+ * @property    {number}    repeatEveryCustomType                       States the custom repeating period (0: Daily, 1: Weekly, 2: Monthly, 3: Yearly).
  * @property    {number}    repeatEveryCustomValue                      States the custom repeating period value (for example, 1 day, week, month, or year).
  * @property    {Object}    lastUpdated                                 The date that the event was last updated.
  * @property    {boolean}   showAlerts                                  States if browser notifications should be shown for this event (defaults to true).
  * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
+ * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
  */
 
 
@@ -6048,6 +6049,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function isEventVisible( event ) {
         var group = getString( event.group ),
             configGroup = getGroupName( group ),
+            type = getNumber( event.type ).toString(),
             visible = true;
         
         if ( group !== "" ) {
@@ -6056,6 +6058,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         } else {
             visible = !_options.hideEventsWithoutGroupAssigned;
+        }
+
+        if ( visible && isDefined( _configuration.visibleEventTypes ) ) {
+            visible = _configuration.visibleEventTypes.indexOf( type ) > -1;
         }
 
         return visible;
