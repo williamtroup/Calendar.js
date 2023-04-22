@@ -1237,7 +1237,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleEventTypes.indexOf( parseInt( eventType ) ) > -1;
                 }
 
-                buildCheckBox( _element_SideMenu_Content_Section_EventTypes, getEventTypeText( eventType ), null, eventType, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_EventTypes, _eventType[ eventType ].text, null, eventType, visible );
             }
         }
     }
@@ -1269,13 +1269,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _eventType[ eventType ].eventEditorInput.disabled = disabled;
             }
         }
-    }
-
-    function getEventTypeText( eventType ) {
-        var eventTypeText = _eventType[ eventType ].text,
-            text = eventTypeText[ 0 ].toUpperCase() + eventTypeText.substring( 1 );
-
-        return text;
     }
 
     function getEventTypeInputChecked() {
@@ -4651,7 +4644,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
-                _eventType[ eventType ].eventEditorInput = buildRadioButton( radioButtonsTypesContainer, getEventTypeText( eventType ), "Type" );
+                _eventType[ eventType ].eventEditorInput = buildRadioButton( radioButtonsTypesContainer, _eventType[ eventType ].text, "Type" );
             }
         }
     }
