@@ -462,25 +462,25 @@ div.calendar div.side-menu div.ib-close {
   right: 10px;
   top: 10px;
 }
-div.calendar div.side-menu div.content-section {
+div.calendar div.side-menu div.content div.content-section {
   padding: 10px;
   margin-top: 10px;
   border-radius: 0.25rem;
   background-color: #474545;
 }
-div.calendar div.side-menu div.content-section p.text-header {
+div.calendar div.side-menu div.content div.content-section p.text-header {
   margin-top: 0 !important;
   margin-bottom: 10px;
 }
-div.calendar div.side-menu div.content-section label.checkbox {
+div.calendar div.side-menu div.content div.content-section label.checkbox {
   margin-bottom: 5px;
   margin-left: 10px;
   color: #F5F5F5 !important;
 }
-div.calendar div.side-menu div.content-section label.checkbox span.check-mark {
+div.calendar div.side-menu div.content div.content-section label.checkbox span.check-mark {
   background-color: #F5F5F5 !important;
 }
-div.calendar div.side-menu div.content-section label.checkbox span.check-mark::before {
+div.calendar div.side-menu div.content div.content-section label.checkbox span.check-mark::before {
   border-color: #282828 !important;
 }
 div.calendar div.side-menu-open {

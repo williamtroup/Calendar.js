@@ -450,27 +450,29 @@ div.calendar {
             top: $spacing;
         }
 
-        div.content-section {
-            padding: $spacing;
-            margin-top: $spacing;
-            border-radius: $border-view-radius;
-            background-color: #474545;
-
-            p.text-header {
-                margin-top: 0 !important;
-                margin-bottom: $spacing;
-            }
-
-            label.checkbox {
-                margin-bottom: $spacing / 2;
-                margin-left: $spacing;
-                color: $light-color !important;
-
-                span.check-mark {
-                    background-color: $light-color !important;
-
-                    &::before {
-                        border-color: $dark-color !important;
+        div.content {
+            div.content-section {
+                padding: $spacing;
+                margin-top: $spacing;
+                border-radius: $border-view-radius;
+                background-color: #474545;
+    
+                p.text-header {
+                    margin-top: 0 !important;
+                    margin-bottom: $spacing;
+                }
+    
+                label.checkbox {
+                    margin-bottom: $spacing / 2;
+                    margin-left: $spacing;
+                    color: $light-color !important;
+    
+                    span.check-mark {
+                        background-color: $light-color !important;
+    
+                        &::before {
+                            border-color: $dark-color !important;
+                        }
                     }
                 }
             }

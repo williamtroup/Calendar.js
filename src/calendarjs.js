@@ -481,9 +481,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_SearchButton = null,
         _element_DisabledBackground = null,
         _element_SideMenu = null,
-        _element_SideMenu_Sections = null,
-        _element_SideMenu_Section_Groups = null,
-        _element_SideMenu_Section_EventTypes = null,
+        _element_SideMenu_Content = null,
+        _element_SideMenu_Content_Section_Groups = null,
+        _element_SideMenu_Content_Section_EventTypes = null,
         _element_SideMenu_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
@@ -1123,8 +1123,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         createTextHeaderElement( _element_SideMenu, _options.sideMenuHeaderText, "main-header" );
 
-        _element_SideMenu_Sections = createElement( "div" );
-        _element_SideMenu.appendChild( _element_SideMenu_Sections );
+        _element_SideMenu_Content = createElement( "div", "content" );
+        _element_SideMenu.appendChild( _element_SideMenu_Content );
 
         var closeButton = createElement( "div", "ib-close" );
         closeButton.onclick = hideSideMenu;
@@ -1134,7 +1134,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showSideMenu() {
-        _element_SideMenu_Sections.innerHTML = "";
+        _element_SideMenu_Content.innerHTML = "";
 
         buildSideMenuGroups();
         buildSideMenuEventTypes();
@@ -1155,8 +1155,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function saveSideMenuSelections() {
-        _configuration.visibleGroups = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Section_Groups );
-        _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Section_EventTypes, true );
+        if ( _element_SideMenu_Content_Section_Groups !== null ) {
+            _configuration.visibleGroups = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_Groups );
+        }
+        
+        if ( _element_SideMenu_Content_Section_EventTypes !== null ) {
+            _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_EventTypes, true );
+        }
 
         refreshViews( true, false );
     }
@@ -1186,14 +1191,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildSideMenuGroups() {
+        _element_SideMenu_Content_Section_Groups = null;
+
         var groups = getGroups(),
             groupsLength = groups.length;
 
         if ( groupsLength > 0 ) {
-            _element_SideMenu_Section_Groups = createElement( "div", "content-section" );
-            _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_Groups );
+            _element_SideMenu_Content_Section_Groups = createElement( "div", "content-section" );
+            _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Groups );
 
-            createTextHeaderElement( _element_SideMenu_Section_Groups, _options.groupsText + ":", "text-header" );
+            createTextHeaderElement( _element_SideMenu_Content_Section_Groups, _options.groupsText + ":", "text-header" );
 
             for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
                 var groupName = groups[ groupIndex ],
@@ -1204,21 +1211,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
                 }
     
-                buildCheckBox( _element_SideMenu_Section_Groups, groupName, null, configGroupName, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_Groups, groupName, null, configGroupName, visible );
             }
         }
     }
 
     function buildSideMenuEventTypes() {
+        _element_SideMenu_Content_Section_EventTypes = null;
+
         var sectionAndHeaderAdded = false;
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
                 if ( !sectionAndHeaderAdded ) {
-                    _element_SideMenu_Section_EventTypes = createElement( "div", "content-section" );
-                    _element_SideMenu_Sections.appendChild( _element_SideMenu_Section_EventTypes );
-                    
-                    createTextHeaderElement( _element_SideMenu_Section_EventTypes, _options.eventTypesText + ":", "text-header" );
+                    _element_SideMenu_Content_Section_EventTypes = createElement( "div", "content-section" );
+                    _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_EventTypes );
+
+                    createTextHeaderElement( _element_SideMenu_Content_Section_EventTypes, _options.eventTypesText + ":", "text-header" );
                     sectionAndHeaderAdded = true;
                 }
 
@@ -1228,7 +1237,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleEventTypes.indexOf( parseInt( eventType ) ) > -1;
                 }
 
-                buildCheckBox( _element_SideMenu_Section_EventTypes, getEventTypeText( eventType ), null, eventType, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_EventTypes, getEventTypeText( eventType ), null, eventType, visible );
             }
         }
     }
