@@ -1139,6 +1139,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showSideMenu() {
         _element_SideMenu_Content.innerHTML = "";
 
+        hideSearchDialog();
         buildSideMenuGroups();
         buildSideMenuEventTypes();
 
