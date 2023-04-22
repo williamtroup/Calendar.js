@@ -404,23 +404,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _eventType = {
             0: {
                 text: "Normal Label",
-                checkboxInput: null
+                eventEditorInput: null
             },
             1: {
                 text: "Meeting Label",
-                checkboxInput: null
+                eventEditorInput: null
             },
             2: {
                 text: "Birthday Label",
-                checkboxInput: null
+                eventEditorInput: null
             },
             3: {
                 text: "Holiday Label",
-                checkboxInput: null
+                eventEditorInput: null
             },
             4: {
                 text: "Task Label",
-                checkboxInput: null
+                eventEditorInput: null
             }
         },
         _configuration = {
@@ -486,6 +486,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
+        _element_EventEditorDialog_Tab_Type = null,
         _element_EventEditorDialog_Tab_Repeats = null,
         _element_EventEditorDialog_Tab_Extra = null,
         _element_EventEditorDialog_DisabledArea = null,
@@ -1152,12 +1153,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function saveSideMenuSelections() {
         _configuration.visibleGroups = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Groups );
-        _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_EventTypes );
+        _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_EventTypes, true );
 
         refreshViews( true, false );
     }
 
-    function getSideMenuCheckedCheckBoxNames( container ) {
+    function getSideMenuCheckedCheckBoxNames( container, isNumericName ) {
+        isNumericName = isDefined( isNumericName ) ? isNumericName : false;
+
         var checkboxes = container.getElementsByTagName( "input" ),
             checkboxesLength = checkboxes.length,
             names = [];
@@ -1167,7 +1170,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var checkbox = checkboxes[ checkboxIndex ];
 
                 if ( checkbox.checked ) {
-                    names.push( checkbox.name );
+                    if ( isNumericName ) {
+                        names.push( parseInt( checkbox.name ) );
+                    } else {
+                        names.push( checkbox.name );
+                    }
                 }
             }
         }
@@ -1200,24 +1207,74 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildSideMenuEventTypes() {
+        var headerAdded = false;
+
         _element_SideMenu_Content_EventTypes = createElement( "div", "section" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_EventTypes );
 
-        createTextHeaderElement( _element_SideMenu_Content_EventTypes, _options.eventTypesText + ":", "text-header" );
-
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
-                var eventTypeText = _eventType[ eventType ].text,
-                    checkboxText = eventTypeText[ 0 ].toUpperCase() + eventTypeText.substring( 1 ),
-                    visible = true;
-
-                if ( isDefined( _configuration.visibleEventTypes ) ) {
-                    visible = _configuration.visibleEventTypes.indexOf( eventType ) > -1;
+                if ( !headerAdded ) {
+                    createTextHeaderElement( _element_SideMenu_Content_EventTypes, _options.eventTypesText + ":", "text-header" );
+                    headerAdded = true;
                 }
 
-                buildCheckBox( _element_SideMenu_Content_EventTypes, checkboxText, null, eventType, visible );
+                var visible = true;
+
+                if ( isDefined( _configuration.visibleEventTypes ) ) {
+                    visible = _configuration.visibleEventTypes.indexOf( parseInt( eventType ) ) > -1;
+                }
+
+                buildCheckBox( _element_SideMenu_Content_EventTypes, getEventTypeText( eventType ), null, eventType, visible );
             }
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Event Types
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function setEventTypeInputCheckedStates( selectedEventType ) {
+        selectedEventType = isDefined( selectedEventType ) ? selectedEventType : 0;
+
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) ) {
+                _eventType[ eventType ].eventEditorInput.checked = false;
+            }
+        }
+
+        _eventType[ selectedEventType ].eventEditorInput.checked = true;
+    }
+
+    function setEventTypeInputDisabledStates( disabled ) {
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) ) {
+                _eventType[ eventType ].eventEditorInput.disabled = disabled;
+            }
+        }
+    }
+
+    function getEventTypeText( eventType ) {
+        var eventTypeText = _eventType[ eventType ].text,
+            text = eventTypeText[ 0 ].toUpperCase() + eventTypeText.substring( 1 );
+
+        return text;
+    }
+
+    function getEventTypeInputChecked() {
+        var result = 0;
+
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) && _eventType[ eventType ].eventEditorInput.checked ) {
+                result = parseInt( eventType );
+                break;
+            }
+        }
+
+        return result;
     }
 
 
@@ -4485,6 +4542,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildTab( tabsContainer, _options.eventText, function( tab ) {
                 showTabContents( tab, _element_EventEditorDialog_Tab_Event, _element_EventEditorDialog );
             }, true );
+
+            buildTab( tabsContainer, _options.typeText.replace( ":", "" ), function( tab ) {
+                showTabContents( tab, _element_EventEditorDialog_Tab_Type, _element_EventEditorDialog );
+            } );
             
             buildTab( tabsContainer, _options.repeatsText.replace( ":", "" ), function( tab ) {
                 showTabContents( tab, _element_EventEditorDialog_Tab_Repeats, _element_EventEditorDialog );
@@ -4495,6 +4556,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
             
             _element_EventEditorDialog_Tab_Event = buildTabContents( contents, true, false );
+            _element_EventEditorDialog_Tab_Type = buildTabContents( contents, false, false );
             _element_EventEditorDialog_Tab_Repeats = buildTabContents( contents, false, false );
             _element_EventEditorDialog_Tab_Extra = buildTabContents( contents, false, false );
     
@@ -4565,6 +4627,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChangedEvent )[ 0 ];
         _element_EventEditorDialog_ShowAlerts = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.showAlertsText )[ 0 ];
+    }
+
+    function buildEventEditorTypeTabContent() {
+        _element_EventEditorDialog_Tab_Type.innerHTML = "";
+
+        var radioButtonsTypesContainer = createElement( "div", "radio-buttons-container" );
+        _element_EventEditorDialog_Tab_Type.appendChild( radioButtonsTypesContainer );
+
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) ) {
+                _eventType[ eventType ].eventEditorInput = buildRadioButton( radioButtonsTypesContainer, getEventTypeText( eventType ), "Type" );
+            }
+        }
     }
 
     function buildEventEditorRepeatsTabContent() {
@@ -4712,9 +4787,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues ) {
         addNode( _document.body, _element_DisabledBackground );
         selectTab( _element_EventEditorDialog );
+        buildEventEditorTypeTabContent();
 
         if ( isDefined( eventDetails ) ) {
             setNodeText( _element_EventEditorDialog_TitleBar, _options.editEventTitle );
+            setEventTypeInputCheckedStates( eventDetails.type );
 
             _element_EventEditorDialog_OKButton.value = _options.updateText;
             _element_EventEditorDialog_RemoveButton.style.display = "block";
@@ -4785,6 +4862,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             setNodeText( _element_EventEditorDialog_TitleBar, _options.addEventTitle );
+            setEventTypeInputCheckedStates();
 
             _element_EventEditorDialog_OKButton.value = _options.addText;
             _element_EventEditorDialog_RemoveButton.style.display = "none";
@@ -4838,6 +4916,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function setLockedStatusForEventEditingDialog( eventDetails ) {
         var locked = isEventLocked( eventDetails );
+
+        setEventTypeInputDisabledStates( locked );
 
         _element_EventEditorDialog_OKButton.disabled = locked;
         _element_EventEditorDialog_DateFrom.disabled = locked;
@@ -4895,7 +4975,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 location = trimString( _element_EventEditorDialog_Location.value ),
                 group = trimString( _element_EventEditorDialog_Group.value ),
                 repeatEnds = getSelectedDate( _element_EventEditorRepeatOptionsDialog_RepeatEnds, null ),
-                repeatEveryCustomValue = parseInt( _element_EventEditorDialog_RepeatEvery_Custom_Value.value );
+                repeatEveryCustomValue = parseInt( _element_EventEditorDialog_RepeatEvery_Custom_Value.value ),
+                type = getEventTypeInputChecked();
 
             setTimeOnDate( fromDate, _element_EventEditorDialog_TimeFrom.value );
             setTimeOnDate( toDate, _element_EventEditorDialog_TimeTo.value );
@@ -4928,7 +5009,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         repeatEveryExcludeDays: _element_EventEditorDialog_EventDetails.repeatEveryExcludeDays,
                         repeatEnds: repeatEnds,
                         url: url,
-                        repeatEveryCustomValue: repeatEveryCustomValue
+                        repeatEveryCustomValue: repeatEveryCustomValue,
+                        type: type
                     };
 
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
@@ -6068,7 +6150,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function isEventVisible( event ) {
         var group = getString( event.group ),
             configGroup = getGroupName( group ),
-            type = getNumber( event.type ).toString(),
+            type = getNumber( event.type ),
             visible = true;
         
         if ( group !== "" ) {
