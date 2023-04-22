@@ -971,7 +971,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else {
 
             if ( wasAddedAlready ) {
-                _element_DayNamesHeader.parentNode.removeChild( _element_DayNamesHeader );
+                _element_Calendar.removeChild( _element_DayNamesHeader );
                 _element_DayNamesHeader = null;
             }
         }
@@ -1040,7 +1040,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var rowsLength = _element_Rows.length;
             
             for ( var rowsIndex = 0; rowsIndex < rowsLength; rowsIndex++ ) {
-                _element_Rows[ rowsIndex ].parentNode.removeChild( _element_Rows[ rowsIndex ] );
+                _element_Calendar.removeChild( _element_Rows[ rowsIndex ] );
             }
 
             _element_Rows = [];
