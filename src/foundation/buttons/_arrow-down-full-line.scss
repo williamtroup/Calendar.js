@@ -3,7 +3,7 @@
 .ib-arrow-down-full-line {
     @include button;
 
-    &:before {
+    &::before {
         width: 0; 
         height: 0; 
         border-left: $size / 2 solid transparent;
@@ -13,7 +13,7 @@
         bottom: 0;
     }
 
-    &:after {
+    &::after {
         @include left-center;
         width: $size / 2;
         height: $size / 2;

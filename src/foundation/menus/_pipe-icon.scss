@@ -3,7 +3,7 @@
 .ib-pipe-icon {
     @include button-no-before-after;
 
-    &:before {
+    &::before {
         @include button-after-before-setup;
         @include left-center;
         background-color: $dark-color;

@@ -26,8 +26,8 @@ $border: $border-width solid $light-color;
 @mixin button {
     @include button-no-before-after;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         @include button-after-before-setup;
     }
 }

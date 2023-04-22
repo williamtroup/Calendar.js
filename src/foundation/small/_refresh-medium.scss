@@ -9,7 +9,7 @@ $border: $border-width solid;
     @include button;
     border-color: $light-color;
     
-    &:before {
+    &::before {
         border-top: $border;
         border-left: $border;
         border-radius: $border-radius;
@@ -19,7 +19,7 @@ $border: $border-width solid;
         top: 0;
     }
 
-    &:after {
+    &::after {
         border-bottom: $border;
         border-right: $border;
         border-radius: $border-radius;

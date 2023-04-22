@@ -3,7 +3,7 @@
 .ib-arrow-expand-left-right {
     @include button;
 
-    &:before {
+    &::before {
         border-left: $border;
         border-bottom: $border;
         width: $size - $size / 2;
@@ -12,7 +12,7 @@
         left: 0;
     }
 
-    &:after {
+    &::after {
         border-right: $border;
         border-top: $border;
         width: $size - $size / 2;

@@ -64,19 +64,19 @@ div.calendar-dialog textarea * {
   box-sizing: content-box;
   line-height: normal;
 }
-div.calendar *:before, div.calendar *:after,
-div.calendar-tooltip *:before,
-div.calendar-tooltip *:after,
-div.calendar-tooltip-event *:before,
-div.calendar-tooltip-event *:after,
-div.calendar-drop-down-menu *:before,
-div.calendar-drop-down-menu *:after,
-div.calendar-dialog *:before,
-div.calendar-dialog *:after,
-div.calendar-dialog input *:before,
-div.calendar-dialog input *:after,
-div.calendar-dialog textarea *:before,
-div.calendar-dialog textarea *:after {
+div.calendar *::before, div.calendar *::after,
+div.calendar-tooltip *::before,
+div.calendar-tooltip *::after,
+div.calendar-tooltip-event *::before,
+div.calendar-tooltip-event *::after,
+div.calendar-drop-down-menu *::before,
+div.calendar-drop-down-menu *::after,
+div.calendar-dialog *::before,
+div.calendar-dialog *::after,
+div.calendar-dialog input *::before,
+div.calendar-dialog input *::after,
+div.calendar-dialog textarea *::before,
+div.calendar-dialog textarea *::after {
   box-sizing: content-box;
   line-height: normal;
 }
@@ -454,31 +454,29 @@ div.calendar div.side-menu div.ib-close {
   right: 10px;
   top: 10px;
 }
-div.calendar div.side-menu div.section {
+div.calendar div.side-menu div.content-section {
   padding-left: 10px;
   padding-right: 10px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
-div.calendar div.side-menu div.section p.text-header {
+div.calendar div.side-menu div.content-section p.text-header {
   margin-bottom: 10px;
 }
-div.calendar div.side-menu div.section label.checkbox {
+div.calendar div.side-menu div.content-section label.checkbox {
   margin-bottom: 5px;
   margin-left: 10px;
   color: #F5F5F5 !important;
 }
-div.calendar div.side-menu div.section label.checkbox span.check-mark {
+div.calendar div.side-menu div.content-section label.checkbox span.check-mark {
   background-color: #F5F5F5 !important;
 }
-div.calendar div.side-menu div.section label.checkbox span.check-mark::before {
+div.calendar div.side-menu div.content-section label.checkbox span.check-mark::before {
   border-color: #282828 !important;
-}
-div.calendar div.side-menu div.section:first-child {
-  margin-top: 28px !important;
 }
 div.calendar div.side-menu-open {
   left: 0 !important;
   transition: all 0.3s linear;
+  box-shadow: 0 0 10px 10px #282828;
 }
 
 /*
@@ -849,7 +847,7 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
   border-bottom: 1px solid #282828;
   position: relative;
 }
-div.calendar div.full-day-view div.contents div.contents-events div.hour:before {
+div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
   border-bottom: 1px dashed #A8A8A8;
   width: calc(100% - (70px + 20px));
   height: 54px;
@@ -2600,9 +2598,9 @@ div.calendar div.side-menu label.checkbox span.check-mark {
   border: 1px solid #A8A8A8;
   transition: all 0.3s;
 }
-div.calendar label.checkbox span.check-mark:before,
-div.calendar-dialog label.checkbox span.check-mark:before,
-div.calendar div.side-menu label.checkbox span.check-mark:before {
+div.calendar label.checkbox span.check-mark::before,
+div.calendar-dialog label.checkbox span.check-mark::before,
+div.calendar div.side-menu label.checkbox span.check-mark::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -2687,8 +2685,8 @@ div.calendar-dialog div.radio-button-container label.radio-button span.check-mar
   border: 1px solid #A8A8A8;
   transition: all 0.3s;
 }
-div.calendar div.radio-button-container label.radio-button span.check-mark:before,
-div.calendar-dialog div.radio-button-container label.radio-button span.check-mark:before {
+div.calendar div.radio-button-container label.radio-button span.check-mark::before,
+div.calendar-dialog div.radio-button-container label.radio-button span.check-mark::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -2972,11 +2970,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-pin:before, .ib-pin:after {
+.ib-pin::before, .ib-pin::after {
   position: absolute;
   content: "";
 }
-.ib-pin:before {
+.ib-pin::before {
   left: 50%;
   transform: translate(-50%);
   background-color: #F5F5F5;
@@ -2986,7 +2984,7 @@ div.calendar-drop-down-menu div.separator {
   border-bottom-right-radius: 50%;
   top: 0;
 }
-.ib-pin:after {
+.ib-pin::after {
   left: 50%;
   transform: translate(-50%);
   background-color: #F5F5F5;
@@ -3012,11 +3010,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-refresh:before, .ib-refresh:after {
+.ib-refresh::before, .ib-refresh::after {
   position: absolute;
   content: "";
 }
-.ib-refresh:before {
+.ib-refresh::before {
   border-top: 4px solid #F5F5F5;
   border-left: 4px solid #F5F5F5;
   border-radius: 4px;
@@ -3025,7 +3023,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-refresh:after {
+.ib-refresh::after {
   border-bottom: 4px solid #F5F5F5;
   border-right: 4px solid #F5F5F5;
   border-radius: 4px;
@@ -3051,11 +3049,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-search:before, .ib-search:after {
+.ib-search::before, .ib-search::after {
   position: absolute;
   content: "";
 }
-.ib-search:before {
+.ib-search::before {
   border: 4px solid #F5F5F5;
   width: 4px;
   height: 4px;
@@ -3063,7 +3061,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-search:after {
+.ib-search::after {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3094,7 +3092,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-hamburger:before {
+.ib-hamburger::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3126,7 +3124,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-hamburger-side:before {
+.ib-hamburger-side::before {
   position: absolute;
   content: "";
   left: 50%;
@@ -3158,7 +3156,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-eye:before {
+.ib-eye::before {
   position: absolute;
   content: "";
   left: calc(50% - 2px);
@@ -3187,11 +3185,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-down-full-line:before, .ib-arrow-down-full-line:after {
+.ib-arrow-down-full-line::before, .ib-arrow-down-full-line::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-down-full-line:before {
+.ib-arrow-down-full-line::before {
   width: 0;
   height: 0;
   border-left: 8px solid transparent;
@@ -3200,7 +3198,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   bottom: 0;
 }
-.ib-arrow-down-full-line:after {
+.ib-arrow-down-full-line::after {
   left: 50%;
   transform: translate(-50%);
   width: 8px;
@@ -3225,11 +3223,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-plus:before, .ib-plus:after {
+.ib-plus::before, .ib-plus::after {
   position: absolute;
   content: "";
 }
-.ib-plus:before {
+.ib-plus::before {
   left: 50%;
   transform: translate(-50%);
   background-color: #F5F5F5;
@@ -3238,7 +3236,7 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 4px;
   top: 0;
 }
-.ib-plus:after {
+.ib-plus::after {
   top: 50%;
   transform: translate(0, -50%);
   background-color: #F5F5F5;
@@ -3286,7 +3284,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-minus:before {
+.ib-minus::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3335,11 +3333,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-close:before, .ib-close:after {
+.ib-close::before, .ib-close::after {
   position: absolute;
   content: "";
 }
-.ib-close:before, .ib-close:after {
+.ib-close::before, .ib-close::after {
   width: 4px;
   height: 18px;
   background-color: #F5F5F5;
@@ -3347,12 +3345,12 @@ div.calendar-drop-down-menu div.separator {
   left: 6px;
   top: -1px;
 }
-.ib-close:before {
+.ib-close::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.ib-close:after {
+.ib-close::after {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3374,11 +3372,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-expand-left-right:before, .ib-arrow-expand-left-right:after {
+.ib-arrow-expand-left-right::before, .ib-arrow-expand-left-right::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-expand-left-right:before {
+.ib-arrow-expand-left-right::before {
   border-left: 4px solid #F5F5F5;
   border-bottom: 4px solid #F5F5F5;
   width: 8px;
@@ -3386,7 +3384,7 @@ div.calendar-drop-down-menu div.separator {
   bottom: 0;
   left: 0;
 }
-.ib-arrow-expand-left-right:after {
+.ib-arrow-expand-left-right::after {
   border-right: 4px solid #F5F5F5;
   border-top: 4px solid #F5F5F5;
   width: 8px;
@@ -3411,11 +3409,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-contract-left-right:before, .ib-arrow-contract-left-right:after {
+.ib-arrow-contract-left-right::before, .ib-arrow-contract-left-right::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-contract-left-right:before {
+.ib-arrow-contract-left-right::before {
   border-right: 4px solid #F5F5F5;
   border-top: 4px solid #F5F5F5;
   width: 4px;
@@ -3423,7 +3421,7 @@ div.calendar-drop-down-menu div.separator {
   bottom: 0;
   left: 0;
 }
-.ib-arrow-contract-left-right:after {
+.ib-arrow-contract-left-right::after {
   border-left: 4px solid #F5F5F5;
   border-bottom: 4px solid #F5F5F5;
   width: 4px;
@@ -3448,11 +3446,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-octagon-hollow:before, .ib-octagon-hollow:after {
+.ib-octagon-hollow::before, .ib-octagon-hollow::after {
   position: absolute;
   content: "";
 }
-.ib-octagon-hollow:before {
+.ib-octagon-hollow::before {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3462,7 +3460,7 @@ div.calendar-drop-down-menu div.separator {
   left: 2px;
   top: 2px;
 }
-.ib-octagon-hollow:after {
+.ib-octagon-hollow::after {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
@@ -3479,7 +3477,7 @@ div.calendar-drop-down-menu div.separator {
   display: inline-block;
   position: relative;
 }
-.ib-plus-icon:before {
+.ib-plus-icon::before {
   position: absolute;
   content: "";
   left: 50%;
@@ -3490,7 +3488,7 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 3px;
   top: 0;
 }
-.ib-plus-icon:after {
+.ib-plus-icon::after {
   position: absolute;
   content: "";
   top: 50%;
@@ -3522,7 +3520,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-hamburger-icon:before {
+.ib-hamburger-icon::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3554,7 +3552,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-hamburger-side-icon:before {
+.ib-hamburger-side-icon::before {
   position: absolute;
   content: "";
   left: 50%;
@@ -3582,11 +3580,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-expand-left-right-icon:before, .ib-arrow-expand-left-right-icon:after {
+.ib-arrow-expand-left-right-icon::before, .ib-arrow-expand-left-right-icon::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-expand-left-right-icon:before {
+.ib-arrow-expand-left-right-icon::before {
   border-left: 3px solid #282828;
   border-bottom: 3px solid #282828;
   width: 6px;
@@ -3594,7 +3592,7 @@ div.calendar-drop-down-menu div.separator {
   bottom: 0;
   left: 0;
 }
-.ib-arrow-expand-left-right-icon:after {
+.ib-arrow-expand-left-right-icon::after {
   border-right: 3px solid #282828;
   border-top: 3px solid #282828;
   width: 6px;
@@ -3619,11 +3617,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-close-icon:before, .ib-close-icon:after {
+.ib-close-icon::before, .ib-close-icon::after {
   position: absolute;
   content: "";
 }
-.ib-close-icon:before, .ib-close-icon:after {
+.ib-close-icon::before, .ib-close-icon::after {
   width: 3px;
   height: 13.5px;
   background-color: #282828;
@@ -3631,12 +3629,12 @@ div.calendar-drop-down-menu div.separator {
   left: 4.5px;
   top: -0.75px;
 }
-.ib-close-icon:before {
+.ib-close-icon::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.ib-close-icon:after {
+.ib-close-icon::after {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3720,7 +3718,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-minus-icon:before {
+.ib-minus-icon::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3748,11 +3746,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-octagon-hollow-icon:before, .ib-octagon-hollow-icon:after {
+.ib-octagon-hollow-icon::before, .ib-octagon-hollow-icon::after {
   position: absolute;
   content: "";
 }
-.ib-octagon-hollow-icon:before {
+.ib-octagon-hollow-icon::before {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3762,7 +3760,7 @@ div.calendar-drop-down-menu div.separator {
   left: 1.5px;
   top: 1.5px;
 }
-.ib-octagon-hollow-icon:after {
+.ib-octagon-hollow-icon::after {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
@@ -3789,7 +3787,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-pipe-icon:before {
+.ib-pipe-icon::before {
   position: absolute;
   content: "";
   left: 50%;
@@ -3818,11 +3816,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-refresh-medium:before, .ib-refresh-medium:after {
+.ib-refresh-medium::before, .ib-refresh-medium::after {
   position: absolute;
   content: "";
 }
-.ib-refresh-medium:before {
+.ib-refresh-medium::before {
   border-top: 3px solid;
   border-left: 3px solid;
   border-radius: 3px;
@@ -3831,7 +3829,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-refresh-medium:after {
+.ib-refresh-medium::after {
   border-bottom: 3px solid;
   border-right: 3px solid;
   border-radius: 3px;
@@ -3858,11 +3856,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-refresh-small:before, .ib-refresh-small:after {
+.ib-refresh-small::before, .ib-refresh-small::after {
   position: absolute;
   content: "";
 }
-.ib-refresh-small:before {
+.ib-refresh-small::before {
   border-top: 2px solid;
   border-left: 2px solid;
   border-radius: 2px;
@@ -3871,7 +3869,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-refresh-small:after {
+.ib-refresh-small::after {
   border-bottom: 2px solid;
   border-right: 2px solid;
   border-radius: 2px;

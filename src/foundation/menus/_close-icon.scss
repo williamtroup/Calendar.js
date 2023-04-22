@@ -3,8 +3,8 @@
 .ib-close-icon {
     @include button;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         width: $border-width;
         height: $size + $border-width / 2;
         background-color: $dark-color;
@@ -13,11 +13,11 @@
         top: -($border-width / 4);
     }
 
-    &:before {
+    &::before {
         @include transform-rotate(45deg);
     }
 
-    &:after {
+    &::after {
         @include transform-rotate(-45deg);
     }
 }

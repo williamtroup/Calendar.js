@@ -3,7 +3,7 @@
 .ib-octagon-hollow-icon {
     @include button;
 
-    &:before {
+    &::before {
         @include transform-rotate(-45deg);
         border: $border;
         width: $size - $border-width * 3;
@@ -12,7 +12,7 @@
         top: $border-width / 2;
     }
 
-    &:after {
+    &::after {
         @include transform-rotate(90deg);
         border: $border;
         width: $size - $border-width * 3;

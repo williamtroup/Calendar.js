@@ -6,7 +6,7 @@
     border-top: $border;
     border-radius: 50%;
 
-    &:before {
+    &::before {
         @include left-center;
         background-color: $light-color;
         width: $border-width;
@@ -16,7 +16,7 @@
         top: 0;
     }
 
-    &:after {
+    &::after {
         @include left-center;
         background-color: $light-color;
         width: $border-width;

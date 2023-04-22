@@ -3,7 +3,7 @@
 .ib-refresh {
     @include button;
     
-    &:before {
+    &::before {
         border-top: $border;
         border-left: $border;
         border-radius: $border-radius;
@@ -13,7 +13,7 @@
         top: 0;
     }
 
-    &:after {
+    &::after {
         border-bottom: $border;
         border-right: $border;
         border-radius: $border-radius;

@@ -1179,7 +1179,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildSideMenuGroups() {
-        _element_SideMenu_Section_Groups = createElement( "div", "section" );
+        _element_SideMenu_Section_Groups = createElement( "div", "content-section" );
         _element_SideMenu.appendChild( _element_SideMenu_Section_Groups );
 
         var groups = getGroups(),
@@ -1205,7 +1205,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildSideMenuEventTypes() {
         var headerAdded = false;
 
-        _element_SideMenu_Section_EventTypes = createElement( "div", "section" );
+        _element_SideMenu_Section_EventTypes = createElement( "div", "content-section" );
         _element_SideMenu.appendChild( _element_SideMenu_Section_EventTypes );
 
         for ( var eventType in _eventType ) {

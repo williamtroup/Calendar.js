@@ -3,7 +3,7 @@
 .ib-search {
     @include button;
     
-    &:before {
+    &::before {
         border: $border;
         width: ($size / 2 + $size / 4) - $border-width * 2;
         height: ($size / 2 + $size / 4) - $border-width * 2;
@@ -12,7 +12,7 @@
         top: 0;
     }
 
-    &:after {
+    &::after {
         @include transform-rotate(-45deg);
         width: $border-width;
         height: $size / 2;
