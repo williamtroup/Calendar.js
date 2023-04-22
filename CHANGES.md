@@ -1,7 +1,12 @@
 # Calendar.js - Change Log:
 
 ### Version 2.0.0:
-- MAJOR: Added Event Type support for events (under a new tab called Type).
+- MAJOR: Added Event Type support for events (under a new tab called Type). The default event types are:
+  - Normal (default)
+  - Meeting
+  - Birthday
+  - Holiday
+  - Task
 - MAJOR: Added side menu for the whole Calendar, which allows Groups and Event Types to be toggled easily.
 - Added new public functions "addEventType()" and "removeEventType()", for adding adding and removing event types.
 - Added new public functions "setVisibleGroups()", which will set the group name that are visible.
