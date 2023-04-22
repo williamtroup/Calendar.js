@@ -8274,7 +8274,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         url = getString( event.url );
 
                     if ( isDefined( _configuration.visibleGroups ) ) {
-                        visible = _configuration.visibleGroups.push( getGroupName( group ) );
+                        _configuration.visibleGroups.push( getGroupName( group ) );
                     }
     
                     if ( !isDefined( event.id ) ) {
