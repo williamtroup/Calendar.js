@@ -1308,6 +1308,18 @@ div.search {
 
             div.split {
                 margin-top: 0 !important;
+
+                div.checkbox-container {
+                    label.checkbox {
+                        margin-left: $spacing;
+                    }
+                }
+
+                div.radio-buttons-container {
+                    label.radio-button {
+                        margin-left: $spacing;
+                    }
+                }
             }
         }
     }
