@@ -9126,7 +9126,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _initialized = false;
 
             if ( !_datePickerModeEnabled || _datePickerVisible ) {
-                build( _currentDate, true );
+                build( _currentDate, true, true );
             }
         }
     };
@@ -9185,7 +9185,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
-                build( _currentDate, true );
+                build( _currentDate, true, true );
             }   
         }
     };
@@ -9226,7 +9226,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( updateEvents ) {
-                build( _currentDate, true );
+                build( _currentDate, true, true );
             }
         }
     };
