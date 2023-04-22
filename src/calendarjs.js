@@ -8136,7 +8136,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.refresh = function() {
         if ( !_datePickerModeEnabled ) {
-            refreshViews( false, true );
+            refreshViews( true, true );
         }
     };
 
@@ -8836,6 +8836,41 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( updateEvents ) {
                 buildDayEvents();
                 refreshOpenedViews();
+            }
+        }
+    };
+
+    /**
+     * setVisibleGroups().
+     * 
+     * Set which groups are visible.
+     * 
+     * @public
+     * @fires       onVisibleGroupsChanged
+     * 
+     * @param       {string[]}  groupNames                                  The names of the groups to make visible.
+     * @param       {boolean}   [triggerEvent]                              States if the "onVisibleGroupsChanged" event should be triggered (defaults to true).
+     */
+    this.setVisibleGroups = function( groupNames, triggerEvent ) {
+        if ( isDefinedArray( groupNames ) && !_datePickerModeEnabled ) {
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+
+            _configuration.visibleGroups = [];
+
+            var groupNamesLength = groupNames.length;
+
+            for ( var groupNameIndex = 0; groupNameIndex < groupNamesLength; groupNameIndex++ ) {
+                var groupName = getGroupName( groupNames[ groupNameIndex ] );
+
+                if ( _configuration.visibleGroups.indexOf( groupName ) === -1 ) {
+                    _configuration.visibleGroups.push( groupName );
+                }
+            }
+
+            refreshViews( true, false );
+
+            if ( triggerEvent ) {
+                triggerOptionsEvent( "onVisibleGroupsChanged", _configuration.visibleGroups );
             }
         }
     };

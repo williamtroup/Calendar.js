@@ -3,6 +3,8 @@
 ### Version 2.0.0:
 - MAJOR: Added Event Type support for events (under a new tab called Type).
 - MAJOR: Added side menu for the whole Calendar, which allows Groups and Event Types to be toggled easily.
+- Added new public functions "addEventType()" and "removeEventType()", for adding adding and removing event types.
+- Added new public functions "setVisibleGroups()", which will set the group name that are visible.
 - Removed the "Groups" tab from the "Configuration" dialog (as its all in the side menu now).
 - The "View Current Week Events" button is now the same, but flipped.
 - When events are added/updated, the group they are assigned (if new) is made visible by default.
@@ -11,6 +13,7 @@
 - Removed all deprecated SASS math divide usages.
 - Added a new custom event "onVisibleGroupsChanged", which is triggered when the visible groups are changed (passes the visible group names).
 - Added a new custom event "onVisibleEventTypesChanged", which is triggered when the visible event types are changed (passes the visible event type IDs).
+- The public function "refresh()" will now refresh any view that is visible.
 - 
 
 ### Version 1.8.7:

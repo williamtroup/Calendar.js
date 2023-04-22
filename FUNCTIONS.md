@@ -281,6 +281,15 @@ Removes a group by name.
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onGroupRemoved" event should be triggered (defaults to true).
 
+### **setVisibleGroups( *[groupNames]*, *[triggerEvent]* )**:
+Set which groups are visible.
+<br>
+***Fires***:  onVisibleGroupsChanged
+<br>
+***Parameter: groupNames***: '*string[]*' - The names of the groups to make visible.
+<br>
+***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleGroupsChanged" event should be triggered (defaults to true).
+
 
 <br>
 <h1>Internal Clipboard:</h1>
