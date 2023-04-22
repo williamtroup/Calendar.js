@@ -446,36 +446,35 @@ div.calendar div.side-menu {
   transition: all 0.3s linear;
   background-color: #282828;
   border-right: 4px solid #F5F5F5;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 div.calendar div.side-menu div.ib-close {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-div.calendar div.side-menu div.content {
+div.calendar div.side-menu div.section {
   padding-left: 10px;
   padding-right: 10px;
-  margin-top: 28px;
-}
-div.calendar div.side-menu div.content p.text-header {
-  margin-bottom: 10px;
-}
-div.calendar div.side-menu div.content div.section {
   margin-top: 15px;
 }
-div.calendar div.side-menu div.content div.section:first-of-type {
-  margin-top: 0;
+div.calendar div.side-menu div.section p.text-header {
+  margin-bottom: 10px;
 }
-div.calendar div.side-menu div.content label.checkbox {
+div.calendar div.side-menu div.section label.checkbox {
   margin-bottom: 5px;
   margin-left: 10px;
   color: #F5F5F5 !important;
 }
-div.calendar div.side-menu div.content label.checkbox span.check-mark {
+div.calendar div.side-menu div.section label.checkbox span.check-mark {
   background-color: #F5F5F5 !important;
 }
-div.calendar div.side-menu div.content label.checkbox span.check-mark::before {
+div.calendar div.side-menu div.section label.checkbox span.check-mark::before {
   border-color: #282828 !important;
+}
+div.calendar div.side-menu div.section:first-child {
+  margin-top: 28px !important;
 }
 div.calendar div.side-menu-open {
   left: 0 !important;

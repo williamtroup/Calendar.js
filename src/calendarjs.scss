@@ -432,6 +432,8 @@ div.calendar {
         transition: all .3s linear;
         background-color: $dark-color;
         border-right: $side-menu-right-border-width solid $light-color;
+        overflow-x: hidden;
+        overflow-y: auto;
         
         div.ib-close {
             position: absolute;
@@ -439,21 +441,13 @@ div.calendar {
             top: $spacing;
         }
 
-        div.content {
+        div.section {
             padding-left: $spacing;
             padding-right: $spacing;
-            margin-top: 8px + ($spacing * 2);
+            margin-top: $spacing + ($spacing / 2);
 
             p.text-header {
                 margin-bottom: $spacing;
-            }
-
-            div.section {
-                margin-top: $spacing + ($spacing / 2);
-
-                &:first-of-type {
-                    margin-top: 0;
-                }
             }
 
             label.checkbox {
@@ -468,6 +462,10 @@ div.calendar {
                         border-color: $dark-color !important;
                     }
                 }
+            }
+
+            &:first-child {
+                margin-top: 8px + ($spacing * 2) !important;
             }
         }
     }
