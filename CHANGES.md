@@ -21,6 +21,7 @@
 - Added a new custom event "onVisibleEventTypesChanged", which is triggered when the visible event types are changed (passes the visible event type IDs).
 - The public function "refresh()" will now refresh any view that is visible.
 - Added a light border around the "Advanced" area on the "Search" dialog.
+- Added global Ctrl/Command + Shift + E support to open the Export Events dialog (when exporting is enabled).
 - 
 
 ### Version 1.8.7:

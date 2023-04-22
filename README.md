@@ -36,6 +36,7 @@ Calendar.js
   1. Escape:  Closes the active dialog.
   2. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
   3. Ctrl/Command + Shift + F:  Opens the search dialog.
+  4. Ctrl/Command + Shift + E:  Opens the export events dialog.
 - Custom event groups (with configurable toggles).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).

@@ -385,6 +385,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             right: 39,
             down: 40,
             a: 65,
+            e: 69,
             f: 70,
             f5: 116,
             f11: 122
@@ -1664,7 +1665,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     showSearchDialog();
                 }
 
-            } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
+            } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.e ) {
+                e.preventDefault();
+
+                if ( _options.exportEventsEnabled ) {
+                    showExportDialogFromWindowKeyDown();
+                }
+
+            }  else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
                 e.preventDefault();
                 headerDoubleClick();
             }
@@ -5494,6 +5502,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "html" );
         } else if ( _element_SelectExportTypeDialog_Option_TSV.checked ) {
             exportEvents( _element_SelectExportTypeDialog_ExportEvents, "tsv" );
+        }
+    }
+
+    function showExportDialogFromWindowKeyDown() {
+        var isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
+            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
+            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView ),
+            events = [];
+
+        if ( isFullDayViewVisible ) {
+            events = _element_FullDayView_EventsShown;
+        } else if ( isAllEventsViewVisible ) {
+            events = _element_ListAllEventsView_EventsShown;
+        } else if ( isAllWeekEventsViewVisible ) {
+            events = _element_ListAllWeekEventsView_EventsShown;
+        } else {
+            events = _element_Calendar_AllVisibleEvents;
+        }
+
+        if ( events.length > 0 ) {
+            showSelectExportTypeDialog( events );
         }
     }
 
