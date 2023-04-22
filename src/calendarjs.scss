@@ -432,6 +432,7 @@ div.calendar {
         transition: all .3s linear;
         background-color: $dark-color;
         border-right: $side-menu-right-border-width solid $light-color;
+        border-radius: $border-view-radius;
         overflow-x: hidden;
         overflow-y: auto;
         

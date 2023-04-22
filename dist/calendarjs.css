@@ -446,6 +446,7 @@ div.calendar div.side-menu {
   transition: all 0.3s linear;
   background-color: #282828;
   border-right: 4px solid #F5F5F5;
+  border-radius: 0.25rem;
   overflow-x: hidden;
   overflow-y: auto;
 }
