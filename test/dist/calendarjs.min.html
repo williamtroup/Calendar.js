@@ -66,6 +66,11 @@
             <button onclick="removeNewHolidays();">Remove Holidays</button>
             <button onclick="console.log( calendarInstance.getHolidays() );">Get Holidays</button>
             <br />
+
+            <h2>Event Types:</h2>
+            <button class="btn btn-primary" onclick="addEventType();">Add Event Type</button>
+            <button class="btn btn-primary" onclick="removeEventType();">Remove Event Type</button>
+            <br />
     
             <h2>Main Controls:</h2>
             <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
@@ -101,6 +106,14 @@
             calendarInstance.setOptions( {
                 eventNotificationsEnabled: true
             } );
+        }
+
+        function addEventType() {
+            console.log( "Event type added: " + calendarInstance.addEventType( 5, "A New Event Type" ) );
+        }
+
+        function removeEventType() {
+            console.log( "Event type removed: " + calendarInstance.removeEventType( 5 ) );
         }
 
         function setEvents() {

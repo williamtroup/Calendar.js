@@ -234,6 +234,26 @@ Returns an event that matches the ID passed.
 
 
 <br>
+<h1>Add/Remove Event Types:</h1>
+
+### **addEventType( *[id]*, *[text]* )**:
+Adds a new event type.
+<br>
+***Parameter: id***: '*number*' - The ID for the event type.
+<br>
+***Parameter: text***: '*string*' - The text for the event type.
+<br>
+***Returns***: '*boolean*' - States if the event type was added.
+
+### **removeEventType( *[id]* )**:
+Removes an event type.
+<br>
+***Parameter: id***: '*number*' - The ID for the event type to remove.
+<br>
+***Returns***: '*boolean*' - States if the event type was removed.
+
+
+<br>
 <h1>Add/Remove Groups:</h1>
 
 ### **getAllGroups()**:

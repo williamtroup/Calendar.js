@@ -1238,7 +1238,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function setEventTypeInputCheckedStates( selectedEventType ) {
-        selectedEventType = isDefined( selectedEventType ) ? selectedEventType : 0;
+        selectedEventType = isDefined( selectedEventType ) && _eventType.hasOwnProperty( selectedEventType ) ? selectedEventType : 0;
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) ) {
@@ -1246,7 +1246,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        _eventType[ selectedEventType ].eventEditorInput.checked = true;
+        if ( isDefined( _eventType[ selectedEventType ].eventEditorInput ) ) {
+            _eventType[ selectedEventType ].eventEditorInput.checked = true;
+        }
     }
 
     function setEventTypeInputDisabledStates( disabled ) {
@@ -6161,7 +6163,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             visible = !_options.hideEventsWithoutGroupAssigned;
         }
 
-        if ( visible && isDefined( _configuration.visibleEventTypes ) ) {
+        if ( visible && isDefined( _configuration.visibleEventTypes ) && _eventType.hasOwnProperty( type ) ) {
             visible = _configuration.visibleEventTypes.indexOf( type ) > -1;
         }
 
@@ -8675,6 +8677,70 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function toStorageDate( date ) {
         return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Setting Event Types (public)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * addEventType().
+     * 
+     * Adds a new event type.
+     * 
+     * @public
+     * 
+     * @param       {number}    id                                          The ID for the event type.
+     * @param       {string}    text                                        The text for the event type.
+     * 
+     * @returns     {boolean}                                               States if the event type was added.
+     */
+    this.addEventType = function( id, text ) {
+        var result = false;
+
+        if ( isDefinedNumber( id ) && isDefinedString( text ) && !_datePickerModeEnabled ) {
+            if ( !_eventType.hasOwnProperty( id ) ) {
+                _eventType[ id ] = {
+                    text: text,
+                    eventEditorInput: null
+                };
+
+                if ( isDefined( _configuration.visibleEventTypes ) ) {
+                    _configuration.visibleEventTypes.push( id );
+                }
+
+                result = true;
+            }
+        }
+
+        return result;
+    };
+
+    /**
+     * removeEventType().
+     * 
+     * Removes an event type.
+     * 
+     * @public
+     * 
+     * @param       {number}    id                                          The ID for the event type to remove.
+     * 
+     * @returns     {boolean}                                               States if the event type was removed.
+     */
+    this.removeEventType = function( id ) {
+        var result = false;
+
+        if ( isDefinedNumber( id ) && !_datePickerModeEnabled ) {
+            if ( _eventType.hasOwnProperty( id ) ) {
+                delete _eventType[ id ];
+                result = true;
+            }
+        }
+
+        return result;
+    };
 
 
     /*
