@@ -2115,7 +2115,7 @@ div.search {
   position: fixed;
   display: none;
   box-shadow: 4px 4px 4px #282828;
-  z-index: 1000;
+  z-index: 1003;
 }
 div.search div.ib-close {
   float: right;
