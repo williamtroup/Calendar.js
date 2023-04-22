@@ -464,6 +464,10 @@ div.calendar {
                     }
                 }
             }
+
+            &:last-of-type {
+                margin-bottom: $spacing;
+            }
         }
     }
 
