@@ -449,7 +449,7 @@ div.calendar {
             }
 
             div.section {
-                margin-top: $spacing;
+                margin-top: $spacing + ($spacing / 2);
 
                 &:first-of-type {
                     margin-top: 0;

@@ -400,11 +400,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
             yearly: 3
         },
         _eventType = {
-            0: "Normal Label",
-            1: "Meeting Label",
-            2: "Birthday Label",
-            3: "Holiday Label",
-            4: "Task Label"
+            0: {
+                text: "Normal Label",
+                checkboxInput: null
+            },
+            1: {
+                text: "Meeting Label",
+                checkboxInput: null
+            },
+            2: {
+                text: "Birthday Label",
+                checkboxInput: null
+            },
+            3: {
+                text: "Holiday Label",
+                checkboxInput: null
+            },
+            4: {
+                text: "Task Label",
+                checkboxInput: null
+            }
         },
         _configuration = {
             visibleGroups: null,
@@ -1190,7 +1205,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
-                var eventTypeText = _eventType[ eventType ],
+                var eventTypeText = _eventType[ eventType ].text,
                     checkboxText = eventTypeText[ 0 ].toUpperCase() + eventTypeText.substring( 1 ),
                     visible = true;
 
@@ -9796,33 +9811,33 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function setEventTypeTranslationStringOptions() {
         if ( !isDefinedString( _options.eventTypeNormal ) ) {
-            _eventType[ 0 ] = "Normal";
+            _eventType[ 0 ].text = "Normal";
         } else {
-            _eventType[ 0 ] = _options.eventTypeNormal;
+            _eventType[ 0 ].text = _options.eventTypeNormal;
         }
 
         if ( !isDefinedString( _options.eventTypeMeeting ) ) {
-            _eventType[ 1 ] = "Meeting";
+            _eventType[ 1 ].text = "Meeting";
         } else {
-            _eventType[ 1 ] = _options.eventTypeMeeting;
+            _eventType[ 1 ].text = _options.eventTypeMeeting;
         }
 
         if ( !isDefinedString( _options.eventTypeBirthday ) ) {
-            _eventType[ 2 ] = "Birthday";
+            _eventType[ 2 ].text = "Birthday";
         } else {
-            _eventType[ 2 ] = _options.eventTypeBirthday;
+            _eventType[ 2 ].text = _options.eventTypeBirthday;
         }
 
         if ( !isDefinedString( _options.eventTypeHoliday ) ) {
-            _eventType[ 3 ] = "Holiday";
+            _eventType[ 3 ].text = "Holiday";
         } else {
-            _eventType[ 3 ] = _options.eventTypeHoliday;
+            _eventType[ 3 ].text = _options.eventTypeHoliday;
         }
 
         if ( !isDefinedString( _options.eventTypeTask ) ) {
-            _eventType[ 4 ] = "Task";
+            _eventType[ 4 ].text = "Task";
         } else {
-            _eventType[ 4 ] = _options.eventTypeTask;
+            _eventType[ 4 ].text = _options.eventTypeTask;
         }
     }
 
