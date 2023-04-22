@@ -6459,7 +6459,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         selected = isDefined( selected ) ? selected : false;
         canScroll = isDefined( canScroll ) ? canScroll : true;
 
-        var tabContainer = createElement( "div", "checkbox-container tab-content" );
+        var tabContainer = createElement( "div", "checkbox-container tab-content custom-scroll-bars" );
         container.appendChild( tabContainer );
 
         if ( canScroll ) {

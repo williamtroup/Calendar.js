@@ -39,6 +39,17 @@
         document.title += " - v" + calendarInstance.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
 
+        calendarInstance.addEventType( 5, "Event Type 1" );
+        calendarInstance.addEventType( 6, "Event Type 2" );
+        calendarInstance.addEventType( 7, "Event Type 3" );
+        calendarInstance.addEventType( 8, "Event Type 4" );
+        calendarInstance.addEventType( 9, "Event Type 5" );
+        calendarInstance.addEventType( 10, "Event Type 6" );
+        calendarInstance.addEventType( 11, "Event Type 7" );
+        calendarInstance.addEventType( 12, "Event Type 8" );
+        calendarInstance.addEventType( 13, "Event Type 9" );
+        calendarInstance.addEventType( 14, "Event Type 10" );
+
         calendarInstance.addEvents( getEvents() );
 
         function getEvents() {

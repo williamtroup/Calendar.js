@@ -22,6 +22,7 @@
 - The public function "refresh()" will now refresh any view that is visible.
 - Added a light border around the "Advanced" area on the "Search" dialog.
 - Added global Ctrl/Command + Shift + E support to open the Export Events dialog (when exporting is enabled).
+- All tab container now use the custom scroll bar styles whenever they are required.
 - 
 
 ### Version 1.8.7:
