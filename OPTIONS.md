@@ -215,3 +215,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventTypeBirthday | The text that should be displayed for the "Birthday" event label. |
 | *string* | eventTypeHoliday | The text that should be displayed for the "Holiday" event label. |
 | *string* | eventTypeTask | The text that should be displayed for the "Task" event label. |
+| *string* | lockedText | The text that should be displayed for the "Locked:" label. |
+| *string* | typeText | The text that should be displayed for the "Type:" label. |

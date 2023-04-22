@@ -3,6 +3,7 @@
 ### Version 2.0.0:
 - The "View Current Week Events" button is now the same, but flipped.
 - When events are added/updated, the group they are assigned (if new) is made visible by default.
+- The "locked" property is now included in the CSV export result.
 - 
 
 ### Version 1.8.7:

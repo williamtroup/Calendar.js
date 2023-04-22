@@ -256,6 +256,8 @@
  * @property    {string}    eventTypeBirthday                           The text that should be displayed for the "Birthday" event label.
  * @property    {string}    eventTypeHoliday                            The text that should be displayed for the "Holiday" event label.
  * @property    {string}    eventTypeTask                               The text that should be displayed for the "Task" event label.
+ * @property    {string}    lockedText                                  The text that should be displayed for the "Locked:" label.
+ * @property    {string}    typeText                                    The text that should be displayed for the "Type:" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -5041,6 +5043,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             repeatEveryCustomType: _repeatCustomType.daily,
             organizerName: "",
             organizerEmailAddress: "",
+            type: 0,
+            locked: false
         };
 
         _this.addEvent( newEvent, false );
@@ -7309,7 +7313,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 result = getRepeatsText( value );
             } else if ( name === "repeatEveryCustomType" && !forJson ) {
                 result = getRepeatsCustomTypeText( value );
-            } else {
+            } else if ( name === "type" && !forJson ) {
+                result = _eventType[ parseInt( value ) ].text;
+            }  else {
                 result = value.toString();
             }
         }
@@ -7352,6 +7358,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function getExportHeaders() {
         var headers = [ 
                 _options.idText,
+                _options.typeText,
                 _options.fromText,
                 _options.toText,
                 _options.isAllDayText,
@@ -7369,7 +7376,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _options.lastUpdatedText,
                 _options.organizerNameText,
                 _options.organizerEmailAddressText,
-                _options.urlText
+                _options.urlText,
+                _options.lockedText,
             ],
             headersLength = headers.length;
 
@@ -7380,6 +7388,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var eventContents = [];
 
         eventContents.push( getString( eventDetails.id ) );
+        eventContents.push( _eventType[ getNumber( eventDetails.type ) ].text );
         eventContents.push( getStringFromDateTime( eventDetails.from ) );
         eventContents.push( getStringFromDateTime( eventDetails.to ) );
         eventContents.push( getYesNoFromBoolean( eventDetails.isAllDay ) );
@@ -7398,6 +7407,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         eventContents.push( getString( eventDetails.organizerName ) );
         eventContents.push( getString( eventDetails.organizerEmailAddress ) );
         eventContents.push( getString( eventDetails.url ) );
+        eventContents.push( getYesNoFromBoolean( eventDetails.locked ) );
 
         return eventContents;
     }
@@ -9806,6 +9816,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedString( _options.eventTypesText ) ) {
             _options.eventTypesText = "Event Types";
+        }
+
+        if ( !isDefinedString( _options.lockedText ) ) {
+            _options.lockedText = "Locked:";
+        }
+
+        if ( !isDefinedString( _options.typeText ) ) {
+            _options.typeText = "Type:";
         }
     }
 
