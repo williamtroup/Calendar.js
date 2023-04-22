@@ -441,13 +441,13 @@ div.calendar div.side-menu {
   padding-top: 10px;
   width: 250px;
   height: calc(100% - 20px);
-  left: -274px;
+  left: -275px;
   top: 0;
   color: #F5F5F5 !important;
   z-index: 1001;
   transition: all 0.3s linear;
   background-color: #282828;
-  border-right: 4px solid #F5F5F5;
+  border-right: 5px solid #F5F5F5;
   border-radius: 0.25rem;
   overflow-x: hidden;
   overflow-y: auto;
