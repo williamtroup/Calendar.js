@@ -448,6 +448,14 @@ div.calendar {
                 margin-bottom: $spacing;
             }
 
+            div.section {
+                margin-top: $spacing;
+
+                &:first-of-type {
+                    margin-top: 0;
+                }
+            }
+
             label.checkbox {
                 margin-bottom: $spacing / 2;
                 margin-left: $spacing;

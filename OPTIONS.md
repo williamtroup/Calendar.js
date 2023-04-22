@@ -209,3 +209,9 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | currentMonthTooltipText | The text that should be displayed for the "Current Month" label. |
 | *string* | cutText | The text that should be displayed for the "Cut" label. |
 | *string* | showMenuTooltipText | The tooltip text that should be used for for the "Show Menu" button. |
+| *string* | eventTypesText | The text that should be displayed for the "Event Types" label. |
+| *string* | eventTypeNormal | The text that should be displayed for the "Normal" event label. |
+| *string* | eventTypeMeeting | The text that should be displayed for the "Meeting" event label. |
+| *string* | eventTypeBirthday | The text that should be displayed for the "Birthday" event label. |
+| *string* | eventTypeHoliday | The text that should be displayed for the "Holiday" event label. |
+| *string* | eventTypeTask | The text that should be displayed for the "Task" event label. |

@@ -249,6 +249,12 @@
  * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
  * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
  * @property    {string}    showMenuTooltipText                         The tooltip text that should be used for for the "Show Menu" button.
+ * @property    {string}    eventTypesText                              The text that should be displayed for the "Event Types" label.
+ * @property    {string}    eventTypeNormal                             The text that should be displayed for the "Normal" event label.
+ * @property    {string}    eventTypeMeeting                            The text that should be displayed for the "Meeting" event label.
+ * @property    {string}    eventTypeBirthday                           The text that should be displayed for the "Birthday" event label.
+ * @property    {string}    eventTypeHoliday                            The text that should be displayed for the "Holiday" event label.
+ * @property    {string}    eventTypeTask                               The text that should be displayed for the "Task" event label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -365,8 +371,7 @@
  * @returns     {Object}                                                The Calendar.js instance.
  */
 function calendarJs( elementOrId, options, searchOptions ) {
-    var _options = {},
-        _optionsForSearch = {},
+    var _this = this,
         _keyCodes = {
             enter: 13,
             escape: 27,
@@ -393,7 +398,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
             monthly: 2,
             yearly: 3
         },
-        _this = this,
+        _eventType = {
+            0: "Normal Label",
+            1: "Meeting Label",
+            2: "Birthday Label",
+            3: "Holiday Label",
+            4: "Task Label"
+        },
+        _configuration = {
+            visibleGroups: null,
+            visibleEventTypes: null
+        },
+        _options = {},
+        _optionsForSearch = {},
         _datePickerInput = null,
         _datePickerModeEnabled = false,
         _datePickerVisible = false,
@@ -402,9 +419,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _largestDateInView = null,
         _elementTypes = {},
         _elements = {},
-        _configuration = {
-            visibleGroups: null
-        },
         _eventNotificationsTriggered = {},
         _document = null,
         _window = null,
@@ -450,6 +464,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu = null,
         _element_SideMenu_Content = null,
         _element_SideMenu_Content_Groups = null,
+        _element_SideMenu_Content_EventTypes = null,
         _element_SideMenu_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
@@ -1093,14 +1108,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content = createElement( "div", "content" );
         _element_SideMenu.appendChild( _element_SideMenu_Content );
 
-        _element_SideMenu_Content_Groups = createElement( "div" );
-        _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Groups );
-
         addToolTip( closeButton, _options.closeTooltipText );
     }
 
     function showSideMenu() {
-        buildSideMenuGroupOptions();
+        _element_SideMenu_Content.innerHTML = "";
+
+        buildSideMenuGroups();
+        buildSideMenuEventTypes();
 
         _element_SideMenu.className += " side-menu-open";
         _element_SideMenu_DisabledBackground.style.display = "block";
@@ -1118,27 +1133,33 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function saveSideMenuSelections() {
-        var checkboxes = _element_SideMenu_Content_Groups.getElementsByTagName( "input" ),
+        _configuration.visibleGroups = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Groups );
+        _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_EventTypes );
+
+        refreshViews( true, false );
+    }
+
+    function getSideMenuCheckedCheckBoxNames( container ) {
+        var checkboxes = container.getElementsByTagName( "input" ),
             checkboxesLength = checkboxes.length,
-            visibleGroups = [];
+            names = [];
         
         if ( checkboxesLength > 0 ) {
             for ( var checkboxIndex = 0; checkboxIndex < checkboxesLength; checkboxIndex++ ) {
                 var checkbox = checkboxes[ checkboxIndex ];
 
                 if ( checkbox.checked ) {
-                    visibleGroups.push( checkbox.name );
+                    names.push( checkbox.name );
                 }
             }
         }
 
-        _configuration.visibleGroups = visibleGroups;
-
-        refreshViews( true, false );
+        return names;
     }
 
-    function buildSideMenuGroupOptions() {
-        _element_SideMenu_Content_Groups.innerHTML = "";
+    function buildSideMenuGroups() {
+        _element_SideMenu_Content_Groups = createElement( "div", "section" );
+        _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Groups );
 
         var groups = getGroups(),
             groupsLength = groups.length;
@@ -1156,6 +1177,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
     
                 buildCheckBox( _element_SideMenu_Content_Groups, groupName, null, configGroupName, visible );
+            }
+        }
+    }
+
+    function buildSideMenuEventTypes() {
+        _element_SideMenu_Content_EventTypes = createElement( "div", "section" );
+        _element_SideMenu_Content.appendChild( _element_SideMenu_Content_EventTypes );
+
+        createTextHeaderElement( _element_SideMenu_Content_EventTypes, _options.eventTypesText + ":", "text-header" );
+
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) ) {
+                var eventTypeText = _eventType[ eventType ],
+                    checkboxText = eventTypeText[ 0 ].toUpperCase() + eventTypeText.substring( 1 ),
+                    visible = true;
+
+                if ( isDefined( _configuration.visibleEventTypes ) ) {
+                    visible = _configuration.visibleEventTypes.indexOf( eventType ) > -1;
+                }
+
+                buildCheckBox( _element_SideMenu_Content_EventTypes, checkboxText, null, eventType, visible );
             }
         }
     }
@@ -9042,6 +9084,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         setTranslationStringOptions();
+        setEventTypeTranslationStringOptions();
         checkForBrowserNotificationsPermission();
     }
 
@@ -9738,6 +9781,42 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedString( _options.showMenuTooltipText ) ) {
             _options.showMenuTooltipText = "Show Menu";
+        }
+
+        if ( !isDefinedString( _options.eventTypesText ) ) {
+            _options.eventTypesText = "Event Types";
+        }
+    }
+
+    function setEventTypeTranslationStringOptions() {
+        if ( !isDefinedString( _options.eventTypeNormal ) ) {
+            _eventType[ 0 ] = "Normal";
+        } else {
+            _eventType[ 0 ] = _options.eventTypeNormal;
+        }
+
+        if ( !isDefinedString( _options.eventTypeMeeting ) ) {
+            _eventType[ 1 ] = "Meeting";
+        } else {
+            _eventType[ 1 ] = _options.eventTypeMeeting;
+        }
+
+        if ( !isDefinedString( _options.eventTypeBirthday ) ) {
+            _eventType[ 2 ] = "Birthday";
+        } else {
+            _eventType[ 2 ] = _options.eventTypeBirthday;
+        }
+
+        if ( !isDefinedString( _options.eventTypeHoliday ) ) {
+            _eventType[ 3 ] = "Holiday";
+        } else {
+            _eventType[ 3 ] = _options.eventTypeHoliday;
+        }
+
+        if ( !isDefinedString( _options.eventTypeTask ) ) {
+            _eventType[ 4 ] = "Task";
+        } else {
+            _eventType[ 4 ] = _options.eventTypeTask;
         }
     }
 

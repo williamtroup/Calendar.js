@@ -460,6 +460,12 @@ div.calendar div.side-menu div.content {
 div.calendar div.side-menu div.content p.text-header {
   margin-bottom: 10px;
 }
+div.calendar div.side-menu div.content div.section {
+  margin-top: 10px;
+}
+div.calendar div.side-menu div.content div.section:first-of-type {
+  margin-top: 0;
+}
 div.calendar div.side-menu div.content label.checkbox {
   margin-bottom: 5px;
   margin-left: 10px;
