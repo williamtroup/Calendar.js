@@ -1616,65 +1616,67 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function onWindowKeyDown( e ) {
         if ( !_datePickerModeEnabled ) {
-            if ( _isFullScreenModeActivated ) {
-                var isMainDisplayVisible = isOnlyMainDisplayVisible();
-    
-                if ( isControlKey( e ) && e.keyCode === _keyCodes.left && isMainDisplayVisible ) {
+            if ( !isSideMenuOpen() ) {
+                if ( _isFullScreenModeActivated ) {
+                    var isMainDisplayVisible = isOnlyMainDisplayVisible();
+        
+                    if ( isControlKey( e ) && e.keyCode === _keyCodes.left && isMainDisplayVisible ) {
+                        e.preventDefault();
+                        moveBackYear();
+        
+                    } else if ( isControlKey( e ) && e.keyCode === _keyCodes.right && isMainDisplayVisible ) {
+                        e.preventDefault();
+                        moveForwardYear();
+        
+                    } else if ( e.keyCode === _keyCodes.escape ) {
+                        if ( !closeActiveDialog() && isMainDisplayVisible && _options.useEscapeKeyToExitFullScreenMode ) {
+                            headerDoubleClick();
+                        }
+        
+                    } else if ( e.keyCode === _keyCodes.left && isMainDisplayVisible ) {
+                        moveBackMonth();
+        
+                    } else if ( e.keyCode === _keyCodes.right && isMainDisplayVisible ) {
+                        moveForwardMonth();
+        
+                    } else if ( e.keyCode === _keyCodes.down && isMainDisplayVisible ) {
+                        moveToday();
+                        
+                    } else if ( e.keyCode === _keyCodes.f5 && isMainDisplayVisible ) {
+                        refreshViews( false, true );
+                    }
+                } else {
+                    
+                    if ( e.keyCode === _keyCodes.escape ) {
+                        closeActiveDialog();
+                    }
+                }
+        
+                if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.a ) {
                     e.preventDefault();
-                    moveBackYear();
-    
-                } else if ( isControlKey( e ) && e.keyCode === _keyCodes.right && isMainDisplayVisible ) {
+        
+                    if ( _options.manualEditingEnabled ) {
+                        showEventEditingDialog( null, new Date() );
+                    }
+                
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                     e.preventDefault();
-                    moveForwardYear();
     
-                } else if ( e.keyCode === _keyCodes.escape ) {
-                    if ( !closeActiveDialog() && isMainDisplayVisible && _options.useEscapeKeyToExitFullScreenMode ) {
-                        headerDoubleClick();
+                    if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
+                        showSearchDialog();
                     }
     
-                } else if ( e.keyCode === _keyCodes.left && isMainDisplayVisible ) {
-                    moveBackMonth();
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.e ) {
+                    e.preventDefault();
     
-                } else if ( e.keyCode === _keyCodes.right && isMainDisplayVisible ) {
-                    moveForwardMonth();
+                    if ( _options.exportEventsEnabled ) {
+                        showExportDialogFromWindowKeyDown();
+                    }
     
-                } else if ( e.keyCode === _keyCodes.down && isMainDisplayVisible ) {
-                    moveToday();
-                    
-                } else if ( e.keyCode === _keyCodes.f5 && isMainDisplayVisible ) {
-                    refreshViews( false, true );
+                }  else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
+                    e.preventDefault();
+                    headerDoubleClick();
                 }
-            } else {
-                
-                if ( e.keyCode === _keyCodes.escape ) {
-                    closeActiveDialog();
-                }
-            }
-    
-            if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.a ) {
-                e.preventDefault();
-    
-                if ( _options.manualEditingEnabled ) {
-                    showEventEditingDialog( null, new Date() );
-                }
-            
-            } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
-                e.preventDefault();
-
-                if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
-                    showSearchDialog();
-                }
-
-            } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.e ) {
-                e.preventDefault();
-
-                if ( _options.exportEventsEnabled ) {
-                    showExportDialogFromWindowKeyDown();
-                }
-
-            }  else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
-                e.preventDefault();
-                headerDoubleClick();
             }
         } else {
 
