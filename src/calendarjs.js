@@ -1113,6 +1113,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         saveSideMenuSelections();
     }
 
+    function isSideMenuOpen() {
+        return _element_SideMenu.className.indexOf( "side-menu-open" ) > -1;
+    }
+
     function saveSideMenuSelections() {
         var checkboxes = _element_SideMenu_Content_Groups.getElementsByTagName( "input" ),
             checkboxesLength = checkboxes.length,
@@ -6404,7 +6408,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function clearAutoRefreshTimer() {
-        if ( _timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
+        if ( _timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled && !isSideMenuOpen() ) {
             clearTimeout( _timer_RefreshMainDisplay );
             _timer_RefreshMainDisplay = null;
         }
@@ -8203,12 +8207,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( event.from <= event.to ) {
                 var storageDate = toStorageDate( event.from ),
-                    storageGuid = newGuid(),
-                    title = getString( event.title ),
-                    description = getString( event.description ),
-                    location = getString( event.location ),
-                    group = getString( event.group ),
-                    url = getString( event.url );
+                    storageGuid = newGuid();
     
                 if ( !_events.hasOwnProperty( storageDate ) ) {
                     _events[ storageDate ] = {};
@@ -8217,6 +8216,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( !_events[ storageDate ].hasOwnProperty( storageGuid ) ) {
                     updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
                     triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+
+                    var title = getString( event.title ),
+                        description = getString( event.description ),
+                        location = getString( event.location ),
+                        group = getString( event.group ),
+                        url = getString( event.url );
+
+                    if ( isDefined( _configuration.visibleGroups ) ) {
+                        visible = _configuration.visibleGroups.push( getGroupName( group ) );
+                    }
     
                     if ( !isDefined( event.id ) ) {
                         event.id = storageGuid;
