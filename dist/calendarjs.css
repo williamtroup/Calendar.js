@@ -1793,6 +1793,9 @@ div.event-editor-repeat-options input:not([type=button]):not(:disabled):hover,
 div.event-editor-repeat-options textarea:not(:disabled):hover {
   border: 1px solid #282828;
 }
+div.event-editor-repeat-options input[type=date] {
+  margin-bottom: 0 !important;
+}
 div.event-editor-repeat-options label.checkbox {
   margin-bottom: 5px !important;
 }
@@ -1822,7 +1825,7 @@ div.event-editor-repeat-options div.split-margin {
   margin-left: 25px;
 }
 div.event-editor-repeat-options div.split {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 div.event-editor-repeat-options input[type=button] {
   -moz-user-select: none;
@@ -2282,7 +2285,7 @@ div.search div.split-margin {
   margin-left: 25px;
 }
 div.search div.split:last-child {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 div.search input[type=button] {
   -moz-user-select: none;

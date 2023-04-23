@@ -1178,6 +1178,10 @@ div.event-editor-repeat-options {
         @include input-fields;
     }
 
+    input[type="date"] {
+        margin-bottom: 0 !important;
+    }
+
     label.checkbox {
         margin-bottom: calc($spacing / 2) !important;
     }
@@ -1185,7 +1189,7 @@ div.event-editor-repeat-options {
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing + calc($spacing / 2);
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
@@ -1364,7 +1368,7 @@ div.search {
     @import "foundation/split-container";
 
     div.split:last-child {
-        margin-top: $spacing + calc($spacing / 2);
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
