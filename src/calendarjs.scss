@@ -1294,7 +1294,7 @@ div.search {
                 width: calc(100% - 2px);
                 max-height: 200px;
                 z-index: 2000;
-                border: 1px solid $dark-color !important;
+                border: $standard-border-size solid $dark-color !important;
                 box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size $dark-color;
                 display: none;
                 overflow-x: hidden;
@@ -1480,7 +1480,7 @@ div.calendar-dialog {
     }
 
     div.tab-content {
-        border: 1px solid $input-border-color;
+        border: $standard-border-size solid $input-border-color;
         border-radius: $border-view-radius;
         padding: $spacing;
         overflow-x: hidden;
