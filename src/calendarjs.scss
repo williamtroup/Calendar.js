@@ -457,9 +457,17 @@ div.calendar {
                 border-radius: $border-view-radius;
                 background-color: #474545;
                 border: $standard-border-size solid #575555;
+                transition: all .3s linear;
     
-                p.text-header {
+                p.text-header,
+                p.text-header-closed {
                     margin-top: 0 !important;
+                    margin-bottom: 0;
+                    cursor: pointer;
+                }
+
+                p.text-header {
+                    font-weight: 700;
                     margin-bottom: $spacing;
                 }
     

@@ -468,9 +468,16 @@ div.calendar div.side-menu div.content div.content-section {
   border-radius: 0.25rem;
   background-color: #474545;
   border: 1px solid #575555;
+  transition: all 0.3s linear;
+}
+div.calendar div.side-menu div.content div.content-section p.text-header,
+div.calendar div.side-menu div.content div.content-section p.text-header-closed {
+  margin-top: 0 !important;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 div.calendar div.side-menu div.content div.content-section p.text-header {
-  margin-top: 0 !important;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 div.calendar div.side-menu div.content div.content-section label.checkbox {

@@ -488,8 +488,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu = null,
         _element_SideMenu_Content = null,
         _element_SideMenu_Content_Section_Groups = null,
+        _element_SideMenu_Content_Section_Groups_Content = null,
         _element_SideMenu_Content_Section_EventTypes = null,
+        _element_SideMenu_Content_Section_EventTypes_Content = null,
         _element_SideMenu_Content_Section_Days = null,
+        _element_SideMenu_Content_Section_Days_Content = null,
         _element_SideMenu_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
@@ -1173,12 +1176,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showSideMenu() {
+        var isDayOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Days_Content ),
+            isEventTypesOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_EventTypes_Content ),
+            isGroupsOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Groups_Content );
+
         _element_SideMenu_Content.innerHTML = "";
 
         hideSearchDialog();
-        buildSideMenuDays();
-        buildSideMenuEventTypes();
-        buildSideMenuGroups();
+        buildSideMenuDays( isDayOpen );
+        buildSideMenuEventTypes( isEventTypesOpen );
+        buildSideMenuGroups( isGroupsOpen );
 
         _element_SideMenu.className += " side-menu-open";
         _element_SideMenu_DisabledBackground.style.display = "block";
@@ -1248,17 +1255,35 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return names;
     }
 
-    function buildSideMenuGroups() {
+    function buildSideMenuGroups( opened ) {
+        opened = isDefined( opened ) ? opened : true;
+
         _element_SideMenu_Content_Section_Groups = null;
+        _element_SideMenu_Content_Section_Groups_Content = null;
 
         var groups = getGroups(),
             groupsLength = groups.length;
 
         if ( groupsLength > 0 ) {
             _element_SideMenu_Content_Section_Groups = createElement( "div", "content-section" );
+            _element_SideMenu_Content_Section_Groups_Content = createElement( "div" );
+
             _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Groups );
 
-            createTextHeaderElement( _element_SideMenu_Content_Section_Groups, _options.groupsText + ":", "text-header" );
+            var header = createTextHeaderElement( _element_SideMenu_Content_Section_Groups, _options.groupsText + ":", "text-header" );
+            header.onclick = function() {
+                var isClosed = _element_SideMenu_Content_Section_Groups_Content.style.display === "none";
+    
+                header.className = isClosed ? "text-header" : "text-header-closed";
+                _element_SideMenu_Content_Section_Groups_Content.style.display = isClosed ? "block" : "none";
+            };
+
+            if ( !opened ) {
+                _element_SideMenu_Content_Section_Groups_Content.style.display = "none";
+                header.className = "text-header-closed";
+            }
+
+            _element_SideMenu_Content_Section_Groups.appendChild( _element_SideMenu_Content_Section_Groups_Content );
 
             for ( var groupIndex = 0; groupIndex < groupsLength; groupIndex++ ) {
                 var groupName = groups[ groupIndex ],
@@ -1269,23 +1294,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
                 }
     
-                buildCheckBox( _element_SideMenu_Content_Section_Groups, groupName, null, configGroupName, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_Groups_Content, groupName, null, configGroupName, visible );
             }
         }
     }
 
-    function buildSideMenuEventTypes() {
+    function buildSideMenuEventTypes( opened ) {
+        opened = isDefined( opened ) ? opened : true;
+
         _element_SideMenu_Content_Section_EventTypes = null;
+        _element_SideMenu_Content_Section_EventTypes_Content = null;
 
         var sectionAndHeaderAdded = false;
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
                 if ( !sectionAndHeaderAdded ) {
-                    _element_SideMenu_Content_Section_EventTypes = createElement( "div", "content-section" );
-                    _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_EventTypes );
-
-                    createTextHeaderElement( _element_SideMenu_Content_Section_EventTypes, _options.eventTypesText + ":", "text-header" );
+                    buildSideMenuEventTypesContent( opened );
                     sectionAndHeaderAdded = true;
                 }
 
@@ -1295,24 +1320,64 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleEventTypes.indexOf( parseInt( eventType ) ) > -1;
                 }
 
-                buildCheckBox( _element_SideMenu_Content_Section_EventTypes, _eventType[ eventType ].text, null, eventType, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_EventTypes_Content, _eventType[ eventType ].text, null, eventType, visible );
             }
         }
     }
 
-    function buildSideMenuDays() {
-        _element_SideMenu_Content_Section_Days = null;
+    function buildSideMenuEventTypesContent( opened ) {
+        _element_SideMenu_Content_Section_EventTypes = createElement( "div", "content-section" );
+        _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_EventTypes );
+
+        _element_SideMenu_Content_Section_EventTypes_Content = createElement( "div" );
+
+        var header = createTextHeaderElement( _element_SideMenu_Content_Section_EventTypes, _options.eventTypesText + ":", "text-header" );
+        header.onclick = function() {
+            var isClosed = _element_SideMenu_Content_Section_EventTypes_Content.style.display === "none";
+
+            header.className = isClosed ? "text-header" : "text-header-closed";
+            _element_SideMenu_Content_Section_EventTypes_Content.style.display = isClosed ? "block" : "none";
+        };
+
+        if ( !opened ) {
+            _element_SideMenu_Content_Section_EventTypes_Content.style.display = "none";
+            header.className = "text-header-closed";
+        }
+
+        _element_SideMenu_Content_Section_EventTypes.appendChild( _element_SideMenu_Content_Section_EventTypes_Content );
+    }
+
+    function buildSideMenuDays( opened ) {
+        opened = isDefined( opened ) ? opened : true;
 
         _element_SideMenu_Content_Section_Days = createElement( "div", "content-section" );
+        _element_SideMenu_Content_Section_Days_Content = createElement( "div" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Days );
 
-        createTextHeaderElement( _element_SideMenu_Content_Section_Days, _options.sideMenuDaysText + ":", "text-header" );
+        var header = createTextHeaderElement( _element_SideMenu_Content_Section_Days, _options.sideMenuDaysText + ":", "text-header" );
+        header.onclick = function() {
+            var isClosed = _element_SideMenu_Content_Section_Days_Content.style.display === "none";
+
+            header.className = isClosed ? "text-header" : "text-header-closed";
+            _element_SideMenu_Content_Section_Days_Content.style.display = isClosed ? "block" : "none";
+        };
+
+        if ( !opened ) {
+            _element_SideMenu_Content_Section_Days_Content.style.display = "none";
+            header.className = "text-header-closed";
+        }
+
+        _element_SideMenu_Content_Section_Days.appendChild( _element_SideMenu_Content_Section_Days_Content );
 
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
             var visible = _options.visibleDays.indexOf( dayIndex ) > -1;
 
-            buildCheckBox( _element_SideMenu_Content_Section_Days, _options.dayNames[ dayIndex ], null, dayIndex.toString(), visible );
+            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], null, dayIndex.toString(), visible );
         }
+    }
+
+    function isSideMenuContentOpen( element ) {
+        return element === null || element.style.display !== "none";
     }
 
 
@@ -6761,6 +6826,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( isDefined( className ) ) {
             element.className = className;
         }
+
+        return element;
     }
 
     function createSpanElement( container, text, className, event, cancelDblClick, addSeparator ) {
