@@ -2189,6 +2189,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay ) {
                     var event = createElement( "div", "event" ),
                         eventTitle = eventDetails.title;
+
+                    event.setAttribute( "event-type", getNumber( eventDetails.type ) );
     
                     if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
                         eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
@@ -2691,6 +2693,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", "event" );
             event.ondblclick = cancelBubble;
+            event.setAttribute( "event-type", getNumber( eventDetails.type ) );
 
             event.onclick = function ( e ) {
                 increaseEventZIndex( e, event );
@@ -3146,6 +3149,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setEventClassesForActions( event, eventDetails );
 
             event.id = _elementID_Month + eventDetails.id;
+            event.setAttribute( "event-type", getNumber( eventDetails.type ) );
 
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
@@ -3526,6 +3530,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             showElementsByClassName( header, "ib-close" );
 
             var event = createElement( "div", "event" );
+            event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+            
             container.appendChild( event );
     
             _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ].push( event );
