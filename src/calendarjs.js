@@ -226,7 +226,6 @@
  * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
  * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
  * @property    {string}    openUrlText                                 The text that should be displayed for the "Open Url" label.
- * @property    {string}    visibleDaysTabText                          The text that should be displayed for the "Visible Days" tab.
  * @property    {string}    enableDayNameHeadersInMainDisplayText       The text that should be displayed for the "Enable day name headers in the main display" label.
  * @property    {string}    thisWeekTooltipText                         The tooltip text that should be used for for the "This Week" button.
  * @property    {string}    dailyText                                   The text that should be displayed for the "Daily" label.
@@ -261,6 +260,7 @@
  * @property    {string}    lockedText                                  The text that should be displayed for the "Locked:" label.
  * @property    {string}    typeText                                    The text that should be displayed for the "Type:" label.
  * @property    {string}    sideMenuHeaderText                          The text that should be displayed for the "Calendar.js" side menu header label.
+ * @property    {string}    sideMenuDaysText                            The text that should be displayed for the "Days" side menu label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -489,6 +489,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content = null,
         _element_SideMenu_Content_Section_Groups = null,
         _element_SideMenu_Content_Section_EventTypes = null,
+        _element_SideMenu_Content_Section_Days = null,
         _element_SideMenu_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
@@ -643,7 +644,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfigurationDialog = null,
         _element_ConfigurationDialog_Display = null,
         _element_ConfigurationDialog_Organizer = null,
-        _element_ConfigurationDialog_VisibleDays = null,
         _element_ConfigurationDialog_Display_EnableAutoRefresh = null,
         _element_ConfigurationDialog_Display_EnableBrowserNotifications = null,
         _element_ConfigurationDialog_Display_EnableTooltips = null,
@@ -652,14 +652,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null,
         _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = null,
         _element_ConfigurationDialog_Organizer_Name = null,
-        _element_ConfigurationDialog_Organizer_Email = null,
-        _element_ConfigurationDialog_VisibleDays_Mon = null,
-        _element_ConfigurationDialog_VisibleDays_Tue = null,
-        _element_ConfigurationDialog_VisibleDays_Wed = null,
-        _element_ConfigurationDialog_VisibleDays_Thu = null,
-        _element_ConfigurationDialog_VisibleDays_Fri = null,
-        _element_ConfigurationDialog_VisibleDays_Sat = null,
-        _element_ConfigurationDialog_VisibleDays_Sun = null;
+        _element_ConfigurationDialog_Organizer_Email = null;
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1183,8 +1176,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content.innerHTML = "";
 
         hideSearchDialog();
-        buildSideMenuGroups();
+        buildSideMenuDays();
         buildSideMenuEventTypes();
+        buildSideMenuGroups();
 
         _element_SideMenu.className += " side-menu-open";
         _element_SideMenu_DisabledBackground.style.display = "block";
@@ -1214,7 +1208,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
             triggerOptionsEventWithData( "onVisibleEventTypesChanged", _configuration.visibleEventTypes );
         }
 
-        refreshViews( true, false );
+        if ( _element_SideMenu_Content_Section_Days !== null ) {
+            var visibleDays = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_Days, true );
+
+            if ( visibleDays.length >= 1 ) {
+                _options.visibleDays = visibleDays;
+                _previousDaysVisibleBeforeSingleDayView = [];
+
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+            }
+        }
+
+        _initialized = false;
+
+        build( _currentDate, true, true );
     }
 
     function getSideMenuCheckedCheckBoxNames( container, isNumericName ) {
@@ -1290,6 +1297,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 buildCheckBox( _element_SideMenu_Content_Section_EventTypes, _eventType[ eventType ].text, null, eventType, visible );
             }
+        }
+    }
+
+    function buildSideMenuDays() {
+        _element_SideMenu_Content_Section_Days = null;
+
+        _element_SideMenu_Content_Section_Days = createElement( "div", "content-section" );
+        _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Days );
+
+        createTextHeaderElement( _element_SideMenu_Content_Section_Days, _options.sideMenuDaysText + ":", "text-header" );
+
+        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
+            var visible = _options.visibleDays.indexOf( dayIndex ) > -1;
+
+            buildCheckBox( _element_SideMenu_Content_Section_Days, _options.dayNames[ dayIndex ], null, dayIndex.toString(), visible );
         }
     }
 
@@ -4420,10 +4442,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
 
-        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysTabText + "...", function() {
-            selectTab( _element_ConfigurationDialog, 2 );
-            showConfigurationDialog();
-        } );
+        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.sideMenuDaysText + "...", showSideMenu );
     }
 
     function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
@@ -6123,13 +6142,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showTabContents( tab, _element_ConfigurationDialog_Organizer, _element_ConfigurationDialog );
             } );
     
-            buildTab( tabsContainer, _options.visibleDaysTabText, function( tab ) {
-                showTabContents( tab, _element_ConfigurationDialog_VisibleDays, _element_ConfigurationDialog );
-            } );
-    
             _element_ConfigurationDialog_Display = buildTabContents( contents, true, false );
             _element_ConfigurationDialog_Organizer = buildTabContents( contents, false, false );
-            _element_ConfigurationDialog_VisibleDays = buildTabContents( contents, false, false );
     
             _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText )[ 0 ];
             _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox( _element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in" )[ 0 ];
@@ -6154,52 +6168,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             createButtonElement( buttonsSplitContainer, _options.okText, "ok", configurationDialogEvent_OK );
             createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
-    
-            _element_ConfigurationDialog_VisibleDays_Mon = buildCheckBox( _element_ConfigurationDialog_VisibleDays, _options.dayNames[ 0 ] )[ 0 ];
-            _element_ConfigurationDialog_VisibleDays_Tue = buildCheckBox( _element_ConfigurationDialog_VisibleDays, _options.dayNames[ 1 ] )[ 0 ];
-            _element_ConfigurationDialog_VisibleDays_Wed = buildCheckBox( _element_ConfigurationDialog_VisibleDays, _options.dayNames[ 2 ] )[ 0 ];
-            _element_ConfigurationDialog_VisibleDays_Thu = buildCheckBox( _element_ConfigurationDialog_VisibleDays, _options.dayNames[ 3 ] )[ 0 ];
-            _element_ConfigurationDialog_VisibleDays_Fri = buildCheckBox( _element_ConfigurationDialog_VisibleDays, _options.dayNames[ 4 ] )[ 0 ];
-            _element_ConfigurationDialog_VisibleDays_Sat = buildCheckBox( _element_ConfigurationDialog_VisibleDays, _options.dayNames[ 5 ] )[ 0 ];
-            _element_ConfigurationDialog_VisibleDays_Sun = buildCheckBox( _element_ConfigurationDialog_VisibleDays, _options.dayNames[ 6 ] )[ 0 ];
         }
     }
 
     function configurationDialogEvent_OK() {
-        var visibleDays = [];
-
         if ( _element_ConfigurationDialog_Display_EnableAutoRefresh.checked ) {
             _this.startTheAutoRefreshTimer();
         } else {
             _this.stopTheAutoRefreshTimer();
-        }
-
-        if ( _element_ConfigurationDialog_VisibleDays_Mon.checked ) {
-            visibleDays.push( 0 );
-        }
-    
-        if ( _element_ConfigurationDialog_VisibleDays_Tue.checked ) {
-            visibleDays.push( 1 );
-        }
-    
-        if ( _element_ConfigurationDialog_VisibleDays_Wed.checked ) {
-            visibleDays.push( 2 );
-        }
-    
-        if ( _element_ConfigurationDialog_VisibleDays_Thu.checked ) {
-            visibleDays.push( 3 );
-        }
-    
-        if ( _element_ConfigurationDialog_VisibleDays_Fri.checked ) {
-            visibleDays.push( 4 );
-        }
-    
-        if ( _element_ConfigurationDialog_VisibleDays_Sat.checked ) {
-            visibleDays.push( 5 );
-        }
-    
-        if ( _element_ConfigurationDialog_VisibleDays_Sun.checked ) {
-            visibleDays.push( 6 );
         }
 
         _options.eventNotificationsEnabled = _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked;
@@ -6210,11 +6186,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showHolidays = _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked;
         _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
         _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
-
-        if ( visibleDays.length > 0 ) {
-            _options.visibleDays = visibleDays;
-            _previousDaysVisibleBeforeSingleDayView = [];
-        }
 
         _initialized = false;
 
@@ -6240,13 +6211,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
         _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
         _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
-        _element_ConfigurationDialog_VisibleDays_Mon.checked = _options.visibleDays.indexOf( 0 ) > -1;
-        _element_ConfigurationDialog_VisibleDays_Tue.checked = _options.visibleDays.indexOf( 1 ) > -1;
-        _element_ConfigurationDialog_VisibleDays_Wed.checked = _options.visibleDays.indexOf( 2 ) > -1;
-        _element_ConfigurationDialog_VisibleDays_Thu.checked = _options.visibleDays.indexOf( 3 ) > -1;
-        _element_ConfigurationDialog_VisibleDays_Fri.checked = _options.visibleDays.indexOf( 4 ) > -1;
-        _element_ConfigurationDialog_VisibleDays_Sat.checked = _options.visibleDays.indexOf( 5 ) > -1;
-        _element_ConfigurationDialog_VisibleDays_Sun.checked = _options.visibleDays.indexOf( 6 ) > -1;
 
         _openDialogs.push( hideConfigurationDialog );
         _element_ConfigurationDialog.style.display = "block";
@@ -10036,8 +10000,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.openUrlText = "Open Url";
         }
 
-        if ( !isDefinedString( _options.visibleDaysTabText ) ) {
-            _options.visibleDaysTabText = "Visible Days";
+        if ( !isDefinedString( _options.sideMenuDaysText ) ) {
+            _options.sideMenuDaysText = "Days";
         }
 
         if ( !isDefinedString( _options.enableDayNameHeadersInMainDisplayText ) ) {

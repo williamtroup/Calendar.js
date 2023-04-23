@@ -4,23 +4,22 @@ function calendarJs(elementOrId, options, searchOptions) {
   eventEditorInput:null}}, _configuration = {visibleGroups:null, visibleEventTypes:null}, _options = {}, _optionsForSearch = {}, _datePickerInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, _elements = {}, _eventNotificationsTriggered = {}, _document = null, _window = null, _elementID = null, _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = 
   false, _events = {}, _timer_CallSearchOptionsEvent = null, _timer_RefreshMainDisplay = null, _timer_RefreshMainDisplay_Enabled = true, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = [], _copiedEventDetails = null, _copiedEventDetails_Cut = false, _previousDaysVisibleBeforeSingleDayView = [], _year_Minimum = 1900, _year_Maximum = null, _elementID_Day = "day-", _elementID_Month = "month-", 
   _elementID_WeekDay = "week-day-", _elementID_FullDay = "full-day-", _elementID_DayElement = "calendar-day-", _elementID_YearSelected = "year-selected-", _element_Rows = [], _element_DisabledBackground = null, _element_Calendar = null, _element_Calendar_AllVisibleEvents = [], _element_MoveDialog = null, _element_MoveDialog_IsMoving = false, _element_MoveDialog_X = 0, _element_MoveDialog_Y = 0, _element_HeaderDateDisplay = null, _element_HeaderDateDisplay_Text = null, _element_HeaderDateDisplay_YearSelector = 
-  null, _element_HeaderDateDisplay_YearSelector_Contents = null, _element_HeaderDateDisplay_ExportEventsButton = null, _element_HeaderDateDisplay_FullScreenButton = null, _element_HeaderDateDisplay_SearchButton = null, _element_DayNamesHeader = null, _element_SideMenu = null, _element_SideMenu_Content = null, _element_SideMenu_Content_Section_Groups = null, _element_SideMenu_Content_Section_EventTypes = null, _element_SideMenu_DisabledBackground = null, _element_EventEditorDialog = null, _element_EventEditorDialog_Tab_Event = 
-  null, _element_EventEditorDialog_Tab_Type = null, _element_EventEditorDialog_Tab_Repeats = null, _element_EventEditorDialog_Tab_Extra = null, _element_EventEditorDialog_DisabledArea = null, _element_EventEditorDialog_TitleBar = null, _element_EventEditorDialog_DateFrom = null, _element_EventEditorDialog_TimeFrom = null, _element_EventEditorDialog_DateTo = null, _element_EventEditorDialog_TimeTo = null, _element_EventEditorDialog_IsAllDay = null, _element_EventEditorDialog_ShowAlerts = null, _element_EventEditorDialog_Title = 
-  null, _element_EventEditorDialog_SelectColors = null, _element_EventEditorDialog_Description = null, _element_EventEditorDialog_Location = null, _element_EventEditorDialog_Group = null, _element_EventEditorDialog_Url = null, _element_EventEditorDialog_RepeatEvery_Never = null, _element_EventEditorDialog_RepeatEvery_EveryDay = null, _element_EventEditorDialog_RepeatEvery_EveryWeek = null, _element_EventEditorDialog_RepeatEvery_Every2Weeks = null, _element_EventEditorDialog_RepeatEvery_EveryMonth = 
-  null, _element_EventEditorDialog_RepeatEvery_EveryYear = null, _element_EventEditorDialog_RepeatEvery_Custom = null, _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = null, _element_EventEditorDialog_RepeatEvery_Custom_Value = 
-  null, _element_EventEditorDialog_ErrorMessage = null, _element_EventEditorDialog_EventDetails = {}, _element_EventEditorDialog_OKButton = null, _element_EventEditorDialog_RemoveButton = null, _element_EventEditorColorsDialog = null, _element_EventEditorColorsDialog_Color = null, _element_EventEditorColorsDialog_ColorText = null, _element_EventEditorColorsDialog_ColorBorder = null, _element_EventEditorRepeatOptionsDialog = null, _element_EventEditorRepeatOptionsDialog_Mon = null, _element_EventEditorRepeatOptionsDialog_Tue = 
-  null, _element_EventEditorRepeatOptionsDialog_Wed = null, _element_EventEditorRepeatOptionsDialog_Thu = null, _element_EventEditorRepeatOptionsDialog_Fri = null, _element_EventEditorRepeatOptionsDialog_Sat = null, _element_EventEditorRepeatOptionsDialog_Sun = null, _element_EventEditorRepeatOptionsDialog_RepeatEnds = null, _element_FullDayView = null, _element_FullDayView_Title = null, _element_FullDayView_Contents = null, _element_FullDayView_Contents_AllDayEvents = null, _element_FullDayView_Contents_Hours = 
-  null, _element_FullDayView_DateSelected = null, _element_FullDayView_EventsShown = [], _element_FullDayView_ExportEventsButton = null, _element_FullDayView_FullScreenButton = null, _element_FullDayView_TodayButton = null, _element_FullDayView_TimeArrow = null, _element_FullDayView_SearchButton = null, _element_ListAllEventsView = null, _element_ListAllEventsView_ExportEventsButton = null, _element_ListAllEventsView_FullScreenButton = null, _element_ListAllEventsView_SearchButton = null, _element_ListAllEventsView_Contents = 
-  null, _element_ListAllEventsView_EventsShown = [], _element_ListAllWeekEventsView = null, _element_ListAllWeekEventsView_Title = null, _element_ListAllWeekEventsView_ExportEventsButton = null, _element_ListAllWeekEventsView_FullScreenButton = null, _element_ListAllWeekEventsView_SearchButton = null, _element_ListAllWeekEventsView_Contents = null, _element_ListAllWeekEventsView_Contents_FullView = {}, _element_ListAllWeekEventsView_Contents_FullView_Contents = {}, _element_ListAllWeekEventsView_Contents_FullView_Events = 
-  {}, _element_ListAllWeekEventsView_EventsShown = [], _element_ListAllWeekEventsView_DateSelected = null, _element_ConfirmationDialog = null, _element_ConfirmationDialog_TitleBar = null, _element_ConfirmationDialog_Message = null, _element_ConfirmationDialog_RemoveAllEvents = null, _element_ConfirmationDialog_RemoveAllEvents_Label = null, _element_ConfirmationDialog_YesButton = null, _element_ConfirmationDialog_NoButton = null, _element_SelectExportTypeDialog = null, _element_SelectExportTypeDialog_Option_CSV = 
-  null, _element_SelectExportTypeDialog_Option_XML = null, _element_SelectExportTypeDialog_Option_JSON = null, _element_SelectExportTypeDialog_Option_TEXT = null, _element_SelectExportTypeDialog_Option_iCAL = null, _element_SelectExportTypeDialog_Option_MD = null, _element_SelectExportTypeDialog_Option_HTML = null, _element_SelectExportTypeDialog_Option_TSV = null, _element_SelectExportTypeDialog_ExportEvents = null, _element_Tooltip = null, _element_Tooltip_TitleButtons = null, _element_Tooltip_TitleButtons_CloseButton = 
-  null, _element_Tooltip_TitleButtons_EditButton = null, _element_Tooltip_Title = null, _element_Tooltip_Date = null, _element_Tooltip_TotalTime = null, _element_Tooltip_Repeats = null, _element_Tooltip_Description = null, _element_Tooltip_Location = null, _element_Tooltip_Url = null, _element_Tooltip_ShowTimer = null, _element_Tooltip_EventDetails = null, _element_DropDownMenu_Day = null, _element_DropDownMenu_Day_Paste_Separator = null, _element_DropDownMenu_Day_Paste = null, _element_DropDownMenu_Day_DateSelected = 
-  null, _element_DropDownMenu_Event = null, _element_DropDownMenu_Event_EventDetails = null, _element_DropDownMenu_Event_FormattedDateSelected = null, _element_DropDownMenu_Event_OpenUrlSeparator = null, _element_DropDownMenu_Event_OpenUrl = null, _element_DropDownMenu_FullDay = null, _element_DropDownMenu_FullDay_RemoveEvents_Separator = null, _element_DropDownMenu_FullDay_RemoveEvents = null, _element_DropDownMenu_FullDay_Paste_Separator = null, _element_DropDownMenu_FullDay_Paste = null, _element_DropDownMenu_HeaderDay = 
-  null, _element_DropDownMenu_HeaderDay_HideDay = null, _element_DropDownMenu_HeaderDay_HideDay_Separator = null, _element_DropDownMenu_HeaderDay_SelectedDay = null, _element_SearchDialog = null, _element_SearchDialog_MinimizedRestoreButton = null, _element_SearchDialog_Contents = null, _element_SearchDialog_For = null, _element_SearchDialog_MatchCase = null, _element_SearchDialog_Not = null, _element_SearchDialog_Advanced = null, _element_SearchDialog_Advanced_Container = null, _element_SearchDialog_Include_Title = 
-  null, _element_SearchDialog_Include_Location = null, _element_SearchDialog_Include_Description = null, _element_SearchDialog_Include_Group = null, _element_SearchDialog_Include_Url = null, _element_SearchDialog_Option_StartsWith = null, _element_SearchDialog_Option_EndsWith = null, _element_SearchDialog_Option_Contains = null, _element_SearchDialog_Previous = null, _element_SearchDialog_Next = null, _element_SearchDialog_Moved = false, _element_SearchDialog_SearchResults = [], _element_SearchDialog_SearchIndex = 
-  0, _element_SearchDialog_FocusedEventID = null, _element_SearchDialog_History_DropDown = null, _element_SearchDialog_History_DropDown_DisplayTimer = null, _element_ConfigurationDialog = null, _element_ConfigurationDialog_Display = null, _element_ConfigurationDialog_Organizer = null, _element_ConfigurationDialog_VisibleDays = null, _element_ConfigurationDialog_Display_EnableAutoRefresh = null, _element_ConfigurationDialog_Display_EnableBrowserNotifications = null, _element_ConfigurationDialog_Display_EnableTooltips = 
-  null, _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null, _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null, _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null, _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = null, _element_ConfigurationDialog_Organizer_Name = null, _element_ConfigurationDialog_Organizer_Email = null, _element_ConfigurationDialog_VisibleDays_Mon = null, _element_ConfigurationDialog_VisibleDays_Tue = null, 
-  _element_ConfigurationDialog_VisibleDays_Wed = null, _element_ConfigurationDialog_VisibleDays_Thu = null, _element_ConfigurationDialog_VisibleDays_Fri = null, _element_ConfigurationDialog_VisibleDays_Sat = null, _element_ConfigurationDialog_VisibleDays_Sun = null;
+  null, _element_HeaderDateDisplay_YearSelector_Contents = null, _element_HeaderDateDisplay_ExportEventsButton = null, _element_HeaderDateDisplay_FullScreenButton = null, _element_HeaderDateDisplay_SearchButton = null, _element_DayNamesHeader = null, _element_SideMenu = null, _element_SideMenu_Content = null, _element_SideMenu_Content_Section_Groups = null, _element_SideMenu_Content_Section_EventTypes = null, _element_SideMenu_Content_Section_Days = null, _element_SideMenu_DisabledBackground = null, 
+  _element_EventEditorDialog = null, _element_EventEditorDialog_Tab_Event = null, _element_EventEditorDialog_Tab_Type = null, _element_EventEditorDialog_Tab_Repeats = null, _element_EventEditorDialog_Tab_Extra = null, _element_EventEditorDialog_DisabledArea = null, _element_EventEditorDialog_TitleBar = null, _element_EventEditorDialog_DateFrom = null, _element_EventEditorDialog_TimeFrom = null, _element_EventEditorDialog_DateTo = null, _element_EventEditorDialog_TimeTo = null, _element_EventEditorDialog_IsAllDay = 
+  null, _element_EventEditorDialog_ShowAlerts = null, _element_EventEditorDialog_Title = null, _element_EventEditorDialog_SelectColors = null, _element_EventEditorDialog_Description = null, _element_EventEditorDialog_Location = null, _element_EventEditorDialog_Group = null, _element_EventEditorDialog_Url = null, _element_EventEditorDialog_RepeatEvery_Never = null, _element_EventEditorDialog_RepeatEvery_EveryDay = null, _element_EventEditorDialog_RepeatEvery_EveryWeek = null, _element_EventEditorDialog_RepeatEvery_Every2Weeks = 
+  null, _element_EventEditorDialog_RepeatEvery_EveryMonth = null, _element_EventEditorDialog_RepeatEvery_EveryYear = null, _element_EventEditorDialog_RepeatEvery_Custom = null, _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = 
+  null, _element_EventEditorDialog_RepeatEvery_Custom_Value = null, _element_EventEditorDialog_ErrorMessage = null, _element_EventEditorDialog_EventDetails = {}, _element_EventEditorDialog_OKButton = null, _element_EventEditorDialog_RemoveButton = null, _element_EventEditorColorsDialog = null, _element_EventEditorColorsDialog_Color = null, _element_EventEditorColorsDialog_ColorText = null, _element_EventEditorColorsDialog_ColorBorder = null, _element_EventEditorRepeatOptionsDialog = null, _element_EventEditorRepeatOptionsDialog_Mon = 
+  null, _element_EventEditorRepeatOptionsDialog_Tue = null, _element_EventEditorRepeatOptionsDialog_Wed = null, _element_EventEditorRepeatOptionsDialog_Thu = null, _element_EventEditorRepeatOptionsDialog_Fri = null, _element_EventEditorRepeatOptionsDialog_Sat = null, _element_EventEditorRepeatOptionsDialog_Sun = null, _element_EventEditorRepeatOptionsDialog_RepeatEnds = null, _element_FullDayView = null, _element_FullDayView_Title = null, _element_FullDayView_Contents = null, _element_FullDayView_Contents_AllDayEvents = 
+  null, _element_FullDayView_Contents_Hours = null, _element_FullDayView_DateSelected = null, _element_FullDayView_EventsShown = [], _element_FullDayView_ExportEventsButton = null, _element_FullDayView_FullScreenButton = null, _element_FullDayView_TodayButton = null, _element_FullDayView_TimeArrow = null, _element_FullDayView_SearchButton = null, _element_ListAllEventsView = null, _element_ListAllEventsView_ExportEventsButton = null, _element_ListAllEventsView_FullScreenButton = null, _element_ListAllEventsView_SearchButton = 
+  null, _element_ListAllEventsView_Contents = null, _element_ListAllEventsView_EventsShown = [], _element_ListAllWeekEventsView = null, _element_ListAllWeekEventsView_Title = null, _element_ListAllWeekEventsView_ExportEventsButton = null, _element_ListAllWeekEventsView_FullScreenButton = null, _element_ListAllWeekEventsView_SearchButton = null, _element_ListAllWeekEventsView_Contents = null, _element_ListAllWeekEventsView_Contents_FullView = {}, _element_ListAllWeekEventsView_Contents_FullView_Contents = 
+  {}, _element_ListAllWeekEventsView_Contents_FullView_Events = {}, _element_ListAllWeekEventsView_EventsShown = [], _element_ListAllWeekEventsView_DateSelected = null, _element_ConfirmationDialog = null, _element_ConfirmationDialog_TitleBar = null, _element_ConfirmationDialog_Message = null, _element_ConfirmationDialog_RemoveAllEvents = null, _element_ConfirmationDialog_RemoveAllEvents_Label = null, _element_ConfirmationDialog_YesButton = null, _element_ConfirmationDialog_NoButton = null, _element_SelectExportTypeDialog = 
+  null, _element_SelectExportTypeDialog_Option_CSV = null, _element_SelectExportTypeDialog_Option_XML = null, _element_SelectExportTypeDialog_Option_JSON = null, _element_SelectExportTypeDialog_Option_TEXT = null, _element_SelectExportTypeDialog_Option_iCAL = null, _element_SelectExportTypeDialog_Option_MD = null, _element_SelectExportTypeDialog_Option_HTML = null, _element_SelectExportTypeDialog_Option_TSV = null, _element_SelectExportTypeDialog_ExportEvents = null, _element_Tooltip = null, _element_Tooltip_TitleButtons = 
+  null, _element_Tooltip_TitleButtons_CloseButton = null, _element_Tooltip_TitleButtons_EditButton = null, _element_Tooltip_Title = null, _element_Tooltip_Date = null, _element_Tooltip_TotalTime = null, _element_Tooltip_Repeats = null, _element_Tooltip_Description = null, _element_Tooltip_Location = null, _element_Tooltip_Url = null, _element_Tooltip_ShowTimer = null, _element_Tooltip_EventDetails = null, _element_DropDownMenu_Day = null, _element_DropDownMenu_Day_Paste_Separator = null, _element_DropDownMenu_Day_Paste = 
+  null, _element_DropDownMenu_Day_DateSelected = null, _element_DropDownMenu_Event = null, _element_DropDownMenu_Event_EventDetails = null, _element_DropDownMenu_Event_FormattedDateSelected = null, _element_DropDownMenu_Event_OpenUrlSeparator = null, _element_DropDownMenu_Event_OpenUrl = null, _element_DropDownMenu_FullDay = null, _element_DropDownMenu_FullDay_RemoveEvents_Separator = null, _element_DropDownMenu_FullDay_RemoveEvents = null, _element_DropDownMenu_FullDay_Paste_Separator = null, _element_DropDownMenu_FullDay_Paste = 
+  null, _element_DropDownMenu_HeaderDay = null, _element_DropDownMenu_HeaderDay_HideDay = null, _element_DropDownMenu_HeaderDay_HideDay_Separator = null, _element_DropDownMenu_HeaderDay_SelectedDay = null, _element_SearchDialog = null, _element_SearchDialog_MinimizedRestoreButton = null, _element_SearchDialog_Contents = null, _element_SearchDialog_For = null, _element_SearchDialog_MatchCase = null, _element_SearchDialog_Not = null, _element_SearchDialog_Advanced = null, _element_SearchDialog_Advanced_Container = 
+  null, _element_SearchDialog_Include_Title = null, _element_SearchDialog_Include_Location = null, _element_SearchDialog_Include_Description = null, _element_SearchDialog_Include_Group = null, _element_SearchDialog_Include_Url = null, _element_SearchDialog_Option_StartsWith = null, _element_SearchDialog_Option_EndsWith = null, _element_SearchDialog_Option_Contains = null, _element_SearchDialog_Previous = null, _element_SearchDialog_Next = null, _element_SearchDialog_Moved = false, _element_SearchDialog_SearchResults = 
+  [], _element_SearchDialog_SearchIndex = 0, _element_SearchDialog_FocusedEventID = null, _element_SearchDialog_History_DropDown = null, _element_SearchDialog_History_DropDown_DisplayTimer = null, _element_ConfigurationDialog = null, _element_ConfigurationDialog_Display = null, _element_ConfigurationDialog_Organizer = null, _element_ConfigurationDialog_Display_EnableAutoRefresh = null, _element_ConfigurationDialog_Display_EnableBrowserNotifications = null, _element_ConfigurationDialog_Display_EnableTooltips = 
+  null, _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null, _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null, _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null, _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = null, _element_ConfigurationDialog_Organizer_Name = null, _element_ConfigurationDialog_Organizer_Email = null;
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
     _currentDate.setDate(1);
@@ -243,7 +242,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     } else {
       if (wasAddedAlready) {
-        _element_DayNamesHeader.parentNode.removeChild(_element_DayNamesHeader);
+        _element_Calendar.removeChild(_element_DayNamesHeader);
         _element_DayNamesHeader = null;
       }
     }
@@ -292,7 +291,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_element_Rows.length > 0) {
       var rowsLength = _element_Rows.length;
       for (var rowsIndex = 0; rowsIndex < rowsLength; rowsIndex++) {
-        _element_Rows[rowsIndex].parentNode.removeChild(_element_Rows[rowsIndex]);
+        _element_Calendar.removeChild(_element_Rows[rowsIndex]);
       }
       _element_Rows = [];
     }
@@ -397,8 +396,9 @@ function calendarJs(elementOrId, options, searchOptions) {
   function showSideMenu() {
     _element_SideMenu_Content.innerHTML = "";
     hideSearchDialog();
-    buildSideMenuGroups();
+    buildSideMenuDays();
     buildSideMenuEventTypes();
+    buildSideMenuGroups();
     _element_SideMenu.className += " side-menu-open";
     _element_SideMenu_DisabledBackground.style.display = "block";
   }
@@ -419,7 +419,16 @@ function calendarJs(elementOrId, options, searchOptions) {
       _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_EventTypes, true);
       triggerOptionsEventWithData("onVisibleEventTypesChanged", _configuration.visibleEventTypes);
     }
-    refreshViews(true, false);
+    if (_element_SideMenu_Content_Section_Days !== null) {
+      var visibleDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_Days, true);
+      if (visibleDays.length >= 1) {
+        _options.visibleDays = visibleDays;
+        _previousDaysVisibleBeforeSingleDayView = [];
+        triggerOptionsEventWithData("onOptionsUpdated", _options);
+      }
+    }
+    _initialized = false;
+    build(_currentDate, true, true);
   }
   function getSideMenuCheckedCheckBoxNames(container, isNumericName) {
     isNumericName = isDefined(isNumericName) ? isNumericName : false;
@@ -471,6 +480,16 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
         buildCheckBox(_element_SideMenu_Content_Section_EventTypes, _eventType[eventType].text, null, eventType, visible);
       }
+    }
+  }
+  function buildSideMenuDays() {
+    _element_SideMenu_Content_Section_Days = null;
+    _element_SideMenu_Content_Section_Days = createElement("div", "content-section");
+    _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_Days);
+    createTextHeaderElement(_element_SideMenu_Content_Section_Days, _options.sideMenuDaysText + ":", "text-header");
+    for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
+      var visible = _options.visibleDays.indexOf(dayIndex) > -1;
+      buildCheckBox(_element_SideMenu_Content_Section_Days, _options.dayNames[dayIndex], null, dayIndex.toString(), visible);
     }
   }
   function setEventTypeInputCheckedStates(selectedEventType) {
@@ -2660,10 +2679,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       build(_currentDate, true);
     }, true);
     _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator(_element_DropDownMenu_HeaderDay);
-    buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysTabText + "...", function() {
-      selectTab(_element_ConfigurationDialog, 2);
-      showConfigurationDialog();
-    });
+    buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.sideMenuDaysText + "...", showSideMenu);
   }
   function buildMenuItemWithIcon(container, iconCSS, text, onClickEvent, isBold) {
     isBold = isDefined(isBold) ? isBold : false;
@@ -3872,12 +3888,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildTab(tabsContainer, _options.organizerTabText, function(tab) {
         showTabContents(tab, _element_ConfigurationDialog_Organizer, _element_ConfigurationDialog);
       });
-      buildTab(tabsContainer, _options.visibleDaysTabText, function(tab) {
-        showTabContents(tab, _element_ConfigurationDialog_VisibleDays, _element_ConfigurationDialog);
-      });
       _element_ConfigurationDialog_Display = buildTabContents(contents, true, false);
       _element_ConfigurationDialog_Organizer = buildTabContents(contents, false, false);
-      _element_ConfigurationDialog_VisibleDays = buildTabContents(contents, false, false);
       _element_ConfigurationDialog_Display_EnableAutoRefresh = buildCheckBox(_element_ConfigurationDialog_Display, _options.enableAutoRefreshForEventsText)[0];
       _element_ConfigurationDialog_Display_EnableBrowserNotifications = buildCheckBox(_element_ConfigurationDialog_Display, _options.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in")[0];
       _element_ConfigurationDialog_Display_EnableTooltips = buildCheckBox(_element_ConfigurationDialog_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down")[0];
@@ -3895,42 +3907,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.appendChild(buttonsSplitContainer);
       createButtonElement(buttonsSplitContainer, _options.okText, "ok", configurationDialogEvent_OK);
       createButtonElement(buttonsSplitContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel);
-      _element_ConfigurationDialog_VisibleDays_Mon = buildCheckBox(_element_ConfigurationDialog_VisibleDays, _options.dayNames[0])[0];
-      _element_ConfigurationDialog_VisibleDays_Tue = buildCheckBox(_element_ConfigurationDialog_VisibleDays, _options.dayNames[1])[0];
-      _element_ConfigurationDialog_VisibleDays_Wed = buildCheckBox(_element_ConfigurationDialog_VisibleDays, _options.dayNames[2])[0];
-      _element_ConfigurationDialog_VisibleDays_Thu = buildCheckBox(_element_ConfigurationDialog_VisibleDays, _options.dayNames[3])[0];
-      _element_ConfigurationDialog_VisibleDays_Fri = buildCheckBox(_element_ConfigurationDialog_VisibleDays, _options.dayNames[4])[0];
-      _element_ConfigurationDialog_VisibleDays_Sat = buildCheckBox(_element_ConfigurationDialog_VisibleDays, _options.dayNames[5])[0];
-      _element_ConfigurationDialog_VisibleDays_Sun = buildCheckBox(_element_ConfigurationDialog_VisibleDays, _options.dayNames[6])[0];
     }
   }
   function configurationDialogEvent_OK() {
-    var visibleDays = [];
     if (_element_ConfigurationDialog_Display_EnableAutoRefresh.checked) {
       _this.startTheAutoRefreshTimer();
     } else {
       _this.stopTheAutoRefreshTimer();
-    }
-    if (_element_ConfigurationDialog_VisibleDays_Mon.checked) {
-      visibleDays.push(0);
-    }
-    if (_element_ConfigurationDialog_VisibleDays_Tue.checked) {
-      visibleDays.push(1);
-    }
-    if (_element_ConfigurationDialog_VisibleDays_Wed.checked) {
-      visibleDays.push(2);
-    }
-    if (_element_ConfigurationDialog_VisibleDays_Thu.checked) {
-      visibleDays.push(3);
-    }
-    if (_element_ConfigurationDialog_VisibleDays_Fri.checked) {
-      visibleDays.push(4);
-    }
-    if (_element_ConfigurationDialog_VisibleDays_Sat.checked) {
-      visibleDays.push(5);
-    }
-    if (_element_ConfigurationDialog_VisibleDays_Sun.checked) {
-      visibleDays.push(6);
     }
     _options.eventNotificationsEnabled = _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked;
     _options.tooltipsEnabled = _element_ConfigurationDialog_Display_EnableTooltips.checked;
@@ -3940,10 +3923,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showHolidays = _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked;
     _options.organizerName = _element_ConfigurationDialog_Organizer_Name.value;
     _options.organizerEmailAddress = _element_ConfigurationDialog_Organizer_Email.value;
-    if (visibleDays.length > 0) {
-      _options.visibleDays = visibleDays;
-      _previousDaysVisibleBeforeSingleDayView = [];
-    }
     _initialized = false;
     triggerOptionsEventWithData("onOptionsUpdated", _options);
     checkForBrowserNotificationsPermission();
@@ -3964,13 +3943,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
     _element_ConfigurationDialog_Organizer_Name.value = _options.organizerName;
     _element_ConfigurationDialog_Organizer_Email.value = _options.organizerEmailAddress;
-    _element_ConfigurationDialog_VisibleDays_Mon.checked = _options.visibleDays.indexOf(0) > -1;
-    _element_ConfigurationDialog_VisibleDays_Tue.checked = _options.visibleDays.indexOf(1) > -1;
-    _element_ConfigurationDialog_VisibleDays_Wed.checked = _options.visibleDays.indexOf(2) > -1;
-    _element_ConfigurationDialog_VisibleDays_Thu.checked = _options.visibleDays.indexOf(3) > -1;
-    _element_ConfigurationDialog_VisibleDays_Fri.checked = _options.visibleDays.indexOf(4) > -1;
-    _element_ConfigurationDialog_VisibleDays_Sat.checked = _options.visibleDays.indexOf(5) > -1;
-    _element_ConfigurationDialog_VisibleDays_Sun.checked = _options.visibleDays.indexOf(6) > -1;
     _openDialogs.push(hideConfigurationDialog);
     _element_ConfigurationDialog.style.display = "block";
   }
@@ -5602,7 +5574,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       _initialized = false;
       if (!_datePickerModeEnabled || _datePickerVisible) {
-        build(_currentDate, true);
+        build(_currentDate, true, true);
       }
     }
   };
@@ -5630,7 +5602,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onOptionsUpdated", _options);
       }
       if (updateEvents) {
-        build(_currentDate, true);
+        build(_currentDate, true, true);
       }
     }
   };
@@ -5650,7 +5622,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onOptionsUpdated", _options);
       }
       if (updateEvents) {
-        build(_currentDate, true);
+        build(_currentDate, true, true);
       }
     }
   };
@@ -6214,8 +6186,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!isDefinedString(_options.openUrlText)) {
       _options.openUrlText = "Open Url";
     }
-    if (!isDefinedString(_options.visibleDaysTabText)) {
-      _options.visibleDaysTabText = "Visible Days";
+    if (!isDefinedString(_options.sideMenuDaysText)) {
+      _options.sideMenuDaysText = "Days";
     }
     if (!isDefinedString(_options.enableDayNameHeadersInMainDisplayText)) {
       _options.enableDayNameHeadersInMainDisplayText = "Enable day name headers in the main display";
