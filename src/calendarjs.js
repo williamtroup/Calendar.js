@@ -1178,8 +1178,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showSideMenu() {
         var isDayOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Days_Content ),
-            isEventTypesOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_EventTypes_Content ),
-            isGroupsOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Groups_Content );
+            isEventTypesOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_EventTypes_Content, true ),
+            isGroupsOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Groups_Content, true );
 
         _element_SideMenu_Content.innerHTML = "";
 
@@ -1356,8 +1356,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function isSideMenuContentOpen( element ) {
-        return element === null || element.style.display !== "none";
+    function isSideMenuContentOpen( element, closed ) {
+        return closed && element === null ? false : element === null || element.style.display !== "none";
     }
 
 

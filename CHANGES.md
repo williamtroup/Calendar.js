@@ -7,7 +7,7 @@
   - Birthday
   - Holiday
   - Task
-- MAJOR: Added side menu for the whole Calendar, which allows Visible Days, Event Types, and Groups to be toggled easily.
+- MAJOR: Added side menu for the whole Calendar, which allows visibility of Days, Event Types, and Groups to be toggled easily (The days area is open by default).
 - MAJOR: Updating configuration will no longer close your current view (All Events, Full Day, Weekly).  They will be automatically updated.
 - Added new public functions "addEventType()" and "removeEventType()", for adding adding and removing event types.
 - Added new public function "setVisibleGroups()", which will set the group name that are visible.
