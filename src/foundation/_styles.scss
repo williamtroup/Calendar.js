@@ -36,6 +36,7 @@ $area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
 $input-box-shadow-size: 2px;
 $side-menu-background-color: #D0D0D0;
 $side-menu-width: 250px;
+$side-menu-width-small: 200px;
 $side-menu-right-border-width: 5px;
 
 @mixin fade-in-effect-animation($seconds) {

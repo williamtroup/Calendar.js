@@ -439,9 +439,7 @@ div.calendar div.side-menu {
   position: absolute;
   padding: 10px;
   padding-top: 10px;
-  width: 250px;
   height: calc(100% - 20px);
-  left: -275px;
   top: 0;
   color: #F5F5F5 !important;
   z-index: 1500;
@@ -452,10 +450,31 @@ div.calendar div.side-menu {
   overflow-x: hidden;
   overflow-y: auto;
 }
+@media screen and (min-width: 451px) {
+  div.calendar div.side-menu {
+    width: 250px;
+    left: -275px;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.side-menu {
+    width: 200px;
+    left: -225px;
+  }
+}
 div.calendar div.side-menu p.main-header {
   margin: 0 !important;
   font-weight: 700;
-  font-size: 1.2rem;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.side-menu p.main-header {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.side-menu p.main-header {
+    font-size: 1rem;
+  }
 }
 div.calendar div.side-menu div.ib-close {
   position: absolute;

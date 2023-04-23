@@ -425,9 +425,7 @@ div.calendar {
         position: absolute;
         padding: $spacing;
         padding-top: $spacing;
-        width: $side-menu-width;
         height: calc(100% - ($spacing * 2));
-        left: -($side-menu-width + $side-menu-right-border-width + ($spacing * 2));
         top: 0;
         color: $light-color !important;
         z-index: 1500;
@@ -438,10 +436,27 @@ div.calendar {
         overflow-x: hidden;
         overflow-y: auto;
 
+        @media screen and (min-width: $minimum-width) {
+            width: $side-menu-width;
+            left: -($side-menu-width + $side-menu-right-border-width + ($spacing * 2));
+        }
+        
+        @media screen and (max-width: $maximum-width) {
+            width: $side-menu-width-small;
+            left: -($side-menu-width-small + $side-menu-right-border-width + ($spacing * 2));
+        }
+
         p.main-header {
             margin: 0 !important;
             font-weight: 700;
-            font-size: 1.2rem;
+
+            @media screen and (min-width: $minimum-width) {
+                font-size: 1.2rem;
+            }
+            
+            @media screen and (max-width: $maximum-width) {
+                font-size: 1.0rem;
+            }
         }
         
         div.ib-close {
