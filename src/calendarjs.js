@@ -4386,7 +4386,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             buildMenuSeparator( _element_DropDownMenu_Event );
 
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText, function() {
+            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText + "...", function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
                 setEventEditingDialogInDuplicateMode();
             } );
