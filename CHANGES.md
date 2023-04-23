@@ -28,6 +28,7 @@
 - Fixed some issues around the z-indexes used for dialogs.  The search dialog is now shown under the main disabled background.
 - Events visible in the active display now contain attributes "event-id" and "event-type".
 - The "Duplicate" event context menu item now has "..." at the end.
+- Changed the default background color for the tooltips shown through the Calendar (slightly lighter now).
 - 
 
 ### Version 1.8.7:
