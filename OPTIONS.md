@@ -218,3 +218,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | typeText | The text that should be displayed for the "Type:" label. |
 | *string* | sideMenuHeaderText | The text that should be displayed for the "Calendar.js" side menu header label. |
 | *string* | sideMenuDaysText | The text that should be displayed for the "Days" side menu label. |
+| *string* | visibleDaysText | The text that should be displayed for the "Visible Days" label. |

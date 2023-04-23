@@ -261,6 +261,7 @@
  * @property    {string}    typeText                                    The text that should be displayed for the "Type:" label.
  * @property    {string}    sideMenuHeaderText                          The text that should be displayed for the "Calendar.js" side menu header label.
  * @property    {string}    sideMenuDaysText                            The text that should be displayed for the "Days" side menu label.
+ * @property    {string}    visibleDaysText                             The text that should be displayed for the "Visible Days" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -4496,7 +4497,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
 
-        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.sideMenuDaysText + "...", showSideMenu );
+        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu );
     }
 
     function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
@@ -10056,10 +10057,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.openUrlText = "Open Url";
         }
 
-        if ( !isDefinedString( _options.sideMenuDaysText ) ) {
-            _options.sideMenuDaysText = "Days";
-        }
-
         if ( !isDefinedString( _options.enableDayNameHeadersInMainDisplayText ) ) {
             _options.enableDayNameHeadersInMainDisplayText = "Enable day name headers in the main display";
         }
@@ -10174,6 +10171,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !isDefinedString( _options.sideMenuHeaderText ) ) {
             _options.sideMenuHeaderText = "Calendar.js";
+        }
+
+        if ( !isDefinedString( _options.sideMenuDaysText ) ) {
+            _options.sideMenuDaysText = "Days";
+        }
+
+        if ( !isDefinedString( _options.visibleDaysText ) ) {
+            _options.visibleDaysText = "Visible Days";
         }
     }
 
