@@ -2235,6 +2235,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         eventTitle = eventDetails.title;
 
                     event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+                    event.setAttribute( "event-id", eventDetails.id );
     
                     if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
                         eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
@@ -2738,6 +2739,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var event = createElement( "div", "event" );
             event.ondblclick = cancelBubble;
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+            event.setAttribute( "event-id", eventDetails.id );
 
             event.onclick = function ( e ) {
                 increaseEventZIndex( e, event );
@@ -3194,6 +3196,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             event.id = _elementID_Month + eventDetails.id;
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+            event.setAttribute( "event-id", eventDetails.id );
 
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
@@ -3575,6 +3578,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             var event = createElement( "div", "event" );
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+            event.setAttribute( "event-id", eventDetails.id );
             
             container.appendChild( event );
     

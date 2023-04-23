@@ -26,6 +26,7 @@
 - Added global Ctrl/Command + Shift + E support to open the Export Events dialog (when exporting is enabled).
 - All tab container now use the custom scroll bar styles whenever they are required.
 - Fixed some issues around the z-indexes used for dialogs.  The search dialog is now shown under the main disabled background.
+- Events visible in the active display now contain attributes "event-id" and "event-type".
 - 
 
 ### Version 1.8.7:
