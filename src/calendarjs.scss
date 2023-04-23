@@ -462,7 +462,7 @@ div.calendar {
         div.ib-close {
             position: absolute;
             right: $spacing;
-            top: $spacing;
+            top: $spacing + 3px;
         }
 
         div.content {
