@@ -15,7 +15,7 @@
 - Removed the "Groups" tab from the "Configuration" dialog (as its all in the side menu now).
 - Removed the "Visible Days" tab from the "Configuration" dialog (as its all in the side menu now).
 - The "View Current Week Events" button is now the same, but flipped.
-- When events are added/updated, the group they are assigned (if new) is made visible by default.
+- When events are added/updated/set, the group they are assigned (if new) is made visible by default.
 - The "locked" property is now included in the CSV export result.
 - Added left margin spacing to the "Advanced" options in the "Search" dialog.
 - Removed all deprecated SASS math divide usages.
