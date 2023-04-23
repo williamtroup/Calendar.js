@@ -2780,47 +2780,6 @@ div.calendar-tooltip-event {
   display: none;
   z-index: 2000;
 }
-div.calendar-tooltip div,
-div.calendar-tooltip-event div {
-  margin-bottom: 5px;
-}
-div.calendar-tooltip div:last-child,
-div.calendar-tooltip-event div:last-child {
-  margin-bottom: 0;
-}
-div.calendar-tooltip div.title,
-div.calendar-tooltip-event div.title {
-  font-weight: 900;
-  width: calc(100% - 24px - 10px);
-}
-div.calendar-tooltip div.date,
-div.calendar-tooltip div.duration,
-div.calendar-tooltip div.description,
-div.calendar-tooltip div.location,
-div.calendar-tooltip div.repeats,
-div.calendar-tooltip div.url,
-div.calendar-tooltip-event div.date,
-div.calendar-tooltip-event div.duration,
-div.calendar-tooltip-event div.description,
-div.calendar-tooltip-event div.location,
-div.calendar-tooltip-event div.repeats,
-div.calendar-tooltip-event div.url {
-  font-size: smaller;
-}
-div.calendar-tooltip div.url,
-div.calendar-tooltip-event div.url {
-  color: blue;
-  display: inline-block;
-}
-div.calendar-tooltip div.url:hover,
-div.calendar-tooltip-event div.url:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div.calendar-tooltip div.ib-refresh-medium,
-div.calendar-tooltip-event div.ib-refresh-medium {
-  margin-right: 5px;
-}
 
 div.calendar-tooltip {
   font-size: smaller !important;
@@ -2830,6 +2789,35 @@ div.calendar-tooltip {
 
 div.calendar-tooltip-event {
   max-width: 300px;
+}
+div.calendar-tooltip-event div {
+  margin-bottom: 5px;
+}
+div.calendar-tooltip-event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar-tooltip-event div.title {
+  font-weight: 900;
+  width: calc(100% - 24px - 10px);
+}
+div.calendar-tooltip-event div.date,
+div.calendar-tooltip-event div.duration,
+div.calendar-tooltip-event div.description,
+div.calendar-tooltip-event div.location,
+div.calendar-tooltip-event div.repeats,
+div.calendar-tooltip-event div.url {
+  font-size: smaller;
+}
+div.calendar-tooltip-event div.url {
+  color: blue;
+  display: inline-block;
+}
+div.calendar-tooltip-event div.url:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div.calendar-tooltip-event div.ib-refresh-medium {
+  margin-right: 5px;
 }
 div.calendar-tooltip-event div.title-buttons {
   position: absolute !important;
