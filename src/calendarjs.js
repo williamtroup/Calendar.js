@@ -252,11 +252,11 @@
  * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
  * @property    {string}    showMenuTooltipText                         The tooltip text that should be used for for the "Show Menu" button.
  * @property    {string}    eventTypesText                              The text that should be displayed for the "Event Types" label.
- * @property    {string}    eventTypeNormal                             The text that should be displayed for the "Normal" event label.
- * @property    {string}    eventTypeMeeting                            The text that should be displayed for the "Meeting" event label.
- * @property    {string}    eventTypeBirthday                           The text that should be displayed for the "Birthday" event label.
- * @property    {string}    eventTypeHoliday                            The text that should be displayed for the "Holiday" event label.
- * @property    {string}    eventTypeTask                               The text that should be displayed for the "Task" event label.
+ * @property    {string}    eventTypeNormalText                         The text that should be displayed for the "Normal" event label.
+ * @property    {string}    eventTypeMeetingText                        The text that should be displayed for the "Meeting" event label.
+ * @property    {string}    eventTypeBirthdayText                       The text that should be displayed for the "Birthday" event label.
+ * @property    {string}    eventTypeHolidayText                        The text that should be displayed for the "Holiday" event label.
+ * @property    {string}    eventTypeTaskText                           The text that should be displayed for the "Task" event label.
  * @property    {string}    lockedText                                  The text that should be displayed for the "Locked:" label.
  * @property    {string}    typeText                                    The text that should be displayed for the "Type:" label.
  * @property    {string}    sideMenuHeaderText                          The text that should be displayed for the "Calendar.js" side menu header label.
@@ -10195,11 +10195,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function setEventTypeTranslationStringOptions() {
-        setEventTypeOption( _options.eventTypeNormal , "Normal", 0 );
-        setEventTypeOption( _options.eventTypeMeeting , "Meeting", 1 );
-        setEventTypeOption( _options.eventTypeBirthday , "Birthday", 2 );
-        setEventTypeOption( _options.eventTypeHoliday , "Holiday", 3 );
-        setEventTypeOption( _options.eventTypeTask , "Task", 4 );
+        setEventTypeOption( _options.eventTypeNormalText , "Normal", 0 );
+        setEventTypeOption( _options.eventTypeMeetingText , "Meeting", 1 );
+        setEventTypeOption( _options.eventTypeBirthdayText , "Birthday", 2 );
+        setEventTypeOption( _options.eventTypeHolidayText , "Holiday", 3 );
+        setEventTypeOption( _options.eventTypeTaskText , "Task", 4 );
     }
 
     function setEventTypeOption( optionEventText, defaultEventText, eventId ) {

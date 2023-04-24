@@ -209,11 +209,11 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | cutText | The text that should be displayed for the "Cut" label. |
 | *string* | showMenuTooltipText | The tooltip text that should be used for for the "Show Menu" button. |
 | *string* | eventTypesText | The text that should be displayed for the "Event Types" label. |
-| *string* | eventTypeNormal | The text that should be displayed for the "Normal" event label. |
-| *string* | eventTypeMeeting | The text that should be displayed for the "Meeting" event label. |
-| *string* | eventTypeBirthday | The text that should be displayed for the "Birthday" event label. |
-| *string* | eventTypeHoliday | The text that should be displayed for the "Holiday" event label. |
-| *string* | eventTypeTask | The text that should be displayed for the "Task" event label. |
+| *string* | eventTypeNormalText | The text that should be displayed for the "Normal" event label. |
+| *string* | eventTypeMeetingText | The text that should be displayed for the "Meeting" event label. |
+| *string* | eventTypeBirthdayText | The text that should be displayed for the "Birthday" event label. |
+| *string* | eventTypeHolidayText | The text that should be displayed for the "Holiday" event label. |
+| *string* | eventTypeTaskText | The text that should be displayed for the "Task" event label. |
 | *string* | lockedText | The text that should be displayed for the "Locked:" label. |
 | *string* | typeText | The text that should be displayed for the "Type:" label. |
 | *string* | sideMenuHeaderText | The text that should be displayed for the "Calendar.js" side menu header label. |
