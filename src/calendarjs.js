@@ -677,6 +677,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay(),
             totalDaysInMonth = getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
 
+        if ( isSideMenuOpen() ) {
+            hideSideMenu();
+        }
+
         hideAllDropDowns();
 
         buildLayout();
@@ -1200,7 +1204,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isSideMenuOpen() {
-        return _element_SideMenu.className.indexOf( "side-menu-open" ) > -1;
+        return _element_SideMenu !== null && _element_SideMenu.className.indexOf( "side-menu-open" ) > -1;
     }
 
     function saveSideMenuSelections() {
@@ -8418,6 +8422,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
+                hideSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -8559,6 +8564,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
             
                     if ( updateEvents ) {
+                        hideSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
                     }
@@ -8598,6 +8604,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
+                hideSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -8676,6 +8683,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
     
                     if ( updateEvents ) {
+                        hideSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
                     }
@@ -8719,6 +8727,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
     
                     if ( updateEvents ) {
+                        hideSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
                     }
@@ -8754,6 +8763,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
+                hideSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -8951,6 +8961,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( updateEvents ) {
+                hideSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -8987,6 +8998,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( updateEvents ) {
+                hideSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
