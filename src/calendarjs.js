@@ -10195,34 +10195,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function setEventTypeTranslationStringOptions() {
-        if ( !isDefinedString( _options.eventTypeNormal ) ) {
-            _eventType[ 0 ].text = "Normal";
-        } else {
-            _eventType[ 0 ].text = _options.eventTypeNormal;
-        }
+        setEventTypeOption( _options.eventTypeNormal , "Normal", 0 );
+        setEventTypeOption( _options.eventTypeMeeting , "Meeting", 1 );
+        setEventTypeOption( _options.eventTypeBirthday , "Birthday", 2 );
+        setEventTypeOption( _options.eventTypeHoliday , "Holiday", 3 );
+        setEventTypeOption( _options.eventTypeTask , "Task", 4 );
+    }
 
-        if ( !isDefinedString( _options.eventTypeMeeting ) ) {
-            _eventType[ 1 ].text = "Meeting";
-        } else {
-            _eventType[ 1 ].text = _options.eventTypeMeeting;
-        }
-
-        if ( !isDefinedString( _options.eventTypeBirthday ) ) {
-            _eventType[ 2 ].text = "Birthday";
-        } else {
-            _eventType[ 2 ].text = _options.eventTypeBirthday;
-        }
-
-        if ( !isDefinedString( _options.eventTypeHoliday ) ) {
-            _eventType[ 3 ].text = "Holiday";
-        } else {
-            _eventType[ 3 ].text = _options.eventTypeHoliday;
-        }
-
-        if ( !isDefinedString( _options.eventTypeTask ) ) {
-            _eventType[ 4 ].text = "Task";
-        } else {
-            _eventType[ 4 ].text = _options.eventTypeTask;
+    function setEventTypeOption( optionEventText, defaultEventText, eventId ) {
+        if ( _eventType.hasOwnProperty( eventId ) ) {
+            if ( !isDefinedString( optionEventText ) ) {
+                _eventType[ eventId ].text = defaultEventText;
+            } else {
+                _eventType[ eventId ].text = optionEventText;
+            }
         }
     }
 
