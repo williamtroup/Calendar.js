@@ -7320,6 +7320,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return isDefinedArray( value ) ? value : defaultValue;
     }
 
+    function getDefaultDate( value, defaultValue ) {
+        return isDefinedDate( value ) ? value : defaultValue;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -9302,114 +9306,51 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
-
-        if ( !isDefinedBoolean( _options.showDayNumberOrdinals ) ) {
-            _options.showDayNumberOrdinals = true;
-        }
-
-        if ( !isDefinedBoolean( _options.dragAndDropForEventsEnabled ) ) {
-            _options.dragAndDropForEventsEnabled = true;
-        }
-
-        if ( !isDefinedNumber( _options.maximumEventsPerDayDisplay ) ) {
-            _options.maximumEventsPerDayDisplay = 3;
-        }
-
-        if ( !isDefinedNumber( _options.extraSelectableYearsAhead ) ) {
-            _options.extraSelectableYearsAhead = 100;
-        }
-
-        if ( !isDefinedBoolean( _options.exportEventsEnabled ) ) {
-            _options.exportEventsEnabled = true;
-        }
-
-        if ( !isDefinedBoolean( _options.manualEditingEnabled ) ) {
-            _options.manualEditingEnabled = true;
-        }
-
-        if ( !isDefinedBoolean( _options.showTimesInMainCalendarEvents ) ) {
-            _options.showTimesInMainCalendarEvents = false;
-        }
-
-        if ( !isDefinedNumber( _options.autoRefreshTimerDelay ) ) {
-            _options.autoRefreshTimerDelay = 30000;
-        }
-
-        if ( !isDefinedBoolean( _options.fullScreenModeEnabled ) ) {
-            _options.fullScreenModeEnabled = true;
-        }
-
-        if ( !isDefinedNumber( _options.eventTooltipDelay ) ) {
-            _options.eventTooltipDelay = 1000;
-        }
-
-        if ( !isDefinedNumber( _options.minimumDayHeight ) ) {
-            _options.minimumDayHeight = 0;
-        }
-
-        if ( !isDefinedArray( _options.holidays ) ) {
-            _options.holidays = getStandardHolidays();
-        }
-
-        if ( !isDefinedString( _options.organizerName ) ) {
-            _options.organizerName = "";
-        }
-        
-        if ( !isDefinedString( _options.organizerEmailAddress ) ) {
-            _options.organizerEmailAddress = "";
-        }
-
-        if ( !isDefinedNumber( _options.spacing ) ) {
-            _options.spacing = 10;
-        }
-
-        if ( !isDefinedBoolean( _options.showAllDayEventDetailsInFullDayView ) ) {
-            _options.showAllDayEventDetailsInFullDayView = false;
-        }
-
-        if ( !isDefinedBoolean( _options.showWeekNumbersInTitles ) ) {
-            _options.showWeekNumbersInTitles = false;
-        }
-
-        if ( !isDefinedBoolean( _options.showTimelineArrowOnFullDayView ) ) {
-            _options.showTimelineArrowOnFullDayView = true;
-        }
-
-        if ( !isDefinedNumber( _options.maximumEventTitleLength ) ) {
-            _options.maximumEventTitleLength = 0;
-        }
-
-        if ( !isDefinedNumber( _options.maximumEventDescriptionLength ) ) {
-            _options.maximumEventDescriptionLength = 0;
-        }
-
-        if ( !isDefinedNumber( _options.maximumEventLocationLength ) ) {
-            _options.maximumEventLocationLength = 0;
-        }
-
-        if ( !isDefinedNumber( _options.maximumEventGroupLength ) ) {
-            _options.maximumEventGroupLength = 0;
-        }
-
-        if ( !isDefinedBoolean( _options.eventNotificationsEnabled ) ) {
-            _options.eventNotificationsEnabled = false;
-        }
-
-        if ( !isDefinedBoolean( _options.showPreviousNextMonthNamesInMainDisplay ) ) {
-            _options.showPreviousNextMonthNamesInMainDisplay = true;
-        }
-
-        if ( !isDefinedBoolean( _options.showDayNamesInMainDisplay ) ) {
-            _options.showDayNamesInMainDisplay = true;
-        }
-
-        if ( !isDefinedBoolean( _options.tooltipsEnabled ) ) {
-            _options.tooltipsEnabled = true;
-        }
-
-        if ( !isDefinedBoolean( _options.useOnlyDotEventsForMainDisplay ) ) {
-            _options.useOnlyDotEventsForMainDisplay = false;
-        }
+        _options.showDayNumberOrdinals = getDefaultBoolean( _options.showDayNumberOrdinals, true );
+        _options.dragAndDropForEventsEnabled = getDefaultBoolean( _options.dragAndDropForEventsEnabled, true );
+        _options.maximumEventsPerDayDisplay = getDefaultNumber( _options.maximumEventsPerDayDisplay, 3 );
+        _options.extraSelectableYearsAhead = getDefaultNumber( _options.extraSelectableYearsAhead, 100 );
+        _options.exportEventsEnabled = getDefaultBoolean( _options.exportEventsEnabled, true );
+        _options.manualEditingEnabled = getDefaultBoolean( _options.manualEditingEnabled, true );
+        _options.showTimesInMainCalendarEvents = getDefaultBoolean( _options.showTimesInMainCalendarEvents, false );
+        _options.autoRefreshTimerDelay = getDefaultNumber(_options.autoRefreshTimerDelay, 30000 );
+        _options.fullScreenModeEnabled = getDefaultBoolean( _options.fullScreenModeEnabled, true );
+        _options.eventTooltipDelay = getDefaultNumber( _options.eventTooltipDelay, 1000 );
+        _options.minimumDayHeight = getDefaultNumber( _options.minimumDayHeight, 0 );
+        _options.holidays = getDefaultArray( _options.holidays, getStandardHolidays() );
+        _options.organizerName = getDefaultString( _options.organizerName, "" );
+        _options.organizerEmailAddress = getDefaultString( _options.organizerEmailAddress, "" );
+        _options.spacing = getDefaultNumber( _options.spacing, 10 );
+        _options.showAllDayEventDetailsInFullDayView = getDefaultBoolean( _options.showAllDayEventDetailsInFullDayView, false );
+        _options.showWeekNumbersInTitles = getDefaultBoolean( _options.showWeekNumbersInTitles, false );
+        _options.showTimelineArrowOnFullDayView = getDefaultBoolean( _options.showTimelineArrowOnFullDayView, true );
+        _options.maximumEventTitleLength = getDefaultNumber( _options.maximumEventTitleLength, 0 );
+        _options.maximumEventDescriptionLength = getDefaultNumber( _options.maximumEventDescriptionLength, 0 );
+        _options.maximumEventLocationLength = getDefaultNumber( _options.maximumEventLocationLength, 0 );
+        _options.maximumEventGroupLength = getDefaultNumber( _options.maximumEventGroupLength, 0 );
+        _options.eventNotificationsEnabled = getDefaultBoolean( _options.eventNotificationsEnabled, false );
+        _options.showPreviousNextMonthNamesInMainDisplay = getDefaultBoolean( _options.showPreviousNextMonthNamesInMainDisplay, true );
+        _options.showDayNamesInMainDisplay = getDefaultBoolean( _options.showDayNamesInMainDisplay, true );
+        _options.tooltipsEnabled = getDefaultBoolean( _options.tooltipsEnabled, true );
+        _options.useOnlyDotEventsForMainDisplay = getDefaultBoolean( _options.useOnlyDotEventsForMainDisplay, false );
+        _options.urlWindowTarget = getDefaultString( _options.urlWindowTarget, "_blank" );
+        _options.defaultEventBackgroundColor = getDefaultString( _options.defaultEventBackgroundColor, "#484848" );
+        _options.defaultEventTextColor = getDefaultString( _options.defaultEventTextColor, "#F5F5F5" );
+        _options.defaultEventBorderColor = getDefaultString( _options.defaultEventBorderColor, "#282828" );
+        _options.showExtraToolbarButtons = getDefaultBoolean( _options.showExtraToolbarButtons, true );
+        _options.showEmptyDaysInWeekView = getDefaultBoolean( _options.showEmptyDaysInWeekView, true );
+        _options.hideEventsWithoutGroupAssigned = getDefaultBoolean( _options.hideEventsWithoutGroupAssigned, false );
+        _options.showHolidays = getDefaultBoolean( _options.showHolidays, true );
+        _options.useTemplateWhenAddingNewEvent = getDefaultBoolean( _options.useTemplateWhenAddingNewEvent, true );
+        _options.useEscapeKeyToExitFullScreenMode = getDefaultBoolean( _options.useEscapeKeyToExitFullScreenMode, true );
+        _options.minimumDatePickerDate = getDefaultDate( _options.minimumDatePickerDate, null );
+        _options.maximumDatePickerDate = getDefaultDate( _options.maximumDatePickerDate, null );
+        _options.allowHtmlInDisplay = getDefaultBoolean( _options.allowHtmlInDisplay, false );
+        _options.datePickerSelectedDateFormat = getDefaultString( _options.datePickerSelectedDateFormat, "{d{o {mmmm {yyyy" );
+        _options.initialDateTime = getDefaultDate( _options.initialDateTime, null );
+        _options.events = getDefaultArray( _options.events, null );
+        _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.applyCssToEventsNotInCurrentMonth, true );
+        _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -9422,78 +9363,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.allowEventScrollingOnMainDisplay ) {
                 _options.maximumEventsPerDayDisplay = 0;
             }
-        }
-
-        if ( !isDefinedString( _options.urlWindowTarget ) ) {
-            _options.urlWindowTarget = "_blank";
-        }
-
-        if ( !isDefinedString( _options.defaultEventBackgroundColor ) ) {
-            _options.defaultEventBackgroundColor = "#484848";
-        }
-
-        if ( !isDefinedString( _options.defaultEventTextColor ) ) {
-            _options.defaultEventTextColor = "#F5F5F5";
-        }
-
-        if ( !isDefinedString( _options.defaultEventBorderColor ) ) {
-            _options.defaultEventBorderColor = "#282828";
-        }
-
-        if ( !isDefinedBoolean( _options.showExtraToolbarButtons ) ) {
-            _options.showExtraToolbarButtons = true;
-        }
-
-        if ( !isDefinedBoolean( _options.showEmptyDaysInWeekView ) ) {
-            _options.showEmptyDaysInWeekView = true;
-        }
-
-        if ( !isDefinedBoolean( _options.hideEventsWithoutGroupAssigned ) ) {
-            _options.hideEventsWithoutGroupAssigned = false;
-        }
-
-        if ( !isDefinedBoolean( _options.showHolidays ) ) {
-            _options.showHolidays = true;
-        }
-
-        if ( !isDefinedBoolean( _options.useTemplateWhenAddingNewEvent ) ) {
-            _options.useTemplateWhenAddingNewEvent = true;
-        }
-
-        if ( !isDefinedBoolean( _options.useEscapeKeyToExitFullScreenMode ) ) {
-            _options.useEscapeKeyToExitFullScreenMode = true;
-        }
-
-        if ( !isDefinedDate( _options.minimumDatePickerDate ) ) {
-            _options.minimumDatePickerDate = null;
-        }
-
-        if ( !isDefinedDate( _options.maximumDatePickerDate ) ) {
-            _options.maximumDatePickerDate = null;
-        }
-
-        if ( !isDefinedBoolean( _options.allowHtmlInDisplay ) ) {
-            _options.allowHtmlInDisplay = false;
-        }
-
-        if ( !isDefinedString( _options.datePickerSelectedDateFormat ) ) {
-            _options.datePickerSelectedDateFormat = "{d}{o} {mmmm} {yyyy}";
-        }
-
-        if ( isInvalidOptionArray( _options.weekendDays, 0 ) ) {
-            _options.weekendDays = [ 0, 6 ];
-        }
-
-        if ( !isDefinedDate( _options.initialDateTime ) ) {
-            _options.initialDateTime = null;
-        }
-
-        if ( !isDefinedArray( _options.events ) ) {
-            _options.events = null;
-        }
-
-        if ( !isDefinedBoolean( _options.applyCssToEventsNotInCurrentMonth ) ) {
-            _options.applyCssToEventsNotInCurrentMonth = true;
         }
 
         setTranslationStringOptions();
