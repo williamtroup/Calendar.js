@@ -2614,7 +2614,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showFullDayView( date, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, _options.visibleDays.length == 7 );
+        updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, _options.visibleDays.length === 7 );
 
         _element_FullDayView_Title.innerHTML = "";
         _element_FullDayView_DateSelected = new Date( date );
