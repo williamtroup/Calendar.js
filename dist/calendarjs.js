@@ -29,6 +29,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     fullRebuild = isDefined(fullRebuild) ? fullRebuild : false;
     forceRefreshViews = isDefined(forceRefreshViews) ? forceRefreshViews : false;
     var firstDay = new Date(_currentDate.getFullYear(), _currentDate.getMonth(), 1), startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay(), totalDaysInMonth = getTotalDaysInMonth(_currentDate.getFullYear(), _currentDate.getMonth());
+    if (isSideMenuOpen()) {
+      hideSideMenu();
+    }
     hideAllDropDowns();
     buildLayout();
     buildPreviousMonthDays(_currentDate, startDay);
@@ -395,7 +398,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     addToolTip(closeButton, _options.closeTooltipText);
   }
   function showSideMenu() {
-    var isDayOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Days_Content), isEventTypesOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_EventTypes_Content), isGroupsOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Groups_Content);
+    var isDayOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Days_Content), isEventTypesOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_EventTypes_Content, true), isGroupsOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Groups_Content, true);
     _element_SideMenu_Content.innerHTML = "";
     hideSearchDialog();
     buildSideMenuDays(isDayOpen);
@@ -410,7 +413,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     saveSideMenuSelections();
   }
   function isSideMenuOpen() {
-    return _element_SideMenu.className.indexOf("side-menu-open") > -1;
+    return _element_SideMenu !== null && _element_SideMenu.className.indexOf("side-menu-open") > -1;
   }
   function saveSideMenuSelections() {
     if (_element_SideMenu_Content_Section_Groups !== null) {
@@ -456,18 +459,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     var groups = getGroups(), groupsLength = groups.length;
     if (groupsLength > 0) {
       _element_SideMenu_Content_Section_Groups = createElement("div", "content-section");
-      _element_SideMenu_Content_Section_Groups_Content = createElement("div");
+      _element_SideMenu_Content_Section_Groups_Content = createElement("div", "checkbox-container");
       _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_Groups);
-      var header = createTextHeaderElement(_element_SideMenu_Content_Section_Groups, _options.groupsText + ":", "text-header");
-      header.onclick = function() {
-        var isClosed = _element_SideMenu_Content_Section_Groups_Content.style.display === "none";
-        header.className = isClosed ? "text-header" : "text-header-closed";
-        _element_SideMenu_Content_Section_Groups_Content.style.display = isClosed ? "block" : "none";
-      };
-      if (!opened) {
-        _element_SideMenu_Content_Section_Groups_Content.style.display = "none";
-        header.className = "text-header-closed";
-      }
+      buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_Groups, _element_SideMenu_Content_Section_Groups_Content, _options.groupsText, opened);
       _element_SideMenu_Content_Section_Groups.appendChild(_element_SideMenu_Content_Section_Groups_Content);
       for (var groupIndex = 0; groupIndex < groupsLength; groupIndex++) {
         var groupName = groups[groupIndex], configGroupName = getGroupName(groupName), visible = true;
@@ -486,7 +480,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     for (var eventType in _eventType) {
       if (_eventType.hasOwnProperty(eventType)) {
         if (!sectionAndHeaderAdded) {
-          buildSideMenuEventTypesContent(opened);
+          _element_SideMenu_Content_Section_EventTypes = createElement("div", "content-section");
+          _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_EventTypes);
+          _element_SideMenu_Content_Section_EventTypes_Content = createElement("div", "checkbox-container");
+          buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_EventTypes, _element_SideMenu_Content_Section_EventTypes_Content, _options.eventTypesText, opened);
+          _element_SideMenu_Content_Section_EventTypes.appendChild(_element_SideMenu_Content_Section_EventTypes_Content);
           sectionAndHeaderAdded = true;
         }
         var visible = true;
@@ -497,45 +495,32 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
-  function buildSideMenuEventTypesContent(opened) {
-    _element_SideMenu_Content_Section_EventTypes = createElement("div", "content-section");
-    _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_EventTypes);
-    _element_SideMenu_Content_Section_EventTypes_Content = createElement("div");
-    var header = createTextHeaderElement(_element_SideMenu_Content_Section_EventTypes, _options.eventTypesText + ":", "text-header");
-    header.onclick = function() {
-      var isClosed = _element_SideMenu_Content_Section_EventTypes_Content.style.display === "none";
-      header.className = isClosed ? "text-header" : "text-header-closed";
-      _element_SideMenu_Content_Section_EventTypes_Content.style.display = isClosed ? "block" : "none";
-    };
-    if (!opened) {
-      _element_SideMenu_Content_Section_EventTypes_Content.style.display = "none";
-      header.className = "text-header-closed";
-    }
-    _element_SideMenu_Content_Section_EventTypes.appendChild(_element_SideMenu_Content_Section_EventTypes_Content);
-  }
   function buildSideMenuDays(opened) {
     opened = isDefined(opened) ? opened : true;
     _element_SideMenu_Content_Section_Days = createElement("div", "content-section");
-    _element_SideMenu_Content_Section_Days_Content = createElement("div");
+    _element_SideMenu_Content_Section_Days_Content = createElement("div", "checkbox-container");
     _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_Days);
-    var header = createTextHeaderElement(_element_SideMenu_Content_Section_Days, _options.sideMenuDaysText + ":", "text-header");
-    header.onclick = function() {
-      var isClosed = _element_SideMenu_Content_Section_Days_Content.style.display === "none";
-      header.className = isClosed ? "text-header" : "text-header-closed";
-      _element_SideMenu_Content_Section_Days_Content.style.display = isClosed ? "block" : "none";
-    };
-    if (!opened) {
-      _element_SideMenu_Content_Section_Days_Content.style.display = "none";
-      header.className = "text-header-closed";
-    }
+    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_Days, _element_SideMenu_Content_Section_Days_Content, _options.sideMenuDaysText, opened);
     _element_SideMenu_Content_Section_Days.appendChild(_element_SideMenu_Content_Section_Days_Content);
     for (var dayIndex = 0; dayIndex < 7; dayIndex++) {
       var visible = _options.visibleDays.indexOf(dayIndex) > -1;
       buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], null, dayIndex.toString(), visible);
     }
   }
-  function isSideMenuContentOpen(element) {
-    return element === null || element.style.display !== "none";
+  function buildSideMenuHeaderAndContentOpener(mainContainer, mainContent, text, opened) {
+    var header = createTextHeaderElement(mainContainer, text + ":", "text-header");
+    header.onclick = function() {
+      var isClosed = mainContent.style.display === "none";
+      header.className = isClosed ? "text-header" : "text-header-closed";
+      mainContent.style.display = isClosed ? "block" : "none";
+    };
+    if (!opened) {
+      mainContent.style.display = "none";
+      header.className = "text-header-closed";
+    }
+  }
+  function isSideMenuContentOpen(element, closed) {
+    return closed && element === null ? false : element === null || element.style.display !== "none";
   }
   function setEventTypeInputCheckedStates(selectedEventType) {
     selectedEventType = isDefined(selectedEventType) && _eventType.hasOwnProperty(selectedEventType) ? selectedEventType : 0;
@@ -1142,6 +1127,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay) {
           var event = createElement("div", "event"), eventTitle = eventDetails.title;
           event.setAttribute("event-type", getNumber(eventDetails.type));
+          event.setAttribute("event-id", eventDetails.id);
           if (_options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate()) {
             eventTitle = getTimeToTimeDisplay(eventDetails.from, eventDetails.to) + ": " + eventTitle;
           }
@@ -1407,7 +1393,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function showFullDayView(date, fromOpen) {
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
-    updateToolbarButtonVisibleState(_element_FullDayView_TodayButton, _options.visibleDays.length == 7);
+    updateToolbarButtonVisibleState(_element_FullDayView_TodayButton, _options.visibleDays.length === 7);
     _element_FullDayView_Title.innerHTML = "";
     _element_FullDayView_DateSelected = new Date(date);
     _element_FullDayView_EventsShown = [];
@@ -1504,6 +1490,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var event = createElement("div", "event");
       event.ondblclick = cancelBubble;
       event.setAttribute("event-type", getNumber(eventDetails.type));
+      event.setAttribute("event-id", eventDetails.id);
       event.onclick = function(e) {
         increaseEventZIndex(e, event);
       };
@@ -1809,6 +1796,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       setEventClassesForActions(event, eventDetails);
       event.id = _elementID_Month + eventDetails.id;
       event.setAttribute("event-type", getNumber(eventDetails.type));
+      event.setAttribute("event-id", eventDetails.id);
       var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
       if (repeatEvery > _repeatType.never) {
         var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
@@ -2081,6 +2069,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       showElementsByClassName(header, "ib-close");
       var event = createElement("div", "event");
       event.setAttribute("event-type", getNumber(eventDetails.type));
+      event.setAttribute("event-id", eventDetails.id);
       container.appendChild(event);
       _element_ListAllWeekEventsView_Contents_FullView_Events[dateID].push(event);
       event.oncontextmenu = function(e) {
@@ -2647,7 +2636,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         updateEventClasses(_element_DropDownMenu_Event_EventDetails.id, "copy-event");
       });
       buildMenuSeparator(_element_DropDownMenu_Event);
-      buildMenuItemWithIcon(_element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText, function() {
+      buildMenuItemWithIcon(_element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText + "...", function() {
         showEventEditingDialog(_element_DropDownMenu_Event_EventDetails);
         setEventEditingDialogInDuplicateMode();
       });
@@ -2728,7 +2717,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       build(_currentDate, true);
     }, true);
     _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator(_element_DropDownMenu_HeaderDay);
-    buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.sideMenuDaysText + "...", showSideMenu);
+    buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu);
   }
   function buildMenuItemWithIcon(container, iconCSS, text, onClickEvent, isBold) {
     isBold = isDefined(isBold) ? isBold : false;
@@ -4288,7 +4277,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function clearAutoRefreshTimer() {
-    if (_timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled && !isSideMenuOpen()) {
+    if (_timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled) {
       clearTimeout(_timer_RefreshMainDisplay);
       _timer_RefreshMainDisplay = null;
     }
@@ -4310,7 +4299,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function isOnlyMainDisplayVisible() {
-    return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null;
+    return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && !isSideMenuOpen() && _eventDetails_Dragged === null;
   }
   function getGroupName(group) {
     return group.toLowerCase();
@@ -4693,6 +4682,21 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function isValidUrl(url) {
     return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url);
+  }
+  function getDefaultString(value, defaultValue) {
+    return isDefinedString(value) ? value : defaultValue;
+  }
+  function getDefaultBoolean(value, defaultValue) {
+    return isDefinedBoolean(value) ? value : defaultValue;
+  }
+  function getDefaultNumber(value, defaultValue) {
+    return isDefinedNumber(value) ? value : defaultValue;
+  }
+  function getDefaultArray(value, defaultValue) {
+    return isDefinedArray(value) ? value : defaultValue;
+  }
+  function getDefaultDate(value, defaultValue) {
+    return isDefinedDate(value) ? value : defaultValue;
   }
   function exportEvents(events, type) {
     type = isDefined(type) ? type.toLowerCase() : "csv";
@@ -5292,6 +5296,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsAdded", events);
       }
       if (updateEvents) {
+        hideSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5374,6 +5379,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventAdded", event);
           }
           if (updateEvents) {
+            hideSideMenu();
             buildDayEvents();
             refreshOpenedViews();
           }
@@ -5395,6 +5401,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsUpdated", events);
       }
       if (updateEvents) {
+        hideSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5430,6 +5437,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventUpdated", event);
           }
           if (updateEvents) {
+            hideSideMenu();
             buildDayEvents();
             refreshOpenedViews();
           }
@@ -5452,6 +5460,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventRemoved", event);
           }
           if (updateEvents) {
+            hideSideMenu();
             buildDayEvents();
             refreshOpenedViews();
           }
@@ -5470,6 +5479,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onEventsCleared");
       }
       if (updateEvents) {
+        hideSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5550,6 +5560,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onGroupsCleared");
       }
       if (updateEvents) {
+        hideSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5569,6 +5580,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onGroupRemoved", groupName);
       }
       if (updateEvents) {
+        hideSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5681,87 +5693,51 @@ function calendarJs(elementOrId, options, searchOptions) {
   };
   function buildDefaultOptions(newOptions) {
     _options = getOptions(newOptions);
-    if (!isDefinedBoolean(_options.showDayNumberOrdinals)) {
-      _options.showDayNumberOrdinals = true;
-    }
-    if (!isDefinedBoolean(_options.dragAndDropForEventsEnabled)) {
-      _options.dragAndDropForEventsEnabled = true;
-    }
-    if (!isDefinedNumber(_options.maximumEventsPerDayDisplay)) {
-      _options.maximumEventsPerDayDisplay = 3;
-    }
-    if (!isDefinedNumber(_options.extraSelectableYearsAhead)) {
-      _options.extraSelectableYearsAhead = 100;
-    }
-    if (!isDefinedBoolean(_options.exportEventsEnabled)) {
-      _options.exportEventsEnabled = true;
-    }
-    if (!isDefinedBoolean(_options.manualEditingEnabled)) {
-      _options.manualEditingEnabled = true;
-    }
-    if (!isDefinedBoolean(_options.showTimesInMainCalendarEvents)) {
-      _options.showTimesInMainCalendarEvents = false;
-    }
-    if (!isDefinedNumber(_options.autoRefreshTimerDelay)) {
-      _options.autoRefreshTimerDelay = 30000;
-    }
-    if (!isDefinedBoolean(_options.fullScreenModeEnabled)) {
-      _options.fullScreenModeEnabled = true;
-    }
-    if (!isDefinedNumber(_options.eventTooltipDelay)) {
-      _options.eventTooltipDelay = 1000;
-    }
-    if (!isDefinedNumber(_options.minimumDayHeight)) {
-      _options.minimumDayHeight = 0;
-    }
-    if (!isDefinedArray(_options.holidays)) {
-      _options.holidays = getStandardHolidays();
-    }
-    if (!isDefinedString(_options.organizerName)) {
-      _options.organizerName = "";
-    }
-    if (!isDefinedString(_options.organizerEmailAddress)) {
-      _options.organizerEmailAddress = "";
-    }
-    if (!isDefinedNumber(_options.spacing)) {
-      _options.spacing = 10;
-    }
-    if (!isDefinedBoolean(_options.showAllDayEventDetailsInFullDayView)) {
-      _options.showAllDayEventDetailsInFullDayView = false;
-    }
-    if (!isDefinedBoolean(_options.showWeekNumbersInTitles)) {
-      _options.showWeekNumbersInTitles = false;
-    }
-    if (!isDefinedBoolean(_options.showTimelineArrowOnFullDayView)) {
-      _options.showTimelineArrowOnFullDayView = true;
-    }
-    if (!isDefinedNumber(_options.maximumEventTitleLength)) {
-      _options.maximumEventTitleLength = 0;
-    }
-    if (!isDefinedNumber(_options.maximumEventDescriptionLength)) {
-      _options.maximumEventDescriptionLength = 0;
-    }
-    if (!isDefinedNumber(_options.maximumEventLocationLength)) {
-      _options.maximumEventLocationLength = 0;
-    }
-    if (!isDefinedNumber(_options.maximumEventGroupLength)) {
-      _options.maximumEventGroupLength = 0;
-    }
-    if (!isDefinedBoolean(_options.eventNotificationsEnabled)) {
-      _options.eventNotificationsEnabled = false;
-    }
-    if (!isDefinedBoolean(_options.showPreviousNextMonthNamesInMainDisplay)) {
-      _options.showPreviousNextMonthNamesInMainDisplay = true;
-    }
-    if (!isDefinedBoolean(_options.showDayNamesInMainDisplay)) {
-      _options.showDayNamesInMainDisplay = true;
-    }
-    if (!isDefinedBoolean(_options.tooltipsEnabled)) {
-      _options.tooltipsEnabled = true;
-    }
-    if (!isDefinedBoolean(_options.useOnlyDotEventsForMainDisplay)) {
-      _options.useOnlyDotEventsForMainDisplay = false;
-    }
+    _options.showDayNumberOrdinals = getDefaultBoolean(_options.showDayNumberOrdinals, true);
+    _options.dragAndDropForEventsEnabled = getDefaultBoolean(_options.dragAndDropForEventsEnabled, true);
+    _options.maximumEventsPerDayDisplay = getDefaultNumber(_options.maximumEventsPerDayDisplay, 3);
+    _options.extraSelectableYearsAhead = getDefaultNumber(_options.extraSelectableYearsAhead, 100);
+    _options.exportEventsEnabled = getDefaultBoolean(_options.exportEventsEnabled, true);
+    _options.manualEditingEnabled = getDefaultBoolean(_options.manualEditingEnabled, true);
+    _options.showTimesInMainCalendarEvents = getDefaultBoolean(_options.showTimesInMainCalendarEvents, false);
+    _options.autoRefreshTimerDelay = getDefaultNumber(_options.autoRefreshTimerDelay, 30000);
+    _options.fullScreenModeEnabled = getDefaultBoolean(_options.fullScreenModeEnabled, true);
+    _options.eventTooltipDelay = getDefaultNumber(_options.eventTooltipDelay, 1000);
+    _options.minimumDayHeight = getDefaultNumber(_options.minimumDayHeight, 0);
+    _options.holidays = getDefaultArray(_options.holidays, getStandardHolidays());
+    _options.organizerName = getDefaultString(_options.organizerName, "");
+    _options.organizerEmailAddress = getDefaultString(_options.organizerEmailAddress, "");
+    _options.spacing = getDefaultNumber(_options.spacing, 10);
+    _options.showAllDayEventDetailsInFullDayView = getDefaultBoolean(_options.showAllDayEventDetailsInFullDayView, false);
+    _options.showWeekNumbersInTitles = getDefaultBoolean(_options.showWeekNumbersInTitles, false);
+    _options.showTimelineArrowOnFullDayView = getDefaultBoolean(_options.showTimelineArrowOnFullDayView, true);
+    _options.maximumEventTitleLength = getDefaultNumber(_options.maximumEventTitleLength, 0);
+    _options.maximumEventDescriptionLength = getDefaultNumber(_options.maximumEventDescriptionLength, 0);
+    _options.maximumEventLocationLength = getDefaultNumber(_options.maximumEventLocationLength, 0);
+    _options.maximumEventGroupLength = getDefaultNumber(_options.maximumEventGroupLength, 0);
+    _options.eventNotificationsEnabled = getDefaultBoolean(_options.eventNotificationsEnabled, false);
+    _options.showPreviousNextMonthNamesInMainDisplay = getDefaultBoolean(_options.showPreviousNextMonthNamesInMainDisplay, true);
+    _options.showDayNamesInMainDisplay = getDefaultBoolean(_options.showDayNamesInMainDisplay, true);
+    _options.tooltipsEnabled = getDefaultBoolean(_options.tooltipsEnabled, true);
+    _options.useOnlyDotEventsForMainDisplay = getDefaultBoolean(_options.useOnlyDotEventsForMainDisplay, false);
+    _options.urlWindowTarget = getDefaultString(_options.urlWindowTarget, "_blank");
+    _options.defaultEventBackgroundColor = getDefaultString(_options.defaultEventBackgroundColor, "#484848");
+    _options.defaultEventTextColor = getDefaultString(_options.defaultEventTextColor, "#F5F5F5");
+    _options.defaultEventBorderColor = getDefaultString(_options.defaultEventBorderColor, "#282828");
+    _options.showExtraToolbarButtons = getDefaultBoolean(_options.showExtraToolbarButtons, true);
+    _options.showEmptyDaysInWeekView = getDefaultBoolean(_options.showEmptyDaysInWeekView, true);
+    _options.hideEventsWithoutGroupAssigned = getDefaultBoolean(_options.hideEventsWithoutGroupAssigned, false);
+    _options.showHolidays = getDefaultBoolean(_options.showHolidays, true);
+    _options.useTemplateWhenAddingNewEvent = getDefaultBoolean(_options.useTemplateWhenAddingNewEvent, true);
+    _options.useEscapeKeyToExitFullScreenMode = getDefaultBoolean(_options.useEscapeKeyToExitFullScreenMode, true);
+    _options.minimumDatePickerDate = getDefaultDate(_options.minimumDatePickerDate, null);
+    _options.maximumDatePickerDate = getDefaultDate(_options.maximumDatePickerDate, null);
+    _options.allowHtmlInDisplay = getDefaultBoolean(_options.allowHtmlInDisplay, false);
+    _options.datePickerSelectedDateFormat = getDefaultString(_options.datePickerSelectedDateFormat, "{d{o {mmmm {yyyy");
+    _options.initialDateTime = getDefaultDate(_options.initialDateTime, null);
+    _options.events = getDefaultArray(_options.events, null);
+    _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean(_options.applyCssToEventsNotInCurrentMonth, true);
+    _options.weekendDays = isInvalidOptionArray(_options.weekendDays, 0) ? [0, 6] : _options.weekendDays;
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -5772,158 +5748,29 @@ function calendarJs(elementOrId, options, searchOptions) {
         _options.maximumEventsPerDayDisplay = 0;
       }
     }
-    if (!isDefinedString(_options.urlWindowTarget)) {
-      _options.urlWindowTarget = "_blank";
-    }
-    if (!isDefinedString(_options.defaultEventBackgroundColor)) {
-      _options.defaultEventBackgroundColor = "#484848";
-    }
-    if (!isDefinedString(_options.defaultEventTextColor)) {
-      _options.defaultEventTextColor = "#F5F5F5";
-    }
-    if (!isDefinedString(_options.defaultEventBorderColor)) {
-      _options.defaultEventBorderColor = "#282828";
-    }
-    if (!isDefinedBoolean(_options.showExtraToolbarButtons)) {
-      _options.showExtraToolbarButtons = true;
-    }
-    if (!isDefinedBoolean(_options.showEmptyDaysInWeekView)) {
-      _options.showEmptyDaysInWeekView = true;
-    }
-    if (!isDefinedBoolean(_options.hideEventsWithoutGroupAssigned)) {
-      _options.hideEventsWithoutGroupAssigned = false;
-    }
-    if (!isDefinedBoolean(_options.showHolidays)) {
-      _options.showHolidays = true;
-    }
-    if (!isDefinedBoolean(_options.useTemplateWhenAddingNewEvent)) {
-      _options.useTemplateWhenAddingNewEvent = true;
-    }
-    if (!isDefinedBoolean(_options.useEscapeKeyToExitFullScreenMode)) {
-      _options.useEscapeKeyToExitFullScreenMode = true;
-    }
-    if (!isDefinedDate(_options.minimumDatePickerDate)) {
-      _options.minimumDatePickerDate = null;
-    }
-    if (!isDefinedDate(_options.maximumDatePickerDate)) {
-      _options.maximumDatePickerDate = null;
-    }
-    if (!isDefinedBoolean(_options.allowHtmlInDisplay)) {
-      _options.allowHtmlInDisplay = false;
-    }
-    if (!isDefinedString(_options.datePickerSelectedDateFormat)) {
-      _options.datePickerSelectedDateFormat = "{d}{o} {mmmm} {yyyy}";
-    }
-    if (isInvalidOptionArray(_options.weekendDays, 0)) {
-      _options.weekendDays = [0, 6];
-    }
-    if (!isDefinedDate(_options.initialDateTime)) {
-      _options.initialDateTime = null;
-    }
-    if (!isDefinedArray(_options.events)) {
-      _options.events = null;
-    }
-    if (!isDefinedBoolean(_options.applyCssToEventsNotInCurrentMonth)) {
-      _options.applyCssToEventsNotInCurrentMonth = true;
-    }
     setTranslationStringOptions();
     setEventTypeTranslationStringOptions();
     checkForBrowserNotificationsPermission();
   }
   function buildDefaultSearchOptions(newSearchOptions) {
     _optionsForSearch = getOptions(newSearchOptions, _options.searchOptions);
-    if (!isDefinedString(_optionsForSearch.lastSearchText)) {
-      _optionsForSearch.lastSearchText = "";
-    }
-    if (!isDefinedBoolean(_optionsForSearch.not)) {
-      _optionsForSearch.not = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.matchCase)) {
-      _optionsForSearch.matchCase = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.showAdvanced)) {
-      _optionsForSearch.showAdvanced = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.searchTitle)) {
-      _optionsForSearch.searchTitle = true;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.searchLocation)) {
-      _optionsForSearch.searchLocation = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.searchDescription)) {
-      _optionsForSearch.searchDescription = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.searchGroup)) {
-      _optionsForSearch.searchGroup = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.searchUrl)) {
-      _optionsForSearch.searchUrl = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.startsWith)) {
-      _optionsForSearch.startsWith = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.endsWith)) {
-      _optionsForSearch.endsWith = false;
-    }
-    if (!isDefinedBoolean(_optionsForSearch.contains)) {
-      _optionsForSearch.contains = true;
-    }
-    if (!isDefinedNumber(_optionsForSearch.left)) {
-      _optionsForSearch.left = null;
-    }
-    if (!isDefinedNumber(_optionsForSearch.top)) {
-      _optionsForSearch.top = null;
-    }
-    if (!isDefinedArray(_optionsForSearch.history)) {
-      _optionsForSearch.history = [];
-    }
+    _optionsForSearch.lastSearchText = getDefaultString(_optionsForSearch.lastSearchText, "");
+    _optionsForSearch.not = getDefaultBoolean(_optionsForSearch.not, false);
+    _optionsForSearch.matchCase = getDefaultBoolean(_optionsForSearch.matchCase, false);
+    _optionsForSearch.showAdvanced = getDefaultBoolean(_optionsForSearch.showAdvanced, false);
+    _optionsForSearch.searchTitle = getDefaultBoolean(_optionsForSearch.searchTitle, true);
+    _optionsForSearch.searchLocation = getDefaultBoolean(_optionsForSearch.searchLocation, false);
+    _optionsForSearch.searchDescription = getDefaultBoolean(_optionsForSearch.searchDescription, false);
+    _optionsForSearch.searchGroup = getDefaultBoolean(_optionsForSearch.searchGroup, false);
+    _optionsForSearch.searchUrl = getDefaultBoolean(_optionsForSearch.searchUrl, false);
+    _optionsForSearch.startsWith = getDefaultBoolean(_optionsForSearch.startsWith, false);
+    _optionsForSearch.endsWith = getDefaultBoolean(_optionsForSearch.endsWith, false);
+    _optionsForSearch.contains = getDefaultBoolean(_optionsForSearch.contains, true);
+    _optionsForSearch.left = getDefaultNumber(_optionsForSearch.left, null);
+    _optionsForSearch.top = getDefaultNumber(_optionsForSearch.top, null);
+    _optionsForSearch.history = getDefaultArray(_optionsForSearch.history, []);
   }
   function setTranslationStringOptions() {
-    if (!isDefinedString(_options.previousMonthTooltipText)) {
-      _options.previousMonthTooltipText = "Previous Month";
-    }
-    if (!isDefinedString(_options.nextMonthTooltipText)) {
-      _options.nextMonthTooltipText = "Next Month";
-    }
-    if (!isDefinedString(_options.previousDayTooltipText)) {
-      _options.previousDayTooltipText = "Previous Day";
-    }
-    if (!isDefinedString(_options.nextDayTooltipText)) {
-      _options.nextDayTooltipText = "Next Day";
-    }
-    if (!isDefinedString(_options.previousWeekTooltipText)) {
-      _options.previousWeekTooltipText = "Previous Week";
-    }
-    if (!isDefinedString(_options.nextWeekTooltipText)) {
-      _options.nextWeekTooltipText = "Next Week";
-    }
-    if (!isDefinedString(_options.addEventTooltipText)) {
-      _options.addEventTooltipText = "Add Event";
-    }
-    if (!isDefinedString(_options.closeTooltipText)) {
-      _options.closeTooltipText = "Close";
-    }
-    if (!isDefinedString(_options.exportEventsTooltipText)) {
-      _options.exportEventsTooltipText = "Export Events";
-    }
-    if (!isDefinedString(_options.todayTooltipText)) {
-      _options.todayTooltipText = "Today";
-    }
-    if (!isDefinedString(_options.refreshTooltipText)) {
-      _options.refreshTooltipText = "Refresh";
-    }
-    if (!isDefinedString(_options.searchTooltipText)) {
-      _options.searchTooltipText = "Search";
-    }
-    if (!isDefinedString(_options.expandDayTooltipText)) {
-      _options.expandDayTooltipText = "Expand Day";
-    }
-    if (!isDefinedString(_options.listAllEventsTooltipText)) {
-      _options.listAllEventsTooltipText = "View All Events";
-    }
-    if (!isDefinedString(_options.listWeekEventsTooltipText)) {
-      _options.listWeekEventsTooltipText = "View Current Week Events";
-    }
     if (isInvalidOptionArray(_options.dayHeaderNames, 7)) {
       _options.dayHeaderNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     }
@@ -5939,419 +5786,166 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isInvalidOptionArray(_options.monthNamesAbbreviated, 12)) {
       _options.monthNamesAbbreviated = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     }
-    if (!isDefinedString(_options.fromText)) {
-      _options.fromText = "From:";
-    }
-    if (!isDefinedString(_options.toText)) {
-      _options.toText = "To:";
-    }
-    if (!isDefinedString(_options.isAllDayText)) {
-      _options.isAllDayText = "Is All-Day";
-    }
-    if (!isDefinedString(_options.titleText)) {
-      _options.titleText = "Title:";
-    }
-    if (!isDefinedString(_options.descriptionText)) {
-      _options.descriptionText = "Description:";
-    }
-    if (!isDefinedString(_options.locationText)) {
-      _options.locationText = "Location:";
-    }
-    if (!isDefinedString(_options.addText)) {
-      _options.addText = "Add";
-    }
-    if (!isDefinedString(_options.updateText)) {
-      _options.updateText = "Update";
-    }
-    if (!isDefinedString(_options.cancelText)) {
-      _options.cancelText = "Cancel";
-    }
-    if (!isDefinedString(_options.removeEventText)) {
-      _options.removeEventText = "Remove";
-    }
-    if (!isDefinedString(_options.addEventTitle)) {
-      _options.addEventTitle = "Add Event";
-    }
-    if (!isDefinedString(_options.editEventTitle)) {
-      _options.editEventTitle = "Edit Event";
-    }
-    if (!isDefinedString(_options.exportStartFilename)) {
-      _options.exportStartFilename = "exported_events_";
-    }
-    if (!isDefinedString(_options.fromTimeErrorMessage)) {
-      _options.fromTimeErrorMessage = "Please select a valid 'From' time.";
-    }
-    if (!isDefinedString(_options.toTimeErrorMessage)) {
-      _options.toTimeErrorMessage = "Please select a valid 'To' time.";
-    }
-    if (!isDefinedString(_options.toSmallerThanFromErrorMessage)) {
-      _options.toSmallerThanFromErrorMessage = "Please select a 'To' date that is larger than the 'From' date.";
-    }
-    if (!isDefinedString(_options.titleErrorMessage)) {
-      _options.titleErrorMessage = "Please enter a value in the 'Title' field (no empty space).";
-    }
-    if (!isDefinedString(_options.stText)) {
-      _options.stText = "st";
-    }
-    if (!isDefinedString(_options.ndText)) {
-      _options.ndText = "nd";
-    }
-    if (!isDefinedString(_options.rdText)) {
-      _options.rdText = "rd";
-    }
-    if (!isDefinedString(_options.thText)) {
-      _options.thText = "th";
-    }
-    if (!isDefinedString(_options.yesText)) {
-      _options.yesText = "Yes";
-    }
-    if (!isDefinedString(_options.noText)) {
-      _options.noText = "No";
-    }
-    if (!isDefinedString(_options.allDayText)) {
-      _options.allDayText = "All-Day";
-    }
-    if (!isDefinedString(_options.allEventsText)) {
-      _options.allEventsText = "All Events";
-    }
-    if (!isDefinedString(_options.toTimeText)) {
-      _options.toTimeText = "to";
-    }
-    if (!isDefinedString(_options.confirmEventRemoveTitle)) {
-      _options.confirmEventRemoveTitle = "Confirm Event Removal";
-    }
-    if (!isDefinedString(_options.confirmEventRemoveMessage)) {
-      _options.confirmEventRemoveMessage = "Removing this event cannot be undone.  Do you want to continue?";
-    }
-    if (!isDefinedString(_options.okText)) {
-      _options.okText = "OK";
-    }
-    if (!isDefinedString(_options.selectExportTypeTitle)) {
-      _options.selectExportTypeTitle = "Select Export Type";
-    }
-    if (!isDefinedString(_options.selectColorsText)) {
-      _options.selectColorsText = "Select Colors";
-    }
-    if (!isDefinedString(_options.backgroundColorText)) {
-      _options.backgroundColorText = "Background Color:";
-    }
-    if (!isDefinedString(_options.textColorText)) {
-      _options.textColorText = "Text Color:";
-    }
-    if (!isDefinedString(_options.borderColorText)) {
-      _options.borderColorText = "Border Color:";
-    }
-    if (!isDefinedString(_options.searchEventsTitle)) {
-      _options.searchEventsTitle = "Search Events";
-    }
-    if (!isDefinedString(_options.previousText)) {
-      _options.previousText = "Previous";
-    }
-    if (!isDefinedString(_options.nextText)) {
-      _options.nextText = "Next";
-    }
-    if (!isDefinedString(_options.matchCaseText)) {
-      _options.matchCaseText = "Match Case";
-    }
-    if (!isDefinedString(_options.repeatsText)) {
-      _options.repeatsText = "Repeats:";
-    }
-    if (!isDefinedString(_options.repeatDaysToExcludeText)) {
-      _options.repeatDaysToExcludeText = "Repeat Days To Exclude:";
-    }
-    if (!isDefinedString(_options.daysToExcludeText)) {
-      _options.daysToExcludeText = "Days To Exclude:";
-    }
-    if (!isDefinedString(_options.seriesIgnoreDatesText)) {
-      _options.seriesIgnoreDatesText = "Series Ignore Dates:";
-    }
-    if (!isDefinedString(_options.repeatsNever)) {
-      _options.repeatsNever = "Never";
-    }
-    if (!isDefinedString(_options.repeatsEveryDayText)) {
-      _options.repeatsEveryDayText = "Every Day";
-    }
-    if (!isDefinedString(_options.repeatsEveryWeekText)) {
-      _options.repeatsEveryWeekText = "Every Week";
-    }
-    if (!isDefinedString(_options.repeatsEvery2WeeksText)) {
-      _options.repeatsEvery2WeeksText = "Every 2 Weeks";
-    }
-    if (!isDefinedString(_options.repeatsEveryMonthText)) {
-      _options.repeatsEveryMonthText = "Every Month";
-    }
-    if (!isDefinedString(_options.repeatsEveryYearText)) {
-      _options.repeatsEveryYearText = "Every Year";
-    }
-    if (!isDefinedString(_options.repeatsCustomText)) {
-      _options.repeatsCustomText = "Custom:";
-    }
-    if (!isDefinedString(_options.repeatOptionsTitle)) {
-      _options.repeatOptionsTitle = "Repeat Options";
-    }
-    if (!isDefinedString(_options.moreText)) {
-      _options.moreText = "More";
-    }
-    if (!isDefinedString(_options.includeText)) {
-      _options.includeText = "Include:";
-    }
-    if (!isDefinedString(_options.minimizedTooltipText)) {
-      _options.minimizedTooltipText = "Minimize";
-    }
-    if (!isDefinedString(_options.restoreTooltipText)) {
-      _options.restoreTooltipText = "Restore";
-    }
-    if (!isDefinedString(_options.removeAllEventsInSeriesText)) {
-      _options.removeAllEventsInSeriesText = "Remove All Events In Series";
-    }
-    if (!isDefinedString(_options.createdText)) {
-      _options.createdText = "Created:";
-    }
-    if (!isDefinedString(_options.organizerNameText)) {
-      _options.organizerNameText = "Organizer:";
-    }
-    if (!isDefinedString(_options.organizerEmailAddressText)) {
-      _options.organizerEmailAddressText = "Organizer Email:";
-    }
-    if (!isDefinedString(_options.enableFullScreenTooltipText)) {
-      _options.enableFullScreenTooltipText = "Turn On Full-Screen Mode";
-    }
-    if (!isDefinedString(_options.disableFullScreenTooltipText)) {
-      _options.disableFullScreenTooltipText = "Turn Off Full-Screen Mode";
-    }
-    if (!isDefinedString(_options.idText)) {
-      _options.idText = "ID:";
-    }
-    if (!isDefinedString(_options.expandMonthTooltipText)) {
-      _options.expandMonthTooltipText = "Expand Month";
-    }
-    if (!isDefinedString(_options.repeatEndsText)) {
-      _options.repeatEndsText = "Repeat Ends:";
-    }
-    if (!isDefinedString(_options.noEventsAvailableText)) {
-      _options.noEventsAvailableText = "No events available.";
-    }
-    if (!isDefinedString(_options.viewWeekEventsText)) {
-      _options.viewWeekEventsText = "View Week Events";
-    }
-    if (!isDefinedString(_options.noEventsAvailableFullText)) {
-      _options.noEventsAvailableFullText = "There are no events available to view.";
-    }
-    if (!isDefinedString(_options.clickText)) {
-      _options.clickText = "Click";
-    }
-    if (!isDefinedString(_options.hereText)) {
-      _options.hereText = "here";
-    }
-    if (!isDefinedString(_options.toAddANewEventText)) {
-      _options.toAddANewEventText = "to add a new event.";
-    }
-    if (!isDefinedString(_options.weekText)) {
-      _options.weekText = "Week";
-    }
-    if (!isDefinedString(_options.groupText)) {
-      _options.groupText = "Group:";
-    }
-    if (!isDefinedString(_options.configurationTooltipText)) {
-      _options.configurationTooltipText = "Configuration";
-    }
-    if (!isDefinedString(_options.configurationTitleText)) {
-      _options.configurationTitleText = "Configuration";
-    }
-    if (!isDefinedString(_options.groupsText)) {
-      _options.groupsText = "Groups";
-    }
-    if (!isDefinedString(_options.eventNotificationTitle)) {
-      _options.eventNotificationTitle = "Calendar.js";
-    }
-    if (!isDefinedString(_options.eventNotificationBody)) {
-      _options.eventNotificationBody = "The event '{0}' has started.";
-    }
-    if (!isDefinedString(_options.optionsText)) {
-      _options.optionsText = "Options:";
-    }
-    if (!isDefinedString(_options.startsWithText)) {
-      _options.startsWithText = "Starts With";
-    }
-    if (!isDefinedString(_options.endsWithText)) {
-      _options.endsWithText = "Ends With";
-    }
-    if (!isDefinedString(_options.containsText)) {
-      _options.containsText = "Contains";
-    }
-    if (!isDefinedString(_options.displayTabText)) {
-      _options.displayTabText = "Display";
-    }
-    if (!isDefinedString(_options.enableAutoRefreshForEventsText)) {
-      _options.enableAutoRefreshForEventsText = "Enable auto-refresh for events";
-    }
-    if (!isDefinedString(_options.enableBrowserNotificationsText)) {
-      _options.enableBrowserNotificationsText = "Enable browser notifications";
-    }
-    if (!isDefinedString(_options.enableTooltipsText)) {
-      _options.enableTooltipsText = "Enable tooltips";
-    }
-    if (!isDefinedString(_options.dayText)) {
-      _options.dayText = "day";
-    }
-    if (!isDefinedString(_options.daysText)) {
-      _options.daysText = "days";
-    }
-    if (!isDefinedString(_options.hourText)) {
-      _options.hourText = "hour";
-    }
-    if (!isDefinedString(_options.hoursText)) {
-      _options.hoursText = "hours";
-    }
-    if (!isDefinedString(_options.minuteText)) {
-      _options.minuteText = "minute";
-    }
-    if (!isDefinedString(_options.minutesText)) {
-      _options.minutesText = "minutes";
-    }
-    if (!isDefinedString(_options.enableDragAndDropForEventText)) {
-      _options.enableDragAndDropForEventText = "Enable drag & drop for events";
-    }
-    if (!isDefinedString(_options.organizerTabText)) {
-      _options.organizerTabText = "Organizer";
-    }
-    if (!isDefinedString(_options.removeEventsTooltipText)) {
-      _options.removeEventsTooltipText = "Remove Events";
-    }
-    if (!isDefinedString(_options.confirmEventsRemoveTitle)) {
-      _options.confirmEventsRemoveTitle = "Confirm Events Removal";
-    }
-    if (!isDefinedString(_options.confirmEventsRemoveMessage)) {
-      _options.confirmEventsRemoveMessage = "Removing these non-repeating events cannot be undone.  Do you want to continue?";
-    }
-    if (!isDefinedString(_options.eventText)) {
-      _options.eventText = "Event";
-    }
-    if (!isDefinedString(_options.optionalText)) {
-      _options.optionalText = "Optional";
-    }
-    if (!isDefinedString(_options.urlText)) {
-      _options.urlText = "Url:";
-    }
-    if (!isDefinedString(_options.openUrlText)) {
-      _options.openUrlText = "Open Url";
-    }
-    if (!isDefinedString(_options.sideMenuDaysText)) {
-      _options.sideMenuDaysText = "Days";
-    }
-    if (!isDefinedString(_options.enableDayNameHeadersInMainDisplayText)) {
-      _options.enableDayNameHeadersInMainDisplayText = "Enable day name headers in the main display";
-    }
-    if (!isDefinedString(_options.thisWeekTooltipText)) {
-      _options.thisWeekTooltipText = "This Week";
-    }
-    if (!isDefinedString(_options.dailyText)) {
-      _options.dailyText = "Daily";
-    }
-    if (!isDefinedString(_options.weeklyText)) {
-      _options.weeklyText = "Weekly";
-    }
-    if (!isDefinedString(_options.monthlyText)) {
-      _options.monthlyText = "Monthly";
-    }
-    if (!isDefinedString(_options.yearlyText)) {
-      _options.yearlyText = "Yearly";
-    }
-    if (!isDefinedString(_options.repeatsByCustomSettingsText)) {
-      _options.repeatsByCustomSettingsText = "By Custom Settings";
-    }
-    if (!isDefinedString(_options.lastUpdatedText)) {
-      _options.lastUpdatedText = "Last Updated:";
-    }
-    if (!isDefinedString(_options.advancedText)) {
-      _options.advancedText = "Advanced";
-    }
-    if (!isDefinedString(_options.copyText)) {
-      _options.copyText = "Copy";
-    }
-    if (!isDefinedString(_options.pasteText)) {
-      _options.pasteText = "Paste";
-    }
-    if (!isDefinedString(_options.duplicateText)) {
-      _options.duplicateText = "Duplicate";
-    }
-    if (!isDefinedString(_options.showAlertsText)) {
-      _options.showAlertsText = "Show Alerts";
-    }
-    if (!isDefinedString(_options.selectDatePlaceholderText)) {
-      _options.selectDatePlaceholderText = "Select date...";
-    }
-    if (!isDefinedString(_options.hideDayText)) {
-      _options.hideDayText = "Hide Day";
-    }
-    if (!isDefinedString(_options.notSearchText)) {
-      _options.notSearchText = "Not (opposite)";
-    }
-    if (!isDefinedString(_options.showEmptyDaysInWeekViewText)) {
-      _options.showEmptyDaysInWeekViewText = "Show empty days in the week view";
-    }
-    if (!isDefinedString(_options.showHolidaysInTheDisplaysText)) {
-      _options.showHolidaysInTheDisplaysText = "Show holidays in the main display and title bars";
-    }
-    if (!isDefinedString(_options.newEventDefaultTitle)) {
-      _options.newEventDefaultTitle = "* New Event";
-    }
-    if (!isDefinedString(_options.urlErrorMessage)) {
-      _options.urlErrorMessage = "Please enter a valid Url in the 'Url' field (or leave blank).";
-    }
-    if (!isDefinedString(_options.dropDownMenuSymbol)) {
-      _options.dropDownMenuSymbol = "\u25be";
-    }
-    if (!isDefinedString(_options.searchTextBoxPlaceholder)) {
-      _options.searchTextBoxPlaceholder = "Search title, description, etc...";
-    }
-    if (!isDefinedString(_options.currentMonthTooltipText)) {
-      _options.currentMonthTooltipText = "Current Month";
-    }
-    if (!isDefinedString(_options.cutText)) {
-      _options.cutText = "Cut";
-    }
-    if (!isDefinedString(_options.showMenuTooltipText)) {
-      _options.showMenuTooltipText = "Show Menu";
-    }
-    if (!isDefinedString(_options.eventTypesText)) {
-      _options.eventTypesText = "Event Types";
-    }
-    if (!isDefinedString(_options.lockedText)) {
-      _options.lockedText = "Locked:";
-    }
-    if (!isDefinedString(_options.typeText)) {
-      _options.typeText = "Type:";
-    }
-    if (!isDefinedString(_options.sideMenuHeaderText)) {
-      _options.sideMenuHeaderText = "Calendar.js";
-    }
+    _options.previousMonthTooltipText = getDefaultString(_options.previousMonthTooltipText, "Previous Month");
+    _options.nextMonthTooltipText = getDefaultString(_options.nextMonthTooltipText, "Next Month");
+    _options.previousDayTooltipText = getDefaultString(_options.previousDayTooltipText, "Previous Day");
+    _options.nextDayTooltipText = getDefaultString(_options.nextDayTooltipText, "Next Day");
+    _options.previousWeekTooltipText = getDefaultString(_options.previousWeekTooltipText, "Previous Week");
+    _options.nextWeekTooltipText = getDefaultString(_options.nextWeekTooltipText, "Next Week");
+    _options.addEventTooltipText = getDefaultString(_options.addEventTooltipText, "Add Event");
+    _options.closeTooltipText = getDefaultString(_options.closeTooltipText, "Close");
+    _options.exportEventsTooltipText = getDefaultString(_options.exportEventsTooltipText, "Export Events");
+    _options.todayTooltipText = getDefaultString(_options.todayTooltipText, "Today");
+    _options.refreshTooltipText = getDefaultString(_options.refreshTooltipText, "Refresh");
+    _options.searchTooltipText = getDefaultString(_options.searchTooltipText, "Search");
+    _options.expandDayTooltipText = getDefaultString(_options.expandDayTooltipText, "Expand Day");
+    _options.listAllEventsTooltipText = getDefaultString(_options.listAllEventsTooltipText, "View All Events");
+    _options.listWeekEventsTooltipText = getDefaultString(_options.listWeekEventsTooltipText, "View Current Week Events");
+    _options.fromText = getDefaultString(_options.fromText, "From:");
+    _options.toText = getDefaultString(_options.toText, "To:");
+    _options.isAllDayText = getDefaultString(_options.isAllDayText, "Is All-Day");
+    _options.titleText = getDefaultString(_options.titleText, "Title:");
+    _options.descriptionText = getDefaultString(_options.descriptionText, "Description:");
+    _options.locationText = getDefaultString(_options.locationText, "Location:");
+    _options.addText = getDefaultString(_options.addText, "Add");
+    _options.updateText = getDefaultString(_options.updateText, "Update");
+    _options.cancelText = getDefaultString(_options.cancelText, "Cancel");
+    _options.removeEventText = getDefaultString(_options.removeEventText, "Remove");
+    _options.addEventTitle = getDefaultString(_options.addEventTitle, "Add Event");
+    _options.editEventTitle = getDefaultString(_options.editEventTitle, "Edit Event");
+    _options.exportStartFilename = getDefaultString(_options.exportStartFilename, "exported_events_");
+    _options.fromTimeErrorMessage = getDefaultString(_options.fromTimeErrorMessage, "Please select a valid 'From' time.");
+    _options.toTimeErrorMessage = getDefaultString(_options.toTimeErrorMessage, "Please select a valid 'To' time.");
+    _options.toSmallerThanFromErrorMessage = getDefaultString(_options.toSmallerThanFromErrorMessage, "Please select a 'To' date that is larger than the 'From' date.");
+    _options.titleErrorMessage = getDefaultString(_options.titleErrorMessage, "Please enter a value in the 'Title' field (no empty space).");
+    _options.stText = getDefaultString(_options.stText, "st");
+    _options.ndText = getDefaultString(_options.ndText, "nd");
+    _options.rdText = getDefaultString(_options.rdText, "rd");
+    _options.thText = getDefaultString(_options.thText, "th");
+    _options.yesText = getDefaultString(_options.yesText, "Yes");
+    _options.noText = getDefaultString(_options.noText, "No");
+    _options.allDayText = getDefaultString(_options.allDayText, "All-Day");
+    _options.allEventsText = getDefaultString(_options.allEventsText, "All Events");
+    _options.toTimeText = getDefaultString(_options.toTimeText, "to");
+    _options.confirmEventRemoveTitle = getDefaultString(_options.confirmEventRemoveTitle, "Confirm Event Removal");
+    _options.confirmEventRemoveMessage = getDefaultString(_options.confirmEventRemoveMessage, "Removing this event cannot be undone.  Do you want to continue?");
+    _options.okText = getDefaultString(_options.okText, "OK");
+    _options.selectExportTypeTitle = getDefaultString(_options.selectExportTypeTitle, "Select Export Type");
+    _options.selectColorsText = getDefaultString(_options.selectColorsText, "Select Colors");
+    _options.backgroundColorText = getDefaultString(_options.backgroundColorText, "Background Color:");
+    _options.textColorText = getDefaultString(_options.textColorText, "Text Color:");
+    _options.borderColorText = getDefaultString(_options.borderColorText, "Border Color:");
+    _options.searchEventsTitle = getDefaultString(_options.searchEventsTitle, "Search Events");
+    _options.previousText = getDefaultString(_options.previousText, "Previous");
+    _options.nextText = getDefaultString(_options.nextText, "Next");
+    _options.matchCaseText = getDefaultString(_options.matchCaseText, "Match Case");
+    _options.repeatsText = getDefaultString(_options.repeatsText, "Repeats:");
+    _options.repeatDaysToExcludeText = getDefaultString(_options.repeatDaysToExcludeText, "Repeat Days To Exclude:");
+    _options.daysToExcludeText = getDefaultString(_options.daysToExcludeText, "Days To Exclude:");
+    _options.seriesIgnoreDatesText = getDefaultString(_options.seriesIgnoreDatesText, "Series Ignore Dates:");
+    _options.repeatsNever = getDefaultString(_options.repeatsNever, "Never");
+    _options.repeatsEveryDayText = getDefaultString(_options.repeatsEveryDayText, "Every Day");
+    _options.repeatsEveryWeekText = getDefaultString(_options.repeatsEveryWeekText, "Every Week");
+    _options.repeatsEvery2WeeksText = getDefaultString(_options.repeatsEvery2WeeksText, "Every 2 Weeks");
+    _options.repeatsEveryMonthText = getDefaultString(_options.repeatsEveryMonthText, "Every Month");
+    _options.repeatsEveryYearText = getDefaultString(_options.repeatsEveryYearText, "Every Year");
+    _options.repeatsCustomText = getDefaultString(_options.repeatsCustomText, "Custom:");
+    _options.repeatOptionsTitle = getDefaultString(_options.repeatOptionsTitle, "Repeat Options");
+    _options.moreText = getDefaultString(_options.moreText, "More");
+    _options.includeText = getDefaultString(_options.includeText, "Include:");
+    _options.minimizedTooltipText = getDefaultString(_options.minimizedTooltipText, "Minimize");
+    _options.restoreTooltipText = getDefaultString(_options.restoreTooltipText, "Restore");
+    _options.removeAllEventsInSeriesText = getDefaultString(_options.removeAllEventsInSeriesText, "Remove All Events In Series");
+    _options.createdText = getDefaultString(_options.createdText, "Created:");
+    _options.organizerNameText = getDefaultString(_options.organizerNameText, "Organizer:");
+    _options.organizerEmailAddressText = getDefaultString(_options.organizerEmailAddressText, "Organizer Email:");
+    _options.enableFullScreenTooltipText = getDefaultString(_options.enableFullScreenTooltipText, "Turn On Full-Screen Mode");
+    _options.disableFullScreenTooltipText = getDefaultString(_options.disableFullScreenTooltipText, "Turn Off Full-Screen Mode");
+    _options.idText = getDefaultString(_options.idText, "ID:");
+    _options.expandMonthTooltipText = getDefaultString(_options.expandMonthTooltipText, "Expand Month");
+    _options.repeatEndsText = getDefaultString(_options.repeatEndsText, "Repeat Ends:");
+    _options.noEventsAvailableText = getDefaultString(_options.noEventsAvailableText, "No events available.");
+    _options.viewWeekEventsText = getDefaultString(_options.viewWeekEventsText, "View Week Events");
+    _options.noEventsAvailableFullText = getDefaultString(_options.noEventsAvailableFullText, "There are no events available to view.");
+    _options.clickText = getDefaultString(_options.clickText, "Click");
+    _options.hereText = getDefaultString(_options.hereText, "here");
+    _options.toAddANewEventText = getDefaultString(_options.toAddANewEventText, "to add a new event.");
+    _options.weekText = getDefaultString(_options.weekText, "Week");
+    _options.groupText = getDefaultString(_options.groupText, "Group:");
+    _options.configurationTooltipText = getDefaultString(_options.configurationTooltipText, "Configuration");
+    _options.configurationTitleText = getDefaultString(_options.configurationTitleText, "Configuration");
+    _options.groupsText = getDefaultString(_options.groupsText, "Groups");
+    _options.eventNotificationTitle = getDefaultString(_options.eventNotificationTitle, "Calendar.js");
+    _options.eventNotificationBody = getDefaultString(_options.eventNotificationBody, "The event '{0' has started.");
+    _options.optionsText = getDefaultString(_options.optionsText, "Options:");
+    _options.startsWithText = getDefaultString(_options.startsWithText, "Starts With");
+    _options.endsWithText = getDefaultString(_options.endsWithText, "Ends With");
+    _options.containsText = getDefaultString(_options.containsText, "Contains");
+    _options.displayTabText = getDefaultString(_options.displayTabText, "Display");
+    _options.enableAutoRefreshForEventsText = getDefaultString(_options.enableAutoRefreshForEventsText, "Enable auto-refresh for events");
+    _options.enableBrowserNotificationsText = getDefaultString(_options.enableBrowserNotificationsText, "Enable browser notifications");
+    _options.enableTooltipsText = getDefaultString(_options.enableTooltipsText, "Enable tooltips");
+    _options.dayText = getDefaultString(_options.dayText, "day");
+    _options.daysText = getDefaultString(_options.daysText, "days");
+    _options.hourText = getDefaultString(_options.hourText, "hour");
+    _options.hoursText = getDefaultString(_options.hoursText, "hours");
+    _options.minuteText = getDefaultString(_options.minuteText, "minute");
+    _options.minutesText = getDefaultString(_options.minutesText, "minutes");
+    _options.enableDragAndDropForEventText = getDefaultString(_options.enableDragAndDropForEventText, "Enable drag & drop for events");
+    _options.organizerTabText = getDefaultString(_options.organizerTabText, "Organizer");
+    _options.removeEventsTooltipText = getDefaultString(_options.removeEventsTooltipText, "Remove Events");
+    _options.confirmEventsRemoveTitle = getDefaultString(_options.confirmEventsRemoveTitle, "Confirm Events Removal");
+    _options.confirmEventsRemoveMessage = getDefaultString(_options.confirmEventsRemoveMessage, "Removing these non-repeating events cannot be undone.  Do you want to continue?");
+    _options.eventText = getDefaultString(_options.eventText, "Event");
+    _options.optionalText = getDefaultString(_options.optionalText, "Optional");
+    _options.urlText = getDefaultString(_options.urlText, "Url:");
+    _options.openUrlText = getDefaultString(_options.openUrlText, "Open Url");
+    _options.enableDayNameHeadersInMainDisplayText = getDefaultString(_options.enableDayNameHeadersInMainDisplayText, "Enable day name headers in the main display");
+    _options.thisWeekTooltipText = getDefaultString(_options.thisWeekTooltipText, "This Week");
+    _options.dailyText = getDefaultString(_options.dailyText, "Daily");
+    _options.weeklyText = getDefaultString(_options.weeklyText, "Weekly");
+    _options.monthlyText = getDefaultString(_options.monthlyText, "Monthly");
+    _options.yearlyText = getDefaultString(_options.yearlyText, "Yearly");
+    _options.repeatsByCustomSettingsText = getDefaultString(_options.repeatsByCustomSettingsText, "By Custom Settings");
+    _options.lastUpdatedText = getDefaultString(_options.lastUpdatedText, "Last Updated:");
+    _options.advancedText = getDefaultString(_options.advancedText, "Advanced");
+    _options.copyText = getDefaultString(_options.copyText, "Copy");
+    _options.pasteText = getDefaultString(_options.pasteText, "Paste");
+    _options.duplicateText = getDefaultString(_options.duplicateText, "Duplicate");
+    _options.showAlertsText = getDefaultString(_options.showAlertsText, "Show Alerts");
+    _options.selectDatePlaceholderText = getDefaultString(_options.selectDatePlaceholderText, "Select date...");
+    _options.hideDayText = getDefaultString(_options.hideDayText, "Hide Day");
+    _options.notSearchText = getDefaultString(_options.notSearchText, "Not (opposite)");
+    _options.showEmptyDaysInWeekViewText = getDefaultString(_options.showEmptyDaysInWeekViewText, "Show empty days in the week view");
+    _options.showHolidaysInTheDisplaysText = getDefaultString(_options.showHolidaysInTheDisplaysText, "Show holidays in the main display and title bars");
+    _options.newEventDefaultTitle = getDefaultString(_options.newEventDefaultTitle, "* New Event");
+    _options.urlErrorMessage = getDefaultString(_options.urlErrorMessage, "Please enter a valid Url in the 'Url' field (or leave blank).");
+    _options.dropDownMenuSymbol = getDefaultString(_options.dropDownMenuSymbol, "\u25be");
+    _options.searchTextBoxPlaceholder = getDefaultString(_options.searchTextBoxPlaceholder, "Search title, description, etc...");
+    _options.currentMonthTooltipText = getDefaultString(_options.currentMonthTooltipText, "Current Month");
+    _options.cutText = getDefaultString(_options.cutText, "Cut");
+    _options.showMenuTooltipText = getDefaultString(_options.showMenuTooltipText, "Show Menu");
+    _options.eventTypesText = getDefaultString(_options.eventTypesText, "Event Types");
+    _options.lockedText = getDefaultString(_options.lockedText, "Locked:");
+    _options.typeText = getDefaultString(_options.typeText, "Type:");
+    _options.sideMenuHeaderText = getDefaultString(_options.sideMenuHeaderText, "Calendar.js");
+    _options.sideMenuDaysText = getDefaultString(_options.sideMenuDaysText, "Days");
+    _options.visibleDaysText = getDefaultString(_options.visibleDaysText, "Visible Days");
   }
   function setEventTypeTranslationStringOptions() {
-    if (!isDefinedString(_options.eventTypeNormal)) {
-      _eventType[0].text = "Normal";
-    } else {
-      _eventType[0].text = _options.eventTypeNormal;
-    }
-    if (!isDefinedString(_options.eventTypeMeeting)) {
-      _eventType[1].text = "Meeting";
-    } else {
-      _eventType[1].text = _options.eventTypeMeeting;
-    }
-    if (!isDefinedString(_options.eventTypeBirthday)) {
-      _eventType[2].text = "Birthday";
-    } else {
-      _eventType[2].text = _options.eventTypeBirthday;
-    }
-    if (!isDefinedString(_options.eventTypeHoliday)) {
-      _eventType[3].text = "Holiday";
-    } else {
-      _eventType[3].text = _options.eventTypeHoliday;
-    }
-    if (!isDefinedString(_options.eventTypeTask)) {
-      _eventType[4].text = "Task";
-    } else {
-      _eventType[4].text = _options.eventTypeTask;
+    setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
+    setEventTypeOption(_options.eventTypeMeetingText, "Meeting", 1);
+    setEventTypeOption(_options.eventTypeBirthdayText, "Birthday", 2);
+    setEventTypeOption(_options.eventTypeHolidayText, "Holiday", 3);
+    setEventTypeOption(_options.eventTypeTaskText, "Task", 4);
+  }
+  function setEventTypeOption(optionEventText, defaultEventText, eventId) {
+    if (_eventType.hasOwnProperty(eventId)) {
+      if (!isDefinedString(optionEventText)) {
+        _eventType[eventId].text = defaultEventText;
+      } else {
+        _eventType[eventId].text = optionEventText;
+      }
     }
   }
   function isInvalidOptionArray(array, minimumLength) {
