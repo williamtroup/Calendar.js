@@ -7308,6 +7308,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return isDefinedString( value ) ? value : defaultValue;
     }
 
+    function getDefaultBoolean( value, defaultValue ) {
+        return isDefinedBoolean( value ) ? value : defaultValue;
+    }
+
+    function getDefaultNumber( value, defaultValue ) {
+        return isDefinedNumber( value ) ? value : defaultValue;
+    }
+
+    function getDefaultArray( value, defaultValue ) {
+        return isDefinedArray( value ) ? value : defaultValue;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -9491,66 +9503,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDefaultSearchOptions( newSearchOptions ) {
         _optionsForSearch = getOptions( newSearchOptions, _options.searchOptions );
-
-        if ( !isDefinedString( _optionsForSearch.lastSearchText ) ) {
-            _optionsForSearch.lastSearchText = "";
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.not ) ) {
-            _optionsForSearch.not = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.matchCase ) ) {
-            _optionsForSearch.matchCase = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.showAdvanced ) ) {
-            _optionsForSearch.showAdvanced = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.searchTitle ) ) {
-            _optionsForSearch.searchTitle = true;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.searchLocation ) ) {
-            _optionsForSearch.searchLocation = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.searchDescription ) ) {
-            _optionsForSearch.searchDescription = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.searchGroup ) ) {
-            _optionsForSearch.searchGroup = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.searchUrl ) ) {
-            _optionsForSearch.searchUrl = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.startsWith ) ) {
-            _optionsForSearch.startsWith = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.endsWith ) ) {
-            _optionsForSearch.endsWith = false;
-        }
-
-        if ( !isDefinedBoolean( _optionsForSearch.contains ) ) {
-            _optionsForSearch.contains = true;
-        }
-
-        if ( !isDefinedNumber( _optionsForSearch.left ) ) {
-            _optionsForSearch.left = null;
-        }
-
-        if ( !isDefinedNumber( _optionsForSearch.top ) ) {
-            _optionsForSearch.top = null;
-        }
-
-        if ( !isDefinedArray( _optionsForSearch.history ) ) {
-            _optionsForSearch.history = [];
-        }
+        _optionsForSearch.lastSearchText = getDefaultString( _optionsForSearch.lastSearchText, "" );
+        _optionsForSearch.not = getDefaultBoolean( _optionsForSearch.not, false );
+        _optionsForSearch.matchCase = getDefaultBoolean( _optionsForSearch.matchCase, false );
+        _optionsForSearch.showAdvanced = getDefaultBoolean( _optionsForSearch.showAdvanced, false );
+        _optionsForSearch.searchTitle = getDefaultBoolean( _optionsForSearch.searchTitle, true );
+        _optionsForSearch.searchLocation = getDefaultBoolean( _optionsForSearch.searchLocation, false );
+        _optionsForSearch.searchDescription = getDefaultBoolean( _optionsForSearch.searchDescription, false );
+        _optionsForSearch.searchGroup = getDefaultBoolean( _optionsForSearch.searchGroup, false );
+        _optionsForSearch.searchUrl = getDefaultBoolean( _optionsForSearch.searchUrl, false );
+        _optionsForSearch.startsWith = getDefaultBoolean( _optionsForSearch.startsWith, false );
+        _optionsForSearch.endsWith = getDefaultBoolean( _optionsForSearch.endsWith, false );
+        _optionsForSearch.contains = getDefaultBoolean( _optionsForSearch.contains, true );
+        _optionsForSearch.left = getDefaultNumber( _optionsForSearch.left, null );
+        _optionsForSearch.top = getDefaultNumber( _optionsForSearch.top, null );
+        _optionsForSearch.history = getDefaultArray( _optionsForSearch.history, [] );
     }
 
     function setTranslationStringOptions() {
