@@ -1267,7 +1267,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( groupsLength > 0 ) {
             _element_SideMenu_Content_Section_Groups = createElement( "div", "content-section" );
-            _element_SideMenu_Content_Section_Groups_Content = createElement( "div" );
+            _element_SideMenu_Content_Section_Groups_Content = createElement( "div", "checkbox-container" );
 
             _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Groups );
 
@@ -1303,7 +1303,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _element_SideMenu_Content_Section_EventTypes = createElement( "div", "content-section" );
                     _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_EventTypes );
             
-                    _element_SideMenu_Content_Section_EventTypes_Content = createElement( "div" );
+                    _element_SideMenu_Content_Section_EventTypes_Content = createElement( "div", "checkbox-container" );
             
                     buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_EventTypes, _element_SideMenu_Content_Section_EventTypes_Content, _options.eventTypesText, opened );
             
@@ -1327,7 +1327,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         opened = isDefined( opened ) ? opened : true;
 
         _element_SideMenu_Content_Section_Days = createElement( "div", "content-section" );
-        _element_SideMenu_Content_Section_Days_Content = createElement( "div" );
+        _element_SideMenu_Content_Section_Days_Content = createElement( "div", "checkbox-container" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Days );
 
         buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_Days, _element_SideMenu_Content_Section_Days_Content, _options.sideMenuDaysText, opened );
