@@ -2419,49 +2419,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             elements[ 0 ].className = elements[ 0 ].className.replace( className, "" );
         }
     }
-  
-    function setEventClassesAndColors( event, eventDetails, toDate, setNotInMonthCss ) {
-        setNotInMonthCss = isDefined( setNotInMonthCss ) ? setNotInMonthCss : false;
-
-        if ( isDefined( toDate ) && toDate < new Date() ) {
-            event.className += " expired";
-        }
-
-        if ( setNotInMonthCss && isDefined( toDate ) && ( toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth() ) ) {
-            event.className += " not-in-current-month";
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.color ) ) {
-            event.style.backgroundColor = eventDetails.color;
-
-            if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
-                event.style.color = eventDetails.colorText;
-            }
-
-            if ( isDefinedStringAndSet( eventDetails.colorBorder ) ) {
-                event.style.borderLeftColor = eventDetails.colorBorder;
-            }
-        } else {
-
-            if ( eventDetails.isAllDay ) {
-                event.className += " all-day";
-            }
-        }
-    }
-
-    function setEventClassesForActions( event, eventDetails ) {
-        if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
-            event.className += " focused-event";
-        }
-
-        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
-            event.className += " cut-event";
-        }
-
-        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
-            event.className += " copy-event";
-        }
-    }
 
     function getToTimeWithPassedDate( eventDetails, date ) {
         var repeatEvery = getNumber( eventDetails.repeatEvery ),
@@ -4608,40 +4565,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function updateEventClasses( id, className, remove ) {
-        remove = isDefined( remove ) ? remove : false;
-
-        var startingID = null,
-            isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
-            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
-            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
-
-        if ( isFullDayViewVisible ) {
-            startingID = _elementID_FullDay;
-        } else if ( isAllEventsViewVisible ) {
-            startingID = _elementID_Month;
-        } else if ( isAllWeekEventsViewVisible ) {
-            startingID = _elementID_WeekDay;
-        }
-
-        updateEventClass( _elementID_Day + id, className, remove );
-
-        if ( startingID !== null ) {
-            updateEventClass( startingID + id, className, remove );
-        }
-    }
-
-    function updateEventClass( id, className, remove ) {
-        var event = getElementByID( id );
-        if ( event !== null ) {
-            if ( !remove ) {
-                event.className += " " + className;
-            } else {
-                event.className = event.className.replace( " " + className, "" );
-            }
-        }
-    }
-
     function hideDropDownMenu( element ) {
         if ( isDropDownMenuVisible( element ) ) {
             element.style.display = "none";
@@ -6589,6 +6512,90 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
         if ( tabsLength > 0 ) {
             tabs[ tabIndex ].click();
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Event Class Handling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function setEventClassesAndColors( event, eventDetails, toDate, setNotInMonthCss ) {
+        setNotInMonthCss = isDefined( setNotInMonthCss ) ? setNotInMonthCss : false;
+
+        if ( isDefined( toDate ) && toDate < new Date() ) {
+            event.className += " expired";
+        }
+
+        if ( setNotInMonthCss && isDefined( toDate ) && ( toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth() ) ) {
+            event.className += " not-in-current-month";
+        }
+
+        if ( isDefinedStringAndSet( eventDetails.color ) ) {
+            event.style.backgroundColor = eventDetails.color;
+
+            if ( isDefinedStringAndSet( eventDetails.colorText ) ) {
+                event.style.color = eventDetails.colorText;
+            }
+
+            if ( isDefinedStringAndSet( eventDetails.colorBorder ) ) {
+                event.style.borderLeftColor = eventDetails.colorBorder;
+            }
+        } else {
+
+            if ( eventDetails.isAllDay ) {
+                event.className += " all-day";
+            }
+        }
+    }
+
+    function setEventClassesForActions( event, eventDetails ) {
+        if ( _element_SearchDialog_FocusedEventID === eventDetails.id ) {
+            event.className += " focused-event";
+        }
+
+        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
+            event.className += " cut-event";
+        }
+
+        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
+            event.className += " copy-event";
+        }
+    }
+
+    function updateEventClasses( id, className, remove ) {
+        remove = isDefined( remove ) ? remove : false;
+
+        var startingID = null,
+            isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
+            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
+            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
+
+        if ( isFullDayViewVisible ) {
+            startingID = _elementID_FullDay;
+        } else if ( isAllEventsViewVisible ) {
+            startingID = _elementID_Month;
+        } else if ( isAllWeekEventsViewVisible ) {
+            startingID = _elementID_WeekDay;
+        }
+
+        updateEventClass( _elementID_Day + id, className, remove );
+
+        if ( startingID !== null ) {
+            updateEventClass( startingID + id, className, remove );
+        }
+    }
+
+    function updateEventClass( id, className, remove ) {
+        var event = getElementByID( id );
+        if ( event !== null ) {
+            if ( !remove ) {
+                event.className += " " + className;
+            } else {
+                event.className = event.className.replace( " " + className, "" );
+            }
         }
     }
 
