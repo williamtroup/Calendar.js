@@ -9362,7 +9362,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.minimumDatePickerDate = getDefaultDate( _options.minimumDatePickerDate, null );
         _options.maximumDatePickerDate = getDefaultDate( _options.maximumDatePickerDate, null );
         _options.allowHtmlInDisplay = getDefaultBoolean( _options.allowHtmlInDisplay, false );
-        _options.datePickerSelectedDateFormat = getDefaultString( _options.datePickerSelectedDateFormat, "{d{o {mmmm {yyyy" );
+        _options.datePickerSelectedDateFormat = getDefaultString( _options.datePickerSelectedDateFormat, "{d}{o} {mmmm} {yyyy}" );
         _options.initialDateTime = getDefaultDate( _options.initialDateTime, null );
         _options.events = getDefaultArray( _options.events, null );
         _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.applyCssToEventsNotInCurrentMonth, true );
