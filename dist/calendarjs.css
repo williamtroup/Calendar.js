@@ -175,7 +175,8 @@ div.calendar-date-picker div.header-date div.title-container {
 div.calendar-date-picker div.calendar {
   font-size: 0.7rem !important;
   position: absolute;
-  width: 300px;
+  width: 100%;
+  max-width: 330px;
   z-index: 1000;
   box-shadow: 4px 4px 4px #282828;
   margin-top: 1px;

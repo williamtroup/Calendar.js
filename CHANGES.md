@@ -29,6 +29,7 @@
 - Events visible in the active display now contain attributes "event-id" and "event-type".
 - The "Duplicate" event context menu item now has "..." at the end.
 - Changed the default background color for the tooltips shown through the Calendar (slightly lighter now).
+- The DatePicker mode now supports smaller mobile screens (and increased the default width to 330px).
 - 
 
 ### Version 1.8.7:

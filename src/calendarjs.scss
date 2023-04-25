@@ -110,7 +110,8 @@ div.calendar-date-picker {
     div.calendar {
         font-size: $small-font-size !important;
         position: absolute;
-        width: 300px;
+        width: 100%;
+        max-width: 330px;
         z-index: 1000;
         box-shadow: 4px 4px 4px #282828;
         margin-top: $standard-border-size;
