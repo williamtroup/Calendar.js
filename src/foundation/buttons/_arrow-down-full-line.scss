@@ -6,17 +6,17 @@
     &::before {
         width: 0; 
         height: 0; 
-        border-left: calc($size / 2) solid transparent;
-        border-right: calc($size / 2) solid transparent;
-        border-top: calc($size / 2) solid $light-color;
+        border-left: calc( $size / 2 ) solid transparent;
+        border-right: calc( $size / 2 ) solid transparent;
+        border-top: calc( $size / 2 ) solid $light-color;
         left: 0;
         bottom: 0;
     }
 
     &::after {
         @include left-center;
-        width: calc($size / 2);
-        height: calc($size / 2);
+        width: calc( $size / 2 );
+        height: calc( $size / 2 );
         background-color: $light-color;
         top: 0;
     }

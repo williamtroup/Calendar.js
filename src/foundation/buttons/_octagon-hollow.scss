@@ -4,20 +4,20 @@
     @include button;
 
     &::before {
-        @include transform-rotate(-45deg);
+        @include transform-rotate( -45deg );
         border: $border;
         width: $size - $border-width * 3;
         height: $size - $border-width * 3;
-        left: calc($border-width / 2);
-        top: calc($border-width / 2);
+        left: calc( $border-width / 2 );
+        top: calc( $border-width / 2 );
     }
 
     &::after {
-        @include transform-rotate(90deg);
+        @include transform-rotate( 90deg );
         border: $border;
-        width: $size - calc($border-width * 3);
-        height: $size - calc($border-width * 3);
-        left: calc($border-width / 2);
-        top: calc($border-width / 2);
+        width: $size - calc( $border-width * 3 );
+        height: $size - calc( $border-width * 3 );
+        left: calc( $border-width / 2 );
+        top: calc( $border-width / 2 );
     }
 }

@@ -5,6 +5,6 @@
     width: 0; 
     height: 0;
     border-top: $size solid $dark-color;
-    border-left: calc($size / 2) solid transparent;
-    border-right: calc($size / 2) solid transparent;
+    border-left: calc( $size / 2 ) solid transparent;
+    border-right: calc( $size / 2 ) solid transparent;
 }

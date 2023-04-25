@@ -1,7 +1,7 @@
 @import "../buttons/button";
 
 $size: 12px;
-$border-width: calc($size / 4);
+$border-width: calc( $size / 4 );
 $border-radius: $border-width;
 $border: $border-width solid;
 
@@ -13,7 +13,7 @@ $border: $border-width solid;
         border-top: $border;
         border-left: $border;
         border-radius: $border-radius;
-        width: $size - $border-width * 2 - calc($border-width / 3);
+        width: $size - $border-width * 2 - calc( $border-width / 3 );
         height: $size - $border-width;
         left: 0;
         top: 0;
@@ -23,7 +23,7 @@ $border: $border-width solid;
         border-bottom: $border;
         border-right: $border;
         border-radius: $border-radius;
-        width: $size - $border-width * 2 - calc($border-width / 3);
+        width: $size - $border-width * 2 - calc( $border-width / 3 );
         height: $size - $border-width;
         right: 0;
         top: 0;

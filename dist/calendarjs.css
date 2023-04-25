@@ -121,12 +121,12 @@ div.full-screen-view {
 }
 @media screen and (min-width: 451px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - ((1px * 10) + (10px * 4) + (0.9rem * 2))) / 6);
+    height: calc((100% - (( 1px * 10 ) + ( 10px * 4 ) + ( 0.9rem * 2 ))) / 6);
   }
 }
 @media screen and (max-width: 450px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - ((1px * 10) + (10px * 3) + (0.7rem * 2))) / 6);
+    height: calc((100% - (( 1px * 10 ) + ( 10px * 3 ) + ( 0.7rem * 2 ))) / 6);
   }
 }
 div.full-screen-view div.header-days {
@@ -304,25 +304,25 @@ div.calendar div.row-cells {
   width: 100%;
 }
 div.calendar div.row-cells div.cell-1 {
-  width: calc(100% - (20px + 1px));
+  width: calc(100% - ( 20px + 1px ));
 }
 div.calendar div.row-cells div.cell-2 {
-  width: calc(100% - (20px + 1px) / 2);
+  width: calc(100% - ( 20px + 1px ) / 2);
 }
 div.calendar div.row-cells div.cell-3 {
-  width: calc(100% - (20px + 1px) / 3);
+  width: calc(100% - ( 20px + 1px ) / 3);
 }
 div.calendar div.row-cells div.cell-4 {
-  width: calc(100% - (20px + 1px) / 4);
+  width: calc(100% - ( 20px + 1px ) / 4);
 }
 div.calendar div.row-cells div.cell-5 {
-  width: calc(100% - (20px + 1px) / 5);
+  width: calc(100% - ( 20px + 1px ) / 5);
 }
 div.calendar div.row-cells div.cell-6 {
-  width: calc(100% - (20px + 1px) / 6);
+  width: calc(100% - ( 20px + 1px ) / 6);
 }
 div.calendar div.row-cells div.cell-7 {
-  width: calc(100% - (20px + 1px) / 7);
+  width: calc(100% - ( 20px + 1px ) / 7);
 }
 div.calendar div.row-cells div.scrollY {
   overflow-y: auto !important;
@@ -579,12 +579,12 @@ div.calendar div.header-date div.title-container div.years-drop-down {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.header-date div.title-container div.years-drop-down {
-    top: calc(10px + 0.9rem);
+    top: calc( 10px + 0.9rem );
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.header-date div.title-container div.years-drop-down {
-    top: calc(10px + 0.7rem);
+    top: calc( 10px + 0.7rem );
   }
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents {
@@ -773,7 +773,7 @@ div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
 }
 div.calendar div.full-day-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc( 100% - 10px );
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -872,7 +872,7 @@ div.calendar div.full-day-view div.contents div.contents-events {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
-  width: calc(100% - 70px - (10px * 2) - 1px);
+  width: calc( 100% - 70px - ( 10px * 2 ) - 1px );
   left: 91px;
   top: 0;
   z-index: 10;
@@ -901,7 +901,7 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
   border-bottom: 1px dashed #A8A8A8;
-  width: calc(100% - (70px + 20px));
+  width: calc(100% - ( 70px + 20px ));
   height: 54px;
   content: "";
   display: block;
@@ -929,12 +929,12 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:last-ch
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 2) + 0.9rem));
+    height: calc(100% - ( ( 10px * 2 ) + 0.9rem ));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 2) + 0.7rem));
+    height: calc(100% - ( ( 10px * 2 ) + 0.7rem ));
   }
 }
 div.calendar div.full-day-view div.contents div.expired {
@@ -984,7 +984,7 @@ div.calendar div.full-day-view div.contents div.event {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
-  width: calc(100% - 70px - (10px * 6) - (10px / 2));
+  width: calc( 100% - 70px - ( 10px * 6 ) - ( 10px / 2 ) );
   left: 100px;
   overflow: hidden;
 }
@@ -1006,7 +1006,7 @@ div.calendar div.list-all-events-view {
   visibility: hidden;
 }
 div.calendar div.list-all-events-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc( 100% - 10px );
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1076,16 +1076,16 @@ div.calendar div.list-all-events-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
 }
 @media screen and (min-width: 451px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
   }
 }
 div.calendar div.list-all-events-view div.contents div.month {
@@ -1173,7 +1173,7 @@ div.calendar div.list-all-week-events-view {
   visibility: hidden;
 }
 div.calendar div.list-all-week-events-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc( 100% - 10px );
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1243,16 +1243,16 @@ div.calendar div.list-all-week-events-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
 }
 @media screen and (min-width: 451px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
   }
 }
 div.calendar div.list-all-week-events-view div.contents div.no-events-text {
@@ -1337,7 +1337,7 @@ div.calendar div.list-all-week-events-view div.contents div.day:last-child {
     -------------------------------------------------------------------------
 */
 div.event-editor {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 420px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1452,7 +1452,7 @@ div.event-editor div.view div.split input,
 div.event-editor div.view div.split select,
 div.event-editor div.view div.split div.split-contents,
 div.event-editor div.view div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -1589,7 +1589,7 @@ div.event-editor div.view input[type=button].repeat-options {
     -------------------------------------------------------------------------
 */
 div.event-editor-colors {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 250px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1664,7 +1664,7 @@ div.event-editor-colors div.split input,
 div.event-editor-colors div.split select,
 div.event-editor-colors div.split div.split-contents,
 div.event-editor-colors div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -1746,7 +1746,7 @@ div.event-editor-colors input[type=button].cancel:not(:disabled):active {
     -------------------------------------------------------------------------
 */
 div.event-editor-repeat-options {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 250px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1830,7 +1830,7 @@ div.event-editor-repeat-options div.split input,
 div.event-editor-repeat-options div.split select,
 div.event-editor-repeat-options div.split div.split-contents,
 div.event-editor-repeat-options div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -1912,7 +1912,7 @@ div.event-editor-repeat-options input[type=button].cancel:not(:disabled):active 
     -------------------------------------------------------------------------
 */
 div.confirmation {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 330px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1960,7 +1960,7 @@ div.confirmation div.split input,
 div.confirmation div.split select,
 div.confirmation div.split div.split-contents,
 div.confirmation div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2042,7 +2042,7 @@ div.confirmation input[type=button].no:not(:disabled):active {
     -------------------------------------------------------------------------
 */
 div.select-export-type {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 250px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -2084,7 +2084,7 @@ div.select-export-type div.split input,
 div.select-export-type div.split select,
 div.select-export-type div.split div.split-contents,
 div.select-export-type div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2163,7 +2163,7 @@ div.select-export-type input[type=button].cancel:not(:disabled):active {
     -------------------------------------------------------------------------
 */
 div.search {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 300px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -2296,7 +2296,7 @@ div.search div.split input,
 div.search div.split select,
 div.search div.split div.split-contents,
 div.search div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2390,7 +2390,7 @@ div.search div.ib-square-hollow {
     -------------------------------------------------------------------------
 */
 div.configuration {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 400px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -2467,7 +2467,7 @@ div.configuration div.split input,
 div.configuration div.split select,
 div.configuration div.split div.split-contents,
 div.configuration div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2834,7 +2834,7 @@ div.calendar-tooltip-event div:last-child {
 }
 div.calendar-tooltip-event div.title {
   font-weight: 900;
-  width: calc(100% - 24px - 10px);
+  width: calc( 100% - 24px - 10px );
 }
 div.calendar-tooltip-event div.date,
 div.calendar-tooltip-event div.duration,
@@ -3047,7 +3047,7 @@ div.calendar-drop-down-menu div.separator {
   transform: translate(-50%);
   background-color: #F5F5F5;
   width: 4px;
-  height: calc(100% - 4px - 2px);
+  height: calc( 100% - 4px - 2px );
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
@@ -3227,7 +3227,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-eye::before {
   position: absolute;
   content: "";
-  left: calc(50% - 2px);
+  left: calc( 50% - 2px );
   transform: translate(-50%);
   top: 50%;
   transform: translate(0, -50%);

@@ -1,7 +1,7 @@
 @import "../buttons/button";
 
 $size: 12px;
-$border-width: calc($size / 4);
+$border-width: calc( $size / 4 );
 $border-radius: $border-width;
 $border: $border-width solid $dark-color;
 
@@ -11,8 +11,8 @@ $border: $border-width solid $dark-color;
     &::before {
         border-left: $border;
         border-bottom: $border;
-        width: $size - calc($size / 2);
-        height: $size - calc($size / 2);
+        width: $size - calc( $size / 2 );
+        height: $size - calc( $size / 2 );
         bottom: 0;
         left: 0;
     }
@@ -20,8 +20,8 @@ $border: $border-width solid $dark-color;
     &::after {
         border-right: $border;
         border-top: $border;
-        width: $size - calc($size / 2);
-        height: $size - calc($size / 2);
+        width: $size - calc( $size / 2 );
+        height: $size - calc( $size / 2 );
         top: 0;
         right: 0;
     }
