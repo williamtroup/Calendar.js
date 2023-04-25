@@ -4624,23 +4624,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
             startingID = _elementID_WeekDay;
         }
 
-        var event1 = getElementByID( _elementID_Day + id );
-        if ( event1 !== null ) {
-            if ( !remove ) {
-                event1.className += " " + className;
-            } else {
-                event1.className = event1.className.replace( " " + className, "" );
-            }
-        }
+        updateEventClass( _elementID_Day + id, className, remove );
 
         if ( startingID !== null ) {
-            var event2 = getElementByID( startingID + id );
-            if ( event2 !== null ) {
-                if ( !remove ) {
-                    event2.className += " " + className;
-                } else {
-                    event2.className = event2.className.replace( " " + className, "" );
-                }
+            updateEventClass( startingID + id, className, remove );
+        }
+    }
+
+    function updateEventClass( id, className, remove ) {
+        var event = getElementByID( id );
+        if ( event !== null ) {
+            if ( !remove ) {
+                event.className += " " + className;
+            } else {
+                event.className = event.className.replace( " " + className, "" );
             }
         }
     }
