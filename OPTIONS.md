@@ -57,6 +57,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Search* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
 | *Event[]* | events | States the events that will be shown when the calendar first renders (defaults to null). |
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true). |
+| *boolean* | addYearButtonsInDatePickerMode | States if the year-jumping buttons should be added in DatePicker mode (defaults to false). |
 <br/>
 
 ### Translatable String Options:
@@ -219,3 +220,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | sideMenuHeaderText | The text that should be displayed for the "Calendar.js" side menu header label. |
 | *string* | sideMenuDaysText | The text that should be displayed for the "Days" side menu label. |
 | *string* | visibleDaysText | The text that should be displayed for the "Visible Days" label. |
+| *string* | previousYearTooltipText | The tooltip text that should be used for for the "Previous Year" button. |
+| *string* | nextYearTooltipText | The tooltip text that should be used for for the "Next Year" button. |

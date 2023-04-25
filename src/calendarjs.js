@@ -262,6 +262,8 @@
  * @property    {string}    sideMenuHeaderText                          The text that should be displayed for the "Calendar.js" side menu header label.
  * @property    {string}    sideMenuDaysText                            The text that should be displayed for the "Days" side menu label.
  * @property    {string}    visibleDaysText                             The text that should be displayed for the "Visible Days" label.
+ * @property    {string}    previousYearTooltipText                     The tooltip text that should be used for for the "Previous Year" button.
+ * @property    {string}    nextYearTooltipText                         The tooltip text that should be used for for the "Next Year" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -314,6 +316,7 @@
  * @property    {Search}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
  * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true).
+ * @property    {boolean}   addYearButtonsInDatePickerMode              States if the year-jumping buttons should be added in DatePicker mode (defaults to false).
  */
 
 
@@ -890,6 +893,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
 
+        if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-rewind", _options.previousYearTooltipText, moveBackYear );
+        }
+
         if ( _datePickerModeEnabled || _options.showExtraToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.currentMonthTooltipText, moveToday );
         }
@@ -905,6 +912,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
+
+        if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-forward", _options.nextYearTooltipText, moveForwardYear );
+        }
 
         if ( _datePickerModeEnabled ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode );
@@ -9367,6 +9378,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.events = getDefaultArray( _options.events, null );
         _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.applyCssToEventsNotInCurrentMonth, true );
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
+        _options.addYearButtonsInDatePickerMode = getDefaultBoolean( _options.addYearButtonsInDatePickerMode, false );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -9621,6 +9633,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.sideMenuHeaderText = getDefaultString( _options.sideMenuHeaderText, "Calendar.js" );
         _options.sideMenuDaysText = getDefaultString( _options.sideMenuDaysText, "Days" );
         _options.visibleDaysText = getDefaultString( _options.visibleDaysText, "Visible Days" );
+        _options.previousYearTooltipText = getDefaultString( _options.previousYearTooltipText, "Previous Year" );
+        _options.nextYearTooltipText = getDefaultString( _options.nextYearTooltipText, "Next Year" );
     }
 
     function setEventTypeTranslationStringOptions() {

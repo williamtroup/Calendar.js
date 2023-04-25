@@ -638,7 +638,8 @@ div.calendar {
         div.ib-refresh,
         div.ib-search,
         div.ib-octagon-hollow,
-        div.ib-hamburger {
+        div.ib-hamburger,
+        div.ib-rewind {
             float: left;
         }
 
@@ -649,7 +650,8 @@ div.calendar {
         div.ib-plus,
         div.ib-arrow-right-full,
         div.ib-arrow-expand-left-right,
-        div.ib-arrow-contract-left-right {
+        div.ib-arrow-contract-left-right,
+        div.ib-forward {
             float: right;
         }
 
@@ -1927,6 +1929,8 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
 @import "foundation/buttons/octagon-hollow";
+@import "foundation/buttons/rewind";
+@import "foundation/buttons/forward";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

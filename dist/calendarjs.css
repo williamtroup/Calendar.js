@@ -642,7 +642,8 @@ div.calendar div.header-date div.ib-pin,
 div.calendar div.header-date div.ib-refresh,
 div.calendar div.header-date div.ib-search,
 div.calendar div.header-date div.ib-octagon-hollow,
-div.calendar div.header-date div.ib-hamburger {
+div.calendar div.header-date div.ib-hamburger,
+div.calendar div.header-date div.ib-rewind {
   float: left;
 }
 div.calendar div.header-date div.ib-close,
@@ -652,7 +653,8 @@ div.calendar div.header-date div.ib-arrow-down-full-line,
 div.calendar div.header-date div.ib-plus,
 div.calendar div.header-date div.ib-arrow-right-full,
 div.calendar div.header-date div.ib-arrow-expand-left-right,
-div.calendar div.header-date div.ib-arrow-contract-left-right {
+div.calendar div.header-date div.ib-arrow-contract-left-right,
+div.calendar div.header-date div.ib-forward {
   float: right;
 }
 @media screen and (min-width: 451px) {
@@ -3529,6 +3531,84 @@ div.calendar-drop-down-menu div.separator {
   height: 4px;
   left: 2px;
   top: 2px;
+}
+
+.ib-rewind {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+.ib-rewind:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-rewind:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-rewind::before, .ib-rewind::after {
+  position: absolute;
+  content: "";
+}
+.ib-rewind::before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #F5F5F5;
+  left: 0;
+  top: 0;
+}
+.ib-rewind::after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #F5F5F5;
+  right: 0;
+  top: 0;
+}
+
+.ib-forward {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+.ib-forward:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-forward:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-forward::before, .ib-forward::after {
+  position: absolute;
+  content: "";
+}
+.ib-forward::before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #F5F5F5;
+  right: 0;
+  top: 0;
+}
+.ib-forward::after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #F5F5F5;
+  left: 0;
+  top: 0;
 }
 
 .ib-plus-icon {
