@@ -33,6 +33,7 @@
 - Added new setting "addYearButtonsInDatePickerMode" (defaults to false) which adds year-jumping buttons to DatePicker title bar.
 - Search history will now check for any case when adding new items (so Match Case searches work).
 - Added a dropdown button to the "For" field on the "Search" dialog, which will show the full search history (only if available).
+- The sorting order used for the search history in the "Search" dialog is now much more accurate.
 - 
 
 ### Version 1.8.7:

@@ -6080,7 +6080,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     lookupTextFound = false;
 
                 if ( trimString( lookupText ) !== "" ) {
-                    _optionsForSearch.history.sort();
+                    sortSearchHistory();
+
                     _element_SearchDialog_History_DropDown.innerHTML = "";
     
                     for ( var historyIndex = 0; historyIndex < historyLength; historyIndex++ ) {
@@ -6105,20 +6106,42 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function sortSearchHistory() {
+        _optionsForSearch.history.sort( function( value1, value2 ) {
+            var result = 0,
+                value1AnyCase = value1.toLowerCase(),
+                value2AnyCase = value2.toLowerCase();
+
+            if ( value1AnyCase < value2AnyCase ) { 
+                result = -1;
+            } else if ( value1AnyCase > value2AnyCase ) { 
+                result = 1;
+            }
+
+            return result;
+        } );
+    }
+
     function showFullSearchHistory( e ) {
         cancelBubble( e );
 
-        var historyLength = _optionsForSearch.history.length;
+        if ( _element_SearchDialog_History_DropDown.style.display !== "block" ) {
+            sortSearchHistory();
 
-        _element_SearchDialog_History_DropDown.innerHTML = "";
-        _optionsForSearch.history.sort();
-        _element_SearchDialog_For.focus();
-
-        for ( var historyIndex = 0; historyIndex < historyLength; historyIndex++ ) {
-            addSearchHistoryDropDownItem( _optionsForSearch.history[ historyIndex ], 0 );
+            var historyLength = _optionsForSearch.history.length;
+    
+            _element_SearchDialog_History_DropDown.innerHTML = "";
+            _element_SearchDialog_For.focus();
+    
+            for ( var historyIndex = 0; historyIndex < historyLength; historyIndex++ ) {
+                addSearchHistoryDropDownItem( _optionsForSearch.history[ historyIndex ], 0 );
+            }
+    
+            _element_SearchDialog_History_DropDown.style.display = "block";
+        
+        } else {
+            _element_SearchDialog_History_DropDown.style.display = "none";
         }
-
-        _element_SearchDialog_History_DropDown.style.display = "block";
     }
 
     function addSearchHistoryDropDownItem( historyText, startBoldLength ) {
