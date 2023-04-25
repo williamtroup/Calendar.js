@@ -883,6 +883,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !_datePickerModeEnabled ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+            
+            var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
+            _element_HeaderDateDisplay.appendChild( sideMenuButtonDividerLine );
         }
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
@@ -2481,6 +2484,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             if ( !_datePickerModeEnabled ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+
+                var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
+                titleBar.appendChild( sideMenuButtonDividerLine );
             }
 
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay );
@@ -3092,6 +3098,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 if ( !_datePickerModeEnabled ) {
                     buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+
+                    var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
+                    titleBar.appendChild( sideMenuButtonDividerLine );
                 }
         
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
@@ -3340,6 +3349,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( !_datePickerModeEnabled ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+
+                var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
+                titleBar.appendChild( sideMenuButtonDividerLine );
             }
 
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek );

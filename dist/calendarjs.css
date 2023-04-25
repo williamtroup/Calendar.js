@@ -532,6 +532,12 @@ div.calendar div.header-date {
   padding-right: 5px;
   position: relative;
 }
+div.calendar div.header-date div.side-menu-button-divider-line {
+  float: left;
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
+}
 div.calendar div.header-date div.title-container {
   display: inline-block;
   position: relative;
@@ -774,6 +780,12 @@ div.calendar div.full-day-view div.title-bar {
   color: #F5F5F5;
   text-align: center;
 }
+div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
+}
 div.calendar div.full-day-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
@@ -1001,6 +1013,12 @@ div.calendar div.list-all-events-view div.title-bar {
   color: #F5F5F5;
   text-align: center;
 }
+div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
+}
 div.calendar div.list-all-events-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
@@ -1161,6 +1179,12 @@ div.calendar div.list-all-week-events-view div.title-bar {
   background-color: #282828;
   color: #F5F5F5;
   text-align: center;
+}
+div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.title {
   font-weight: 900 !important;

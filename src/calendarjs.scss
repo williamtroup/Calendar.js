@@ -529,6 +529,13 @@ div.calendar {
         padding-right: calc($spacing / 2);
         position: relative;
 
+        div.side-menu-button-divider-line {
+            float: left;
+            width: 1px;
+            background-color: $light-color;
+            height: 16px;
+        }
+
         div.title-container {
             display: inline-block;
             position: relative;

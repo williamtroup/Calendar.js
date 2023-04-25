@@ -11,6 +11,13 @@ div.title-bar {
     color: $light-color;
     text-align: center;
 
+    div.side-menu-button-divider-line {
+        float: left;
+        width: 1px;
+        background-color: $light-color;
+        height: 16px;
+    }
+
     div.title {
         font-weight: 900 !important;
         display: inline-block;
