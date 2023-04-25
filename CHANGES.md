@@ -31,6 +31,8 @@
 - Changed the default background color for the tooltips shown through the Calendar (slightly lighter now).
 - The DatePicker mode now supports smaller mobile screens (and increased the default width to 330px).
 - Added new setting "addYearButtonsInDatePickerMode" (defaults to false) which adds year-jumping buttons to DatePicker title bar.
+- Search history will now check for any case when adding new items (so Match Case searches work).
+- Added a dropdown button to the "For" field on the "Search" dialog, which will show the full search history (only if available).
 - 
 
 ### Version 1.8.7:

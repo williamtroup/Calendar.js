@@ -2197,8 +2197,14 @@ div.search div.contents div.history-container {
   margin-bottom: 10px;
   overflow-y: visible;
 }
+div.search div.contents div.history-container div.ib-arrow-down-full {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 div.search div.contents div.history-container input {
   margin-bottom: 0 !important;
+  padding-right: 36px;
 }
 div.search div.contents div.history-container div.history-dropdown {
   border: 1px solid #A8A8A8;
@@ -3609,6 +3615,28 @@ div.calendar-drop-down-menu div.separator {
   border-left: 8px solid #F5F5F5;
   left: 0;
   top: 0;
+}
+
+.ib-arrow-down-full {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 16px solid #282828;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+.ib-arrow-down-full:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-down-full:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .ib-plus-icon {

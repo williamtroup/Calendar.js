@@ -1297,8 +1297,15 @@ div.search {
             margin-bottom: $spacing;
             overflow-y: visible;
 
+            div.ib-arrow-down-full {
+                position: absolute;
+                right: $spacing;
+                top: $spacing;
+            }
+
             input {
                 margin-bottom: 0 !important;
+                padding-right: 16px + ($spacing * 2);
             }
 
             div.history-dropdown {
@@ -1931,6 +1938,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/octagon-hollow";
 @import "foundation/buttons/rewind";
 @import "foundation/buttons/forward";
+@import "foundation/buttons/arrow-down-full";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";
