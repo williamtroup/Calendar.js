@@ -18,9 +18,9 @@ function calendarJs(elementOrId, options, searchOptions) {
   null, _element_Tooltip_Url = null, _element_Tooltip_ShowTimer = null, _element_Tooltip_EventDetails = null, _element_DropDownMenu_Day = null, _element_DropDownMenu_Day_Paste_Separator = null, _element_DropDownMenu_Day_Paste = null, _element_DropDownMenu_Day_DateSelected = null, _element_DropDownMenu_Event = null, _element_DropDownMenu_Event_EventDetails = null, _element_DropDownMenu_Event_FormattedDateSelected = null, _element_DropDownMenu_Event_OpenUrlSeparator = null, _element_DropDownMenu_Event_OpenUrl = 
   null, _element_DropDownMenu_FullDay = null, _element_DropDownMenu_FullDay_RemoveEvents_Separator = null, _element_DropDownMenu_FullDay_RemoveEvents = null, _element_DropDownMenu_FullDay_Paste_Separator = null, _element_DropDownMenu_FullDay_Paste = null, _element_DropDownMenu_HeaderDay = null, _element_DropDownMenu_HeaderDay_HideDay = null, _element_DropDownMenu_HeaderDay_HideDay_Separator = null, _element_DropDownMenu_HeaderDay_SelectedDay = null, _element_SearchDialog = null, _element_SearchDialog_MinimizedRestoreButton = 
   null, _element_SearchDialog_Contents = null, _element_SearchDialog_For = null, _element_SearchDialog_MatchCase = null, _element_SearchDialog_Not = null, _element_SearchDialog_Advanced = null, _element_SearchDialog_Advanced_Container = null, _element_SearchDialog_Include_Title = null, _element_SearchDialog_Include_Location = null, _element_SearchDialog_Include_Description = null, _element_SearchDialog_Include_Group = null, _element_SearchDialog_Include_Url = null, _element_SearchDialog_Option_StartsWith = 
-  null, _element_SearchDialog_Option_EndsWith = null, _element_SearchDialog_Option_Contains = null, _element_SearchDialog_Previous = null, _element_SearchDialog_Next = null, _element_SearchDialog_Moved = false, _element_SearchDialog_SearchResults = [], _element_SearchDialog_SearchIndex = 0, _element_SearchDialog_FocusedEventID = null, _element_SearchDialog_History_DropDown = null, _element_SearchDialog_History_DropDown_DisplayTimer = null, _element_ConfigurationDialog = null, _element_ConfigurationDialog_Display = 
-  null, _element_ConfigurationDialog_Organizer = null, _element_ConfigurationDialog_Display_EnableAutoRefresh = null, _element_ConfigurationDialog_Display_EnableBrowserNotifications = null, _element_ConfigurationDialog_Display_EnableTooltips = null, _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null, _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null, _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null, _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = 
-  null, _element_ConfigurationDialog_Organizer_Name = null, _element_ConfigurationDialog_Organizer_Email = null;
+  null, _element_SearchDialog_Option_EndsWith = null, _element_SearchDialog_Option_Contains = null, _element_SearchDialog_Previous = null, _element_SearchDialog_Next = null, _element_SearchDialog_Moved = false, _element_SearchDialog_SearchResults = [], _element_SearchDialog_SearchIndex = 0, _element_SearchDialog_FocusedEventID = null, _element_SearchDialog_History_DropDown = null, _element_SearchDialog_History_DropDown_Button = null, _element_SearchDialog_History_DropDown_DisplayTimer = null, _element_ConfigurationDialog = 
+  null, _element_ConfigurationDialog_Display = null, _element_ConfigurationDialog_Organizer = null, _element_ConfigurationDialog_Display_EnableAutoRefresh = null, _element_ConfigurationDialog_Display_EnableBrowserNotifications = null, _element_ConfigurationDialog_Display_EnableTooltips = null, _element_ConfigurationDialog_Display_EnableDragAndDropForEvents = null, _element_ConfigurationDialog_Display_EnableDayNamesInMainDisplay = null, _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = 
+  null, _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = null, _element_ConfigurationDialog_Organizer_Name = null, _element_ConfigurationDialog_Organizer_Email = null;
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
     _currentDate.setDate(1);
@@ -3524,6 +3524,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SearchDialog_For.onpropertychange = searchForTextChanged;
       _element_SearchDialog_For.onkeypress = searchOnEnter;
       historyContainer.appendChild(_element_SearchDialog_For);
+      _element_SearchDialog_History_DropDown_Button = createElement("div", "ib-arrow-down-full");
+      _element_SearchDialog_History_DropDown_Button.style.display = "none";
+      _element_SearchDialog_History_DropDown_Button.onclick = showFullSearchHistory;
+      historyContainer.appendChild(_element_SearchDialog_History_DropDown_Button);
       _element_SearchDialog_History_DropDown = createElement("div", "history-dropdown custom-scroll-bars");
       historyContainer.appendChild(_element_SearchDialog_History_DropDown);
       var checkboxOptionsContainer = createElement("div", "checkbox-container");
@@ -3603,6 +3607,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     _element_SearchDialog_For.focus();
     _element_SearchDialog_For.select();
+    if (_optionsForSearch.history.length > 0) {
+      _element_SearchDialog_History_DropDown_Button.style.display = "block";
+    }
   }
   function centerSearchDialog() {
     if (!_element_SearchDialog_Moved && !_datePickerModeEnabled) {
@@ -3758,13 +3765,17 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_timer_CallSearchOptionsEvent !== null) {
       clearTimeout(_timer_CallSearchOptionsEvent);
     }
+    var searchForText = trimString(_element_SearchDialog_For.value);
+    if (storeSearchHistory) {
+      _element_SearchDialog_History_DropDown_Button.style.display = "block";
+    }
     _timer_CallSearchOptionsEvent = setTimeout(function() {
-      var searchForText = trimString(_element_SearchDialog_For.value), searchForTextAddedToHistory = true, historyLength = _optionsForSearch.history.length;
+      var searchForTextAddedToHistory = true, historyLength = _optionsForSearch.history.length;
       if (storeSearchHistory) {
         searchForTextAddedToHistory = false;
         for (var historyIndex = 0; historyIndex < historyLength; historyIndex++) {
           var historyText = _optionsForSearch.history[historyIndex];
-          if (historyText.toLowerCase() === searchForText.toLowerCase()) {
+          if (historyText === searchForText) {
             searchForTextAddedToHistory = true;
             break;
           }
@@ -3816,13 +3827,14 @@ function calendarJs(elementOrId, options, searchOptions) {
   function showSearchHistoryDropDown() {
     var historyLength = _optionsForSearch.history.length;
     if (historyLength > 0) {
+      _element_SearchDialog_History_DropDown_Button.style.display = "block";
       if (_element_SearchDialog_History_DropDown_DisplayTimer !== null) {
         clearTimeout(_element_SearchDialog_History_DropDown_DisplayTimer);
       }
       _element_SearchDialog_History_DropDown_DisplayTimer = setTimeout(function() {
         var lookupText = _element_SearchDialog_For.value, lookupTextFound = false;
         if (trimString(lookupText) !== "") {
-          _optionsForSearch.history.sort();
+          sortSearchHistory();
           _element_SearchDialog_History_DropDown.innerHTML = "";
           for (var historyIndex = 0; historyIndex < historyLength; historyIndex++) {
             var historyText = _optionsForSearch.history[historyIndex];
@@ -3838,6 +3850,34 @@ function calendarJs(elementOrId, options, searchOptions) {
           _element_SearchDialog_History_DropDown.style.display = "none";
         }
       }, 150);
+    } else {
+      _element_SearchDialog_History_DropDown_Button.style.display = "none";
+    }
+  }
+  function sortSearchHistory() {
+    _optionsForSearch.history.sort(function(value1, value2) {
+      var result = 0, value1AnyCase = value1.toLowerCase(), value2AnyCase = value2.toLowerCase();
+      if (value1AnyCase < value2AnyCase) {
+        result = -1;
+      } else if (value1AnyCase > value2AnyCase) {
+        result = 1;
+      }
+      return result;
+    });
+  }
+  function showFullSearchHistory(e) {
+    cancelBubble(e);
+    if (_element_SearchDialog_History_DropDown.style.display !== "block") {
+      sortSearchHistory();
+      var historyLength = _optionsForSearch.history.length;
+      _element_SearchDialog_History_DropDown.innerHTML = "";
+      _element_SearchDialog_For.focus();
+      for (var historyIndex = 0; historyIndex < historyLength; historyIndex++) {
+        addSearchHistoryDropDownItem(_optionsForSearch.history[historyIndex], 0);
+      }
+      _element_SearchDialog_History_DropDown.style.display = "block";
+    } else {
+      _element_SearchDialog_History_DropDown.style.display = "none";
     }
   }
   function addSearchHistoryDropDownItem(historyText, startBoldLength) {
