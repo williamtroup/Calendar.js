@@ -1196,6 +1196,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showSideMenu() {
+        buildSideMenuContent();
+
+        _element_SideMenu.className += " side-menu-open";
+        _element_SideMenu_DisabledBackground.style.display = "block";
+    }
+
+    function buildSideMenuContent() {
         var isDayOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Days_Content ),
             isEventTypesOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_EventTypes_Content, true ),
             isGroupsOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Groups_Content, true );
@@ -1206,16 +1213,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildSideMenuDays( isDayOpen );
         buildSideMenuEventTypes( isEventTypesOpen );
         buildSideMenuGroups( isGroupsOpen );
+    }
 
-        _element_SideMenu.className += " side-menu-open";
-        _element_SideMenu_DisabledBackground.style.display = "block";
+    function updateSideMenu() {
+        if ( isSideMenuOpen() ) {
+            buildSideMenuContent();
+        }
     }
 
     function hideSideMenu() {
-        _element_SideMenu.className = "side-menu custom-scroll-bars";
-        _element_SideMenu_DisabledBackground.style.display = "none";
-
-        saveSideMenuSelections();
+        if ( _element_SideMenu !== null ) {
+            _element_SideMenu.className = "side-menu custom-scroll-bars";
+            _element_SideMenu_DisabledBackground.style.display = "none";
+    
+            saveSideMenuSelections();
+        }
     }
 
     function isSideMenuOpen() {
@@ -8535,7 +8547,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
-                hideSideMenu();
+                updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -8677,7 +8689,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
             
                     if ( updateEvents ) {
-                        hideSideMenu();
+                        updateSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
                     }
@@ -8717,7 +8729,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
-                hideSideMenu();
+                updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -8796,7 +8808,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
     
                     if ( updateEvents ) {
-                        hideSideMenu();
+                        updateSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
                     }
@@ -8840,7 +8852,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
     
                     if ( updateEvents ) {
-                        hideSideMenu();
+                        updateSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
                     }
@@ -8876,7 +8888,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
-                hideSideMenu();
+                updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -9074,7 +9086,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( updateEvents ) {
-                hideSideMenu();
+                updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
@@ -9111,7 +9123,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( updateEvents ) {
-                hideSideMenu();
+                updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
             }
