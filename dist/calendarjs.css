@@ -2648,9 +2648,9 @@ div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark {
   background-color: #282828;
   border: 1px solid #282828;
 }
-div.calendar label.checkbox input:checked ~ span.check-mark:before,
-div.calendar-dialog label.checkbox input:checked ~ span.check-mark:before,
-div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark:before {
+div.calendar label.checkbox input:checked ~ span.check-mark::before,
+div.calendar-dialog label.checkbox input:checked ~ span.check-mark::before,
+div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark::before {
   display: block;
 }
 div.calendar label.checkbox input:disabled ~ span.check-mark, div.calendar label.checkbox input:disabled ~ span.text,
@@ -2740,8 +2740,8 @@ div.calendar-dialog div.radio-button-container label.radio-button input:checked 
   background-color: #282828 !important;
   border: 1px solid #282828 !important;
 }
-div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark:before,
-div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark:before {
+div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark::before,
+div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark::before {
   display: block;
 }
 div.calendar div.radio-button-container label.radio-button input:disabled ~ span.check-mark, div.calendar div.radio-button-container label.radio-button input:disabled ~ span.text,
@@ -2926,10 +2926,10 @@ div.calendar-drop-down-menu div.item:hover {
   color: #F5F5F5;
   transition: all 0.3s;
 }
-div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon:before {
+div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon::before {
   background-color: #F5F5F5;
 }
-div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:after {
+div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::after {
   border-color: #F5F5F5;
 }
 div.calendar-drop-down-menu div.item:active {

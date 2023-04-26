@@ -1556,7 +1556,7 @@ div.calendar div.side-menu {
                 border: $standard-border-size solid $dark-color;
             }
 
-            &:checked ~ span.check-mark:before {
+            &:checked ~ span.check-mark::before {
                 display: block;
             }
 
@@ -1637,7 +1637,7 @@ div.calendar-dialog {
                     border: $standard-border-size solid $dark-color !important;
                 }
     
-                &:checked ~ span.check-mark:before {
+                &:checked ~ span.check-mark::before {
                     display: block;
                 }
 
@@ -1817,24 +1817,24 @@ div.calendar-drop-down-menu {
             transition: $transition;
         }
 
-        &:hover div.ib-plus-icon:before,
-        &:hover div.ib-plus-icon:after,
-        &:hover div.ib-hamburger-side-icon:before,
-        &:hover div.ib-close-icon:before,
-        &:hover div.ib-close-icon:after,
+        &:hover div.ib-plus-icon::before,
+        &:hover div.ib-plus-icon::after,
+        &:hover div.ib-hamburger-side-icon::before,
+        &:hover div.ib-close-icon::before,
+        &:hover div.ib-close-icon::after,
         &:hover div.ib-circle-icon,
-        &:hover div.ib-minus-icon:before,
-        &:hover div.ib-pipe-icon:before {
+        &:hover div.ib-minus-icon::before,
+        &:hover div.ib-pipe-icon::before {
             background-color: $light-color;
         }
 
         &:hover div.ib-hamburger-side-icon,
-        &:hover div.ib-arrow-expand-left-right-icon:after,
-        &:hover div.ib-arrow-expand-left-right-icon:before,
+        &:hover div.ib-arrow-expand-left-right-icon::after,
+        &:hover div.ib-arrow-expand-left-right-icon::before,
         &:hover div.ib-arrow-top-right-icon,
         &:hover div.ib-circle-hollow-icon,
-        &:hover div.ib-octagon-hollow-icon:before,
-        &:hover div.ib-octagon-hollow-icon:after {
+        &:hover div.ib-octagon-hollow-icon::before,
+        &:hover div.ib-octagon-hollow-icon::after {
             border-color: $light-color;
         }
 
