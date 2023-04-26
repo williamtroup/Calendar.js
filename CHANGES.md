@@ -35,6 +35,7 @@
 - Added a dropdown button to the "For" field on the "Search" dialog, which will show the full search history (only if available).
 - The sorting order used for the search history in the "Search" dialog is now much more accurate.
 - The SCSS files now uses a slightly better style rule for opening/closing brackets.
+- The "Today" button in the Full-Day view is now only shown if Todays day is visible (changed from all days having to be visible).
 - 
 
 ### Version 1.8.7:

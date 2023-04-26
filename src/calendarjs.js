@@ -2601,13 +2601,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showFullDayView( date, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, _options.visibleDays.length === 7 );
+        var currentDate = new Date(),
+            weekDayNumber = getWeekdayNumber( currentDate ),
+            isCurrentDateVisible = _options.visibleDays.indexOf( weekDayNumber ) > -1;
 
         _element_FullDayView_Title.innerHTML = "";
         _element_FullDayView_DateSelected = new Date( date );
         _element_FullDayView_EventsShown = [];
         _element_FullDayView_Contents_AllDayEvents.style.display = "block";
 
+        updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, isCurrentDateVisible );
         clearElementsByClassName( _element_FullDayView_Contents, "event" );
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
