@@ -6178,6 +6178,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_SearchDialog_For.value = historyText;
             _element_SearchDialog_For.selectionStart = _element_SearchDialog_For.selectionEnd = _element_SearchDialog_For.value.length;
             _element_SearchDialog_For.focus();
+
+            searchForTextChanged( false );
         };
     }
 
