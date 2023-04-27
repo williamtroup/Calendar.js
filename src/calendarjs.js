@@ -6640,7 +6640,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( isDefinedStringAndSet( eventDetails.colorBorder ) ) {
-                event.style.borderLeftColor = eventDetails.colorBorder;
+                event.style.borderColor = eventDetails.colorBorder;
             }
         } else {
 

@@ -37,6 +37,7 @@
 - The SCSS files now uses a slightly better style rule for opening/closing brackets.
 - The "Today" button in the Full-Day view is now only shown if Todays day is visible (changed from all days having to be visible).
 - Fixed a fault that sometimes caused the "Next" button in the "Search" dialog to remain disabled after selecting a history item.
+- The border color that can be set for Events is allows to the whole border, not just the left side.
 - 
 
 ### Version 1.8.7:
