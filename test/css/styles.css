@@ -1,6 +1,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
+    background-color: #DDDDDD !important;
 }
 
 a,
@@ -9,7 +10,7 @@ a:visited {
 }
 
 div.header {
-    background-color: lightgray !important;
+    background-color: #AAAAAA !important;
     color: black !important;
     padding: 10px !important;
     border-bottom: 1px black solid !important;
@@ -44,4 +45,10 @@ div.contents {
 
 button {
     margin: 3px !important;
+}
+
+div.date-picker {
+    margin-top: 20px;
+    background-color: #AAAAAA;
+    padding: 10px;
 }
