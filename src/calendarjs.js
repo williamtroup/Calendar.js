@@ -1186,7 +1186,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         createTextHeaderElement( header, _options.sideMenuHeaderText );
         buildToolbarButton( header, "ib-close", _options.closeTooltipText, hideSideMenu );
-        buildToolbarButton( header, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
+        buildToolbarButton( header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
+            hideSideMenu();
+            showConfigurationDialog();
+        } );
 
         _element_SideMenu_Content = createElement( "div", "content" );
         _element_SideMenu.appendChild( _element_SideMenu_Content );
