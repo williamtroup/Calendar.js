@@ -908,8 +908,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
 
             _element_HeaderDateDisplay_SearchButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
-            
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
         }
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
@@ -1183,16 +1181,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars" );
         _element_Calendar.appendChild( _element_SideMenu );
 
-        createTextHeaderElement( _element_SideMenu, _options.sideMenuHeaderText, "main-header" );
+        var header = createElement( "div", "main-header" );
+        _element_SideMenu.appendChild( header );
+
+        createTextHeaderElement( header, _options.sideMenuHeaderText );
+        buildToolbarButton( header, "ib-close", _options.closeTooltipText, hideSideMenu );
+        buildToolbarButton( header, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
 
         _element_SideMenu_Content = createElement( "div", "content" );
         _element_SideMenu.appendChild( _element_SideMenu_Content );
-
-        var closeButton = createElement( "div", "ib-close" );
-        closeButton.onclick = hideSideMenu;
-        _element_SideMenu.appendChild( closeButton );
-
-        addToolTip( closeButton, _options.closeTooltipText );
     }
 
     function showSideMenu() {
@@ -2529,9 +2526,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
         
                 _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-        
-                buildToolbarButton( titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
-    
+
                 if ( _options.fullScreenModeEnabled ) {
                     _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
                 }
@@ -3135,9 +3130,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
         
                 _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-        
-                buildToolbarButton( titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
-    
+
                 if ( _options.fullScreenModeEnabled ) {
                     _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
                 }
@@ -3396,9 +3389,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
         
                 _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-    
-                buildToolbarButton( titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog );
-                
+
                 if ( _options.fullScreenModeEnabled ) {
                     _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
                 }

@@ -463,24 +463,29 @@ div.calendar div.side-menu {
     left: -225px;
   }
 }
-div.calendar div.side-menu p.main-header {
+div.calendar div.side-menu div.main-header {
   margin: 0 !important;
   font-weight: 700;
+  height: auto;
+  overflow: auto;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.side-menu p.main-header {
+  div.calendar div.side-menu div.main-header {
     font-size: 1.2rem;
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.side-menu p.main-header {
+  div.calendar div.side-menu div.main-header {
     font-size: 1rem;
   }
 }
-div.calendar div.side-menu div.ib-close {
-  position: absolute;
-  right: 10px;
-  top: 13px;
+div.calendar div.side-menu div.main-header p {
+  float: left;
+}
+div.calendar div.side-menu div.main-header div[class^=ib-] {
+  margin-top: 3px;
+  float: right;
+  margin-left: 10px;
 }
 div.calendar div.side-menu div.content div.content-section {
   padding: 10px;

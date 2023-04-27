@@ -447,10 +447,12 @@ div.calendar {
             left: -( $side-menu-width-small + $side-menu-right-border-width + ( $spacing * 2 ) );
         }
 
-        p.main-header {
+        div.main-header {
             margin: 0 !important;
             font-weight: 700;
-
+            height: auto;
+            overflow: auto;
+            
             @media screen and ( min-width: $minimum-width ) {
                 font-size: 1.2rem;
             }
@@ -458,12 +460,16 @@ div.calendar {
             @media screen and ( max-width: $maximum-width ) {
                 font-size: 1.0rem;
             }
-        }
-        
-        div.ib-close {
-            position: absolute;
-            right: $spacing;
-            top: $spacing + 3px;
+
+            p {
+                float: left;
+            }
+
+            div[class^='ib-'] {
+                margin-top: 3px;
+                float: right;
+                margin-left: $spacing;
+            }
         }
 
         div.content {
