@@ -39,6 +39,7 @@
 - Fixed a fault that sometimes caused the "Next" button in the "Search" dialog to remain disabled after selecting a history item.
 - The border color that can be set for Events is allows to the whole border, not just the left side.
 - Removed the "Configuration" button from the main toolbars.  This is now available on the new Side Menu.
+- The selected tab on the dialogs now uses a slightly larger padding to indicate more clearly which one is selected.
 - 
 
 ### Version 1.8.7:

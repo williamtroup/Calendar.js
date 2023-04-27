@@ -2567,11 +2567,13 @@ div.calendar-dialog div.tab {
   text-align: center;
   display: inline-block;
   margin-left: 5px;
+  vertical-align: bottom;
 }
 div.calendar-dialog div.tab-control-selected {
   border: 1px solid #282828;
   background-color: #282828;
   color: #F5F5F5;
+  padding: 12.5px;
 }
 div.calendar-dialog div.tab-control {
   border: 1px solid #A8A8A8;

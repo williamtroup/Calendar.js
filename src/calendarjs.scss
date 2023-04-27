@@ -1476,12 +1476,14 @@ div.calendar-dialog {
         text-align: center;
         display: inline-block;
         margin-left: calc( $spacing / 2 );
+        vertical-align: bottom;
     }
 
     div.tab-control-selected {
         border: $standard-border-size solid $dark-color;
         background-color: $dark-color;
         color: $light-color;
+        padding: $spacing + calc($spacing / 4);
     }
 
     div.tab-control {
