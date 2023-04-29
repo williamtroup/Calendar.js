@@ -39,6 +39,10 @@
 - Added new public function "setVisibleGroups()", which will set the group name that are visible.
 - Added new public function "setVisibleEventTypes()", which will set the event types that are visible.
 
+#### **DatePicker Mode:**
+- The DatePicker mode now supports smaller mobile screens (and increased the default width to 330px).
+- The DatePicker mode now supports form posts.  A new hidden input is created that stores the parse-supported selected date.
+
 #### **General:**
 - Removed the "Groups" tab from the "Configuration" dialog (as its all in the side menu now).
 - Removed the "Visible Days" tab from the "Configuration" dialog (as its all in the side menu now).
@@ -48,7 +52,6 @@
 - All tab containers now use the custom scroll bar styles whenever they are required.
 - Fixed some issues around the z-indexes used for dialogs.  The search dialog is now shown under the main disabled background.
 - Changed the default background color for the tooltips shown through the Calendar (slightly lighter now).
-- The DatePicker mode now supports smaller mobile screens (and increased the default width to 330px).
 - The "Today" button in the Full-Day view is now only shown if Todays day is visible (changed from all days having to be visible).
 - Removed the "Configuration" button from the main toolbars.  This is now available on the new Side Menu.
 - The selected tab on the dialogs now uses a slightly larger padding to indicate more clearly which one is selected.

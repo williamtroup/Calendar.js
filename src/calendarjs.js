@@ -438,6 +438,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options = {},
         _optionsForSearch = {},
         _datePickerInput = null,
+        _datePickerHiddenInput = null,
         _datePickerModeEnabled = false,
         _datePickerVisible = false,
         _currentDate = null,
@@ -1438,17 +1439,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildDatePickerMode( element ) {
-        _datePickerInput = element;
-        _datePickerInput.className = "calendar-date-picker-input";
+        _datePickerHiddenInput = element;
+
+        setInputType( _datePickerHiddenInput, "hidden" );
+
+        _datePickerInput = createElement( "input", "calendar-date-picker-input" );
         _datePickerInput.readOnly = true;
         _datePickerInput.placeholder = _options.selectDatePlaceholderText;
         _datePickerModeEnabled = true;
 
         var parent = element.parentNode;
-        parent.removeChild( _datePickerInput );
+        parent.removeChild( element );
 
         var container = createElement( "div", "calendar-date-picker" );
         parent.appendChild( container );
+        container.appendChild( _datePickerHiddenInput );
         container.appendChild( _datePickerInput );
 
         _element_Calendar = createElement( "div", "calendar calendar-hidden" );
@@ -1552,6 +1557,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         inputValue = inputValue.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         _datePickerInput.value = inputValue;
+        _datePickerHiddenInput.value = padNumber( date.getDate() ) + "/" + padNumber( date.getMonth() ) + "/" + date.getFullYear();
     }
 
     function closeAnyOtherDatePickers() {
@@ -1569,7 +1575,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function getDataPickerInputValueDate() {
-        var values = _datePickerInput.value.split( "/" ),
+        var values = _datePickerHiddenInput.value.split( "/" ),
             valuesDate = null;
 
         if ( values.length === 3 ) {
