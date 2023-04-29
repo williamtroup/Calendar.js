@@ -4286,212 +4286,191 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildDayDropDownMenu() {
-        if ( _element_DropDownMenu_Day !== null ) {
-            removeNode( _document.body, _element_DropDownMenu_Day );
-
-            _element_DropDownMenu_Day_Paste_Separator = null;
-            _element_DropDownMenu_Day_Paste = null;
-        }
-
-        _element_DropDownMenu_Day = createElement( "div", "calendar-drop-down-menu" );
-        _document.body.appendChild( _element_DropDownMenu_Day );
-
-        if ( _options.manualEditingEnabled ) {
-            buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle + "...", function() {
-                if ( _options.useTemplateWhenAddingNewEvent ) {
-                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_DropDownMenu_Day_DateSelected, _element_DropDownMenu_Day_DateSelected );
-
-                    showEventEditingDialog( newBlankTemplateEvent );
-                } else {
-                    showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
-                }
-            }, true );
+        if ( _element_DropDownMenu_Day === null ) {
+            _element_DropDownMenu_Day = createElement( "div", "calendar-drop-down-menu" );
+            _document.body.appendChild( _element_DropDownMenu_Day );
+    
+            if ( _options.manualEditingEnabled ) {
+                buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-plus-icon", _options.addEventTitle + "...", function() {
+                    if ( _options.useTemplateWhenAddingNewEvent ) {
+                        var newBlankTemplateEvent = buildBlankTemplateEvent( _element_DropDownMenu_Day_DateSelected, _element_DropDownMenu_Day_DateSelected );
+    
+                        showEventEditingDialog( newBlankTemplateEvent );
+                    } else {
+                        showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
+                    }
+                }, true );
+        
+                buildMenuSeparator( _element_DropDownMenu_Day );
+            }
+    
+            buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-arrow-expand-left-right-icon", _options.expandDayTooltipText, function() {
+                showFullDayView( _element_DropDownMenu_Day_DateSelected, true );
+            } );
     
             buildMenuSeparator( _element_DropDownMenu_Day );
-        }
-
-        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-arrow-expand-left-right-icon", _options.expandDayTooltipText, function() {
-            showFullDayView( _element_DropDownMenu_Day_DateSelected, true );
-        } );
-
-        buildMenuSeparator( _element_DropDownMenu_Day );
-
-        buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-hamburger-side-icon", _options.viewWeekEventsText, function() {
-            showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
-        } );
-
-        if ( _options.manualEditingEnabled ) {
-            _element_DropDownMenu_Day_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_Day );
-            
-            _element_DropDownMenu_Day_Paste = buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-circle-icon", _options.pasteText, function() {
-                addClonedEventToDate( _element_DropDownMenu_Day_DateSelected, _copiedEventDetails_Cut );
-            } );
-        }
-    }
-
-    function buildEventDropDownMenu() {
-        if ( _element_DropDownMenu_Event !== null ) {
-            removeNode( _document.body, _element_DropDownMenu_Event );
-            _element_DropDownMenu_Event = null;
-            _element_DropDownMenu_Event_OpenUrlSeparator = null;
-        }
-
-        _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
-        _document.body.appendChild( _element_DropDownMenu_Event );
-
-        if ( _options.manualEditingEnabled ) {
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
-                showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
-            }, true );
-
-            buildMenuSeparator( _element_DropDownMenu_Event );
-
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
-                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-                }
-
-                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-                }
-
-                _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
-                _copiedEventDetails_Cut = true;
-
-                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "cut-event" );
-            } );
-
-            buildMenuSeparator( _element_DropDownMenu_Event );
-            
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
-                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-                }
-
-                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-                }
-
-                _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails, false );
-                _copiedEventDetails_Cut = false;
-
-                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "copy-event" );
-            } );
-
-            buildMenuSeparator( _element_DropDownMenu_Event );
-
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText + "...", function() {
-                showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
-                setEventEditingDialogInDuplicateMode();
-            } );
-
-            buildMenuSeparator( _element_DropDownMenu_Event );
-
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
-                addNode( _document.body, _element_DisabledBackground );
     
-                var onNoEvent = function() {
-                    removeNode( _document.body, _element_DisabledBackground );
-                };
-    
-                var onYesEvent = function() {
-                    onNoEvent();
-    
-                    if ( isDefined( _element_DropDownMenu_Event_EventDetails.id ) ) {
-                        if ( !_element_ConfirmationDialog_RemoveAllEvents.checked && _element_DropDownMenu_Event_FormattedDateSelected !== null ) {
-
-                            if ( isDefinedArray( _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates ) ) {
-                                _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates.push( _element_DropDownMenu_Event_FormattedDateSelected );
-                            } else {
-                                _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates = [ _element_DropDownMenu_Event_FormattedDateSelected ];
-                            }
-
-                            buildDayEvents();
-
-                        } else {
-                            _this.removeEvent( _element_DropDownMenu_Event_EventDetails.id, true );
-                        }
-                        
-                        refreshOpenedViews();
-                    }
-                };
-
-                var repeatEvery = getNumber( _element_DropDownMenu_Event_EventDetails.repeatEvery ),
-                    showCheckBox = repeatEvery > _repeatType.never && _element_DropDownMenu_Event_FormattedDateSelected !== null;
-        
-                showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
+            buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-hamburger-side-icon", _options.viewWeekEventsText, function() {
+                showListAllWeekEventsView( _element_DropDownMenu_Day_DateSelected, true );
             } );
-
-            _element_DropDownMenu_Event_OpenUrlSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
-        }
-
-        _element_DropDownMenu_Event_OpenUrl = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-top-right-icon", _options.openUrlText, function() {
-            openEventUrl( _element_DropDownMenu_Event_EventDetails.url );
-        } );
-    }
-
-    function buildFullDayViewDropDownMenu() {
-        if ( _element_DropDownMenu_FullDay !== null ) {
-            removeNode( _document.body, _element_DropDownMenu_FullDay );
-
-            _element_DropDownMenu_FullDay = null;
-            _element_DropDownMenu_FullDay_RemoveEvents_Separator = null;
-            _element_DropDownMenu_FullDay_RemoveEvents = null;
-            _element_DropDownMenu_FullDay_Paste_Separator = null;
-            _element_DropDownMenu_FullDay_Paste = null;
-        }
-
-        if ( _options.manualEditingEnabled ) {
-            _element_DropDownMenu_FullDay = createElement( "div", "calendar-drop-down-menu" );
-            _document.body.appendChild( _element_DropDownMenu_FullDay );
-
-            buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
-                if ( _options.useTemplateWhenAddingNewEvent ) {
-                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
-
-                    showEventEditingDialog( newBlankTemplateEvent );
-                } else {
-                    showEventEditingDialog( null, _element_FullDayView_DateSelected );
-                }
-            }, true );
-
-            _element_DropDownMenu_FullDay_RemoveEvents_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
-
-            _element_DropDownMenu_FullDay_RemoveEvents = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
-                removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
-            } );
-
+    
             if ( _options.manualEditingEnabled ) {
-                _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+                _element_DropDownMenu_Day_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_Day );
                 
-                _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
-                    addClonedEventToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
+                _element_DropDownMenu_Day_Paste = buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-circle-icon", _options.pasteText, function() {
+                    addClonedEventToDate( _element_DropDownMenu_Day_DateSelected, _copiedEventDetails_Cut );
                 } );
             }
         }
     }
 
-    function buildDayHeaderDropDownMenu() {
-        if ( _element_DropDownMenu_HeaderDay !== null ) {
-            removeNode( _document.body, _element_DropDownMenu_HeaderDay );
-
-            _element_DropDownMenu_HeaderDay = null;
+    function buildEventDropDownMenu() {
+        if ( _element_DropDownMenu_Event === null ) {
+            _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
+            _document.body.appendChild( _element_DropDownMenu_Event );
+    
+            if ( _options.manualEditingEnabled ) {
+                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
+                    showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
+                }, true );
+    
+                buildMenuSeparator( _element_DropDownMenu_Event );
+    
+                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
+                    if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
+                        updateEventClasses( _copiedEventDetails.id, "cut-event", true );
+                    }
+    
+                    if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
+                        updateEventClasses( _copiedEventDetails.id, "copy-event", true );
+                    }
+    
+                    _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
+                    _copiedEventDetails_Cut = true;
+    
+                    updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "cut-event" );
+                } );
+    
+                buildMenuSeparator( _element_DropDownMenu_Event );
+                
+                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
+                    if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
+                        updateEventClasses( _copiedEventDetails.id, "cut-event", true );
+                    }
+    
+                    if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
+                        updateEventClasses( _copiedEventDetails.id, "copy-event", true );
+                    }
+    
+                    _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails, false );
+                    _copiedEventDetails_Cut = false;
+    
+                    updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "copy-event" );
+                } );
+    
+                buildMenuSeparator( _element_DropDownMenu_Event );
+    
+                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText + "...", function() {
+                    showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
+                    setEventEditingDialogInDuplicateMode();
+                } );
+    
+                buildMenuSeparator( _element_DropDownMenu_Event );
+    
+                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
+                    addNode( _document.body, _element_DisabledBackground );
+        
+                    var onNoEvent = function() {
+                        removeNode( _document.body, _element_DisabledBackground );
+                    };
+        
+                    var onYesEvent = function() {
+                        onNoEvent();
+        
+                        if ( isDefined( _element_DropDownMenu_Event_EventDetails.id ) ) {
+                            if ( !_element_ConfirmationDialog_RemoveAllEvents.checked && _element_DropDownMenu_Event_FormattedDateSelected !== null ) {
+    
+                                if ( isDefinedArray( _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates ) ) {
+                                    _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates.push( _element_DropDownMenu_Event_FormattedDateSelected );
+                                } else {
+                                    _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates = [ _element_DropDownMenu_Event_FormattedDateSelected ];
+                                }
+    
+                                buildDayEvents();
+    
+                            } else {
+                                _this.removeEvent( _element_DropDownMenu_Event_EventDetails.id, true );
+                            }
+                            
+                            refreshOpenedViews();
+                        }
+                    };
+    
+                    var repeatEvery = getNumber( _element_DropDownMenu_Event_EventDetails.repeatEvery ),
+                        showCheckBox = repeatEvery > _repeatType.never && _element_DropDownMenu_Event_FormattedDateSelected !== null;
+            
+                    showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
+                } );
+    
+                _element_DropDownMenu_Event_OpenUrlSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
+            }
+    
+            _element_DropDownMenu_Event_OpenUrl = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-top-right-icon", _options.openUrlText, function() {
+                openEventUrl( _element_DropDownMenu_Event_EventDetails.url );
+            } );
         }
+    }
 
-        _element_DropDownMenu_HeaderDay = createElement( "div", "calendar-drop-down-menu" );
-        _document.body.appendChild( _element_DropDownMenu_HeaderDay );
+    function buildFullDayViewDropDownMenu() {
+        if ( _element_DropDownMenu_FullDay === null ) {
+            if ( _options.manualEditingEnabled ) {
+                _element_DropDownMenu_FullDay = createElement( "div", "calendar-drop-down-menu" );
+                _document.body.appendChild( _element_DropDownMenu_FullDay );
+    
+                buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
+                    if ( _options.useTemplateWhenAddingNewEvent ) {
+                        var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
+    
+                        showEventEditingDialog( newBlankTemplateEvent );
+                    } else {
+                        showEventEditingDialog( null, _element_FullDayView_DateSelected );
+                    }
+                }, true );
+    
+                _element_DropDownMenu_FullDay_RemoveEvents_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+    
+                _element_DropDownMenu_FullDay_RemoveEvents = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
+                    removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
+                } );
+    
+                if ( _options.manualEditingEnabled ) {
+                    _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+                    
+                    _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
+                        addClonedEventToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
+                    } );
+                }
+            }
+        }
+    }
 
-        _element_DropDownMenu_HeaderDay_HideDay = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-minus-icon", _options.hideDayText, function() {
-            _options.visibleDays.splice( _options.visibleDays.indexOf( _element_DropDownMenu_HeaderDay_SelectedDay ), 1 );
-            _initialized = false;
-
-            triggerOptionsEventWithData( "onOptionsUpdated", _options );
-            build( _currentDate, true );
-        }, true );
-
-        _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
-
-        buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu );
+    function buildDayHeaderDropDownMenu() {
+        if ( _element_DropDownMenu_HeaderDay === null ) {
+            _element_DropDownMenu_HeaderDay = createElement( "div", "calendar-drop-down-menu" );
+            _document.body.appendChild( _element_DropDownMenu_HeaderDay );
+    
+            _element_DropDownMenu_HeaderDay_HideDay = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-minus-icon", _options.hideDayText, function() {
+                _options.visibleDays.splice( _options.visibleDays.indexOf( _element_DropDownMenu_HeaderDay_SelectedDay ), 1 );
+                _initialized = false;
+    
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                build( _currentDate, true );
+            }, true );
+    
+            _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
+    
+            buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu );
+        }
     }
 
     function buildMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
@@ -4637,11 +4616,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildEventEditingDialog() {
-        if ( !_datePickerModeEnabled ) {
-            if ( _element_EventEditorDialog !== null ) {
-                removeNode( _document.body, _element_EventEditorDialog );
-            }
-    
+        if ( !_datePickerModeEnabled && _element_EventEditorDialog === null ) {
             _element_EventEditorDialog = createElement( "div", "calendar-dialog event-editor" );
             _document.body.appendChild( _element_EventEditorDialog );
     
@@ -5271,11 +5246,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildEventEditingColorDialog() {
-        if ( !_datePickerModeEnabled ) {
-            if ( _element_EventEditorColorsDialog !== null ) {
-                removeNode( _document.body, _element_EventEditorColorsDialog );
-            }
-    
+        if ( !_datePickerModeEnabled && _element_EventEditorColorsDialog === null ) {
             _element_EventEditorColorsDialog = createElement( "div", "calendar-dialog event-editor-colors" );
             _document.body.appendChild( _element_EventEditorColorsDialog );
     
@@ -5348,11 +5319,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildEventEditingRepeatOptionsDialog() {
-        if ( !_datePickerModeEnabled ) {
-            if ( _element_EventEditorRepeatOptionsDialog !== null ) {
-                removeNode( _document.body, _element_EventEditorRepeatOptionsDialog );
-            }
-    
+        if ( !_datePickerModeEnabled && _element_EventEditorRepeatOptionsDialog === null ) {
             _element_EventEditorRepeatOptionsDialog = createElement( "div", "calendar-dialog event-editor-repeat-options" );
             _document.body.appendChild( _element_EventEditorRepeatOptionsDialog );
     
@@ -5449,11 +5416,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildConfirmationDialog() {
-        if ( !_datePickerModeEnabled ) {
-            if ( _element_ConfirmationDialog !== null ) {
-                removeNode( _document.body, _element_ConfirmationDialog );
-            }
-    
+        if ( !_datePickerModeEnabled && _element_ConfirmationDialog === null ) {
             _element_ConfirmationDialog = createElement( "div", "calendar-dialog confirmation" );
             _document.body.appendChild( _element_ConfirmationDialog );
     
@@ -5522,11 +5485,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildSelectExportTypeDialog() {
-        if ( !_datePickerModeEnabled ) {
-            if ( _element_SelectExportTypeDialog !== null ) {
-                removeNode( _document.body, _element_SelectExportTypeDialog );
-            }
-    
+        if ( !_datePickerModeEnabled && _element_SelectExportTypeDialog === null ) {
             _element_SelectExportTypeDialog = createElement( "div", "calendar-dialog select-export-type" );
             _document.body.appendChild( _element_SelectExportTypeDialog );
     
@@ -5635,11 +5594,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildSearchDialog() {
-        if ( !_datePickerModeEnabled ) {
-            if ( _element_SearchDialog !== null ) {
-                removeNode( _document.body, _element_SearchDialog );
-            }
-    
+        if ( !_datePickerModeEnabled && _element_SearchDialog === null ) {
             _element_SearchDialog = createElement( "div", "calendar-dialog search" );
             _document.body.appendChild( _element_SearchDialog );
     
@@ -6185,11 +6140,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildConfigurationDialog() {
-        if ( !_datePickerModeEnabled ) {
-            if ( _element_ConfigurationDialog !== null ) {
-                removeNode( _document.body, _element_ConfigurationDialog );
-            }
-    
+        if ( !_datePickerModeEnabled && _element_ConfigurationDialog === null ) {
             _element_ConfigurationDialog = createElement( "div", "calendar-dialog configuration" );
             _document.body.appendChild( _element_ConfigurationDialog );
     
