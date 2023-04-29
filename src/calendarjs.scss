@@ -537,8 +537,13 @@ div.calendar {
         padding-right: calc( $spacing / 2 );
         position: relative;
 
+        div[class^='ib-'],
         div.side-menu-button-divider-line {
-            float: left;
+            margin-left: calc( $spacing / 2 );
+            margin-right: calc( $spacing / 2 );
+        }
+
+        div.side-menu-button-divider-line {
             width: 1px;
             background-color: $light-color;
             height: 16px;
@@ -635,18 +640,14 @@ div.calendar {
             }
         }
 
-        div {
-            margin-left: calc( $spacing / 2 );
-            margin-right: calc( $spacing / 2 );
-        }
-
         div.ib-arrow-left-full,
         div.ib-pin,
         div.ib-refresh,
         div.ib-search,
         div.ib-octagon-hollow,
         div.ib-hamburger,
-        div.ib-rewind {
+        div.ib-rewind,
+        div.side-menu-button-divider-line {
             float: left;
         }
 

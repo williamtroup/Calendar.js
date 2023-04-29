@@ -539,8 +539,12 @@ div.calendar div.header-date {
   padding-right: 5px;
   position: relative;
 }
+div.calendar div.header-date div[class^=ib-],
 div.calendar div.header-date div.side-menu-button-divider-line {
-  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.calendar div.header-date div.side-menu-button-divider-line {
   width: 1px;
   background-color: #F5F5F5;
   height: 16px;
@@ -639,17 +643,14 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   background-color: #DCDCDC;
   color: #282828;
 }
-div.calendar div.header-date div {
-  margin-left: 5px;
-  margin-right: 5px;
-}
 div.calendar div.header-date div.ib-arrow-left-full,
 div.calendar div.header-date div.ib-pin,
 div.calendar div.header-date div.ib-refresh,
 div.calendar div.header-date div.ib-search,
 div.calendar div.header-date div.ib-octagon-hollow,
 div.calendar div.header-date div.ib-hamburger,
-div.calendar div.header-date div.ib-rewind {
+div.calendar div.header-date div.ib-rewind,
+div.calendar div.header-date div.side-menu-button-divider-line {
   float: left;
 }
 div.calendar div.header-date div.ib-close,
