@@ -481,6 +481,7 @@ div.calendar div.side-menu div.main-header {
 }
 div.calendar div.side-menu div.main-header p {
   float: left;
+  margin: 0 !important;
 }
 div.calendar div.side-menu div.main-header div[class^=ib-] {
   margin-top: 3px;
