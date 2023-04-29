@@ -709,10 +709,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildDropDownMenus();
         }
 
-        if ( _isFullScreenModeActivated && !_datePickerModeEnabled ) {
-            forceTurnOnFullScreenMode();
-        }
-
         if ( forceRefreshViews ) {
             refreshViews( true, false );
         }
