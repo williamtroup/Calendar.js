@@ -475,7 +475,6 @@ div.calendar {
 
         div.content {
             div.content-section {
-                padding: $spacing;
                 margin-top: $spacing;
                 border-radius: $border-view-radius;
                 background-color: #474545;
@@ -484,6 +483,7 @@ div.calendar {
     
                 p.text-header,
                 p.text-header-closed {
+                    padding: $spacing;
                     margin-top: 0 !important;
                     margin-bottom: 0;
                     cursor: pointer;
@@ -491,19 +491,24 @@ div.calendar {
 
                 p.text-header {
                     font-weight: 700;
-                    margin-bottom: $spacing;
                 }
-    
-                label.checkbox {
-                    margin-bottom: calc( $spacing / 2 );
-                    margin-left: $spacing;
-                    color: $light-color !important;
-    
-                    span.check-mark {
-                        background-color: $light-color !important;
-    
-                        &::before {
-                            border-color: $dark-color !important;
+
+                div.checkbox-container {
+                    padding-left: $spacing;
+                    padding-right: $spacing;
+                    padding-bottom: $spacing;
+
+                    label.checkbox {
+                        margin-bottom: calc( $spacing / 2 );
+                        margin-left: $spacing;
+                        color: $light-color !important;
+        
+                        span.check-mark {
+                            background-color: $light-color !important;
+        
+                            &::before {
+                                border-color: $dark-color !important;
+                            }
                         }
                     }
                 }
