@@ -194,7 +194,6 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshViews(true, true);
       });
       _element_HeaderDateDisplay_SearchButton = buildToolbarButton(_element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog);
-      buildToolbarButton(_element_HeaderDateDisplay, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog);
     }
     buildToolbarButton(_element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
@@ -397,28 +396,41 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildFullSideMenu() {
     _element_SideMenu = createElement("div", "side-menu custom-scroll-bars");
     _element_Calendar.appendChild(_element_SideMenu);
-    createTextHeaderElement(_element_SideMenu, _options.sideMenuHeaderText, "main-header");
+    var header = createElement("div", "main-header");
+    _element_SideMenu.appendChild(header);
+    createTextHeaderElement(header, _options.sideMenuHeaderText);
+    buildToolbarButton(header, "ib-close", _options.closeTooltipText, hideSideMenu);
+    buildToolbarButton(header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
+      hideSideMenu();
+      showConfigurationDialog();
+    });
     _element_SideMenu_Content = createElement("div", "content");
     _element_SideMenu.appendChild(_element_SideMenu_Content);
-    var closeButton = createElement("div", "ib-close");
-    closeButton.onclick = hideSideMenu;
-    _element_SideMenu.appendChild(closeButton);
-    addToolTip(closeButton, _options.closeTooltipText);
   }
   function showSideMenu() {
+    buildSideMenuContent();
+    _element_SideMenu.className += " side-menu-open";
+    _element_SideMenu_DisabledBackground.style.display = "block";
+  }
+  function buildSideMenuContent() {
     var isDayOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Days_Content), isEventTypesOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_EventTypes_Content, true), isGroupsOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Groups_Content, true);
     _element_SideMenu_Content.innerHTML = "";
     hideSearchDialog();
     buildSideMenuDays(isDayOpen);
     buildSideMenuEventTypes(isEventTypesOpen);
     buildSideMenuGroups(isGroupsOpen);
-    _element_SideMenu.className += " side-menu-open";
-    _element_SideMenu_DisabledBackground.style.display = "block";
+  }
+  function updateSideMenu() {
+    if (isSideMenuOpen()) {
+      buildSideMenuContent();
+    }
   }
   function hideSideMenu() {
-    _element_SideMenu.className = "side-menu custom-scroll-bars";
-    _element_SideMenu_DisabledBackground.style.display = "none";
-    saveSideMenuSelections();
+    if (_element_SideMenu !== null) {
+      _element_SideMenu.className = "side-menu custom-scroll-bars";
+      _element_SideMenu_DisabledBackground.style.display = "none";
+      saveSideMenuSelections();
+    }
   }
   function isSideMenuOpen() {
     return _element_SideMenu !== null && _element_SideMenu.className.indexOf("side-menu-open") > -1;
@@ -1321,7 +1333,6 @@ function calendarJs(elementOrId, options, searchOptions) {
           refreshViews(true, true);
         });
         _element_FullDayView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
-        buildToolbarButton(titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog);
         if (_options.fullScreenModeEnabled) {
           _element_FullDayView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
         }
@@ -1370,11 +1381,12 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function showFullDayView(date, fromOpen) {
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
-    updateToolbarButtonVisibleState(_element_FullDayView_TodayButton, _options.visibleDays.length === 7);
+    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > -1;
     _element_FullDayView_Title.innerHTML = "";
     _element_FullDayView_DateSelected = new Date(date);
     _element_FullDayView_EventsShown = [];
     _element_FullDayView_Contents_AllDayEvents.style.display = "block";
+    updateToolbarButtonVisibleState(_element_FullDayView_TodayButton, isCurrentDateVisible);
     clearElementsByClassName(_element_FullDayView_Contents, "event");
     showOverlay(_element_FullDayView);
     buildDateTimeDisplay(_element_FullDayView_Title, date, false, true, true);
@@ -1734,7 +1746,6 @@ function calendarJs(elementOrId, options, searchOptions) {
           refreshViews(true, true);
         });
         _element_ListAllEventsView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
-        buildToolbarButton(titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog);
         if (_options.fullScreenModeEnabled) {
           _element_ListAllEventsView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
         }
@@ -1922,7 +1933,6 @@ function calendarJs(elementOrId, options, searchOptions) {
           refreshViews(true, true);
         });
         _element_ListAllWeekEventsView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
-        buildToolbarButton(titleBar, "ib-octagon-hollow", _options.configurationTooltipText, showConfigurationDialog);
         if (_options.fullScreenModeEnabled) {
           _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
         }
@@ -3895,6 +3905,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SearchDialog_For.value = historyText;
       _element_SearchDialog_For.selectionStart = _element_SearchDialog_For.selectionEnd = _element_SearchDialog_For.value.length;
       _element_SearchDialog_For.focus();
+      searchForTextChanged(false);
     };
   }
   function buildConfigurationDialog() {
@@ -4219,7 +4230,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         event.style.color = eventDetails.colorText;
       }
       if (isDefinedStringAndSet(eventDetails.colorBorder)) {
-        event.style.borderLeftColor = eventDetails.colorBorder;
+        event.style.borderColor = eventDetails.colorBorder;
       }
     } else {
       if (eventDetails.isAllDay) {
@@ -5346,7 +5357,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsAdded", events);
       }
       if (updateEvents) {
-        hideSideMenu();
+        updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5429,7 +5440,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventAdded", event);
           }
           if (updateEvents) {
-            hideSideMenu();
+            updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
           }
@@ -5451,7 +5462,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsUpdated", events);
       }
       if (updateEvents) {
-        hideSideMenu();
+        updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5487,7 +5498,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventUpdated", event);
           }
           if (updateEvents) {
-            hideSideMenu();
+            updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
           }
@@ -5510,7 +5521,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventRemoved", event);
           }
           if (updateEvents) {
-            hideSideMenu();
+            updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
           }
@@ -5529,7 +5540,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onEventsCleared");
       }
       if (updateEvents) {
-        hideSideMenu();
+        updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5610,7 +5621,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onGroupsCleared");
       }
       if (updateEvents) {
-        hideSideMenu();
+        updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
@@ -5630,7 +5641,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onGroupRemoved", groupName);
       }
       if (updateEvents) {
-        hideSideMenu();
+        updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
       }
