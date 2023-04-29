@@ -42,6 +42,7 @@
 #### **DatePicker Mode:**
 - The DatePicker mode now supports smaller mobile screens (and increased the default width to 330px).
 - The DatePicker mode now supports form posts.  A new hidden input is created that stores the parse-supported selected date.
+- Added "date" input type support for DatePicker mode.  This is a good fall back if something goes wrong.
 
 #### **General:**
 - Removed the "Groups" tab from the "Configuration" dialog (as its all in the side menu now).

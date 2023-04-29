@@ -844,7 +844,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( element !== null ) {
-                if ( element.tagName.toLowerCase() === "input" && element.type === "text" ) {
+                if ( element.tagName.toLowerCase() === "input" && ( element.type === "text" || element.type === "date" ) ) {
                     buildDatePickerMode( element );
                 } else {
         
