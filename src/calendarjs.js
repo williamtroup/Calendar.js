@@ -456,6 +456,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _timer_CallSearchOptionsEvent = null,
         _timer_RefreshMainDisplay = null,
         _timer_RefreshMainDisplay_Enabled = true,
+        _timer_RefreshViewsOnWindowResize = null,
         _eventDetails_Dragged_DateFrom = null,
         _eventDetails_Dragged = null,
         _cachedStyles = null,
@@ -1741,9 +1742,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _document.addEventListener( "keydown", onWindowKeyDown );
             _window.addEventListener( "resize", hideAllDropDowns );
             _window.addEventListener( "resize", centerSearchDialog );
+            _window.addEventListener( "resize", onWindowResizeRefreshViews );
+
 
             _initializedDocumentEvents = true;
         }
+    }
+
+    function onWindowResizeRefreshViews() {
+        if ( _timer_RefreshViewsOnWindowResize !== null ) {
+            clearTimeout( _timer_RefreshViewsOnWindowResize );
+            _timer_RefreshViewsOnWindowResize = null;
+        }
+
+        _timer_RefreshViewsOnWindowResize = setTimeout( function() {
+            refreshViews( true, false );
+        }, 50 );
     }
 
     function hideAllDropDowns() {
