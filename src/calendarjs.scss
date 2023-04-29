@@ -1490,7 +1490,7 @@ div.calendar-dialog {
         border: $standard-border-size solid $dark-color;
         background-color: $dark-color;
         color: $light-color;
-        padding: $spacing + calc($spacing / 4);
+        padding: $spacing + calc( $spacing / 4 );
     }
 
     div.tab-control {
