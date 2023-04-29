@@ -27,7 +27,7 @@
 - Fixed a fault that sometimes caused the "Next" button in the "Search" dialog to remain disabled after selecting a history item.
 - Search history will now check for any case when adding new items (so Match Case searches work).
 
-#### **New Trigger Event:**
+#### **New Custom Trigger Events:**
 - Added a new custom trigger "onVisibleGroupsChanged", which is triggered when the visible groups are changed (passes the visible group names).
 - Added a new custom trigger "onVisibleEventTypesChanged", which is triggered when the visible event types are changed (passes the visible event type IDs).
 
@@ -56,6 +56,7 @@
 #### **General Code Improvements:**
 - Removed all deprecated SASS math divide usages.
 - The SCSS files now uses a slightly better style rule for opening/closing brackets.
+- Less repetitive JS code.
 
 <br>
 
