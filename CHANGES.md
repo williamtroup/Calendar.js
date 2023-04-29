@@ -1,6 +1,6 @@
 # Calendar.js - Change Log:
 
-### Version 2.0.0:
+## Version 2.0.0:
 
 #### **New Features:**
 - Added Event Type support for events (under a new tab called Type). The default event types are:
@@ -59,7 +59,7 @@
 
 <br>
 
-### Version 1.8.7:
+## Version 1.8.7:
 - The main display Day Name header context menu is now shown when only one day is visible (Hide Day is hidden).
 - Fixed a fault that caused the calendar to rebuild when double-clicking on a day name when all other days are hidden (not in single-day toggle mode).
 - Added shared size variable for the focus border for all input elements (slightly larger size now).
@@ -67,7 +67,7 @@
 
 <br>
 
-### Version 1.8.6:
+## Version 1.8.6:
 - Fixed the testing HTML for the minimized version of Calendar.js.
 - Renamed the following CSS classes (sorry, this will cause some style breakages):
   - "checkboxContainer" is now "checkbox-container".
@@ -83,7 +83,7 @@
 
 <br>
 
-### Version 1.8.5:
+## Version 1.8.5:
 - Added a custom CSS class for the text headers used in the Advanced area of the Search dialog.
 - Added a new custom event "onEventDragStart", which is triggered when dragging an event is started (the event details are passed to the function).
 - Added a new custom event "onEventDragStop", which is triggered when dragging an event is stopped (the event details are passed to the function).
@@ -92,7 +92,7 @@
 
 <br>
 
-### Version 1.8.4:
+## Version 1.8.4:
 - The public function setCurrentDisplayDate() will now only accept a valid date object.
 - The public function setSelectedDatePickerDate() will now only accept a valid date object.
 - The public function getEvent() will now only accept a valid string ID.
@@ -106,7 +106,7 @@
 
 <br>
 
-### Version 1.8.3:
+## Version 1.8.3:
 - Fixed some script errors occurring when an invalid element, or element ID, is passed to the constructor.
 - Added {dddd} Date Format support (for DatePicker mode), which will show the full name of the day of the week.
 - Added {y} Date Format support (for DatePicker mode), which shows the year, from 0 to 99.
@@ -120,7 +120,7 @@
 
 <br>
 
-### Version 1.8.2:
+## Version 1.8.2:
 - The "Advanced" criteria in the "Search" dialog is now styled to standout from the rest of the options (much clearer).
 - Fixed a fault that allowed the year selected (in the year drop-down) to be selected again (removed hover, active, and click event).
 - Added new setting "applyCssToEventsNotInCurrentMonth" (defaults to true), which adds extra CSS to events not in the current month (on the main display).
@@ -129,7 +129,7 @@
 
 <br>
 
-### Version 1.8.1:
+## Version 1.8.1:
 - Fixed a fault that caused an error to occur when initializing Calendar.js without any options.
 - Fixed a fault that caused holiday link hover effect to use the full cell width (now just the text size).
 - Added a separator CSS class and object that gets added between each holiday item in the main display.
@@ -137,7 +137,7 @@
 
 <br>
 
-### Version 1.8.0:
+## Version 1.8.0:
 - Added full search history support on the "Search Dialog".
 - Added a new search setting "history", which is used to state the existing search history (is updated when new entries are added).
 - Added single-day (in the month) view toggle support (simply double-click on the day name header you want to view).
@@ -150,7 +150,7 @@
 
 <br>
 
-### Version 1.7.5:
+## Version 1.7.5:
 - More documentation improvements.
 - Fixed a fault that caused the testing styles to override the main calendar styles.
 - Added missing version header for the minimized CSS file.
@@ -161,18 +161,18 @@
 
 <br>
 
-### Version 1.7.4:
+## Version 1.7.4:
 - Binding test HTML file now shows the right Calendar.js version.
 - Added "src" and "dist" testing HTML files (will do this a clean way in the future).
 
 <br>
 
-### Version 1.7.3:
+## Version 1.7.3:
 - "dist" now contains undocumented versions of the JS files, whereas "src" contains the full documented JS files.
 
 <br>
 
-### Version 1.7.2:
+## Version 1.7.2:
 - Moved all the testing HTML files into a new subfolder called "test".
 - Moved all compiled code into a new folder called "dist".  "src" now only contains SASS files.
 - Improved the testing HTML files.  They now state what each one is for at the top.
@@ -189,12 +189,12 @@
 
 <br>
 
-### Version 1.7.1:
+## Version 1.7.1:
 - Added basic NPM support (as requested).
 
 <br>
 
-### Version 1.7.0:
+## Version 1.7.0:
 - Added support to pass an element directly to the constructor (instead of an ID, which is still supported).
 - Added jQuery plugin support (will load a new instance of the calendar against any DOM element).
 - Improved documentation header for the main JS file.
@@ -211,20 +211,20 @@
 
 <br>
 
-### Version 1.6.6:
+## Version 1.6.6:
 - Added a new setting "currentMonthTooltipText" (defaults to "Current Month") which is used for the "Today" button on the main display.
 - Fixed a fault that caused the "duration" label to be added to the displays when empty (was causing some spacing issues).
 
 <br>
 
-### Version 1.6.5:
+## Version 1.6.5:
 - Minor CSS assignment improvements when events are dragged and dropped via the main display.
 - Fixed a fault that caused the optional parameters for public functions to be checked multiple times.
 - Fixed a script error that occurred when resizing the browser window while Date Picker mode is enabled.
 
 <br>
 
-### Version 1.6.4:
+## Version 1.6.4:
 - Fixed a fault that caused the checkout/radio button input boxes to show up in the display.
 - The "Organizer Email" field in the "Configuration" dialog is now an email input field.
 - Fixed a fault that allowed the DatePicker input box to have its margin-bottom overridden by other CSS selectors.
@@ -242,7 +242,7 @@
 
 <br>
 
-### Version 1.6.3:
+## Version 1.6.3:
 - Fixed a fault that caused DatePicker mode to render all the dialogs and drop-down menus when they are not needed.
 - Fixed a fault that would cause the DatePicker mode to show only the current month when opened (not the selected).
 - Fixed a fault that caused DatePicker mode to show the default date when an invalid value is specified in the input value.
@@ -254,7 +254,7 @@
 
 <br>
 
-### Version 1.6.2:
+## Version 1.6.2:
 - Added new setting "weekendDays", which states the day numbers that should be treated as weekend days.
 - Fixed a fault that causes the drop-down menus and tooltips to move around when scrolling the document body.
 - Fixed the spacing used in the title bar when the calendar is viewed on a mobile device.
@@ -263,7 +263,7 @@
 
 <br>
 
-### Version 1.6.1:
+## Version 1.6.1:
 - Fixed a fault that caused an invalid date to be formed when dragging & dropping in the "All Events" view.
 - Fixed a fault that allowed events to be dropped on the title bars in the "Weekly" and "All Events" views.
 - Fixed a fault that caused the drop content areas to be too small, while increasing the spacing for empty days (in "Weekly" view).
@@ -280,7 +280,7 @@
 
 <br>
 
-### Version 1.6.0:
+## Version 1.6.0:
 - The DatePicker mode now adds a base style called "calendar-date-picker-input" to the input box.
 - Added a new setting "datePickerSelectedDateFormat", which allows the selected date (in the input field) in DatePicker mode to be formatted (see documentation).
 - Fixed a fault that prevented the public function setSelectedDatePickerDate() from setting the DatePicker date.
@@ -294,7 +294,7 @@
 
 <br>
 
-### Version 1.5.3:
+## Version 1.5.3:
 - All public functions will now only accept the right types for parameters (including the constructor).
 - Fixed a fault that caused the wrong input field to be focused when an invalid Url is entered in the Event Editor dialog.
 - The Url input field in the Event Editor dialog is now of type "URL".
@@ -304,12 +304,12 @@
 
 <br>
 
-### Version 1.5.2:
+## Version 1.5.2:
 - Fixed a fault in Safari that caused the day names header to not resize correctly on initial load.
 
 <br>
 
-### Version 1.5.1:
+## Version 1.5.1:
 - Clicking the currently displayed year in the year drop-down menu no longer causes an update to the display.
 - The public function setCurrentDisplayDate() will only set the date if it's different from the display date.
 - The public function setSelectedDatePickerDate() will now close the DatePicker (if it's open).
@@ -318,7 +318,7 @@
 
 <br>
 
-### Version 1.5.0:
+## Version 1.5.0:
 - Added Url support to event tooltips (can be clicked, which opens the Url in a new window/tab).
 - Only valid URLs can now be entered in the Event Editor dialog (an error message is shown for invalid entries).
 - Events that contain an invalid Url when added/updated via public functions are now cleared.
@@ -328,7 +328,7 @@
 
 <br>
 
-### Version 1.4.5:
+## Version 1.4.5:
 - Added new setting "minimumDatePickerDate", which states the minimum date to use while in DatePicker mode.
 - Added new setting "maximumDatePickerDate", which states the maximum date to use while in DatePicker mode.
 - The date selected in DatePicker mode is now highlighted in the calendar display.
@@ -337,7 +337,7 @@
 
 <br>
 
-### Version 1.4.4:
+## Version 1.4.4:
 - Minor comment updates to headers.
 - Added parameter "updateEvents" support to the public function addHolidays().
 - Added new setting "useEscapeKeyToExitFullScreenMode", which states if the Escape key should exit full-screen mode (if enabled).
@@ -348,12 +348,12 @@
 
 <br>
 
-### Version 1.4.3:
+## Version 1.4.3:
 - Fixed a fault that caused string arrays to not include speech marks when exporting (prevented excluded repeat days importing).
 
 <br>
 
-### Version 1.4.2:
+## Version 1.4.2:
 - Fixed a fault that allowed HTML to be injected into the display for events, tooltips, overlays, etc.
 - Added "Visible Days..." drop-down menu support to the Day headers in the main display (opens the "Configuration" dialog).
 - Added new setting "useTemplateWhenAddingNewEvent" which adds a template event when "Add Event" is pressed (defaults to true).
@@ -361,7 +361,7 @@
 
 <br>
 
-### Version 1.4.1:
+## Version 1.4.1:
 - The Search dialogs text field is no longer cleared when closed and re-opened.  It is now focused and all the text is selected.
 - Added "lastSearchText" support to the Search Options used in the Search dialog (configurable setting).
 - The event "onSearchOptionsUpdated" now only sets the settings when the timer runs.
@@ -370,7 +370,7 @@
 
 <br>
 
-### Version 1.4.0:
+## Version 1.4.0:
 - Added support for custom events for holidays shown in the main display (using a new "onClick" holiday property).
 - Added search support to the Full Day, Weekly, and All Events views.
 - Fixed a fault that caused the Search dialog to iterate through the events in the wrong order.
@@ -384,12 +384,12 @@
 
 <br>
 
-### Version 1.3.9:
+## Version 1.3.9:
 - Added default holiday for "Remembrance Day".
 
 <br>
 
-### Version 1.3.8:
+## Version 1.3.8:
 - Added public function removeGroup(), which removes a group by name (and fires a new custom event).
 - Organized the public functions into more areas to make them easier to find.
 - Moved all test files to use console.log() instead of alert() so that the details can be fully seen.
@@ -400,7 +400,7 @@
 
 <br>
 
-### Version 1.3.7:
+## Version 1.3.7:
 - Added public function isFullScreenActivated(), which states if full-screen mode is activated.
 - The "Remove Events" context menu item in the Full Day view is only visible when events are available.
 - Added support for "Not (opposite)" searches in the "Search" dialog (with custom setting support included).
@@ -409,12 +409,12 @@
 
 <br>
 
-### Version 1.3.6:
+## Version 1.3.6:
 - Fixed a fault that prevented the Calendar from jumping to the previous/next month when clicking the months in the main display.
 
 <br>
 
-### Version 1.3.5:
+## Version 1.3.5:
 - All settings passed to the constructor now have to use the right type (otherwise they will be rejected).
 - The constructor now accepts the search options as the 3rd parameter (startDateTime is now the 4th).
 - Added support to check the default search options passed via the constructor and apply defaults if anything is wrong.
@@ -423,7 +423,7 @@
 
 <br>
 
-### Version 1.3.4:
+## Version 1.3.4:
 - Added new setting "openInFullScreenMode", which states if the calendar should be rendered in full-screen mode.
 - The "Enable browser notifications" options in the "Configuration" dialog is now tabbed in slightly (shows which it belongs to).
 - Added new search settings "left" and "top", which states the left/top positions that should be used for the "Search" dialog.
@@ -432,12 +432,12 @@
 
 <br>
 
-### Version 1.3.3:
+## Version 1.3.3:
 - Fixed a fault that prevented the auto-refresh timer from being disabled from the "Configuration" dialog.
 
 <br>
 
-### Version 1.3.2:
+## Version 1.3.2:
 - Added clearEvents() parameter "triggerEvent", which will fire the "onEventsCleared" event (if available).
 - Added clearAllGroups() parameter "triggerEvent", which will fire the "onGroupsCleared" event (if available).
 - The "Today" button on the main display toolbar is now shown when in DatePicker mode.
@@ -446,7 +446,7 @@
 
 <br>
 
-### Version 1.3.1:
+## Version 1.3.1:
 - Fixed a fault that caused the repeating event images to have an :hover and :active behaviour.
 - Added "Hide Day" context menu support for the day headers (when more than 1 day is visible).
 - The "useOnlyDotEventsForMainDisplay" setting now overrides the "maximumEventsPerDayDisplay" setting.
@@ -456,7 +456,7 @@
 
 <br>
 
-### Version 1.3.0:
+## Version 1.3.0:
 - Added missing background-color and color CSS values for tabs and tab contents.
 - Fixed a fault that caused the main display toolbar buttons to not update correctly when the options are set manually.
 - Added new setting "showExtraMainDisplayToolbarButtons", which states if the extra toolbar buttons are visible (defaults to true).
@@ -472,7 +472,7 @@
 
 <br>
 
-### Version 1.2.2:
+## Version 1.2.2:
 - Events must now be double-clicked to be edited (removed the hover effects, which caused display issues in the views).
 - Fixed a fault that would cause the main display to update when dropping an event on its original date.
 - Internal changes for content variables defined in the base of the class.
@@ -481,7 +481,7 @@
 
 <br>
 
-### Version 1.2.1:
+## Version 1.2.1:
 - Fixed a fault that would cause removeElementsClassName() to fail when handling more than one DOM element.
 - Internal structure changes for constant values and code cleanups, enhancements, etc.
 - Fixed a fault that allowed the "repeatEnds" date to be smaller than the events "to" date.
@@ -491,7 +491,7 @@
 
 <br>
 
-### Version 1.2.0:
+## Version 1.2.0:
 - Added Copy and Paste support of events (events can be pasted on the main display, or Full Day view).
 - Context drop-down menu items that open dialogs now have a "..." at the end to indicate this.
 - Decreased the default padding size that is used for the drop-down context menus.
@@ -504,7 +504,7 @@
 
 <br>
 
-### Version 1.1.2:
+## Version 1.1.2:
 - The Full Day view no longer shows days that are hidden (the Today button is also hidden to prevent jumping to a hidden day).
 - Renamed the CSS class "current-year-selector" to "year-selected".
 - Added support to show the years that contain events in the year's down-down menu (new CSS class "year-has-events").
@@ -518,7 +518,7 @@
 
 <br>
 
-### Version 1.1.1:
+## Version 1.1.1:
 - Decreased the width/height of the hour/half hour display shown on the side in the Full Day view.
 - Fixed the font size for the drop-down menus not adhering to the default font-size media rules.
 - The headers in the exported file types (except CSV/TSV/MD) are now sorted in alphabetical order.
@@ -526,7 +526,7 @@
 
 <br>
 
-### Version 1.1.0:
+## Version 1.1.0:
 - When attempting to fire a browser notification, if the API is not supported, errors are no longer reported (see the console).
 - Added double-click support to the Full Day view to add new events, showing the correct time based on the area clicked.
 - Added support for custom repeat periods for events (either by Daily, Weekly, Monthly, or Yearly).
@@ -546,7 +546,7 @@
 
 <br>
 
-### Version 1.0.2:
+## Version 1.0.2:
 - Fixed a fault that allowed all the visible days in the Configuration window to be turned off (causing huge display issues).
 - The public function destroy() will now remove all drop-down menus and dialogs from the document body.
 - Fixed a sizing issue for overlays that caused them to be 1 pixel out (causing a slight gap).
@@ -556,7 +556,7 @@
 
 <br>
 
-### Version 1.0.1:
+## Version 1.0.1:
 - A selectable "To" date can no longer be smaller than a "From" date (in browsers where the DatePicker is supported).
 - Fixed a fault that prevented the main display from building correctly when manual event editing is disabled.
 - Fixed a fault that prevented the event context menu showing (for showing Open Url option) when manual editing is disabled.
@@ -564,7 +564,7 @@
 
 <br>
 
-### Version 1.0.0:
+## Version 1.0.0:
 - Added context menu support to the Full Day view (allowing events to be cleared, or added).
 - Fixed a fault that prevented the event context menu from rebuilding when manual editing is re-enabled.
 - Reordered the event context menu and added new icons.
@@ -585,7 +585,7 @@
 
 <br>
 
-### Version 0.9.9:
+## Version 0.9.9:
 - Optimizations and cleanups to the core code (less repeating code, more functions, etc).
 - The context menus now open with a minor fade effect.
 - The local timezone is now determined when adding a new event, ensuring that it's added to the right day.
@@ -601,12 +601,12 @@
 
 <br>
 
-### Version 0.9.8a:
+## Version 0.9.8a:
 - Reverted date changes from 0.9.8.
 
 <br>
 
-### Version 0.9.8:
+## Version 0.9.8:
 - Tooltips now stay open when an event is hovered over (moving the mouse again over the vent will not close it).
 - Fixed another fault that caused dates selected for events to be out by one day.
 - Fixed a fault that caused an extra ":" character to appear in the exported JSON data.
@@ -620,7 +620,7 @@
 
 <br>
 
-### Version 0.9.7:
+## Version 0.9.7:
 - Added repeat Every 2 Weeks support (please update your events, the IDs for the others have been changed.  Sorry).
 - Added "Enable drag & drop for events" option to the Configuration dialog.
 - Renamed the tabs and setting names for the Configuration dialog (smaller and better).
@@ -633,7 +633,7 @@
 
 <br>
 
-### Version 0.9.6:
+## Version 0.9.6:
 - Added new option visibleDays, which states the days that are visible (defaults to all days, see documentation).
 - Fixed a fault that prevented the first event in a repeating series from being removed.
 - Extended the Configuration dialog to include tabs, with a new one called Display Options that contains:
@@ -654,7 +654,7 @@
 
 <br>
 
-### Version 0.9.5:
+## Version 0.9.5:
 - Fixed a fault that caused the public function addEvents() to fire the wrong event.
 - Double-clicking the headers in the Week/All Events views (for a week/month) will now activate the expand button.
 - Improved the "No events available" default text display in the Week view.
@@ -667,7 +667,7 @@
 
 <br>
 
-### Version 0.9.4:
+## Version 0.9.4:
 - Added support to show the events in the main display as dots (optional, to save space; defaults to false).
 - Added options "Starts With", "Ends With" and "Contains" to the Search dialog (defaults to the first one).
 - Repeating events now show an icon in the display to indicate this (including the overlay views).
@@ -680,7 +680,7 @@
 
 <br>
 
-### Version 0.9.3:
+## Version 0.9.3:
 - Added export to MD (markdown) file support.
 - Added export to HTML file support.
 - Added public function getVersion(), which returns the current version of Calendar.js.
@@ -693,7 +693,7 @@
 
 <br>
 
-### Version 0.9.2:
+## Version 0.9.2:
 - Added support to show the previous/next month names in the days on the main display (optional, on by default).
 - Added a new option "showDayNamesInMainDisplay" to disable the day names header in the main display (optional, on by default).
 - Split out the documentation for strings shown in the display and fixed some of the types.
@@ -711,7 +711,7 @@
 
 <br>
 
-### Version 0.9.1:
+## Version 0.9.1:
 - Added new public function updateEventDateTimes().
 - Drag & Drop now uses the new updateEventDateTimes() function (much faster).
 - Double-clicking on the Search dialogs title bar will now toggle its minimized state.
@@ -719,7 +719,7 @@
 
 <br>
 
-### Version 0.9.0:
+## Version 0.9.0:
 - Fixed a fault that prevented all-day events from being exported from the Full Day view.
 - Added grouping support for events (a new property called "group").
 - Added a new configuration dialog, which can be used to control the visible groups (at this time).
@@ -738,7 +738,7 @@
 
 <br>
 
-### Version 0.8.2:
+## Version 0.8.2:
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
 - Added new option "showWeekNumbersInTitles", which will display the week numbers where applicable (off by default).
 - Increased the maximum responsive width so that the default text/icons do not overlap.
@@ -751,7 +751,7 @@
 
 <br>
 
-### Version 0.8.1:
+## Version 0.8.1:
 - Added public function "setEvents()", which adds an array of events and clears the original (fires onEventsSet, if available).
 - The option "autoRefreshTimerDelay" now defaults to 30000 milliseconds.
 - When the month on display is the current month/year, the auto-refresh will now jump to the right date when the day changes.
@@ -764,7 +764,7 @@
 
 <br>
 
-### Version 0.8.0:
+## Version 0.8.0:
 - Calling "setOptions()" now only sets the ones you have passed (no longer reverts the others to their defaults).
 - Renamed the "Select Days To Exclude" dialog to "Repeat Options" (renames settings and CSS classes to match).
 - Exported data now shows the days to exclude (for repeating events) as actual day names, instead of numbers.
@@ -786,7 +786,7 @@
 
 <br>
 
-### Version 0.7.0:
+## Version 0.7.0:
 - Added Turn On/Off full-screen mode buttons to the toolbars (in any view).
 - Fixed the CSS class "ib-plus" being available twice in the master CSS file.
 - Fixed full-screen mode appearing odd when used on a very small display (iPhone SE, Galaxy Fold, etc).
@@ -804,18 +804,18 @@
 
 <br>
 
-### Version 0.6.2:
+## Version 0.6.2:
 - Markdown files for documentation now display correctly and types are italic.
 
 <br>
 
-### Version 0.6.1:
+## Version 0.6.1:
 - Added Markdown documentation files for options, events and holidays.
 - Fixed some documentation errors.
 
 <br>
 
-### Version 0.6.0:
+## Version 0.6.0:
 - Added support to remove an event from a repeating series (asked in the confirmation message).
 - Holidays (Christmas Eve, Christmas Day, Boxing Day, New Year's Eve and New Year's Day) are now the default holidays.
 - Added navigation key support when full-screen mode is activated:
@@ -836,7 +836,7 @@
 
 <br>
 
-### Version 0.5.2:
+## Version 0.5.2:
 - The text "All Day Event" is now "All-Day" (renamed all the settings to match).
 - Fixed a fault that allowed text to be selected in a disabled text field (date, time).
 - Added "grid-border-color" that states the border color of the internal grid borders (which is now a lighter gray).
@@ -852,14 +852,14 @@
 
 <br>
 
-### Version 0.5.1:
+## Version 0.5.1:
 - Fixed exports (all except CSV) being broken.
 - Fixed missing properties on CSV exports.
 - Fixed weekly events not showing up in Internet Explorer.
 
 <br>
 
-### Version 0.5.0:
+## Version 0.5.0:
 - When an API is called that forces a redraw of the main display, all drop-down menus are now hidden.
 - Calling the public method "setOptions()" now rebuilds to the main display using the new settings.
 - Fixed a fault that caused events to be assigned to the document/window more than once.
@@ -883,7 +883,7 @@
 
 <br>
 
-### Version 0.4.0:
+## Version 0.4.0:
 - The Year Selector drop-down now auto-scrolls to the selected year.
 - Removed unneeded class variables.
 - All title-bar icons now use the "PureCSS" generated images, giving a much cleaner look and feel.
@@ -915,7 +915,7 @@
 
 <br>
 
-### Version 0.3.0:
+## Version 0.3.0:
 - Added the custom scrollbar to the textarea on the "Event Editor" dialog.
 - The custom scroll-bar now has :hover and :active selectors.
 - Added support to use the custom tooltip for every tooltip throughout the views.
@@ -948,7 +948,7 @@
 
 <br>
 
-### Version 0.2.0:
+## Version 0.2.0:
 - The from "Date" field is now focused when the Event Editor is opened.
 - A confirmation dialog is now shown when removing an event.
 - Added "Select Export Type" dialog, with CSV, XML, JSON and TEXT support now available.
@@ -963,11 +963,11 @@
 
 <br>
 
-### Version 0.1.1:
+## Version 0.1.1:
 - Added active CSS effects for all clickable elements.
 - Minor documentation corrections.
 
 <br>
 
-### Version 0.1.0:
+## Version 0.1.0:
 - Everything :)
