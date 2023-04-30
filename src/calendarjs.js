@@ -3085,16 +3085,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function updateFullDayViewTimeArrowPosition() {
         var topPosition = 0;
 
-        if ( isFullDayTimeArrowVisible() ) {
-            var pixelsPerMinute = getFullDayPixelsPerMinute(),
-                top = pixelsPerMinute * getMinutesIntoDay( new Date() );
-
-            _element_FullDayView_TimeArrow.style.display = "block";
-            _element_FullDayView_TimeArrow.style.top = ( top - ( _element_FullDayView_TimeArrow.offsetHeight / 2 ) ) + "px";
-            topPosition = top;
-
-        } else {
-            _element_FullDayView_TimeArrow.style.display = "none";
+        if ( _element_FullDayView_TimeArrow !== null ) {
+            if ( isFullDayTimeArrowVisible() ) {
+                var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                    top = pixelsPerMinute * getMinutesIntoDay( new Date() );
+    
+                _element_FullDayView_TimeArrow.style.display = "block";
+                _element_FullDayView_TimeArrow.style.top = ( top - ( _element_FullDayView_TimeArrow.offsetHeight / 2 ) ) + "px";
+                topPosition = top;
+    
+            } else {
+                _element_FullDayView_TimeArrow.style.display = "none";
+            }
         }
 
         return topPosition;
@@ -6912,7 +6914,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isOverlayVisible( element ) {
-        return element.className.indexOf( "overlay-shown" ) > -1;
+        return element !== null && element.className.indexOf( "overlay-shown" ) > -1;
     }
 
 
