@@ -19,6 +19,9 @@
 - Events visible in the active display now contain attributes "event-id" and "event-type".
 - The "Duplicate" event context menu item now has "..." at the end.
 - The border color that can be set for Events is allows to the whole border, not just the left side.
+- When a template event is added (when "useTemplateWhenAddingNewEvent" is on), the "Title" text in the Event Editor dialog is now highlighted.
+- Events that are locked can no longer be Cut, Copy, or Duplicated.
+- Fixed a fault that prevented overlapping events in the Full Day view to not resize when the window is resized.
 
 #### **Search:**
 - Added left margin spacing to the "Advanced" options in the "Search" dialog.
@@ -57,10 +60,7 @@
 - The "Today" button in the Full-Day view is now only shown if Todays day is visible (changed from all days having to be visible).
 - Removed the "Configuration" button from the main toolbars.  This is now available on the new Side Menu.
 - The selected tab on the dialogs now uses a slightly larger padding to indicate more clearly which one is selected.
-- Fixed a fault that prevented overlapping events in the Full Day view to not resize when the window is resized.
 - Fixed a fault that caused the Year dropdown years to be un-clickable once a different year is selected.
-- When a template event is added (when "useTemplateWhenAddingNewEvent" is on), the "Title" text in the Event Editor dialog is now highlighted.
-- Events that are locked can no longer be Cut, Copy, or Duplicated.
 
 #### **General Code Improvements:**
 - Removed all deprecated SASS math divide usages.
