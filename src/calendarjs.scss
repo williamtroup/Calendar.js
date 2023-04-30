@@ -1535,6 +1535,7 @@ div.calendar-dialog {
     }
 
     div.tab-content {
+        @include fade-in-effect-animation( 0.5s );
         border: $standard-border-size solid $input-border-color;
         border-radius: $border-view-radius;
         padding: $spacing;
