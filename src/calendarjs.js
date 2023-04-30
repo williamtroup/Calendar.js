@@ -7054,7 +7054,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showElementAtMousePosition( e, element ) {
         var left = e.pageX,
-            top = e.pageY;
+            top = e.pageY,
+            scrollPosition = getScrollPosition();
 
         element.style.display = "block";
 
@@ -7068,6 +7069,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             top -= element.offsetHeight;
         } else {
             top++;
+        }
+
+        if ( left < scrollPosition.left ) {
+            left = e.pageX;
+        }
+
+        if ( top < scrollPosition.top ) {
+            top = e.pageY;
         }
         
         element.style.left = left + "px";

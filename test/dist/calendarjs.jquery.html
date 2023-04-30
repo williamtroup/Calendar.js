@@ -45,7 +45,8 @@
             manualEditingEnabled: true,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
-            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
+            events: getEvents()
         }, {
             loadedEvent: null
         } )[ 0 ];
@@ -58,7 +59,8 @@
             manualEditingEnabled: true,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
-            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
+            events: getEvents()
         }, {
             loadedEvent: null
         } );
@@ -68,8 +70,6 @@
         function setupCalendarAndWindow() {
             document.title += " - v" + calendarInstance.getVersion();
             document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
-
-            calendarInstance.addEvents( getEvents() );
         }
 
         function getEvents() {
