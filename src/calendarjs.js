@@ -4119,8 +4119,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             event.setAttribute( "draggable", true );
             
-            event.ondragstart = function() {
+            event.ondragstart = function( e ) {
                 triggerOptionsEventWithData( "onEventDragStart", eventDetails );
+
+                e.dataTransfer.setData( "event_details", JSON.stringify( eventDetails ) );
 
                 _eventDetails_Dragged_DateFrom = draggedFromDate;
                 _eventDetails_Dragged = eventDetails;
@@ -4259,6 +4261,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate, repeatEndsDate );            
             refreshViews();
+        } else {
+
+            if ( _eventDetails_Dragged === null ) {
+                var eventDetails = getObjectFromString( e.dataTransfer.getData( "event_details" ) );
+                if ( eventDetails !== null ) {
+                    var sourceFromDate = new Date( eventDetails.from ),
+                        sourceToDate = new Date( eventDetails.to );
+
+                    eventDetails.from = new Date( year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0 );
+                    eventDetails.to = new Date( year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0 );
+
+                    _this.addEvent( eventDetails );
+                }
+            }
         }
     }
 

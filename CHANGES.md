@@ -11,6 +11,7 @@
   - Task
 - Added side menu for the whole Calendar, which allows visibility of Days, Event Types, and Groups to be toggled easily (The days area is open by default).
 - Updating configuration will no longer close your current view (All Events, Full Day, Weekly).  They will be automatically updated.
+- You can now drag & drop events between calendars (the source one will not be removed, just copied).
 
 #### **Events/Groups:**
 - When events are added/updated/set, the group they are assigned (if new) is made visible by default.
