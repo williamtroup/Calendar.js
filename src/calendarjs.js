@@ -4480,7 +4480,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _initialized = false;
     
                 triggerOptionsEventWithData( "onOptionsUpdated", _options );
-                build( _currentDate, true );
+                build( _currentDate, true, true );
             }, true );
     
             _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
