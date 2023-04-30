@@ -2523,6 +2523,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
         
                         showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
                     } else {
                         addNewEvent();
                     }
@@ -2607,6 +2608,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected, newBlankTemplateEventTime, newBlankTemplateEventTime );
 
                 showEventEditingDialog( newBlankTemplateEvent );
+                showEventEditingDialogTitleSelected();
             } else {
                 showEventEditingDialog( null, _element_FullDayView_DateSelected, hoursMinutes );
             }
@@ -3323,6 +3325,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         var newBlankTemplateEvent = buildBlankTemplateEvent( addNewEventDate, addNewEventDate );
 
                         showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
                     } else {
                         showEventEditingDialog( null, addNewEventDate );
                     }
@@ -3721,6 +3724,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         var newBlankTemplateEvent = buildBlankTemplateEvent( expandDate, expandDate );
 
                         showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
                     } else {
                         showEventEditingDialog( null, expandDate );
                     }
@@ -4023,6 +4027,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         var newBlankTemplateEvent = buildBlankTemplateEvent( dayDate, dayDate );
 
                         showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
                     } else {
                         showEventEditingDialog( null, dayDate );
                     }
@@ -4335,6 +4340,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         var newBlankTemplateEvent = buildBlankTemplateEvent( _element_DropDownMenu_Day_DateSelected, _element_DropDownMenu_Day_DateSelected );
     
                         showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
                     } else {
                         showEventEditingDialog( null, _element_DropDownMenu_Day_DateSelected );
                     }
@@ -4471,6 +4477,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
     
                         showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
                     } else {
                         showEventEditingDialog( null, _element_FullDayView_DateSelected );
                     }
@@ -5048,6 +5055,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog.style.display = "block";
         _element_EventEditorDialog_ErrorMessage.style.display = "none";
         _element_EventEditorDialog_Title.focus();
+    }
+
+    function showEventEditingDialogTitleSelected() {
+        _element_EventEditorDialog_Title.focus();
+        _element_EventEditorDialog_Title.select();
     }
 
     function setLockedStatusForEventEditingDialog( eventDetails ) {

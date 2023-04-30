@@ -59,6 +59,7 @@
 - The selected tab on the dialogs now uses a slightly larger padding to indicate more clearly which one is selected.
 - Fixed a fault that prevented overlapping events in the Full Day view to not resize when the window is resized.
 - Fixed a fault that caused the Year dropdown years to be un-clickable once a different year is selected.
+- When a template event is added (when "useTemplateWhenAddingNewEvent" is on), the "Title" text in the Event Editor dialog is now highlighted.
 
 #### **General Code Improvements:**
 - Removed all deprecated SASS math divide usages.
