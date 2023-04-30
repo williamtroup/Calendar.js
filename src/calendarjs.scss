@@ -494,6 +494,7 @@ div.calendar {
                         position: absolute;
                         right: $spacing;
                         top: $spacing;
+                        pointer-events: none;
                     }
 
                     div.ib-arrow-down-full {
