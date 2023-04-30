@@ -7072,11 +7072,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( left < scrollPosition.left ) {
-            left = e.pageX;
+            left = e.pageX + 1;
         }
 
         if ( top < scrollPosition.top ) {
-            top = e.pageY;
+            top = e.pageY + 1;
         }
         
         element.style.left = left + "px";
