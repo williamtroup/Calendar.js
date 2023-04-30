@@ -13,7 +13,7 @@ Calendar.js
 
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
-- Drag and Drop for events.
+- Drag and Drop for events, eve across multiple Calendars!
 - Cut, Copy, Paste, and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
@@ -37,7 +37,7 @@ Calendar.js
   2. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
   3. Ctrl/Command + Shift + F:  Opens the search dialog.
   4. Ctrl/Command + Shift + E:  Opens the export events dialog.
-- Custom event groups (with configurable toggles).
+- Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
 - DatePicker mode (just assign to the ID of an text input).
