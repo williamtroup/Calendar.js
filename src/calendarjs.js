@@ -1645,6 +1645,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         year.id = _elementID_YearSelected + actualYear.toString();
         _element_HeaderDateDisplay_YearSelector_Contents.appendChild( year );
 
+        year.ondblclick = cancelBubble;
         year.onclick = function( e ) {
             cancelBubble( e );
 
@@ -1652,9 +1653,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _currentDate.setFullYear( actualYear );
 
                 build( _currentDate );
+                hideYearSelectorDropDown();
             }
-
-            hideYearSelectorDropDown();
         };
     }
 
@@ -1693,8 +1693,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var year = getElementByID( _elementID_YearSelected + _currentDate.getFullYear() );
         if ( year !== null ) {
             year.className += " year-selected";
-            year.onclick = cancelBubble;
-            year.ondblclick = cancelBubble;
         }
         
         if ( !_datePickerModeEnabled ) {
