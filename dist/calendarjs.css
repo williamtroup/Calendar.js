@@ -495,14 +495,31 @@ div.calendar div.side-menu div.content div.content-section {
   border: 1px solid #575555;
   transition: all 0.3s linear;
 }
-div.calendar div.side-menu div.content div.content-section p.text-header,
-div.calendar div.side-menu div.content div.content-section p.text-header-closed {
+div.calendar div.side-menu div.content div.content-section div.text-header,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed {
+  position: relative;
   padding: 10px;
   margin-top: 0 !important;
   margin-bottom: 0;
   cursor: pointer;
 }
-div.calendar div.side-menu div.content div.content-section p.text-header {
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full {
+  border-top-color: #F5F5F5;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
+  border-bottom-color: #F5F5F5;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header {
   font-weight: 700;
 }
 div.calendar div.side-menu div.content div.content-section div.checkbox-container {
@@ -3647,6 +3664,28 @@ div.calendar-drop-down-menu div.separator {
   opacity: 0.7;
 }
 .ib-arrow-down-full:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-arrow-up-full {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 16px solid #282828;
+}
+.ib-arrow-up-full:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-up-full:not(.ib-no-active):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;

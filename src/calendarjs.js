@@ -1371,17 +1371,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildSideMenuHeaderAndContentOpener( mainContainer, mainContent, text, opened ) {
-        var header = createTextHeaderElement( mainContainer, text + ":", "text-header" );
+        var header = createElement( "div", "text-header" );
+        mainContainer.appendChild( header );
+
+        setNodeText( header, text + ":" );
+
+        var arrow = createElement( "div", "ib-arrow-up-full" );
+        header.appendChild( arrow );
+
         header.onclick = function() {
             var isClosed = mainContent.style.display === "none";
 
             header.className = isClosed ? "text-header" : "text-header-closed";
             mainContent.style.display = isClosed ? "block" : "none";
+            arrow.className = isClosed ? "ib-arrow-up-full" : "ib-arrow-down-full";
         };
 
         if ( !opened ) {
             mainContent.style.display = "none";
             header.className = "text-header-closed";
+            arrow.className = "ib-arrow-down-full";
         }
     }
 

@@ -481,15 +481,31 @@ div.calendar {
                 border: $standard-border-size solid #575555;
                 transition: all .3s linear;
     
-                p.text-header,
-                p.text-header-closed {
+                div.text-header,
+                div.text-header-closed {
+                    position: relative;
                     padding: $spacing;
                     margin-top: 0 !important;
                     margin-bottom: 0;
                     cursor: pointer;
+
+                    div.ib-arrow-down-full,
+                    div.ib-arrow-up-full {
+                        position: absolute;
+                        right: $spacing;
+                        top: $spacing;
+                    }
+
+                    div.ib-arrow-down-full {
+                        border-top-color: $light-color;
+                    }
+
+                    div.ib-arrow-up-full {
+                        border-bottom-color: $light-color;
+                    }
                 }
 
-                p.text-header {
+                div.text-header {
                     font-weight: 700;
                 }
 
@@ -1954,6 +1970,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/rewind";
 @import "foundation/buttons/forward";
 @import "foundation/buttons/arrow-down-full";
+@import "foundation/buttons/arrow-up-full";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";
