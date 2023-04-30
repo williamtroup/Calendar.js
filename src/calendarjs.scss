@@ -511,6 +511,7 @@ div.calendar {
                 }
 
                 div.checkbox-container {
+                    @include fade-in-effect-animation( 0.5s );
                     padding-left: $spacing;
                     padding-right: $spacing;
                     padding-bottom: $spacing;
@@ -1384,6 +1385,7 @@ div.search {
         }
 
         div.advanced {
+            @include fade-in-effect-animation( 0.5s );
             background-color: $day-names-color;
             padding: $spacing;
             margin-top: $spacing !important;

@@ -524,6 +524,11 @@ div.calendar div.side-menu div.content div.content-section div.text-header {
   font-weight: 700;
 }
 div.calendar div.side-menu div.content div.content-section div.checkbox-container {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
@@ -2282,6 +2287,11 @@ div.search div.contents p {
   margin-bottom: 8px;
 }
 div.search div.contents div.advanced {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   background-color: #E0E0E0;
   padding: 10px;
   margin-top: 10px !important;
