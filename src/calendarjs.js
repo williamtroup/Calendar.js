@@ -617,6 +617,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_Event_FormattedDateSelected = null,
         _element_DropDownMenu_Event_OpenUrlSeparator = null,
         _element_DropDownMenu_Event_OpenUrl = null,
+        _element_DropDownMenu_Event_DuplicateSeparator = null,
+        _element_DropDownMenu_Event_Duplicate = null,
+        _element_DropDownMenu_Event_CutSeparator = null,
+        _element_DropDownMenu_Event_Cut = null,
+        _element_DropDownMenu_Event_CopySeparator = null,
+        _element_DropDownMenu_Event_Copy = null,
         _element_DropDownMenu_FullDay = null,
         _element_DropDownMenu_FullDay_RemoveEvents_Separator = null,
         _element_DropDownMenu_FullDay_RemoveEvents = null,
@@ -4378,10 +4384,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
                     showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
                 }, true );
+
+                _element_DropDownMenu_Event_CutSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
     
-                buildMenuSeparator( _element_DropDownMenu_Event );
-    
-                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
+                _element_DropDownMenu_Event_Cut = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
                     if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
                         updateEventClasses( _copiedEventDetails.id, "cut-event", true );
                     }
@@ -4396,9 +4402,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "cut-event" );
                 } );
     
-                buildMenuSeparator( _element_DropDownMenu_Event );
+                _element_DropDownMenu_Event_CopySeparator = buildMenuSeparator( _element_DropDownMenu_Event );
                 
-                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
+                _element_DropDownMenu_Event_Copy = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
                     if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
                         updateEventClasses( _copiedEventDetails.id, "cut-event", true );
                     }
@@ -4413,9 +4419,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "copy-event" );
                 } );
     
-                buildMenuSeparator( _element_DropDownMenu_Event );
+                _element_DropDownMenu_Event_DuplicateSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
     
-                buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText + "...", function() {
+                _element_DropDownMenu_Event_Duplicate = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText + "...", function() {
                     showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
                     setEventEditingDialogInDuplicateMode();
                 } );
@@ -4569,17 +4575,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showEventDropDownMenu( e, eventDetails, selectedDate ) {
         var url = getString( eventDetails.url ),
-            display = url !== "" ? "block" : "none";
+            locked = isEventLocked( eventDetails ),
+            openUrlDisplay = url !== "" ? "block" : "none",
+            lockedDisplay = !locked ? "block" : "none";
 
         _element_DropDownMenu_Event_EventDetails = eventDetails;
         _element_DropDownMenu_Event_FormattedDateSelected = isDefined( selectedDate ) ? selectedDate : null;
-        _element_DropDownMenu_Event_OpenUrl.style.display = display;
+        _element_DropDownMenu_Event_OpenUrl.style.display = openUrlDisplay;
+        _element_DropDownMenu_Event_DuplicateSeparator.style.display = lockedDisplay;
+        _element_DropDownMenu_Event_Duplicate.style.display = lockedDisplay;
+        _element_DropDownMenu_Event_CutSeparator.style.display = lockedDisplay;
+        _element_DropDownMenu_Event_Cut.style.display = lockedDisplay;
+        _element_DropDownMenu_Event_CopySeparator.style.display = lockedDisplay;
+        _element_DropDownMenu_Event_Copy.style.display = lockedDisplay;
 
         if ( _element_DropDownMenu_Event_OpenUrlSeparator !== null ) {
-            _element_DropDownMenu_Event_OpenUrlSeparator.style.display = display;
+            _element_DropDownMenu_Event_OpenUrlSeparator.style.display = openUrlDisplay;
         }
 
-        if ( display === "block" || _element_DropDownMenu_Event.childElementCount > 2 ) {
+        if ( openUrlDisplay === "block" || _element_DropDownMenu_Event.childElementCount > 2 ) {
             hideAllDropDowns();
             cancelBubble( e );
             showElementAtMousePosition( e, _element_DropDownMenu_Event );

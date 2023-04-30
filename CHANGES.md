@@ -60,6 +60,7 @@
 - Fixed a fault that prevented overlapping events in the Full Day view to not resize when the window is resized.
 - Fixed a fault that caused the Year dropdown years to be un-clickable once a different year is selected.
 - When a template event is added (when "useTemplateWhenAddingNewEvent" is on), the "Title" text in the Event Editor dialog is now highlighted.
+- Events that are locked can no longer be Cut, Copy, or Duplicated.
 
 #### **General Code Improvements:**
 - Removed all deprecated SASS math divide usages.
