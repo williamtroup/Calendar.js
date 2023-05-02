@@ -1843,7 +1843,8 @@ div.calendar-drop-down-menu {
     div.ib-circle-icon,
     div.ib-minus-icon,
     div.ib-octagon-hollow-icon,
-    div.ib-pipe-icon {
+    div.ib-pipe-icon,
+    div.ib-equals-icon {
         margin-right: $spacing;
     }
 
@@ -1864,7 +1865,9 @@ div.calendar-drop-down-menu {
         &:hover div.ib-close-icon::after,
         &:hover div.ib-circle-icon,
         &:hover div.ib-minus-icon::before,
-        &:hover div.ib-pipe-icon::before {
+        &:hover div.ib-pipe-icon::before,
+        &:hover div.ib-equals-icon::before,
+        &:hover div.ib-equals-icon::after {
             background-color: $light-color;
         }
 
@@ -1991,5 +1994,6 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/minus-icon";
 @import "foundation/menus/octagon-hollow-icon";
 @import "foundation/menus/pipe-icon";
+@import "foundation/menus/equals-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";

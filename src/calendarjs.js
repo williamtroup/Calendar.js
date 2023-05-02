@@ -4499,7 +4499,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_DropDownMenu_Event_DuplicateSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
 
-            _element_DropDownMenu_Event_Duplicate = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-minus-icon", _options.duplicateText + "...", function() {
+            _element_DropDownMenu_Event_Duplicate = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-equals-icon", _options.duplicateText + "...", function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
                 setEventEditingDialogInDuplicateMode();
             } );
@@ -4596,7 +4596,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_HeaderDay = createElement( "div", "calendar-drop-down-menu" );
             _document.body.appendChild( _element_DropDownMenu_HeaderDay );
     
-            _element_DropDownMenu_HeaderDay_HideDay = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-minus-icon", _options.hideDayText, function() {
+            _element_DropDownMenu_HeaderDay_HideDay = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-close-icon", _options.hideDayText, function() {
                 _options.visibleDays.splice( _options.visibleDays.indexOf( _element_DropDownMenu_HeaderDay_SelectedDay ), 1 );
                 _initialized = false;
     
