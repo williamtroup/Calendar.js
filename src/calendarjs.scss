@@ -1328,7 +1328,8 @@ div.search {
             margin-bottom: $spacing;
             overflow-y: visible;
 
-            div.ib-arrow-down-full {
+            div.ib-arrow-down-full,
+            div.ib-arrow-up-full {
                 position: absolute;
                 right: $spacing;
                 top: $spacing;

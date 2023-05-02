@@ -1788,7 +1788,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         hideDropDownMenu( _element_DropDownMenu_Event );
         hideDropDownMenu( _element_DropDownMenu_FullDay );
         hideDropDownMenu( _element_DropDownMenu_HeaderDay );
-        hideDropDownMenu( _element_SearchDialog_History_DropDown );
+        hideSearchHistoryDropDownMenu();
         hideYearSelectorDropDown();
         hideTooltip();
     }
@@ -5821,7 +5821,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SearchDialog_FocusedEventID = null;
 
         if ( showHistoryDropDown ) {
-            showSearchHistoryDropDown();
+            showSearchHistoryDropDownForSearch();
         }
         
         storeSearchOptions();
@@ -5907,7 +5907,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else if ( e.keyCode === _keyCodes.enter && !_element_SearchDialog_Next.disabled ) {
             searchOnNext();
         } else {
-            showSearchHistoryDropDown();
+            showSearchHistoryDropDownForSearch();
         }
     }
 
@@ -6129,7 +6129,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function showSearchHistoryDropDown() {
+    function showSearchHistoryDropDownForSearch() {
         var historyLength = _optionsForSearch.history.length;
 
         if ( historyLength > 0 ) {
@@ -6159,9 +6159,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
 
                 if ( lookupTextFound ) {
-                    _element_SearchDialog_History_DropDown.style.display = "block";
+                    showSearchHistoryDropDownMenu();
                 } else {
-                    _element_SearchDialog_History_DropDown.style.display = "none";
+                    hideSearchHistoryDropDownMenu();
                 }
             }, 150 );
 
@@ -6201,10 +6201,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 addSearchHistoryDropDownItem( _optionsForSearch.history[ historyIndex ], 0 );
             }
     
-            _element_SearchDialog_History_DropDown.style.display = "block";
+            showSearchHistoryDropDownMenu();
         
         } else {
-            _element_SearchDialog_History_DropDown.style.display = "none";
+            hideSearchHistoryDropDownMenu();
         }
     }
 
@@ -6222,14 +6222,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         historyDropDownItem.onclick = function( e ) {
             cancelBubble( e );
+            hideSearchHistoryDropDownMenu();
 
-            _element_SearchDialog_History_DropDown.style.display = "none";
             _element_SearchDialog_For.value = historyText;
             _element_SearchDialog_For.selectionStart = _element_SearchDialog_For.selectionEnd = _element_SearchDialog_For.value.length;
             _element_SearchDialog_For.focus();
 
             searchForTextChanged( false );
         };
+    }
+
+    function hideSearchHistoryDropDownMenu() {
+        if ( _element_SearchDialog_History_DropDown !== null ) {
+            _element_SearchDialog_History_DropDown.style.display = "none";
+            _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-down-full";
+        }
+    }
+
+    function showSearchHistoryDropDownMenu() {
+        if ( _element_SearchDialog_History_DropDown !== null ) {
+            _element_SearchDialog_History_DropDown.style.display = "block";
+            _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-up-full";
+        }
     }
 
 
