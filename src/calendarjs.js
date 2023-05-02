@@ -433,7 +433,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         },
         _configuration = {
             visibleGroups: null,
-            visibleEventTypes: null
+            visibleEventTypes: null,
+            visibleAllEventsMonths: {},
+            visibleWeeklyEventsDay: {}
         },
         _options = {},
         _optionsForSearch = {},
@@ -3354,14 +3356,39 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
 
+            var minimizeButton = buildToolbarButton( header, "ib-minus", _options.minimizedTooltipText, function() {
+                minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID );
+            } );
+
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
             month.appendChild( monthContents );
+
+            if ( _configuration.visibleAllEventsMonths.hasOwnProperty( monthContentsID ) && !_configuration.visibleAllEventsMonths[ monthContentsID ] ) {
+                monthContents.style.display = "none";
+                minimizeButton.className = "ib-square-hollow";
+                addToolTip( minimizeButton, _options.restoreTooltipText );
+            }
 
             makeAreaDroppable( monthContents, date.getFullYear(), date.getMonth(), date.getDate() );
         }
 
         return monthContents;
+    }
+
+    function minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID ) {
+        if ( monthContents.style.display !== "none" ) {
+            monthContents.style.display = "none";
+            minimizeButton.className = "ib-square-hollow";
+            _configuration.visibleAllEventsMonths[ monthContentsID ] = false;
+            addToolTip( minimizeButton, _options.restoreTooltipText );
+        
+        } else {
+            monthContents.style.display = "block";
+            minimizeButton.className = "ib-minus";
+            _configuration.visibleAllEventsMonths[ monthContentsID ] = true;
+            addToolTip( minimizeButton, _options.minimizedTooltipText );
+        }
     }
 
     function updateViewAllEventsViewFromEventEdit() {
@@ -3605,7 +3632,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
         var added = false,
             weekDayNumber = getWeekdayNumber( displayDate ),
-            dateID = displayDate.getFullYear() + displayDate.getMonth() + weekDayNumber,
+            dateID = displayDate.getDate() + displayDate.getFullYear() + displayDate.getMonth() + weekDayNumber,
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             formattedDate = toStorageFormattedDate( displayDate );
 
@@ -3725,7 +3752,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
-            dateID = date.getFullYear() + date.getMonth() + weekDayNumber,
+            dateID = date.getDate() + date.getFullYear() + date.getMonth() + weekDayNumber,
             dayContents = null,
             dayHeader = null,
             removeEventsDate = new Date( date );
@@ -3781,8 +3808,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
 
+            var minimizeButton = buildToolbarButton( dayHeader, "ib-minus", _options.minimizedTooltipText, function() {
+                minimizeRestoreWeeklyEventsDay( minimizeButton, dayContents, dateID );
+            } );
+
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
+
+            if ( _configuration.visibleWeeklyEventsDay.hasOwnProperty( dateID ) && !_configuration.visibleWeeklyEventsDay[ dateID ] ) {
+                dayContents.style.display = "none";
+                minimizeButton.className = "ib-square-hollow";
+                addToolTip( minimizeButton, _options.restoreTooltipText );
+            }
 
             makeAreaDroppable( dayContents, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
 
@@ -3808,6 +3845,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return [ dayContents, dayHeader ];
+    }
+
+    function minimizeRestoreWeeklyEventsDay( minimizeButton, dayContents, dateID ) {
+        if ( dayContents.style.display !== "none" ) {
+            dayContents.style.display = "none";
+            minimizeButton.className = "ib-square-hollow";
+            _configuration.visibleWeeklyEventsDay[ dateID ] = false;
+            addToolTip( minimizeButton, _options.restoreTooltipText );
+        
+        } else {
+            dayContents.style.display = "block";
+            minimizeButton.className = "ib-minus";
+            _configuration.visibleWeeklyEventsDay[ dateID ] = true;
+            addToolTip( minimizeButton, _options.minimizedTooltipText );
+        }
     }
 
     function updateViewAllWeekEventsViewFromEventEdit() {

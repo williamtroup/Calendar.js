@@ -969,7 +969,9 @@ div.calendar {
 
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
-                    div.ib-close {
+                    div.ib-close,
+                    div.ib-minus,
+                    div.ib-square-hollow {
                         float: right;
                         margin-left: $spacing;
                     }
@@ -1025,7 +1027,9 @@ div.calendar {
 
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
-                    div.ib-close {
+                    div.ib-close,
+                    div.ib-minus,
+                    div.ib-square-hollow {
                         float: right;
                         margin-left: $spacing;
                     }

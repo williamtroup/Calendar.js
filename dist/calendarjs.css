@@ -1136,7 +1136,9 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
 }
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right,
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus,
-div.calendar div.list-all-events-view div.contents div.month div.header div.ib-close {
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-close,
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-minus,
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-square-hollow {
   float: right;
   margin-left: 10px;
 }
@@ -1308,7 +1310,9 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-plus,
-div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-close {
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-close,
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-minus,
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-square-hollow {
   float: right;
   margin-left: 10px;
 }
