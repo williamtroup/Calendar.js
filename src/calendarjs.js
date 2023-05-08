@@ -1827,7 +1827,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         refreshViews( false, true );
                     }
                 } else {
-                    
+
                     if ( e.keyCode === _keyCodes.escape ) {
                         closeActiveDialog();
                     }
@@ -1857,6 +1857,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }  else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
                     e.preventDefault();
                     headerDoubleClick();
+                }
+            } else {
+
+                if ( e.keyCode === _keyCodes.escape && isSideMenuOpen() ) {
+                    hideSideMenu();
                 }
             }
         } else {
