@@ -195,6 +195,10 @@ div.calendar {
         background-color: $day-names-color;
     }
 
+    div.working-day {
+        background-color: #eceaea;
+    }
+
     div.drag-over {
         background-color: rgba( 135, 206, 250, 0.4 ) !important;
         transition: $transition-faster;

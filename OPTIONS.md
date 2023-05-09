@@ -58,6 +58,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Event[]* | events | States the events that will be shown when the calendar first renders (defaults to null). |
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true). |
 | *boolean* | addYearButtonsInDatePickerMode | States if the year-jumping buttons should be added in DatePicker mode (defaults to false). |
+| *number[]* | workingDays | States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 <br/>
 
 ### Translatable String Options:

@@ -40,6 +40,7 @@
 
 #### **New Settings:**
 - Added new setting "addYearButtonsInDatePickerMode" (defaults to false) which adds year-jumping buttons to DatePicker title bar.
+- Added new setting "workingDays" (defaults to []), which states the days of the week that are considered working days (some format as weekendDays).
 
 #### **New Public Functions:**
 - Added new public functions "addEventType()" and "removeEventType()", for adding adding and removing event types.

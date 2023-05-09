@@ -249,6 +249,9 @@ div.calendar div.header-days {
 div.calendar div.weekend-day {
   background-color: #E0E0E0;
 }
+div.calendar div.working-day {
+  background-color: #eceaea;
+}
 div.calendar div.drag-over {
   background-color: rgba(135, 206, 250, 0.4) !important;
   transition: all 0.2s;

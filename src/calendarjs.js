@@ -317,6 +317,7 @@
  * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true).
  * @property    {boolean}   addYearButtonsInDatePickerMode              States if the year-jumping buttons should be added in DatePicker mode (defaults to false).
+ * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  */
 
 
@@ -2055,6 +2056,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return _options.weekendDays.indexOf( date.getDay() ) >= 0;
     }
 
+    function isWorkingDay( date ) {
+        return _options.workingDays.indexOf( date.getDay() ) >= 0;
+    }
+
     function moveDateBackOneDay( date ) {
         date.setDate( date.getDate() - 1 );
     }
@@ -3786,6 +3791,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 day.className += " weekend-day";
             }
 
+            if ( isWorkingDay( date ) ) {
+                day.className += " working-day";
+            }
+
             dayHeader = createElement( "div", "header" );
             dayHeader.ondblclick = expandFunction;
             day.appendChild( dayHeader );
@@ -4058,6 +4067,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isWeekendDay( dayDate ) && dayElement.className.indexOf( "weekend-day" ) === -1 ) {
                 dayElement.className += " weekend-day";
+            }
+
+            if ( isWorkingDay( dayDate ) && dayElement.className.indexOf( "working-day" ) === -1 ) {
+                dayElement.className += " working-day";
             }
 
             dayElement.oncontextmenu = function( e ) {
@@ -9580,6 +9593,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.applyCssToEventsNotInCurrentMonth, true );
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
         _options.addYearButtonsInDatePickerMode = getDefaultBoolean( _options.addYearButtonsInDatePickerMode, false );
+        _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
