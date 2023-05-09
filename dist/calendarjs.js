@@ -996,6 +996,9 @@ function calendarJs(elementOrId, options, searchOptions) {
   function isWeekendDay(date) {
     return _options.weekendDays.indexOf(date.getDay()) >= 0;
   }
+  function isWorkingDay(date) {
+    return _options.workingDays.indexOf(date.getDay()) >= 0;
+  }
   function moveDateBackOneDay(date) {
     date.setDate(date.getDate() - 1);
   }
@@ -2212,6 +2215,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (isWeekendDay(date)) {
         day.className += " weekend-day";
       }
+      if (isWorkingDay(date)) {
+        day.className += " working-day";
+      }
       dayHeader = createElement("div", "header");
       dayHeader.ondblclick = expandFunction;
       day.appendChild(dayHeader);
@@ -2399,6 +2405,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (isWeekendDay(dayDate) && dayElement.className.indexOf("weekend-day") === -1) {
         dayElement.className += " weekend-day";
+      }
+      if (isWorkingDay(dayDate) && dayElement.className.indexOf("working-day") === -1) {
+        dayElement.className += " working-day";
       }
       dayElement.oncontextmenu = function(e) {
         showDayDropDownMenu(e, dayDate);
@@ -5900,6 +5909,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean(_options.applyCssToEventsNotInCurrentMonth, true);
     _options.weekendDays = isInvalidOptionArray(_options.weekendDays, 0) ? [0, 6] : _options.weekendDays;
     _options.addYearButtonsInDatePickerMode = getDefaultBoolean(_options.addYearButtonsInDatePickerMode, false);
+    _options.workingDays = isInvalidOptionArray(_options.workingDays, 0) ? [] : _options.workingDays;
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
