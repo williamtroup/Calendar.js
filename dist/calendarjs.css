@@ -1143,6 +1143,11 @@ div.calendar div.list-all-events-view div.contents div.month div.header div.ib-s
   margin-left: 10px;
 }
 div.calendar div.list-all-events-view div.contents div.month div.events {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   padding: 10px;
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.expired {
@@ -1320,6 +1325,11 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header div.i
   display: none;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   padding: 10px;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.expired {
