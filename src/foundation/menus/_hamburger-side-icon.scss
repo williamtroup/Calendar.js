@@ -1,7 +1,11 @@
 @import "icon";
 
-.ib-pipe-icon {
+.ib-hamburger-side-icon {
     @include button-no-before-after;
+    border-right: $border;
+    border-left: $border;
+    border-radius: $border-radius;
+    width: $size - $border-width * 2;
 
     &::before {
         @include button-after-before-setup;

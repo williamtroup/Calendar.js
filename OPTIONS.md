@@ -57,6 +57,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Search* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
 | *Event[]* | events | States the events that will be shown when the calendar first renders (defaults to null). |
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true). |
+| *boolean* | addYearButtonsInDatePickerMode | States if the year-jumping buttons should be added in DatePicker mode (defaults to false). |
+| *number[]* | workingDays | States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 <br/>
 
 ### Translatable String Options:
@@ -157,7 +159,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | groupText | The text that should be displayed for the "Group:" label. |
 | *string* | configurationTooltipText | The tooltip text that should be used for for the "Configuration" button. |
 | *string* | configurationTitleText | The text that should be displayed for the "Configuration" label. |
-| *string* | groupsTabText | The text that should be displayed for the "Groups" tab. |
+| *string* | groupsText | The text that should be displayed for the "Groups" label. |
 | *string* | eventNotificationTitle | The text that should be displayed for the notification title (defaults to "Calendar.js"). |
 | *string* | eventNotificationBody | The text that should be displayed for the notification body (defaults to "The event '{0}' has started."). |
 | *string* | optionsText | The text that should be displayed for the "Options:" label. |
@@ -183,7 +185,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | optionalText | The text that should be displayed for the "Optional" label. |
 | *string* | urlText | The text that should be displayed for the "Url:" label. |
 | *string* | openUrlText | The text that should be displayed for the "Open Url" label. |
-| *string* | visibleDaysTabText | The text that should be displayed for the "Visible Days" tab. |
 | *string* | enableDayNameHeadersInMainDisplayText | The text that should be displayed for the "Enable day name headers in the main display" label. |
 | *string* | thisWeekTooltipText | The tooltip text that should be used for for the "This Week" button. |
 | *string* | dailyText | The text that should be displayed for the "Daily" label. |
@@ -208,3 +209,17 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | searchTextBoxPlaceholder | The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc..."). |
 | *string* | currentMonthTooltipText | The text that should be displayed for the "Current Month" label. |
 | *string* | cutText | The text that should be displayed for the "Cut" label. |
+| *string* | showMenuTooltipText | The tooltip text that should be used for for the "Show Menu" button. |
+| *string* | eventTypesText | The text that should be displayed for the "Event Types" label. |
+| *string* | eventTypeNormalText | The text that should be displayed for the "Normal" event label. |
+| *string* | eventTypeMeetingText | The text that should be displayed for the "Meeting" event label. |
+| *string* | eventTypeBirthdayText | The text that should be displayed for the "Birthday" event label. |
+| *string* | eventTypeHolidayText | The text that should be displayed for the "Holiday" event label. |
+| *string* | eventTypeTaskText | The text that should be displayed for the "Task" event label. |
+| *string* | lockedText | The text that should be displayed for the "Locked:" label. |
+| *string* | typeText | The text that should be displayed for the "Type:" label. |
+| *string* | sideMenuHeaderText | The text that should be displayed for the "Calendar.js" side menu header label. |
+| *string* | sideMenuDaysText | The text that should be displayed for the "Days" side menu label. |
+| *string* | visibleDaysText | The text that should be displayed for the "Visible Days" label. |
+| *string* | previousYearTooltipText | The tooltip text that should be used for for the "Previous Year" button. |
+| *string* | nextYearTooltipText | The tooltip text that should be used for for the "Next Year" button. |

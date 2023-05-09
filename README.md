@@ -4,16 +4,17 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v1.8.7</p>
+<p align="center">v2.0.0</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
+![CalendarJs - Menu](docs/images/main-menu.png)
 
 <h1>What features does Calendar.js have?</h1>
 
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
-- Drag and Drop for events.
+- Drag and Drop for events, even across multiple Calendars!
 - Cut, Copy, Paste, and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
@@ -36,7 +37,8 @@ Calendar.js
   1. Escape:  Closes the active dialog.
   2. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
   3. Ctrl/Command + Shift + F:  Opens the search dialog.
-- Custom event groups (with configurable toggles).
+  4. Ctrl/Command + Shift + E:  Opens the export events dialog.
+- Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
 - DatePicker mode (just assign to the ID of an text input).

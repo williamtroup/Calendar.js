@@ -31,11 +31,15 @@ $time-arrow-line-height: 12px;
 $link-color: #2471A3;
 $input-hover-color: $dark-color;
 $title-bar-font-weight: 900;
-$area-disabled-stripped: rgba( 40, 40, 40, 0.1 );
-$area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
+$area-disabled-stripped: rgba(  40, 40, 40, 0.1  );
+$area-disabled-stripped-weekend-day: rgba(  40, 40, 40, 0.2  );
 $input-box-shadow-size: 2px;
+$side-menu-background-color: #D0D0D0;
+$side-menu-width: 250px;
+$side-menu-width-small: 200px;
+$side-menu-right-border-width: 5px;
 
-@mixin fade-in-effect-animation($seconds) {
+@mixin fade-in-effect-animation( $seconds ) {
     animation: fade-in-effect ease $seconds;
     -webkit-animation: fade-in-effect ease $seconds;
     -moz-animation: fade-in-effect ease $seconds;
@@ -58,7 +62,7 @@ $input-box-shadow-size: 2px;
     opacity: 0.6;
 }
 
-@mixin opacity-active-effect($opacity-default: 0.4) {
+@mixin opacity-active-effect( $opacity-default: 0.4 ) {
     transition: all .2s;
     cursor: pointer;
     opacity: $opacity-default;
@@ -77,7 +81,7 @@ $input-box-shadow-size: 2px;
     width: 100%;
 }
 
-@mixin full-size-view-display($z-index: 1) {
+@mixin full-size-view-display( $z-index: 1 ) {
     top: -100%;
     left: 0;
     height: 100%;
@@ -89,7 +93,7 @@ $input-box-shadow-size: 2px;
     visibility: hidden;
 }
 
-@mixin transform($property) {
+@mixin transform( $property ) {
     -webkit-transform: $property;
     -ms-transform: $property;
     transform: $property;
@@ -101,19 +105,19 @@ $input-box-shadow-size: 2px;
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
-    width: calc(100% - (#{$spacing} * 2));
+    width: calc( 100% - ( #{$spacing} * 2 ) );
 
-    @media screen and (min-width: $minimum-width) {
-        height: calc(100% - ((#{$spacing} * 4) + #{$large-font-size}) - #{$standard-border-size});
+    @media screen and ( min-width: $minimum-width ) {
+        height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$large-font-size} ) - #{$standard-border-size} );
     }
     
-    @media screen and (max-width: $maximum-width) {
-        height: calc(100% - ((#{$spacing} * 4) + #{$small-font-size}) - #{$standard-border-size});
+    @media screen and ( max-width: $maximum-width ) {
+        height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$small-font-size} ) - #{$standard-border-size} );
     }
 }
 
-@mixin dialog-styles($width, $includeTransform: true, $z-index: 1500) {
-    width: calc(100% - (#{$spacing} * 2));
+@mixin dialog-styles( $width, $includeTransform: true, $z-index: 1500 ) {
+    width: calc( 100% - ( #{$spacing} * 2 ) );
     max-width: $width;
     border-radius: $border-view-radius;
     background-color: $light-color;
@@ -126,7 +130,7 @@ $input-box-shadow-size: 2px;
     @if $includeTransform {
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate( -50%, -50% );
     }
 
     div.ib-close {
@@ -152,33 +156,33 @@ $input-box-shadow-size: 2px;
     }
 }
 
-@mixin button($name, $color, $background-color) {
+@mixin button( $name, $color, $background-color ) {
     &.#{$name} {
         color: $color;
         background-color: $background-color;
         box-sizing: border-box;
 
-        &:not(:disabled):hover {
+        &:not( :disabled ):hover {
             @include opacity-hover-effect;
         }
 
-        &:not(:disabled):active {
+        &:not( :disabled ):active {
             @include opacity-active-effect;
         }
     }
 }
 
-@mixin disabled-area($position) {
+@mixin disabled-area( $position ) {
     @include full-size-view;
     z-index: 1000;
     position: $position;
     background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba( 0, 0, 0, 0.3 );
 }
 
 @mixin div-label-spacing {
     div {
-        margin-bottom: $spacing / 2;
+        margin-bottom: calc( $spacing / 2 );
 
         &:last-child {
             margin-bottom: 0;
@@ -192,7 +196,7 @@ $input-box-shadow-size: 2px;
     outline: none;
 }
 
-@mixin input-fields($height: 0px, $width: 100%, $margin-bottom: $spacing) {
+@mixin input-fields( $height: 0px, $width: 100%, $margin-bottom: $spacing ) {
     @include input-style;
     width: $width;
     padding: .375rem .75rem;
@@ -217,7 +221,7 @@ $input-box-shadow-size: 2px;
         box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size $dark-color;
     }
 
-    &:not(:disabled):hover {
+    &:not( :disabled ):hover {
         border: 1px solid $input-hover-color;
     }
 }

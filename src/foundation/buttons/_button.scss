@@ -1,6 +1,6 @@
 $light-color: #F5F5F5;
 $size: 16px;
-$border-width: $size / 4;
+$border-width: calc( $size / 4 );
 $border-radius: $border-width;
 $border: $border-width solid $light-color;
 
@@ -14,11 +14,11 @@ $border: $border-width solid $light-color;
 @mixin button-no-before-after {
     @include button-size;
 
-    &:not(.ib-no-hover):hover {
+    &:not( .ib-no-hover ):hover {
         @include button-hover;
     }
 
-    &:not(.ib-no-active):active {
+    &:not( .ib-no-active ):active {
         @include button-active;
     }
 }
@@ -26,8 +26,8 @@ $border: $border-width solid $light-color;
 @mixin button {
     @include button-no-before-after;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         @include button-after-before-setup;
     }
 }
@@ -51,21 +51,21 @@ $border: $border-width solid $light-color;
 
 @mixin left-center {
     left: 50%;
-    transform: translate(-50%);
+    transform: translate( -50% );
 }
 
-@mixin left-center-minus($minus-value) {
-    left: calc(50% - #{$minus-value});
-    transform: translate(-50%);
+@mixin left-center-minus( $minus-value ) {
+    left: calc( 50% - #{$minus-value} );
+    transform: translate( -50% );
 }
 
 @mixin top-center {
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translate( 0, -50% );
 }
 
-@mixin transform-rotate($property) {
-    -webkit-transform: rotate($property);
-    -ms-transform: rotate($property);
-    transform: rotate($property);
+@mixin transform-rotate( $property ) {
+    -webkit-transform: rotate( $property );
+    -ms-transform: rotate( $property );
+    transform: rotate( $property );
 }

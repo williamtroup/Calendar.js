@@ -23,8 +23,9 @@ Below is the format that is expected for an event object when calling "addEvents
 | *Object* | repeatEnds | The date when a repeating series should end. |
 | *string* | group | The name of the group the event belongs to. |
 | *string* | url | The URL that is associated with the event. |
-| *number* | repeatEveryCustomType | States the custom repeating period (0 = Daily, 1 = Weekly, 2 = Monthly, 3 = Yearly). |
+| *number* | repeatEveryCustomType | States the custom repeating period (0: Daily, 1: Weekly, 2: Monthly, 3: Yearly) |
 | *number* | repeatEveryCustomValue | States the custom repeating period value (for example, 1 day, week, month, or year). |
 | *Object* | lastUpdated | The date that the event was last updated. |
 | *boolean* | showAlerts | States if browser notifications should be shown for this event (defaults to true). |
 | *boolean* | locked | States if this event is locked and cannot be edited (it can still be removed, defaults to false). |
+| *number* | type | States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task). |

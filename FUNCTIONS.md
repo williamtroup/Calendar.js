@@ -234,6 +234,35 @@ Returns an event that matches the ID passed.
 
 
 <br>
+<h1>Add/Remove Event Types:</h1>
+
+### **addEventType( *[id]*, *[text]* )**:
+Adds a new event type.
+<br>
+***Parameter: id***: '*number*' - The ID for the event type.
+<br>
+***Parameter: text***: '*string*' - The text for the event type.
+<br>
+***Returns***: '*boolean*' - States if the event type was added.
+
+### **removeEventType( *[id]* )**:
+Removes an event type.
+<br>
+***Parameter: id***: '*number*' - The ID for the event type to remove.
+<br>
+***Returns***: '*boolean*' - States if the event type was removed.
+
+### **setVisibleEventTypes( *[ids]*, *[triggerEvent]* )**:
+Set which events types are visible.
+<br>
+***Fires***:  onVisibleEventTypesChanged
+<br>
+***Parameter: ids***: '*number[]*' - The IDs of the event types to make visible.
+<br>
+***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleEventTypesChanged" event should be triggered (defaults to true).
+
+
+<br>
 <h1>Add/Remove Groups:</h1>
 
 ### **getAllGroups()**:
@@ -260,6 +289,15 @@ Removes a group by name.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onGroupRemoved" event should be triggered (defaults to true).
+
+### **setVisibleGroups( *[groupNames]*, *[triggerEvent]* )**:
+Set which groups are visible.
+<br>
+***Fires***:  onVisibleGroupsChanged
+<br>
+***Parameter: groupNames***: '*string[]*' - The names of the groups to make visible.
+<br>
+***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleGroupsChanged" event should be triggered (defaults to true).
 
 
 <br>

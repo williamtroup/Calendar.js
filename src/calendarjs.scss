@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.7
+ * Calendar.js Library v2.0.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -17,11 +17,11 @@ div.calendar-dialog input,
 div.calendar-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
-    @media screen and (min-width: $minimum-width) {
+    @media screen and ( min-width: $minimum-width ) {
         font-size: $large-font-size;
     }
     
-    @media screen and (max-width: $maximum-width) {
+    @media screen and ( max-width: $maximum-width ) {
         font-size: $small-font-size;
     }
 
@@ -38,8 +38,8 @@ div.calendar-dialog textarea {
         box-sizing: content-box;
         line-height: normal;
 
-        &:before,
-        &:after {
+        &::before,
+        &::after {
             box-sizing: content-box;
             line-height: normal;
         }
@@ -47,11 +47,11 @@ div.calendar-dialog textarea {
 }
 
 div.disabled-background {
-    @include disabled-area(fixed);
+    @include disabled-area( fixed );
 }
 
 div.disabled-area {
-    @include disabled-area(absolute);
+    @include disabled-area( absolute );
     display: none;
 }
 
@@ -68,12 +68,12 @@ div.full-screen-view {
     border: none !important;
 
     div.row-cells {
-        @media screen and (min-width: $minimum-width) {
-            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 4) + (#{$large-font-size} * 2)))) / 6);
+        @media screen and ( min-width: $minimum-width ) {
+            height: calc( ( 100% - ( ( #{$standard-border-size} * 10 ) + ( ( #{$spacing} * 4 ) + ( #{$large-font-size} * 2 ) ) ) ) / 6 );
         }
         
-        @media screen and (max-width: $maximum-width) {
-            height: calc((100% - ((#{$standard-border-size} * 10) + ((#{$spacing} * 3) + (#{$small-font-size} * 2)))) / 6);
+        @media screen and ( max-width: $maximum-width ) {
+            height: calc( ( 100% - ( ( #{$standard-border-size} * 10 ) + ( ( #{$spacing} * 3 ) + ( #{$small-font-size} * 2 ) ) ) ) / 6 );
         }
     }
 
@@ -90,7 +90,7 @@ div.calendar-date-picker {
     position: relative;
 
     input.calendar-date-picker-input {
-        @include input-fields($width: auto, $margin-bottom: 0 !important);
+        @include input-fields( $width: auto, $margin-bottom: 0 !important );
     }
 
     div.calendar-hidden {
@@ -110,14 +110,15 @@ div.calendar-date-picker {
     div.calendar {
         font-size: $small-font-size !important;
         position: absolute;
-        width: 300px;
+        width: 100%;
+        max-width: 330px;
         z-index: 1000;
         box-shadow: 4px 4px 4px #282828;
         margin-top: $standard-border-size;
         margin-left: -$standard-border-size;
 
         div.cell {
-            padding: $spacing / 2 !important;
+            padding: calc( $spacing / 2 ) !important;
         }
 
         div.days {
@@ -130,13 +131,13 @@ div.calendar-date-picker {
                 background-color: $day-date-picker-hover-color !important;
             }
 
-            div.cell:not(.cell-no-click):hover {
+            div.cell:not( .cell-no-click ):hover {
                 cursor: pointer;
                 background-color: $day-date-picker-hover-color;
                 transition: $transition;
             }
 
-            div.cell:not(.cell-no-click):active {
+            div.cell:not( .cell-no-click ):active {
                 @include opacity-active-effect;
             }
         }
@@ -194,19 +195,23 @@ div.calendar {
         background-color: $day-names-color;
     }
 
+    div.working-day {
+        background-color: #eceaea;
+    }
+
     div.drag-over {
-        background-color: rgba(135, 206, 250, 0.4) !important;
+        background-color: rgba( 135, 206, 250, 0.4 ) !important;
         transition: $transition-faster;
     }
 
     div.drag-not-allowed {
-        background: repeating-linear-gradient(
+        background: repeating-linear-gradient( 
             135deg,
             $light-color,
             $light-color $spacing,
             $area-disabled-stripped $spacing,
             $area-disabled-stripped $spacing * 2
-        );
+         );
 
         div.ib-arrow-expand-left-right-icon {
             display: none !important;
@@ -214,13 +219,13 @@ div.calendar {
     }
 
     div.drag-not-allowed-weekend-day {
-        background: repeating-linear-gradient(
+        background: repeating-linear-gradient( 
             135deg,
             $day-names-color,
             $day-names-color $spacing,
             $area-disabled-stripped-weekend-day $spacing,
             $area-disabled-stripped-weekend-day $spacing * 2
-        );
+         );
 
         div.ib-arrow-expand-left-right-icon {
             display: none !important;
@@ -231,7 +236,7 @@ div.calendar {
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate( -50%, -50% );
         text-align: center;
         width: 100%;
         max-width: 300px;
@@ -267,31 +272,31 @@ div.calendar {
         width: 100%;
 
         div.cell-1 {
-            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}));
+            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) );
         }
 
         div.cell-2 {
-            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 2);
+            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 2 );
         }
 
         div.cell-3 {
-            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 3);
+            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 3 );
         }
         
         div.cell-4 {
-            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 4);
+            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 4 );
         }
 
         div.cell-5 {
-            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 5);
+            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 5 );
         }
 
         div.cell-6 {
-            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 6);
+            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 6 );
         }
 
         div.cell-7 {
-            width: calc(100% - (#{$spacing * 2} + #{$standard-border-size}) / 7);
+            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 7 );
         }
 
         div.scrollY {
@@ -306,12 +311,12 @@ div.calendar {
             overflow: hidden;
             color: $dark-color;
 
-            @media screen and (min-width: $minimum-width) {
+            @media screen and ( min-width: $minimum-width ) {
                 padding: $spacing;
             }
             
-            @media screen and (max-width: $maximum-width) {
-                padding: $spacing / 2;
+            @media screen and ( max-width: $maximum-width ) {
+                padding: calc( $spacing / 2 );
             }
 
             div.separator,
@@ -320,7 +325,7 @@ div.calendar {
             }
 
             div.separator {
-                @media screen and (max-width: $maximum-width) {
+                @media screen and ( max-width: $maximum-width ) {
                     display: none;
                 }
             }
@@ -371,7 +376,7 @@ div.calendar {
                     padding: 0 !important;
                 }
 
-                @media screen and (max-width: $maximum-width) {
+                @media screen and ( max-width: $maximum-width ) {
                     &.holiday,
                     &.holiday-link {
                         display: none;
@@ -384,11 +389,11 @@ div.calendar {
             }
 
             &:hover div.ib-arrow-expand-left-right-icon {
-                @media screen and (min-width: $minimum-width) {
+                @media screen and ( min-width: $minimum-width ) {
                     display: block;
                 }
                 
-                @media screen and (max-width: $maximum-width) {
+                @media screen and ( max-width: $maximum-width ) {
                     display: none;
                 }
             }
@@ -400,11 +405,143 @@ div.calendar {
     }
 
     div.ib-arrow-expand-left-right-icon {
-        @include fade-in-effect-animation(2s);
+        @include fade-in-effect-animation( 2s );
         position: absolute;
         right: 5px;
         top: 5px;
         display: none;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Side Menu
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {  
+    div.side-menu-disabled-background {
+        @include disabled-area( absolute );
+        display: none;
+    }
+
+    div.side-menu {
+        position: absolute;
+        padding: $spacing;
+        padding-top: $spacing;
+        height: calc( 100% - ( $spacing * 2 ) );
+        top: 0;
+        color: $light-color !important;
+        z-index: 1500;
+        transition: $transition; 
+        background-color: $dark-color;
+        border-right: $side-menu-right-border-width solid $light-color;
+        border-radius: $border-view-radius;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        @media screen and ( min-width: $minimum-width ) {
+            width: $side-menu-width;
+            left: -( $side-menu-width + $side-menu-right-border-width + ( $spacing * 2 ) );
+        }
+        
+        @media screen and ( max-width: $maximum-width ) {
+            width: $side-menu-width-small;
+            left: -( $side-menu-width-small + $side-menu-right-border-width + ( $spacing * 2 ) );
+        }
+
+        div.main-header {
+            margin: 0 !important;
+            font-weight: 700;
+            height: auto;
+            overflow: auto;
+            
+            @media screen and ( min-width: $minimum-width ) {
+                font-size: 1.2rem;
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                font-size: 1.0rem;
+            }
+
+            p {
+                float: left;
+                margin: 0 !important;
+            }
+
+            div[class^='ib-'] {
+                margin-top: 3px;
+                float: right;
+                margin-left: $spacing;
+            }
+        }
+
+        div.content {
+            div.content-section {
+                margin-top: $spacing;
+                border-radius: $border-view-radius;
+                background-color: #474545;
+                border: $standard-border-size solid #575555;
+                transition: $transition;
+    
+                div.text-header,
+                div.text-header-closed {
+                    position: relative;
+                    padding: $spacing;
+                    margin-top: 0 !important;
+                    margin-bottom: 0;
+                    cursor: pointer;
+
+                    div.ib-arrow-down-full,
+                    div.ib-arrow-up-full {
+                        position: absolute;
+                        right: $spacing;
+                        top: $spacing;
+                        pointer-events: none;
+                    }
+
+                    div.ib-arrow-down-full {
+                        border-top-color: $light-color;
+                    }
+
+                    div.ib-arrow-up-full {
+                        border-bottom-color: $light-color;
+                    }
+                }
+
+                div.text-header {
+                    font-weight: 700;
+                }
+
+                div.checkbox-container {
+                    @include fade-in-effect-animation( 0.5s );
+                    padding-left: $spacing;
+                    padding-right: $spacing;
+                    padding-bottom: $spacing;
+
+                    label.checkbox {
+                        margin-bottom: calc( $spacing / 2 );
+                        margin-left: $spacing;
+                        color: $light-color !important;
+        
+                        span.check-mark {
+                            background-color: $light-color !important;
+        
+                            &::before {
+                                border-color: $dark-color !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    div.side-menu-open {
+        left: 0 !important;
+        transition: $transition;
+        box-shadow: 0 0 10px 10px $dark-color;
     }
 }
 
@@ -423,9 +560,21 @@ div.calendar {
         text-align: center;
         padding-top: $spacing;
         padding-bottom: $spacing;
-        padding-left: $spacing / 2;
-        padding-right: $spacing / 2;
+        padding-left: calc( $spacing / 2 );
+        padding-right: calc( $spacing / 2 );
         position: relative;
+
+        div[class^='ib-'],
+        div.side-menu-button-divider-line {
+            margin-left: calc( $spacing / 2 );
+            margin-right: calc( $spacing / 2 );
+        }
+
+        div.side-menu-button-divider-line {
+            width: 1px;
+            background-color: $light-color;
+            height: 16px;
+        }
 
         div.title-container {
             display: inline-block;
@@ -446,13 +595,13 @@ div.calendar {
             }
 
             div.years-drop-down {
-                @include fade-in-effect-animation(0.5s);
+                @include fade-in-effect-animation( 0.5s );
                 position: absolute;
                 width: 240px;
                 height: 200px;
                 border: $standard-border-size solid $dark-color;
                 left: 50%;
-                transform: translate(-50%);
+                transform: translate( -50% );
                 background-color: $light-color;
                 border-radius: $border-view-radius;
                 z-index: 1500;
@@ -460,16 +609,16 @@ div.calendar {
                 overflow: hidden;
                 font-weight: 500;
 
-                @media screen and (min-width: $minimum-width) {
-                    top: calc(#{$spacing} + #{$large-font-size});
+                @media screen and ( min-width: $minimum-width ) {
+                    top: calc( #{$spacing} + #{$large-font-size} );
                 }
                 
-                @media screen and (max-width: $maximum-width) {
-                    top: calc(#{$spacing} + #{$small-font-size});
+                @media screen and ( max-width: $maximum-width ) {
+                    top: calc( #{$spacing} + #{$small-font-size} );
                 }
     
                 div.contents {
-                    @include word-wrap-with-new-lines();
+                    @include word-wrap-with-new-lines(  );
                     overflow-x: hidden;
                     overflow-y: auto;
                     width: inherit;
@@ -485,7 +634,7 @@ div.calendar {
                         color: $dark-color;
                         font-size: 0.75rem;
                         margin-right: 5px;
-                        width: calc(25% - 17px);
+                        width: calc( 25% - 17px );
                         text-align: center;
                         margin-top: 5px;
                         margin-bottom: 5px;
@@ -499,7 +648,7 @@ div.calendar {
                             transition: $transition;
                         }
     
-                        &:active:not(.year-selected) {
+                        &:active:not( .year-selected ) {
                             @include opacity-active-effect;
                         }
                     }
@@ -518,34 +667,34 @@ div.calendar {
             }
         }
 
-        div {
-            margin-left: $spacing / 2;
-            margin-right: $spacing / 2;
-        }
-
         div.ib-arrow-left-full,
         div.ib-pin,
         div.ib-refresh,
         div.ib-search,
-        div.ib-octagon-hollow {
+        div.ib-octagon-hollow,
+        div.ib-hamburger,
+        div.ib-rewind,
+        div.side-menu-button-divider-line {
             float: left;
         }
 
         div.ib-close,
-        div.ib-hamburger,
+        div.ib-hamburger-side,
         div.ib-eye,
         div.ib-arrow-down-full-line,
         div.ib-plus,
         div.ib-arrow-right-full,
         div.ib-arrow-expand-left-right,
-        div.ib-arrow-contract-left-right {
+        div.ib-arrow-contract-left-right,
+        div.ib-forward {
             float: right;
         }
 
-        @media screen and (min-width: $minimum-width) {
+        @media screen and ( min-width: $minimum-width ) {
             div.ib-refresh,
             div.ib-search,
             div.ib-hamburger,
+            div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow {
@@ -553,10 +702,10 @@ div.calendar {
             }
         }
         
-        @media screen and (max-width: $maximum-width) {
+        @media screen and ( max-width: $maximum-width ) {
             div.ib-refresh,
             div.ib-search,
-            div.ib-hamburger,
+            div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow {
@@ -588,11 +737,11 @@ div.calendar {
                 overflow: hidden;
                 text-overflow: ellipsis;
 
-                @media screen and (min-width: $minimum-width) {
+                @media screen and ( min-width: $minimum-width ) {
                     font-size: 0.7rem !important;
                 }
                 
-                @media screen and (max-width: $maximum-width) {
+                @media screen and ( max-width: $maximum-width ) {
                     font-size: 0.5rem !important;
                 }
 
@@ -601,7 +750,7 @@ div.calendar {
                 }
 
                 div.ib-refresh-small {
-                    margin-right: $spacing / 2;
+                    margin-right: calc( $spacing / 2 );
                 }
             }
 
@@ -635,7 +784,7 @@ div.calendar {
                 display: inline-block;
                 font-size: smaller;
                 text-align: center;
-                margin-top: $spacing / 2;
+                margin-top: calc( $spacing / 2 );
                 margin-left: auto;
                 margin-right: auto;
 
@@ -661,7 +810,7 @@ div.calendar {
 
 div.calendar {
     div.full-day-view {
-        @include full-size-view-display(2);
+        @include full-size-view-display( 2 );
 
         span.holiday {
             font-weight: 300 !important;
@@ -696,7 +845,7 @@ div.calendar {
                 
                 div.event {
                     position: static !important;
-                    margin-left: $time-hours-width + ($spacing * 3) !important;
+                    margin-left: $time-hours-width + ( $spacing * 3 ) !important;
                     margin-top: $spacing;
                     margin-bottom: $spacing;
                 }
@@ -707,8 +856,8 @@ div.calendar {
 
                 div.time-arrow {
                     position: absolute;
-                    width: calc(100% - #{$time-hours-width} - (#{$spacing} * 2) - #{$standard-border-size});
-                    left: $time-hours-width + ($spacing * 2) + $standard-border-size;
+                    width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 2 ) - #{$standard-border-size} );
+                    left: $time-hours-width + ( $spacing * 2 ) + $standard-border-size;
                     top: 0;                    
                     z-index: 10;
                     height: $time-arrow-line-height;
@@ -717,8 +866,8 @@ div.calendar {
                     div.arrow-left {
                         width: 0; 
                         height: 0; 
-                        border-top: $time-arrow-line-height / 2 solid transparent;
-                        border-bottom: $time-arrow-line-height / 2 solid transparent;
+                        border-top: calc( $time-arrow-line-height / 2 ) solid transparent;
+                        border-bottom: calc( $time-arrow-line-height / 2 ) solid transparent;
                         border-right: $time-arrow-line-height solid $link-color;
                     }
 
@@ -726,8 +875,8 @@ div.calendar {
                         background-color: $link-color;
                         position: absolute;
                         left: $time-arrow-line-height;
-                        top: $time-arrow-line-height / 4;
-                        height: $time-arrow-line-height / 2;
+                        top: calc( $time-arrow-line-height / 4 );
+                        height: calc( $time-arrow-line-height / 2 );
                         width: 100%;
                     }
                 }
@@ -737,10 +886,10 @@ div.calendar {
                     border-bottom: $standard-border-size solid $dark-color;
                     position: relative;
 
-                    &:before {
+                    &::before {
                         border-bottom: $standard-border-size dashed $input-border-color;
-                        width: calc(100% - (#{$time-hours-width} + #{$spacing * 2}));
-                        height: ($time-hours-height + $spacing * 2) - $standard-border-size;
+                        width: calc( 100% - ( #{$time-hours-width} + #{$spacing * 2} ) );
+                        height: ( $time-hours-height + $spacing * 2 ) - $standard-border-size;
                         content: '';
                         display: block;
                         position: absolute;
@@ -756,13 +905,13 @@ div.calendar {
                         color: $dark-color;
                         border-right: $standard-border-size solid $dark-color;
                         
-                        &:nth-child(odd) {
+                        &:nth-child( odd ) {
                             background-color: $dark-color;
                             color: $light-color;
                         }
                     }
     
-                    &:nth-child(odd) {
+                    &:nth-child( odd ) {
                         background-color: $day-names-color;
                     }
     
@@ -772,12 +921,12 @@ div.calendar {
                 }
             }
         
-            @media screen and (min-width: $minimum-width) {
-                height: calc(100% - ((#{$spacing} * 2) + #{$large-font-size}));
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
             }
             
-            @media screen and (max-width: $maximum-width) {
-                height: calc(100% - ((#{$spacing} * 2) + #{$small-font-size}));
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
             }
 
             @import "foundation/overlay-event";
@@ -786,8 +935,8 @@ div.calendar {
                 position: absolute;
                 margin-left: 0;
                 margin-right: 0;
-                width: calc(100% - #{$time-hours-width} - (#{$spacing} * 6) - (#{$spacing} / 2));
-                left: $time-hours-width + ($spacing * 3);
+                width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 6 ) - ( #{$spacing} / 2 ) );
+                left: $time-hours-width + ( $spacing * 3 );
                 overflow: hidden;
             }
         }
@@ -824,13 +973,16 @@ div.calendar {
 
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
-                    div.ib-close {
+                    div.ib-close,
+                    div.ib-minus,
+                    div.ib-square-hollow {
                         float: right;
                         margin-left: $spacing;
                     }
                 }
 
                 div.events {
+                    @include fade-in-effect-animation( 0.5s );
                     padding: $spacing;
 
                     @import "foundation/overlay-event";
@@ -880,7 +1032,9 @@ div.calendar {
 
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
-                    div.ib-close {
+                    div.ib-close,
+                    div.ib-minus,
+                    div.ib-square-hollow {
                         float: right;
                         margin-left: $spacing;
                     }
@@ -891,6 +1045,7 @@ div.calendar {
                 }
 
                 div.events {
+                    @include fade-in-effect-animation( 0.5s );
                     padding: $spacing;
 
                     @import "foundation/overlay-event";
@@ -912,7 +1067,7 @@ div.calendar {
 */
 
 div.event-editor {
-    @include dialog-styles(420px);
+    @include dialog-styles( 420px );
 
     div.tab-content {
         height: 258px;
@@ -944,7 +1099,7 @@ div.event-editor {
             padding: $spacing;
         }
         
-        input:not([type="button"]),
+        input:not( [type="button"] ),
         textarea {
             @include input-fields;
         }
@@ -978,11 +1133,11 @@ div.event-editor {
         
         input[type="button"] {
             @include dialog-button-styles;
-            @include button(ok, $light-color, $ok-color);
-            @include button(cancel, $light-color, $alert-color);
-            @include button(remove, $light-color, $dark-color);
-            @include button(select-colors, $light-color, #6c757d);
-            @include button(repeat-options, $light-color, #6c757d);
+            @include button( ok, $light-color, $ok-color );
+            @include button( cancel, $light-color, $alert-color );
+            @include button( remove, $light-color, $dark-color );
+            @include button( select-colors, $light-color, #6c757d );
+            @include button( repeat-options, $light-color, #6c757d );
 
             &.remove {
                 margin-top: $spacing;
@@ -1012,7 +1167,7 @@ div.event-editor {
 */
 
 div.event-editor-colors {
-    @include dialog-styles(250px);
+    @include dialog-styles( 250px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1027,7 +1182,7 @@ div.event-editor-colors {
     
     input[type="color"],
     input[type="text"] {
-        @include input-fields(40px);
+        @include input-fields( 40px );
     }
 
     @import "foundation/split-container";
@@ -1038,8 +1193,8 @@ div.event-editor-colors {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
+        @include button( ok, $light-color, $ok-color );
+        @include button( cancel, $light-color, $alert-color );
     }
 }
 
@@ -1051,7 +1206,7 @@ div.event-editor-colors {
 */
 
 div.event-editor-repeat-options {
-    @include dialog-styles(250px);
+    @include dialog-styles( 250px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1069,25 +1224,29 @@ div.event-editor-repeat-options {
         }
     }
 
-    input:not([type="button"]),
+    input:not( [type="button"] ),
     textarea {
         @include input-fields;
     }
 
+    input[type="date"] {
+        margin-bottom: 0 !important;
+    }
+
     label.checkbox {
-        margin-bottom: $spacing / 2 !important;
+        margin-bottom: calc( $spacing / 2 ) !important;
     }
 
     @import "foundation/split-container";
 
     div.split {
-        margin-top: $spacing + $spacing / 2;
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
+        @include button( ok, $light-color, $ok-color );
+        @include button( cancel, $light-color, $alert-color );
     }
 }
 
@@ -1099,7 +1258,7 @@ div.event-editor-repeat-options {
 */
 
 div.confirmation {
-    @include dialog-styles(330px);
+    @include dialog-styles( 330px );
     @include dialog-title-bar;
 
     div.contents {
@@ -1123,8 +1282,8 @@ div.confirmation {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button(yes, $light-color, $ok-color);
-        @include button(no, $light-color, $alert-color);
+        @include button( yes, $light-color, $ok-color );
+        @include button( no, $light-color, $alert-color );
     }
 }
 
@@ -1136,7 +1295,7 @@ div.confirmation {
 */
 
 div.select-export-type {
-    @include dialog-styles(250px);
+    @include dialog-styles( 250px );
     @include dialog-title-bar;
 
     div.contents {
@@ -1155,8 +1314,8 @@ div.select-export-type {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
+        @include button( ok, $light-color, $ok-color );
+        @include button( cancel, $light-color, $alert-color );
     }
 }
 
@@ -1168,7 +1327,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles(300px, false, 1000);
+    @include dialog-styles( 300px, false, 999 );
     @include dialog-title-bar;
 
     div.contents {
@@ -1179,18 +1338,26 @@ div.search {
             margin-bottom: $spacing;
             overflow-y: visible;
 
+            div.ib-arrow-down-full,
+            div.ib-arrow-up-full {
+                position: absolute;
+                right: $spacing;
+                top: $spacing;
+            }
+
             input {
                 margin-bottom: 0 !important;
+                padding-right: 16px + ( $spacing * 2 );
             }
 
             div.history-dropdown {
                 @include input-style;
                 background-color: $input-background-color;
                 position: absolute;
-                width: calc(100% - 2px);
+                width: calc( 100% - 2px );
                 max-height: 200px;
                 z-index: 2000;
-                border: 1px solid $dark-color !important;
+                border: $standard-border-size solid $dark-color !important;
                 box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size $dark-color;
                 display: none;
                 overflow-x: hidden;
@@ -1229,13 +1396,27 @@ div.search {
         }
 
         div.advanced {
+            @include fade-in-effect-animation( 0.5s );
             background-color: $day-names-color;
             padding: $spacing;
             margin-top: $spacing !important;
             border-radius: $border-view-radius;
+            border: $standard-border-size solid #D0D0D0;
 
             div.split {
                 margin-top: 0 !important;
+
+                div.checkbox-container {
+                    label.checkbox {
+                        margin-left: $spacing;
+                    }
+                }
+
+                div.radio-buttons-container {
+                    label.radio-button {
+                        margin-left: $spacing;
+                    }
+                }
             }
         }
     }
@@ -1247,13 +1428,13 @@ div.search {
     @import "foundation/split-container";
 
     div.split:last-child {
-        margin-top: $spacing + $spacing / 2;
+        margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button(next, $light-color, $ok-color);
-        @include button(previous, $light-color, #6c757d);
+        @include button( next, $light-color, $ok-color );
+        @include button( previous, $light-color, #6c757d );
         
         &.cancel {
             margin-top: $spacing;
@@ -1280,7 +1461,7 @@ div.search {
 */
 
 div.configuration {
-    @include dialog-styles(400px);
+    @include dialog-styles( 400px );
     @include dialog-title-bar;
 
     div.contents {
@@ -1310,8 +1491,8 @@ div.configuration {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button(ok, $light-color, $ok-color);
-        @include button(cancel, $light-color, $alert-color);
+        @include button( ok, $light-color, $ok-color );
+        @include button( cancel, $light-color, $alert-color );
     }
 }
 
@@ -1331,13 +1512,15 @@ div.calendar-dialog {
         border-bottom: none !important;
         text-align: center;
         display: inline-block;
-        margin-left: $spacing / 2;
+        margin-left: calc( $spacing / 2 );
+        vertical-align: bottom;
     }
 
     div.tab-control-selected {
         border: $standard-border-size solid $dark-color;
         background-color: $dark-color;
         color: $light-color;
+        padding: $spacing + calc( $spacing / 4 );
     }
 
     div.tab-control {
@@ -1352,7 +1535,7 @@ div.calendar-dialog {
         }
 
         &:active {
-            @include opacity-active-effect(0.7);
+            @include opacity-active-effect( 0.7 );
         }
     }
 
@@ -1363,7 +1546,8 @@ div.calendar-dialog {
     }
 
     div.tab-content {
-        border: 1px solid $input-border-color;
+        @include fade-in-effect-animation( 0.5s );
+        border: $standard-border-size solid $input-border-color;
         border-radius: $border-view-radius;
         padding: $spacing;
         overflow-x: hidden;
@@ -1379,12 +1563,13 @@ div.calendar-dialog {
 */
 
 div.calendar,
-div.calendar-dialog {
+div.calendar-dialog,
+div.calendar div.side-menu {
     $checkbox-size-with-spacing: 25px;
 
     div.checkbox-container {
         label.checkbox {
-            margin-bottom: $spacing / 2 !important;
+            margin-bottom: calc( $spacing / 2 ) !important;
         }
 
         div:last-child label.checkbox {
@@ -1413,11 +1598,11 @@ div.calendar-dialog {
             display: none !important;
 
             &:checked ~ span.check-mark {
-                background-color: $dark-color !important;
-                border: $standard-border-size solid $dark-color !important;
+                background-color: $dark-color;
+                border: $standard-border-size solid $dark-color;
             }
 
-            &:checked ~ span.check-mark:before {
+            &:checked ~ span.check-mark::before {
                 display: block;
             }
 
@@ -1442,8 +1627,8 @@ div.calendar-dialog {
             border: $standard-border-size solid $input-border-color;
             transition: $transition;
 
-            &:before {
-                @include transform(rotate(45deg));
+            &::before {
+                @include transform( rotate( 45deg ) );
                 content: "";
                 position: absolute;
                 display: none;
@@ -1480,7 +1665,7 @@ div.calendar-dialog {
     }
 
     div.radio-button-container {
-        margin-bottom: $spacing / 2;
+        margin-bottom: calc( $spacing / 2 );
 
         label.radio-button {
             @include no-selection-allowed;
@@ -1498,7 +1683,7 @@ div.calendar-dialog {
                     border: $standard-border-size solid $dark-color !important;
                 }
     
-                &:checked ~ span.check-mark:before {
+                &:checked ~ span.check-mark::before {
                     display: block;
                 }
 
@@ -1523,8 +1708,8 @@ div.calendar-dialog {
                 border: $standard-border-size solid $input-border-color;
                 transition: $transition;
     
-                &:before {
-                    @include transform(rotate(45deg));
+                &::before {
+                    @include transform( rotate( 45deg ) );
                     content: "";
                     position: absolute;
                     display: none;
@@ -1557,22 +1742,32 @@ div.calendar-dialog {
 
 div.calendar-tooltip,
 div.calendar-tooltip-event {
-    @include fade-in-effect-animation(1s);
+    @include fade-in-effect-animation( 1s );
     @include no-selection-allowed;
     position: absolute;
     border: $standard-border-size solid $dark-color;
     border-radius: $border-view-radius;
-    background-color: rgb(238, 232, 170);
+    background-color: rgb( 240, 237, 199 );
     color: $dark-color;
     padding: $spacing;
     display: none;
     z-index: 2000;
+}
+
+div.calendar-tooltip {
+    font-size: smaller !important;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div.calendar-tooltip-event {
+    max-width: 300px;
 
     @include div-label-spacing;
 
     div.title {
         font-weight: 900;
-        width: calc(100% - 24px - #{$spacing});
+        width: calc( 100% - 24px - #{$spacing} );
     }
 
     div.date,
@@ -1595,18 +1790,8 @@ div.calendar-tooltip-event {
     }
 
     div.ib-refresh-medium {
-        margin-right: $spacing / 2;
+        margin-right: calc( $spacing / 2 );
     }
-}
-
-div.calendar-tooltip {
-    font-size: smaller !important;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-div.calendar-tooltip-event {
-    max-width: 300px;
 
     div.title-buttons {
         position: absolute !important;
@@ -1615,7 +1800,7 @@ div.calendar-tooltip-event {
 
         div.ib-close,
         div.ib-plus {
-            margin-left: $spacing / 2;
+            margin-left: calc( $spacing / 2 );
             float: right;
 
             &::before,
@@ -1635,7 +1820,7 @@ div.calendar-tooltip-event {
 
 div.calendar-drop-down-menu {
     @include no-selection-allowed;
-    @include fade-in-effect-animation(0.5s);
+    @include fade-in-effect-animation( 0.5s );
     background-color: #DCDCDC;
     border: $standard-border-size solid $dark-color;
     color: $dark-color;
@@ -1657,19 +1842,20 @@ div.calendar-drop-down-menu {
 
     div.ib-plus-icon,
     div.ib-arrow-expand-left-right-icon,
-    div.ib-hamburger-icon,
+    div.ib-hamburger-side-icon,
     div.ib-close-icon,
     div.ib-arrow-top-right-icon,
     div.ib-circle-hollow-icon,
     div.ib-circle-icon,
     div.ib-minus-icon,
     div.ib-octagon-hollow-icon,
-    div.ib-pipe-icon {
+    div.ib-pipe-icon,
+    div.ib-equals-icon {
         margin-right: $spacing;
     }
 
     div.item {
-        padding: $spacing - $spacing / 5;
+        padding: $spacing - calc( $spacing / 5 );
         padding-right: $spacing * 3;
 
         &:hover {
@@ -1678,24 +1864,26 @@ div.calendar-drop-down-menu {
             transition: $transition;
         }
 
-        &:hover div.ib-plus-icon:before,
-        &:hover div.ib-plus-icon:after,
-        &:hover div.ib-hamburger-icon:before,
-        &:hover div.ib-close-icon:before,
-        &:hover div.ib-close-icon:after,
+        &:hover div.ib-plus-icon::before,
+        &:hover div.ib-plus-icon::after,
+        &:hover div.ib-hamburger-side-icon::before,
+        &:hover div.ib-close-icon::before,
+        &:hover div.ib-close-icon::after,
         &:hover div.ib-circle-icon,
-        &:hover div.ib-minus-icon:before,
-        &:hover div.ib-pipe-icon:before {
+        &:hover div.ib-minus-icon::before,
+        &:hover div.ib-pipe-icon::before,
+        &:hover div.ib-equals-icon::before,
+        &:hover div.ib-equals-icon::after {
             background-color: $light-color;
         }
 
-        &:hover div.ib-hamburger-icon,
-        &:hover div.ib-arrow-expand-left-right-icon:after,
-        &:hover div.ib-arrow-expand-left-right-icon:before,
+        &:hover div.ib-hamburger-side-icon,
+        &:hover div.ib-arrow-expand-left-right-icon::after,
+        &:hover div.ib-arrow-expand-left-right-icon::before,
         &:hover div.ib-arrow-top-right-icon,
         &:hover div.ib-circle-hollow-icon,
-        &:hover div.ib-octagon-hollow-icon:before,
-        &:hover div.ib-octagon-hollow-icon:after {
+        &:hover div.ib-octagon-hollow-icon::before,
+        &:hover div.ib-octagon-hollow-icon::after {
             border-color: $light-color;
         }
 
@@ -1760,17 +1948,17 @@ div.calendar-drop-down-menu {
 @keyframes focused-event-effect {
     0% {
         box-shadow: 0 0 0 0 $alert-color;
-        box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
+        box-shadow: 0 0 0 0 rgba( 198, 0, 0, 0.5 );
     }
 
     70% {
         box-shadow: 0 0 0 10px $alert-color;
-        box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
+        box-shadow: 0 0 0 10px rgba( 198, 0, 0, 0 );
     }
 
     100% {
         box-shadow: 0 0 0 0 $alert-color;
-        box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba( 198, 0, 0, 0 );
     }
 }
 
@@ -1786,6 +1974,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/refresh";
 @import "foundation/buttons/search";
 @import "foundation/buttons/hamburger";
+@import "foundation/buttons/hamburger-side";
 @import "foundation/buttons/eye";
 @import "foundation/buttons/arrow-down-full-line";
 @import "foundation/buttons/plus";
@@ -1796,8 +1985,13 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-expand-left-right";
 @import "foundation/buttons/arrow-contract-left-right";
 @import "foundation/buttons/octagon-hollow";
+@import "foundation/buttons/rewind";
+@import "foundation/buttons/forward";
+@import "foundation/buttons/arrow-down-full";
+@import "foundation/buttons/arrow-up-full";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
+@import "foundation/menus/hamburger-side-icon";
 @import "foundation/menus/arrow-expand-left-right-icon";
 @import "foundation/menus/close-icon";
 @import "foundation/menus/arrow-top-right-icon";
@@ -1806,5 +2000,6 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/minus-icon";
 @import "foundation/menus/octagon-hollow-icon";
 @import "foundation/menus/pipe-icon";
+@import "foundation/menus/equals-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";

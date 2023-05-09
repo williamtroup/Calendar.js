@@ -6,17 +6,17 @@
     border-top: $border;
     border-radius: 50%;
 
-    &:before {
+    &::before {
         @include left-center;
         background-color: $light-color;
         width: $border-width;
-        height: calc(100% - #{$border-width} - 2px);
+        height: calc( 100% - #{$border-width} - 2px );
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
         top: 0;
     }
 
-    &:after {
+    &::after {
         @include left-center;
         background-color: $light-color;
         width: $border-width;

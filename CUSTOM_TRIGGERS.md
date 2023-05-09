@@ -1,4 +1,4 @@
-# Calendar.js - Functions:
+# Calendar.js - Custom Triggers:
 
 Below is a list of all the custom triggers supported in Calendar.js, which are fired when specific actions occur.
 <br>
@@ -84,6 +84,7 @@ Fires when an event URL is clicked.
 <br>
 ***Parameter: url***: '*string*' - The URL clicked.
 
+
 <br>
 <h1>For The Display Date:</h1>
 
@@ -115,6 +116,7 @@ Fires when the calendar date is set manually.
 <br>
 ***Parameter: date***: '*Object*' - The new display date.
 
+
 <br>
 <h1>For Groups:</h1>
 
@@ -125,6 +127,7 @@ Fires when all the groups are cleared from the events.
 Fires when a specific group is removed.
 <br>
 ***Parameter: groupName***: '*string*' - The name of the group.
+
 
 <br>
 <h1>For Options:</h1>
@@ -138,6 +141,7 @@ Fires when the configurable options are updated.
 Fires when the configurable search options are updated.
 <br>
 ***Parameter: options***: '*Search*' - The options.
+
 
 <br>
 <h1>For DatePicker Mode:</h1>
@@ -156,6 +160,7 @@ Fires when the DatePicker is opened.
 Fires when the DatePicker is closed.
 <br>
 ***Parameter: id***: '*string*' - The Id of the DatePicker.
+
 
 <br>
 <h1>For Actions:</h1>
@@ -182,3 +187,17 @@ Fires when the Calendar is refreshed.
 Fires when the Calendar is rendered.
 <br>
 ***Parameter: id***: '*string*' - The Id of the Calendar.
+
+
+<br>
+<h1>For Variability Changes:</h1>
+
+### **options.onVisibleGroupsChanged( *groupNames* )**:
+Fires when the visible groups are changed.
+<br>
+***Parameter: groupNames***: '*string[]*' - The visible group names.
+
+### **options.onVisibleEventTypesChanged( *eventTypeIds* )**:
+Fires when the visible groups are changed.
+<br>
+***Parameter: eventTypeIds***: '*number[]*' - The visible event type IDs.

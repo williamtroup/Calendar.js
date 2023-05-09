@@ -67,6 +67,11 @@
             <button class="btn btn-primary" onclick="removeNewHolidays();">Remove Holidays</button>
             <button class="btn btn-primary" onclick="console.log( calendarInstance.getHolidays() );">Get Holidays</button>
             <br />
+
+            <h2>Event Types:</h2>
+            <button class="btn btn-primary" onclick="addEventType();">Add Event Type</button>
+            <button class="btn btn-primary" onclick="removeEventType();">Remove Event Type</button>
+            <br />
     
             <h2>Main Controls:</h2>
             <button class="btn btn-primary" onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
@@ -101,7 +106,8 @@
             },
             onEventDragStart: onDragEventStart,
             onEventDragStop: onDragEventStop,
-            onEventDragDrop: onDragEventDrop
+            onEventDragDrop: onDragEventDrop,
+            workingDays: [ 3 ]
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
@@ -113,6 +119,14 @@
             calendarInstance.setOptions( {
                 eventNotificationsEnabled: true
             } );
+        }
+
+        function addEventType() {
+            console.log( "Event type added: " + calendarInstance.addEventType( 5, "A New Event Type" ) );
+        }
+
+        function removeEventType() {
+            console.log( "Event type removed: " + calendarInstance.removeEventType( 5 ) );
         }
 
         function setEvents() {
@@ -241,7 +255,8 @@
                     title: "Overlapping Event 1",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1"
+                    group: "Group 1",
+                    type: 1
                 },
                 {
                     from: overlappingEvent2,
@@ -249,7 +264,8 @@
                     title: "Overlapping Event 2",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1"
+                    group: "Group 1",
+                    type: 1
                 },
                 {
                     from: overlappingEvent3,
@@ -257,7 +273,8 @@
                     title: "Overlapping Event 3",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1"
+                    group: "Group 1",
+                    type: 1
                 },
                 {
                     from: overlappingEvent4,
@@ -265,7 +282,8 @@
                     title: "Overlapping Event 4",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1"
+                    group: "Group 1",
+                    type: 1
                 },
                 {
                     from: overlappingEvent5,
@@ -273,7 +291,8 @@
                     title: "Overlapping Event 5",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1"
+                    group: "Group 1",
+                    type: 1
                 },
                 {
                     from: previousYear,
@@ -282,7 +301,8 @@
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
                     isAllDay: true,
-                    group: "Group 2"
+                    group: "Group 2",
+                    type: 2
                 },
                 {
                     from: nextYear,
@@ -291,7 +311,8 @@
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
                     isAllDay: true,
-                    group: "Group 2"
+                    group: "Group 2",
+                    type: 2
                 },
                 {
                     from: previousDay,
@@ -306,7 +327,8 @@
                     repeatEvery: 5,
                     id: "1234-5678-9",
                     group: "Group 1",
-                    locked: true
+                    locked: true,
+                    type: 3
                 },
                 {
                     from: today11,
@@ -324,7 +346,8 @@
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
                     isAllDay: false,
-                    group: "group 1"
+                    group: "group 1",
+                    type: 0
                 },
                 {
                     from: today9,
@@ -334,7 +357,8 @@
                     location: "Teams Meeting",
                     isAllDay: true,
                     group: "Group 1",
-                    url: "https://www.google.com/"
+                    url: "https://www.google.com/",
+                    type: 4
                 },
                 {
                     from: firstDayInNextMonth,
@@ -345,7 +369,8 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 4
+                    repeatEvery: 4,
+                    type: 0
                 },
                 {
                     from: firstDayInNextMonth,
@@ -356,7 +381,8 @@
                     isAllDay: true,
                     color: "#00FF00",
                     colorText: "#FF0000",
-                    repeatEvery: 4
+                    repeatEvery: 4,
+                    type: 0
                 },
                 {
                     from: lastDayInNextMonth,
@@ -366,7 +392,8 @@
                     location: "Teams Meeting",
                     isAllDay: true,
                     color: "#0000FF",
-                    repeatEvery: 2
+                    repeatEvery: 2,
+                    type: 0
                 },
                 {
                     from: today,
@@ -376,7 +403,8 @@
                     repeatEvery: 1,
                     repeatEveryExcludeDays: [ 6, 0 ],
                     repeatEnds: new Date( today.getFullYear() + 1, 0, 1 ),
-                    group: "Group 1"
+                    group: "Group 1",
+                    type: 0
                 }
             ];
         }

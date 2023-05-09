@@ -1,6 +1,16 @@
 @import "../buttons/button";
 
 $size: 12px;
-$border-width: $size / 4;
+$border-width: calc( $size / 4 );
 $border-radius: $border-width;
 $border: $border-width solid $dark-color;
+
+@mixin top-center-minus($minus-value) {
+    top: calc(50% - #{$minus-value});
+    transform: translate(0, -50%);
+}
+
+@mixin top-center-add($add-value) {
+    top: calc(50% + #{$add-value});
+    transform: translate(0, -50%);
+}

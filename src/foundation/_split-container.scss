@@ -3,9 +3,9 @@ div.split {
     select,
     div.split-contents,
     p {
-        width: calc(50% - (#{$spacing} / 2));
-        margin-right: $spacing / 2;
-        margin-left: $spacing / 2;
+        width: calc( 50% - ( #{$spacing} / 2 ) );
+        margin-right: calc( $spacing / 2 );
+        margin-left: calc( $spacing / 2 );
         display: inline-block;
         vertical-align: top;
 

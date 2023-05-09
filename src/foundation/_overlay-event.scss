@@ -33,7 +33,7 @@ div.event {
     }
 
     div.ib-refresh-medium {
-        margin-right: $spacing / 2;
+        margin-right: calc( $spacing / 2 );
     }
 
     &:last-child {

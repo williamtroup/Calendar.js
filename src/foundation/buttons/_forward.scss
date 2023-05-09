@@ -1,0 +1,25 @@
+@import "button";
+
+.ib-forward {
+    @include button;
+
+    &::before {
+        width: 0; 
+        height: 0; 
+        border-top: calc( $size / 2 ) solid transparent;
+        border-bottom: calc( $size / 2 ) solid transparent;
+        border-left: calc( $size / 2 ) solid $light-color;
+        right: 0;
+        top: 0;
+    }
+
+    &::after {
+        width: 0; 
+        height: 0; 
+        border-top: calc( $size / 2 ) solid transparent;
+        border-bottom: calc( $size / 2 ) solid transparent;
+        border-left: calc( $size / 2 ) solid $light-color;
+        left: 0;
+        top: 0;
+    }
+}

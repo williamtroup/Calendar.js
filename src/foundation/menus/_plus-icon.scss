@@ -3,7 +3,7 @@
 .ib-plus-icon {
     @include button-size;
 
-    &:before {
+    &::before {
         @include button-after-before-setup;
         @include left-center;
         background-color: $dark-color;
@@ -13,7 +13,7 @@
         top: 0;
     }
 
-    &:after {
+    &::after {
         @include button-after-before-setup;
         @include top-center;
         background-color: $dark-color;

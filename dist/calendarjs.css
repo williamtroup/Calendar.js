@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v1.8.7
+ * Calendar.js Library v2.0.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -64,19 +64,19 @@ div.calendar-dialog textarea * {
   box-sizing: content-box;
   line-height: normal;
 }
-div.calendar *:before, div.calendar *:after,
-div.calendar-tooltip *:before,
-div.calendar-tooltip *:after,
-div.calendar-tooltip-event *:before,
-div.calendar-tooltip-event *:after,
-div.calendar-drop-down-menu *:before,
-div.calendar-drop-down-menu *:after,
-div.calendar-dialog *:before,
-div.calendar-dialog *:after,
-div.calendar-dialog input *:before,
-div.calendar-dialog input *:after,
-div.calendar-dialog textarea *:before,
-div.calendar-dialog textarea *:after {
+div.calendar *::before, div.calendar *::after,
+div.calendar-tooltip *::before,
+div.calendar-tooltip *::after,
+div.calendar-tooltip-event *::before,
+div.calendar-tooltip-event *::after,
+div.calendar-drop-down-menu *::before,
+div.calendar-drop-down-menu *::after,
+div.calendar-dialog *::before,
+div.calendar-dialog *::after,
+div.calendar-dialog input *::before,
+div.calendar-dialog input *::after,
+div.calendar-dialog textarea *::before,
+div.calendar-dialog textarea *::after {
   box-sizing: content-box;
   line-height: normal;
 }
@@ -121,12 +121,12 @@ div.full-screen-view {
 }
 @media screen and (min-width: 451px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - ((1px * 10) + (10px * 4) + (0.9rem * 2))) / 6);
+    height: calc((100% - (( 1px * 10 ) + ( 10px * 4 ) + ( 0.9rem * 2 ))) / 6);
   }
 }
 @media screen and (max-width: 450px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - ((1px * 10) + (10px * 3) + (0.7rem * 2))) / 6);
+    height: calc((100% - (( 1px * 10 ) + ( 10px * 3 ) + ( 0.7rem * 2 ))) / 6);
   }
 }
 div.full-screen-view div.header-days {
@@ -175,7 +175,8 @@ div.calendar-date-picker div.header-date div.title-container {
 div.calendar-date-picker div.calendar {
   font-size: 0.7rem !important;
   position: absolute;
-  width: 300px;
+  width: 100%;
+  max-width: 330px;
   z-index: 1000;
   box-shadow: 4px 4px 4px #282828;
   margin-top: 1px;
@@ -248,6 +249,9 @@ div.calendar div.header-days {
 div.calendar div.weekend-day {
   background-color: #E0E0E0;
 }
+div.calendar div.working-day {
+  background-color: #eceaea;
+}
 div.calendar div.drag-over {
   background-color: rgba(135, 206, 250, 0.4) !important;
   transition: all 0.2s;
@@ -303,25 +307,25 @@ div.calendar div.row-cells {
   width: 100%;
 }
 div.calendar div.row-cells div.cell-1 {
-  width: calc(100% - (20px + 1px));
+  width: calc(100% - ( 20px + 1px ));
 }
 div.calendar div.row-cells div.cell-2 {
-  width: calc(100% - (20px + 1px) / 2);
+  width: calc(100% - ( 20px + 1px ) / 2);
 }
 div.calendar div.row-cells div.cell-3 {
-  width: calc(100% - (20px + 1px) / 3);
+  width: calc(100% - ( 20px + 1px ) / 3);
 }
 div.calendar div.row-cells div.cell-4 {
-  width: calc(100% - (20px + 1px) / 4);
+  width: calc(100% - ( 20px + 1px ) / 4);
 }
 div.calendar div.row-cells div.cell-5 {
-  width: calc(100% - (20px + 1px) / 5);
+  width: calc(100% - ( 20px + 1px ) / 5);
 }
 div.calendar div.row-cells div.cell-6 {
-  width: calc(100% - (20px + 1px) / 6);
+  width: calc(100% - ( 20px + 1px ) / 6);
 }
 div.calendar div.row-cells div.cell-7 {
-  width: calc(100% - (20px + 1px) / 7);
+  width: calc(100% - ( 20px + 1px ) / 7);
 }
 div.calendar div.row-cells div.scrollY {
   overflow-y: auto !important;
@@ -421,6 +425,136 @@ div.calendar div.ib-arrow-expand-left-right-icon {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Layout - Side Menu
+    -------------------------------------------------------------------------
+*/
+div.calendar div.side-menu-disabled-background {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  position: absolute;
+  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+}
+div.calendar div.side-menu {
+  position: absolute;
+  padding: 10px;
+  padding-top: 10px;
+  height: calc(100% - 20px);
+  top: 0;
+  color: #F5F5F5 !important;
+  z-index: 1500;
+  transition: all 0.3s;
+  background-color: #282828;
+  border-right: 5px solid #F5F5F5;
+  border-radius: 0.25rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.side-menu {
+    width: 250px;
+    left: -275px;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.side-menu {
+    width: 200px;
+    left: -225px;
+  }
+}
+div.calendar div.side-menu div.main-header {
+  margin: 0 !important;
+  font-weight: 700;
+  height: auto;
+  overflow: auto;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.side-menu div.main-header {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.side-menu div.main-header {
+    font-size: 1rem;
+  }
+}
+div.calendar div.side-menu div.main-header p {
+  float: left;
+  margin: 0 !important;
+}
+div.calendar div.side-menu div.main-header div[class^=ib-] {
+  margin-top: 3px;
+  float: right;
+  margin-left: 10px;
+}
+div.calendar div.side-menu div.content div.content-section {
+  margin-top: 10px;
+  border-radius: 0.25rem;
+  background-color: #474545;
+  border: 1px solid #575555;
+  transition: all 0.3s;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed {
+  position: relative;
+  padding: 10px;
+  margin-top: 0 !important;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  pointer-events: none;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full {
+  border-top-color: #F5F5F5;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
+  border-bottom-color: #F5F5F5;
+}
+div.calendar div.side-menu div.content div.content-section div.text-header {
+  font-weight: 700;
+}
+div.calendar div.side-menu div.content div.content-section div.checkbox-container {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox {
+  margin-bottom: 5px;
+  margin-left: 10px;
+  color: #F5F5F5 !important;
+}
+div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox span.check-mark {
+  background-color: #F5F5F5 !important;
+}
+div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox span.check-mark::before {
+  border-color: #282828 !important;
+}
+div.calendar div.side-menu-open {
+  left: 0 !important;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px 10px #282828;
+}
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Layout - Date Header
     -------------------------------------------------------------------------
 */
@@ -434,6 +568,16 @@ div.calendar div.header-date {
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
+}
+div.calendar div.header-date div[class^=ib-],
+div.calendar div.header-date div.side-menu-button-divider-line {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.calendar div.header-date div.side-menu-button-divider-line {
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
 }
 div.calendar div.header-date div.title-container {
   display: inline-block;
@@ -475,12 +619,12 @@ div.calendar div.header-date div.title-container div.years-drop-down {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.header-date div.title-container div.years-drop-down {
-    top: calc(10px + 0.9rem);
+    top: calc( 10px + 0.9rem );
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.header-date div.title-container div.years-drop-down {
-    top: calc(10px + 0.7rem);
+    top: calc( 10px + 0.7rem );
   }
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents {
@@ -529,31 +673,32 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   background-color: #DCDCDC;
   color: #282828;
 }
-div.calendar div.header-date div {
-  margin-left: 5px;
-  margin-right: 5px;
-}
 div.calendar div.header-date div.ib-arrow-left-full,
 div.calendar div.header-date div.ib-pin,
 div.calendar div.header-date div.ib-refresh,
 div.calendar div.header-date div.ib-search,
-div.calendar div.header-date div.ib-octagon-hollow {
+div.calendar div.header-date div.ib-octagon-hollow,
+div.calendar div.header-date div.ib-hamburger,
+div.calendar div.header-date div.ib-rewind,
+div.calendar div.header-date div.side-menu-button-divider-line {
   float: left;
 }
 div.calendar div.header-date div.ib-close,
-div.calendar div.header-date div.ib-hamburger,
+div.calendar div.header-date div.ib-hamburger-side,
 div.calendar div.header-date div.ib-eye,
 div.calendar div.header-date div.ib-arrow-down-full-line,
 div.calendar div.header-date div.ib-plus,
 div.calendar div.header-date div.ib-arrow-right-full,
 div.calendar div.header-date div.ib-arrow-expand-left-right,
-div.calendar div.header-date div.ib-arrow-contract-left-right {
+div.calendar div.header-date div.ib-arrow-contract-left-right,
+div.calendar div.header-date div.ib-forward {
   float: right;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.header-date div.ib-refresh,
   div.calendar div.header-date div.ib-search,
   div.calendar div.header-date div.ib-hamburger,
+  div.calendar div.header-date div.ib-hamburger-side,
   div.calendar div.header-date div.ib-eye,
   div.calendar div.header-date div.ib-arrow-down-full-line,
   div.calendar div.header-date div.ib-octagon-hollow {
@@ -563,7 +708,7 @@ div.calendar div.header-date div.ib-arrow-contract-left-right {
 @media screen and (max-width: 450px) {
   div.calendar div.header-date div.ib-refresh,
   div.calendar div.header-date div.ib-search,
-  div.calendar div.header-date div.ib-hamburger,
+  div.calendar div.header-date div.ib-hamburger-side,
   div.calendar div.header-date div.ib-eye,
   div.calendar div.header-date div.ib-arrow-down-full-line,
   div.calendar div.header-date div.ib-octagon-hollow {
@@ -665,7 +810,7 @@ div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
 }
 div.calendar div.full-day-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc( 100% - 10px );
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -674,6 +819,12 @@ div.calendar div.full-day-view div.title-bar {
   background-color: #282828;
   color: #F5F5F5;
   text-align: center;
+}
+div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
 }
 div.calendar div.full-day-view div.title-bar div.title {
   font-weight: 900 !important;
@@ -687,7 +838,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-day-view div.title-bar div.ib-pin,
 div.calendar div.full-day-view div.title-bar div.ib-refresh,
 div.calendar div.full-day-view div.title-bar div.ib-search,
-div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow {
+div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.full-day-view div.title-bar div.ib-hamburger {
   float: left;
 }
 div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
@@ -757,7 +909,7 @@ div.calendar div.full-day-view div.contents div.contents-events {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
-  width: calc(100% - 70px - (10px * 2) - 1px);
+  width: calc( 100% - 70px - ( 10px * 2 ) - 1px );
   left: 91px;
   top: 0;
   z-index: 10;
@@ -784,9 +936,9 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
   border-bottom: 1px solid #282828;
   position: relative;
 }
-div.calendar div.full-day-view div.contents div.contents-events div.hour:before {
+div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
   border-bottom: 1px dashed #A8A8A8;
-  width: calc(100% - (70px + 20px));
+  width: calc(100% - ( 70px + 20px ));
   height: 54px;
   content: "";
   display: block;
@@ -814,12 +966,12 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:last-ch
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 2) + 0.9rem));
+    height: calc(100% - ( ( 10px * 2 ) + 0.9rem ));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ((10px * 2) + 0.7rem));
+    height: calc(100% - ( ( 10px * 2 ) + 0.7rem ));
   }
 }
 div.calendar div.full-day-view div.contents div.expired {
@@ -869,7 +1021,7 @@ div.calendar div.full-day-view div.contents div.event {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
-  width: calc(100% - 70px - (10px * 6) - (10px / 2));
+  width: calc( 100% - 70px - ( 10px * 6 ) - ( 10px / 2 ) );
   left: 100px;
   overflow: hidden;
 }
@@ -891,7 +1043,7 @@ div.calendar div.list-all-events-view {
   visibility: hidden;
 }
 div.calendar div.list-all-events-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc( 100% - 10px );
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -900,6 +1052,12 @@ div.calendar div.list-all-events-view div.title-bar {
   background-color: #282828;
   color: #F5F5F5;
   text-align: center;
+}
+div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
 }
 div.calendar div.list-all-events-view div.title-bar div.title {
   font-weight: 900 !important;
@@ -913,7 +1071,8 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-events-view div.title-bar div.ib-pin,
 div.calendar div.list-all-events-view div.title-bar div.ib-refresh,
 div.calendar div.list-all-events-view div.title-bar div.ib-search,
-div.calendar div.list-all-events-view div.title-bar div.ib-octagon-hollow {
+div.calendar div.list-all-events-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.list-all-events-view div.title-bar div.ib-hamburger {
   float: left;
 }
 div.calendar div.list-all-events-view div.title-bar div.ib-arrow-down-full-line,
@@ -954,16 +1113,16 @@ div.calendar div.list-all-events-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
 }
 @media screen and (min-width: 451px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.list-all-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
   }
 }
 div.calendar div.list-all-events-view div.contents div.month {
@@ -980,11 +1139,18 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
 }
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right,
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus,
-div.calendar div.list-all-events-view div.contents div.month div.header div.ib-close {
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-close,
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-minus,
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-square-hollow {
   float: right;
   margin-left: 10px;
 }
 div.calendar div.list-all-events-view div.contents div.month div.events {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   padding: 10px;
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.expired {
@@ -1051,7 +1217,7 @@ div.calendar div.list-all-week-events-view {
   visibility: hidden;
 }
 div.calendar div.list-all-week-events-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc( 100% - 10px );
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1060,6 +1226,12 @@ div.calendar div.list-all-week-events-view div.title-bar {
   background-color: #282828;
   color: #F5F5F5;
   text-align: center;
+}
+div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+  width: 1px;
+  background-color: #F5F5F5;
+  height: 16px;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.title {
   font-weight: 900 !important;
@@ -1073,7 +1245,8 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-pin,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-refresh,
 div.calendar div.list-all-week-events-view div.title-bar div.ib-search,
-div.calendar div.list-all-week-events-view div.title-bar div.ib-octagon-hollow {
+div.calendar div.list-all-week-events-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.list-all-week-events-view div.title-bar div.ib-hamburger {
   float: left;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-down-full-line,
@@ -1114,16 +1287,16 @@ div.calendar div.list-all-week-events-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
 }
 @media screen and (min-width: 451px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.9rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.list-all-week-events-view div.contents {
-    height: calc(100% - ((10px * 4) + 0.7rem) - 1px);
+    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
   }
 }
 div.calendar div.list-all-week-events-view div.contents div.no-events-text {
@@ -1145,7 +1318,9 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-plus,
-div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-close {
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-close,
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-minus,
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-square-hollow {
   float: right;
   margin-left: 10px;
 }
@@ -1153,6 +1328,11 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header div.i
   display: none;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   padding: 10px;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.expired {
@@ -1208,7 +1388,7 @@ div.calendar div.list-all-week-events-view div.contents div.day:last-child {
     -------------------------------------------------------------------------
 */
 div.event-editor {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 420px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1323,7 +1503,7 @@ div.event-editor div.view div.split input,
 div.event-editor div.view div.split select,
 div.event-editor div.view div.split div.split-contents,
 div.event-editor div.view div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -1460,7 +1640,7 @@ div.event-editor div.view input[type=button].repeat-options {
     -------------------------------------------------------------------------
 */
 div.event-editor-colors {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 250px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1535,7 +1715,7 @@ div.event-editor-colors div.split input,
 div.event-editor-colors div.split select,
 div.event-editor-colors div.split div.split-contents,
 div.event-editor-colors div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -1617,7 +1797,7 @@ div.event-editor-colors input[type=button].cancel:not(:disabled):active {
     -------------------------------------------------------------------------
 */
 div.event-editor-repeat-options {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 250px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1691,6 +1871,9 @@ div.event-editor-repeat-options input:not([type=button]):not(:disabled):hover,
 div.event-editor-repeat-options textarea:not(:disabled):hover {
   border: 1px solid #282828;
 }
+div.event-editor-repeat-options input[type=date] {
+  margin-bottom: 0 !important;
+}
 div.event-editor-repeat-options label.checkbox {
   margin-bottom: 5px !important;
 }
@@ -1698,7 +1881,7 @@ div.event-editor-repeat-options div.split input,
 div.event-editor-repeat-options div.split select,
 div.event-editor-repeat-options div.split div.split-contents,
 div.event-editor-repeat-options div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -1720,7 +1903,7 @@ div.event-editor-repeat-options div.split-margin {
   margin-left: 25px;
 }
 div.event-editor-repeat-options div.split {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 div.event-editor-repeat-options input[type=button] {
   -moz-user-select: none;
@@ -1780,7 +1963,7 @@ div.event-editor-repeat-options input[type=button].cancel:not(:disabled):active 
     -------------------------------------------------------------------------
 */
 div.confirmation {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 330px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1828,7 +2011,7 @@ div.confirmation div.split input,
 div.confirmation div.split select,
 div.confirmation div.split div.split-contents,
 div.confirmation div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -1910,7 +2093,7 @@ div.confirmation input[type=button].no:not(:disabled):active {
     -------------------------------------------------------------------------
 */
 div.select-export-type {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 250px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -1952,7 +2135,7 @@ div.select-export-type div.split input,
 div.select-export-type div.split select,
 div.select-export-type div.split div.split-contents,
 div.select-export-type div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2031,7 +2214,7 @@ div.select-export-type input[type=button].cancel:not(:disabled):active {
     -------------------------------------------------------------------------
 */
 div.search {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 300px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -2039,7 +2222,7 @@ div.search {
   position: fixed;
   display: none;
   box-shadow: 4px 4px 4px #282828;
-  z-index: 1000;
+  z-index: 999;
 }
 div.search div.ib-close {
   float: right;
@@ -2065,8 +2248,15 @@ div.search div.contents div.history-container {
   margin-bottom: 10px;
   overflow-y: visible;
 }
+div.search div.contents div.history-container div.ib-arrow-down-full,
+div.search div.contents div.history-container div.ib-arrow-up-full {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 div.search div.contents div.history-container input {
   margin-bottom: 0 !important;
+  padding-right: 36px;
 }
 div.search div.contents div.history-container div.history-dropdown {
   border: 1px solid #A8A8A8;
@@ -2115,13 +2305,25 @@ div.search div.contents p {
   margin-bottom: 8px;
 }
 div.search div.contents div.advanced {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   background-color: #E0E0E0;
   padding: 10px;
   margin-top: 10px !important;
   border-radius: 0.25rem;
+  border: 1px solid #D0D0D0;
 }
 div.search div.contents div.advanced div.split {
   margin-top: 0 !important;
+}
+div.search div.contents div.advanced div.split div.checkbox-container label.checkbox {
+  margin-left: 10px;
+}
+div.search div.contents div.advanced div.split div.radio-buttons-container label.radio-button {
+  margin-left: 10px;
 }
 div.search input[type=text] {
   border: 1px solid #A8A8A8;
@@ -2151,7 +2353,7 @@ div.search div.split input,
 div.search div.split select,
 div.search div.split div.split-contents,
 div.search div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2173,7 +2375,7 @@ div.search div.split-margin {
   margin-left: 25px;
 }
 div.search div.split:last-child {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 div.search input[type=button] {
   -moz-user-select: none;
@@ -2245,7 +2447,7 @@ div.search div.ib-square-hollow {
     -------------------------------------------------------------------------
 */
 div.configuration {
-  width: calc(100% - (10px * 2));
+  width: calc(100% - ( 10px * 2 ));
   max-width: 400px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
@@ -2322,7 +2524,7 @@ div.configuration div.split input,
 div.configuration div.split select,
 div.configuration div.split div.split-contents,
 div.configuration div.split p {
-  width: calc(50% - (10px / 2));
+  width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2417,11 +2619,13 @@ div.calendar-dialog div.tab {
   text-align: center;
   display: inline-block;
   margin-left: 5px;
+  vertical-align: bottom;
 }
 div.calendar-dialog div.tab-control-selected {
   border: 1px solid #282828;
   background-color: #282828;
   color: #F5F5F5;
+  padding: 12.5px;
 }
 div.calendar-dialog div.tab-control {
   border: 1px solid #A8A8A8;
@@ -2444,6 +2648,11 @@ div.calendar-dialog div.tab-content {
   color: #282828;
 }
 div.calendar-dialog div.tab-content {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
   padding: 10px;
@@ -2457,23 +2666,28 @@ div.calendar-dialog div.tab-content {
     -------------------------------------------------------------------------
 */
 div.calendar div.checkbox-container label.checkbox,
-div.calendar-dialog div.checkbox-container label.checkbox {
+div.calendar-dialog div.checkbox-container label.checkbox,
+div.calendar div.side-menu div.checkbox-container label.checkbox {
   margin-bottom: 5px !important;
 }
 div.calendar div.checkbox-container div:last-child label.checkbox,
-div.calendar-dialog div.checkbox-container div:last-child label.checkbox {
+div.calendar-dialog div.checkbox-container div:last-child label.checkbox,
+div.calendar div.side-menu div.checkbox-container div:last-child label.checkbox {
   margin-bottom: 0 !important;
 }
 div.calendar label.checkbox-tabbed-in,
-div.calendar-dialog label.checkbox-tabbed-in {
+div.calendar-dialog label.checkbox-tabbed-in,
+div.calendar div.side-menu label.checkbox-tabbed-in {
   margin-left: 25px;
 }
 div.calendar label.checkbox-tabbed-down,
-div.calendar-dialog label.checkbox-tabbed-down {
+div.calendar-dialog label.checkbox-tabbed-down,
+div.calendar div.side-menu label.checkbox-tabbed-down {
   margin-top: 5px;
 }
 div.calendar label.checkbox,
-div.calendar-dialog label.checkbox {
+div.calendar-dialog label.checkbox,
+div.calendar div.side-menu label.checkbox {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -2488,29 +2702,36 @@ div.calendar-dialog label.checkbox {
   color: #282828;
 }
 div.calendar label.checkbox input,
-div.calendar-dialog label.checkbox input {
+div.calendar-dialog label.checkbox input,
+div.calendar div.side-menu label.checkbox input {
   display: none !important;
 }
 div.calendar label.checkbox input:checked ~ span.check-mark,
-div.calendar-dialog label.checkbox input:checked ~ span.check-mark {
-  background-color: #282828 !important;
-  border: 1px solid #282828 !important;
+div.calendar-dialog label.checkbox input:checked ~ span.check-mark,
+div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark {
+  background-color: #282828;
+  border: 1px solid #282828;
 }
-div.calendar label.checkbox input:checked ~ span.check-mark:before,
-div.calendar-dialog label.checkbox input:checked ~ span.check-mark:before {
+div.calendar label.checkbox input:checked ~ span.check-mark::before,
+div.calendar-dialog label.checkbox input:checked ~ span.check-mark::before,
+div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark::before {
   display: block;
 }
 div.calendar label.checkbox input:disabled ~ span.check-mark, div.calendar label.checkbox input:disabled ~ span.text,
 div.calendar-dialog label.checkbox input:disabled ~ span.check-mark,
-div.calendar-dialog label.checkbox input:disabled ~ span.text {
+div.calendar-dialog label.checkbox input:disabled ~ span.text,
+div.calendar div.side-menu label.checkbox input:disabled ~ span.check-mark,
+div.calendar div.side-menu label.checkbox input:disabled ~ span.text {
   opacity: 0.5;
 }
 div.calendar label.checkbox input:disabled ~ span.check-mark,
-div.calendar-dialog label.checkbox input:disabled ~ span.check-mark {
+div.calendar-dialog label.checkbox input:disabled ~ span.check-mark,
+div.calendar div.side-menu label.checkbox input:disabled ~ span.check-mark {
   border: 1px solid #282828 !important;
 }
 div.calendar label.checkbox span.check-mark,
-div.calendar-dialog label.checkbox span.check-mark {
+div.calendar-dialog label.checkbox span.check-mark,
+div.calendar div.side-menu label.checkbox span.check-mark {
   position: absolute;
   top: 0;
   left: 0;
@@ -2521,8 +2742,9 @@ div.calendar-dialog label.checkbox span.check-mark {
   border: 1px solid #A8A8A8;
   transition: all 0.3s;
 }
-div.calendar label.checkbox span.check-mark:before,
-div.calendar-dialog label.checkbox span.check-mark:before {
+div.calendar label.checkbox span.check-mark::before,
+div.calendar-dialog label.checkbox span.check-mark::before,
+div.calendar div.side-menu label.checkbox span.check-mark::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -2537,7 +2759,8 @@ div.calendar-dialog label.checkbox span.check-mark:before {
   border-width: 0 3px 3px 0;
 }
 div.calendar label.checkbox:hover span.check-mark,
-div.calendar-dialog label.checkbox:hover span.check-mark {
+div.calendar-dialog label.checkbox:hover span.check-mark,
+div.calendar div.side-menu label.checkbox:hover span.check-mark {
   border: 1px solid #282828;
 }
 
@@ -2581,8 +2804,8 @@ div.calendar-dialog div.radio-button-container label.radio-button input:checked 
   background-color: #282828 !important;
   border: 1px solid #282828 !important;
 }
-div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark:before,
-div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark:before {
+div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark::before,
+div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark::before {
   display: block;
 }
 div.calendar div.radio-button-container label.radio-button input:disabled ~ span.check-mark, div.calendar div.radio-button-container label.radio-button input:disabled ~ span.text,
@@ -2606,8 +2829,8 @@ div.calendar-dialog div.radio-button-container label.radio-button span.check-mar
   border: 1px solid #A8A8A8;
   transition: all 0.3s;
 }
-div.calendar div.radio-button-container label.radio-button span.check-mark:before,
-div.calendar-dialog div.radio-button-container label.radio-button span.check-mark:before {
+div.calendar div.radio-button-container label.radio-button span.check-mark::before,
+div.calendar-dialog div.radio-button-container label.radio-button span.check-mark::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -2651,52 +2874,11 @@ div.calendar-tooltip-event {
   position: absolute;
   border: 1px solid #282828;
   border-radius: 0.25rem;
-  background-color: rgb(238, 232, 170);
+  background-color: rgb(240, 237, 199);
   color: #282828;
   padding: 10px;
   display: none;
   z-index: 2000;
-}
-div.calendar-tooltip div,
-div.calendar-tooltip-event div {
-  margin-bottom: 5px;
-}
-div.calendar-tooltip div:last-child,
-div.calendar-tooltip-event div:last-child {
-  margin-bottom: 0;
-}
-div.calendar-tooltip div.title,
-div.calendar-tooltip-event div.title {
-  font-weight: 900;
-  width: calc(100% - 24px - 10px);
-}
-div.calendar-tooltip div.date,
-div.calendar-tooltip div.duration,
-div.calendar-tooltip div.description,
-div.calendar-tooltip div.location,
-div.calendar-tooltip div.repeats,
-div.calendar-tooltip div.url,
-div.calendar-tooltip-event div.date,
-div.calendar-tooltip-event div.duration,
-div.calendar-tooltip-event div.description,
-div.calendar-tooltip-event div.location,
-div.calendar-tooltip-event div.repeats,
-div.calendar-tooltip-event div.url {
-  font-size: smaller;
-}
-div.calendar-tooltip div.url,
-div.calendar-tooltip-event div.url {
-  color: blue;
-  display: inline-block;
-}
-div.calendar-tooltip div.url:hover,
-div.calendar-tooltip-event div.url:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div.calendar-tooltip div.ib-refresh-medium,
-div.calendar-tooltip-event div.ib-refresh-medium {
-  margin-right: 5px;
 }
 
 div.calendar-tooltip {
@@ -2707,6 +2889,35 @@ div.calendar-tooltip {
 
 div.calendar-tooltip-event {
   max-width: 300px;
+}
+div.calendar-tooltip-event div {
+  margin-bottom: 5px;
+}
+div.calendar-tooltip-event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar-tooltip-event div.title {
+  font-weight: 900;
+  width: calc( 100% - 24px - 10px );
+}
+div.calendar-tooltip-event div.date,
+div.calendar-tooltip-event div.duration,
+div.calendar-tooltip-event div.description,
+div.calendar-tooltip-event div.location,
+div.calendar-tooltip-event div.repeats,
+div.calendar-tooltip-event div.url {
+  font-size: smaller;
+}
+div.calendar-tooltip-event div.url {
+  color: blue;
+  display: inline-block;
+}
+div.calendar-tooltip-event div.url:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div.calendar-tooltip-event div.ib-refresh-medium {
+  margin-right: 5px;
 }
 div.calendar-tooltip-event div.title-buttons {
   position: absolute !important;
@@ -2760,14 +2971,15 @@ div.calendar-drop-down-menu div.bold {
 }
 div.calendar-drop-down-menu div.ib-plus-icon,
 div.calendar-drop-down-menu div.ib-arrow-expand-left-right-icon,
-div.calendar-drop-down-menu div.ib-hamburger-icon,
+div.calendar-drop-down-menu div.ib-hamburger-side-icon,
 div.calendar-drop-down-menu div.ib-close-icon,
 div.calendar-drop-down-menu div.ib-arrow-top-right-icon,
 div.calendar-drop-down-menu div.ib-circle-hollow-icon,
 div.calendar-drop-down-menu div.ib-circle-icon,
 div.calendar-drop-down-menu div.ib-minus-icon,
 div.calendar-drop-down-menu div.ib-octagon-hollow-icon,
-div.calendar-drop-down-menu div.ib-pipe-icon {
+div.calendar-drop-down-menu div.ib-pipe-icon,
+div.calendar-drop-down-menu div.ib-equals-icon {
   margin-right: 10px;
 }
 div.calendar-drop-down-menu div.item {
@@ -2779,10 +2991,10 @@ div.calendar-drop-down-menu div.item:hover {
   color: #F5F5F5;
   transition: all 0.3s;
 }
-div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon:before {
+div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::after {
   background-color: #F5F5F5;
 }
-div.calendar-drop-down-menu div.item:hover div.ib-hamburger-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon:after {
+div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::after {
   border-color: #F5F5F5;
 }
 div.calendar-drop-down-menu div.item:active {
@@ -2891,21 +3103,21 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-pin:before, .ib-pin:after {
+.ib-pin::before, .ib-pin::after {
   position: absolute;
   content: "";
 }
-.ib-pin:before {
+.ib-pin::before {
   left: 50%;
   transform: translate(-50%);
   background-color: #F5F5F5;
   width: 4px;
-  height: calc(100% - 4px - 2px);
+  height: calc( 100% - 4px - 2px );
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
 }
-.ib-pin:after {
+.ib-pin::after {
   left: 50%;
   transform: translate(-50%);
   background-color: #F5F5F5;
@@ -2931,11 +3143,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-refresh:before, .ib-refresh:after {
+.ib-refresh::before, .ib-refresh::after {
   position: absolute;
   content: "";
 }
-.ib-refresh:before {
+.ib-refresh::before {
   border-top: 4px solid #F5F5F5;
   border-left: 4px solid #F5F5F5;
   border-radius: 4px;
@@ -2944,7 +3156,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-refresh:after {
+.ib-refresh::after {
   border-bottom: 4px solid #F5F5F5;
   border-right: 4px solid #F5F5F5;
   border-radius: 4px;
@@ -2970,11 +3182,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-search:before, .ib-search:after {
+.ib-search::before, .ib-search::after {
   position: absolute;
   content: "";
 }
-.ib-search:before {
+.ib-search::before {
   border: 4px solid #F5F5F5;
   width: 4px;
   height: 4px;
@@ -2982,7 +3194,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-search:after {
+.ib-search::after {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3013,7 +3225,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-hamburger:before {
+.ib-hamburger::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3023,6 +3235,38 @@ div.calendar-drop-down-menu div.separator {
   height: 4px;
   border-radius: 4px;
   left: 0;
+}
+
+.ib-hamburger-side {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  border-left: 4px solid #F5F5F5;
+  border-right: 4px solid #F5F5F5;
+  border-radius: 4px;
+  width: 8px;
+}
+.ib-hamburger-side:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-hamburger-side:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-hamburger-side::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  transform: translate(-50%);
+  background-color: #F5F5F5;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px;
+  top: 0;
 }
 
 .ib-eye {
@@ -3045,10 +3289,10 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-eye:before {
+.ib-eye::before {
   position: absolute;
   content: "";
-  left: calc(50% - 2px);
+  left: calc( 50% - 2px );
   transform: translate(-50%);
   top: 50%;
   transform: translate(0, -50%);
@@ -3074,11 +3318,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-down-full-line:before, .ib-arrow-down-full-line:after {
+.ib-arrow-down-full-line::before, .ib-arrow-down-full-line::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-down-full-line:before {
+.ib-arrow-down-full-line::before {
   width: 0;
   height: 0;
   border-left: 8px solid transparent;
@@ -3087,7 +3331,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   bottom: 0;
 }
-.ib-arrow-down-full-line:after {
+.ib-arrow-down-full-line::after {
   left: 50%;
   transform: translate(-50%);
   width: 8px;
@@ -3112,11 +3356,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-plus:before, .ib-plus:after {
+.ib-plus::before, .ib-plus::after {
   position: absolute;
   content: "";
 }
-.ib-plus:before {
+.ib-plus::before {
   left: 50%;
   transform: translate(-50%);
   background-color: #F5F5F5;
@@ -3125,7 +3369,7 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 4px;
   top: 0;
 }
-.ib-plus:after {
+.ib-plus::after {
   top: 50%;
   transform: translate(0, -50%);
   background-color: #F5F5F5;
@@ -3173,7 +3417,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-minus:before {
+.ib-minus::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3222,11 +3466,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-close:before, .ib-close:after {
+.ib-close::before, .ib-close::after {
   position: absolute;
   content: "";
 }
-.ib-close:before, .ib-close:after {
+.ib-close::before, .ib-close::after {
   width: 4px;
   height: 18px;
   background-color: #F5F5F5;
@@ -3234,12 +3478,12 @@ div.calendar-drop-down-menu div.separator {
   left: 6px;
   top: -1px;
 }
-.ib-close:before {
+.ib-close::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.ib-close:after {
+.ib-close::after {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3261,11 +3505,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-expand-left-right:before, .ib-arrow-expand-left-right:after {
+.ib-arrow-expand-left-right::before, .ib-arrow-expand-left-right::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-expand-left-right:before {
+.ib-arrow-expand-left-right::before {
   border-left: 4px solid #F5F5F5;
   border-bottom: 4px solid #F5F5F5;
   width: 8px;
@@ -3273,7 +3517,7 @@ div.calendar-drop-down-menu div.separator {
   bottom: 0;
   left: 0;
 }
-.ib-arrow-expand-left-right:after {
+.ib-arrow-expand-left-right::after {
   border-right: 4px solid #F5F5F5;
   border-top: 4px solid #F5F5F5;
   width: 8px;
@@ -3298,11 +3542,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-contract-left-right:before, .ib-arrow-contract-left-right:after {
+.ib-arrow-contract-left-right::before, .ib-arrow-contract-left-right::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-contract-left-right:before {
+.ib-arrow-contract-left-right::before {
   border-right: 4px solid #F5F5F5;
   border-top: 4px solid #F5F5F5;
   width: 4px;
@@ -3310,7 +3554,7 @@ div.calendar-drop-down-menu div.separator {
   bottom: 0;
   left: 0;
 }
-.ib-arrow-contract-left-right:after {
+.ib-arrow-contract-left-right::after {
   border-left: 4px solid #F5F5F5;
   border-bottom: 4px solid #F5F5F5;
   width: 4px;
@@ -3335,11 +3579,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-octagon-hollow:before, .ib-octagon-hollow:after {
+.ib-octagon-hollow::before, .ib-octagon-hollow::after {
   position: absolute;
   content: "";
 }
-.ib-octagon-hollow:before {
+.ib-octagon-hollow::before {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3349,7 +3593,7 @@ div.calendar-drop-down-menu div.separator {
   left: 2px;
   top: 2px;
 }
-.ib-octagon-hollow:after {
+.ib-octagon-hollow::after {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
@@ -3360,13 +3604,135 @@ div.calendar-drop-down-menu div.separator {
   top: 2px;
 }
 
+.ib-rewind {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+.ib-rewind:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-rewind:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-rewind::before, .ib-rewind::after {
+  position: absolute;
+  content: "";
+}
+.ib-rewind::before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #F5F5F5;
+  left: 0;
+  top: 0;
+}
+.ib-rewind::after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #F5F5F5;
+  right: 0;
+  top: 0;
+}
+
+.ib-forward {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+.ib-forward:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-forward:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-forward::before, .ib-forward::after {
+  position: absolute;
+  content: "";
+}
+.ib-forward::before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #F5F5F5;
+  right: 0;
+  top: 0;
+}
+.ib-forward::after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #F5F5F5;
+  left: 0;
+  top: 0;
+}
+
+.ib-arrow-down-full {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 16px solid #282828;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+.ib-arrow-down-full:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-down-full:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-arrow-up-full {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 16px solid #282828;
+}
+.ib-arrow-up-full:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-up-full:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
 .ib-plus-icon {
   width: 12px;
   height: 12px;
   display: inline-block;
   position: relative;
 }
-.ib-plus-icon:before {
+.ib-plus-icon::before {
   position: absolute;
   content: "";
   left: 50%;
@@ -3377,7 +3743,7 @@ div.calendar-drop-down-menu div.separator {
   border-radius: 3px;
   top: 0;
 }
-.ib-plus-icon:after {
+.ib-plus-icon::after {
   position: absolute;
   content: "";
   top: 50%;
@@ -3409,7 +3775,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-hamburger-icon:before {
+.ib-hamburger-icon::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3419,6 +3785,38 @@ div.calendar-drop-down-menu div.separator {
   height: 3px;
   border-radius: 3px;
   left: 0;
+}
+
+.ib-hamburger-side-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  border-right: 3px solid #282828;
+  border-left: 3px solid #282828;
+  border-radius: 3px;
+  width: 6px;
+}
+.ib-hamburger-side-icon:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-hamburger-side-icon:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-hamburger-side-icon::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  transform: translate(-50%);
+  background-color: #282828;
+  width: 3px;
+  height: 100%;
+  border-radius: 3px;
+  top: 0;
 }
 
 .ib-arrow-expand-left-right-icon {
@@ -3437,11 +3835,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-arrow-expand-left-right-icon:before, .ib-arrow-expand-left-right-icon:after {
+.ib-arrow-expand-left-right-icon::before, .ib-arrow-expand-left-right-icon::after {
   position: absolute;
   content: "";
 }
-.ib-arrow-expand-left-right-icon:before {
+.ib-arrow-expand-left-right-icon::before {
   border-left: 3px solid #282828;
   border-bottom: 3px solid #282828;
   width: 6px;
@@ -3449,7 +3847,7 @@ div.calendar-drop-down-menu div.separator {
   bottom: 0;
   left: 0;
 }
-.ib-arrow-expand-left-right-icon:after {
+.ib-arrow-expand-left-right-icon::after {
   border-right: 3px solid #282828;
   border-top: 3px solid #282828;
   width: 6px;
@@ -3474,11 +3872,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-close-icon:before, .ib-close-icon:after {
+.ib-close-icon::before, .ib-close-icon::after {
   position: absolute;
   content: "";
 }
-.ib-close-icon:before, .ib-close-icon:after {
+.ib-close-icon::before, .ib-close-icon::after {
   width: 3px;
   height: 13.5px;
   background-color: #282828;
@@ -3486,12 +3884,12 @@ div.calendar-drop-down-menu div.separator {
   left: 4.5px;
   top: -0.75px;
 }
-.ib-close-icon:before {
+.ib-close-icon::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.ib-close-icon:after {
+.ib-close-icon::after {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3575,7 +3973,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-minus-icon:before {
+.ib-minus-icon::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -3603,11 +4001,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-octagon-hollow-icon:before, .ib-octagon-hollow-icon:after {
+.ib-octagon-hollow-icon::before, .ib-octagon-hollow-icon::after {
   position: absolute;
   content: "";
 }
-.ib-octagon-hollow-icon:before {
+.ib-octagon-hollow-icon::before {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -3617,7 +4015,7 @@ div.calendar-drop-down-menu div.separator {
   left: 1.5px;
   top: 1.5px;
 }
-.ib-octagon-hollow-icon:after {
+.ib-octagon-hollow-icon::after {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
@@ -3644,7 +4042,7 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-pipe-icon:before {
+.ib-pipe-icon::before {
   position: absolute;
   content: "";
   left: 50%;
@@ -3654,6 +4052,45 @@ div.calendar-drop-down-menu div.separator {
   height: 100%;
   border-radius: 3px;
   top: 0;
+}
+
+.ib-equals-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+.ib-equals-icon:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-equals-icon:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-equals-icon::before, .ib-equals-icon::after {
+  position: absolute;
+  content: "";
+}
+.ib-equals-icon:before {
+  top: calc(50% - 3px);
+  transform: translate(0, -50%);
+  background-color: #282828;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  left: 0;
+}
+.ib-equals-icon:after {
+  top: calc(50% + 3px);
+  transform: translate(0, -50%);
+  background-color: #282828;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  left: 0;
 }
 
 .ib-refresh-medium {
@@ -3673,11 +4110,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-refresh-medium:before, .ib-refresh-medium:after {
+.ib-refresh-medium::before, .ib-refresh-medium::after {
   position: absolute;
   content: "";
 }
-.ib-refresh-medium:before {
+.ib-refresh-medium::before {
   border-top: 3px solid;
   border-left: 3px solid;
   border-radius: 3px;
@@ -3686,7 +4123,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-refresh-medium:after {
+.ib-refresh-medium::after {
   border-bottom: 3px solid;
   border-right: 3px solid;
   border-radius: 3px;
@@ -3713,11 +4150,11 @@ div.calendar-drop-down-menu div.separator {
   cursor: pointer;
   opacity: 0.5;
 }
-.ib-refresh-small:before, .ib-refresh-small:after {
+.ib-refresh-small::before, .ib-refresh-small::after {
   position: absolute;
   content: "";
 }
-.ib-refresh-small:before {
+.ib-refresh-small::before {
   border-top: 2px solid;
   border-left: 2px solid;
   border-radius: 2px;
@@ -3726,7 +4163,7 @@ div.calendar-drop-down-menu div.separator {
   left: 0;
   top: 0;
 }
-.ib-refresh-small:after {
+.ib-refresh-small::after {
   border-bottom: 2px solid;
   border-right: 2px solid;
   border-radius: 2px;

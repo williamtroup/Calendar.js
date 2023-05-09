@@ -7,14 +7,6 @@
         <link rel="stylesheet" href="../css/styles.css" />
         <link rel="stylesheet" href="../../dist/calendarjs.css" />
         <script src="../../src/calendarjs.js"></script>
-
-        <style>
-            .date-picker {
-                margin-top: 20px;
-                background-color: lightgrey;
-                padding: 30px;
-            }
-        </style>
     </head>
 
     <body>
@@ -24,15 +16,15 @@
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar1" value="01/05/2022" />
+            <input type="date" id="myCalendar1" value="01/05/2023" />
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar2" value="15/05/2022" />
+            <input type="text" id="myCalendar2" value="15/05/2023" />
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar3" value="30/05/2022" />
+            <input type="text" id="myCalendar3" value="30/05/2023" />
         </div>
 
         <div class="contents date-picker">
@@ -76,7 +68,8 @@
                 minimumDatePickerDate: new Date(),
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
-                events: getEvents()
+                events: getEvents(),
+                addYearButtonsInDatePickerMode: true
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
