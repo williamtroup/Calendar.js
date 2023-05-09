@@ -1,4 +1,4 @@
-# Calendar.js - Functions:
+# Calendar.js - Custom Triggers:
 
 Below is a list of all the custom triggers supported in Calendar.js, which are fired when specific actions occur.
 <br>

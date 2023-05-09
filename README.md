@@ -14,7 +14,7 @@ Calendar.js
 
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
-- Drag and Drop for events, eve across multiple Calendars!
+- Drag and Drop for events, even across multiple Calendars!
 - Cut, Copy, Paste, and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
