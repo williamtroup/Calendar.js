@@ -9,7 +9,7 @@
   - Birthday
   - Holiday
   - Task
-- Added side menu for the whole Calendar, which allows visibility of Days, Event Types, and Groups to be toggled easily (The days area is open by default).
+- Added a side menu for the whole Calendar, which allows visibility of Days, Event Types, and Groups to be toggled easily (the days area is open by default).
 - Updating configuration will no longer close your current view (All Events, Full Day, Weekly).  They will be automatically updated.
 - You can now drag & drop events between calendars (the source one will not be removed, just copied).
 
@@ -18,7 +18,7 @@
 - The "locked" property is now included in the CSV export result.
 - Events visible in the active display now contain attributes "event-id" and "event-type".
 - The "Duplicate" event context menu item now has "..." at the end.
-- The border color that can be set for Events is allows to the whole border, not just the left side.
+- The border color that can be set for Events now allows sets the whole border, not just the left side.
 - When a template event is added (when "useTemplateWhenAddingNewEvent" is on), the "Title" text in the Event Editor dialog is now highlighted.
 - Events that are locked can no longer be Cut, Copy, or Duplicated.
 - Fixed a fault that prevented overlapping events (in the Full Day view) resizing when the window is resized.
@@ -39,39 +39,39 @@
 - Added a new custom trigger "onVisibleEventTypesChanged", which is triggered when the visible event types are changed (passes the visible event type IDs).
 
 #### **New Settings:**
-- Added new setting "addYearButtonsInDatePickerMode" (defaults to false) which adds year-jumping buttons to DatePicker title bar.
-- Added new setting "workingDays" (defaults to []), which states the days of the week that are considered working days (some format as weekendDays).
+- Added a new setting "addYearButtonsInDatePickerMode" (defaults to false) which adds year-jumping buttons to DatePicker title bar.
+- Added a new setting "workingDays" (defaults to []), which states the days of the week that are considered working days (some format as weekendDays).
 
 #### **New Public Functions:**
 - Added new public functions "addEventType()" and "removeEventType()", for adding adding and removing event types.
-- Added new public function "setVisibleGroups()", which will set the group name that are visible.
+- Added new public function "setVisibleGroups()", which will set the group names that are visible.
 - Added new public function "setVisibleEventTypes()", which will set the event types that are visible.
 
 #### **DatePicker Mode:**
 - The DatePicker mode now supports smaller mobile screens (and increased the default width to 330px).
 - The DatePicker mode now supports form posts.  A new hidden input is created that stores the parse-supported selected date.
-- Added "date" input type support for DatePicker mode.  This is a good fall back if something goes wrong.
+- Added "date" input type support for DatePicker mode.  This is a good fallback if something goes wrong.
 - Fixed an error occurring when resizing the browser window while the DatePicker is open.
 
 #### **General:**
-- Removed the "Groups" tab from the "Configuration" dialog (as its all in the side menu now).
-- Removed the "Visible Days" tab from the "Configuration" dialog (as its all in the side menu now).
+- Removed the "Groups" tab from the "Configuration" dialog (as it's all in the side menu now).
+- Removed the "Visible Days" tab from the "Configuration" dialog (as it's all in the side menu now).
 - The "View Current Week Events" button is now the same, but flipped.
 - The public function "refresh()" will now refresh any view that is visible.
 - Added global Ctrl/Command + Shift + E support to open the Export Events dialog (when exporting is enabled).
 - All tab containers now use the custom scroll bar styles whenever they are required.
 - Fixed some issues around the z-indexes used for dialogs.  The search dialog is now shown under the main disabled background.
 - Changed the default background color for the tooltips shown through the Calendar (slightly lighter now).
-- The "Today" button in the Full-Day view is now only shown if Todays day is visible (changed from all days having to be visible).
+- The "Today" button in the Full-Day view is now only shown if todays day is visible (changed from all days having to be visible).
 - Removed the "Configuration" button from the main toolbars.  This is now available on the new Side Menu.
 - The selected tab on the dialogs now uses a slightly larger padding to indicate more clearly which one is selected.
-- Fixed a fault that caused the Year dropdown years to be un-clickable once a different year is selected.
+- Fixed a fault that caused the Year dropdown years to be unclickable once a different year is selected.
 - Fixed the context menus not loading in the right position when the browser page has been scrolled.
 - Changed some of the default menu icons around (Duplicate and Hide Day, for example).
 
 #### **General Code Improvements:**
 - Removed all deprecated SASS math divide usages.
-- The SCSS files now uses a slightly better style rule for opening/closing brackets.
+- The SCSS files now use a slightly better style rule for opening/closing brackets.
 - Less repetitive JS code.
 
 <br>
