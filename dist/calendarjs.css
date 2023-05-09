@@ -444,7 +444,7 @@ div.calendar div.side-menu {
   top: 0;
   color: #F5F5F5 !important;
   z-index: 1500;
-  transition: all 0.3s linear;
+  transition: all 0.3s;
   background-color: #282828;
   border-right: 5px solid #F5F5F5;
   border-radius: 0.25rem;
@@ -493,7 +493,7 @@ div.calendar div.side-menu div.content div.content-section {
   border-radius: 0.25rem;
   background-color: #474545;
   border: 1px solid #575555;
-  transition: all 0.3s linear;
+  transition: all 0.3s;
 }
 div.calendar div.side-menu div.content div.content-section div.text-header,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed {
@@ -546,7 +546,7 @@ div.calendar div.side-menu div.content div.content-section div.checkbox-containe
 }
 div.calendar div.side-menu-open {
   left: 0 !important;
-  transition: all 0.3s linear;
+  transition: all 0.3s;
   box-shadow: 0 0 10px 10px #282828;
 }
 

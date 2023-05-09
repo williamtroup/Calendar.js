@@ -430,7 +430,7 @@ div.calendar {
         top: 0;
         color: $light-color !important;
         z-index: 1500;
-        transition: all .3s linear; 
+        transition: $transition; 
         background-color: $dark-color;
         border-right: $side-menu-right-border-width solid $light-color;
         border-radius: $border-view-radius;
@@ -479,7 +479,7 @@ div.calendar {
                 border-radius: $border-view-radius;
                 background-color: #474545;
                 border: $standard-border-size solid #575555;
-                transition: all .3s linear;
+                transition: $transition;
     
                 div.text-header,
                 div.text-header-closed {
@@ -536,7 +536,7 @@ div.calendar {
 
     div.side-menu-open {
         left: 0 !important;
-        transition: all .3s linear;
+        transition: $transition;
         box-shadow: 0 0 10px 10px $dark-color;
     }
 }
