@@ -8,6 +8,7 @@ Calendar.js
 <br />
 
 ![CalendarJs](docs/images/main.png)
+![CalendarJs - Menu](docs/images/main-menu.png)
 
 <h1>What features does Calendar.js have?</h1>
 
