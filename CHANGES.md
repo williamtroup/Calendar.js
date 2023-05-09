@@ -21,7 +21,7 @@
 - The border color that can be set for Events is allows to the whole border, not just the left side.
 - When a template event is added (when "useTemplateWhenAddingNewEvent" is on), the "Title" text in the Event Editor dialog is now highlighted.
 - Events that are locked can no longer be Cut, Copy, or Duplicated.
-- Fixed a fault that prevented overlapping events in the Full Day view to not resize when the window is resized.
+- Fixed a fault that prevented overlapping events (in the Full Day view) resizing when the window is resized.
 
 #### **Search:**
 - Added left margin spacing to the "Advanced" options in the "Search" dialog.
