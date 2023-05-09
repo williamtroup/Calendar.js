@@ -865,6 +865,10 @@ function calendarJs(elementOrId, options, searchOptions) {
           e.preventDefault();
           headerDoubleClick();
         }
+      } else {
+        if (e.keyCode === _keyCodes.escape && isSideMenuOpen()) {
+          hideSideMenu();
+        }
       }
     } else {
       if (_datePickerVisible) {
