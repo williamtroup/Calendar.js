@@ -990,7 +990,6 @@ div.calendar {
                 }
 
                 div.events {
-                    @include fade-in-effect-animation( 0.5s );
                     padding: $spacing;
 
                     @import "foundation/overlay-event";
@@ -1053,7 +1052,6 @@ div.calendar {
                 }
 
                 div.events {
-                    @include fade-in-effect-animation( 0.5s );
                     padding: $spacing;
 
                     @import "foundation/overlay-event";
