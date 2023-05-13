@@ -618,7 +618,9 @@ div.calendar {
                 }
     
                 div.contents {
-                    @include word-wrap-with-new-lines(  );
+                    white-space: pre-line;
+                    -ms-word-break: break-all;
+                    word-break: break-all;
                     overflow-x: hidden;
                     overflow-y: auto;
                     width: inherit;

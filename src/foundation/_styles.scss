@@ -68,12 +68,6 @@ $side-menu-right-border-width: 5px;
     opacity: $opacity-default;
 }
 
-@mixin word-wrap-with-new-lines {
-    white-space: pre-line;
-    -ms-word-break: break-all;
-    word-break: break-all;
-}
-
 @mixin full-size-view {
     top: 0;
     left: 0;
