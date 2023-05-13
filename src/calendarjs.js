@@ -9083,6 +9083,37 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return returnEvent;
     };
 
+    /**
+     * removeExpiredEvents().
+     * 
+     * Removes all events (non-repeating) that have expired.
+     * 
+     * @public
+     * @fires       onEventRemoved
+     * 
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventRemoved" event should be triggered (defaults to true).
+     */
+    this.removeExpiredEvents = function( updateEvents, triggerEvent ) {
+        if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+            getAllEventsFunc( function( event ) {
+                var repeatEvery = getNumber( event.repeatEvery );
+                if ( repeatEvery === _repeatType.never && event.to < new Date() ) {
+                    _this.removeEvent( event.id, false, triggerEvent );
+                }
+            } );
+    
+            if ( updateEvents ) {
+                updateSideMenu();
+                buildDayEvents();
+                refreshOpenedViews();
+            }
+        }
+    };
+
     function toStorageDate( date ) {
         return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
     }

@@ -4,6 +4,7 @@
 - Removed the setting "extraSelectableYearsAhead", as it's not longer needed.
 - Added a new setting "minimumYear" (defaults to 1900), which states the minimum year that can be used shown in the calendar.
 - Added a new setting "maximumYear" (defaults to 2100), which states the maximum year that can be used shown in the calendar.
+- Added new public function "removeExpiredEvents()", which will remove all expired events (non-repeating ones).
 - 
 
 ## Version 2.0.0:

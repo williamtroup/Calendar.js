@@ -28,6 +28,7 @@ Removes the calendar from the DOM.
 <br>
 ***Fires***:  onDestroy
 
+
 <br>
 <h1>Navigation, Exporting and Refreshing:</h1>
 
@@ -231,6 +232,15 @@ Returns an event that matches the ID passed.
 ***Parameter: id***: '*string*' - The ID of the event to get.
 <br>
 ***Returns***: '*object*' - The event details (or null if the ID cannot be found).
+
+### **removeExpiredEvents( *[updateEvents]*, *[triggerEvent]* )**:
+Removes all events (non-repeating) that have expired.
+<br>
+***Fires***:  onEventRemoved
+<br>
+***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventRemoved" event should be triggered (defaults to true).
 
 
 <br>

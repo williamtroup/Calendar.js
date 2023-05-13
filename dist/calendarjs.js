@@ -5676,6 +5676,23 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     return returnEvent;
   };
+  this.removeExpiredEvents = function(updateEvents, triggerEvent) {
+    if (!_datePickerModeEnabled) {
+      updateEvents = !isDefinedBoolean(updateEvents) ? true : updateEvents;
+      triggerEvent = !isDefinedBoolean(triggerEvent) ? true : triggerEvent;
+      getAllEventsFunc(function(event) {
+        var repeatEvery = getNumber(event.repeatEvery);
+        if (repeatEvery === _repeatType.never && event.to < new Date()) {
+          _this.removeEvent(event.id, false, triggerEvent);
+        }
+      });
+      if (updateEvents) {
+        updateSideMenu();
+        buildDayEvents();
+        refreshOpenedViews();
+      }
+    }
+  };
   function toStorageDate(date) {
     return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
   }
