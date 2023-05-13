@@ -5937,7 +5937,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.addYearButtonsInDatePickerMode = getDefaultBoolean(_options.addYearButtonsInDatePickerMode, false);
     _options.workingDays = isInvalidOptionArray(_options.workingDays, 0) ? [] : _options.workingDays;
     _options.minimumYear = getDefaultNumber(_options.minimumYear, 1900);
-    _options.maximumYear = getDefaultNumber(_options.maximumYear, 2100);
+    _options.maximumYear = getDefaultNumber(_options.maximumYear, 2099);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];

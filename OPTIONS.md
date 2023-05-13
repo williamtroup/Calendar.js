@@ -59,7 +59,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | addYearButtonsInDatePickerMode | States if the year-jumping buttons should be added in DatePicker mode (defaults to false). |
 | *number[]* | workingDays | States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *number* | minimumYear | The minimum year that can be shown in the Calendar (defaults to 1900). |
-| *number* | maximumYear | The maximum year that can be shown in the Calendar (defaults to 2100). |
+| *number* | maximumYear | The maximum year that can be shown in the Calendar (defaults to 2099). |
 <br/>
 
 ### Translatable String Options:

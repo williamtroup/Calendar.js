@@ -317,7 +317,7 @@
  * @property    {boolean}   addYearButtonsInDatePickerMode              States if the year-jumping buttons should be added in DatePicker mode (defaults to false).
  * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
- * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2100).
+ * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
  */
 
 
@@ -9635,7 +9635,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.addYearButtonsInDatePickerMode = getDefaultBoolean( _options.addYearButtonsInDatePickerMode, false );
         _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
         _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
-        _options.maximumYear = getDefaultNumber( _options.maximumYear, 2100 );
+        _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
