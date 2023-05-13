@@ -3286,7 +3286,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
             }
 
-            if ( duration.innerText === "" ) {
+            if ( duration.innerHTML === "" ) {
                 event.removeChild( duration );
             }
     
@@ -3712,7 +3712,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
             }
 
-            if ( duration.innerText === "" ) {
+            if ( duration.innerHTML === "" ) {
                 event.removeChild( duration );
             }
     
@@ -6589,7 +6589,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                             setNodeText( _element_Tooltip_TotalTime, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                         }
 
-                        if ( _element_Tooltip_TotalTime.innerText === "" ) {
+                        if ( _element_Tooltip_TotalTime.innerHTML === "" ) {
                             _element_Tooltip.removeChild( _element_Tooltip_TotalTime );
                         }
                     }
