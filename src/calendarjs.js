@@ -2849,7 +2849,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                 }
 
-                if ( duration.innerText === "" ) {
+                if ( duration.innerHTML === "" ) {
                     event.removeChild( duration );
                 }
         

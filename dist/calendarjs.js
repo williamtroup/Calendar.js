@@ -1560,7 +1560,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           buildDateTimeToDateTimeDisplay(startTime, eventDetails.from, eventDetails.to);
           setNodeText(duration, getFriendlyTimeBetweenTwoDate(eventDetails.from, eventDetails.to));
         }
-        if (duration.innerText === "") {
+        if (duration.innerHTML === "") {
           event.removeChild(duration);
         }
         if (isDefinedNumber(eventDetails.repeatEvery) && eventDetails.repeatEvery > _repeatType.never) {

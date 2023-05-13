@@ -9,6 +9,7 @@
 - Removed the setting "dropDownMenuSymbol", as it's no longer needed.
 - The year drop-down button on the main title bars now uses a CSS controlled image for the drop-down symbol (easier to see).
 - Removed the transition effect from All Events / Weekly Events containers (was flicking on refresh).
+- Fixed a fault that caused events in the Full Day view to randomly change on refresh (duration suddenly appearing).
 - 
 
 ## Version 2.0.0:
