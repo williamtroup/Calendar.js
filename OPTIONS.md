@@ -11,7 +11,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNumberOrdinals | States if the day ordinal values should be shown (defaults to true). |
 | *boolean* | dragAndDropForEventsEnabled | States if dragging and dropping events around the days of the month is enabled (defaults to true). |
 | *number* | maximumEventsPerDayDisplay | The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it). |
-| *number* | extraSelectableYearsAhead | The number of extra years ahead that are selectable in the drop down (defaults to 100). |
 | *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
 | *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
@@ -59,6 +58,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true). |
 | *boolean* | addYearButtonsInDatePickerMode | States if the year-jumping buttons should be added in DatePicker mode (defaults to false). |
 | *number[]* | workingDays | States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
+| *number* | minimumYear | The minimum year that can be shown in the Calendar (defaults to 1900). |
+| *number* | maximumYear | The maximum year that can be shown in the Calendar (defaults to 2100). |
 <br/>
 
 ### Translatable String Options:

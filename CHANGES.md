@@ -1,6 +1,9 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.1:
+- Removed the setting "extraSelectableYearsAhead", as it's not longer needed.
+- Added a new setting "minimumYear" (defaults to 1900), which states the minimum year that can be used shown in the calendar.
+- Added a new setting "maximumYear" (defaults to 2100), which states the maximum year that can be used shown in the calendar.
 - 
 
 ## Version 2.0.0:

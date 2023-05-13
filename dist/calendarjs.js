@@ -3,17 +3,17 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _this = this, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, e:69, f:70, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", 
   eventEditorInput:null}}, _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}}, _options = {}, _optionsForSearch = {}, _datePickerInput = null, _datePickerHiddenInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, _elements = {}, _eventNotificationsTriggered = {}, _document = null, _window = null, _elementID = null, 
   _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = false, _events = {}, _timer_CallSearchOptionsEvent = null, _timer_RefreshMainDisplay = null, _timer_RefreshMainDisplay_Enabled = true, _timer_RefreshViewsOnWindowResize = null, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = [], _copiedEventDetails = null, _copiedEventDetails_Cut = false, _previousDaysVisibleBeforeSingleDayView = 
-  [], _year_Minimum = 1900, _year_Maximum = null, _elementID_Day = "day-", _elementID_Month = "month-", _elementID_WeekDay = "week-day-", _elementID_FullDay = "full-day-", _elementID_DayElement = "calendar-day-", _elementID_YearSelected = "year-selected-", _element_Rows = [], _element_DisabledBackground = null, _element_Calendar = null, _element_Calendar_AllVisibleEvents = [], _element_MoveDialog = null, _element_MoveDialog_IsMoving = false, _element_MoveDialog_X = 0, _element_MoveDialog_Y = 0, _element_HeaderDateDisplay = 
-  null, _element_HeaderDateDisplay_Text = null, _element_HeaderDateDisplay_YearSelector = null, _element_HeaderDateDisplay_YearSelector_Contents = null, _element_HeaderDateDisplay_ExportEventsButton = null, _element_HeaderDateDisplay_FullScreenButton = null, _element_HeaderDateDisplay_SearchButton = null, _element_DayNamesHeader = null, _element_SideMenu = null, _element_SideMenu_Changed = false, _element_SideMenu_Content = null, _element_SideMenu_Content_Section_Groups = null, _element_SideMenu_Content_Section_Groups_Content = 
-  null, _element_SideMenu_Content_Section_EventTypes = null, _element_SideMenu_Content_Section_EventTypes_Content = null, _element_SideMenu_Content_Section_Days = null, _element_SideMenu_Content_Section_Days_Content = null, _element_SideMenu_DisabledBackground = null, _element_EventEditorDialog = null, _element_EventEditorDialog_Tab_Event = null, _element_EventEditorDialog_Tab_Type = null, _element_EventEditorDialog_Tab_Repeats = null, _element_EventEditorDialog_Tab_Extra = null, _element_EventEditorDialog_DisabledArea = 
-  null, _element_EventEditorDialog_TitleBar = null, _element_EventEditorDialog_DateFrom = null, _element_EventEditorDialog_TimeFrom = null, _element_EventEditorDialog_DateTo = null, _element_EventEditorDialog_TimeTo = null, _element_EventEditorDialog_IsAllDay = null, _element_EventEditorDialog_ShowAlerts = null, _element_EventEditorDialog_Title = null, _element_EventEditorDialog_SelectColors = null, _element_EventEditorDialog_Description = null, _element_EventEditorDialog_Location = null, _element_EventEditorDialog_Group = 
-  null, _element_EventEditorDialog_Url = null, _element_EventEditorDialog_RepeatEvery_Never = null, _element_EventEditorDialog_RepeatEvery_EveryDay = null, _element_EventEditorDialog_RepeatEvery_EveryWeek = null, _element_EventEditorDialog_RepeatEvery_Every2Weeks = null, _element_EventEditorDialog_RepeatEvery_EveryMonth = null, _element_EventEditorDialog_RepeatEvery_EveryYear = null, _element_EventEditorDialog_RepeatEvery_Custom = null, _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = 
-  null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = null, _element_EventEditorDialog_RepeatEvery_Custom_Value = null, _element_EventEditorDialog_ErrorMessage = null, _element_EventEditorDialog_EventDetails = {}, _element_EventEditorDialog_OKButton = null, _element_EventEditorDialog_RemoveButton = 
-  null, _element_EventEditorColorsDialog = null, _element_EventEditorColorsDialog_Color = null, _element_EventEditorColorsDialog_ColorText = null, _element_EventEditorColorsDialog_ColorBorder = null, _element_EventEditorRepeatOptionsDialog = null, _element_EventEditorRepeatOptionsDialog_Mon = null, _element_EventEditorRepeatOptionsDialog_Tue = null, _element_EventEditorRepeatOptionsDialog_Wed = null, _element_EventEditorRepeatOptionsDialog_Thu = null, _element_EventEditorRepeatOptionsDialog_Fri = 
-  null, _element_EventEditorRepeatOptionsDialog_Sat = null, _element_EventEditorRepeatOptionsDialog_Sun = null, _element_EventEditorRepeatOptionsDialog_RepeatEnds = null, _element_FullDayView = null, _element_FullDayView_Title = null, _element_FullDayView_Contents = null, _element_FullDayView_Contents_AllDayEvents = null, _element_FullDayView_Contents_Hours = null, _element_FullDayView_DateSelected = null, _element_FullDayView_EventsShown = [], _element_FullDayView_ExportEventsButton = null, _element_FullDayView_FullScreenButton = 
-  null, _element_FullDayView_TodayButton = null, _element_FullDayView_TimeArrow = null, _element_FullDayView_SearchButton = null, _element_ListAllEventsView = null, _element_ListAllEventsView_ExportEventsButton = null, _element_ListAllEventsView_FullScreenButton = null, _element_ListAllEventsView_SearchButton = null, _element_ListAllEventsView_Contents = null, _element_ListAllEventsView_EventsShown = [], _element_ListAllWeekEventsView = null, _element_ListAllWeekEventsView_Title = null, _element_ListAllWeekEventsView_ExportEventsButton = 
-  null, _element_ListAllWeekEventsView_FullScreenButton = null, _element_ListAllWeekEventsView_SearchButton = null, _element_ListAllWeekEventsView_Contents = null, _element_ListAllWeekEventsView_Contents_FullView = {}, _element_ListAllWeekEventsView_Contents_FullView_Contents = {}, _element_ListAllWeekEventsView_Contents_FullView_Events = {}, _element_ListAllWeekEventsView_EventsShown = [], _element_ListAllWeekEventsView_DateSelected = null, _element_ConfirmationDialog = null, _element_ConfirmationDialog_TitleBar = 
-  null, _element_ConfirmationDialog_Message = null, _element_ConfirmationDialog_RemoveAllEvents = null, _element_ConfirmationDialog_RemoveAllEvents_Label = null, _element_ConfirmationDialog_YesButton = null, _element_ConfirmationDialog_NoButton = null, _element_SelectExportTypeDialog = null, _element_SelectExportTypeDialog_Option_CSV = null, _element_SelectExportTypeDialog_Option_XML = null, _element_SelectExportTypeDialog_Option_JSON = null, _element_SelectExportTypeDialog_Option_TEXT = null, _element_SelectExportTypeDialog_Option_iCAL = 
+  [], _elementID_Day = "day-", _elementID_Month = "month-", _elementID_WeekDay = "week-day-", _elementID_FullDay = "full-day-", _elementID_DayElement = "calendar-day-", _elementID_YearSelected = "year-selected-", _element_Rows = [], _element_DisabledBackground = null, _element_Calendar = null, _element_Calendar_AllVisibleEvents = [], _element_MoveDialog = null, _element_MoveDialog_IsMoving = false, _element_MoveDialog_X = 0, _element_MoveDialog_Y = 0, _element_HeaderDateDisplay = null, _element_HeaderDateDisplay_Text = 
+  null, _element_HeaderDateDisplay_YearSelector = null, _element_HeaderDateDisplay_YearSelector_Contents = null, _element_HeaderDateDisplay_ExportEventsButton = null, _element_HeaderDateDisplay_FullScreenButton = null, _element_HeaderDateDisplay_SearchButton = null, _element_DayNamesHeader = null, _element_SideMenu = null, _element_SideMenu_Changed = false, _element_SideMenu_Content = null, _element_SideMenu_Content_Section_Groups = null, _element_SideMenu_Content_Section_Groups_Content = null, _element_SideMenu_Content_Section_EventTypes = 
+  null, _element_SideMenu_Content_Section_EventTypes_Content = null, _element_SideMenu_Content_Section_Days = null, _element_SideMenu_Content_Section_Days_Content = null, _element_SideMenu_DisabledBackground = null, _element_EventEditorDialog = null, _element_EventEditorDialog_Tab_Event = null, _element_EventEditorDialog_Tab_Type = null, _element_EventEditorDialog_Tab_Repeats = null, _element_EventEditorDialog_Tab_Extra = null, _element_EventEditorDialog_DisabledArea = null, _element_EventEditorDialog_TitleBar = 
+  null, _element_EventEditorDialog_DateFrom = null, _element_EventEditorDialog_TimeFrom = null, _element_EventEditorDialog_DateTo = null, _element_EventEditorDialog_TimeTo = null, _element_EventEditorDialog_IsAllDay = null, _element_EventEditorDialog_ShowAlerts = null, _element_EventEditorDialog_Title = null, _element_EventEditorDialog_SelectColors = null, _element_EventEditorDialog_Description = null, _element_EventEditorDialog_Location = null, _element_EventEditorDialog_Group = null, _element_EventEditorDialog_Url = 
+  null, _element_EventEditorDialog_RepeatEvery_Never = null, _element_EventEditorDialog_RepeatEvery_EveryDay = null, _element_EventEditorDialog_RepeatEvery_EveryWeek = null, _element_EventEditorDialog_RepeatEvery_Every2Weeks = null, _element_EventEditorDialog_RepeatEvery_EveryMonth = null, _element_EventEditorDialog_RepeatEvery_EveryYear = null, _element_EventEditorDialog_RepeatEvery_Custom = null, _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = 
+  null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = null, _element_EventEditorDialog_RepeatEvery_Custom_Value = null, _element_EventEditorDialog_ErrorMessage = null, _element_EventEditorDialog_EventDetails = {}, _element_EventEditorDialog_OKButton = null, _element_EventEditorDialog_RemoveButton = null, _element_EventEditorColorsDialog = null, _element_EventEditorColorsDialog_Color = 
+  null, _element_EventEditorColorsDialog_ColorText = null, _element_EventEditorColorsDialog_ColorBorder = null, _element_EventEditorRepeatOptionsDialog = null, _element_EventEditorRepeatOptionsDialog_Mon = null, _element_EventEditorRepeatOptionsDialog_Tue = null, _element_EventEditorRepeatOptionsDialog_Wed = null, _element_EventEditorRepeatOptionsDialog_Thu = null, _element_EventEditorRepeatOptionsDialog_Fri = null, _element_EventEditorRepeatOptionsDialog_Sat = null, _element_EventEditorRepeatOptionsDialog_Sun = 
+  null, _element_EventEditorRepeatOptionsDialog_RepeatEnds = null, _element_FullDayView = null, _element_FullDayView_Title = null, _element_FullDayView_Contents = null, _element_FullDayView_Contents_AllDayEvents = null, _element_FullDayView_Contents_Hours = null, _element_FullDayView_DateSelected = null, _element_FullDayView_EventsShown = [], _element_FullDayView_ExportEventsButton = null, _element_FullDayView_FullScreenButton = null, _element_FullDayView_TodayButton = null, _element_FullDayView_TimeArrow = 
+  null, _element_FullDayView_SearchButton = null, _element_ListAllEventsView = null, _element_ListAllEventsView_ExportEventsButton = null, _element_ListAllEventsView_FullScreenButton = null, _element_ListAllEventsView_SearchButton = null, _element_ListAllEventsView_Contents = null, _element_ListAllEventsView_EventsShown = [], _element_ListAllWeekEventsView = null, _element_ListAllWeekEventsView_Title = null, _element_ListAllWeekEventsView_ExportEventsButton = null, _element_ListAllWeekEventsView_FullScreenButton = 
+  null, _element_ListAllWeekEventsView_SearchButton = null, _element_ListAllWeekEventsView_Contents = null, _element_ListAllWeekEventsView_Contents_FullView = {}, _element_ListAllWeekEventsView_Contents_FullView_Contents = {}, _element_ListAllWeekEventsView_Contents_FullView_Events = {}, _element_ListAllWeekEventsView_EventsShown = [], _element_ListAllWeekEventsView_DateSelected = null, _element_ConfirmationDialog = null, _element_ConfirmationDialog_TitleBar = null, _element_ConfirmationDialog_Message = 
+  null, _element_ConfirmationDialog_RemoveAllEvents = null, _element_ConfirmationDialog_RemoveAllEvents_Label = null, _element_ConfirmationDialog_YesButton = null, _element_ConfirmationDialog_NoButton = null, _element_SelectExportTypeDialog = null, _element_SelectExportTypeDialog_Option_CSV = null, _element_SelectExportTypeDialog_Option_XML = null, _element_SelectExportTypeDialog_Option_JSON = null, _element_SelectExportTypeDialog_Option_TEXT = null, _element_SelectExportTypeDialog_Option_iCAL = 
   null, _element_SelectExportTypeDialog_Option_MD = null, _element_SelectExportTypeDialog_Option_HTML = null, _element_SelectExportTypeDialog_Option_TSV = null, _element_SelectExportTypeDialog_ExportEvents = null, _element_Tooltip = null, _element_Tooltip_TitleButtons = null, _element_Tooltip_TitleButtons_CloseButton = null, _element_Tooltip_TitleButtons_EditButton = null, _element_Tooltip_Title = null, _element_Tooltip_Date = null, _element_Tooltip_TotalTime = null, _element_Tooltip_Repeats = null, 
   _element_Tooltip_Description = null, _element_Tooltip_Location = null, _element_Tooltip_Url = null, _element_Tooltip_ShowTimer = null, _element_Tooltip_EventDetails = null, _element_DropDownMenu_Day = null, _element_DropDownMenu_Day_Paste_Separator = null, _element_DropDownMenu_Day_Paste = null, _element_DropDownMenu_Day_DateSelected = null, _element_DropDownMenu_Event = null, _element_DropDownMenu_Event_EventDetails = null, _element_DropDownMenu_Event_FormattedDateSelected = null, _element_DropDownMenu_Event_OpenUrlSeparator = 
   null, _element_DropDownMenu_Event_OpenUrl = null, _element_DropDownMenu_Event_DuplicateSeparator = null, _element_DropDownMenu_Event_Duplicate = null, _element_DropDownMenu_Event_CutSeparator = null, _element_DropDownMenu_Event_Cut = null, _element_DropDownMenu_Event_CopySeparator = null, _element_DropDownMenu_Event_Copy = null, _element_DropDownMenu_FullDay = null, _element_DropDownMenu_FullDay_RemoveEvents_Separator = null, _element_DropDownMenu_FullDay_RemoveEvents = null, _element_DropDownMenu_FullDay_Paste_Separator = 
@@ -707,16 +707,18 @@ function calendarJs(elementOrId, options, searchOptions) {
     return newDateAllowed;
   }
   function buildYearSelectorDropDown(container) {
-    var date = new Date(_year_Minimum, 1, 1), dateCurrent = new Date(), dateYearsTotal = dateCurrent.getFullYear() - date.getFullYear() + _options.extraSelectableYearsAhead;
+    var yearDate = new Date(_options.minimumYear, 1, 1);
     _element_HeaderDateDisplay_YearSelector = createElement("div", "years-drop-down");
     container.appendChild(_element_HeaderDateDisplay_YearSelector);
     _element_HeaderDateDisplay_YearSelector_Contents = createElement("div", "contents custom-scroll-bars");
     _element_HeaderDateDisplay_YearSelector.appendChild(_element_HeaderDateDisplay_YearSelector_Contents);
-    for (var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++) {
-      buildYearSelectorDropDownYear(date.getFullYear());
-      moveDateForwardYear(date);
+    while (true) {
+      buildYearSelectorDropDownYear(yearDate.getFullYear());
+      moveDateForwardYear(yearDate);
+      if (yearDate.getFullYear() > _options.maximumYear) {
+        break;
+      }
     }
-    _year_Maximum = date.getFullYear() - 1;
     _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
   }
   function buildYearSelectorDropDownYear(actualYear) {
@@ -5339,7 +5341,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isDefinedDate(date) && (!_datePickerModeEnabled || _datePickerVisible)) {
       var newDate = new Date(date);
       if (!doDatesMatch(_currentDate, newDate)) {
-        if (newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum) {
+        if (newDate.getFullYear() >= _options.minimumYear && newDate.getFullYear() <= _options.maximumYear) {
           build(newDate);
           triggerOptionsEventWithData("onSetDate", newDate);
         }
@@ -5353,7 +5355,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isDefinedDate(date) && _datePickerModeEnabled) {
       var newDate = new Date(date), newDateAllowed = isDateValidForDatePicker(newDate);
       if (newDateAllowed && !doDatesMatch(newDate, _currentDateForDatePicker)) {
-        if (newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum) {
+        if (newDate.getFullYear() >= _options.minimumYear && newDate.getFullYear() <= _options.maximumYear) {
           newDate.setHours(0, 0, 0, 0);
           hideDatePickerMode();
           updateDatePickerInputValueDisplay(newDate);
@@ -5381,7 +5383,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!_datePickerModeEnabled || _datePickerVisible) {
       var previousMonth = new Date(_currentDate);
       previousMonth.setMonth(previousMonth.getMonth() - 1);
-      if (previousMonth.getFullYear() >= _year_Minimum) {
+      if (previousMonth.getFullYear() >= _options.minimumYear) {
         build(previousMonth);
         triggerOptionsEventWithData("onPreviousMonth", previousMonth);
       }
@@ -5394,7 +5396,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!_datePickerModeEnabled || _datePickerVisible) {
       var nextMonth = new Date(_currentDate);
       nextMonth.setMonth(nextMonth.getMonth() + 1);
-      if (nextMonth.getFullYear() <= _year_Maximum) {
+      if (nextMonth.getFullYear() <= _options.maximumYear) {
         build(nextMonth);
         triggerOptionsEventWithData("onNextMonth", nextMonth);
       }
@@ -5404,7 +5406,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!_datePickerModeEnabled || _datePickerVisible) {
       var previousYear = new Date(_currentDate);
       previousYear.setFullYear(previousYear.getFullYear() - 1);
-      if (previousYear.getFullYear() >= _year_Minimum) {
+      if (previousYear.getFullYear() >= _options.minimumYear) {
         build(previousYear);
         triggerOptionsEventWithData("onPreviousYear", previousYear);
       }
@@ -5414,7 +5416,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!_datePickerModeEnabled || _datePickerVisible) {
       var nextYear = new Date(_currentDate);
       nextYear.setFullYear(nextYear.getFullYear() + 1);
-      if (nextYear.getFullYear() <= _year_Maximum) {
+      if (nextYear.getFullYear() <= _options.maximumYear) {
         build(nextYear);
         triggerOptionsEventWithData("onNextYear", nextYear);
       }
@@ -5866,7 +5868,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showDayNumberOrdinals = getDefaultBoolean(_options.showDayNumberOrdinals, true);
     _options.dragAndDropForEventsEnabled = getDefaultBoolean(_options.dragAndDropForEventsEnabled, true);
     _options.maximumEventsPerDayDisplay = getDefaultNumber(_options.maximumEventsPerDayDisplay, 3);
-    _options.extraSelectableYearsAhead = getDefaultNumber(_options.extraSelectableYearsAhead, 100);
     _options.exportEventsEnabled = getDefaultBoolean(_options.exportEventsEnabled, true);
     _options.manualEditingEnabled = getDefaultBoolean(_options.manualEditingEnabled, true);
     _options.showTimesInMainCalendarEvents = getDefaultBoolean(_options.showTimesInMainCalendarEvents, false);
@@ -5910,6 +5911,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.weekendDays = isInvalidOptionArray(_options.weekendDays, 0) ? [0, 6] : _options.weekendDays;
     _options.addYearButtonsInDatePickerMode = getDefaultBoolean(_options.addYearButtonsInDatePickerMode, false);
     _options.workingDays = isInvalidOptionArray(_options.workingDays, 0) ? [] : _options.workingDays;
+    _options.minimumYear = getDefaultNumber(_options.minimumYear, 1900);
+    _options.maximumYear = getDefaultNumber(_options.maximumYear, 2100);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
