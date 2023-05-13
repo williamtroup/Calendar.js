@@ -70,13 +70,7 @@ To get started using Calendar.js, do the following steps:
 
 ### 1. Prerequisites:
 
-You will also need to set the page character encoding to UTF-8. This can be included in the head of your HTML as follows:
-
-```markdown
-<meta charset="utf-8" />
-```
-
-Also, make sure you include the "DOCTYPE html" tag at the top of your email, as follows:
+Make sure you include the "DOCTYPE html" tag at the top of your email, as follows:
 
 ```markdown
 <!DOCTYPE html>

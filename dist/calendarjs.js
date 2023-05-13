@@ -54,7 +54,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       refreshViews(true, false);
     }
     if (_element_Calendar !== null) {
-      _element_HeaderDateDisplay_Text.innerText = _options.monthNames[_currentDate.getMonth()] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+      buildYearDropButtonText();
     }
   }
   function getAllEvents() {
@@ -224,7 +224,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     var titleContainer = createElement("div", "title-container");
     _element_HeaderDateDisplay.appendChild(titleContainer);
-    _element_HeaderDateDisplay_Text = createElement("span");
+    _element_HeaderDateDisplay_Text = createElement("span", "year-dropdown-button");
     _element_HeaderDateDisplay_Text.ondblclick = cancelBubble;
     titleContainer.appendChild(_element_HeaderDateDisplay_Text);
     buildYearSelectorDropDown(titleContainer);
@@ -736,6 +736,14 @@ function calendarJs(elementOrId, options, searchOptions) {
         hideYearSelectorDropDown();
       }
     };
+  }
+  function buildYearDropButtonText() {
+    _element_HeaderDateDisplay_Text.innerHTML = "";
+    var text = createElement("span");
+    text.innerText = _options.monthNames[_currentDate.getMonth()] + ", " + _currentDate.getFullYear();
+    _element_HeaderDateDisplay_Text.appendChild(text);
+    var button = createElement("span", "ib-arrow-down-full-medium");
+    _element_HeaderDateDisplay_Text.appendChild(button);
   }
   function showYearSelectorDropDownMenu(e) {
     cancelBubble(e);
@@ -6112,7 +6120,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showHolidaysInTheDisplaysText = getDefaultString(_options.showHolidaysInTheDisplaysText, "Show holidays in the main display and title bars");
     _options.newEventDefaultTitle = getDefaultString(_options.newEventDefaultTitle, "* New Event");
     _options.urlErrorMessage = getDefaultString(_options.urlErrorMessage, "Please enter a valid Url in the 'Url' field (or leave blank).");
-    _options.dropDownMenuSymbol = getDefaultString(_options.dropDownMenuSymbol, "\u25be");
     _options.searchTextBoxPlaceholder = getDefaultString(_options.searchTextBoxPlaceholder, "Search title, description, etc...");
     _options.currentMonthTooltipText = getDefaultString(_options.currentMonthTooltipText, "Current Month");
     _options.cutText = getDefaultString(_options.cutText, "Cut");

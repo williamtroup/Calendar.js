@@ -581,9 +581,15 @@ div.calendar {
             position: relative;
             font-size: $large-font-size !important;
 
-            span {
+            span.year-dropdown-button {
                 white-space: nowrap;
                 overflow: hidden;
+
+                span.ib-arrow-down-full-medium {
+                    margin-left: calc( $spacing / 2 );
+                    border-top-color: $light-color;
+                    pointer-events: none;
+                }
 
                 &:hover {
                     @include opacity-hover-effect;
@@ -2005,3 +2011,4 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/equals-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
+@import "foundation/small/arrow-down-full-medium";

@@ -246,7 +246,6 @@
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
- * @property    {string}    dropDownMenuSymbol                          The character symbol that is shown for a drop-down menu (defaults to "▾").
  * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
  * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
  * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
@@ -724,7 +723,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _element_Calendar !== null ) {
-            _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+            buildYearDropButtonText();
         }
     }
 
@@ -958,7 +957,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var titleContainer = createElement( "div", "title-container" );
         _element_HeaderDateDisplay.appendChild( titleContainer );
         
-        _element_HeaderDateDisplay_Text = createElement( "span" );
+        _element_HeaderDateDisplay_Text = createElement( "span", "year-dropdown-button" );
         _element_HeaderDateDisplay_Text.ondblclick = cancelBubble;
         titleContainer.appendChild( _element_HeaderDateDisplay_Text );
 
@@ -1682,6 +1681,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 hideYearSelectorDropDown();
             }
         };
+    }
+
+    function buildYearDropButtonText() {
+        _element_HeaderDateDisplay_Text.innerHTML = "";
+
+        var text = createElement( "span" );
+        text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear();
+        _element_HeaderDateDisplay_Text.appendChild( text );
+
+        var button = createElement( "span", "ib-arrow-down-full-medium" );
+        _element_HeaderDateDisplay_Text.appendChild( button );
     }
 
     function showYearSelectorDropDownMenu( e ) {
@@ -9869,7 +9879,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showHolidaysInTheDisplaysText = getDefaultString( _options.showHolidaysInTheDisplaysText, "Show holidays in the main display and title bars" );
         _options.newEventDefaultTitle = getDefaultString( _options.newEventDefaultTitle, "* New Event" );
         _options.urlErrorMessage = getDefaultString( _options.urlErrorMessage, "Please enter a valid Url in the 'Url' field (or leave blank)." );
-        _options.dropDownMenuSymbol = getDefaultString( _options.dropDownMenuSymbol, "▾" );
         _options.searchTextBoxPlaceholder = getDefaultString( _options.searchTextBoxPlaceholder, "Search title, description, etc..." );
         _options.currentMonthTooltipText = getDefaultString( _options.currentMonthTooltipText, "Current Month" );
         _options.cutText = getDefaultString( _options.cutText, "Cut" );

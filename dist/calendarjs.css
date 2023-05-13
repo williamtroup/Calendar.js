@@ -584,16 +584,21 @@ div.calendar div.header-date div.title-container {
   position: relative;
   font-size: 0.9rem !important;
 }
-div.calendar div.header-date div.title-container span {
+div.calendar div.header-date div.title-container span.year-dropdown-button {
   white-space: nowrap;
   overflow: hidden;
 }
-div.calendar div.header-date div.title-container span:hover {
+div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium {
+  margin-left: 5px;
+  border-top-color: #F5F5F5;
+  pointer-events: none;
+}
+div.calendar div.header-date div.title-container span.year-dropdown-button:hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.calendar div.header-date div.title-container span:active {
+div.calendar div.header-date div.title-container span.year-dropdown-button:active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -4171,4 +4176,26 @@ div.calendar-drop-down-menu div.separator {
   height: 6px;
   right: 0;
   top: 0;
+}
+
+.ib-arrow-down-full-medium {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #282828;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+.ib-arrow-down-full-medium:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-down-full-medium:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
 }/*# sourceMappingURL=calendarjs.css.map */
