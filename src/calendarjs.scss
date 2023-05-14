@@ -629,12 +629,14 @@ div.calendar {
                     word-break: break-all;
                     overflow-x: hidden;
                     overflow-y: auto;
-                    width: inherit;
-                    height: inherit;
+                    width: 100%;
+                    height: calc( 100% - $spacing );
                     margin-left: 0 !important;
                     margin-right: 0 !important;
                     margin-top: 0 !important;
-                    padding: 0 !important;
+                    padding: 0;
+                    padding-top: calc( $spacing / 2 );
+                    padding-bottom: calc( $spacing / 2 );
                     background-color: $light-color !important;
     
                     div.year {
