@@ -12,7 +12,6 @@
 - Fixed a fault that caused events in the Full Day view to randomly change on refresh (duration suddenly appearing).
 - Fixed the "duration" label not showing in All / Weekly Events views.
 - Fixed the top/bottom spacing for the Year dropdown on the Monthly view (was not consistent with the left/right).
-- 
 
 ## Version 2.0.0:
 
