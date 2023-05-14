@@ -113,7 +113,7 @@ div.calendar-date-picker {
         width: 100%;
         max-width: 330px;
         z-index: 1000;
-        box-shadow: 4px 4px 4px #282828;
+        box-shadow: 4px 4px 4px $dark-color;
         margin-top: $standard-border-size;
         margin-left: -$standard-border-size;
 
@@ -1833,6 +1833,7 @@ div.calendar-drop-down-menu {
     border: $standard-border-size solid $dark-color;
     border-left: calc( $standard-border-size * 6 ) solid $dark-color;
     color: $dark-color;
+    box-shadow: 4px 4px 4px $dark-color;
     border-radius: $border-view-radius;
     white-space: nowrap;
     overflow: hidden;
