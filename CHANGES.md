@@ -13,6 +13,8 @@
 - Fixed the "duration" label not showing in All / Weekly Events views.
 - Fixed the top/bottom spacing for the Year dropdown on the Monthly view (was not consistent with the left/right).
 
+<br>
+
 ## Version 2.0.0:
 
 #### **New Features:**
