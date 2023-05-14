@@ -3,6 +3,7 @@
 ## Version 2.0.2:
 - Added a slightly larger left border to all drop-down context menus (helps them stand out against similar colors).
 - Added a box-shadow effect to all drop-down context menus.
+- Removed deprecated CSS values.
 - 
 
 <br>

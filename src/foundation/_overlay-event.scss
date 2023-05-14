@@ -10,8 +10,8 @@ div.all-day {
 
 div.event {
     white-space: pre-line;
-    -ms-word-break: break-word;
-    word-break: break-word;
+    -ms-word-break: normal;
+    word-break: normal;
     border-radius: $border-view-radius;
     background-color: $event-color;
     padding: $spacing;
