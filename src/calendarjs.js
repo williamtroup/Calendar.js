@@ -4,7 +4,7 @@
  * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendarjs.js
- * @version     v2.0.0
+ * @version     v2.0.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -246,7 +246,6 @@
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
- * @property    {string}    dropDownMenuSymbol                          The character symbol that is shown for a drop-down menu (defaults to "▾").
  * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
  * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
  * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
@@ -270,7 +269,6 @@
  * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
  * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
  * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
- * @property    {number}    extraSelectableYearsAhead                   The number of extra years ahead that are selectable in the drop down (defaults to 100).
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
@@ -318,6 +316,8 @@
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true).
  * @property    {boolean}   addYearButtonsInDatePickerMode              States if the year-jumping buttons should be added in DatePicker mode (defaults to false).
  * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
+ * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
+ * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
  */
 
 
@@ -470,8 +470,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _copiedEventDetails = null,
         _copiedEventDetails_Cut = false,
         _previousDaysVisibleBeforeSingleDayView = [],
-        _year_Minimum = 1900,
-        _year_Maximum = null,
         _elementID_Day = "day-",
         _elementID_Month = "month-",
         _elementID_WeekDay = "week-day-",
@@ -725,7 +723,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _element_Calendar !== null ) {
-            _element_HeaderDateDisplay_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear() + " " + _options.dropDownMenuSymbol;
+            buildYearDropButtonText();
         }
     }
 
@@ -959,7 +957,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var titleContainer = createElement( "div", "title-container" );
         _element_HeaderDateDisplay.appendChild( titleContainer );
         
-        _element_HeaderDateDisplay_Text = createElement( "span" );
+        _element_HeaderDateDisplay_Text = createElement( "span", "year-dropdown-button" );
         _element_HeaderDateDisplay_Text.ondblclick = cancelBubble;
         titleContainer.appendChild( _element_HeaderDateDisplay_Text );
 
@@ -1645,9 +1643,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildYearSelectorDropDown( container ) {
-        var date = new Date( _year_Minimum, 1, 1 ),
-            dateCurrent = new Date(),
-            dateYearsTotal = ( dateCurrent.getFullYear() - date.getFullYear() ) + _options.extraSelectableYearsAhead;
+        var yearDate = new Date( _options.minimumYear, 1, 1 );
 
         _element_HeaderDateDisplay_YearSelector = createElement( "div", "years-drop-down" );
         container.appendChild( _element_HeaderDateDisplay_YearSelector );
@@ -1655,12 +1651,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
 
-        for ( var yearIndex = 0; yearIndex < dateYearsTotal; yearIndex++ ) {
-            buildYearSelectorDropDownYear( date.getFullYear() );
-            moveDateForwardYear( date );
+        while ( true ) {
+            buildYearSelectorDropDownYear( yearDate.getFullYear() );
+            moveDateForwardYear( yearDate );
+
+            if ( yearDate.getFullYear() > _options.maximumYear ) {
+                break;
+            }
         }
 
-        _year_Maximum = date.getFullYear() - 1;
         _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
     }
 
@@ -1682,6 +1681,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 hideYearSelectorDropDown();
             }
         };
+    }
+
+    function buildYearDropButtonText() {
+        _element_HeaderDateDisplay_Text.innerHTML = "";
+
+        var text = createElement( "span" );
+        text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear();
+        _element_HeaderDateDisplay_Text.appendChild( text );
+
+        var button = createElement( "span", "ib-arrow-down-full-medium" );
+        _element_HeaderDateDisplay_Text.appendChild( button );
     }
 
     function showYearSelectorDropDownMenu( e ) {
@@ -2839,7 +2849,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                 }
 
-                if ( duration.innerText === "" ) {
+                if ( duration.innerHTML === "" ) {
                     event.removeChild( duration );
                 }
         
@@ -3276,7 +3286,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
             }
 
-            if ( duration.innerText === "" ) {
+            if ( duration.innerHTML === "" ) {
                 event.removeChild( duration );
             }
     
@@ -3702,7 +3712,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
             }
 
-            if ( duration.innerText === "" ) {
+            if ( duration.innerHTML === "" ) {
                 event.removeChild( duration );
             }
     
@@ -6579,7 +6589,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                             setNodeText( _element_Tooltip_TotalTime, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                         }
 
-                        if ( _element_Tooltip_TotalTime.innerText === "" ) {
+                        if ( _element_Tooltip_TotalTime.innerHTML === "" ) {
                             _element_Tooltip.removeChild( _element_Tooltip_TotalTime );
                         }
                     }
@@ -8450,7 +8460,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var newDate = new Date( date );
 
             if ( !doDatesMatch( _currentDate, newDate ) ) {
-                if ( newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum ) {
+                if ( newDate.getFullYear() >= _options.minimumYear && newDate.getFullYear() <= _options.maximumYear ) {
                     build( newDate );
                     triggerOptionsEventWithData( "onSetDate", newDate );
                 }
@@ -8487,7 +8497,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 newDateAllowed = isDateValidForDatePicker( newDate );
             
             if ( newDateAllowed && !doDatesMatch( newDate, _currentDateForDatePicker ) ) {
-                if ( newDate.getFullYear() >= _year_Minimum && newDate.getFullYear() <= _year_Maximum ) {
+                if ( newDate.getFullYear() >= _options.minimumYear && newDate.getFullYear() <= _options.maximumYear ) {
                     newDate.setHours( 0, 0, 0, 0 );
 
                     hideDatePickerMode();
@@ -8541,7 +8551,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var previousMonth = new Date( _currentDate );
             previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
-            if ( previousMonth.getFullYear() >= _year_Minimum ) {
+            if ( previousMonth.getFullYear() >= _options.minimumYear ) {
                 build( previousMonth );
                 triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
             }
@@ -8557,7 +8567,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var nextMonth = new Date( _currentDate );
             nextMonth.setMonth( nextMonth.getMonth() + 1 );
 
-            if ( nextMonth.getFullYear() <= _year_Maximum ) {
+            if ( nextMonth.getFullYear() <= _options.maximumYear ) {
                 build( nextMonth );
                 triggerOptionsEventWithData( "onNextMonth", nextMonth );
             }
@@ -8569,7 +8579,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var previousYear = new Date( _currentDate );
             previousYear.setFullYear( previousYear.getFullYear() - 1 );
     
-            if ( previousYear.getFullYear() >= _year_Minimum ) {
+            if ( previousYear.getFullYear() >= _options.minimumYear ) {
                 build( previousYear );
                 triggerOptionsEventWithData( "onPreviousYear", previousYear );
             }
@@ -8581,7 +8591,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var nextYear = new Date( _currentDate );
             nextYear.setFullYear( nextYear.getFullYear() + 1 );
 
-            if ( nextYear.getFullYear() <= _year_Maximum ) {
+            if ( nextYear.getFullYear() <= _options.maximumYear ) {
                 build( nextYear );
                 triggerOptionsEventWithData( "onNextYear", nextYear );
             }
@@ -9083,6 +9093,37 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return returnEvent;
     };
 
+    /**
+     * removeExpiredEvents().
+     * 
+     * Removes all events (non-repeating) that have expired.
+     * 
+     * @public
+     * @fires       onEventRemoved
+     * 
+     * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * @param       {boolean}   [triggerEvent]                              States if the "onEventRemoved" event should be triggered (defaults to true).
+     */
+    this.removeExpiredEvents = function( updateEvents, triggerEvent ) {
+        if ( !_datePickerModeEnabled ) {
+            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+    
+            getAllEventsFunc( function( event ) {
+                var repeatEvery = getNumber( event.repeatEvery );
+                if ( repeatEvery === _repeatType.never && event.to < new Date() ) {
+                    _this.removeEvent( event.id, false, triggerEvent );
+                }
+            } );
+    
+            if ( updateEvents ) {
+                updateSideMenu();
+                buildDayEvents();
+                refreshOpenedViews();
+            }
+        }
+    };
+
     function toStorageDate( date ) {
         return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
     }
@@ -9371,7 +9412,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.0.0";
+        return "2.0.1";
     };
 
     /**
@@ -9550,7 +9591,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showDayNumberOrdinals = getDefaultBoolean( _options.showDayNumberOrdinals, true );
         _options.dragAndDropForEventsEnabled = getDefaultBoolean( _options.dragAndDropForEventsEnabled, true );
         _options.maximumEventsPerDayDisplay = getDefaultNumber( _options.maximumEventsPerDayDisplay, 3 );
-        _options.extraSelectableYearsAhead = getDefaultNumber( _options.extraSelectableYearsAhead, 100 );
         _options.exportEventsEnabled = getDefaultBoolean( _options.exportEventsEnabled, true );
         _options.manualEditingEnabled = getDefaultBoolean( _options.manualEditingEnabled, true );
         _options.showTimesInMainCalendarEvents = getDefaultBoolean( _options.showTimesInMainCalendarEvents, false );
@@ -9594,6 +9634,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
         _options.addYearButtonsInDatePickerMode = getDefaultBoolean( _options.addYearButtonsInDatePickerMode, false );
         _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
+        _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
+        _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -9837,7 +9879,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showHolidaysInTheDisplaysText = getDefaultString( _options.showHolidaysInTheDisplaysText, "Show holidays in the main display and title bars" );
         _options.newEventDefaultTitle = getDefaultString( _options.newEventDefaultTitle, "* New Event" );
         _options.urlErrorMessage = getDefaultString( _options.urlErrorMessage, "Please enter a valid Url in the 'Url' field (or leave blank)." );
-        _options.dropDownMenuSymbol = getDefaultString( _options.dropDownMenuSymbol, "▾" );
         _options.searchTextBoxPlaceholder = getDefaultString( _options.searchTextBoxPlaceholder, "Search title, description, etc..." );
         _options.currentMonthTooltipText = getDefaultString( _options.currentMonthTooltipText, "Current Month" );
         _options.cutText = getDefaultString( _options.cutText, "Cut" );

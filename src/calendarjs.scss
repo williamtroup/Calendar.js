@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.0
+ * Calendar.js Library v2.0.1
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -581,9 +581,15 @@ div.calendar {
             position: relative;
             font-size: $large-font-size !important;
 
-            span {
+            span.year-dropdown-button {
                 white-space: nowrap;
                 overflow: hidden;
+
+                span.ib-arrow-down-full-medium {
+                    margin-left: calc( $spacing / 2 );
+                    border-top-color: $light-color;
+                    pointer-events: none;
+                }
 
                 &:hover {
                     @include opacity-hover-effect;
@@ -618,15 +624,19 @@ div.calendar {
                 }
     
                 div.contents {
-                    @include word-wrap-with-new-lines(  );
+                    white-space: pre-line;
+                    -ms-word-break: break-all;
+                    word-break: break-all;
                     overflow-x: hidden;
                     overflow-y: auto;
-                    width: inherit;
-                    height: inherit;
+                    width: 100%;
+                    height: calc( 100% - $spacing );
                     margin-left: 0 !important;
                     margin-right: 0 !important;
                     margin-top: 0 !important;
-                    padding: 0 !important;
+                    padding: 0;
+                    padding-top: calc( $spacing / 2 );
+                    padding-bottom: calc( $spacing / 2 );
                     background-color: $light-color !important;
     
                     div.year {
@@ -982,7 +992,6 @@ div.calendar {
                 }
 
                 div.events {
-                    @include fade-in-effect-animation( 0.5s );
                     padding: $spacing;
 
                     @import "foundation/overlay-event";
@@ -1045,7 +1054,6 @@ div.calendar {
                 }
 
                 div.events {
-                    @include fade-in-effect-animation( 0.5s );
                     padding: $spacing;
 
                     @import "foundation/overlay-event";
@@ -2003,3 +2011,4 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/equals-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
+@import "foundation/small/arrow-down-full-medium";

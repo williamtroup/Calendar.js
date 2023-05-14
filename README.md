@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v2.0.0</p>
+<p align="center">v2.0.1</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -70,13 +70,7 @@ To get started using Calendar.js, do the following steps:
 
 ### 1. Prerequisites:
 
-You will also need to set the page character encoding to UTF-8. This can be included in the head of your HTML as follows:
-
-```markdown
-<meta charset="utf-8" />
-```
-
-Also, make sure you include the "DOCTYPE html" tag at the top of your email, as follows:
+Make sure you include the "DOCTYPE html" tag at the top of your email, as follows:
 
 ```markdown
 <!DOCTYPE html>

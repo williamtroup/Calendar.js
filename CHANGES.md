@@ -1,5 +1,20 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.1:
+- Removed the setting "extraSelectableYearsAhead", as it's no longer needed.
+- Added a new setting "minimumYear" (defaults to 1900), which states the minimum year that can be used shown in the calendar.
+- Added a new setting "maximumYear" (defaults to 2099), which states the maximum year that can be used shown in the calendar.
+- Added new public function "removeExpiredEvents()", which will remove all expired events (non-repeating ones).
+- Fixed events in all views breaking up words onto multiple lines (CSS issue).
+- Removed the setting "dropDownMenuSymbol", as it's no longer needed.
+- The year drop-down button on the main title bars now uses a CSS controlled image for the drop-down symbol (easier to see).
+- Removed the transition effect from All / Weekly Events views (was flicking on refresh).
+- Fixed a fault that caused events in the Full Day view to randomly change on refresh (duration suddenly appearing).
+- Fixed the "duration" label not showing in All / Weekly Events views.
+- Fixed the top/bottom spacing for the Year dropdown on the Monthly view (was not consistent with the left/right).
+
+<br>
+
 ## Version 2.0.0:
 
 #### **New Features:**
