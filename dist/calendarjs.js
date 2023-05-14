@@ -806,7 +806,15 @@ function calendarJs(elementOrId, options, searchOptions) {
       _window.addEventListener("resize", hideAllDropDowns);
       _window.addEventListener("resize", centerSearchDialog);
       _window.addEventListener("resize", onWindowResizeRefreshViews);
+      _window.addEventListener("blur", onWindowFocusOut);
       _initializedDocumentEvents = true;
+    }
+  }
+  function onWindowFocusOut() {
+    hideAllDropDowns();
+    hideTooltip();
+    if (_datePickerModeEnabled) {
+      hideDatePickerMode();
     }
   }
   function onWindowResizeRefreshViews() {
