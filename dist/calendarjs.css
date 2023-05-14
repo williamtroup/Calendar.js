@@ -2951,6 +2951,7 @@ div.calendar-drop-down-menu {
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: #DCDCDC;
   border: 1px solid #282828;
+  border-left: 6px solid #282828;
   color: #282828;
   border-radius: 0.25rem;
   white-space: nowrap;

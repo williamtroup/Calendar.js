@@ -1831,6 +1831,7 @@ div.calendar-drop-down-menu {
     @include fade-in-effect-animation( 0.5s );
     background-color: #DCDCDC;
     border: $standard-border-size solid $dark-color;
+    border-left: calc( $standard-border-size * 6 ) solid $dark-color;
     color: $dark-color;
     border-radius: $border-view-radius;
     white-space: nowrap;
