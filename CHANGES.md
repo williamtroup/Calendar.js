@@ -4,9 +4,8 @@
 - Added a slightly larger left border to all drop-down context menus (helps them stand out against similar colors).
 - Added a box-shadow effect to all drop-down context menus.
 - Removed deprecated CSS values.
-- When the browser window loses focus, all drop-down context menus, tooltips, and date pickers, are closed.
-- When moving a dialog, if the mouse leaves the document area, the move will be canceled and the dialogs location will revert back.
-- 
+- When the browser window loses focus, all drop-down context menus, tooltips, and date pickers are closed.
+- When moving a dialog, if the mouse leaves the document area, the move will be cancelled and the location of the dialog will revert.
 
 <br>
 
