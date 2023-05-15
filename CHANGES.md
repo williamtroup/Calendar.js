@@ -1,5 +1,14 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.2:
+- Added a slightly larger left border to all drop-down context menus (helps them stand out against similar colors).
+- Added a box-shadow effect to all drop-down context menus.
+- Removed deprecated CSS values.
+- When the browser window loses focus, all drop-down context menus, tooltips, and date pickers are closed.
+- When moving a dialog, if the mouse leaves the document area, the move will be cancelled and the location of the dialog will revert.
+
+<br>
+
 ## Version 2.0.1:
 - Removed the setting "extraSelectableYearsAhead", as it's no longer needed.
 - Added a new setting "minimumYear" (defaults to 1900), which states the minimum year that can be used shown in the calendar.

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.1
+ * Calendar.js Library v2.0.2
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -989,8 +989,8 @@ div.calendar div.full-day-view div.contents div.all-day {
 }
 div.calendar div.full-day-view div.contents div.event {
   white-space: pre-line;
-  -ms-word-break: break-word;
-  word-break: break-word;
+  -ms-word-break: normal;
+  word-break: normal;
   border-radius: 0.25rem;
   background-color: #484848;
   padding: 10px;
@@ -1163,8 +1163,8 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.all-
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.event {
   white-space: pre-line;
-  -ms-word-break: break-word;
-  word-break: break-word;
+  -ms-word-break: normal;
+  word-break: normal;
   border-radius: 0.25rem;
   background-color: #484848;
   padding: 10px;
@@ -1340,8 +1340,8 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.a
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event {
   white-space: pre-line;
-  -ms-word-break: break-word;
-  word-break: break-word;
+  -ms-word-break: normal;
+  word-break: normal;
   border-radius: 0.25rem;
   background-color: #484848;
   padding: 10px;
@@ -2951,7 +2951,9 @@ div.calendar-drop-down-menu {
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: #DCDCDC;
   border: 1px solid #282828;
+  border-left: 6px solid #282828;
   color: #282828;
+  box-shadow: 4px 4px 4px #282828;
   border-radius: 0.25rem;
   white-space: nowrap;
   overflow: hidden;
