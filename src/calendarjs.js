@@ -480,6 +480,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DisabledBackground = null,
         _element_Calendar = null,
         _element_Calendar_AllVisibleEvents = [],
+        _element_MoveDialog_Original_X = 0,
+        _element_MoveDialog_Original_Y = 0,
         _element_MoveDialog = null,
         _element_MoveDialog_IsMoving = false,
         _element_MoveDialog_X = 0,
@@ -1774,13 +1776,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _document.body.addEventListener( "click", hideAllDropDowns );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
             _document.body.addEventListener( "mousemove", onMoveDocumentMouseMove );
+            _document.body.addEventListener( "mouseleave", onMoveDocumentMouseLeave );
             _document.addEventListener( "scroll", hideAllDropDowns );
             _document.addEventListener( "keydown", onWindowKeyDown );
             _window.addEventListener( "resize", hideAllDropDowns );
             _window.addEventListener( "resize", centerSearchDialog );
             _window.addEventListener( "resize", onWindowResizeRefreshViews );
             _window.addEventListener( "blur", onWindowFocusOut );
-
+            
             _initializedDocumentEvents = true;
         }
     }
@@ -6666,6 +6669,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_MoveDialog_IsMoving = true;
             _element_MoveDialog_X = e.pageX - _element_MoveDialog.offsetLeft;
             _element_MoveDialog_Y = e.pageY - _element_MoveDialog.offsetTop;
+            _element_MoveDialog_Original_X = _element_MoveDialog.offsetLeft;
+            _element_MoveDialog_Original_Y = _element_MoveDialog.offsetTop;
         }
     }
 
@@ -6673,6 +6678,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _element_MoveDialog_IsMoving ) {
             _element_MoveDialog_IsMoving = false;
             _element_MoveDialog = null;
+            _element_MoveDialog_Original_X = 0;
+            _element_MoveDialog_Original_Y = 0;
 
             if ( func !== null ) {
                 func();
@@ -6684,6 +6691,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _element_MoveDialog_IsMoving ) {
             _element_MoveDialog.style.left = ( e.pageX - _element_MoveDialog_X ) + "px";
             _element_MoveDialog.style.top = ( e.pageY - _element_MoveDialog_Y ) + "px";
+        }
+    }
+
+    function onMoveDocumentMouseLeave() {
+        if ( _element_MoveDialog_IsMoving ) {
+            _element_MoveDialog.style.left = _element_MoveDialog_Original_X + "px";
+            _element_MoveDialog.style.top = _element_MoveDialog_Original_Y + "px";
+
+            _element_MoveDialog_IsMoving = false;
+            _element_MoveDialog = null;
+            _element_MoveDialog_Original_X = 0;
+            _element_MoveDialog_Original_Y = 0;
         }
     }
 
