@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.3:
+- BREAKING: All JS/CSS files have been renamed to reflect the project name more accurately.  Testing HTML filenames have also ben renamed.
+- Renamed the project description in all files.
+- Updated documentation and screenshots to reflect some of the more recent changes.
+- Fixed a fault that caused the drop-down context menus to remain open when pressing escape in an open view.
+
+<br>
+
 ## Version 2.0.2:
 - Added a slightly larger left border to all drop-down context menus (helps them stand out against similar colors).
 - Added a box-shadow effect to all drop-down context menus.

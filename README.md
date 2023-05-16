@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v2.0.2</p>
+<p align="center">v2.0.3</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -80,8 +80,8 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 ### 2. Include Files:
 
 ```markdown
-<link rel="stylesheet" href="dist/calendarjs.css" />
-<script src="dist/calendarjs.js"></script>
+<link rel="stylesheet" href="dist/calendar.js.css" />
+<script src="dist/calendar.js"></script>
 ```
 <br>
 

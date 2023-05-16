@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - Element</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <script src="../../src/calendar.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Element</h1>
+            <p>A test that shows Calendar.js being triggered against a DOM element.</p>
+        </div>
+
+        <div class="contents">
+            <div id="myCalendar" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        var calendarElement = document.getElementById( "myCalendar" );
+
+        var calendarInstance = new calendarJs( calendarElement, { 
+            exportEventsEnabled: true, 
+            manualEditingEnabled: true, 
+            showTimesInMainCalendarEvents: false,
+            minimumDayHeight: 0,
+            manualEditingEnabled: true,
+            organizerName: "Your Name",
+            organizerEmailAddress: "your@email.address",
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+        } );
+
+        document.title += " - v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+
+        calendarInstance.addEventType( 5, "Event Type 1" );
+        calendarInstance.addEventType( 6, "Event Type 2" );
+        calendarInstance.addEventType( 7, "Event Type 3" );
+        calendarInstance.addEventType( 8, "Event Type 4" );
+        calendarInstance.addEventType( 9, "Event Type 5" );
+        calendarInstance.addEventType( 10, "Event Type 6" );
+        calendarInstance.addEventType( 11, "Event Type 7" );
+        calendarInstance.addEventType( 12, "Event Type 8" );
+        calendarInstance.addEventType( 13, "Event Type 9" );
+        calendarInstance.addEventType( 14, "Event Type 10" );
+
+        calendarInstance.addEvents( getEvents() );
+
+        function getEvents() {
+            var events = [];
+
+            for ( var eventIndex = 0; eventIndex < 2000; eventIndex++ ) {
+                var today = new Date();
+                today.setDate( Math.floor( ( Math.random() * 28 ) + 1 ) );
+                today.setHours( Math.floor( ( Math.random() * 23 ) + 1 ) );
+                today.setMinutes( Math.floor( ( Math.random() * 59 ) + 1 ) );
+
+                var newEvent = {
+                    from: today,
+                    to: today,
+                    title: "Event " + ( eventIndex + 1 ),
+                    description: "This is a description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group " + ( eventIndex + 1 )
+                };
+
+                events.push( newEvent );
+            }
+
+            return events;
+        }
+    </script>
+</html>

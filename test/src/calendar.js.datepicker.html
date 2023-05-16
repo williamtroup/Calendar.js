@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - DatePicker Mode</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <script src="../../src/calendar.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - DatePicker Mode</h1>
+            <p>A test that shows Calendar.js working in DatePicker mode.</p>
+        </div>
+
+        <div class="contents date-picker">
+            <input type="date" id="myCalendar1" value="01/05/2023" />
+        </div>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar2" value="15/05/2023" />
+        </div>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar3" value="30/05/2023" />
+        </div>
+
+        <div class="contents date-picker">
+            <input type="text" class="myCalendar4" value="" />
+        </div>
+
+        <div class="contents date-picker">
+            <input type="text" id="myCalendar5" value="" />
+        </div>
+        <br>
+
+        <div class="contents">
+            <h2>Get Date:</h2>
+            <button onclick="console.log( calendarInstance1.getSelectedDatePickerDate() );">Get Selected Date Picker Date (1)</button>
+            <button onclick="console.log( calendarInstance2.getSelectedDatePickerDate() );">Get Selected Date Picker Date (2)</button>
+            <button onclick="console.log( calendarInstance3.getSelectedDatePickerDate() );">Get Selected Date Picker Date (3)</button>
+            <button onclick="console.log( calendarInstance4.getSelectedDatePickerDate() );">Get Selected Date Picker Date (4)</button>
+            <button onclick="console.log( calendarInstance5.getSelectedDatePickerDate() );">Get Selected Date Picker Date (5)</button>
+            <br>
+
+            <h2>Set Date:</h2>
+            <button onclick="calendarInstance1.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (1)</button>
+            <button onclick="calendarInstance2.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (2)</button>
+            <button onclick="calendarInstance3.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (3)</button>
+            <button onclick="calendarInstance4.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (4)</button>
+            <button onclick="calendarInstance5.setSelectedDatePickerDate( new Date() );">Set Selected Date Picker Date (5)</button>
+
+            <h2>Get ID:</h2>
+            <button onclick="console.log( calendarInstance1.getId() );">Get ID (1)</button>
+            <button onclick="console.log( calendarInstance2.getId() );">Get ID (2)</button>
+            <button onclick="console.log( calendarInstance3.getId() );">Get ID (3)</button>
+            <button onclick="console.log( calendarInstance4.getId() );">Get ID (4)</button>
+            <button onclick="console.log( calendarInstance5.getId() );">Get ID (5)</button>
+        </div>
+    </body>
+
+    <script>
+        var calendarElement4 = document.getElementsByClassName( "myCalendar4" )[ 0 ],
+            calendarInstance1 = new calendarJs( "myCalendar1", {
+                openInFullScreenMode: true,
+                minimumDatePickerDate: new Date(),
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed,
+                events: getEvents(),
+                addYearButtonsInDatePickerMode: true
+            } ),
+            calendarInstance2 = new calendarJs( "myCalendar2", {
+                openInFullScreenMode: true,
+                maximumDatePickerDate: new Date(),
+                datePickerSelectedDateFormat: "{dd}/{mm}/{yyyy}",
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
+            } ),
+            calendarInstance3 = new calendarJs( "myCalendar3", {
+                openInFullScreenMode: true,
+                datePickerSelectedDateFormat: "{d}-{m}-{yy}",
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
+            } ),
+            calendarInstance4 = new calendarJs( calendarElement4, {
+                openInFullScreenMode: true,
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
+            } ),
+            calendarInstance5 = new calendarJs( "myCalendar5", {
+                openInFullScreenMode: true,
+                datePickerSelectedDateFormat: "{dddd} {d}{o} {mmmm}",
+                onDatePickerOpened: datePickerOpened,
+                onDatePickerClosed: datePickerClosed
+            } );
+
+        document.title += " - v" + calendarInstance1.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance1.getVersion();
+
+        calendarInstance1.addEvents( getEvents() );
+
+        function datePickerOpened( calendarId ) {
+            console.log( "Opened: " + calendarId );
+        }
+
+        function datePickerClosed( calendarId ) {
+            console.log( "Closed: " + calendarId );
+        }
+
+        function getEvents() {
+            var result = [
+                {
+                    from: new Date(),
+                    to: new Date(),
+                    title: "Event 1",
+                    description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+                    location: "Teams Meeting",
+                    group: "Group 1"
+                }
+            ];
+
+            return result;
+        }
+    </script>
+</html>
