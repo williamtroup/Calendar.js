@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.4:
+- Moved all the documentation MD files into the "docs" folder (clears up the root folder a fair bit).
 - 
 
 <br>

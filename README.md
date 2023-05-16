@@ -58,7 +58,7 @@ Limited support is still available for Internet Explorer. However, use within th
 
 <h1>What are the most recent changes?</h1>
 
-To see a list of all the most recent changes, click [here](CHANGES.md).
+To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
 <br>
 <br>
 
@@ -112,7 +112,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 
 <br>
 
-To see the options available for the class constructor, click [here](CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
+To see the options available for the class constructor, click [here](docs/CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
 <br>
 <br>
 
@@ -142,9 +142,9 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 </script>
 ```
 
-To see a list of all the available options you can use, click [here](OPTIONS.md).
+To see a list of all the available options you can use, click [here](docs/OPTIONS.md).
 
-To see a list of all the available custom triggers you can use, click [here](CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use, click [here](docs/CUSTOM_TRIGGERS.md).
 <br>
 <br>
 
@@ -172,7 +172,7 @@ You can add a new event by using one of the add public functions, as follows:
 ```
 
 
-To see a list of all the available event properties and how they should be formatted, click [here](EVENT.md).
+To see a list of all the available event properties and how they should be formatted, click [here](docs/EVENT.md).
 <br>
 <br>
 
@@ -193,13 +193,13 @@ A holiday is a piece of text that is shown under the day number in the month it 
 </script>
 ```
 
-To see a list of all the available holiday properties and how they should be formatted, click [here](HOLIDAY.md).
+To see a list of all the available holiday properties and how they should be formatted, click [here](docs/HOLIDAY.md).
 <br>
 <br>
 
 ### 4. Public Functions:
 
-To see a list of all the public functions available, click [here](FUNCTIONS.md).
+To see a list of all the public functions available, click [here](docs/FUNCTIONS.md).
 <br>
 <br>
 
@@ -215,6 +215,6 @@ Search Options allow you to customize how Calendar.js Search dialog will functio
 </script>
 ```
 
-To see a list of all the available search options you can use, click [here](SEARCH_OPTIONS.md).
+To see a list of all the available search options you can use, click [here](docs/SEARCH_OPTIONS.md).
 <br>
 <br>
