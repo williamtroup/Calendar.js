@@ -1,7 +1,7 @@
 /**
  * Calendar.js
  * 
- * A drag & drop event calendar (for Javascript), that is fully responsive and compatible with all modern browsers.
+ * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.binding.js
  * @version     v2.0.3
