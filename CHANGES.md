@@ -3,6 +3,7 @@
 ## Version 2.0.3:
 - BREAKING:  All JS/CSS files have been renamed to reflect the project name more accurately.  Testing HTML filenames have also ben renamed.
 - Renamed the project description in all files.
+- Updated documentation and screenshots to reflect some of the more recent changes.
 - 
 
 <br>
