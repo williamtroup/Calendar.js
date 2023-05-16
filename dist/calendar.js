@@ -915,6 +915,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function closeActiveDialog() {
     var done = false;
+    hideAllDropDowns();
     if (_openDialogs.length > 0) {
       var lastFunc = _openDialogs[_openDialogs.length - 1];
       if (isFunction(lastFunc)) {

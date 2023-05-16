@@ -4,6 +4,7 @@
 - BREAKING: All JS/CSS files have been renamed to reflect the project name more accurately.  Testing HTML filenames have also ben renamed.
 - Renamed the project description in all files.
 - Updated documentation and screenshots to reflect some of the more recent changes.
+- Fixed a fault that caused the drop-down context menus to remain open when pressing escape in an open view.
 - 
 
 <br>
