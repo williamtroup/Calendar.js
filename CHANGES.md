@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.3:
+- BREAKING:  All JS/CSS files have been renamed to reflect the project name more accurately.  Testing HTML filenames have also ben renamed.
 - 
 
 <br>

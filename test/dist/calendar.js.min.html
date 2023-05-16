@@ -2,17 +2,17 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js</title>
+        <title>Calendar.js - Minimized</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
         <link rel="stylesheet" href="../css/styles.css" />
-        <link rel="stylesheet" href="../../dist/calendarjs.css" />
-        <script src="../../dist/calendarjs.js"></script>
+        <link rel="stylesheet" href="../../dist/calendar.js.min.css" />
+        <script src="../../dist/calendar.min.js"></script>
     </head>
-
+    
     <body>
         <div class="header">
-            <h1 id="header">Calendar.js</h1>
-            <p>A test that shows Calendar.js working, with options to test some of the public functions.</p>
+            <h1 id="header">Calendar.js - Minimized</h1>
+            <p>A test that shows Calendar.js working from the minimized version of the JS/CSS files.</p>
         </div>
 
         <div class="contents">
@@ -54,7 +54,7 @@
             <button onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
             <button class="btn btn-primary" onclick="console.log( calendarInstance.getId() );">Get ID</button>
             <br>
-
+            
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
             <button onclick="setSearchOptions();">Set Search Options</button>
@@ -93,14 +93,15 @@
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
             showExtraToolbarButtons: true,
-            events: getEvents(),
             onEventDragStart: onDragEventStart,
             onEventDragStop: onDragEventStop,
             onEventDragDrop: onDragEventDrop
         } );
 
-        document.title += " v" + calendarInstance.getVersion();
-        document.getElementById( "header" ).innerText += " v" + calendarInstance.getVersion();
+        document.title += " - v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+
+        calendarInstance.addEvents( getEvents() );
 
         function turnOnEventNotifications() {
             calendarInstance.setOptions( {

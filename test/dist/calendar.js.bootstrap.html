@@ -2,17 +2,18 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Calendar.js - Minimized</title>
+        <title>Calendar.js - Bootstrap</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
         <link rel="stylesheet" href="../css/styles.css" />
-        <link rel="stylesheet" href="../../dist/calendarjs.min.css" />
-        <script src="../../dist/calendarjs.min.js"></script>
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+        <script src="../../dist/calendar.js"></script>
     </head>
     
     <body>
         <div class="header">
-            <h1 id="header">Calendar.js - Minimized</h1>
-            <p>A test that shows Calendar.js working from the minimized version of the JS/CSS files.</p>
+            <h1 id="header">Calendar.js - Bootstrap</h1>
+            <p>A test that shows Calendar.js working with Bootstrap.</p>
         </div>
 
         <div class="contents">
@@ -22,50 +23,50 @@
             <br>
     
             <h2>Navigation:</h2>
-            <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
-            <button onclick="calendarInstance.moveToNextMonth();">Next Month</button>
-            <button onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
-            <button onclick="calendarInstance.moveToNextYear();">Next Year</button>
-            <button onclick="console.log( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
-            <button onclick="setCurrentDisplayDate();">Set Current Display Date</button>
+            <button class="btn btn-primary" onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
+            <button class="btn btn-primary" onclick="calendarInstance.moveToNextMonth();">Next Month</button>
+            <button class="btn btn-primary" onclick="calendarInstance.moveToPreviousYear();">Previous Year</button>
+            <button class="btn btn-primary" onclick="calendarInstance.moveToNextYear();">Next Year</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getCurrentDisplayDate() );">Get Current Display Date</button>
+            <button class="btn btn-primary" onclick="setCurrentDisplayDate();">Set Current Display Date</button>
             <br>
     
             <h2>Events:</h2>
-            <button onclick="setEvents();">Set Events</button>
-            <button onclick="removeEvent();">Remove Event</button>
-            <button onclick="calendarInstance.clearEvents();">Clear Events</button>
-            <button onclick="console.log( calendarInstance.getEvent( '1234-5678-9' ) );">Get Event</button>
-            <button onclick="calendarInstance.removeExpiredEvents();">Remove Expired Events</button>
+            <button class="btn btn-primary" onclick="setEvents();">Set Events</button>
+            <button class="btn btn-primary" onclick="removeEvent();">Remove Event</button>
+            <button class="btn btn-primary" onclick="calendarInstance.clearEvents();">Clear Events</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getEvent( '1234-5678-9' ) );">Get Event</button>
+            <button class="btn btn-primary" onclick="calendarInstance.removeExpiredEvents();">Remove Expired Events</button>
             <br>
 
             <h2>Groups:</h2>
-            <button onclick="console.log( calendarInstance.getAllGroups() );">Get All Groups</button>
-            <button onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
-            <button onclick="calendarInstance.removeGroup( 'Group 1' );">Remove Group</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getAllGroups() );">Get All Groups</button>
+            <button class="btn btn-primary" onclick="calendarInstance.clearAllGroups();">Clear All Groups</button>
+            <button class="btn btn-primary" onclick="calendarInstance.removeGroup( 'Group 1' );">Remove Group</button>
             <br>
 
             <h2>Internal Clipboard:</h2>
-            <button onclick="calendarInstance.setClipboardEvent( getCopiedEvent() );">Set Clipboard Event</button>
-            <button onclick="console.log( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
-            <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
+            <button class="btn btn-primary" onclick="calendarInstance.setClipboardEvent( getCopiedEvent() );">Set Clipboard Event</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getClipboardEvent() );">Get Clipboard Event</button>
+            <button class="btn btn-primary" onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <br>
 
             <h2>Additional Data:</h2>
-            <button onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
             <button class="btn btn-primary" onclick="console.log( calendarInstance.getId() );">Get ID</button>
             <br>
             
             <h2>Options:</h2>
-            <button onclick="setOptions();">Set Options</button>
-            <button onclick="setSearchOptions();">Set Search Options</button>
-            <button onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
-            <button onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
+            <button class="btn btn-primary" onclick="setOptions();">Set Options</button>
+            <button class="btn btn-primary" onclick="setSearchOptions();">Set Search Options</button>
+            <button class="btn btn-primary" onclick="onlyDotsDisplay();">Set Options (only dots display)</button>
+            <button class="btn btn-primary" onclick="turnOnEventNotifications();">Turn On Event Notifications</button>
             <br />
 
             <h2>Options (holidays):</h2>
-            <button onclick="addNewHolidays();">Add Holidays</button>
-            <button onclick="removeNewHolidays();">Remove Holidays</button>
-            <button onclick="console.log( calendarInstance.getHolidays() );">Get Holidays</button>
+            <button class="btn btn-primary" onclick="addNewHolidays();">Add Holidays</button>
+            <button class="btn btn-primary" onclick="removeNewHolidays();">Remove Holidays</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getHolidays() );">Get Holidays</button>
             <br />
 
             <h2>Event Types:</h2>
@@ -74,12 +75,12 @@
             <br />
     
             <h2>Main Controls:</h2>
-            <button onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
-            <button onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
-            <button onclick="console.log( calendarInstance.isFullScreenActivated() );">Is Full-Screen Activated</button>
-            <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
-            <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
-            <button onclick="calendarInstance.destroy();">Destroy</button>
+            <button class="btn btn-primary" onclick="calendarInstance.turnOnFullScreen();">Turn On Full-Screen Mode</button>
+            <button class="btn btn-primary" onclick="calendarInstance.turnOffFullScreen();">Turn Off Full-Screen Mode</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.isFullScreenActivated() );">Is Full-Screen Activated</button>
+            <button class="btn btn-primary" onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
+            <button class="btn btn-primary" onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
+            <button class="btn btn-primary" onclick="calendarInstance.destroy();">Destroy</button>
         </div>
     </body>
 
@@ -93,9 +94,21 @@
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
             showExtraToolbarButtons: true,
+            searchOptions: {
+                history: [
+                    "Regular Event",
+                    "Test",
+                    "At The Top",
+                    "Zero",
+                    "Title 1",
+                    "Title 2",
+                    "Title That Is Longer"
+                ]
+            },
             onEventDragStart: onDragEventStart,
             onEventDragStop: onDragEventStop,
-            onEventDragDrop: onDragEventDrop
+            onEventDragDrop: onDragEventDrop,
+            workingDays: [ 3 ]
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
