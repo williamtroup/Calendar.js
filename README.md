@@ -15,7 +15,7 @@ Calendar.js
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
-- Cut, Copy, Paste, and Duplication of events.
+- Cut, Copy, Paste (with multi-select support), and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
