@@ -478,6 +478,10 @@ div.calendar {
         }
 
         div.content {
+            div.content-section-opened {
+                border-left: calc( $standard-border-size * 6 ) solid #575555 !important;
+            }
+
             div.content-section {
                 margin-top: $spacing;
                 border-radius: $border-view-radius;

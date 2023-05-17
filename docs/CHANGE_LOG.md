@@ -2,6 +2,7 @@
 
 ## Version 2.0.4:
 - Moved all the documentation MD files into the "docs" folder (clears up the root folder a fair bit).
+- Added a slightly larger left border for the side menu panels that are opened (with transition effect).
 - 
 
 <br>

@@ -1368,7 +1368,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildSideMenuDays( opened ) {
         opened = isDefined( opened ) ? opened : true;
 
-        _element_SideMenu_Content_Section_Days = createElement( "div", "content-section" );
+        _element_SideMenu_Content_Section_Days = createElement( "div", "content-section content-section-opened" );
         _element_SideMenu_Content_Section_Days_Content = createElement( "div", "checkbox-container" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Days );
 
@@ -1398,12 +1398,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             header.className = isClosed ? "text-header" : "text-header-closed";
             mainContent.style.display = isClosed ? "block" : "none";
             arrow.className = isClosed ? "ib-arrow-up-full" : "ib-arrow-down-full";
+            mainContainer.className = isClosed ? "content-section content-section-opened" : "content-section";
         };
 
         if ( !opened ) {
             mainContent.style.display = "none";
             header.className = "text-header-closed";
             arrow.className = "ib-arrow-down-full";
+            mainContainer.className = "content-section";
         }
     }
 

@@ -491,6 +491,9 @@ div.calendar div.side-menu div.main-header div[class^=ib-] {
   float: right;
   margin-left: 10px;
 }
+div.calendar div.side-menu div.content div.content-section-opened {
+  border-left: 6px solid #575555 !important;
+}
 div.calendar div.side-menu div.content div.content-section {
   margin-top: 10px;
   border-radius: 0.25rem;
