@@ -3,6 +3,9 @@
 ## Version 2.0.4:
 - Moved all the documentation MD files into the "docs" folder (clears up the root folder a fair bit).
 - Added a slightly larger left border for the side menu panels that are opened (with transition effect).
+- The public functions for handling the internal clipboard can no longer be used in DatePicker mode.
+- Fixed a fault that caused copied/cut events that span multiple days to only be assigned to one day when pasted.
+- Added full multi-select support for events for cut, copy, and pasting (simple press Control/Command and select the events).
 - 
 
 <br>

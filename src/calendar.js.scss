@@ -176,6 +176,11 @@ div.calendar {
         animation: focused-event-effect 2s infinite;
     }
 
+    div.selected-event {
+        box-shadow: 0 0 $selected-event-shadow-size $selected-event-shadow-size $alert-color;
+        opacity: 0.7 !important;
+    }
+
     div.cut-event {
         opacity: 0.2 !important;
     }

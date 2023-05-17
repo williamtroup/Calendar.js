@@ -318,10 +318,15 @@ Set the clipboard event.
 <br>
 ***Parameter: event***: '*Event*' - The event to set (refer to "Day Event" documentation for properties).
 
-### **getClipboardEvent()**:
-Returns the event copied in the clipboard.
+### **setClipboardEvents( *events* )**:
+Set the clipboard events.
 <br>
-***Returns***: '*Event*' - The copied event details.
+***Parameter: events***: '*Event[]*' - The events to set (refer to "Day Event" documentation for properties).
+
+### **getClipboardEvents()**:
+Returns the events copied in the clipboard.
+<br>
+***Returns***: '*Event[]*' - The copied events details.
 
 ### **clearClipboard()**:
 Clears the internal clipboard.

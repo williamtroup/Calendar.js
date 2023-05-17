@@ -467,7 +467,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _isFullScreenModeActivated = false,
         _isDateToday = false,
         _openDialogs = [],
-        _copiedEventDetails = null,
+        _eventsSelected = [],
+        _copiedEventDetails = [],
         _copiedEventDetails_Cut = false,
         _previousDaysVisibleBeforeSingleDayView = [],
         _elementID_Day = "day-",
@@ -1925,6 +1926,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var done = false;
 
         hideAllDropDowns();
+        clearSelectedEvents();
 
         if ( _openDialogs.length > 0 ) {
             var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
@@ -1949,14 +1951,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
-        if ( !done && _copiedEventDetails !== null ) {
-            if ( _copiedEventDetails_Cut ) {
-                updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-            } else {
-                updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-            }
+        if ( !done && _copiedEventDetails.length > 0 ) {
+            setCopiedEventsClasses();
 
-            _copiedEventDetails = null;
+            _copiedEventDetails = [];
             _copiedEventDetails_Cut = false;
         }
 
@@ -2385,10 +2383,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         showEventDropDownMenu( e, eventDetails, formattedDayDate );
                     };
 
+                    event.addEventListener( "click", function( e ) {
+                        storeMultiSelectEvent( e, eventDetails );
+                    } );
+
                     if ( isOptionEventSet( "onEventClick" ) ) {
-                        event.onclick = function() {
+                        event.addEventListener( "click", function() {
                             triggerOptionsEventWithData( "onEventClick", eventDetails );
-                        };
+                        } );
                     }
         
                     if ( _options.manualEditingEnabled ) {
@@ -2888,10 +2890,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
 
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
             if ( isOptionEventSet( "onEventClick" ) ) {
-                event.onclick = function() {
+                event.addEventListener( "click", function() {
                     triggerOptionsEventWithData( "onEventClick", eventDetails );
-                };
+                } );
             }
     
             if ( _options.manualEditingEnabled ) {
@@ -3324,10 +3330,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.appendChild( description );
             }
 
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
             if ( isOptionEventSet( "onEventClick" ) ) {
-                event.onclick = function() {
+                event.addEventListener( "click", function() {
                     triggerOptionsEventWithData( "onEventClick", eventDetails );
-                };
+                } );
             }
     
             if ( _options.manualEditingEnabled ) {
@@ -3750,10 +3760,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.appendChild( description );
             }
 
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
             if ( isOptionEventSet( "onEventClick" ) ) {
-                event.onclick = function() {
+                event.addEventListener( "click", function() {
                     triggerOptionsEventWithData( "onEventClick", eventDetails );
-                };
+                } );
             }
     
             if ( _options.manualEditingEnabled ) {
@@ -4481,7 +4495,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Day_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_Day );
             
             _element_DropDownMenu_Day_Paste = buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-circle-icon", _options.pasteText, function() {
-                addClonedEventToDate( _element_DropDownMenu_Day_DateSelected, _copiedEventDetails_Cut );
+                pasteEventsToDate( _element_DropDownMenu_Day_DateSelected, _copiedEventDetails_Cut );
             } );
         }
     }
@@ -4510,35 +4524,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Event_CutSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
 
             _element_DropDownMenu_Event_Cut = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
-                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-                }
+                setCopiedEventsClasses();
 
-                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-                }
-
-                _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
                 _copiedEventDetails_Cut = true;
 
-                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "cut-event" );
+                setCopiedEvents( _element_DropDownMenu_Event_EventDetails );
+                setCopiedEventsClasses( false );
             } );
 
             _element_DropDownMenu_Event_CopySeparator = buildMenuSeparator( _element_DropDownMenu_Event );
             
             _element_DropDownMenu_Event_Copy = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
-                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-                }
+                setCopiedEventsClasses();
 
-                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-                }
-
-                _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails, false );
                 _copiedEventDetails_Cut = false;
 
-                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "copy-event" );
+                setCopiedEvents( _element_DropDownMenu_Event_EventDetails, true );
+                setCopiedEventsClasses( false );
             } );
 
             _element_DropDownMenu_Event_DuplicateSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
@@ -4625,13 +4627,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
             } );
 
-            if ( _options.manualEditingEnabled ) {
-                _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+            _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
                 
-                _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
-                    addClonedEventToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
-                } );
-            }
+            _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
+                pasteEventsToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
+            } );
         }
     }
 
@@ -4690,7 +4690,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Day_DateSelected = new Date( date );
 
             if ( _element_DropDownMenu_Day_Paste !== null ) {
-                var display = _copiedEventDetails !== null ? "block" : "none";
+                var display = _copiedEventDetails.length > 0 ? "block" : "none";
     
                 _element_DropDownMenu_Day_Paste_Separator.style.display = display;
                 _element_DropDownMenu_Day_Paste.style.display = display;
@@ -4734,7 +4734,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showFullDayDropDownMenu( e ) {
         if ( _element_DropDownMenu_FullDay !== null ) {
             if ( _element_DropDownMenu_FullDay_Paste !== null ) {
-                var pasteDisplay = _copiedEventDetails !== null ? "block" : "none";
+                var pasteDisplay = _copiedEventDetails.length > 0 ? "block" : "none";
     
                 _element_DropDownMenu_FullDay_Paste_Separator.style.display = pasteDisplay;
                 _element_DropDownMenu_FullDay_Paste.style.display = pasteDisplay;
@@ -4780,6 +4780,163 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function areDropDownMenusVisible() {
         return isDropDownMenuVisible( _element_DropDownMenu_Day ) || isDropDownMenuVisible( _element_DropDownMenu_Event ) || isDropDownMenuVisible( _element_DropDownMenu_FullDay ) || isDropDownMenuVisible( _element_DropDownMenu_HeaderDay ) || isDropDownMenuVisible( _element_SearchDialog_History_DropDown );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Selected, Cut, Copy, Duplicate, Paste
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function setCopiedEventsClasses( clear ) {
+        clear = isDefined( clear ) ? clear : true;
+
+        var copiedEventDetailsLength = _copiedEventDetails.length;
+
+        for ( var copiedEventDetailsIndex = 0; copiedEventDetailsIndex < copiedEventDetailsLength; copiedEventDetailsIndex++ ) {
+            var eventDetails = _copiedEventDetails[ copiedEventDetailsIndex ];
+            
+            if ( _copiedEventDetails_Cut ) {
+                updateEventClasses( eventDetails.id, "cut-event", clear );
+            } else {
+                updateEventClasses( eventDetails.id, "copy-event", clear );
+            }
+        }
+    }
+
+    function setCopiedEvents( eventDetails, clone ) {
+        clone = isDefined( clone ) ? clone : false;
+
+        _copiedEventDetails = [];
+
+        var selectedEventsLength = _eventsSelected.length;
+
+        if ( selectedEventsLength > 0 ) {
+            for ( var selectedEventIndex = 0; selectedEventIndex < selectedEventsLength; selectedEventIndex++ ) {
+                if ( clone ) {
+                    _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
+                } else {
+                    _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
+                }
+            }
+            
+        } else {
+            if ( clone ) {
+                _copiedEventDetails.push( eventDetails );
+            } else {
+                _copiedEventDetails.push( eventDetails );
+            }
+        }
+    }
+
+    function isEventIdSelected( id ) {
+        var result = false,
+            eventsSelectedLength = _eventsSelected.length;
+
+        for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
+            if ( _eventsSelected[ eventsSelectedIndex ].id === id ) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    function isEventIdCopied( id ) {
+        var result = false,
+            copiedEventDetailsLength = _copiedEventDetails.length;
+
+        for ( var copiedEventDetailsIndex = 0; copiedEventDetailsIndex < copiedEventDetailsLength; copiedEventDetailsIndex++ ) {
+            if ( _copiedEventDetails[ copiedEventDetailsIndex ].id === id ) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+    
+    function pasteEventsToDate( date, cut ) {
+        var copiedEventDetailsLength = _copiedEventDetails.length;
+
+        for ( var copiedEventDetailsIndex = 0; copiedEventDetailsIndex < copiedEventDetailsLength; copiedEventDetailsIndex++ ) {
+            var eventDetails = _copiedEventDetails[ copiedEventDetailsIndex ],
+                totalDays = getTotalDaysBetweenDates( eventDetails.from, eventDetails.to );
+            
+            var newEvent = !cut ? cloneEventDetails( eventDetails ) : eventDetails;
+            newEvent.from.setDate( date.getDate() );
+            newEvent.from.setMonth( date.getMonth() );
+            newEvent.from.setFullYear( date.getFullYear() );
+            newEvent.to.setDate( date.getDate() );
+            newEvent.to.setMonth( date.getMonth() );
+            newEvent.to.setFullYear( date.getFullYear() );
+            newEvent.to.setDate( newEvent.to.getDate() + totalDays );
+    
+            if ( !cut ) {
+                newEvent.id = null;
+    
+                _this.addEvent( newEvent, false, true );
+
+            } else {
+                triggerOptionsEventWithData( "onEventUpdated", newEvent );
+            }
+        }
+
+        if ( cut ) {
+            clearSelectedEvents();
+            
+            _copiedEventDetails = [];
+            _copiedEventDetails_Cut = false;
+        }
+
+        buildDayEvents();
+        refreshOpenedViews();
+    }
+
+    function storeMultiSelectEvent( e, eventDetails ) {
+        cancelBubble( e );
+
+        if ( !isEventLocked( eventDetails ) ) {
+            if ( isControlKey( e ) ) {
+                if ( !isEventIdSelected( eventDetails.id ) ) {
+                    _eventsSelected.push( eventDetails );
+        
+                    updateEventClasses( eventDetails.id, "selected-event", false );
+
+                } else {
+                    var eventsSelectedLength = _eventsSelected.length;
+
+                    for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
+                        if ( _eventsSelected[ eventsSelectedIndex ].id === eventDetails.id ) {
+                            _eventsSelected.splice( eventsSelectedIndex, 1 );
+                            break;
+                        }
+                    }
+
+                    updateEventClasses( eventDetails.id, "selected-event", true );
+                }
+
+            } else {
+                clearSelectedEvents();
+            }
+
+        } else {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+        }
+    }
+
+    function clearSelectedEvents() {
+        var eventsSelectedLength = _eventsSelected.length;
+
+        for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
+            updateEventClasses( _eventsSelected[ eventsSelectedIndex ].id, "selected-event", true );
+        }
+
+        _eventsSelected = [];
     }
 
 
@@ -6826,12 +6983,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.className += " focused-event";
         }
 
-        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
-            event.className += " cut-event";
+        if ( isEventIdSelected( eventDetails.id ) ) {
+            event.className += " selected-event";
         }
 
-        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
-            event.className += " copy-event";
+        if ( isEventIdCopied( eventDetails.id ) ) {
+            if ( _copiedEventDetails_Cut ) {
+                event.className += " cut-event";
+            } else {
+                event.className += " copy-event";
+            }
         }
     }
 
@@ -7281,31 +7442,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return object;
-    }
-
-    function addClonedEventToDate( date, cut ) {
-        var newEvent = !cut ? cloneEventDetails( _copiedEventDetails ) : _copiedEventDetails;
-        newEvent.from.setDate( date.getDate() );
-        newEvent.from.setMonth( date.getMonth() );
-        newEvent.from.setFullYear( date.getFullYear() );
-        newEvent.to.setDate( date.getDate() );
-        newEvent.to.setMonth( date.getMonth() );
-        newEvent.to.setFullYear( date.getFullYear() );
-
-        if ( !cut ) {
-            newEvent.id = null;
-
-            _this.addEvent( newEvent );
-        } else {
-            
-            _copiedEventDetails = null;
-            _copiedEventDetails_Cut = false;
-
-            triggerOptionsEventWithData( "onEventUpdated", newEvent );
-
-            buildDayEvents();
-            refreshOpenedViews();
-        }
     }
 
     function setElementClassName( element, className ) {
@@ -9398,22 +9534,49 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Event}    event                                        The event to set (refer to "Day Event" documentation for properties).
      */
     this.setClipboardEvent = function( event ) {
-        if ( isDefinedObject( event ) ) {
-            _copiedEventDetails = cloneEventDetails( event );
+        if ( isDefinedObject( event ) && !_datePickerModeEnabled ) {
+            _copiedEventDetails = [ cloneEventDetails( event ) ];
         }
     };
 
     /**
-     * getClipboardEvent().
+     * setClipboardEvents().
      * 
-     * Returns the event copied in the clipboard.
+     * Set the clipboard events.
      * 
      * @public
      * 
-     * @returns     {Event}                                                 The copied event details.
+     * @param       {Event[]}   events                                      The events to set (refer to "Day Event" documentation for properties).
      */
-    this.getClipboardEvent = function() {
-        return _copiedEventDetails;
+    this.setClipboardEvents = function( events ) {
+        if ( isDefinedArray( events ) && !_datePickerModeEnabled ) {
+            _copiedEventDetails = [];
+
+            var eventsLength = events.length;
+
+            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                _copiedEventDetails.push( cloneEventDetails( events[ eventIndex ] ) );
+            }
+        }
+    };
+
+    /**
+     * getClipboardEvents().
+     * 
+     * Returns the events copied in the clipboard.
+     * 
+     * @public
+     * 
+     * @returns     {Event[]}                                               The copied events details.
+     */
+    this.getClipboardEvents = function() {
+        var result = null;
+
+        if ( !_datePickerModeEnabled ) {
+            result = _copiedEventDetails;
+        }
+
+        return result;
     };
 
     /**
@@ -9424,7 +9587,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      */
     this.clearClipboard = function() {
-        _copiedEventDetails = null;
+        if ( !_datePickerModeEnabled ) {
+            _copiedEventDetails = [];
+        }
     };
 
 
