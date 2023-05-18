@@ -9,7 +9,6 @@
 - When an event is copied, or cut, the CSS effect is now applied to all repeating / multiple day spanning events.
 - Added global Ctrl/Command + Shift + C support to copy the selected events (only for multi-select).
 - Added global Ctrl/Command + Shift + X support to cut the selected events (only for multi-select).
-- 
 
 <br>
 
