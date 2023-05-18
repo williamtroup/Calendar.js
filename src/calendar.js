@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.0.3
+ * @version     v2.0.4
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -390,8 +390,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             right: 39,
             down: 40,
             a: 65,
+            c: 67,
             e: 69,
             f: 70,
+            x: 88,
             f5: 116,
             f11: 122
         },
@@ -467,7 +469,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _isFullScreenModeActivated = false,
         _isDateToday = false,
         _openDialogs = [],
-        _copiedEventDetails = null,
+        _eventsSelected = [],
+        _copiedEventDetails = [],
         _copiedEventDetails_Cut = false,
         _previousDaysVisibleBeforeSingleDayView = [],
         _elementID_Day = "day-",
@@ -623,10 +626,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_Event_OpenUrl = null,
         _element_DropDownMenu_Event_DuplicateSeparator = null,
         _element_DropDownMenu_Event_Duplicate = null,
+        _element_DropDownMenu_Event_EditEvent = null,
         _element_DropDownMenu_Event_CutSeparator = null,
         _element_DropDownMenu_Event_Cut = null,
         _element_DropDownMenu_Event_CopySeparator = null,
         _element_DropDownMenu_Event_Copy = null,
+        _element_DropDownMenu_Event_RemoveSeparator = null,
+        _element_DropDownMenu_Event_Remove = null,
         _element_DropDownMenu_FullDay = null,
         _element_DropDownMenu_FullDay_RemoveEvents_Separator = null,
         _element_DropDownMenu_FullDay_RemoveEvents = null,
@@ -1368,7 +1374,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildSideMenuDays( opened ) {
         opened = isDefined( opened ) ? opened : true;
 
-        _element_SideMenu_Content_Section_Days = createElement( "div", "content-section" );
+        _element_SideMenu_Content_Section_Days = createElement( "div", "content-section content-section-opened" );
         _element_SideMenu_Content_Section_Days_Content = createElement( "div", "checkbox-container" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Days );
 
@@ -1398,12 +1404,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             header.className = isClosed ? "text-header" : "text-header-closed";
             mainContent.style.display = isClosed ? "block" : "none";
             arrow.className = isClosed ? "ib-arrow-up-full" : "ib-arrow-down-full";
+            mainContainer.className = isClosed ? "content-section content-section-opened" : "content-section";
         };
 
         if ( !opened ) {
             mainContent.style.display = "none";
             header.className = "text-header-closed";
             arrow.className = "ib-arrow-down-full";
+            mainContainer.className = "content-section";
         }
     }
 
@@ -1773,7 +1781,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDocumentEvents() {
         if ( !_initializedDocumentEvents ) {
-            _document.body.addEventListener( "click", hideAllDropDowns );
+            _document.body.addEventListener( "click", onDocumentClick );
             _document.body.addEventListener( "contextmenu", hideAllDropDowns );
             _document.body.addEventListener( "mousemove", onMoveDocumentMouseMove );
             _document.body.addEventListener( "mouseleave", onMoveDocumentMouseLeave );
@@ -1785,6 +1793,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _window.addEventListener( "blur", onWindowFocusOut );
             
             _initializedDocumentEvents = true;
+        }
+    }
+
+    function onDocumentClick( e ) {
+        hideAllDropDowns();
+
+        if ( !isControlKey( e ) ) {
+            clearSelectedEvents();
         }
     }
 
@@ -1862,6 +1878,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _options.manualEditingEnabled ) {
                         showEventEditingDialog( null, new Date() );
                     }
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.c ) {
+                    e.preventDefault();
+                    setCopiedEventsFromKeyDown();
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.e ) {
+                    e.preventDefault();
+    
+                    if ( _options.exportEventsEnabled ) {
+                        showExportDialogFromWindowKeyDown();
+                    }
                 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                     e.preventDefault();
@@ -1869,13 +1896,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
                         showSearchDialog();
                     }
-    
-                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.e ) {
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.x ) {
                     e.preventDefault();
-    
-                    if ( _options.exportEventsEnabled ) {
-                        showExportDialogFromWindowKeyDown();
-                    }
+                    setCopiedEventsFromKeyDown( true );
     
                 }  else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
                     e.preventDefault();
@@ -1923,6 +1947,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var done = false;
 
         hideAllDropDowns();
+        clearSelectedEvents();
 
         if ( _openDialogs.length > 0 ) {
             var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
@@ -1947,14 +1972,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
-        if ( !done && _copiedEventDetails !== null ) {
-            if ( _copiedEventDetails_Cut ) {
-                updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-            } else {
-                updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-            }
+        if ( !done && _copiedEventDetails.length > 0 ) {
+            setCopiedEventsClasses();
 
-            _copiedEventDetails = null;
+            _copiedEventDetails = [];
             _copiedEventDetails_Cut = false;
         }
 
@@ -2364,11 +2385,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                     makeEventDraggable( event, eventDetails, dayDate, elementDay );
                     setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
-    
+                    setEventClassesForActions( event, eventDetails );
+
                     if ( doDatesMatch( eventDetails.from, dayDate ) ) {
                         event.id = _elementID_Day + eventDetails.id;
-
-                        setEventClassesForActions( event, eventDetails );
                     }
     
                     event.onmousemove = function( e ) {
@@ -2383,10 +2403,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         showEventDropDownMenu( e, eventDetails, formattedDayDate );
                     };
 
+                    event.addEventListener( "click", function( e ) {
+                        storeMultiSelectEvent( e, eventDetails );
+                    } );
+
                     if ( isOptionEventSet( "onEventClick" ) ) {
-                        event.onclick = function() {
+                        event.addEventListener( "click", function() {
                             triggerOptionsEventWithData( "onEventClick", eventDetails );
-                        };
+                        } );
                     }
         
                     if ( _options.manualEditingEnabled ) {
@@ -2824,11 +2848,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
-    
+            setEventClassesForActions( event, eventDetails );
+
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
                 event.id = _elementID_FullDay + eventDetails.id;
-
-                setEventClassesForActions( event, eventDetails );
             }
 
             var title = createElement( "div", "title" ),
@@ -2886,10 +2909,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
 
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
             if ( isOptionEventSet( "onEventClick" ) ) {
-                event.onclick = function() {
+                event.addEventListener( "click", function() {
                     triggerOptionsEventWithData( "onEventClick", eventDetails );
-                };
+                } );
             }
     
             if ( _options.manualEditingEnabled ) {
@@ -3322,10 +3349,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.appendChild( description );
             }
 
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
             if ( isOptionEventSet( "onEventClick" ) ) {
-                event.onclick = function() {
+                event.addEventListener( "click", function() {
                     triggerOptionsEventWithData( "onEventClick", eventDetails );
-                };
+                } );
             }
     
             if ( _options.manualEditingEnabled ) {
@@ -3688,11 +3719,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             makeEventDraggable( event, eventDetails, displayDate, container );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
-    
+            setEventClassesForActions( event, eventDetails );
+
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
                 event.id = _elementID_WeekDay + eventDetails.id;
-
-                setEventClassesForActions( event, eventDetails );
             }
 
             var title = createElement( "div", "title" ),
@@ -3748,10 +3778,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.appendChild( description );
             }
 
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
             if ( isOptionEventSet( "onEventClick" ) ) {
-                event.onclick = function() {
+                event.addEventListener( "click", function() {
                     triggerOptionsEventWithData( "onEventClick", eventDetails );
-                };
+                } );
             }
     
             if ( _options.manualEditingEnabled ) {
@@ -4479,7 +4513,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Day_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_Day );
             
             _element_DropDownMenu_Day_Paste = buildMenuItemWithIcon( _element_DropDownMenu_Day, "ib-circle-icon", _options.pasteText, function() {
-                addClonedEventToDate( _element_DropDownMenu_Day_DateSelected, _copiedEventDetails_Cut );
+                pasteEventsToDate( _element_DropDownMenu_Day_DateSelected, _copiedEventDetails_Cut );
             } );
         }
     }
@@ -4495,48 +4529,39 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Event_Cut = null;
             _element_DropDownMenu_Event_CopySeparator = null;
             _element_DropDownMenu_Event_Copy = null;
+            _element_DropDownMenu_Event_EditEvent = null;
+            _element_DropDownMenu_Event_RemoveSeparator = null;
+            _element_DropDownMenu_Event_Remove = null;
         }
 
         _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
         _document.body.appendChild( _element_DropDownMenu_Event );
 
         if ( _options.manualEditingEnabled ) {
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
+            _element_DropDownMenu_Event_EditEvent = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
             }, true );
 
             _element_DropDownMenu_Event_CutSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
 
             _element_DropDownMenu_Event_Cut = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-pipe-icon", _options.cutText, function() {
-                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-                }
+                setCopiedEventsClasses();
 
-                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-                }
-
-                _copiedEventDetails = _element_DropDownMenu_Event_EventDetails;
                 _copiedEventDetails_Cut = true;
 
-                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "cut-event" );
+                setCopiedEvents( _element_DropDownMenu_Event_EventDetails );
+                setCopiedEventsClasses( false );
             } );
 
             _element_DropDownMenu_Event_CopySeparator = buildMenuSeparator( _element_DropDownMenu_Event );
             
             _element_DropDownMenu_Event_Copy = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-circle-hollow-icon", _options.copyText, function() {
-                if ( _copiedEventDetails !== null && _copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "cut-event", true );
-                }
+                setCopiedEventsClasses();
 
-                if ( _copiedEventDetails !== null && !_copiedEventDetails_Cut ) {
-                    updateEventClasses( _copiedEventDetails.id, "copy-event", true );
-                }
-
-                _copiedEventDetails = cloneEventDetails( _element_DropDownMenu_Event_EventDetails, false );
                 _copiedEventDetails_Cut = false;
 
-                updateEventClasses( _element_DropDownMenu_Event_EventDetails.id, "copy-event" );
+                setCopiedEvents( _element_DropDownMenu_Event_EventDetails );
+                setCopiedEventsClasses( false );
             } );
 
             _element_DropDownMenu_Event_DuplicateSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
@@ -4546,9 +4571,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setEventEditingDialogInDuplicateMode();
             } );
 
-            buildMenuSeparator( _element_DropDownMenu_Event );
+            _element_DropDownMenu_Event_RemoveSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
 
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
+            _element_DropDownMenu_Event_Remove = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
                 addNode( _document.body, _element_DisabledBackground );
     
                 var onNoEvent = function() {
@@ -4623,13 +4648,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 removeNonRepeatingEventsOnSpecificDate( _element_FullDayView_DateSelected, doDatesMatch );
             } );
 
-            if ( _options.manualEditingEnabled ) {
-                _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
+            _element_DropDownMenu_FullDay_Paste_Separator = buildMenuSeparator( _element_DropDownMenu_FullDay );
                 
-                _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
-                    addClonedEventToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
-                } );
-            }
+            _element_DropDownMenu_FullDay_Paste = buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
+                pasteEventsToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
+            } );
         }
     }
 
@@ -4685,10 +4708,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showDayDropDownMenu( e, date ) {
         if ( !_datePickerModeEnabled && _element_DropDownMenu_Day !== null ) {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+
             _element_DropDownMenu_Day_DateSelected = new Date( date );
 
             if ( _element_DropDownMenu_Day_Paste !== null ) {
-                var display = _copiedEventDetails !== null ? "block" : "none";
+                var display = _copiedEventDetails.length > 0 ? "block" : "none";
     
                 _element_DropDownMenu_Day_Paste_Separator.style.display = display;
                 _element_DropDownMenu_Day_Paste.style.display = display;
@@ -4703,25 +4730,83 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showEventDropDownMenu( e, eventDetails, selectedDate ) {
         if ( _element_DropDownMenu_Event !== null ) {
             var url = getString( eventDetails.url ),
-                locked = isEventLocked( eventDetails ),
-                openUrlDisplay = url !== "" ? "block" : "none",
-                lockedDisplay = !locked ? "block" : "none";
+                locked = isEventLocked( eventDetails );
+
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
 
             _element_DropDownMenu_Event_EventDetails = eventDetails;
             _element_DropDownMenu_Event_FormattedDateSelected = isDefined( selectedDate ) ? selectedDate : null;
-            _element_DropDownMenu_Event_OpenUrl.style.display = openUrlDisplay;
 
-            if ( _element_DropDownMenu_Event.childElementCount > 1 ) {
-                _element_DropDownMenu_Event_DuplicateSeparator.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_Duplicate.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_CutSeparator.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_Cut.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_CopySeparator.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_Copy.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_OpenUrlSeparator.style.display = openUrlDisplay;
+            if ( _eventsSelected.length > 1 ) {
+                if ( _options.manualEditingEnabled ) {
+                    _element_DropDownMenu_Event_EditEvent.style.display = "none";
+                    _element_DropDownMenu_Event_CutSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Cut.style.display = "block";
+                    _element_DropDownMenu_Event_CopySeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Copy.style.display = "block";
+                    _element_DropDownMenu_Event_DuplicateSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Duplicate.style.display = "none";
+                    _element_DropDownMenu_Event_RemoveSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Remove.style.display = "none";
+                }
+
+                _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "none";
+                _element_DropDownMenu_Event_OpenUrl.style.display = "none";
+
+            } else if ( locked ) {
+                if ( _options.manualEditingEnabled ) {
+                    _element_DropDownMenu_Event_EditEvent.style.display = "block";
+                    _element_DropDownMenu_Event_CutSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Cut.style.display = "none";
+                    _element_DropDownMenu_Event_CopySeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Copy.style.display = "none";
+                    _element_DropDownMenu_Event_DuplicateSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Duplicate.style.display = "none";
+                    _element_DropDownMenu_Event_RemoveSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Remove.style.display = "block";
+
+                    if ( url !== "" ) {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "block";
+                    } else {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "none";
+                    }
+                }
+
+                if ( url !== "" ) {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "block";
+                } else {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "none";
+                }
+
+            } else {
+                if ( _options.manualEditingEnabled ) {
+                    _element_DropDownMenu_Event_EditEvent.style.display = "block";
+                    _element_DropDownMenu_Event_CutSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Cut.style.display = "block";
+                    _element_DropDownMenu_Event_CopySeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Copy.style.display = "block";
+                    _element_DropDownMenu_Event_DuplicateSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Duplicate.style.display = "block";
+                    _element_DropDownMenu_Event_RemoveSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Remove.style.display = "block";
+
+                    if ( url !== "" ) {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "block";
+                    } else {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "none";
+                    }
+                }
+
+                if ( url !== "" ) {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "block";
+                } else {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "none";
+                }
             }
 
-            if ( openUrlDisplay === "block" || _element_DropDownMenu_Event.childElementCount > 1 ) {
+            if ( url !== "" || _element_DropDownMenu_Event.childElementCount > 1 ) {
                 hideAllDropDowns();
                 cancelBubble( e );
                 showElementAtMousePosition( e, _element_DropDownMenu_Event );
@@ -4731,8 +4816,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showFullDayDropDownMenu( e ) {
         if ( _element_DropDownMenu_FullDay !== null ) {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+
             if ( _element_DropDownMenu_FullDay_Paste !== null ) {
-                var pasteDisplay = _copiedEventDetails !== null ? "block" : "none";
+                var pasteDisplay = _copiedEventDetails.length > 0 ? "block" : "none";
     
                 _element_DropDownMenu_FullDay_Paste_Separator.style.display = pasteDisplay;
                 _element_DropDownMenu_FullDay_Paste.style.display = pasteDisplay;
@@ -4753,6 +4842,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showDayHeaderDropDownMenu( e, selectedDay ) {
         if ( !_datePickerModeEnabled ) {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+            
             _element_DropDownMenu_HeaderDay_SelectedDay = selectedDay;
 
             var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none";
@@ -6824,45 +6917,36 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.className += " focused-event";
         }
 
-        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && _copiedEventDetails_Cut ) {
-            event.className += " cut-event";
+        if ( isEventIdSelected( eventDetails.id ) ) {
+            event.className += " selected-event";
         }
 
-        if ( _copiedEventDetails !== null && _copiedEventDetails.id === eventDetails.id && !_copiedEventDetails_Cut ) {
-            event.className += " copy-event";
+        if ( isEventIdCopied( eventDetails.id ) ) {
+            if ( _copiedEventDetails_Cut ) {
+                event.className += " cut-event";
+            } else {
+                event.className += " copy-event";
+            }
         }
     }
 
     function updateEventClasses( id, className, remove ) {
         remove = isDefined( remove ) ? remove : false;
 
-        var startingID = null,
-            isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
-            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
-            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
+        var elements = _document.getElementsByClassName( "event" ),
+            elementsArray = [].slice.call( elements ),
+            elementsArrayLength = elementsArray.length;
 
-        if ( isFullDayViewVisible ) {
-            startingID = _elementID_FullDay;
-        } else if ( isAllEventsViewVisible ) {
-            startingID = _elementID_Month;
-        } else if ( isAllWeekEventsViewVisible ) {
-            startingID = _elementID_WeekDay;
-        }
+        for ( var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++ ) {
+            var element = elementsArray[ elementsArrayIndex ],
+                elementAttributeData = element.getAttribute( "event-id" );
 
-        updateEventClass( _elementID_Day + id, className, remove );
-
-        if ( startingID !== null ) {
-            updateEventClass( startingID + id, className, remove );
-        }
-    }
-
-    function updateEventClass( id, className, remove ) {
-        var event = getElementByID( id );
-        if ( event !== null ) {
-            if ( !remove ) {
-                event.className += " " + className;
-            } else {
-                event.className = event.className.replace( " " + className, "" );
+            if ( elementAttributeData !== null && elementAttributeData === id.toString() ) {
+                if ( !remove ) {
+                    element.className += " " + className;
+                } else {
+                    element.className = element.className.replace( " " + className, "" );
+                }
             }
         }
     }
@@ -6948,6 +7032,169 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _window.open( url, _options.urlWindowTarget );
 
         triggerOptionsEvent( "onEventUrlClicked", url );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Selected, Cut, Copy, and Paste
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function setCopiedEventsClasses( clear ) {
+        clear = isDefined( clear ) ? clear : true;
+
+        var copiedEventDetailsLength = _copiedEventDetails.length;
+
+        for ( var copiedEventDetailsIndex = 0; copiedEventDetailsIndex < copiedEventDetailsLength; copiedEventDetailsIndex++ ) {
+            var eventDetails = _copiedEventDetails[ copiedEventDetailsIndex ];
+            
+            if ( _copiedEventDetails_Cut ) {
+                updateEventClasses( eventDetails.id, "cut-event", clear );
+            } else {
+                updateEventClasses( eventDetails.id, "copy-event", clear );
+            }
+        }
+    }
+
+    function setCopiedEvents( eventDetails ) {
+        _copiedEventDetails = [];
+
+        var selectedEventsLength = _eventsSelected.length;
+
+        if ( selectedEventsLength > 0 ) {
+            for ( var selectedEventIndex = 0; selectedEventIndex < selectedEventsLength; selectedEventIndex++ ) {
+                _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
+            }
+            
+        } else {
+            _copiedEventDetails.push( eventDetails );
+        }
+    }
+
+    function isEventIdSelected( id ) {
+        var result = false,
+            eventsSelectedLength = _eventsSelected.length;
+
+        for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
+            if ( _eventsSelected[ eventsSelectedIndex ].id === id ) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    function isEventIdCopied( id ) {
+        var result = false,
+            copiedEventDetailsLength = _copiedEventDetails.length;
+
+        for ( var copiedEventDetailsIndex = 0; copiedEventDetailsIndex < copiedEventDetailsLength; copiedEventDetailsIndex++ ) {
+            if ( _copiedEventDetails[ copiedEventDetailsIndex ].id === id ) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+    
+    function pasteEventsToDate( date, cut ) {
+        var copiedEventDetailsLength = _copiedEventDetails.length;
+
+        for ( var copiedEventDetailsIndex = 0; copiedEventDetailsIndex < copiedEventDetailsLength; copiedEventDetailsIndex++ ) {
+            var eventDetails = _copiedEventDetails[ copiedEventDetailsIndex ],
+                totalDays = getTotalDaysBetweenDates( eventDetails.from, eventDetails.to );
+            
+            var newEvent = !cut ? cloneEventDetails( eventDetails ) : eventDetails;
+            newEvent.from.setDate( date.getDate() );
+            newEvent.from.setMonth( date.getMonth() );
+            newEvent.from.setFullYear( date.getFullYear() );
+            newEvent.to.setDate( date.getDate() );
+            newEvent.to.setMonth( date.getMonth() );
+            newEvent.to.setFullYear( date.getFullYear() );
+            newEvent.to.setDate( newEvent.to.getDate() + totalDays );
+    
+            if ( !cut ) {
+                newEvent.id = null;
+    
+                _this.addEvent( newEvent, false, true );
+
+            } else {
+                triggerOptionsEventWithData( "onEventUpdated", newEvent );
+            }
+        }
+
+        if ( cut ) {
+            clearSelectedEvents();
+            
+            _copiedEventDetails = [];
+            _copiedEventDetails_Cut = false;
+        }
+
+        buildDayEvents();
+        refreshOpenedViews();
+    }
+
+    function storeMultiSelectEvent( e, eventDetails ) {
+        cancelBubble( e );
+        hideAllDropDowns();
+
+        if ( !isEventLocked( eventDetails ) ) {
+            if ( isControlKey( e ) ) {
+                if ( !isEventIdSelected( eventDetails.id ) ) {
+                    _eventsSelected.push( eventDetails );
+        
+                    updateEventClasses( eventDetails.id, "selected-event", false );
+
+                } else {
+                    var eventsSelectedLength = _eventsSelected.length;
+
+                    for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
+                        if ( _eventsSelected[ eventsSelectedIndex ].id === eventDetails.id ) {
+                            _eventsSelected.splice( eventsSelectedIndex, 1 );
+                            break;
+                        }
+                    }
+
+                    updateEventClasses( eventDetails.id, "selected-event", true );
+                }
+
+            } else {
+                clearSelectedEvents();
+            }
+
+        } else {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+        }
+    }
+
+    function clearSelectedEvents() {
+        var eventsSelectedLength = _eventsSelected.length;
+
+        for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
+            updateEventClasses( _eventsSelected[ eventsSelectedIndex ].id, "selected-event", true );
+        }
+
+        _eventsSelected = [];
+    }
+
+    function setCopiedEventsFromKeyDown( cut ) {
+        _copiedEventDetails = [];
+        _copiedEventDetails_Cut = isDefined( cut ) ? cut : false;
+
+        var selectedEventsLength = _eventsSelected.length;
+
+        if ( selectedEventsLength > 0 ) {
+            for ( var selectedEventIndex = 0; selectedEventIndex < selectedEventsLength; selectedEventIndex++ ) {
+                _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
+            }
+
+            setCopiedEventsClasses( false );
+        }
     }
 
 
@@ -7260,9 +7507,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function cloneEventDetails( value, deleteId ) {
-        deleteId = isDefined( deleteId ) ? deleteId : true;
-
+    function cloneEventDetails( value ) {
         var object = JSON.parse( JSON.stringify( value ) );
         object.from = new Date( object.from );
         object.to = new Date( object.to );
@@ -7273,37 +7518,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
         delete object.created;
         delete object.lastUpdated;
-
-        if ( deleteId ) {
-            delete object.id;
-        }
+        delete object.id;
 
         return object;
-    }
-
-    function addClonedEventToDate( date, cut ) {
-        var newEvent = !cut ? cloneEventDetails( _copiedEventDetails ) : _copiedEventDetails;
-        newEvent.from.setDate( date.getDate() );
-        newEvent.from.setMonth( date.getMonth() );
-        newEvent.from.setFullYear( date.getFullYear() );
-        newEvent.to.setDate( date.getDate() );
-        newEvent.to.setMonth( date.getMonth() );
-        newEvent.to.setFullYear( date.getFullYear() );
-
-        if ( !cut ) {
-            newEvent.id = null;
-
-            _this.addEvent( newEvent );
-        } else {
-            
-            _copiedEventDetails = null;
-            _copiedEventDetails_Cut = false;
-
-            triggerOptionsEventWithData( "onEventUpdated", newEvent );
-
-            buildDayEvents();
-            refreshOpenedViews();
-        }
     }
 
     function setElementClassName( element, className ) {
@@ -9396,22 +9613,49 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Event}    event                                        The event to set (refer to "Day Event" documentation for properties).
      */
     this.setClipboardEvent = function( event ) {
-        if ( isDefinedObject( event ) ) {
-            _copiedEventDetails = cloneEventDetails( event );
+        if ( isDefinedObject( event ) && !_datePickerModeEnabled ) {
+            _copiedEventDetails = [ cloneEventDetails( event ) ];
         }
     };
 
     /**
-     * getClipboardEvent().
+     * setClipboardEvents().
      * 
-     * Returns the event copied in the clipboard.
+     * Set the clipboard events.
      * 
      * @public
      * 
-     * @returns     {Event}                                                 The copied event details.
+     * @param       {Event[]}   events                                      The events to set (refer to "Day Event" documentation for properties).
      */
-    this.getClipboardEvent = function() {
-        return _copiedEventDetails;
+    this.setClipboardEvents = function( events ) {
+        if ( isDefinedArray( events ) && !_datePickerModeEnabled ) {
+            _copiedEventDetails = [];
+
+            var eventsLength = events.length;
+
+            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                _copiedEventDetails.push( cloneEventDetails( events[ eventIndex ] ) );
+            }
+        }
+    };
+
+    /**
+     * getClipboardEvents().
+     * 
+     * Returns the events copied in the clipboard.
+     * 
+     * @public
+     * 
+     * @returns     {Event[]}                                               The copied events details.
+     */
+    this.getClipboardEvents = function() {
+        var result = null;
+
+        if ( !_datePickerModeEnabled ) {
+            result = _copiedEventDetails;
+        }
+
+        return result;
     };
 
     /**
@@ -9422,7 +9666,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      */
     this.clearClipboard = function() {
-        _copiedEventDetails = null;
+        if ( !_datePickerModeEnabled ) {
+            _copiedEventDetails = [];
+        }
     };
 
 
@@ -9442,7 +9688,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.0.3";
+        return "2.0.4";
     };
 
     /**

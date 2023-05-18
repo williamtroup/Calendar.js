@@ -1,5 +1,17 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.4:
+- Moved all the documentation MD files into the "docs" folder (clears up the root folder a fair bit).
+- Added a slightly larger left border for the side menu panels that are opened (with transition effect).
+- The public functions for handling the internal clipboard can no longer be used in DatePicker mode.
+- Fixed a fault that caused copied/cut events that span multiple days to only be assigned to one day when pasted.
+- Added full multi-select support for events when cutting, copying, and pasting (simply press Control/Command, and then select the events).
+- When an event is copied, or cut, the CSS effect is now applied to all repeating / multiple day spanning events.
+- Added global Ctrl/Command + Shift + C support to copy the selected events (only for multi-select).
+- Added global Ctrl/Command + Shift + X support to cut the selected events (only for multi-select).
+
+<br>
+
 ## Version 2.0.3:
 - BREAKING: All JS/CSS files have been renamed to reflect the project name more accurately.  Testing HTML filenames have also ben renamed.
 - Renamed the project description in all files.

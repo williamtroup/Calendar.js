@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v2.0.3</p>
+<p align="center">v2.0.4</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -15,7 +15,7 @@ Calendar.js
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
-- Cut, Copy, Paste, and Duplication of events.
+- Cut, Copy, Paste (with multi-select support), and Duplication of events.
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
@@ -35,9 +35,11 @@ Calendar.js
   7. Ctrl/Command + Right:  Moves to the next year.
 - Navigation keys (global):
   1. Escape:  Closes the active dialog.
-  2. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
-  3. Ctrl/Command + Shift + F:  Opens the search dialog.
-  4. Ctrl/Command + Shift + E:  Opens the export events dialog.
+  2. Ctrl/Command + Shift + A:  Opens the Add Event dialog.
+  3. Ctrl/Command + Shift + C:  Copies all the selected events.
+  4. Ctrl/Command + Shift + E:  Opens the Export Events dialog.
+  5. Ctrl/Command + Shift + X:  Cuts all the selected events.
+  6. Ctrl/Command + Shift + F:  Opens the Search dialog.
 - Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
@@ -58,7 +60,7 @@ Limited support is still available for Internet Explorer. However, use within th
 
 <h1>What are the most recent changes?</h1>
 
-To see a list of all the most recent changes, click [here](CHANGES.md).
+To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
 <br>
 <br>
 
@@ -112,7 +114,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 
 <br>
 
-To see the options available for the class constructor, click [here](CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
+To see the options available for the class constructor, click [here](docs/CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
 <br>
 <br>
 
@@ -142,9 +144,9 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 </script>
 ```
 
-To see a list of all the available options you can use, click [here](OPTIONS.md).
+To see a list of all the available options you can use, click [here](docs/OPTIONS.md).
 
-To see a list of all the available custom triggers you can use, click [here](CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use, click [here](docs/CUSTOM_TRIGGERS.md).
 <br>
 <br>
 
@@ -172,7 +174,7 @@ You can add a new event by using one of the add public functions, as follows:
 ```
 
 
-To see a list of all the available event properties and how they should be formatted, click [here](EVENT.md).
+To see a list of all the available event properties and how they should be formatted, click [here](docs/EVENT.md).
 <br>
 <br>
 
@@ -193,13 +195,13 @@ A holiday is a piece of text that is shown under the day number in the month it 
 </script>
 ```
 
-To see a list of all the available holiday properties and how they should be formatted, click [here](HOLIDAY.md).
+To see a list of all the available holiday properties and how they should be formatted, click [here](docs/HOLIDAY.md).
 <br>
 <br>
 
 ### 4. Public Functions:
 
-To see a list of all the public functions available, click [here](FUNCTIONS.md).
+To see a list of all the public functions available, click [here](docs/FUNCTIONS.md).
 <br>
 <br>
 
@@ -215,6 +217,6 @@ Search Options allow you to customize how Calendar.js Search dialog will functio
 </script>
 ```
 
-To see a list of all the available search options you can use, click [here](SEARCH_OPTIONS.md).
+To see a list of all the available search options you can use, click [here](docs/SEARCH_OPTIONS.md).
 <br>
 <br>

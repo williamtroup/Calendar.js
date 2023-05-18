@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.3
+ * Calendar.js Library v2.0.4
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -174,6 +174,11 @@ div.calendar {
 
     div.focused-event {
         animation: focused-event-effect 2s infinite;
+    }
+
+    div.selected-event {
+        box-shadow: 0 0 $selected-event-shadow-size $selected-event-shadow-size $alert-color;
+        opacity: 0.7 !important;
     }
 
     div.cut-event {
@@ -478,6 +483,10 @@ div.calendar {
         }
 
         div.content {
+            div.content-section-opened {
+                border-left: calc( $standard-border-size * 6 ) solid #656363 !important;
+            }
+
             div.content-section {
                 margin-top: $spacing;
                 border-radius: $border-view-radius;
