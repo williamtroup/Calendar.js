@@ -390,8 +390,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             right: 39,
             down: 40,
             a: 65,
+            c: 67,
             e: 69,
             f: 70,
+            x: 88,
             f5: 116,
             f11: 122
         },
@@ -1876,6 +1878,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _options.manualEditingEnabled ) {
                         showEventEditingDialog( null, new Date() );
                     }
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.c ) {
+                    e.preventDefault();
+                    setCopiedEventsFromKeyDown();
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.e ) {
+                    e.preventDefault();
+    
+                    if ( _options.exportEventsEnabled ) {
+                        showExportDialogFromWindowKeyDown();
+                    }
                 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                     e.preventDefault();
@@ -1883,13 +1896,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
                         showSearchDialog();
                     }
-    
-                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.e ) {
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.x ) {
                     e.preventDefault();
-    
-                    if ( _options.exportEventsEnabled ) {
-                        showExportDialogFromWindowKeyDown();
-                    }
+                    setCopiedEventsFromKeyDown( true );
     
                 }  else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f11 ) {
                     e.preventDefault();
@@ -4550,7 +4560,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 _copiedEventDetails_Cut = false;
 
-                setCopiedEvents( _element_DropDownMenu_Event_EventDetails, true );
+                setCopiedEvents( _element_DropDownMenu_Event_EventDetails );
                 setCopiedEventsClasses( false );
             } );
 
@@ -7047,28 +7057,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function setCopiedEvents( eventDetails, clone ) {
-        clone = isDefined( clone ) ? clone : false;
-
+    function setCopiedEvents( eventDetails ) {
         _copiedEventDetails = [];
 
         var selectedEventsLength = _eventsSelected.length;
 
         if ( selectedEventsLength > 0 ) {
             for ( var selectedEventIndex = 0; selectedEventIndex < selectedEventsLength; selectedEventIndex++ ) {
-                if ( clone ) {
-                    _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
-                } else {
-                    _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
-                }
+                _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
             }
             
         } else {
-            if ( clone ) {
-                _copiedEventDetails.push( eventDetails );
-            } else {
-                _copiedEventDetails.push( eventDetails );
-            }
+            _copiedEventDetails.push( eventDetails );
         }
     }
 
@@ -7180,6 +7180,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _eventsSelected = [];
+    }
+
+    function setCopiedEventsFromKeyDown( cut ) {
+        _copiedEventDetails = [];
+        _copiedEventDetails_Cut = isDefined( cut ) ? cut : false;
+
+        var selectedEventsLength = _eventsSelected.length;
+
+        if ( selectedEventsLength > 0 ) {
+            for ( var selectedEventIndex = 0; selectedEventIndex < selectedEventsLength; selectedEventIndex++ ) {
+                _copiedEventDetails.push( _eventsSelected[ selectedEventIndex ] );
+            }
+
+            setCopiedEventsClasses( false );
+        }
     }
 
 
@@ -7492,9 +7507,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function cloneEventDetails( value, deleteId ) {
-        deleteId = isDefined( deleteId ) ? deleteId : true;
-
+    function cloneEventDetails( value ) {
         var object = JSON.parse( JSON.stringify( value ) );
         object.from = new Date( object.from );
         object.to = new Date( object.to );
@@ -7505,10 +7518,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
         delete object.created;
         delete object.lastUpdated;
-
-        if ( deleteId ) {
-            delete object.id;
-        }
+        delete object.id;
 
         return object;
     }

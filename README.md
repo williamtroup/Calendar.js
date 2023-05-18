@@ -35,9 +35,11 @@ Calendar.js
   7. Ctrl/Command + Right:  Moves to the next year.
 - Navigation keys (global):
   1. Escape:  Closes the active dialog.
-  2. Ctrl/Command + Shift + A:  Opens the Add Event dialog (if manual editing is enabled).
-  3. Ctrl/Command + Shift + F:  Opens the search dialog.
-  4. Ctrl/Command + Shift + E:  Opens the export events dialog.
+  2. Ctrl/Command + Shift + A:  Opens the Add Event dialog.
+  3. Ctrl/Command + Shift + C:  Copies all the selected events.
+  4. Ctrl/Command + Shift + E:  Opens the Export Events dialog.
+  5. Ctrl/Command + Shift + X:  Cuts all the selected events.
+  6. Ctrl/Command + Shift + F:  Opens the Search dialog.
 - Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).

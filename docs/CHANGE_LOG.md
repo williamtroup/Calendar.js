@@ -7,6 +7,8 @@
 - Fixed a fault that caused copied/cut events that span multiple days to only be assigned to one day when pasted.
 - Added full multi-select support for events when cutting, copying, and pasting (simply press Control/Command, and then select the events).
 - When an event is copied, or cut, the CSS effect is now applied to all repeating / multiple day spanning events.
+- Added global Ctrl/Command + Shift + C support to copy the selected events (only for multi-select).
+- Added global Ctrl/Command + Shift + X support to cut the selected events (only for multi-select).
 - 
 
 <br>
