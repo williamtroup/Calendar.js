@@ -801,7 +801,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildDocumentEvents() {
     if (!_initializedDocumentEvents) {
-      _document.body.addEventListener("click", hideAllDropDowns);
+      _document.body.addEventListener("click", onDocumentClick);
       _document.body.addEventListener("contextmenu", hideAllDropDowns);
       _document.body.addEventListener("mousemove", onMoveDocumentMouseMove);
       _document.body.addEventListener("mouseleave", onMoveDocumentMouseLeave);
@@ -812,6 +812,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       _window.addEventListener("resize", onWindowResizeRefreshViews);
       _window.addEventListener("blur", onWindowFocusOut);
       _initializedDocumentEvents = true;
+    }
+  }
+  function onDocumentClick(e) {
+    hideAllDropDowns();
+    if (!isControlKey(e)) {
+      clearSelectedEvents();
     }
   }
   function onWindowFocusOut() {
