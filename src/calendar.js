@@ -624,10 +624,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_Event_OpenUrl = null,
         _element_DropDownMenu_Event_DuplicateSeparator = null,
         _element_DropDownMenu_Event_Duplicate = null,
+        _element_DropDownMenu_Event_EditEvent = null,
         _element_DropDownMenu_Event_CutSeparator = null,
         _element_DropDownMenu_Event_Cut = null,
         _element_DropDownMenu_Event_CopySeparator = null,
         _element_DropDownMenu_Event_Copy = null,
+        _element_DropDownMenu_Event_RemoveSeparator = null,
+        _element_DropDownMenu_Event_Remove = null,
         _element_DropDownMenu_FullDay = null,
         _element_DropDownMenu_FullDay_RemoveEvents_Separator = null,
         _element_DropDownMenu_FullDay_RemoveEvents = null,
@@ -4516,13 +4519,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Event_Cut = null;
             _element_DropDownMenu_Event_CopySeparator = null;
             _element_DropDownMenu_Event_Copy = null;
+            _element_DropDownMenu_Event_EditEvent = null;
+            _element_DropDownMenu_Event_RemoveSeparator = null;
+            _element_DropDownMenu_Event_Remove = null;
         }
 
         _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
         _document.body.appendChild( _element_DropDownMenu_Event );
 
         if ( _options.manualEditingEnabled ) {
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
+            _element_DropDownMenu_Event_EditEvent = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
                 showEventEditingDialog( _element_DropDownMenu_Event_EventDetails );
             }, true );
 
@@ -4555,9 +4561,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setEventEditingDialogInDuplicateMode();
             } );
 
-            buildMenuSeparator( _element_DropDownMenu_Event );
+            _element_DropDownMenu_Event_RemoveSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
 
-            buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
+            _element_DropDownMenu_Event_Remove = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-close-icon", _options.removeEventText, function() {
                 addNode( _document.body, _element_DisabledBackground );
     
                 var onNoEvent = function() {
@@ -4692,6 +4698,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showDayDropDownMenu( e, date ) {
         if ( !_datePickerModeEnabled && _element_DropDownMenu_Day !== null ) {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+
             _element_DropDownMenu_Day_DateSelected = new Date( date );
 
             if ( _element_DropDownMenu_Day_Paste !== null ) {
@@ -4710,25 +4720,83 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showEventDropDownMenu( e, eventDetails, selectedDate ) {
         if ( _element_DropDownMenu_Event !== null ) {
             var url = getString( eventDetails.url ),
-                locked = isEventLocked( eventDetails ),
-                openUrlDisplay = url !== "" ? "block" : "none",
-                lockedDisplay = !locked ? "block" : "none";
+                locked = isEventLocked( eventDetails );
+
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
 
             _element_DropDownMenu_Event_EventDetails = eventDetails;
             _element_DropDownMenu_Event_FormattedDateSelected = isDefined( selectedDate ) ? selectedDate : null;
-            _element_DropDownMenu_Event_OpenUrl.style.display = openUrlDisplay;
 
-            if ( _element_DropDownMenu_Event.childElementCount > 1 ) {
-                _element_DropDownMenu_Event_DuplicateSeparator.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_Duplicate.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_CutSeparator.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_Cut.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_CopySeparator.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_Copy.style.display = lockedDisplay;
-                _element_DropDownMenu_Event_OpenUrlSeparator.style.display = openUrlDisplay;
+            if ( _eventsSelected.length > 1 ) {
+                if ( _options.manualEditingEnabled ) {
+                    _element_DropDownMenu_Event_EditEvent.style.display = "none";
+                    _element_DropDownMenu_Event_CutSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Cut.style.display = "block";
+                    _element_DropDownMenu_Event_CopySeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Copy.style.display = "block";
+                    _element_DropDownMenu_Event_DuplicateSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Duplicate.style.display = "none";
+                    _element_DropDownMenu_Event_RemoveSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Remove.style.display = "none";
+                }
+
+                _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "none";
+                _element_DropDownMenu_Event_OpenUrl.style.display = "none";
+
+            } else if ( locked ) {
+                if ( _options.manualEditingEnabled ) {
+                    _element_DropDownMenu_Event_EditEvent.style.display = "block";
+                    _element_DropDownMenu_Event_CutSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Cut.style.display = "none";
+                    _element_DropDownMenu_Event_CopySeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Copy.style.display = "none";
+                    _element_DropDownMenu_Event_DuplicateSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_Duplicate.style.display = "none";
+                    _element_DropDownMenu_Event_RemoveSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Remove.style.display = "block";
+
+                    if ( url !== "" ) {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "block";
+                    } else {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "none";
+                    }
+                }
+
+                if ( url !== "" ) {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "block";
+                } else {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "none";
+                }
+
+            } else {
+                if ( _options.manualEditingEnabled ) {
+                    _element_DropDownMenu_Event_EditEvent.style.display = "block";
+                    _element_DropDownMenu_Event_CutSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Cut.style.display = "block";
+                    _element_DropDownMenu_Event_CopySeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Copy.style.display = "block";
+                    _element_DropDownMenu_Event_DuplicateSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Duplicate.style.display = "block";
+                    _element_DropDownMenu_Event_RemoveSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_Remove.style.display = "block";
+
+                    if ( url !== "" ) {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "block";
+                    } else {
+                        _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "none";
+                    }
+                }
+
+                if ( url !== "" ) {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "block";
+                } else {
+                    _element_DropDownMenu_Event_OpenUrl.style.display = "none";
+                }
             }
 
-            if ( openUrlDisplay === "block" || _element_DropDownMenu_Event.childElementCount > 1 ) {
+            if ( url !== "" || _element_DropDownMenu_Event.childElementCount > 1 ) {
                 hideAllDropDowns();
                 cancelBubble( e );
                 showElementAtMousePosition( e, _element_DropDownMenu_Event );
@@ -4738,6 +4806,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showFullDayDropDownMenu( e ) {
         if ( _element_DropDownMenu_FullDay !== null ) {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+
             if ( _element_DropDownMenu_FullDay_Paste !== null ) {
                 var pasteDisplay = _copiedEventDetails.length > 0 ? "block" : "none";
     
@@ -4760,6 +4832,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showDayHeaderDropDownMenu( e, selectedDay ) {
         if ( !_datePickerModeEnabled ) {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+            
             _element_DropDownMenu_HeaderDay_SelectedDay = selectedDay;
 
             var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none";
@@ -7063,6 +7139,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function storeMultiSelectEvent( e, eventDetails ) {
         cancelBubble( e );
+        hideAllDropDowns();
 
         if ( !isEventLocked( eventDetails ) ) {
             if ( isControlKey( e ) ) {
