@@ -2372,11 +2372,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                     makeEventDraggable( event, eventDetails, dayDate, elementDay );
                     setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
-    
+                    setEventClassesForActions( event, eventDetails );
+
                     if ( doDatesMatch( eventDetails.from, dayDate ) ) {
                         event.id = _elementID_Day + eventDetails.id;
-
-                        setEventClassesForActions( event, eventDetails );
                     }
     
                     event.onmousemove = function( e ) {
@@ -2836,11 +2835,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
     
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
-    
+            setEventClassesForActions( event, eventDetails );
+
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
                 event.id = _elementID_FullDay + eventDetails.id;
-
-                setEventClassesForActions( event, eventDetails );
             }
 
             var title = createElement( "div", "title" ),
@@ -3708,11 +3706,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             makeEventDraggable( event, eventDetails, displayDate, container );
             setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
-    
+            setEventClassesForActions( event, eventDetails );
+
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
                 event.id = _elementID_WeekDay + eventDetails.id;
-
-                setEventClassesForActions( event, eventDetails );
             }
 
             var title = createElement( "div", "title" ),
@@ -6850,33 +6847,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function updateEventClasses( id, className, remove ) {
         remove = isDefined( remove ) ? remove : false;
 
-        var startingID = null,
-            isFullDayViewVisible = isOverlayVisible( _element_FullDayView ),
-            isAllEventsViewVisible = isOverlayVisible( _element_ListAllEventsView ),
-            isAllWeekEventsViewVisible = isOverlayVisible( _element_ListAllWeekEventsView );
+        var elements = _document.getElementsByClassName( "event" ),
+            elementsArray = [].slice.call( elements ),
+            elementsArrayLength = elementsArray.length;
 
-        if ( isFullDayViewVisible ) {
-            startingID = _elementID_FullDay;
-        } else if ( isAllEventsViewVisible ) {
-            startingID = _elementID_Month;
-        } else if ( isAllWeekEventsViewVisible ) {
-            startingID = _elementID_WeekDay;
-        }
+        for ( var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++ ) {
+            var element = elementsArray[ elementsArrayIndex ],
+                elementAttributeData = element.getAttribute( "event-id" );
 
-        updateEventClass( _elementID_Day + id, className, remove );
-
-        if ( startingID !== null ) {
-            updateEventClass( startingID + id, className, remove );
-        }
-    }
-
-    function updateEventClass( id, className, remove ) {
-        var event = getElementByID( id );
-        if ( event !== null ) {
-            if ( !remove ) {
-                event.className += " " + className;
-            } else {
-                event.className = event.className.replace( " " + className, "" );
+            if ( elementAttributeData !== null && elementAttributeData === id.toString() ) {
+                if ( !remove ) {
+                    element.className += " " + className;
+                } else {
+                    element.className = element.className.replace( " " + className, "" );
+                }
             }
         }
     }

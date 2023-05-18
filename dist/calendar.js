@@ -1219,9 +1219,9 @@ function calendarJs(elementOrId, options, searchOptions) {
           elementDay.appendChild(event);
           makeEventDraggable(event, eventDetails, dayDate, elementDay);
           setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, dayDate), _options.applyCssToEventsNotInCurrentMonth);
+          setEventClassesForActions(event, eventDetails);
           if (doDatesMatch(eventDetails.from, dayDate)) {
             event.id = _elementID_Day + eventDetails.id;
-            setEventClassesForActions(event, eventDetails);
           }
           event.onmousemove = function(e) {
             if (_element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id) {
@@ -1551,9 +1551,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         showEventDropDownMenu(e, eventDetails, formattedDate);
       };
       setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, displayDate));
+      setEventClassesForActions(event, eventDetails);
       if (doDatesMatch(eventDetails.from, displayDate)) {
         event.id = _elementID_FullDay + eventDetails.id;
-        setEventClassesForActions(event, eventDetails);
       }
       var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
       if (repeatEvery > _repeatType.never) {
@@ -2157,9 +2157,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       };
       makeEventDraggable(event, eventDetails, displayDate, container);
       setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, displayDate));
+      setEventClassesForActions(event, eventDetails);
       if (doDatesMatch(eventDetails.from, displayDate)) {
         event.id = _elementID_WeekDay + eventDetails.id;
-        setEventClassesForActions(event, eventDetails);
       }
       var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
       if (repeatEvery > _repeatType.never) {
@@ -4398,26 +4398,15 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function updateEventClasses(id, className, remove) {
     remove = isDefined(remove) ? remove : false;
-    var startingID = null, isFullDayViewVisible = isOverlayVisible(_element_FullDayView), isAllEventsViewVisible = isOverlayVisible(_element_ListAllEventsView), isAllWeekEventsViewVisible = isOverlayVisible(_element_ListAllWeekEventsView);
-    if (isFullDayViewVisible) {
-      startingID = _elementID_FullDay;
-    } else if (isAllEventsViewVisible) {
-      startingID = _elementID_Month;
-    } else if (isAllWeekEventsViewVisible) {
-      startingID = _elementID_WeekDay;
-    }
-    updateEventClass(_elementID_Day + id, className, remove);
-    if (startingID !== null) {
-      updateEventClass(startingID + id, className, remove);
-    }
-  }
-  function updateEventClass(id, className, remove) {
-    var event = getElementByID(id);
-    if (event !== null) {
-      if (!remove) {
-        event.className += " " + className;
-      } else {
-        event.className = event.className.replace(" " + className, "");
+    var elements = _document.getElementsByClassName("event"), elementsArray = [].slice.call(elements), elementsArrayLength = elementsArray.length;
+    for (var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++) {
+      var element = elementsArray[elementsArrayIndex], elementAttributeData = element.getAttribute("event-id");
+      if (elementAttributeData !== null && elementAttributeData === id.toString()) {
+        if (!remove) {
+          element.className += " " + className;
+        } else {
+          element.className = element.className.replace(" " + className, "");
+        }
       }
     }
   }
