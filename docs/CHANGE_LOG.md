@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.5:
+- Added global Ctrl/Command + Shift + V support to paste the selected events (only for Full Day view).
 - 
 
 <br>

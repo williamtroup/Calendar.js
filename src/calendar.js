@@ -393,6 +393,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             c: 67,
             e: 69,
             f: 70,
+            v: 86,
             x: 88,
             f5: 116,
             f11: 122
@@ -1896,6 +1897,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
                         showSearchDialog();
                     }
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.v ) {
+                    e.preventDefault();
+                    pasteCopiedEventsFromKeyDown();
 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.x ) {
                     e.preventDefault();
@@ -7194,6 +7199,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             setCopiedEventsClasses( false );
+        }
+    }
+
+    function pasteCopiedEventsFromKeyDown() {
+        var copiedEventsLength = _copiedEventDetails.length;
+        
+        if ( isOverlayVisible( _element_FullDayView ) && copiedEventsLength > 0 ) {
+            pasteEventsToDate( _element_FullDayView_DateSelected, _copiedEventDetails_Cut );
         }
     }
 

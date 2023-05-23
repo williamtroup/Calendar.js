@@ -1,6 +1,6 @@
 /*! Calendar.js v2.0.5 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
-  var _this = this, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, x:88, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 
+  var _this = this, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, v:86, x:88, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 
   4:{text:"Task Label", eventEditorInput:null}}, _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}}, _options = {}, _optionsForSearch = {}, _datePickerInput = null, _datePickerHiddenInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, _elements = {}, _eventNotificationsTriggered = {}, _document = null, _window = 
   null, _elementID = null, _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = false, _events = {}, _timer_CallSearchOptionsEvent = null, _timer_RefreshMainDisplay = null, _timer_RefreshMainDisplay_Enabled = true, _timer_RefreshViewsOnWindowResize = null, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = [], _eventsSelected = [], _copiedEventDetails = [], 
   _copiedEventDetails_Cut = false, _previousDaysVisibleBeforeSingleDayView = [], _elementID_Day = "day-", _elementID_Month = "month-", _elementID_WeekDay = "week-day-", _elementID_FullDay = "full-day-", _elementID_DayElement = "calendar-day-", _elementID_YearSelected = "year-selected-", _element_Rows = [], _element_DisabledBackground = null, _element_Calendar = null, _element_Calendar_AllVisibleEvents = [], _element_MoveDialog_Original_X = 0, _element_MoveDialog_Original_Y = 0, _element_MoveDialog = 
@@ -892,6 +892,9 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (_element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0) {
             showSearchDialog();
           }
+        } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.v) {
+          e.preventDefault();
+          pasteCopiedEventsFromKeyDown();
         } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.x) {
           e.preventDefault();
           setCopiedEventsFromKeyDown(true);
@@ -4649,6 +4652,12 @@ function calendarJs(elementOrId, options, searchOptions) {
         _copiedEventDetails.push(_eventsSelected[selectedEventIndex]);
       }
       setCopiedEventsClasses(false);
+    }
+  }
+  function pasteCopiedEventsFromKeyDown() {
+    var copiedEventsLength = _copiedEventDetails.length;
+    if (isOverlayVisible(_element_FullDayView) && copiedEventsLength > 0) {
+      pasteEventsToDate(_element_FullDayView_DateSelected, _copiedEventDetails_Cut);
     }
   }
   function startAutoRefreshTimer() {
