@@ -1128,6 +1128,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     var hours = totalMinutes / 60, remainingHours = Math.floor(hours), remainingMinutes = Math.round((hours - remainingHours) * 60);
     return [remainingHours, remainingMinutes];
   }
+  function addMinutesToDate(date, minutes) {
+    return new Date(date.getTime() + minutes * 60000);
+  }
   function buildDayEvents() {
     clearEventsFromDays();
     clearAutoRefreshTimer();
@@ -3268,11 +3271,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_EventEditorRepeatOptionsDialog_Sun.checked = excludeDays.indexOf(0) > -1;
       setSelectedDate(eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds);
     } else {
-      var date = new Date(), today = !isDefined(overrideTodayDate) ? date : overrideTodayDate;
-      if (isDateToday(today)) {
-        today.setHours(date.getHours());
-        today.setMinutes(date.getMinutes());
+      var date = new Date(), fromDate = !isDefined(overrideTodayDate) ? date : overrideTodayDate, toDate = null;
+      if (isDateToday(fromDate)) {
+        fromDate.setHours(date.getHours());
+        fromDate.setMinutes(date.getMinutes());
       }
+      toDate = addMinutesToDate(fromDate, _options.defaultEventDuration);
       setNodeText(_element_EventEditorDialog_TitleBar, _options.addEventTitle);
       setEventTypeInputCheckedStates();
       _element_EventEditorDialog_OKButton.value = _options.addText;
@@ -3299,16 +3303,17 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
       _element_EventEditorDialog_RepeatEvery_Custom_Value.value = "1";
       _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked = true;
-      if (!isDefinedArray(overrideTimeValues)) {
-        _element_EventEditorDialog_TimeFrom.value = toFormattedTime(today);
-        _element_EventEditorDialog_TimeTo.value = toFormattedTime(today);
-      } else {
-        var newTimeToDisplay = padNumber(overrideTimeValues[0]) + ":" + padNumber(overrideTimeValues[1]);
-        _element_EventEditorDialog_TimeFrom.value = newTimeToDisplay;
-        _element_EventEditorDialog_TimeTo.value = newTimeToDisplay;
+      if (isDefinedArray(overrideTimeValues)) {
+        fromDate.setHours(overrideTimeValues[0]);
+        fromDate.setMinutes(overrideTimeValues[1]);
+        toDate.setHours(overrideTimeValues[0]);
+        toDate.setMinutes(overrideTimeValues[1]);
+        toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
       }
-      setSelectedDate(today, _element_EventEditorDialog_DateFrom);
-      setSelectedDate(today, _element_EventEditorDialog_DateTo);
+      _element_EventEditorDialog_TimeFrom.value = toFormattedTime(fromDate);
+      _element_EventEditorDialog_TimeTo.value = toFormattedTime(toDate);
+      setSelectedDate(fromDate, _element_EventEditorDialog_DateFrom);
+      setSelectedDate(toDate, _element_EventEditorDialog_DateTo);
     }
     buildToolbarButton(_element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true);
     setLockedStatusForEventEditingDialog(eventDetails);
@@ -3455,6 +3460,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     toTime = isDefined(toTime) ? fromTime : "09:00";
     setTimeOnDate(fromDate, fromTime);
     setTimeOnDate(toDate, toTime);
+    toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
     var newEvent = {from:fromDate, to:toDate, title:_options.newEventDefaultTitle, description:"", location:"", group:"", isAllDay:false, showAlerts:true, color:_options.defaultEventBackgroundColor, colorText:_options.defaultEventTextColor, colorBorder:_options.defaultEventBorderColor, repeatEveryExcludeDays:[], repeatEnds:null, url:"", repeatEveryCustomValue:"", repeatEvery:_repeatType.never, repeatEveryCustomType:_repeatCustomType.daily, organizerName:"", organizerEmailAddress:"", type:0, locked:false};
     _this.addEvent(newEvent, false);
     buildDayEvents();
@@ -6148,6 +6154,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.workingDays = isInvalidOptionArray(_options.workingDays, 0) ? [] : _options.workingDays;
     _options.minimumYear = getDefaultNumber(_options.minimumYear, 1900);
     _options.maximumYear = getDefaultNumber(_options.maximumYear, 2099);
+    _options.defaultEventDuration = getDefaultNumber(_options.defaultEventDuration, 30);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];

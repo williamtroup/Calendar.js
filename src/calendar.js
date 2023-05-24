@@ -318,6 +318,7 @@
  * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
  * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
+ * @property    {number}    defaultEventDuration                        The default duration used when a new event is added (defaults to 30 minutes).
  */
 
 
@@ -2245,6 +2246,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             remainingMinutes = Math.round( ( hours - remainingHours ) * 60 );
 
         return [ remainingHours, remainingMinutes ];
+    }
+
+    function addMinutesToDate( date, minutes ) {
+        return new Date( date.getTime() + minutes * 60000 );
     }
 
 
@@ -5238,12 +5243,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else {
 
             var date = new Date(),
-                today = !isDefined( overrideTodayDate ) ? date : overrideTodayDate;
+                fromDate = !isDefined( overrideTodayDate ) ? date : overrideTodayDate,
+                toDate = null;
 
-            if ( isDateToday( today ) ) {
-                today.setHours( date.getHours() );
-                today.setMinutes( date.getMinutes() );
+            if ( isDateToday( fromDate ) ) {
+                fromDate.setHours( date.getHours() );
+                fromDate.setMinutes( date.getMinutes() );
             }
+
+            toDate = addMinutesToDate( fromDate, _options.defaultEventDuration );
 
             setNodeText( _element_EventEditorDialog_TitleBar, _options.addEventTitle );
             setEventTypeInputCheckedStates();
@@ -5273,19 +5281,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_EventEditorDialog_RepeatEvery_Custom_Value.value = "1";
             _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked = true;
 
-            if ( !isDefinedArray( overrideTimeValues ) ) {
-                _element_EventEditorDialog_TimeFrom.value = toFormattedTime( today );
-                _element_EventEditorDialog_TimeTo.value = toFormattedTime( today );
-            } else {
+            if ( isDefinedArray( overrideTimeValues ) ) {
+                fromDate.setHours( overrideTimeValues[ 0 ] );
+                fromDate.setMinutes( overrideTimeValues[ 1 ] );
 
-                var newTimeToDisplay = padNumber( overrideTimeValues[ 0 ] ) + ":" + padNumber( overrideTimeValues[ 1 ] );
+                toDate.setHours( overrideTimeValues[ 0 ] );
+                toDate.setMinutes( overrideTimeValues[ 1 ] );
 
-                _element_EventEditorDialog_TimeFrom.value = newTimeToDisplay;
-                _element_EventEditorDialog_TimeTo.value = newTimeToDisplay;
+                toDate = addMinutesToDate( toDate, _options.defaultEventDuration );
             }
 
-            setSelectedDate( today, _element_EventEditorDialog_DateFrom );
-            setSelectedDate( today, _element_EventEditorDialog_DateTo );
+            _element_EventEditorDialog_TimeFrom.value = toFormattedTime( fromDate );
+            _element_EventEditorDialog_TimeTo.value = toFormattedTime( toDate );
+
+            setSelectedDate( fromDate, _element_EventEditorDialog_DateFrom );
+            setSelectedDate( toDate, _element_EventEditorDialog_DateTo );
         }
 
         buildToolbarButton( _element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
@@ -5493,6 +5503,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         setTimeOnDate( fromDate, fromTime );
         setTimeOnDate( toDate, toTime );
+
+        toDate = addMinutesToDate( toDate, _options.defaultEventDuration );
 
         var newEvent = {
             from: fromDate,
@@ -9925,6 +9937,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
         _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
         _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );
+        _options.defaultEventDuration = getDefaultNumber( _options.defaultEventDuration, 30 );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
