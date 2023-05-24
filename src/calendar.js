@@ -644,6 +644,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_HeaderDay = null,
         _element_DropDownMenu_HeaderDay_HideDay = null,
         _element_DropDownMenu_HeaderDay_HideDay_Separator = null,
+        _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays = null,
+        _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = null,
         _element_DropDownMenu_HeaderDay_SelectedDay = null,
         _element_SearchDialog = null,
         _element_SearchDialog_MinimizedRestoreButton = null,
@@ -4682,7 +4684,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
     
-            buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-rhombus-hollow-icon", _options.showOnlyWorkingDaysText, function() {
+            _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-rhombus-hollow-icon", _options.showOnlyWorkingDaysText, function() {
                 if ( _options.workingDays.length >= 1 ) {
                     _options.visibleDays = [].slice.call( _options.workingDays );
                     _initialized = false;
@@ -4692,7 +4694,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             } );
 
-            buildMenuSeparator( _element_DropDownMenu_HeaderDay );
+            _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
     
             buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu );
         }
@@ -4871,10 +4873,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             _element_DropDownMenu_HeaderDay_SelectedDay = selectedDay;
 
-            var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none";
+            var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none",
+                showOnlyWorkingDaysDisplay = _options.workingDays.length >= 1 ? "block": "none";
 
             _element_DropDownMenu_HeaderDay_HideDay.style.display = hideDayDisplay;
             _element_DropDownMenu_HeaderDay_HideDay_Separator.style.display = hideDayDisplay;
+            _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays.style.display = showOnlyWorkingDaysDisplay;
+            _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator.style.display = showOnlyWorkingDaysDisplay;
 
             hideAllDropDowns();
             cancelBubble( e );
