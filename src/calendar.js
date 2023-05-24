@@ -399,6 +399,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             c: 67,
             e: 69,
             f: 70,
+            m: 77,
             v: 86,
             x: 88,
             f5: 116,
@@ -583,6 +584,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllEventsView_SearchButton = null,
         _element_ListAllEventsView_Contents = null,
         _element_ListAllEventsView_EventsShown = [],
+        _element_ListAllEventsView_MinimizeRestoreFunctions = [],
         _element_ListAllWeekEventsView = null,
         _element_ListAllWeekEventsView_Title = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
@@ -594,6 +596,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllWeekEventsView_Contents_FullView_Events = {},
         _element_ListAllWeekEventsView_EventsShown = [],
         _element_ListAllWeekEventsView_DateSelected = null,
+        _element_ListAllWeekEventsView_MinimizeRestoreFunctions = [],
         _element_ConfirmationDialog = null,
         _element_ConfirmationDialog_TitleBar = null,
         _element_ConfirmationDialog_Message = null,
@@ -1910,6 +1913,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
                         showSearchDialog();
                     }
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.m ) {
+                    e.preventDefault();
+                    callMinimizeRestoreFunctionsForAllEventView();
+                    callMinimizeRestoreFunctionsForWeekEventView();
 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.v ) {
                     e.preventDefault();
@@ -3280,6 +3288,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         showOverlay( _element_ListAllEventsView );
         _element_ListAllEventsView_Contents.innerHTML = _string.empty;
         _element_ListAllEventsView_EventsShown = [];
+        _element_ListAllEventsView_MinimizeRestoreFunctions = [];
 
         if ( fromOpen ) {
             _element_ListAllEventsView_Contents.scrollTop = 0;
@@ -3447,9 +3456,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
 
-            var minimizeButton = buildToolbarButton( header, "ib-minus", _options.minimizedTooltipText, function() {
+            var minimizeRestoreFunction = function() {
                 minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID );
-            } );
+            };
+
+            var minimizeButton = buildToolbarButton( header, "ib-minus", _options.minimizedTooltipText, minimizeRestoreFunction );
+
+            _element_ListAllEventsView_MinimizeRestoreFunctions.push( minimizeRestoreFunction );
 
             monthContents = createElement( "div", "events" );
             monthContents.id = monthContentsID;
@@ -3485,6 +3498,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function updateViewAllEventsViewFromEventEdit() {
         if ( isOverlayVisible( _element_ListAllEventsView ) ) {
             showListAllEventsView();
+        }
+    }
+
+    function callMinimizeRestoreFunctionsForAllEventView() {
+        if ( isOverlayVisible( _element_ListAllEventsView ) ) {
+            var functionsLength = _element_ListAllEventsView_MinimizeRestoreFunctions.length;
+
+            for ( var functionIndex = 0; functionIndex < functionsLength; functionIndex++ ) {
+                _element_ListAllEventsView_MinimizeRestoreFunctions[ functionIndex ]();
+            }
         }
     }
 
@@ -3573,6 +3596,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
         _element_ListAllWeekEventsView_Contents_FullView_Events = {};
         _element_ListAllWeekEventsView_EventsShown = [];
+        _element_ListAllWeekEventsView_MinimizeRestoreFunctions = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
 
         if ( fromOpen ) {
@@ -3906,9 +3930,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
 
-            var minimizeButton = buildToolbarButton( dayHeader, "ib-minus", _options.minimizedTooltipText, function() {
+            var minimizeRestoreFunction = function() {
                 minimizeRestoreWeeklyEventsDay( minimizeButton, dayContents, dateID );
-            } );
+            };
+
+            var minimizeButton = buildToolbarButton( dayHeader, "ib-minus", _options.minimizedTooltipText, minimizeRestoreFunction );
+
+            _element_ListAllWeekEventsView_MinimizeRestoreFunctions.push( minimizeRestoreFunction );
 
             dayContents = createElement( "div", "events" );
             day.appendChild( dayContents );
@@ -3980,6 +4008,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllWeekEventsView_DateSelected = new Date();
         
         showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected, true );
+    }
+
+    function callMinimizeRestoreFunctionsForWeekEventView() {
+        if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
+            var functionsLength = _element_ListAllWeekEventsView_MinimizeRestoreFunctions.length;
+    
+            for ( var functionIndex = 0; functionIndex < functionsLength; functionIndex++ ) {
+                _element_ListAllWeekEventsView_MinimizeRestoreFunctions[ functionIndex ]();
+            }
+        }
     }
 
 

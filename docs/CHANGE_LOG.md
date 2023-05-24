@@ -9,6 +9,7 @@
 - The Year dropdown selector button now only changes the text instead of re-rendering the whole button.
 - For review purposes, spaces and empty strings are now easier to read.
 - Pressing escape (once all other actions are done) will close the Search dialog (if open).
+- Added global Ctrl/Command + Shift + M support to toggle all the minimize/restore views when the All/Week view is open.
 - 
 
 <br>
