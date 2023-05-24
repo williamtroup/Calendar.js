@@ -2849,10 +2849,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       }, true);
       _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator(_element_DropDownMenu_HeaderDay);
       buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-rhombus-hollow-icon", _options.showOnlyWorkingDaysText, function() {
-        _options.visibleDays = [].slice.call(_options.workingDays);
-        _initialized = false;
-        triggerOptionsEventWithData("onOptionsUpdated", _options);
-        build(_currentDate, true, true);
+        if (_options.workingDays.length >= 1) {
+          _options.visibleDays = [].slice.call(_options.workingDays);
+          _initialized = false;
+          triggerOptionsEventWithData("onOptionsUpdated", _options);
+          build(_currentDate, true, true);
+        }
       });
       buildMenuSeparator(_element_DropDownMenu_HeaderDay);
       buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu);
