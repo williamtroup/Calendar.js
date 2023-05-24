@@ -224,3 +224,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | visibleDaysText | The text that should be displayed for the "Visible Days" label. |
 | *string* | previousYearTooltipText | The tooltip text that should be used for for the "Previous Year" button. |
 | *string* | nextYearTooltipText | The tooltip text that should be used for for the "Next Year" button. |
+| *string* | showOnlyWorkingDaysText | The text that should be displayed for the "Show Only Working Days" label. |

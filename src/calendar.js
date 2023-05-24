@@ -263,6 +263,7 @@
  * @property    {string}    visibleDaysText                             The text that should be displayed for the "Visible Days" label.
  * @property    {string}    previousYearTooltipText                     The tooltip text that should be used for for the "Previous Year" button.
  * @property    {string}    nextYearTooltipText                         The tooltip text that should be used for for the "Next Year" button.
+ * @property    {string}    showOnlyWorkingDaysText                     The text that should be displayed for the "Show Only Working Days" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -4680,6 +4681,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }, true );
     
             _element_DropDownMenu_HeaderDay_HideDay_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
+    
+            buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-rhombus-hollow-icon", _options.showOnlyWorkingDaysText, function() {
+                _options.visibleDays = [].slice.call( _options.workingDays );
+                _initialized = false;
+    
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                build( _currentDate, true, true );
+            } );
+
+            buildMenuSeparator( _element_DropDownMenu_HeaderDay );
     
             buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu );
         }
@@ -10193,6 +10204,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.visibleDaysText = getDefaultString( _options.visibleDaysText, "Visible Days" );
         _options.previousYearTooltipText = getDefaultString( _options.previousYearTooltipText, "Previous Year" );
         _options.nextYearTooltipText = getDefaultString( _options.nextYearTooltipText, "Next Year" );
+        _options.showOnlyWorkingDaysText = getDefaultString( _options.showOnlyWorkingDaysText, "Show Only Working Days" );
     }
 
     function setEventTypeTranslationStringOptions() {
