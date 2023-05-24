@@ -1990,6 +1990,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
+        if ( !done ) {
+            done = hideSearchDialog();
+        }
+
         if ( !done && _copiedEventDetails.length > 0 ) {
             setCopiedEventsClasses();
 
@@ -6098,10 +6102,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function hideSearchDialog() {
+        var result = false;
+
         if ( _element_SearchDialog.style.display === "block" ) {
             _element_SearchDialog.style.display = "none";
             searchForTextChanged();
+            result = true;
         }
+
+        return result;
     }
 
     function minimizeRestoreDialog() {

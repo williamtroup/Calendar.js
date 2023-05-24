@@ -8,6 +8,7 @@
 - The Year dropdown selector button on the main display title now changes the arrow when the dropdown is open.
 - The Year dropdown selector button now only changes the text instead of re-rendering the whole button.
 - For review purposes, spaces and empty strings are now easier to read.
+- Pressing escape (once all other actions are done) will close the Search dialog (if open).
 - 
 
 <br>
