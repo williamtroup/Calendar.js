@@ -5,6 +5,8 @@
 - Added a new setting "defaultEventDuration" (defaults to 30), which states the default duration a new event should use when being added.
 - Added day header context menu item "Show Only Working Days", which forces only the working days to be visible.
 - Added a CONTRIBUTING.md file to the root.
+- The Year dropdown selector button on the main display title now changes the arrow when the dropdown is open.
+- The Year dropdown selector button now only changes the text instead of re-rendering the whole button.
 - 
 
 <br>

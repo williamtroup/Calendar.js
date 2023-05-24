@@ -493,7 +493,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_MoveDialog_X = 0,
         _element_MoveDialog_Y = 0,
         _element_HeaderDateDisplay = null,
-        _element_HeaderDateDisplay_Text = null,
+        _element_HeaderDateDisplay_YearSelector_DropDown = null,
+        _element_HeaderDateDisplay_YearSelector_DropDown_Text = null,
+        _element_HeaderDateDisplay_YearSelector_DropDown_Arrow = null,
         _element_HeaderDateDisplay_YearSelector = null,
         _element_HeaderDateDisplay_YearSelector_Contents = null,
         _element_HeaderDateDisplay_ExportEventsButton = null,
@@ -736,7 +738,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _element_Calendar !== null ) {
-            buildYearDropButtonText();
+            setYearDropDownSelectorButtonText();
         }
     }
 
@@ -969,11 +971,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var titleContainer = createElement( "div", "title-container" );
         _element_HeaderDateDisplay.appendChild( titleContainer );
-        
-        _element_HeaderDateDisplay_Text = createElement( "span", "year-dropdown-button" );
-        _element_HeaderDateDisplay_Text.ondblclick = cancelBubble;
-        titleContainer.appendChild( _element_HeaderDateDisplay_Text );
 
+        buildYearSelectorDropDownButton( titleContainer );
         buildYearSelectorDropDown( titleContainer );
     }
 
@@ -1657,6 +1656,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
+    function buildYearSelectorDropDownButton( titleContainer ) {
+        _element_HeaderDateDisplay_YearSelector_DropDown = createElement( "span", "year-dropdown-button" );
+        _element_HeaderDateDisplay_YearSelector_DropDown.ondblclick = cancelBubble;
+        _element_HeaderDateDisplay_YearSelector_DropDown.onclick = showYearSelectorDropDownMenu;
+        titleContainer.appendChild( _element_HeaderDateDisplay_YearSelector_DropDown );
+
+        _element_HeaderDateDisplay_YearSelector_DropDown_Text = createElement( "span" );
+        _element_HeaderDateDisplay_YearSelector_DropDown.appendChild( _element_HeaderDateDisplay_YearSelector_DropDown_Text );
+
+        _element_HeaderDateDisplay_YearSelector_DropDown_Arrow = createElement( "span", "ib-arrow-down-full-medium" );
+        _element_HeaderDateDisplay_YearSelector_DropDown.appendChild( _element_HeaderDateDisplay_YearSelector_DropDown_Arrow );
+    }
+
     function buildYearSelectorDropDown( container ) {
         var yearDate = new Date( _options.minimumYear, 1, 1 );
 
@@ -1674,8 +1686,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 break;
             }
         }
-
-        _element_HeaderDateDisplay_Text.onclick = showYearSelectorDropDownMenu;
     }
 
     function buildYearSelectorDropDownYear( actualYear ) {
@@ -1698,15 +1708,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         };
     }
 
-    function buildYearDropButtonText() {
-        _element_HeaderDateDisplay_Text.innerHTML = "";
-
-        var text = createElement( "span" );
-        text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear();
-        _element_HeaderDateDisplay_Text.appendChild( text );
-
-        var button = createElement( "span", "ib-arrow-down-full-medium" );
-        _element_HeaderDateDisplay_Text.appendChild( button );
+    function setYearDropDownSelectorButtonText() {
+        _element_HeaderDateDisplay_YearSelector_DropDown_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear();
     }
 
     function showYearSelectorDropDownMenu( e ) {
@@ -1716,6 +1719,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             hideAllDropDowns();
 
             _element_HeaderDateDisplay_YearSelector.style.display = "block";
+            _element_HeaderDateDisplay_YearSelector_DropDown_Arrow.className = "ib-arrow-up-full-medium";
 
             var year = updateYearSelectorDropDownMenuColors();
             if ( year !== null ) {
@@ -1769,6 +1773,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function hideYearSelectorDropDown() {
         if ( isYearSelectorDropDownVisible() ) {
+            _element_HeaderDateDisplay_YearSelector_DropDown_Arrow.className = "ib-arrow-down-full-medium";
             _element_HeaderDateDisplay_YearSelector.style.display = "none";
         }
     }

@@ -594,7 +594,8 @@ div.calendar {
                 white-space: nowrap;
                 overflow: hidden;
 
-                span.ib-arrow-down-full-medium {
+                span.ib-arrow-down-full-medium,
+                span.ib-arrow-up-full-medium {
                     margin-left: calc( $spacing / 2 );
                     border-top-color: $light-color;
                     pointer-events: none;
@@ -2026,3 +2027,4 @@ div.calendar-drop-down-menu {
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
 @import "foundation/small/arrow-down-full-medium";
+@import "foundation/small/arrow-up-full-medium";
