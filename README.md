@@ -39,9 +39,9 @@ Calendar.js
   3. Ctrl/Command + Shift + C:  Copies all the selected events.
   4. Ctrl/Command + Shift + E:  Opens the Export Events dialog.
   5. Ctrl/Command + Shift + F:  Opens the Search dialog.
-  5. Ctrl/Command + Shift + M:  Toggles all the minimize/restore views for All/Week view (if visible).
-  6. Ctrl/Command + Shift + V:  Pastes all the selected events (if in Full Day view).
-  7. Ctrl/Command + Shift + X:  Cuts all the selected events.
+  6. Ctrl/Command + Shift + M:  Toggles all the minimize/restore views for All/Week view (if visible).
+  7. Ctrl/Command + Shift + V:  Pastes all the selected events (if in Full Day view).
+  8. Ctrl/Command + Shift + X:  Cuts all the selected events.
 - Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
