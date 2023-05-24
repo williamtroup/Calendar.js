@@ -1,0 +1,16 @@
+@import "icon";
+
+.ib-rhombus-hollow-icon {
+    @include button-no-before-after;
+
+    &:before {
+        @include button-after-before-setup;
+        @include transform-rotate(-45deg);
+        border: $border;
+        border-radius: $border-radius;
+        width: $size - calc( $border-width * 3 );
+        height: $size - calc( $border-width * 3 );
+        left: calc( $border-width / 2 );
+        top: calc( $border-width / 2 );
+    }
+}

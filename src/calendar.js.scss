@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.4
+ * Calendar.js Library v2.0.5
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -594,7 +594,8 @@ div.calendar {
                 white-space: nowrap;
                 overflow: hidden;
 
-                span.ib-arrow-down-full-medium {
+                span.ib-arrow-down-full-medium,
+                span.ib-arrow-up-full-medium {
                     margin-left: calc( $spacing / 2 );
                     border-top-color: $light-color;
                     pointer-events: none;
@@ -1869,7 +1870,8 @@ div.calendar-drop-down-menu {
     div.ib-minus-icon,
     div.ib-octagon-hollow-icon,
     div.ib-pipe-icon,
-    div.ib-equals-icon {
+    div.ib-equals-icon,
+    div.ib-rhombus-hollow-icon {
         margin-right: $spacing;
     }
 
@@ -1902,7 +1904,8 @@ div.calendar-drop-down-menu {
         &:hover div.ib-arrow-top-right-icon,
         &:hover div.ib-circle-hollow-icon,
         &:hover div.ib-octagon-hollow-icon::before,
-        &:hover div.ib-octagon-hollow-icon::after {
+        &:hover div.ib-octagon-hollow-icon::after,
+        &:hover div.ib-rhombus-hollow-icon::before {
             border-color: $light-color;
         }
 
@@ -2020,6 +2023,8 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/octagon-hollow-icon";
 @import "foundation/menus/pipe-icon";
 @import "foundation/menus/equals-icon";
+@import "foundation/menus/rhombus-hollow-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
 @import "foundation/small/arrow-down-full-medium";
+@import "foundation/small/arrow-up-full-medium";

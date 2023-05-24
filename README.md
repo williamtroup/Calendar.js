@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v2.0.4</p>
+<p align="center">v2.0.5</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -38,8 +38,10 @@ Calendar.js
   2. Ctrl/Command + Shift + A:  Opens the Add Event dialog.
   3. Ctrl/Command + Shift + C:  Copies all the selected events.
   4. Ctrl/Command + Shift + E:  Opens the Export Events dialog.
-  5. Ctrl/Command + Shift + X:  Cuts all the selected events.
-  6. Ctrl/Command + Shift + F:  Opens the Search dialog.
+  5. Ctrl/Command + Shift + F:  Opens the Search dialog.
+  6. Ctrl/Command + Shift + M:  Toggles all the minimize/restore views for All/Week view (if visible).
+  7. Ctrl/Command + Shift + V:  Pastes all the selected events (if in Full Day view).
+  8. Ctrl/Command + Shift + X:  Cuts all the selected events.
 - Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).

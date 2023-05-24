@@ -1,5 +1,18 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.5:
+- Added global Ctrl/Command + Shift + V support to paste the selected events (only for Full Day view).
+- Added a new setting "defaultEventDuration" (defaults to 30), which states the default duration a new event should use when being added.
+- Added day header context menu item "Show Only Working Days", which forces only the working days to be visible.
+- Added a CONTRIBUTING.md file to the root.
+- The Year dropdown selector button on the main display title now changes the arrow when the dropdown is open.
+- The Year dropdown selector button now only changes the text instead of re-rendering the whole button.
+- For review purposes, spaces and empty strings are now easier to read.
+- Pressing escape (once all other actions are done) will close the Search dialog (if open).
+- Added global Ctrl/Command + Shift + M support to toggle all the minimize/restore views when the All/Week view is open.
+
+<br>
+
 ## Version 2.0.4:
 - Moved all the documentation MD files into the "docs" folder (clears up the root folder a fair bit).
 - Added a slightly larger left border for the side menu panels that are opened (with transition effect).
