@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.6:
+- 
+
+<br>
+
 ## Version 2.0.5:
 - Added global Ctrl/Command + Shift + V support to paste the selected events (only for Full Day view).
 - Added a new setting "defaultEventDuration" (defaults to 30), which states the default duration a new event should use when being added.
