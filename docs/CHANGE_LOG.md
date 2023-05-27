@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.0:
+- 
+
+<br>
+
 ## Version 2.0.6:
 - Removed the coma on the main title bar between the month and year.
 - Added a new setting "monthTitleBarDateFormat" (defaults to "{mmmm} {yyyy}"), which states the date format that should be used for the month displays title bar (the year dropdown).
