@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.6:
+- Removed the coma on the main title bar between the month and year.
+- Added a new setting "monthTitleBarDateFormat" (defaults to "{mmmm} {yyyy}"), which states the date format that should be used for the month displays title bar (the year dropdown).
+- Renamed the license file to it can be opened in the default editor.
+
+<br>
+
 ## Version 2.0.5:
 - Added global Ctrl/Command + Shift + V support to paste the selected events (only for Full Day view).
 - Added a new setting "defaultEventDuration" (defaults to 30), which states the default duration a new event should use when being added.

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.0.5 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.0.6 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _this = this, _string = {empty:"", space:" "}, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, m:77, v:86, x:88, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", 
   eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}}, _options = {}, _optionsForSearch = {}, _datePickerInput = null, _datePickerHiddenInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, _elements = {}, _eventNotificationsTriggered = {}, _document = 
@@ -656,21 +656,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function updateDatePickerInputValueDisplay(date) {
-    var inputValue = _options.datePickerSelectedDateFormat, weekDayNumber = getWeekdayNumber(date);
-    inputValue = inputValue.replace("{dddd}", _options.dayNames[weekDayNumber]);
-    inputValue = inputValue.replace("{ddd}", _options.dayNamesAbbreviated[weekDayNumber]);
-    inputValue = inputValue.replace("{dd}", padNumber(date.getDate()));
-    inputValue = inputValue.replace("{d}", date.getDate());
-    inputValue = inputValue.replace("{o}", getDayOrdinal(date.getDate()));
-    inputValue = inputValue.replace("{mmmm}", _options.monthNames[date.getMonth()]);
-    inputValue = inputValue.replace("{mmm}", _options.monthNamesAbbreviated[date.getMonth()]);
-    inputValue = inputValue.replace("{mm}", padNumber(date.getMonth() + 1));
-    inputValue = inputValue.replace("{m}", date.getMonth() + 1);
-    inputValue = inputValue.replace("{yyyy}", date.getFullYear());
-    inputValue = inputValue.replace("{yyy}", date.getFullYear().toString().substring(1));
-    inputValue = inputValue.replace("{yy}", date.getFullYear().toString().substring(2));
-    inputValue = inputValue.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
-    _datePickerInput.value = inputValue;
+    _datePickerInput.value = getCustomFormattedDateText(_options.datePickerSelectedDateFormat, date);
     _datePickerHiddenInput.value = padNumber(date.getDate()) + "/" + padNumber(date.getMonth()) + "/" + date.getFullYear();
   }
   function closeAnyOtherDatePickers() {
@@ -749,7 +735,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     };
   }
   function setYearDropDownSelectorButtonText() {
-    _element_HeaderDateDisplay_YearSelector_DropDown_Text.innerText = _options.monthNames[_currentDate.getMonth()] + ", " + _currentDate.getFullYear();
+    _element_HeaderDateDisplay_YearSelector_DropDown_Text.innerText = getCustomFormattedDateText(_options.monthTitleBarDateFormat, _currentDate);
   }
   function showYearSelectorDropDownMenu(e) {
     cancelBubble(e);
@@ -1142,6 +1128,23 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function addMinutesToDate(date, minutes) {
     return new Date(date.getTime() + minutes * 60000);
+  }
+  function getCustomFormattedDateText(dateFormat, date) {
+    var result = dateFormat, weekDayNumber = getWeekdayNumber(date);
+    result = result.replace("{dddd}", _options.dayNames[weekDayNumber]);
+    result = result.replace("{ddd}", _options.dayNamesAbbreviated[weekDayNumber]);
+    result = result.replace("{dd}", padNumber(date.getDate()));
+    result = result.replace("{d}", date.getDate());
+    result = result.replace("{o}", getDayOrdinal(date.getDate()));
+    result = result.replace("{mmmm}", _options.monthNames[date.getMonth()]);
+    result = result.replace("{mmm}", _options.monthNamesAbbreviated[date.getMonth()]);
+    result = result.replace("{mm}", padNumber(date.getMonth() + 1));
+    result = result.replace("{m}", date.getMonth() + 1);
+    result = result.replace("{yyyy}", date.getFullYear());
+    result = result.replace("{yyy}", date.getFullYear().toString().substring(1));
+    result = result.replace("{yy}", date.getFullYear().toString().substring(2));
+    result = result.replace("{y}", parseInt(date.getFullYear().toString().substring(2)).toString());
+    return result;
   }
   function buildDayEvents() {
     clearEventsFromDays();
@@ -6077,7 +6080,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.0.5";
+    return "2.0.6";
   };
   this.getId = function() {
     return _elementID;
@@ -6204,6 +6207,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.minimumYear = getDefaultNumber(_options.minimumYear, 1900);
     _options.maximumYear = getDefaultNumber(_options.maximumYear, 2099);
     _options.defaultEventDuration = getDefaultNumber(_options.defaultEventDuration, 30);
+    _options.monthTitleBarDateFormat = getDefaultString(_options.monthTitleBarDateFormat, "{mmmm} {yyyy}");
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];

@@ -61,6 +61,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | minimumYear | The minimum year that can be shown in the Calendar (defaults to 1900). |
 | *number* | maximumYear | The maximum year that can be shown in the Calendar (defaults to 2099). |
 | *number* | defaultEventDuration | The default duration used when a new event is added (defaults to 30 minutes). |
+| *string* | monthTitleBarDateFormat | States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 <br/>
 
 ### Translatable String Options:
