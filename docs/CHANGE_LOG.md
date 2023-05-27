@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.6:
+- Removed the coma on the main title bar between the month and year.
 - 
 
 <br>

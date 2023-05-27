@@ -1716,7 +1716,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function setYearDropDownSelectorButtonText() {
-        _element_HeaderDateDisplay_YearSelector_DropDown_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + ", " + _currentDate.getFullYear();
+        _element_HeaderDateDisplay_YearSelector_DropDown_Text.innerText = _options.monthNames[ _currentDate.getMonth() ] + _string.space + _currentDate.getFullYear();
     }
 
     function showYearSelectorDropDownMenu( e ) {
