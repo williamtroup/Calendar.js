@@ -579,6 +579,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_TodayButton = null,
         _element_FullDayView_TimeArrow = null,
         _element_FullDayView_SearchButton = null,
+        _element_FullDayView_ContextMenu_ClickPositionHourMinutes = null,
         _element_ListAllEventsView = null,
         _element_ListAllEventsView_ExportEventsButton = null,
         _element_ListAllEventsView_FullScreenButton = null,
@@ -2676,6 +2677,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_FullDayView.appendChild( _element_FullDayView_Contents );
     
             _element_FullDayView_Contents.oncontextmenu = function( e ) {
+                 var hoursMinutes = getHourMinutesFromMousePositionClick( e );
+
+                 _element_FullDayView_ContextMenu_ClickPositionHourMinutes = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] );
+
                 showFullDayDropDownMenu( e );
             };
     
@@ -2710,11 +2715,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function fullDayViewDoubleClick( e ) {
         if ( _options.manualEditingEnabled ) {
-            var contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
-                scrollPosition = getScrollPosition(),
-                pixelsPerMinute = getFullDayPixelsPerMinute(),
-                minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
-                hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
+            var hoursMinutes = getHourMinutesFromMousePositionClick( e );
             
             if ( _options.useTemplateWhenAddingNewEvent ) {
                 var newBlankTemplateEventTime = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] ),
@@ -3078,6 +3079,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         event.style.zIndex = zIndex.toString();
+    }
+
+    function getHourMinutesFromMousePositionClick( e ) {
+        var contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
+            scrollPosition = getScrollPosition(),
+            pixelsPerMinute = getFullDayPixelsPerMinute(),
+            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
+            hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
+
+        return hoursMinutes;
     }
 
 
@@ -4702,12 +4713,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             buildMenuItemWithIcon( _element_DropDownMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
                 if ( _options.useTemplateWhenAddingNewEvent ) {
-                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected );
+                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_FullDayView_DateSelected, _element_FullDayView_DateSelected, _element_FullDayView_ContextMenu_ClickPositionHourMinutes, _element_FullDayView_ContextMenu_ClickPositionHourMinutes );
 
                     showEventEditingDialog( newBlankTemplateEvent );
                     showEventEditingDialogTitleSelected();
                 } else {
-                    showEventEditingDialog( null, _element_FullDayView_DateSelected );
+                    showEventEditingDialog( null, _element_FullDayView_DateSelected, _element_FullDayView_ContextMenu_ClickPositionHourMinutes );
                 }
             }, true );
 
