@@ -165,11 +165,6 @@ Fires when the DatePicker is closed.
 <br>
 <h1>For Actions:</h1>
 
-### **options.onNotificationClicked( *event* )**:
-Fires when a browser notification is clicked for an event.
-<br>
-***Parameter: event***: '*Event*' - The event details.
-
 ### **options.onFullScreenModeChanged( *flag* )**:
 Fires when the full-screen mode is changed.
 <br>
@@ -187,6 +182,20 @@ Fires when the Calendar is refreshed.
 Fires when the Calendar is rendered.
 <br>
 ***Parameter: id***: '*string*' - The Id of the Calendar.
+
+
+<br>
+<h1>For Browser Notifications:</h1>
+
+### **options.onNotificationClicked( *event* )**:
+Fires when a browser notification is clicked for an event.
+<br>
+***Parameter: event***: '*Event*' - The event details.
+
+### **options.onNotification( *event* )**:
+Fires when a browser notification is shown for an event.
+<br>
+***Parameter: event***: '*Event*' - The event details.
 
 
 <br>

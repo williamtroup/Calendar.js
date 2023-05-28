@@ -104,6 +104,7 @@
  * @property    {Object}    onEventDoubleClick                          Specifies an event that will be triggered when an event is double clicked (when editing mode is disabled, passes the event to the function).
  * @property    {Object}    onVisibleGroupsChanged                      Specifies an event that will be triggered when the visible groups are changed (passes the visible group names to the function).
  * @property    {Object}    onVisibleEventTypesChanged                  Specifies an event that will be triggered when the visible event types are changed (passes the visible event type IDs to the function).
+ * @property    {Object}    onNotification                              Specifies an event that will be triggered when a notification is shown (passes the event to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -7092,51 +7093,51 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function checkEventForBrowserNotifications( date, event ) {
+    function checkEventForBrowserNotifications( date, eventDetails ) {
         runBrowserNotificationAction( function() {
-            if ( isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( event.id ) ) {
-                if ( !isDefinedBoolean( event.showAlerts ) || event.showAlerts ) {
+            if ( isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( eventDetails.id ) ) {
+                if ( !isDefinedBoolean( eventDetails.showAlerts ) || eventDetails.showAlerts ) {
                     var newFrom = new Date(),
                         newTo = new Date(),
                         today = new Date(),
-                        repeatEvery = getNumber( event.repeatEvery );
+                        repeatEvery = getNumber( eventDetails.repeatEvery );
         
-                    newFrom.setHours( event.from.getHours(), event.from.getMinutes(), 0, 0 );
-                    newTo.setHours( event.to.getHours(), event.to.getMinutes(), 0, 0 );
+                    newFrom.setHours( eventDetails.from.getHours(), eventDetails.from.getMinutes(), 0, 0 );
+                    newTo.setHours( eventDetails.to.getHours(), eventDetails.to.getMinutes(), 0, 0 );
         
-                    if ( repeatEvery === _repeatType.never && !isDateToday( event.from ) ) {
+                    if ( repeatEvery === _repeatType.never && !isDateToday( eventDetails.from ) ) {
                         newFrom.setHours( 0, 0, 0, 0 );
                     }
         
-                    if ( repeatEvery === _repeatType.never && !isDateToday( event.to ) ) {
+                    if ( repeatEvery === _repeatType.never && !isDateToday( eventDetails.to ) ) {
                         newTo.setHours( 23, 59, 59, 99 );
                     }
                     
                     if ( today >= newFrom && today <= newTo ) {
-                        launchBrowserNotificationForEvent( event );
+                        launchBrowserNotificationForEvent( eventDetails );
                     }
                 }
             }
-        }, false );
+        }, false, eventDetails );
     }
 
-    function launchBrowserNotificationForEvent( event ) {
-        _eventNotificationsTriggered[ event.id ] = true;
+    function launchBrowserNotificationForEvent( eventDetails ) {
+        _eventNotificationsTriggered[ eventDetails.id ] = true;
     
         var notification = new Notification( _options.eventNotificationTitle, {
-            body: _options.eventNotificationBody.replace( "{0}", event.title ),
+            body: _options.eventNotificationBody.replace( "{0}", eventDetails.title ),
         });
 
         notification.onclick = function() {
-            var url = getString( event.url );
+            var url = getString( eventDetails.url );
 
             if ( url === _string.empty ) {
-                showEventEditingDialog( event );
+                showEventEditingDialog( eventDetails );
             } else {
                 openEventUrl( url );
             }
 
-            triggerOptionsEventWithData( "onNotificationClicked", event );
+            triggerOptionsEventWithData( "onNotificationClicked", eventDetails );
         };
     }
 
@@ -7148,7 +7149,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } );
     }
 
-    function runBrowserNotificationAction( action, writeConsoleLog ) {
+    function runBrowserNotificationAction( action, writeConsoleLog, eventDetails ) {
         if ( _options.eventNotificationsEnabled && !_datePickerModeEnabled ) {
             writeConsoleLog = isDefined( writeConsoleLog ) ? writeConsoleLog : true;
 
@@ -7158,6 +7159,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             } else {
                 action();
+            }
+
+            if ( isDefined( eventDetails ) ) {
+                triggerOptionsEventWithData( "onNotification", eventDetails );
             }
         }
     }

@@ -6,6 +6,9 @@
 - Opening the context menu in the Full Day view will track the time from the location you clicked.  When adding a new event from the context menu, the time tracked is now used as default.
 - Added event context menu item "Export Events" (only available if more than one event is selected), which will export only the selected events.
 
+#### **New Custom Trigger Events:**
+- Added a new custom trigger "onNotification", which is triggered when a browser notification for an event is shown (passes the event details).
+
 #### **UI Changes:**
 - The search history dropdown items now use a dotted line separator instead of a solid one.
 - Removed the opacity CSS effect for the selected events.
