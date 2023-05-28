@@ -1,7 +1,12 @@
 # Calendar.js - Change Log:
 
 ## Version 2.1.0:
+
+#### **New Features:**
 - Opening the context menu in the Full Day view will track the time from the location you clicked.  When adding a new event from the context menu, the time tracked is now used as default.
+
+#### **UI Changes:**
+- The search history dropdown items now use a dotted line separator instead of a solid one.
 - 
 
 <br>

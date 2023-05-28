@@ -1384,7 +1384,7 @@ div.search {
 
                 div.history-dropdown-item {
                     padding: $spacing;
-                    border-bottom: 1px solid $input-border-color;
+                    border-bottom: 1px dotted $input-border-color;
 
                     span.search-search {
                         font-weight: 900 !important;
