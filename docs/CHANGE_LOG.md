@@ -8,7 +8,7 @@
 
 #### **UI Changes:**
 - The search history dropdown items now use a dotted line separator instead of a solid one.
-- 
+- Removed the opacity CSS effect for the selected events.
 
 #### **General Code Improvements:**
 - Removed replicated SCSS for handling menu icons.

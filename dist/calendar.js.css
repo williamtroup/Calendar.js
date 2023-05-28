@@ -236,7 +236,6 @@ div.calendar div.focused-event {
 }
 div.calendar div.selected-event {
   box-shadow: 0 0 1.5px 1.5px #C60000;
-  opacity: 0.7 !important;
 }
 div.calendar div.cut-event {
   opacity: 0.2 !important;
