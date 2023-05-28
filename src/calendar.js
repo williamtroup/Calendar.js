@@ -647,6 +647,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_Event_Copy = null,
         _element_DropDownMenu_Event_RemoveSeparator = null,
         _element_DropDownMenu_Event_Remove = null,
+        _element_DropDownMenu_Event_ExportEventsSeparator = null,
+        _element_DropDownMenu_Event_ExportEvents = null,
         _element_DropDownMenu_FullDay = null,
         _element_DropDownMenu_FullDay_RemoveEvents_Separator = null,
         _element_DropDownMenu_FullDay_RemoveEvents = null,
@@ -4612,6 +4614,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Event_EditEvent = null;
             _element_DropDownMenu_Event_RemoveSeparator = null;
             _element_DropDownMenu_Event_Remove = null;
+            _element_DropDownMenu_Event_ExportEventsSeparator = null;
+            _element_DropDownMenu_Event_ExportEvents = null;
         }
 
         _element_DropDownMenu_Event = createElement( "div", "calendar-drop-down-menu" );
@@ -4694,6 +4698,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_Event_OpenUrl = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-top-right-icon", _options.openUrlText, function() {
             openEventUrl( _element_DropDownMenu_Event_EventDetails.url );
         } );
+
+        if ( _options.exportEventsEnabled ) {
+            _element_DropDownMenu_Event_ExportEventsSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
+
+            _element_DropDownMenu_Event_ExportEvents = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-down-full-line-icon", _options.exportEventsTooltipText + "...", function() {
+                showSelectExportTypeDialog( _eventsSelected );
+            } );
+        }
     }
 
     function buildFullDayViewDropDownMenu() {
@@ -4847,6 +4859,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_DropDownMenu_Event_OpenUrlSeparator.style.display = "none";
                 _element_DropDownMenu_Event_OpenUrl.style.display = "none";
 
+                if ( _options.exportEventsEnabled ) {
+                    _element_DropDownMenu_Event_ExportEventsSeparator.style.display = "block";
+                    _element_DropDownMenu_Event_ExportEvents.style.display = "block";
+                }
+
             } else if ( locked ) {
                 if ( _options.manualEditingEnabled ) {
                     _element_DropDownMenu_Event_EditEvent.style.display = "block";
@@ -4872,6 +4889,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _element_DropDownMenu_Event_OpenUrl.style.display = "none";
                 }
 
+                if ( _options.exportEventsEnabled ) {
+                    _element_DropDownMenu_Event_ExportEventsSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_ExportEvents.style.display = "none";
+                }
+
             } else {
                 if ( _options.manualEditingEnabled ) {
                     _element_DropDownMenu_Event_EditEvent.style.display = "block";
@@ -4895,6 +4917,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _element_DropDownMenu_Event_OpenUrl.style.display = "block";
                 } else {
                     _element_DropDownMenu_Event_OpenUrl.style.display = "none";
+                }
+
+                if ( _options.exportEventsEnabled ) {
+                    _element_DropDownMenu_Event_ExportEventsSeparator.style.display = "none";
+                    _element_DropDownMenu_Event_ExportEvents.style.display = "none";
                 }
             }
 

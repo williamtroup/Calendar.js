@@ -4,10 +4,14 @@
 
 #### **New Features:**
 - Opening the context menu in the Full Day view will track the time from the location you clicked.  When adding a new event from the context menu, the time tracked is now used as default.
+- Added event context menu item "Export Events" (only available if more than one event is selected), which will export only the selected events.
 
 #### **UI Changes:**
 - The search history dropdown items now use a dotted line separator instead of a solid one.
 - 
+
+#### **General Code Improvements:**
+- Removed replicated SCSS for handling menu icons.
 
 <br>
 

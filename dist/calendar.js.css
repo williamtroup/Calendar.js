@@ -2987,7 +2987,8 @@ div.calendar-drop-down-menu div.ib-minus-icon,
 div.calendar-drop-down-menu div.ib-octagon-hollow-icon,
 div.calendar-drop-down-menu div.ib-pipe-icon,
 div.calendar-drop-down-menu div.ib-equals-icon,
-div.calendar-drop-down-menu div.ib-rhombus-hollow-icon {
+div.calendar-drop-down-menu div.ib-rhombus-hollow-icon,
+div.calendar-drop-down-menu div.ib-arrow-down-full-line-icon {
   margin-right: 10px;
 }
 div.calendar-drop-down-menu div.item {
@@ -2999,11 +3000,14 @@ div.calendar-drop-down-menu div.item:hover {
   color: #F5F5F5;
   transition: all 0.3s;
 }
-div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::after {
+div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-down-full-line-icon::after {
   background-color: #F5F5F5;
 }
 div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-rhombus-hollow-icon::before {
   border-color: #F5F5F5;
+}
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-down-full-line-icon::before {
+  border-top-color: #F5F5F5;
 }
 div.calendar-drop-down-menu div.item:active {
   transition: all 0.2s;
@@ -4129,6 +4133,44 @@ div.calendar-drop-down-menu div.separator {
   height: 3px;
   left: 1.5px;
   top: 1.5px;
+}
+
+.ib-arrow-down-full-line-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+.ib-arrow-down-full-line-icon:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-down-full-line-icon:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-arrow-down-full-line-icon::before, .ib-arrow-down-full-line-icon::after {
+  position: absolute;
+  content: "";
+}
+.ib-arrow-down-full-line-icon::before {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #282828;
+  left: 0;
+  bottom: 0;
+}
+.ib-arrow-down-full-line-icon::after {
+  left: 50%;
+  transform: translate(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #282828;
+  top: 0;
 }
 
 .ib-refresh-medium {

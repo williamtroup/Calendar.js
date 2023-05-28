@@ -1,9 +1,4 @@
-@import "../buttons/button";
-
-$size: 12px;
-$border-width: calc( $size / 4 );
-$border-radius: $border-width;
-$border: $border-width solid $dark-color;
+@import "icon";
 
 .ib-arrow-expand-left-right-icon {
     @include button;

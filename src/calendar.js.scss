@@ -1871,7 +1871,8 @@ div.calendar-drop-down-menu {
     div.ib-octagon-hollow-icon,
     div.ib-pipe-icon,
     div.ib-equals-icon,
-    div.ib-rhombus-hollow-icon {
+    div.ib-rhombus-hollow-icon,
+    div.ib-arrow-down-full-line-icon {
         margin-right: $spacing;
     }
 
@@ -1894,7 +1895,8 @@ div.calendar-drop-down-menu {
         &:hover div.ib-minus-icon::before,
         &:hover div.ib-pipe-icon::before,
         &:hover div.ib-equals-icon::before,
-        &:hover div.ib-equals-icon::after {
+        &:hover div.ib-equals-icon::after,
+        &:hover div.ib-arrow-down-full-line-icon::after {
             background-color: $light-color;
         }
 
@@ -1905,8 +1907,12 @@ div.calendar-drop-down-menu {
         &:hover div.ib-circle-hollow-icon,
         &:hover div.ib-octagon-hollow-icon::before,
         &:hover div.ib-octagon-hollow-icon::after,
-        &:hover div.ib-rhombus-hollow-icon::before {
+        &:hover div.ib-rhombus-hollow-icon::before{
             border-color: $light-color;
+        }
+
+        &:hover div.ib-arrow-down-full-line-icon::before {
+            border-top-color: $light-color;
         }
 
         &:active {
@@ -2024,6 +2030,7 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/pipe-icon";
 @import "foundation/menus/equals-icon";
 @import "foundation/menus/rhombus-hollow-icon";
+@import "foundation/menus/arrow-down-full-line-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
 @import "foundation/small/arrow-down-full-medium";
