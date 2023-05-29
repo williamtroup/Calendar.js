@@ -764,8 +764,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function getAllEvents() {
         var events = [];
     
-        getAllEventsFunc( function( event ) {
-            events.push( event );
+        getAllEventsFunc( function( eventDetails ) {
+            events.push( eventDetails );
         } );
 
         return events;
@@ -814,10 +814,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var onYesEvent = function() {
             onNoEvent();
 
-            getAllEventsFunc( function( event ) {
-                var repeatEvery = getNumber( event.repeatEvery );
-                if ( repeatEvery === _repeatType.never && compareFunc( event.from, date ) ) {
-                    _this.removeEvent( event.id, false );
+            getAllEventsFunc( function( eventDetails ) {
+                var repeatEvery = getNumber( eventDetails.repeatEvery );
+                if ( repeatEvery === _repeatType.never && compareFunc( eventDetails.from, date ) ) {
+                    _this.removeEvent( eventDetails.id, false );
                 }
             } );
 
@@ -1127,8 +1127,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return className;
     }
 
-    function getAdjustedAllDayEvent( event ) {
-        var adjustedEvent = event;
+    function getAdjustedAllDayEvent( eventDetails ) {
+        var adjustedEvent = eventDetails;
 
         if ( adjustedEvent.isAllDay ) {
             adjustedEvent.from = new Date( adjustedEvent.from.getFullYear(), adjustedEvent.from.getMonth(), adjustedEvent.from.getDate(), 0, 0 );
@@ -1745,8 +1745,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( !_datePickerModeEnabled ) {
             var yearsHandledForEvents = [];
 
-            getAllEventsFunc( function( event ) {
-                var fromYear = event.from.getFullYear();
+            getAllEventsFunc( function( eventDetails ) {
+                var fromYear = eventDetails.from.getFullYear();
     
                 if ( yearsHandledForEvents.indexOf( fromYear ) === -1 ) {
                     
@@ -2762,45 +2762,45 @@ function calendarJs( elementOrId, options, searchOptions ) {
             createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")", "light-title-bar-text" );
         }
 
-        getAllEventsFunc( function( event ) {
-            var totalDays = getTotalDaysBetweenDates( event.from, event.to ) + 1,
-                nextDate = new Date( event.from );
+        getAllEventsFunc( function( eventDetails ) {
+            var totalDays = getTotalDaysBetweenDates( eventDetails.from, eventDetails.to ) + 1,
+                nextDate = new Date( eventDetails.from );
             
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( doDatesMatch( nextDate, date ) ) {
-                    orderedEvents.push( event );
+                    orderedEvents.push( eventDetails );
                     break;
                 }
 
                 moveDateForwardDay( nextDate );
             }
             
-            var repeatEvery = getNumber( event.repeatEvery );
+            var repeatEvery = getNumber( eventDetails.repeatEvery );
             if ( repeatEvery > _repeatType.never ) {
                 if ( repeatEvery === _repeatType.everyDay ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardDay, 1 );
+                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardDay, 1 );
                 } else if ( repeatEvery === _repeatType.everyWeek ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 1 );
+                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _repeatType.every2Weeks ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, 2 );
+                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, 2 );
                 } else if ( repeatEvery === _repeatType.everyMonth ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardMonth, 1 );
+                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _repeatType.everyYear ) {
-                    buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardYear, 1 );
+                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardYear, 1 );
                 } else if ( repeatEvery === _repeatType.custom ) {
 
-                    var repeatEveryCustomType = getNumber( event.repeatEveryCustomType ),
-                        repeatEveryCustomValue = getNumber( event.repeatEveryCustomValue );
+                    var repeatEveryCustomType = getNumber( eventDetails.repeatEveryCustomType ),
+                        repeatEveryCustomValue = getNumber( eventDetails.repeatEveryCustomValue );
                     
                     if ( repeatEveryCustomValue > 0 ) {
                         if ( repeatEveryCustomType === _repeatCustomType.daily ) {
-                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardDay, repeatEveryCustomValue );
+                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardDay, repeatEveryCustomValue );
                         } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
-                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardWeek, repeatEveryCustomValue );
+                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, repeatEveryCustomValue );
                         } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
-                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardMonth, repeatEveryCustomValue );
+                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardMonth, repeatEveryCustomValue );
                         } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
-                            buildFullDayRepeatedDayEvents( event, orderedEvents, date, moveDateForwardYear, repeatEveryCustomValue );
+                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardYear, repeatEveryCustomValue );
                         }
                     }
                 }
@@ -2847,18 +2847,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_EventsShown = [];
     }
 
-    function buildFullDayRepeatedDayEvents( event, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
-        var newFromDate = new Date( event.from ),
-            excludeDays = getArray( event.repeatEveryExcludeDays );
+    function buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
+        var newFromDate = new Date( eventDetails.from ),
+            excludeDays = getArray( eventDetails.repeatEveryExcludeDays );
     
         while ( newFromDate < date ) {
             dateFunc( newFromDate, dateFuncForwardValue );
 
-            var repeatEnded = !( !isDefined( event.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, event.repeatEnds ) );
+            var repeatEnded = !( !isDefined( eventDetails.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, eventDetails.repeatEnds ) );
 
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 if ( doDatesMatch( newFromDate, date ) ) {
-                    orderedEvents.push( event );
+                    orderedEvents.push( eventDetails );
                     break;
                 }
             }
@@ -6257,14 +6257,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             storeSearchOptions( true );
 
             for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-                var event = orderedEvents[ orderedEventIndex ];
+                var eventDetails = orderedEvents[ orderedEventIndex ];
 
-                if ( isEventVisible( event ) ) {
-                    var title = getString( event.title ),
-                        location = getString( event.location ),
-                        description = getString( event.description ),
-                        group = getString( event.group ),
-                        url = getString( event.url ),
+                if ( isEventVisible( eventDetails ) ) {
+                    var title = getString( eventDetails.title ),
+                        location = getString( eventDetails.location ),
+                        description = getString( eventDetails.description ),
+                        group = getString( eventDetails.group ),
+                        url = getString( eventDetails.url ),
                         found = false;
 
                     if ( !matchCase ) {
@@ -6292,17 +6292,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
 
                     if ( found ) {
-                        var eventElement = getElementByID( startingID + event.id );
+                        var eventElement = getElementByID( startingID + eventDetails.id );
                         if ( eventElement !== null ) {
 
                             if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
-                                _element_SearchDialog_SearchResults.push( event );
+                                _element_SearchDialog_SearchResults.push( eventDetails );
                             } else {
                                 
-                                var monthYear = event.from.getMonth() + "-" + event.from.getFullYear();
+                                var monthYear = eventDetails.from.getMonth() + "-" + eventDetails.from.getFullYear();
         
                                 if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
-                                    _element_SearchDialog_SearchResults.push( event );
+                                    _element_SearchDialog_SearchResults.push( eventDetails );
                                     monthYearsFound[ monthYear ] = true;
                                 }
                             }
@@ -6318,11 +6318,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         updateSearchButtons();
 
         if ( _element_SearchDialog_SearchResults.length > 0 ) {
-            var eventDetails = _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ],
-                dateFrom = new Date( eventDetails.from );
+            var eventDetailsSearchResult = _element_SearchDialog_SearchResults[ _element_SearchDialog_SearchIndex ],
+                dateFrom = new Date( eventDetailsSearchResult.from );
 
             build( dateFrom );
-            updatedFocusedElementAfterSearch( eventDetails );
+            updatedFocusedElementAfterSearch( eventDetailsSearchResult );
         }
     }
 
@@ -6682,10 +6682,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfigurationDialog.style.display = "none";
     }
 
-    function isEventVisible( event ) {
-        var group = getString( event.group ),
+    function isEventVisible( eventDetails ) {
+        var group = getString( eventDetails.group ),
             configGroup = getGroupName( group ),
-            type = getNumber( event.type ),
+            type = getNumber( eventDetails.type ),
             visible = true;
         
         if ( group !== _string.empty ) {
@@ -7405,8 +7405,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var groups = [],
             groupsAnyCase = [];
 
-        getAllEventsFunc( function( event ) {
-            var group = getString( event.group );
+        getAllEventsFunc( function( eventDetails ) {
+            var group = getString( eventDetails.group );
             if ( group !== _string.empty && groupsAnyCase.indexOf( group.toLowerCase() ) === -1 ) {
                 groups.push( group );
                 groupsAnyCase.push( group.toLowerCase() );
@@ -8303,11 +8303,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return eventContents;
     }
 
-    function getOrderedEventPropertyNameList( event ) {
+    function getOrderedEventPropertyNameList( eventDetails ) {
         var propertyNames = [];
 
-        for ( var propertyName in event ) {
-            if ( event.hasOwnProperty( propertyName ) ) {
+        for ( var propertyName in eventDetails ) {
+            if ( eventDetails.hasOwnProperty( propertyName ) ) {
                 propertyNames.push( propertyName );
             }
         }
@@ -9343,15 +9343,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
-            getAllEventsFunc( function( event ) {
-                if ( event.id === id ) {
-                    event.from = from;
-                    event.to = to;
-                    event.repeatEnds = repeatEnds;
+            getAllEventsFunc( function( eventDetails ) {
+                if ( eventDetails.id === id ) {
+                    eventDetails.from = from;
+                    eventDetails.to = to;
+                    eventDetails.repeatEnds = repeatEnds;
                     updated = true;
     
                     if ( triggerEvent ) {
-                        triggerOptionsEventWithData( "onEventUpdated", event );
+                        triggerOptionsEventWithData( "onEventUpdated", eventDetails );
                     }
     
                     if ( updateEvents ) {
@@ -9476,9 +9476,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var returnEvent = null;
 
         if ( isDefinedString( id ) && !_datePickerModeEnabled ) {
-            getAllEventsFunc( function( event ) {
-                if ( event.id === id ) {
-                    returnEvent = event;
+            getAllEventsFunc( function( eventDetails ) {
+                if ( eventDetails.id === id ) {
+                    returnEvent = eventDetails;
                     return true;
                 }
             } );
@@ -9503,10 +9503,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
     
-            getAllEventsFunc( function( event ) {
-                var repeatEvery = getNumber( event.repeatEvery );
-                if ( repeatEvery === _repeatType.never && event.to < new Date() ) {
-                    _this.removeEvent( event.id, false, triggerEvent );
+            getAllEventsFunc( function( eventDetails ) {
+                var repeatEvery = getNumber( eventDetails.repeatEvery );
+                if ( repeatEvery === _repeatType.never && eventDetails.to < new Date() ) {
+                    _this.removeEvent( eventDetails.id, false, triggerEvent );
                 }
             } );
     
@@ -9655,8 +9655,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
-            getAllEventsFunc( function( event ) {
-                event.group = null;
+            getAllEventsFunc( function( eventDetails ) {
+                eventDetails.group = null;
             } );
 
             if ( triggerEvent ) {
@@ -9690,9 +9690,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             var checkGroupName = groupName.toLowerCase();
 
-            getAllEventsFunc( function( event ) {
-                if ( event.group !== null && event.group.toLowerCase() === checkGroupName ) {
-                    event.group = null;
+            getAllEventsFunc( function( eventDetails ) {
+                if ( eventDetails.group !== null && eventDetails.group.toLowerCase() === checkGroupName ) {
+                    eventDetails.group = null;
                 }
             } );
 
