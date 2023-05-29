@@ -5069,12 +5069,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_EventEditorDialog_ErrorMessage = createElement( "p", "error" );
             contents.appendChild( _element_EventEditorDialog_ErrorMessage );
     
-            var buttonsSplitContainer = createElement( "div", "split" );
-            contents.appendChild( buttonsSplitContainer );
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( buttonsContainer );
     
-            _element_EventEditorDialog_OKButton = createButtonElement( buttonsSplitContainer, _options.addText, "ok", eventDialogEvent_OK );
-            createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
-            _element_EventEditorDialog_RemoveButton = createButtonElement( contents, _options.removeEventText, "remove", eventDialogEvent_Remove );
+            _element_EventEditorDialog_RemoveButton = createButtonElement( buttonsContainer, _options.removeEventText, "remove", eventDialogEvent_Remove );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
+            _element_EventEditorDialog_OKButton = createButtonElement( buttonsContainer, _options.addText, "ok", eventDialogEvent_OK );
         }
     }
 
@@ -5296,7 +5296,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setEventTypeInputCheckedStates( eventDetails.type );
 
             _element_EventEditorDialog_OKButton.value = _options.updateText;
-            _element_EventEditorDialog_RemoveButton.style.display = "block";
+            _element_EventEditorDialog_RemoveButton.style.display = "inline-block";
             _element_EventEditorDialog_EventDetails = eventDetails;
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
             _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
@@ -5699,11 +5699,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
     
-            var buttonsSplitContainer = createElement( "div", "split" );
-            contents.appendChild( buttonsSplitContainer );
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsSplitContainer, _options.okText, "ok", eventColorsDialogEvent_OK );
-            createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel );
+            createButtonElement( buttonsContainer, _options.okText, "ok", eventColorsDialogEvent_OK );
         }
     }
 
@@ -5768,11 +5768,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             setInputType( _element_EventEditorRepeatOptionsDialog_RepeatEnds, "date" );
     
-            var buttonsSplitContainer = createElement( "div", "split" );
-            contents.appendChild( buttonsSplitContainer );
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsSplitContainer, _options.okText, "ok", eventRepeatOptionsDialogEvent_OK );
-            createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel );
+            createButtonElement( buttonsContainer, _options.okText, "ok", eventRepeatOptionsDialogEvent_OK );
         }
     }
 
@@ -5850,16 +5850,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ConfirmationDialog_RemoveAllEvents = checkbox[ 0 ];
             _element_ConfirmationDialog_RemoveAllEvents_Label = checkbox[ 1 ];
     
-            var buttonsSplitContainer = createElement( "div", "split" );
-            contents.appendChild( buttonsSplitContainer );
-    
-            _element_ConfirmationDialog_YesButton = createElement( "input", "yes", "button" );
-            _element_ConfirmationDialog_YesButton.value = _options.yesText;
-            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_YesButton );
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( buttonsContainer );
     
             _element_ConfirmationDialog_NoButton = createElement( "input", "no", "button" );
             _element_ConfirmationDialog_NoButton.value = _options.noText;
-            buttonsSplitContainer.appendChild( _element_ConfirmationDialog_NoButton );
+            buttonsContainer.appendChild( _element_ConfirmationDialog_NoButton );
+
+            _element_ConfirmationDialog_YesButton = createElement( "input", "yes", "button" );
+            _element_ConfirmationDialog_YesButton.value = _options.yesText;
+            buttonsContainer.appendChild( _element_ConfirmationDialog_YesButton );
         }
     }
 
@@ -5936,11 +5936,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer2, "HTML", "ExportType" );
             _element_SelectExportTypeDialog_Option_TSV = buildRadioButton( radioButtonsContainer2, "TSV", "ExportType" );
     
-            var buttonsSplitContainer = createElement( "div", "split" );
-            contents.appendChild( buttonsSplitContainer );
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsSplitContainer, _options.okText, "ok", exportEventsFromOptionSelected );
-            createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", hideSelectExportTypeDialog );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", hideSelectExportTypeDialog );
+            createButtonElement( buttonsContainer, _options.okText, "ok", exportEventsFromOptionSelected );
         }
     }
 
@@ -6100,11 +6100,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_SearchDialog_Option_Contains.checked = true;
     
-            var buttonsSplitContainer = createElement( "div", "split last-split" );
-            _element_SearchDialog_Contents.appendChild( buttonsSplitContainer );
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            _element_SearchDialog_Contents.appendChild( buttonsContainer );
     
-            _element_SearchDialog_Previous = createButtonElement( buttonsSplitContainer, _options.previousText, "previous", searchOnPrevious );
-            _element_SearchDialog_Next = createButtonElement( buttonsSplitContainer, _options.nextText, "next", searchOnNext );
+            _element_SearchDialog_Previous = createButtonElement( buttonsContainer, _options.previousText, "previous", searchOnPrevious );
+            _element_SearchDialog_Next = createButtonElement( buttonsContainer, _options.nextText, "next", searchOnNext );
         }
     }
 
@@ -6622,11 +6622,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ConfigurationDialog_Organizer_Email = createElement( "input", null, "email" );
             _element_ConfigurationDialog_Organizer.appendChild( _element_ConfigurationDialog_Organizer_Email );
     
-            var buttonsSplitContainer = createElement( "div", "split" );
-            contents.appendChild( buttonsSplitContainer );
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsSplitContainer, _options.okText, "ok", configurationDialogEvent_OK );
-            createButtonElement( buttonsSplitContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
+            createButtonElement( buttonsContainer, _options.okText, "ok", configurationDialogEvent_OK );
         }
     }
 

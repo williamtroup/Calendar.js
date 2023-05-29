@@ -148,14 +148,17 @@ $side-menu-right-border-width: 5px;
 
     &:disabled {
         background-color: $input-border-color !important;
+        border-color: $input-border-color !important;
         cursor: default !important;
+        color: $light-color !important;
     }
 }
 
-@mixin button( $name, $color, $background-color ) {
+@mixin button( $name, $color, $background-color, $border-color: $background-color ) {
     &.#{$name} {
         color: $color;
         background-color: $background-color;
+        border: calc( $standard-border-size * 2 ) solid $border-color;
         box-sizing: border-box;
 
         &:not( :disabled ):hover {
@@ -187,7 +190,7 @@ $side-menu-right-border-width: 5px;
 }
 
 @mixin input-style {
-    border: 1px solid $input-border-color;
+    border: $standard-border-size solid $input-border-color;
     border-radius: $border-view-radius;
     outline: none;
 }
@@ -213,12 +216,12 @@ $side-menu-right-border-width: 5px;
     }
 
     &:focus {
-        border: 1px solid $dark-color !important;
+        border: $standard-border-size solid $dark-color !important;
         box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size $dark-color;
     }
 
     &:not( :disabled ):hover {
-        border: 1px solid $input-hover-color;
+        border: $standard-border-size solid $input-hover-color;
     }
 }
 

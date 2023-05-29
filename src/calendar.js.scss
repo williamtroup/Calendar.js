@@ -1147,18 +1147,26 @@ div.event-editor {
         }
     
         @import "foundation/split-container";
+
+        div.buttons-container {
+            text-align: right;
+        }
         
         input[type="button"] {
             @include dialog-button-styles;
             @include button( ok, $light-color, $ok-color );
-            @include button( cancel, $light-color, $alert-color );
-            @include button( remove, $light-color, $dark-color );
+            @include button( cancel, $alert-color, $light-color, $alert-color );
+            @include button( remove, $dark-color, $light-color, $dark-color );
             @include button( select-colors, $light-color, #6c757d );
             @include button( repeat-options, $light-color, #6c757d );
 
+            &.ok,
+            &.cancel,
             &.remove {
-                margin-top: $spacing;
                 width: 100%;
+                max-width: 110px;
+                display: inline-block;
+                margin-left: $spacing;
             }
 
             &.select-colors,
@@ -1184,7 +1192,7 @@ div.event-editor {
 */
 
 div.event-editor-colors {
-    @include dialog-styles( 250px );
+    @include dialog-styles( 280px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1202,16 +1210,23 @@ div.event-editor-colors {
         @include input-fields( 40px );
     }
 
-    @import "foundation/split-container";
-
-    div.split {
+    div.buttons-container {
         margin-top: $spacing;
+        text-align: right;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1223,7 +1238,7 @@ div.event-editor-colors {
 */
 
 div.event-editor-repeat-options {
-    @include dialog-styles( 250px );
+    @include dialog-styles( 280px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1254,16 +1269,23 @@ div.event-editor-repeat-options {
         margin-bottom: calc( $spacing / 2 ) !important;
     }
 
-    @import "foundation/split-container";
-
-    div.split {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1290,17 +1312,24 @@ div.confirmation {
     label.checkbox {
         margin-bottom: 0 !important;
     }
-    
-    @import "foundation/split-container";
 
-    div.split {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( yes, $light-color, $ok-color );
-        @include button( no, $light-color, $alert-color );
+        @include button( no, $alert-color, $light-color, $alert-color );
+
+        &.yes,
+        &.no {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1312,7 +1341,7 @@ div.confirmation {
 */
 
 div.select-export-type {
-    @include dialog-styles( 250px );
+    @include dialog-styles( 280px );
     @include dialog-title-bar;
 
     div.contents {
@@ -1329,10 +1358,23 @@ div.select-export-type {
     
     @import "foundation/split-container";
 
+    div.buttons-container {
+        text-align: right;
+        margin-top: $spacing * 2;
+    }
+
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1444,18 +1486,22 @@ div.search {
 
     @import "foundation/split-container";
 
-    div.split:last-child {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( next, $light-color, $ok-color );
-        @include button( previous, $light-color, #6c757d );
+        @include button( previous, #6c757d, $light-color, #6c757d );
         
-        &.cancel {
-            margin-top: $spacing;
+        &.next,
+        &.previous {
             width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
         }
     }
 
@@ -1500,16 +1546,23 @@ div.configuration {
         }
     }
 
-    @import "foundation/split-container";
-
-    div.split {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
