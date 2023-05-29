@@ -5073,8 +5073,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.appendChild( buttonsContainer );
     
             _element_EventEditorDialog_RemoveButton = createButtonElement( buttonsContainer, _options.removeEventText, "remove", eventDialogEvent_Remove );
-            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
             _element_EventEditorDialog_OKButton = createButtonElement( buttonsContainer, _options.addText, "ok", eventDialogEvent_OK );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
         }
     }
 
@@ -5702,8 +5702,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel );
             createButtonElement( buttonsContainer, _options.okText, "ok", eventColorsDialogEvent_OK );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel );
         }
     }
 
@@ -5771,8 +5771,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel );
             createButtonElement( buttonsContainer, _options.okText, "ok", eventRepeatOptionsDialogEvent_OK );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel );
         }
     }
 
@@ -5939,8 +5939,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.cancelText, "cancel", hideSelectExportTypeDialog );
             createButtonElement( buttonsContainer, _options.okText, "ok", exportEventsFromOptionSelected );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", hideSelectExportTypeDialog );
         }
     }
 
@@ -6625,8 +6625,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
             createButtonElement( buttonsContainer, _options.okText, "ok", configurationDialogEvent_OK );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
         }
     }
 
