@@ -12,6 +12,7 @@
 #### **UI Changes:**
 - The search history dropdown items now use a dotted line separator instead of a solid one.
 - Removed the opacity CSS effect for the selected events.
+- The buttons used on each dialog now stay on the same line, align to the left and use a smaller width, with the main action buttons using a full background color.
 
 #### **General Code Improvements:**
 - Removed replicated SCSS for handling menu icons.
