@@ -1,23 +1,13 @@
 # Calendar.js - Change Log:
 
-## Version 2.1.0:
-
-#### **New Features:**
+## Version 2.0.7:
 - Opening the context menu in the Full Day view will track the time from the location you clicked.  When adding a new event from the context menu, the time tracked is now used as default.
 - Added event context menu item "Export Events" (only available if more than one event is selected), which will export only the selected events.
-
-#### **New Custom Trigger Events:**
 - Added a new custom trigger "onNotification", which is triggered when a browser notification for an event is shown (passes the event details).
-
-#### **UI Changes:**
 - The search history dropdown items now use a dotted line separator instead of a solid one.
 - Removed the opacity CSS effect for the selected events.
 - The buttons used on each dialog now stay on the same line, align to the left and use a smaller width, with the main action buttons using a full background color.
-
-#### **General Code Improvements:**
 - Removed replicated SCSS for handling menu icons.
-
-#### **Fixes:**
 - Fixed a fault that caused the wrong days to be shown as Working Days, including when selecting Only Show Working Days.
 - Fixed a fault that caused the ordering of the Week Event day containers to be wrong when looking at the start of the month.
 
