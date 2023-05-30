@@ -2117,7 +2117,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isWorkingDay( date ) {
-        return _options.workingDays.indexOf( date.getDay() ) >= 0;
+        return _options.workingDays.indexOf( getWeekdayNumber( date ) ) >= 0;
     }
 
     function moveDateBackOneDay( date ) {

@@ -17,6 +17,9 @@
 #### **General Code Improvements:**
 - Removed replicated SCSS for handling menu icons.
 
+#### **Fixes:**
+- Fixed a fault that caused the wrong days to be shown as Working Days, including when selecting Only Show Working Days.
+
 <br>
 
 ## Version 2.0.6:

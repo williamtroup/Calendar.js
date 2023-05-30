@@ -1030,7 +1030,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return _options.weekendDays.indexOf(date.getDay()) >= 0;
   }
   function isWorkingDay(date) {
-    return _options.workingDays.indexOf(date.getDay()) >= 0;
+    return _options.workingDays.indexOf(getWeekdayNumber(date)) >= 0;
   }
   function moveDateBackOneDay(date) {
     date.setDate(date.getDate() - 1);
