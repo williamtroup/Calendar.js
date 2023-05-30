@@ -199,7 +199,7 @@ Fires when a browser notification is shown for an event.
 
 
 <br>
-<h1>For Variability Changes:</h1>
+<h1>For Visibility Changes:</h1>
 
 ### **options.onVisibleGroupsChanged( *groupNames* )**:
 Fires when the visible groups are changed.
