@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.6
+ * Calendar.js Library v2.0.7
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -236,7 +236,6 @@ div.calendar div.focused-event {
 }
 div.calendar div.selected-event {
   box-shadow: 0 0 1.5px 1.5px #C60000;
-  opacity: 0.7 !important;
 }
 div.calendar div.cut-event {
   opacity: 0.2 !important;
@@ -1529,6 +1528,9 @@ div.event-editor div.view div.split p:last-child {
 div.event-editor div.view div.split-margin {
   margin-left: 25px;
 }
+div.event-editor div.view div.buttons-container {
+  text-align: right;
+}
 div.event-editor div.view input[type=button] {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -1548,11 +1550,14 @@ div.event-editor div.view input[type=button] {
 }
 div.event-editor div.view input[type=button]:disabled {
   background-color: #A8A8A8 !important;
+  border-color: #A8A8A8 !important;
   cursor: default !important;
+  color: #F5F5F5 !important;
 }
 div.event-editor div.view input[type=button].ok {
   color: #F5F5F5;
   background-color: #289345;
+  border: 2px solid #289345;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].ok:not(:disabled):hover {
@@ -1566,8 +1571,9 @@ div.event-editor div.view input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].cancel {
-  color: #F5F5F5;
-  background-color: #C60000;
+  color: #C60000;
+  background-color: #F5F5F5;
+  border: 2px solid #C60000;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
@@ -1581,8 +1587,9 @@ div.event-editor div.view input[type=button].cancel:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].remove {
-  color: #F5F5F5;
-  background-color: #282828;
+  color: #282828;
+  background-color: #F5F5F5;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].remove:not(:disabled):hover {
@@ -1598,6 +1605,7 @@ div.event-editor div.view input[type=button].remove:not(:disabled):active {
 div.event-editor div.view input[type=button].select-colors {
   color: #F5F5F5;
   background-color: #6c757d;
+  border: 2px solid #6c757d;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].select-colors:not(:disabled):hover {
@@ -1613,6 +1621,7 @@ div.event-editor div.view input[type=button].select-colors:not(:disabled):active
 div.event-editor div.view input[type=button].repeat-options {
   color: #F5F5F5;
   background-color: #6c757d;
+  border: 2px solid #6c757d;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].repeat-options:not(:disabled):hover {
@@ -1625,9 +1634,11 @@ div.event-editor div.view input[type=button].repeat-options:not(:disabled):activ
   cursor: pointer;
   opacity: 0.4;
 }
-div.event-editor div.view input[type=button].remove {
-  margin-top: 10px;
+div.event-editor div.view input[type=button].ok, div.event-editor div.view input[type=button].cancel, div.event-editor div.view input[type=button].remove {
   width: 100%;
+  max-width: 110px;
+  display: inline-block;
+  margin-left: 10px;
 }
 div.event-editor div.view input[type=button].select-colors, div.event-editor div.view input[type=button].repeat-options {
   width: 50px;
@@ -1646,7 +1657,7 @@ div.event-editor div.view input[type=button].repeat-options {
 */
 div.event-editor-colors {
   width: calc(100% - ( 10px * 2 ));
-  max-width: 250px;
+  max-width: 280px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -1716,33 +1727,9 @@ div.event-editor-colors input[type=color]:not(:disabled):hover,
 div.event-editor-colors input[type=text]:not(:disabled):hover {
   border: 1px solid #282828;
 }
-div.event-editor-colors div.split input,
-div.event-editor-colors div.split select,
-div.event-editor-colors div.split div.split-contents,
-div.event-editor-colors div.split p {
-  width: calc(50% - ( 10px / 2 ));
-  margin-right: 5px;
-  margin-left: 5px;
-  display: inline-block;
-  vertical-align: top;
-}
-div.event-editor-colors div.split input:first-child,
-div.event-editor-colors div.split select:first-child,
-div.event-editor-colors div.split div.split-contents:first-child,
-div.event-editor-colors div.split p:first-child {
-  margin-left: 0;
-}
-div.event-editor-colors div.split input:last-child,
-div.event-editor-colors div.split select:last-child,
-div.event-editor-colors div.split div.split-contents:last-child,
-div.event-editor-colors div.split p:last-child {
-  margin-right: 0;
-}
-div.event-editor-colors div.split-margin {
-  margin-left: 25px;
-}
-div.event-editor-colors div.split {
+div.event-editor-colors div.buttons-container {
   margin-top: 10px;
+  text-align: right;
 }
 div.event-editor-colors input[type=button] {
   -moz-user-select: none;
@@ -1763,11 +1750,14 @@ div.event-editor-colors input[type=button] {
 }
 div.event-editor-colors input[type=button]:disabled {
   background-color: #A8A8A8 !important;
+  border-color: #A8A8A8 !important;
   cursor: default !important;
+  color: #F5F5F5 !important;
 }
 div.event-editor-colors input[type=button].ok {
   color: #F5F5F5;
   background-color: #289345;
+  border: 2px solid #289345;
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].ok:not(:disabled):hover {
@@ -1781,8 +1771,9 @@ div.event-editor-colors input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor-colors input[type=button].cancel {
-  color: #F5F5F5;
-  background-color: #C60000;
+  color: #C60000;
+  background-color: #F5F5F5;
+  border: 2px solid #C60000;
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
@@ -1795,6 +1786,12 @@ div.event-editor-colors input[type=button].cancel:not(:disabled):active {
   cursor: pointer;
   opacity: 0.4;
 }
+div.event-editor-colors input[type=button].ok, div.event-editor-colors input[type=button].cancel {
+  width: 100%;
+  max-width: 110px;
+  display: inline-block;
+  margin-left: 10px;
+}
 
 /*
     -------------------------------------------------------------------------
@@ -1803,7 +1800,7 @@ div.event-editor-colors input[type=button].cancel:not(:disabled):active {
 */
 div.event-editor-repeat-options {
   width: calc(100% - ( 10px * 2 ));
-  max-width: 250px;
+  max-width: 280px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -1882,32 +1879,8 @@ div.event-editor-repeat-options input[type=date] {
 div.event-editor-repeat-options label.checkbox {
   margin-bottom: 5px !important;
 }
-div.event-editor-repeat-options div.split input,
-div.event-editor-repeat-options div.split select,
-div.event-editor-repeat-options div.split div.split-contents,
-div.event-editor-repeat-options div.split p {
-  width: calc(50% - ( 10px / 2 ));
-  margin-right: 5px;
-  margin-left: 5px;
-  display: inline-block;
-  vertical-align: top;
-}
-div.event-editor-repeat-options div.split input:first-child,
-div.event-editor-repeat-options div.split select:first-child,
-div.event-editor-repeat-options div.split div.split-contents:first-child,
-div.event-editor-repeat-options div.split p:first-child {
-  margin-left: 0;
-}
-div.event-editor-repeat-options div.split input:last-child,
-div.event-editor-repeat-options div.split select:last-child,
-div.event-editor-repeat-options div.split div.split-contents:last-child,
-div.event-editor-repeat-options div.split p:last-child {
-  margin-right: 0;
-}
-div.event-editor-repeat-options div.split-margin {
-  margin-left: 25px;
-}
-div.event-editor-repeat-options div.split {
+div.event-editor-repeat-options div.buttons-container {
+  text-align: right;
   margin-top: 20px;
 }
 div.event-editor-repeat-options input[type=button] {
@@ -1929,11 +1902,14 @@ div.event-editor-repeat-options input[type=button] {
 }
 div.event-editor-repeat-options input[type=button]:disabled {
   background-color: #A8A8A8 !important;
+  border-color: #A8A8A8 !important;
   cursor: default !important;
+  color: #F5F5F5 !important;
 }
 div.event-editor-repeat-options input[type=button].ok {
   color: #F5F5F5;
   background-color: #289345;
+  border: 2px solid #289345;
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].ok:not(:disabled):hover {
@@ -1947,8 +1923,9 @@ div.event-editor-repeat-options input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor-repeat-options input[type=button].cancel {
-  color: #F5F5F5;
-  background-color: #C60000;
+  color: #C60000;
+  background-color: #F5F5F5;
+  border: 2px solid #C60000;
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
@@ -1960,6 +1937,12 @@ div.event-editor-repeat-options input[type=button].cancel:not(:disabled):active 
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
+}
+div.event-editor-repeat-options input[type=button].ok, div.event-editor-repeat-options input[type=button].cancel {
+  width: 100%;
+  max-width: 110px;
+  display: inline-block;
+  margin-left: 10px;
 }
 
 /*
@@ -2012,32 +1995,8 @@ div.confirmation div.contents div.message {
 div.confirmation label.checkbox {
   margin-bottom: 0 !important;
 }
-div.confirmation div.split input,
-div.confirmation div.split select,
-div.confirmation div.split div.split-contents,
-div.confirmation div.split p {
-  width: calc(50% - ( 10px / 2 ));
-  margin-right: 5px;
-  margin-left: 5px;
-  display: inline-block;
-  vertical-align: top;
-}
-div.confirmation div.split input:first-child,
-div.confirmation div.split select:first-child,
-div.confirmation div.split div.split-contents:first-child,
-div.confirmation div.split p:first-child {
-  margin-left: 0;
-}
-div.confirmation div.split input:last-child,
-div.confirmation div.split select:last-child,
-div.confirmation div.split div.split-contents:last-child,
-div.confirmation div.split p:last-child {
-  margin-right: 0;
-}
-div.confirmation div.split-margin {
-  margin-left: 25px;
-}
-div.confirmation div.split {
+div.confirmation div.buttons-container {
+  text-align: right;
   margin-top: 20px;
 }
 div.confirmation input[type=button] {
@@ -2059,11 +2018,14 @@ div.confirmation input[type=button] {
 }
 div.confirmation input[type=button]:disabled {
   background-color: #A8A8A8 !important;
+  border-color: #A8A8A8 !important;
   cursor: default !important;
+  color: #F5F5F5 !important;
 }
 div.confirmation input[type=button].yes {
   color: #F5F5F5;
   background-color: #289345;
+  border: 2px solid #289345;
   box-sizing: border-box;
 }
 div.confirmation input[type=button].yes:not(:disabled):hover {
@@ -2077,8 +2039,9 @@ div.confirmation input[type=button].yes:not(:disabled):active {
   opacity: 0.4;
 }
 div.confirmation input[type=button].no {
-  color: #F5F5F5;
-  background-color: #C60000;
+  color: #C60000;
+  background-color: #F5F5F5;
+  border: 2px solid #C60000;
   box-sizing: border-box;
 }
 div.confirmation input[type=button].no:not(:disabled):hover {
@@ -2091,6 +2054,12 @@ div.confirmation input[type=button].no:not(:disabled):active {
   cursor: pointer;
   opacity: 0.4;
 }
+div.confirmation input[type=button].yes, div.confirmation input[type=button].no {
+  width: 100%;
+  max-width: 110px;
+  display: inline-block;
+  margin-left: 10px;
+}
 
 /*
     -------------------------------------------------------------------------
@@ -2099,7 +2068,7 @@ div.confirmation input[type=button].no:not(:disabled):active {
 */
 div.select-export-type {
   width: calc(100% - ( 10px * 2 ));
-  max-width: 250px;
+  max-width: 280px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -2161,6 +2130,10 @@ div.select-export-type div.split p:last-child {
 div.select-export-type div.split-margin {
   margin-left: 25px;
 }
+div.select-export-type div.buttons-container {
+  text-align: right;
+  margin-top: 20px;
+}
 div.select-export-type input[type=button] {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -2180,11 +2153,14 @@ div.select-export-type input[type=button] {
 }
 div.select-export-type input[type=button]:disabled {
   background-color: #A8A8A8 !important;
+  border-color: #A8A8A8 !important;
   cursor: default !important;
+  color: #F5F5F5 !important;
 }
 div.select-export-type input[type=button].ok {
   color: #F5F5F5;
   background-color: #289345;
+  border: 2px solid #289345;
   box-sizing: border-box;
 }
 div.select-export-type input[type=button].ok:not(:disabled):hover {
@@ -2198,8 +2174,9 @@ div.select-export-type input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.select-export-type input[type=button].cancel {
-  color: #F5F5F5;
-  background-color: #C60000;
+  color: #C60000;
+  background-color: #F5F5F5;
+  border: 2px solid #C60000;
   box-sizing: border-box;
 }
 div.select-export-type input[type=button].cancel:not(:disabled):hover {
@@ -2211,6 +2188,12 @@ div.select-export-type input[type=button].cancel:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
+}
+div.select-export-type input[type=button].ok, div.select-export-type input[type=button].cancel {
+  width: 100%;
+  max-width: 110px;
+  display: inline-block;
+  margin-left: 10px;
 }
 
 /*
@@ -2281,7 +2264,7 @@ div.search div.contents div.history-container div.history-dropdown {
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item {
   padding: 10px;
-  border-bottom: 1px solid #A8A8A8;
+  border-bottom: 1px dotted #A8A8A8;
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item span.search-search {
   font-weight: 900 !important;
@@ -2379,7 +2362,8 @@ div.search div.split p:last-child {
 div.search div.split-margin {
   margin-left: 25px;
 }
-div.search div.split:last-child {
+div.search div.buttons-container {
+  text-align: right;
   margin-top: 20px;
 }
 div.search input[type=button] {
@@ -2401,11 +2385,14 @@ div.search input[type=button] {
 }
 div.search input[type=button]:disabled {
   background-color: #A8A8A8 !important;
+  border-color: #A8A8A8 !important;
   cursor: default !important;
+  color: #F5F5F5 !important;
 }
 div.search input[type=button].next {
   color: #F5F5F5;
   background-color: #289345;
+  border: 2px solid #289345;
   box-sizing: border-box;
 }
 div.search input[type=button].next:not(:disabled):hover {
@@ -2419,8 +2406,9 @@ div.search input[type=button].next:not(:disabled):active {
   opacity: 0.4;
 }
 div.search input[type=button].previous {
-  color: #F5F5F5;
-  background-color: #6c757d;
+  color: #6c757d;
+  background-color: #F5F5F5;
+  border: 2px solid #6c757d;
   box-sizing: border-box;
 }
 div.search input[type=button].previous:not(:disabled):hover {
@@ -2433,9 +2421,11 @@ div.search input[type=button].previous:not(:disabled):active {
   cursor: pointer;
   opacity: 0.4;
 }
-div.search input[type=button].cancel {
-  margin-top: 10px;
+div.search input[type=button].next, div.search input[type=button].previous {
   width: 100%;
+  max-width: 110px;
+  display: inline-block;
+  margin-left: 10px;
 }
 div.search div.ib-minus,
 div.search div.ib-square-hollow {
@@ -2525,32 +2515,8 @@ div.configuration div.contents input[type=email]:not(:disabled):hover {
 div.configuration div.contents div.tab-content {
   height: 165px;
 }
-div.configuration div.split input,
-div.configuration div.split select,
-div.configuration div.split div.split-contents,
-div.configuration div.split p {
-  width: calc(50% - ( 10px / 2 ));
-  margin-right: 5px;
-  margin-left: 5px;
-  display: inline-block;
-  vertical-align: top;
-}
-div.configuration div.split input:first-child,
-div.configuration div.split select:first-child,
-div.configuration div.split div.split-contents:first-child,
-div.configuration div.split p:first-child {
-  margin-left: 0;
-}
-div.configuration div.split input:last-child,
-div.configuration div.split select:last-child,
-div.configuration div.split div.split-contents:last-child,
-div.configuration div.split p:last-child {
-  margin-right: 0;
-}
-div.configuration div.split-margin {
-  margin-left: 25px;
-}
-div.configuration div.split {
+div.configuration div.buttons-container {
+  text-align: right;
   margin-top: 20px;
 }
 div.configuration input[type=button] {
@@ -2572,11 +2538,14 @@ div.configuration input[type=button] {
 }
 div.configuration input[type=button]:disabled {
   background-color: #A8A8A8 !important;
+  border-color: #A8A8A8 !important;
   cursor: default !important;
+  color: #F5F5F5 !important;
 }
 div.configuration input[type=button].ok {
   color: #F5F5F5;
   background-color: #289345;
+  border: 2px solid #289345;
   box-sizing: border-box;
 }
 div.configuration input[type=button].ok:not(:disabled):hover {
@@ -2590,8 +2559,9 @@ div.configuration input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.configuration input[type=button].cancel {
-  color: #F5F5F5;
-  background-color: #C60000;
+  color: #C60000;
+  background-color: #F5F5F5;
+  border: 2px solid #C60000;
   box-sizing: border-box;
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
@@ -2603,6 +2573,12 @@ div.configuration input[type=button].cancel:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
+}
+div.configuration input[type=button].ok, div.configuration input[type=button].cancel {
+  width: 100%;
+  max-width: 110px;
+  display: inline-block;
+  margin-left: 10px;
 }
 
 /*
@@ -2987,7 +2963,8 @@ div.calendar-drop-down-menu div.ib-minus-icon,
 div.calendar-drop-down-menu div.ib-octagon-hollow-icon,
 div.calendar-drop-down-menu div.ib-pipe-icon,
 div.calendar-drop-down-menu div.ib-equals-icon,
-div.calendar-drop-down-menu div.ib-rhombus-hollow-icon {
+div.calendar-drop-down-menu div.ib-rhombus-hollow-icon,
+div.calendar-drop-down-menu div.ib-arrow-down-full-line-icon {
   margin-right: 10px;
 }
 div.calendar-drop-down-menu div.item {
@@ -2999,11 +2976,14 @@ div.calendar-drop-down-menu div.item:hover {
   color: #F5F5F5;
   transition: all 0.3s;
 }
-div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::after {
+div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-down-full-line-icon::after {
   background-color: #F5F5F5;
 }
 div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-rhombus-hollow-icon::before {
   border-color: #F5F5F5;
+}
+div.calendar-drop-down-menu div.item:hover div.ib-arrow-down-full-line-icon::before {
+  border-top-color: #F5F5F5;
 }
 div.calendar-drop-down-menu div.item:active {
   transition: all 0.2s;
@@ -4129,6 +4109,44 @@ div.calendar-drop-down-menu div.separator {
   height: 3px;
   left: 1.5px;
   top: 1.5px;
+}
+
+.ib-arrow-down-full-line-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+}
+.ib-arrow-down-full-line-icon:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-down-full-line-icon:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-arrow-down-full-line-icon::before, .ib-arrow-down-full-line-icon::after {
+  position: absolute;
+  content: "";
+}
+.ib-arrow-down-full-line-icon::before {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #282828;
+  left: 0;
+  bottom: 0;
+}
+.ib-arrow-down-full-line-icon::after {
+  left: 50%;
+  transform: translate(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #282828;
+  top: 0;
 }
 
 .ib-refresh-medium {

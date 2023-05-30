@@ -1,0 +1,23 @@
+@import "icon";
+
+.ib-arrow-down-full-line-icon {
+    @include button;
+
+    &::before {
+        width: 0; 
+        height: 0; 
+        border-left: calc( $size / 2 ) solid transparent;
+        border-right: calc( $size / 2 ) solid transparent;
+        border-top: calc( $size / 2 ) solid $dark-color;
+        left: 0;
+        bottom: 0;
+    }
+
+    &::after {
+        @include left-center;
+        width: calc( $size / 2 );
+        height: calc( $size / 2 );
+        background-color: $dark-color;
+        top: 0;
+    }
+}

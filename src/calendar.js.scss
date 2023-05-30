@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.6
+ * Calendar.js Library v2.0.7
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -178,7 +178,6 @@ div.calendar {
 
     div.selected-event {
         box-shadow: 0 0 $selected-event-shadow-size $selected-event-shadow-size $alert-color;
-        opacity: 0.7 !important;
     }
 
     div.cut-event {
@@ -1148,18 +1147,26 @@ div.event-editor {
         }
     
         @import "foundation/split-container";
+
+        div.buttons-container {
+            text-align: right;
+        }
         
         input[type="button"] {
             @include dialog-button-styles;
             @include button( ok, $light-color, $ok-color );
-            @include button( cancel, $light-color, $alert-color );
-            @include button( remove, $light-color, $dark-color );
+            @include button( cancel, $alert-color, $light-color, $alert-color );
+            @include button( remove, $dark-color, $light-color, $dark-color );
             @include button( select-colors, $light-color, #6c757d );
             @include button( repeat-options, $light-color, #6c757d );
 
+            &.ok,
+            &.cancel,
             &.remove {
-                margin-top: $spacing;
                 width: 100%;
+                max-width: 110px;
+                display: inline-block;
+                margin-left: $spacing;
             }
 
             &.select-colors,
@@ -1185,7 +1192,7 @@ div.event-editor {
 */
 
 div.event-editor-colors {
-    @include dialog-styles( 250px );
+    @include dialog-styles( 280px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1203,16 +1210,23 @@ div.event-editor-colors {
         @include input-fields( 40px );
     }
 
-    @import "foundation/split-container";
-
-    div.split {
+    div.buttons-container {
         margin-top: $spacing;
+        text-align: right;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1224,7 +1238,7 @@ div.event-editor-colors {
 */
 
 div.event-editor-repeat-options {
-    @include dialog-styles( 250px );
+    @include dialog-styles( 280px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1255,16 +1269,23 @@ div.event-editor-repeat-options {
         margin-bottom: calc( $spacing / 2 ) !important;
     }
 
-    @import "foundation/split-container";
-
-    div.split {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1291,17 +1312,24 @@ div.confirmation {
     label.checkbox {
         margin-bottom: 0 !important;
     }
-    
-    @import "foundation/split-container";
 
-    div.split {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( yes, $light-color, $ok-color );
-        @include button( no, $light-color, $alert-color );
+        @include button( no, $alert-color, $light-color, $alert-color );
+
+        &.yes,
+        &.no {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1313,7 +1341,7 @@ div.confirmation {
 */
 
 div.select-export-type {
-    @include dialog-styles( 250px );
+    @include dialog-styles( 280px );
     @include dialog-title-bar;
 
     div.contents {
@@ -1330,10 +1358,23 @@ div.select-export-type {
     
     @import "foundation/split-container";
 
+    div.buttons-container {
+        text-align: right;
+        margin-top: $spacing * 2;
+    }
+
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1384,7 +1425,7 @@ div.search {
 
                 div.history-dropdown-item {
                     padding: $spacing;
-                    border-bottom: 1px solid $input-border-color;
+                    border-bottom: 1px dotted $input-border-color;
 
                     span.search-search {
                         font-weight: 900 !important;
@@ -1445,18 +1486,22 @@ div.search {
 
     @import "foundation/split-container";
 
-    div.split:last-child {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( next, $light-color, $ok-color );
-        @include button( previous, $light-color, #6c757d );
+        @include button( previous, #6c757d, $light-color, #6c757d );
         
-        &.cancel {
-            margin-top: $spacing;
+        &.next,
+        &.previous {
             width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
         }
     }
 
@@ -1501,16 +1546,23 @@ div.configuration {
         }
     }
 
-    @import "foundation/split-container";
-
-    div.split {
+    div.buttons-container {
+        text-align: right;
         margin-top: $spacing * 2;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $ok-color );
-        @include button( cancel, $light-color, $alert-color );
+        @include button( cancel, $alert-color, $light-color, $alert-color );
+
+        &.ok,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: $spacing;
+        }
     }
 }
 
@@ -1871,7 +1923,8 @@ div.calendar-drop-down-menu {
     div.ib-octagon-hollow-icon,
     div.ib-pipe-icon,
     div.ib-equals-icon,
-    div.ib-rhombus-hollow-icon {
+    div.ib-rhombus-hollow-icon,
+    div.ib-arrow-down-full-line-icon {
         margin-right: $spacing;
     }
 
@@ -1894,7 +1947,8 @@ div.calendar-drop-down-menu {
         &:hover div.ib-minus-icon::before,
         &:hover div.ib-pipe-icon::before,
         &:hover div.ib-equals-icon::before,
-        &:hover div.ib-equals-icon::after {
+        &:hover div.ib-equals-icon::after,
+        &:hover div.ib-arrow-down-full-line-icon::after {
             background-color: $light-color;
         }
 
@@ -1905,8 +1959,12 @@ div.calendar-drop-down-menu {
         &:hover div.ib-circle-hollow-icon,
         &:hover div.ib-octagon-hollow-icon::before,
         &:hover div.ib-octagon-hollow-icon::after,
-        &:hover div.ib-rhombus-hollow-icon::before {
+        &:hover div.ib-rhombus-hollow-icon::before{
             border-color: $light-color;
+        }
+
+        &:hover div.ib-arrow-down-full-line-icon::before {
+            border-top-color: $light-color;
         }
 
         &:active {
@@ -2024,6 +2082,7 @@ div.calendar-drop-down-menu {
 @import "foundation/menus/pipe-icon";
 @import "foundation/menus/equals-icon";
 @import "foundation/menus/rhombus-hollow-icon";
+@import "foundation/menus/arrow-down-full-line-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
 @import "foundation/small/arrow-down-full-medium";

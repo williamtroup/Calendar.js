@@ -165,11 +165,6 @@ Fires when the DatePicker is closed.
 <br>
 <h1>For Actions:</h1>
 
-### **options.onNotificationClicked( *event* )**:
-Fires when a browser notification is clicked for an event.
-<br>
-***Parameter: event***: '*Event*' - The event details.
-
 ### **options.onFullScreenModeChanged( *flag* )**:
 Fires when the full-screen mode is changed.
 <br>
@@ -190,7 +185,21 @@ Fires when the Calendar is rendered.
 
 
 <br>
-<h1>For Variability Changes:</h1>
+<h1>For Browser Notifications:</h1>
+
+### **options.onNotificationClicked( *event* )**:
+Fires when a browser notification is clicked for an event.
+<br>
+***Parameter: event***: '*Event*' - The event details.
+
+### **options.onNotification( *event* )**:
+Fires when a browser notification is shown for an event.
+<br>
+***Parameter: event***: '*Event*' - The event details.
+
+
+<br>
+<h1>For Visibility Changes:</h1>
 
 ### **options.onVisibleGroupsChanged( *groupNames* )**:
 Fires when the visible groups are changed.
