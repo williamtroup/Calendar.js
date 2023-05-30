@@ -3766,7 +3766,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
         var added = false,
             weekDayNumber = getWeekdayNumber( displayDate ),
-            dateID = displayDate.getDate() + displayDate.getFullYear() + displayDate.getMonth() + weekDayNumber,
+            dateID = weekDayNumber + displayDate.getMonth() + displayDate.getFullYear(),
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             formattedDate = toStorageFormattedDate( displayDate );
 
@@ -3889,7 +3889,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
-            dateID = date.getDate() + date.getFullYear() + date.getMonth() + weekDayNumber,
+            dateID = weekDayNumber + date.getMonth() + date.getFullYear(),
             dayContents = null,
             dayHeader = null,
             removeEventsDate = new Date( date );

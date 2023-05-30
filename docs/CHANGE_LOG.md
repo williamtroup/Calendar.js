@@ -19,6 +19,7 @@
 
 #### **Fixes:**
 - Fixed a fault that caused the wrong days to be shown as Working Days, including when selecting Only Show Working Days.
+- Fixed a fault that caused the ordering of the Week Event day containers to be wrong when looking at the start of the month.
 
 <br>
 

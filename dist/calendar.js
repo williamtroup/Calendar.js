@@ -2188,7 +2188,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildListAllWeekEventsEvent(eventDetails, header, container, displayDate) {
-    var added = false, weekDayNumber = getWeekdayNumber(displayDate), dateID = displayDate.getDate() + displayDate.getFullYear() + displayDate.getMonth() + weekDayNumber, seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates), formattedDate = toStorageFormattedDate(displayDate);
+    var added = false, weekDayNumber = getWeekdayNumber(displayDate), dateID = weekDayNumber + displayDate.getMonth() + displayDate.getFullYear(), seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates), formattedDate = toStorageFormattedDate(displayDate);
     if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDate) === -1) {
       clearElementsByClassName(container, "no-events-text");
       showElementsByClassName(header, "ib-close");
@@ -2279,7 +2279,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     } while (startOfWeek < weekEndDate);
   }
   function buildListAllEventsDay(date) {
-    var weekDayNumber = getWeekdayNumber(date), dateID = date.getDate() + date.getFullYear() + date.getMonth() + weekDayNumber, dayContents = null, dayHeader = null, removeEventsDate = new Date(date);
+    var weekDayNumber = getWeekdayNumber(date), dateID = weekDayNumber + date.getMonth() + date.getFullYear(), dayContents = null, dayHeader = null, removeEventsDate = new Date(date);
     if (!_element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty(dateID) && _options.visibleDays.indexOf(weekDayNumber) > -1) {
       var expandDate = new Date(date), expandFunction = function() {
         showFullDayView(expandDate, true);
