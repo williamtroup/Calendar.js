@@ -921,6 +921,9 @@ div.calendar div.full-day-view div.contents div.content-events-all-day div.event
 div.calendar div.full-day-view div.contents div.contents-events {
   position: relative;
 }
+div.calendar div.full-day-view div.contents div.contents-events div.resizable {
+  resize: vertical;
+}
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
   width: calc( 100% - 70px - ( 10px * 2 ) - 1px );

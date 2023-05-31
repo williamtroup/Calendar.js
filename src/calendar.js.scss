@@ -873,6 +873,10 @@ div.calendar {
             div.contents-events {
                 position: relative;
 
+                div.resizable {
+                    resize: vertical;
+                }
+
                 div.time-arrow {
                     position: absolute;
                     width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 2 ) - #{$standard-border-size} );

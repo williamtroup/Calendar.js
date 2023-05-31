@@ -575,6 +575,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_Contents_Hours = null,
         _element_FullDayView_DateSelected = null,
         _element_FullDayView_EventsShown = [],
+        _element_FullDayView_EventsShown_Sizes = [],
+        _element_FullDayView_EventsShown_Sizes_Timer = null,
         _element_FullDayView_ExportEventsButton = null,
         _element_FullDayView_FullScreenButton = null,
         _element_FullDayView_TodayButton = null,
@@ -1977,8 +1979,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             hideOverlay( _element_ListAllWeekEventsView );
 
             _element_FullDayView_EventsShown = [];
+            _element_FullDayView_EventsShown_Sizes = [];
             _element_ListAllEventsView_EventsShown = [];
             _element_ListAllWeekEventsView_EventsShown = [];
+
+            stopFullDayEventSizeTracking();
             
             done = true;
         }
@@ -2748,6 +2753,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_Title.innerHTML = _string.empty;
         _element_FullDayView_DateSelected = new Date( date );
         _element_FullDayView_EventsShown = [];
+        _element_FullDayView_EventsShown_Sizes = [];
         _element_FullDayView_Contents_AllDayEvents.style.display = "block";
 
         updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, isCurrentDateVisible );
@@ -2838,13 +2844,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         updateToolbarButtonVisibleState( _element_FullDayView_SearchButton, _element_FullDayView_EventsShown.length > 0 );
         adjustFullDayEventsThatOverlap();
+        startFullDayEventSizeTracking();
     }
 
     function hideFullDayView() {
         hideOverlay( _element_FullDayView );
+        stopFullDayEventSizeTracking();
 
         _element_FullDayView_DateSelected = null;
         _element_FullDayView_EventsShown = [];
+        _element_FullDayView_EventsShown_Sizes = [];
     }
 
     function buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
@@ -2883,6 +2892,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( eventDetails.isAllDay ) {
                 _element_FullDayView_Contents_AllDayEvents.appendChild( event );
             } else {
+
+                if ( _options.manualEditingEnabled ) {
+                    event.className += " resizable";
+                    event.onmousedown = stopFullDayEventSizeTracking;
+                    event.onmouseup = startFullDayEventSizeTracking;
+                }
+
                 _element_FullDayView_Contents_Hours.appendChild( event );
             }
     
@@ -2981,6 +2997,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             _element_FullDayView_EventsShown.push( eventDetails );
+
+            if ( !eventDetails.isAllDay ) {
+                _element_FullDayView_EventsShown_Sizes.push( {
+                    eventDetails: eventDetails,
+                    eventElement: event,
+                    height: event.offsetHeight
+                } );
+            }
         }
 
         return scrollTop;
@@ -3086,12 +3110,53 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function getHourMinutesFromMousePositionClick( e ) {
         var contentHoursOffset = getOffset( _element_FullDayView_Contents_Hours ),
-            scrollPosition = getScrollPosition(),
             pixelsPerMinute = getFullDayPixelsPerMinute(),
-            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top + scrollPosition.top ) ) / pixelsPerMinute ),
+            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top ) ) / pixelsPerMinute ),
             hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
 
         return hoursMinutes;
+    }
+
+    function startFullDayEventSizeTracking() {
+        stopFullDayEventSizeTracking();
+
+        if ( _options.manualEditingEnabled ) {
+            _element_FullDayView_EventsShown_Sizes_Timer = setInterval( function() {
+                var eventsLength = _element_FullDayView_EventsShown_Sizes.length;
+    
+                if ( eventsLength > 0 ) {
+                    var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                        eventsResized = false;
+    
+                    for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                        var eventSizeDetails = _element_FullDayView_EventsShown_Sizes[ eventIndex ];
+    
+                        if ( eventSizeDetails.height != eventSizeDetails.eventElement.offsetHeight ) {
+                            var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height,
+                                differenceMinutes = difference / pixelsPerMinute;
+    
+                            eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;
+                            eventSizeDetails.eventDetails.to = addMinutesToDate( eventSizeDetails.eventDetails.to, differenceMinutes );
+                            eventsResized = true;
+                        }
+                    }
+    
+                    if ( eventsResized ) {
+                        refreshViews();
+                    }
+                }
+    
+            }, 50 );
+        }
+    }
+
+    function stopFullDayEventSizeTracking() {
+        if ( _options.manualEditingEnabled ) {
+            if ( _element_FullDayView_EventsShown_Sizes_Timer !== null ) {
+                clearTimeout( _element_FullDayView_EventsShown_Sizes_Timer );
+                _element_FullDayView_EventsShown_Sizes_Timer = null;
+            }
+        }
     }
 
 
