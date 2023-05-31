@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.0:
+- 
+
+<br>
+
 ## Version 2.0.7:
 - Opening the context menu in the Full Day view will track the time from the location you clicked.  When adding a new event from the context menu, the time tracked is now used as default.
 - Added event context menu item "Export Events" (only available if more than one event is selected), which will export only the selected events.
