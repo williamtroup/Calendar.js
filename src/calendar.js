@@ -2497,7 +2497,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             plusXEventsText.ondblclick = cancelBubble;
             elementDay.appendChild( plusXEventsText );
 
-            if ( dayDate.getMonth() !== _currentDate.getMonth() || dayDate.getFullYear() !== _currentDate.getFullYear() ) {
+            if ( _options.applyCssToEventsNotInCurrentMonth && dayDate.getMonth() !== _currentDate.getMonth() || dayDate.getFullYear() !== _currentDate.getFullYear() ) {
                 plusXEventsText.className += " day-muted";
             }
 
