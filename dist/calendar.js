@@ -1586,9 +1586,11 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_FullDayView_Contents_AllDayEvents.appendChild(event);
       } else {
         if (_options.manualEditingEnabled) {
-          event.className += " resizable";
-          event.onmousedown = stopFullDayEventSizeTracking;
-          event.onmouseup = startFullDayEventSizeTracking;
+          if (doDatesMatch(eventDetails.from, eventDetails.to)) {
+            event.className += " resizable";
+            event.onmousedown = stopFullDayEventSizeTracking;
+            event.onmouseup = startFullDayEventSizeTracking;
+          }
           event.ondragstart = function(e) {
             onFullDayViewEventDragStart(e, event, eventDetails);
           };

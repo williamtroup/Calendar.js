@@ -2902,9 +2902,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else {
 
                 if ( _options.manualEditingEnabled ) {
-                    event.className += " resizable";
-                    event.onmousedown = stopFullDayEventSizeTracking;
-                    event.onmouseup = startFullDayEventSizeTracking;
+                    if ( doDatesMatch( eventDetails.from, eventDetails.to ) ) {
+                        event.className += " resizable";
+                        event.onmousedown = stopFullDayEventSizeTracking;
+                        event.onmouseup = startFullDayEventSizeTracking;
+                    }
 
                     event.ondragstart = function( e ) {
                         onFullDayViewEventDragStart( e, event, eventDetails );
