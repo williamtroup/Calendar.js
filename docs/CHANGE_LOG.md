@@ -8,6 +8,7 @@
 
 #### **Fixes:**
 - Fixed a fault that caused events to be added to the wrong position when double clicking in the full day view (or add from the context menu).
+- Fixed a fault that caused repeating events to appear incorrectly sized in the Full Day view.
 
 <br>
 

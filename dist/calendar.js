@@ -1684,7 +1684,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (doDatesMatch(eventDetails.from, displayDate) || repeatEvery > _repeatType.never) {
         minutesTop = pixelsPerMinute * getMinutesIntoDay(eventDetails.from);
       }
-      if (doDatesMatch(eventDetails.to, displayDate)) {
+      if (doDatesMatch(eventDetails.to, displayDate) || repeatEvery > _repeatType.never) {
         minutesHeight = pixelsPerMinute * getMinutesIntoDay(eventDetails.to) - minutesTop;
       } else {
         minutesHeight = contentHoursHeight;
@@ -1755,8 +1755,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_FullDayView_Event_Dragged_Offset = offset.top - e.pageY;
   }
   function onFullDayViewEventDropped(e) {
-    var pixelsPerMinute = getFullDayPixelsPerMinute(), offset = getOffset(_element_FullDayView_Contents_Hours), top = Math.abs(e.pageY) - offset.top + _element_FullDayView_Event_Dragged_Offset;
-    var difference = top - _element_FullDayView_Event_Dragged.offsetTop, differenceMinutes = difference / pixelsPerMinute;
+    var pixelsPerMinute = getFullDayPixelsPerMinute(), offset = getOffset(_element_FullDayView_Contents_Hours), top = Math.abs(e.pageY) - offset.top + _element_FullDayView_Event_Dragged_Offset, difference = top - _element_FullDayView_Event_Dragged.offsetTop, differenceMinutes = difference / pixelsPerMinute;
     _element_FullDayView_Event_Dragged.style.top = top + "px";
     _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes);
     _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes);
