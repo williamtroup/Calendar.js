@@ -583,6 +583,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_TimeArrow = null,
         _element_FullDayView_SearchButton = null,
         _element_FullDayView_ContextMenu_ClickPositionHourMinutes = null,
+        _element_FullDayView_Event_Dragged = null,
+        _element_FullDayView_Event_Dragged_EventDetails = null,
+        _element_FullDayView_Event_Dragged_Offset = null,
         _element_ListAllEventsView = null,
         _element_ListAllEventsView_ExportEventsButton = null,
         _element_ListAllEventsView_FullScreenButton = null,
@@ -2703,6 +2706,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_FullDayView_Contents_Hours = createElement( "div", "contents-events" );
             _element_FullDayView_Contents_Hours.ondblclick = fullDayViewDoubleClick;
             _element_FullDayView_Contents.appendChild( _element_FullDayView_Contents_Hours );
+
+            if ( _options.manualEditingEnabled ) {
+                _element_FullDayView_Contents_Hours.ondragover = cancelBubble;
+                _element_FullDayView_Contents_Hours.ondrop = onFullDayViewEventDropped;
+            }
     
             for ( var hour = 0; hour < 24; hour++ ) {
                 var row = createElement( "div", "hour" );
@@ -2897,6 +2905,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event.className += " resizable";
                     event.onmousedown = stopFullDayEventSizeTracking;
                     event.onmouseup = startFullDayEventSizeTracking;
+
+                    event.ondragstart = function( e ) {
+                        onFullDayViewEventDragStart( e, event, eventDetails );
+                    };
+
+                    event.setAttribute( "draggable", true );
                 }
 
                 _element_FullDayView_Contents_Hours.appendChild( event );
@@ -3115,6 +3129,36 @@ function calendarJs( elementOrId, options, searchOptions ) {
             hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
 
         return hoursMinutes;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Full Day View - Moving/Resizing
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function onFullDayViewEventDragStart( e, event, eventDetails ) {
+        var offset = getOffset( event );
+
+        _element_FullDayView_Event_Dragged = event;
+        _element_FullDayView_Event_Dragged_EventDetails = eventDetails;
+        _element_FullDayView_Event_Dragged_Offset = offset.top - e.pageY;
+    }
+
+    function onFullDayViewEventDropped( e ) {
+        var pixelsPerMinute = getFullDayPixelsPerMinute(),
+            offset = getOffset( _element_FullDayView_Contents_Hours ),
+            top = ( Math.abs( e.pageY ) - offset.top ) + _element_FullDayView_Event_Dragged_Offset;
+        
+        var difference = top - _element_FullDayView_Event_Dragged.offsetTop,
+            differenceMinutes = difference / pixelsPerMinute;
+
+        _element_FullDayView_Event_Dragged.style.top = top + "px";
+        _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes );
+        _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes );
+
+        refreshViews();
     }
 
     function startFullDayEventSizeTracking() {
