@@ -7,7 +7,7 @@
 - Added event moving support in the Full Day view.  The display is automatically updated when the events are moved.
 
 #### **Fixes:**
-- Fixed a fault that caused events to be added to the wrong position when double clicking in the full day view (or add from the context menu).
+- Fixed a fault that caused events to be added to the wrong position when double clicking in the full day view (or added from the context menu).
 - Fixed a fault that caused repeating events to appear incorrectly sized in the Full Day view.
 
 <br>
