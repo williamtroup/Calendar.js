@@ -1,12 +1,8 @@
 # Calendar.js - Change Log:
 
-## Version 2.1.0:
-
-#### **New Features:**
+## Version 2.0.8:
 - Added event resizing support in the Full Day view.  The display is automatically updated when resizing events.
 - Added event moving support in the Full Day view.  The display is automatically updated when the events are moved.
-
-#### **Fixes:**
 - Fixed a fault that caused events to be added to the wrong position when double clicking in the full day view (or added from the context menu).
 - Fixed a fault that caused repeating events to appear incorrectly sized in the Full Day view.
 - Fixed the Yes/No buttons on the Confirmation dialog being in the wrong order.
