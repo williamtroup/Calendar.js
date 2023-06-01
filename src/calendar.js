@@ -2707,7 +2707,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_FullDayView_Contents_Hours.ondblclick = fullDayViewDoubleClick;
             _element_FullDayView_Contents.appendChild( _element_FullDayView_Contents_Hours );
 
-            if ( _options.manualEditingEnabled ) {
+            if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled ) {
                 _element_FullDayView_Contents_Hours.ondragover = cancelBubble;
                 _element_FullDayView_Contents_Hours.ondragenter = cancelBubble;
                 _element_FullDayView_Contents_Hours.ondragleave = cancelBubble;
@@ -2903,7 +2903,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_FullDayView_Contents_AllDayEvents.appendChild( event );
             } else {
 
-                if ( _options.manualEditingEnabled ) {
+                if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled ) {
                     if ( doDatesMatch( eventDetails.from, eventDetails.to ) ) {
                         event.className += " resizable";
                         event.onmousedown = stopFullDayEventSizeTracking;

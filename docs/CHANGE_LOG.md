@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.9:
+- Fixed a fault that allowed drag & drop to be used on the Full Day view when it's disabled.
 - 
 
 <br>
