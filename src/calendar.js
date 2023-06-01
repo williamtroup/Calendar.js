@@ -5963,13 +5963,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            _element_ConfirmationDialog_NoButton = createElement( "input", "no", "button" );
-            _element_ConfirmationDialog_NoButton.value = _options.noText;
-            buttonsContainer.appendChild( _element_ConfirmationDialog_NoButton );
-
             _element_ConfirmationDialog_YesButton = createElement( "input", "yes", "button" );
             _element_ConfirmationDialog_YesButton.value = _options.yesText;
             buttonsContainer.appendChild( _element_ConfirmationDialog_YesButton );
+
+            _element_ConfirmationDialog_NoButton = createElement( "input", "no", "button" );
+            _element_ConfirmationDialog_NoButton.value = _options.noText;
+            buttonsContainer.appendChild( _element_ConfirmationDialog_NoButton );
         }
     }
 
