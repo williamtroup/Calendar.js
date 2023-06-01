@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.7
+ * Calendar.js Library v2.0.8
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -872,6 +872,10 @@ div.calendar {
     
             div.contents-events {
                 position: relative;
+
+                div.resizable {
+                    resize: vertical;
+                }
 
                 div.time-arrow {
                     position: absolute;

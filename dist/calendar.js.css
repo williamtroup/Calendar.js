@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.7
+ * Calendar.js Library v2.0.8
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -920,6 +920,9 @@ div.calendar div.full-day-view div.contents div.content-events-all-day div.event
 }
 div.calendar div.full-day-view div.contents div.contents-events {
   position: relative;
+}
+div.calendar div.full-day-view div.contents div.contents-events div.resizable {
+  resize: vertical;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
