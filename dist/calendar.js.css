@@ -360,15 +360,17 @@ div.calendar div.row-cells div.cell div.dots-separator {
     display: none;
   }
 }
+div.calendar div.row-cells div.cell div.day-muted,
+div.calendar div.row-cells div.cell span.day-muted,
+div.calendar div.row-cells div.cell span.no-click {
+  opacity: 0.3;
+}
 div.calendar div.row-cells div.cell span {
   display: inline-block;
   padding: 4px;
   padding-left: 0px;
   padding-right: 0px;
   border-radius: 0.25rem;
-}
-div.calendar div.row-cells div.cell span.day-muted, div.calendar div.row-cells div.cell span.no-click {
-  opacity: 0.3;
 }
 div.calendar div.row-cells div.cell span.today, div.calendar div.row-cells div.cell span.first-day {
   padding-left: 7px;

@@ -334,17 +334,18 @@ div.calendar {
                 }
             }
 
+            div.day-muted,
+            span.day-muted,
+            span.no-click {
+                opacity: 0.3;
+            }
+
             span {
                 display: inline-block;
                 padding: 4px;
                 padding-left: 0px;
                 padding-right: 0px;
                 border-radius: $border-view-radius;
-        
-                &.day-muted,
-                &.no-click {
-                    opacity: 0.3;
-                }
         
                 &.today,
                 &.first-day {

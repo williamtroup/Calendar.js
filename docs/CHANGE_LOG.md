@@ -2,6 +2,7 @@
 
 ## Version 2.0.9:
 - Fixed a fault that allowed drag & drop to be used on the Full Day view when it's disabled.
+- Fixed the "+X More" link in the Month view not using a disabled color when shown on days outside the current month.
 - 
 
 <br>
