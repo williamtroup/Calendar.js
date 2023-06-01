@@ -6,6 +6,8 @@
 - Fixed a fault that caused events to be added to the wrong position when double clicking in the full day view (or added from the context menu).
 - Fixed a fault that caused repeating events to appear incorrectly sized in the Full Day view.
 - Fixed the Yes/No buttons on the Confirmation dialog being in the wrong order.
+- Added drop support for events (from other Calendar.js instances) and JSON files to the Full Day view.
+- 
 
 <br>
 

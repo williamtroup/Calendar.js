@@ -2709,6 +2709,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( _options.manualEditingEnabled ) {
                 _element_FullDayView_Contents_Hours.ondragover = cancelBubble;
+                _element_FullDayView_Contents_Hours.ondragenter = cancelBubble;
+                _element_FullDayView_Contents_Hours.ondragleave = cancelBubble;
                 _element_FullDayView_Contents_Hours.ondrop = onFullDayViewEventDropped;
             }
     
@@ -3149,17 +3151,31 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onFullDayViewEventDropped( e ) {
-        var pixelsPerMinute = getFullDayPixelsPerMinute(),
-            offset = getOffset( _element_FullDayView_Contents_Hours ),
-            top = ( Math.abs( e.pageY ) - offset.top ) + _element_FullDayView_Event_Dragged_Offset,
-            difference = top - _element_FullDayView_Event_Dragged.offsetTop,
-            differenceMinutes = difference / pixelsPerMinute;
+        cancelBubble( e );
 
-        _element_FullDayView_Event_Dragged.style.top = top + "px";
-        _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes );
-        _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes );
+        if ( _element_FullDayView_Event_Dragged === null ) {
+            if ( e.dataTransfer.files.length === 0 ) {
+                dropEventsFromOtherCalendar( e, _element_FullDayView_DateSelected.getFullYear(), _element_FullDayView_DateSelected.getMonth(), _element_FullDayView_DateSelected.getDate() );
+            } else {
+                dropFileOnDisplay( e );
+            }
+        } else {
 
-        refreshViews();
+            var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                offset = getOffset( _element_FullDayView_Contents_Hours ),
+                top = ( Math.abs( e.pageY ) - offset.top ) + _element_FullDayView_Event_Dragged_Offset,
+                difference = top - _element_FullDayView_Event_Dragged.offsetTop,
+                differenceMinutes = difference / pixelsPerMinute;
+
+            _element_FullDayView_Event_Dragged.style.top = top + "px";
+            _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes );
+            _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes );
+            _element_FullDayView_Event_Dragged = null;
+            _element_FullDayView_Event_Dragged_EventDetails = null;
+            _element_FullDayView_Event_Dragged_Offset = 0;
+
+            refreshViews();
+        }
     }
 
     function startFullDayEventSizeTracking() {
@@ -4524,6 +4540,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
         
             element.ondrop = function( e ) {
+                cancelBubble( e );
                 hideDraggingEffect( e, element, areaDate );
 
                 if ( e.dataTransfer.files.length === 0 ) {
@@ -4561,9 +4578,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function dropEventOnDay( e, year, month, day ) {
-        cancelBubble( e );
-
         var dropDate = new Date( year, month, day );
+
         if ( _eventDetails_Dragged !== null && !doDatesMatch( _eventDetails_Dragged_DateFrom, dropDate ) ) {
             triggerOptionsEventWithMultipleData( "onEventDragDrop", _eventDetails_Dragged, dropDate );
 
@@ -4606,17 +4622,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else {
 
             if ( _eventDetails_Dragged === null ) {
-                var eventDetails = getObjectFromString( e.dataTransfer.getData( "event_details" ) );
-                if ( eventDetails !== null ) {
-                    var sourceFromDate = new Date( eventDetails.from ),
-                        sourceToDate = new Date( eventDetails.to );
-
-                    eventDetails.from = new Date( year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0 );
-                    eventDetails.to = new Date( year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0 );
-
-                    _this.addEvent( eventDetails );
-                }
+                dropEventsFromOtherCalendar( e, year, month, day );
             }
+        }
+    }
+
+    function dropEventsFromOtherCalendar( e, year, month, day ) {
+        var eventDetails = getObjectFromString( e.dataTransfer.getData( "event_details" ) );
+        if ( eventDetails !== null ) {
+            var sourceFromDate = new Date( eventDetails.from ),
+                sourceToDate = new Date( eventDetails.to );
+
+            eventDetails.from = new Date( year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0 );
+            eventDetails.to = new Date( year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0 );
+
+            _this.addEvent( eventDetails );
         }
     }
 
