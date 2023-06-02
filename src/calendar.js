@@ -6091,6 +6091,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ExportEventsDialog.style.display = "block";
         _element_ExportEventsDialog_ExportEvents = events;
         _element_ExportEventsDialog_Option_CSV.checked = true;
+        _element_ExportEventsDialog_Filename.value = _string.empty;
         _element_ExportEventsDialog_Filename.focus();
     }
 
@@ -6121,8 +6122,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else if ( _element_ExportEventsDialog_Option_TSV.checked ) {
             exportEvents( _element_ExportEventsDialog_ExportEvents, "tsv", _element_ExportEventsDialog_Filename.value );
         }
-
-        _element_ExportEventsDialog_Filename.value = _string.empty;
     }
 
     function showExportDialogFromWindowKeyDown() {
