@@ -1174,6 +1174,11 @@ div.event-editor {
                 margin-left: $spacing;
             }
 
+            &.remove {
+                margin-left: 0;
+                float: left;
+            }
+
             &.select-colors,
             &.repeat-options {
                 width: 50px;

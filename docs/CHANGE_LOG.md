@@ -5,6 +5,7 @@
 - Fixed the "+X More" link in the Month view not using a disabled color when shown on days outside the current month.
 - Changed the default colors used for the buttons, as they did not match the color scheme.
 - Button colors now have their own SCSS variables, making them easier to change.
+- The "Remove" button on the Event Editor dialog is now aligned to the left.
 - 
 
 <br>

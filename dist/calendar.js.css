@@ -1645,6 +1645,10 @@ div.event-editor div.view input[type=button].ok, div.event-editor div.view input
   display: inline-block;
   margin-left: 10px;
 }
+div.event-editor div.view input[type=button].remove {
+  margin-left: 0;
+  float: left;
+}
 div.event-editor div.view input[type=button].select-colors, div.event-editor div.view input[type=button].repeat-options {
   width: 50px;
 }
