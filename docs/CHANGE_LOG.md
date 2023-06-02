@@ -6,6 +6,7 @@
 - Changed the default colors used for the buttons, as they did not match the color scheme.
 - Button colors now have their own SCSS variables, making them easier to change.
 - The "Remove" button on the Event Editor dialog is now aligned to the left.
+- Fixed a fault that caused the context menus / drop-downs to remain opened when moving a dialog.
 - 
 
 <br>

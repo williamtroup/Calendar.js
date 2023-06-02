@@ -7029,6 +7029,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function onMoveTitleBarMouseDown( e, dialog ) {
         if ( !_element_MoveDialog_IsMoving ) {
+            hideAllDropDowns();
+            
             _element_MoveDialog = dialog;
             _element_MoveDialog_IsMoving = true;
             _element_MoveDialog_X = e.pageX - _element_MoveDialog.offsetLeft;
