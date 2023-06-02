@@ -1160,10 +1160,10 @@ div.event-editor {
         input[type="button"] {
             @include dialog-button-styles;
             @include button( ok, $light-color, $primary-button-color );
-            @include button( cancel, $primary-button-color, $light-color, $primary-button-color );
-            @include button( remove, $primary-button-color, $light-color, $primary-button-color );
-            @include button( select-colors, $light-color, $secondary-button-color );
-            @include button( repeat-options, $light-color, $secondary-button-color );
+            @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
+            @include button( remove, $secondary-button-color, $light-color, $secondary-button-color );
+            @include button( select-colors, $light-color, $tertiary-button-color );
+            @include button( repeat-options, $light-color, $tertiary-button-color );
 
             &.ok,
             &.cancel,
@@ -1223,7 +1223,7 @@ div.event-editor-colors {
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $primary-button-color );
-        @include button( cancel, $primary-button-color, $light-color, $primary-button-color );
+        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
         &.ok,
         &.cancel {
@@ -1282,7 +1282,7 @@ div.event-editor-repeat-options {
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $primary-button-color );
-        @include button( cancel, $primary-button-color, $light-color, $primary-button-color );
+        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
         &.ok,
         &.cancel {
@@ -1326,7 +1326,7 @@ div.confirmation {
     input[type="button"] {
         @include dialog-button-styles;
         @include button( yes, $light-color, $primary-button-color );
-        @include button( no, $primary-button-color, $light-color, $primary-button-color );
+        @include button( no, $secondary-button-color, $light-color, $secondary-button-color );
 
         &.yes,
         &.no {
@@ -1371,7 +1371,7 @@ div.select-export-type {
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $primary-button-color );
-        @include button( cancel, $primary-button-color, $light-color, $primary-button-color );
+        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
         &.ok,
         &.cancel {
@@ -1559,7 +1559,7 @@ div.configuration {
     input[type="button"] {
         @include dialog-button-styles;
         @include button( ok, $light-color, $primary-button-color );
-        @include button( cancel, $primary-button-color, $light-color, $primary-button-color );
+        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color);
 
         &.ok,
         &.cancel {
