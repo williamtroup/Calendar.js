@@ -9,6 +9,7 @@
 - Fixed a fault that caused the context menus / drop-downs to remain opened when moving a dialog.
 - Renamed the "Select Export Type" dialog to "Event Events".
 - Added a "Name" input field to the Export Events dialog, which allows you to specify a download filename.
+- Renamed the setting "selectExportTypeTitle" to "exportEventsTitle".
 - 
 
 <br>

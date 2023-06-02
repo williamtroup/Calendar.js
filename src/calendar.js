@@ -157,7 +157,7 @@
  * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
  * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
- * @property    {string}    selectExportTypeTitle                       The text that should be displayed for the "Export Events" label.
+ * @property    {string}    exportEventsTitle                           The text that should be displayed for the "Export Events" label.
  * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
  * @property    {string}    backgroundColorText                         The text that should be displayed for the "Background Color:" label.
  * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
@@ -613,17 +613,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfirmationDialog_RemoveAllEvents_Label = null,
         _element_ConfirmationDialog_YesButton = null,
         _element_ConfirmationDialog_NoButton = null,
-        _element_SelectExportTypeDialog = null,
-        _element_SelectExportTypeDialog_Filename = null,
-        _element_SelectExportTypeDialog_Option_CSV = null,
-        _element_SelectExportTypeDialog_Option_XML = null,
-        _element_SelectExportTypeDialog_Option_JSON = null,
-        _element_SelectExportTypeDialog_Option_TEXT = null,
-        _element_SelectExportTypeDialog_Option_iCAL = null,
-        _element_SelectExportTypeDialog_Option_MD = null,
-        _element_SelectExportTypeDialog_Option_HTML = null,
-        _element_SelectExportTypeDialog_Option_TSV = null,
-        _element_SelectExportTypeDialog_ExportEvents = null,
+        _element_ExportEventsDialog = null,
+        _element_ExportEventsDialog_Filename = null,
+        _element_ExportEventsDialog_Option_CSV = null,
+        _element_ExportEventsDialog_Option_XML = null,
+        _element_ExportEventsDialog_Option_JSON = null,
+        _element_ExportEventsDialog_Option_TEXT = null,
+        _element_ExportEventsDialog_Option_iCAL = null,
+        _element_ExportEventsDialog_Option_MD = null,
+        _element_ExportEventsDialog_Option_HTML = null,
+        _element_ExportEventsDialog_Option_TSV = null,
+        _element_ExportEventsDialog_ExportEvents = null,
         _element_Tooltip = null,
         _element_Tooltip_TitleButtons = null,
         _element_Tooltip_TitleButtons_CloseButton = null,
@@ -745,7 +745,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildEventEditingColorDialog();
             buildEventEditingRepeatOptionsDialog();
             buildConfirmationDialog();
-            buildSelectExportTypeDialog();
+            buildExportEventsDialog();
             buildSearchDialog();
             buildConfigurationDialog();
             buildTooltip();
@@ -967,7 +967,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( _options.exportEventsEnabled ) {
                 _element_HeaderDateDisplay_ExportEventsButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                    showSelectExportTypeDialog( _element_Calendar_AllVisibleEvents );
+                    showExportEventsDialog( _element_Calendar_AllVisibleEvents );
                 } );
             }
         }
@@ -2672,7 +2672,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( _options.exportEventsEnabled && _options.showExtraToolbarButtons ) {
                 _element_FullDayView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                    showSelectExportTypeDialog( _element_FullDayView_EventsShown );
+                    showExportEventsDialog( _element_FullDayView_EventsShown );
                 } );
             }
     
@@ -3406,7 +3406,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
                 if ( _options.exportEventsEnabled ) {
                     _element_ListAllEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                        showSelectExportTypeDialog( _element_ListAllEventsView_EventsShown );
+                        showExportEventsDialog( _element_ListAllEventsView_EventsShown );
                     } );
                 }
 
@@ -3716,7 +3716,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.showExtraToolbarButtons ) {
                 if ( _options.exportEventsEnabled ) {
                     _element_ListAllWeekEventsView_ExportEventsButton = buildToolbarButton( titleBar, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                        showSelectExportTypeDialog( _element_ListAllWeekEventsView_EventsShown );
+                        showExportEventsDialog( _element_ListAllWeekEventsView_EventsShown );
                     } );
                 }
         
@@ -4840,7 +4840,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_DropDownMenu_Event_ExportEventsSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
 
             _element_DropDownMenu_Event_ExportEvents = buildMenuItemWithIcon( _element_DropDownMenu_Event, "ib-arrow-down-full-line-icon", _options.exportEventsTooltipText + "...", function() {
-                showSelectExportTypeDialog( _eventsSelected );
+                showExportEventsDialog( _eventsSelected );
             } );
         }
     }
@@ -6033,29 +6033,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Select Export Type Dialog
+     * Export Events Dialog
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildSelectExportTypeDialog() {
-        if ( !_datePickerModeEnabled && _element_SelectExportTypeDialog === null ) {
-            _element_SelectExportTypeDialog = createElement( "div", "calendar-dialog select-export-type" );
-            _document.body.appendChild( _element_SelectExportTypeDialog );
+    function buildExportEventsDialog() {
+        if ( !_datePickerModeEnabled && _element_ExportEventsDialog === null ) {
+            _element_ExportEventsDialog = createElement( "div", "calendar-dialog select-export-type" );
+            _document.body.appendChild( _element_ExportEventsDialog );
     
             var titleBar = createElement( "div", "title-bar" );
-            setNodeText( titleBar, _options.selectExportTypeTitle );
-            _element_SelectExportTypeDialog.appendChild( titleBar );
+            setNodeText( titleBar, _options.exportEventsTitle );
+            _element_ExportEventsDialog.appendChild( titleBar );
 
-            makeDialogMovable( titleBar, _element_SelectExportTypeDialog, null );
+            makeDialogMovable( titleBar, _element_ExportEventsDialog, null );
     
-            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideSelectExportTypeDialog, true );
+            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideExportEventsDialog, true );
     
             var contents = createElement( "div", "contents" );
-            _element_SelectExportTypeDialog.appendChild( contents );
+            _element_ExportEventsDialog.appendChild( contents );
 
-            _element_SelectExportTypeDialog_Filename = createElement( "input", null, "text" );
-            _element_SelectExportTypeDialog_Filename.placeholder = _options.exportFilenamePlaceholderText;
-            contents.appendChild( _element_SelectExportTypeDialog_Filename );
+            _element_ExportEventsDialog_Filename = createElement( "input", null, "text" );
+            _element_ExportEventsDialog_Filename.placeholder = _options.exportFilenamePlaceholderText;
+            contents.appendChild( _element_ExportEventsDialog_Filename );
 
             var radioButtonsSplitContainer = createElement( "div", "split" );
             contents.appendChild( radioButtonsSplitContainer );
@@ -6066,63 +6066,63 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var radioButtonsContainer2 = createElement( "div", "radio-buttons-container split-contents" );
             radioButtonsSplitContainer.appendChild( radioButtonsContainer2 );
     
-            _element_SelectExportTypeDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
-            _element_SelectExportTypeDialog_Option_XML = buildRadioButton( radioButtonsContainer1, "XML", "ExportType" );
-            _element_SelectExportTypeDialog_Option_JSON = buildRadioButton( radioButtonsContainer1, "JSON", "ExportType" );
-            _element_SelectExportTypeDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TEXT", "ExportType" );
+            _element_ExportEventsDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
+            _element_ExportEventsDialog_Option_XML = buildRadioButton( radioButtonsContainer1, "XML", "ExportType" );
+            _element_ExportEventsDialog_Option_JSON = buildRadioButton( radioButtonsContainer1, "JSON", "ExportType" );
+            _element_ExportEventsDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TEXT", "ExportType" );
     
-            _element_SelectExportTypeDialog_Option_iCAL = buildRadioButton( radioButtonsContainer2, "iCAL", "ExportType" );
-            _element_SelectExportTypeDialog_Option_MD = buildRadioButton( radioButtonsContainer2, "MD", "ExportType" );
-            _element_SelectExportTypeDialog_Option_HTML = buildRadioButton( radioButtonsContainer2, "HTML", "ExportType" );
-            _element_SelectExportTypeDialog_Option_TSV = buildRadioButton( radioButtonsContainer2, "TSV", "ExportType" );
+            _element_ExportEventsDialog_Option_iCAL = buildRadioButton( radioButtonsContainer2, "iCAL", "ExportType" );
+            _element_ExportEventsDialog_Option_MD = buildRadioButton( radioButtonsContainer2, "MD", "ExportType" );
+            _element_ExportEventsDialog_Option_HTML = buildRadioButton( radioButtonsContainer2, "HTML", "ExportType" );
+            _element_ExportEventsDialog_Option_TSV = buildRadioButton( radioButtonsContainer2, "TSV", "ExportType" );
     
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
             createButtonElement( buttonsContainer, _options.okText, "ok", exportEventsFromOptionSelected );
-            createButtonElement( buttonsContainer, _options.cancelText, "cancel", hideSelectExportTypeDialog );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", hideExportEventsDialog );
         }
     }
 
-    function showSelectExportTypeDialog( events ) {
+    function showExportEventsDialog( events ) {
         addNode( _document.body, _element_DisabledBackground );
 
-        _openDialogs.push( hideSelectExportTypeDialog );
-        _element_SelectExportTypeDialog.style.display = "block";
-        _element_SelectExportTypeDialog_ExportEvents = events;
-        _element_SelectExportTypeDialog_Option_CSV.checked = true;
-        _element_SelectExportTypeDialog_Filename.focus();
+        _openDialogs.push( hideExportEventsDialog );
+        _element_ExportEventsDialog.style.display = "block";
+        _element_ExportEventsDialog_ExportEvents = events;
+        _element_ExportEventsDialog_Option_CSV.checked = true;
+        _element_ExportEventsDialog_Filename.focus();
     }
 
-    function hideSelectExportTypeDialog( popCloseWindowEvent ) {
+    function hideExportEventsDialog( popCloseWindowEvent ) {
         removeLastCloseWindowEvent( popCloseWindowEvent );
         removeNode( _document.body, _element_DisabledBackground );
 
-        _element_SelectExportTypeDialog.style.display = "none";
+        _element_ExportEventsDialog.style.display = "none";
     }
 
     function exportEventsFromOptionSelected() {
-        hideSelectExportTypeDialog();
+        hideExportEventsDialog();
 
-        if ( _element_SelectExportTypeDialog_Option_CSV.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "csv", _element_SelectExportTypeDialog_Filename.value );
-        } else if ( _element_SelectExportTypeDialog_Option_XML.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "xml", _element_SelectExportTypeDialog_Filename.value );
-        } else if ( _element_SelectExportTypeDialog_Option_JSON.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "json", _element_SelectExportTypeDialog_Filename.value );
-        } else if ( _element_SelectExportTypeDialog_Option_TEXT.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "text", _element_SelectExportTypeDialog_Filename.value );
-        } else if ( _element_SelectExportTypeDialog_Option_iCAL.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "ical", _element_SelectExportTypeDialog_Filename.value );
-        } else if ( _element_SelectExportTypeDialog_Option_MD.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "md", _element_SelectExportTypeDialog_Filename.value );
-        } else if ( _element_SelectExportTypeDialog_Option_HTML.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "html", _element_SelectExportTypeDialog_Filename.value );
-        } else if ( _element_SelectExportTypeDialog_Option_TSV.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "tsv", _element_SelectExportTypeDialog_Filename.value );
+        if ( _element_ExportEventsDialog_Option_CSV.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "csv", _element_ExportEventsDialog_Filename.value );
+        } else if ( _element_ExportEventsDialog_Option_XML.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "xml", _element_ExportEventsDialog_Filename.value );
+        } else if ( _element_ExportEventsDialog_Option_JSON.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "json", _element_ExportEventsDialog_Filename.value );
+        } else if ( _element_ExportEventsDialog_Option_TEXT.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "text", _element_ExportEventsDialog_Filename.value );
+        } else if ( _element_ExportEventsDialog_Option_iCAL.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "ical", _element_ExportEventsDialog_Filename.value );
+        } else if ( _element_ExportEventsDialog_Option_MD.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "md", _element_ExportEventsDialog_Filename.value );
+        } else if ( _element_ExportEventsDialog_Option_HTML.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "html", _element_ExportEventsDialog_Filename.value );
+        } else if ( _element_ExportEventsDialog_Option_TSV.checked ) {
+            exportEvents( _element_ExportEventsDialog_ExportEvents, "tsv", _element_ExportEventsDialog_Filename.value );
         }
 
-        _element_SelectExportTypeDialog_Filename.value = _string.empty;
+        _element_ExportEventsDialog_Filename.value = _string.empty;
     }
 
     function showExportDialogFromWindowKeyDown() {
@@ -6142,7 +6142,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( events.length > 0 ) {
-            showSelectExportTypeDialog( events );
+            showExportEventsDialog( events );
         }
     }
 
@@ -10361,7 +10361,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.confirmEventRemoveTitle = getDefaultString( _options.confirmEventRemoveTitle, "Confirm Event Removal" );
         _options.confirmEventRemoveMessage = getDefaultString( _options.confirmEventRemoveMessage, "Removing this event cannot be undone.  Do you want to continue?" );
         _options.okText = getDefaultString( _options.okText, "OK" );
-        _options.selectExportTypeTitle = getDefaultString( _options.selectExportTypeTitle, "Export Events" );
+        _options.exportEventsTitle = getDefaultString( _options.exportEventsTitle, "Export Events" );
         _options.selectColorsText = getDefaultString( _options.selectColorsText, "Select Colors" );
         _options.backgroundColorText = getDefaultString( _options.backgroundColorText, "Background Color:" );
         _options.textColorText = getDefaultString( _options.textColorText, "Text Color:" );
