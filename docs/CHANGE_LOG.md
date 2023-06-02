@@ -7,6 +7,8 @@
 - Button colors now have their own SCSS variables, making them easier to change.
 - The "Remove" button on the Event Editor dialog is now aligned to the left.
 - Fixed a fault that caused the context menus / drop-downs to remain opened when moving a dialog.
+- Renamed the "Select Export Type" dialog to "Event Events".
+- Added a "Name" input field to the Export Events dialog, which allows you to specify a download filename.
 - 
 
 <br>

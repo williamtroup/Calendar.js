@@ -157,7 +157,7 @@
  * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
  * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
- * @property    {string}    selectExportTypeTitle                       The text that should be displayed for the "Select Export Type" label.
+ * @property    {string}    selectExportTypeTitle                       The text that should be displayed for the "Export Events" label.
  * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
  * @property    {string}    backgroundColorText                         The text that should be displayed for the "Background Color:" label.
  * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
@@ -265,6 +265,7 @@
  * @property    {string}    previousYearTooltipText                     The tooltip text that should be used for for the "Previous Year" button.
  * @property    {string}    nextYearTooltipText                         The tooltip text that should be used for for the "Next Year" button.
  * @property    {string}    showOnlyWorkingDaysText                     The text that should be displayed for the "Show Only Working Days" label.
+ * @property    {string}    exportFilenamePlaceholderText               The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)").
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -613,6 +614,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfirmationDialog_YesButton = null,
         _element_ConfirmationDialog_NoButton = null,
         _element_SelectExportTypeDialog = null,
+        _element_SelectExportTypeDialog_Filename = null,
         _element_SelectExportTypeDialog_Option_CSV = null,
         _element_SelectExportTypeDialog_Option_XML = null,
         _element_SelectExportTypeDialog_Option_JSON = null,
@@ -6050,7 +6052,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             var contents = createElement( "div", "contents" );
             _element_SelectExportTypeDialog.appendChild( contents );
-    
+
+            _element_SelectExportTypeDialog_Filename = createElement( "input", null, "text" );
+            _element_SelectExportTypeDialog_Filename.placeholder = _options.exportFilenamePlaceholderText;
+            contents.appendChild( _element_SelectExportTypeDialog_Filename );
+
             var radioButtonsSplitContainer = createElement( "div", "split" );
             contents.appendChild( radioButtonsSplitContainer );
     
@@ -6085,6 +6091,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SelectExportTypeDialog.style.display = "block";
         _element_SelectExportTypeDialog_ExportEvents = events;
         _element_SelectExportTypeDialog_Option_CSV.checked = true;
+        _element_SelectExportTypeDialog_Filename.focus();
     }
 
     function hideSelectExportTypeDialog( popCloseWindowEvent ) {
@@ -6098,22 +6105,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
         hideSelectExportTypeDialog();
 
         if ( _element_SelectExportTypeDialog_Option_CSV.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "csv" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "csv", _element_SelectExportTypeDialog_Filename.value );
         } else if ( _element_SelectExportTypeDialog_Option_XML.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "xml" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "xml", _element_SelectExportTypeDialog_Filename.value );
         } else if ( _element_SelectExportTypeDialog_Option_JSON.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "json" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "json", _element_SelectExportTypeDialog_Filename.value );
         } else if ( _element_SelectExportTypeDialog_Option_TEXT.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "text" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "text", _element_SelectExportTypeDialog_Filename.value );
         } else if ( _element_SelectExportTypeDialog_Option_iCAL.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "ical" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "ical", _element_SelectExportTypeDialog_Filename.value );
         } else if ( _element_SelectExportTypeDialog_Option_MD.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "md" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "md", _element_SelectExportTypeDialog_Filename.value );
         } else if ( _element_SelectExportTypeDialog_Option_HTML.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "html" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "html", _element_SelectExportTypeDialog_Filename.value );
         } else if ( _element_SelectExportTypeDialog_Option_TSV.checked ) {
-            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "tsv" );
+            exportEvents( _element_SelectExportTypeDialog_ExportEvents, "tsv", _element_SelectExportTypeDialog_Filename.value );
         }
+
+        _element_SelectExportTypeDialog_Filename.value = _string.empty;
     }
 
     function showExportDialogFromWindowKeyDown() {
@@ -8112,7 +8121,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function exportEvents( events, type ) {
+    function exportEvents( events, type, filename ) {
         type = isDefined( type ) ? type.toLowerCase() : "csv";
 
         var contents = _string.empty,
@@ -8143,10 +8152,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 mimeTypeEnd = fileAttributes[ 1 ],
                 extension = fileAttributes[ 2 ];
 
+            filename = isDefined( filename ) ? filename : getExportDownloadFilename( extension );
+
             tempLink.style.display = "none";
             tempLink.setAttribute( "target", "_blank" );
             tempLink.setAttribute( "href", "data:" + mimeTypeStart + "/" + mimeTypeEnd + ";charset=utf-8," + encodeURIComponent( contents ) );
-            tempLink.setAttribute( "download", getExportDownloadFilename( extension ) );
+            tempLink.setAttribute( "download", filename );
     
             _document.body.appendChild( tempLink );
             tempLink.click();
@@ -10350,7 +10361,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.confirmEventRemoveTitle = getDefaultString( _options.confirmEventRemoveTitle, "Confirm Event Removal" );
         _options.confirmEventRemoveMessage = getDefaultString( _options.confirmEventRemoveMessage, "Removing this event cannot be undone.  Do you want to continue?" );
         _options.okText = getDefaultString( _options.okText, "OK" );
-        _options.selectExportTypeTitle = getDefaultString( _options.selectExportTypeTitle, "Select Export Type" );
+        _options.selectExportTypeTitle = getDefaultString( _options.selectExportTypeTitle, "Export Events" );
         _options.selectColorsText = getDefaultString( _options.selectColorsText, "Select Colors" );
         _options.backgroundColorText = getDefaultString( _options.backgroundColorText, "Background Color:" );
         _options.textColorText = getDefaultString( _options.textColorText, "Text Color:" );
@@ -10453,6 +10464,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.previousYearTooltipText = getDefaultString( _options.previousYearTooltipText, "Previous Year" );
         _options.nextYearTooltipText = getDefaultString( _options.nextYearTooltipText, "Next Year" );
         _options.showOnlyWorkingDaysText = getDefaultString( _options.showOnlyWorkingDaysText, "Show Only Working Days" );
+        _options.exportFilenamePlaceholderText = getDefaultString( _options.exportFilenamePlaceholderText, "Name (optional)" );
     }
 
     function setEventTypeTranslationStringOptions() {

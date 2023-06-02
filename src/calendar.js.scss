@@ -1357,6 +1357,10 @@ div.select-export-type {
     div.contents {
         padding: $spacing;
 
+        input[type="text"] {
+            @include input-fields( 40px );
+        }
+
         div.split {
             margin-top: 0;
 

@@ -2108,6 +2108,31 @@ div.select-export-type div.title-bar {
 div.select-export-type div.contents {
   padding: 10px;
 }
+div.select-export-type div.contents input[type=text] {
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  line-height: 21px;
+  color: #282828;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  max-height: 35px;
+  height: 40px;
+}
+div.select-export-type div.contents input[type=text]:last-child {
+  margin-bottom: 0;
+}
+div.select-export-type div.contents input[type=text]:focus {
+  border: 1px solid #282828 !important;
+  box-shadow: 0 0 2px 2px #282828;
+}
+div.select-export-type div.contents input[type=text]:not(:disabled):hover {
+  border: 1px solid #282828;
+}
 div.select-export-type div.contents div.split {
   margin-top: 0;
 }
