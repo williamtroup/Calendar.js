@@ -1561,8 +1561,8 @@ div.event-editor div.view input[type=button]:disabled {
 }
 div.event-editor div.view input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].ok:not(:disabled):hover {
@@ -1576,9 +1576,9 @@ div.event-editor div.view input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
@@ -1761,8 +1761,8 @@ div.event-editor-colors input[type=button]:disabled {
 }
 div.event-editor-colors input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].ok:not(:disabled):hover {
@@ -1776,9 +1776,9 @@ div.event-editor-colors input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor-colors input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
@@ -1913,8 +1913,8 @@ div.event-editor-repeat-options input[type=button]:disabled {
 }
 div.event-editor-repeat-options input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].ok:not(:disabled):hover {
@@ -1928,9 +1928,9 @@ div.event-editor-repeat-options input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor-repeat-options input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
@@ -2029,8 +2029,8 @@ div.confirmation input[type=button]:disabled {
 }
 div.confirmation input[type=button].yes {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.confirmation input[type=button].yes:not(:disabled):hover {
@@ -2044,9 +2044,9 @@ div.confirmation input[type=button].yes:not(:disabled):active {
   opacity: 0.4;
 }
 div.confirmation input[type=button].no {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.confirmation input[type=button].no:not(:disabled):hover {
@@ -2164,8 +2164,8 @@ div.select-export-type input[type=button]:disabled {
 }
 div.select-export-type input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.select-export-type input[type=button].ok:not(:disabled):hover {
@@ -2179,9 +2179,9 @@ div.select-export-type input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.select-export-type input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.select-export-type input[type=button].cancel:not(:disabled):hover {
@@ -2396,8 +2396,8 @@ div.search input[type=button]:disabled {
 }
 div.search input[type=button].next {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.search input[type=button].next:not(:disabled):hover {
@@ -2549,8 +2549,8 @@ div.configuration input[type=button]:disabled {
 }
 div.configuration input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.configuration input[type=button].ok:not(:disabled):hover {
@@ -2564,9 +2564,9 @@ div.configuration input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.configuration input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
