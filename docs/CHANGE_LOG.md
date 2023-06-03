@@ -1,5 +1,22 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.9:
+- Fixed a fault that allowed drag & drop to be used on the Full Day view when it's disabled.
+- Fixed the "+X More" link in the Month view not using a disabled color when shown on days outside the current month.
+- Changed the default colors used for the buttons, as they did not match the color scheme.
+- Button colors now have their own SCSS variables, making them easier to change.
+- The "Remove" button on the Event Editor dialog is now aligned to the left.
+- Fixed a fault that caused the context menus / drop-downs to remain open when moving a dialog.
+- Renamed the "Select Export Type" dialog to "Event Events".
+- Added a "Name" input field to the Export Events dialog, which allows you to specify a download filename.
+- Renamed the setting "selectExportTypeTitle" to "exportEventsTitle".
+- Fixed a fault that caused the tooltip element to remain in the DOM after the calendar is destroyed.
+- Fixed a fault that caused the internal timers to keep running after the calendar is destroyed.
+- Fixed a fault that caused the tooltip element to show no class when first created.
+- Fixed a fault that caused the event tooltips to use a smaller width when a regular tooltip has been shown first.
+
+<br>
+
 ## Version 2.0.8:
 - Added event resizing support in the Full Day view.  The display is automatically updated when resizing events.
 - Added event moving support in the Full Day view.  The display is automatically updated when the events are moved.

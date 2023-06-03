@@ -118,7 +118,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | confirmEventRemoveTitle | The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal"). |
 | *string* | confirmEventRemoveMessage | The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone. Do you want to continue?"). |
 | *string* | okText | The text that should be displayed for the "OK" button. |
-| *string* | selectExportTypeTitle | The text that should be displayed for the "Select Export Type" label. |
+| *string* | exportEventsTitle | The text that should be displayed for the "Export Events" label. |
 | *string* | selectColorsText | The text that should be displayed for the "Select Colors" label. |
 | *string* | backgroundColorText | The text that should be displayed for the "Background Color:" label. |
 | *string* | textColorText | The text that should be displayed for the "Text Color:" label. |
@@ -226,3 +226,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | previousYearTooltipText | The tooltip text that should be used for for the "Previous Year" button. |
 | *string* | nextYearTooltipText | The tooltip text that should be used for for the "Next Year" button. |
 | *string* | showOnlyWorkingDaysText | The text that should be displayed for the "Show Only Working Days" label. |
+| *string* | exportFilenamePlaceholderText | The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)"). |

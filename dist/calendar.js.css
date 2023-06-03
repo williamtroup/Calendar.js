@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.8
+ * Calendar.js Library v2.0.9
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -360,15 +360,17 @@ div.calendar div.row-cells div.cell div.dots-separator {
     display: none;
   }
 }
+div.calendar div.row-cells div.cell div.day-muted,
+div.calendar div.row-cells div.cell span.day-muted,
+div.calendar div.row-cells div.cell span.no-click {
+  opacity: 0.3;
+}
 div.calendar div.row-cells div.cell span {
   display: inline-block;
   padding: 4px;
   padding-left: 0px;
   padding-right: 0px;
   border-radius: 0.25rem;
-}
-div.calendar div.row-cells div.cell span.day-muted, div.calendar div.row-cells div.cell span.no-click {
-  opacity: 0.3;
 }
 div.calendar div.row-cells div.cell span.today, div.calendar div.row-cells div.cell span.first-day {
   padding-left: 7px;
@@ -1559,8 +1561,8 @@ div.event-editor div.view input[type=button]:disabled {
 }
 div.event-editor div.view input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].ok:not(:disabled):hover {
@@ -1574,9 +1576,9 @@ div.event-editor div.view input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
@@ -1642,6 +1644,10 @@ div.event-editor div.view input[type=button].ok, div.event-editor div.view input
   max-width: 110px;
   display: inline-block;
   margin-left: 10px;
+}
+div.event-editor div.view input[type=button].remove {
+  margin-left: 0;
+  float: left;
 }
 div.event-editor div.view input[type=button].select-colors, div.event-editor div.view input[type=button].repeat-options {
   width: 50px;
@@ -1759,8 +1765,8 @@ div.event-editor-colors input[type=button]:disabled {
 }
 div.event-editor-colors input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].ok:not(:disabled):hover {
@@ -1774,9 +1780,9 @@ div.event-editor-colors input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor-colors input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
@@ -1911,8 +1917,8 @@ div.event-editor-repeat-options input[type=button]:disabled {
 }
 div.event-editor-repeat-options input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].ok:not(:disabled):hover {
@@ -1926,9 +1932,9 @@ div.event-editor-repeat-options input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor-repeat-options input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
@@ -2027,8 +2033,8 @@ div.confirmation input[type=button]:disabled {
 }
 div.confirmation input[type=button].yes {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.confirmation input[type=button].yes:not(:disabled):hover {
@@ -2042,9 +2048,9 @@ div.confirmation input[type=button].yes:not(:disabled):active {
   opacity: 0.4;
 }
 div.confirmation input[type=button].no {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.confirmation input[type=button].no:not(:disabled):hover {
@@ -2101,6 +2107,31 @@ div.select-export-type div.title-bar {
 }
 div.select-export-type div.contents {
   padding: 10px;
+}
+div.select-export-type div.contents input[type=text] {
+  border: 1px solid #A8A8A8;
+  border-radius: 0.25rem;
+  outline: none;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  line-height: 21px;
+  color: #282828;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  max-height: 35px;
+  height: 40px;
+}
+div.select-export-type div.contents input[type=text]:last-child {
+  margin-bottom: 0;
+}
+div.select-export-type div.contents input[type=text]:focus {
+  border: 1px solid #282828 !important;
+  box-shadow: 0 0 2px 2px #282828;
+}
+div.select-export-type div.contents input[type=text]:not(:disabled):hover {
+  border: 1px solid #282828;
 }
 div.select-export-type div.contents div.split {
   margin-top: 0;
@@ -2162,8 +2193,8 @@ div.select-export-type input[type=button]:disabled {
 }
 div.select-export-type input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.select-export-type input[type=button].ok:not(:disabled):hover {
@@ -2177,9 +2208,9 @@ div.select-export-type input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.select-export-type input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.select-export-type input[type=button].cancel:not(:disabled):hover {
@@ -2394,8 +2425,8 @@ div.search input[type=button]:disabled {
 }
 div.search input[type=button].next {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.search input[type=button].next:not(:disabled):hover {
@@ -2409,9 +2440,9 @@ div.search input[type=button].next:not(:disabled):active {
   opacity: 0.4;
 }
 div.search input[type=button].previous {
-  color: #6c757d;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #6c757d;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.search input[type=button].previous:not(:disabled):hover {
@@ -2547,8 +2578,8 @@ div.configuration input[type=button]:disabled {
 }
 div.configuration input[type=button].ok {
   color: #F5F5F5;
-  background-color: #289345;
-  border: 2px solid #289345;
+  background-color: #282828;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.configuration input[type=button].ok:not(:disabled):hover {
@@ -2562,9 +2593,9 @@ div.configuration input[type=button].ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.configuration input[type=button].cancel {
-  color: #C60000;
+  color: #282828;
   background-color: #F5F5F5;
-  border: 2px solid #C60000;
+  border: 2px solid #282828;
   box-sizing: border-box;
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
@@ -2872,6 +2903,7 @@ div.calendar-tooltip {
 }
 
 div.calendar-tooltip-event {
+  width: 100%;
   max-width: 300px;
 }
 div.calendar-tooltip-event div {
