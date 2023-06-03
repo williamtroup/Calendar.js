@@ -10,6 +10,7 @@
 - Renamed the "Select Export Type" dialog to "Event Events".
 - Added a "Name" input field to the Export Events dialog, which allows you to specify a download filename.
 - Renamed the setting "selectExportTypeTitle" to "exportEventsTitle".
+- Fixed a fault that caused the tooltip element to remain in the DOM after the calendar is destroyed.
 - 
 
 <br>

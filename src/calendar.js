@@ -8901,6 +8901,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         clearElementsByClassName( _document.body, "calendar-dialog" );
         clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
+        clearElementsByClassName( _document.body, "calendar-tooltip" );
 
         triggerOptionsEvent( "onDestroy", _elementID );
     };
