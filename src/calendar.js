@@ -451,6 +451,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             visibleAllEventsMonths: {},
             visibleWeeklyEventsDay: {}
         },
+        _timer = {
+            windowResize: "WindowResize",
+            fullDayEventSizeTracking: "FullDayEventSizeTracking",
+            searchOptionsChanged: "SearchOptionsChanged",
+            searchEventsHistoryDropDown: "SearchEventsHistoryDropDown",
+            showToolTip: "ShowToolTip",
+            autoRefresh: "AutoRefresh"
+        },
+        _timers = {},
         _options = {},
         _optionsForSearch = {},
         _datePickerInput = null,
@@ -470,10 +479,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _initializedFirstTime = false,
         _initializedDocumentEvents = false,
         _events = {},
-        _timer_CallSearchOptionsEvent = null,
-        _timer_RefreshMainDisplay = null,
         _timer_RefreshMainDisplay_Enabled = true,
-        _timer_RefreshViewsOnWindowResize = null,
         _eventDetails_Dragged_DateFrom = null,
         _eventDetails_Dragged = null,
         _cachedStyles = null,
@@ -577,7 +583,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_DateSelected = null,
         _element_FullDayView_EventsShown = [],
         _element_FullDayView_EventsShown_Sizes = [],
-        _element_FullDayView_EventsShown_Sizes_Timer = null,
         _element_FullDayView_ExportEventsButton = null,
         _element_FullDayView_FullScreenButton = null,
         _element_FullDayView_TodayButton = null,
@@ -635,7 +640,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Tooltip_Description = null,
         _element_Tooltip_Location = null,
         _element_Tooltip_Url = null,
-        _element_Tooltip_ShowTimer = null,
         _element_Tooltip_EventDetails = null,
         _element_DropDownMenu_Day = null,
         _element_DropDownMenu_Day_Paste_Separator = null,
@@ -692,7 +696,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SearchDialog_FocusedEventID = null,
         _element_SearchDialog_History_DropDown = null,
         _element_SearchDialog_History_DropDown_Button = null,
-        _element_SearchDialog_History_DropDown_DisplayTimer = null,
         _element_ConfigurationDialog = null,
         _element_ConfigurationDialog_Display = null,
         _element_ConfigurationDialog_Organizer = null,
@@ -1823,14 +1826,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onWindowResizeRefreshViews() {
-        if ( _timer_RefreshViewsOnWindowResize !== null ) {
-            clearTimeout( _timer_RefreshViewsOnWindowResize );
-            _timer_RefreshViewsOnWindowResize = null;
-        }
+        stopAndResetTimer( _timer.windowResize );
 
-        _timer_RefreshViewsOnWindowResize = setTimeout( function() {
+        startTimer( _timer.windowResize, function() {
             refreshViews( true, false );
-        }, 50 );
+        }, 50, false );
     }
 
     function hideAllDropDowns() {
@@ -3188,7 +3188,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         stopFullDayEventSizeTracking();
 
         if ( _options.manualEditingEnabled ) {
-            _element_FullDayView_EventsShown_Sizes_Timer = setInterval( function() {
+            startTimer( _timer.fullDayEventSizeTracking, function() {
                 var eventsLength = _element_FullDayView_EventsShown_Sizes.length;
     
                 if ( eventsLength > 0 ) {
@@ -3219,10 +3219,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function stopFullDayEventSizeTracking() {
         if ( _options.manualEditingEnabled ) {
-            if ( _element_FullDayView_EventsShown_Sizes_Timer !== null ) {
-                clearTimeout( _element_FullDayView_EventsShown_Sizes_Timer );
-                _element_FullDayView_EventsShown_Sizes_Timer = null;
-            }
+            stopAndResetTimer( _timer.fullDayEventSizeTracking );
         }
     }
 
@@ -6517,9 +6514,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function storeSearchOptions( storeSearchHistory ) {
         storeSearchHistory = isDefined( storeSearchHistory ) ? storeSearchHistory : false;
 
-        if ( _timer_CallSearchOptionsEvent !== null ) {
-            clearTimeout( _timer_CallSearchOptionsEvent );
-        }
+        stopAndResetTimer( _timer.searchOptionsChanged );
 
         var searchForText = trimString( _element_SearchDialog_For.value );
 
@@ -6527,7 +6522,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_SearchDialog_History_DropDown_Button.style.display = "block";
         }
 
-        _timer_CallSearchOptionsEvent = setTimeout( function() {
+        startTimer( _timer.searchOptionsChanged, function() {
             var searchForTextAddedToHistory = true,
                 historyLength = _optionsForSearch.history.length;
 
@@ -6569,7 +6564,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
             }
-        }, 2000 );
+        }, 2000, false );
     }
 
     function setupSearchOptions() {
@@ -6599,11 +6594,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( historyLength > 0 ) {
             _element_SearchDialog_History_DropDown_Button.style.display = "block";
 
-            if ( _element_SearchDialog_History_DropDown_DisplayTimer !== null ) {
-                clearTimeout( _element_SearchDialog_History_DropDown_DisplayTimer );
-            }
+            stopAndResetTimer( _timer.searchEventsHistoryDropDown );
     
-            _element_SearchDialog_History_DropDown_DisplayTimer = setTimeout( function() {
+            startTimer( _timer.searchEventsHistoryDropDown, function() {
                 var lookupText = _element_SearchDialog_For.value,
                     lookupTextFound = false;
 
@@ -6627,7 +6620,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } else {
                     hideSearchHistoryDropDownMenu();
                 }
-            }, 150 );
+            }, 150, false );
 
         } else {
             _element_SearchDialog_History_DropDown_Button.style.display = "none";
@@ -6803,7 +6796,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showConfigurationDialog() {
         addNode( _document.body, _element_DisabledBackground );
 
-        _element_ConfigurationDialog_Display_EnableAutoRefresh.checked = _timer_RefreshMainDisplay !== null;
+        _element_ConfigurationDialog_Display_EnableAutoRefresh.checked = _timer_RefreshMainDisplay_Enabled;
         _element_ConfigurationDialog_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
         _element_ConfigurationDialog_Display_EnableTooltips.checked = _options.tooltipsEnabled;
         _element_ConfigurationDialog_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
@@ -6883,13 +6876,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showTooltip( e, eventDetails, text, overrideShow ) {
         cancelBubble( e );
-        clearTooltipTimer();
+        stopAndResetTimer( _timer.showToolTip );
         hideTooltip();
 
         overrideShow = isDefined( overrideShow ) ? overrideShow : false;
 
         if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
-            _element_Tooltip_ShowTimer = setTimeout( function() {
+            startTimer( _timer.showToolTip, function() {
                 if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null ) ) {
                     text = isDefined( text ) ? text : _string.empty;
 
@@ -6981,12 +6974,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     showElementAtMousePosition( e, _element_Tooltip );
                 }
 
-            }, _options.eventTooltipDelay );
+            }, _options.eventTooltipDelay, false );
         }
     }
 
     function hideTooltip() {
-        clearTooltipTimer();
+        stopAndResetTimer( _timer.showToolTip );
 
         if ( isTooltipVisible() ) {
             _element_Tooltip.style.display = "none";
@@ -6995,15 +6988,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function clearTooltipTimer() {
-        if ( _element_Tooltip_ShowTimer !== null ) {
-            clearTimeout( _element_Tooltip_ShowTimer );
-            _element_Tooltip_ShowTimer = null;
-        }
-    }
-
     function isTooltipVisible() {
-        return _element_Tooltip_ShowTimer !== null || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
+        return doesTimerExist( _timer.showToolTip ) || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
     }
 
     function addToolTip( element, text, overrideShow ) {
@@ -7496,17 +7482,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function startAutoRefreshTimer() {
-        if ( _timer_RefreshMainDisplay === null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
-            _timer_RefreshMainDisplay = setInterval( function() {
+        if ( _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
+            startTimer( _timer.autoRefresh, function() {
                 refreshViews();
             }, _options.autoRefreshTimerDelay );
         }
     }
 
     function clearAutoRefreshTimer() {
-        if ( _timer_RefreshMainDisplay !== null && _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
-            clearTimeout( _timer_RefreshMainDisplay );
-            _timer_RefreshMainDisplay = null;
+        if ( _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
+            stopAndResetTimer( _timer.autoRefresh );
         }
     }
 
@@ -7532,6 +7517,52 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function isOnlyMainDisplayVisible() {
         return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && !isSideMenuOpen() && _eventDetails_Dragged === null;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Timers
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function startTimer( timerName, func, timeout, interval ) {
+        interval = isDefined( interval ) ? interval : true;
+
+        if ( !doesTimerExist( timerName ) ) {
+            if ( interval ) {
+                _timers[ timerName ] = setInterval( func, timeout );
+            } else {
+
+                _timers[ timerName ] = setTimeout( function() {
+                    func();
+
+                    delete _timers[ timerName ];
+                }, timeout );
+            }
+        }
+    }
+
+    function stopAndResetTimer( timerName ) {
+        if (  doesTimerExist( timerName ) ) {
+            clearTimeout( _timers[ timerName ] );
+
+            delete _timers[ timerName ];
+        }
+    }
+
+    function doesTimerExist( timerName ) {
+        return _timers.hasOwnProperty( timerName ) && _timers[ timerName ] !== null;
+    }
+
+    function stopAndResetAllTimers() {
+        for ( var timerName in _timers ) {
+            if ( _timers.hasOwnProperty( timerName ) && _timers[ timerName ] !== null ) {
+                clearTimeout( _timers[ timerName ] );
+
+                delete _timers[ timerName ];
+            }
+        }
     }
 
 
@@ -8896,12 +8927,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onDestroy
      */
     this.destroy = function() {
-        _element_Calendar.className = _string.empty;
-        _element_Calendar.innerHTML = _string.empty;
-
+        stopAndResetAllTimers();
         clearElementsByClassName( _document.body, "calendar-dialog" );
         clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
         clearElementsByClassName( _document.body, "calendar-tooltip" );
+
+        _element_Calendar.className = _string.empty;
+        _element_Calendar.innerHTML = _string.empty;
 
         triggerOptionsEvent( "onDestroy", _elementID );
     };
