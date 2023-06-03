@@ -4378,7 +4378,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildTooltip() {
     if (_element_Tooltip === null) {
-      _element_Tooltip = createElement("div");
+      _element_Tooltip = createElement("div", "calendar-tooltip");
       _document.body.appendChild(_element_Tooltip);
       _element_Tooltip_TitleButtons_CloseButton = createElement("div", "ib-close");
       _element_Tooltip_TitleButtons_EditButton = createElement("div", "ib-plus");
@@ -5716,6 +5716,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     clearElementsByClassName(_document.body, "calendar-dialog");
     clearElementsByClassName(_document.body, "calendar-drop-down-menu");
     clearElementsByClassName(_document.body, "calendar-tooltip");
+    clearElementsByClassName(_document.body, "calendar-tooltip-event");
     _element_Calendar.className = _string.empty;
     _element_Calendar.innerHTML = _string.empty;
     triggerOptionsEvent("onDestroy", _elementID);

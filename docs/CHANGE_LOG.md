@@ -12,6 +12,7 @@
 - Renamed the setting "selectExportTypeTitle" to "exportEventsTitle".
 - Fixed a fault that caused the tooltip element to remain in the DOM after the calendar is destroyed.
 - Fixed a fault that caused the internal timers to keep running after the calendar is destroyed.
+- Fixed a fault that prevented the tooltip element to show no class when first created.
 - 
 
 <br>
