@@ -1845,6 +1845,7 @@ div.calendar-tooltip {
 }
 
 div.calendar-tooltip-event {
+    width: 100%;
     max-width: 300px;
 
     @include div-label-spacing;
