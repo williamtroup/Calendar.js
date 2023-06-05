@@ -12,6 +12,7 @@ Calendar.js
 
 <h1>What features does Calendar.js have?</h1>
 
+- Zero-dependencies!
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
