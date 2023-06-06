@@ -4089,13 +4089,13 @@ function calendarJs(elementOrId, options, searchOptions) {
           }
           if (found) {
             var eventElement = getElementByID(startingID + eventDetails.id);
-            if (eventElement !== null) {
+            if (eventElement !== null || !isFullDayViewVisible && !isAllEventsViewVisible && !isAllWeekEventsViewVisible) {
               if (isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible) {
-                _element_SearchDialog_SearchResults.push(eventDetails);
+                _element_SearchDialog_SearchResults.push(cloneEventDetails(eventDetails, false));
               } else {
                 var monthYear = eventDetails.from.getMonth() + "-" + eventDetails.from.getFullYear();
                 if (!monthYearsFound.hasOwnProperty(monthYear)) {
-                  _element_SearchDialog_SearchResults.push(eventDetails);
+                  _element_SearchDialog_SearchResults.push(cloneEventDetails(eventDetails, false));
                   monthYearsFound[monthYear] = true;
                 }
               }
@@ -5072,7 +5072,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       _openDialogs.pop();
     }
   }
-  function cloneEventDetails(value) {
+  function cloneEventDetails(value, deleteId) {
+    deleteId = isDefined(deleteId) ? deleteId : true;
     var object = JSON.parse(JSON.stringify(value));
     object.from = new Date(object.from);
     object.to = new Date(object.to);
@@ -5081,7 +5082,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     delete object.created;
     delete object.lastUpdated;
-    delete object.id;
+    if (deleteId) {
+      delete object.id;
+    }
     return object;
   }
   function setElementClassName(element, className) {
