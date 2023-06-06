@@ -1793,19 +1793,35 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDocumentEvents() {
         if ( !_initializedDocumentEvents ) {
-            _document.body.addEventListener( "click", onDocumentClick );
-            _document.body.addEventListener( "contextmenu", hideAllDropDowns );
-            _document.body.addEventListener( "mousemove", onMoveDocumentMouseMove );
-            _document.body.addEventListener( "mouseleave", onMoveDocumentMouseLeave );
-            _document.addEventListener( "scroll", hideAllDropDowns );
-            _document.addEventListener( "keydown", onWindowKeyDown );
-            _window.addEventListener( "resize", hideAllDropDowns );
-            _window.addEventListener( "resize", centerSearchDialog );
-            _window.addEventListener( "resize", onWindowResizeRefreshViews );
-            _window.addEventListener( "blur", onWindowFocusOut );
+            handleDocumentEvents();
             
             _initializedDocumentEvents = true;
         }
+    }
+
+    function removeDocumentEvents() {
+        if ( _initializedDocumentEvents ) {
+            handleDocumentEvents( false );
+        }
+    }
+
+    function handleDocumentEvents( addEvents ) {
+        addEvents = isDefined( addEvents ) ? addEvents : true;
+
+        var documentBodyFunc = addEvents ? _document.body.addEventListener : _document.body.removeEventListener,
+            documentFunc = addEvents ? _document.addEventListener : _document.removeEventListener,
+            windowFunc = addEvents ? _window.addEventListener : _window.removeEventListener;
+
+        documentBodyFunc( "click", onDocumentClick );
+        documentBodyFunc( "contextmenu", hideAllDropDowns );
+        documentBodyFunc( "mousemove", onMoveDocumentMouseMove );
+        documentBodyFunc( "mouseleave", onMoveDocumentMouseLeave );
+        documentFunc( "scroll", hideAllDropDowns );
+        documentFunc( "keydown", onWindowKeyDown );
+        windowFunc( "resize", hideAllDropDowns );
+        windowFunc( "resize", centerSearchDialog );
+        windowFunc( "resize", onWindowResizeRefreshViews );
+        windowFunc( "blur", onWindowFocusOut );
     }
 
     function onDocumentClick( e ) {
@@ -8932,6 +8948,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onDestroy
      */
     this.destroy = function() {
+        removeDocumentEvents();
         stopAndResetAllTimers();
         clearElementsByClassName( _document.body, "calendar-dialog" );
         clearElementsByClassName( _document.body, "calendar-drop-down-menu" );

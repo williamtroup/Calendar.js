@@ -2,6 +2,7 @@
 
 ## Version 2.0.10:
 - Fixed a fault that prevented the custom event "onEventUpdated" from firing when events are moved/resized in the Full Day view.
+- Fixed a fault that prevented the events assigned to the document/window from being removed when destroy() is called.
 - 
 
 <br>
