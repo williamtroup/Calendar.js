@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.0.9
+ * @version     v2.0.10
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -1793,19 +1793,35 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDocumentEvents() {
         if ( !_initializedDocumentEvents ) {
-            _document.body.addEventListener( "click", onDocumentClick );
-            _document.body.addEventListener( "contextmenu", hideAllDropDowns );
-            _document.body.addEventListener( "mousemove", onMoveDocumentMouseMove );
-            _document.body.addEventListener( "mouseleave", onMoveDocumentMouseLeave );
-            _document.addEventListener( "scroll", hideAllDropDowns );
-            _document.addEventListener( "keydown", onWindowKeyDown );
-            _window.addEventListener( "resize", hideAllDropDowns );
-            _window.addEventListener( "resize", centerSearchDialog );
-            _window.addEventListener( "resize", onWindowResizeRefreshViews );
-            _window.addEventListener( "blur", onWindowFocusOut );
+            handleDocumentEvents();
             
             _initializedDocumentEvents = true;
         }
+    }
+
+    function removeDocumentEvents() {
+        if ( _initializedDocumentEvents ) {
+            handleDocumentEvents( false );
+        }
+    }
+
+    function handleDocumentEvents( addEvents ) {
+        addEvents = isDefined( addEvents ) ? addEvents : true;
+
+        var documentBodyFunc = addEvents ? _document.body.addEventListener : _document.body.removeEventListener,
+            documentFunc = addEvents ? _document.addEventListener : _document.removeEventListener,
+            windowFunc = addEvents ? _window.addEventListener : _window.removeEventListener;
+
+        documentBodyFunc( "click", onDocumentClick );
+        documentBodyFunc( "contextmenu", hideAllDropDowns );
+        documentBodyFunc( "mousemove", onMoveDocumentMouseMove );
+        documentBodyFunc( "mouseleave", onMoveDocumentMouseLeave );
+        documentFunc( "scroll", hideAllDropDowns );
+        documentFunc( "keydown", onWindowKeyDown );
+        windowFunc( "resize", hideAllDropDowns );
+        windowFunc( "resize", centerSearchDialog );
+        windowFunc( "resize", onWindowResizeRefreshViews );
+        windowFunc( "blur", onWindowFocusOut );
     }
 
     function onDocumentClick( e ) {
@@ -3176,6 +3192,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_FullDayView_Event_Dragged.style.top = top + "px";
             _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes );
             _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes );
+            
+            triggerOptionsEventWithData( "onEventUpdated", _element_FullDayView_Event_Dragged_EventDetails );
+            
             _element_FullDayView_Event_Dragged = null;
             _element_FullDayView_Event_Dragged_EventDetails = null;
             _element_FullDayView_Event_Dragged_Offset = 0;
@@ -3205,6 +3224,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                             eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;
                             eventSizeDetails.eventDetails.to = addMinutesToDate( eventSizeDetails.eventDetails.to, differenceMinutes );
                             eventsResized = true;
+
+                            triggerOptionsEventWithData( "onEventUpdated", eventSizeDetails.eventDetails );
                         }
                     }
     
@@ -6432,16 +6453,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     if ( found ) {
                         var eventElement = getElementByID( startingID + eventDetails.id );
-                        if ( eventElement !== null ) {
+                        if ( eventElement !== null || ( !isFullDayViewVisible && !isAllEventsViewVisible && !isAllWeekEventsViewVisible ) ) {
 
                             if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
-                                _element_SearchDialog_SearchResults.push( eventDetails );
+                                _element_SearchDialog_SearchResults.push( cloneEventDetails( eventDetails, false ) );
                             } else {
                                 
                                 var monthYear = eventDetails.from.getMonth() + "-" + eventDetails.from.getFullYear();
         
                                 if ( !monthYearsFound.hasOwnProperty( monthYear ) ) {
-                                    _element_SearchDialog_SearchResults.push( eventDetails );
+                                    _element_SearchDialog_SearchResults.push( cloneEventDetails( eventDetails, false ) );
                                     monthYearsFound[ monthYear ] = true;
                                 }
                             }
@@ -7829,7 +7850,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function cloneEventDetails( value ) {
+    function cloneEventDetails( value, deleteId ) {
+        deleteId = isDefined( deleteId ) ? deleteId : true;
+
         var object = JSON.parse( JSON.stringify( value ) );
         object.from = new Date( object.from );
         object.to = new Date( object.to );
@@ -7840,7 +7863,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
         delete object.created;
         delete object.lastUpdated;
-        delete object.id;
+
+        if ( deleteId ) {
+            delete object.id;
+        }
 
         return object;
     }
@@ -8927,6 +8953,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onDestroy
      */
     this.destroy = function() {
+        removeDocumentEvents();
         stopAndResetAllTimers();
         clearElementsByClassName( _document.body, "calendar-dialog" );
         clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
@@ -10015,7 +10042,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.0.9";
+        return "2.0.10";
     };
 
     /**

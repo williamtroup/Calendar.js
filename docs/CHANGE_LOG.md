@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.10:
+- Fixed a fault that prevented the custom event "onEventUpdated" from firing when events are moved/resized in the Full Day view.
+- Fixed a fault that prevented the events assigned to the document/window from being removed when destroy() is called.
+- Fixed a fault that caused the "Search" dialog to alter the dates for an event when searching across multiple months.
+- Fixed a fault that prevented the "Search" dialog from accurately searching across multiple months.
+
+<br>
+
 ## Version 2.0.9:
 - Fixed a fault that allowed drag & drop to be used on the Full Day view when it's disabled.
 - Fixed the "+X More" link in the Month view not using a disabled color when shown on days outside the current month.
