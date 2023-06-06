@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.11:
+- Added a new search setting "enabled" (defaults to true), which states if search is enabled.
 - 
 
 <br>

@@ -950,7 +950,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 refreshViews( true, true );
             } );
 
-            _element_HeaderDateDisplay_SearchButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
+            if ( _optionsForSearch.enabled ) {
+                _element_HeaderDateDisplay_SearchButton = buildToolbarButton( _element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog );
+            }
         }
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
@@ -1918,7 +1920,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                     e.preventDefault();
     
-                    if ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) {
+                    if ( _optionsForSearch.enabled && ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) ) {
                         showSearchDialog();
                     }
 
@@ -2698,8 +2700,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
                 } );
-        
-                _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+
+                if ( _optionsForSearch.enabled ) {
+                    _element_FullDayView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+                }
 
                 if ( _options.fullScreenModeEnabled ) {
                     _element_FullDayView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -3438,8 +3442,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
                 } );
-        
-                _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+
+                if ( _optionsForSearch.enabled ) {
+                    _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+                }
 
                 if ( _options.fullScreenModeEnabled ) {
                     _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -3743,7 +3749,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     refreshViews( true, true );
                 } );
         
-                _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+                if ( _optionsForSearch.enabled ) {
+                    _element_ListAllWeekEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+                }
 
                 if ( _options.fullScreenModeEnabled ) {
                     _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
@@ -10289,6 +10297,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDefaultSearchOptions( newSearchOptions ) {
         _optionsForSearch = getOptions( newSearchOptions, _options.searchOptions );
+        _optionsForSearch.enabled = getDefaultBoolean( _optionsForSearch.enabled, true );
         _optionsForSearch.lastSearchText = getDefaultString( _optionsForSearch.lastSearchText, _string.empty );
         _optionsForSearch.not = getDefaultBoolean( _optionsForSearch.not, false );
         _optionsForSearch.matchCase = getDefaultBoolean( _optionsForSearch.matchCase, false );
