@@ -323,6 +323,7 @@
  * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
  * @property    {number}    defaultEventDuration                        The default duration used when a new event is added (defaults to 30 minutes).
  * @property    {string}    monthTitleBarDateFormat                     States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
+ * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
  */
 
 
@@ -1228,10 +1229,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         createTextHeaderElement( header, _options.sideMenuHeaderText );
         buildToolbarButton( header, "ib-close", _options.closeTooltipText, hideSideMenu );
-        buildToolbarButton( header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
-            hideSideMenu();
-            showConfigurationDialog();
-        } );
+
+        if ( _options.configurationDialogEnabled ) {
+            buildToolbarButton( header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
+                hideSideMenu();
+                showConfigurationDialog();
+            } );
+        }
 
         _element_SideMenu_Content = createElement( "div", "content" );
         _element_SideMenu.appendChild( _element_SideMenu_Content );
@@ -10276,6 +10280,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );
         _options.defaultEventDuration = getDefaultNumber( _options.defaultEventDuration, 30 );
         _options.monthTitleBarDateFormat = getDefaultString( _options.monthTitleBarDateFormat, "{mmmm} {yyyy}" );
+        _options.configurationDialogEnabled = getDefaultBoolean( _options.configurationDialogEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

@@ -400,10 +400,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu.appendChild(header);
     createTextHeaderElement(header, _options.sideMenuHeaderText);
     buildToolbarButton(header, "ib-close", _options.closeTooltipText, hideSideMenu);
-    buildToolbarButton(header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
-      hideSideMenu();
-      showConfigurationDialog();
-    });
+    if (_options.configurationDialogEnabled) {
+      buildToolbarButton(header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
+        hideSideMenu();
+        showConfigurationDialog();
+      });
+    }
     _element_SideMenu_Content = createElement("div", "content");
     _element_SideMenu.appendChild(_element_SideMenu_Content);
   }
@@ -6373,6 +6375,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.maximumYear = getDefaultNumber(_options.maximumYear, 2099);
     _options.defaultEventDuration = getDefaultNumber(_options.defaultEventDuration, 30);
     _options.monthTitleBarDateFormat = getDefaultString(_options.monthTitleBarDateFormat, "{mmmm} {yyyy}");
+    _options.configurationDialogEnabled = getDefaultBoolean(_options.configurationDialogEnabled, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
