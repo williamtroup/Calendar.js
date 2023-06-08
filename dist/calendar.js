@@ -1,4 +1,4 @@
-/*! Calendar.js v2.0.10 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.0.11 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _this = this, _string = {empty:"", space:" "}, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, m:77, v:86, x:88, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", 
   eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}}, _timer = {windowResize:"WindowResize", fullDayEventSizeTracking:"FullDayEventSizeTracking", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh"}, _timers = {}, _options = {}, _optionsForSearch = {}, _datePickerInput = 
@@ -193,7 +193,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(_element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, function() {
         refreshViews(true, true);
       });
-      _element_HeaderDateDisplay_SearchButton = buildToolbarButton(_element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog);
+      if (_optionsForSearch.enabled) {
+        _element_HeaderDateDisplay_SearchButton = buildToolbarButton(_element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog);
+      }
     }
     buildToolbarButton(_element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
@@ -398,10 +400,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu.appendChild(header);
     createTextHeaderElement(header, _options.sideMenuHeaderText);
     buildToolbarButton(header, "ib-close", _options.closeTooltipText, hideSideMenu);
-    buildToolbarButton(header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
-      hideSideMenu();
-      showConfigurationDialog();
-    });
+    if (_options.configurationDialogEnabled) {
+      buildToolbarButton(header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
+        hideSideMenu();
+        showConfigurationDialog();
+      });
+    }
     _element_SideMenu_Content = createElement("div", "content");
     _element_SideMenu.appendChild(_element_SideMenu_Content);
   }
@@ -888,7 +892,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           }
         } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.f) {
           e.preventDefault();
-          if (_element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0) {
+          if (_optionsForSearch.enabled && (_element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0)) {
             showSearchDialog();
           }
         } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.m) {
@@ -1430,7 +1434,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
-        _element_FullDayView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
+        if (_optionsForSearch.enabled) {
+          _element_FullDayView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
+        }
         if (_options.fullScreenModeEnabled) {
           _element_FullDayView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
         }
@@ -1934,7 +1940,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
-        _element_ListAllEventsView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
+        if (_optionsForSearch.enabled) {
+          _element_ListAllEventsView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
+        }
         if (_options.fullScreenModeEnabled) {
           _element_ListAllEventsView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
         }
@@ -2157,7 +2165,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
-        _element_ListAllWeekEventsView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
+        if (_optionsForSearch.enabled) {
+          _element_ListAllWeekEventsView_SearchButton = buildToolbarButton(titleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
+        }
         if (_options.fullScreenModeEnabled) {
           _element_ListAllWeekEventsView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
         }
@@ -6237,7 +6247,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.0.10";
+    return "2.0.11";
   };
   this.getId = function() {
     return _elementID;
@@ -6365,6 +6375,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.maximumYear = getDefaultNumber(_options.maximumYear, 2099);
     _options.defaultEventDuration = getDefaultNumber(_options.defaultEventDuration, 30);
     _options.monthTitleBarDateFormat = getDefaultString(_options.monthTitleBarDateFormat, "{mmmm} {yyyy}");
+    _options.configurationDialogEnabled = getDefaultBoolean(_options.configurationDialogEnabled, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -6381,6 +6392,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildDefaultSearchOptions(newSearchOptions) {
     _optionsForSearch = getOptions(newSearchOptions, _options.searchOptions);
+    _optionsForSearch.enabled = getDefaultBoolean(_optionsForSearch.enabled, true);
     _optionsForSearch.lastSearchText = getDefaultString(_optionsForSearch.lastSearchText, _string.empty);
     _optionsForSearch.not = getDefaultBoolean(_optionsForSearch.not, false);
     _optionsForSearch.matchCase = getDefaultBoolean(_optionsForSearch.matchCase, false);

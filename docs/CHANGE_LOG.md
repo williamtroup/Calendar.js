@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.11:
+- Added a new search setting "enabled" (defaults to true), which states if search is enabled.
+- Added a new setting "configurationDialogEnabled" (defaults to true), which states if the configuration dialog is enabled.
+
+<br>
+
 ## Version 2.0.10:
 - Fixed a fault that prevented the custom event "onEventUpdated" from firing when events are moved/resized in the Full Day view.
 - Fixed a fault that prevented the events assigned to the document/window from being removed when destroy() is called.
