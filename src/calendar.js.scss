@@ -1400,7 +1400,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles( 300px, false, 999 );
+    @include dialog-styles( 310px, false, 999 );
     @include dialog-title-bar;
 
     div.contents {
@@ -1473,6 +1473,7 @@ div.search {
             background-color: $day-names-color;
             padding: $spacing;
             margin-top: $spacing !important;
+            margin-left: $checkbox-size-with-spacing;
             border-radius: $border-view-radius;
             border: $standard-border-size solid #D0D0D0;
 
@@ -1649,8 +1650,6 @@ div.calendar-dialog {
 div.calendar,
 div.calendar-dialog,
 div.calendar div.side-menu {
-    $checkbox-size-with-spacing: 25px;
-
     div.checkbox-container {
         label.checkbox {
             margin-bottom: calc( $spacing / 2 ) !important;

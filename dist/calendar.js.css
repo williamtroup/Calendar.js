@@ -2237,7 +2237,7 @@ div.select-export-type input[type=button].ok, div.select-export-type input[type=
 */
 div.search {
   width: calc(100% - ( 10px * 2 ));
-  max-width: 300px;
+  max-width: 310px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -2335,6 +2335,7 @@ div.search div.contents div.advanced {
   background-color: #E0E0E0;
   padding: 10px;
   margin-top: 10px !important;
+  margin-left: 25px;
   border-radius: 0.25rem;
   border: 1px solid #D0D0D0;
 }

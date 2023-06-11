@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.0.12:
+- Increased the default width for the Search dialog, and tabbed in the Advanced criteria.
 - 
 
 <br>
