@@ -452,7 +452,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             visibleAllEventsMonths: {},
             visibleWeeklyEventsDay: {}
         },
-        _timer = {
+        _timerName = {
             windowResize: "WindowResize",
             fullDayEventSizeTracking: "FullDayEventSizeTracking",
             searchOptionsChanged: "SearchOptionsChanged",
@@ -1847,9 +1847,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onWindowResizeRefreshViews() {
-        stopAndResetTimer( _timer.windowResize );
+        stopAndResetTimer( _timerName.windowResize );
 
-        startTimer( _timer.windowResize, function() {
+        startTimer( _timerName.windowResize, function() {
             refreshViews( true, false );
         }, 50, false );
     }
@@ -3214,7 +3214,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         stopFullDayEventSizeTracking();
 
         if ( _options.manualEditingEnabled ) {
-            startTimer( _timer.fullDayEventSizeTracking, function() {
+            startTimer( _timerName.fullDayEventSizeTracking, function() {
                 var eventsLength = _element_FullDayView_EventsShown_Sizes.length;
     
                 if ( eventsLength > 0 ) {
@@ -3247,7 +3247,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function stopFullDayEventSizeTracking() {
         if ( _options.manualEditingEnabled ) {
-            stopAndResetTimer( _timer.fullDayEventSizeTracking );
+            stopAndResetTimer( _timerName.fullDayEventSizeTracking );
         }
     }
 
@@ -6559,7 +6559,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function storeSearchOptions( storeSearchHistory ) {
         storeSearchHistory = isDefined( storeSearchHistory ) ? storeSearchHistory : false;
 
-        stopAndResetTimer( _timer.searchOptionsChanged );
+        stopAndResetTimer( _timerName.searchOptionsChanged );
 
         var searchForText = trimString( _element_SearchDialog_For.value );
 
@@ -6567,7 +6567,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_SearchDialog_History_DropDown_Button.style.display = "block";
         }
 
-        startTimer( _timer.searchOptionsChanged, function() {
+        startTimer( _timerName.searchOptionsChanged, function() {
             var searchForTextAddedToHistory = true,
                 historyLength = _optionsForSearch.history.length;
 
@@ -6639,9 +6639,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( historyLength > 0 ) {
             _element_SearchDialog_History_DropDown_Button.style.display = "block";
 
-            stopAndResetTimer( _timer.searchEventsHistoryDropDown );
+            stopAndResetTimer( _timerName.searchEventsHistoryDropDown );
     
-            startTimer( _timer.searchEventsHistoryDropDown, function() {
+            startTimer( _timerName.searchEventsHistoryDropDown, function() {
                 var lookupText = _element_SearchDialog_For.value,
                     lookupTextFound = false;
 
@@ -6921,13 +6921,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showTooltip( e, eventDetails, text, overrideShow ) {
         cancelBubble( e );
-        stopAndResetTimer( _timer.showToolTip );
+        stopAndResetTimer( _timerName.showToolTip );
         hideTooltip();
 
         overrideShow = isDefined( overrideShow ) ? overrideShow : false;
 
         if ( _element_Tooltip.style.display !== "block" && _options.tooltipsEnabled ) {
-            startTimer( _timer.showToolTip, function() {
+            startTimer( _timerName.showToolTip, function() {
                 if ( overrideShow || ( !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null ) ) {
                     text = isDefined( text ) ? text : _string.empty;
 
@@ -7024,7 +7024,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function hideTooltip() {
-        stopAndResetTimer( _timer.showToolTip );
+        stopAndResetTimer( _timerName.showToolTip );
 
         if ( isTooltipVisible() ) {
             _element_Tooltip.style.display = "none";
@@ -7034,7 +7034,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isTooltipVisible() {
-        return doesTimerExist( _timer.showToolTip ) || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
+        return doesTimerExist( _timerName.showToolTip ) || ( _element_Tooltip !== null && _element_Tooltip.style.display === "block" );
     }
 
     function addToolTip( element, text, overrideShow ) {
@@ -7528,7 +7528,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function startAutoRefreshTimer() {
         if ( _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
-            startTimer( _timer.autoRefresh, function() {
+            startTimer( _timerName.autoRefresh, function() {
                 refreshViews();
             }, _options.autoRefreshTimerDelay );
         }
@@ -7536,7 +7536,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function clearAutoRefreshTimer() {
         if ( _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
-            stopAndResetTimer( _timer.autoRefresh );
+            stopAndResetTimer( _timerName.autoRefresh );
         }
     }
 

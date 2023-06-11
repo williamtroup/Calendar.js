@@ -1,7 +1,7 @@
 /*! Calendar.js v2.0.12 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _this = this, _string = {empty:"", space:" "}, _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, m:77, v:86, x:88, f5:116, f11:122}, _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", 
-  eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}}, _timer = {windowResize:"WindowResize", fullDayEventSizeTracking:"FullDayEventSizeTracking", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh"}, _timers = {}, _options = {}, _optionsForSearch = {}, _datePickerInput = 
+  eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}}, _timerName = {windowResize:"WindowResize", fullDayEventSizeTracking:"FullDayEventSizeTracking", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh"}, _timers = {}, _options = {}, _optionsForSearch = {}, _datePickerInput = 
   null, _datePickerHiddenInput = null, _datePickerModeEnabled = false, _datePickerVisible = false, _currentDate = null, _currentDateForDatePicker = null, _largestDateInView = null, _elementTypes = {}, _elements = {}, _eventNotificationsTriggered = {}, _document = null, _window = null, _elementID = null, _initialized = false, _initializedFirstTime = false, _initializedDocumentEvents = false, _events = {}, _timer_RefreshMainDisplay_Enabled = true, _eventDetails_Dragged_DateFrom = null, _eventDetails_Dragged = 
   null, _cachedStyles = null, _isFullScreenModeActivated = false, _isDateToday = false, _openDialogs = [], _eventsSelected = [], _copiedEventDetails = [], _copiedEventDetails_Cut = false, _previousDaysVisibleBeforeSingleDayView = [], _elementID_Day = "day-", _elementID_Month = "month-", _elementID_WeekDay = "week-day-", _elementID_FullDay = "full-day-", _elementID_DayElement = "calendar-day-", _elementID_YearSelected = "year-selected-", _element_Rows = [], _element_DisabledBackground = null, _element_Calendar = 
   null, _element_Calendar_AllVisibleEvents = [], _element_MoveDialog_Original_X = 0, _element_MoveDialog_Original_Y = 0, _element_MoveDialog = null, _element_MoveDialog_IsMoving = false, _element_MoveDialog_X = 0, _element_MoveDialog_Y = 0, _element_HeaderDateDisplay = null, _element_HeaderDateDisplay_YearSelector_DropDown = null, _element_HeaderDateDisplay_YearSelector_DropDown_Text = null, _element_HeaderDateDisplay_YearSelector_DropDown_Arrow = null, _element_HeaderDateDisplay_YearSelector = null, 
@@ -833,8 +833,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function onWindowResizeRefreshViews() {
-    stopAndResetTimer(_timer.windowResize);
-    startTimer(_timer.windowResize, function() {
+    stopAndResetTimer(_timerName.windowResize);
+    startTimer(_timerName.windowResize, function() {
       refreshViews(true, false);
     }, 50, false);
   }
@@ -1796,7 +1796,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function startFullDayEventSizeTracking() {
     stopFullDayEventSizeTracking();
     if (_options.manualEditingEnabled) {
-      startTimer(_timer.fullDayEventSizeTracking, function() {
+      startTimer(_timerName.fullDayEventSizeTracking, function() {
         var eventsLength = _element_FullDayView_EventsShown_Sizes.length;
         if (eventsLength > 0) {
           var pixelsPerMinute = getFullDayPixelsPerMinute(), eventsResized = false;
@@ -1819,7 +1819,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function stopFullDayEventSizeTracking() {
     if (_options.manualEditingEnabled) {
-      stopAndResetTimer(_timer.fullDayEventSizeTracking);
+      stopAndResetTimer(_timerName.fullDayEventSizeTracking);
     }
   }
   function adjustFullDayEventsThatOverlap() {
@@ -4168,12 +4168,12 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function storeSearchOptions(storeSearchHistory) {
     storeSearchHistory = isDefined(storeSearchHistory) ? storeSearchHistory : false;
-    stopAndResetTimer(_timer.searchOptionsChanged);
+    stopAndResetTimer(_timerName.searchOptionsChanged);
     var searchForText = trimString(_element_SearchDialog_For.value);
     if (storeSearchHistory) {
       _element_SearchDialog_History_DropDown_Button.style.display = "block";
     }
-    startTimer(_timer.searchOptionsChanged, function() {
+    startTimer(_timerName.searchOptionsChanged, function() {
       var searchForTextAddedToHistory = true, historyLength = _optionsForSearch.history.length;
       if (storeSearchHistory) {
         searchForTextAddedToHistory = false;
@@ -4232,8 +4232,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     var historyLength = _optionsForSearch.history.length;
     if (historyLength > 0) {
       _element_SearchDialog_History_DropDown_Button.style.display = "block";
-      stopAndResetTimer(_timer.searchEventsHistoryDropDown);
-      startTimer(_timer.searchEventsHistoryDropDown, function() {
+      stopAndResetTimer(_timerName.searchEventsHistoryDropDown);
+      startTimer(_timerName.searchEventsHistoryDropDown, function() {
         var lookupText = _element_SearchDialog_For.value, lookupTextFound = false;
         if (trimString(lookupText) !== _string.empty) {
           sortSearchHistory();
@@ -4432,11 +4432,11 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function showTooltip(e, eventDetails, text, overrideShow) {
     cancelBubble(e);
-    stopAndResetTimer(_timer.showToolTip);
+    stopAndResetTimer(_timerName.showToolTip);
     hideTooltip();
     overrideShow = isDefined(overrideShow) ? overrideShow : false;
     if (_element_Tooltip.style.display !== "block" && _options.tooltipsEnabled) {
-      startTimer(_timer.showToolTip, function() {
+      startTimer(_timerName.showToolTip, function() {
         if (overrideShow || !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areDropDownMenusVisible() && _eventDetails_Dragged === null) {
           text = isDefined(text) ? text : _string.empty;
           _element_Tooltip.className = text === _string.empty ? "calendar-tooltip-event" : "calendar-tooltip";
@@ -4515,7 +4515,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function hideTooltip() {
-    stopAndResetTimer(_timer.showToolTip);
+    stopAndResetTimer(_timerName.showToolTip);
     if (isTooltipVisible()) {
       _element_Tooltip.style.display = "none";
       _element_Tooltip_EventDetails = null;
@@ -4523,7 +4523,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function isTooltipVisible() {
-    return doesTimerExist(_timer.showToolTip) || _element_Tooltip !== null && _element_Tooltip.style.display === "block";
+    return doesTimerExist(_timerName.showToolTip) || _element_Tooltip !== null && _element_Tooltip.style.display === "block";
   }
   function addToolTip(element, text, overrideShow) {
     if (element !== null) {
@@ -4859,14 +4859,14 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function startAutoRefreshTimer() {
     if (_options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled) {
-      startTimer(_timer.autoRefresh, function() {
+      startTimer(_timerName.autoRefresh, function() {
         refreshViews();
       }, _options.autoRefreshTimerDelay);
     }
   }
   function clearAutoRefreshTimer() {
     if (_options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled) {
-      stopAndResetTimer(_timer.autoRefresh);
+      stopAndResetTimer(_timerName.autoRefresh);
     }
   }
   function refreshViews(fromButton, triggerEvent) {
