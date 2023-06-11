@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.0.12:
+- 
+
+<br>
+
 ## Version 2.0.11:
 - Added a new search setting "enabled" (defaults to true), which states if search is enabled.
 - Added a new setting "configurationDialogEnabled" (defaults to true), which states if the configuration dialog is enabled.
