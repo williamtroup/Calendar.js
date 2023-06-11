@@ -559,7 +559,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly = null,
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = null,
         _element_EventEditorDialog_RepeatEvery_Custom_Value = null,
-        _element_EventEditorDialog_ErrorMessage = null,
         _element_EventEditorDialog_EventDetails = {},
         _element_EventEditorDialog_OKButton = null,
         _element_EventEditorDialog_RemoveButton = null,
@@ -612,13 +611,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllWeekEventsView_EventsShown = [],
         _element_ListAllWeekEventsView_DateSelected = null,
         _element_ListAllWeekEventsView_MinimizeRestoreFunctions = [],
-        _element_ConfirmationDialog = null,
-        _element_ConfirmationDialog_TitleBar = null,
-        _element_ConfirmationDialog_Message = null,
-        _element_ConfirmationDialog_RemoveAllEvents = null,
-        _element_ConfirmationDialog_RemoveAllEvents_Label = null,
-        _element_ConfirmationDialog_YesButton = null,
-        _element_ConfirmationDialog_NoButton = null,
+        _element_MessageDialog = null,
+        _element_MessageDialog_TitleBar = null,
+        _element_MessageDialog_Message = null,
+        _element_MessageDialog_RemoveAllEvents = null,
+        _element_MessageDialog_RemoveAllEvents_Label = null,
+        _element_MessageDialog_YesButton = null,
+        _element_MessageDialog_NoButton = null,
         _element_ExportEventsDialog = null,
         _element_ExportEventsDialog_Filename = null,
         _element_ExportEventsDialog_Option_CSV = null,
@@ -748,7 +747,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildEventEditingDialog();
             buildEventEditingColorDialog();
             buildEventEditingRepeatOptionsDialog();
-            buildConfirmationDialog();
+            buildMessageDialog();
             buildExportEventsDialog();
             buildSearchDialog();
             buildConfigurationDialog();
@@ -835,7 +834,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             refreshViews();
         };
 
-        showConfirmationDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
+        showMessageDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
     }
 
 
@@ -4835,7 +4834,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     onNoEvent();
     
                     if ( isDefined( _element_DropDownMenu_Event_EventDetails.id ) ) {
-                        if ( !_element_ConfirmationDialog_RemoveAllEvents.checked && _element_DropDownMenu_Event_FormattedDateSelected !== null ) {
+                        if ( !_element_MessageDialog_RemoveAllEvents.checked && _element_DropDownMenu_Event_FormattedDateSelected !== null ) {
 
                             if ( isDefinedArray( _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates ) ) {
                                 _element_DropDownMenu_Event_EventDetails.seriesIgnoreDates.push( _element_DropDownMenu_Event_FormattedDateSelected );
@@ -4856,7 +4855,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var repeatEvery = getNumber( _element_DropDownMenu_Event_EventDetails.repeatEvery ),
                     showCheckBox = repeatEvery > _repeatType.never && _element_DropDownMenu_Event_FormattedDateSelected !== null;
         
-                showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
+                showMessageDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent, showCheckBox );
             } );
 
             _element_DropDownMenu_Event_OpenUrlSeparator = buildMenuSeparator( _element_DropDownMenu_Event );
@@ -5232,9 +5231,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildEventEditorRepeatsTabContent();
             buildEventEditorExtraTabContent();
     
-            _element_EventEditorDialog_ErrorMessage = createElement( "p", "error" );
-            contents.appendChild( _element_EventEditorDialog_ErrorMessage );
-    
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
@@ -5583,7 +5579,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _openDialogs.push( eventDialogEvent_Cancel );
         _element_EventEditorDialog.style.display = "block";
-        _element_EventEditorDialog_ErrorMessage.style.display = "none";
         _element_EventEditorDialog_Title.focus();
     }
 
@@ -5637,13 +5632,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             url = trimString( _element_EventEditorDialog_Url.value );
 
         if ( fromTime.length < 2 ) {
-            showEventDialogErrorMessage( _options.fromTimeErrorMessage, _element_EventEditorDialog_TimeFrom );
+            showEventEditorErrorMessage( _options.fromTimeErrorMessage );
         } else if ( toTime.length < 2 ) {
-            showEventDialogErrorMessage( _options.toTimeErrorMessage, _element_EventEditorDialog_TimeTo );
+            showEventEditorErrorMessage( _options.toTimeErrorMessage );
         } else if ( title === _string.empty ) {
-            showEventDialogErrorMessage( _options.titleErrorMessage, _element_EventEditorDialog_Title );
+            showEventEditorErrorMessage( _options.titleErrorMessage );
         } else if ( url.length > 0 && !isValidUrl( url ) ) {
-            showEventDialogErrorMessage( _options.urlErrorMessage, _element_EventEditorDialog_Url );
+            showEventEditorErrorMessage( _options.urlErrorMessage );
         }
         else {
 
@@ -5666,7 +5661,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( toDate < fromDate ) {
-                showEventDialogErrorMessage( _options.toSmallerThanFromErrorMessage, _element_EventEditorDialog_DateTo );
+                showEventEditorErrorMessage( _options.toSmallerThanFromErrorMessage );
             } else {
                 
                 eventDialogEvent_Cancel();
@@ -5760,14 +5755,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         };
 
-        showConfirmationDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
-    }
-
-    function showEventDialogErrorMessage( message, input ) {
-        setNodeText( _element_EventEditorDialog_ErrorMessage, message );
-        _element_EventEditorDialog_ErrorMessage.style.display = "block";
-
-        input.focus();
+        showMessageDialog( _options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent );
     }
 
     function refreshOpenedViews() {
@@ -5819,6 +5807,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function isEventLocked( eventDetails ) {
         return isDefined( eventDetails ) && isDefinedBoolean( eventDetails.locked ) ? eventDetails.locked : false;
+    }
+
+    function showEventEditorErrorMessage( message ) {
+        showMessageDialog( _options.errorText, message, hideEventEditorDisabledArea, null, false, false );
+
+        _element_EventEditorDialog_DisabledArea.style.display = "block";
+    }
+
+    function hideEventEditorDisabledArea() {
+        _element_EventEditorDialog_DisabledArea.style.display = "none";
     }
 
 
@@ -5883,15 +5881,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function eventColorsDialogEvent_Cancel( popCloseWindowEvent ) {
         removeLastCloseWindowEvent( popCloseWindowEvent );
+        hideEventEditorDisabledArea();
 
         _element_EventEditorColorsDialog.style.display = "none";
-        _element_EventEditorDialog_DisabledArea.style.display = "none";
     }
 
     function showEventEditorColorsDialog() {
         _openDialogs.push( eventColorsDialogEvent_Cancel );
         _element_EventEditorColorsDialog.style.display = "block";
-        _element_EventEditorDialog_DisabledArea.style.display = "block";
+        
+        hideEventEditorDisabledArea();
     }
 
 
@@ -5994,70 +5993,79 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Build Confirmation Dialog
+     * Build Message Dialog
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildConfirmationDialog() {
-        if ( !_datePickerModeEnabled && _element_ConfirmationDialog === null ) {
-            _element_ConfirmationDialog = createElement( "div", "calendar-dialog confirmation" );
-            _document.body.appendChild( _element_ConfirmationDialog );
+    function buildMessageDialog() {
+        if ( !_datePickerModeEnabled && _element_MessageDialog === null ) {
+            _element_MessageDialog = createElement( "div", "calendar-dialog message" );
+            _document.body.appendChild( _element_MessageDialog );
     
-            _element_ConfirmationDialog_TitleBar = createElement( "div", "title-bar" );
-            _element_ConfirmationDialog.appendChild( _element_ConfirmationDialog_TitleBar );
+            _element_MessageDialog_TitleBar = createElement( "div", "title-bar" );
+            _element_MessageDialog.appendChild( _element_MessageDialog_TitleBar );
     
             var contents = createElement( "div", "contents" );
-            _element_ConfirmationDialog.appendChild( contents );
+            _element_MessageDialog.appendChild( contents );
     
-            _element_ConfirmationDialog_Message = createElement( "div", "message" );
-            contents.appendChild( _element_ConfirmationDialog_Message );
+            _element_MessageDialog_Message = createElement( "div", "text" );
+            contents.appendChild( _element_MessageDialog_Message );
     
             var checkbox = buildCheckBox( contents, _options.removeAllEventsInSeriesText );
-            _element_ConfirmationDialog_RemoveAllEvents = checkbox[ 0 ];
-            _element_ConfirmationDialog_RemoveAllEvents_Label = checkbox[ 1 ];
+            _element_MessageDialog_RemoveAllEvents = checkbox[ 0 ];
+            _element_MessageDialog_RemoveAllEvents_Label = checkbox[ 1 ];
     
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            _element_ConfirmationDialog_YesButton = createElement( "input", "yes", "button" );
-            _element_ConfirmationDialog_YesButton.value = _options.yesText;
-            buttonsContainer.appendChild( _element_ConfirmationDialog_YesButton );
+            _element_MessageDialog_YesButton = createElement( "input", "yes", "button" );
+            _element_MessageDialog_YesButton.value = _options.yesText;
+            buttonsContainer.appendChild( _element_MessageDialog_YesButton );
 
-            _element_ConfirmationDialog_NoButton = createElement( "input", "no", "button" );
-            _element_ConfirmationDialog_NoButton.value = _options.noText;
-            buttonsContainer.appendChild( _element_ConfirmationDialog_NoButton );
+            _element_MessageDialog_NoButton = createElement( "input", "no", "button" );
+            _element_MessageDialog_NoButton.value = _options.noText;
+            buttonsContainer.appendChild( _element_MessageDialog_NoButton );
         }
     }
 
-    function showConfirmationDialog( title, message, onYesEvent, onNoEvent, showRemoveAllEventsCheckBox ) {
+    function showMessageDialog( title, message, onYesEvent, onNoEvent, showRemoveAllEventsCheckBox, showNoButton ) {
         showRemoveAllEventsCheckBox = isDefined( showRemoveAllEventsCheckBox ) ? showRemoveAllEventsCheckBox : false;
+        showNoButton = isDefined( showNoButton ) ? showNoButton : true;
 
         _openDialogs.push( false );
-        _element_ConfirmationDialog.style.display = "block";
+        _element_MessageDialog.style.display = "block";
 
-        setNodeText( _element_ConfirmationDialog_TitleBar, title );
-        setNodeText( _element_ConfirmationDialog_Message, message );
+        setNodeText( _element_MessageDialog_TitleBar, title );
+        setNodeText( _element_MessageDialog_Message, message );
 
-        _element_ConfirmationDialog_YesButton.onclick = hideConfirmationDialog;
-        _element_ConfirmationDialog_NoButton.onclick = hideConfirmationDialog;
-        _element_ConfirmationDialog_YesButton.addEventListener( "click", onYesEvent );
+        _element_MessageDialog_YesButton.onclick = hideMessageDialog;
+        _element_MessageDialog_YesButton.addEventListener( "click", onYesEvent );
+        _element_MessageDialog_NoButton.onclick = hideMessageDialog;
+
+        if ( showNoButton ) {
+            _element_MessageDialog_NoButton.style.display = "inline-block";
+            _element_MessageDialog_YesButton.value = _options.yesText;
+        } else {
+            _element_MessageDialog_NoButton.style.display = "none";
+            _element_MessageDialog_YesButton.value = _options.okText;
+        }
 
         if ( showRemoveAllEventsCheckBox ) {
-            _element_ConfirmationDialog_RemoveAllEvents_Label.style.display = "block";
-            _element_ConfirmationDialog_RemoveAllEvents.checked = false;
+            _element_MessageDialog_RemoveAllEvents_Label.style.display = "block";
+            _element_MessageDialog_RemoveAllEvents.checked = false;
         } else {
-            _element_ConfirmationDialog_RemoveAllEvents_Label.style.display = "none";
-            _element_ConfirmationDialog_RemoveAllEvents.checked = true;
+            _element_MessageDialog_RemoveAllEvents_Label.style.display = "none";
+            _element_MessageDialog_RemoveAllEvents.checked = true;
         }
 
         if ( isDefinedFunction( onNoEvent ) ) {
-            _element_ConfirmationDialog_NoButton.addEventListener( "click", onNoEvent );
+            _element_MessageDialog_NoButton.addEventListener( "click", onNoEvent );
         }
     }
 
-    function hideConfirmationDialog() {
+    function hideMessageDialog() {
         _openDialogs.pop();
-        _element_ConfirmationDialog.style.display = "none";
+        _element_MessageDialog.style.display = "none";
     }
 
 
@@ -10539,6 +10547,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.nextYearTooltipText = getDefaultString( _options.nextYearTooltipText, "Next Year" );
         _options.showOnlyWorkingDaysText = getDefaultString( _options.showOnlyWorkingDaysText, "Show Only Working Days" );
         _options.exportFilenamePlaceholderText = getDefaultString( _options.exportFilenamePlaceholderText, "Name (optional)" );
+        _options.errorText = getDefaultString( _options.errorText, "Error" );
     }
 
     function setEventTypeTranslationStringOptions() {

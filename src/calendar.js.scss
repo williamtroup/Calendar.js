@@ -1143,12 +1143,6 @@ div.event-editor {
             @include no-selection-allowed;
             margin: 0;
             margin-bottom: 8px;
-    
-            &.error {
-                color: $alert-color;
-                display: none;
-                margin-bottom: $spacing * 2;
-            }
         }
     
         @import "foundation/split-container";
@@ -1302,18 +1296,18 @@ div.event-editor-repeat-options {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Confirmation
+    Calendar.js - Dialog - Message
     -------------------------------------------------------------------------
 */
 
-div.confirmation {
+div.message {
     @include dialog-styles( 330px );
     @include dialog-title-bar;
 
     div.contents {
         padding: $spacing;
 
-        div.message {
+        div.text {
             @include no-selection-allowed;
             margin-bottom: $spacing;
         }

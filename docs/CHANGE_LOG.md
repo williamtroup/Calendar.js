@@ -2,6 +2,8 @@
 
 ## Version 2.0.12:
 - Increased the default width for the Search dialog, and tabbed in the Advanced criteria.
+- Internal rename (including CSS names) for the Confirmation dialog. It is now called Message.
+- Error messages are no longer shown in the Event Editor dialog. A model message is now shown instead, which has to be acknowledged.
 - 
 
 <br>
