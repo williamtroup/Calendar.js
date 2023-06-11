@@ -3606,9 +3606,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_EventEditorDialog.style.display = "none";
   }
   function eventDialogEvent_Remove() {
-    _element_EventEditorDialog_DisabledArea.style.display = "block";
+    showEventEditorDisabledArea();
     var onNoEvent = function() {
-      _element_EventEditorDialog_DisabledArea.style.display = "none";
+      hideEventEditorDisabledArea();
     };
     var onYesEvent = function() {
       onNoEvent();
@@ -3643,6 +3643,9 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function showEventEditorErrorMessage(message) {
     showMessageDialog(_options.errorText, message, hideEventEditorDisabledArea, null, false, false);
+    showEventEditorDisabledArea();
+  }
+  function showEventEditorDisabledArea() {
     _element_EventEditorDialog_DisabledArea.style.display = "block";
   }
   function hideEventEditorDisabledArea() {
@@ -3691,7 +3694,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function showEventEditorColorsDialog() {
     _openDialogs.push(eventColorsDialogEvent_Cancel);
     _element_EventEditorColorsDialog.style.display = "block";
-    hideEventEditorDisabledArea();
+    showEventEditorDisabledArea();
   }
   function buildEventEditingRepeatOptionsDialog() {
     if (!_datePickerModeEnabled && _element_EventEditorRepeatOptionsDialog === null) {
@@ -3750,13 +3753,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function eventRepeatOptionsDialogEvent_Cancel(popCloseWindowEvent) {
     removeLastCloseWindowEvent(popCloseWindowEvent);
+    hideEventEditorDisabledArea();
     _element_EventEditorRepeatOptionsDialog.style.display = "none";
-    _element_EventEditorDialog_DisabledArea.style.display = "none";
   }
   function showEventEditorRepeatOptionsDialog() {
     _openDialogs.push(eventRepeatOptionsDialogEvent_Cancel);
     _element_EventEditorRepeatOptionsDialog.style.display = "block";
-    _element_EventEditorDialog_DisabledArea.style.display = "block";
+    showEventEditorDisabledArea();
   }
   function buildMessageDialog() {
     if (!_datePickerModeEnabled && _element_MessageDialog === null) {
