@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.11
+ * Calendar.js Library v2.0.12
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1143,12 +1143,6 @@ div.event-editor {
             @include no-selection-allowed;
             margin: 0;
             margin-bottom: 8px;
-    
-            &.error {
-                color: $alert-color;
-                display: none;
-                margin-bottom: $spacing * 2;
-            }
         }
     
         @import "foundation/split-container";
@@ -1159,13 +1153,13 @@ div.event-editor {
         
         input[type="button"] {
             @include dialog-button-styles;
-            @include button( ok, $light-color, $primary-button-color );
+            @include button( add-update, $light-color, $primary-button-color );
             @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
             @include button( remove, $secondary-button-color, $light-color, $secondary-button-color );
             @include button( select-colors, $light-color, $tertiary-button-color );
             @include button( repeat-options, $light-color, $tertiary-button-color );
 
-            &.ok,
+            &.add-update,
             &.cancel,
             &.remove {
                 width: 100%;
@@ -1227,10 +1221,10 @@ div.event-editor-colors {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( update, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.ok,
+        &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
@@ -1286,10 +1280,10 @@ div.event-editor-repeat-options {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( update, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.ok,
+        &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
@@ -1302,18 +1296,18 @@ div.event-editor-repeat-options {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Confirmation
+    Calendar.js - Dialog - Message
     -------------------------------------------------------------------------
 */
 
-div.confirmation {
+div.message {
     @include dialog-styles( 330px );
     @include dialog-title-bar;
 
     div.contents {
         padding: $spacing;
 
-        div.message {
+        div.text {
             @include no-selection-allowed;
             margin-bottom: $spacing;
         }
@@ -1330,10 +1324,10 @@ div.confirmation {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( yes, $light-color, $primary-button-color );
+        @include button( yes-ok, $light-color, $primary-button-color );
         @include button( no, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.yes,
+        &.yes-ok,
         &.no {
             width: 100%;
             max-width: 110px;
@@ -1346,11 +1340,11 @@ div.confirmation {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Select Export Type
+    Calendar.js - Dialog - Export Events
     -------------------------------------------------------------------------
 */
 
-div.select-export-type {
+div.export-events {
     @include dialog-styles( 280px );
     @include dialog-title-bar;
 
@@ -1379,10 +1373,10 @@ div.select-export-type {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( export, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.ok,
+        &.export,
         &.cancel {
             width: 100%;
             max-width: 110px;
@@ -1400,7 +1394,7 @@ div.select-export-type {
 */
 
 div.search {
-    @include dialog-styles( 300px, false, 999 );
+    @include dialog-styles( 310px, false, 999 );
     @include dialog-title-bar;
 
     div.contents {
@@ -1473,6 +1467,7 @@ div.search {
             background-color: $day-names-color;
             padding: $spacing;
             margin-top: $spacing !important;
+            margin-left: $checkbox-size-with-spacing;
             border-radius: $border-view-radius;
             border: $standard-border-size solid #D0D0D0;
 
@@ -1567,10 +1562,10 @@ div.configuration {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( update, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color);
 
-        &.ok,
+        &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
@@ -1649,8 +1644,6 @@ div.calendar-dialog {
 div.calendar,
 div.calendar-dialog,
 div.calendar div.side-menu {
-    $checkbox-size-with-spacing: 25px;
-
     div.checkbox-container {
         label.checkbox {
             margin-bottom: calc( $spacing / 2 ) !important;

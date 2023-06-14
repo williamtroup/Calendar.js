@@ -228,3 +228,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | nextYearTooltipText | The tooltip text that should be used for for the "Next Year" button. |
 | *string* | showOnlyWorkingDaysText | The text that should be displayed for the "Show Only Working Days" label. |
 | *string* | exportFilenamePlaceholderText | The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)"). |
+| *string* | exportText | The text that should be displayed for the "Export" button. |
