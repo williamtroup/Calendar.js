@@ -8,7 +8,6 @@
 - Added a new setting "exportText" (defaults to "Export"), which states the button text for the "Export" button.
 - Internal CSS renames to reflect which button they are assigned to.
 - Fixed a badly named CSS class being applied to the "Export Events" dialog.
-- 
 
 <br>
 
