@@ -3776,7 +3776,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_MessageDialog_RemoveAllEvents_Label = checkbox[1];
       var buttonsContainer = createElement("div", "buttons-container");
       contents.appendChild(buttonsContainer);
-      _element_MessageDialog_YesButton = createElement("input", "yes", "button");
+      _element_MessageDialog_YesButton = createElement("input", "yes-ok", "button");
       _element_MessageDialog_YesButton.value = _options.yesText;
       buttonsContainer.appendChild(_element_MessageDialog_YesButton);
       _element_MessageDialog_NoButton = createElement("input", "no", "button");

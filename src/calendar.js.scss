@@ -1324,10 +1324,10 @@ div.message {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( yes, $light-color, $primary-button-color );
+        @include button( yes-ok, $light-color, $primary-button-color );
         @include button( no, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.yes,
+        &.yes-ok,
         &.no {
             width: 100%;
             max-width: 110px;

@@ -6023,7 +6023,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            _element_MessageDialog_YesButton = createElement( "input", "yes", "button" );
+            _element_MessageDialog_YesButton = createElement( "input", "yes-ok", "button" );
             _element_MessageDialog_YesButton.value = _options.yesText;
             buttonsContainer.appendChild( _element_MessageDialog_YesButton );
 

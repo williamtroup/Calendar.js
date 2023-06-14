@@ -2026,18 +2026,18 @@ div.message input[type=button]:disabled {
   cursor: default !important;
   color: #F5F5F5 !important;
 }
-div.message input[type=button].yes {
+div.message input[type=button].yes-ok {
   color: #F5F5F5;
   background-color: #282828;
   border: 2px solid #282828;
   box-sizing: border-box;
 }
-div.message input[type=button].yes:not(:disabled):hover {
+div.message input[type=button].yes-ok:not(:disabled):hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.message input[type=button].yes:not(:disabled):active {
+div.message input[type=button].yes-ok:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2058,7 +2058,7 @@ div.message input[type=button].no:not(:disabled):active {
   cursor: pointer;
   opacity: 0.4;
 }
-div.message input[type=button].yes, div.message input[type=button].no {
+div.message input[type=button].yes-ok, div.message input[type=button].no {
   width: 100%;
   max-width: 110px;
   display: inline-block;
