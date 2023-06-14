@@ -4,6 +4,10 @@
 - Increased the default width for the Search dialog, and tabbed in the Advanced criteria.
 - Internal rename (including CSS names) for the Confirmation dialog. It is now called Message.
 - Error messages are no longer shown in the Event Editor dialog. A model message is now shown instead, which has to be acknowledged.
+- All the text for the main action buttons have been changed to make it clearer what the button does.
+- Added a new setting "exportText" (defaults to "Export"), which states the button text for the "Export" button.
+- Internal CSS renames to reflect which button they are assigned to.
+- Fixed a badly named CSS class being applied to the "Export Events" dialog.
 - 
 
 <br>

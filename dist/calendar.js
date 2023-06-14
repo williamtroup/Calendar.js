@@ -9,7 +9,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   null, _element_SideMenu_Content_Section_Days = null, _element_SideMenu_Content_Section_Days_Content = null, _element_SideMenu_DisabledBackground = null, _element_EventEditorDialog = null, _element_EventEditorDialog_Tab_Event = null, _element_EventEditorDialog_Tab_Type = null, _element_EventEditorDialog_Tab_Repeats = null, _element_EventEditorDialog_Tab_Extra = null, _element_EventEditorDialog_DisabledArea = null, _element_EventEditorDialog_TitleBar = null, _element_EventEditorDialog_DateFrom = 
   null, _element_EventEditorDialog_TimeFrom = null, _element_EventEditorDialog_DateTo = null, _element_EventEditorDialog_TimeTo = null, _element_EventEditorDialog_IsAllDay = null, _element_EventEditorDialog_ShowAlerts = null, _element_EventEditorDialog_Title = null, _element_EventEditorDialog_SelectColors = null, _element_EventEditorDialog_Description = null, _element_EventEditorDialog_Location = null, _element_EventEditorDialog_Group = null, _element_EventEditorDialog_Url = null, _element_EventEditorDialog_RepeatEvery_Never = 
   null, _element_EventEditorDialog_RepeatEvery_EveryDay = null, _element_EventEditorDialog_RepeatEvery_EveryWeek = null, _element_EventEditorDialog_RepeatEvery_Every2Weeks = null, _element_EventEditorDialog_RepeatEvery_EveryMonth = null, _element_EventEditorDialog_RepeatEvery_EveryYear = null, _element_EventEditorDialog_RepeatEvery_Custom = null, _element_EventEditorDialog_RepeatEvery_RepeatOptionsButton = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly = 
-  null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = null, _element_EventEditorDialog_RepeatEvery_Custom_Value = null, _element_EventEditorDialog_EventDetails = {}, _element_EventEditorDialog_OKButton = null, _element_EventEditorDialog_RemoveButton = null, _element_EventEditorColorsDialog = null, _element_EventEditorColorsDialog_Color = null, _element_EventEditorColorsDialog_ColorText = null, _element_EventEditorColorsDialog_ColorBorder = 
+  null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly = null, _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = null, _element_EventEditorDialog_RepeatEvery_Custom_Value = null, _element_EventEditorDialog_EventDetails = {}, _element_EventEditorDialog_AddUpdateButton = null, _element_EventEditorDialog_RemoveButton = null, _element_EventEditorColorsDialog = null, _element_EventEditorColorsDialog_Color = null, _element_EventEditorColorsDialog_ColorText = null, _element_EventEditorColorsDialog_ColorBorder = 
   null, _element_EventEditorRepeatOptionsDialog = null, _element_EventEditorRepeatOptionsDialog_Mon = null, _element_EventEditorRepeatOptionsDialog_Tue = null, _element_EventEditorRepeatOptionsDialog_Wed = null, _element_EventEditorRepeatOptionsDialog_Thu = null, _element_EventEditorRepeatOptionsDialog_Fri = null, _element_EventEditorRepeatOptionsDialog_Sat = null, _element_EventEditorRepeatOptionsDialog_Sun = null, _element_EventEditorRepeatOptionsDialog_RepeatEnds = null, _element_FullDayView = 
   null, _element_FullDayView_Title = null, _element_FullDayView_Contents = null, _element_FullDayView_Contents_AllDayEvents = null, _element_FullDayView_Contents_Hours = null, _element_FullDayView_DateSelected = null, _element_FullDayView_EventsShown = [], _element_FullDayView_EventsShown_Sizes = [], _element_FullDayView_ExportEventsButton = null, _element_FullDayView_FullScreenButton = null, _element_FullDayView_TodayButton = null, _element_FullDayView_TimeArrow = null, _element_FullDayView_SearchButton = 
   null, _element_FullDayView_ContextMenu_ClickPositionHourMinutes = null, _element_FullDayView_Event_Dragged = null, _element_FullDayView_Event_Dragged_EventDetails = null, _element_FullDayView_Event_Dragged_Offset = null, _element_ListAllEventsView = null, _element_ListAllEventsView_ExportEventsButton = null, _element_ListAllEventsView_FullScreenButton = null, _element_ListAllEventsView_SearchButton = null, _element_ListAllEventsView_Contents = null, _element_ListAllEventsView_EventsShown = [], 
@@ -3229,7 +3229,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var buttonsContainer = createElement("div", "buttons-container");
       contents.appendChild(buttonsContainer);
       _element_EventEditorDialog_RemoveButton = createButtonElement(buttonsContainer, _options.removeEventText, "remove", eventDialogEvent_Remove);
-      _element_EventEditorDialog_OKButton = createButtonElement(buttonsContainer, _options.addText, "ok", eventDialogEvent_OK);
+      _element_EventEditorDialog_AddUpdateButton = createButtonElement(buttonsContainer, _options.addText, "add-update", eventDialogEvent_OK);
       createButtonElement(buttonsContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel);
     }
   }
@@ -3393,7 +3393,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isDefined(eventDetails)) {
       setNodeText(_element_EventEditorDialog_TitleBar, _options.editEventTitle);
       setEventTypeInputCheckedStates(eventDetails.type);
-      _element_EventEditorDialog_OKButton.value = _options.updateText;
+      _element_EventEditorDialog_AddUpdateButton.value = _options.updateText;
       _element_EventEditorDialog_RemoveButton.style.display = "inline-block";
       _element_EventEditorDialog_EventDetails = eventDetails;
       _element_EventEditorDialog_TimeFrom.value = toFormattedTime(eventDetails.from);
@@ -3455,7 +3455,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       toDate = addMinutesToDate(fromDate, _options.defaultEventDuration);
       setNodeText(_element_EventEditorDialog_TitleBar, _options.addEventTitle);
       setEventTypeInputCheckedStates();
-      _element_EventEditorDialog_OKButton.value = _options.addText;
+      _element_EventEditorDialog_AddUpdateButton.value = _options.addText;
       _element_EventEditorDialog_RemoveButton.style.display = "none";
       _element_EventEditorDialog_EventDetails = {};
       _element_EventEditorDialog_IsAllDay.checked = false;
@@ -3505,7 +3505,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function setLockedStatusForEventEditingDialog(eventDetails) {
     var locked = isEventLocked(eventDetails);
     setEventTypeInputDisabledStates(locked);
-    _element_EventEditorDialog_OKButton.disabled = locked;
+    _element_EventEditorDialog_AddUpdateButton.disabled = locked;
     _element_EventEditorDialog_DateFrom.disabled = locked;
     _element_EventEditorDialog_DateTo.disabled = locked;
     _element_EventEditorDialog_TimeFrom.disabled = locked;
@@ -3529,7 +3529,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function setEventEditingDialogInDuplicateMode() {
     setNodeText(_element_EventEditorDialog_TitleBar, _options.addEventTitle);
-    _element_EventEditorDialog_OKButton.value = _options.addText;
+    _element_EventEditorDialog_AddUpdateButton.value = _options.addText;
     _element_EventEditorDialog_RemoveButton.style.display = "none";
     _element_EventEditorDialog_EventDetails = cloneEventDetails(_element_EventEditorDialog_EventDetails);
     buildToolbarButton(_element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true);
@@ -3676,7 +3676,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       setInputType(_element_EventEditorColorsDialog_ColorBorder, "color");
       var buttonsContainer = createElement("div", "buttons-container");
       contents.appendChild(buttonsContainer);
-      createButtonElement(buttonsContainer, _options.okText, "ok", eventColorsDialogEvent_OK);
+      createButtonElement(buttonsContainer, _options.updateText, "update", eventColorsDialogEvent_OK);
       createButtonElement(buttonsContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel);
     }
   }
@@ -3721,7 +3721,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       setInputType(_element_EventEditorRepeatOptionsDialog_RepeatEnds, "date");
       var buttonsContainer = createElement("div", "buttons-container");
       contents.appendChild(buttonsContainer);
-      createButtonElement(buttonsContainer, _options.okText, "ok", eventRepeatOptionsDialogEvent_OK);
+      createButtonElement(buttonsContainer, _options.updateText, "update", eventRepeatOptionsDialogEvent_OK);
       createButtonElement(buttonsContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel);
     }
   }
@@ -3818,7 +3818,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildExportEventsDialog() {
     if (!_datePickerModeEnabled && _element_ExportEventsDialog === null) {
-      _element_ExportEventsDialog = createElement("div", "calendar-dialog select-export-type");
+      _element_ExportEventsDialog = createElement("div", "calendar-dialog export-events");
       _document.body.appendChild(_element_ExportEventsDialog);
       var titleBar = createElement("div", "title-bar");
       setNodeText(titleBar, _options.exportEventsTitle);
@@ -3846,7 +3846,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_ExportEventsDialog_Option_TSV = buildRadioButton(radioButtonsContainer2, "TSV", "ExportType");
       var buttonsContainer = createElement("div", "buttons-container");
       contents.appendChild(buttonsContainer);
-      createButtonElement(buttonsContainer, _options.okText, "ok", exportEventsFromOptionSelected);
+      createButtonElement(buttonsContainer, _options.exportText, "export", exportEventsFromOptionSelected);
       createButtonElement(buttonsContainer, _options.cancelText, "cancel", hideExportEventsDialog);
     }
   }
@@ -4347,7 +4347,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_ConfigurationDialog_Organizer.appendChild(_element_ConfigurationDialog_Organizer_Email);
       var buttonsContainer = createElement("div", "buttons-container");
       contents.appendChild(buttonsContainer);
-      createButtonElement(buttonsContainer, _options.okText, "ok", configurationDialogEvent_OK);
+      createButtonElement(buttonsContainer, _options.updateText, "update", configurationDialogEvent_OK);
       createButtonElement(buttonsContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel);
     }
   }
@@ -6583,6 +6583,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showOnlyWorkingDaysText = getDefaultString(_options.showOnlyWorkingDaysText, "Show Only Working Days");
     _options.exportFilenamePlaceholderText = getDefaultString(_options.exportFilenamePlaceholderText, "Name (optional)");
     _options.errorText = getDefaultString(_options.errorText, "Error");
+    _options.exportText = getDefaultString(_options.exportText, "Export");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);

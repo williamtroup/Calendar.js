@@ -266,6 +266,7 @@
  * @property    {string}    nextYearTooltipText                         The tooltip text that should be used for for the "Next Year" button.
  * @property    {string}    showOnlyWorkingDaysText                     The text that should be displayed for the "Show Only Working Days" label.
  * @property    {string}    exportFilenamePlaceholderText               The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)").
+ * @property    {string}    exportText                                  The text that should be displayed for the "Export" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -560,7 +561,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly = null,
         _element_EventEditorDialog_RepeatEvery_Custom_Value = null,
         _element_EventEditorDialog_EventDetails = {},
-        _element_EventEditorDialog_OKButton = null,
+        _element_EventEditorDialog_AddUpdateButton = null,
         _element_EventEditorDialog_RemoveButton = null,
         _element_EventEditorColorsDialog = null,
         _element_EventEditorColorsDialog_Color = null,
@@ -5235,7 +5236,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.appendChild( buttonsContainer );
     
             _element_EventEditorDialog_RemoveButton = createButtonElement( buttonsContainer, _options.removeEventText, "remove", eventDialogEvent_Remove );
-            _element_EventEditorDialog_OKButton = createButtonElement( buttonsContainer, _options.addText, "ok", eventDialogEvent_OK );
+            _element_EventEditorDialog_AddUpdateButton = createButtonElement( buttonsContainer, _options.addText, "add-update", eventDialogEvent_OK );
             createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventDialogEvent_Cancel );
         }
     }
@@ -5457,7 +5458,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( _element_EventEditorDialog_TitleBar, _options.editEventTitle );
             setEventTypeInputCheckedStates( eventDetails.type );
 
-            _element_EventEditorDialog_OKButton.value = _options.updateText;
+            _element_EventEditorDialog_AddUpdateButton.value = _options.updateText;
             _element_EventEditorDialog_RemoveButton.style.display = "inline-block";
             _element_EventEditorDialog_EventDetails = eventDetails;
             _element_EventEditorDialog_TimeFrom.value = toFormattedTime( eventDetails.from );
@@ -5531,7 +5532,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setNodeText( _element_EventEditorDialog_TitleBar, _options.addEventTitle );
             setEventTypeInputCheckedStates();
 
-            _element_EventEditorDialog_OKButton.value = _options.addText;
+            _element_EventEditorDialog_AddUpdateButton.value = _options.addText;
             _element_EventEditorDialog_RemoveButton.style.display = "none";
             _element_EventEditorDialog_EventDetails = {};
             _element_EventEditorDialog_IsAllDay.checked = false;
@@ -5592,7 +5593,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         setEventTypeInputDisabledStates( locked );
 
-        _element_EventEditorDialog_OKButton.disabled = locked;
+        _element_EventEditorDialog_AddUpdateButton.disabled = locked;
         _element_EventEditorDialog_DateFrom.disabled = locked;
         _element_EventEditorDialog_DateTo.disabled = locked;
         _element_EventEditorDialog_TimeFrom.disabled = locked;
@@ -5618,7 +5619,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function setEventEditingDialogInDuplicateMode() {
         setNodeText( _element_EventEditorDialog_TitleBar, _options.addEventTitle );
 
-        _element_EventEditorDialog_OKButton.value = _options.addText;
+        _element_EventEditorDialog_AddUpdateButton.value = _options.addText;
         _element_EventEditorDialog_RemoveButton.style.display = "none";
         _element_EventEditorDialog_EventDetails = cloneEventDetails( _element_EventEditorDialog_EventDetails );
 
@@ -5869,7 +5870,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.okText, "ok", eventColorsDialogEvent_OK );
+            createButtonElement( buttonsContainer, _options.updateText, "update", eventColorsDialogEvent_OK );
             createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventColorsDialogEvent_Cancel );
         }
     }
@@ -5939,7 +5940,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.okText, "ok", eventRepeatOptionsDialogEvent_OK );
+            createButtonElement( buttonsContainer, _options.updateText, "update", eventRepeatOptionsDialogEvent_OK );
             createButtonElement( buttonsContainer, _options.cancelText, "cancel", eventRepeatOptionsDialogEvent_Cancel );
         }
     }
@@ -6081,7 +6082,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildExportEventsDialog() {
         if ( !_datePickerModeEnabled && _element_ExportEventsDialog === null ) {
-            _element_ExportEventsDialog = createElement( "div", "calendar-dialog select-export-type" );
+            _element_ExportEventsDialog = createElement( "div", "calendar-dialog export-events" );
             _document.body.appendChild( _element_ExportEventsDialog );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6121,7 +6122,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.okText, "ok", exportEventsFromOptionSelected );
+            createButtonElement( buttonsContainer, _options.exportText, "export", exportEventsFromOptionSelected );
             createButtonElement( buttonsContainer, _options.cancelText, "cancel", hideExportEventsDialog );
         }
     }
@@ -6805,7 +6806,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var buttonsContainer = createElement( "div", "buttons-container" );
             contents.appendChild( buttonsContainer );
     
-            createButtonElement( buttonsContainer, _options.okText, "ok", configurationDialogEvent_OK );
+            createButtonElement( buttonsContainer, _options.updateText, "update", configurationDialogEvent_OK );
             createButtonElement( buttonsContainer, _options.cancelText, "cancel", configurationDialogEvent_Cancel );
         }
     }
@@ -10552,6 +10553,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showOnlyWorkingDaysText = getDefaultString( _options.showOnlyWorkingDaysText, "Show Only Working Days" );
         _options.exportFilenamePlaceholderText = getDefaultString( _options.exportFilenamePlaceholderText, "Name (optional)" );
         _options.errorText = getDefaultString( _options.errorText, "Error" );
+        _options.exportText = getDefaultString( _options.exportText, "Export" );
     }
 
     function setEventTypeTranslationStringOptions() {

@@ -1153,13 +1153,13 @@ div.event-editor {
         
         input[type="button"] {
             @include dialog-button-styles;
-            @include button( ok, $light-color, $primary-button-color );
+            @include button( add-update, $light-color, $primary-button-color );
             @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
             @include button( remove, $secondary-button-color, $light-color, $secondary-button-color );
             @include button( select-colors, $light-color, $tertiary-button-color );
             @include button( repeat-options, $light-color, $tertiary-button-color );
 
-            &.ok,
+            &.add-update,
             &.cancel,
             &.remove {
                 width: 100%;
@@ -1221,10 +1221,10 @@ div.event-editor-colors {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( update, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.ok,
+        &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
@@ -1280,10 +1280,10 @@ div.event-editor-repeat-options {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( update, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.ok,
+        &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
@@ -1340,11 +1340,11 @@ div.message {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Select Export Type
+    Calendar.js - Dialog - Export Events
     -------------------------------------------------------------------------
 */
 
-div.select-export-type {
+div.export-events {
     @include dialog-styles( 280px );
     @include dialog-title-bar;
 
@@ -1373,10 +1373,10 @@ div.select-export-type {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( export, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
 
-        &.ok,
+        &.export,
         &.cancel {
             width: 100%;
             max-width: 110px;
@@ -1562,10 +1562,10 @@ div.configuration {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( ok, $light-color, $primary-button-color );
+        @include button( update, $light-color, $primary-button-color );
         @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color);
 
-        &.ok,
+        &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;

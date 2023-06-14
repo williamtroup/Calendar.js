@@ -1554,18 +1554,18 @@ div.event-editor div.view input[type=button]:disabled {
   cursor: default !important;
   color: #F5F5F5 !important;
 }
-div.event-editor div.view input[type=button].ok {
+div.event-editor div.view input[type=button].add-update {
   color: #F5F5F5;
   background-color: #282828;
   border: 2px solid #282828;
   box-sizing: border-box;
 }
-div.event-editor div.view input[type=button].ok:not(:disabled):hover {
+div.event-editor div.view input[type=button].add-update:not(:disabled):hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.event-editor div.view input[type=button].ok:not(:disabled):active {
+div.event-editor div.view input[type=button].add-update:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1634,7 +1634,7 @@ div.event-editor div.view input[type=button].repeat-options:not(:disabled):activ
   cursor: pointer;
   opacity: 0.4;
 }
-div.event-editor div.view input[type=button].ok, div.event-editor div.view input[type=button].cancel, div.event-editor div.view input[type=button].remove {
+div.event-editor div.view input[type=button].add-update, div.event-editor div.view input[type=button].cancel, div.event-editor div.view input[type=button].remove {
   width: 100%;
   max-width: 110px;
   display: inline-block;
@@ -1758,18 +1758,18 @@ div.event-editor-colors input[type=button]:disabled {
   cursor: default !important;
   color: #F5F5F5 !important;
 }
-div.event-editor-colors input[type=button].ok {
+div.event-editor-colors input[type=button].update {
   color: #F5F5F5;
   background-color: #282828;
   border: 2px solid #282828;
   box-sizing: border-box;
 }
-div.event-editor-colors input[type=button].ok:not(:disabled):hover {
+div.event-editor-colors input[type=button].update:not(:disabled):hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.event-editor-colors input[type=button].ok:not(:disabled):active {
+div.event-editor-colors input[type=button].update:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1790,7 +1790,7 @@ div.event-editor-colors input[type=button].cancel:not(:disabled):active {
   cursor: pointer;
   opacity: 0.4;
 }
-div.event-editor-colors input[type=button].ok, div.event-editor-colors input[type=button].cancel {
+div.event-editor-colors input[type=button].update, div.event-editor-colors input[type=button].cancel {
   width: 100%;
   max-width: 110px;
   display: inline-block;
@@ -1910,18 +1910,18 @@ div.event-editor-repeat-options input[type=button]:disabled {
   cursor: default !important;
   color: #F5F5F5 !important;
 }
-div.event-editor-repeat-options input[type=button].ok {
+div.event-editor-repeat-options input[type=button].update {
   color: #F5F5F5;
   background-color: #282828;
   border: 2px solid #282828;
   box-sizing: border-box;
 }
-div.event-editor-repeat-options input[type=button].ok:not(:disabled):hover {
+div.event-editor-repeat-options input[type=button].update:not(:disabled):hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.event-editor-repeat-options input[type=button].ok:not(:disabled):active {
+div.event-editor-repeat-options input[type=button].update:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -1942,7 +1942,7 @@ div.event-editor-repeat-options input[type=button].cancel:not(:disabled):active 
   cursor: pointer;
   opacity: 0.4;
 }
-div.event-editor-repeat-options input[type=button].ok, div.event-editor-repeat-options input[type=button].cancel {
+div.event-editor-repeat-options input[type=button].update, div.event-editor-repeat-options input[type=button].cancel {
   width: 100%;
   max-width: 110px;
   display: inline-block;
@@ -2067,10 +2067,10 @@ div.message input[type=button].yes, div.message input[type=button].no {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Select Export Type
+    Calendar.js - Dialog - Export Events
     -------------------------------------------------------------------------
 */
-div.select-export-type {
+div.export-events {
   width: calc(100% - ( 10px * 2 ));
   max-width: 280px;
   border-radius: 0.25rem;
@@ -2084,10 +2084,10 @@ div.select-export-type {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-div.select-export-type div.ib-close {
+div.export-events div.ib-close {
   float: right;
 }
-div.select-export-type div.title-bar {
+div.export-events div.title-bar {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -2100,10 +2100,10 @@ div.select-export-type div.title-bar {
   text-align: center;
   font-weight: 900;
 }
-div.select-export-type div.contents {
+div.export-events div.contents {
   padding: 10px;
 }
-div.select-export-type div.contents input[type=text] {
+div.export-events div.contents input[type=text] {
   border: 1px solid #A8A8A8;
   border-radius: 0.25rem;
   outline: none;
@@ -2118,52 +2118,52 @@ div.select-export-type div.contents input[type=text] {
   max-height: 35px;
   height: 40px;
 }
-div.select-export-type div.contents input[type=text]:last-child {
+div.export-events div.contents input[type=text]:last-child {
   margin-bottom: 0;
 }
-div.select-export-type div.contents input[type=text]:focus {
+div.export-events div.contents input[type=text]:focus {
   border: 1px solid #282828 !important;
   box-shadow: 0 0 2px 2px #282828;
 }
-div.select-export-type div.contents input[type=text]:not(:disabled):hover {
+div.export-events div.contents input[type=text]:not(:disabled):hover {
   border: 1px solid #282828;
 }
-div.select-export-type div.contents div.split {
+div.export-events div.contents div.split {
   margin-top: 0;
 }
-div.select-export-type div.contents div.split:last-child {
+div.export-events div.contents div.split:last-child {
   margin-top: 20px;
 }
-div.select-export-type div.split input,
-div.select-export-type div.split select,
-div.select-export-type div.split div.split-contents,
-div.select-export-type div.split p {
+div.export-events div.split input,
+div.export-events div.split select,
+div.export-events div.split div.split-contents,
+div.export-events div.split p {
   width: calc(50% - ( 10px / 2 ));
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
   vertical-align: top;
 }
-div.select-export-type div.split input:first-child,
-div.select-export-type div.split select:first-child,
-div.select-export-type div.split div.split-contents:first-child,
-div.select-export-type div.split p:first-child {
+div.export-events div.split input:first-child,
+div.export-events div.split select:first-child,
+div.export-events div.split div.split-contents:first-child,
+div.export-events div.split p:first-child {
   margin-left: 0;
 }
-div.select-export-type div.split input:last-child,
-div.select-export-type div.split select:last-child,
-div.select-export-type div.split div.split-contents:last-child,
-div.select-export-type div.split p:last-child {
+div.export-events div.split input:last-child,
+div.export-events div.split select:last-child,
+div.export-events div.split div.split-contents:last-child,
+div.export-events div.split p:last-child {
   margin-right: 0;
 }
-div.select-export-type div.split-margin {
+div.export-events div.split-margin {
   margin-left: 25px;
 }
-div.select-export-type div.buttons-container {
+div.export-events div.buttons-container {
   text-align: right;
   margin-top: 20px;
 }
-div.select-export-type input[type=button] {
+div.export-events input[type=button] {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -2180,45 +2180,45 @@ div.select-export-type input[type=button] {
   outline: 0;
   cursor: pointer;
 }
-div.select-export-type input[type=button]:disabled {
+div.export-events input[type=button]:disabled {
   background-color: #A8A8A8 !important;
   border-color: #A8A8A8 !important;
   cursor: default !important;
   color: #F5F5F5 !important;
 }
-div.select-export-type input[type=button].ok {
+div.export-events input[type=button].export {
   color: #F5F5F5;
   background-color: #282828;
   border: 2px solid #282828;
   box-sizing: border-box;
 }
-div.select-export-type input[type=button].ok:not(:disabled):hover {
+div.export-events input[type=button].export:not(:disabled):hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.select-export-type input[type=button].ok:not(:disabled):active {
+div.export-events input[type=button].export:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.select-export-type input[type=button].cancel {
+div.export-events input[type=button].cancel {
   color: #282828;
   background-color: #F5F5F5;
   border: 2px solid #282828;
   box-sizing: border-box;
 }
-div.select-export-type input[type=button].cancel:not(:disabled):hover {
+div.export-events input[type=button].cancel:not(:disabled):hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.select-export-type input[type=button].cancel:not(:disabled):active {
+div.export-events input[type=button].cancel:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.select-export-type input[type=button].ok, div.select-export-type input[type=button].cancel {
+div.export-events input[type=button].export, div.export-events input[type=button].cancel {
   width: 100%;
   max-width: 110px;
   display: inline-block;
@@ -2572,18 +2572,18 @@ div.configuration input[type=button]:disabled {
   cursor: default !important;
   color: #F5F5F5 !important;
 }
-div.configuration input[type=button].ok {
+div.configuration input[type=button].update {
   color: #F5F5F5;
   background-color: #282828;
   border: 2px solid #282828;
   box-sizing: border-box;
 }
-div.configuration input[type=button].ok:not(:disabled):hover {
+div.configuration input[type=button].update:not(:disabled):hover {
   transition: all 0.3s;
   cursor: pointer;
   opacity: 0.6;
 }
-div.configuration input[type=button].ok:not(:disabled):active {
+div.configuration input[type=button].update:not(:disabled):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -2604,7 +2604,7 @@ div.configuration input[type=button].cancel:not(:disabled):active {
   cursor: pointer;
   opacity: 0.4;
 }
-div.configuration input[type=button].ok, div.configuration input[type=button].cancel {
+div.configuration input[type=button].update, div.configuration input[type=button].cancel {
   width: 100%;
   max-width: 110px;
   display: inline-block;
