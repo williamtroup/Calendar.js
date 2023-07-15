@@ -51,6 +51,7 @@ Calendar.js
 - HTML text support (off by default).
 - jQuery plugin for quickly creating Calendars.
 - Data-Binding support to quickly create new Calendars without writing Javascript!
+- Popup notifications for actions (adding/updating/deleting events, updating configuration, etc).
 <br />
 <br />
 
