@@ -55,22 +55,49 @@ div.calendar-notification {
     height: auto;
     display: none;
 
+    div.ib-close-icon {
+        margin-left: calc( $spacing * 2 );
+
+        &::before,
+        &::after {
+            background-color: #9A9;
+        }
+    }
+
     div.success,
     div.error {
         padding: $spacing;
         border-radius: $border-view-radius;
+
+        div.ib-close-icon {
+            margin-left: calc( $spacing * 2 );
+        }
     }
 
     div.success {
         background-color: #EFE;
         border: $standard-border-size solid #DED;
         color: #9A9;
+
+        div.ib-close-icon {
+            &::before,
+            &::after {
+                background-color: #9A9;
+            }
+        }
     }
 
     div.error {
         background-color: #FEE;
         border: $standard-border-size solid #EDD;
         color: #A66;
+
+        div.ib-close-icon {
+            &::before,
+            &::after {
+                background-color: #A66;
+            }
+        }
     }
 }
 

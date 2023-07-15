@@ -7220,15 +7220,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             var message = createElement( "div", success ? "success" : "error" );
             _element_Notification.appendChild( message );
-    
+
             _element_Notification.style.display = "block";
     
             setNodeText( message, text );
+            buildToolbarButton( message, "ib-close-icon", _options.closeTooltipText, hideNotificationPopUp );
     
             startTimer( _timerName.hideNotification, function() {
-                _element_Notification.style.display = "none";
+                hideNotificationPopUp();
             }, 5000, false );
         }
+    }
+
+    function hideNotificationPopUp() {
+        _element_Notification.style.display = "none";
     }
 
 
