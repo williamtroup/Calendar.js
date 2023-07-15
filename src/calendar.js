@@ -517,6 +517,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_YearSelector_DropDown_Arrow = null,
         _element_HeaderDateDisplay_YearSelector = null,
         _element_HeaderDateDisplay_YearSelector_Contents = null,
+        _element_HeaderDateDisplay_YearSelector_Contents_Months = {},
         _element_HeaderDateDisplay_ExportEventsButton = null,
         _element_HeaderDateDisplay_FullScreenButton = null,
         _element_HeaderDateDisplay_SearchButton = null,
@@ -1686,6 +1687,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_HeaderDateDisplay_YearSelector = createElement( "div", "years-drop-down" );
         container.appendChild( _element_HeaderDateDisplay_YearSelector );
 
+        var monthButtons1 = createElement( "div", "months" ),
+            monthButtons2 = createElement( "div", "months" ),
+            monthButtons3 = createElement( "div", "months" ),
+            monthButtons4 = createElement( "div", "months" );
+
+        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons1 );
+        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons2 );
+        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons3 );
+        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons4 );
+
+        buildMonthNameButton( monthButtons1, 0 );
+        buildMonthNameButton( monthButtons1, 1 );
+        buildMonthNameButton( monthButtons1, 2 );
+        buildMonthNameButton( monthButtons2, 3 );
+        buildMonthNameButton( monthButtons2, 4 );
+        buildMonthNameButton( monthButtons2, 5 );
+        buildMonthNameButton( monthButtons3, 6 );
+        buildMonthNameButton( monthButtons3, 7 );
+        buildMonthNameButton( monthButtons3, 8 );
+        buildMonthNameButton( monthButtons4, 9 );
+        buildMonthNameButton( monthButtons4, 10 );
+        buildMonthNameButton( monthButtons4, 11 );
+
         _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
 
@@ -1697,6 +1721,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 break;
             }
         }
+    }
+
+    function buildMonthNameButton( container, monthNumber ) {
+        var button = createElement( "div", "month-name" ),
+            buttonText = _options.monthNamesAbbreviated[ monthNumber ];
+
+        button.onclick = function( e ) {
+            cancelBubble( e );
+
+            if ( _currentDate.getMonth() !== monthNumber ) {
+                _currentDate.setMonth( monthNumber );
+
+                build( _currentDate );
+                hideYearSelectorDropDown();
+            }
+        };
+
+        setNodeText( button, buttonText );
+
+        container.appendChild( button );
+
+        _element_HeaderDateDisplay_YearSelector_Contents_Months[ monthNumber.toString() ] = button;
     }
 
     function buildYearSelectorDropDownYear( actualYear ) {
@@ -1732,6 +1778,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_HeaderDateDisplay_YearSelector.style.display = "block";
             _element_HeaderDateDisplay_YearSelector_DropDown_Arrow.className = "ib-arrow-up-full-medium";
 
+            updateYearSelectorMonthSelected();
+
             var year = updateYearSelectorDropDownMenuColors();
             if ( year !== null ) {
                 _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - ( _element_HeaderDateDisplay_YearSelector.offsetHeight / 2 );
@@ -1741,6 +1789,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
         } else {
             hideYearSelectorDropDown();
+        }
+    }
+
+    function updateYearSelectorMonthSelected() {
+        for ( var monthNumber in _element_HeaderDateDisplay_YearSelector_Contents_Months ) {
+            if ( _element_HeaderDateDisplay_YearSelector_Contents_Months.hasOwnProperty( monthNumber.toString() ) ) {
+                _element_HeaderDateDisplay_YearSelector_Contents_Months[ monthNumber.toString() ].className = "month-name";
+            }
+        }
+
+        var monthNumberSelected = _currentDate.getMonth().toString();
+
+        if ( _element_HeaderDateDisplay_YearSelector_Contents_Months.hasOwnProperty( monthNumberSelected ) ) {
+            _element_HeaderDateDisplay_YearSelector_Contents_Months[ monthNumberSelected ].className = "month-name-selected";
         }
     }
 

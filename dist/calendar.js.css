@@ -620,7 +620,6 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   -ms-animation: fade-in-effect ease 0.5s;
   position: absolute;
   width: 240px;
-  height: 200px;
   border: 1px solid #282828;
   left: 50%;
   transform: translate(-50%);
@@ -641,17 +640,54 @@ div.calendar div.header-date div.title-container div.years-drop-down {
     top: calc( 10px + 0.7rem );
   }
 }
+div.calendar div.header-date div.title-container div.years-drop-down div.months {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+div.calendar div.header-date div.title-container div.years-drop-down div.months:first-child {
+  margin-top: 1px;
+}
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name,
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected {
+  width: calc(33.33% - 12px);
+  padding: 5px;
+  margin: 1px;
+  display: inline-block;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+}
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name {
+  background-color: #E0E0E0;
+  color: #282828;
+}
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:hover {
+  background-color: #282828;
+  color: #F5F5F5;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected) {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected {
+  background-color: #282828;
+  color: #F5F5F5;
+  transition: all 0.3s;
+}
 div.calendar div.header-date div.title-container div.years-drop-down div.contents {
+  border-radius: 0.25rem;
+  height: 100px;
   white-space: pre-line;
   -ms-word-break: break-all;
   word-break: break-all;
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
-  height: calc(100% - 10px);
   margin-left: 0 !important;
   margin-right: 0 !important;
-  margin-top: 0 !important;
+  margin-top: 3.3333333333px !important;
   padding: 0;
   padding-top: 5px;
   padding-bottom: 5px;
