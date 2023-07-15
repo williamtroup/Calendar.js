@@ -2,6 +2,8 @@
 
 ## Version 2.1.0:
 - Added "year" support for Holidays, which states if a holiday should only occur within one year (defaults to null).
+- Added "backgroundColor" support for Holidays, which states the background color that should be used for the day.
+- Added "textColor" support for Holidays, which states the text color that should be used for the day.
 - 
 
 <br>

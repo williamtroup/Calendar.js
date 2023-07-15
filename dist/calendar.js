@@ -2402,6 +2402,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (isWorkingDay(date)) {
         day.className += " working-day";
       }
+      addHolidayColors(day, date);
       dayHeader = createElement("div", "header");
       dayHeader.ondblclick = expandFunction;
       day.appendChild(dayHeader);
@@ -2676,9 +2677,15 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_options.showHolidays) {
       var holidayTextItemsAnyCase = [], holidaysLength = _options.holidays.length;
       for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
-        var holiday = _options.holidays[holidayIndex], holidayText = getString(holiday.title, _string.empty);
+        var holiday = _options.holidays[holidayIndex], holidayText = getString(holiday.title, _string.empty), holidayBackgroundColor = getString(holiday.backgroundColor, _string.empty), holidayTextColor = getString(holiday.textColor, _string.empty);
         if (isHolidayDateValidForDate(holiday, date) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf(holidayText.toLowerCase())) {
           addHolidayText(holiday, dayElement, holidayText, dayMutedClass);
+          if (holidayBackgroundColor !== _string.empty) {
+            dayElement.style.setProperty("background-color", holidayBackgroundColor, "important");
+          }
+          if (holidayTextColor !== _string.empty) {
+            dayElement.style.setProperty("color", holidayTextColor, "important");
+          }
           holidayTextItemsAnyCase.push(holidayText.toLowerCase());
         }
       }
@@ -2701,6 +2708,22 @@ function calendarJs(elementOrId, options, searchOptions) {
       valid = true;
     }
     return valid;
+  }
+  function addHolidayColors(container, date) {
+    if (_options.showHolidays) {
+      var holidaysLength = _options.holidays.length;
+      for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
+        var holiday = _options.holidays[holidayIndex], holidayText = getString(holiday.title, _string.empty), holidayBackgroundColor = getString(holiday.backgroundColor, _string.empty), holidayTextColor = getString(holiday.textColor, _string.empty);
+        if (isHolidayDateValidForDate(holiday, date) && holidayText !== _string.empty) {
+          if (holidayBackgroundColor !== _string.empty) {
+            container.style.setProperty("background-color", holidayBackgroundColor, "important");
+          }
+          if (holidayTextColor !== _string.empty) {
+            container.style.setProperty("color", holidayTextColor, "important");
+          }
+        }
+      }
+    }
   }
   function makeEventDraggable(event, eventDetails, dragFromDate, container) {
     if (!isEventLocked(eventDetails) && _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled) {

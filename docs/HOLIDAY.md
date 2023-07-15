@@ -10,3 +10,5 @@ Below is the format that is expected for an event object when set using "setOpti
 | *string* | title | The title for the holiday (i.e. Christmas Day). |
 | *Object* | onClick | Specifies an event that will be triggered when the holiday is clicked. |
 | *string* | onClickUrl | Specifies a URL that will opened when the holiday is clicked (overrides "onClick"). |
+| *string* | backgroundColor | The background color the day should use (defaults to null). |
+| *string* | textColor | The text color the day should use (defaults to null). |

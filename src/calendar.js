@@ -59,6 +59,8 @@
  * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
  * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
  * @property    {string}    onClickUrl                                  Specifies a URL that will opened when the holiday is clicked (overrides "onClick").
+ * @property    {string}    backgroundColor                             The background color the day should use (defaults to null).
+ * @property    {string}    textColor                                   The text color the day should use (defaults to null).
  */
 
 
@@ -4085,6 +4087,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 day.className += " working-day";
             }
 
+            addHolidayColors( day, date );
+
             dayHeader = createElement( "div", "header" );
             dayHeader.ondblclick = expandFunction;
             day.appendChild( dayHeader );
@@ -4482,10 +4486,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
                 var holiday = _options.holidays[ holidayIndex ],
-                    holidayText = getString( holiday.title, _string.empty );
+                    holidayText = getString( holiday.title, _string.empty ),
+                    holidayBackgroundColor = getString( holiday.backgroundColor, _string.empty ),
+                    holidayTextColor = getString( holiday.textColor, _string.empty );
 
                 if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
                     addHolidayText( holiday, dayElement, holidayText, dayMutedClass );
+
+                    if ( holidayBackgroundColor !== _string.empty ) {
+                        dayElement.style.setProperty( "background-color", holidayBackgroundColor, "important" );
+                    }
+
+                    if ( holidayTextColor !== _string.empty ) {
+                        dayElement.style.setProperty( "color", holidayTextColor, "important" );
+                    }
 
                     holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
                 }
@@ -4519,6 +4533,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return valid;
+    }
+
+    function addHolidayColors( container, date ) {
+        if ( _options.showHolidays ) {
+            var holidaysLength = _options.holidays.length;
+
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, _string.empty ),
+                    holidayBackgroundColor = getString( holiday.backgroundColor, _string.empty ),
+                    holidayTextColor = getString( holiday.textColor, _string.empty );
+
+                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty ) {
+                    if ( holidayBackgroundColor !== _string.empty ) {
+                        container.style.setProperty( "background-color", holidayBackgroundColor, "important" );
+                    }
+
+                    if ( holidayTextColor !== _string.empty ) {
+                        container.style.setProperty( "color", holidayTextColor, "important" );
+                    }
+                }
+            }
+        }
     }
 
     
