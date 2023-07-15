@@ -81,6 +81,35 @@ div.calendar-dialog textarea *::after {
   line-height: normal;
 }
 
+div.calendar-notification {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: auto;
+  height: auto;
+  display: none;
+}
+div.calendar-notification div.success,
+div.calendar-notification div.error {
+  padding: 10px;
+  border-radius: 0.25rem;
+}
+div.calendar-notification div.success {
+  background-color: #EFE;
+  border: 1px solid #DED;
+  color: #9A9;
+}
+div.calendar-notification div.error {
+  background-color: #FEE;
+  border: 1px solid #EDD;
+  color: #A66;
+}
+
 div.disabled-background {
   top: 0;
   left: 0;

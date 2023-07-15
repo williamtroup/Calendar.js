@@ -270,6 +270,13 @@
  * @property    {string}    showOnlyWorkingDaysText                     The text that should be displayed for the "Show Only Working Days" label.
  * @property    {string}    exportFilenamePlaceholderText               The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)").
  * @property    {string}    exportText                                  The text that should be displayed for the "Export" button.
+ * @property    {string}    configurationUpdatedText                    The text that should be displayed for the "Configuration updated." notification.
+ * @property    {string}    eventAddedText                              The text that should be displayed for the "{0} event added." notification.
+ * @property    {string}    eventUpdatedText                            The text that should be displayed for the "{0} event updated." notification.
+ * @property    {string}    eventRemovedText                            The text that should be displayed for the "{0} event removed." notification.
+ * @property    {string}    eventsRemovedText                           The text that should be displayed for the "{0} events removed." notification.
+ * @property    {string}    eventsExportedText                          The text that should be displayed for the "Events exported to {0}." notification.
+ * @property    {string}    eventsPastedText                            The text that should be displayed for the "{0} events pasted." notification.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -462,7 +469,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             searchOptionsChanged: "SearchOptionsChanged",
             searchEventsHistoryDropDown: "SearchEventsHistoryDropDown",
             showToolTip: "ShowToolTip",
-            autoRefresh: "AutoRefresh"
+            autoRefresh: "AutoRefresh",
+            hideNotification: "HideNotification"
         },
         _timers = {},
         _options = {},
@@ -712,7 +720,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ConfigurationDialog_Display_ShowEmptyDaysInWeekView = null,
         _element_ConfigurationDialog_Display_ShowHolidaysInTheDisplays = null,
         _element_ConfigurationDialog_Organizer_Name = null,
-        _element_ConfigurationDialog_Organizer_Email = null;
+        _element_ConfigurationDialog_Organizer_Email = null,
+        _element_Notification = null;
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -758,6 +767,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildConfigurationDialog();
             buildTooltip();
             buildDropDownMenus();
+            buildNotificationPopUp();
         }
 
         if ( forceRefreshViews ) {
@@ -827,15 +837,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
         };
 
         var onYesEvent = function() {
+            var eventsRemoved = 0;
+
             onNoEvent();
 
             getAllEventsFunc( function( eventDetails ) {
                 var repeatEvery = getNumber( eventDetails.repeatEvery );
                 if ( repeatEvery === _repeatType.never && compareFunc( eventDetails.from, date ) ) {
                     _this.removeEvent( eventDetails.id, false );
+                    eventsRemoved++;
                 }
             } );
 
+            showNotificationPopUp( _options.eventsRemovedText.replace( "{0}", eventsRemoved ) );
             refreshViews();
         };
 
@@ -4775,7 +4789,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
             }
 
-            _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate, repeatEndsDate );            
+            _this.updateEventDateTimes( _eventDetails_Dragged.id, fromDate, toDate, repeatEndsDate );
+            
+            showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _eventDetails_Dragged.title ) );           
             refreshViews();
         } else {
 
@@ -4795,6 +4811,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             eventDetails.to = new Date( year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0 );
 
             _this.addEvent( eventDetails );
+
+            showNotificationPopUp( _options.eventAddedText.replace( "{0}", eventDetails.title ) );
         }
     }
 
@@ -4969,6 +4987,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                         } else {
                             _this.removeEvent( _element_DropDownMenu_Event_EventDetails.id, true );
+
+                            showNotificationPopUp( _options.eventRemovedText.replace( "{0}", _element_DropDownMenu_Event_EventDetails.title ) );
                         }
                         
                         refreshOpenedViews();
@@ -5844,8 +5864,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 if ( isExistingEvent ) {
                     _this.updateEvent( _element_EventEditorDialog_EventDetails.id, newEvent, false );
+
+                    showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _element_EventEditorDialog_EventDetails.title ) );
                 } else {
                     _this.addEvent( newEvent, false );
+
+                    showNotificationPopUp( _options.eventAddedText.replace( "{0}", _element_EventEditorDialog_EventDetails.title ) );
                 }
     
                 buildDayEvents();
@@ -5874,6 +5898,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isDefined( _element_EventEditorDialog_EventDetails.id ) ) {
                 _this.removeEvent( _element_EventEditorDialog_EventDetails.id, true );
+                showNotificationPopUp( _options.eventRemovedText.replace( "{0}", _element_EventEditorDialog_EventDetails.title ) );
                 refreshOpenedViews();
             }
         };
@@ -5922,6 +5947,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _this.addEvent( newEvent, false );
 
+        showNotificationPopUp( _options.eventAddedText.replace( "{0}", newEvent.title ) );
         buildDayEvents();
         refreshOpenedViews();
 
@@ -6955,6 +6981,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         checkForBrowserNotificationsPermission();
         hideConfigurationDialog();
         build( _currentDate, true, true );
+        showNotificationPopUp( _options.configurationUpdatedText );
     }
 
     function configurationDialogEvent_Cancel() {
@@ -7166,6 +7193,39 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showTooltip( e, null, text, overrideShow );
             };
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Notification Pop-Up
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildNotificationPopUp() {
+        if ( _element_Notification === null ) {
+            _element_Notification = createElement( "div", "calendar-notification" );
+            _document.body.appendChild( _element_Notification );
+        }
+    }
+
+    function showNotificationPopUp( text, success ) {
+        success = isDefined( success ) ? success : true;
+
+        stopAndResetTimer( _timerName.hideNotification );
+
+        _element_Notification.innerHTML = _string.empty;
+
+        var message = createElement( "div", success ? "success" : "error" );
+        _element_Notification.appendChild( message );
+
+        _element_Notification.style.display = "block";
+
+        setNodeText( message, text );
+
+        startTimer( _timerName.hideNotification, function() {
+            _element_Notification.style.display = "none";
+        }, 5000, false );
     }
 
 
@@ -7562,6 +7622,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerOptionsEventWithData( "onEventUpdated", newEvent );
             }
         }
+
+        showNotificationPopUp( _options.eventsPastedText.replace( "{0}", copiedEventDetailsLength ) );
 
         if ( cut ) {
             clearSelectedEvents();
@@ -8367,6 +8429,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _document.body.removeChild( tempLink );
     
             triggerOptionsEvent( "onEventsExported" );
+            showNotificationPopUp( _options.eventsExportedText.replace( "{0}", filename ) );
         }
     }
 
@@ -9106,6 +9169,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         clearElementsByClassName( _document.body, "calendar-drop-down-menu" );
         clearElementsByClassName( _document.body, "calendar-tooltip" );
         clearElementsByClassName( _document.body, "calendar-tooltip-event" );
+        clearElementsByClassName( _document.body, "calendar-notification" );
 
         _element_Calendar.className = _string.empty;
         _element_Calendar.innerHTML = _string.empty;
@@ -10676,6 +10740,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.exportFilenamePlaceholderText = getDefaultString( _options.exportFilenamePlaceholderText, "Name (optional)" );
         _options.errorText = getDefaultString( _options.errorText, "Error" );
         _options.exportText = getDefaultString( _options.exportText, "Export" );
+        _options.configurationUpdatedText = getDefaultString( _options.configurationUpdatedText, "Configuration updated." );
+        _options.eventAddedText = getDefaultString( _options.eventAddedText, "{0} event added." );
+        _options.eventUpdatedText = getDefaultString( _options.eventUpdatedText, "{0} event updated." );
+        _options.eventRemovedText = getDefaultString( _options.eventRemovedText, "{0} event removed." );
+        _options.eventsRemovedText = getDefaultString( _options.eventsRemovedText, "{0} events removed." );
+        _options.eventsExportedText = getDefaultString( _options.eventsExportedText, "Events exported to {0}." );
+        _options.eventsPastedText = getDefaultString( _options.eventsPastedText, "{0} events pasted." );
     }
 
     function setEventTypeTranslationStringOptions() {

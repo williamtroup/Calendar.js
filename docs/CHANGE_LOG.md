@@ -5,6 +5,7 @@
 - Added "backgroundColor" support for Holidays, which states the background color that should be used for the day.
 - Added "textColor" support for Holidays, which states the text color that should be used for the day.
 - Added month name selection support to the Years Drop-Down on the main display (shows which month is currently selected).
+- Added popup notification support when actions are performed (events added/updated/deleted, events exported, etc).
 - 
 
 <br>
