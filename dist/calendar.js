@@ -1835,6 +1835,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes);
       _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes);
       triggerOptionsEventWithData("onEventUpdated", _element_FullDayView_Event_Dragged_EventDetails);
+      showNotificationPopUp(_options.eventUpdatedText.replace("{0}", _element_FullDayView_Event_Dragged_EventDetails.title));
       _element_FullDayView_Event_Dragged = null;
       _element_FullDayView_Event_Dragged_EventDetails = null;
       _element_FullDayView_Event_Dragged_Offset = 0;
@@ -1856,6 +1857,7 @@ function calendarJs(elementOrId, options, searchOptions) {
               eventSizeDetails.eventDetails.to = addMinutesToDate(eventSizeDetails.eventDetails.to, differenceMinutes);
               eventsResized = true;
               triggerOptionsEventWithData("onEventUpdated", eventSizeDetails.eventDetails);
+              showNotificationPopUp(_options.eventUpdatedText.replace("{0}", eventSizeDetails.eventDetails.title));
             }
           }
           if (eventsResized) {
