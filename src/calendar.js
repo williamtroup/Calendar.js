@@ -55,6 +55,7 @@
  *
  * @property    {number}    day                                         The day that the holiday occurs.
  * @property    {number}    month                                       The month that the holiday occurs.
+ * @property    {number}    year                                        The year that the holiday occurs (if the holiday only occurs once. Defaults to null).
  * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
  * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
  * @property    {string}    onClickUrl                                  Specifies a URL that will opened when the holiday is clicked (overrides "onClick").
@@ -4441,6 +4442,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Holidays
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
     function getHolidaysText( date ) {
         var result = null;
 
@@ -4453,7 +4461,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var holiday = _options.holidays[ holidayIndex ],
                     holidayText = getString( holiday.title, _string.empty );
 
-                if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
                     holidayTextItems.push( holidayText );
                     holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
                 }
@@ -4476,7 +4484,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var holiday = _options.holidays[ holidayIndex ],
                     holidayText = getString( holiday.title, _string.empty );
 
-                if ( getNumber( holiday.day ) === date.getDate() && getNumber( holiday.month ) === date.getMonth() + 1 && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
                     addHolidayText( holiday, dayElement, holidayText, dayMutedClass );
 
                     holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
@@ -4496,6 +4504,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true, true );
+    }
+
+    function isHolidayDateValidForDate( holiday, date ) {
+        var day = getNumber( holiday.day ),
+            month = getNumber( holiday.month ),
+            year = getNumber( holiday.year ),
+            valid = false;
+
+        if ( year === 0 && day === date.getDate() && month === date.getMonth() + 1 ) {
+            valid = true;
+        } else if ( year > 0 && day === date.getDate() && month === date.getMonth() + 1 && year === date.getFullYear() ) {
+            valid = true;
+        }
+
+        return valid;
     }
 
     

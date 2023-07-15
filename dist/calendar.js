@@ -2661,7 +2661,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var holidayTextItems = [], holidayTextItemsAnyCase = [], holidaysLength = _options.holidays.length;
       for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
         var holiday = _options.holidays[holidayIndex], holidayText = getString(holiday.title, _string.empty);
-        if (getNumber(holiday.day) === date.getDate() && getNumber(holiday.month) === date.getMonth() + 1 && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf(holidayText.toLowerCase())) {
+        if (isHolidayDateValidForDate(holiday, date) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf(holidayText.toLowerCase())) {
           holidayTextItems.push(holidayText);
           holidayTextItemsAnyCase.push(holidayText.toLowerCase());
         }
@@ -2677,7 +2677,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var holidayTextItemsAnyCase = [], holidaysLength = _options.holidays.length;
       for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
         var holiday = _options.holidays[holidayIndex], holidayText = getString(holiday.title, _string.empty);
-        if (getNumber(holiday.day) === date.getDate() && getNumber(holiday.month) === date.getMonth() + 1 && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf(holidayText.toLowerCase())) {
+        if (isHolidayDateValidForDate(holiday, date) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf(holidayText.toLowerCase())) {
           addHolidayText(holiday, dayElement, holidayText, dayMutedClass);
           holidayTextItemsAnyCase.push(holidayText.toLowerCase());
         }
@@ -2692,6 +2692,15 @@ function calendarJs(elementOrId, options, searchOptions) {
       };
     }
     createSpanElement(dayElement, holidayText, className + dayMutedClass, onClickEvent, true, true);
+  }
+  function isHolidayDateValidForDate(holiday, date) {
+    var day = getNumber(holiday.day), month = getNumber(holiday.month), year = getNumber(holiday.year), valid = false;
+    if (year === 0 && day === date.getDate() && month === date.getMonth() + 1) {
+      valid = true;
+    } else if (year > 0 && day === date.getDate() && month === date.getMonth() + 1 && year === date.getFullYear()) {
+      valid = true;
+    }
+    return valid;
   }
   function makeEventDraggable(event, eventDetails, dragFromDate, container) {
     if (!isEventLocked(eventDetails) && _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled) {
