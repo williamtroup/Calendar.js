@@ -63,6 +63,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | defaultEventDuration | The default duration used when a new event is added (defaults to 30 minutes). |
 | *string* | monthTitleBarDateFormat | States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *boolean* | configurationDialogEnabled | States if the configuration dialog is enabled (defaults to true). |
+| *boolean* | popUpNotificationsEnabled | States if the popup notifications (when actions are performed) is enabled (defaults to true). |
 <br/>
 
 ### Translatable String Options:

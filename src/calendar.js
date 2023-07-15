@@ -335,6 +335,7 @@
  * @property    {number}    defaultEventDuration                        The default duration used when a new event is added (defaults to 30 minutes).
  * @property    {string}    monthTitleBarDateFormat                     States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
  * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
+ * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) is enabled (defaults to true).
  */
 
 
@@ -7203,29 +7204,31 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildNotificationPopUp() {
-        if ( _element_Notification === null ) {
+        if ( _element_Notification === null && !_datePickerModeEnabled ) {
             _element_Notification = createElement( "div", "calendar-notification" );
             _document.body.appendChild( _element_Notification );
         }
     }
 
     function showNotificationPopUp( text, success ) {
-        success = isDefined( success ) ? success : true;
+        if ( _options.popUpNotificationsEnabled ) {
+            success = isDefined( success ) ? success : true;
 
-        stopAndResetTimer( _timerName.hideNotification );
-
-        _element_Notification.innerHTML = _string.empty;
-
-        var message = createElement( "div", success ? "success" : "error" );
-        _element_Notification.appendChild( message );
-
-        _element_Notification.style.display = "block";
-
-        setNodeText( message, text );
-
-        startTimer( _timerName.hideNotification, function() {
-            _element_Notification.style.display = "none";
-        }, 5000, false );
+            stopAndResetTimer( _timerName.hideNotification );
+    
+            _element_Notification.innerHTML = _string.empty;
+    
+            var message = createElement( "div", success ? "success" : "error" );
+            _element_Notification.appendChild( message );
+    
+            _element_Notification.style.display = "block";
+    
+            setNodeText( message, text );
+    
+            startTimer( _timerName.hideNotification, function() {
+                _element_Notification.style.display = "none";
+            }, 5000, false );
+        }
     }
 
 
@@ -10480,6 +10483,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.defaultEventDuration = getDefaultNumber( _options.defaultEventDuration, 30 );
         _options.monthTitleBarDateFormat = getDefaultString( _options.monthTitleBarDateFormat, "{mmmm} {yyyy}" );
         _options.configurationDialogEnabled = getDefaultBoolean( _options.configurationDialogEnabled, true );
+        _options.popUpNotificationsEnabled = getDefaultBoolean( _options.popUpNotificationsEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
