@@ -1697,33 +1697,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildYearSelectorDropDown( container ) {
-        var yearDate = new Date( _options.minimumYear, 1, 1 );
+        var yearDate = new Date( _options.minimumYear, 1, 1 ),
+            monthContainer = null;
 
         _element_HeaderDateDisplay_YearSelector = createElement( "div", "years-drop-down" );
         container.appendChild( _element_HeaderDateDisplay_YearSelector );
 
-        var monthButtons1 = createElement( "div", "months" ),
-            monthButtons2 = createElement( "div", "months" ),
-            monthButtons3 = createElement( "div", "months" ),
-            monthButtons4 = createElement( "div", "months" );
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            if ( monthIndex % 3 === 0 ) {
+                monthContainer = createElement( "div", "months" );
 
-        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons1 );
-        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons2 );
-        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons3 );
-        _element_HeaderDateDisplay_YearSelector.appendChild( monthButtons4 );
+                _element_HeaderDateDisplay_YearSelector.appendChild( monthContainer );
+            }
 
-        buildMonthNameButton( monthButtons1, 0 );
-        buildMonthNameButton( monthButtons1, 1 );
-        buildMonthNameButton( monthButtons1, 2 );
-        buildMonthNameButton( monthButtons2, 3 );
-        buildMonthNameButton( monthButtons2, 4 );
-        buildMonthNameButton( monthButtons2, 5 );
-        buildMonthNameButton( monthButtons3, 6 );
-        buildMonthNameButton( monthButtons3, 7 );
-        buildMonthNameButton( monthButtons3, 8 );
-        buildMonthNameButton( monthButtons4, 9 );
-        buildMonthNameButton( monthButtons4, 10 );
-        buildMonthNameButton( monthButtons4, 11 );
+            buildMonthNameButton( monthContainer, monthIndex );
+        }
 
         _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div", "contents custom-scroll-bars" );
         _element_HeaderDateDisplay_YearSelector.appendChild( _element_HeaderDateDisplay_YearSelector_Contents );
