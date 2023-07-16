@@ -22,7 +22,7 @@ Calendar.js
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc).
-- Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV.
+- Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV, with system clipboard setting support.
 - Full-screen mode (double clicking the title bar).
 - Search support (with search history).
 - Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support).

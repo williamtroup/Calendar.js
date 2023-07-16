@@ -48,6 +48,7 @@ div.calendar-dialog textarea {
 
 div.calendar-notification {
     @include fade-in-effect-animation( 0.5s );
+    @include no-selection-allowed;
     position: absolute;
     bottom: $spacing;
     right: $spacing;
@@ -1443,7 +1444,7 @@ div.message {
 */
 
 div.export-events {
-    @include dialog-styles( 280px );
+    @include dialog-styles( 300px );
     @include dialog-title-bar;
 
     div.contents {
@@ -1453,11 +1454,17 @@ div.export-events {
             @include input-fields( 40px );
         }
 
-        div.split {
-            margin-top: 0;
+        input:disabled {
+            @include no-selection-allowed;
+            background-color: $light-color;
+            color: $input-border-color;
+        }
 
-            &:last-child {
-                margin-top: $spacing * 2;
+        div.options {
+            @include advanced-options-container( 0 );
+
+            div.split {
+                margin-top: 0;
             }
         }
     }
@@ -1561,13 +1568,7 @@ div.search {
         }
 
         div.advanced {
-            @include fade-in-effect-animation( 0.5s );
-            background-color: $day-names-color;
-            padding: $spacing;
-            margin-top: $spacing !important;
-            margin-left: $checkbox-size-with-spacing;
-            border-radius: $border-view-radius;
-            border: $standard-border-size solid #D0D0D0;
+            @include advanced-options-container;
 
             div.split {
                 margin-top: 0 !important;

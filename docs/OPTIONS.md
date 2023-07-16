@@ -235,5 +235,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventUpdatedText | The text that should be displayed for the "{0} event updated." notification. |
 | *string* | eventRemovedText | The text that should be displayed for the "{0} event removed." notification. |
 | *string* | eventsRemovedText | The text that should be displayed for the "{0} events removed." notification. |
-| *string* | eventsExportedText | The text that should be displayed for the "Events exported to {0}." notification. |
+| *string* | eventsExportedToText | The text that should be displayed for the "Events exported to {0}." notification. |
 | *string* | eventsPastedText | The text that should be displayed for the "{0} events pasted." notification. |
+| *string* | eventsExportedText | The text that should be displayed for the "Events exported." notification. |
+| *string* | copyToClipboardOnlyText | The text that should be displayed for the "Copy to clipboard only" label. |

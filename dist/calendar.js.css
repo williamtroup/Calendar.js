@@ -87,6 +87,12 @@ div.calendar-notification {
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -2153,7 +2159,7 @@ div.message input[type=button].yes-ok, div.message input[type=button].no {
 */
 div.export-events {
   width: calc(100% - ( 10px * 2 ));
-  max-width: 280px;
+  max-width: 300px;
   border-radius: 0.25rem;
   background-color: #F5F5F5;
   border: 1px solid #282828;
@@ -2209,11 +2215,31 @@ div.export-events div.contents input[type=text]:focus {
 div.export-events div.contents input[type=text]:not(:disabled):hover {
   border: 1px solid #282828;
 }
-div.export-events div.contents div.split {
-  margin-top: 0;
+div.export-events div.contents input:disabled {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  background-color: #F5F5F5;
+  color: #A8A8A8;
 }
-div.export-events div.contents div.split:last-child {
-  margin-top: 20px;
+div.export-events div.contents div.options {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
+  background-color: #E0E0E0;
+  padding: 10px;
+  margin-top: 0 !important;
+  margin-left: 25px;
+  border-radius: 0.25rem;
+  border: 1px solid #D0D0D0;
+}
+div.export-events div.contents div.options div.split {
+  margin-top: 0;
 }
 div.export-events div.split input,
 div.export-events div.split select,
