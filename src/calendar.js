@@ -5992,7 +5992,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var section1 = createElement( "div", "section" );
             contents.appendChild( section1 );
     
-            createTextHeaderElement( section1, _options.backgroundColorText );
+            createTextHeaderElement( section1, _options.backgroundColorText, "text-header" );
     
             _element_EventEditorColorsDialog_Color = createElement( "input" );
             section1.appendChild( _element_EventEditorColorsDialog_Color );
@@ -6002,7 +6002,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var section2 = createElement( "div", "section" );
             contents.appendChild( section2 );
 
-            createTextHeaderElement( section2, _options.textColorText );
+            createTextHeaderElement( section2, _options.textColorText, "text-header" );
     
             _element_EventEditorColorsDialog_ColorText = createElement( "input" );
             section2.appendChild( _element_EventEditorColorsDialog_ColorText );
@@ -6012,7 +6012,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var section3 = createElement( "div", "section" );
             contents.appendChild( section3 );
 
-            createTextHeaderElement( section3, _options.borderColorText );
+            createTextHeaderElement( section3, _options.borderColorText, "text-header" );
     
             _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
             section3.appendChild( _element_EventEditorColorsDialog_ColorBorder );
@@ -6074,7 +6074,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var section1 = createElement( "div", "section" );
             contents.appendChild( section1 );
     
-            createTextHeaderElement( section1, _options.daysToExcludeText );
+            createTextHeaderElement( section1, _options.daysToExcludeText, "text-header" );
     
             _element_EventEditorRepeatOptionsDialog_Mon = buildCheckBox( section1, _options.dayNames[ 0 ] )[ 0 ];
             _element_EventEditorRepeatOptionsDialog_Tue = buildCheckBox( section1, _options.dayNames[ 1 ] )[ 0 ];
@@ -6087,7 +6087,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var section2 = createElement( "div", "section" );
             contents.appendChild( section2 );
 
-            createTextHeaderElement( section2, _options.repeatEndsText );
+            createTextHeaderElement( section2, _options.repeatEndsText, "text-header" );
     
             _element_EventEditorRepeatOptionsDialog_RepeatEnds = createElement( "input" );
             section2.appendChild( _element_EventEditorRepeatOptionsDialog_RepeatEnds );

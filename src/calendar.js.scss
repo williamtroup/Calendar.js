@@ -1301,16 +1301,16 @@ div.event-editor-colors {
     div.contents {
         padding: $spacing;
 
-        p {
-            @include no-selection-allowed;
-            margin: 0;
-            margin-bottom: 8px;
-        }
-
         div.section {
             @include advanced-options-container( 0 );
             margin-left: 0;
             margin-bottom: $spacing;
+
+            p {
+                @include no-selection-allowed;
+                margin: 0;
+                margin-bottom: 8px;
+            }
         }
     }
     
@@ -1353,21 +1353,21 @@ div.event-editor-repeat-options {
     div.contents {
         padding: $spacing;
 
-        p {
-            @include no-selection-allowed;
-            margin: 0;
-            margin-top: 5px;
-            margin-bottom: 8px;
-
-            &:first-child {
-                margin-top: 0;
-            }
-        }
-
         div.section {
             @include advanced-options-container( 0 );
             margin-left: 0;
             margin-bottom: $spacing;
+
+            p {
+                @include no-selection-allowed;
+                margin: 0;
+                margin-top: 5px;
+                margin-bottom: 8px;
+    
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
         }
     }
 

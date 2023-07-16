@@ -1779,16 +1779,6 @@ div.event-editor-colors div.title-bar {
 div.event-editor-colors div.contents {
   padding: 10px;
 }
-div.event-editor-colors div.contents p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  margin: 0;
-  margin-bottom: 8px;
-}
 div.event-editor-colors div.contents div.section {
   animation: fade-in-effect ease 0.5s;
   -webkit-animation: fade-in-effect ease 0.5s;
@@ -1803,6 +1793,16 @@ div.event-editor-colors div.contents div.section {
   border: 1px solid #D0D0D0;
   margin-left: 0;
   margin-bottom: 10px;
+}
+div.event-editor-colors div.contents div.section p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-bottom: 8px;
 }
 div.event-editor-colors input[type=color],
 div.event-editor-colors input[type=text] {
@@ -1937,20 +1937,6 @@ div.event-editor-repeat-options div.title-bar {
 div.event-editor-repeat-options div.contents {
   padding: 10px;
 }
-div.event-editor-repeat-options div.contents p {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  margin: 0;
-  margin-top: 5px;
-  margin-bottom: 8px;
-}
-div.event-editor-repeat-options div.contents p:first-child {
-  margin-top: 0;
-}
 div.event-editor-repeat-options div.contents div.section {
   animation: fade-in-effect ease 0.5s;
   -webkit-animation: fade-in-effect ease 0.5s;
@@ -1965,6 +1951,20 @@ div.event-editor-repeat-options div.contents div.section {
   border: 1px solid #D0D0D0;
   margin-left: 0;
   margin-bottom: 10px;
+}
+div.event-editor-repeat-options div.contents div.section p {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+div.event-editor-repeat-options div.contents div.section p:first-child {
+  margin-top: 0;
 }
 div.event-editor-repeat-options input:not([type=button]),
 div.event-editor-repeat-options textarea {
