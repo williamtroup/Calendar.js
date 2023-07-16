@@ -5984,30 +5984,38 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_EventEditorColorsDialog.appendChild( titleBar );
 
             makeDialogMovable( titleBar, _element_EventEditorColorsDialog, null );
-    
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventColorsDialogEvent_Cancel, true );
     
             var contents = createElement( "div", "contents" );
             _element_EventEditorColorsDialog.appendChild( contents );
+
+            var section1 = createElement( "div", "section" );
+            contents.appendChild( section1 );
     
-            createTextHeaderElement( contents, _options.backgroundColorText );
+            createTextHeaderElement( section1, _options.backgroundColorText );
     
             _element_EventEditorColorsDialog_Color = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_Color );
+            section1.appendChild( _element_EventEditorColorsDialog_Color );
     
             setInputType( _element_EventEditorColorsDialog_Color, "color" );
     
-            createTextHeaderElement( contents, _options.textColorText );
+            var section2 = createElement( "div", "section" );
+            contents.appendChild( section2 );
+
+            createTextHeaderElement( section2, _options.textColorText );
     
             _element_EventEditorColorsDialog_ColorText = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_ColorText );
+            section2.appendChild( _element_EventEditorColorsDialog_ColorText );
     
             setInputType( _element_EventEditorColorsDialog_ColorText, "color" );
     
-            createTextHeaderElement( contents, _options.borderColorText );
+            var section3 = createElement( "div", "section" );
+            contents.appendChild( section3 );
+
+            createTextHeaderElement( section3, _options.borderColorText );
     
             _element_EventEditorColorsDialog_ColorBorder = createElement( "input" );
-            contents.appendChild( _element_EventEditorColorsDialog_ColorBorder );
+            section3.appendChild( _element_EventEditorColorsDialog_ColorBorder );
     
             setInputType( _element_EventEditorColorsDialog_ColorBorder, "color" );
     
@@ -6058,26 +6066,31 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_EventEditorRepeatOptionsDialog.appendChild( titleBar );
 
             makeDialogMovable( titleBar, _element_EventEditorRepeatOptionsDialog, null );
-    
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, eventRepeatOptionsDialogEvent_Cancel, true );
     
             var contents = createElement( "div", "contents" );
             _element_EventEditorRepeatOptionsDialog.appendChild( contents );
+
+            var section1 = createElement( "div", "section" );
+            contents.appendChild( section1 );
     
-            createTextHeaderElement( contents, _options.daysToExcludeText );
+            createTextHeaderElement( section1, _options.daysToExcludeText );
     
-            _element_EventEditorRepeatOptionsDialog_Mon = buildCheckBox( contents, _options.dayNames[ 0 ] )[ 0 ];
-            _element_EventEditorRepeatOptionsDialog_Tue = buildCheckBox( contents, _options.dayNames[ 1 ] )[ 0 ];
-            _element_EventEditorRepeatOptionsDialog_Wed = buildCheckBox( contents, _options.dayNames[ 2 ] )[ 0 ];
-            _element_EventEditorRepeatOptionsDialog_Thu = buildCheckBox( contents, _options.dayNames[ 3 ] )[ 0 ];
-            _element_EventEditorRepeatOptionsDialog_Fri = buildCheckBox( contents, _options.dayNames[ 4 ] )[ 0 ];
-            _element_EventEditorRepeatOptionsDialog_Sat = buildCheckBox( contents, _options.dayNames[ 5 ] )[ 0 ];
-            _element_EventEditorRepeatOptionsDialog_Sun = buildCheckBox( contents, _options.dayNames[ 6 ] )[ 0 ];
+            _element_EventEditorRepeatOptionsDialog_Mon = buildCheckBox( section1, _options.dayNames[ 0 ] )[ 0 ];
+            _element_EventEditorRepeatOptionsDialog_Tue = buildCheckBox( section1, _options.dayNames[ 1 ] )[ 0 ];
+            _element_EventEditorRepeatOptionsDialog_Wed = buildCheckBox( section1, _options.dayNames[ 2 ] )[ 0 ];
+            _element_EventEditorRepeatOptionsDialog_Thu = buildCheckBox( section1, _options.dayNames[ 3 ] )[ 0 ];
+            _element_EventEditorRepeatOptionsDialog_Fri = buildCheckBox( section1, _options.dayNames[ 4 ] )[ 0 ];
+            _element_EventEditorRepeatOptionsDialog_Sat = buildCheckBox( section1, _options.dayNames[ 5 ] )[ 0 ];
+            _element_EventEditorRepeatOptionsDialog_Sun = buildCheckBox( section1, _options.dayNames[ 6 ] )[ 0 ];
     
-            createTextHeaderElement( contents, _options.repeatEndsText );
+            var section2 = createElement( "div", "section" );
+            contents.appendChild( section2 );
+
+            createTextHeaderElement( section2, _options.repeatEndsText );
     
             _element_EventEditorRepeatOptionsDialog_RepeatEnds = createElement( "input" );
-            contents.appendChild( _element_EventEditorRepeatOptionsDialog_RepeatEnds );
+            section2.appendChild( _element_EventEditorRepeatOptionsDialog_RepeatEnds );
     
             setInputType( _element_EventEditorRepeatOptionsDialog_RepeatEnds, "date" );
     
@@ -6919,7 +6932,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ConfigurationDialog.appendChild( titleBar );
 
             makeDialogMovable( titleBar, _element_ConfigurationDialog, null );
-    
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, configurationDialogEvent_Cancel, true );
     
             var contents = createElement( "div", "contents" );

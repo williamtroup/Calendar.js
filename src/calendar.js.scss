@@ -1290,12 +1290,12 @@ div.event-editor {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Colors
+    Calendar.js - Dialog - Event Editor - Select Colors
     -------------------------------------------------------------------------
 */
 
 div.event-editor-colors {
-    @include dialog-styles( 280px );
+    @include dialog-styles( 300px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1306,6 +1306,12 @@ div.event-editor-colors {
             margin: 0;
             margin-bottom: 8px;
         }
+
+        div.section {
+            @include advanced-options-container( 0 );
+            margin-left: 0;
+            margin-bottom: $spacing;
+        }
     }
     
     input[type="color"],
@@ -1314,7 +1320,7 @@ div.event-editor-colors {
     }
 
     div.buttons-container {
-        margin-top: $spacing;
+        margin-top: calc( $spacing * 2 );
         text-align: right;
     }
 
@@ -1336,12 +1342,12 @@ div.event-editor-colors {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Repeat Options
+    Calendar.js - Dialog - Event Editor - Repeat Options
     -------------------------------------------------------------------------
 */
 
 div.event-editor-repeat-options {
-    @include dialog-styles( 280px );
+    @include dialog-styles( 300px );
     @include dialog-title-bar;
     
     div.contents {
@@ -1356,6 +1362,12 @@ div.event-editor-repeat-options {
             &:first-child {
                 margin-top: 0;
             }
+        }
+
+        div.section {
+            @include advanced-options-container( 0 );
+            margin-left: 0;
+            margin-bottom: $spacing;
         }
     }
 
