@@ -63,6 +63,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | defaultEventDuration | The default duration used when a new event is added (defaults to 30 minutes). |
 | *string* | monthTitleBarDateFormat | States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *boolean* | configurationDialogEnabled | States if the configuration dialog is enabled (defaults to true). |
+| *boolean* | popUpNotificationsEnabled | States if the popup notifications (when actions are performed) is enabled (defaults to true). |
 <br/>
 
 ### Translatable String Options:
@@ -229,3 +230,12 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | showOnlyWorkingDaysText | The text that should be displayed for the "Show Only Working Days" label. |
 | *string* | exportFilenamePlaceholderText | The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)"). |
 | *string* | exportText | The text that should be displayed for the "Export" button. |
+| *string* | configurationUpdatedText | The text that should be displayed for the "Configuration updated." notification. |
+| *string* | eventAddedText | The text that should be displayed for the "{0} event added." notification. |
+| *string* | eventUpdatedText | The text that should be displayed for the "{0} event updated." notification. |
+| *string* | eventRemovedText | The text that should be displayed for the "{0} event removed." notification. |
+| *string* | eventsRemovedText | The text that should be displayed for the "{0} events removed." notification. |
+| *string* | eventsExportedToText | The text that should be displayed for the "Events exported to {0}." notification. |
+| *string* | eventsPastedText | The text that should be displayed for the "{0} events pasted." notification. |
+| *string* | eventsExportedText | The text that should be displayed for the "Events exported." notification. |
+| *string* | copyToClipboardOnlyText | The text that should be displayed for the "Copy to clipboard only" label. |

@@ -1,5 +1,16 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.0:
+- Added "year" support for Holidays, which states if a holiday should only occur within one year (defaults to null).
+- Added "backgroundColor" support for Holidays, which states the background color that should be used for the day.
+- Added "textColor" support for Holidays, which states the text color that should be used for the day.
+- Added month name selection support to the Years Drop-Down on the main display (shows which month is currently selected).
+- Added popup notification support when actions are performed (events added/updated/deleted, events exported, etc).
+- Added option "Copy to clipboard only" to the "Export Events" dialog (only copies the output format for the events to the system clipboard).
+- Updated the layout for the "Export Events", "Repeat Options", and "Select Colors" dialogs.
+
+<br>
+
 ## Version 2.0.12:
 - Increased the default width for the Search dialog, and tabbed in the Advanced criteria.
 - Internal rename (including CSS names) for the Confirmation dialog. It is now called Message.

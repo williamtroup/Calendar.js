@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.0.12
+ * Calendar.js Library v2.1.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -42,6 +42,62 @@ div.calendar-dialog textarea {
         &::after {
             box-sizing: content-box;
             line-height: normal;
+        }
+    }
+}
+
+div.calendar-notification {
+    @include fade-in-effect-animation( 0.5s );
+    @include no-selection-allowed;
+    position: absolute;
+    bottom: $spacing;
+    right: $spacing;
+    width: auto;
+    height: auto;
+    display: none;
+
+    div.ib-close-icon {
+        margin-left: calc( $spacing * 2 );
+
+        &::before,
+        &::after {
+            background-color: #9A9;
+        }
+    }
+
+    div.success,
+    div.error {
+        padding: $spacing;
+        border-radius: $border-view-radius;
+
+        div.ib-close-icon {
+            margin-left: calc( $spacing * 2 );
+        }
+    }
+
+    div.success {
+        background-color: #EFE;
+        border: $standard-border-size solid #DED;
+        color: #9A9;
+
+        div.ib-close-icon {
+            &::before,
+            &::after {
+                background-color: #9A9;
+            }
+        }
+    }
+
+    div.error {
+        background-color: #FEE;
+        border: $standard-border-size solid #EDD;
+        color: #A66;
+
+        div.ib-close-icon {
+            &::before,
+            &::after {
+                background-color: #A66;
+            }
         }
     }
 }
@@ -614,7 +670,6 @@ div.calendar {
                 @include fade-in-effect-animation( 0.5s );
                 position: absolute;
                 width: 240px;
-                height: 200px;
                 border: $standard-border-size solid $dark-color;
                 left: 50%;
                 transform: translate( -50% );
@@ -632,18 +687,62 @@ div.calendar {
                 @media screen and ( max-width: $maximum-width ) {
                     top: calc( #{$spacing} + #{$small-font-size} );
                 }
+
+                div.months {
+                    $button-spacing: 1px;
+
+                    margin-left: $button-spacing;
+                    margin-right: $button-spacing;
+
+                    &:first-child {
+                        margin-top: $button-spacing;
+                    }
+
+                    div.month-name,
+                    div.month-name-selected {
+                        width: calc( 33.33% - ( ( $spacing ) + ( $button-spacing * 2 ) ) );
+                        padding: calc( $spacing / 2 );
+                        margin: $button-spacing;
+                        display: inline-block;
+                        border-radius: $border-view-radius;
+                        font-size: 0.7rem;
+                    }
+
+                    div.month-name {
+                        background-color: $day-names-color;
+                        color: $dark-color;
+                        
+                        &:hover {
+                            background-color: $dark-color;
+                            color: $light-color;
+                            cursor: pointer;
+                            transition: $transition;
+                        }
+    
+                        &:active:not( .year-selected ) {
+                            @include opacity-active-effect;
+                        }
+                    }
+
+                    div.month-name-selected {
+                        background-color: $dark-color;
+                        color: $light-color;
+                        transition: $transition;
+                    }
+                }
     
                 div.contents {
+                    border-radius: $border-view-radius;
+                    height: 100px;
                     white-space: pre-line;
                     -ms-word-break: break-all;
                     word-break: break-all;
                     overflow-x: hidden;
                     overflow-y: auto;
                     width: 100%;
-                    height: calc( 100% - $spacing );
                     margin-left: 0 !important;
                     margin-right: 0 !important;
-                    margin-top: 0 !important;
+                    margin-top: calc( $spacing / 3 ) !important;
                     padding: 0;
                     padding-top: calc( $spacing / 2 );
                     padding-bottom: calc( $spacing / 2 );
@@ -1191,21 +1290,27 @@ div.event-editor {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Colors
+    Calendar.js - Dialog - Event Editor - Select Colors
     -------------------------------------------------------------------------
 */
 
 div.event-editor-colors {
-    @include dialog-styles( 280px );
+    @include dialog-styles( 300px );
     @include dialog-title-bar;
     
     div.contents {
         padding: $spacing;
 
-        p {
-            @include no-selection-allowed;
-            margin: 0;
-            margin-bottom: 8px;
+        div.section {
+            @include advanced-options-container( 0 );
+            margin-left: 0;
+            margin-bottom: $spacing;
+
+            p {
+                @include no-selection-allowed;
+                margin: 0;
+                margin-bottom: 8px;
+            }
         }
     }
     
@@ -1215,7 +1320,7 @@ div.event-editor-colors {
     }
 
     div.buttons-container {
-        margin-top: $spacing;
+        margin-top: calc( $spacing * 2 );
         text-align: right;
     }
 
@@ -1237,25 +1342,31 @@ div.event-editor-colors {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Dialog - Event Editor Repeat Options
+    Calendar.js - Dialog - Event Editor - Repeat Options
     -------------------------------------------------------------------------
 */
 
 div.event-editor-repeat-options {
-    @include dialog-styles( 280px );
+    @include dialog-styles( 300px );
     @include dialog-title-bar;
     
     div.contents {
         padding: $spacing;
 
-        p {
-            @include no-selection-allowed;
-            margin: 0;
-            margin-top: 5px;
-            margin-bottom: 8px;
+        div.section {
+            @include advanced-options-container( 0 );
+            margin-left: 0;
+            margin-bottom: $spacing;
 
-            &:first-child {
-                margin-top: 0;
+            p {
+                @include no-selection-allowed;
+                margin: 0;
+                margin-top: 5px;
+                margin-bottom: 8px;
+    
+                &:first-child {
+                    margin-top: 0;
+                }
             }
         }
     }
@@ -1345,7 +1456,7 @@ div.message {
 */
 
 div.export-events {
-    @include dialog-styles( 280px );
+    @include dialog-styles( 300px );
     @include dialog-title-bar;
 
     div.contents {
@@ -1355,11 +1466,17 @@ div.export-events {
             @include input-fields( 40px );
         }
 
-        div.split {
-            margin-top: 0;
+        input:disabled {
+            @include no-selection-allowed;
+            background-color: $light-color;
+            color: $input-border-color;
+        }
 
-            &:last-child {
-                margin-top: $spacing * 2;
+        div.options {
+            @include advanced-options-container( 0 );
+
+            div.split {
+                margin-top: 0;
             }
         }
     }
@@ -1463,13 +1580,7 @@ div.search {
         }
 
         div.advanced {
-            @include fade-in-effect-animation( 0.5s );
-            background-color: $day-names-color;
-            padding: $spacing;
-            margin-top: $spacing !important;
-            margin-left: $checkbox-size-with-spacing;
-            border-radius: $border-view-radius;
-            border: $standard-border-size solid #D0D0D0;
+            @include advanced-options-container;
 
             div.split {
                 margin-top: 0 !important;

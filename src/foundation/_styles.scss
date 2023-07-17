@@ -244,3 +244,13 @@ $event-left-border: $standard-border-size-left solid $dark-color;
         font-weight: $title-bar-font-weight;
     }
 }
+
+@mixin advanced-options-container( $margin-top: 10px ) {
+    @include fade-in-effect-animation( 0.5s );
+    background-color: $day-names-color;
+    padding: $spacing;
+    margin-top: $margin-top !important;
+    margin-left: $checkbox-size-with-spacing;
+    border-radius: $border-view-radius;
+    border: $standard-border-size solid #D0D0D0;
+}
