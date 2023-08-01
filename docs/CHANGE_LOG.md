@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.1.1:
+- Renamed TEXT to TXT (as its not the right extension) in the Export Events dialog.
 - 
 
 <br>

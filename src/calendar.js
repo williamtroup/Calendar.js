@@ -6270,7 +6270,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ExportEventsDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
             _element_ExportEventsDialog_Option_XML = buildRadioButton( radioButtonsContainer1, "XML", "ExportType" );
             _element_ExportEventsDialog_Option_JSON = buildRadioButton( radioButtonsContainer1, "JSON", "ExportType" );
-            _element_ExportEventsDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TEXT", "ExportType" );
+            _element_ExportEventsDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TXT", "ExportType" );
     
             _element_ExportEventsDialog_Option_iCAL = buildRadioButton( radioButtonsContainer2, "iCAL", "ExportType" );
             _element_ExportEventsDialog_Option_MD = buildRadioButton( radioButtonsContainer2, "MD", "ExportType" );
