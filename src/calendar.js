@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.1.0
+ * @version     v2.1.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -2407,12 +2407,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             orderedEventsLength = orderedEvents.length;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ],
-                elementDay = getDayElement( orderedEvent.from );
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
 
-            if ( elementDay !== null ) {
-                buildDayEventAcrossDays( orderedEvent );
-            }
+            buildDayEventAcrossDays( orderedEvent );
 
             if ( isEventVisible( orderedEvent ) ) {
                 _element_Calendar_AllVisibleEvents.push( orderedEvent );
@@ -2476,7 +2473,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDayEventAcrossDays( orderedEvent ) {
         buildDayEvent( orderedEvent.from, orderedEvent );
     
-        if ( orderedEvent.from.getDate() !== orderedEvent.to.getDate() ) {
+        if ( orderedEvent.from.getDate() !== orderedEvent.to.getDate() || orderedEvent.from.getMonth() !== orderedEvent.to.getMonth() || orderedEvent.from.getFullYear() !== orderedEvent.to.getFullYear() ) {
             var totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to );
             if ( totalDays > 0 ) {
     
@@ -6270,7 +6267,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ExportEventsDialog_Option_CSV = buildRadioButton( radioButtonsContainer1, "CSV", "ExportType" );
             _element_ExportEventsDialog_Option_XML = buildRadioButton( radioButtonsContainer1, "XML", "ExportType" );
             _element_ExportEventsDialog_Option_JSON = buildRadioButton( radioButtonsContainer1, "JSON", "ExportType" );
-            _element_ExportEventsDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TEXT", "ExportType" );
+            _element_ExportEventsDialog_Option_TEXT = buildRadioButton( radioButtonsContainer1, "TXT", "ExportType" );
     
             _element_ExportEventsDialog_Option_iCAL = buildRadioButton( radioButtonsContainer2, "iCAL", "ExportType" );
             _element_ExportEventsDialog_Option_MD = buildRadioButton( radioButtonsContainer2, "MD", "ExportType" );
@@ -7407,7 +7404,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.className += " expired";
         }
 
-        if ( setNotInMonthCss && isDefined( toDate ) && ( toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth() ) ) {
+        if ( setNotInMonthCss && isDefined( toDate ) && toDate < _currentDate && ( toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth() ) ) {
             event.className += " not-in-current-month";
         }
 
@@ -10286,7 +10283,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.1.0";
+        return "2.1.1";
     };
 
     /**

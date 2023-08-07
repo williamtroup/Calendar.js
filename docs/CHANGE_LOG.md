@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.1:
+- Renamed TEXT to TXT (as it's not the right extension) in the Export Events dialog.
+- Fixed a fault that prevented events that span multiple months from showing up correctly (would only show on the first day).
+- Fixed a fault that prevented events that span multiple months from showing up in the next month.
+- Fixed a fault that caused events to show as "not-in-current-month" when they span multiple months.
+
+<br>
+
 ## Version 2.1.0:
 - Added "year" support for Holidays, which states if a holiday should only occur within one year (defaults to null).
 - Added "backgroundColor" support for Holidays, which states the background color that should be used for the day.
