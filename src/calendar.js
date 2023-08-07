@@ -2407,12 +2407,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             orderedEventsLength = orderedEvents.length;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ],
-                elementDay = getDayElement( orderedEvent.from );
+            var orderedEvent = orderedEvents[ orderedEventIndex ];
 
-            if ( elementDay !== null ) {
-                buildDayEventAcrossDays( orderedEvent );
-            }
+            buildDayEventAcrossDays( orderedEvent );
 
             if ( isEventVisible( orderedEvent ) ) {
                 _element_Calendar_AllVisibleEvents.push( orderedEvent );
@@ -2476,7 +2473,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDayEventAcrossDays( orderedEvent ) {
         buildDayEvent( orderedEvent.from, orderedEvent );
     
-        if ( orderedEvent.from.getDate() !== orderedEvent.to.getDate() ) {
+        if ( orderedEvent.from.getDate() !== orderedEvent.to.getDate() || orderedEvent.from.getMonth() !== orderedEvent.to.getMonth() || orderedEvent.from.getFullYear() !== orderedEvent.to.getFullYear() ) {
             var totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to );
             if ( totalDays > 0 ) {
     
@@ -7407,7 +7404,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.className += " expired";
         }
 
-        if ( setNotInMonthCss && isDefined( toDate ) && ( toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth() ) ) {
+        if ( setNotInMonthCss && isDefined( toDate ) && toDate < _currentDate && ( toDate.getFullYear() !== _currentDate.getFullYear() || toDate.getMonth() !== _currentDate.getMonth() ) ) {
             event.className += " not-in-current-month";
         }
 
