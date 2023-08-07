@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.2:
+- 
+
+<br>
+
 ## Version 2.1.1:
 - Renamed TEXT to TXT (as it's not the right extension) in the Export Events dialog.
 - Fixed a fault that prevented events that span multiple months from showing up correctly (would only show on the first day).
