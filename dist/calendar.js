@@ -1,4 +1,4 @@
-/*! Calendar.js v2.1.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.1.2 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -723,15 +723,17 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildYearSelectorDropDown(container) {
     var yearDate = new Date(_options.minimumYear, 1, 1);
     var monthContainer = null;
-    _element_HeaderDateDisplay_YearSelector = createElement("div", "years-drop-down");
+    _element_HeaderDateDisplay_YearSelector = createElement("div", _options.showMonthButtonsInYearDropDownMenu ? "years-drop-down" : "years-drop-down-no-months");
     container.appendChild(_element_HeaderDateDisplay_YearSelector);
-    var monthIndex = 0;
-    for (; monthIndex < 12; monthIndex++) {
-      if (monthIndex % 3 === 0) {
-        monthContainer = createElement("div", "months");
-        _element_HeaderDateDisplay_YearSelector.appendChild(monthContainer);
+    if (_options.showMonthButtonsInYearDropDownMenu) {
+      var monthIndex = 0;
+      for (; monthIndex < 12; monthIndex++) {
+        if (monthIndex % 3 === 0) {
+          monthContainer = createElement("div", "months");
+          _element_HeaderDateDisplay_YearSelector.appendChild(monthContainer);
+        }
+        buildMonthNameButton(monthContainer, monthIndex);
       }
-      buildMonthNameButton(monthContainer, monthIndex);
     }
     _element_HeaderDateDisplay_YearSelector_Contents = createElement("div", "contents custom-scroll-bars");
     _element_HeaderDateDisplay_YearSelector.appendChild(_element_HeaderDateDisplay_YearSelector_Contents);
@@ -3641,118 +3643,122 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function showEventEditingDialog(eventDetails, overrideTodayDate, overrideTimeValues) {
-    addNode(_document.body, _element_DisabledBackground);
-    selectTab(_element_EventEditorDialog);
-    buildEventEditorTypeTabContent();
-    if (isDefined(eventDetails)) {
-      setNodeText(_element_EventEditorDialog_TitleBar, _options.editEventTitle);
-      setEventTypeInputCheckedStates(eventDetails.type);
-      _element_EventEditorDialog_AddUpdateButton.value = _options.updateText;
-      _element_EventEditorDialog_RemoveButton.style.display = "inline-block";
-      _element_EventEditorDialog_EventDetails = eventDetails;
-      _element_EventEditorDialog_TimeFrom.value = toFormattedTime(eventDetails.from);
-      _element_EventEditorDialog_TimeTo.value = toFormattedTime(eventDetails.to);
-      _element_EventEditorDialog_IsAllDay.checked = getBoolean(eventDetails.isAllDay);
-      _element_EventEditorDialog_ShowAlerts.checked = getBoolean(eventDetails.showAlerts, true);
-      _element_EventEditorDialog_Title.value = getString(eventDetails.title);
-      _element_EventEditorDialog_Description.value = getString(eventDetails.description);
-      _element_EventEditorDialog_Location.value = getString(eventDetails.location);
-      _element_EventEditorDialog_Group.value = getString(eventDetails.group);
-      _element_EventEditorDialog_Url.value = getString(eventDetails.url);
-      _element_EventEditorColorsDialog_Color.value = getString(eventDetails.color, _options.defaultEventBackgroundColor);
-      _element_EventEditorColorsDialog_ColorText.value = getString(eventDetails.colorText, _options.defaultEventTextColor);
-      _element_EventEditorColorsDialog_ColorBorder.value = getString(eventDetails.colorBorder, _options.defaultEventBorderColor);
-      _element_EventEditorDialog_RepeatEvery_Custom_Value.value = getNumber(eventDetails.repeatEveryCustomValue, 1);
-      setSelectedDate(eventDetails.from, _element_EventEditorDialog_DateFrom);
-      setSelectedDate(eventDetails.to, _element_EventEditorDialog_DateTo);
-      var repeatEvery = getNumber(eventDetails.repeatEvery);
-      if (repeatEvery === _repeatType.never) {
-        _element_EventEditorDialog_RepeatEvery_Never.checked = true;
-      } else if (repeatEvery === _repeatType.everyDay) {
-        _element_EventEditorDialog_RepeatEvery_EveryDay.checked = true;
-      } else if (repeatEvery === _repeatType.everyWeek) {
-        _element_EventEditorDialog_RepeatEvery_EveryWeek.checked = true;
-      } else if (repeatEvery === _repeatType.every2Weeks) {
-        _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked = true;
-      } else if (repeatEvery === _repeatType.everyMonth) {
-        _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
-      } else if (repeatEvery === _repeatType.everyYear) {
-        _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
-      } else if (repeatEvery === _repeatType.custom) {
-        _element_EventEditorDialog_RepeatEvery_Custom.checked = true;
-      }
-      var repeatEveryCustomType = getNumber(eventDetails.repeatEveryCustomType);
-      if (repeatEveryCustomType === _repeatCustomType.daily) {
-        _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked = true;
-      } else if (repeatEveryCustomType === _repeatCustomType.weekly) {
-        _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly.checked = true;
-      } else if (repeatEveryCustomType === _repeatCustomType.monthly) {
-        _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly.checked = true;
-      } else if (repeatEveryCustomType === _repeatCustomType.yearly) {
-        _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly.checked = true;
-      }
-      var excludeDays = getArray(eventDetails.repeatEveryExcludeDays);
-      _element_EventEditorRepeatOptionsDialog_Mon.checked = excludeDays.indexOf(1) > -1;
-      _element_EventEditorRepeatOptionsDialog_Tue.checked = excludeDays.indexOf(2) > -1;
-      _element_EventEditorRepeatOptionsDialog_Wed.checked = excludeDays.indexOf(3) > -1;
-      _element_EventEditorRepeatOptionsDialog_Thu.checked = excludeDays.indexOf(4) > -1;
-      _element_EventEditorRepeatOptionsDialog_Fri.checked = excludeDays.indexOf(5) > -1;
-      _element_EventEditorRepeatOptionsDialog_Sat.checked = excludeDays.indexOf(6) > -1;
-      _element_EventEditorRepeatOptionsDialog_Sun.checked = excludeDays.indexOf(0) > -1;
-      setSelectedDate(eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds);
+    if (isFunction(_options.onBeforeEventAddEdit)) {
+      triggerOptionsEventWithData("onBeforeEventAddEdit", eventDetails);
     } else {
-      var date = new Date();
-      var fromDate = !isDefined(overrideTodayDate) ? date : overrideTodayDate;
-      var toDate = null;
-      if (isDateToday(fromDate)) {
-        fromDate.setHours(date.getHours());
-        fromDate.setMinutes(date.getMinutes());
+      addNode(_document.body, _element_DisabledBackground);
+      selectTab(_element_EventEditorDialog);
+      buildEventEditorTypeTabContent();
+      if (isDefined(eventDetails)) {
+        setNodeText(_element_EventEditorDialog_TitleBar, _options.editEventTitle);
+        setEventTypeInputCheckedStates(eventDetails.type);
+        _element_EventEditorDialog_AddUpdateButton.value = _options.updateText;
+        _element_EventEditorDialog_RemoveButton.style.display = "inline-block";
+        _element_EventEditorDialog_EventDetails = eventDetails;
+        _element_EventEditorDialog_TimeFrom.value = toFormattedTime(eventDetails.from);
+        _element_EventEditorDialog_TimeTo.value = toFormattedTime(eventDetails.to);
+        _element_EventEditorDialog_IsAllDay.checked = getBoolean(eventDetails.isAllDay);
+        _element_EventEditorDialog_ShowAlerts.checked = getBoolean(eventDetails.showAlerts, true);
+        _element_EventEditorDialog_Title.value = getString(eventDetails.title);
+        _element_EventEditorDialog_Description.value = getString(eventDetails.description);
+        _element_EventEditorDialog_Location.value = getString(eventDetails.location);
+        _element_EventEditorDialog_Group.value = getString(eventDetails.group);
+        _element_EventEditorDialog_Url.value = getString(eventDetails.url);
+        _element_EventEditorColorsDialog_Color.value = getString(eventDetails.color, _options.defaultEventBackgroundColor);
+        _element_EventEditorColorsDialog_ColorText.value = getString(eventDetails.colorText, _options.defaultEventTextColor);
+        _element_EventEditorColorsDialog_ColorBorder.value = getString(eventDetails.colorBorder, _options.defaultEventBorderColor);
+        _element_EventEditorDialog_RepeatEvery_Custom_Value.value = getNumber(eventDetails.repeatEveryCustomValue, 1);
+        setSelectedDate(eventDetails.from, _element_EventEditorDialog_DateFrom);
+        setSelectedDate(eventDetails.to, _element_EventEditorDialog_DateTo);
+        var repeatEvery = getNumber(eventDetails.repeatEvery);
+        if (repeatEvery === _repeatType.never) {
+          _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+        } else if (repeatEvery === _repeatType.everyDay) {
+          _element_EventEditorDialog_RepeatEvery_EveryDay.checked = true;
+        } else if (repeatEvery === _repeatType.everyWeek) {
+          _element_EventEditorDialog_RepeatEvery_EveryWeek.checked = true;
+        } else if (repeatEvery === _repeatType.every2Weeks) {
+          _element_EventEditorDialog_RepeatEvery_Every2Weeks.checked = true;
+        } else if (repeatEvery === _repeatType.everyMonth) {
+          _element_EventEditorDialog_RepeatEvery_EveryMonth.checked = true;
+        } else if (repeatEvery === _repeatType.everyYear) {
+          _element_EventEditorDialog_RepeatEvery_EveryYear.checked = true;
+        } else if (repeatEvery === _repeatType.custom) {
+          _element_EventEditorDialog_RepeatEvery_Custom.checked = true;
+        }
+        var repeatEveryCustomType = getNumber(eventDetails.repeatEveryCustomType);
+        if (repeatEveryCustomType === _repeatCustomType.daily) {
+          _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked = true;
+        } else if (repeatEveryCustomType === _repeatCustomType.weekly) {
+          _element_EventEditorDialog_RepeatEvery_Custom_Type_Weekly.checked = true;
+        } else if (repeatEveryCustomType === _repeatCustomType.monthly) {
+          _element_EventEditorDialog_RepeatEvery_Custom_Type_Monthly.checked = true;
+        } else if (repeatEveryCustomType === _repeatCustomType.yearly) {
+          _element_EventEditorDialog_RepeatEvery_Custom_Type_Yearly.checked = true;
+        }
+        var excludeDays = getArray(eventDetails.repeatEveryExcludeDays);
+        _element_EventEditorRepeatOptionsDialog_Mon.checked = excludeDays.indexOf(1) > -1;
+        _element_EventEditorRepeatOptionsDialog_Tue.checked = excludeDays.indexOf(2) > -1;
+        _element_EventEditorRepeatOptionsDialog_Wed.checked = excludeDays.indexOf(3) > -1;
+        _element_EventEditorRepeatOptionsDialog_Thu.checked = excludeDays.indexOf(4) > -1;
+        _element_EventEditorRepeatOptionsDialog_Fri.checked = excludeDays.indexOf(5) > -1;
+        _element_EventEditorRepeatOptionsDialog_Sat.checked = excludeDays.indexOf(6) > -1;
+        _element_EventEditorRepeatOptionsDialog_Sun.checked = excludeDays.indexOf(0) > -1;
+        setSelectedDate(eventDetails.repeatEnds, _element_EventEditorRepeatOptionsDialog_RepeatEnds);
+      } else {
+        var date = new Date();
+        var fromDate = !isDefined(overrideTodayDate) ? date : overrideTodayDate;
+        var toDate = null;
+        if (isDateToday(fromDate)) {
+          fromDate.setHours(date.getHours());
+          fromDate.setMinutes(date.getMinutes());
+        }
+        toDate = addMinutesToDate(fromDate, _options.defaultEventDuration);
+        setNodeText(_element_EventEditorDialog_TitleBar, _options.addEventTitle);
+        setEventTypeInputCheckedStates();
+        _element_EventEditorDialog_AddUpdateButton.value = _options.addText;
+        _element_EventEditorDialog_RemoveButton.style.display = "none";
+        _element_EventEditorDialog_EventDetails = {};
+        _element_EventEditorDialog_IsAllDay.checked = false;
+        _element_EventEditorDialog_ShowAlerts.checked = true;
+        _element_EventEditorDialog_Title.value = _string.empty;
+        _element_EventEditorDialog_Description.value = _string.empty;
+        _element_EventEditorDialog_Location.value = _string.empty;
+        _element_EventEditorDialog_Group.value = _string.empty;
+        _element_EventEditorDialog_Url.value = _string.empty;
+        _element_EventEditorColorsDialog_Color.value = _options.defaultEventBackgroundColor;
+        _element_EventEditorColorsDialog_ColorText.value = _options.defaultEventTextColor;
+        _element_EventEditorColorsDialog_ColorBorder.value = _options.defaultEventBorderColor;
+        _element_EventEditorDialog_RepeatEvery_Never.checked = true;
+        _element_EventEditorRepeatOptionsDialog_Mon.checked = false;
+        _element_EventEditorRepeatOptionsDialog_Tue.checked = false;
+        _element_EventEditorRepeatOptionsDialog_Wed.checked = false;
+        _element_EventEditorRepeatOptionsDialog_Thu.checked = false;
+        _element_EventEditorRepeatOptionsDialog_Fri.checked = false;
+        _element_EventEditorRepeatOptionsDialog_Sat.checked = false;
+        _element_EventEditorRepeatOptionsDialog_Sun.checked = false;
+        _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
+        _element_EventEditorDialog_RepeatEvery_Custom_Value.value = "1";
+        _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked = true;
+        if (isDefinedArray(overrideTimeValues)) {
+          fromDate.setHours(overrideTimeValues[0]);
+          fromDate.setMinutes(overrideTimeValues[1]);
+          toDate.setHours(overrideTimeValues[0]);
+          toDate.setMinutes(overrideTimeValues[1]);
+          toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
+        }
+        _element_EventEditorDialog_TimeFrom.value = toFormattedTime(fromDate);
+        _element_EventEditorDialog_TimeTo.value = toFormattedTime(toDate);
+        setSelectedDate(fromDate, _element_EventEditorDialog_DateFrom);
+        setSelectedDate(toDate, _element_EventEditorDialog_DateTo);
       }
-      toDate = addMinutesToDate(fromDate, _options.defaultEventDuration);
-      setNodeText(_element_EventEditorDialog_TitleBar, _options.addEventTitle);
-      setEventTypeInputCheckedStates();
-      _element_EventEditorDialog_AddUpdateButton.value = _options.addText;
-      _element_EventEditorDialog_RemoveButton.style.display = "none";
-      _element_EventEditorDialog_EventDetails = {};
-      _element_EventEditorDialog_IsAllDay.checked = false;
-      _element_EventEditorDialog_ShowAlerts.checked = true;
-      _element_EventEditorDialog_Title.value = _string.empty;
-      _element_EventEditorDialog_Description.value = _string.empty;
-      _element_EventEditorDialog_Location.value = _string.empty;
-      _element_EventEditorDialog_Group.value = _string.empty;
-      _element_EventEditorDialog_Url.value = _string.empty;
-      _element_EventEditorColorsDialog_Color.value = _options.defaultEventBackgroundColor;
-      _element_EventEditorColorsDialog_ColorText.value = _options.defaultEventTextColor;
-      _element_EventEditorColorsDialog_ColorBorder.value = _options.defaultEventBorderColor;
-      _element_EventEditorDialog_RepeatEvery_Never.checked = true;
-      _element_EventEditorRepeatOptionsDialog_Mon.checked = false;
-      _element_EventEditorRepeatOptionsDialog_Tue.checked = false;
-      _element_EventEditorRepeatOptionsDialog_Wed.checked = false;
-      _element_EventEditorRepeatOptionsDialog_Thu.checked = false;
-      _element_EventEditorRepeatOptionsDialog_Fri.checked = false;
-      _element_EventEditorRepeatOptionsDialog_Sat.checked = false;
-      _element_EventEditorRepeatOptionsDialog_Sun.checked = false;
-      _element_EventEditorRepeatOptionsDialog_RepeatEnds.value = null;
-      _element_EventEditorDialog_RepeatEvery_Custom_Value.value = "1";
-      _element_EventEditorDialog_RepeatEvery_Custom_Type_Daily.checked = true;
-      if (isDefinedArray(overrideTimeValues)) {
-        fromDate.setHours(overrideTimeValues[0]);
-        fromDate.setMinutes(overrideTimeValues[1]);
-        toDate.setHours(overrideTimeValues[0]);
-        toDate.setMinutes(overrideTimeValues[1]);
-        toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
-      }
-      _element_EventEditorDialog_TimeFrom.value = toFormattedTime(fromDate);
-      _element_EventEditorDialog_TimeTo.value = toFormattedTime(toDate);
-      setSelectedDate(fromDate, _element_EventEditorDialog_DateFrom);
-      setSelectedDate(toDate, _element_EventEditorDialog_DateTo);
+      buildToolbarButton(_element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true);
+      setLockedStatusForEventEditingDialog(eventDetails);
+      isAllDayChanged();
+      _openDialogs.push(eventDialogEvent_Cancel);
+      _element_EventEditorDialog.style.display = "block";
+      _element_EventEditorDialog_Title.focus();
     }
-    buildToolbarButton(_element_EventEditorDialog_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true);
-    setLockedStatusForEventEditingDialog(eventDetails);
-    isAllDayChanged();
-    _openDialogs.push(eventDialogEvent_Cancel);
-    _element_EventEditorDialog.style.display = "block";
-    _element_EventEditorDialog_Title.focus();
   }
   function showEventEditingDialogTitleSelected() {
     _element_EventEditorDialog_Title.focus();
@@ -6287,6 +6293,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.monthTitleBarDateFormat = getDefaultString(_options.monthTitleBarDateFormat, "{mmmm} {yyyy}");
     _options.configurationDialogEnabled = getDefaultBoolean(_options.configurationDialogEnabled, true);
     _options.popUpNotificationsEnabled = getDefaultBoolean(_options.popUpNotificationsEnabled, true);
+    _options.showMonthButtonsInYearDropDownMenu = getDefaultBoolean(_options.showMonthButtonsInYearDropDownMenu, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -7281,7 +7288,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.1.1";
+    return "2.1.2";
   };
   this.getId = function() {
     return _elementID;

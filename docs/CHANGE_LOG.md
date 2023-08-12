@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.2:
+- Added new setting "showMonthButtonsInYearDropDownMenu" (defaults to true) that can be used to turn off the Month selectors in the Year Drop-Down menu.
+- Added a new custom trigger "onBeforeEventAddEdit", which is triggered when an event is to be added/edited (passes the event details to the event and stops the Event Editor dialog showing).
+
+<br>
+
 ## Version 2.1.1:
 - Renamed TEXT to TXT (as it's not the right extension) in the Export Events dialog.
 - Fixed a fault that prevented events that span multiple months from showing up correctly (would only show on the first day).

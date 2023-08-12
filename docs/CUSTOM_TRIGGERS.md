@@ -6,6 +6,11 @@ Below is a list of all the custom triggers supported in Calendar.js, which are f
 
 <h1>For Events:</h1>
 
+### **options.onBeforeEventAddEdit( *event* )**:
+Fires when an event is about to be added/edited via the Event Editor dialog (stops the Event Editor dialog opening).
+<br>
+***Parameter: event***: '*Event*' - The event details (if being edited).
+
 ### **options.onEventAdded( *event* )**:
 Fires when an event is added.
 <br>
