@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.1.2:
+- Added new setting "showMonthButtonsInYearDropDownMenu" (defaults to true) that can be used to turn off the Month selectors in the Year Drop-Down menu.
 - 
 
 <br>

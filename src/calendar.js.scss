@@ -666,7 +666,8 @@ div.calendar {
                 }
             }
 
-            div.years-drop-down {
+            div.years-drop-down,
+            div.years-drop-down-no-months {
                 @include fade-in-effect-animation( 0.5s );
                 position: absolute;
                 width: 240px;
@@ -742,7 +743,7 @@ div.calendar {
                     width: 100%;
                     margin-left: 0 !important;
                     margin-right: 0 !important;
-                    margin-top: calc( $spacing / 3 ) !important;
+                    margin-top: calc( $spacing / 3 );
                     padding: 0;
                     padding-top: calc( $spacing / 2 );
                     padding-bottom: calc( $spacing / 2 );
@@ -782,6 +783,13 @@ div.calendar {
                         background-color: #DCDCDC;
                         color: $dark-color;
                     }
+                }
+            }
+
+            div.years-drop-down-no-months {
+                div.contents {
+                    margin-top: 0px;
+                    height: 180px;
                 }
             }
         }

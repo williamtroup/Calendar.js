@@ -338,6 +338,7 @@
  * @property    {string}    monthTitleBarDateFormat                     States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
  * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
  * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) is enabled (defaults to true).
+ * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
  */
 
 
@@ -1705,17 +1706,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var yearDate = new Date( _options.minimumYear, 1, 1 ),
             monthContainer = null;
 
-        _element_HeaderDateDisplay_YearSelector = createElement( "div", "years-drop-down" );
+        _element_HeaderDateDisplay_YearSelector = createElement( "div", _options.showMonthButtonsInYearDropDownMenu ? "years-drop-down" : "years-drop-down-no-months" );
         container.appendChild( _element_HeaderDateDisplay_YearSelector );
 
-        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            if ( monthIndex % 3 === 0 ) {
-                monthContainer = createElement( "div", "months" );
-
-                _element_HeaderDateDisplay_YearSelector.appendChild( monthContainer );
+        if ( _options.showMonthButtonsInYearDropDownMenu ) {
+            for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+                if ( monthIndex % 3 === 0 ) {
+                    monthContainer = createElement( "div", "months" );
+    
+                    _element_HeaderDateDisplay_YearSelector.appendChild( monthContainer );
+                }
+    
+                buildMonthNameButton( monthContainer, monthIndex );
             }
-
-            buildMonthNameButton( monthContainer, monthIndex );
         }
 
         _element_HeaderDateDisplay_YearSelector_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -10511,6 +10514,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.monthTitleBarDateFormat = getDefaultString( _options.monthTitleBarDateFormat, "{mmmm} {yyyy}" );
         _options.configurationDialogEnabled = getDefaultBoolean( _options.configurationDialogEnabled, true );
         _options.popUpNotificationsEnabled = getDefaultBoolean( _options.popUpNotificationsEnabled, true );
+        _options.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.showMonthButtonsInYearDropDownMenu, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

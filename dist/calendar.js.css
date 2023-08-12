@@ -663,7 +663,8 @@ div.calendar div.header-date div.title-container span.year-dropdown-button:activ
   cursor: pointer;
   opacity: 0.4;
 }
-div.calendar div.header-date div.title-container div.years-drop-down {
+div.calendar div.header-date div.title-container div.years-drop-down,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months {
   animation: fade-in-effect ease 0.5s;
   -webkit-animation: fade-in-effect ease 0.5s;
   -moz-animation: fade-in-effect ease 0.5s;
@@ -682,24 +683,30 @@ div.calendar div.header-date div.title-container div.years-drop-down {
   font-weight: 500;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.header-date div.title-container div.years-drop-down {
+  div.calendar div.header-date div.title-container div.years-drop-down,
+  div.calendar div.header-date div.title-container div.years-drop-down-no-months {
     top: calc( 10px + 0.9rem );
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.header-date div.title-container div.years-drop-down {
+  div.calendar div.header-date div.title-container div.years-drop-down,
+  div.calendar div.header-date div.title-container div.years-drop-down-no-months {
     top: calc( 10px + 0.7rem );
   }
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.months {
+div.calendar div.header-date div.title-container div.years-drop-down div.months,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months {
   margin-left: 1px;
   margin-right: 1px;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.months:first-child {
+div.calendar div.header-date div.title-container div.years-drop-down div.months:first-child,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months:first-child {
   margin-top: 1px;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name,
-div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected {
   width: calc(33.33% - 12px);
   padding: 5px;
   margin: 1px;
@@ -707,27 +714,32 @@ div.calendar div.header-date div.title-container div.years-drop-down div.months 
   border-radius: 0.25rem;
   font-size: 0.7rem;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name {
   background-color: #E0E0E0;
   color: #282828;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:hover {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:hover,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:hover {
   background-color: #282828;
   color: #F5F5F5;
   cursor: pointer;
   transition: all 0.3s;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected) {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected),
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:active:not(.year-selected) {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected {
   background-color: #282828;
   color: #F5F5F5;
   transition: all 0.3s;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.contents {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents {
   border-radius: 0.25rem;
   height: 100px;
   white-space: pre-line;
@@ -738,13 +750,14 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   width: 100%;
   margin-left: 0 !important;
   margin-right: 0 !important;
-  margin-top: 3.3333333333px !important;
+  margin-top: 3.3333333333px;
   padding: 0;
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: #F5F5F5 !important;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year {
   display: inline-block;
   color: #282828;
   font-size: 0.75rem;
@@ -756,25 +769,33 @@ div.calendar div.header-date div.title-container div.years-drop-down div.content
   border-radius: 0.25rem;
   padding: 3px;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:hover {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:hover,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year:hover {
   background-color: #282828;
   color: #F5F5F5;
   cursor: pointer;
   transition: all 0.3s;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:active:not(.year-selected) {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:active:not(.year-selected),
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year:active:not(.year-selected) {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-selected {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-selected,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year-selected {
   background-color: #282828;
   color: #F5F5F5;
   cursor: default !important;
 }
-div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-has-events {
+div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-has-events,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year-has-events {
   background-color: #DCDCDC;
   color: #282828;
+}
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents {
+  margin-top: 0px;
+  height: 180px;
 }
 div.calendar div.header-date div.ib-arrow-left-full,
 div.calendar div.header-date div.ib-pin,

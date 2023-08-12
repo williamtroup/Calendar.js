@@ -723,15 +723,17 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildYearSelectorDropDown(container) {
     var yearDate = new Date(_options.minimumYear, 1, 1);
     var monthContainer = null;
-    _element_HeaderDateDisplay_YearSelector = createElement("div", "years-drop-down");
+    _element_HeaderDateDisplay_YearSelector = createElement("div", _options.showMonthButtonsInYearDropDownMenu ? "years-drop-down" : "years-drop-down-no-months");
     container.appendChild(_element_HeaderDateDisplay_YearSelector);
-    var monthIndex = 0;
-    for (; monthIndex < 12; monthIndex++) {
-      if (monthIndex % 3 === 0) {
-        monthContainer = createElement("div", "months");
-        _element_HeaderDateDisplay_YearSelector.appendChild(monthContainer);
+    if (_options.showMonthButtonsInYearDropDownMenu) {
+      var monthIndex = 0;
+      for (; monthIndex < 12; monthIndex++) {
+        if (monthIndex % 3 === 0) {
+          monthContainer = createElement("div", "months");
+          _element_HeaderDateDisplay_YearSelector.appendChild(monthContainer);
+        }
+        buildMonthNameButton(monthContainer, monthIndex);
       }
-      buildMonthNameButton(monthContainer, monthIndex);
     }
     _element_HeaderDateDisplay_YearSelector_Contents = createElement("div", "contents custom-scroll-bars");
     _element_HeaderDateDisplay_YearSelector.appendChild(_element_HeaderDateDisplay_YearSelector_Contents);
@@ -6287,6 +6289,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.monthTitleBarDateFormat = getDefaultString(_options.monthTitleBarDateFormat, "{mmmm} {yyyy}");
     _options.configurationDialogEnabled = getDefaultBoolean(_options.configurationDialogEnabled, true);
     _options.popUpNotificationsEnabled = getDefaultBoolean(_options.popUpNotificationsEnabled, true);
+    _options.showMonthButtonsInYearDropDownMenu = getDefaultBoolean(_options.showMonthButtonsInYearDropDownMenu, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
