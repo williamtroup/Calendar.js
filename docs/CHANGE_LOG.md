@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.2.0:
+- When selecting the context menu item "Visible Days...", the "Days" container in the side menu is now opened by default.
 - 
 
 <br>
