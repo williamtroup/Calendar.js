@@ -475,7 +475,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             searchEventsHistoryDropDown: "SearchEventsHistoryDropDown",
             showToolTip: "ShowToolTip",
             autoRefresh: "AutoRefresh",
-            hideNotification: "HideNotification"
+            hideNotification: "HideNotification",
+            sideMenuEvents: "SideMenuEvents"
         },
         _timers = {},
         _options = {},
@@ -1267,14 +1268,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu.appendChild( _element_SideMenu_Content );
     }
 
-    function showSideMenu( openDays ) {
-        buildSideMenuContent( isDefined( openDays ) ? openDays : false );
-
-        _element_SideMenu_Changed = false;
-        _element_SideMenu.className += " side-menu-open";
-        _element_SideMenu_DisabledBackground.style.display = "block";
-    }
-
     function buildSideMenuContent( openDays ) {
         var isDaysOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Days_Content ) || openDays === true,
             isEventTypesOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_EventTypes_Content, true ),
@@ -1294,12 +1287,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function showSideMenu( openDays ) {
+        buildSideMenuContent( isDefined( openDays ) ? openDays : false );
+
+        _element_SideMenu_Changed = false;
+        _element_SideMenu.className += " side-menu-open";
+        _element_SideMenu_DisabledBackground.style.display = "block";
+
+        startTimer( _timerName.sideMenuEvents, function() {
+            _document.body.addEventListener( "click", hideSideMenu );
+        }, 500, false );
+    }
+
     function hideSideMenu() {
         if ( _element_SideMenu !== null ) {
             _element_SideMenu.className = "side-menu custom-scroll-bars";
             _element_SideMenu_DisabledBackground.style.display = "none";
     
             saveSideMenuSelections();
+
+            _document.body.removeEventListener( "click", hideSideMenu );
         }
     }
 
