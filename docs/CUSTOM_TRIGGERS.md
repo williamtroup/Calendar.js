@@ -75,12 +75,12 @@ Fires when an event that was dragged is dropped on a date.
 ***Parameter: targetDate***: '*Object*' - The date the event was dropped on.
 
 ### **options.onEventClick( *event* )**:
-Fires when dragging an event is clicked.
+Fires when an event is clicked.
 <br>
 ***Parameter: event***: '*Event*' - The event details.
 
 ### **options.onEventDoubleClick( *event* )**:
-Fires when dragging an event is double clicked (only enabled when Editing Mode is disabled).
+Fires when an event is double clicked (only enabled when Editing Mode is disabled).
 <br>
 ***Parameter: event***: '*Event*' - The event details.
 

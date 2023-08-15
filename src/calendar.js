@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.1.2
+ * @version     v2.1.3
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -475,7 +475,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             searchEventsHistoryDropDown: "SearchEventsHistoryDropDown",
             showToolTip: "ShowToolTip",
             autoRefresh: "AutoRefresh",
-            hideNotification: "HideNotification"
+            hideNotification: "HideNotification",
+            sideMenuEvents: "SideMenuEvents"
         },
         _timers = {},
         _options = {},
@@ -1267,23 +1268,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu.appendChild( _element_SideMenu_Content );
     }
 
-    function showSideMenu() {
-        buildSideMenuContent();
-
-        _element_SideMenu_Changed = false;
-        _element_SideMenu.className += " side-menu-open";
-        _element_SideMenu_DisabledBackground.style.display = "block";
-    }
-
-    function buildSideMenuContent() {
-        var isDayOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Days_Content ),
+    function buildSideMenuContent( openDays ) {
+        var isDaysOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Days_Content ) || openDays === true,
             isEventTypesOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_EventTypes_Content, true ),
             isGroupsOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Groups_Content, true );
 
         _element_SideMenu_Content.innerHTML = _string.empty;
 
         hideSearchDialog();
-        buildSideMenuDays( isDayOpen );
+        buildSideMenuDays( isDaysOpen );
         buildSideMenuEventTypes( isEventTypesOpen );
         buildSideMenuGroups( isGroupsOpen );
     }
@@ -1294,12 +1287,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function showSideMenu( openDays ) {
+        buildSideMenuContent( isDefined( openDays ) ? openDays : false );
+
+        _element_SideMenu_Changed = false;
+        _element_SideMenu.className += " side-menu-open";
+        _element_SideMenu_DisabledBackground.style.display = "block";
+
+        startTimer( _timerName.sideMenuEvents, function() {
+            _document.body.addEventListener( "click", hideSideMenu );
+        }, 500, false );
+    }
+
     function hideSideMenu() {
         if ( _element_SideMenu !== null ) {
             _element_SideMenu.className = "side-menu custom-scroll-bars";
             _element_SideMenu_DisabledBackground.style.display = "none";
     
             saveSideMenuSelections();
+
+            _document.body.removeEventListener( "click", hideSideMenu );
         }
     }
 
@@ -5081,7 +5088,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
     
-            buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu );
+            buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
+                showSideMenu( true );
+            } );
         }
     }
 
@@ -10292,7 +10301,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.1.2";
+        return "2.1.3";
     };
 
     /**

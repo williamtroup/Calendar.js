@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.3:
+- When selecting the context menu item "Visible Days...", the "Days" container in the side menu is now opened by default.
+- When the side menu is open, clicking anywhere in the document will now close it.
+- Fixed some issues around the documentation for custom trigger events.
+
+<br>
+
 ## Version 2.1.2:
 - Added new setting "showMonthButtonsInYearDropDownMenu" (defaults to true) that can be used to turn off the Month selectors in the Year Drop-Down menu.
 - Added a new custom trigger "onBeforeEventAddEdit", which is triggered when an event is to be added/edited (passes the event details to the event and stops the Event Editor dialog showing).

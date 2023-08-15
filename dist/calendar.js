@@ -1,4 +1,4 @@
-/*! Calendar.js v2.1.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.1.3 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -402,19 +402,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu_Content = createElement("div", "content");
     _element_SideMenu.appendChild(_element_SideMenu_Content);
   }
-  function showSideMenu() {
-    buildSideMenuContent();
-    _element_SideMenu_Changed = false;
-    _element_SideMenu.className += " side-menu-open";
-    _element_SideMenu_DisabledBackground.style.display = "block";
-  }
-  function buildSideMenuContent() {
-    var isDayOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Days_Content);
+  function buildSideMenuContent(openDays) {
+    var isDaysOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Days_Content) || openDays === true;
     var isEventTypesOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_EventTypes_Content, true);
     var isGroupsOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Groups_Content, true);
     _element_SideMenu_Content.innerHTML = _string.empty;
     hideSearchDialog();
-    buildSideMenuDays(isDayOpen);
+    buildSideMenuDays(isDaysOpen);
     buildSideMenuEventTypes(isEventTypesOpen);
     buildSideMenuGroups(isGroupsOpen);
   }
@@ -423,11 +417,21 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildSideMenuContent();
     }
   }
+  function showSideMenu(openDays) {
+    buildSideMenuContent(isDefined(openDays) ? openDays : false);
+    _element_SideMenu_Changed = false;
+    _element_SideMenu.className += " side-menu-open";
+    _element_SideMenu_DisabledBackground.style.display = "block";
+    startTimer(_timerName.sideMenuEvents, function() {
+      _document.body.addEventListener("click", hideSideMenu);
+    }, 500, false);
+  }
   function hideSideMenu() {
     if (_element_SideMenu !== null) {
       _element_SideMenu.className = "side-menu custom-scroll-bars";
       _element_SideMenu_DisabledBackground.style.display = "none";
       saveSideMenuSelections();
+      _document.body.removeEventListener("click", hideSideMenu);
     }
   }
   function isSideMenuOpen() {
@@ -3263,7 +3267,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       });
       _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = buildMenuSeparator(_element_DropDownMenu_HeaderDay);
-      buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", showSideMenu);
+      buildMenuItemWithIcon(_element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
+        showSideMenu(true);
+      });
     }
   }
   function buildMenuItemWithIcon(container, iconCSS, text, onClickEvent, isBold) {
@@ -6544,7 +6550,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3};
   var _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}};
   var _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}};
-  var _timerName = {windowResize:"WindowResize", fullDayEventSizeTracking:"FullDayEventSizeTracking", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification"};
+  var _timerName = {windowResize:"WindowResize", fullDayEventSizeTracking:"FullDayEventSizeTracking", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"};
   var _timers = {};
   var _options = {};
   var _optionsForSearch = {};
@@ -7288,7 +7294,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.1.2";
+    return "2.1.3";
   };
   this.getId = function() {
     return _elementID;
