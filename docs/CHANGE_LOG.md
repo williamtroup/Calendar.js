@@ -1,6 +1,6 @@
 # Calendar.js - Change Log:
 
-## Version 2.2.0:
+## Version 2.1.3:
 - When selecting the context menu item "Visible Days...", the "Days" container in the side menu is now opened by default.
 - When the side menu is open, clicking anywhere in the document will now close it.
 - Fixed some issues around the documentation for custom trigger events.
