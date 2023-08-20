@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.1.4:
+- Added "customTags" support for Calendar events, which enables any kind of data to be stored on an event (does not show up in export data).
 - 
 
 <br>

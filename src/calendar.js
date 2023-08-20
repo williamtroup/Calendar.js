@@ -43,6 +43,7 @@
  * @property    {boolean}   showAlerts                                  States if browser notifications should be shown for this event (defaults to true).
  * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
  * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
+ * @property    {Object}    customTags                                  Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar).
  */
 
 
@@ -5837,7 +5838,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         repeatEnds: repeatEnds,
                         url: url,
                         repeatEveryCustomValue: repeatEveryCustomValue,
-                        type: type
+                        type: type,
+                        customTags: _element_EventEditorDialog_EventDetails.customTags
                     };
 
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
@@ -5953,7 +5955,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             organizerName: _string.empty,
             organizerEmailAddress: _string.empty,
             type: 0,
-            locked: false
+            locked: false,
+            customTags: null
         };
 
         _this.addEvent( newEvent, false );
@@ -8853,10 +8856,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    var newPropertyName = getPropertyName( propertyName );
-                    
-                    contents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        var newPropertyName = getPropertyName( propertyName );
+                        
+                        contents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
+                    }
                 }
             }
     
@@ -8892,8 +8897,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( "\"" + propertyName + "\":" + getPropertyValue( propertyName, orderedEvent[ propertyName ], true ) + "," );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        contents.push( "\"" + propertyName + "\":" + getPropertyValue( propertyName, orderedEvent[ propertyName ], true ) + "," );
+                    }
                 }
             }
 
@@ -8928,8 +8935,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        contents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
+                    }
                 }
             }
     
@@ -9034,8 +9043,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( "<li><b>" + getPropertyName( propertyName ) + "</b>: " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</li>" );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        contents.push( "<li><b>" + getPropertyName( propertyName ) + "</b>: " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</li>" );
+                    }
                 }
             }
 

@@ -3837,7 +3837,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         eventDialogEvent_Cancel();
         var isExistingEvent = isDefined(_element_EventEditorDialog_EventDetails.id);
         var newEvent = {from:fromDate, to:toDate, title:title, description:description, location:location, group:group, isAllDay:_element_EventEditorDialog_IsAllDay.checked, showAlerts:_element_EventEditorDialog_ShowAlerts.checked, color:_element_EventEditorDialog_EventDetails.color, colorText:_element_EventEditorDialog_EventDetails.colorText, colorBorder:_element_EventEditorDialog_EventDetails.colorBorder, repeatEveryExcludeDays:_element_EventEditorDialog_EventDetails.repeatEveryExcludeDays, repeatEnds:repeatEnds, 
-        url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type};
+        url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type, customTags:_element_EventEditorDialog_EventDetails.customTags};
         if (_element_EventEditorDialog_RepeatEvery_Never.checked) {
           newEvent.repeatEvery = _repeatType.never;
         } else if (_element_EventEditorDialog_RepeatEvery_EveryDay.checked) {
@@ -3913,7 +3913,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     setTimeOnDate(toDate, toTime);
     toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
     var newEvent = {from:fromDate, to:toDate, title:_options.newEventDefaultTitle, description:_string.empty, location:_string.empty, group:_string.empty, isAllDay:false, showAlerts:true, color:_options.defaultEventBackgroundColor, colorText:_options.defaultEventTextColor, colorBorder:_options.defaultEventBorderColor, repeatEveryExcludeDays:[], repeatEnds:null, url:_string.empty, repeatEveryCustomValue:_string.empty, repeatEvery:_repeatType.never, repeatEveryCustomType:_repeatCustomType.daily, organizerName:_string.empty, 
-    organizerEmailAddress:_string.empty, type:0, locked:false};
+    organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null};
     _this.addEvent(newEvent, false);
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
     buildDayEvents();
@@ -6009,9 +6009,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          var newPropertyName = getPropertyName(propertyName);
-          contents.push("<" + newPropertyName + ">" + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</" + newPropertyName + ">");
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            var newPropertyName = getPropertyName(propertyName);
+            contents.push("<" + newPropertyName + ">" + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</" + newPropertyName + ">");
+          }
         }
       }
       contents.push("</Event>");
@@ -6033,8 +6035,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          contents.push('"' + propertyName + '":' + getPropertyValue(propertyName, orderedEvent[propertyName], true) + ",");
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            contents.push('"' + propertyName + '":' + getPropertyValue(propertyName, orderedEvent[propertyName], true) + ",");
+          }
         }
       }
       var lastJsonEntry = contents[contents.length - 1];
@@ -6057,8 +6061,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          contents.push(getPropertyName(propertyName) + ": " + getPropertyValue(propertyName, orderedEvent[propertyName]));
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            contents.push(getPropertyName(propertyName) + ": " + getPropertyValue(propertyName, orderedEvent[propertyName]));
+          }
         }
       }
       contents.push(_string.empty);
@@ -6125,8 +6131,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          contents.push("<li><b>" + getPropertyName(propertyName) + "</b>: " + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</li>");
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            contents.push("<li><b>" + getPropertyName(propertyName) + "</b>: " + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</li>");
+          }
         }
       }
       contents.push("</ul>");

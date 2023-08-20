@@ -29,3 +29,4 @@ Below is the format that is expected for an event object when calling "addEvents
 | *boolean* | showAlerts | States if browser notifications should be shown for this event (defaults to true). |
 | *boolean* | locked | States if this event is locked and cannot be edited (it can still be removed, defaults to false). |
 | *number* | type | States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task). |
+| *Object* | customTags | Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar). |
