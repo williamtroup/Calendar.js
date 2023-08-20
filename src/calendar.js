@@ -1250,6 +1250,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullSideMenu() {
         _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars" );
+        _element_SideMenu.onclick = cancelBubble;
         _element_Calendar.appendChild( _element_SideMenu );
 
         var header = createElement( "div", "main-header" );
@@ -1398,7 +1399,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
                 }
     
-                buildCheckBox( _element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly );
             }
         }
     }
@@ -1432,7 +1433,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleEventTypes.indexOf( parseInt( eventType ) ) > -1;
                 }
 
-                buildCheckBox( _element_SideMenu_Content_Section_EventTypes_Content, _eventType[ eventType ].text, sideMenuSelectionsChanged, eventType, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_EventTypes_Content, _eventType[ eventType ].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly );
             }
         }
     }
@@ -1451,7 +1452,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
             var visible = _options.visibleDays.indexOf( dayIndex ) > -1;
 
-            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible );
+            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible, null, cancelBubbleOnly );
         }
     }
 
@@ -8025,6 +8026,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         e.cancelBubble = true;
     }
 
+    function cancelBubbleOnly( e ) {
+        e.cancelBubble = true;
+    }
+
     function showElementAtMousePosition( e, element ) {
         var left = e.pageX,
             top = e.pageY,
@@ -8218,7 +8223,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return input;
     }
 
-    function buildCheckBox( container, labelText, onChangeEvent, name, checked, extraClassName ) {
+    function buildCheckBox( container, labelText, onChangeEvent, name, checked, extraClassName, onClickEvent ) {
         extraClassName = isDefined( extraClassName ) ? _string.space + extraClassName : _string.empty;
 
         var lineContents = createElement( "div" );
@@ -8226,6 +8231,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var label = createElement( "label", "checkbox" + extraClassName );
         lineContents.appendChild( label );
+
+        if ( isDefined( onClickEvent ) ) {
+            label.onclick = onClickEvent;
+        }
 
         var input = createElement( "input", null, "checkbox" );
         label.appendChild( input );
