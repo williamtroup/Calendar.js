@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.1.3
+ * @version     v2.1.4
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -43,6 +43,7 @@
  * @property    {boolean}   showAlerts                                  States if browser notifications should be shown for this event (defaults to true).
  * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
  * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
+ * @property    {Object}    customTags                                  Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar).
  */
 
 
@@ -1249,6 +1250,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullSideMenu() {
         _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars" );
+        _element_SideMenu.onclick = cancelBubble;
         _element_Calendar.appendChild( _element_SideMenu );
 
         var header = createElement( "div", "main-header" );
@@ -1397,7 +1399,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
                 }
     
-                buildCheckBox( _element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly );
             }
         }
     }
@@ -1431,7 +1433,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleEventTypes.indexOf( parseInt( eventType ) ) > -1;
                 }
 
-                buildCheckBox( _element_SideMenu_Content_Section_EventTypes_Content, _eventType[ eventType ].text, sideMenuSelectionsChanged, eventType, visible );
+                buildCheckBox( _element_SideMenu_Content_Section_EventTypes_Content, _eventType[ eventType ].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly );
             }
         }
     }
@@ -1450,7 +1452,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
             var visible = _options.visibleDays.indexOf( dayIndex ) > -1;
 
-            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible );
+            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible, null, cancelBubbleOnly );
         }
     }
 
@@ -5837,7 +5839,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         repeatEnds: repeatEnds,
                         url: url,
                         repeatEveryCustomValue: repeatEveryCustomValue,
-                        type: type
+                        type: type,
+                        customTags: _element_EventEditorDialog_EventDetails.customTags
                     };
 
                 if ( _element_EventEditorDialog_RepeatEvery_Never.checked ) {
@@ -5953,7 +5956,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             organizerName: _string.empty,
             organizerEmailAddress: _string.empty,
             type: 0,
-            locked: false
+            locked: false,
+            customTags: null
         };
 
         _this.addEvent( newEvent, false );
@@ -8022,6 +8026,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         e.cancelBubble = true;
     }
 
+    function cancelBubbleOnly( e ) {
+        e.cancelBubble = true;
+    }
+
     function showElementAtMousePosition( e, element ) {
         var left = e.pageX,
             top = e.pageY,
@@ -8215,7 +8223,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return input;
     }
 
-    function buildCheckBox( container, labelText, onChangeEvent, name, checked, extraClassName ) {
+    function buildCheckBox( container, labelText, onChangeEvent, name, checked, extraClassName, onClickEvent ) {
         extraClassName = isDefined( extraClassName ) ? _string.space + extraClassName : _string.empty;
 
         var lineContents = createElement( "div" );
@@ -8223,6 +8231,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var label = createElement( "label", "checkbox" + extraClassName );
         lineContents.appendChild( label );
+
+        if ( isDefined( onClickEvent ) ) {
+            label.onclick = onClickEvent;
+        }
 
         var input = createElement( "input", null, "checkbox" );
         label.appendChild( input );
@@ -8853,10 +8865,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    var newPropertyName = getPropertyName( propertyName );
-                    
-                    contents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        var newPropertyName = getPropertyName( propertyName );
+                        
+                        contents.push( "<" + newPropertyName + ">" + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</" + newPropertyName + ">" );
+                    }
                 }
             }
     
@@ -8892,8 +8906,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( "\"" + propertyName + "\":" + getPropertyValue( propertyName, orderedEvent[ propertyName ], true ) + "," );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        contents.push( "\"" + propertyName + "\":" + getPropertyValue( propertyName, orderedEvent[ propertyName ], true ) + "," );
+                    }
                 }
             }
 
@@ -8928,8 +8944,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        contents.push( getPropertyName( propertyName ) + ": " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) );
+                    }
                 }
             }
     
@@ -9034,8 +9052,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var propertyNameIndex = 0; propertyNameIndex < propertyNamesLength; propertyNameIndex++ ) {
                 var propertyName = propertyNames[ propertyNameIndex ];
 
-                if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
-                    contents.push( "<li><b>" + getPropertyName( propertyName ) + "</b>: " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</li>" );
+                if ( propertyName !== "customTags" ) {
+                    if ( orderedEvent.hasOwnProperty( propertyName ) && orderedEvent[ propertyName ] !== null ) {
+                        contents.push( "<li><b>" + getPropertyName( propertyName ) + "</b>: " + getPropertyValue( propertyName, orderedEvent[ propertyName ] ) + "</li>" );
+                    }
                 }
             }
 
@@ -10301,7 +10321,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.1.3";
+        return "2.1.4";
     };
 
     /**

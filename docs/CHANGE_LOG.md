@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.4:
+- Added "customTags" support for Calendar events, which enables any kind of data to be stored on an event (does not show up in export data).
+- Fixed a fault that caused the Side Menu to randomly close when clicking on the check boxes.
+
+<br>
+
 ## Version 2.1.3:
 - When selecting the context menu item "Visible Days...", the "Days" container in the side menu is now opened by default.
 - When the side menu is open, clicking anywhere in the document will now close it.

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.1.3 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.1.4 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -388,6 +388,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullSideMenu() {
     _element_SideMenu = createElement("div", "side-menu custom-scroll-bars");
+    _element_SideMenu.onclick = cancelBubble;
     _element_Calendar.appendChild(_element_SideMenu);
     var header = createElement("div", "main-header");
     _element_SideMenu.appendChild(header);
@@ -499,7 +500,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (isDefined(_configuration.visibleGroups)) {
           visible = _configuration.visibleGroups.indexOf(configGroupName) > -1;
         }
-        buildCheckBox(_element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible);
+        buildCheckBox(_element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly);
       }
     }
   }
@@ -523,7 +524,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (isDefined(_configuration.visibleEventTypes)) {
           visible = _configuration.visibleEventTypes.indexOf(parseInt(eventType)) > -1;
         }
-        buildCheckBox(_element_SideMenu_Content_Section_EventTypes_Content, _eventType[eventType].text, sideMenuSelectionsChanged, eventType, visible);
+        buildCheckBox(_element_SideMenu_Content_Section_EventTypes_Content, _eventType[eventType].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly);
       }
     }
   }
@@ -537,7 +538,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var dayIndex = 0;
     for (; dayIndex < 7; dayIndex++) {
       var visible = _options.visibleDays.indexOf(dayIndex) > -1;
-      buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible);
+      buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible, null, cancelBubbleOnly);
     }
   }
   function buildSideMenuHeaderAndContentOpener(mainContainer, mainContent, text, opened) {
@@ -3837,7 +3838,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         eventDialogEvent_Cancel();
         var isExistingEvent = isDefined(_element_EventEditorDialog_EventDetails.id);
         var newEvent = {from:fromDate, to:toDate, title:title, description:description, location:location, group:group, isAllDay:_element_EventEditorDialog_IsAllDay.checked, showAlerts:_element_EventEditorDialog_ShowAlerts.checked, color:_element_EventEditorDialog_EventDetails.color, colorText:_element_EventEditorDialog_EventDetails.colorText, colorBorder:_element_EventEditorDialog_EventDetails.colorBorder, repeatEveryExcludeDays:_element_EventEditorDialog_EventDetails.repeatEveryExcludeDays, repeatEnds:repeatEnds, 
-        url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type};
+        url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type, customTags:_element_EventEditorDialog_EventDetails.customTags};
         if (_element_EventEditorDialog_RepeatEvery_Never.checked) {
           newEvent.repeatEvery = _repeatType.never;
         } else if (_element_EventEditorDialog_RepeatEvery_EveryDay.checked) {
@@ -3913,7 +3914,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     setTimeOnDate(toDate, toTime);
     toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
     var newEvent = {from:fromDate, to:toDate, title:_options.newEventDefaultTitle, description:_string.empty, location:_string.empty, group:_string.empty, isAllDay:false, showAlerts:true, color:_options.defaultEventBackgroundColor, colorText:_options.defaultEventTextColor, colorBorder:_options.defaultEventBorderColor, repeatEveryExcludeDays:[], repeatEnds:null, url:_string.empty, repeatEveryCustomValue:_string.empty, repeatEvery:_repeatType.never, repeatEveryCustomType:_repeatCustomType.daily, organizerName:_string.empty, 
-    organizerEmailAddress:_string.empty, type:0, locked:false};
+    organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null};
     _this.addEvent(newEvent, false);
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
     buildDayEvents();
@@ -5429,6 +5430,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     e.preventDefault();
     e.cancelBubble = true;
   }
+  function cancelBubbleOnly(e) {
+    e.cancelBubble = true;
+  }
   function showElementAtMousePosition(e, element) {
     var left = e.pageX;
     var top = e.pageY;
@@ -5568,12 +5572,15 @@ function calendarJs(elementOrId, options, searchOptions) {
     createSpanElement(label, labelText, "text");
     return input;
   }
-  function buildCheckBox(container, labelText, onChangeEvent, name, checked, extraClassName) {
+  function buildCheckBox(container, labelText, onChangeEvent, name, checked, extraClassName, onClickEvent) {
     extraClassName = isDefined(extraClassName) ? _string.space + extraClassName : _string.empty;
     var lineContents = createElement("div");
     container.appendChild(lineContents);
     var label = createElement("label", "checkbox" + extraClassName);
     lineContents.appendChild(label);
+    if (isDefined(onClickEvent)) {
+      label.onclick = onClickEvent;
+    }
     var input = createElement("input", null, "checkbox");
     label.appendChild(input);
     if (isDefined(name)) {
@@ -6009,9 +6016,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          var newPropertyName = getPropertyName(propertyName);
-          contents.push("<" + newPropertyName + ">" + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</" + newPropertyName + ">");
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            var newPropertyName = getPropertyName(propertyName);
+            contents.push("<" + newPropertyName + ">" + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</" + newPropertyName + ">");
+          }
         }
       }
       contents.push("</Event>");
@@ -6033,8 +6042,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          contents.push('"' + propertyName + '":' + getPropertyValue(propertyName, orderedEvent[propertyName], true) + ",");
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            contents.push('"' + propertyName + '":' + getPropertyValue(propertyName, orderedEvent[propertyName], true) + ",");
+          }
         }
       }
       var lastJsonEntry = contents[contents.length - 1];
@@ -6057,8 +6068,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          contents.push(getPropertyName(propertyName) + ": " + getPropertyValue(propertyName, orderedEvent[propertyName]));
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            contents.push(getPropertyName(propertyName) + ": " + getPropertyValue(propertyName, orderedEvent[propertyName]));
+          }
         }
       }
       contents.push(_string.empty);
@@ -6125,8 +6138,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       var propertyNameIndex = 0;
       for (; propertyNameIndex < propertyNamesLength; propertyNameIndex++) {
         var propertyName = propertyNames[propertyNameIndex];
-        if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
-          contents.push("<li><b>" + getPropertyName(propertyName) + "</b>: " + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</li>");
+        if (propertyName !== "customTags") {
+          if (orderedEvent.hasOwnProperty(propertyName) && orderedEvent[propertyName] !== null) {
+            contents.push("<li><b>" + getPropertyName(propertyName) + "</b>: " + getPropertyValue(propertyName, orderedEvent[propertyName]) + "</li>");
+          }
         }
       }
       contents.push("</ul>");
@@ -7294,7 +7309,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.1.3";
+    return "2.1.4";
   };
   this.getId = function() {
     return _elementID;
