@@ -3,8 +3,9 @@
 ## Version 2.1.5:
 - Fixed a fault that caused events exported to iCAL format to fail (due to optional date being missing).
 - Fixed a fault that allowed HTML titles to be included in events exported to iCAL format.
-- Added "DESCRIPTION", "LOCATION", and "URL" support for iCAL exports (strips out new lines).
+- Added "DESCRIPTION", "LOCATION", and "URL" support for exported iCAL events (strips out new lines).
 - Fixed a fault that caused the "ORGANIZER" tag to be included in iCAL exported events when nothing is set.
+- 
 
 <br>
 
