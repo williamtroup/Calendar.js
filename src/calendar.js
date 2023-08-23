@@ -9002,6 +9002,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.push( "SUMMARY:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.title ) ) ) );
             contents.push( "DESCRIPTION:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.description ) ) ) );
             contents.push( "LOCATION:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.location ) ) ) );
+            contents.push( "URL:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.url ) ) ) );
             contents.push( "END:VEVENT" );
         }
 
