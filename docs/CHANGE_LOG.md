@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.5:
+- Fixed a fault that caused events exported to iCAL format to fail (due to optional date being missing).
+- Fixed a fault that allowed HTML titles to be included in events exported to iCAL format.
+- Added "DESCRIPTION", "LOCATION", "URL", and "CATEGORIES" (groups) support for exported iCAL events (strips out new lines).
+- Fixed a fault that caused the "ORGANIZER" tag to be included in iCAL exported events when nothing is set.
+
+<br>
+
 ## Version 2.1.4:
 - Added "customTags" support for Calendar events, which enables any kind of data to be stored on an event (does not show up in export data).
 - Fixed a fault that caused the Side Menu to randomly close when clicking on the check boxes.

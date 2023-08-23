@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.1.4
+ * @version     v2.1.5
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -8567,6 +8567,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return isDefinedString( value ) ? value : defaultValue;
     }
 
+    function stripNewLines( value ) {
+        return value.replace( /\n|\r/g, "" );
+    }
+
     function getNumber( value, defaultValue ) {
         defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
 
@@ -8689,13 +8693,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function getICalDateTimeString( eventDate ) {
         var format = [];
-        format.push( eventDate.getFullYear() );
-        format.push( padNumber( eventDate.getMonth() + 1 ) );
-        format.push( padNumber( eventDate.getDate() ) );
-        format.push( "T" );
-        format.push( padNumber( eventDate.getHours() ) );
-        format.push( padNumber( eventDate.getMinutes() ) );
-        format.push( "00Z" );
+
+        if ( isDefined( eventDate ) ) {
+            format.push( eventDate.getFullYear() );
+            format.push( padNumber( eventDate.getMonth() + 1 ) );
+            format.push( padNumber( eventDate.getDate() ) );
+            format.push( "T" );
+            format.push( padNumber( eventDate.getHours() ) );
+            format.push( padNumber( eventDate.getMinutes() ) );
+            format.push( "00Z" );
+        }
 
         return format.join( _string.empty );
     }
@@ -8976,16 +8983,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
         contents.push( "CALSCALE:GREGORIAN" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ];
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                organizerName = getString( orderedEvent.organizerName ),
+                organizerEmailAddress = getString( orderedEvent.organizerEmailAddress),
+                isOrganizerSet = isDefined( organizerName ) && isDefined( organizerEmailAddress );
 
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
             contents.push( "CREATED:" + getICalDateTimeString( orderedEvent.created ) );
             contents.push( "LAST-MODIFIED:" + getICalDateTimeString( orderedEvent.lastUpdated ) );
-            contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
+            
+            if ( isOrganizerSet ) {
+                contents.push( "ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress );
+            }
+            
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
-            contents.push( "SUMMARY:" + getString( orderedEvent.title ) );
+            contents.push( "SUMMARY:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.title ) ) ) );
+            contents.push( "DESCRIPTION:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.description ) ) ) );
+            contents.push( "LOCATION:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.location ) ) ) );
+            contents.push( "URL:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.url ) ) ) );
+            contents.push( "CATEGORIES:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.group ) ) ) );
             contents.push( "END:VEVENT" );
         }
 
@@ -10321,7 +10339,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.1.4";
+        return "2.1.5";
     };
 
     /**

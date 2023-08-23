@@ -1,4 +1,4 @@
-/*! Calendar.js v2.1.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.1.5 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -5805,6 +5805,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     defaultValue = isDefined(defaultValue) ? defaultValue : _string.empty;
     return isDefinedString(value) ? value : defaultValue;
   }
+  function stripNewLines(value) {
+    return value.replace(/\n|\r/g, "");
+  }
   function getNumber(value, defaultValue) {
     defaultValue = isDefined(defaultValue) ? defaultValue : 0;
     return isDefinedNumber(value) ? value : defaultValue;
@@ -5900,13 +5903,15 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function getICalDateTimeString(eventDate) {
     var format = [];
-    format.push(eventDate.getFullYear());
-    format.push(padNumber(eventDate.getMonth() + 1));
-    format.push(padNumber(eventDate.getDate()));
-    format.push("T");
-    format.push(padNumber(eventDate.getHours()));
-    format.push(padNumber(eventDate.getMinutes()));
-    format.push("00Z");
+    if (isDefined(eventDate)) {
+      format.push(eventDate.getFullYear());
+      format.push(padNumber(eventDate.getMonth() + 1));
+      format.push(padNumber(eventDate.getDate()));
+      format.push("T");
+      format.push(padNumber(eventDate.getHours()));
+      format.push(padNumber(eventDate.getMinutes()));
+      format.push("00Z");
+    }
     return format.join(_string.empty);
   }
   function getArrayDays(days) {
@@ -6089,14 +6094,23 @@ function calendarJs(elementOrId, options, searchOptions) {
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
       var orderedEvent = orderedEvents[orderedEventIndex];
+      var organizerName = getString(orderedEvent.organizerName);
+      var organizerEmailAddress = getString(orderedEvent.organizerEmailAddress);
+      var isOrganizerSet = isDefined(organizerName) && isDefined(organizerEmailAddress);
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
       contents.push("CREATED:" + getICalDateTimeString(orderedEvent.created));
       contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
-      contents.push("ORGANIZER;CN=" + getString(orderedEvent.organizerName) + ":MAILTO:" + getString(orderedEvent.organizerEmailAddress));
+      if (isOrganizerSet) {
+        contents.push("ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress);
+      }
       contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
       contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
-      contents.push("SUMMARY:" + getString(orderedEvent.title));
+      contents.push("SUMMARY:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.title))));
+      contents.push("DESCRIPTION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.description))));
+      contents.push("LOCATION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.location))));
+      contents.push("URL:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.url))));
+      contents.push("CATEGORIES:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.group))));
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
@@ -7309,7 +7323,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.1.4";
+    return "2.1.5";
   };
   this.getId = function() {
     return _elementID;
