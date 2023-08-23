@@ -8689,13 +8689,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function getICalDateTimeString( eventDate ) {
         var format = [];
-        format.push( eventDate.getFullYear() );
-        format.push( padNumber( eventDate.getMonth() + 1 ) );
-        format.push( padNumber( eventDate.getDate() ) );
-        format.push( "T" );
-        format.push( padNumber( eventDate.getHours() ) );
-        format.push( padNumber( eventDate.getMinutes() ) );
-        format.push( "00Z" );
+
+        if ( isDefined( eventDate ) ) {
+            format.push( eventDate.getFullYear() );
+            format.push( padNumber( eventDate.getMonth() + 1 ) );
+            format.push( padNumber( eventDate.getDate() ) );
+            format.push( "T" );
+            format.push( padNumber( eventDate.getHours() ) );
+            format.push( padNumber( eventDate.getMinutes() ) );
+            format.push( "00Z" );
+        }
 
         return format.join( _string.empty );
     }
@@ -8985,7 +8988,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
-            contents.push( "SUMMARY:" + getString( orderedEvent.title ) );
+            contents.push( "SUMMARY:" + stripHTMLTagsFromText( getString( orderedEvent.title ) ) );
             contents.push( "END:VEVENT" );
         }
 
