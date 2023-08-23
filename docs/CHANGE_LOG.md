@@ -5,6 +5,7 @@
 - Fixed a fault that allowed HTML titles to be included in events exported to iCAL format.
 - Added "DESCRIPTION" support for iCAL exports (strips out new lines).
 - Added "LOCATION" support for iCAL exports (strips out new lines).
+- Fixed a fault that caused the "ORGANIZER" tag to be included in iCAL exported events when nothing is set.
 - 
 
 <br>

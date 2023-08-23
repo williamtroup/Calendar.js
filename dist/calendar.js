@@ -6094,11 +6094,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
       var orderedEvent = orderedEvents[orderedEventIndex];
+      var organizerName = getString(orderedEvent.organizerName);
+      var organizerEmailAddress = getString(orderedEvent.organizerEmailAddress);
+      var isOrganizerSet = isDefined(organizerName) && isDefined(organizerEmailAddress);
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
       contents.push("CREATED:" + getICalDateTimeString(orderedEvent.created));
       contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
-      contents.push("ORGANIZER;CN=" + getString(orderedEvent.organizerName) + ":MAILTO:" + getString(orderedEvent.organizerEmailAddress));
+      if (isOrganizerSet) {
+        contents.push("ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress);
+      }
       contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
       contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
       contents.push("SUMMARY:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.title))));

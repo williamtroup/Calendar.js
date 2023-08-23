@@ -8983,13 +8983,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
         contents.push( "CALSCALE:GREGORIAN" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
-            var orderedEvent = orderedEvents[ orderedEventIndex ];
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                organizerName = getString( orderedEvent.organizerName ),
+                organizerEmailAddress = getString( orderedEvent.organizerEmailAddress),
+                isOrganizerSet = isDefined( organizerName ) && isDefined( organizerEmailAddress );
 
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
             contents.push( "CREATED:" + getICalDateTimeString( orderedEvent.created ) );
             contents.push( "LAST-MODIFIED:" + getICalDateTimeString( orderedEvent.lastUpdated ) );
-            contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
+            
+            if ( isOrganizerSet ) {
+                contents.push( "ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress );
+            }
+            
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
             contents.push( "SUMMARY:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.title ) ) ) );
