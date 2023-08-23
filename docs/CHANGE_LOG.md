@@ -4,6 +4,7 @@
 - Fixed a fault that caused events exported to iCAL format to fail (due to optional date being missing).
 - Fixed a fault that allowed HTML titles to be included in events exported to iCAL format.
 - Added "DESCRIPTION" support for iCAL exports (strips out new lines).
+- Added "LOCATION" support for iCAL exports (strips out new lines).
 - 
 
 <br>

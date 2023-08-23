@@ -6103,6 +6103,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
       contents.push("SUMMARY:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.title))));
       contents.push("DESCRIPTION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.description))));
+      contents.push("LOCATION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.location))));
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
