@@ -8567,6 +8567,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return isDefinedString( value ) ? value : defaultValue;
     }
 
+    function stripNewLines( value ) {
+        return value.replace( /\n|\r/g, "" );
+    }
+
     function getNumber( value, defaultValue ) {
         defaultValue = isDefined( defaultValue ) ? defaultValue : 0;
 
@@ -8988,7 +8992,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.push( "ORGANIZER;CN=" + getString( orderedEvent.organizerName ) + ":MAILTO:" + getString( orderedEvent.organizerEmailAddress ) );
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
-            contents.push( "SUMMARY:" + stripHTMLTagsFromText( getString( orderedEvent.title ) ) );
+            contents.push( "SUMMARY:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.title ) ) ) );
+            contents.push( "DESCRIPTION:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.description ) ) ) );
             contents.push( "END:VEVENT" );
         }
 
