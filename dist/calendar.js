@@ -6110,6 +6110,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push("DESCRIPTION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.description))));
       contents.push("LOCATION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.location))));
       contents.push("URL:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.url))));
+      contents.push("CATEGORIES:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.group))));
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
