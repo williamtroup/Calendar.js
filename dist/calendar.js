@@ -5901,19 +5901,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     return result;
   }
-  function getICalDateTimeString(eventDate) {
-    var format = [];
-    if (isDefined(eventDate)) {
-      format.push(eventDate.getFullYear());
-      format.push(padNumber(eventDate.getMonth() + 1));
-      format.push(padNumber(eventDate.getDate()));
-      format.push("T");
-      format.push(padNumber(eventDate.getHours()));
-      format.push(padNumber(eventDate.getMinutes()));
-      format.push("00Z");
-    }
-    return format.join(_string.empty);
-  }
   function getArrayDays(days) {
     var daysNames = [];
     if (isDefinedArray(days)) {
@@ -6096,29 +6083,58 @@ function calendarJs(elementOrId, options, searchOptions) {
       var orderedEvent = orderedEvents[orderedEventIndex];
       var organizerName = getString(orderedEvent.organizerName);
       var organizerEmailAddress = getString(orderedEvent.organizerEmailAddress);
-      var isOrganizerSet = isDefined(organizerName) && isDefined(organizerEmailAddress);
       var repeatEvery = getNumber(orderedEvent.repeatEvery);
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
-      contents.push("CREATED:" + getICalDateTimeString(orderedEvent.created));
-      contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
-      if (isOrganizerSet) {
+      contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
+      contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
+      if (isDefinedDate(orderedEvent.created)) {
+        contents.push("CREATED:" + getICalDateTimeString(orderedEvent.created));
+      }
+      if (isDefinedDate(orderedEvent.lastUpdated)) {
+        contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
+      }
+      if (isDefinedString(organizerName) && isDefinedString(organizerEmailAddress)) {
         contents.push("ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress);
       }
       if (repeatEvery !== _repeatType.never) {
         contents.push("RRULE:" + getICalRRuleForEvent(orderedEvent, repeatEvery));
       }
-      contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
-      contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
-      contents.push("SUMMARY:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.title))));
-      contents.push("DESCRIPTION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.description))));
-      contents.push("LOCATION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.location))));
-      contents.push("URL:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.url))));
-      contents.push("CATEGORIES:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.group))));
+      if (isDefinedString(orderedEvent.title)) {
+        contents.push("SUMMARY:" + getICalSingleLine(orderedEvent.title));
+      }
+      if (isDefinedString(orderedEvent.description)) {
+        contents.push("DESCRIPTION:" + getICalSingleLine(orderedEvent.description));
+      }
+      if (isDefinedString(orderedEvent.location)) {
+        contents.push("LOCATION:" + getICalSingleLine(orderedEvent.location));
+      }
+      if (isDefinedString(orderedEvent.url)) {
+        contents.push("URL:" + getICalSingleLine(orderedEvent.url));
+      }
+      if (isDefinedString(orderedEvent.group)) {
+        contents.push("CATEGORIES:" + getICalSingleLine(orderedEvent.group));
+      }
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
     return contents.join("\n");
+  }
+  function getICalSingleLine(value) {
+    return stripNewLines(stripHTMLTagsFromText(getString(value)));
+  }
+  function getICalDateTimeString(eventDate) {
+    var format = [];
+    if (isDefined(eventDate)) {
+      format.push(eventDate.getFullYear());
+      format.push(padNumber(eventDate.getMonth() + 1));
+      format.push(padNumber(eventDate.getDate()));
+      format.push("T");
+      format.push(padNumber(eventDate.getHours()));
+      format.push(padNumber(eventDate.getMinutes()));
+      format.push("00Z");
+    }
+    return format.join(_string.empty);
   }
   function getICalRRuleForEvent(orderedEvent, repeatEvery) {
     var contents = [];

@@ -3,6 +3,7 @@
 ## Version 2.1.6:
 - Improved the "PRODID" support for exported iCAL events.
 - Added "RRULE" support for exported iCAL events (states how an event should be repeated).
+- The sections for exported iCAL events (such as title, description, url, etc) are now only included when actually set on an event.
 - 
 
 <br>
