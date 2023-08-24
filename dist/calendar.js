@@ -1,4 +1,4 @@
-/*! Calendar.js v2.1.5 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.1.6 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -5806,7 +5806,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return isDefinedString(value) ? value : defaultValue;
   }
   function stripNewLines(value) {
-    return value.replace(/\n|\r/g, "");
+    return value.replace(/\n|\r/g, _string.empty);
   }
   function getNumber(value, defaultValue) {
     defaultValue = isDefined(defaultValue) ? defaultValue : 0;
@@ -5900,19 +5900,6 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
     return result;
-  }
-  function getICalDateTimeString(eventDate) {
-    var format = [];
-    if (isDefined(eventDate)) {
-      format.push(eventDate.getFullYear());
-      format.push(padNumber(eventDate.getMonth() + 1));
-      format.push(padNumber(eventDate.getDate()));
-      format.push("T");
-      format.push(padNumber(eventDate.getHours()));
-      format.push(padNumber(eventDate.getMinutes()));
-      format.push("00Z");
-    }
-    return format.join(_string.empty);
   }
   function getArrayDays(days) {
     var daysNames = [];
@@ -6089,32 +6076,103 @@ function calendarJs(elementOrId, options, searchOptions) {
     var orderedEventLength = orderedEvents.length;
     contents.push("BEGIN:VCALENDAR");
     contents.push("VERSION:2.0");
-    contents.push("PRODID:Calendar.js v" + _this.getVersion());
+    contents.push("PRODID:-//Bunoon//Calendar.js v" + _this.getVersion() + "//EN");
     contents.push("CALSCALE:GREGORIAN");
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
       var orderedEvent = orderedEvents[orderedEventIndex];
       var organizerName = getString(orderedEvent.organizerName);
       var organizerEmailAddress = getString(orderedEvent.organizerEmailAddress);
-      var isOrganizerSet = isDefined(organizerName) && isDefined(organizerEmailAddress);
+      var repeatEvery = getNumber(orderedEvent.repeatEvery);
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
-      contents.push("CREATED:" + getICalDateTimeString(orderedEvent.created));
-      contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
-      if (isOrganizerSet) {
-        contents.push("ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress);
-      }
       contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
       contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
-      contents.push("SUMMARY:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.title))));
-      contents.push("DESCRIPTION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.description))));
-      contents.push("LOCATION:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.location))));
-      contents.push("URL:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.url))));
-      contents.push("CATEGORIES:" + stripNewLines(stripHTMLTagsFromText(getString(orderedEvent.group))));
+      if (isDefinedDate(orderedEvent.created)) {
+        var created = getICalDateTimeString(orderedEvent.created);
+        contents.push("DTSTAMP:" + created);
+        contents.push("CREATED:" + created);
+      }
+      if (isDefinedDate(orderedEvent.lastUpdated)) {
+        contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
+      }
+      if (isDefinedString(organizerName) && isDefinedString(organizerEmailAddress)) {
+        contents.push("ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress);
+      }
+      if (repeatEvery !== _repeatType.never) {
+        contents.push("RRULE:" + getICalRRuleForEvent(orderedEvent, repeatEvery));
+      }
+      if (isDefinedString(orderedEvent.title)) {
+        contents.push("SUMMARY:" + getICalSingleLine(orderedEvent.title));
+      }
+      if (isDefinedString(orderedEvent.description)) {
+        contents.push("DESCRIPTION:" + getICalSingleLine(orderedEvent.description));
+      }
+      if (isDefinedString(orderedEvent.location)) {
+        contents.push("LOCATION:" + getICalSingleLine(orderedEvent.location));
+      }
+      if (isDefinedString(orderedEvent.url)) {
+        contents.push("URL:" + getICalSingleLine(orderedEvent.url));
+      }
+      if (isDefinedString(orderedEvent.group)) {
+        contents.push("CATEGORIES:" + getICalSingleLine(orderedEvent.group));
+      }
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
-    return contents.join("\n");
+    return contents.join("\r\n");
+  }
+  function getICalSingleLine(value) {
+    return stripNewLines(stripHTMLTagsFromText(getString(value)));
+  }
+  function getICalDateTimeString(eventDate) {
+    var format = [];
+    if (isDefined(eventDate)) {
+      format.push(eventDate.getFullYear());
+      format.push(padNumber(eventDate.getMonth() + 1));
+      format.push(padNumber(eventDate.getDate()));
+      format.push("T");
+      format.push(padNumber(eventDate.getHours()));
+      format.push(padNumber(eventDate.getMinutes()));
+      format.push("00Z");
+    }
+    return format.join(_string.empty);
+  }
+  function getICalRRuleForEvent(orderedEvent, repeatEvery) {
+    var contents = [];
+    if (repeatEvery === _repeatType.custom) {
+      var repeatEveryCustomType = getNumber(orderedEvent.repeatEveryCustomType);
+      var repeatEveryCustomValue = getNumber(orderedEvent.repeatEveryCustomValue);
+      if (repeatEveryCustomType === _repeatCustomType.daily) {
+        contents.push("FREQ=DAILY");
+      } else if (repeatEveryCustomType === _repeatCustomType.weekly) {
+        contents.push("FREQ=WEEKLY");
+      } else if (repeatEveryCustomType === _repeatCustomType.monthly) {
+        contents.push("FREQ=MONTHLY");
+      } else if (repeatEveryCustomType === _repeatCustomType.yearly) {
+        contents.push("FREQ=YEARLY");
+      }
+      contents.push("INTERVAL=" + repeatEveryCustomValue.toString());
+    } else {
+      if (repeatEvery === _repeatType.everyDay) {
+        contents.push("FREQ=DAILY");
+      } else if (repeatEvery === _repeatType.everyWeek || repeatEvery === _repeatType.every2Weeks) {
+        contents.push("FREQ=WEEKLY");
+      } else if (repeatEvery === _repeatType.everyMonth) {
+        contents.push("FREQ=MONTHLY");
+      } else if (repeatEvery === _repeatType.everyYear) {
+        contents.push("FREQ=YEARLY");
+      }
+      if (repeatEvery === _repeatType.every2Weeks) {
+        contents.push("INTERVAL=2");
+      } else {
+        contents.push("INTERVAL=1");
+      }
+    }
+    if (isDefinedDate(orderedEvent.repeatEnds)) {
+      contents.push("UNTIL=" + getICalDateTimeString(orderedEvent.repeatEnds));
+    }
+    return contents.join(";");
   }
   function getMdContents(orderedEvents) {
     var orderedEventLength = orderedEvents.length;
@@ -7323,7 +7381,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.1.5";
+    return "2.1.6";
   };
   this.getId = function() {
     return _elementID;

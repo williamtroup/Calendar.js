@@ -1,5 +1,14 @@
 # Calendar.js - Change Log:
 
+## Version 2.1.6:
+- Improved the "PRODID" support for exported iCAL events.
+- Added "RRULE" support for exported iCAL events (states how an event should be repeated).
+- The sections for exported iCAL events (such as title, description, URL, etc.) are now only included when set on an event.
+- Added "DTSTAMP" support for exported iCAL events (uses the events "created" date value).
+- Fixed newline characters not always working. It now uses CRLF (which is the preferred format).
+
+<br>
+
 ## Version 2.1.5:
 - Fixed a fault that caused events exported to iCAL format to fail (due to optional date being missing).
 - Fixed a fault that allowed HTML titles to be included in events exported to iCAL format.

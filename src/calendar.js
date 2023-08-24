@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.1.5
+ * @version     v2.1.6
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -8568,7 +8568,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function stripNewLines( value ) {
-        return value.replace( /\n|\r/g, "" );
+        return value.replace( /\n|\r/g, _string.empty );
     }
 
     function getNumber( value, defaultValue ) {
@@ -8689,22 +8689,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return result;
-    }
-
-    function getICalDateTimeString( eventDate ) {
-        var format = [];
-
-        if ( isDefined( eventDate ) ) {
-            format.push( eventDate.getFullYear() );
-            format.push( padNumber( eventDate.getMonth() + 1 ) );
-            format.push( padNumber( eventDate.getDate() ) );
-            format.push( "T" );
-            format.push( padNumber( eventDate.getHours() ) );
-            format.push( padNumber( eventDate.getMinutes() ) );
-            format.push( "00Z" );
-        }
-
-        return format.join( _string.empty );
     }
 
     function getArrayDays( days ) {
@@ -8979,37 +8963,129 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         contents.push( "BEGIN:VCALENDAR" );
         contents.push( "VERSION:2.0" );
-        contents.push( "PRODID:Calendar.js v" + _this.getVersion() );
+        contents.push( "PRODID:-//Bunoon//Calendar.js v" + _this.getVersion() + "//EN" );
         contents.push( "CALSCALE:GREGORIAN" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
                 organizerName = getString( orderedEvent.organizerName ),
                 organizerEmailAddress = getString( orderedEvent.organizerEmailAddress),
-                isOrganizerSet = isDefined( organizerName ) && isDefined( organizerEmailAddress );
+                repeatEvery = getNumber( orderedEvent.repeatEvery );
 
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
-            contents.push( "CREATED:" + getICalDateTimeString( orderedEvent.created ) );
-            contents.push( "LAST-MODIFIED:" + getICalDateTimeString( orderedEvent.lastUpdated ) );
-            
-            if ( isOrganizerSet ) {
-                contents.push( "ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress );
-            }
-            
             contents.push( "DTSTART:" + getICalDateTimeString( orderedEvent.from ) );
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
-            contents.push( "SUMMARY:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.title ) ) ) );
-            contents.push( "DESCRIPTION:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.description ) ) ) );
-            contents.push( "LOCATION:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.location ) ) ) );
-            contents.push( "URL:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.url ) ) ) );
-            contents.push( "CATEGORIES:" + stripNewLines( stripHTMLTagsFromText( getString( orderedEvent.group ) ) ) );
+            
+            if ( isDefinedDate( orderedEvent.created ) ) {
+                var created = getICalDateTimeString( orderedEvent.created );
+
+                contents.push( "DTSTAMP:" + created );
+                contents.push( "CREATED:" + created );
+            }
+
+            if ( isDefinedDate( orderedEvent.lastUpdated ) ) {
+                contents.push( "LAST-MODIFIED:" + getICalDateTimeString( orderedEvent.lastUpdated ) );
+            }
+
+            if ( isDefinedString( organizerName ) && isDefinedString( organizerEmailAddress ) ) {
+                contents.push( "ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress );
+            }
+
+            if ( repeatEvery !== _repeatType.never ) {
+                contents.push( "RRULE:" + getICalRRuleForEvent( orderedEvent, repeatEvery ) );
+            }
+
+            if ( isDefinedString( orderedEvent.title ) ) {
+                contents.push( "SUMMARY:" + getICalSingleLine( orderedEvent.title ) );
+            }
+
+            if ( isDefinedString( orderedEvent.description ) ) {
+                contents.push( "DESCRIPTION:" + getICalSingleLine( orderedEvent.description ) );
+            }
+
+            if ( isDefinedString( orderedEvent.location ) ) {
+                contents.push( "LOCATION:" + getICalSingleLine( orderedEvent.location ) );
+            }
+            
+            if ( isDefinedString( orderedEvent.url ) ) {
+                contents.push( "URL:" + getICalSingleLine( orderedEvent.url ) );
+            }
+            
+            if ( isDefinedString( orderedEvent.group ) ) {
+                contents.push( "CATEGORIES:" + getICalSingleLine( orderedEvent.group ) );
+            }
+            
             contents.push( "END:VEVENT" );
         }
 
         contents.push( "END:VCALENDAR" );
 
-        return contents.join( "\n" );
+        return contents.join( "\r\n" );
+    }
+
+    function getICalSingleLine( value ) {
+        return stripNewLines( stripHTMLTagsFromText( getString( value ) ) );
+    }
+
+    function getICalDateTimeString( eventDate ) {
+        var format = [];
+
+        if ( isDefined( eventDate ) ) {
+            format.push( eventDate.getFullYear() );
+            format.push( padNumber( eventDate.getMonth() + 1 ) );
+            format.push( padNumber( eventDate.getDate() ) );
+            format.push( "T" );
+            format.push( padNumber( eventDate.getHours() ) );
+            format.push( padNumber( eventDate.getMinutes() ) );
+            format.push( "00Z" );
+        }
+
+        return format.join( _string.empty );
+    }
+
+    function getICalRRuleForEvent( orderedEvent, repeatEvery ) {
+        var contents = [];
+
+        if ( repeatEvery === _repeatType.custom ) {
+            var repeatEveryCustomType = getNumber( orderedEvent.repeatEveryCustomType ),
+                repeatEveryCustomValue = getNumber( orderedEvent.repeatEveryCustomValue );
+
+            if ( repeatEveryCustomType === _repeatCustomType.daily ) {
+                contents.push( "FREQ=DAILY" );
+            } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
+                contents.push( "FREQ=WEEKLY" );
+            } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
+                contents.push( "FREQ=MONTHLY" );
+            } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
+                contents.push( "FREQ=YEARLY" );
+            }
+
+            contents.push( "INTERVAL=" + repeatEveryCustomValue.toString() );
+        } else {
+
+            if ( repeatEvery === _repeatType.everyDay ) {
+                contents.push( "FREQ=DAILY" );
+            } else if ( repeatEvery === _repeatType.everyWeek || repeatEvery === _repeatType.every2Weeks ) {
+                contents.push( "FREQ=WEEKLY" );
+            }  else if ( repeatEvery === _repeatType.everyMonth ) {
+                contents.push( "FREQ=MONTHLY" );
+            } else if ( repeatEvery === _repeatType.everyYear ) {
+                contents.push( "FREQ=YEARLY" );
+            }
+    
+            if ( repeatEvery === _repeatType.every2Weeks ) {
+                contents.push( "INTERVAL=2" );
+            } else {
+                contents.push( "INTERVAL=1" );
+            }
+        }
+
+        if ( isDefinedDate( orderedEvent.repeatEnds ) ) {
+            contents.push( "UNTIL=" + getICalDateTimeString( orderedEvent.repeatEnds ) );
+        }
+
+        return contents.join( ";" );
     }
 
 
@@ -10339,7 +10415,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.1.5";
+        return "2.1.6";
     };
 
     /**
