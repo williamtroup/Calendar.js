@@ -2,6 +2,7 @@
 
 ## Version 2.1.6:
 - Improved the "PRODID" support for exported iCAL events.
+- Added "RRULE" support for exported iCAL events (states how an event should be repeated).
 - 
 
 <br>

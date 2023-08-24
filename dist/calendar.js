@@ -6097,12 +6097,16 @@ function calendarJs(elementOrId, options, searchOptions) {
       var organizerName = getString(orderedEvent.organizerName);
       var organizerEmailAddress = getString(orderedEvent.organizerEmailAddress);
       var isOrganizerSet = isDefined(organizerName) && isDefined(organizerEmailAddress);
+      var repeatEvery = getNumber(orderedEvent.repeatEvery);
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
       contents.push("CREATED:" + getICalDateTimeString(orderedEvent.created));
       contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
       if (isOrganizerSet) {
         contents.push("ORGANIZER;CN=" + organizerName + ":MAILTO:" + organizerEmailAddress);
+      }
+      if (repeatEvery !== _repeatType.never) {
+        contents.push("RRULE:" + getICalRRuleForEvent(orderedEvent, repeatEvery));
       }
       contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
       contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
@@ -6115,6 +6119,42 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     contents.push("END:VCALENDAR");
     return contents.join("\n");
+  }
+  function getICalRRuleForEvent(orderedEvent, repeatEvery) {
+    var contents = [];
+    if (repeatEvery === _repeatType.custom) {
+      var repeatEveryCustomType = getNumber(orderedEvent.repeatEveryCustomType);
+      var repeatEveryCustomValue = getNumber(orderedEvent.repeatEveryCustomValue);
+      if (repeatEveryCustomType === _repeatCustomType.daily) {
+        contents.push("FREQ=DAILY");
+      } else if (repeatEveryCustomType === _repeatCustomType.weekly) {
+        contents.push("FREQ=WEEKLY");
+      } else if (repeatEveryCustomType === _repeatCustomType.monthly) {
+        contents.push("FREQ=MONTHLY");
+      } else if (repeatEveryCustomType === _repeatCustomType.yearly) {
+        contents.push("FREQ=YEARLY");
+      }
+      contents.push("INTERVAL=" + repeatEveryCustomValue.toString());
+    } else {
+      if (repeatEvery === _repeatType.everyDay) {
+        contents.push("FREQ=DAILY");
+      } else if (repeatEvery === _repeatType.everyWeek || repeatEvery === _repeatType.every2Weeks) {
+        contents.push("FREQ=WEEKLY");
+      } else if (repeatEvery === _repeatType.everyMonth) {
+        contents.push("FREQ=MONTHLY");
+      } else if (repeatEvery === _repeatType.everyYear) {
+        contents.push("FREQ=YEARLY");
+      }
+      if (repeatEvery === _repeatType.every2Weeks) {
+        contents.push("INTERVAL=2");
+      } else {
+        contents.push("INTERVAL=1");
+      }
+    }
+    if (isDefinedDate(orderedEvent.repeatEnds)) {
+      contents.push("UNTIL=" + getICalDateTimeString(orderedEvent.repeatEnds));
+    }
+    return contents.join(";");
   }
   function getMdContents(orderedEvents) {
     var orderedEventLength = orderedEvents.length;
