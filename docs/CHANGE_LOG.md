@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.1.7:
+- Added correct support for All Day events for exported iCAL events (will show in the calendars correctly now).
 - 
 
 <br>

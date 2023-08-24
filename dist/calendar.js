@@ -6086,8 +6086,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       var repeatEvery = getNumber(orderedEvent.repeatEvery);
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
-      contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
-      contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
+      if (orderedEvent.isAllDay) {
+        contents.push("DTSTART:" + getICalDateString(orderedEvent.from));
+        contents.push("DTEND:" + getICalDateString(orderedEvent.to));
+      } else {
+        contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
+        contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
+      }
       if (isDefinedDate(orderedEvent.created)) {
         var created = getICalDateTimeString(orderedEvent.created);
         contents.push("DTSTAMP:" + created);
@@ -6135,6 +6140,15 @@ function calendarJs(elementOrId, options, searchOptions) {
       format.push(padNumber(eventDate.getHours()));
       format.push(padNumber(eventDate.getMinutes()));
       format.push("00Z");
+    }
+    return format.join(_string.empty);
+  }
+  function getICalDateString(eventDate) {
+    var format = [];
+    if (isDefined(eventDate)) {
+      format.push(eventDate.getFullYear());
+      format.push(padNumber(eventDate.getMonth() + 1));
+      format.push(padNumber(eventDate.getDate()));
     }
     return format.join(_string.empty);
   }
