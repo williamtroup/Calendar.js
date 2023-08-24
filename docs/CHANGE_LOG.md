@@ -4,6 +4,8 @@
 - Improved the "PRODID" support for exported iCAL events.
 - Added "RRULE" support for exported iCAL events (states how an event should be repeated).
 - The sections for exported iCAL events (such as title, description, url, etc) are now only included when actually set on an event.
+- Added "DTSTAMP" support for exported iCAL events (uses the events "created" date value).
+- Fixed new line characters not always working. It now uses CRLF (which is the preferred format).
 - 
 
 <br>

@@ -6089,7 +6089,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
       contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
       if (isDefinedDate(orderedEvent.created)) {
-        contents.push("CREATED:" + getICalDateTimeString(orderedEvent.created));
+        var created = getICalDateTimeString(orderedEvent.created);
+        contents.push("DTSTAMP:" + created);
+        contents.push("CREATED:" + created);
       }
       if (isDefinedDate(orderedEvent.lastUpdated)) {
         contents.push("LAST-MODIFIED:" + getICalDateTimeString(orderedEvent.lastUpdated));
@@ -6118,7 +6120,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
-    return contents.join("\n");
+    return contents.join("\r\n");
   }
   function getICalSingleLine(value) {
     return stripNewLines(stripHTMLTagsFromText(getString(value)));

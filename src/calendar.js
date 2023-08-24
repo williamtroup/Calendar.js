@@ -8978,7 +8978,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.push( "DTEND:" + getICalDateTimeString( orderedEvent.to ) );
             
             if ( isDefinedDate( orderedEvent.created ) ) {
-                contents.push( "CREATED:" + getICalDateTimeString( orderedEvent.created ) );
+                var created = getICalDateTimeString( orderedEvent.created );
+
+                contents.push( "DTSTAMP:" + created );
+                contents.push( "CREATED:" + created );
             }
 
             if ( isDefinedDate( orderedEvent.lastUpdated ) ) {
@@ -9018,7 +9021,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         contents.push( "END:VCALENDAR" );
 
-        return contents.join( "\n" );
+        return contents.join( "\r\n" );
     }
 
     function getICalSingleLine( value ) {
