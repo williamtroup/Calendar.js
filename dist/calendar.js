@@ -5806,7 +5806,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return isDefinedString(value) ? value : defaultValue;
   }
   function stripNewLines(value) {
-    return value.replace(/\n|\r/g, "");
+    return value.replace(/\n|\r/g, _string.empty);
   }
   function getNumber(value, defaultValue) {
     defaultValue = isDefined(defaultValue) ? defaultValue : 0;

@@ -8568,7 +8568,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function stripNewLines( value ) {
-        return value.replace( /\n|\r/g, "" );
+        return value.replace( /\n|\r/g, _string.empty );
     }
 
     function getNumber( value, defaultValue ) {
