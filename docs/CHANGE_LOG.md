@@ -2,6 +2,7 @@
 
 ## Version 2.1.7:
 - Added correct support for All Day events for exported iCAL events (will show in the calendars correctly now).
+- Added "STATUS" (CONFIRMED), "TRANSP" (OPAQUE), and "STATUS" (0) support for exported iCAL events.
 - 
 
 <br>

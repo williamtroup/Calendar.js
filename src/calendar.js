@@ -8974,6 +8974,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
+            contents.push( "STATUS:CONFIRMED" );
+            contents.push( "TRANSP:OPAQUE" );
+            contents.push( "SEQUENCE:0" );
 
             if ( orderedEvent.isAllDay ) {
                 contents.push( "DTSTART:" + getICalDateString( orderedEvent.from ) );
