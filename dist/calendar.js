@@ -1,4 +1,4 @@
-/*! Calendar.js v2.1.6 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.1.7 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -7381,7 +7381,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.1.6";
+    return "2.1.7";
   };
   this.getId = function() {
     return _elementID;
