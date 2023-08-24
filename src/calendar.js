@@ -8979,7 +8979,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         contents.push( "BEGIN:VCALENDAR" );
         contents.push( "VERSION:2.0" );
-        contents.push( "PRODID:Calendar.js v" + _this.getVersion() );
+        contents.push( "PRODID:-//Bunoon//Calendar.js v" + _this.getVersion() + "//EN" );
         contents.push( "CALSCALE:GREGORIAN" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {

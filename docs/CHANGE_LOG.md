@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.1.6:
+- Improved the "PRODID" support for exported iCAL events.
 - 
 
 <br>

@@ -6089,7 +6089,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var orderedEventLength = orderedEvents.length;
     contents.push("BEGIN:VCALENDAR");
     contents.push("VERSION:2.0");
-    contents.push("PRODID:Calendar.js v" + _this.getVersion());
+    contents.push("PRODID:-//Bunoon//Calendar.js v" + _this.getVersion() + "//EN");
     contents.push("CALSCALE:GREGORIAN");
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
