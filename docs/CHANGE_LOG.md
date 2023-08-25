@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.2.0:
+- Added "Working Days" side menu toggle support (updates which days are shown as working days).
 - 
 
 <br>

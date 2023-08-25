@@ -240,3 +240,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventsPastedText | The text that should be displayed for the "{0} events pasted." notification. |
 | *string* | eventsExportedText | The text that should be displayed for the "Events exported." notification. |
 | *string* | copyToClipboardOnlyText | The text that should be displayed for the "Copy to clipboard only" label. |
+| *string* | workingDaysText | The text that should be displayed for the "Working Days" label. |

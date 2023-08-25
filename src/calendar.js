@@ -281,6 +281,7 @@
  * @property    {string}    eventsPastedText                            The text that should be displayed for the "{0} events pasted." notification.
  * @property    {string}    eventsExportedText                          The text that should be displayed for the "Events exported." notification.
  * @property    {string}    copyToClipboardOnlyText                     The text that should be displayed for the "Copy to clipboard only" label.
+ * @property    {string}    workingDaysText                             The text that should be displayed for the "Working Days" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -547,6 +548,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content_Section_EventTypes_Content = null,
         _element_SideMenu_Content_Section_Days = null,
         _element_SideMenu_Content_Section_Days_Content = null,
+        _element_SideMenu_Content_Section_WorkingDays = null,
+        _element_SideMenu_Content_Section_WorkingDays_Content = null,
         _element_SideMenu_DisabledBackground = null,
         _element_EventEditorDialog = null,
         _element_EventEditorDialog_Tab_Event = null,
@@ -1273,7 +1276,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildSideMenuContent( openDays ) {
         var isDaysOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Days_Content ) || openDays === true,
             isEventTypesOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_EventTypes_Content, true ),
-            isGroupsOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Groups_Content, true );
+            isGroupsOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_Groups_Content, true ),
+            isWorkingDaysOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_WorkingDays_Content, true );
 
         _element_SideMenu_Content.innerHTML = _string.empty;
 
@@ -1281,6 +1285,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildSideMenuDays( isDaysOpen );
         buildSideMenuEventTypes( isEventTypesOpen );
         buildSideMenuGroups( isGroupsOpen );
+        buildSideMenuWorkingDays( isWorkingDaysOpen );
     }
 
     function updateSideMenu() {
@@ -1340,6 +1345,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     triggerOptionsEventWithData( "onOptionsUpdated", _options );
                 }
             }
+
+            if ( _element_SideMenu_Content_Section_WorkingDays !== null ) {
+                _options.workingDays = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_WorkingDays, true );
+
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+            }
     
             _initialized = false;
     
@@ -1369,6 +1380,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return names;
+    }
+
+    function buildSideMenuWorkingDays( opened ) {
+        opened = isDefined( opened ) ? opened : true;
+
+        _element_SideMenu_Content_Section_WorkingDays = createElement( "div", "content-section content-section-opened" );
+        _element_SideMenu_Content_Section_WorkingDays_Content = createElement( "div", "checkbox-container" );
+        _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_WorkingDays );
+
+        buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_WorkingDays, _element_SideMenu_Content_Section_WorkingDays_Content, _options.workingDaysText, opened );
+
+        _element_SideMenu_Content_Section_WorkingDays.appendChild( _element_SideMenu_Content_Section_WorkingDays_Content );
+
+        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
+            var visible = _options.workingDays.indexOf( dayIndex ) > -1;
+
+            buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible, null, cancelBubbleOnly );
+        }
     }
 
     function buildSideMenuGroups( opened ) {
@@ -10934,6 +10963,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.eventsPastedText = getDefaultString( _options.eventsPastedText, "{0} events pasted." );
         _options.eventsExportedText = getDefaultString( _options.eventsExportedText, "Events exported." );
         _options.copyToClipboardOnlyText = getDefaultString( _options.copyToClipboardOnlyText, "Copy to clipboard only" );
+        _options.workingDaysText = getDefaultString( _options.workingDaysText, "Working Days" );
     }
 
     function setEventTypeTranslationStringOptions() {
