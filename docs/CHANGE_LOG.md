@@ -2,12 +2,14 @@
 
 ## Version 2.2.0:
 - Added "Working Days" side menu toggle support (updates which days are shown as working days).
+- Added "Weekend Days" side menu toggle support (updates which days are shown as weekend days).
 - Fixed a fault that prevented the "Event Types" and "Groups" side menu drop-downs showing the right effect when opened (when the side menu opens).
 - Add the following new settings (if all these settings are set to false, the Side Menu is disabled):
   1. "showSideMenuDays" (defaults to true), which states if the "Days" area is visible on the side menu (Days Header context menu is disabled if set to false).
   2. "showSideMenuGroups" (defaults to true), which states if the "Groups" area is visible on the side menu.
   3. "showSideMenuEventTypes" (defaults to true), which states if the "Event Types" area is visible on the side menu.
   4. "showSideMenuWorkingDays" (defaults to true), which states if the "Working Days" area is visible on the side menu.
+  5. "showSideMenuWeekendDays" (defaults to true), which states if the "Weekend Days" area is visible on the side menu.
 - The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
 - 
 

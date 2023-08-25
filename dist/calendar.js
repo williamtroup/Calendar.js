@@ -408,6 +408,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var isEventTypesOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_EventTypes_Content, true);
     var isGroupsOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Groups_Content, true);
     var isWorkingDaysOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_WorkingDays_Content, true);
+    var isWeekendDaysOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_WeekendDays_Content, true);
     _element_SideMenu_Content.innerHTML = _string.empty;
     _element_SideMenu_Content_Section_Days = null;
     _element_SideMenu_Content_Section_Days_Content = null;
@@ -417,6 +418,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu_Content_Section_Groups_Content = null;
     _element_SideMenu_Content_Section_WorkingDays = null;
     _element_SideMenu_Content_Section_WorkingDays_Content = null;
+    _element_SideMenu_Content_Section_WeekendDays = null;
+    _element_SideMenu_Content_Section_WeekendDays_Content = null;
     hideSearchDialog();
     if (_options.showSideMenuDays) {
       buildSideMenuDays(isDaysOpen);
@@ -430,9 +433,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_options.showSideMenuWorkingDays) {
       buildSideMenuWorkingDays(isWorkingDaysOpen);
     }
+    if (_options.showSideMenuWeekendDays) {
+      buildSideMenuWeekendDays(isWeekendDaysOpen);
+    }
   }
   function isSideMenuAvailable() {
-    return _options.showSideMenuDays || _options.showSideMenuEventTypes || _options.showSideMenuGroups || _options.showSideMenuWorkingDays;
+    return _options.showSideMenuDays || _options.showSideMenuEventTypes || _options.showSideMenuGroups || _options.showSideMenuWorkingDays || _options.showSideMenuWeekendDays;
   }
   function updateSideMenu() {
     if (isSideMenuOpen()) {
@@ -481,6 +487,10 @@ function calendarJs(elementOrId, options, searchOptions) {
         _options.workingDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WorkingDays, true);
         triggerOptionsEventWithData("onOptionsUpdated", _options);
       }
+      if (_element_SideMenu_Content_Section_WeekendDays !== null) {
+        _options.weekendDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WeekendDays, true);
+        triggerOptionsEventWithData("onOptionsUpdated", _options);
+      }
       _initialized = false;
       build(_currentDate, true, true);
     }
@@ -504,6 +514,20 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
     return names;
+  }
+  function buildSideMenuWeekendDays(opened) {
+    opened = isDefined(opened) ? opened : true;
+    _element_SideMenu_Content_Section_WeekendDays = createElement("div", "content-section content-section-opened");
+    _element_SideMenu_Content_Section_WeekendDays_Content = createElement("div", "checkbox-container");
+    _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_WeekendDays);
+    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_WeekendDays, _element_SideMenu_Content_Section_WeekendDays_Content, _options.weekendDaysText, opened);
+    _element_SideMenu_Content_Section_WeekendDays.appendChild(_element_SideMenu_Content_Section_WeekendDays_Content);
+    var dayIndex = 1;
+    for (; dayIndex < 8; dayIndex++) {
+      var actualDayIndex = dayIndex > 6 ? 0 : dayIndex;
+      var visible = _options.weekendDays.indexOf(actualDayIndex) > -1;
+      buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex.toString(), visible, null, cancelBubbleOnly);
+    }
   }
   function buildSideMenuWorkingDays(opened) {
     opened = isDefined(opened) ? opened : true;
@@ -6457,6 +6481,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showSideMenuGroups = getDefaultBoolean(_options.showSideMenuGroups, true);
     _options.showSideMenuEventTypes = getDefaultBoolean(_options.showSideMenuEventTypes, true);
     _options.showSideMenuWorkingDays = getDefaultBoolean(_options.showSideMenuWorkingDays, true);
+    _options.showSideMenuWeekendDays = getDefaultBoolean(_options.showSideMenuWeekendDays, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -6666,6 +6691,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.eventsExportedText = getDefaultString(_options.eventsExportedText, "Events exported.");
     _options.copyToClipboardOnlyText = getDefaultString(_options.copyToClipboardOnlyText, "Copy to clipboard only");
     _options.workingDaysText = getDefaultString(_options.workingDaysText, "Working Days");
+    _options.weekendDaysText = getDefaultString(_options.weekendDaysText, "Weekend Days");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -6779,6 +6805,8 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_SideMenu_Content_Section_Days_Content = null;
   var _element_SideMenu_Content_Section_WorkingDays = null;
   var _element_SideMenu_Content_Section_WorkingDays_Content = null;
+  var _element_SideMenu_Content_Section_WeekendDays = null;
+  var _element_SideMenu_Content_Section_WeekendDays_Content = null;
   var _element_SideMenu_DisabledBackground = null;
   var _element_EventEditorDialog = null;
   var _element_EventEditorDialog_Tab_Event = null;

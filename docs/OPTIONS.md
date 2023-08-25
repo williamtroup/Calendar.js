@@ -69,6 +69,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showSideMenuGroups | States if the "Groups" section on the Side Menu is visible (defaults to true). |
 | *boolean* | showSideMenuEventTypes | States if the "Event Types" section on the Side Menu is visible (defaults to true). |
 | *boolean* | showSideMenuWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showSideMenuWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
 <br/>
 
 ### Translatable String Options:
@@ -245,3 +246,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventsExportedText | The text that should be displayed for the "Events exported." notification. |
 | *string* | copyToClipboardOnlyText | The text that should be displayed for the "Copy to clipboard only" label. |
 | *string* | workingDaysText | The text that should be displayed for the "Working Days" label. |
+| *string* | weekendDaysText | The text that should be displayed for the "Weekend Days" label. |
