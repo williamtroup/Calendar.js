@@ -8,6 +8,7 @@
   2. "showSideMenuGroups" (defaults to true), which states if the "Groups" area is visible on the side menu.
   3. "showSideMenuEventTypes" (defaults to true), which states if the "Event Types" area is visible on the side menu.
   4. "showSideMenuWorkingDays" (defaults to true), which states if the "Working Days" area is visible on the side menu.
+- The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
 - 
 
 <br>
