@@ -342,6 +342,10 @@
  * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
  * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) is enabled (defaults to true).
  * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
+ * @property    {boolean}   showSideMenuDays                            States if the "Days" section on the Side Menu is visible (defaults to true).
+ * @property    {boolean}   showSideMenuGroups                          States if the "Groups" section on the Side Menu is visible (defaults to true).
+ * @property    {boolean}   showSideMenuEventTypes                      States if the "Event Types" section on the Side Menu is visible (defaults to true).
+ * @property    {boolean}   showSideMenuWorkingDays                     States if the "Working Days" section on the Side Menu is visible (defaults to true).
  */
 
 
@@ -697,6 +701,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_HeaderDay_HideDay_Separator = null,
         _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays = null,
         _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = null,
+        _element_DropDownMenu_HeaderDay_VisibleDays = null,
         _element_DropDownMenu_HeaderDay_SelectedDay = null,
         _element_SearchDialog = null,
         _element_SearchDialog_MinimizedRestoreButton = null,
@@ -960,7 +965,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
         }
 
-        if ( !_datePickerModeEnabled ) {
+        if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
             
             var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
@@ -1280,12 +1285,36 @@ function calendarJs( elementOrId, options, searchOptions ) {
             isWorkingDaysOpen = isSideMenuContentOpen( _element_SideMenu_Content_Section_WorkingDays_Content, true );
 
         _element_SideMenu_Content.innerHTML = _string.empty;
+        _element_SideMenu_Content_Section_Days = null;
+        _element_SideMenu_Content_Section_Days_Content = null;
+        _element_SideMenu_Content_Section_EventTypes = null;
+        _element_SideMenu_Content_Section_EventTypes_Content = null;
+        _element_SideMenu_Content_Section_Groups = null;
+        _element_SideMenu_Content_Section_Groups_Content = null;
+        _element_SideMenu_Content_Section_WorkingDays = null;
+        _element_SideMenu_Content_Section_WorkingDays_Content = null;
 
         hideSearchDialog();
-        buildSideMenuDays( isDaysOpen );
-        buildSideMenuEventTypes( isEventTypesOpen );
-        buildSideMenuGroups( isGroupsOpen );
-        buildSideMenuWorkingDays( isWorkingDaysOpen );
+
+        if ( _options.showSideMenuDays ) {
+            buildSideMenuDays( isDaysOpen );
+        }
+
+        if ( _options.showSideMenuEventTypes ) {
+            buildSideMenuEventTypes( isEventTypesOpen );
+        }
+
+        if ( _options.showSideMenuGroups ) {
+            buildSideMenuGroups( isGroupsOpen );
+        }
+        
+        if ( _options.showSideMenuWorkingDays ) {
+            buildSideMenuWorkingDays( isWorkingDaysOpen );
+        }
+    }
+
+    function isSideMenuAvailable() {
+        return _options.showSideMenuDays || _options.showSideMenuEventTypes || _options.showSideMenuGroups || _options.showSideMenuWorkingDays;
     }
 
     function updateSideMenu() {
@@ -2795,7 +2824,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
             
-            if ( !_datePickerModeEnabled ) {
+            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
 
                 var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
@@ -3550,7 +3579,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     } );
                 }
 
-                if ( !_datePickerModeEnabled ) {
+                if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                     buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
 
                     var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
@@ -3846,7 +3875,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
             }
     
-            if ( !_datePickerModeEnabled ) {
+            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
 
                 var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
@@ -5119,7 +5148,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
     
-            buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
+            _element_DropDownMenu_HeaderDay_VisibleDays = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
                 showSideMenu( true );
             } );
         }
@@ -5310,20 +5339,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( !isControlKey( e ) ) {
                 clearSelectedEvents();
             }
-            
-            _element_DropDownMenu_HeaderDay_SelectedDay = selectedDay;
-
-            var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none",
-                showOnlyWorkingDaysDisplay = _options.workingDays.length >= 1 ? "block": "none";
-
-            _element_DropDownMenu_HeaderDay_HideDay.style.display = hideDayDisplay;
-            _element_DropDownMenu_HeaderDay_HideDay_Separator.style.display = hideDayDisplay;
-            _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays.style.display = showOnlyWorkingDaysDisplay;
-            _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator.style.display = showOnlyWorkingDaysDisplay;
 
             hideAllDropDowns();
-            cancelBubble( e );
-            showElementAtMousePosition( e, _element_DropDownMenu_HeaderDay );
+
+            if ( _options.showSideMenuDays ) {
+                _element_DropDownMenu_HeaderDay_SelectedDay = selectedDay;
+
+                var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none",
+                    showOnlyWorkingDaysDisplay = _options.workingDays.length >= 1 ? "block": "none";
+    
+                _element_DropDownMenu_HeaderDay_HideDay.style.display = hideDayDisplay;
+                _element_DropDownMenu_HeaderDay_HideDay_Separator.style.display = hideDayDisplay;
+                _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays.style.display = showOnlyWorkingDaysDisplay;
+                _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator.style.display = showOnlyWorkingDaysDisplay;
+                
+                cancelBubble( e );
+                showElementAtMousePosition( e, _element_DropDownMenu_HeaderDay );
+            }
         }
     }
 
@@ -10694,6 +10726,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.configurationDialogEnabled = getDefaultBoolean( _options.configurationDialogEnabled, true );
         _options.popUpNotificationsEnabled = getDefaultBoolean( _options.popUpNotificationsEnabled, true );
         _options.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.showMonthButtonsInYearDropDownMenu, true );
+        _options.showSideMenuDays = getDefaultBoolean( _options.showSideMenuDays, true );
+        _options.showSideMenuGroups = getDefaultBoolean( _options.showSideMenuGroups, true );
+        _options.showSideMenuEventTypes = getDefaultBoolean( _options.showSideMenuEventTypes, true );
+        _options.showSideMenuWorkingDays = getDefaultBoolean( _options.showSideMenuWorkingDays, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
