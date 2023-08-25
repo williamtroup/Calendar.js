@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calendar.js</title>
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <script src="../../dist/calendar.js"></script>
+    </head>
+
+    <body>
+        <div id="calendar"></div>
+    </body>
+
+    <script>
+        var calendarInstance = new calendarJs( "calendar", { 
+            exportEventsEnabled: true, 
+        } );
+
+        document.title += " v" + calendarInstance.getVersion();
+
+        var event = {
+            from: new Date(),
+            to: new Date(),
+            title: "New Event",
+            description: "A description of the new event"
+        };
+
+        calendarInstance.addEvent( event );
+    </script>
+</html>
