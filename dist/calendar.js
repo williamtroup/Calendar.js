@@ -1,4 +1,4 @@
-/*! Calendar.js v2.1.6 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.1.7 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -6086,8 +6086,16 @@ function calendarJs(elementOrId, options, searchOptions) {
       var repeatEvery = getNumber(orderedEvent.repeatEvery);
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
-      contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
-      contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
+      contents.push("STATUS:CONFIRMED");
+      contents.push("TRANSP:OPAQUE");
+      contents.push("SEQUENCE:0");
+      if (orderedEvent.isAllDay) {
+        contents.push("DTSTART:" + getICalDateString(orderedEvent.from));
+        contents.push("DTEND:" + getICalDateString(orderedEvent.to));
+      } else {
+        contents.push("DTSTART:" + getICalDateTimeString(orderedEvent.from));
+        contents.push("DTEND:" + getICalDateTimeString(orderedEvent.to));
+      }
       if (isDefinedDate(orderedEvent.created)) {
         var created = getICalDateTimeString(orderedEvent.created);
         contents.push("DTSTAMP:" + created);
@@ -6135,6 +6143,15 @@ function calendarJs(elementOrId, options, searchOptions) {
       format.push(padNumber(eventDate.getHours()));
       format.push(padNumber(eventDate.getMinutes()));
       format.push("00Z");
+    }
+    return format.join(_string.empty);
+  }
+  function getICalDateString(eventDate) {
+    var format = [];
+    if (isDefined(eventDate)) {
+      format.push(eventDate.getFullYear());
+      format.push(padNumber(eventDate.getMonth() + 1));
+      format.push(padNumber(eventDate.getDate()));
     }
     return format.join(_string.empty);
   }
@@ -7381,7 +7398,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.1.6";
+    return "2.1.7";
   };
   this.getId = function() {
     return _elementID;
