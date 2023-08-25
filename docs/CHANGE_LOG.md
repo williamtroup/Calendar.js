@@ -2,6 +2,7 @@
 
 ## Version 2.2.0:
 - Added "Working Days" side menu toggle support (updates which days are shown as working days).
+- Fixed a fault that prevented the "Event Types" and "Groups" side menu drop shown showing the right effect when opened (when the side menu opens).
 - 
 
 <br>

@@ -1410,7 +1410,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             groupsLength = groups.length;
 
         if ( groupsLength > 0 ) {
-            _element_SideMenu_Content_Section_Groups = createElement( "div", "content-section" );
+            _element_SideMenu_Content_Section_Groups = createElement( "div", "content-section content-section-opened" );
             _element_SideMenu_Content_Section_Groups_Content = createElement( "div", "checkbox-container" );
 
             _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Groups );
@@ -1444,7 +1444,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
                 if ( !sectionAndHeaderAdded ) {
-                    _element_SideMenu_Content_Section_EventTypes = createElement( "div", "content-section" );
+                    _element_SideMenu_Content_Section_EventTypes = createElement( "div", "content-section content-section-opened" );
                     _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_EventTypes );
             
                     _element_SideMenu_Content_Section_EventTypes_Content = createElement( "div", "checkbox-container" );
