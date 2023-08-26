@@ -11,6 +11,7 @@
   4. "showSideMenuWorkingDays" (defaults to true), which states if the "Working Days" area is visible on the side menu.
   5. "showSideMenuWeekendDays" (defaults to true), which states if the "Weekend Days" area is visible on the side menu.
 - The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
+- The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
 - 
 
 <br>

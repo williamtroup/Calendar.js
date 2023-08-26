@@ -489,9 +489,7 @@ div.calendar {
 
     div.side-menu {
         position: absolute;
-        padding: $spacing;
-        padding-top: $spacing;
-        height: calc( 100% - ( $spacing * 2 ) );
+        height: 100%;
         top: 0;
         color: $light-color !important;
         z-index: 1500;
@@ -513,10 +511,14 @@ div.calendar {
         }
 
         div.main-header {
-            margin: 0 !important;
             font-weight: 700;
             height: auto;
             overflow: auto;
+            position: sticky;
+            top: 0;
+            background-color: $dark-color;
+            padding: $spacing;
+            z-index: 1;
             
             @media screen and ( min-width: $minimum-width ) {
                 font-size: 1.2rem;
@@ -539,6 +541,9 @@ div.calendar {
         }
 
         div.content {
+            padding: $spacing;
+            padding-top: 0;
+
             div.content-section-opened {
                 border-left: calc( $standard-border-size * 6 ) solid #656363 !important;
             }
@@ -549,6 +554,10 @@ div.calendar {
                 background-color: #474545;
                 border: $standard-border-size solid #575555;
                 transition: $transition;
+
+                &:first-of-type {
+                    margin-top: 0;
+                }
     
                 div.text-header,
                 div.text-header-closed {
