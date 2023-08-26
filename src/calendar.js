@@ -44,6 +44,7 @@
  * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
  * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
  * @property    {Object}    customTags                                  Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar).
+ * @property    {boolean}   showAsBusy                                  States if the calendar should show this events time period as busy (defaults to true).
  */
 
 
@@ -283,6 +284,7 @@
  * @property    {string}    copyToClipboardOnlyText                     The text that should be displayed for the "Copy to clipboard only" label.
  * @property    {string}    workingDaysText                             The text that should be displayed for the "Working Days" label.
  * @property    {string}    weekendDaysText                             The text that should be displayed for the "Weekend Days" label.
+ * @property    {string}    showAsBusyText                              The text that should be displayed for the "Show As Busy" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -513,6 +515,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _cachedStyles = null,
         _isFullScreenModeActivated = false,
         _isDateToday = false,
+        _isCalendarBusy = false,
         _openDialogs = [],
         _eventsSelected = [],
         _copiedEventDetails = [],
@@ -572,6 +575,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_TimeTo = null,
         _element_EventEditorDialog_IsAllDay = null,
         _element_EventEditorDialog_ShowAlerts = null,
+        _element_EventEditorDialog_ShowAsBusy = null,
         _element_EventEditorDialog_Title = null,
         _element_EventEditorDialog_SelectColors = null,
         _element_EventEditorDialog_Description = null,
@@ -2508,6 +2512,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         clearEventsFromDays();
         clearAutoRefreshTimer();
 
+        _isCalendarBusy = false;
         _element_Calendar_AllVisibleEvents = [];
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
@@ -5539,6 +5544,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_EventEditorDialog_IsAllDay = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChangedEvent )[ 0 ];
         _element_EventEditorDialog_ShowAlerts = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.showAlertsText )[ 0 ];
+        _element_EventEditorDialog_ShowAsBusy = buildCheckBox( _element_EventEditorDialog_Tab_Event, _options.showAsBusyText )[ 0 ];
     }
 
     function buildEventEditorTypeTabContent() {
@@ -5716,6 +5722,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_EventEditorDialog_TimeTo.value = toFormattedTime( eventDetails.to );
                 _element_EventEditorDialog_IsAllDay.checked = getBoolean( eventDetails.isAllDay );
                 _element_EventEditorDialog_ShowAlerts.checked = getBoolean( eventDetails.showAlerts, true );
+                _element_EventEditorDialog_ShowAsBusy.checked = getBoolean( eventDetails.showAsBusy, true );
                 _element_EventEditorDialog_Title.value = getString( eventDetails.title );
                 _element_EventEditorDialog_Description.value = getString( eventDetails.description );
                 _element_EventEditorDialog_Location.value = getString( eventDetails.location );
@@ -5788,6 +5795,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_EventEditorDialog_EventDetails = {};
                 _element_EventEditorDialog_IsAllDay.checked = false;
                 _element_EventEditorDialog_ShowAlerts.checked = true;
+                _element_EventEditorDialog_ShowAsBusy.checked = true;
                 _element_EventEditorDialog_Title.value = _string.empty;
                 _element_EventEditorDialog_Description.value = _string.empty;
                 _element_EventEditorDialog_Location.value = _string.empty;
@@ -5852,6 +5860,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_EventEditorDialog_TimeTo.disabled = locked;
         _element_EventEditorDialog_IsAllDay.disabled = locked;
         _element_EventEditorDialog_ShowAlerts.disabled = locked;
+        _element_EventEditorDialog_ShowAsBusy.disabled = locked;
         _element_EventEditorDialog_Title.disabled = locked;
         _element_EventEditorDialog_SelectColors.disabled = locked;
         _element_EventEditorDialog_Description.disabled = locked;
@@ -5929,6 +5938,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         group: group,
                         isAllDay: _element_EventEditorDialog_IsAllDay.checked,
                         showAlerts: _element_EventEditorDialog_ShowAlerts.checked,
+                        showAsBusy: _element_EventEditorDialog_ShowAsBusy.checked,
                         color: _element_EventEditorDialog_EventDetails.color,
                         colorText: _element_EventEditorDialog_EventDetails.colorText,
                         colorBorder: _element_EventEditorDialog_EventDetails.colorBorder,
@@ -6041,6 +6051,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             group: _string.empty,
             isAllDay: false,
             showAlerts: true,
+            showAsBusy: true,
             color: _options.defaultEventBackgroundColor,
             colorText: _options.defaultEventTextColor,
             colorBorder: _options.defaultEventBorderColor,
@@ -7592,31 +7603,35 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function checkEventForBrowserNotifications( date, eventDetails ) {
-        runBrowserNotificationAction( function() {
-            if ( isDateToday( date ) && !_eventNotificationsTriggered.hasOwnProperty( eventDetails.id ) ) {
-                if ( !isDefinedBoolean( eventDetails.showAlerts ) || eventDetails.showAlerts ) {
-                    var newFrom = new Date(),
-                        newTo = new Date(),
-                        today = new Date(),
-                        repeatEvery = getNumber( eventDetails.repeatEvery );
-        
-                    newFrom.setHours( eventDetails.from.getHours(), eventDetails.from.getMinutes(), 0, 0 );
-                    newTo.setHours( eventDetails.to.getHours(), eventDetails.to.getMinutes(), 0, 0 );
-        
-                    if ( repeatEvery === _repeatType.never && !isDateToday( eventDetails.from ) ) {
-                        newFrom.setHours( 0, 0, 0, 0 );
-                    }
-        
-                    if ( repeatEvery === _repeatType.never && !isDateToday( eventDetails.to ) ) {
-                        newTo.setHours( 23, 59, 59, 99 );
-                    }
-                    
-                    if ( today >= newFrom && today <= newTo ) {
+        if ( isDateToday( date ) && !_datePickerModeEnabled ) {
+            var newFrom = new Date(),
+                newTo = new Date(),
+                today = new Date(),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            newFrom.setHours( eventDetails.from.getHours(), eventDetails.from.getMinutes(), 0, 0 );
+            newTo.setHours( eventDetails.to.getHours(), eventDetails.to.getMinutes(), 0, 0 );
+
+            if ( repeatEvery === _repeatType.never && !isDateToday( eventDetails.from ) ) {
+                newFrom.setHours( 0, 0, 0, 0 );
+            }
+
+            if ( repeatEvery === _repeatType.never && !isDateToday( eventDetails.to ) ) {
+                newTo.setHours( 23, 59, 59, 99 );
+            }
+            
+            if ( today >= newFrom && today <= newTo ) {
+                if ( !isDefinedBoolean( eventDetails.showAsBusy ) || eventDetails.showAsBusy ) {
+                    _isCalendarBusy = true;
+                }
+
+                if (!_eventNotificationsTriggered.hasOwnProperty( eventDetails.id ) && !isDefinedBoolean( eventDetails.showAlerts ) || eventDetails.showAlerts ) {
+                    runBrowserNotificationAction( function() {
                         launchBrowserNotificationForEvent( eventDetails );
-                    }
+                    }, false, eventDetails );
                 }
             }
-        }, false, eventDetails );
+        }
     }
 
     function launchBrowserNotificationForEvent( eventDetails ) {
@@ -8841,7 +8856,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _options.organizerNameText,
                 _options.organizerEmailAddressText,
                 _options.urlText,
-                _options.lockedText,
+                _options.lockedText
             ],
             headersLength = headers.length;
 
@@ -9084,8 +9099,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
             contents.push( "STATUS:CONFIRMED" );
-            contents.push( "TRANSP:OPAQUE" );
             contents.push( "SEQUENCE:0" );
+
+            if ( !isDefinedBoolean( orderedEvent.showAsBusy ) || orderedEvent.showAsBusy ) {
+                contents.push( "TRANSP:OPAQUE" );
+            } else {
+                contents.push( "TRANSP:TRANSPARENT" );
+            }
 
             if ( orderedEvent.isAllDay ) {
                 contents.push( "DTSTART:" + getICalDateString( orderedEvent.from ) );
@@ -10561,6 +10581,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return _elementID;
     };
 
+    /**
+     * isBusy().
+     * 
+     * Returns a flag that states if the calendar is busy.
+     * 
+     * @public
+     * 
+     * @returns     {boolean}                                               States if the calendar is busy.
+     */
+    this.isBusy = function() {
+        return _isCalendarBusy;
+    };
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -11050,6 +11083,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.copyToClipboardOnlyText = getDefaultString( _options.copyToClipboardOnlyText, "Copy to clipboard only" );
         _options.workingDaysText = getDefaultString( _options.workingDaysText, "Working Days" );
         _options.weekendDaysText = getDefaultString( _options.weekendDaysText, "Weekend Days" );
+        _options.showAsBusyText = getDefaultString( _options.showAsBusyText, "Show As Busy" );
     }
 
     function setEventTypeTranslationStringOptions() {

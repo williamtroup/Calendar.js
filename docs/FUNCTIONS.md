@@ -345,6 +345,11 @@ Returns the ID of this Calendar.js instance.
 <br>
 ***Returns***: '*string*' - The Calendar ID.
 
+### **isBusy()**:
+Returns a flag that states if the calendar is busy.
+<br>
+***Returns***: '*boolean*' - States if the calendar is busy.
+
 
 <br>
 <h1>Setting Options:</h1>

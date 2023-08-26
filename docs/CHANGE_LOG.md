@@ -12,6 +12,9 @@
   5. "showSideMenuWeekendDays" (defaults to true), which states if the "Weekend Days" area is visible on the side menu.
 - The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
 - The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
+- Added "Show As Busy" support for events.  When turned on, if the events time period is within todays current time, the Calendars status will be set as Busy.
+- Added new public function "isBusy()", which states if the Calendar is busy or not.
+- Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
 - 
 
 <br>

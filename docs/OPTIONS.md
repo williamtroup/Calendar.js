@@ -247,3 +247,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | copyToClipboardOnlyText | The text that should be displayed for the "Copy to clipboard only" label. |
 | *string* | workingDaysText | The text that should be displayed for the "Working Days" label. |
 | *string* | weekendDaysText | The text that should be displayed for the "Weekend Days" label. |
+| *string* | showAsBusyText | The text that should be displayed for the "Show As Busy" label. |

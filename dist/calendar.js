@@ -1304,6 +1304,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildDayEvents() {
     clearEventsFromDays();
     clearAutoRefreshTimer();
+    _isCalendarBusy = false;
     _element_Calendar_AllVisibleEvents = [];
     var orderedEvents = getOrderedEvents(getAllEvents());
     var orderedEventsLength = orderedEvents.length;
@@ -3591,6 +3592,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     setInputType(_element_EventEditorDialog_TimeTo, "time");
     _element_EventEditorDialog_IsAllDay = buildCheckBox(_element_EventEditorDialog_Tab_Event, _options.isAllDayText, isAllDayChangedEvent)[0];
     _element_EventEditorDialog_ShowAlerts = buildCheckBox(_element_EventEditorDialog_Tab_Event, _options.showAlertsText)[0];
+    _element_EventEditorDialog_ShowAsBusy = buildCheckBox(_element_EventEditorDialog_Tab_Event, _options.showAsBusyText)[0];
   }
   function buildEventEditorTypeTabContent() {
     _element_EventEditorDialog_Tab_Type.innerHTML = _string.empty;
@@ -3730,6 +3732,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_EventEditorDialog_TimeTo.value = toFormattedTime(eventDetails.to);
         _element_EventEditorDialog_IsAllDay.checked = getBoolean(eventDetails.isAllDay);
         _element_EventEditorDialog_ShowAlerts.checked = getBoolean(eventDetails.showAlerts, true);
+        _element_EventEditorDialog_ShowAsBusy.checked = getBoolean(eventDetails.showAsBusy, true);
         _element_EventEditorDialog_Title.value = getString(eventDetails.title);
         _element_EventEditorDialog_Description.value = getString(eventDetails.description);
         _element_EventEditorDialog_Location.value = getString(eventDetails.location);
@@ -3792,6 +3795,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_EventEditorDialog_EventDetails = {};
         _element_EventEditorDialog_IsAllDay.checked = false;
         _element_EventEditorDialog_ShowAlerts.checked = true;
+        _element_EventEditorDialog_ShowAsBusy.checked = true;
         _element_EventEditorDialog_Title.value = _string.empty;
         _element_EventEditorDialog_Description.value = _string.empty;
         _element_EventEditorDialog_Location.value = _string.empty;
@@ -3845,6 +3849,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_EventEditorDialog_TimeTo.disabled = locked;
     _element_EventEditorDialog_IsAllDay.disabled = locked;
     _element_EventEditorDialog_ShowAlerts.disabled = locked;
+    _element_EventEditorDialog_ShowAsBusy.disabled = locked;
     _element_EventEditorDialog_Title.disabled = locked;
     _element_EventEditorDialog_SelectColors.disabled = locked;
     _element_EventEditorDialog_Description.disabled = locked;
@@ -3901,8 +3906,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       } else {
         eventDialogEvent_Cancel();
         var isExistingEvent = isDefined(_element_EventEditorDialog_EventDetails.id);
-        var newEvent = {from:fromDate, to:toDate, title:title, description:description, location:location, group:group, isAllDay:_element_EventEditorDialog_IsAllDay.checked, showAlerts:_element_EventEditorDialog_ShowAlerts.checked, color:_element_EventEditorDialog_EventDetails.color, colorText:_element_EventEditorDialog_EventDetails.colorText, colorBorder:_element_EventEditorDialog_EventDetails.colorBorder, repeatEveryExcludeDays:_element_EventEditorDialog_EventDetails.repeatEveryExcludeDays, repeatEnds:repeatEnds, 
-        url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type, customTags:_element_EventEditorDialog_EventDetails.customTags};
+        var newEvent = {from:fromDate, to:toDate, title:title, description:description, location:location, group:group, isAllDay:_element_EventEditorDialog_IsAllDay.checked, showAlerts:_element_EventEditorDialog_ShowAlerts.checked, showAsBusy:_element_EventEditorDialog_ShowAsBusy.checked, color:_element_EventEditorDialog_EventDetails.color, colorText:_element_EventEditorDialog_EventDetails.colorText, colorBorder:_element_EventEditorDialog_EventDetails.colorBorder, repeatEveryExcludeDays:_element_EventEditorDialog_EventDetails.repeatEveryExcludeDays, 
+        repeatEnds:repeatEnds, url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type, customTags:_element_EventEditorDialog_EventDetails.customTags};
         if (_element_EventEditorDialog_RepeatEvery_Never.checked) {
           newEvent.repeatEvery = _repeatType.never;
         } else if (_element_EventEditorDialog_RepeatEvery_EveryDay.checked) {
@@ -3977,8 +3982,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     setTimeOnDate(fromDate, fromTime);
     setTimeOnDate(toDate, toTime);
     toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
-    var newEvent = {from:fromDate, to:toDate, title:_options.newEventDefaultTitle, description:_string.empty, location:_string.empty, group:_string.empty, isAllDay:false, showAlerts:true, color:_options.defaultEventBackgroundColor, colorText:_options.defaultEventTextColor, colorBorder:_options.defaultEventBorderColor, repeatEveryExcludeDays:[], repeatEnds:null, url:_string.empty, repeatEveryCustomValue:_string.empty, repeatEvery:_repeatType.never, repeatEveryCustomType:_repeatCustomType.daily, organizerName:_string.empty, 
-    organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null};
+    var newEvent = {from:fromDate, to:toDate, title:_options.newEventDefaultTitle, description:_string.empty, location:_string.empty, group:_string.empty, isAllDay:false, showAlerts:true, showAsBusy:true, color:_options.defaultEventBackgroundColor, colorText:_options.defaultEventTextColor, colorBorder:_options.defaultEventBorderColor, repeatEveryExcludeDays:[], repeatEnds:null, url:_string.empty, repeatEveryCustomValue:_string.empty, repeatEvery:_repeatType.never, repeatEveryCustomType:_repeatCustomType.daily, 
+    organizerName:_string.empty, organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null};
     _this.addEvent(newEvent, false);
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
     buildDayEvents();
@@ -5108,27 +5113,30 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function checkEventForBrowserNotifications(date, eventDetails) {
-    runBrowserNotificationAction(function() {
-      if (isDateToday(date) && !_eventNotificationsTriggered.hasOwnProperty(eventDetails.id)) {
-        if (!isDefinedBoolean(eventDetails.showAlerts) || eventDetails.showAlerts) {
-          var newFrom = new Date();
-          var newTo = new Date();
-          var today = new Date();
-          var repeatEvery = getNumber(eventDetails.repeatEvery);
-          newFrom.setHours(eventDetails.from.getHours(), eventDetails.from.getMinutes(), 0, 0);
-          newTo.setHours(eventDetails.to.getHours(), eventDetails.to.getMinutes(), 0, 0);
-          if (repeatEvery === _repeatType.never && !isDateToday(eventDetails.from)) {
-            newFrom.setHours(0, 0, 0, 0);
-          }
-          if (repeatEvery === _repeatType.never && !isDateToday(eventDetails.to)) {
-            newTo.setHours(23, 59, 59, 99);
-          }
-          if (today >= newFrom && today <= newTo) {
+    if (isDateToday(date) && !_datePickerModeEnabled) {
+      var newFrom = new Date();
+      var newTo = new Date();
+      var today = new Date();
+      var repeatEvery = getNumber(eventDetails.repeatEvery);
+      newFrom.setHours(eventDetails.from.getHours(), eventDetails.from.getMinutes(), 0, 0);
+      newTo.setHours(eventDetails.to.getHours(), eventDetails.to.getMinutes(), 0, 0);
+      if (repeatEvery === _repeatType.never && !isDateToday(eventDetails.from)) {
+        newFrom.setHours(0, 0, 0, 0);
+      }
+      if (repeatEvery === _repeatType.never && !isDateToday(eventDetails.to)) {
+        newTo.setHours(23, 59, 59, 99);
+      }
+      if (today >= newFrom && today <= newTo) {
+        if (!isDefinedBoolean(eventDetails.showAsBusy) || eventDetails.showAsBusy) {
+          _isCalendarBusy = true;
+        }
+        if (!_eventNotificationsTriggered.hasOwnProperty(eventDetails.id) && !isDefinedBoolean(eventDetails.showAlerts) || eventDetails.showAlerts) {
+          runBrowserNotificationAction(function() {
             launchBrowserNotificationForEvent(eventDetails);
-          }
+          }, false, eventDetails);
         }
       }
-    }, false, eventDetails);
+    }
   }
   function launchBrowserNotificationForEvent(eventDetails) {
     _eventNotificationsTriggered[eventDetails.id] = true;
@@ -6160,8 +6168,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
       contents.push("STATUS:CONFIRMED");
-      contents.push("TRANSP:OPAQUE");
       contents.push("SEQUENCE:0");
+      if (!isDefinedBoolean(orderedEvent.showAsBusy) || orderedEvent.showAsBusy) {
+        contents.push("TRANSP:OPAQUE");
+      } else {
+        contents.push("TRANSP:TRANSPARENT");
+      }
       if (orderedEvent.isAllDay) {
         contents.push("DTSTART:" + getICalDateString(orderedEvent.from));
         contents.push("DTEND:" + getICalDateString(orderedEvent.to));
@@ -6692,6 +6704,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.copyToClipboardOnlyText = getDefaultString(_options.copyToClipboardOnlyText, "Copy to clipboard only");
     _options.workingDaysText = getDefaultString(_options.workingDaysText, "Working Days");
     _options.weekendDaysText = getDefaultString(_options.weekendDaysText, "Weekend Days");
+    _options.showAsBusyText = getDefaultString(_options.showAsBusyText, "Show As Busy");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -6762,6 +6775,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _cachedStyles = null;
   var _isFullScreenModeActivated = false;
   var _isDateToday = false;
+  var _isCalendarBusy = false;
   var _openDialogs = [];
   var _eventsSelected = [];
   var _copiedEventDetails = [];
@@ -6821,6 +6835,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_EventEditorDialog_TimeTo = null;
   var _element_EventEditorDialog_IsAllDay = null;
   var _element_EventEditorDialog_ShowAlerts = null;
+  var _element_EventEditorDialog_ShowAsBusy = null;
   var _element_EventEditorDialog_Title = null;
   var _element_EventEditorDialog_SelectColors = null;
   var _element_EventEditorDialog_Description = null;
@@ -7487,6 +7502,9 @@ function calendarJs(elementOrId, options, searchOptions) {
   };
   this.getId = function() {
     return _elementID;
+  };
+  this.isBusy = function() {
+    return _isCalendarBusy;
   };
   this.setOptions = function(newOptions, triggerEvent) {
     newOptions = getOptions(newOptions);
