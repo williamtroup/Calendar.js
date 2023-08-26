@@ -93,7 +93,7 @@ div.calendar-notification {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 10px;
   width: auto;

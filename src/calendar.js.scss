@@ -49,7 +49,7 @@ div.calendar-dialog textarea {
 div.calendar-notification {
     @include fade-in-effect-animation( 0.5s );
     @include no-selection-allowed;
-    position: absolute;
+    position: fixed;
     bottom: $spacing;
     right: $spacing;
     width: auto;
