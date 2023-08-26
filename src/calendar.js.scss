@@ -502,12 +502,12 @@ div.calendar {
 
         @media screen and ( min-width: $minimum-width ) {
             width: $side-menu-width;
-            left: -( $side-menu-width + $side-menu-right-border-width + ( $spacing * 2 ) );
+            left: -( $side-menu-width + $side-menu-right-border-width );
         }
         
         @media screen and ( max-width: $maximum-width ) {
             width: $side-menu-width-small;
-            left: -( $side-menu-width-small + $side-menu-right-border-width + ( $spacing * 2 ) );
+            left: -( $side-menu-width-small + $side-menu-right-border-width );
         }
 
         div.main-header {

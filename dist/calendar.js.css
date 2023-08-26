@@ -510,13 +510,13 @@ div.calendar div.side-menu {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.side-menu {
-    width: 250px;
+    width: 270px;
     left: -275px;
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.side-menu {
-    width: 200px;
+    width: 220px;
     left: -225px;
   }
 }
