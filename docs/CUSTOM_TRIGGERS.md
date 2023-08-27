@@ -188,6 +188,11 @@ Fires when the Calendar is rendered.
 <br>
 ***Parameter: id***: '*string*' - The Id of the Calendar.
 
+### **options.onBusyStateChange( *flag* )**:
+Fires when the Calendars busy state changes.
+<br>
+***Parameter: flag***: '*boolean*' - The flag that states if the calendar is busy.
+
 
 <br>
 <h1>For Browser Notifications:</h1>

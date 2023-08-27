@@ -1344,6 +1344,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       }
     }
+    updateCalendarsLastBusyState();
     updateMainHeaderButtonsVisibleStates(_element_Calendar_AllVisibleEvents.length);
     startAutoRefreshTimer();
   }
@@ -1548,6 +1549,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       toDate = newCurrentDate;
     }
     return toDate;
+  }
+  function updateCalendarsLastBusyState() {
+    if (_isCalendarBusy_LastState !== _isCalendarBusy) {
+      _isCalendarBusy_LastState = _isCalendarBusy;
+      triggerOptionsEventWithData("onBusyStateChange", _isCalendarBusy);
+    }
   }
   function buildFullDayView() {
     if (!_datePickerModeEnabled) {
@@ -6778,6 +6785,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _isFullScreenModeActivated = false;
   var _isDateToday = false;
   var _isCalendarBusy = false;
+  var _isCalendarBusy_LastState = false;
   var _openDialogs = [];
   var _eventsSelected = [];
   var _copiedEventDetails = [];

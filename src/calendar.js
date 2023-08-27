@@ -111,6 +111,7 @@
  * @property    {Object}    onVisibleEventTypesChanged                  Specifies an event that will be triggered when the visible event types are changed (passes the visible event type IDs to the function).
  * @property    {Object}    onNotification                              Specifies an event that will be triggered when a notification is shown (passes the event to the function).
  * @property    {Object}    onBeforeEventAddEdit                        Specifies an event that will be triggered before an event is added/edit (passes the event to the function and stops tje event editor dialog from showing).
+ * @property    {Object}    onBusyStateChange                           Specifies an event that will be triggered when the calendars busy state is changed (passes the state to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -516,6 +517,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _isFullScreenModeActivated = false,
         _isDateToday = false,
         _isCalendarBusy = false,
+        _isCalendarBusy_LastState = false,
         _openDialogs = [],
         _eventsSelected = [],
         _copiedEventDetails = [],
@@ -2558,7 +2560,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
         }
-    
+        
+        updateCalendarsLastBusyState();
         updateMainHeaderButtonsVisibleStates( _element_Calendar_AllVisibleEvents.length );
         startAutoRefreshTimer();
     }
@@ -2817,6 +2820,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return toDate;
+    }
+
+    function updateCalendarsLastBusyState() {
+        if ( _isCalendarBusy_LastState !== _isCalendarBusy ) {
+            _isCalendarBusy_LastState = _isCalendarBusy;
+
+            triggerOptionsEventWithData( "onBusyStateChange", _isCalendarBusy );
+        }
     }
 
 

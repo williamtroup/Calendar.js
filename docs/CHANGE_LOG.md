@@ -19,6 +19,9 @@
 #### **New Public Functions:**
 - Added new public function "isBusy()", which states if the Calendar is busy or not.
 
+#### **New Custom Trigger Events:**
+- Added a new custom trigger "onBusyStateChange", which is triggered when the calendars busy state changes (passes the busy state flag).
+
 #### **General:**
 - The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
 - Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
