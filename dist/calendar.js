@@ -5999,7 +5999,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function getExportHeaders() {
     var headers = [_options.idText, _options.typeText, _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatEndsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.lastUpdatedText, _options.organizerNameText, _options.organizerEmailAddressText, _options.urlText, 
-    _options.lockedText];
+    _options.lockedText, _options.showAlertsText, _options.showAsBusyText];
     var headersLength = headers.length;
     return [headers, headersLength];
   }
@@ -6026,6 +6026,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     eventContents.push(getString(eventDetails.organizerEmailAddress));
     eventContents.push(getString(eventDetails.url));
     eventContents.push(getYesNoFromBoolean(eventDetails.locked));
+    eventContents.push(getYesNoFromBoolean(!isDefinedBoolean(eventDetails.showAlerts) || eventDetails.showAlerts));
+    eventContents.push(getYesNoFromBoolean(!isDefinedBoolean(eventDetails.showAsBusy) || eventDetails.showAsBusy));
     return eventContents;
   }
   function getOrderedEventPropertyNameList(eventDetails) {

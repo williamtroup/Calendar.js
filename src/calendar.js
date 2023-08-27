@@ -8856,7 +8856,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _options.organizerNameText,
                 _options.organizerEmailAddressText,
                 _options.urlText,
-                _options.lockedText
+                _options.lockedText,
+                _options.showAlertsText,
+                _options.showAsBusyText
             ],
             headersLength = headers.length;
 
@@ -8887,6 +8889,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         eventContents.push( getString( eventDetails.organizerEmailAddress ) );
         eventContents.push( getString( eventDetails.url ) );
         eventContents.push( getYesNoFromBoolean( eventDetails.locked ) );
+        eventContents.push( getYesNoFromBoolean( !isDefinedBoolean( eventDetails.showAlerts ) || eventDetails.showAlerts ) );
+        eventContents.push( getYesNoFromBoolean( !isDefinedBoolean( eventDetails.showAsBusy ) || eventDetails.showAsBusy ) );
 
         return eventContents;
     }
