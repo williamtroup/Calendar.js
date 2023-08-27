@@ -16,7 +16,7 @@
 - Added new public function "isBusy()", which states if the Calendar is busy or not.
 - Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
 - Fixed the popup notifications not appearing at the bottom of the browser window when its scrolled.
--  
+- 
 
 <br>
 
