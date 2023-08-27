@@ -7625,7 +7625,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _isCalendarBusy = true;
                 }
 
-                if (!_eventNotificationsTriggered.hasOwnProperty( eventDetails.id ) && !isDefinedBoolean( eventDetails.showAlerts ) || eventDetails.showAlerts ) {
+                if ( !_eventNotificationsTriggered.hasOwnProperty( eventDetails.id ) && !isDefinedBoolean( eventDetails.showAlerts ) || eventDetails.showAlerts ) {
                     runBrowserNotificationAction( function() {
                         launchBrowserNotificationForEvent( eventDetails );
                     }, false, eventDetails );
