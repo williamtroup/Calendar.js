@@ -871,6 +871,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
     var monthNumberSelected = _currentDate.getMonth().toString();
+    var today = new Date();
+    if (_currentDate.getFullYear() === today.getFullYear()) {
+      var currentMonthNumber = today.getMonth().toString();
+      if (_element_HeaderDateDisplay_YearSelector_Contents_Months.hasOwnProperty(currentMonthNumber)) {
+        _element_HeaderDateDisplay_YearSelector_Contents_Months[currentMonthNumber].className = "month-name-current-month";
+      }
+    }
     if (_element_HeaderDateDisplay_YearSelector_Contents_Months.hasOwnProperty(monthNumberSelected)) {
       _element_HeaderDateDisplay_YearSelector_Contents_Months[monthNumberSelected].className = "month-name-selected";
     }

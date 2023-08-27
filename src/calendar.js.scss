@@ -709,7 +709,8 @@ div.calendar {
                     }
 
                     div.month-name,
-                    div.month-name-selected {
+                    div.month-name-selected,
+                    div.month-name-current-month {
                         width: calc( 33.33% - ( ( $spacing ) + ( $button-spacing * 2 ) ) );
                         padding: calc( $spacing / 2 );
                         margin: $button-spacing;
@@ -718,7 +719,8 @@ div.calendar {
                         font-size: 0.7rem;
                     }
 
-                    div.month-name {
+                    div.month-name,
+                    div.month-name-current-month {
                         background-color: $day-names-color;
                         color: $dark-color;
                         
@@ -737,7 +739,11 @@ div.calendar {
                     div.month-name-selected {
                         background-color: $dark-color;
                         color: $light-color;
-                        transition: $transition;
+                    }
+
+                    div.month-name-current-month {
+                        background-color: #BCBCBC;
+                        color: $dark-color;
                     }
                 }
     

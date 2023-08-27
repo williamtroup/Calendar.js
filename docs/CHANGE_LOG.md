@@ -26,6 +26,7 @@
 - The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
 - Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
 - Added "Show Alerts" and "Show As Busy" columns to export options CSV, MD, and TSV.
+- The current month (today) is shown in a different color in the Year Drop-Down menu (when not selected).
 
 #### **Fixes:**
 - Fixed a fault that prevented the "Event Types" and "Groups" side menu drop-downs showing the right effect when opened (when the side menu opens).
@@ -889,7 +890,7 @@
 - New translation string options added for the event duration text.
 - Changed the base styles for the dialogs can now be done in calendar-dialog CSS class.
 - Added a drop shadow to all the dialogs.
-- The disabled background colour is now a few shades lighter.
+- The disabled background color is now a few shades lighter.
 - Fixed standard border sizes now being shared within the SCSS files.
 
 <br>
@@ -982,7 +983,7 @@
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
 - Added new option "showWeekNumbersInTitles", which will display the week numbers where applicable (off by default).
 - Increased the maximum responsive width so that the default text/icons do not overlap.
-- Weekend days in the Weekly view now show the same background colour as the days on the main display.
+- Weekend days in the Weekly view now show the same background color as the days on the main display.
 - Fixed a fault that caused the drag & drop hover effects to activate for objects not dragged in the calendar.
 - Dragging an event that repeats (or spans multiple days) takes the day it was dragged from into account (drops more accurately).
 - On the Search dialog, the "Title" option is now checked by default.
