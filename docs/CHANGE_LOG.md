@@ -5,7 +5,7 @@
 #### **New Features:**
 - Added "Working Days" side menu toggle support (updates which days are shown as working days).
 - Added "Weekend Days" side menu toggle support (updates which days are shown as weekend days).
-- Added "Show As Busy" support for events (defaults to true).  When turned on, if the events time period is within todays current time, the Calendars status will be set as Busy.
+- Added "Show As Busy" support for events (defaults to true).  When turned on, if an events time period is within todays current time, the Calendars status will be set as Busy.
 
 #### **New Settings:**
 - Add the following new settings (if all these settings are set to false, the Side Menu is disabled):
