@@ -1,9 +1,13 @@
 # Calendar.js - Change Log:
 
 ## Version 2.2.0:
+
+#### **New Features:**
 - Added "Working Days" side menu toggle support (updates which days are shown as working days).
 - Added "Weekend Days" side menu toggle support (updates which days are shown as weekend days).
-- Fixed a fault that prevented the "Event Types" and "Groups" side menu drop-downs showing the right effect when opened (when the side menu opens).
+- Added "Show As Busy" support for events (defaults to true).  When turned on, if the events time period is within todays current time, the Calendars status will be set as Busy.
+
+#### **New Settings:**
 - Add the following new settings (if all these settings are set to false, the Side Menu is disabled):
   1. "showSideMenuDays" (defaults to true), which states if the "Days" area is visible on the side menu (Days Header context menu is disabled if set to false).
   2. "showSideMenuGroups" (defaults to true), which states if the "Groups" area is visible on the side menu.
@@ -11,12 +15,17 @@
   4. "showSideMenuWorkingDays" (defaults to true), which states if the "Working Days" area is visible on the side menu.
   5. "showSideMenuWeekendDays" (defaults to true), which states if the "Weekend Days" area is visible on the side menu.
 - The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
-- The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
-- Added "Show As Busy" support for events (defaults to true).  When turned on, if the events time period is within todays current time, the Calendars status will be set as Busy.
+
+#### **New Public Functions:**
 - Added new public function "isBusy()", which states if the Calendar is busy or not.
+
+#### **General:**
+- The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
 - Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
+
+#### **Fixes:**
+- Fixed a fault that prevented the "Event Types" and "Groups" side menu drop-downs showing the right effect when opened (when the side menu opens).
 - Fixed the popup notifications not appearing at the bottom of the browser window when its scrolled.
-- 
 
 <br>
 
