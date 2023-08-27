@@ -7,6 +7,12 @@
 - Added "Weekend Days" side menu toggle support (updates which days are shown as weekend days).
 - Added "Show As Busy" support for events (defaults to true).  When turned on, if an events time period is within todays current time, the Calendars status will be set as Busy.
 
+#### **General Improvements:**
+- The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
+- Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
+- Added "Show Alerts" and "Show As Busy" columns to export options CSV, MD, and TSV.
+- The current month (today) is shown in a different color in the Year Drop-Down menu (when not selected).
+
 #### **New Settings:**
 - Add the following new settings (if all these settings are set to false, the Side Menu is disabled):
     1. "showSideMenuDays" (defaults to true), which states if the "Days" area is visible on the side menu (Days Header context menu is disabled if set to false).
@@ -21,12 +27,6 @@
 
 #### **New Custom Trigger Events:**
 - Added a new custom trigger "onBusyStateChange", which is triggered when the calendars busy state changes (passes the busy state flag).
-
-#### **General:**
-- The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
-- Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
-- Added "Show Alerts" and "Show As Busy" columns to export options CSV, MD, and TSV.
-- The current month (today) is shown in a different color in the Year Drop-Down menu (when not selected).
 
 #### **Fixes:**
 - Fixed a fault that prevented the "Event Types" and "Groups" side menu drop-downs showing the right effect when opened (when the side menu opens).
