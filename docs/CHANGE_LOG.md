@@ -1,5 +1,39 @@
 # Calendar.js - Change Log:
 
+## Version 2.2.0:
+
+#### **New Features:**
+- Added "Working Days" side menu toggle support (updates which days are shown as working days).
+- Added "Weekend Days" side menu toggle support (updates which days are shown as weekend days).
+- Added "Show As Busy" support for events (defaults to true).  When turned on, if an events time period is within todays current time, the Calendars status will be set as Busy.
+
+#### **General Improvements:**
+- The title header (with the buttons) on the Side Menu now stays at the top when the content is scrollable.
+- Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
+- Added "Show Alerts" and "Show As Busy" columns to export options CSV, MD, and TSV.
+- The current month (today) is shown in a different color in the Year Drop-Down menu (when not selected).
+- The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
+
+#### **New Settings:**
+- Add the following new settings (if all these settings are set to false, the Side Menu is disabled):
+    1. "showSideMenuDays" (defaults to true), which states if the "Days" area is visible on the side menu (Days Header context menu is disabled if set to false).
+    2. "showSideMenuGroups" (defaults to true), which states if the "Groups" area is visible on the side menu.
+    3. "showSideMenuEventTypes" (defaults to true), which states if the "Event Types" area is visible on the side menu.
+    4. "showSideMenuWorkingDays" (defaults to true), which states if the "Working Days" area is visible on the side menu.
+    5. "showSideMenuWeekendDays" (defaults to true), which states if the "Weekend Days" area is visible on the side menu.
+
+#### **New Public Functions:**
+- Added new public function "isBusy()", which states if the Calendar is busy or not.
+
+#### **New Custom Trigger Events:**
+- Added a new custom trigger "onBusyStateChange", which is triggered when the calendars busy state changes (passes the busy state flag).
+
+#### **Fixes:**
+- Fixed a fault that prevented the "Event Types" and "Groups" side menu drop-downs showing the right effect when opened (when the side menu opens).
+- Fixed the popup notifications not appearing at the bottom of the browser window when its scrolled.
+
+<br>
+
 ## Version 2.1.7:
 - Added correct support for All Day events for exported iCAL events (will show in the calendars correctly now).
 - Added "STATUS" (CONFIRMED), "TRANSP" (OPAQUE), and "STATUS" (0) support for exported iCAL events.
@@ -856,7 +890,7 @@
 - New translation string options added for the event duration text.
 - Changed the base styles for the dialogs can now be done in calendar-dialog CSS class.
 - Added a drop shadow to all the dialogs.
-- The disabled background colour is now a few shades lighter.
+- The disabled background color is now a few shades lighter.
 - Fixed standard border sizes now being shared within the SCSS files.
 
 <br>
@@ -949,7 +983,7 @@
 - Details for an All-Day event are now hidden in the Full Day view (can be turned on using "showAllDayEventDetailsInFullDayView").
 - Added new option "showWeekNumbersInTitles", which will display the week numbers where applicable (off by default).
 - Increased the maximum responsive width so that the default text/icons do not overlap.
-- Weekend days in the Weekly view now show the same background colour as the days on the main display.
+- Weekend days in the Weekly view now show the same background color as the days on the main display.
 - Fixed a fault that caused the drag & drop hover effects to activate for objects not dragged in the calendar.
 - Dragging an event that repeats (or spans multiple days) takes the day it was dragged from into account (drops more accurately).
 - On the Search dialog, the "Title" option is now checked by default.

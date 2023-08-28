@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.1.7
+ * Calendar.js Library v2.2.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -93,7 +93,7 @@ div.calendar-notification {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 10px;
   width: auto;
@@ -497,9 +497,7 @@ div.calendar div.side-menu-disabled-background {
 }
 div.calendar div.side-menu {
   position: absolute;
-  padding: 10px;
-  padding-top: 10px;
-  height: calc(100% - 20px);
+  height: 100%;
   top: 0;
   color: #F5F5F5 !important;
   z-index: 1500;
@@ -512,21 +510,25 @@ div.calendar div.side-menu {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.side-menu {
-    width: 250px;
+    width: 270px;
     left: -275px;
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.side-menu {
-    width: 200px;
+    width: 220px;
     left: -225px;
   }
 }
 div.calendar div.side-menu div.main-header {
-  margin: 0 !important;
   font-weight: 700;
   height: auto;
   overflow: auto;
+  position: sticky;
+  top: 0;
+  background-color: #282828;
+  padding: 10px;
+  z-index: 1;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.side-menu div.main-header {
@@ -547,6 +549,10 @@ div.calendar div.side-menu div.main-header div[class^=ib-] {
   float: right;
   margin-left: 10px;
 }
+div.calendar div.side-menu div.content {
+  padding: 10px;
+  padding-top: 0;
+}
 div.calendar div.side-menu div.content div.content-section-opened {
   border-left: 6px solid #656363 !important;
 }
@@ -556,6 +562,9 @@ div.calendar div.side-menu div.content div.content-section {
   background-color: #474545;
   border: 1px solid #575555;
   transition: all 0.3s;
+}
+div.calendar div.side-menu div.content div.content-section:first-of-type {
+  margin-top: 0;
 }
 div.calendar div.side-menu div.content div.content-section div.text-header,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed {
@@ -705,8 +714,10 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name,
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected,
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name,
-div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected {
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
   width: calc(33.33% - 12px);
   padding: 5px;
   margin: 1px;
@@ -715,19 +726,25 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   font-size: 0.7rem;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name,
-div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
   background-color: #E0E0E0;
   color: #282828;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:hover,
-div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:hover {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month:hover,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:hover,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:hover {
   background-color: #282828;
   color: #F5F5F5;
   cursor: pointer;
   transition: all 0.3s;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected),
-div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:active:not(.year-selected) {
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month:active:not(.year-selected),
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:active:not(.year-selected),
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:active:not(.year-selected) {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
@@ -736,7 +753,11 @@ div.calendar div.header-date div.title-container div.years-drop-down div.months 
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected {
   background-color: #282828;
   color: #F5F5F5;
-  transition: all 0.3s;
+}
+div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
+div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
+  background-color: #BCBCBC;
+  color: #282828;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents {

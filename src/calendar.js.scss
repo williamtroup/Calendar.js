@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.1.7
+ * Calendar.js Library v2.2.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -49,7 +49,7 @@ div.calendar-dialog textarea {
 div.calendar-notification {
     @include fade-in-effect-animation( 0.5s );
     @include no-selection-allowed;
-    position: absolute;
+    position: fixed;
     bottom: $spacing;
     right: $spacing;
     width: auto;
@@ -489,9 +489,7 @@ div.calendar {
 
     div.side-menu {
         position: absolute;
-        padding: $spacing;
-        padding-top: $spacing;
-        height: calc( 100% - ( $spacing * 2 ) );
+        height: 100%;
         top: 0;
         color: $light-color !important;
         z-index: 1500;
@@ -504,19 +502,23 @@ div.calendar {
 
         @media screen and ( min-width: $minimum-width ) {
             width: $side-menu-width;
-            left: -( $side-menu-width + $side-menu-right-border-width + ( $spacing * 2 ) );
+            left: -( $side-menu-width + $side-menu-right-border-width );
         }
         
         @media screen and ( max-width: $maximum-width ) {
             width: $side-menu-width-small;
-            left: -( $side-menu-width-small + $side-menu-right-border-width + ( $spacing * 2 ) );
+            left: -( $side-menu-width-small + $side-menu-right-border-width );
         }
 
         div.main-header {
-            margin: 0 !important;
             font-weight: 700;
             height: auto;
             overflow: auto;
+            position: sticky;
+            top: 0;
+            background-color: $dark-color;
+            padding: $spacing;
+            z-index: 1;
             
             @media screen and ( min-width: $minimum-width ) {
                 font-size: 1.2rem;
@@ -539,6 +541,9 @@ div.calendar {
         }
 
         div.content {
+            padding: $spacing;
+            padding-top: 0;
+
             div.content-section-opened {
                 border-left: calc( $standard-border-size * 6 ) solid #656363 !important;
             }
@@ -549,6 +554,10 @@ div.calendar {
                 background-color: #474545;
                 border: $standard-border-size solid #575555;
                 transition: $transition;
+
+                &:first-of-type {
+                    margin-top: 0;
+                }
     
                 div.text-header,
                 div.text-header-closed {
@@ -700,7 +709,8 @@ div.calendar {
                     }
 
                     div.month-name,
-                    div.month-name-selected {
+                    div.month-name-selected,
+                    div.month-name-current-month {
                         width: calc( 33.33% - ( ( $spacing ) + ( $button-spacing * 2 ) ) );
                         padding: calc( $spacing / 2 );
                         margin: $button-spacing;
@@ -709,7 +719,8 @@ div.calendar {
                         font-size: 0.7rem;
                     }
 
-                    div.month-name {
+                    div.month-name,
+                    div.month-name-current-month {
                         background-color: $day-names-color;
                         color: $dark-color;
                         
@@ -728,7 +739,11 @@ div.calendar {
                     div.month-name-selected {
                         background-color: $dark-color;
                         color: $light-color;
-                        transition: $transition;
+                    }
+
+                    div.month-name-current-month {
+                        background-color: #BCBCBC;
+                        color: $dark-color;
                     }
                 }
     

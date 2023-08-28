@@ -65,6 +65,11 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | configurationDialogEnabled | States if the configuration dialog is enabled (defaults to true). |
 | *boolean* | popUpNotificationsEnabled | States if the popup notifications (when actions are performed) is enabled (defaults to true). |
 | *boolean* | showMonthButtonsInYearDropDownMenu | States if the the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
+| *boolean* | showSideMenuDays | States if the "Days" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showSideMenuGroups | States if the "Groups" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showSideMenuEventTypes | States if the "Event Types" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showSideMenuWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showSideMenuWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
 <br/>
 
 ### Translatable String Options:
@@ -240,3 +245,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | eventsPastedText | The text that should be displayed for the "{0} events pasted." notification. |
 | *string* | eventsExportedText | The text that should be displayed for the "Events exported." notification. |
 | *string* | copyToClipboardOnlyText | The text that should be displayed for the "Copy to clipboard only" label. |
+| *string* | workingDaysText | The text that should be displayed for the "Working Days" label. |
+| *string* | weekendDaysText | The text that should be displayed for the "Weekend Days" label. |
+| *string* | showAsBusyText | The text that should be displayed for the "Show As Busy" label. |
