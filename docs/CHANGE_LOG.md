@@ -12,6 +12,7 @@
 - Events that are set to show as busy are now marked as TRANSPARENT for "TRANSP" for iCal event exports.
 - Added "Show Alerts" and "Show As Busy" columns to export options CSV, MD, and TSV.
 - The current month (today) is shown in a different color in the Year Drop-Down menu (when not selected).
+- The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
 
 #### **New Settings:**
 - Add the following new settings (if all these settings are set to false, the Side Menu is disabled):
@@ -20,7 +21,6 @@
     3. "showSideMenuEventTypes" (defaults to true), which states if the "Event Types" area is visible on the side menu.
     4. "showSideMenuWorkingDays" (defaults to true), which states if the "Working Days" area is visible on the side menu.
     5. "showSideMenuWeekendDays" (defaults to true), which states if the "Weekend Days" area is visible on the side menu.
-- The header context menu item "Show Only Working Days" is now only available when days other than the working days are visible.
 
 #### **New Public Functions:**
 - Added new public function "isBusy()", which states if the Calendar is busy or not.
