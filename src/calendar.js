@@ -8030,7 +8030,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createElement( type, className, inputType ) {
+    function createElement( type, className, inputType, inputId ) {
         var result = null,
             nodeType = type.toLowerCase(),
             isText = nodeType === "text";
@@ -8040,6 +8040,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         result = _elementTypes[ nodeType ].cloneNode( false );
+
+        if ( ( type === "input" && inputType !== "button" ) || type === "textarea" ) {
+            if ( isDefined( inputId ) ) {
+                result.id = inputId;
+            } else {
+                result.id = newGuid();
+            }
+        }
 
         if ( isDefined( className ) ) {
             result.className = className;

@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.2.1:
+- Fixed all browser warnings about inputs / text areas having missing IDs / names.
 - 
 
 <br>

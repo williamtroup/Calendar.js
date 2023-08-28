@@ -5416,7 +5416,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function isOverlayVisible(element) {
     return element !== null && element.className.indexOf("overlay-shown") > -1;
   }
-  function createElement(type, className, inputType) {
+  function createElement(type, className, inputType, inputId) {
     var result = null;
     var nodeType = type.toLowerCase();
     var isText = nodeType === "text";
@@ -5424,6 +5424,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       _elementTypes[nodeType] = isText ? _document.createTextNode(_string.empty) : _document.createElement(nodeType);
     }
     result = _elementTypes[nodeType].cloneNode(false);
+    if (type === "input" && inputType !== "button" || type === "textarea") {
+      if (isDefined(inputId)) {
+        result.id = inputId;
+      } else {
+        result.id = newGuid();
+      }
+    }
     if (isDefined(className)) {
       result.className = className;
     }
