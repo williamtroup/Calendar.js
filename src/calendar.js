@@ -1172,38 +1172,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
                 var dayNumber = 0;
 
-                if ( _options.startOfWeekDay === _day.saturday ) {
-                    if ( columnDataIndex === 0 ) {
-                        dayNumber = 5;
-                    } else if ( columnDataIndex === 1 ) {
-                        dayNumber = 6;
-                    } else if ( columnDataIndex === 2 ) {
-                        dayNumber = 0;
-                    } else if ( columnDataIndex === 3 ) {
-                        dayNumber = 1;
-                    } else if ( columnDataIndex === 4 ) {
-                        dayNumber = 2;
-                    } else if ( columnDataIndex === 5 ) {
-                        dayNumber = 3;
-                    } else if ( columnDataIndex === 6 ) {
-                        dayNumber = 4;
-                    }
+                if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+                    dayNumber = _options.startOfWeekDay + columnDataIndex;
 
-                } else if ( _options.startOfWeekDay === _day.sunday ) {
-                    if ( columnDataIndex === 0 ) {
-                        dayNumber = 6;
-                    } else if ( columnDataIndex === 1 ) {
-                        dayNumber = 0;
-                    } else if ( columnDataIndex === 2 ) {
-                        dayNumber = 1;
-                    } else if ( columnDataIndex === 3 ) {
-                        dayNumber = 2;
-                    } else if ( columnDataIndex === 4 ) {
-                        dayNumber = 3;
-                    } else if ( columnDataIndex === 5 ) {
-                        dayNumber = 4;
-                    } else if ( columnDataIndex === 6 ) {
-                        dayNumber = 5;
+                    if ( dayNumber >= 7 ) {
+                        dayNumber = ( dayNumber - 7 );
                     }
                 }
 
