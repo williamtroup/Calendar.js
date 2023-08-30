@@ -52,6 +52,7 @@ Calendar.js
 - jQuery plugin for quickly creating Calendars.
 - Data-Binding support to quickly create new Calendars without writing Javascript!
 - Popup notifications for actions (adding/updating/deleting events, updating configuration, etc).
+- Start of week support (Monday, Saturday, or Sunday).
 <br />
 <br />
 
