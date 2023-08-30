@@ -5,7 +5,6 @@
 - Fixed a fault that caused the "onOptionsUpdated" custom trigger to be called multiple times when changes options on the Side Menu.
 - Added new setting "startOfWeekDay" (defaults to 0 for Monday), which states what day is considered the start of the week (Monday, Saturday, and Sunday are currently supported).
 - Fixed the side menu doing a full rebuild of the display when nothing has been changed (something changed, then changed back).
-- 
 
 <br>
 
