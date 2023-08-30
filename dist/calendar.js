@@ -482,35 +482,55 @@ function calendarJs(elementOrId, options, searchOptions) {
   function saveSideMenuSelections() {
     if (_element_SideMenu_Changed) {
       var triggerOptionsEvent = false;
+      var itemWasChanged = false;
       if (_element_SideMenu_Content_Section_Groups !== null) {
-        _configuration.visibleGroups = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_Groups);
-        triggerOptionsEventWithData("onVisibleGroupsChanged", _configuration.visibleGroups);
+        var visibleGroups = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_Groups);
+        if (!areArraysTheSame(_configuration.visibleGroups, visibleGroups)) {
+          _configuration.visibleGroups = visibleGroups;
+          itemWasChanged = true;
+          triggerOptionsEventWithData("onVisibleGroupsChanged", _configuration.visibleGroups);
+        }
       }
       if (_element_SideMenu_Content_Section_EventTypes !== null) {
-        _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_EventTypes, true);
-        triggerOptionsEventWithData("onVisibleEventTypesChanged", _configuration.visibleEventTypes);
+        var visibleEventTypes = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_EventTypes, true);
+        if (!areArraysTheSame(_configuration.visibleEventTypes, visibleEventTypes)) {
+          _configuration.visibleEventTypes = visibleEventTypes;
+          itemWasChanged = true;
+          triggerOptionsEventWithData("onVisibleEventTypesChanged", _configuration.visibleEventTypes);
+        }
       }
       if (_element_SideMenu_Content_Section_Days !== null) {
         var visibleDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_Days, true);
-        if (visibleDays.length >= 1) {
+        if (visibleDays.length >= 1 && !areArraysTheSame(_options.visibleDays, visibleDays)) {
           _options.visibleDays = visibleDays;
           _previousDaysVisibleBeforeSingleDayView = [];
           triggerOptionsEvent = true;
+          itemWasChanged = true;
         }
       }
       if (_element_SideMenu_Content_Section_WorkingDays !== null) {
-        _options.workingDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WorkingDays, true);
-        triggerOptionsEvent = true;
+        var workingDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WorkingDays, true);
+        if (!areArraysTheSame(_options.workingDays, workingDays)) {
+          _options.workingDays = workingDays;
+          triggerOptionsEvent = true;
+          itemWasChanged = true;
+        }
       }
       if (_element_SideMenu_Content_Section_WeekendDays !== null) {
-        _options.weekendDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WeekendDays, true);
-        triggerOptionsEvent = true;
+        var weekendDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WeekendDays, true);
+        if (!areArraysTheSame(_options.weekendDays, weekendDays)) {
+          _options.weekendDays = weekendDays;
+          triggerOptionsEvent = true;
+          itemWasChanged = true;
+        }
       }
-      if (triggerOptionsEvent) {
-        triggerOptionsEventWithData("onOptionsUpdated", _options);
+      if (itemWasChanged) {
+        if (triggerOptionsEvent) {
+          triggerOptionsEventWithData("onOptionsUpdated", _options);
+        }
+        _initialized = false;
+        build(_currentDate, true, true);
       }
-      _initialized = false;
-      build(_currentDate, true, true);
     }
   }
   function getSideMenuCheckedCheckBoxNames(container, isNumericName) {
