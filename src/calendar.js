@@ -1170,7 +1170,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Rows.push( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
-                var dayNumber = 0;
+                var dayNumber = columnDataIndex;
 
                 if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
                     dayNumber = _options.startOfWeekDay + columnDataIndex;
