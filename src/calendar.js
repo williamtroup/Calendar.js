@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.2.0
+ * @version     v2.2.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -351,6 +351,7 @@
  * @property    {boolean}   showSideMenuEventTypes                      States if the "Event Types" section on the Side Menu is visible (defaults to true).
  * @property    {boolean}   showSideMenuWorkingDays                     States if the "Working Days" section on the Side Menu is visible (defaults to true).
  * @property    {boolean}   showSideMenuWeekendDays                     States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
+ * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
  */
 
 
@@ -419,6 +420,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _string = {
             empty: "",
             space: " "
+        },
+        _day = {
+            monday: 0,
+            saturday: 5,
+            sunday: 6
         },
         _keyCodes = {
             enter: 13,
@@ -646,6 +652,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllWeekEventsView_Contents_FullView = {},
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {},
         _element_ListAllWeekEventsView_Contents_FullView_Events = {},
+        _element_ListAllWeekEventsView_Contents_FullView_DateIDs = [],
         _element_ListAllWeekEventsView_EventsShown = [],
         _element_ListAllWeekEventsView_DateSelected = null,
         _element_ListAllWeekEventsView_MinimizeRestoreFunctions = [],
@@ -711,7 +718,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_DropDownMenu_HeaderDay_HideDay_Separator = null,
         _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays = null,
         _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = null,
-        _element_DropDownMenu_HeaderDay_VisibleDays = null,
         _element_DropDownMenu_HeaderDay_SelectedDay = null,
         _element_SearchDialog = null,
         _element_SearchDialog_MinimizedRestoreButton = null,
@@ -767,9 +773,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         forceRefreshViews = isDefined( forceRefreshViews ) ? forceRefreshViews : false;
 
         var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
-            startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay(),
-            totalDaysInMonth = getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
-
+            startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() );
+        
         if ( isSideMenuOpen() ) {
             hideSideMenu();
         }
@@ -777,9 +782,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         hideAllDropDowns();
 
         buildLayout();
-        buildPreviousMonthDays( _currentDate, startDay );
+        buildPreviousMonthDays( startDay );
 
-        var lastDayFilled = buildMonthDays( totalDaysInMonth, startDay );
+        var lastDayFilled = buildMonthDays( startDay );
 
         buildNextMonthDays( lastDayFilled );
         buildDayEvents();
@@ -1066,16 +1071,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_DayNamesHeader.onclick = cancelBubble;
             }
 
-            for ( var headerNameIndex = 0; headerNameIndex < headerNamesLength; headerNameIndex++ ) {
-                if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                    buildDayNamesHeaderItem( _element_DayNamesHeader, headerNameIndex );
-                }
+            if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+                buildDayNamesHeaderSection( _options.startOfWeekDay, headerNamesLength );
+                buildDayNamesHeaderSection( 0, _options.startOfWeekDay );
+            } else {
+                buildDayNamesHeaderSection( 0, headerNamesLength );
             }
         } else {
 
             if ( wasAddedAlready ) {
                 _element_Calendar.removeChild( _element_DayNamesHeader );
                 _element_DayNamesHeader = null;
+            }
+        }
+    }
+
+    function buildDayNamesHeaderSection( startIndex, endIndex ) {
+        for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
+            if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
+                buildDayNamesHeaderItem( _element_DayNamesHeader, headerNameIndex );
             }
         }
     }
@@ -1156,7 +1170,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Rows.push( rowData );
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
-                if ( _options.visibleDays.indexOf( columnDataIndex ) > -1 ) {
+                var dayNumber = columnDataIndex;
+
+                if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+                    dayNumber = _options.startOfWeekDay + columnDataIndex;
+
+                    if ( dayNumber >= 7 ) {
+                        dayNumber = ( dayNumber - 7 );
+                    }
+                }
+
+                if ( _options.visibleDays.indexOf( dayNumber ) > -1 ) {
                     var columnDataNumber = ( rowIndex * 7 ) + ( columnDataIndex + 1 ),
                         columnData = createElement( "div", getCellName( _options.allowEventScrollingOnMainDisplay ) );
 
@@ -1369,44 +1393,74 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function saveSideMenuSelections() {
         if ( _element_SideMenu_Changed ) {
+            var triggerOptionsEvent = false,
+                itemWasChanged = false;
+
             if ( _element_SideMenu_Content_Section_Groups !== null ) {
-                _configuration.visibleGroups = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_Groups );
-    
-                triggerOptionsEventWithData( "onVisibleGroupsChanged", _configuration.visibleGroups );
+                var visibleGroups = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_Groups );
+
+                if ( !areArraysTheSame( _configuration.visibleGroups, visibleGroups ) ) {
+                    _configuration.visibleGroups = visibleGroups;
+                    itemWasChanged = true;
+
+                    triggerOptionsEventWithData( "onVisibleGroupsChanged", _configuration.visibleGroups );
+                }
             }
             
             if ( _element_SideMenu_Content_Section_EventTypes !== null ) {
-                _configuration.visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_EventTypes, true );
-    
-                triggerOptionsEventWithData( "onVisibleEventTypesChanged", _configuration.visibleEventTypes );
+                var visibleEventTypes = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_EventTypes, true );
+
+                if ( !areArraysTheSame( _configuration.visibleEventTypes, visibleEventTypes ) ) {
+                    _configuration.visibleEventTypes = visibleEventTypes;
+                    itemWasChanged = true;
+
+                    triggerOptionsEventWithData( "onVisibleEventTypesChanged", _configuration.visibleEventTypes );
+                }
             }
     
             if ( _element_SideMenu_Content_Section_Days !== null ) {
                 var visibleDays = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_Days, true );
-    
-                if ( visibleDays.length >= 1 ) {
+
+                if ( visibleDays.length >= 1 && !areArraysTheSame( _options.visibleDays, visibleDays ) ) {
                     _options.visibleDays = visibleDays;
                     _previousDaysVisibleBeforeSingleDayView = [];
-    
-                    triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                    
+                    triggerOptionsEvent = true;
+                    itemWasChanged = true;
                 }
             }
 
             if ( _element_SideMenu_Content_Section_WorkingDays !== null ) {
-                _options.workingDays = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_WorkingDays, true );
+                var workingDays = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_WorkingDays, true );
 
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                if ( !areArraysTheSame( _options.workingDays, workingDays ) ) {
+                    _options.workingDays = workingDays;
+
+                    triggerOptionsEvent = true;
+                    itemWasChanged = true;
+                }
             }
 
             if ( _element_SideMenu_Content_Section_WeekendDays !== null ) {
-                _options.weekendDays = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_WeekendDays, true );
+                var weekendDays = getSideMenuCheckedCheckBoxNames( _element_SideMenu_Content_Section_WeekendDays, true );
 
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                if ( !areArraysTheSame( _options.weekendDays, weekendDays ) ) {
+                    _options.weekendDays = weekendDays;
+
+                    triggerOptionsEvent = true;
+                    itemWasChanged = true;
+                }
             }
-    
-            _initialized = false;
-    
-            build( _currentDate, true, true );
+
+            if ( itemWasChanged ) {
+                if ( triggerOptionsEvent ) {
+                    triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                }
+        
+                _initialized = false;
+        
+                build( _currentDate, true, true );
+            }
         }
     }
 
@@ -1445,11 +1499,32 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_SideMenu_Content_Section_WeekendDays.appendChild( _element_SideMenu_Content_Section_WeekendDays_Content );
 
-        for ( var dayIndex = 1; dayIndex < 8; dayIndex++ ) {
-            var actualDayIndex = dayIndex > 6 ? 0 : dayIndex,
-                visible = _options.weekendDays.indexOf( actualDayIndex ) > -1;
+        var dayIndex = 1,
+            dayEndIndex = 8,
+            processOtherDays = false;
 
-            buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex.toString(), visible, null, cancelBubbleOnly );
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            dayIndex = _options.startOfWeekDay + 1;
+            processOtherDays = true;
+        }
+
+        for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
+            var actualDayIndex1 = dayIndex > 6 ? 0 : dayIndex,
+                visible1 = _options.weekendDays.indexOf( actualDayIndex1 ) > -1;
+
+            buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex1.toString(), visible1, null, cancelBubbleOnly );
+        }
+
+        if ( processOtherDays ) {
+            dayEndIndex = _options.startOfWeekDay + 1;
+            dayIndex = 1;
+
+            for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
+                var actualDayIndex2 = dayIndex > 6 ? 0 : dayIndex,
+                    visible2 = _options.weekendDays.indexOf( actualDayIndex2 ) > -1;
+    
+                buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly );
+            }
         }
     }
 
@@ -1464,10 +1539,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_SideMenu_Content_Section_WorkingDays.appendChild( _element_SideMenu_Content_Section_WorkingDays_Content );
 
-        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
-            var visible = _options.workingDays.indexOf( dayIndex ) > -1;
+        var dayIndex = 0,
+            dayEndIndex = 7,
+            processOtherDays = false;
 
-            buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible, null, cancelBubbleOnly );
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            dayIndex = _options.startOfWeekDay;
+            processOtherDays = true;
+        }
+
+        for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
+            var visible1 = _options.workingDays.indexOf( dayIndex ) > -1;
+
+            buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly );
+        }
+
+        if ( processOtherDays ) {
+            dayEndIndex = _options.startOfWeekDay;
+            dayIndex = 0;
+
+            for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
+                var visible2 = _options.workingDays.indexOf( dayIndex ) > -1;
+    
+                buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly );
+            }
         }
     }
 
@@ -1549,10 +1644,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_SideMenu_Content_Section_Days.appendChild( _element_SideMenu_Content_Section_Days_Content );
 
-        for ( var dayIndex = 0; dayIndex < 7; dayIndex++ ) {
-            var visible = _options.visibleDays.indexOf( dayIndex ) > -1;
+        var dayIndex = 0,
+            dayEndIndex = 7,
+            processOtherDays = false;
 
-            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible, null, cancelBubbleOnly );
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            dayIndex = _options.startOfWeekDay;
+            processOtherDays = true;
+        }
+
+        for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
+            var visible1 = _options.visibleDays.indexOf( dayIndex ) > -1;
+
+            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly );
+        }
+
+        if ( processOtherDays ) {
+            dayEndIndex = _options.startOfWeekDay;
+            dayIndex = 0;
+
+            for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
+                var visible2 = _options.visibleDays.indexOf( dayIndex ) > -1;
+    
+                buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly );
+            }
         }
     }
 
@@ -2290,6 +2405,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         weekStartDate.setHours( 0, 0, 0, 0 );
         weekEndDate.setDate( lastDayNumber );
         weekEndDate.setHours( 23, 59, 59, 99 );
+
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            weekStartDate.setDate( weekStartDate.getDate() - ( 7 - _options.startOfWeekDay ) );
+            weekEndDate.setDate( weekEndDate.getDate() - ( 7 - _options.startOfWeekDay ) );
+        }
         
         return [ weekStartDate, weekEndDate ];
     }
@@ -2510,6 +2630,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
 
         return result;
+    }
+
+    function getStartOfWeekDayNumber( dayNumber ) {
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            dayNumber += ( 7 - _options.startOfWeekDay );
+        }
+
+        return dayNumber;
     }
 
 
@@ -2757,14 +2885,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( date.getMonth() === nextMonth.getMonth() && date.getFullYear() === nextMonth.getFullYear() ) {
             startDay = firstDayNumber + getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
-            elementDayNumber = ( date.getDate() + startDay );
+            elementDayNumber = getStartOfWeekDayNumber( date.getDate() + startDay );
 
         } else if ( date.getMonth() === previousMonth.getMonth() && date.getFullYear() === previousMonth.getFullYear() ) {
-            elementDayNumber = firstDayNumber - getTotalDaysBetweenDates( date, _currentDate ) + 1;
+            elementDayNumber = getStartOfWeekDayNumber( firstDayNumber - getTotalDaysBetweenDates( date, _currentDate ) + 1 );
             
         } else if ( date.getMonth() === _currentDate.getMonth() && date.getFullYear() === _currentDate.getFullYear() ) {
             startDay = firstDayNumber;
-            elementDayNumber = ( date.getDate() + startDay );
+            elementDayNumber = getStartOfWeekDayNumber( date.getDate() + startDay );
         }
 
         if ( elementDayNumber > 0 ) {
@@ -3980,6 +4108,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllWeekEventsView_Contents_FullView = {};
         _element_ListAllWeekEventsView_Contents_FullView_Contents = {};
         _element_ListAllWeekEventsView_Contents_FullView_Events = {};
+        _element_ListAllWeekEventsView_Contents_FullView_DateIDs = [];
         _element_ListAllWeekEventsView_EventsShown = [];
         _element_ListAllWeekEventsView_MinimizeRestoreFunctions = [];
         _element_ListAllWeekEventsView_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
@@ -4063,7 +4192,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        for ( var dateID in _element_ListAllWeekEventsView_Contents_FullView ) {
+        var dateIDsLength = _element_ListAllWeekEventsView_Contents_FullView_DateIDs.length;
+
+        for ( var dateIDIndex = 0; dateIDIndex < dateIDsLength; dateIDIndex++ ) {
+            var dateID = _element_ListAllWeekEventsView_Contents_FullView_DateIDs[ dateIDIndex ];
+
             if ( _element_ListAllWeekEventsView_Contents_FullView.hasOwnProperty( dateID ) && _element_ListAllWeekEventsView_Contents_FullView_Events.hasOwnProperty( dateID ) ) {
                 if ( _options.showEmptyDaysInWeekView || _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ].length > 0 ) {
                     _element_ListAllWeekEventsView_Contents.appendChild( _element_ListAllWeekEventsView_Contents_FullView[ dateID ] );
@@ -4131,8 +4264,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildListAllWeekEventsEvent( eventDetails, header, container, displayDate ) {
         var added = false,
-            weekDayNumber = getWeekdayNumber( displayDate ),
-            dateID = weekDayNumber + displayDate.getMonth() + displayDate.getFullYear(),
+            dateID = displayDate.getDate() + displayDate.getMonth() + displayDate.getFullYear(),
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             formattedDate = toStorageFormattedDate( displayDate );
 
@@ -4244,10 +4376,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildAllWeekDays( weekStartDate, weekEndDate ) {
-        var startOfWeek = new Date( weekStartDate );
+        var startOfWeek = new Date( weekStartDate ),
+            dayIndex = 1;
 
         do {
-            buildListAllEventsDay( startOfWeek );
+            buildListAllEventsDay( startOfWeek, dayIndex );
             moveDateForwardDay( startOfWeek );
 
         } while ( startOfWeek < weekEndDate );
@@ -4255,7 +4388,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildListAllEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
-            dateID = weekDayNumber + date.getMonth() + date.getFullYear(),
+            dateID = date.getDate() + date.getMonth() + date.getFullYear(),
             dayContents = null,
             dayHeader = null,
             removeEventsDate = new Date( date );
@@ -4279,6 +4412,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var day = createElement( "div", "day" );
             _element_ListAllWeekEventsView_Contents_FullView[ dateID ] = day;
             _element_ListAllWeekEventsView_Contents_FullView_Events[ dateID ] = [];
+            _element_ListAllWeekEventsView_Contents_FullView_DateIDs.push( dateID );
 
             if ( isWeekendDay( date ) ) {
                 day.className += " weekend-day";
@@ -4476,9 +4610,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     
-    function buildPreviousMonthDays( dateTime, startDay ) {
+    function buildPreviousMonthDays( startDay ) {
         if ( startDay > 1 ) {
-            var previousMonth = new Date( dateTime );
+            var previousMonth = new Date( _currentDate );
             previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
             var totalDaysInMonth = getTotalDaysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
@@ -4494,8 +4628,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildMonthDays( totalDaysInMonth, startDay ) {
-        var elementDayNumber = 0;
+    function buildMonthDays( startDay ) {
+        var elementDayNumber = 0,
+            totalDaysInMonth = getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
 
         for ( var day = 0; day < totalDaysInMonth; day++ ) {
             elementDayNumber = startDay + day;
@@ -5209,7 +5344,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_DropDownMenu_HeaderDay_ShowOnlyWorkingDays_Separator = buildMenuSeparator( _element_DropDownMenu_HeaderDay );
     
-            _element_DropDownMenu_HeaderDay_VisibleDays = buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
+            buildMenuItemWithIcon( _element_DropDownMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
                 showSideMenu( true );
             } );
         }
@@ -8030,7 +8165,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function createElement( type, className, inputType ) {
+    function createElement( type, className, inputType, inputId ) {
         var result = null,
             nodeType = type.toLowerCase(),
             isText = nodeType === "text";
@@ -8040,6 +8175,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         result = _elementTypes[ nodeType ].cloneNode( false );
+
+        if ( ( type === "input" && inputType !== "button" ) || type === "textarea" ) {
+            if ( isDefined( inputId ) ) {
+                result.id = inputId;
+            } else {
+                result.id = newGuid();
+            }
+        }
 
         if ( isDefined( className ) ) {
             result.className = className;
@@ -10589,7 +10732,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.2.0";
+        return "2.2.1";
     };
 
     /**
@@ -10836,6 +10979,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showSideMenuEventTypes = getDefaultBoolean( _options.showSideMenuEventTypes, true );
         _options.showSideMenuWorkingDays = getDefaultBoolean( _options.showSideMenuWorkingDays, true );
         _options.showSideMenuWeekendDays = getDefaultBoolean( _options.showSideMenuWeekendDays, true );
+        _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _day.monday );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
