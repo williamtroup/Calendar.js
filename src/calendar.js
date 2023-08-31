@@ -8742,7 +8742,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var orderedEvent = orderedEvents[ orderedEventIndex ],
                     orderedEventsJson = JSON.stringify( orderedEvent );
 
-                _window.localStorage.setItem( "CJS_" + orderedEvent.id, orderedEventsJson );
+                _window.localStorage.setItem( "CJS_" + orderedEventIndex.toString(), orderedEventsJson );
             }
         }
     }

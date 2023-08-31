@@ -5919,7 +5919,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
         var orderedEvent = orderedEvents[orderedEventIndex];
         var orderedEventsJson = JSON.stringify(orderedEvent);
-        _window.localStorage.setItem("CJS_" + orderedEvent.id, orderedEventsJson);
+        _window.localStorage.setItem("CJS_" + orderedEventIndex.toString(), orderedEventsJson);
       }
     }
   }
