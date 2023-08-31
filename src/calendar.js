@@ -883,6 +883,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             } );
 
+            storeEventsInLocalStorage();
             showNotificationPopUp( _options.eventsRemovedText.replace( "{0}", eventsRemoved ) );
             refreshViews();
         };
@@ -916,6 +917,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( isDefinedArray( _options.events ) ) {
                     _this.addEvents( _options.events, false, false, false );
                 }
+
+                loadEventsFromLocalStorage();
     
                 if ( !_initializedFirstTime ) {
                     triggerOptionsEventWithData( "onRender", _elementID );
@@ -3532,6 +3535,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes );
             _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate( _element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes );
             
+            storeEventsInLocalStorage();
             triggerOptionsEventWithData( "onEventUpdated", _element_FullDayView_Event_Dragged_EventDetails );
             showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _element_FullDayView_Event_Dragged_EventDetails.title ) );
 
@@ -3571,6 +3575,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
     
                     if ( eventsResized ) {
+                        storeEventsInLocalStorage();
                         refreshViews();
                     }
                 }
@@ -6229,6 +6234,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         showNotificationPopUp( _options.eventAddedText.replace( "{0}", newEvent.title ) );
         buildDayEvents();
         refreshOpenedViews();
+        storeEventsInLocalStorage();
 
         return newEvent;
     }
@@ -8721,6 +8727,44 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Local Storage (persistence)
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function storeEventsInLocalStorage() {
+        if ( _options.useLocalStorageForEvents && _window.localStorage ) {
+            _window.localStorage.clear();
+
+            var orderedEvents = getOrderedEvents( getAllEvents() ),
+                orderedEventsLength = orderedEvents.length;
+
+            for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+                var orderedEvent = orderedEvents[ orderedEventIndex ],
+                    orderedEventsJson = JSON.stringify( orderedEvent );
+
+                _window.localStorage.setItem( "CJS_" + orderedEvent.id, orderedEventsJson );
+            }
+        }
+    }
+
+    function loadEventsFromLocalStorage() {
+        if ( _options.useLocalStorageForEvents && _window.localStorage ) {
+            var keysLength = _window.localStorage.length;
+
+            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
+                var eventJson = _window.localStorage.getItem( _window.localStorage.key( keyIndex ) ),
+                    event = getObjectFromString( eventJson );
+
+                if ( isDefined( event ) ) {
+                    _this.addEvent( event, false, false, false );
+                }
+            }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Export Events
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -9986,6 +10030,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 this.addEvent( event, false, false, false );
             }
+
+            storeEventsInLocalStorage();
     
             if ( triggerEvent ) {
                 triggerOptionsEventWithData( "onEventsAdded", events );
@@ -10134,6 +10180,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
             
                     if ( updateEvents ) {
+                        storeEventsInLocalStorage();
                         updateSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
@@ -10174,6 +10221,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
+                storeEventsInLocalStorage();
                 updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
@@ -10207,6 +10255,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
     
                 updated = this.addEvent( event, updateEvents, false );
+
+                storeEventsInLocalStorage();
     
                 if ( updated && triggerEvent ) {
                     triggerOptionsEventWithData( "onEventUpdated", event );
@@ -10253,6 +10303,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
     
                     if ( updateEvents ) {
+                        storeEventsInLocalStorage();
                         updateSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
@@ -10297,6 +10348,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
     
                     if ( updateEvents ) {
+                        storeEventsInLocalStorage();
                         updateSideMenu();
                         buildDayEvents();
                         refreshOpenedViews();
@@ -10333,6 +10385,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( updateEvents ) {
+                storeEventsInLocalStorage();
                 updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
@@ -10409,6 +10462,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
     
             if ( updateEvents ) {
+                storeEventsInLocalStorage();
                 updateSideMenu();
                 buildDayEvents();
                 refreshOpenedViews();
@@ -10981,7 +11035,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showSideMenuWorkingDays = getDefaultBoolean( _options.showSideMenuWorkingDays, true );
         _options.showSideMenuWeekendDays = getDefaultBoolean( _options.showSideMenuWeekendDays, true );
         _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _day.monday );
-        _options.useLocalStorageForEvents = getDefaultNumber( _options.useLocalStorageForEvents, false );
+        _options.useLocalStorageForEvents = getDefaultBoolean( _options.useLocalStorageForEvents, false );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

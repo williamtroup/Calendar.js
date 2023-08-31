@@ -89,6 +89,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           eventsRemoved++;
         }
       });
+      storeEventsInLocalStorage();
       showNotificationPopUp(_options.eventsRemovedText.replace("{0}", eventsRemoved));
       refreshViews();
     };
@@ -110,6 +111,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (isDefinedArray(_options.events)) {
           _this.addEvents(_options.events, false, false, false);
         }
+        loadEventsFromLocalStorage();
         if (!_initializedFirstTime) {
           triggerOptionsEventWithData("onRender", _elementID);
           _initializedFirstTime = true;
@@ -2079,6 +2081,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_FullDayView_Event_Dragged.style.top = top + "px";
       _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes);
       _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes);
+      storeEventsInLocalStorage();
       triggerOptionsEventWithData("onEventUpdated", _element_FullDayView_Event_Dragged_EventDetails);
       showNotificationPopUp(_options.eventUpdatedText.replace("{0}", _element_FullDayView_Event_Dragged_EventDetails.title));
       _element_FullDayView_Event_Dragged = null;
@@ -2109,6 +2112,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             }
           }
           if (eventsResized) {
+            storeEventsInLocalStorage();
             refreshViews();
           }
         }
@@ -4098,6 +4102,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
     buildDayEvents();
     refreshOpenedViews();
+    storeEventsInLocalStorage();
     return newEvent;
   }
   function isEventLocked(eventDetails) {
@@ -5905,6 +5910,32 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getDefaultDate(value, defaultValue) {
     return isDefinedDate(value) ? value : defaultValue;
   }
+  function storeEventsInLocalStorage() {
+    if (_options.useLocalStorageForEvents && _window.localStorage) {
+      _window.localStorage.clear();
+      var orderedEvents = getOrderedEvents(getAllEvents());
+      var orderedEventsLength = orderedEvents.length;
+      var orderedEventIndex = 0;
+      for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
+        var orderedEvent = orderedEvents[orderedEventIndex];
+        var orderedEventsJson = JSON.stringify(orderedEvent);
+        _window.localStorage.setItem("CJS_" + orderedEvent.id, orderedEventsJson);
+      }
+    }
+  }
+  function loadEventsFromLocalStorage() {
+    if (_options.useLocalStorageForEvents && _window.localStorage) {
+      var keysLength = _window.localStorage.length;
+      var keyIndex = 0;
+      for (; keyIndex < keysLength; keyIndex++) {
+        var eventJson = _window.localStorage.getItem(_window.localStorage.key(keyIndex));
+        var event = getObjectFromString(eventJson);
+        if (isDefined(event)) {
+          _this.addEvent(event, false, false, false);
+        }
+      }
+    }
+  }
   function exportEvents(events, type, filename, copyToClipboard) {
     type = isDefined(type) ? type.toLowerCase() : "csv";
     copyToClipboard = isDefined(copyToClipboard) ? copyToClipboard : false;
@@ -6614,6 +6645,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showSideMenuWorkingDays = getDefaultBoolean(_options.showSideMenuWorkingDays, true);
     _options.showSideMenuWeekendDays = getDefaultBoolean(_options.showSideMenuWeekendDays, true);
     _options.startOfWeekDay = getDefaultNumber(_options.startOfWeekDay, _day.monday);
+    _options.useLocalStorageForEvents = getDefaultBoolean(_options.useLocalStorageForEvents, false);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -7259,6 +7291,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         var event = events[eventIndex];
         this.addEvent(event, false, false, false);
       }
+      storeEventsInLocalStorage();
       if (triggerEvent) {
         triggerOptionsEventWithData("onEventsAdded", events);
       }
@@ -7351,6 +7384,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventAdded", event);
           }
           if (updateEvents) {
+            storeEventsInLocalStorage();
             updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
@@ -7374,6 +7408,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsUpdated", events);
       }
       if (updateEvents) {
+        storeEventsInLocalStorage();
         updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
@@ -7388,6 +7423,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         updateEvents = !isDefinedBoolean(updateEvents) ? true : updateEvents;
         triggerEvent = !isDefinedBoolean(triggerEvent) ? true : triggerEvent;
         updated = this.addEvent(event, updateEvents, false);
+        storeEventsInLocalStorage();
         if (updated && triggerEvent) {
           triggerOptionsEventWithData("onEventUpdated", event);
         }
@@ -7410,6 +7446,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventUpdated", eventDetails);
           }
           if (updateEvents) {
+            storeEventsInLocalStorage();
             updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
@@ -7433,6 +7470,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventRemoved", event);
           }
           if (updateEvents) {
+            storeEventsInLocalStorage();
             updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
@@ -7452,6 +7490,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onEventsCleared");
       }
       if (updateEvents) {
+        storeEventsInLocalStorage();
         updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
@@ -7488,6 +7527,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       });
       if (updateEvents) {
+        storeEventsInLocalStorage();
         updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();

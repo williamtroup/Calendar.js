@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.3.0:
+- Added new setting "useLocalStorageForEvents" (defaults to false), which states that events will be stored in local storage (persisted between browser usages).
 - 
 
 <br>
