@@ -21,6 +21,7 @@ Calendar.js
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
+- Full CSS themes support (using :root variables).
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV, with system clipboard setting support.
 - Full-screen mode (double clicking the title bar).

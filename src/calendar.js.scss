@@ -8,6 +8,34 @@
 
 @import "foundation/styles";
 
+:root {
+    --dark-color: #282828;
+    --light-color: #F5F5F5;
+    --day-date-picker-hover-color: #a7a7a7;
+    --grid-border-color: #B0B0B0;
+    --alert-color: #C60000;
+    --event-color: #484848;
+    --event-color-all-day: #1b3752;
+    --day-names-color: #E0E0E0;
+    --input-border-color: #A8A8A8;
+    --input-background-color: #FFFFFF;
+    --area-disabled-stripped: rgba(  40, 40, 40, 0.1  );
+    --area-disabled-stripped-weekend-day: rgba(  40, 40, 40, 0.2  );
+    --link-color: #2471A3;
+    --input-hover-color: #282828;
+    --primary-button-color: #282828;
+    --secondary-button-color: #282828;
+    --tertiary-button-color: #6c757d;
+    --drop-down-menu-background-color: #DCDCDC;
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Containers
+    -------------------------------------------------------------------------
+*/
+
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
@@ -169,7 +197,7 @@ div.calendar-date-picker {
         width: 100%;
         max-width: 330px;
         z-index: 1000;
-        box-shadow: 4px 4px 4px $dark-color;
+        box-shadow: 4px 4px 4px var(--dark-color);
         margin-top: $standard-border-size;
         margin-left: -$standard-border-size;
 
@@ -179,17 +207,17 @@ div.calendar-date-picker {
 
         div.days {
             div.cell-today {
-                background-color: $dark-color !important;
-                color: $light-color !important;
+                background-color: var(--dark-color) !important;
+                color: var(--light-color) !important;
             }
 
             div.cell-selected {
-                background-color: $day-date-picker-hover-color !important;
+                background-color: var(--day-date-picker-hover-color) !important;
             }
 
             div.cell:not( .cell-no-click ):hover {
                 cursor: pointer;
-                background-color: $day-date-picker-hover-color;
+                background-color: var(--day-date-picker-hover-color);
                 transition: $transition;
             }
 
@@ -217,7 +245,7 @@ div.calendar {
     overflow: hidden;
     width: 100%;
     min-width: 260px;
-    border: $standard-border-size solid $dark-color;
+    border: $standard-border-size solid var(--dark-color);
     position: relative;
 
     sup {
@@ -233,7 +261,7 @@ div.calendar {
     }
 
     div.selected-event {
-        box-shadow: 0 0 $selected-event-shadow-size $selected-event-shadow-size $alert-color;
+        box-shadow: 0 0 $selected-event-shadow-size $selected-event-shadow-size var(--alert-color);
     }
 
     div.cut-event {
@@ -246,13 +274,13 @@ div.calendar {
     
     div.header-days {
         font-weight: 900 !important;
-        background-color: $day-names-color !important;
-        color: $dark-color !important;
+        background-color: var(--day-names-color) !important;
+        color: var(--dark-color) !important;
         text-transform: uppercase;
     }
 
     div.weekend-day {
-        background-color: $day-names-color;
+        background-color: var(--day-names-color);
     }
 
     div.working-day {
@@ -267,10 +295,10 @@ div.calendar {
     div.drag-not-allowed {
         background: repeating-linear-gradient( 
             135deg,
-            $light-color,
-            $light-color $spacing,
-            $area-disabled-stripped $spacing,
-            $area-disabled-stripped $spacing * 2
+            var(--light-color),
+            var(--light-color) $spacing,
+            var(--area-disabled-stripped) $spacing,
+            var(--area-disabled-stripped) $spacing * 2
          );
 
         div.ib-arrow-expand-left-right-icon {
@@ -281,10 +309,10 @@ div.calendar {
     div.drag-not-allowed-weekend-day {
         background: repeating-linear-gradient( 
             135deg,
-            $day-names-color,
-            $day-names-color $spacing,
-            $area-disabled-stripped-weekend-day $spacing,
-            $area-disabled-stripped-weekend-day $spacing * 2
+            var(--day-names-color),
+            var(--day-names-color) $spacing,
+            var(--area-disabled-stripped-weekend-day) $spacing,
+            var(--area-disabled-stripped-weekend-day) $spacing * 2
          );
 
         div.ib-arrow-expand-left-right-icon {
@@ -309,7 +337,7 @@ div.calendar {
 
     span.link {
         text-decoration: underline !important;
-        color: $link-color !important;
+        color: var(--link-color) !important;
 
         &:hover {
             @include opacity-hover-effect;
@@ -321,14 +349,14 @@ div.calendar {
     }
     
     div.row-cells {
-        border-bottom: $standard-border-size solid $grid-border-color;
+        border-bottom: $standard-border-size solid var(--grid-border-color);
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
         font-weight: 300;
-        background-color: $light-color;
-        color: $dark-color;
+        background-color: var(--light-color);
+        color: var(--dark-color);
         width: 100%;
 
         div.cell-1 {
@@ -366,10 +394,10 @@ div.calendar {
         div.cell {
             display: inline-block;
             text-align: center;
-            border-right: $standard-border-size solid $grid-border-color;
+            border-right: $standard-border-size solid var(--grid-border-color);
             position: relative;
             overflow: hidden;
-            color: $dark-color;
+            color: var(--dark-color);
 
             @media screen and ( min-width: $minimum-width ) {
                 padding: $spacing;
@@ -410,13 +438,13 @@ div.calendar {
                 }
 
                 &.today {
-                    background-color: $dark-color !important;
-                    color: $light-color !important;
+                    background-color: var(--dark-color) !important;
+                    color: var(--light-color) !important;
                 }
 
                 &.first-day {
                     background-color: #C8C8C8;
-                    color: $dark-color;
+                    color: var(--dark-color);
                 }
 
                 &.holiday,
@@ -491,11 +519,11 @@ div.calendar {
         position: absolute;
         height: 100%;
         top: 0;
-        color: $light-color !important;
+        color: var(--light-color) !important;
         z-index: 1500;
         transition: $transition; 
-        background-color: $dark-color;
-        border-right: $side-menu-right-border-width solid $light-color;
+        background-color: var(--dark-color);
+        border-right: $side-menu-right-border-width solid var(--light-color);
         border-radius: $border-view-radius;
         overflow-x: hidden;
         overflow-y: auto;
@@ -516,7 +544,7 @@ div.calendar {
             overflow: auto;
             position: sticky;
             top: 0;
-            background-color: $dark-color;
+            background-color: var(--dark-color);
             padding: $spacing;
             z-index: 1;
             
@@ -576,11 +604,11 @@ div.calendar {
                     }
 
                     div.ib-arrow-down-full {
-                        border-top-color: $light-color;
+                        border-top-color: var(--light-color);
                     }
 
                     div.ib-arrow-up-full {
-                        border-bottom-color: $light-color;
+                        border-bottom-color: var(--light-color);
                     }
                 }
 
@@ -597,13 +625,13 @@ div.calendar {
                     label.checkbox {
                         margin-bottom: calc( $spacing / 2 );
                         margin-left: $spacing;
-                        color: $light-color !important;
+                        color: var(--light-color) !important;
         
                         span.check-mark {
-                            background-color: $light-color !important;
+                            background-color: var(--light-color) !important;
         
                             &::before {
-                                border-color: $dark-color !important;
+                                border-color: var(--dark-color) !important;
                             }
                         }
                     }
@@ -615,7 +643,7 @@ div.calendar {
     div.side-menu-open {
         left: 0 !important;
         transition: $transition;
-        box-shadow: 0 0 10px 10px $dark-color;
+        box-shadow: 0 0 10px 10px var(--dark-color);
     }
 }
 
@@ -629,8 +657,8 @@ div.calendar {
 div.calendar {  
     div.header-date {
         font-weight: $title-bar-font-weight;
-        background-color: $dark-color;
-        color: $light-color;
+        background-color: var(--dark-color);
+        color: var(--light-color);
         text-align: center;
         padding-top: $spacing;
         padding-bottom: $spacing;
@@ -646,7 +674,7 @@ div.calendar {
 
         div.side-menu-button-divider-line {
             width: 1px;
-            background-color: $light-color;
+            background-color: var(--light-color);
             height: 16px;
         }
 
@@ -662,7 +690,7 @@ div.calendar {
                 span.ib-arrow-down-full-medium,
                 span.ib-arrow-up-full-medium {
                     margin-left: calc( $spacing / 2 );
-                    border-top-color: $light-color;
+                    border-top-color: var(--light-color);
                     pointer-events: none;
                 }
 
@@ -680,10 +708,10 @@ div.calendar {
                 @include fade-in-effect-animation( 0.5s );
                 position: absolute;
                 width: 240px;
-                border: $standard-border-size solid $dark-color;
+                border: $standard-border-size solid var(--dark-color);
                 left: 50%;
                 transform: translate( -50% );
-                background-color: $light-color;
+                background-color: var(--light-color);
                 border-radius: $border-view-radius;
                 z-index: 1500;
                 display: none;
@@ -721,12 +749,12 @@ div.calendar {
 
                     div.month-name,
                     div.month-name-current-month {
-                        background-color: $day-names-color;
-                        color: $dark-color;
+                        background-color: var(--day-names-color);
+                        color: var(--dark-color);
                         
                         &:hover {
-                            background-color: $dark-color;
-                            color: $light-color;
+                            background-color: var(--dark-color);
+                            color: var(--light-color);
                             cursor: pointer;
                             transition: $transition;
                         }
@@ -737,13 +765,13 @@ div.calendar {
                     }
 
                     div.month-name-selected {
-                        background-color: $dark-color;
-                        color: $light-color;
+                        background-color: var(--dark-color);
+                        color: var(--light-color);
                     }
 
                     div.month-name-current-month {
                         background-color: #BCBCBC;
-                        color: $dark-color;
+                        color: var(--dark-color);
                     }
                 }
     
@@ -762,11 +790,11 @@ div.calendar {
                     padding: 0;
                     padding-top: calc( $spacing / 2 );
                     padding-bottom: calc( $spacing / 2 );
-                    background-color: $light-color !important;
+                    background-color: var(--light-color) !important;
     
                     div.year {
                         display: inline-block;
-                        color: $dark-color;
+                        color: var(--dark-color);
                         font-size: 0.75rem;
                         margin-right: 5px;
                         width: calc( 25% - 17px );
@@ -777,8 +805,8 @@ div.calendar {
                         padding: 3px;
         
                         &:hover {
-                            background-color: $dark-color;
-                            color: $light-color;
+                            background-color: var(--dark-color);
+                            color: var(--light-color);
                             cursor: pointer;
                             transition: $transition;
                         }
@@ -789,14 +817,14 @@ div.calendar {
                     }
 
                     div.year-selected {
-                        background-color: $dark-color;
-                        color: $light-color;
+                        background-color: var(--dark-color);
+                        color: var(--light-color);
                         cursor: default !important;
                     }
 
                     div.year-has-events {
-                        background-color: #DCDCDC;
-                        color: $dark-color;
+                        background-color: var(--drop-down-menu-background-color);
+                        color: var(--dark-color);
                     }
                 }
             }
@@ -869,9 +897,9 @@ div.calendar {
         div.cell {
             div.event {
                 border-radius: $border-view-radius;
-                background-color: $event-color;
+                background-color: var(--event-color);
                 padding: 3px;
-                color: $light-color;
+                color: var(--light-color);
                 margin-top: 5px;
                 margin-bottom: 5px;
                 border-left: $event-left-border;
@@ -919,7 +947,7 @@ div.calendar {
             }
 
             div.all-day {
-                background-color: $event-color-all-day !important;
+                background-color: var(--event-color-all-day) !important;
             }
 
             div.plus-x-events {
@@ -970,15 +998,15 @@ div.calendar {
 
             div.content-events-all-day {
                 position: relative;
-                border-bottom: $standard-border-size solid $dark-color;
+                border-bottom: $standard-border-size solid var(--dark-color);
                 overflow: hidden;
     
                 div.all-day-text {
                     width: $time-hours-width;
                     padding: $spacing;
-                    background-color: $light-color;
-                    color: $dark-color;
-                    border-right: $standard-border-size solid $dark-color;
+                    background-color: var(--light-color);
+                    color: var(--dark-color);
+                    border-right: $standard-border-size solid var(--dark-color);
                     position: absolute;
                     left: 0;
                     top: 0;
@@ -1014,11 +1042,11 @@ div.calendar {
                         height: 0; 
                         border-top: calc( $time-arrow-line-height / 2 ) solid transparent;
                         border-bottom: calc( $time-arrow-line-height / 2 ) solid transparent;
-                        border-right: $time-arrow-line-height solid $link-color;
+                        border-right: $time-arrow-line-height solid var(--link-color);
                     }
 
                     div.line {
-                        background-color: $link-color;
+                        background-color: var(--link-color);
                         position: absolute;
                         left: $time-arrow-line-height;
                         top: calc( $time-arrow-line-height / 4 );
@@ -1028,12 +1056,12 @@ div.calendar {
                 }
 
                 div.hour {
-                    background-color: $light-color;
-                    border-bottom: $standard-border-size solid $dark-color;
+                    background-color: var(--light-color);
+                    border-bottom: $standard-border-size solid var(--dark-color);
                     position: relative;
 
                     &::before {
-                        border-bottom: $standard-border-size dashed $input-border-color;
+                        border-bottom: $standard-border-size dashed var(--input-border-color);
                         width: calc( 100% - ( #{$time-hours-width} + #{$spacing * 2} ) );
                         height: ( $time-hours-height + $spacing * 2 ) - $standard-border-size;
                         content: '';
@@ -1047,18 +1075,18 @@ div.calendar {
                         width: $time-hours-width;
                         height: $time-hours-height;
                         padding: $spacing;
-                        background-color: $light-color;
-                        color: $dark-color;
-                        border-right: $standard-border-size solid $dark-color;
+                        background-color: var(--light-color);
+                        color: var(--dark-color);
+                        border-right: $standard-border-size solid var(--dark-color);
                         
                         &:nth-child( odd ) {
-                            background-color: $dark-color;
-                            color: $light-color;
+                            background-color: var(--dark-color);
+                            color: var(--light-color);
                         }
                     }
     
                     &:nth-child( odd ) {
-                        background-color: $day-names-color;
+                        background-color: var(--day-names-color);
                     }
     
                     &:last-child {
@@ -1107,13 +1135,13 @@ div.calendar {
 
             div.month {
                 border-radius: $border-view-radius;
-                border: $standard-border-size solid $dark-color;
+                border: $standard-border-size solid var(--dark-color);
                 overflow: hidden;
                 margin-bottom: $spacing;
 
                 div.header {
-                    background-color: $dark-color !important;
-                    color: $light-color !important;
+                    background-color: var(--dark-color) !important;
+                    color: var(--light-color) !important;
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
@@ -1165,13 +1193,13 @@ div.calendar {
 
             div.day {
                 border-radius: $border-view-radius;
-                border: $standard-border-size solid $dark-color;
+                border: $standard-border-size solid var(--dark-color);
                 overflow: hidden;
                 margin-bottom: $spacing;
 
                 div.header {
-                    background-color: $dark-color !important;
-                    color: $light-color !important;
+                    background-color: var(--dark-color) !important;
+                    color: var(--light-color) !important;
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
@@ -1251,8 +1279,8 @@ div.event-editor {
         input:disabled,
         textarea:disabled {
             @include no-selection-allowed;
-            background-color: $light-color;
-            color: $input-border-color;
+            background-color: var(--light-color);
+            color: var(--input-border-color);
         }
     
         textarea {
@@ -1275,11 +1303,11 @@ div.event-editor {
         
         input[type="button"] {
             @include dialog-button-styles;
-            @include button( add-update, $light-color, $primary-button-color );
-            @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
-            @include button( remove, $secondary-button-color, $light-color, $secondary-button-color );
-            @include button( select-colors, $light-color, $tertiary-button-color );
-            @include button( repeat-options, $light-color, $tertiary-button-color );
+            @include button( add-update, var(--light-color), var(--primary-button-color) );
+            @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+            @include button( remove, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+            @include button( select-colors, var(--light-color), var(--tertiary-button-color) );
+            @include button( repeat-options, var(--light-color), var(--tertiary-button-color) );
 
             &.add-update,
             &.cancel,
@@ -1349,8 +1377,8 @@ div.event-editor-colors {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( update, $light-color, $primary-button-color );
-        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
+        @include button( update, var(--light-color), var(--primary-button-color) );
+        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
 
         &.update,
         &.cancel {
@@ -1414,8 +1442,8 @@ div.event-editor-repeat-options {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( update, $light-color, $primary-button-color );
-        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
+        @include button( update, var(--light-color), var(--primary-button-color) );
+        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
 
         &.update,
         &.cancel {
@@ -1458,8 +1486,8 @@ div.message {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( yes-ok, $light-color, $primary-button-color );
-        @include button( no, $secondary-button-color, $light-color, $secondary-button-color );
+        @include button( yes-ok, var(--light-color), var(--primary-button-color) );
+        @include button( no, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
 
         &.yes-ok,
         &.no {
@@ -1491,8 +1519,8 @@ div.export-events {
 
         input:disabled {
             @include no-selection-allowed;
-            background-color: $light-color;
-            color: $input-border-color;
+            background-color: var(--light-color);
+            color: var(--input-border-color);
         }
 
         div.options {
@@ -1513,8 +1541,8 @@ div.export-events {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( export, $light-color, $primary-button-color );
-        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color );
+        @include button( export, var(--light-color), var(--primary-button-color) );
+        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
 
         &.export,
         &.cancel {
@@ -1559,13 +1587,13 @@ div.search {
 
             div.history-dropdown {
                 @include input-style;
-                background-color: $input-background-color;
+                background-color: var(--input-background-color);
                 position: absolute;
                 width: calc( 100% - 2px );
                 max-height: 200px;
                 z-index: 2000;
-                border: $standard-border-size solid $dark-color !important;
-                box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size $dark-color;
+                border: $standard-border-size solid var(--dark-color) !important;
+                box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size var(--dark-color);
                 display: none;
                 overflow-x: hidden;
                 overflow-y: auto;
@@ -1573,7 +1601,7 @@ div.search {
 
                 div.history-dropdown-item {
                     padding: $spacing;
-                    border-bottom: 1px dotted $input-border-color;
+                    border-bottom: 1px dotted var(--input-border-color);
 
                     span.search-search {
                         font-weight: 900 !important;
@@ -1584,7 +1612,7 @@ div.search {
                     }
 
                     &:hover {
-                        background-color: $day-names-color;
+                        background-color: var(--day-names-color);
                         transition: $transition;
                         cursor: pointer;
                     }
@@ -1636,8 +1664,8 @@ div.search {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( next, $light-color, $primary-button-color );
-        @include button( previous, $secondary-button-color, $light-color, $secondary-button-color );
+        @include button( next, var(--light-color), var(--primary-button-color) );
+        @include button( previous, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
         
         &.next,
         &.previous {
@@ -1696,8 +1724,8 @@ div.configuration {
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( update, $light-color, $primary-button-color );
-        @include button( cancel, $secondary-button-color, $light-color, $secondary-button-color);
+        @include button( update, var(--light-color), var(--primary-button-color) );
+        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color));
 
         &.update,
         &.cancel {
@@ -1730,20 +1758,20 @@ div.calendar-dialog {
     }
 
     div.tab-control-selected {
-        border: $standard-border-size solid $dark-color;
-        background-color: $dark-color;
-        color: $light-color;
+        border: $standard-border-size solid var(--dark-color);
+        background-color: var(--dark-color);
+        color: var(--light-color);
         padding: $spacing + calc( $spacing / 4 );
     }
 
     div.tab-control {
-        border: $standard-border-size solid $input-border-color;
+        border: $standard-border-size solid var(--input-border-color);
 
         &:hover {
             cursor: pointer;
-            border: $standard-border-size solid $dark-color;
-            background-color: $dark-color;
-            color: $light-color;
+            border: $standard-border-size solid var(--dark-color);
+            background-color: var(--dark-color);
+            color: var(--light-color);
             transition: $transition;
         }
 
@@ -1754,13 +1782,13 @@ div.calendar-dialog {
 
     div.tab-control,
     div.tab-content {
-        background-color: $light-color;
-        color: $dark-color;
+        background-color: var(--light-color);
+        color: var(--dark-color);
     }
 
     div.tab-content {
         @include fade-in-effect-animation( 0.5s );
-        border: $standard-border-size solid $input-border-color;
+        border: $standard-border-size solid var(--input-border-color);
         border-radius: $border-view-radius;
         padding: $spacing;
         overflow-x: hidden;
@@ -1803,14 +1831,14 @@ div.calendar div.side-menu {
         padding-left: $checkbox-size-with-spacing;
         padding-top: 1px;
         margin-bottom: $spacing;
-        color: $dark-color;
+        color: var(--dark-color);
 
         input {
             display: none !important;
 
             &:checked ~ span.check-mark {
-                background-color: $dark-color;
-                border: $standard-border-size solid $dark-color;
+                background-color: var(--dark-color);
+                border: $standard-border-size solid var(--dark-color);
             }
 
             &:checked ~ span.check-mark::before {
@@ -1823,7 +1851,7 @@ div.calendar div.side-menu {
             }
             
             &:disabled ~ span.check-mark {
-                border: $standard-border-size solid $dark-color !important;
+                border: $standard-border-size solid var(--dark-color) !important;
             }
         }
 
@@ -1833,9 +1861,9 @@ div.calendar div.side-menu {
             left: 0;
             height: 15px;
             width: 15px;
-            background-color: $input-background-color;
+            background-color: var(--input-background-color);
             border-radius: $border-view-radius;
-            border: $standard-border-size solid $input-border-color;
+            border: $standard-border-size solid var(--input-border-color);
             transition: $transition;
 
             &::before {
@@ -1847,13 +1875,13 @@ div.calendar div.side-menu {
                 top: 1px;
                 width: 4px;
                 height: 7px;
-                border: solid $light-color;
+                border: solid var(--light-color);
                 border-width: 0 3px 3px 0;
             }
         }
 
         &:hover span.check-mark {
-            border: $standard-border-size solid $input-hover-color;
+            border: $standard-border-size solid var(--input-hover-color);
         }
     }
 }
@@ -1884,14 +1912,14 @@ div.calendar-dialog {
             position: relative;
             padding-left: 25px;
             padding-top: 1px;
-            color: $dark-color;
+            color: var(--dark-color);
     
             input {
                 display: none !important;
     
                 &:checked ~ span.check-mark {
-                    background-color: $dark-color !important;
-                    border: $standard-border-size solid $dark-color !important;
+                    background-color: var(--dark-color) !important;
+                    border: $standard-border-size solid var(--dark-color) !important;
                 }
     
                 &:checked ~ span.check-mark::before {
@@ -1904,7 +1932,7 @@ div.calendar-dialog {
                 }
                 
                 &:disabled ~ span.check-mark {
-                    border: $standard-border-size solid $dark-color !important;
+                    border: $standard-border-size solid var(--dark-color) !important;
                 }
             }
     
@@ -1914,9 +1942,9 @@ div.calendar-dialog {
                 left: 0;
                 height: 15px;
                 width: 15px;
-                background-color: $input-background-color;
+                background-color: var(--input-background-color);
                 border-radius: 50%;
-                border: $standard-border-size solid $input-border-color;
+                border: $standard-border-size solid var(--input-border-color);
                 transition: $transition;
     
                 &::before {
@@ -1928,13 +1956,13 @@ div.calendar-dialog {
                     top: 4px;
                     width: 7px;
                     height: 7px;
-                    background-color: $light-color;
+                    background-color: var(--light-color);
                     border-radius: 50%;
                 }
             }
 
             &:hover span.check-mark {
-                border: $standard-border-size solid $input-hover-color;
+                border: $standard-border-size solid var(--input-hover-color);
             }
         }
 
@@ -1956,10 +1984,10 @@ div.calendar-tooltip-event {
     @include fade-in-effect-animation( 1s );
     @include no-selection-allowed;
     position: absolute;
-    border: $standard-border-size solid $dark-color;
+    border: $standard-border-size solid var(--dark-color);
     border-radius: $border-view-radius;
     background-color: rgb( 240, 237, 199 );
-    color: $dark-color;
+    color: var(--dark-color);
     padding: $spacing;
     display: none;
     z-index: 2000;
@@ -2017,7 +2045,7 @@ div.calendar-tooltip-event {
 
             &::before,
             &::after {
-                background-color: $dark-color;
+                background-color: var(--dark-color);
             }
         }
     }
@@ -2033,11 +2061,11 @@ div.calendar-tooltip-event {
 div.calendar-drop-down-menu {
     @include no-selection-allowed;
     @include fade-in-effect-animation( 0.5s );
-    background-color: #DCDCDC;
-    border: $standard-border-size solid $dark-color;
-    border-left: calc( $standard-border-size * 6 ) solid $dark-color;
-    color: $dark-color;
-    box-shadow: 4px 4px 4px $dark-color;
+    background-color: var(--drop-down-menu-background-color);
+    border: $standard-border-size solid var(--dark-color);
+    border-left: calc( $standard-border-size * 6 ) solid var(--dark-color);
+    color: var(--dark-color);
+    box-shadow: 4px 4px 4px var(--dark-color);
     border-radius: $border-view-radius;
     white-space: nowrap;
     overflow: hidden;
@@ -2075,8 +2103,8 @@ div.calendar-drop-down-menu {
         padding-right: $spacing * 3;
 
         &:hover {
-            background-color: $dark-color;
-            color: $light-color;
+            background-color: var(--dark-color);
+            color: var(--light-color);
             transition: $transition;
         }
 
@@ -2091,7 +2119,7 @@ div.calendar-drop-down-menu {
         &:hover div.ib-equals-icon::before,
         &:hover div.ib-equals-icon::after,
         &:hover div.ib-arrow-down-full-line-icon::after {
-            background-color: $light-color;
+            background-color: var(--light-color);
         }
 
         &:hover div.ib-hamburger-side-icon,
@@ -2102,11 +2130,11 @@ div.calendar-drop-down-menu {
         &:hover div.ib-octagon-hollow-icon::before,
         &:hover div.ib-octagon-hollow-icon::after,
         &:hover div.ib-rhombus-hollow-icon::before{
-            border-color: $light-color;
+            border-color: var(--light-color);
         }
 
         &:hover div.ib-arrow-down-full-line-icon::before {
-            border-top-color: $light-color;
+            border-top-color: var(--light-color);
         }
 
         &:active {
@@ -2115,7 +2143,7 @@ div.calendar-drop-down-menu {
     }
 
     div.separator {
-        border-bottom: $standard-border-size solid $dark-color;
+        border-bottom: $standard-border-size solid var(--dark-color);
     }
 }
 
@@ -2139,10 +2167,10 @@ div.calendar-drop-down-menu {
     &::-webkit-scrollbar-thumb {
         -webkit-box-shadow: $scroll-bar-border-style;
         box-shadow: $scroll-bar-border-style;
-        background: $light-color;
+        background: var(--light-color);
 
         &:hover {
-            background-color: #DCDCDC;
+            background-color: var(--drop-down-menu-background-color);
         }
 
         &:active {
@@ -2169,17 +2197,17 @@ div.calendar-drop-down-menu {
 
 @keyframes focused-event-effect {
     0% {
-        box-shadow: 0 0 0 0 $alert-color;
+        box-shadow: 0 0 0 0 var(--alert-color);
         box-shadow: 0 0 0 0 rgba( 198, 0, 0, 0.5 );
     }
 
     70% {
-        box-shadow: 0 0 0 10px $alert-color;
+        box-shadow: 0 0 0 10px var(--alert-color);
         box-shadow: 0 0 0 10px rgba( 198, 0, 0, 0 );
     }
 
     100% {
-        box-shadow: 0 0 0 0 $alert-color;
+        box-shadow: 0 0 0 0 var(--alert-color);
         box-shadow: 0 0 0 0 rgba( 198, 0, 0, 0 );
     }
 }

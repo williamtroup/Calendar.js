@@ -8,7 +8,7 @@
 
     &::before {
         @include left-center;
-        background-color: $light-color;
+        background-color: var(--light-color);
         width: $border-width;
         height: calc( 100% - #{$border-width} - 2px );
         border-bottom-left-radius: 50%;
@@ -18,7 +18,7 @@
 
     &::after {
         @include left-center;
-        background-color: $light-color;
+        background-color: var(--light-color);
         width: $border-width;
         height: $border-width;
         border-radius: 50%;

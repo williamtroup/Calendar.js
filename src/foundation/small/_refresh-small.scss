@@ -7,7 +7,7 @@ $border: $border-width solid;
 
 .ib-refresh-small {
     @include button;
-    border-color: $light-color;
+    border-color: var(--light-color);
     
     &::before {
         border-top: $border;
