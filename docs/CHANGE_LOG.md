@@ -2,7 +2,7 @@
 
 ## Version 2.3.0:
 - Added new setting "useLocalStorageForEvents" (defaults to false), which states that events will be stored in local storage (persisted between browser usages).
-- Added full CSS theme support! Removes all the SCSS color variables, but the :root variables are named nearly the same.
+- Added full CSS color theme support! Removes all the SCSS color variables, but the :root variables are named nearly the same.
 - 
 
 <br>
