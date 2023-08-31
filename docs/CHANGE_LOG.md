@@ -10,7 +10,7 @@
 <br>
 
 ## Version 2.2.2:
-- Fixed the licence type in package.json being wrong.
+- Fixed the license type in package.json being wrong.
 - Improved some of the HTML testing files.
 
 <br>
