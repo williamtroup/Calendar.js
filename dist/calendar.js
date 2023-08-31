@@ -6315,6 +6315,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       var organizerName = getString(orderedEvent.organizerName);
       var organizerEmailAddress = getString(orderedEvent.organizerEmailAddress);
       var repeatEvery = getNumber(orderedEvent.repeatEvery);
+      if (!isDefinedString(organizerName)) {
+        organizerName = _options.organizerName;
+      }
+      if (!isDefinedString(organizerEmailAddress)) {
+        organizerEmailAddress = _options.organizerEmailAddress;
+      }
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
       contents.push("STATUS:CONFIRMED");

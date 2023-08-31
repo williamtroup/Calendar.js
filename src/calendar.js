@@ -9308,6 +9308,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 organizerEmailAddress = getString( orderedEvent.organizerEmailAddress),
                 repeatEvery = getNumber( orderedEvent.repeatEvery );
 
+            if ( !isDefinedString( organizerName ) ) {
+                organizerName = _options.organizerName;
+            }
+
+            if ( !isDefinedString( organizerEmailAddress ) ) {
+                organizerEmailAddress = _options.organizerEmailAddress;
+            }
+
             contents.push( "BEGIN:VEVENT" );
             contents.push( "UID:" + getString( orderedEvent.id ) );
             contents.push( "STATUS:CONFIRMED" );

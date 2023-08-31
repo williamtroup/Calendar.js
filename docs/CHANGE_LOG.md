@@ -4,6 +4,7 @@
 - Added new setting "useLocalStorageForEvents" (defaults to false), which states that events will be stored in local storage (persisted between browser usages).
 - Added full CSS color theme support! Removes all the SCSS color variables, but the :root variables are named nearly the same.
 - Improved the scroll position used when the Year Drop-Down menu is opened (for the list of years).
+- When exporting events to iCal format, if the organizer Name/Email fields are not set for an event, they are taken from the settings.
 - 
 
 <br>
