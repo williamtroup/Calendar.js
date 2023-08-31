@@ -1,8 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.3.0:
+- 
+
+<br>
+
 ## Version 2.2.2:
 - Fixed the licence type in package.json being wrong.
-- Improved some the HTML testing files.
+- Improved some of the HTML testing files.
 
 <br>
 
