@@ -437,7 +437,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             c: 67,
             e: 69,
             f: 70,
+            g: 71,
             m: 77,
+            o: 79,
             v: 86,
             x: 88,
             f5: 116,
@@ -2234,6 +2236,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _options.exportEventsEnabled ) {
                         showExportDialogFromWindowKeyDown();
                     }
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.g ) {
+                    e.preventDefault();
+    
+                    if ( _options.configurationDialogEnabled ) {
+                        showConfigurationDialog();
+                    }
                 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
                     e.preventDefault();
@@ -2246,6 +2255,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     e.preventDefault();
                     callMinimizeRestoreFunctionsForAllEventView();
                     callMinimizeRestoreFunctionsForWeekEventView();
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.o ) {
+                    e.preventDefault();
+    
+                    if ( isSideMenuAvailable() ) {
+                        showSideMenu();
+                    }
 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.v ) {
                     e.preventDefault();

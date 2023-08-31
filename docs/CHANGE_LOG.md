@@ -5,6 +5,9 @@
 - Added full CSS color theme support! Removes all the SCSS color variables, but the :root variables are named nearly the same.
 - Improved the scroll position used when the Year Drop-Down menu is opened (for the list of years).
 - When exporting events to iCal format, if the organizer Name/Email fields are not set for an event, they are taken from the settings.
+- Added global Ctrl/Command + Shift + G support, which will open the Configuration dialog (if enabled).
+- Added global Ctrl/Command + Shift + O support, which will open the side menu (if enabled).
+- Moved the list of shortcut keys into a new dedicated .MD file.
 - 
 
 <br>

@@ -1101,6 +1101,11 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (_options.exportEventsEnabled) {
             showExportDialogFromWindowKeyDown();
           }
+        } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.g) {
+          e.preventDefault();
+          if (_options.configurationDialogEnabled) {
+            showConfigurationDialog();
+          }
         } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.f) {
           e.preventDefault();
           if (_optionsForSearch.enabled && (_element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0)) {
@@ -1110,6 +1115,11 @@ function calendarJs(elementOrId, options, searchOptions) {
           e.preventDefault();
           callMinimizeRestoreFunctionsForAllEventView();
           callMinimizeRestoreFunctionsForWeekEventView();
+        } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.o) {
+          e.preventDefault();
+          if (isSideMenuAvailable()) {
+            showSideMenu();
+          }
         } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.v) {
           e.preventDefault();
           pasteCopiedEventsFromKeyDown();
@@ -6901,7 +6911,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _this = this;
   var _string = {empty:"", space:" "};
   var _day = {monday:0, saturday:5, sunday:6};
-  var _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, m:77, v:86, x:88, f5:116, f11:122};
+  var _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, m:77, o:79, v:86, x:88, f5:116, f11:122};
   var _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6};
   var _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3};
   var _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}};
