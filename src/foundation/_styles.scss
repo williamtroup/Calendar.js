@@ -12,6 +12,7 @@ $area-disabled-stripped: rgba(  40, 40, 40, 0.1  );
 $area-disabled-stripped-weekend-day: rgba(  40, 40, 40, 0.2  );
 $side-menu-background-color: #D0D0D0;
 $link-color: #2471A3;
+$input-hover-color: $dark-color;
 
 $primary-button-color: $dark-color;
 $secondary-button-color: $dark-color;
@@ -28,7 +29,6 @@ $minimum-width: $maximum-width + 1;
 $time-hours-width: 70px;
 $time-hours-height: 35px;
 $time-arrow-line-height: 12px;
-$input-hover-color: $dark-color;
 $title-bar-font-weight: 900;
 $input-box-shadow-size: 2px;
 $selected-event-shadow-size: 1.5px;
