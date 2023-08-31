@@ -938,7 +938,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       updateYearSelectorMonthSelected();
       var year = updateYearSelectorDropDownMenuColors();
       if (year !== null) {
-        _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - _element_HeaderDateDisplay_YearSelector.offsetHeight / 2;
+        _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - _element_HeaderDateDisplay_YearSelector_Contents.offsetTop - _options.spacing;
       } else {
         _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = 0;
       }
