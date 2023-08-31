@@ -71,6 +71,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showSideMenuWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
 | *boolean* | showSideMenuWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
 | *number* | startOfWeekDay | States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6). |
+| *boolean* | useLocalStorageForEvents | States if the events added should be stored in local storage (remembered between browser usages, defaults to false). |
 <br/>
 
 ### Translatable String Options:

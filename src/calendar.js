@@ -352,6 +352,7 @@
  * @property    {boolean}   showSideMenuWorkingDays                     States if the "Working Days" section on the Side Menu is visible (defaults to true).
  * @property    {boolean}   showSideMenuWeekendDays                     States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
  * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
+ * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
  */
 
 
@@ -10980,6 +10981,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showSideMenuWorkingDays = getDefaultBoolean( _options.showSideMenuWorkingDays, true );
         _options.showSideMenuWeekendDays = getDefaultBoolean( _options.showSideMenuWeekendDays, true );
         _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _day.monday );
+        _options.useLocalStorageForEvents = getDefaultNumber( _options.useLocalStorageForEvents, false );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

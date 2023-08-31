@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calendar.js - Persistence</title>
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <script src="../../src/calendar.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Persistence</h1>
+            <p>A test that shows Calendar.js storage events in local storage, and using them again when the browser is reopened.</p>
+        </div>
+
+        <div class="contents">
+            <div id="calendar"></div>
+        </div>
+    </body>
+
+    <script>
+        var calendarInstance = new calendarJs( "calendar", {
+            useLocalStorageForEvents: true
+        } );
+
+        document.title += " v" + calendarInstance.getVersion();
+    </script>
+</html>
