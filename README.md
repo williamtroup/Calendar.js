@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v2.2.2</p>
+<p align="center">v2.3.0</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -21,29 +21,14 @@ Calendar.js
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
+- Full CSS color themes support (using :root variables).
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV, with system clipboard setting support.
 - Full-screen mode (double clicking the title bar).
 - Search support (with search history).
 - Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support).
 - Customizable holidays.
-- Navigation keys (in full-screen mode):
-  1. Left:  Moves to the previous month.
-  2. Right:  Moves to the next month.
-  3. Escape:  Close the active dialog, or full-screen mode.
-  4. Down:  Jumps to the current month.
-  5. F5:  Refreshes the current view.
-  6. Ctrl/Command + Left:  Moves to the previous year.
-  7. Ctrl/Command + Right:  Moves to the next year.
-- Navigation keys (global):
-  1. Escape:  Closes the active dialog.
-  2. Ctrl/Command + Shift + A:  Opens the Add Event dialog.
-  3. Ctrl/Command + Shift + C:  Copies all the selected events.
-  4. Ctrl/Command + Shift + E:  Opens the Export Events dialog.
-  5. Ctrl/Command + Shift + F:  Opens the Search dialog.
-  6. Ctrl/Command + Shift + M:  Toggles all the minimize/restore views for All/Week view (if visible).
-  7. Ctrl/Command + Shift + V:  Pastes all the selected events (if in Full Day view).
-  8. Ctrl/Command + Shift + X:  Cuts all the selected events.
+- Shortcut keys (click [here](docs/SHORTCUT_KEYS.md) to see the full list).
 - Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
@@ -53,6 +38,7 @@ Calendar.js
 - Data-Binding support to quickly create new Calendars without writing Javascript!
 - Popup notifications for actions (adding/updating/deleting events, updating configuration, etc).
 - Start of week support (Monday, Saturday, or Sunday).
+- Local storage support for events!
 <br />
 <br />
 

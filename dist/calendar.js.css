@@ -1,9 +1,35 @@
 /*
- * Calendar.js Library v2.2.2
+ * Calendar.js Library v2.3.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
  */
+:root {
+  --dark-color: #282828;
+  --light-color: #F5F5F5;
+  --day-date-picker-hover-color: #a7a7a7;
+  --grid-border-color: #B0B0B0;
+  --alert-color: #C60000;
+  --event-color: #484848;
+  --event-color-all-day: #1b3752;
+  --day-names-color: #E0E0E0;
+  --input-border-color: #A8A8A8;
+  --input-background-color: #FFFFFF;
+  --area-disabled-stripped: rgba( 40, 40, 40, 0.1 );
+  --area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
+  --link-color: #2471A3;
+  --input-hover-color: #282828;
+  --primary-button-color: #282828;
+  --secondary-button-color: #282828;
+  --tertiary-button-color: #6c757d;
+  --drop-down-menu-background-color: #DCDCDC;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Containers
+    -------------------------------------------------------------------------
+*/
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
@@ -191,15 +217,15 @@ div.calendar-date-picker {
   position: relative;
 }
 div.calendar-date-picker input.calendar-date-picker-input {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
   width: auto;
   padding: 0.375rem 0.75rem;
   line-height: 21px;
-  color: #282828;
+  color: var(--dark-color);
   margin-bottom: 0 !important;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   transition: all 0.3s;
   box-sizing: border-box;
   max-height: 35px;
@@ -208,11 +234,11 @@ div.calendar-date-picker input.calendar-date-picker-input:last-child {
   margin-bottom: 0;
 }
 div.calendar-date-picker input.calendar-date-picker-input:focus {
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
 }
 div.calendar-date-picker input.calendar-date-picker-input:not(:disabled):hover {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.calendar-date-picker div.calendar-hidden {
   display: none;
@@ -229,7 +255,7 @@ div.calendar-date-picker div.calendar {
   width: 100%;
   max-width: 330px;
   z-index: 1000;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   margin-top: 1px;
   margin-left: -1px;
 }
@@ -237,15 +263,15 @@ div.calendar-date-picker div.calendar div.cell {
   padding: 5px !important;
 }
 div.calendar-date-picker div.calendar div.days div.cell-today {
-  background-color: #282828 !important;
-  color: #F5F5F5 !important;
+  background-color: var(--dark-color) !important;
+  color: var(--light-color) !important;
 }
 div.calendar-date-picker div.calendar div.days div.cell-selected {
-  background-color: #a7a7a7 !important;
+  background-color: var(--day-date-picker-hover-color) !important;
 }
 div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
-  background-color: #a7a7a7;
+  background-color: var(--day-date-picker-hover-color);
   transition: all 0.3s;
 }
 div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):active {
@@ -273,7 +299,7 @@ div.calendar {
   overflow: hidden;
   width: 100%;
   min-width: 260px;
-  border: 1px solid #282828;
+  border: 1px solid var(--dark-color);
   position: relative;
 }
 div.calendar sup {
@@ -286,7 +312,7 @@ div.calendar div.focused-event {
   animation: focused-event-effect 2s infinite;
 }
 div.calendar div.selected-event {
-  box-shadow: 0 0 1.5px 1.5px #C60000;
+  box-shadow: 0 0 1.5px 1.5px var(--alert-color);
 }
 div.calendar div.cut-event {
   opacity: 0.2 !important;
@@ -296,12 +322,12 @@ div.calendar div.copy-event {
 }
 div.calendar div.header-days {
   font-weight: 900 !important;
-  background-color: #E0E0E0 !important;
-  color: #282828 !important;
+  background-color: var(--day-names-color) !important;
+  color: var(--dark-color) !important;
   text-transform: uppercase;
 }
 div.calendar div.weekend-day {
-  background-color: #E0E0E0;
+  background-color: var(--day-names-color);
 }
 div.calendar div.working-day {
   background-color: #eceaea;
@@ -311,13 +337,13 @@ div.calendar div.drag-over {
   transition: all 0.2s;
 }
 div.calendar div.drag-not-allowed {
-  background: repeating-linear-gradient(135deg, #F5F5F5, #F5F5F5 10px, rgba(40, 40, 40, 0.1) 10px, rgba(40, 40, 40, 0.1) 20px);
+  background: repeating-linear-gradient(135deg, var(--light-color), var(--light-color) 10px, var(--area-disabled-stripped) 10px, var(--area-disabled-stripped) 20px);
 }
 div.calendar div.drag-not-allowed div.ib-arrow-expand-left-right-icon {
   display: none !important;
 }
 div.calendar div.drag-not-allowed-weekend-day {
-  background: repeating-linear-gradient(135deg, #E0E0E0, #E0E0E0 10px, rgba(40, 40, 40, 0.2) 10px, rgba(40, 40, 40, 0.2) 20px);
+  background: repeating-linear-gradient(135deg, var(--day-names-color), var(--day-names-color) 10px, var(--area-disabled-stripped-weekend-day) 10px, var(--area-disabled-stripped-weekend-day) 20px);
 }
 div.calendar div.drag-not-allowed-weekend-day div.ib-arrow-expand-left-right-icon {
   display: none !important;
@@ -337,7 +363,7 @@ div.calendar div.no-events-available-text p {
 }
 div.calendar span.link {
   text-decoration: underline !important;
-  color: #2471A3 !important;
+  color: var(--link-color) !important;
 }
 div.calendar span.link:hover {
   transition: all 0.3s;
@@ -350,14 +376,14 @@ div.calendar span.link:active {
   opacity: 0.4;
 }
 div.calendar div.row-cells {
-  border-bottom: 1px solid #B0B0B0;
+  border-bottom: 1px solid var(--grid-border-color);
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
   font-weight: 300;
-  background-color: #F5F5F5;
-  color: #282828;
+  background-color: var(--light-color);
+  color: var(--dark-color);
   width: 100%;
 }
 div.calendar div.row-cells div.cell-1 {
@@ -387,10 +413,10 @@ div.calendar div.row-cells div.scrollY {
 div.calendar div.row-cells div.cell {
   display: inline-block;
   text-align: center;
-  border-right: 1px solid #B0B0B0;
+  border-right: 1px solid var(--grid-border-color);
   position: relative;
   overflow: hidden;
-  color: #282828;
+  color: var(--dark-color);
 }
 @media screen and (min-width: 451px) {
   div.calendar div.row-cells div.cell {
@@ -428,12 +454,12 @@ div.calendar div.row-cells div.cell span.today, div.calendar div.row-cells div.c
   padding-right: 7px;
 }
 div.calendar div.row-cells div.cell span.today {
-  background-color: #282828 !important;
-  color: #F5F5F5 !important;
+  background-color: var(--dark-color) !important;
+  color: var(--light-color) !important;
 }
 div.calendar div.row-cells div.cell span.first-day {
   background-color: #C8C8C8;
-  color: #282828;
+  color: var(--dark-color);
 }
 div.calendar div.row-cells div.cell span.holiday, div.calendar div.row-cells div.cell span.holiday-link, div.calendar div.row-cells div.cell span.month-name, div.calendar div.row-cells div.cell span.blank {
   display: inline-block;
@@ -499,11 +525,11 @@ div.calendar div.side-menu {
   position: absolute;
   height: 100%;
   top: 0;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
   z-index: 1500;
   transition: all 0.3s;
-  background-color: #282828;
-  border-right: 5px solid #F5F5F5;
+  background-color: var(--dark-color);
+  border-right: 5px solid var(--light-color);
   border-radius: 0.25rem;
   overflow-x: hidden;
   overflow-y: auto;
@@ -526,7 +552,7 @@ div.calendar div.side-menu div.main-header {
   overflow: auto;
   position: sticky;
   top: 0;
-  background-color: #282828;
+  background-color: var(--dark-color);
   padding: 10px;
   z-index: 1;
 }
@@ -585,11 +611,11 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full {
-  border-top-color: #F5F5F5;
+  border-top-color: var(--light-color);
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
-  border-bottom-color: #F5F5F5;
+  border-bottom-color: var(--light-color);
 }
 div.calendar div.side-menu div.content div.content-section div.text-header {
   font-weight: 700;
@@ -607,18 +633,18 @@ div.calendar div.side-menu div.content div.content-section div.checkbox-containe
 div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox {
   margin-bottom: 5px;
   margin-left: 10px;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox span.check-mark {
-  background-color: #F5F5F5 !important;
+  background-color: var(--light-color) !important;
 }
 div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox span.check-mark::before {
-  border-color: #282828 !important;
+  border-color: var(--dark-color) !important;
 }
 div.calendar div.side-menu-open {
   left: 0 !important;
   transition: all 0.3s;
-  box-shadow: 0 0 10px 10px #282828;
+  box-shadow: 0 0 10px 10px var(--dark-color);
 }
 
 /*
@@ -628,8 +654,8 @@ div.calendar div.side-menu-open {
 */
 div.calendar div.header-date {
   font-weight: 900;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -644,7 +670,7 @@ div.calendar div.header-date div.side-menu-button-divider-line {
 }
 div.calendar div.header-date div.side-menu-button-divider-line {
   width: 1px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   height: 16px;
 }
 div.calendar div.header-date div.title-container {
@@ -659,7 +685,7 @@ div.calendar div.header-date div.title-container span.year-dropdown-button {
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
   margin-left: 5px;
-  border-top-color: #F5F5F5;
+  border-top-color: var(--light-color);
   pointer-events: none;
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button:hover {
@@ -681,10 +707,10 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months {
   -ms-animation: fade-in-effect ease 0.5s;
   position: absolute;
   width: 240px;
-  border: 1px solid #282828;
+  border: 1px solid var(--dark-color);
   left: 50%;
   transform: translate(-50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   border-radius: 0.25rem;
   z-index: 1500;
   display: none;
@@ -729,15 +755,15 @@ div.calendar div.header-date div.title-container div.years-drop-down div.months 
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
-  background-color: #E0E0E0;
-  color: #282828;
+  background-color: var(--day-names-color);
+  color: var(--dark-color);
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:hover,
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month:hover,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:hover,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:hover {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -751,13 +777,13 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-selected,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
   background-color: #BCBCBC;
-  color: #282828;
+  color: var(--dark-color);
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents {
@@ -775,12 +801,12 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   padding: 0;
   padding-top: 5px;
   padding-bottom: 5px;
-  background-color: #F5F5F5 !important;
+  background-color: var(--light-color) !important;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year {
   display: inline-block;
-  color: #282828;
+  color: var(--dark-color);
   font-size: 0.75rem;
   margin-right: 5px;
   width: calc(25% - 17px);
@@ -792,8 +818,8 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:hover,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year:hover {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -805,14 +831,14 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-selected,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year-selected {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   cursor: default !important;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year-has-events,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year-has-events {
-  background-color: #DCDCDC;
-  color: #282828;
+  background-color: var(--drop-down-menu-background-color);
+  color: var(--dark-color);
 }
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents {
   margin-top: 0px;
@@ -868,12 +894,12 @@ div.calendar div.header-date div.ib-forward {
 */
 div.calendar div.row-cells div.cell div.event {
   border-radius: 0.25rem;
-  background-color: #484848;
+  background-color: var(--event-color);
   padding: 3px;
-  color: #F5F5F5;
+  color: var(--light-color);
   margin-top: 5px;
   margin-bottom: 5px;
-  border-left: 7px solid #282828;
+  border-left: 7px solid var(--dark-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -913,7 +939,7 @@ div.calendar div.row-cells div.cell div.not-in-current-month {
   opacity: 0.1;
 }
 div.calendar div.row-cells div.cell div.all-day {
-  background-color: #1b3752 !important;
+  background-color: var(--event-color-all-day) !important;
 }
 div.calendar div.row-cells div.cell div.plus-x-events {
   display: inline-block;
@@ -947,7 +973,7 @@ div.calendar div.full-day-view {
   width: 100%;
   position: absolute;
   z-index: 2;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
 }
@@ -961,14 +987,14 @@ div.calendar div.full-day-view div.title-bar {
   padding-bottom: 10px;
   padding-left: 5px;
   padding-right: 5px;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   text-align: center;
 }
 div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line {
   float: left;
   width: 1px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   height: 16px;
 }
 div.calendar div.full-day-view div.title-bar div.title {
@@ -1029,15 +1055,15 @@ div.calendar div.full-day-view div.contents {
 }
 div.calendar div.full-day-view div.contents div.content-events-all-day {
   position: relative;
-  border-bottom: 1px solid #282828;
+  border-bottom: 1px solid var(--dark-color);
   overflow: hidden;
 }
 div.calendar div.full-day-view div.contents div.content-events-all-day div.all-day-text {
   width: 70px;
   padding: 10px;
-  background-color: #F5F5F5;
-  color: #282828;
-  border-right: 1px solid #282828;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: 1px solid var(--dark-color);
   position: absolute;
   left: 0;
   top: 0;
@@ -1069,10 +1095,10 @@ div.calendar div.full-day-view div.contents div.contents-events div.time-arrow d
   height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 12px solid #2471A3;
+  border-right: 12px solid var(--link-color);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow div.line {
-  background-color: #2471A3;
+  background-color: var(--link-color);
   position: absolute;
   left: 12px;
   top: 3px;
@@ -1080,12 +1106,12 @@ div.calendar div.full-day-view div.contents div.contents-events div.time-arrow d
   width: 100%;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour {
-  background-color: #F5F5F5;
-  border-bottom: 1px solid #282828;
+  background-color: var(--light-color);
+  border-bottom: 1px solid var(--dark-color);
   position: relative;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
-  border-bottom: 1px dashed #A8A8A8;
+  border-bottom: 1px dashed var(--input-border-color);
   width: calc(100% - ( 70px + 20px ));
   height: 54px;
   content: "";
@@ -1098,16 +1124,16 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour div.hou
   width: 70px;
   height: 35px;
   padding: 10px;
-  background-color: #F5F5F5;
-  color: #282828;
-  border-right: 1px solid #282828;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: 1px solid var(--dark-color);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text:nth-child(odd) {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour:nth-child(odd) {
-  background-color: #E0E0E0;
+  background-color: var(--day-names-color);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour:last-child {
   border-bottom: none;
@@ -1126,18 +1152,18 @@ div.calendar div.full-day-view div.contents div.expired {
   opacity: 0.7;
 }
 div.calendar div.full-day-view div.contents div.all-day {
-  background-color: #1b3752 !important;
+  background-color: var(--event-color-all-day) !important;
 }
 div.calendar div.full-day-view div.contents div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
   border-radius: 0.25rem;
-  background-color: #484848;
+  background-color: var(--event-color);
   padding: 10px;
-  color: #F5F5F5;
+  color: var(--light-color);
   margin-bottom: 10px;
-  border-left: 7px solid #282828;
+  border-left: 7px solid var(--dark-color);
 }
 div.calendar div.full-day-view div.contents div.event div {
   margin-bottom: 5px;
@@ -1186,7 +1212,7 @@ div.calendar div.list-all-events-view {
   width: 100%;
   position: absolute;
   z-index: 1;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
 }
@@ -1197,14 +1223,14 @@ div.calendar div.list-all-events-view div.title-bar {
   padding-bottom: 10px;
   padding-left: 5px;
   padding-right: 5px;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   text-align: center;
 }
 div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line {
   float: left;
   width: 1px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   height: 16px;
 }
 div.calendar div.list-all-events-view div.title-bar div.title {
@@ -1275,13 +1301,13 @@ div.calendar div.list-all-events-view div.contents {
 }
 div.calendar div.list-all-events-view div.contents div.month {
   border-radius: 0.25rem;
-  border: 1px solid #282828;
+  border: 1px solid var(--dark-color);
   overflow: hidden;
   margin-bottom: 10px;
 }
 div.calendar div.list-all-events-view div.contents div.month div.header {
-  background-color: #282828 !important;
-  color: #F5F5F5 !important;
+  background-color: var(--dark-color) !important;
+  color: var(--light-color) !important;
   padding: 10px;
   font-weight: 900;
 }
@@ -1300,18 +1326,18 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.expi
   opacity: 0.7;
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.all-day {
-  background-color: #1b3752 !important;
+  background-color: var(--event-color-all-day) !important;
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
   border-radius: 0.25rem;
-  background-color: #484848;
+  background-color: var(--event-color);
   padding: 10px;
-  color: #F5F5F5;
+  color: var(--light-color);
   margin-bottom: 10px;
-  border-left: 7px solid #282828;
+  border-left: 7px solid var(--dark-color);
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.event div {
   margin-bottom: 5px;
@@ -1355,7 +1381,7 @@ div.calendar div.list-all-week-events-view {
   width: 100%;
   position: absolute;
   z-index: 1;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
 }
@@ -1366,14 +1392,14 @@ div.calendar div.list-all-week-events-view div.title-bar {
   padding-bottom: 10px;
   padding-left: 5px;
   padding-right: 5px;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   text-align: center;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line {
   float: left;
   width: 1px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   height: 16px;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.title {
@@ -1449,13 +1475,13 @@ div.calendar div.list-all-week-events-view div.contents div.no-events-text {
 }
 div.calendar div.list-all-week-events-view div.contents div.day {
   border-radius: 0.25rem;
-  border: 1px solid #282828;
+  border: 1px solid var(--dark-color);
   overflow: hidden;
   margin-bottom: 10px;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.header {
-  background-color: #282828 !important;
-  color: #F5F5F5 !important;
+  background-color: var(--dark-color) !important;
+  color: var(--light-color) !important;
   padding: 10px;
   font-weight: 900;
 }
@@ -1477,18 +1503,18 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   opacity: 0.7;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.all-day {
-  background-color: #1b3752 !important;
+  background-color: var(--event-color-all-day) !important;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
   border-radius: 0.25rem;
-  background-color: #484848;
+  background-color: var(--event-color);
   padding: 10px;
-  color: #F5F5F5;
+  color: var(--light-color);
   margin-bottom: 10px;
-  border-left: 7px solid #282828;
+  border-left: 7px solid var(--dark-color);
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event div {
   margin-bottom: 5px;
@@ -1529,11 +1555,11 @@ div.event-editor {
   width: calc(100% - ( 10px * 2 ));
   max-width: 420px;
   border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
   position: fixed;
   display: none;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -1556,8 +1582,8 @@ div.event-editor div.view div.title-bar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -1580,15 +1606,15 @@ div.event-editor div.view div.contents {
 }
 div.event-editor div.view input:not([type=button]),
 div.event-editor div.view textarea {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
   line-height: 21px;
-  color: #282828;
+  color: var(--dark-color);
   margin-bottom: 10px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   transition: all 0.3s;
   box-sizing: border-box;
   max-height: 35px;
@@ -1599,12 +1625,12 @@ div.event-editor div.view textarea:last-child {
 }
 div.event-editor div.view input:not([type=button]):focus,
 div.event-editor div.view textarea:focus {
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
 }
 div.event-editor div.view input:not([type=button]):not(:disabled):hover,
 div.event-editor div.view textarea:not(:disabled):hover {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.event-editor div.view input:disabled,
 div.event-editor div.view textarea:disabled {
@@ -1614,8 +1640,8 @@ div.event-editor div.view textarea:disabled {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #F5F5F5;
-  color: #A8A8A8;
+  background-color: var(--light-color);
+  color: var(--input-border-color);
 }
 div.event-editor div.view textarea {
   height: 90px;
@@ -1678,15 +1704,15 @@ div.event-editor div.view input[type=button] {
   cursor: pointer;
 }
 div.event-editor div.view input[type=button]:disabled {
-  background-color: #A8A8A8 !important;
-  border-color: #A8A8A8 !important;
+  background-color: var(--input-border-color) !important;
+  border-color: var(--input-border-color) !important;
   cursor: default !important;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.event-editor div.view input[type=button].add-update {
-  color: #F5F5F5;
-  background-color: #282828;
-  border: 2px solid #282828;
+  color: var(--light-color);
+  background-color: var(--primary-button-color);
+  border: 2px solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].add-update:not(:disabled):hover {
@@ -1700,9 +1726,9 @@ div.event-editor div.view input[type=button].add-update:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].cancel {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
@@ -1716,9 +1742,9 @@ div.event-editor div.view input[type=button].cancel:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].remove {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].remove:not(:disabled):hover {
@@ -1732,9 +1758,9 @@ div.event-editor div.view input[type=button].remove:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].select-colors {
-  color: #F5F5F5;
-  background-color: #6c757d;
-  border: 2px solid #6c757d;
+  color: var(--light-color);
+  background-color: var(--tertiary-button-color);
+  border: 2px solid var(--tertiary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].select-colors:not(:disabled):hover {
@@ -1748,9 +1774,9 @@ div.event-editor div.view input[type=button].select-colors:not(:disabled):active
   opacity: 0.4;
 }
 div.event-editor div.view input[type=button].repeat-options {
-  color: #F5F5F5;
-  background-color: #6c757d;
-  border: 2px solid #6c757d;
+  color: var(--light-color);
+  background-color: var(--tertiary-button-color);
+  border: 2px solid var(--tertiary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].repeat-options:not(:disabled):hover {
@@ -1792,11 +1818,11 @@ div.event-editor-colors {
   width: calc(100% - ( 10px * 2 ));
   max-width: 300px;
   border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
   position: fixed;
   display: none;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -1812,8 +1838,8 @@ div.event-editor-colors div.title-bar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -1827,7 +1853,7 @@ div.event-editor-colors div.contents div.section {
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
-  background-color: #E0E0E0;
+  background-color: var(--day-names-color);
   padding: 10px;
   margin-top: 0 !important;
   margin-left: 25px;
@@ -1848,15 +1874,15 @@ div.event-editor-colors div.contents div.section p {
 }
 div.event-editor-colors input[type=color],
 div.event-editor-colors input[type=text] {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
   line-height: 21px;
-  color: #282828;
+  color: var(--dark-color);
   margin-bottom: 10px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   transition: all 0.3s;
   box-sizing: border-box;
   max-height: 35px;
@@ -1868,12 +1894,12 @@ div.event-editor-colors input[type=text]:last-child {
 }
 div.event-editor-colors input[type=color]:focus,
 div.event-editor-colors input[type=text]:focus {
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
 }
 div.event-editor-colors input[type=color]:not(:disabled):hover,
 div.event-editor-colors input[type=text]:not(:disabled):hover {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.event-editor-colors div.buttons-container {
   margin-top: 20px;
@@ -1897,15 +1923,15 @@ div.event-editor-colors input[type=button] {
   cursor: pointer;
 }
 div.event-editor-colors input[type=button]:disabled {
-  background-color: #A8A8A8 !important;
-  border-color: #A8A8A8 !important;
+  background-color: var(--input-border-color) !important;
+  border-color: var(--input-border-color) !important;
   cursor: default !important;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.event-editor-colors input[type=button].update {
-  color: #F5F5F5;
-  background-color: #282828;
-  border: 2px solid #282828;
+  color: var(--light-color);
+  background-color: var(--primary-button-color);
+  border: 2px solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].update:not(:disabled):hover {
@@ -1919,9 +1945,9 @@ div.event-editor-colors input[type=button].update:not(:disabled):active {
   opacity: 0.4;
 }
 div.event-editor-colors input[type=button].cancel {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
@@ -1950,11 +1976,11 @@ div.event-editor-repeat-options {
   width: calc(100% - ( 10px * 2 ));
   max-width: 300px;
   border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
   position: fixed;
   display: none;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -1970,8 +1996,8 @@ div.event-editor-repeat-options div.title-bar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -1985,7 +2011,7 @@ div.event-editor-repeat-options div.contents div.section {
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
-  background-color: #E0E0E0;
+  background-color: var(--day-names-color);
   padding: 10px;
   margin-top: 0 !important;
   margin-left: 25px;
@@ -2010,15 +2036,15 @@ div.event-editor-repeat-options div.contents div.section p:first-child {
 }
 div.event-editor-repeat-options input:not([type=button]),
 div.event-editor-repeat-options textarea {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
   line-height: 21px;
-  color: #282828;
+  color: var(--dark-color);
   margin-bottom: 10px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   transition: all 0.3s;
   box-sizing: border-box;
   max-height: 35px;
@@ -2029,12 +2055,12 @@ div.event-editor-repeat-options textarea:last-child {
 }
 div.event-editor-repeat-options input:not([type=button]):focus,
 div.event-editor-repeat-options textarea:focus {
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
 }
 div.event-editor-repeat-options input:not([type=button]):not(:disabled):hover,
 div.event-editor-repeat-options textarea:not(:disabled):hover {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.event-editor-repeat-options input[type=date] {
   margin-bottom: 0 !important;
@@ -2064,15 +2090,15 @@ div.event-editor-repeat-options input[type=button] {
   cursor: pointer;
 }
 div.event-editor-repeat-options input[type=button]:disabled {
-  background-color: #A8A8A8 !important;
-  border-color: #A8A8A8 !important;
+  background-color: var(--input-border-color) !important;
+  border-color: var(--input-border-color) !important;
   cursor: default !important;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.event-editor-repeat-options input[type=button].update {
-  color: #F5F5F5;
-  background-color: #282828;
-  border: 2px solid #282828;
+  color: var(--light-color);
+  background-color: var(--primary-button-color);
+  border: 2px solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].update:not(:disabled):hover {
@@ -2086,9 +2112,9 @@ div.event-editor-repeat-options input[type=button].update:not(:disabled):active 
   opacity: 0.4;
 }
 div.event-editor-repeat-options input[type=button].cancel {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
@@ -2117,11 +2143,11 @@ div.message {
   width: calc(100% - ( 10px * 2 ));
   max-width: 330px;
   border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
   position: fixed;
   display: none;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -2137,8 +2163,8 @@ div.message div.title-bar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2180,15 +2206,15 @@ div.message input[type=button] {
   cursor: pointer;
 }
 div.message input[type=button]:disabled {
-  background-color: #A8A8A8 !important;
-  border-color: #A8A8A8 !important;
+  background-color: var(--input-border-color) !important;
+  border-color: var(--input-border-color) !important;
   cursor: default !important;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.message input[type=button].yes-ok {
-  color: #F5F5F5;
-  background-color: #282828;
-  border: 2px solid #282828;
+  color: var(--light-color);
+  background-color: var(--primary-button-color);
+  border: 2px solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.message input[type=button].yes-ok:not(:disabled):hover {
@@ -2202,9 +2228,9 @@ div.message input[type=button].yes-ok:not(:disabled):active {
   opacity: 0.4;
 }
 div.message input[type=button].no {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.message input[type=button].no:not(:disabled):hover {
@@ -2233,11 +2259,11 @@ div.export-events {
   width: calc(100% - ( 10px * 2 ));
   max-width: 300px;
   border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
   position: fixed;
   display: none;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -2253,8 +2279,8 @@ div.export-events div.title-bar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2263,15 +2289,15 @@ div.export-events div.contents {
   padding: 10px;
 }
 div.export-events div.contents input[type=text] {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
   line-height: 21px;
-  color: #282828;
+  color: var(--dark-color);
   margin-bottom: 10px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   transition: all 0.3s;
   box-sizing: border-box;
   max-height: 35px;
@@ -2281,11 +2307,11 @@ div.export-events div.contents input[type=text]:last-child {
   margin-bottom: 0;
 }
 div.export-events div.contents input[type=text]:focus {
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
 }
 div.export-events div.contents input[type=text]:not(:disabled):hover {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.export-events div.contents input:disabled {
   -moz-user-select: none;
@@ -2294,8 +2320,8 @@ div.export-events div.contents input:disabled {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #F5F5F5;
-  color: #A8A8A8;
+  background-color: var(--light-color);
+  color: var(--input-border-color);
 }
 div.export-events div.contents div.options {
   animation: fade-in-effect ease 0.5s;
@@ -2303,7 +2329,7 @@ div.export-events div.contents div.options {
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
-  background-color: #E0E0E0;
+  background-color: var(--day-names-color);
   padding: 10px;
   margin-top: 0 !important;
   margin-left: 25px;
@@ -2360,15 +2386,15 @@ div.export-events input[type=button] {
   cursor: pointer;
 }
 div.export-events input[type=button]:disabled {
-  background-color: #A8A8A8 !important;
-  border-color: #A8A8A8 !important;
+  background-color: var(--input-border-color) !important;
+  border-color: var(--input-border-color) !important;
   cursor: default !important;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.export-events input[type=button].export {
-  color: #F5F5F5;
-  background-color: #282828;
-  border: 2px solid #282828;
+  color: var(--light-color);
+  background-color: var(--primary-button-color);
+  border: 2px solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.export-events input[type=button].export:not(:disabled):hover {
@@ -2382,9 +2408,9 @@ div.export-events input[type=button].export:not(:disabled):active {
   opacity: 0.4;
 }
 div.export-events input[type=button].cancel {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.export-events input[type=button].cancel:not(:disabled):hover {
@@ -2413,11 +2439,11 @@ div.search {
   width: calc(100% - ( 10px * 2 ));
   max-width: 310px;
   border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
   position: fixed;
   display: none;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   z-index: 999;
 }
 div.search div.ib-close {
@@ -2430,8 +2456,8 @@ div.search div.title-bar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2455,16 +2481,16 @@ div.search div.contents div.history-container input {
   padding-right: 36px;
 }
 div.search div.contents div.history-container div.history-dropdown {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   position: absolute;
   width: calc(100% - 2px);
   max-height: 200px;
   z-index: 2000;
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
   display: none;
   overflow-x: hidden;
   overflow-y: auto;
@@ -2472,7 +2498,7 @@ div.search div.contents div.history-container div.history-dropdown {
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item {
   padding: 10px;
-  border-bottom: 1px dotted #A8A8A8;
+  border-bottom: 1px dotted var(--input-border-color);
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item span.search-search {
   font-weight: 900 !important;
@@ -2481,7 +2507,7 @@ div.search div.contents div.history-container div.history-dropdown div.history-d
   border-bottom: none;
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item:hover {
-  background-color: #E0E0E0;
+  background-color: var(--day-names-color);
   transition: all 0.3s;
   cursor: pointer;
 }
@@ -2506,7 +2532,7 @@ div.search div.contents div.advanced {
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
-  background-color: #E0E0E0;
+  background-color: var(--day-names-color);
   padding: 10px;
   margin-top: 10px !important;
   margin-left: 25px;
@@ -2523,15 +2549,15 @@ div.search div.contents div.advanced div.split div.radio-buttons-container label
   margin-left: 10px;
 }
 div.search input[type=text] {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
   line-height: 21px;
-  color: #282828;
+  color: var(--dark-color);
   margin-bottom: 10px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   transition: all 0.3s;
   box-sizing: border-box;
   max-height: 35px;
@@ -2540,11 +2566,11 @@ div.search input[type=text]:last-child {
   margin-bottom: 0;
 }
 div.search input[type=text]:focus {
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
 }
 div.search input[type=text]:not(:disabled):hover {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.search div.split input,
 div.search div.split select,
@@ -2593,15 +2619,15 @@ div.search input[type=button] {
   cursor: pointer;
 }
 div.search input[type=button]:disabled {
-  background-color: #A8A8A8 !important;
-  border-color: #A8A8A8 !important;
+  background-color: var(--input-border-color) !important;
+  border-color: var(--input-border-color) !important;
   cursor: default !important;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.search input[type=button].next {
-  color: #F5F5F5;
-  background-color: #282828;
-  border: 2px solid #282828;
+  color: var(--light-color);
+  background-color: var(--primary-button-color);
+  border: 2px solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.search input[type=button].next:not(:disabled):hover {
@@ -2615,9 +2641,9 @@ div.search input[type=button].next:not(:disabled):active {
   opacity: 0.4;
 }
 div.search input[type=button].previous {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.search input[type=button].previous:not(:disabled):hover {
@@ -2654,11 +2680,11 @@ div.configuration {
   width: calc(100% - ( 10px * 2 ));
   max-width: 400px;
   border-radius: 0.25rem;
-  background-color: #F5F5F5;
-  border: 1px solid #282828;
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
   position: fixed;
   display: none;
-  box-shadow: 4px 4px 4px #282828;
+  box-shadow: 4px 4px 4px var(--dark-color);
   z-index: 1500;
   left: 50%;
   top: 50%;
@@ -2674,8 +2700,8 @@ div.configuration div.title-bar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2695,15 +2721,15 @@ div.configuration div.contents p {
 }
 div.configuration div.contents input[type=text],
 div.configuration div.contents input[type=email] {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
   line-height: 21px;
-  color: #282828;
+  color: var(--dark-color);
   margin-bottom: 10px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   transition: all 0.3s;
   box-sizing: border-box;
   max-height: 35px;
@@ -2714,12 +2740,12 @@ div.configuration div.contents input[type=email]:last-child {
 }
 div.configuration div.contents input[type=text]:focus,
 div.configuration div.contents input[type=email]:focus {
-  border: 1px solid #282828 !important;
-  box-shadow: 0 0 2px 2px #282828;
+  border: 1px solid var(--dark-color) !important;
+  box-shadow: 0 0 2px 2px var(--dark-color);
 }
 div.configuration div.contents input[type=text]:not(:disabled):hover,
 div.configuration div.contents input[type=email]:not(:disabled):hover {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.configuration div.contents div.tab-content {
   height: 165px;
@@ -2746,15 +2772,15 @@ div.configuration input[type=button] {
   cursor: pointer;
 }
 div.configuration input[type=button]:disabled {
-  background-color: #A8A8A8 !important;
-  border-color: #A8A8A8 !important;
+  background-color: var(--input-border-color) !important;
+  border-color: var(--input-border-color) !important;
   cursor: default !important;
-  color: #F5F5F5 !important;
+  color: var(--light-color) !important;
 }
 div.configuration input[type=button].update {
-  color: #F5F5F5;
-  background-color: #282828;
-  border: 2px solid #282828;
+  color: var(--light-color);
+  background-color: var(--primary-button-color);
+  border: 2px solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.configuration input[type=button].update:not(:disabled):hover {
@@ -2768,9 +2794,9 @@ div.configuration input[type=button].update:not(:disabled):active {
   opacity: 0.4;
 }
 div.configuration input[type=button].cancel {
-  color: #282828;
-  background-color: #F5F5F5;
-  border: 2px solid #282828;
+  color: var(--secondary-button-color);
+  background-color: var(--light-color);
+  border: 2px solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
@@ -2812,19 +2838,19 @@ div.calendar-dialog div.tab {
   vertical-align: bottom;
 }
 div.calendar-dialog div.tab-control-selected {
-  border: 1px solid #282828;
-  background-color: #282828;
-  color: #F5F5F5;
+  border: 1px solid var(--dark-color);
+  background-color: var(--dark-color);
+  color: var(--light-color);
   padding: 12.5px;
 }
 div.calendar-dialog div.tab-control {
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
 }
 div.calendar-dialog div.tab-control:hover {
   cursor: pointer;
-  border: 1px solid #282828;
-  background-color: #282828;
-  color: #F5F5F5;
+  border: 1px solid var(--dark-color);
+  background-color: var(--dark-color);
+  color: var(--light-color);
   transition: all 0.3s;
 }
 div.calendar-dialog div.tab-control:active {
@@ -2834,8 +2860,8 @@ div.calendar-dialog div.tab-control:active {
 }
 div.calendar-dialog div.tab-control,
 div.calendar-dialog div.tab-content {
-  background-color: #F5F5F5;
-  color: #282828;
+  background-color: var(--light-color);
+  color: var(--dark-color);
 }
 div.calendar-dialog div.tab-content {
   animation: fade-in-effect ease 0.5s;
@@ -2843,7 +2869,7 @@ div.calendar-dialog div.tab-content {
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   border-radius: 0.25rem;
   padding: 10px;
   overflow-x: hidden;
@@ -2889,7 +2915,7 @@ div.calendar div.side-menu label.checkbox {
   padding-left: 25px;
   padding-top: 1px;
   margin-bottom: 10px;
-  color: #282828;
+  color: var(--dark-color);
 }
 div.calendar label.checkbox input,
 div.calendar-dialog label.checkbox input,
@@ -2899,8 +2925,8 @@ div.calendar div.side-menu label.checkbox input {
 div.calendar label.checkbox input:checked ~ span.check-mark,
 div.calendar-dialog label.checkbox input:checked ~ span.check-mark,
 div.calendar div.side-menu label.checkbox input:checked ~ span.check-mark {
-  background-color: #282828;
-  border: 1px solid #282828;
+  background-color: var(--dark-color);
+  border: 1px solid var(--dark-color);
 }
 div.calendar label.checkbox input:checked ~ span.check-mark::before,
 div.calendar-dialog label.checkbox input:checked ~ span.check-mark::before,
@@ -2917,7 +2943,7 @@ div.calendar div.side-menu label.checkbox input:disabled ~ span.text {
 div.calendar label.checkbox input:disabled ~ span.check-mark,
 div.calendar-dialog label.checkbox input:disabled ~ span.check-mark,
 div.calendar div.side-menu label.checkbox input:disabled ~ span.check-mark {
-  border: 1px solid #282828 !important;
+  border: 1px solid var(--dark-color) !important;
 }
 div.calendar label.checkbox span.check-mark,
 div.calendar-dialog label.checkbox span.check-mark,
@@ -2927,9 +2953,9 @@ div.calendar div.side-menu label.checkbox span.check-mark {
   left: 0;
   height: 15px;
   width: 15px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   border-radius: 0.25rem;
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   transition: all 0.3s;
 }
 div.calendar label.checkbox span.check-mark::before,
@@ -2945,13 +2971,13 @@ div.calendar div.side-menu label.checkbox span.check-mark::before {
   top: 1px;
   width: 4px;
   height: 7px;
-  border: solid #F5F5F5;
+  border: solid var(--light-color);
   border-width: 0 3px 3px 0;
 }
 div.calendar label.checkbox:hover span.check-mark,
 div.calendar-dialog label.checkbox:hover span.check-mark,
 div.calendar div.side-menu label.checkbox:hover span.check-mark {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 
 /*
@@ -2983,7 +3009,7 @@ div.calendar-dialog div.radio-button-container label.radio-button {
   position: relative;
   padding-left: 25px;
   padding-top: 1px;
-  color: #282828;
+  color: var(--dark-color);
 }
 div.calendar div.radio-button-container label.radio-button input,
 div.calendar-dialog div.radio-button-container label.radio-button input {
@@ -2991,8 +3017,8 @@ div.calendar-dialog div.radio-button-container label.radio-button input {
 }
 div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark,
 div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark {
-  background-color: #282828 !important;
-  border: 1px solid #282828 !important;
+  background-color: var(--dark-color) !important;
+  border: 1px solid var(--dark-color) !important;
 }
 div.calendar div.radio-button-container label.radio-button input:checked ~ span.check-mark::before,
 div.calendar-dialog div.radio-button-container label.radio-button input:checked ~ span.check-mark::before {
@@ -3005,7 +3031,7 @@ div.calendar-dialog div.radio-button-container label.radio-button input:disabled
 }
 div.calendar div.radio-button-container label.radio-button input:disabled ~ span.check-mark,
 div.calendar-dialog div.radio-button-container label.radio-button input:disabled ~ span.check-mark {
-  border: 1px solid #282828 !important;
+  border: 1px solid var(--dark-color) !important;
 }
 div.calendar div.radio-button-container label.radio-button span.check-mark,
 div.calendar-dialog div.radio-button-container label.radio-button span.check-mark {
@@ -3014,9 +3040,9 @@ div.calendar-dialog div.radio-button-container label.radio-button span.check-mar
   left: 0;
   height: 15px;
   width: 15px;
-  background-color: #FFFFFF;
+  background-color: var(--input-background-color);
   border-radius: 50%;
-  border: 1px solid #A8A8A8;
+  border: 1px solid var(--input-border-color);
   transition: all 0.3s;
 }
 div.calendar div.radio-button-container label.radio-button span.check-mark::before,
@@ -3031,12 +3057,12 @@ div.calendar-dialog div.radio-button-container label.radio-button span.check-mar
   top: 4px;
   width: 7px;
   height: 7px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   border-radius: 50%;
 }
 div.calendar div.radio-button-container label.radio-button:hover span.check-mark,
 div.calendar-dialog div.radio-button-container label.radio-button:hover span.check-mark {
-  border: 1px solid #282828;
+  border: 1px solid var(--input-hover-color);
 }
 div.calendar div.radio-button-container:last-child,
 div.calendar-dialog div.radio-button-container:last-child {
@@ -3062,10 +3088,10 @@ div.calendar-tooltip-event {
   user-select: none;
   cursor: default;
   position: absolute;
-  border: 1px solid #282828;
+  border: 1px solid var(--dark-color);
   border-radius: 0.25rem;
   background-color: rgb(240, 237, 199);
-  color: #282828;
+  color: var(--dark-color);
   padding: 10px;
   display: none;
   z-index: 2000;
@@ -3123,7 +3149,7 @@ div.calendar-tooltip-event div.title-buttons div.ib-plus {
 div.calendar-tooltip-event div.title-buttons div.ib-close::before, div.calendar-tooltip-event div.title-buttons div.ib-close::after,
 div.calendar-tooltip-event div.title-buttons div.ib-plus::before,
 div.calendar-tooltip-event div.title-buttons div.ib-plus::after {
-  background-color: #282828;
+  background-color: var(--dark-color);
 }
 
 /*
@@ -3143,11 +3169,11 @@ div.calendar-drop-down-menu {
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
-  background-color: #DCDCDC;
-  border: 1px solid #282828;
-  border-left: 6px solid #282828;
-  color: #282828;
-  box-shadow: 4px 4px 4px #282828;
+  background-color: var(--drop-down-menu-background-color);
+  border: 1px solid var(--dark-color);
+  border-left: 6px solid var(--dark-color);
+  color: var(--dark-color);
+  box-shadow: 4px 4px 4px var(--dark-color);
   border-radius: 0.25rem;
   white-space: nowrap;
   overflow: hidden;
@@ -3182,18 +3208,18 @@ div.calendar-drop-down-menu div.item {
   padding-right: 30px;
 }
 div.calendar-drop-down-menu div.item:hover {
-  background-color: #282828;
-  color: #F5F5F5;
+  background-color: var(--dark-color);
+  color: var(--light-color);
   transition: all 0.3s;
 }
 div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-plus-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-close-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-circle-icon, div.calendar-drop-down-menu div.item:hover div.ib-minus-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-pipe-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-equals-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-down-full-line-icon::after {
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
 }
 div.calendar-drop-down-menu div.item:hover div.ib-hamburger-side-icon, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-arrow-expand-left-right-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-arrow-top-right-icon, div.calendar-drop-down-menu div.item:hover div.ib-circle-hollow-icon, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::before, div.calendar-drop-down-menu div.item:hover div.ib-octagon-hollow-icon::after, div.calendar-drop-down-menu div.item:hover div.ib-rhombus-hollow-icon::before {
-  border-color: #F5F5F5;
+  border-color: var(--light-color);
 }
 div.calendar-drop-down-menu div.item:hover div.ib-arrow-down-full-line-icon::before {
-  border-top-color: #F5F5F5;
+  border-top-color: var(--light-color);
 }
 div.calendar-drop-down-menu div.item:active {
   transition: all 0.2s;
@@ -3201,7 +3227,7 @@ div.calendar-drop-down-menu div.item:active {
   opacity: 0.4;
 }
 div.calendar-drop-down-menu div.separator {
-  border-bottom: 1px solid #282828;
+  border-bottom: 1px solid var(--dark-color);
 }
 
 /*
@@ -3219,10 +3245,10 @@ div.calendar-drop-down-menu div.separator {
 .custom-scroll-bars::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px gray;
   box-shadow: inset 0 0 6px gray;
-  background: #F5F5F5;
+  background: var(--light-color);
 }
 .custom-scroll-bars::-webkit-scrollbar-thumb:hover {
-  background-color: #DCDCDC;
+  background-color: var(--drop-down-menu-background-color);
 }
 .custom-scroll-bars::-webkit-scrollbar-thumb:active {
   background-color: #C0C0C0;
@@ -3243,15 +3269,15 @@ div.calendar-drop-down-menu div.separator {
 }
 @keyframes focused-event-effect {
   0% {
-    box-shadow: 0 0 0 0 #C60000;
+    box-shadow: 0 0 0 0 var(--alert-color);
     box-shadow: 0 0 0 0 rgba(198, 0, 0, 0.5);
   }
   70% {
-    box-shadow: 0 0 0 10px #C60000;
+    box-shadow: 0 0 0 10px var(--alert-color);
     box-shadow: 0 0 0 10px rgba(198, 0, 0, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 #C60000;
+    box-shadow: 0 0 0 0 var(--alert-color);
     box-shadow: 0 0 0 0 rgba(198, 0, 0, 0);
   }
 }
@@ -3269,7 +3295,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 16px solid #F5F5F5;
+  border-right: 16px solid var(--light-color);
 }
 .ib-arrow-left-full:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -3288,7 +3314,7 @@ div.calendar-drop-down-menu div.separator {
   display: inline-block;
   position: relative;
   height: 12px;
-  border-top: 4px solid #F5F5F5;
+  border-top: 4px solid var(--light-color);
   border-radius: 50%;
 }
 .ib-pin:not(.ib-no-hover):hover {
@@ -3308,7 +3334,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-pin::before {
   left: 50%;
   transform: translate(-50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 4px;
   height: calc( 100% - 4px - 2px );
   border-bottom-left-radius: 50%;
@@ -3318,7 +3344,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-pin::after {
   left: 50%;
   transform: translate(-50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -3346,8 +3372,8 @@ div.calendar-drop-down-menu div.separator {
   content: "";
 }
 .ib-refresh::before {
-  border-top: 4px solid #F5F5F5;
-  border-left: 4px solid #F5F5F5;
+  border-top: 4px solid var(--light-color);
+  border-left: 4px solid var(--light-color);
   border-radius: 4px;
   width: 6.6666666667px;
   height: 12px;
@@ -3355,8 +3381,8 @@ div.calendar-drop-down-menu div.separator {
   top: 0;
 }
 .ib-refresh::after {
-  border-bottom: 4px solid #F5F5F5;
-  border-right: 4px solid #F5F5F5;
+  border-bottom: 4px solid var(--light-color);
+  border-right: 4px solid var(--light-color);
   border-radius: 4px;
   width: 6.6666666667px;
   height: 12px;
@@ -3385,7 +3411,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
 }
 .ib-search::before {
-  border: 4px solid #F5F5F5;
+  border: 4px solid var(--light-color);
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -3398,7 +3424,7 @@ div.calendar-drop-down-menu div.separator {
   transform: rotate(-45deg);
   width: 4px;
   height: 8px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   right: 2.6666666667px;
   bottom: 0.6666666667px;
 }
@@ -3408,8 +3434,8 @@ div.calendar-drop-down-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
-  border-top: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
+  border-top: 4px solid var(--light-color);
+  border-bottom: 4px solid var(--light-color);
   border-radius: 4px;
   height: 8px;
 }
@@ -3428,7 +3454,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 100%;
   height: 4px;
   border-radius: 4px;
@@ -3440,8 +3466,8 @@ div.calendar-drop-down-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
-  border-left: 4px solid #F5F5F5;
-  border-right: 4px solid #F5F5F5;
+  border-left: 4px solid var(--light-color);
+  border-right: 4px solid var(--light-color);
   border-radius: 4px;
   width: 8px;
 }
@@ -3460,7 +3486,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   left: 50%;
   transform: translate(-50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 4px;
   height: 100%;
   border-radius: 4px;
@@ -3472,8 +3498,8 @@ div.calendar-drop-down-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
-  border-top: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
+  border-top: 4px solid var(--light-color);
+  border-bottom: 4px solid var(--light-color);
   border-radius: 50%;
   height: 8px;
 }
@@ -3494,7 +3520,7 @@ div.calendar-drop-down-menu div.separator {
   transform: translate(-50%);
   top: 50%;
   transform: translate(0, -50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -3525,7 +3551,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-top: 8px solid #F5F5F5;
+  border-top: 8px solid var(--light-color);
   left: 0;
   bottom: 0;
 }
@@ -3534,7 +3560,7 @@ div.calendar-drop-down-menu div.separator {
   transform: translate(-50%);
   width: 8px;
   height: 8px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   top: 0;
 }
 
@@ -3561,7 +3587,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-plus::before {
   left: 50%;
   transform: translate(-50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 4px;
   height: 100%;
   border-radius: 4px;
@@ -3570,7 +3596,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-plus::after {
   top: 50%;
   transform: translate(0, -50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 100%;
   height: 4px;
   border-radius: 4px;
@@ -3586,7 +3612,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-left: 16px solid #F5F5F5;
+  border-left: 16px solid var(--light-color);
 }
 .ib-arrow-right-full:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -3620,7 +3646,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   width: 100%;
   height: 4px;
   border-radius: 4px;
@@ -3632,7 +3658,7 @@ div.calendar-drop-down-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
-  border: 4px solid #F5F5F5;
+  border: 4px solid var(--light-color);
   border-radius: 4px;
   width: 8px;
   height: 8px;
@@ -3671,7 +3697,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-close::before, .ib-close::after {
   width: 4px;
   height: 18px;
-  background-color: #F5F5F5;
+  background-color: var(--light-color);
   border-radius: 4px;
   left: 6px;
   top: -1px;
@@ -3708,16 +3734,16 @@ div.calendar-drop-down-menu div.separator {
   content: "";
 }
 .ib-arrow-expand-left-right::before {
-  border-left: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
+  border-left: 4px solid var(--light-color);
+  border-bottom: 4px solid var(--light-color);
   width: 8px;
   height: 8px;
   bottom: 0;
   left: 0;
 }
 .ib-arrow-expand-left-right::after {
-  border-right: 4px solid #F5F5F5;
-  border-top: 4px solid #F5F5F5;
+  border-right: 4px solid var(--light-color);
+  border-top: 4px solid var(--light-color);
   width: 8px;
   height: 8px;
   top: 0;
@@ -3745,16 +3771,16 @@ div.calendar-drop-down-menu div.separator {
   content: "";
 }
 .ib-arrow-contract-left-right::before {
-  border-right: 4px solid #F5F5F5;
-  border-top: 4px solid #F5F5F5;
+  border-right: 4px solid var(--light-color);
+  border-top: 4px solid var(--light-color);
   width: 4px;
   height: 4px;
   bottom: 0;
   left: 0;
 }
 .ib-arrow-contract-left-right::after {
-  border-left: 4px solid #F5F5F5;
-  border-bottom: 4px solid #F5F5F5;
+  border-left: 4px solid var(--light-color);
+  border-bottom: 4px solid var(--light-color);
   width: 4px;
   height: 4px;
   top: 0;
@@ -3785,7 +3811,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  border: 4px solid #F5F5F5;
+  border: 4px solid var(--light-color);
   width: 4px;
   height: 4px;
   left: 2px;
@@ -3795,7 +3821,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  border: 4px solid #F5F5F5;
+  border: 4px solid var(--light-color);
   width: 4px;
   height: 4px;
   left: 2px;
@@ -3827,7 +3853,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #F5F5F5;
+  border-right: 8px solid var(--light-color);
   left: 0;
   top: 0;
 }
@@ -3836,7 +3862,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #F5F5F5;
+  border-right: 8px solid var(--light-color);
   right: 0;
   top: 0;
 }
@@ -3866,7 +3892,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-left: 8px solid #F5F5F5;
+  border-left: 8px solid var(--light-color);
   right: 0;
   top: 0;
 }
@@ -3875,7 +3901,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-left: 8px solid #F5F5F5;
+  border-left: 8px solid var(--light-color);
   left: 0;
   top: 0;
 }
@@ -3887,7 +3913,7 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
   width: 0;
   height: 0;
-  border-top: 16px solid #282828;
+  border-top: 16px solid var(--dark-color);
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
 }
@@ -3911,7 +3937,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 16px solid #282828;
+  border-bottom: 16px solid var(--dark-color);
 }
 .ib-arrow-up-full:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -3935,7 +3961,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   left: 50%;
   transform: translate(-50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 3px;
   height: 100%;
   border-radius: 3px;
@@ -3946,7 +3972,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -3958,8 +3984,8 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  border-top: 3px solid #282828;
-  border-bottom: 3px solid #282828;
+  border-top: 3px solid var(--dark-color);
+  border-bottom: 3px solid var(--dark-color);
   border-radius: 3px;
   height: 6px;
 }
@@ -3978,7 +4004,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -3990,8 +4016,8 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  border-right: 3px solid #282828;
-  border-left: 3px solid #282828;
+  border-right: 3px solid var(--dark-color);
+  border-left: 3px solid var(--dark-color);
   border-radius: 3px;
   width: 6px;
 }
@@ -4010,7 +4036,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   left: 50%;
   transform: translate(-50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 3px;
   height: 100%;
   border-radius: 3px;
@@ -4038,16 +4064,16 @@ div.calendar-drop-down-menu div.separator {
   content: "";
 }
 .ib-arrow-expand-left-right-icon::before {
-  border-left: 3px solid #282828;
-  border-bottom: 3px solid #282828;
+  border-left: 3px solid var(--dark-color);
+  border-bottom: 3px solid var(--dark-color);
   width: 6px;
   height: 6px;
   bottom: 0;
   left: 0;
 }
 .ib-arrow-expand-left-right-icon::after {
-  border-right: 3px solid #282828;
-  border-top: 3px solid #282828;
+  border-right: 3px solid var(--dark-color);
+  border-top: 3px solid var(--dark-color);
   width: 6px;
   height: 6px;
   top: 0;
@@ -4077,7 +4103,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-close-icon::before, .ib-close-icon::after {
   width: 3px;
   height: 13.5px;
-  background-color: #282828;
+  background-color: var(--dark-color);
   border-radius: 3px;
   left: 4.5px;
   top: -0.75px;
@@ -4100,8 +4126,8 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
   width: 9px;
   height: 9px;
-  border-right: 3px solid #282828;
-  border-top: 3px solid #282828;
+  border-right: 3px solid var(--dark-color);
+  border-top: 3px solid var(--dark-color);
   border-radius: 3px;
 }
 .ib-arrow-top-right-icon:not(.ib-no-hover):hover {
@@ -4120,7 +4146,7 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  background-color: #282828;
+  background-color: var(--dark-color);
   border-radius: 50%;
 }
 .ib-circle-icon:not(.ib-no-hover):hover {
@@ -4139,7 +4165,7 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  border: 3px solid #282828;
+  border: 3px solid var(--dark-color);
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -4176,7 +4202,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4207,7 +4233,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  border: 3px solid #282828;
+  border: 3px solid var(--dark-color);
   width: 3px;
   height: 3px;
   left: 1.5px;
@@ -4217,7 +4243,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  border: 3px solid #282828;
+  border: 3px solid var(--dark-color);
   width: 3px;
   height: 3px;
   left: 1.5px;
@@ -4245,7 +4271,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   left: 50%;
   transform: translate(-50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 3px;
   height: 100%;
   border-radius: 3px;
@@ -4275,7 +4301,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-equals-icon:before {
   top: calc(50% - 3px);
   transform: translate(0, -50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4284,7 +4310,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-equals-icon:after {
   top: calc(50% + 3px);
   transform: translate(0, -50%);
-  background-color: #282828;
+  background-color: var(--dark-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4313,7 +4339,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  border: 3px solid #282828;
+  border: 3px solid var(--dark-color);
   border-radius: 3px;
   width: 3px;
   height: 3px;
@@ -4346,7 +4372,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid #282828;
+  border-top: 6px solid var(--dark-color);
   left: 0;
   bottom: 0;
 }
@@ -4355,7 +4381,7 @@ div.calendar-drop-down-menu div.separator {
   transform: translate(-50%);
   width: 6px;
   height: 6px;
-  background-color: #282828;
+  background-color: var(--dark-color);
   top: 0;
 }
 
@@ -4364,7 +4390,7 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  border-color: #F5F5F5;
+  border-color: var(--light-color);
 }
 .ib-refresh-medium:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -4404,7 +4430,7 @@ div.calendar-drop-down-menu div.separator {
   height: 8px;
   display: inline-block;
   position: relative;
-  border-color: #F5F5F5;
+  border-color: var(--light-color);
 }
 .ib-refresh-small:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -4446,7 +4472,7 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
   width: 0;
   height: 0;
-  border-top: 10px solid #282828;
+  border-top: 10px solid var(--dark-color);
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
 }
@@ -4470,7 +4496,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 10px solid #F5F5F5;
+  border-bottom: 10px solid var(--light-color);
 }
 .ib-arrow-up-full-medium:not(.ib-no-hover):hover {
   transition: all 0.3s;

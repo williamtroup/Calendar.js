@@ -1,4 +1,4 @@
-/*! Calendar.js v2.2.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.3.0 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -89,6 +89,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           eventsRemoved++;
         }
       });
+      storeEventsInLocalStorage();
       showNotificationPopUp(_options.eventsRemovedText.replace("{0}", eventsRemoved));
       refreshViews();
     };
@@ -110,6 +111,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (isDefinedArray(_options.events)) {
           _this.addEvents(_options.events, false, false, false);
         }
+        loadEventsFromLocalStorage();
         if (!_initializedFirstTime) {
           triggerOptionsEventWithData("onRender", _elementID);
           _initializedFirstTime = true;
@@ -936,7 +938,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       updateYearSelectorMonthSelected();
       var year = updateYearSelectorDropDownMenuColors();
       if (year !== null) {
-        _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - _element_HeaderDateDisplay_YearSelector.offsetHeight / 2;
+        _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = year.offsetTop - _element_HeaderDateDisplay_YearSelector_Contents.offsetTop - _options.spacing;
       } else {
         _element_HeaderDateDisplay_YearSelector_Contents.scrollTop = 0;
       }
@@ -1099,6 +1101,11 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (_options.exportEventsEnabled) {
             showExportDialogFromWindowKeyDown();
           }
+        } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.g) {
+          e.preventDefault();
+          if (_options.configurationDialogEnabled) {
+            showConfigurationDialog();
+          }
         } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.f) {
           e.preventDefault();
           if (_optionsForSearch.enabled && (_element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0)) {
@@ -1108,6 +1115,11 @@ function calendarJs(elementOrId, options, searchOptions) {
           e.preventDefault();
           callMinimizeRestoreFunctionsForAllEventView();
           callMinimizeRestoreFunctionsForWeekEventView();
+        } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.o) {
+          e.preventDefault();
+          if (isSideMenuAvailable()) {
+            showSideMenu();
+          }
         } else if (isControlKey(e) && isShiftKey(e) && e.keyCode === _keyCodes.v) {
           e.preventDefault();
           pasteCopiedEventsFromKeyDown();
@@ -2079,6 +2091,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_FullDayView_Event_Dragged.style.top = top + "px";
       _element_FullDayView_Event_Dragged_EventDetails.from = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.from, differenceMinutes);
       _element_FullDayView_Event_Dragged_EventDetails.to = addMinutesToDate(_element_FullDayView_Event_Dragged_EventDetails.to, differenceMinutes);
+      storeEventsInLocalStorage();
       triggerOptionsEventWithData("onEventUpdated", _element_FullDayView_Event_Dragged_EventDetails);
       showNotificationPopUp(_options.eventUpdatedText.replace("{0}", _element_FullDayView_Event_Dragged_EventDetails.title));
       _element_FullDayView_Event_Dragged = null;
@@ -2109,6 +2122,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             }
           }
           if (eventsResized) {
+            storeEventsInLocalStorage();
             refreshViews();
           }
         }
@@ -4098,6 +4112,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
     buildDayEvents();
     refreshOpenedViews();
+    storeEventsInLocalStorage();
     return newEvent;
   }
   function isEventLocked(eventDetails) {
@@ -5905,6 +5920,32 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getDefaultDate(value, defaultValue) {
     return isDefinedDate(value) ? value : defaultValue;
   }
+  function storeEventsInLocalStorage() {
+    if (_options.useLocalStorageForEvents && _window.localStorage) {
+      _window.localStorage.clear();
+      var orderedEvents = getOrderedEvents(getAllEvents());
+      var orderedEventsLength = orderedEvents.length;
+      var orderedEventIndex = 0;
+      for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
+        var orderedEvent = orderedEvents[orderedEventIndex];
+        var orderedEventsJson = JSON.stringify(orderedEvent);
+        _window.localStorage.setItem("CJS_" + orderedEventIndex.toString(), orderedEventsJson);
+      }
+    }
+  }
+  function loadEventsFromLocalStorage() {
+    if (_options.useLocalStorageForEvents && _window.localStorage) {
+      var keysLength = _window.localStorage.length;
+      var keyIndex = 0;
+      for (; keyIndex < keysLength; keyIndex++) {
+        var eventJson = _window.localStorage.getItem(_window.localStorage.key(keyIndex));
+        var event = getObjectFromString(eventJson);
+        if (isDefined(event)) {
+          _this.addEvent(event, false, false, false);
+        }
+      }
+    }
+  }
   function exportEvents(events, type, filename, copyToClipboard) {
     type = isDefined(type) ? type.toLowerCase() : "csv";
     copyToClipboard = isDefined(copyToClipboard) ? copyToClipboard : false;
@@ -6284,6 +6325,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       var organizerName = getString(orderedEvent.organizerName);
       var organizerEmailAddress = getString(orderedEvent.organizerEmailAddress);
       var repeatEvery = getNumber(orderedEvent.repeatEvery);
+      if (!isDefinedString(organizerName)) {
+        organizerName = _options.organizerName;
+      }
+      if (!isDefinedString(organizerEmailAddress)) {
+        organizerEmailAddress = _options.organizerEmailAddress;
+      }
       contents.push("BEGIN:VEVENT");
       contents.push("UID:" + getString(orderedEvent.id));
       contents.push("STATUS:CONFIRMED");
@@ -6614,6 +6661,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showSideMenuWorkingDays = getDefaultBoolean(_options.showSideMenuWorkingDays, true);
     _options.showSideMenuWeekendDays = getDefaultBoolean(_options.showSideMenuWeekendDays, true);
     _options.startOfWeekDay = getDefaultNumber(_options.startOfWeekDay, _day.monday);
+    _options.useLocalStorageForEvents = getDefaultBoolean(_options.useLocalStorageForEvents, false);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -6863,7 +6911,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _this = this;
   var _string = {empty:"", space:" "};
   var _day = {monday:0, saturday:5, sunday:6};
-  var _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, m:77, v:86, x:88, f5:116, f11:122};
+  var _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, m:77, o:79, v:86, x:88, f5:116, f11:122};
   var _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6};
   var _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3};
   var _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}};
@@ -7259,6 +7307,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         var event = events[eventIndex];
         this.addEvent(event, false, false, false);
       }
+      storeEventsInLocalStorage();
       if (triggerEvent) {
         triggerOptionsEventWithData("onEventsAdded", events);
       }
@@ -7351,6 +7400,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventAdded", event);
           }
           if (updateEvents) {
+            storeEventsInLocalStorage();
             updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
@@ -7374,6 +7424,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsUpdated", events);
       }
       if (updateEvents) {
+        storeEventsInLocalStorage();
         updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
@@ -7388,6 +7439,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         updateEvents = !isDefinedBoolean(updateEvents) ? true : updateEvents;
         triggerEvent = !isDefinedBoolean(triggerEvent) ? true : triggerEvent;
         updated = this.addEvent(event, updateEvents, false);
+        storeEventsInLocalStorage();
         if (updated && triggerEvent) {
           triggerOptionsEventWithData("onEventUpdated", event);
         }
@@ -7410,6 +7462,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventUpdated", eventDetails);
           }
           if (updateEvents) {
+            storeEventsInLocalStorage();
             updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
@@ -7433,6 +7486,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             triggerOptionsEventWithData("onEventRemoved", event);
           }
           if (updateEvents) {
+            storeEventsInLocalStorage();
             updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
@@ -7452,6 +7506,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onEventsCleared");
       }
       if (updateEvents) {
+        storeEventsInLocalStorage();
         updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
@@ -7488,6 +7543,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       });
       if (updateEvents) {
+        storeEventsInLocalStorage();
         updateSideMenu();
         buildDayEvents();
         refreshOpenedViews();
@@ -7620,7 +7676,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.2.2";
+    return "2.3.0";
   };
   this.getId = function() {
     return _elementID;

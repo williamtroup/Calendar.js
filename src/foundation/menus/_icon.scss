@@ -3,7 +3,7 @@
 $size: 12px;
 $border-width: calc( $size / 4 );
 $border-radius: $border-width;
-$border: $border-width solid $dark-color;
+$border: $border-width solid var(--dark-color);
 
 @mixin top-center-minus($minus-value) {
     top: calc(50% - #{$minus-value});

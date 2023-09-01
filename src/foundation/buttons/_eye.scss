@@ -11,7 +11,7 @@
         @include button-after-before-setup;
         @include left-center-minus( calc( $border-width / 2 ) );
         @include top-center;
-        background-color: $light-color;
+        background-color: var(--light-color);
         width: $border-width;
         height: $border-width;
         border-radius: 50%;

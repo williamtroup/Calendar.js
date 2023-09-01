@@ -7,14 +7,14 @@ div.title-bar {
     padding-bottom: $spacing;
     padding-left: calc( $spacing / 2 );
     padding-right: calc( $spacing / 2 );
-    background-color: $dark-color;
-    color: $light-color;
+    background-color: var(--dark-color);
+    color: var(--light-color);
     text-align: center;
 
     div.side-menu-button-divider-line {
         float: left;
         width: 1px;
-        background-color: $light-color;
+        background-color: var(--light-color);
         height: 16px;
     }
 
