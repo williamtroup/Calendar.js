@@ -6412,10 +6412,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (isDefinedString(orderedEvent.group)) {
         contents.push("CATEGORIES:" + getICalSingleLine(orderedEvent.group));
       }
-      contents.push("BEGIN:VALARM");
-      contents.push("TRIGGER;VALUE=DATE-TIME:" + getICalDateTimeString(orderedEvent.from));
-      contents.push("ACTION:DISPLAY");
-      contents.push("END:VALARM");
+      if (!isDefinedBoolean(orderedEvent.showAlerts) || orderedEvent.showAlerts) {
+        contents.push("BEGIN:VALARM");
+        contents.push("TRIGGER;VALUE=DATE-TIME:" + getICalDateTimeString(orderedEvent.from));
+        contents.push("ACTION:DISPLAY");
+        contents.push("END:VALARM");
+      }
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
