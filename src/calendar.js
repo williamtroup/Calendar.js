@@ -8848,7 +8848,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else if ( type === "json" ) {
             contents = getJsonContents( contentsEvents );
         } else if ( type === "text" ) {
-            contents = getTextContents( contentsEvents );
+            contents = getTextContents( contentsEvents, filename );
         } else if ( type === "ical" ) {
             contents = getICalContents( contentsEvents );
         } else if ( type === "md" ) {
@@ -9182,6 +9182,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return propertyNames;
     }
 
+    function getExportDateTime() {
+        var dateExported = new Date(),
+            dateExportedMeta = getCustomFormattedDateText( "{ddd}, {dd} {mmm} {yyyy}", dateExported );
+
+        dateExportedMeta += " " + padNumber( dateExported.getHours() ) + ":" + padNumber( dateExported.getMinutes() ) + ":" + padNumber( dateExported.getSeconds() );
+
+        return dateExportedMeta;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -9324,9 +9333,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getTextContents( orderedEvents ) {
+    function getTextContents( orderedEvents, filename ) {
         var contents = [],
             orderedEventLength = orderedEvents.length;
+
+        if ( isDefined( filename) ) {
+            contents.push( "Filename: " + filename );
+        }
+
+        contents.push( "Last Modified: " + getExportDateTime() );
+        contents.push( _string.empty );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
@@ -9572,17 +9588,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function getHtmlContents( orderedEvents, filename ) {
         var contents = [],
-            orderedEventLength = orderedEvents.length,
-            dateExported = new Date(),
-            dateExportedMeta = getCustomFormattedDateText( "{ddd}, {dd} {mmm} {yyyy}", dateExported );
-
-        dateExportedMeta += " " + padNumber( dateExported.getHours() ) + ":" + padNumber( dateExported.getMinutes() ) + ":" + padNumber( dateExported.getSeconds() ) + " GMT";
+            orderedEventLength = orderedEvents.length;
 
         contents.push( "<!DOCTYPE html>" );
         contents.push( "<html>" );
         contents.push( "<head>" );
         contents.push( "<meta charset=\"utf-8\" />" );
-        contents.push( "<meta http-equiv=\"Last-Modified\" content=\"" + dateExportedMeta + "\" />" );
+        contents.push( "<meta http-equiv=\"Last-Modified\" content=\"" + getExportDateTime() + " GMT\" />" );
 
         if ( isDefined( filename ) ) {
             contents.push( "<title>" + filename + "</title>" );

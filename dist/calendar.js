@@ -5994,7 +5994,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     } else if (type === "json") {
       contents = getJsonContents(contentsEvents);
     } else if (type === "text") {
-      contents = getTextContents(contentsEvents);
+      contents = getTextContents(contentsEvents, filename);
     } else if (type === "ical") {
       contents = getICalContents(contentsEvents);
     } else if (type === "md") {
@@ -6235,6 +6235,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     propertyNames.sort();
     return propertyNames;
   }
+  function getExportDateTime() {
+    var dateExported = new Date();
+    var dateExportedMeta = getCustomFormattedDateText("{ddd}, {dd} {mmm} {yyyy}", dateExported);
+    dateExportedMeta = dateExportedMeta + (" " + padNumber(dateExported.getHours()) + ":" + padNumber(dateExported.getMinutes()) + ":" + padNumber(dateExported.getSeconds()));
+    return dateExportedMeta;
+  }
   function getCsvContents(orderedEvents) {
     var orderedEventLength = orderedEvents.length;
     var exportHeaders = getExportHeaders();
@@ -6326,9 +6332,14 @@ function calendarJs(elementOrId, options, searchOptions) {
     contents.push("}");
     return contents.join("\n");
   }
-  function getTextContents(orderedEvents) {
+  function getTextContents(orderedEvents, filename) {
     var contents = [];
     var orderedEventLength = orderedEvents.length;
+    if (isDefined(filename)) {
+      contents.push("Filename: " + filename);
+    }
+    contents.push("Last Modified: " + getExportDateTime());
+    contents.push(_string.empty);
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
       var orderedEvent = orderedEvents[orderedEventIndex];
@@ -6508,14 +6519,11 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getHtmlContents(orderedEvents, filename) {
     var contents = [];
     var orderedEventLength = orderedEvents.length;
-    var dateExported = new Date();
-    var dateExportedMeta = getCustomFormattedDateText("{ddd}, {dd} {mmm} {yyyy}", dateExported);
-    dateExportedMeta = dateExportedMeta + (" " + padNumber(dateExported.getHours()) + ":" + padNumber(dateExported.getMinutes()) + ":" + padNumber(dateExported.getSeconds()) + " GMT");
     contents.push("<!DOCTYPE html>");
     contents.push("<html>");
     contents.push("<head>");
     contents.push('<meta charset="utf-8" />');
-    contents.push('<meta http-equiv="Last-Modified" content="' + dateExportedMeta + '" />');
+    contents.push('<meta http-equiv="Last-Modified" content="' + getExportDateTime() + ' GMT" />');
     if (isDefined(filename)) {
       contents.push("<title>" + filename + "</title>");
     }
