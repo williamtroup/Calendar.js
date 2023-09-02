@@ -8854,7 +8854,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else if ( type === "md" ) {
             contents = getMdContents( contentsEvents );
         } else if ( type === "html" ) {
-            contents = getHtmlContents( contentsEvents );
+            contents = getHtmlContents( contentsEvents, filename );
         } else if ( type === "tsv" ) {
             contents = getTsvContents( contentsEvents );
         }
@@ -9570,11 +9570,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getHtmlContents( orderedEvents ) {
+    function getHtmlContents( orderedEvents, filename ) {
         var contents = [],
-            orderedEventLength = orderedEvents.length;
+            orderedEventLength = orderedEvents.length,
+            dateExported = new Date(),
+            dateExportedMeta = getCustomFormattedDateText( "{ddd}, {dd} {mmm} {yyyy}", dateExported );
 
+        dateExportedMeta += " " + padNumber( dateExported.getHours() ) + ":" + padNumber( dateExported.getMinutes() ) + ":" + padNumber( dateExported.getSeconds() ) + " GMT";
+
+        contents.push( "<!DOCTYPE html>" );
         contents.push( "<html>" );
+        contents.push( "<head>" );
+        contents.push( "<meta charset=\"utf-8\" />" );
+        contents.push( "<meta http-equiv=\"Last-Modified\" content=\"" + dateExportedMeta + "\" />" );
+
+        if ( isDefined( filename ) ) {
+            contents.push( "<title>" + filename + "</title>" );
+        }
+        
+        contents.push( "</head>" );
         contents.push( "<body>" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {

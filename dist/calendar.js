@@ -6000,7 +6000,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     } else if (type === "md") {
       contents = getMdContents(contentsEvents);
     } else if (type === "html") {
-      contents = getHtmlContents(contentsEvents);
+      contents = getHtmlContents(contentsEvents, filename);
     } else if (type === "tsv") {
       contents = getTsvContents(contentsEvents);
     }
@@ -6505,10 +6505,21 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getMdFileRow(contents) {
     return "| " + contents.join(" | ") + " |";
   }
-  function getHtmlContents(orderedEvents) {
+  function getHtmlContents(orderedEvents, filename) {
     var contents = [];
     var orderedEventLength = orderedEvents.length;
+    var dateExported = new Date();
+    var dateExportedMeta = getCustomFormattedDateText("{ddd}, {dd} {mmm} {yyyy}", dateExported);
+    dateExportedMeta = dateExportedMeta + (" " + padNumber(dateExported.getHours()) + ":" + padNumber(dateExported.getMinutes()) + ":" + padNumber(dateExported.getSeconds()) + " GMT");
+    contents.push("<!DOCTYPE html>");
     contents.push("<html>");
+    contents.push("<head>");
+    contents.push('<meta charset="utf-8" />');
+    contents.push('<meta http-equiv="Last-Modified" content="' + dateExportedMeta + '" />');
+    if (isDefined(filename)) {
+      contents.push("<title>" + filename + "</title>");
+    }
+    contents.push("</head>");
     contents.push("<body>");
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
