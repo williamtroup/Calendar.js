@@ -10,6 +10,7 @@
 - Added DOCTYPE, HEAD, and TITLE support for exported HTML events, including meta for CHARSET and LAST-MODIFIED.
 - Added "Filename" and "Last Modified" support export TXT events.
 - Added a "Calendar" node to the exported XML events, which contains sub-nodes "Filename" and "LastModified".
+- Pressing enter in the "Filename" field on the Export Dialog will now trigger the "Export" button.
 - 
 
 <br>

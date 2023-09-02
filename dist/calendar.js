@@ -4353,6 +4353,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_ExportEventsDialog_Filename = createElement("input", null, "text");
       _element_ExportEventsDialog_Filename.placeholder = _options.exportFilenamePlaceholderText;
       contents.appendChild(_element_ExportEventsDialog_Filename);
+      _element_ExportEventsDialog_Filename.onkeydown = function(e) {
+        if (e.keyCode === _keyCodes.enter) {
+          exportEventsFromOptionSelected();
+        }
+      };
       _element_ExportEventsDialog_Option_ExportEventsToClipboard = buildCheckBox(contents, _options.copyToClipboardOnlyText, showExportEventsDialogOptions)[0];
       _element_ExportEventsDialog_Options = createElement("div", "split options");
       contents.appendChild(_element_ExportEventsDialog_Options);
