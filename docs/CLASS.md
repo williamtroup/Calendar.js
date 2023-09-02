@@ -4,7 +4,7 @@ Below details how a Calendar.js class instance can be created.
 <br>
 <br>
 
-### **calendarJs( *id*, *options*, *startDateTime* )**:
+### **calendarJs( *id*, *options*, *searchOptions* )**:
 The main Calendar.js class.
 <br>
 ***Parameter: elementOrId***: '*Object*' - The ID of the element (or the element itself) that should be used to display the calendar (or input to assign a DatePicker).
