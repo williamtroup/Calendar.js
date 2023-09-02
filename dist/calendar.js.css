@@ -603,12 +603,12 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
 div.calendar div.side-menu div.content div.content-section div.text-header div.button-divider-line,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
-div.calendar div.side-menu div.content div.content-section div.text-header div.ib-minus,
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square-hollow,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.button-divider-line,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full,
-div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-minus,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square-hollow {
   float: right;
   margin-top: 1px;
@@ -617,12 +617,12 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
 div.calendar div.side-menu div.content div.content-section div.text-header div.button-divider-line:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full:first-of-type,
-div.calendar div.side-menu div.content div.content-section div.text-header div.ib-minus:first-of-type,
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square-hollow:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.button-divider-line:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full:first-of-type,
-div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-minus:first-of-type,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square-hollow:first-of-type {
   margin-right: 0;
 }
@@ -637,10 +637,6 @@ div.calendar div.side-menu div.content div.content-section div.text-header div.i
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
   pointer-events: none;
-}
-div.calendar div.side-menu div.content div.content-section div.text-header div.ib-minus-icon::before,
-div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-minus-icon::before {
-  background-color: var(--light-color);
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full {
@@ -3978,6 +3974,25 @@ div.calendar-drop-down-menu div.separator {
   opacity: 0.7;
 }
 .ib-arrow-up-full:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.ib-square {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  background-color: var(--light-color);
+  border-radius: 4px;
+}
+.ib-square:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-square:not(.ib-no-active):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;

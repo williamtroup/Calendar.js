@@ -598,7 +598,7 @@ div.calendar {
                     div.button-divider-line,
                     div.ib-arrow-down-full,
                     div.ib-arrow-up-full,
-                    div.ib-minus,
+                    div.ib-square,
                     div.ib-square-hollow {
                         float: right;
                         margin-top: 1px;
@@ -618,10 +618,6 @@ div.calendar {
                     div.ib-arrow-down-full,
                     div.ib-arrow-up-full {
                         pointer-events: none;
-                    }
-
-                    div.ib-minus-icon::before {
-                        background-color: var(--light-color);
                     }
 
                     div.ib-arrow-down-full {
@@ -2260,6 +2256,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/forward";
 @import "foundation/buttons/arrow-down-full";
 @import "foundation/buttons/arrow-up-full";
+@import "foundation/buttons/square";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

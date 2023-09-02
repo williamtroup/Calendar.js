@@ -1698,11 +1698,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var buttonDividerLine = createElement( "div", "button-divider-line" );
         header.appendChild( buttonDividerLine );
 
-        var selectAll = buildToolbarButton( header, "ib-square-hollow", _options.selectAllText, function( e ) {
+        var selectAll = buildToolbarButton( header, "ib-square", _options.selectAllText, function( e ) {
             changeCheckboxesCheckedState( e, checkBoxes, true );
         } );
 
-        var selectNone = buildToolbarButton( header, "ib-minus", _options.selectNoneText, function( e ) {
+        var selectNone = buildToolbarButton( header, "ib-square-hollow", _options.selectNoneText, function( e ) {
             changeCheckboxesCheckedState( e, checkBoxes, false );
         } );
 
