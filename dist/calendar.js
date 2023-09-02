@@ -5990,7 +5990,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (type === "csv") {
       contents = getCsvContents(contentsEvents);
     } else if (type === "xml") {
-      contents = getXmlContents(contentsEvents);
+      contents = getXmlContents(contentsEvents, filename);
     } else if (type === "json") {
       contents = getJsonContents(contentsEvents);
     } else if (type === "text") {
@@ -6277,10 +6277,16 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getCsvValueLine(csvValues) {
     return csvValues.join(",");
   }
-  function getXmlContents(orderedEvents) {
+  function getXmlContents(orderedEvents, filename) {
     var contents = [];
     var orderedEventLength = orderedEvents.length;
     contents.push('<?xml version="1.0" ?>');
+    contents.push("<Calendar>");
+    if (isDefined(filename)) {
+      contents.push("<Filename>" + filename + "</Filename>");
+    }
+    contents.push("<LastModified>" + getExportDateTime() + "</LastModified>");
+    contents.push("</Calendar>");
     contents.push("<Events>");
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {

@@ -9,6 +9,7 @@
 - Added "VALARM" support for exported iCAL events (states when an alert should be shown for the event, which defaults to the events "from" date/time).
 - Added DOCTYPE, HEAD, and TITLE support for exported HTML events, including meta for CHARSET and LAST-MODIFIED.
 - Added "Filename" and "Last Modified" support export TXT events.
+- Added a "Calendar" node to the exported XML events, which contains sub-nodes "Filename" and "LastModified".
 - 
 
 <br>
