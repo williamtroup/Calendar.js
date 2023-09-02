@@ -6,6 +6,7 @@
 - Added "Select All" and "Select None" buttons to the side menu sections (only visible when a section is open).
 - Increased the width of the side menu slight for desktop and mobile devices (to give a bit more room for the new section buttons).
 - When pressing escape, if events are copied and another view is opened, the events copied are cleared as the first action (the view will remain open).
+- Added "VALARM" support for exported iCAL events (states when an alert should be shown for the event, which defaults to the events "from" date/time).
 - 
 
 <br>
