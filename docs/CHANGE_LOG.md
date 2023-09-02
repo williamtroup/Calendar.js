@@ -2,7 +2,7 @@
 
 ## Version 2.3.1:
 - Added new setting "shortcutKeysEnabled" (defaults to true), which states if the shortcut keys are enabled (always off in DatePicker mode).
-- Correct some mistakes in the documentation.
+- Fixed some mistakes in the documentation (CLASS.md, CUSTOM_TRIGGERS.md).
 - 
 
 <br>
