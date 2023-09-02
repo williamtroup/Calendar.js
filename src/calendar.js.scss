@@ -595,12 +595,33 @@ div.calendar {
                     margin-bottom: 0;
                     cursor: pointer;
 
+                    div.button-divider-line,
+                    div.ib-arrow-down-full,
+                    div.ib-arrow-up-full,
+                    div.ib-minus,
+                    div.ib-square-hollow {
+                        float: right;
+                        margin-top: 1px;
+                        margin-right: $spacing;
+
+                        &:first-of-type {
+                            margin-right: 0;
+                        }
+                    }
+
+                    div.button-divider-line {
+                        width: 1px;
+                        background-color: var(--light-color);
+                        height: 16px;
+                    }
+
                     div.ib-arrow-down-full,
                     div.ib-arrow-up-full {
-                        position: absolute;
-                        right: $spacing;
-                        top: $spacing;
                         pointer-events: none;
+                    }
+
+                    div.ib-minus-icon::before {
+                        background-color: var(--light-color);
                     }
 
                     div.ib-arrow-down-full {

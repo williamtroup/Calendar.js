@@ -3,6 +3,8 @@
 ## Version 2.3.1:
 - Added new setting "shortcutKeysEnabled" (defaults to true), which states if the shortcut keys are enabled (always off in DatePicker mode).
 - Fixed some mistakes in the documentation (CLASS.md, CUSTOM_TRIGGERS.md, FUNCTIONS.md, SEARCH_OPTIONS.md).
+- Added "Select All" and "Select None" buttons to the side menu sections (only visible when a section is open).
+- Increased the width of the side menu slight for desktop and mobile devices (to give a bit more room for the new section buttons).
 - 
 
 <br>

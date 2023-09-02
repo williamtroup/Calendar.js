@@ -560,11 +560,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu_Content_Section_WeekendDays = createElement("div", "content-section content-section-opened");
     _element_SideMenu_Content_Section_WeekendDays_Content = createElement("div", "checkbox-container");
     _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_WeekendDays);
-    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_WeekendDays, _element_SideMenu_Content_Section_WeekendDays_Content, _options.weekendDaysText, opened);
-    _element_SideMenu_Content_Section_WeekendDays.appendChild(_element_SideMenu_Content_Section_WeekendDays_Content);
     var dayIndex = 1;
     var dayEndIndex = 8;
     var processOtherDays = false;
+    var checkBoxes = [];
+    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_WeekendDays, _element_SideMenu_Content_Section_WeekendDays_Content, _options.weekendDaysText, opened, checkBoxes);
+    _element_SideMenu_Content_Section_WeekendDays.appendChild(_element_SideMenu_Content_Section_WeekendDays_Content);
     if (_options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday) {
       dayIndex = _options.startOfWeekDay + 1;
       processOtherDays = true;
@@ -572,7 +573,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     for (; dayIndex < dayEndIndex; dayIndex++) {
       var actualDayIndex1 = dayIndex > 6 ? 0 : dayIndex;
       var visible1 = _options.weekendDays.indexOf(actualDayIndex1) > -1;
-      buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex1.toString(), visible1, null, cancelBubbleOnly);
+      checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex1.toString(), visible1, null, cancelBubbleOnly)[0]);
     }
     if (processOtherDays) {
       dayEndIndex = _options.startOfWeekDay + 1;
@@ -580,7 +581,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       for (; dayIndex < dayEndIndex; dayIndex++) {
         var actualDayIndex2 = dayIndex > 6 ? 0 : dayIndex;
         var visible2 = _options.weekendDays.indexOf(actualDayIndex2) > -1;
-        buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly);
+        checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
     }
   }
@@ -589,25 +590,26 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu_Content_Section_WorkingDays = createElement("div", "content-section content-section-opened");
     _element_SideMenu_Content_Section_WorkingDays_Content = createElement("div", "checkbox-container");
     _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_WorkingDays);
-    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_WorkingDays, _element_SideMenu_Content_Section_WorkingDays_Content, _options.workingDaysText, opened);
-    _element_SideMenu_Content_Section_WorkingDays.appendChild(_element_SideMenu_Content_Section_WorkingDays_Content);
     var dayIndex = 0;
     var dayEndIndex = 7;
     var processOtherDays = false;
+    var checkBoxes = [];
+    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_WorkingDays, _element_SideMenu_Content_Section_WorkingDays_Content, _options.workingDaysText, opened, checkBoxes);
+    _element_SideMenu_Content_Section_WorkingDays.appendChild(_element_SideMenu_Content_Section_WorkingDays_Content);
     if (_options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday) {
       dayIndex = _options.startOfWeekDay;
       processOtherDays = true;
     }
     for (; dayIndex < dayEndIndex; dayIndex++) {
       var visible1 = _options.workingDays.indexOf(dayIndex) > -1;
-      buildCheckBox(_element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly);
+      checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly)[0]);
     }
     if (processOtherDays) {
       dayEndIndex = _options.startOfWeekDay;
       dayIndex = 0;
       for (; dayIndex < dayEndIndex; dayIndex++) {
         var visible2 = _options.workingDays.indexOf(dayIndex) > -1;
-        buildCheckBox(_element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly);
+        checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
     }
   }
@@ -618,10 +620,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     var groups = getGroups();
     var groupsLength = groups.length;
     if (groupsLength > 0) {
+      var checkBoxes = [];
       _element_SideMenu_Content_Section_Groups = createElement("div", "content-section content-section-opened");
       _element_SideMenu_Content_Section_Groups_Content = createElement("div", "checkbox-container");
       _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_Groups);
-      buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_Groups, _element_SideMenu_Content_Section_Groups_Content, _options.groupsText, opened);
+      buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_Groups, _element_SideMenu_Content_Section_Groups_Content, _options.groupsText, opened, checkBoxes);
       _element_SideMenu_Content_Section_Groups.appendChild(_element_SideMenu_Content_Section_Groups_Content);
       var groupIndex = 0;
       for (; groupIndex < groupsLength; groupIndex++) {
@@ -631,7 +634,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (isDefined(_configuration.visibleGroups)) {
           visible = _configuration.visibleGroups.indexOf(configGroupName) > -1;
         }
-        buildCheckBox(_element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly);
+        checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly)[0]);
       }
     }
   }
@@ -640,6 +643,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu_Content_Section_EventTypes = null;
     _element_SideMenu_Content_Section_EventTypes_Content = null;
     var sectionAndHeaderAdded = false;
+    var checkBoxes = [];
     var eventType;
     for (eventType in _eventType) {
       if (_eventType.hasOwnProperty(eventType)) {
@@ -647,7 +651,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           _element_SideMenu_Content_Section_EventTypes = createElement("div", "content-section content-section-opened");
           _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_EventTypes);
           _element_SideMenu_Content_Section_EventTypes_Content = createElement("div", "checkbox-container");
-          buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_EventTypes, _element_SideMenu_Content_Section_EventTypes_Content, _options.eventTypesText, opened);
+          buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_EventTypes, _element_SideMenu_Content_Section_EventTypes_Content, _options.eventTypesText, opened, checkBoxes);
           _element_SideMenu_Content_Section_EventTypes.appendChild(_element_SideMenu_Content_Section_EventTypes_Content);
           sectionAndHeaderAdded = true;
         }
@@ -655,7 +659,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (isDefined(_configuration.visibleEventTypes)) {
           visible = _configuration.visibleEventTypes.indexOf(parseInt(eventType)) > -1;
         }
-        buildCheckBox(_element_SideMenu_Content_Section_EventTypes_Content, _eventType[eventType].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly);
+        checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_EventTypes_Content, _eventType[eventType].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly)[0]);
       }
     }
   }
@@ -664,47 +668,76 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_SideMenu_Content_Section_Days = createElement("div", "content-section content-section-opened");
     _element_SideMenu_Content_Section_Days_Content = createElement("div", "checkbox-container");
     _element_SideMenu_Content.appendChild(_element_SideMenu_Content_Section_Days);
-    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_Days, _element_SideMenu_Content_Section_Days_Content, _options.sideMenuDaysText, opened);
-    _element_SideMenu_Content_Section_Days.appendChild(_element_SideMenu_Content_Section_Days_Content);
     var dayIndex = 0;
     var dayEndIndex = 7;
     var processOtherDays = false;
+    var checkBoxes = [];
+    buildSideMenuHeaderAndContentOpener(_element_SideMenu_Content_Section_Days, _element_SideMenu_Content_Section_Days_Content, _options.sideMenuDaysText, opened, checkBoxes);
+    _element_SideMenu_Content_Section_Days.appendChild(_element_SideMenu_Content_Section_Days_Content);
     if (_options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday) {
       dayIndex = _options.startOfWeekDay;
       processOtherDays = true;
     }
     for (; dayIndex < dayEndIndex; dayIndex++) {
       var visible1 = _options.visibleDays.indexOf(dayIndex) > -1;
-      buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly);
+      checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly)[0]);
     }
     if (processOtherDays) {
       dayEndIndex = _options.startOfWeekDay;
       dayIndex = 0;
       for (; dayIndex < dayEndIndex; dayIndex++) {
         var visible2 = _options.visibleDays.indexOf(dayIndex) > -1;
-        buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly);
+        checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
     }
   }
-  function buildSideMenuHeaderAndContentOpener(mainContainer, mainContent, text, opened) {
+  function buildSideMenuHeaderAndContentOpener(mainContainer, mainContent, text, opened, checkBoxes) {
     var header = createElement("div", "text-header");
     mainContainer.appendChild(header);
     setNodeText(header, text + ":");
     var arrow = createElement("div", "ib-arrow-up-full");
     header.appendChild(arrow);
+    var buttonDividerLine = createElement("div", "button-divider-line");
+    header.appendChild(buttonDividerLine);
+    var selectAll = buildToolbarButton(header, "ib-square-hollow", _options.selectAllText, function(e) {
+      changeCheckboxesCheckedState(e, checkBoxes, true);
+    });
+    var selectNone = buildToolbarButton(header, "ib-minus", _options.selectNoneText, function(e) {
+      changeCheckboxesCheckedState(e, checkBoxes, false);
+    });
     header.onclick = function() {
       var isClosed = mainContent.style.display === "none";
       header.className = isClosed ? "text-header" : "text-header-closed";
       mainContent.style.display = isClosed ? "block" : "none";
       arrow.className = isClosed ? "ib-arrow-up-full" : "ib-arrow-down-full";
       mainContainer.className = isClosed ? "content-section content-section-opened" : "content-section";
+      buttonDividerLine.style.display = isClosed ? "block" : "none";
+      selectAll.style.display = isClosed ? "block" : "none";
+      selectNone.style.display = isClosed ? "block" : "none";
     };
     if (!opened) {
       mainContent.style.display = "none";
       header.className = "text-header-closed";
       arrow.className = "ib-arrow-down-full";
       mainContainer.className = "content-section";
+      buttonDividerLine.style.display = "none";
+      selectAll.style.display = "none";
+      selectNone.style.display = "none";
     }
+    return [selectAll, selectNone];
+  }
+  function changeCheckboxesCheckedState(e, checkBoxes, state) {
+    cancelBubble(e);
+    var checkBoxesLength = checkBoxes.length;
+    var checkBoxStatesChanged = false;
+    var checkBoxIndex = 0;
+    for (; checkBoxIndex < checkBoxesLength; checkBoxIndex++) {
+      if (checkBoxes[checkBoxIndex].checked !== state) {
+        checkBoxes[checkBoxIndex].checked = state;
+        checkBoxStatesChanged = true;
+      }
+    }
+    _element_SideMenu_Changed = checkBoxStatesChanged;
   }
   function isSideMenuContentOpen(element, closed) {
     return closed && element === null ? false : element === null || element.style.display !== "none";
@@ -6876,6 +6909,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.workingDaysText = getDefaultString(_options.workingDaysText, "Working Days");
     _options.weekendDaysText = getDefaultString(_options.weekendDaysText, "Weekend Days");
     _options.showAsBusyText = getDefaultString(_options.showAsBusyText, "Show As Busy");
+    _options.selectAllText = getDefaultString(_options.selectAllText, "Select All");
+    _options.selectNoneText = getDefaultString(_options.selectNoneText, "Select None");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);

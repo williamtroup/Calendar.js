@@ -251,3 +251,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | workingDaysText | The text that should be displayed for the "Working Days" label. |
 | *string* | weekendDaysText | The text that should be displayed for the "Weekend Days" label. |
 | *string* | showAsBusyText | The text that should be displayed for the "Show As Busy" label. |
+| *string* | selectAllText | The text that should be displayed for the "Select All" label. |
+| *string* | selectNoneText | The text that should be displayed for the "Select None" label. |
