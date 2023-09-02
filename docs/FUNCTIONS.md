@@ -246,7 +246,7 @@ Removes all events (non-repeating) that have expired.
 <br>
 <h1>Add/Remove Event Types:</h1>
 
-### **addEventType( *[id]*, *[text]* )**:
+### **addEventType( *id*, *text* )**:
 Adds a new event type.
 <br>
 ***Parameter: id***: '*number*' - The ID for the event type.
@@ -255,14 +255,14 @@ Adds a new event type.
 <br>
 ***Returns***: '*boolean*' - States if the event type was added.
 
-### **removeEventType( *[id]* )**:
+### **removeEventType( *id* )**:
 Removes an event type.
 <br>
 ***Parameter: id***: '*number*' - The ID for the event type to remove.
 <br>
 ***Returns***: '*boolean*' - States if the event type was removed.
 
-### **setVisibleEventTypes( *[ids]*, *[triggerEvent]* )**:
+### **setVisibleEventTypes( *ids*, *[triggerEvent]* )**:
 Set which events types are visible.
 <br>
 ***Fires***:  onVisibleEventTypesChanged
@@ -300,7 +300,7 @@ Removes a group by name.
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onGroupRemoved" event should be triggered (defaults to true).
 
-### **setVisibleGroups( *[groupNames]*, *[triggerEvent]* )**:
+### **setVisibleGroups( *groupNames*, *[triggerEvent]* )**:
 Set which groups are visible.
 <br>
 ***Fires***:  onVisibleGroupsChanged
