@@ -81,7 +81,7 @@ Sets the current date that is being used in DatePicker mode.
 <br>
 ***Parameter: date***: '*Object*' - The Date() object to set.
 
-### **exportAllEvents( *type* )**:
+### **exportAllEvents( *[type]* )**:
 Exports all the events into a downloadable file.
 <br>
 ***Fires***:  onEventsExported
