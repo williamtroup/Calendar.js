@@ -29,17 +29,17 @@ Fires when an event is removed.
 ### **options.onEventsAdded( *events* )**:
 Fires when an events are added.
 <br>
-***Parameter: event***: '*Event[]*' - The array of events.
+***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsUpdated( *events* )**:
 Fires when an events are updated.
 <br>
-***Parameter: event***: '*Event[]*' - The array of events.
+***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsSet( *events* )**:
 Fires when an events are set (all all other events are cleared).
 <br>
-***Parameter: event***: '*Event[]*' - The array of events.
+***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsSetFromJSON( *json* )**:
 Fires when an events are set from JSON (all all other events are cleared).
