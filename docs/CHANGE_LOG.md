@@ -5,6 +5,7 @@
 - Fixed some mistakes in the documentation (CLASS.md, CUSTOM_TRIGGERS.md, FUNCTIONS.md, SEARCH_OPTIONS.md).
 - Added "Select All" and "Select None" buttons to the side menu sections (only visible when a section is open).
 - Increased the width of the side menu slight for desktop and mobile devices (to give a bit more room for the new section buttons).
+- When pressing escape, if events are copied and another view is opened, the events copied are cleared as the first action (the view will remain open).
 - 
 
 <br>

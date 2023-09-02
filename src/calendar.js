@@ -2377,6 +2377,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
+        if ( !done ) {
+            done = hideSearchDialog();
+        }
+
+        if ( !done && _copiedEventDetails.length > 0 ) {
+            setCopiedEventsClasses();
+
+            _copiedEventDetails = [];
+            _copiedEventDetails_Cut = false;
+
+            done = true;
+        }
+
         if ( !done && ( isOverlayVisible( _element_FullDayView ) || isOverlayVisible( _element_ListAllEventsView ) || isOverlayVisible( _element_ListAllWeekEventsView ) ) ) {
             hideOverlay( _element_FullDayView );
             hideOverlay( _element_ListAllEventsView );
@@ -2390,17 +2403,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             stopFullDayEventSizeTracking();
             
             done = true;
-        }
-
-        if ( !done ) {
-            done = hideSearchDialog();
-        }
-
-        if ( !done && _copiedEventDetails.length > 0 ) {
-            setCopiedEventsClasses();
-
-            _copiedEventDetails = [];
-            _copiedEventDetails_Cut = false;
         }
 
         return done;
