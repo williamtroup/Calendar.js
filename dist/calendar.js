@@ -1025,11 +1025,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     documentBodyFunc("mousemove", onMoveDocumentMouseMove);
     documentBodyFunc("mouseleave", onMoveDocumentMouseLeave);
     documentFunc("scroll", hideAllDropDowns);
-    documentFunc("keydown", onWindowKeyDown);
     windowFunc("resize", hideAllDropDowns);
     windowFunc("resize", centerSearchDialog);
     windowFunc("resize", onWindowResizeRefreshViews);
     windowFunc("blur", onWindowFocusOut);
+    if (_options.shortcutKeysEnabled) {
+      documentFunc("keydown", onWindowKeyDown);
+    }
   }
   function onDocumentClick(e) {
     hideAllDropDowns();
@@ -6662,6 +6664,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showSideMenuWeekendDays = getDefaultBoolean(_options.showSideMenuWeekendDays, true);
     _options.startOfWeekDay = getDefaultNumber(_options.startOfWeekDay, _day.monday);
     _options.useLocalStorageForEvents = getDefaultBoolean(_options.useLocalStorageForEvents, false);
+    _options.shortcutKeysEnabled = getDefaultBoolean(_options.shortcutKeysEnabled, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];

@@ -353,6 +353,7 @@
  * @property    {boolean}   showSideMenuWeekendDays                     States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
  * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
  * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
+ * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
  */
 
 
@@ -2139,11 +2140,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         documentBodyFunc( "mousemove", onMoveDocumentMouseMove );
         documentBodyFunc( "mouseleave", onMoveDocumentMouseLeave );
         documentFunc( "scroll", hideAllDropDowns );
-        documentFunc( "keydown", onWindowKeyDown );
         windowFunc( "resize", hideAllDropDowns );
         windowFunc( "resize", centerSearchDialog );
         windowFunc( "resize", onWindowResizeRefreshViews );
         windowFunc( "blur", onWindowFocusOut );
+
+        if ( _options.shortcutKeysEnabled ) {
+            documentFunc( "keydown", onWindowKeyDown );
+        }
     }
 
     function onDocumentClick( e ) {
@@ -11060,6 +11064,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showSideMenuWeekendDays = getDefaultBoolean( _options.showSideMenuWeekendDays, true );
         _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _day.monday );
         _options.useLocalStorageForEvents = getDefaultBoolean( _options.useLocalStorageForEvents, false );
+        _options.shortcutKeysEnabled = getDefaultBoolean( _options.shortcutKeysEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

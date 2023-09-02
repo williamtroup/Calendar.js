@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.3.1:
+- Added new setting "shortcutKeysEnabled" (defaults to true), which states if the shortcut keys are enabled (always off in DatePicker mode).
 - 
 
 <br>
