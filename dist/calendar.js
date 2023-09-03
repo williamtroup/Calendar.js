@@ -1085,14 +1085,17 @@ function calendarJs(elementOrId, options, searchOptions) {
       refreshViews(true, false);
     }, 50, false);
   }
-  function hideAllDropDowns() {
+  function hideAllDropDowns(hideSearchHistoryDropDown) {
+    hideSearchHistoryDropDown = isDefined(hideSearchHistoryDropDown) ? hideSearchHistoryDropDown : true;
     hideDropDownMenu(_element_DropDownMenu_Day);
     hideDropDownMenu(_element_DropDownMenu_Event);
     hideDropDownMenu(_element_DropDownMenu_FullDay);
     hideDropDownMenu(_element_DropDownMenu_HeaderDay);
-    hideSearchHistoryDropDownMenu();
     hideYearSelectorDropDown();
     hideTooltip();
+    if (hideSearchHistoryDropDown) {
+      hideSearchHistoryDropDownMenu();
+    }
   }
   function onWindowKeyDown(e) {
     if (!_datePickerModeEnabled) {
@@ -1196,7 +1199,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function closeActiveDialog() {
     var done = false;
-    hideAllDropDowns();
+    hideAllDropDowns(false);
     if (_openDialogs.length > 0) {
       var lastFunc = _openDialogs[_openDialogs.length - 1];
       if (isFunction(lastFunc)) {
@@ -1204,6 +1207,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         lastFunc(false);
       }
       done = true;
+    }
+    if (!done) {
+      done = hideSearchHistoryDropDownMenu();
     }
     if (!done) {
       done = hideSearchDialog();
@@ -4865,13 +4871,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     };
   }
   function hideSearchHistoryDropDownMenu() {
-    if (_element_SearchDialog_History_DropDown !== null) {
+    var closed = false;
+    if (_element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-up-full") {
       _element_SearchDialog_History_DropDown.style.display = "none";
       _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-down-full";
+      closed = true;
     }
+    return closed;
   }
   function showSearchHistoryDropDownMenu() {
-    if (_element_SearchDialog_History_DropDown !== null) {
+    if (_element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-down-full") {
       _element_SearchDialog_History_DropDown.style.display = "block";
       _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-up-full";
     }
