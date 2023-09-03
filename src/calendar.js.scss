@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.3.0
+ * Calendar.js Library v2.3.1
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -595,11 +595,28 @@ div.calendar {
                     margin-bottom: 0;
                     cursor: pointer;
 
+                    div.button-divider-line,
+                    div.ib-arrow-down-full,
+                    div.ib-arrow-up-full,
+                    div.ib-square,
+                    div.ib-square-hollow {
+                        float: right;
+                        margin-top: 1px;
+                        margin-right: $spacing;
+
+                        &:first-of-type {
+                            margin-right: 0;
+                        }
+                    }
+
+                    div.button-divider-line {
+                        width: 1px;
+                        background-color: var(--light-color);
+                        height: 16px;
+                    }
+
                     div.ib-arrow-down-full,
                     div.ib-arrow-up-full {
-                        position: absolute;
-                        right: $spacing;
-                        top: $spacing;
                         pointer-events: none;
                     }
 
@@ -2239,6 +2256,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/forward";
 @import "foundation/buttons/arrow-down-full";
 @import "foundation/buttons/arrow-up-full";
+@import "foundation/buttons/square";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

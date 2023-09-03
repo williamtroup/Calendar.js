@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.3.0
+ * @version     v2.3.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -286,6 +286,8 @@
  * @property    {string}    workingDaysText                             The text that should be displayed for the "Working Days" label.
  * @property    {string}    weekendDaysText                             The text that should be displayed for the "Weekend Days" label.
  * @property    {string}    showAsBusyText                              The text that should be displayed for the "Show As Busy" label.
+ * @property    {string}    selectAllText                               The text that should be displayed for the "Select All" label.
+ * @property    {string}    selectNoneText                              The text that should be displayed for the "Select None" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -353,6 +355,7 @@
  * @property    {boolean}   showSideMenuWeekendDays                     States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
  * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
  * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
+ * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
  */
 
 
@@ -1501,13 +1504,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content_Section_WeekendDays_Content = createElement( "div", "checkbox-container" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_WeekendDays );
 
-        buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_WeekendDays, _element_SideMenu_Content_Section_WeekendDays_Content, _options.weekendDaysText, opened );
-
-        _element_SideMenu_Content_Section_WeekendDays.appendChild( _element_SideMenu_Content_Section_WeekendDays_Content );
-
         var dayIndex = 1,
             dayEndIndex = 8,
-            processOtherDays = false;
+            processOtherDays = false,
+            checkBoxes = [];
+
+        buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_WeekendDays, _element_SideMenu_Content_Section_WeekendDays_Content, _options.weekendDaysText, opened, checkBoxes );
+
+        _element_SideMenu_Content_Section_WeekendDays.appendChild( _element_SideMenu_Content_Section_WeekendDays_Content );
 
         if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
             dayIndex = _options.startOfWeekDay + 1;
@@ -1518,7 +1522,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var actualDayIndex1 = dayIndex > 6 ? 0 : dayIndex,
                 visible1 = _options.weekendDays.indexOf( actualDayIndex1 ) > -1;
 
-            buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex1.toString(), visible1, null, cancelBubbleOnly );
+            checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex1.toString(), visible1, null, cancelBubbleOnly )[ 0 ] );
         }
 
         if ( processOtherDays ) {
@@ -1529,7 +1533,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var actualDayIndex2 = dayIndex > 6 ? 0 : dayIndex,
                     visible2 = _options.weekendDays.indexOf( actualDayIndex2 ) > -1;
     
-                buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly );
+                checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly )[ 0 ] );
             }
         }
     }
@@ -1541,13 +1545,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content_Section_WorkingDays_Content = createElement( "div", "checkbox-container" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_WorkingDays );
 
-        buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_WorkingDays, _element_SideMenu_Content_Section_WorkingDays_Content, _options.workingDaysText, opened );
-
-        _element_SideMenu_Content_Section_WorkingDays.appendChild( _element_SideMenu_Content_Section_WorkingDays_Content );
-
         var dayIndex = 0,
             dayEndIndex = 7,
-            processOtherDays = false;
+            processOtherDays = false,
+            checkBoxes = [];
+
+        buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_WorkingDays, _element_SideMenu_Content_Section_WorkingDays_Content, _options.workingDaysText, opened, checkBoxes );
+
+        _element_SideMenu_Content_Section_WorkingDays.appendChild( _element_SideMenu_Content_Section_WorkingDays_Content );
 
         if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
             dayIndex = _options.startOfWeekDay;
@@ -1557,7 +1562,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
             var visible1 = _options.workingDays.indexOf( dayIndex ) > -1;
 
-            buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly );
+            checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly )[ 0 ] );
         }
 
         if ( processOtherDays ) {
@@ -1567,7 +1572,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
                 var visible2 = _options.workingDays.indexOf( dayIndex ) > -1;
     
-                buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly );
+                checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly )[ 0 ] );
             }
         }
     }
@@ -1582,12 +1587,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             groupsLength = groups.length;
 
         if ( groupsLength > 0 ) {
+            var checkBoxes = [];
+            
             _element_SideMenu_Content_Section_Groups = createElement( "div", "content-section content-section-opened" );
             _element_SideMenu_Content_Section_Groups_Content = createElement( "div", "checkbox-container" );
 
             _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Groups );
 
-            buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_Groups, _element_SideMenu_Content_Section_Groups_Content, _options.groupsText, opened );
+            buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_Groups, _element_SideMenu_Content_Section_Groups_Content, _options.groupsText, opened, checkBoxes );
 
             _element_SideMenu_Content_Section_Groups.appendChild( _element_SideMenu_Content_Section_Groups_Content );
 
@@ -1600,7 +1607,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleGroups.indexOf( configGroupName ) > -1;
                 }
     
-                buildCheckBox( _element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly );
+                checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly )[ 0 ] );
             }
         }
     }
@@ -1611,7 +1618,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content_Section_EventTypes = null;
         _element_SideMenu_Content_Section_EventTypes_Content = null;
 
-        var sectionAndHeaderAdded = false;
+        var sectionAndHeaderAdded = false,
+            checkBoxes = [];
 
         for ( var eventType in _eventType ) {
             if ( _eventType.hasOwnProperty( eventType ) ) {
@@ -1621,7 +1629,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
                     _element_SideMenu_Content_Section_EventTypes_Content = createElement( "div", "checkbox-container" );
             
-                    buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_EventTypes, _element_SideMenu_Content_Section_EventTypes_Content, _options.eventTypesText, opened );
+                    buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_EventTypes, _element_SideMenu_Content_Section_EventTypes_Content, _options.eventTypesText, opened, checkBoxes );
             
                     _element_SideMenu_Content_Section_EventTypes.appendChild( _element_SideMenu_Content_Section_EventTypes_Content );
 
@@ -1634,7 +1642,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     visible = _configuration.visibleEventTypes.indexOf( parseInt( eventType ) ) > -1;
                 }
 
-                buildCheckBox( _element_SideMenu_Content_Section_EventTypes_Content, _eventType[ eventType ].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly );
+                checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_EventTypes_Content, _eventType[ eventType ].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly )[ 0 ] );
             }
         }
     }
@@ -1646,13 +1654,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_SideMenu_Content_Section_Days_Content = createElement( "div", "checkbox-container" );
         _element_SideMenu_Content.appendChild( _element_SideMenu_Content_Section_Days );
 
-        buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_Days, _element_SideMenu_Content_Section_Days_Content, _options.sideMenuDaysText, opened );
-
-        _element_SideMenu_Content_Section_Days.appendChild( _element_SideMenu_Content_Section_Days_Content );
-
         var dayIndex = 0,
             dayEndIndex = 7,
-            processOtherDays = false;
+            processOtherDays = false,
+            checkBoxes = [];
+
+        buildSideMenuHeaderAndContentOpener( _element_SideMenu_Content_Section_Days, _element_SideMenu_Content_Section_Days_Content, _options.sideMenuDaysText, opened, checkBoxes );
+
+        _element_SideMenu_Content_Section_Days.appendChild( _element_SideMenu_Content_Section_Days_Content );
 
         if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
             dayIndex = _options.startOfWeekDay;
@@ -1662,7 +1671,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
             var visible1 = _options.visibleDays.indexOf( dayIndex ) > -1;
 
-            buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly );
+            checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly )[ 0 ] );
         }
 
         if ( processOtherDays ) {
@@ -1672,12 +1681,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( ; dayIndex < dayEndIndex; dayIndex++ ) {
                 var visible2 = _options.visibleDays.indexOf( dayIndex ) > -1;
     
-                buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly );
+                checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly )[ 0 ] );
             }
         }
     }
 
-    function buildSideMenuHeaderAndContentOpener( mainContainer, mainContent, text, opened ) {
+    function buildSideMenuHeaderAndContentOpener( mainContainer, mainContent, text, opened, checkBoxes ) {
         var header = createElement( "div", "text-header" );
         mainContainer.appendChild( header );
 
@@ -1686,6 +1695,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var arrow = createElement( "div", "ib-arrow-up-full" );
         header.appendChild( arrow );
 
+        var buttonDividerLine = createElement( "div", "button-divider-line" );
+        header.appendChild( buttonDividerLine );
+
+        var selectAll = buildToolbarButton( header, "ib-square", _options.selectAllText, function( e ) {
+            changeCheckboxesCheckedState( e, checkBoxes, true );
+        } );
+
+        var selectNone = buildToolbarButton( header, "ib-square-hollow", _options.selectNoneText, function( e ) {
+            changeCheckboxesCheckedState( e, checkBoxes, false );
+        } );
+
         header.onclick = function() {
             var isClosed = mainContent.style.display === "none";
 
@@ -1693,6 +1713,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             mainContent.style.display = isClosed ? "block" : "none";
             arrow.className = isClosed ? "ib-arrow-up-full" : "ib-arrow-down-full";
             mainContainer.className = isClosed ? "content-section content-section-opened" : "content-section";
+            buttonDividerLine.style.display = isClosed ? "block" : "none";
+            selectAll.style.display = isClosed ? "block" : "none";
+            selectNone.style.display = isClosed ? "block" : "none";
         };
 
         if ( !opened ) {
@@ -1700,7 +1723,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
             header.className = "text-header-closed";
             arrow.className = "ib-arrow-down-full";
             mainContainer.className = "content-section";
+            buttonDividerLine.style.display = "none";
+            selectAll.style.display = "none";
+            selectNone.style.display = "none";
         }
+
+        return [ selectAll, selectNone ];
+    }
+
+    function changeCheckboxesCheckedState( e, checkBoxes, state ) {
+        cancelBubble( e );
+
+        var checkBoxesLength = checkBoxes.length,
+            checkBoxStatesChanged = false;
+
+        for ( var checkBoxIndex = 0; checkBoxIndex < checkBoxesLength; checkBoxIndex++ ) {
+            if ( checkBoxes[ checkBoxIndex ].checked !== state ) {
+                checkBoxes[ checkBoxIndex ].checked = state;
+                checkBoxStatesChanged = true;
+            }
+        }
+
+        _element_SideMenu_Changed = checkBoxStatesChanged;
     }
 
     function isSideMenuContentOpen( element, closed ) {
@@ -2139,11 +2183,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         documentBodyFunc( "mousemove", onMoveDocumentMouseMove );
         documentBodyFunc( "mouseleave", onMoveDocumentMouseLeave );
         documentFunc( "scroll", hideAllDropDowns );
-        documentFunc( "keydown", onWindowKeyDown );
         windowFunc( "resize", hideAllDropDowns );
         windowFunc( "resize", centerSearchDialog );
         windowFunc( "resize", onWindowResizeRefreshViews );
         windowFunc( "blur", onWindowFocusOut );
+
+        if ( _options.shortcutKeysEnabled ) {
+            documentFunc( "keydown", onWindowKeyDown );
+        }
     }
 
     function onDocumentClick( e ) {
@@ -2330,6 +2377,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
+        if ( !done ) {
+            done = hideSearchDialog();
+        }
+
+        if ( !done && _copiedEventDetails.length > 0 ) {
+            setCopiedEventsClasses();
+
+            _copiedEventDetails = [];
+            _copiedEventDetails_Cut = false;
+
+            done = true;
+        }
+
         if ( !done && ( isOverlayVisible( _element_FullDayView ) || isOverlayVisible( _element_ListAllEventsView ) || isOverlayVisible( _element_ListAllWeekEventsView ) ) ) {
             hideOverlay( _element_FullDayView );
             hideOverlay( _element_ListAllEventsView );
@@ -2343,17 +2403,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             stopFullDayEventSizeTracking();
             
             done = true;
-        }
-
-        if ( !done ) {
-            done = hideSearchDialog();
-        }
-
-        if ( !done && _copiedEventDetails.length > 0 ) {
-            setCopiedEventsClasses();
-
-            _copiedEventDetails = [];
-            _copiedEventDetails_Cut = false;
         }
 
         return done;
@@ -6561,6 +6610,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ExportEventsDialog_Filename.placeholder = _options.exportFilenamePlaceholderText;
             contents.appendChild( _element_ExportEventsDialog_Filename );
 
+            _element_ExportEventsDialog_Filename.onkeydown = function( e ) {
+                if ( e.keyCode === _keyCodes.enter ) {
+                    exportEventsFromOptionSelected();
+                }
+            };
+
             _element_ExportEventsDialog_Option_ExportEventsToClipboard = buildCheckBox( contents, _options.copyToClipboardOnlyText, showExportEventsDialogOptions )[ 0 ];
 
             _element_ExportEventsDialog_Options = createElement( "div", "split options" );
@@ -8795,17 +8850,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( type === "csv" ) {
             contents = getCsvContents( contentsEvents );
         } else if ( type === "xml" ) {
-            contents = getXmlContents( contentsEvents );
+            contents = getXmlContents( contentsEvents, filename );
         } else if ( type === "json" ) {
             contents = getJsonContents( contentsEvents );
         } else if ( type === "text" ) {
-            contents = getTextContents( contentsEvents );
+            contents = getTextContents( contentsEvents, filename );
         } else if ( type === "ical" ) {
             contents = getICalContents( contentsEvents );
         } else if ( type === "md" ) {
             contents = getMdContents( contentsEvents );
         } else if ( type === "html" ) {
-            contents = getHtmlContents( contentsEvents );
+            contents = getHtmlContents( contentsEvents, filename );
         } else if ( type === "tsv" ) {
             contents = getTsvContents( contentsEvents );
         }
@@ -9133,6 +9188,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return propertyNames;
     }
 
+    function getExportDateTime() {
+        var dateExported = new Date(),
+            dateExportedMeta = getCustomFormattedDateText( "{ddd}, {dd} {mmm} {yyyy}", dateExported );
+
+        dateExportedMeta += " " + padNumber( dateExported.getHours() ) + ":" + padNumber( dateExported.getMinutes() ) + ":" + padNumber( dateExported.getSeconds() );
+
+        return dateExportedMeta;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -9191,11 +9255,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getXmlContents( orderedEvents ) {
+    function getXmlContents( orderedEvents, filename ) {
         var contents = [],
             orderedEventLength = orderedEvents.length;
 
         contents.push( "<?xml version=\"1.0\" ?>" );
+        contents.push( "<Calendar>" );
+
+        if ( isDefined( filename ) ) {
+            contents.push( "<Filename>" + filename + "</Filename>" );
+        }
+
+        contents.push( "<LastModified>" + getExportDateTime() + "</LastModified>" );
+        contents.push( "</Calendar>" );
         contents.push( "<Events>" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
@@ -9275,9 +9347,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getTextContents( orderedEvents ) {
+    function getTextContents( orderedEvents, filename ) {
         var contents = [],
             orderedEventLength = orderedEvents.length;
+
+        if ( isDefined( filename) ) {
+            contents.push( "Filename: " + filename );
+        }
+
+        contents.push( "Last Modified: " + getExportDateTime() );
+        contents.push( _string.empty );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
             var orderedEvent = orderedEvents[ orderedEventIndex ],
@@ -9389,7 +9468,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( isDefinedString( orderedEvent.group ) ) {
                 contents.push( "CATEGORIES:" + getICalSingleLine( orderedEvent.group ) );
             }
-            
+
+            if ( !isDefinedBoolean( orderedEvent.showAlerts ) || orderedEvent.showAlerts ) {
+                contents.push( "BEGIN:VALARM" );
+                contents.push( "TRIGGER;VALUE=DATE-TIME:" + getICalDateTimeString( orderedEvent.from ) );
+                contents.push( "ACTION:DISPLAY" );
+                contents.push( "END:VALARM" );
+            }
+
             contents.push( "END:VEVENT" );
         }
 
@@ -9514,11 +9600,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function getHtmlContents( orderedEvents ) {
+    function getHtmlContents( orderedEvents, filename ) {
         var contents = [],
             orderedEventLength = orderedEvents.length;
 
+        contents.push( "<!DOCTYPE html>" );
         contents.push( "<html>" );
+        contents.push( "<head>" );
+        contents.push( "<meta charset=\"utf-8\" />" );
+        contents.push( "<meta http-equiv=\"Last-Modified\" content=\"" + getExportDateTime() + " GMT\" />" );
+
+        if ( isDefined( filename ) ) {
+            contents.push( "<title>" + filename + "</title>" );
+        }
+        
+        contents.push( "</head>" );
         contents.push( "<body>" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
@@ -10811,7 +10907,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.3.0";
+        return "2.3.1";
     };
 
     /**
@@ -11060,6 +11156,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showSideMenuWeekendDays = getDefaultBoolean( _options.showSideMenuWeekendDays, true );
         _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _day.monday );
         _options.useLocalStorageForEvents = getDefaultBoolean( _options.useLocalStorageForEvents, false );
+        _options.shortcutKeysEnabled = getDefaultBoolean( _options.shortcutKeysEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -11332,6 +11429,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.workingDaysText = getDefaultString( _options.workingDaysText, "Working Days" );
         _options.weekendDaysText = getDefaultString( _options.weekendDaysText, "Weekend Days" );
         _options.showAsBusyText = getDefaultString( _options.showAsBusyText, "Show As Busy" );
+        _options.selectAllText = getDefaultString( _options.selectAllText, "Select All" );
+        _options.selectNoneText = getDefaultString( _options.selectNoneText, "Select None" );
     }
 
     function setEventTypeTranslationStringOptions() {
