@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.3.2
+ * @version     v2.3.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -2364,7 +2364,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var done = false;
 
         hideAllDropDowns();
-        clearSelectedEvents();
 
         if ( _openDialogs.length > 0 ) {
             var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
@@ -2379,6 +2378,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( !done ) {
             done = hideSearchDialog();
+        }
+
+        if ( !done ) {
+            done = clearSelectedEvents();
         }
 
         if ( !done && _copiedEventDetails.length > 0 ) {
@@ -8060,13 +8063,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function clearSelectedEvents() {
-        var eventsSelectedLength = _eventsSelected.length;
+        var cleared = false,
+            eventsSelectedLength = _eventsSelected.length;
 
-        for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
-            updateEventClasses( _eventsSelected[ eventsSelectedIndex ].id, "selected-event", true );
+        if ( eventsSelectedLength > 0 ) {
+            for ( var eventsSelectedIndex = 0; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++ ) {
+                updateEventClasses( _eventsSelected[ eventsSelectedIndex ].id, "selected-event", true );
+            }
+    
+            cleared = true;
+            _eventsSelected = [];
         }
 
-        _eventsSelected = [];
+        return cleared;
     }
 
     function setCopiedEventsFromKeyDown( cut ) {
@@ -10907,7 +10916,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.3.2";
+        return "2.3.1";
     };
 
     /**

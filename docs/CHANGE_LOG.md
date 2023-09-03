@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.3.2:
+- When pressing escape, if events are selected and another view is opened, the events selected are cleared as the first action (the view will remain open).
 - 
 
 <br>

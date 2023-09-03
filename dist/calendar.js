@@ -1197,7 +1197,6 @@ function calendarJs(elementOrId, options, searchOptions) {
   function closeActiveDialog() {
     var done = false;
     hideAllDropDowns();
-    clearSelectedEvents();
     if (_openDialogs.length > 0) {
       var lastFunc = _openDialogs[_openDialogs.length - 1];
       if (isFunction(lastFunc)) {
@@ -1208,6 +1207,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (!done) {
       done = hideSearchDialog();
+    }
+    if (!done) {
+      done = clearSelectedEvents();
     }
     if (!done && _copiedEventDetails.length > 0) {
       setCopiedEventsClasses();
@@ -5451,12 +5453,17 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function clearSelectedEvents() {
+    var cleared = false;
     var eventsSelectedLength = _eventsSelected.length;
-    var eventsSelectedIndex = 0;
-    for (; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++) {
-      updateEventClasses(_eventsSelected[eventsSelectedIndex].id, "selected-event", true);
+    if (eventsSelectedLength > 0) {
+      var eventsSelectedIndex = 0;
+      for (; eventsSelectedIndex < eventsSelectedLength; eventsSelectedIndex++) {
+        updateEventClasses(_eventsSelected[eventsSelectedIndex].id, "selected-event", true);
+      }
+      cleared = true;
+      _eventsSelected = [];
     }
-    _eventsSelected = [];
+    return cleared;
   }
   function setCopiedEventsFromKeyDown(cut) {
     _copiedEventDetails = [];
@@ -7751,7 +7758,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.3.2";
+    return "2.3.1";
   };
   this.getId = function() {
     return _elementID;
