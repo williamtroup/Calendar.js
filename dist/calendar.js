@@ -7767,7 +7767,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.3.1";
+    return "2.3.2";
   };
   this.getId = function() {
     return _elementID;
