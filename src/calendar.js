@@ -9839,6 +9839,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         clearElementsByClassName( _document.body, "calendar-tooltip-event" );
         clearElementsByClassName( _document.body, "calendar-notification" );
 
+        if ( _datePickerModeEnabled ) {
+            _document.removeEventListener( "click", hideDatePickerMode );
+        }
+
+        if ( _options.tooltipsEnabled ) {
+            document.body.removeEventListener( "mousemove", hideTooltip );
+        }
+
         _element_Calendar.className = _string.empty;
         _element_Calendar.innerHTML = _string.empty;
 

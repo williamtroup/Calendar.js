@@ -3,6 +3,8 @@
 ## Version 2.3.2:
 - When pressing escape, if events are selected and another view is opened, the events selected are cleared as the first action (the view will remain open).
 - When pressing escape, if the "Search" dialogs search history drop down is open, it is closed (instead of closing the dialog itself).
+- Fixed a fault that prevented the documents "mousemove" event for tooltips not being removed when the calendar is destroyed.
+- Fixed a fault that prevented the documents "click" event (when DatePicker mode is enabled) not being removed when the calendar is destroyed.
 - 
 
 <br>
