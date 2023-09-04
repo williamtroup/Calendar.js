@@ -2140,10 +2140,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function hideYearSelectorDropDown() {
+        var closed = false;
+
         if ( isYearSelectorDropDownVisible() ) {
             _element_HeaderDateDisplay_YearSelector_DropDown_Arrow.className = "ib-arrow-down-full-medium";
             _element_HeaderDateDisplay_YearSelector.style.display = "none";
+            closed = true;
         }
+
+        return closed;
     }
 
     function isYearSelectorDropDownVisible() {
@@ -2179,11 +2184,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             windowFunc = addEvents ? _window.addEventListener : _window.removeEventListener;
 
         documentBodyFunc( "click", onDocumentClick );
-        documentBodyFunc( "contextmenu", hideAllDropDowns );
+        documentBodyFunc( "contextmenu", onEventHideAllDropDowns );
         documentBodyFunc( "mousemove", onMoveDocumentMouseMove );
         documentBodyFunc( "mouseleave", onMoveDocumentMouseLeave );
-        documentFunc( "scroll", hideAllDropDowns );
-        windowFunc( "resize", hideAllDropDowns );
+        documentFunc( "scroll", onEventHideAllDropDowns );
+        windowFunc( "resize", onEventHideAllDropDowns );
         windowFunc( "resize", centerSearchDialog );
         windowFunc( "resize", onWindowResizeRefreshViews );
         windowFunc( "blur", onWindowFocusOut );
@@ -2218,19 +2223,42 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }, 50, false );
     }
 
+    function onEventHideAllDropDowns() {
+        hideAllDropDowns();
+    }
+
     function hideAllDropDowns( hideSearchHistoryDropDown ) {
+        var itemClosed = false;
+
         hideSearchHistoryDropDown = isDefined( hideSearchHistoryDropDown ) ? hideSearchHistoryDropDown : true;
 
-        hideDropDownMenu( _element_DropDownMenu_Day );
-        hideDropDownMenu( _element_DropDownMenu_Event );
-        hideDropDownMenu( _element_DropDownMenu_FullDay );
-        hideDropDownMenu( _element_DropDownMenu_HeaderDay );
-        hideYearSelectorDropDown();
+        if ( hideDropDownMenu( _element_DropDownMenu_Day ) ) {
+            itemClosed = true;
+        }
+
+        if ( hideDropDownMenu( _element_DropDownMenu_Event ) ) {
+            itemClosed = true;
+        }
+
+        if ( hideDropDownMenu( _element_DropDownMenu_FullDay ) ) {
+            itemClosed = true;
+        }
+
+        if ( hideDropDownMenu( _element_DropDownMenu_HeaderDay ) ) {
+            itemClosed = true;
+        }
+
+        if ( hideYearSelectorDropDown() ) {
+            itemClosed = true;
+        }
+
         hideTooltip();
 
         if ( hideSearchHistoryDropDown ) {
             hideSearchHistoryDropDownMenu();
         }
+
+        return itemClosed;
     }
 
     function onWindowKeyDown( e ) {
@@ -2366,11 +2394,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function closeActiveDialog() {
-        var done = false;
+        var done = hideAllDropDowns( false );
 
-        hideAllDropDowns( false );
-
-        if ( _openDialogs.length > 0 ) {
+        if ( !done && _openDialogs.length > 0 ) {
             var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
 
             if ( isFunction( lastFunc ) ) {    
@@ -5639,9 +5665,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function hideDropDownMenu( element ) {
+        var closed = false;
+
         if ( isDropDownMenuVisible( element ) ) {
             element.style.display = "none";
+            closed = true;
         }
+
+        return closed;
     }
 
     function isDropDownMenuVisible( element ) {
