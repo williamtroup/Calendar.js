@@ -2396,6 +2396,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function closeActiveDialog() {
         var done = hideAllDropDowns( false );
 
+        if ( !done ) {
+            done = hideSearchHistoryDropDownMenu();
+        }
+
         if ( !done && _openDialogs.length > 0 ) {
             var lastFunc = _openDialogs[ _openDialogs.length - 1 ];
 
@@ -2405,10 +2409,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             done = true;
-        }
-
-        if ( !done ) {
-            done = hideSearchHistoryDropDownMenu();
         }
 
         if ( !done ) {

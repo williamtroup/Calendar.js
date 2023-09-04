@@ -1217,6 +1217,9 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function closeActiveDialog() {
     var done = hideAllDropDowns(false);
+    if (!done) {
+      done = hideSearchHistoryDropDownMenu();
+    }
     if (!done && _openDialogs.length > 0) {
       var lastFunc = _openDialogs[_openDialogs.length - 1];
       if (isFunction(lastFunc)) {
@@ -1224,9 +1227,6 @@ function calendarJs(elementOrId, options, searchOptions) {
         lastFunc(false);
       }
       done = true;
-    }
-    if (!done) {
-      done = hideSearchHistoryDropDownMenu();
     }
     if (!done) {
       done = hideSearchDialog();
