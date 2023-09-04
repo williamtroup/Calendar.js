@@ -5,7 +5,7 @@
  * Released under the GNU AGPLv3 license
  */
 :root {
-  --dark-color: #282828;
+  --dark-color: #3b3a3a;
   --light-color: #F5F5F5;
   --day-date-picker-hover-color: #a7a7a7;
   --grid-border-color: #B0B0B0;
@@ -18,13 +18,21 @@
   --area-disabled-stripped: rgba( 40, 40, 40, 0.1 );
   --area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
   --link-color: #2471A3;
-  --input-hover-color: #282828;
-  --primary-button-color: #282828;
-  --secondary-button-color: #282828;
+  --input-hover-color: #3b3a3a;
+  --primary-button-color: #3b3a3a;
+  --secondary-button-color: #3b3a3a;
   --tertiary-button-color: #6c757d;
   --drop-down-menu-background-color: #DCDCDC;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark-color: #282828;
+    --input-hover-color: #282828;
+    --primary-button-color: #282828;
+    --secondary-button-color: #282828;
+  }
+}
 /*
     -------------------------------------------------------------------------
     Calendar.js - Containers

@@ -4,7 +4,8 @@
 - Added working hours support! This is shown as a slightly darker area on the Full Day view.
 - Added new setting "workingHoursStart" (defaults to null), which states the time the working hours start (for example, "09:00").
 - Added new setting "workingHoursEnd" (defaults to null), which states the time the working hours end (for example, "17:00").
-- 
+- Added dark-mode CSS support for :root variables (in light-mode, a slightly lighter dark color is now used).
+-
 
 <br>
 
