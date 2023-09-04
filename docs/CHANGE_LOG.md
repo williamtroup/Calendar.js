@@ -6,7 +6,6 @@
 - Fixed a fault that prevented the documents "mousemove" event for tooltips not being removed when the calendar is destroyed.
 - Fixed a fault that prevented the documents "click" event (when DatePicker mode is enabled) not being removed when the calendar is destroyed.
 - When pressing escape, if a drop-down is open, the drop-down is closed as the first action.
-- 
 
 <br>
 
