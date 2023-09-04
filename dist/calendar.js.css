@@ -125,6 +125,7 @@ div.calendar-notification {
   width: auto;
   height: auto;
   display: none;
+  z-index: 2500;
 }
 div.calendar-notification div.ib-close-icon {
   margin-left: 20px;
@@ -1227,6 +1228,16 @@ div.calendar div.full-day-view div.contents div.event {
   width: calc( 100% - 70px - ( 10px * 6 ) - ( 10px / 2 ) );
   left: 100px;
   overflow: hidden;
+  z-index: 1;
+}
+div.calendar div.full-day-view div.contents div.working-hours {
+  position: absolute;
+  width: calc( 100% - 70px - ( 10px * 2 ) );
+  left: 90px;
+  background-color: rgba(40, 40, 40, 0.4);
+  display: none;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /*

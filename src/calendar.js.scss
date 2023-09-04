@@ -83,6 +83,7 @@ div.calendar-notification {
     width: auto;
     height: auto;
     display: none;
+    z-index: 2500;
 
     div.ib-close-icon {
         margin-left: calc( $spacing * 2 );
@@ -1129,6 +1130,17 @@ div.calendar {
                 width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 6 ) - ( #{$spacing} / 2 ) );
                 left: $time-hours-width + ( $spacing * 3 );
                 overflow: hidden;
+                z-index: 1;
+            }
+
+            div.working-hours {
+                position: absolute;
+                width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 2 ) );
+                left: $time-hours-width + ( $spacing * 2 );
+                background-color: rgba(  40, 40, 40, 0.4  );
+                display: none;
+                pointer-events: none;
+                z-index: 0;
             }
         }
     }
