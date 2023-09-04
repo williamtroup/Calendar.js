@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.3.3:
+- 
+
+<br>
+
 ## Version 2.3.2:
 - When pressing escape, if events are selected and another view is open, the events selected are cleared as the first action (the view will remain open).
 - When pressing escape, if the "Search" dialogs search history drop down is open, it is closed (instead of closing the dialog itself).
