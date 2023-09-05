@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.4.0:
+- 
+
+<br>
+
 ## Version 2.3.3:
 - Added working hours support! This is shown as a slightly darker area on the Full Day view.
 - Added new setting "workingHoursStart" (defaults to null), which states the time the working hours start (for example, "09:00").
