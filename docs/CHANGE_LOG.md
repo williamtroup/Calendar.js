@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.4.0:
+- Added new setting "reverseOrderDaysOfWeek" (defaults to false), which states if the days in the display should be reversed (this will allow for hebrew calender layouts).
 - 
 
 <br>

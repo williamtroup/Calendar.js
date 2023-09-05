@@ -75,6 +75,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | shortcutKeysEnabled | States if the shortcut keys are enabled (defaults to true). |
 | *string* | workingHoursStart | States when the time the working hours start (for example, "09:00", ane defaults to null). |
 | *string* | workingHoursEnd | States when the time the working hours end (for example, "17:00", ane defaults to null). |
+| *boolean* | reverseOrderDaysOfWeek | States if the days of the week should be reversed (for hebrew calendars, for example. Defaults to true). |
 <br/>
 
 ### Translatable String Options:
