@@ -3788,6 +3788,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_EventEditorDialog_Tab_Event.appendChild(inputTitleContainer);
     _element_EventEditorDialog_Title = createElement("input", null, "text");
     inputTitleContainer.appendChild(_element_EventEditorDialog_Title);
+    _element_EventEditorDialog_Title.onkeydown = function(e) {
+      if (e.keyCode === _keyCodes.enter) {
+        eventDialogEvent_OK();
+      }
+    };
     if (_options.maximumEventTitleLength > 0) {
       _element_EventEditorDialog_Title.maxLength = _options.maximumEventTitleLength;
     }
