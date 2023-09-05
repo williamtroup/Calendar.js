@@ -110,7 +110,10 @@
             onEventDragStop: onDragEventStop,
             onEventDragDrop: onDragEventDrop,
             workingDays: [ 2 ],
-            onBeforeEventAddEdit: null
+            onBeforeEventAddEdit: null,
+            startOfWeekDay: 6,
+            workingHoursStart: "09:00",
+            workingHoursEnd: "17:00"
         } );
 
         document.title += " - v" + calendarInstance.getVersion();

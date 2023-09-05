@@ -1,11 +1,11 @@
 /*
- * Calendar.js Library v2.3.2
+ * Calendar.js Library v2.3.3
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
  */
 :root {
-  --dark-color: #282828;
+  --dark-color: #3b3a3a;
   --light-color: #F5F5F5;
   --day-date-picker-hover-color: #a7a7a7;
   --grid-border-color: #B0B0B0;
@@ -18,13 +18,21 @@
   --area-disabled-stripped: rgba( 40, 40, 40, 0.1 );
   --area-disabled-stripped-weekend-day: rgba( 40, 40, 40, 0.2 );
   --link-color: #2471A3;
-  --input-hover-color: #282828;
-  --primary-button-color: #282828;
-  --secondary-button-color: #282828;
+  --input-hover-color: #3b3a3a;
+  --primary-button-color: #3b3a3a;
+  --secondary-button-color: #3b3a3a;
   --tertiary-button-color: #6c757d;
   --drop-down-menu-background-color: #DCDCDC;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark-color: #282828;
+    --input-hover-color: #282828;
+    --primary-button-color: #282828;
+    --secondary-button-color: #282828;
+  }
+}
 /*
     -------------------------------------------------------------------------
     Calendar.js - Containers
@@ -125,6 +133,7 @@ div.calendar-notification {
   width: auto;
   height: auto;
   display: none;
+  z-index: 2500;
 }
 div.calendar-notification div.ib-close-icon {
   margin-left: 20px;
@@ -1227,6 +1236,16 @@ div.calendar div.full-day-view div.contents div.event {
   width: calc( 100% - 70px - ( 10px * 6 ) - ( 10px / 2 ) );
   left: 100px;
   overflow: hidden;
+  z-index: 1;
+}
+div.calendar div.full-day-view div.contents div.working-hours {
+  position: absolute;
+  width: calc( 100% - 70px - ( 10px * 2 ) );
+  left: 90px;
+  background-color: rgba(40, 40, 40, 0.4);
+  display: none;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /*

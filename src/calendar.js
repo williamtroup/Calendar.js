@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.3.2
+ * @version     v2.3.3
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -356,6 +356,8 @@
  * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
  * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
  * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
+ * @property    {string}    workingHoursStart                           States when the time the working hours start (for example, "09:00", ane defaults to null).
+ * @property    {string}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", ane defaults to null).
  */
 
 
@@ -630,6 +632,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_Contents = null,
         _element_FullDayView_Contents_AllDayEvents = null,
         _element_FullDayView_Contents_Hours = null,
+        _element_FullDayView_Contents_WorkingHours = null,
         _element_FullDayView_DateSelected = null,
         _element_FullDayView_EventsShown = [],
         _element_FullDayView_EventsShown_Sizes = [],
@@ -3174,6 +3177,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_FullDayView_Contents_Hours.ondblclick = fullDayViewDoubleClick;
             _element_FullDayView_Contents.appendChild( _element_FullDayView_Contents_Hours );
 
+            _element_FullDayView_Contents_WorkingHours = createElement( "div", "working-hours" );
+            _element_FullDayView_Contents.appendChild( _element_FullDayView_Contents_WorkingHours );
+
             if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled ) {
                 _element_FullDayView_Contents_Hours.ondragover = cancelBubble;
                 _element_FullDayView_Contents_Hours.ondragenter = cancelBubble;
@@ -3232,11 +3238,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_EventsShown = [];
         _element_FullDayView_EventsShown_Sizes = [];
         _element_FullDayView_Contents_AllDayEvents.style.display = "block";
+        _element_FullDayView_Contents_WorkingHours.style.display = "none";
 
         updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, isCurrentDateVisible );
         clearElementsByClassName( _element_FullDayView_Contents, "event" );
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
+
+        if ( isWorkingDay( date ) ) {
+            showFullDayWorkingHours();
+        }
 
         var holidayText = getHolidaysText( date ),
             orderedEvents = [];
@@ -3322,6 +3333,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
         updateToolbarButtonVisibleState( _element_FullDayView_SearchButton, _element_FullDayView_EventsShown.length > 0 );
         adjustFullDayEventsThatOverlap();
         startFullDayEventSizeTracking();
+    }
+
+    function showFullDayWorkingHours() {
+        if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd ) {
+            var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                workingHoursStartParts = _options.workingHoursStart.split( ":" ),
+                workingHoursEndParts = _options.workingHoursEnd.split( ":" ),
+                top = ( ( parseInt( workingHoursStartParts[ 0 ] ) * 60 ) + parseInt( workingHoursStartParts[ 1 ] ) ) * pixelsPerMinute,
+                height = ( ( ( parseInt( workingHoursEndParts[ 0 ] ) * 60 ) + parseInt( workingHoursEndParts[ 1 ] ) ) * pixelsPerMinute ) - top;
+
+            _element_FullDayView_Contents_WorkingHours.style.display = "block";
+            _element_FullDayView_Contents_WorkingHours.style.top = top + "px";
+            _element_FullDayView_Contents_WorkingHours.style.height = height + "px";
+        }
     }
 
     function hideFullDayView() {
@@ -10970,7 +10995,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.3.2";
+        return "2.3.3";
     };
 
     /**
@@ -11220,6 +11245,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _day.monday );
         _options.useLocalStorageForEvents = getDefaultBoolean( _options.useLocalStorageForEvents, false );
         _options.shortcutKeysEnabled = getDefaultBoolean( _options.shortcutKeysEnabled, true );
+        _options.workingHoursStart = getDefaultString( _options.workingHoursStart, null );
+        _options.workingHoursEnd = getDefaultString( _options.workingHoursEnd, null );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.3.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.3.3 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -1795,6 +1795,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_FullDayView_Contents_Hours = createElement("div", "contents-events");
       _element_FullDayView_Contents_Hours.ondblclick = fullDayViewDoubleClick;
       _element_FullDayView_Contents.appendChild(_element_FullDayView_Contents_Hours);
+      _element_FullDayView_Contents_WorkingHours = createElement("div", "working-hours");
+      _element_FullDayView_Contents.appendChild(_element_FullDayView_Contents_WorkingHours);
       if (_options.manualEditingEnabled && _options.dragAndDropForEventsEnabled) {
         _element_FullDayView_Contents_Hours.ondragover = cancelBubble;
         _element_FullDayView_Contents_Hours.ondragenter = cancelBubble;
@@ -1843,10 +1845,14 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_FullDayView_EventsShown = [];
     _element_FullDayView_EventsShown_Sizes = [];
     _element_FullDayView_Contents_AllDayEvents.style.display = "block";
+    _element_FullDayView_Contents_WorkingHours.style.display = "none";
     updateToolbarButtonVisibleState(_element_FullDayView_TodayButton, isCurrentDateVisible);
     clearElementsByClassName(_element_FullDayView_Contents, "event");
     showOverlay(_element_FullDayView);
     buildDateTimeDisplay(_element_FullDayView_Title, date, false, true, true);
+    if (isWorkingDay(date)) {
+      showFullDayWorkingHours();
+    }
     var holidayText = getHolidaysText(date);
     var orderedEvents = [];
     if (holidayText !== null) {
@@ -1919,6 +1925,18 @@ function calendarJs(elementOrId, options, searchOptions) {
     updateToolbarButtonVisibleState(_element_FullDayView_SearchButton, _element_FullDayView_EventsShown.length > 0);
     adjustFullDayEventsThatOverlap();
     startFullDayEventSizeTracking();
+  }
+  function showFullDayWorkingHours() {
+    if (_options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd) {
+      var pixelsPerMinute = getFullDayPixelsPerMinute();
+      var workingHoursStartParts = _options.workingHoursStart.split(":");
+      var workingHoursEndParts = _options.workingHoursEnd.split(":");
+      var top = (parseInt(workingHoursStartParts[0]) * 60 + parseInt(workingHoursStartParts[1])) * pixelsPerMinute;
+      var height = (parseInt(workingHoursEndParts[0]) * 60 + parseInt(workingHoursEndParts[1])) * pixelsPerMinute - top;
+      _element_FullDayView_Contents_WorkingHours.style.display = "block";
+      _element_FullDayView_Contents_WorkingHours.style.top = top + "px";
+      _element_FullDayView_Contents_WorkingHours.style.height = height + "px";
+    }
   }
   function hideFullDayView() {
     hideOverlay(_element_FullDayView);
@@ -6771,6 +6789,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.startOfWeekDay = getDefaultNumber(_options.startOfWeekDay, _day.monday);
     _options.useLocalStorageForEvents = getDefaultBoolean(_options.useLocalStorageForEvents, false);
     _options.shortcutKeysEnabled = getDefaultBoolean(_options.shortcutKeysEnabled, true);
+    _options.workingHoursStart = getDefaultString(_options.workingHoursStart, null);
+    _options.workingHoursEnd = getDefaultString(_options.workingHoursEnd, null);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -7157,6 +7177,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_FullDayView_Contents = null;
   var _element_FullDayView_Contents_AllDayEvents = null;
   var _element_FullDayView_Contents_Hours = null;
+  var _element_FullDayView_Contents_WorkingHours = null;
   var _element_FullDayView_DateSelected = null;
   var _element_FullDayView_EventsShown = [];
   var _element_FullDayView_EventsShown_Sizes = [];
@@ -7793,7 +7814,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.3.2";
+    return "2.3.3";
   };
   this.getId = function() {
     return _elementID;

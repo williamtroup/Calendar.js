@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and full responsive JavaScript Calendars!</p>
-<p align="center">v2.3.2</p>
+<p align="center">v2.3.3</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -21,7 +21,7 @@ Calendar.js
 - Configurable text for translations.
 - Day, Week, Month, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
-- Full CSS color themes support (using :root variables).
+- Full CSS color themes support (using :root variables, with dark-mode support).
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc).
 - Export to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV, with system clipboard setting support.
 - Full-screen mode (double clicking the title bar).
@@ -90,14 +90,14 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 
 ```markdown
 <script> 
-  var calendarInstance1 = calendarJs( "calendar", {
+  var calendarInstance1 = new calendarJs( "calendar", {
     manualEditingEnabled: true
     // All your options can be set here
   } );
 
   // OR
   var calendarElement = document.getElementById( "calendar" );
-  var calendarInstance2 = calendarJs( calendarElement, {
+  var calendarInstance2 = new calendarJs( calendarElement, {
     manualEditingEnabled: true
     // All your options can be set here
   } ); 
