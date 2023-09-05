@@ -6,7 +6,6 @@
 - Added new setting "workingHoursEnd" (defaults to null), which states the time the working hours end (for example, "17:00").
 - Added dark-mode CSS support for :root variables (in light-mode, a slightly lighter dark color is now used).
 - Fixed documentation in the README.md file.
-- 
 
 <br>
 
