@@ -2,6 +2,7 @@
 
 ## Version 2.3.4:
 - Added new setting "reverseOrderDaysOfWeek" (defaults to false), which states if the days in the display should be reversed (this will allow for hebrew calender layouts).
+- Added translation JSON JS files to "/dist/translations" folder for:  French, Spanish, Polish, and Germen.  A base English version is available for quick;y translating into other languages.  More languages will be added moving forward.
 - 
 
 <br>
