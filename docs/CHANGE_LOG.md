@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+## Version 2.3.4:
+- Added new setting "reverseOrderDaysOfWeek" (defaults to false), which states if the days in the display should be reversed (this will allow for Hebrew calendar layouts).
+- Added translation JSON JS files to "/dist/translations" folder for:  French, Spanish, Polish, and German.  A base English version is available for quickly translating into other languages.  More languages will be added moving forward.
+- Added "enter" support to the "title" text field on the "Add Event" dialog (so that new events can be added quickly).
+
+<br>
+
 ## Version 2.3.3:
 - Added working hours support! This is shown as a slightly darker area on the Full Day view.
 - Added new setting "workingHoursStart" (defaults to null), which states the time the working hours start (for example, "09:00").

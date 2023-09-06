@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calendar.js - Translation</title>
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <script src="../../src/calendar.js"></script>
+        <script src="../../dist/translations/calendar.translations.de.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Persistence</h1>
+            <p>A test that shows Calendar.js using a different set of JSON strings for another language.</p>
+        </div>
+
+        <div class="contents">
+            <div id="calendar"></div>
+        </div>
+    </body>
+
+    <script>
+        var calendarInstance = new calendarJs( "calendar", __TRANSLATION_OPTIONS );
+
+        document.title += " v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+    </script>
+</html>

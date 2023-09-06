@@ -1,4 +1,4 @@
-/*! Calendar.js v2.3.3 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.3.4 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -238,6 +238,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       } else {
         buildDayNamesHeaderSection(0, headerNamesLength);
       }
+      if (_options.reverseOrderDaysOfWeek) {
+        reverseElementsOrder(_element_DayNamesHeader);
+      }
     } else {
       if (wasAddedAlready) {
         _element_Calendar.removeChild(_element_DayNamesHeader);
@@ -331,6 +334,9 @@ function calendarJs(elementOrId, options, searchOptions) {
             columnData.style.height = _options.minimumDayHeight + "px";
           }
         }
+      }
+      if (_options.reverseOrderDaysOfWeek) {
+        reverseElementsOrder(rowData);
       }
     }
   }
@@ -584,6 +590,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
     }
+    if (_options.reverseOrderDaysOfWeek) {
+      reverseElementsOrder(_element_SideMenu_Content_Section_WeekendDays_Content);
+    }
   }
   function buildSideMenuWorkingDays(opened) {
     opened = isDefined(opened) ? opened : true;
@@ -611,6 +620,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         var visible2 = _options.workingDays.indexOf(dayIndex) > -1;
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
+    }
+    if (_options.reverseOrderDaysOfWeek) {
+      reverseElementsOrder(_element_SideMenu_Content_Section_WorkingDays_Content);
     }
   }
   function buildSideMenuGroups(opened) {
@@ -689,6 +701,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         var visible2 = _options.visibleDays.indexOf(dayIndex) > -1;
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
+    }
+    if (_options.reverseOrderDaysOfWeek) {
+      reverseElementsOrder(_element_SideMenu_Content_Section_Days_Content);
     }
   }
   function buildSideMenuHeaderAndContentOpener(mainContainer, mainContent, text, opened, checkBoxes) {
@@ -2680,6 +2695,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       }
     }
+    if (_options.reverseOrderDaysOfWeek) {
+      reverseElementsOrder(_element_ListAllWeekEventsView_Contents);
+    }
     if (_options.exportEventsEnabled) {
       updateToolbarButtonVisibleState(_element_ListAllWeekEventsView_ExportEventsButton, _element_ListAllWeekEventsView_EventsShown.length > 0);
     }
@@ -3770,6 +3788,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_EventEditorDialog_Tab_Event.appendChild(inputTitleContainer);
     _element_EventEditorDialog_Title = createElement("input", null, "text");
     inputTitleContainer.appendChild(_element_EventEditorDialog_Title);
+    _element_EventEditorDialog_Title.onkeydown = function(e) {
+      if (e.keyCode === _keyCodes.enter) {
+        eventDialogEvent_OK();
+      }
+    };
     if (_options.maximumEventTitleLength > 0) {
       _element_EventEditorDialog_Title.maxLength = _options.maximumEventTitleLength;
     }
@@ -5856,6 +5879,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
+  function reverseElementsOrder(parent) {
+    var children = parent.children;
+    var childrenLength = children.length - 1;
+    for (; childrenLength--;) {
+      parent.appendChild(children[childrenLength]);
+    }
+  }
   function buildRadioButton(container, labelText, groupName, onChangeEvent) {
     var lineContents = createElement("div", "radio-button-container");
     container.appendChild(lineContents);
@@ -6791,6 +6821,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.shortcutKeysEnabled = getDefaultBoolean(_options.shortcutKeysEnabled, true);
     _options.workingHoursStart = getDefaultString(_options.workingHoursStart, null);
     _options.workingHoursEnd = getDefaultString(_options.workingHoursEnd, null);
+    _options.reverseOrderDaysOfWeek = getDefaultBoolean(_options.reverseOrderDaysOfWeek, false);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -7814,7 +7845,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   };
   this.getVersion = function() {
-    return "2.3.3";
+    return "2.3.4";
   };
   this.getId = function() {
     return _elementID;

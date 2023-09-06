@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.3.3
+ * @version     v2.3.4
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -358,6 +358,7 @@
  * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
  * @property    {string}    workingHoursStart                           States when the time the working hours start (for example, "09:00", ane defaults to null).
  * @property    {string}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", ane defaults to null).
+ * @property    {boolean}   reverseOrderDaysOfWeek                      States if the days of the week should be reversed (for hebrew calendars, for example. Defaults to true).
  */
 
 
@@ -1089,6 +1090,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else {
                 buildDayNamesHeaderSection( 0, headerNamesLength );
             }
+
+            if ( _options.reverseOrderDaysOfWeek ) {
+                reverseElementsOrder( _element_DayNamesHeader );
+            }
         } else {
 
             if ( wasAddedAlready ) {
@@ -1207,6 +1212,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         columnData.style.height = _options.minimumDayHeight + "px";
                     }
                 }
+            }
+
+            if ( _options.reverseOrderDaysOfWeek ) {
+                reverseElementsOrder( rowData );
             }
         }
     }
@@ -1539,6 +1548,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[ dayIndex - 1 ], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly )[ 0 ] );
             }
         }
+
+        if ( _options.reverseOrderDaysOfWeek ) {
+            reverseElementsOrder( _element_SideMenu_Content_Section_WeekendDays_Content );
+        }
     }
 
     function buildSideMenuWorkingDays( opened ) {
@@ -1577,6 +1590,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly )[ 0 ] );
             }
+        }
+
+        if ( _options.reverseOrderDaysOfWeek ) {
+            reverseElementsOrder( _element_SideMenu_Content_Section_WorkingDays_Content );
         }
     }
 
@@ -1686,6 +1703,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 checkBoxes.push( buildCheckBox( _element_SideMenu_Content_Section_Days_Content, _options.dayNames[ dayIndex ], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly )[ 0 ] );
             }
+        }
+
+        if ( _options.reverseOrderDaysOfWeek ) {
+            reverseElementsOrder( _element_SideMenu_Content_Section_Days_Content );
         }
     }
 
@@ -4338,6 +4359,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
+        if ( _options.reverseOrderDaysOfWeek ) {
+            reverseElementsOrder( _element_ListAllWeekEventsView_Contents );
+        }
+
         if ( _options.exportEventsEnabled ) {
             updateToolbarButtonVisibleState( _element_ListAllWeekEventsView_ExportEventsButton, _element_ListAllWeekEventsView_EventsShown.length > 0 );
         }
@@ -5795,6 +5820,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_EventEditorDialog_Title = createElement( "input", null, "text" );
         inputTitleContainer.appendChild( _element_EventEditorDialog_Title );
+
+        _element_EventEditorDialog_Title.onkeydown = function( e ) {
+            if ( e.keyCode === _keyCodes.enter ) {
+                eventDialogEvent_OK();
+            }
+        };
 
         if ( _options.maximumEventTitleLength > 0 ) {
             _element_EventEditorDialog_Title.maxLength = _options.maximumEventTitleLength ;
@@ -8627,6 +8658,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function reverseElementsOrder( parent ) {
+        var children = parent.children,
+            childrenLength = children.length - 1;
+
+        for ( ; childrenLength--; ) {
+            parent.appendChild( children[ childrenLength ] );
+        }
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -10995,7 +11035,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.3.3";
+        return "2.3.4";
     };
 
     /**
@@ -11247,6 +11287,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.shortcutKeysEnabled = getDefaultBoolean( _options.shortcutKeysEnabled, true );
         _options.workingHoursStart = getDefaultString( _options.workingHoursStart, null );
         _options.workingHoursEnd = getDefaultString( _options.workingHoursEnd, null );
+        _options.reverseOrderDaysOfWeek = getDefaultBoolean( _options.reverseOrderDaysOfWeek, false );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
