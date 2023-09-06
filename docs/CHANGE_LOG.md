@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.4.0:
+- Added a new custom trigger "onEventsFetch", which is triggered when the calendar refreshes (fulls in events to be added, or updated).
 - 
 
 <br>

@@ -112,6 +112,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           _this.addEvents(_options.events, false, false, false);
         }
         loadEventsFromLocalStorage();
+        loadEventsToAddOrUpdateFromFetchTrigger();
         if (!_initializedFirstTime) {
           triggerOptionsEventWithData("onRender", _elementID);
           _initializedFirstTime = true;
@@ -5556,8 +5557,21 @@ function calendarJs(elementOrId, options, searchOptions) {
   function startAutoRefreshTimer() {
     if (_options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled) {
       startTimer(_timerName.autoRefresh, function() {
+        loadEventsToAddOrUpdateFromFetchTrigger();
         refreshViews();
       }, _options.autoRefreshTimerDelay);
+    }
+  }
+  function loadEventsToAddOrUpdateFromFetchTrigger() {
+    var events = triggerOptionsEvent("onEventsFetch");
+    if (isDefinedArray(events)) {
+      var eventsLength = events.length;
+      var eventIndex = 0;
+      for (; eventIndex < eventsLength; eventIndex++) {
+        var event = events[eventIndex];
+        _this.removeEvent(event.id, false, false);
+        _this.addEvent(event, false, false);
+      }
     }
   }
   function clearAutoRefreshTimer() {
@@ -6684,9 +6698,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     return isDefinedFunction(_options[name]);
   }
   function triggerOptionsEvent(name) {
+    var result = null;
     if (_options !== null && isOptionEventSet(name)) {
-      _options[name]();
+      result = _options[name]();
     }
+    return result;
   }
   function triggerOptionsEventWithData(name, data) {
     if (_options !== null && isOptionEventSet(name)) {

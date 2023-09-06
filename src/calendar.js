@@ -112,6 +112,7 @@
  * @property    {Object}    onNotification                              Specifies an event that will be triggered when a notification is shown (passes the event to the function).
  * @property    {Object}    onBeforeEventAddEdit                        Specifies an event that will be triggered before an event is added/edit (passes the event to the function and stops tje event editor dialog from showing).
  * @property    {Object}    onBusyStateChange                           Specifies an event that will be triggered when the calendars busy state is changed (passes the state to the function).
+ * @property    {Object}    onEventsFetch                               Specifies an event that will be triggered when the calendar refreshes (it will pull a array of events to add, or update).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -928,6 +929,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
 
                 loadEventsFromLocalStorage();
+                loadEventsToAddOrUpdateFromFetchTrigger();
     
                 if ( !_initializedFirstTime ) {
                     triggerOptionsEventWithData( "onRender", _elementID );
@@ -8213,8 +8215,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function startAutoRefreshTimer() {
         if ( _options.autoRefreshTimerDelay > 0 && !_datePickerModeEnabled && _timer_RefreshMainDisplay_Enabled ) {
             startTimer( _timerName.autoRefresh, function() {
+                loadEventsToAddOrUpdateFromFetchTrigger();
                 refreshViews();
             }, _options.autoRefreshTimerDelay );
+        }
+    }
+
+    function loadEventsToAddOrUpdateFromFetchTrigger() {
+        var events = triggerOptionsEvent( "onEventsFetch" );
+        if ( isDefinedArray( events ) ) {
+            var eventsLength = events.length;
+
+            for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                var event = events[ eventIndex ];
+
+                _this.removeEvent( event.id, false, false );
+                _this.addEvent( event, false, false );
+            }
         }
     }
 
@@ -9825,9 +9842,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function triggerOptionsEvent( name ) {
+        var result = null;
+
         if ( _options !== null && isOptionEventSet( name ) ) {
-            _options[ name ]();
+            result = _options[ name ]();
         }
+
+        return result;
     }
 
     function triggerOptionsEventWithData( name, data ) {

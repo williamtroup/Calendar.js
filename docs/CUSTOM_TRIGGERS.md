@@ -89,6 +89,11 @@ Fires when an event URL is clicked.
 <br>
 ***Parameter: url***: '*string*' - The URL clicked.
 
+### **options.onEventsFetch()**:
+Fires when the calendar refreshes (it will pull a array of events to add, or update).
+<br>
+***Returns: '*Event[]*' - An array of event.
+
 
 <br>
 <h1>For The Display Date:</h1>
