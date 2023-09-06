@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.4.0:
+- 
+
+<br>
+
 ## Version 2.3.4:
 - Added new setting "reverseOrderDaysOfWeek" (defaults to false), which states if the days in the display should be reversed (this will allow for Hebrew calendar layouts).
 - Added translation JSON JS files to "/dist/translations" folder for:  French, Spanish, Polish, and German.  A base English version is available for quickly translating into other languages.  More languages will be added moving forward.
