@@ -192,6 +192,7 @@ div.calendar-date-picker {
     }
     
     div.calendar-shown {
+        @include fade-in-effect-animation( 0.5s );
         display: block;
     }
 

@@ -253,6 +253,11 @@ div.calendar-date-picker div.calendar-hidden {
   display: none;
 }
 div.calendar-date-picker div.calendar-shown {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
   display: block;
 }
 div.calendar-date-picker div.header-date div.title-container {
