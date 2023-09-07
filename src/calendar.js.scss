@@ -15,7 +15,9 @@
     --grid-border-color: #B0B0B0;
     --alert-color: #C60000;
     --event-color: #484848;
+    --event-text-color: var(--light-color);
     --event-color-all-day: #1b3752;
+    --event-text-color-all-day: var(--light-color);
     --day-names-color: #E0E0E0;
     --input-border-color: #A8A8A8;
     --input-background-color: #FFFFFF;
@@ -959,7 +961,7 @@ div.calendar {
                 border-radius: $border-view-radius;
                 background-color: var(--event-color);
                 padding: 3px;
-                color: var(--light-color);
+                color: var(--event-text-color);
                 margin-top: 5px;
                 margin-bottom: 5px;
                 border-left: $event-left-border;
@@ -1008,6 +1010,7 @@ div.calendar {
 
             div.all-day {
                 background-color: var(--event-color-all-day) !important;
+                color: var(--event-text-color-all-day);
             }
 
             div.plus-x-events {

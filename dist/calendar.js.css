@@ -11,7 +11,9 @@
   --grid-border-color: #B0B0B0;
   --alert-color: #C60000;
   --event-color: #484848;
+  --event-text-color: var(--light-color);
   --event-color-all-day: #1b3752;
+  --event-text-color-all-day: var(--light-color);
   --day-names-color: #E0E0E0;
   --input-border-color: #A8A8A8;
   --input-background-color: #FFFFFF;
@@ -965,7 +967,7 @@ div.calendar div.row-cells div.cell div.event {
   border-radius: 0.25rem;
   background-color: var(--event-color);
   padding: 3px;
-  color: var(--light-color);
+  color: var(--event-text-color);
   margin-top: 5px;
   margin-bottom: 5px;
   border-left: 7px solid var(--dark-color);
@@ -1009,6 +1011,7 @@ div.calendar div.row-cells div.cell div.not-in-current-month {
 }
 div.calendar div.row-cells div.cell div.all-day {
   background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day);
 }
 div.calendar div.row-cells div.cell div.plus-x-events {
   display: inline-block;
@@ -1222,6 +1225,7 @@ div.calendar div.full-day-view div.contents div.expired {
 }
 div.calendar div.full-day-view div.contents div.all-day {
   background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
 }
 div.calendar div.full-day-view div.contents div.event {
   white-space: pre-line;
@@ -1230,7 +1234,7 @@ div.calendar div.full-day-view div.contents div.event {
   border-radius: 0.25rem;
   background-color: var(--event-color);
   padding: 10px;
-  color: var(--light-color);
+  color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
 }
@@ -1406,6 +1410,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.expi
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.all-day {
   background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
 }
 div.calendar div.list-all-events-view div.contents div.month div.events div.event {
   white-space: pre-line;
@@ -1414,7 +1419,7 @@ div.calendar div.list-all-events-view div.contents div.month div.events div.even
   border-radius: 0.25rem;
   background-color: var(--event-color);
   padding: 10px;
-  color: var(--light-color);
+  color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
 }
@@ -1583,6 +1588,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.all-day {
   background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
 }
 div.calendar div.list-all-week-events-view div.contents div.day div.events div.event {
   white-space: pre-line;
@@ -1591,7 +1597,7 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events div.e
   border-radius: 0.25rem;
   background-color: var(--event-color);
   padding: 10px;
-  color: var(--light-color);
+  color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
 }

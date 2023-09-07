@@ -7,7 +7,9 @@
 - Added CSS variable "--title-bar-button-color", which now states the color the title bar buttons should use.
 - Added CSS variable "--menu-item-icon-color", which now states the color the context menu icons should use.
 - :root variables that use the same colors as other variables now reference the main one.
-- Added CSS variable "title-bar-text-color", which now states the text color the title bars should use.
+- Added CSS variable "--title-bar-text-color", which now states the text color the title bars should use.
+- Added CSS variable "--event-text-color", which now states the text color an event should use.
+- Added CSS variable "--event-text-color-all-day", which now states the text color an all-day event should use.
 - 
 
 <br>
