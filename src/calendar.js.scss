@@ -22,22 +22,22 @@
     --area-disabled-stripped: rgba(  40, 40, 40, 0.1  );
     --area-disabled-stripped-weekend-day: rgba(  40, 40, 40, 0.2  );
     --link-color: #2471A3;
-    --input-hover-color: #3b3a3a;
-    --primary-button-color: #3b3a3a;
-    --secondary-button-color: #3b3a3a;
+    --input-hover-color: var(--dark-color);
+    --primary-button-color: var(--dark-color);
+    --secondary-button-color: var(--dark-color);
     --tertiary-button-color: #6c757d;
     --drop-down-menu-background-color: #DCDCDC;
-    --title-bar-button-color: #F5F5F5;
-    --menu-item-icon-color: #3b3a3a;
+    --title-bar-button-color: var(--light-color);
+    --menu-item-icon-color: var(--dark-color);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --dark-color: #282828;
-        --input-hover-color: #282828;
-        --primary-button-color: #282828;
-        --secondary-button-color: #282828;
-        --menu-item-icon-color: #282828;
+        --input-hover-color: var(--dark-color);
+        --primary-button-color: var(--dark-color);
+        --secondary-button-color: var(--dark-color);
+        --menu-item-icon-color: var(--dark-color);
     }
 }
 

@@ -6,6 +6,7 @@
 - Added a fade-in effect when the calendar is shown in DatePicker mode.
 - Added CSS variable "--title-bar-button-color", which now states the color the title bar buttons should be.
 - Added CSS variable "--menu-item-icon-color", which now states the color the context menu icons should be.
+- :root variables that use the same colors as other variables now reference the main one.
 - 
 
 <br>
