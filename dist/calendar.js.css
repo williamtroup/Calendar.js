@@ -656,7 +656,7 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
 div.calendar div.side-menu div.content div.content-section div.text-header div.button-divider-line,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.button-divider-line {
   width: 1px;
-  background-color: var(--title-bar-button-color);
+  background-color: var(--light-color);
   height: 16px;
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
@@ -667,11 +667,19 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full {
-  border-top-color: var(--title-bar-button-color);
+  border-top-color: var(--light-color);
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
-  border-bottom-color: var(--title-bar-button-color);
+  border-bottom-color: var(--light-color);
+}
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square-hollow,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square-hollow {
+  border-color: var(--light-color);
+}
+div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square {
+  background-color: var(--light-color);
 }
 div.calendar div.side-menu div.content div.content-section div.text-header {
   font-weight: 700;

@@ -639,7 +639,7 @@ div.calendar {
 
                     div.button-divider-line {
                         width: 1px;
-                        background-color: var(--title-bar-button-color);
+                        background-color: var(--light-color);
                         height: 16px;
                     }
 
@@ -649,11 +649,19 @@ div.calendar {
                     }
 
                     div.ib-arrow-down-full {
-                        border-top-color: var(--title-bar-button-color);
+                        border-top-color: var(--light-color);
                     }
 
                     div.ib-arrow-up-full {
-                        border-bottom-color: var(--title-bar-button-color);
+                        border-bottom-color: var(--light-color);
+                    }
+
+                    div.ib-square-hollow {
+                        border-color: var(--light-color);
+                    }
+
+                    div.ib-square {
+                        background-color: var(--light-color);
                     }
                 }
 
