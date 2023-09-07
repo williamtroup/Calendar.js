@@ -2,6 +2,7 @@
 
 ## Version 2.4.0:
 - Added a new custom trigger "onEventsFetch", which is triggered when the calendar refreshes (fulls in events to be added, or updated).
+- Fixed a fault that caused the active tooltip to remain visible when the Side Menu is closed.
 - 
 
 <br>

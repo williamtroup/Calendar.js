@@ -482,6 +482,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SideMenu.className = "side-menu custom-scroll-bars";
       _element_SideMenu_DisabledBackground.style.display = "none";
       saveSideMenuSelections();
+      hideTooltip();
       _document.body.removeEventListener("click", hideSideMenu);
     }
   }
