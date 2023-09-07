@@ -27,6 +27,7 @@
     --secondary-button-color: #3b3a3a;
     --tertiary-button-color: #6c757d;
     --drop-down-menu-background-color: #DCDCDC;
+    --title-bar-button-color: #F5F5F5;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -622,7 +623,7 @@ div.calendar {
 
                     div.button-divider-line {
                         width: 1px;
-                        background-color: var(--light-color);
+                        background-color: var(--title-bar-button-color);
                         height: 16px;
                     }
 
@@ -632,11 +633,11 @@ div.calendar {
                     }
 
                     div.ib-arrow-down-full {
-                        border-top-color: var(--light-color);
+                        border-top-color: var(--title-bar-button-color);
                     }
 
                     div.ib-arrow-up-full {
-                        border-bottom-color: var(--light-color);
+                        border-bottom-color: var(--title-bar-button-color);
                     }
                 }
 
@@ -702,7 +703,7 @@ div.calendar {
 
         div.side-menu-button-divider-line {
             width: 1px;
-            background-color: var(--light-color);
+            background-color: var(--title-bar-button-color);
             height: 16px;
         }
 

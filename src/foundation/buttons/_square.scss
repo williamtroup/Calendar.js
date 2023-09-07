@@ -2,6 +2,6 @@
 
 .ib-square {
     @include button-no-before-after;
-    background-color: var(--light-color);
+    background-color: $button-color;
     border-radius: $border-radius;
 }

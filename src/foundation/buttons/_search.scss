@@ -16,7 +16,7 @@
         @include transform-rotate( -45deg );
         width: $border-width;
         height: calc( $size / 2 );
-        background-color: var(--light-color);
+        background-color: $button-color;
         right: $border-width - calc( $border-width / 3 );
         bottom: calc( $border-width / 6 );
     }
