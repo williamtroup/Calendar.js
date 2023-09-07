@@ -5,6 +5,7 @@
 - Fixed a fault that caused the active tooltip to remain visible when the Side Menu is closed.
 - Added a fade-in effect when the calendar is shown in DatePicker mode.
 - Added CSS variable "--title-bar-button-color", which now states the color the title bar buttons should be.
+- Added CSS variable "--menu-item-icon-color", which now states the color the context menu icons should be.
 - 
 
 <br>

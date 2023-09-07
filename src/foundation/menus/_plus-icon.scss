@@ -6,7 +6,7 @@
     &::before {
         @include button-after-before-setup;
         @include left-center;
-        background-color: var(--dark-color);
+        background-color: $icon-color;
         width: $border-width;
         height: 100%;
         border-radius: $border-radius;
@@ -16,7 +16,7 @@
     &::after {
         @include button-after-before-setup;
         @include top-center;
-        background-color: var(--dark-color);
+        background-color: $icon-color;
         width: 100%;
         height: $border-width;
         border-radius: $border-radius;

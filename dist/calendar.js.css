@@ -24,6 +24,7 @@
   --tertiary-button-color: #6c757d;
   --drop-down-menu-background-color: #DCDCDC;
   --title-bar-button-color: #F5F5F5;
+  --menu-item-icon-color: #3b3a3a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,6 +33,7 @@
     --input-hover-color: #282828;
     --primary-button-color: #282828;
     --secondary-button-color: #282828;
+    --menu-item-icon-color: #282828;
   }
 }
 /*
@@ -494,6 +496,14 @@ div.calendar div.row-cells div.cell span.blank {
 }
 div.calendar div.row-cells div.cell:last-child {
   border-right: none;
+}
+div.calendar div.row-cells div.cell div.ib-arrow-expand-left-right-icon::before {
+  border-left-color: var(--dark-color);
+  border-bottom-color: var(--dark-color);
+}
+div.calendar div.row-cells div.cell div.ib-arrow-expand-left-right-icon::after {
+  border-right-color: var(--dark-color);
+  border-top-color: var(--dark-color);
 }
 @media screen and (min-width: 451px) {
   div.calendar div.row-cells div.cell:hover div.ib-arrow-expand-left-right-icon {
@@ -4034,7 +4044,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   left: 50%;
   transform: translate(-50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 3px;
   height: 100%;
   border-radius: 3px;
@@ -4045,7 +4055,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4057,8 +4067,8 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  border-top: 3px solid var(--dark-color);
-  border-bottom: 3px solid var(--dark-color);
+  border-top: 3px solid var(--menu-item-icon-color);
+  border-bottom: 3px solid var(--menu-item-icon-color);
   border-radius: 3px;
   height: 6px;
 }
@@ -4077,7 +4087,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4089,8 +4099,8 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  border-right: 3px solid var(--dark-color);
-  border-left: 3px solid var(--dark-color);
+  border-right: 3px solid var(--menu-item-icon-color);
+  border-left: 3px solid var(--menu-item-icon-color);
   border-radius: 3px;
   width: 6px;
 }
@@ -4109,7 +4119,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   left: 50%;
   transform: translate(-50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 3px;
   height: 100%;
   border-radius: 3px;
@@ -4137,16 +4147,16 @@ div.calendar-drop-down-menu div.separator {
   content: "";
 }
 .ib-arrow-expand-left-right-icon::before {
-  border-left: 3px solid var(--dark-color);
-  border-bottom: 3px solid var(--dark-color);
+  border-left: 3px solid var(--menu-item-icon-color);
+  border-bottom: 3px solid var(--menu-item-icon-color);
   width: 6px;
   height: 6px;
   bottom: 0;
   left: 0;
 }
 .ib-arrow-expand-left-right-icon::after {
-  border-right: 3px solid var(--dark-color);
-  border-top: 3px solid var(--dark-color);
+  border-right: 3px solid var(--menu-item-icon-color);
+  border-top: 3px solid var(--menu-item-icon-color);
   width: 6px;
   height: 6px;
   top: 0;
@@ -4176,7 +4186,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-close-icon::before, .ib-close-icon::after {
   width: 3px;
   height: 13.5px;
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   border-radius: 3px;
   left: 4.5px;
   top: -0.75px;
@@ -4199,8 +4209,8 @@ div.calendar-drop-down-menu div.separator {
   position: relative;
   width: 9px;
   height: 9px;
-  border-right: 3px solid var(--dark-color);
-  border-top: 3px solid var(--dark-color);
+  border-right: 3px solid var(--menu-item-icon-color);
+  border-top: 3px solid var(--menu-item-icon-color);
   border-radius: 3px;
 }
 .ib-arrow-top-right-icon:not(.ib-no-hover):hover {
@@ -4219,7 +4229,7 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   border-radius: 50%;
 }
 .ib-circle-icon:not(.ib-no-hover):hover {
@@ -4238,7 +4248,7 @@ div.calendar-drop-down-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
-  border: 3px solid var(--dark-color);
+  border: 3px solid var(--menu-item-icon-color);
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -4275,7 +4285,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   top: 50%;
   transform: translate(0, -50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4306,7 +4316,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  border: 3px solid var(--dark-color);
+  border: 3px solid var(--menu-item-icon-color);
   width: 3px;
   height: 3px;
   left: 1.5px;
@@ -4316,7 +4326,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  border: 3px solid var(--dark-color);
+  border: 3px solid var(--menu-item-icon-color);
   width: 3px;
   height: 3px;
   left: 1.5px;
@@ -4344,7 +4354,7 @@ div.calendar-drop-down-menu div.separator {
   content: "";
   left: 50%;
   transform: translate(-50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 3px;
   height: 100%;
   border-radius: 3px;
@@ -4374,7 +4384,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-equals-icon:before {
   top: calc(50% - 3px);
   transform: translate(0, -50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4383,7 +4393,7 @@ div.calendar-drop-down-menu div.separator {
 .ib-equals-icon:after {
   top: calc(50% + 3px);
   transform: translate(0, -50%);
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   width: 100%;
   height: 3px;
   border-radius: 3px;
@@ -4412,7 +4422,7 @@ div.calendar-drop-down-menu div.separator {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  border: 3px solid var(--dark-color);
+  border: 3px solid var(--menu-item-icon-color);
   border-radius: 3px;
   width: 3px;
   height: 3px;
@@ -4445,7 +4455,7 @@ div.calendar-drop-down-menu div.separator {
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid var(--dark-color);
+  border-top: 6px solid var(--menu-item-icon-color);
   left: 0;
   bottom: 0;
 }
@@ -4454,7 +4464,7 @@ div.calendar-drop-down-menu div.separator {
   transform: translate(-50%);
   width: 6px;
   height: 6px;
-  background-color: var(--dark-color);
+  background-color: var(--menu-item-icon-color);
   top: 0;
 }
 

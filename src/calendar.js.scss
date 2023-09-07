@@ -28,6 +28,7 @@
     --tertiary-button-color: #6c757d;
     --drop-down-menu-background-color: #DCDCDC;
     --title-bar-button-color: #F5F5F5;
+    --menu-item-icon-color: #3b3a3a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,6 +37,7 @@
         --input-hover-color: #282828;
         --primary-button-color: #282828;
         --secondary-button-color: #282828;
+        --menu-item-icon-color: #282828;
     }
 }
 
@@ -487,6 +489,18 @@ div.calendar {
 
             &:last-child {
                 border-right: none;
+            }
+
+            div.ib-arrow-expand-left-right-icon {
+                &::before {
+                    border-left-color: var(--dark-color);
+                    border-bottom-color: var(--dark-color);
+                }
+            
+                &::after {
+                    border-right-color: var(--dark-color);
+                    border-top-color: var(--dark-color);
+                }
             }
 
             &:hover div.ib-arrow-expand-left-right-icon {
