@@ -25,6 +25,7 @@
   --drop-down-menu-background-color: #DCDCDC;
   --title-bar-button-color: var(--light-color);
   --menu-item-icon-color: var(--dark-color);
+  --title-bar-text-color: var(--light-color);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -580,6 +581,7 @@ div.calendar div.side-menu div.main-header {
   background-color: var(--dark-color);
   padding: 10px;
   z-index: 1;
+  color: var(--title-bar-text-color);
 }
 @media screen and (min-width: 451px) {
   div.calendar div.side-menu div.main-header {
@@ -709,7 +711,7 @@ div.calendar div.side-menu-open {
 div.calendar div.header-date {
   font-weight: 900;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -739,8 +741,13 @@ div.calendar div.header-date div.title-container span.year-dropdown-button {
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
   margin-left: 5px;
-  border-top-color: var(--light-color);
   pointer-events: none;
+}
+div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium {
+  border-top-color: var(--title-bar-text-color);
+}
+div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
+  border-bottom-color: var(--title-bar-text-color);
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button:hover {
   transition: all 0.3s;
@@ -1042,7 +1049,7 @@ div.calendar div.full-day-view div.title-bar {
   padding-left: 5px;
   padding-right: 5px;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   text-align: center;
 }
 div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line {
@@ -1288,7 +1295,7 @@ div.calendar div.list-all-events-view div.title-bar {
   padding-left: 5px;
   padding-right: 5px;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   text-align: center;
 }
 div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line {
@@ -1457,7 +1464,7 @@ div.calendar div.list-all-week-events-view div.title-bar {
   padding-left: 5px;
   padding-right: 5px;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   text-align: center;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line {
@@ -1647,7 +1654,7 @@ div.event-editor div.view div.title-bar {
   user-select: none;
   cursor: default;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -1903,7 +1910,7 @@ div.event-editor-colors div.title-bar {
   user-select: none;
   cursor: default;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2061,7 +2068,7 @@ div.event-editor-repeat-options div.title-bar {
   user-select: none;
   cursor: default;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2228,7 +2235,7 @@ div.message div.title-bar {
   user-select: none;
   cursor: default;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2344,7 +2351,7 @@ div.export-events div.title-bar {
   user-select: none;
   cursor: default;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2521,7 +2528,7 @@ div.search div.title-bar {
   user-select: none;
   cursor: default;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;
@@ -2765,7 +2772,7 @@ div.configuration div.title-bar {
   user-select: none;
   cursor: default;
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--title-bar-text-color);
   padding: 10px;
   text-align: center;
   font-weight: 900;

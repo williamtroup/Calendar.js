@@ -4,9 +4,10 @@
 - Added a new custom trigger "onEventsFetch", which is triggered when the calendar refreshes (fulls in events to be added, or updated).
 - Fixed a fault that caused the active tooltip to remain visible when the Side Menu is closed.
 - Added a fade-in effect when the calendar is shown in DatePicker mode.
-- Added CSS variable "--title-bar-button-color", which now states the color the title bar buttons should be.
-- Added CSS variable "--menu-item-icon-color", which now states the color the context menu icons should be.
+- Added CSS variable "--title-bar-button-color", which now states the color the title bar buttons should use.
+- Added CSS variable "--menu-item-icon-color", which now states the color the context menu icons should use.
 - :root variables that use the same colors as other variables now reference the main one.
+- Added CSS variable "title-bar-text-color", which now states the text color the title bars should use.
 - 
 
 <br>

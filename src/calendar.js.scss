@@ -29,6 +29,7 @@
     --drop-down-menu-background-color: #DCDCDC;
     --title-bar-button-color: var(--light-color);
     --menu-item-icon-color: var(--dark-color);
+    --title-bar-text-color: var(--light-color);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -573,6 +574,7 @@ div.calendar {
             background-color: var(--dark-color);
             padding: $spacing;
             z-index: 1;
+            color: var(--title-bar-text-color);
             
             @media screen and ( min-width: $minimum-width ) {
                 font-size: 1.2rem;
@@ -701,7 +703,7 @@ div.calendar {
     div.header-date {
         font-weight: $title-bar-font-weight;
         background-color: var(--dark-color);
-        color: var(--light-color);
+        color: var(--title-bar-text-color);
         text-align: center;
         padding-top: $spacing;
         padding-bottom: $spacing;
@@ -733,8 +735,15 @@ div.calendar {
                 span.ib-arrow-down-full-medium,
                 span.ib-arrow-up-full-medium {
                     margin-left: calc( $spacing / 2 );
-                    border-top-color: var(--light-color);
                     pointer-events: none;
+                }
+
+                span.ib-arrow-down-full-medium {
+                    border-top-color: var(--title-bar-text-color);
+                }
+
+                span.ib-arrow-up-full-medium {
+                    border-bottom-color: var(--title-bar-text-color);
                 }
 
                 &:hover {
