@@ -15,7 +15,7 @@
 - Added CSS variable "--event-text-color-all-day", which now states the text color an all-day event should use.
 
 #### **General Improvements:**
-- Added function-chaining support for all public functions that do not return a result.
+- Added function-chaining support for all public functions that do not return a result (see documentation).
 
 #### **Fixes:**
 - Fixed a fault that caused the active tooltip to remain visible when the Side Menu is closed.
