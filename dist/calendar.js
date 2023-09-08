@@ -7362,11 +7362,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!_datePickerModeEnabled) {
       turnOnFullScreenMode();
     }
+    return this;
   };
   this.turnOffFullScreen = function() {
     if (!_datePickerModeEnabled) {
       turnOffFullScreenMode();
     }
+    return this;
   };
   this.isFullScreenActivated = function() {
     return _isFullScreenModeActivated;
@@ -7376,12 +7378,14 @@ function calendarJs(elementOrId, options, searchOptions) {
       _timer_RefreshMainDisplay_Enabled = true;
       startAutoRefreshTimer();
     }
+    return this;
   };
   this.stopTheAutoRefreshTimer = function() {
     if (!_datePickerModeEnabled) {
       clearAutoRefreshTimer();
       _timer_RefreshMainDisplay_Enabled = false;
     }
+    return this;
   };
   this.destroy = function() {
     removeDocumentEvents();
@@ -7400,21 +7404,27 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Calendar.className = _string.empty;
     _element_Calendar.innerHTML = _string.empty;
     triggerOptionsEvent("onDestroy", _elementID);
+    return this;
   };
   this.moveToPreviousMonth = function() {
     moveBackMonth();
+    return this;
   };
   this.moveToNextMonth = function() {
     moveForwardMonth();
+    return this;
   };
   this.moveToPreviousYear = function() {
     moveBackYear();
+    return this;
   };
   this.moveToNextYear = function() {
     moveForwardYear();
+    return this;
   };
   this.moveToToday = function() {
     moveToday();
+    return this;
   };
   this.getCurrentDisplayDate = function() {
     return new Date(_currentDate);
@@ -7429,6 +7439,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       }
     }
+    return this;
   };
   this.getSelectedDatePickerDate = function() {
     return _datePickerModeEnabled ? new Date(_currentDateForDatePicker) : null;
@@ -7447,17 +7458,20 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       }
     }
+    return this;
   };
   this.exportAllEvents = function(type) {
     if (_options.exportEventsEnabled && !_datePickerModeEnabled) {
       type = !isDefinedString(type) ? "csv" : type;
       exportEvents(null, type);
     }
+    return this;
   };
   this.refresh = function() {
     if (!_datePickerModeEnabled) {
       refreshViews(true, true);
     }
+    return this;
   };
   this.setEvents = function(events, updateEvents, triggerEvent) {
     if (!_datePickerModeEnabled) {
@@ -7468,6 +7482,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsSet", events);
       }
     }
+    return this;
   };
   this.setEventsFromJson = function(json, updateEvents, triggerEvent) {
     if (!_datePickerModeEnabled) {
@@ -7482,6 +7497,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsSetFromJSON", json);
       }
     }
+    return this;
   };
   this.addEvents = function(events, updateEvents, triggerEvent) {
     if (!_datePickerModeEnabled) {
@@ -7503,6 +7519,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
+    return this;
   };
   this.addEventsFromJson = function(json, updateEvents, triggerEvent) {
     if (!_datePickerModeEnabled) {
@@ -7517,6 +7534,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onEventsAddedFromJSON", json);
       }
     }
+    return this;
   };
   this.addEvent = function(event, updateEvents, triggerEvent, setLastUpdated) {
     var added = false;
@@ -7616,6 +7634,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
+    return this;
   };
   this.updateEvent = function(id, event, updateEvents, triggerEvent) {
     var updated = false;
@@ -7698,6 +7717,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
+    return this;
   };
   this.getEvents = function() {
     var events = [];
@@ -7735,6 +7755,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
+    return this;
   };
   this.addEventType = function(id, text) {
     var result = false;
@@ -7775,6 +7796,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onVisibleEventTypesChanged", _configuration.visibleEventTypes);
       }
     }
+    return this;
   };
   this.getAllGroups = function() {
     return getGroups();
@@ -7795,6 +7817,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
+    return this;
   };
   this.removeGroup = function(groupName, updateEvents, triggerEvent) {
     if (isDefinedString(groupName) && !_datePickerModeEnabled) {
@@ -7815,6 +7838,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
+    return this;
   };
   this.setVisibleGroups = function(groupNames, triggerEvent) {
     if (isDefinedArray(groupNames) && !_datePickerModeEnabled) {
@@ -7833,11 +7857,13 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEvent("onVisibleGroupsChanged", _configuration.visibleGroups);
       }
     }
+    return this;
   };
   this.setClipboardEvent = function(event) {
     if (isDefinedObject(event) && !_datePickerModeEnabled) {
       _copiedEventDetails = [cloneEventDetails(event)];
     }
+    return this;
   };
   this.setClipboardEvents = function(events) {
     if (isDefinedArray(events) && !_datePickerModeEnabled) {
@@ -7848,6 +7874,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _copiedEventDetails.push(cloneEventDetails(events[eventIndex]));
       }
     }
+    return this;
   };
   this.getClipboardEvents = function() {
     var result = null;
@@ -7860,6 +7887,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!_datePickerModeEnabled) {
       _copiedEventDetails = [];
     }
+    return this;
   };
   this.getVersion = function() {
     return "2.4.0";
@@ -7890,6 +7918,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         build(_currentDate, true, true);
       }
     }
+    return this;
   };
   this.setSearchOptions = function(newSearchOptions, triggerEvent) {
     if (!_datePickerModeEnabled) {
@@ -7906,6 +7935,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         triggerOptionsEventWithData("onSearchOptionsUpdated", _optionsForSearch);
       }
     }
+    return this;
   };
   this.addHolidays = function(holidays, triggerEvent, updateEvents) {
     if (isDefinedArray(holidays) && !_datePickerModeEnabled) {
@@ -7919,6 +7949,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         build(_currentDate, true, true);
       }
     }
+    return this;
   };
   this.removeHolidays = function(holidayNames, triggerEvent, updateEvents) {
     if (isDefinedArray(holidayNames) && !_datePickerModeEnabled) {
@@ -7942,6 +7973,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         build(_currentDate, true, true);
       }
     }
+    return this;
   };
   this.getHolidays = function() {
     return _options.holidays;

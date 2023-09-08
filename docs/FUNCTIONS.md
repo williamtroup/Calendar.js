@@ -8,9 +8,13 @@ Below is a list of all the public functions that can be called from a Calendar.j
 
 ### **turnOnFullScreen()**:
 Turns on the full-screen mode (if enabled).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **turnOffFullScreen()**:
 Turns off the full-screen mode (if enabled).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **isFullScreenActivated()**:
 States if full-screen mode is activated.
@@ -19,14 +23,20 @@ States if full-screen mode is activated.
 
 ### **startTheAutoRefreshTimer()**:
 Starts the auto-refresh timer (if enabled).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **stopTheAutoRefreshTimer()**:
 Stops the auto-refresh timer (if enabled).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **destroy()**:
 Removes the calendar from the DOM.
 <br>
 ***Fires***:  onDestroy
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 
 <br>
@@ -36,26 +46,36 @@ Removes the calendar from the DOM.
 Moves to the previous month.
 <br>
 ***Fires***:  onPreviousMonth
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **moveToNextMonth()**:
 Moves to the next month.
 <br>
 ***Fires***:  onNextMonth
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **moveToPreviousYear()**:
 Moves to the previous year.
 <br>
 ***Fires***:  onPreviousYear
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **moveToNextYear()**:
 Moves to the next year.
 <br>
 ***Fires***:  onNextYear
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **moveToToday()**:
 Moves to the current month.
 <br>
 ***Fires***:  onToday
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **getCurrentDisplayDate()**:
 Returns the current date that is being used in the main display.
@@ -68,6 +88,8 @@ Sets the current date that is being used in the main display.
 ***Fires***:  onSetDate
 <br>
 ***Parameter: date***: '*Object*' - The Date() object to set.
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **getSelectedDatePickerDate()**:
 Returns the current date that has been selected in DatePicker mode.
@@ -80,6 +102,8 @@ Sets the current date that is being used in DatePicker mode.
 ***Fires***:  onDatePickerDateChanged
 <br>
 ***Parameter: date***: '*Object*' - The Date() object to set.
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **exportAllEvents( *[type]* )**:
 Exports all the events into a downloadable file.
@@ -87,11 +111,15 @@ Exports all the events into a downloadable file.
 ***Fires***:  onEventsExported
 <br>
 ***Parameter: type***: '*string*' - The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **refresh()**:
 Refreshes all of the views.
 <br>
 ***Fires***:  onRefresh
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 
 <br>
@@ -107,6 +135,8 @@ Sets the events and clears any existing ones.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventsSet" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **setEventsFromJson( *json*, *[updateEvents]*, *[triggerEvent]* )**:
 Sets new events from JSON data and clears any existing ones.
@@ -118,6 +148,8 @@ Sets new events from JSON data and clears any existing ones.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventsSetFromJSON" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **addEvents( *events*, *[updateEvents]*, *[triggerEvent]* )**:
 Adds an array of new events.
@@ -129,6 +161,8 @@ Adds an array of new events.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventsAdded" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **addEventsFromJson( *json*, *[updateEvents]*, *[triggerEvent]* )**:
 Adds new events from JSON data.
@@ -140,6 +174,8 @@ Adds new events from JSON data.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventsAddedFromJSON" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **addEvent( *event*, *[updateEvents]*, *[triggerEvent]*, *[setLastUpdated]* )**:
 Adds a of new event.
@@ -153,6 +189,8 @@ Adds a of new event.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventAdded" event should be triggered (defaults to true).
 <br>
 ***Parameter: [setLastUpdated]***: '*boolean*' - States if the "lastUpdated" date should be set (defaults to true).
+<br>
+***Returns***: '*boolean*' - States if the event was added.
 
 ### **[updateEvents]( *events*, *[updateEvents]*, *[triggerEvent]* )**:
 Updates an array of existing events.
@@ -164,6 +202,8 @@ Updates an array of existing events.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventsUpdated" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **updateEvent( *id*, *event*, *[updateEvents]*, *[triggerEvent]* )**:
 Updates an existing event.
@@ -220,6 +260,8 @@ Clears all the events.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventsCleared" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **getEvents()**:
 Returns an array of the events available.
@@ -241,6 +283,8 @@ Removes all events (non-repeating) that have expired.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventRemoved" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 
 <br>
@@ -270,6 +314,8 @@ Set which events types are visible.
 ***Parameter: ids***: '*number[]*' - The IDs of the event types to make visible.
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleEventTypesChanged" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 
 <br>
@@ -288,6 +334,8 @@ Clears all the event groups.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onGroupsCleared" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **removeGroup( *groupName*, *[updateEvents]*, *[triggerEvent]* )**:
 Removes a group by name.
@@ -299,6 +347,8 @@ Removes a group by name.
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onGroupRemoved" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **setVisibleGroups( *groupNames*, *[triggerEvent]* )**:
 Set which groups are visible.
@@ -308,6 +358,8 @@ Set which groups are visible.
 ***Parameter: groupNames***: '*string[]*' - The names of the groups to make visible.
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleGroupsChanged" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 
 <br>
@@ -317,11 +369,15 @@ Set which groups are visible.
 Set the clipboard event.
 <br>
 ***Parameter: event***: '*Event*' - The event to set (refer to "Day Event" documentation for properties).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **setClipboardEvents( *events* )**:
 Set the clipboard events.
 <br>
 ***Parameter: events***: '*Event[]*' - The events to set (refer to "Day Event" documentation for properties).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **getClipboardEvents()**:
 Returns the events copied in the clipboard.
@@ -330,6 +386,8 @@ Returns the events copied in the clipboard.
 
 ### **clearClipboard()**:
 Clears the internal clipboard.
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 
 <br>
@@ -362,6 +420,8 @@ Sets the specific options that should be used.
 ***Parameter: newOptions***: '*Options*' - All the options that should be set (refer to ["Options"](OPTIONS.md) documentation for properties).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **setSearchOptions( *newSearchOptions*, *[triggerEvent]* )**:
 Sets the specific search options that should be used.
@@ -371,6 +431,8 @@ Sets the specific search options that should be used.
 ***Parameter: newSearchOptions***: '*Search*' - All the search options that should be set (refer to ["Search Options"](SEARCH_OPTIONS.md) documentation for properties).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onSearchOptionsUpdated" event should be triggered (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **addHolidays( *holidays*, *[triggerEvent]*, *[updateEvents]* )**:
 Adds new holidays.
@@ -382,6 +444,8 @@ Adds new holidays.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered (defaults to true).
 <br>
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **removeHolidays( *holidayNames*, *[triggerEvent]*, *[updateEvents]* )**:
 Removes holidays.
@@ -393,6 +457,8 @@ Removes holidays.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered (defaults to true).
 <br>
 ***Parameter: [updateEvents]***: '*boolean*' - States if the calendar display should be updated (defaults to true).
+<br>
+***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **getHolidays()**:
 Returns the holidays.

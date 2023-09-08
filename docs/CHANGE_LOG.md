@@ -14,8 +14,12 @@
 - Added CSS variable "--event-text-color", which now states the text color an event should use.
 - Added CSS variable "--event-text-color-all-day", which now states the text color an all-day event should use.
 
+#### **General Improvements:**
+- Added function-chaining support for all public functions that do not return a result.
+
 #### **Fixes:**
 - Fixed a fault that caused the active tooltip to remain visible when the Side Menu is closed.
+- Fixed FUNCTIONS.md documentation not showing the correct return types.
 
 <br>
 

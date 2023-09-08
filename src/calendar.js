@@ -9877,11 +9877,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Turns on the full-screen mode (if enabled).
      * 
      * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.turnOnFullScreen = function() {
         if ( !_datePickerModeEnabled ) {
             turnOnFullScreenMode();
         }
+
+        return this;
     };
 
     /**
@@ -9890,11 +9894,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Turns off the full-screen mode (if enabled).
      * 
      * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.turnOffFullScreen = function() {
         if ( !_datePickerModeEnabled ) {
             turnOffFullScreenMode();
         }
+
+        return this;
     };
 
     /**
@@ -9916,6 +9924,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Starts the auto-refresh timer (if enabled).
      * 
      * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.startTheAutoRefreshTimer = function() {
         if ( !_datePickerModeEnabled ) {
@@ -9923,6 +9933,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             startAutoRefreshTimer();
         }
+
+        return this;
     };
 
     /**
@@ -9931,6 +9943,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Stops the auto-refresh timer (if enabled).
      * 
      * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.stopTheAutoRefreshTimer = function() {
         if ( !_datePickerModeEnabled ) {
@@ -9938,6 +9952,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
             _timer_RefreshMainDisplay_Enabled = false;
         }
+
+        return this;
     };
 
     /**
@@ -9947,6 +9963,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * @fires       onDestroy
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.destroy = function() {
         removeDocumentEvents();
@@ -9969,6 +9987,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Calendar.innerHTML = _string.empty;
 
         triggerOptionsEvent( "onDestroy", _elementID );
+
+        return this;
     };
 
 
@@ -9985,9 +10005,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * @fires       onPreviousMonth
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToPreviousMonth = function() {
         moveBackMonth();
+
+        return this;
     };
 
     /**
@@ -9997,9 +10021,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * @fires       onNextMonth
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToNextMonth = function() {
         moveForwardMonth();
+
+        return this;
     };
 
     /**
@@ -10009,9 +10037,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * @fires       onPreviousYear
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToPreviousYear = function() {
         moveBackYear();
+
+        return this;
     };
 
     /**
@@ -10021,9 +10053,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * @fires       onNextYear
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToNextYear = function() {
         moveForwardYear();
+
+        return this;
     };
 
     /**
@@ -10033,9 +10069,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * @fires       onToday
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToToday = function() {
         moveToday();
+
+        return this;
     };
 
     /**
@@ -10060,6 +10100,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onSetDate
      * 
      * @param       {Object}    date                                        The Date() object to set.
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
      this.setCurrentDisplayDate = function( date ) {
         if ( isDefinedDate( date ) && ( !_datePickerModeEnabled || _datePickerVisible ) ) {
@@ -10072,6 +10114,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
         }
+
+        return this;
     };
 
     /**
@@ -10096,6 +10140,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onDatePickerDateChanged
      * 
      * @param       {Object}    date                                        The Date() object to set.
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setSelectedDatePickerDate = function( date ) {
         if ( isDefinedDate( date ) && _datePickerModeEnabled ) {
@@ -10114,6 +10160,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
         }
+
+        return this;
     };
 
     /**
@@ -10125,6 +10173,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @fires       onEventsExported
      * 
      * @param       {string}    [type]                                      The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled && !_datePickerModeEnabled ) {
@@ -10132,6 +10182,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             exportEvents( null, type );
         }
+
+        return this;
     };
 
     /**
@@ -10141,11 +10193,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * @fires       onRefresh
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.refresh = function() {
         if ( !_datePickerModeEnabled ) {
             refreshViews( true, true );
         }
+
+        return this;
     };
 
     function moveBackMonth( e ) {
@@ -10233,6 +10289,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onEventsSet" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10245,6 +10303,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerOptionsEventWithData( "onEventsSet", events );
             }
         }
+
+        return this;
     };
 
     /**
@@ -10258,6 +10318,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onEventsSetFromJSON" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10275,6 +10337,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerOptionsEventWithData( "onEventsSetFromJSON", json );
             }
         }
+
+        return this;
     };
 
     /**
@@ -10288,6 +10352,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onEventsAdded" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10313,6 +10379,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 refreshOpenedViews();
             }
         }
+
+        return this;
     };
 
     /**
@@ -10326,6 +10394,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {string}    json                                        The JSON string containing the events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onEventsAddedFromJSON" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10343,6 +10413,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerOptionsEventWithData( "onEventsAddedFromJSON", json );
             }
         }
+
+        return this;
     };
 
     /**
@@ -10473,6 +10545,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Event[]}   events                                      The array of events (refer to "Day Event" documentation for properties).
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onEventsUpdated" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10497,6 +10571,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 refreshOpenedViews();
             }
         }
+
+        return this;
     };
 
     /**
@@ -10642,6 +10718,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onEventsCleared" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10661,6 +10739,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 refreshOpenedViews();
             }
         }
+
+        return this;
     };
 
     /**
@@ -10718,6 +10798,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onEventRemoved" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.removeExpiredEvents = function( updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10738,6 +10820,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 refreshOpenedViews();
             }
         }
+
+        return this;
     };
 
     function toStorageDate( date ) {
@@ -10818,6 +10902,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {number[]}  ids                                         The IDs of the event types to make visible.
      * @param       {boolean}   [triggerEvent]                              States if the "onVisibleEventTypesChanged" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setVisibleEventTypes = function( ids, triggerEvent ) {
         if ( isDefinedArray( ids ) && !_datePickerModeEnabled ) {
@@ -10839,6 +10925,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerOptionsEvent( "onVisibleEventTypesChanged", _configuration.visibleEventTypes );
             }
         }
+
+        return this;
     };
 
 
@@ -10871,6 +10959,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onGroupsCleared" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -10891,6 +10981,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 refreshOpenedViews();
             }
         }
+
+        return this;
     };
 
     /**
@@ -10904,6 +10996,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {string}    groupName                                   The name of the group to remove.
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
      * @param       {boolean}   [triggerEvent]                              States if the "onGroupRemoved" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
         if ( isDefinedString( groupName ) && !_datePickerModeEnabled ) {
@@ -10928,6 +11022,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 refreshOpenedViews();
             }
         }
+
+        return this;
     };
 
     /**
@@ -10940,6 +11036,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {string[]}  groupNames                                  The names of the groups to make visible.
      * @param       {boolean}   [triggerEvent]                              States if the "onVisibleGroupsChanged" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setVisibleGroups = function( groupNames, triggerEvent ) {
         if ( isDefinedArray( groupNames ) && !_datePickerModeEnabled ) {
@@ -10963,6 +11061,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerOptionsEvent( "onVisibleGroupsChanged", _configuration.visibleGroups );
             }
         }
+
+        return this;
     };
 
 
@@ -10980,11 +11080,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * 
      * @param       {Event}    event                                        The event to set (refer to "Day Event" documentation for properties).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setClipboardEvent = function( event ) {
         if ( isDefinedObject( event ) && !_datePickerModeEnabled ) {
             _copiedEventDetails = [ cloneEventDetails( event ) ];
         }
+
+        return this;
     };
 
     /**
@@ -10995,6 +11099,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @public
      * 
      * @param       {Event[]}   events                                      The events to set (refer to "Day Event" documentation for properties).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setClipboardEvents = function( events ) {
         if ( isDefinedArray( events ) && !_datePickerModeEnabled ) {
@@ -11006,6 +11112,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _copiedEventDetails.push( cloneEventDetails( events[ eventIndex ] ) );
             }
         }
+
+        return this;
     };
 
     /**
@@ -11033,11 +11141,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Clears the internal clipboard.
      * 
      * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.clearClipboard = function() {
         if ( !_datePickerModeEnabled ) {
             _copiedEventDetails = [];
         }
+
+        return this;
     };
 
 
@@ -11103,6 +11215,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {Options}   newOptions                                  All the options that should be set (refer to "Options" documentation for properties).
      * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setOptions = function( newOptions, triggerEvent ) {
         newOptions = getOptions( newOptions );
@@ -11129,6 +11243,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 build( _currentDate, true, true );
             }
         }
+
+        return this;
     };
 
     /**
@@ -11141,6 +11257,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @param       {Search}    newSearchOptions                            All the search options that should be set (refer to "Search Options" documentation for properties).
      * @param       {boolean}   [triggerEvent]                              States if the "onSearchOptionsUpdated" event should be triggered (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         if ( !_datePickerModeEnabled ) {
@@ -11159,6 +11277,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 triggerOptionsEventWithData( "onSearchOptionsUpdated", _optionsForSearch );
             }
         }
+
+        return this;
     };
 
     /**
@@ -11172,6 +11292,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {Holiday[]} holidays                                    The holidays to add (refer to "Holiday" documentation for properties).
      * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidays ) && !_datePickerModeEnabled ) {
@@ -11188,6 +11310,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 build( _currentDate, true, true );
             }   
         }
+
+        return this;
     };
 
     /**
@@ -11201,6 +11325,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @param       {string[]}  holidayNames                                The names of the holidays to remove (case sensitive).
      * @param       {boolean}   [triggerEvent]                              States if the "onOptionsUpdated" event should be triggered (defaults to true).
      * @param       {boolean}   [updateEvents]                              States if the calendar display should be updated (defaults to true).
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidayNames ) && !_datePickerModeEnabled ) {
@@ -11229,6 +11355,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 build( _currentDate, true, true );
             }
         }
+
+        return this;
     };
 
     /**
