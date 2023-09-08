@@ -3,7 +3,7 @@
 ## Version 2.4.0:
 
 #### **New Custom Trigger Events:**
-- Added a new custom trigger "onEventsFetch", which is triggered when the calendar refreshes (fulls in events to be added, or updated).
+- Added a new custom trigger "onEventsFetch", which is triggered when the calendar refreshes (pulls events to be added, or updated).
 
 #### **CSS Color Theme:**
 - :root variables that use the same colors as other variables now reference the main one.
