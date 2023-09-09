@@ -14,6 +14,9 @@
 - Added CSS variable "--event-text-color", which now states the text color an event should use.
 - Added CSS variable "--event-text-color-all-day", which now states the text color an all-day event should use.
 
+#### **Translations:**
+- Added support for Portuguese, Turkish, and Hindi.
+
 #### **General Improvements:**
 - Added function-chaining support for all public functions that do not return a result (see documentation).
 
