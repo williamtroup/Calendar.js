@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.3.4
+ * Calendar.js Library v2.4.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -15,26 +15,32 @@
     --grid-border-color: #B0B0B0;
     --alert-color: #C60000;
     --event-color: #484848;
+    --event-text-color: var(--light-color);
     --event-color-all-day: #1b3752;
+    --event-text-color-all-day: var(--light-color);
     --day-names-color: #E0E0E0;
     --input-border-color: #A8A8A8;
     --input-background-color: #FFFFFF;
     --area-disabled-stripped: rgba(  40, 40, 40, 0.1  );
     --area-disabled-stripped-weekend-day: rgba(  40, 40, 40, 0.2  );
     --link-color: #2471A3;
-    --input-hover-color: #3b3a3a;
-    --primary-button-color: #3b3a3a;
-    --secondary-button-color: #3b3a3a;
+    --input-hover-color: var(--dark-color);
+    --primary-button-color: var(--dark-color);
+    --secondary-button-color: var(--dark-color);
     --tertiary-button-color: #6c757d;
     --drop-down-menu-background-color: #DCDCDC;
+    --title-bar-button-color: var(--light-color);
+    --menu-item-icon-color: var(--dark-color);
+    --title-bar-text-color: var(--light-color);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --dark-color: #282828;
-        --input-hover-color: #282828;
-        --primary-button-color: #282828;
-        --secondary-button-color: #282828;
+        --input-hover-color: var(--dark-color);
+        --primary-button-color: var(--dark-color);
+        --secondary-button-color: var(--dark-color);
+        --menu-item-icon-color: var(--dark-color);
     }
 }
 
@@ -192,6 +198,7 @@ div.calendar-date-picker {
     }
     
     div.calendar-shown {
+        @include fade-in-effect-animation( 0.5s );
         display: block;
     }
 
@@ -487,6 +494,18 @@ div.calendar {
                 border-right: none;
             }
 
+            div.ib-arrow-expand-left-right-icon {
+                &::before {
+                    border-left-color: var(--dark-color);
+                    border-bottom-color: var(--dark-color);
+                }
+            
+                &::after {
+                    border-right-color: var(--dark-color);
+                    border-top-color: var(--dark-color);
+                }
+            }
+
             &:hover div.ib-arrow-expand-left-right-icon {
                 @media screen and ( min-width: $minimum-width ) {
                     display: block;
@@ -557,6 +576,7 @@ div.calendar {
             background-color: var(--dark-color);
             padding: $spacing;
             z-index: 1;
+            color: var(--title-bar-text-color);
             
             @media screen and ( min-width: $minimum-width ) {
                 font-size: 1.2rem;
@@ -637,6 +657,14 @@ div.calendar {
                     div.ib-arrow-up-full {
                         border-bottom-color: var(--light-color);
                     }
+
+                    div.ib-square-hollow {
+                        border-color: var(--light-color);
+                    }
+
+                    div.ib-square {
+                        background-color: var(--light-color);
+                    }
                 }
 
                 div.text-header {
@@ -685,7 +713,7 @@ div.calendar {
     div.header-date {
         font-weight: $title-bar-font-weight;
         background-color: var(--dark-color);
-        color: var(--light-color);
+        color: var(--title-bar-text-color);
         text-align: center;
         padding-top: $spacing;
         padding-bottom: $spacing;
@@ -701,7 +729,7 @@ div.calendar {
 
         div.side-menu-button-divider-line {
             width: 1px;
-            background-color: var(--light-color);
+            background-color: var(--title-bar-button-color);
             height: 16px;
         }
 
@@ -717,8 +745,15 @@ div.calendar {
                 span.ib-arrow-down-full-medium,
                 span.ib-arrow-up-full-medium {
                     margin-left: calc( $spacing / 2 );
-                    border-top-color: var(--light-color);
                     pointer-events: none;
+                }
+
+                span.ib-arrow-down-full-medium {
+                    border-top-color: var(--title-bar-text-color);
+                }
+
+                span.ib-arrow-up-full-medium {
+                    border-bottom-color: var(--title-bar-text-color);
                 }
 
                 &:hover {
@@ -926,7 +961,7 @@ div.calendar {
                 border-radius: $border-view-radius;
                 background-color: var(--event-color);
                 padding: 3px;
-                color: var(--light-color);
+                color: var(--event-text-color);
                 margin-top: 5px;
                 margin-bottom: 5px;
                 border-left: $event-left-border;
@@ -975,6 +1010,7 @@ div.calendar {
 
             div.all-day {
                 background-color: var(--event-color-all-day) !important;
+                color: var(--event-text-color-all-day);
             }
 
             div.plus-x-events {

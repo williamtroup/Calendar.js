@@ -1,7 +1,8 @@
 $size: 16px;
 $border-width: calc( $size / 4 );
 $border-radius: $border-width;
-$border: $border-width solid var(--light-color);
+$button-color: var(--title-bar-button-color);
+$border: $border-width solid $button-color;
 
 @mixin button-size {
     width: $size;

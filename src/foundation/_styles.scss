@@ -218,7 +218,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     div.title-bar {
         @include no-selection-allowed;
         background-color: var(--dark-color);
-        color: var(--light-color);
+        color: var(--title-bar-text-color);
         padding: $spacing;
         text-align: center;
         font-weight: $title-bar-font-weight;

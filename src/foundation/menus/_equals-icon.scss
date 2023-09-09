@@ -5,7 +5,7 @@
 
     &:before {
         @include top-center-minus( $border-width );
-        background-color: var(--dark-color);
+        background-color: $icon-color;
         width: 100%;
         height: $border-width;
         border-radius: $border-radius;
@@ -14,7 +14,7 @@
 
     &:after {
         @include top-center-add( $border-width );
-        background-color: var(--dark-color);
+        background-color: $icon-color;
         width: 100%;
         height: $border-width;
         border-radius: $border-radius;

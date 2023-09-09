@@ -6,6 +6,7 @@ div.expired {
 
 div.all-day {
     background-color: var(--event-color-all-day) !important;
+    color: var(--event-text-color-all-day) !important;
 }
 
 div.event {
@@ -15,7 +16,7 @@ div.event {
     border-radius: $border-view-radius;
     background-color: var(--event-color);
     padding: $spacing;
-    color: var(--light-color);
+    color: var(--event-text-color);
     margin-bottom: $spacing;
     border-left: $event-left-border;
 

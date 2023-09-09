@@ -8,7 +8,7 @@
         height: 0; 
         border-top: calc( $size / 2 ) solid transparent;
         border-bottom: calc( $size / 2 ) solid transparent;
-        border-right: calc( $size / 2 ) solid var(--light-color);
+        border-right: calc( $size / 2 ) solid $button-color;
         left: 0;
         top: 0;
     }
@@ -18,7 +18,7 @@
         height: 0; 
         border-top: calc( $size / 2 ) solid transparent;
         border-bottom: calc( $size / 2 ) solid transparent;
-        border-right: calc( $size / 2 ) solid var(--light-color);
+        border-right: calc( $size / 2 ) solid $button-color;
         right: 0;
         top: 0;
     }

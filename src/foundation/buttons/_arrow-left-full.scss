@@ -6,5 +6,5 @@
     height: 0; 
     border-top: calc( $size / 2 ) solid transparent;
     border-bottom: calc( $size / 2 ) solid transparent;
-    border-right: $size solid var(--light-color);
+    border-right: $size solid $button-color;
 }

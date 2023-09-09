@@ -2,6 +2,6 @@
 
 .ib-circle-icon {
     @include button-no-before-after;
-    background-color: var(--dark-color);
+    background-color: $icon-color;
     border-radius: 50%;
 }

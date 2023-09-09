@@ -1,5 +1,31 @@
 # Calendar.js - Change Log:
 
+## Version 2.4.0:
+
+#### **New Custom Trigger Events:**
+- Added a new custom trigger "onEventsFetch", which is triggered when the calendar refreshes (pulls events to be added, or updated).
+
+#### **CSS Color Theme:**
+- :root variables that use the same colors as other variables now reference the main one.
+- Added a fade-in effect when the calendar is shown in DatePicker mode.
+- Added CSS variable "--title-bar-button-color", which now states the color the title bar buttons should use.
+- Added CSS variable "--menu-item-icon-color", which now states the color the context menu icons should use.
+- Added CSS variable "--title-bar-text-color", which now states the text color the title bars should use.
+- Added CSS variable "--event-text-color", which now states the text color an event should use.
+- Added CSS variable "--event-text-color-all-day", which now states the text color an all-day event should use.
+
+#### **Translations:**
+- Added support for Portuguese, Turkish, and Hindi.
+
+#### **General Improvements:**
+- Added function-chaining support for all public functions that do not return a result (see documentation).
+
+#### **Fixes:**
+- Fixed a fault that caused the active tooltip to remain visible when the Side Menu is closed.
+- Fixed FUNCTIONS.md documentation not showing the correct return types.
+
+<br>
+
 ## Version 2.3.4:
 - Added new setting "reverseOrderDaysOfWeek" (defaults to false), which states if the days in the display should be reversed (this will allow for Hebrew calendar layouts).
 - Added translation JSON JS files to "/dist/translations" folder for:  French, Spanish, Polish, and German.  A base English version is available for quickly translating into other languages.  More languages will be added moving forward.

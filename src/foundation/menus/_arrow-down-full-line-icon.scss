@@ -8,7 +8,7 @@
         height: 0; 
         border-left: calc( $size / 2 ) solid transparent;
         border-right: calc( $size / 2 ) solid transparent;
-        border-top: calc( $size / 2 ) solid var(--dark-color);
+        border-top: calc( $size / 2 ) solid $icon-color;
         left: 0;
         bottom: 0;
     }
@@ -17,7 +17,7 @@
         @include left-center;
         width: calc( $size / 2 );
         height: calc( $size / 2 );
-        background-color: var(--dark-color);
+        background-color: $icon-color;
         top: 0;
     }
 }
