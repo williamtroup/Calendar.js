@@ -9,7 +9,7 @@
 - Event files can now only be dropped on the display if the setting "importEventsEnabled" is set to true.
 
 #### **General Improvements:**
-- Added a new "Import Events" button to all views (on the left hand side), which will allow you to select the files you want to import.
+- Added a new "Import Events" button to the Side Menu title bar, which will allow you to select the files you want to import.
 
 #### **New Settings:**
 - Added a new setting "importEventsEnabled" (defaults to true) which states if importing events from files is enabled.
