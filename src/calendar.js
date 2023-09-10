@@ -287,8 +287,9 @@
  * @property    {string}    workingDaysText                             The text that should be displayed for the "Working Days" label.
  * @property    {string}    weekendDaysText                             The text that should be displayed for the "Weekend Days" label.
  * @property    {string}    showAsBusyText                              The text that should be displayed for the "Show As Busy" label.
- * @property    {string}    selectAllText                               The text that should be displayed for the "Select All" label.
- * @property    {string}    selectNoneText                              The text that should be displayed for the "Select None" label.
+ * @property    {string}    selectAllText                               The tooltip text that should be displayed for the "Select All" label.
+ * @property    {string}    selectNoneText                              The tooltip text that should be displayed for the "Select None" label.
+ * @property    {string}    importEventsTooltipText                     The tooltip text that should be used for for the "Import Events" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -360,6 +361,7 @@
  * @property    {string}    workingHoursStart                           States when the time the working hours start (for example, "09:00", ane defaults to null).
  * @property    {string}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", ane defaults to null).
  * @property    {boolean}   reverseOrderDaysOfWeek                      States if the days of the week should be reversed (for hebrew calendars, for example. Defaults to true).
+ * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
  */
 
 
@@ -1011,6 +1013,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _datePickerModeEnabled || _options.showExtraToolbarButtons ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-pin", _options.currentMonthTooltipText, moveToday );
+        }
+
+        if ( !_datePickerModeEnabled && _options.importEventsEnabled && _options.manualEditingEnabled ) {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected );
         }
 
         if ( _options.showExtraToolbarButtons ) {
@@ -3165,6 +3171,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( _options.showExtraToolbarButtons ) {
                 _element_FullDayView_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
+
+                if ( _options.importEventsEnabled && _options.manualEditingEnabled ) {
+                    buildToolbarButton( titleBar, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected );
+                }
     
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -3933,6 +3943,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
                     titleBar.appendChild( sideMenuButtonDividerLine );
                 }
+
+                if ( _options.importEventsEnabled && _options.manualEditingEnabled ) {
+                    buildToolbarButton( titleBar, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected );
+                }
         
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -4240,6 +4254,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
         
                 buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek );
+
+                if ( _options.importEventsEnabled && _options.manualEditingEnabled ) {
+                    buildToolbarButton( titleBar, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected );
+                }
+
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
                 } );
@@ -5240,22 +5259,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function dropFileOnDisplay( e ) {
-        if ( isDefined( _window.FileReader ) ) {
+        if ( isDefined( _window.FileReader ) && _options.importEventsEnabled ) {
             var filesLength = e.dataTransfer.files.length;
 
             for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
-                readDropFileOnDisplay( e, fileIndex );
+                readDropFileOnDisplay( e.dataTransfer.files[ fileIndex ] );
             }
         }
     }
 
-    function readDropFileOnDisplay( e, fileIndex ) {
-        var extension = e.dataTransfer.files[ fileIndex ].name.split( "." ).pop().toLowerCase();
+    function readDropFileOnDisplay( blob ) {
+        var extension = blob.name.split( "." ).pop().toLowerCase();
 
         if ( extension === "json" ) {
-            importEventsFromJson( e.dataTransfer.files[ fileIndex ] );
+            importEventsFromJson( blob );
         } else if ( extension === "ics" || extension === "ical" ) {
-            importEventsFromICal( e.dataTransfer.files[ fileIndex ] );
+            importEventsFromICal( blob );
         }
     }
 
@@ -5469,6 +5488,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 readingEventDetails.repeatEnds = importICalDateTime( until );
             }
         }
+    }
+
+    function importEventsFromFileSelected() {
+        var input = createElement( "input", null, "file" );
+        input.accept = ".ical, .ics, .json";
+
+        input.onchange = function() {
+            var filesLength = input.files.length;
+
+            for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
+                readDropFileOnDisplay( input.files[ fileIndex ] );
+            }
+        };
+
+        input.click();
     }
 
 
@@ -11642,6 +11676,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.workingHoursStart = getDefaultString( _options.workingHoursStart, null );
         _options.workingHoursEnd = getDefaultString( _options.workingHoursEnd, null );
         _options.reverseOrderDaysOfWeek = getDefaultBoolean( _options.reverseOrderDaysOfWeek, false );
+        _options.importEventsEnabled = getDefaultBoolean( _options.importEventsEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -11916,6 +11951,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showAsBusyText = getDefaultString( _options.showAsBusyText, "Show As Busy" );
         _options.selectAllText = getDefaultString( _options.selectAllText, "Select All" );
         _options.selectNoneText = getDefaultString( _options.selectNoneText, "Select None" );
+        _options.importEventsTooltipText = getDefaultString( _options.importEventsTooltipText, "Import Events" );
     }
 
     function setEventTypeTranslationStringOptions() {

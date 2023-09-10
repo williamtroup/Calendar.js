@@ -76,6 +76,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | workingHoursStart | States when the time the working hours start (for example, "09:00", ane defaults to null). |
 | *string* | workingHoursEnd | States when the time the working hours end (for example, "17:00", ane defaults to null). |
 | *boolean* | reverseOrderDaysOfWeek | States if the days of the week should be reversed (for Hebrew calendars, for example. Defaults to true). |
+| *boolean* | importEventsEnabled | States if importing events is enabled (defaults to true). |
 <br/>
 
 ### Translatable String Options:
@@ -254,5 +255,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | workingDaysText | The text that should be displayed for the "Working Days" label. |
 | *string* | weekendDaysText | The text that should be displayed for the "Weekend Days" label. |
 | *string* | showAsBusyText | The text that should be displayed for the "Show As Busy" label. |
-| *string* | selectAllText | The text that should be displayed for the "Select All" label. |
-| *string* | selectNoneText | The text that should be displayed for the "Select None" label. |
+| *string* | selectAllText | The tooltip text that should be displayed for the "Select All" label. |
+| *string* | selectNoneText | The tooltip text that should be displayed for the "Select None" label. |
+| *string* | importEventsTooltipText | The tooltip text that should be used for for the "Import Events" button. |

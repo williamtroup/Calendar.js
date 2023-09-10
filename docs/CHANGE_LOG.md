@@ -6,6 +6,14 @@
 - Added multiple Json/ICal file drop support for adding events.
 - Added full ICal/Ics file drop support, which will import all the fields supported under a new events.
 - Only Json and ICal/Ics files are now accepted for file dropping.
+- Event files can now only be dropped on the display if the setting "importEventsEnabled" is set to true.
+
+#### **General Improvements:**
+- Added a new "Import Events" button to all views (on the left hand side), which will allow you to select the files you want to import.
+
+#### **New Settings:**
+- Added a new setting "importEventsEnabled" (defaults to true) which states if importing events from files is enabled.
+- Added a new setting "importEventsTooltipText" (defaults to "Import Events") which states the tooltip text to use for the new Import title bar button.
 
 #### **Fixes:**
 - Fixed a fault that caused the "repeatEveryExcludeDays" event property to be exported in the wrong format for Json.

@@ -906,7 +906,8 @@ div.calendar {
         div.ib-octagon-hollow,
         div.ib-hamburger,
         div.ib-rewind,
-        div.side-menu-button-divider-line {
+        div.side-menu-button-divider-line,
+        div.ib-arrow-up-full-line {
             float: left;
         }
 
@@ -929,7 +930,8 @@ div.calendar {
             div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
-            div.ib-octagon-hollow {
+            div.ib-octagon-hollow,
+            div.ib-arrow-up-full-line {
                 display: inline-block;
             }
         }
@@ -940,7 +942,8 @@ div.calendar {
             div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
-            div.ib-octagon-hollow {
+            div.ib-octagon-hollow,
+            div.ib-arrow-up-full-line {
                 display: none !important;
             }
         }
@@ -2314,6 +2317,7 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-down-full";
 @import "foundation/buttons/arrow-up-full";
 @import "foundation/buttons/square";
+@import "foundation/buttons/arrow-up-full-line";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

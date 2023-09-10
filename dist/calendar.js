@@ -176,6 +176,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_datePickerModeEnabled || _options.showExtraToolbarButtons) {
       buildToolbarButton(_element_HeaderDateDisplay, "ib-pin", _options.currentMonthTooltipText, moveToday);
     }
+    if (!_datePickerModeEnabled && _options.importEventsEnabled && _options.manualEditingEnabled) {
+      buildToolbarButton(_element_HeaderDateDisplay, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
+    }
     if (_options.showExtraToolbarButtons) {
       buildToolbarButton(_element_HeaderDateDisplay, "ib-refresh", _options.refreshTooltipText, function() {
         refreshViews(true, true);
@@ -1787,6 +1790,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (_options.showExtraToolbarButtons) {
         _element_FullDayView_TodayButton = buildToolbarButton(titleBar, "ib-pin", _options.todayTooltipText, onToday);
+        if (_options.importEventsEnabled && _options.manualEditingEnabled) {
+          buildToolbarButton(titleBar, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
+        }
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
@@ -2363,6 +2369,9 @@ function calendarJs(elementOrId, options, searchOptions) {
           var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
           titleBar.appendChild(sideMenuButtonDividerLine);
         }
+        if (_options.importEventsEnabled && _options.manualEditingEnabled) {
+          buildToolbarButton(titleBar, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
+        }
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
@@ -2595,6 +2604,9 @@ function calendarJs(elementOrId, options, searchOptions) {
           });
         }
         buildToolbarButton(titleBar, "ib-pin", _options.thisWeekTooltipText, onThisWeek);
+        if (_options.importEventsEnabled && _options.manualEditingEnabled) {
+          buildToolbarButton(titleBar, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
+        }
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
@@ -3358,20 +3370,20 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function dropFileOnDisplay(e) {
-    if (isDefined(_window.FileReader)) {
+    if (isDefined(_window.FileReader) && _options.importEventsEnabled) {
       var filesLength = e.dataTransfer.files.length;
       var fileIndex = 0;
       for (; fileIndex < filesLength; fileIndex++) {
-        readDropFileOnDisplay(e, fileIndex);
+        readDropFileOnDisplay(e.dataTransfer.files[fileIndex]);
       }
     }
   }
-  function readDropFileOnDisplay(e, fileIndex) {
-    var extension = e.dataTransfer.files[fileIndex].name.split(".").pop().toLowerCase();
+  function readDropFileOnDisplay(blob) {
+    var extension = blob.name.split(".").pop().toLowerCase();
     if (extension === "json") {
-      importEventsFromJson(e.dataTransfer.files[fileIndex]);
+      importEventsFromJson(blob);
     } else if (extension === "ics" || extension === "ical") {
-      importEventsFromICal(e.dataTransfer.files[fileIndex]);
+      importEventsFromICal(blob);
     }
   }
   function getObjectFromString(objectString) {
@@ -3542,6 +3554,18 @@ function calendarJs(elementOrId, options, searchOptions) {
         readingEventDetails.repeatEnds = importICalDateTime(until);
       }
     }
+  }
+  function importEventsFromFileSelected() {
+    var input = createElement("input", null, "file");
+    input.accept = ".ical, .ics, .json";
+    input.onchange = function() {
+      var filesLength = input.files.length;
+      var fileIndex = 0;
+      for (; fileIndex < filesLength; fileIndex++) {
+        readDropFileOnDisplay(input.files[fileIndex]);
+      }
+    };
+    input.click();
   }
   function buildDropDownMenus() {
     if (!_datePickerModeEnabled) {
@@ -7004,6 +7028,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.workingHoursStart = getDefaultString(_options.workingHoursStart, null);
     _options.workingHoursEnd = getDefaultString(_options.workingHoursEnd, null);
     _options.reverseOrderDaysOfWeek = getDefaultBoolean(_options.reverseOrderDaysOfWeek, false);
+    _options.importEventsEnabled = getDefaultBoolean(_options.importEventsEnabled, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -7217,6 +7242,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showAsBusyText = getDefaultString(_options.showAsBusyText, "Show As Busy");
     _options.selectAllText = getDefaultString(_options.selectAllText, "Select All");
     _options.selectNoneText = getDefaultString(_options.selectNoneText, "Select None");
+    _options.importEventsTooltipText = getDefaultString(_options.importEventsTooltipText, "Import Events");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
