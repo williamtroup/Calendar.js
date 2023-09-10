@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.5.0:
+- 
+
+<br>
+
 ## Version 2.4.0:
 
 #### **New Custom Trigger Events:**
