@@ -3359,12 +3359,19 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function dropFileOnDisplay(e) {
     if (isDefined(_window.FileReader)) {
-      var reader = new FileReader();
-      reader.onload = function(event) {
-        _this.addEventsFromJson(event.target.result);
-      };
-      reader.readAsText(e.dataTransfer.files[0]);
+      var filesLength = e.dataTransfer.files.length;
+      var fileIndex = 0;
+      for (; fileIndex < filesLength; fileIndex++) {
+        readyDropFileOnDisplay(e, fileIndex);
+      }
     }
+  }
+  function readyDropFileOnDisplay(e, fileIndex) {
+    var reader = new FileReader();
+    reader.readAsText(e.dataTransfer.files[fileIndex]);
+    reader.onload = function(event) {
+      _this.addEventsFromJson(event.target.result);
+    };
   }
   function getObjectFromString(objectString) {
     var result;
