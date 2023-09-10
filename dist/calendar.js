@@ -2210,7 +2210,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           var eventIndex = 0;
           for (; eventIndex < eventsLength; eventIndex++) {
             var eventSizeDetails = _element_FullDayView_EventsShown_Sizes[eventIndex];
-            if (eventSizeDetails.height != eventSizeDetails.eventElement.offsetHeight) {
+            if (eventSizeDetails.height !== eventSizeDetails.eventElement.offsetHeight) {
               var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height;
               var differenceMinutes = difference / pixelsPerMinute;
               eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;

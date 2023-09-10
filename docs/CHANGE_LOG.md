@@ -18,6 +18,7 @@
 #### **Fixes:**
 - Fixed a fault that caused the "repeatEveryExcludeDays" event property to be exported in the wrong format for Json.
 - Fixed some strict equals faults when checking to see if menus/dropdowns are open.
+- Fixed some strict not-equals faults when verifying if an event has been resized in the Full Day view.
 
 <br>
 

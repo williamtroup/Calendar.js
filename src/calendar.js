@@ -3720,7 +3720,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
                         var eventSizeDetails = _element_FullDayView_EventsShown_Sizes[ eventIndex ];
     
-                        if ( eventSizeDetails.height != eventSizeDetails.eventElement.offsetHeight ) {
+                        if ( eventSizeDetails.height !== eventSizeDetails.eventElement.offsetHeight ) {
                             var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height,
                                 differenceMinutes = difference / pixelsPerMinute;
     
