@@ -3368,10 +3368,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function readyDropFileOnDisplay(e, fileIndex) {
     var reader = new FileReader();
-    reader.readAsText(e.dataTransfer.files[fileIndex]);
-    reader.onload = function(event) {
-      _this.addEventsFromJson(event.target.result);
-    };
+    var extension = e.dataTransfer.files[fileIndex].name.split(".").pop().toLowerCase();
+    if (extension === "json") {
+      reader.readAsText(e.dataTransfer.files[fileIndex]);
+      reader.onload = function(event) {
+        _this.addEventsFromJson(event.target.result);
+      };
+    }
   }
   function getObjectFromString(objectString) {
     var result;

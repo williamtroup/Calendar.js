@@ -2,6 +2,7 @@
 
 ## Version 2.5.0:
 - Added multiple JSON file drop support for adding events.
+- Only JSON files are now accepted for file drop support.
 - 
 
 <br>
