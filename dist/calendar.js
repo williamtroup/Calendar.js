@@ -3362,11 +3362,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       var filesLength = e.dataTransfer.files.length;
       var fileIndex = 0;
       for (; fileIndex < filesLength; fileIndex++) {
-        readyDropFileOnDisplay(e, fileIndex);
+        readDropFileOnDisplay(e, fileIndex);
       }
     }
   }
-  function readyDropFileOnDisplay(e, fileIndex) {
+  function readDropFileOnDisplay(e, fileIndex) {
     var reader = new FileReader();
     var extension = e.dataTransfer.files[fileIndex].name.split(".").pop().toLowerCase();
     if (extension === "json") {
