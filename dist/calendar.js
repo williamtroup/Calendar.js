@@ -6401,11 +6401,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getArrayText(value, includeSpeechMarks) {
     includeSpeechMarks = isDefined(includeSpeechMarks) ? includeSpeechMarks : false;
     var array = getArray(value);
-    if (includeSpeechMarks) {
-      var arrayLength = array.length;
-      var arrayIndex = 0;
-      for (; arrayIndex < arrayLength; arrayIndex++) {
+    var arrayLength = array.length;
+    var arrayIndex = 0;
+    for (; arrayIndex < arrayLength; arrayIndex++) {
+      if (includeSpeechMarks) {
         array[arrayIndex] = '"' + array[arrayIndex] + '"';
+      } else {
+        array[arrayIndex] = array[arrayIndex];
       }
     }
     return array.join(",");
@@ -6425,7 +6427,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         result = getArrayDays(value);
       } else {
         if (forJson) {
-          result = "[" + getArrayText(value, true) + "]";
+          result = "[" + getArrayText(value) + "]";
         } else {
           result = getArrayText(value);
         }

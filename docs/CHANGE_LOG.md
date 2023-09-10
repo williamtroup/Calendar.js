@@ -7,6 +7,9 @@
 - Added full ICal/Ics file drop support, which will import all the fields supported under a new events.
 - Only Json and ICal/Ics files are now accepted for file dropping.
 
+#### **Fixes:**
+- Fixed a fault that caused the "repeatEveryExcludeDays" event property to be exported in the wrong format for Json.
+
 <br>
 
 ## Version 2.4.0:

@@ -9380,13 +9380,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function getArrayText( value, includeSpeechMarks ) {
         includeSpeechMarks = isDefined( includeSpeechMarks ) ? includeSpeechMarks : false;
 
-        var array = getArray( value );
+        var array = getArray( value ),
+            arrayLength = array.length;
 
-        if ( includeSpeechMarks ) {
-            var arrayLength = array.length;
-
-            for ( var arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++ ) {
+        for ( var arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++ ) {
+            if ( includeSpeechMarks ) {
                 array[ arrayIndex ] = "\"" + array[ arrayIndex ] + "\"";
+            } else {
+                array[ arrayIndex ] = array[ arrayIndex ];
             }
         }
 
@@ -9414,7 +9415,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else {
 
                 if ( forJson ) {
-                    result = "[" + getArrayText( value, true ) + "]";
+                    result = "[" + getArrayText( value ) + "]";
                 } else {
                     result = getArrayText( value );
                 }
