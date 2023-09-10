@@ -5464,7 +5464,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     readingEventDetails.repeatEvery = _repeatType.everyWeek;
                 } else if ( freq === "MONTHLY" ) {
                     readingEventDetails.repeatEvery = _repeatType.everyMonth;
-                } else if ( freq === "MONTHLY" && interval == 2 ) {
+                } else if ( freq === "MONTHLY" && interval === 2 ) {
                     readingEventDetails.repeatEvery = _repeatType.every2Weeks;
                 } else if ( freq === "YEARLY" ) {
                     readingEventDetails.repeatEvery = _repeatType.everyYear;
@@ -7590,7 +7590,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function hideSearchHistoryDropDownMenu() {
         var closed = false;
 
-        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-up-full" ) {
+        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className === "ib-arrow-up-full" ) {
             _element_SearchDialog_History_DropDown.style.display = "none";
             _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-down-full";
 
@@ -7601,7 +7601,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showSearchHistoryDropDownMenu() {
-        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-down-full" ) {
+        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className === "ib-arrow-down-full" ) {
             _element_SearchDialog_History_DropDown.style.display = "block";
             _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-up-full";
         }
