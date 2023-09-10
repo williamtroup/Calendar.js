@@ -4,8 +4,8 @@
 
 #### **File Drop:**
 - Added multiple Json/ICal file drop support for adding events.
-- Added full ICal/Ics file drop support, which will import all the fields supported under a new events.
-- Only Json and ICal/Ics files are now accepted for file dropping.
+- Added full ICal/Ics file import/drop support, which will import all the fields supported under a new events.
+- Only Json and ICal/Ics files are now accepted for importing, and file dropping.
 - Event files can now only be dropped on the display if the setting "importEventsEnabled" is set to true.
 
 #### **General Improvements:**
