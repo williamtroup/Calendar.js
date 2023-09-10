@@ -1,9 +1,11 @@
 # Calendar.js - Change Log:
 
 ## Version 2.5.0:
-- Added multiple JSON file drop support for adding events.
-- Only JSON files are now accepted for file drop support.
-- 
+
+#### **File Drop:**
+- Added multiple Json/ICal file drop support for adding events.
+- Added full ICal/Ics file drop support, which will import all the fields supported under a new events.
+- Only Json and ICal/Ics files are now accepted for file dropping.
 
 <br>
 
