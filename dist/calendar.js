@@ -3395,7 +3395,21 @@ function calendarJs(elementOrId, options, searchOptions) {
     var reader = new FileReader();
     reader.readAsText(blob);
     reader.onload = function(event) {
-      _this.addEventsFromJson(event.target.result);
+      var readingEvents = getObjectFromString(event.target.result);
+      if (isDefinedObject(readingEvents) && readingEvents.hasOwnProperty("events")) {
+        readingEvents = readingEvents.events;
+      }
+      var readingEventsAdded = [];
+      var readingEventsLength = readingEvents.length;
+      var readingEventsIndex = 0;
+      for (; readingEventsIndex < readingEventsLength; readingEventsIndex++) {
+        var eventDetails = readingEvents[readingEventsIndex];
+        _this.removeEvent(eventDetails.id, false, false);
+        if (_this.addEvent(eventDetails, false, false)) {
+          readingEventsAdded.push(eventDetails);
+        }
+      }
+      importFromFilesCompleted(readingEventsAdded);
     };
   }
   function importEventsFromICal(blob) {
@@ -3408,7 +3422,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (contentLines[0].indexOf("BEGIN:VCALENDAR") > -1 && contentLines[contentLinesLength - 1].indexOf("END:VCALENDAR") > -1) {
         var readingEvent = false;
         var readingEventDetails = {};
-        var readingEventsAddedOrUpdated = false;
+        var readingEventsAdded = [];
         var contentLineIndex = 0;
         for (; contentLineIndex < contentLinesLength; contentLineIndex++) {
           var contentLine = contentLines[contentLineIndex];
@@ -3417,10 +3431,11 @@ function calendarJs(elementOrId, options, searchOptions) {
           } else if (contentLine.indexOf("END:VEVENT") > -1) {
             var eventDetails = JSON.parse(JSON.stringify(readingEventDetails));
             readingEvent = false;
-            readingEventsAddedOrUpdated = true;
             readingEventDetails = {};
             _this.removeEvent(eventDetails.id, false, false);
-            _this.addEvent(eventDetails, false, false);
+            if (_this.addEvent(eventDetails, false, false)) {
+              readingEventsAdded.push(eventDetails);
+            }
           }
           if (readingEvent) {
             if (startsWith(contentLine, "UID:")) {
@@ -3453,12 +3468,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             }
           }
         }
-        if (readingEventsAddedOrUpdated) {
-          storeEventsInLocalStorage();
-          updateSideMenu();
-          buildDayEvents();
-          refreshOpenedViews();
-        }
+        importFromFilesCompleted(readingEventsAdded);
       }
     };
   }
@@ -3557,6 +3567,15 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     };
     input.click();
+  }
+  function importFromFilesCompleted(eventsAdded) {
+    if (eventsAdded.length > 0) {
+      storeEventsInLocalStorage();
+      updateSideMenu();
+      buildDayEvents();
+      refreshOpenedViews();
+      showNotificationPopUp(_options.eventsImportedText.replace("{0}", eventsAdded.length));
+    }
   }
   function buildDropDownMenus() {
     if (!_datePickerModeEnabled) {
@@ -7234,6 +7253,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.selectAllText = getDefaultString(_options.selectAllText, "Select All");
     _options.selectNoneText = getDefaultString(_options.selectNoneText, "Select None");
     _options.importEventsTooltipText = getDefaultString(_options.importEventsTooltipText, "Import Events");
+    _options.eventsImportedText = getDefaultString(_options.eventsImportedText, "{0} events imported.");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);

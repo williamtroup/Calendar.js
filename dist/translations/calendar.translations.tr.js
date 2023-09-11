@@ -218,5 +218,6 @@ var __TRANSLATION_OPTIONS = {
     "showAsBusyText": "Meşgul Olarak Göster",
     "selectAllText": "Hepsini seç",
     "selectNoneText": "Hiçbirini Seçme",
-    "importEventsTooltipText": "Etkinlikleri İçe Aktar"
+    "importEventsTooltipText": "Etkinlikleri İçe Aktar",
+    "eventsImportedText": "{0} etkinlik içe aktarıldı."
 };

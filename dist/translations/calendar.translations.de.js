@@ -218,5 +218,6 @@ var __TRANSLATION_OPTIONS = {
   "showAsBusyText": "Als beschäftigt anzeigen",
   "selectAllText": "Wählen Sie Alle",
   "selectNoneText": "Nichts ausgewählt",
-  "importEventsTooltipText": "Ereignisse importieren"
+  "importEventsTooltipText": "Ereignisse importieren",
+  "eventsImportedText": "{0} Ereignisse importiert."
 };

@@ -7,6 +7,8 @@
 - Added full ICal/Ics file import/drop support, which will import all the fields supported under a new events.
 - Only Json and ICal/Ics files are now accepted for importing, and file dropping.
 - Event files can now only be dropped on the display if the setting "importEventsEnabled" is set to true.
+- When events are imported (from file dropping, or file selection), Calendar.js will attempt to update the existing events with the details in the file (instead of just adding the ones that don't exist).
+- 
 
 #### **General Improvements:**
 - Added a new "Import Events" button to the Side Menu title bar, which will allow you to select the files you want to import.
@@ -14,6 +16,7 @@
 #### **New Settings:**
 - Added a new setting "importEventsEnabled" (defaults to true) which states if importing events from files is enabled.
 - Added a new setting "importEventsTooltipText" (defaults to "Import Events") which states the tooltip text to use for the new Import title bar button.
+- Added a new setting "eventsImportedText" (defaults to "{0} events imported.") which states the notification text to show when events are imported.
 
 #### **Fixes:**
 - Fixed a fault that caused the "repeatEveryExcludeDays" event property to be exported in the wrong format for Json.

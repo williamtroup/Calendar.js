@@ -290,6 +290,7 @@
  * @property    {string}    selectAllText                               The tooltip text that should be displayed for the "Select All" label.
  * @property    {string}    selectNoneText                              The tooltip text that should be displayed for the "Select None" label.
  * @property    {string}    importEventsTooltipText                     The tooltip text that should be used for for the "Import Events" button.
+ * @property    {string}    eventsImportedText                          The text that should be displayed for the "{0} events imported." notification.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -5295,7 +5296,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
         reader.readAsText( blob );
     
         reader.onload = function( event ) {
-            _this.addEventsFromJson( event.target.result );
+            var readingEvents = getObjectFromString( event.target.result );
+
+            if ( isDefinedObject( readingEvents ) && readingEvents.hasOwnProperty( "events" ) ) {
+                readingEvents = readingEvents.events;
+            }
+
+            var readingEventsAdded = [],
+                readingEventsLength = readingEvents.length;
+
+            for ( var readingEventsIndex = 0; readingEventsIndex < readingEventsLength; readingEventsIndex++ ) {
+                var eventDetails = readingEvents[ readingEventsIndex ];
+
+                _this.removeEvent( eventDetails.id, false, false );
+
+                if ( _this.addEvent( eventDetails, false, false ) ) {
+                    readingEventsAdded.push( eventDetails);
+                }
+            }
+
+            importFromFilesCompleted( readingEventsAdded );
         };
     }
 
@@ -5311,7 +5331,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > -1 && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > -1 ) {
                 var readingEvent = false,
                     readingEventDetails = {},
-                    readingEventsAddedOrUpdated = false;
+                    readingEventsAdded = [];
                 
                 for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
                     var contentLine = contentLines[ contentLineIndex ];
@@ -5322,11 +5342,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         var eventDetails = JSON.parse( JSON.stringify( readingEventDetails ) );
 
                         readingEvent = false;
-                        readingEventsAddedOrUpdated = true;
                         readingEventDetails = {};
 
                         _this.removeEvent( eventDetails.id, false, false );
-                        _this.addEvent( eventDetails, false, false );
+
+                        if ( _this.addEvent( eventDetails, false, false ) ) {
+                            readingEventsAdded.push( eventDetails );
+                        }
                     }
 
                     if ( readingEvent ) {
@@ -5361,12 +5383,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
                 }
 
-                if ( readingEventsAddedOrUpdated ) {
-                    storeEventsInLocalStorage();
-                    updateSideMenu();
-                    buildDayEvents();
-                    refreshOpenedViews();
-                }
+                importFromFilesCompleted( readingEventsAdded );
             }
         };
     }
@@ -5490,6 +5507,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         };
 
         input.click();
+    }
+
+    function importFromFilesCompleted( eventsAdded ) {
+        if ( eventsAdded.length > 0 ) {
+            storeEventsInLocalStorage();
+            updateSideMenu();
+            buildDayEvents();
+            refreshOpenedViews();
+            showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAdded.length ) );
+        }
     }
 
 
@@ -11939,6 +11966,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.selectAllText = getDefaultString( _options.selectAllText, "Select All" );
         _options.selectNoneText = getDefaultString( _options.selectNoneText, "Select None" );
         _options.importEventsTooltipText = getDefaultString( _options.importEventsTooltipText, "Import Events" );
+        _options.eventsImportedText = getDefaultString( _options.eventsImportedText, "{0} events imported." );
     }
 
     function setEventTypeTranslationStringOptions() {
