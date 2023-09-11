@@ -11,6 +11,7 @@
 
 #### **General Improvements:**
 - Added a new "Import Events" button to the Side Menu title bar, which will allow you to select the files you want to import.
+- The "Close" button shown on the main title bar in DatePicker mode is now all the way on the right, and is separated from the other buttons.
 
 #### **Custom Trigger Events:**
 - Added a new custom trigger "onEventsImported", which is triggered when events are imported from files (when dropped, or selected).

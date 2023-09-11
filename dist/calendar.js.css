@@ -730,11 +730,13 @@ div.calendar div.header-date {
   position: relative;
 }
 div.calendar div.header-date div[class^=ib-],
-div.calendar div.header-date div.side-menu-button-divider-line {
+div.calendar div.header-date div.side-menu-button-divider-line,
+div.calendar div.header-date div.date-picker-close-divider-line {
   margin-left: 5px;
   margin-right: 5px;
 }
-div.calendar div.header-date div.side-menu-button-divider-line {
+div.calendar div.header-date div.side-menu-button-divider-line,
+div.calendar div.header-date div.date-picker-close-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -933,7 +935,8 @@ div.calendar div.header-date div.ib-plus,
 div.calendar div.header-date div.ib-arrow-right-full,
 div.calendar div.header-date div.ib-arrow-expand-left-right,
 div.calendar div.header-date div.ib-arrow-contract-left-right,
-div.calendar div.header-date div.ib-forward {
+div.calendar div.header-date div.ib-forward,
+div.calendar div.header-date div.date-picker-close-divider-line {
   float: right;
 }
 @media screen and (min-width: 451px) {

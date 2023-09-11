@@ -722,12 +722,14 @@ div.calendar {
         position: relative;
 
         div[class^='ib-'],
-        div.side-menu-button-divider-line {
+        div.side-menu-button-divider-line,
+        div.date-picker-close-divider-line {
             margin-left: calc( $spacing / 2 );
             margin-right: calc( $spacing / 2 );
         }
 
-        div.side-menu-button-divider-line {
+        div.side-menu-button-divider-line,
+        div.date-picker-close-divider-line {
             width: 1px;
             background-color: var(--title-bar-button-color);
             height: 16px;
@@ -918,7 +920,8 @@ div.calendar {
         div.ib-arrow-right-full,
         div.ib-arrow-expand-left-right,
         div.ib-arrow-contract-left-right,
-        div.ib-forward {
+        div.ib-forward,
+        div.date-picker-close-divider-line {
             float: right;
         }
 

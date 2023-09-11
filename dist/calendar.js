@@ -166,8 +166,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (!_datePickerModeEnabled && isSideMenuAvailable()) {
       buildToolbarButton(_element_HeaderDateDisplay, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-      var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-      _element_HeaderDateDisplay.appendChild(sideMenuButtonDividerLine);
+      _element_HeaderDateDisplay.appendChild(createElement("div", "side-menu-button-divider-line"));
     }
     buildToolbarButton(_element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
@@ -184,12 +183,13 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_HeaderDateDisplay_SearchButton = buildToolbarButton(_element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog);
       }
     }
+    if (_datePickerModeEnabled) {
+      buildToolbarButton(_element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode);
+      _element_HeaderDateDisplay.appendChild(createElement("div", "date-picker-close-divider-line"));
+    }
     buildToolbarButton(_element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
       buildToolbarButton(_element_HeaderDateDisplay, "ib-forward", _options.nextYearTooltipText, moveForwardYear);
-    }
-    if (_datePickerModeEnabled) {
-      buildToolbarButton(_element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode);
     }
     if (_options.showExtraToolbarButtons) {
       if (_options.manualEditingEnabled) {
@@ -1779,8 +1779,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (!_datePickerModeEnabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-        var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-        titleBar.appendChild(sideMenuButtonDividerLine);
+        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay);
       if (_options.exportEventsEnabled && _options.showExtraToolbarButtons) {
@@ -2363,8 +2362,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
         if (!_datePickerModeEnabled && isSideMenuAvailable()) {
           buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-          var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-          titleBar.appendChild(sideMenuButtonDividerLine);
+          titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
         }
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
@@ -2587,8 +2585,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (!_datePickerModeEnabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-        var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-        titleBar.appendChild(sideMenuButtonDividerLine);
+        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek);
       if (_options.showExtraToolbarButtons) {
