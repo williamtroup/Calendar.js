@@ -51,8 +51,10 @@ Fires when an events are added from JSON.
 <br>
 ***Parameter: json***: '*string*' - The JSON.
 
-### **options.onEventsExported()**:
+### **options.onEventsExported( *events* )**:
 Fires when events are exported.
+<br>
+***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsCleared()**:
 Fires when events are cleared.

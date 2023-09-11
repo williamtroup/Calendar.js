@@ -6326,7 +6326,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _document.body.removeChild(tempLink);
         showNotificationPopUp(_options.eventsExportedToText.replace("{0}", filename));
       }
-      triggerOptionsEvent("onEventsExported");
+      triggerOptionsEventWithData("onEventsExported", contentsEvents);
     }
   }
   function getExportFileAttributes(exportType) {

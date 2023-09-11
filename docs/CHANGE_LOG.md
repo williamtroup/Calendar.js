@@ -12,8 +12,9 @@
 #### **General Improvements:**
 - Added a new "Import Events" button to the Side Menu title bar, which will allow you to select the files you want to import.
 
-#### **New Custom Trigger Events:**
+#### **Custom Trigger Events:**
 - Added a new custom trigger "onEventsImported", which is triggered when events are imported from files (when dropped, or selected).
+- Updated the custom trigger "onEventsExported", which will now have all the events exported passed to it.
 
 #### **New Settings:**
 - Added a new setting "importEventsEnabled" (defaults to true) which states if importing events from files is enabled.

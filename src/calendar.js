@@ -83,7 +83,7 @@
  * @property    {Object}    onEventRemoved                              Specifies an event that will be triggered when an event is removed (passes the event to the function).
  * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
  * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
- * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
+ * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed (passes the events to the function).
  * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally (passes the new date to the function).
  * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
  * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
@@ -9283,7 +9283,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showNotificationPopUp( _options.eventsExportedToText.replace( "{0}", filename ) );
             }
 
-            triggerOptionsEvent( "onEventsExported" );
+            triggerOptionsEventWithData( "onEventsExported", contentsEvents );
         }
     }
 
