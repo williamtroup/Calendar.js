@@ -217,5 +217,7 @@ var __TRANSLATION_OPTIONS = {
   "weekendDaysText": "सप्ताहांत के दिन",
   "showAsBusyText": "व्यस्त के रूप में दिखाएँ",
   "selectAllText": "सबका चयन करें",
-  "selectNoneText": "कुछ मत चुनिए"
+  "selectNoneText": "कुछ मत चुनिए",
+  "importEventsTooltipText": "घटनाएँ आयात करें",
+  "eventsImportedText": "{0} इवेंट आयातित."
 };

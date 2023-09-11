@@ -1,4 +1,4 @@
-/*! Calendar.js v2.4.0 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.0 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -166,8 +166,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (!_datePickerModeEnabled && isSideMenuAvailable()) {
       buildToolbarButton(_element_HeaderDateDisplay, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-      var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-      _element_HeaderDateDisplay.appendChild(sideMenuButtonDividerLine);
+      _element_HeaderDateDisplay.appendChild(createElement("div", "side-menu-button-divider-line"));
     }
     buildToolbarButton(_element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
@@ -184,12 +183,13 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_HeaderDateDisplay_SearchButton = buildToolbarButton(_element_HeaderDateDisplay, "ib-search", _options.searchTooltipText, showSearchDialog);
       }
     }
+    if (_datePickerModeEnabled) {
+      buildToolbarButton(_element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode);
+      _element_HeaderDateDisplay.appendChild(createElement("div", "date-picker-close-divider-line"));
+    }
     buildToolbarButton(_element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
       buildToolbarButton(_element_HeaderDateDisplay, "ib-forward", _options.nextYearTooltipText, moveForwardYear);
-    }
-    if (_datePickerModeEnabled) {
-      buildToolbarButton(_element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode);
     }
     if (_options.showExtraToolbarButtons) {
       if (_options.manualEditingEnabled) {
@@ -422,6 +422,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         hideSideMenu();
         showConfigurationDialog();
       });
+    }
+    if (_options.importEventsEnabled && _options.manualEditingEnabled) {
+      buildToolbarButton(header, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
     }
     _element_SideMenu_Content = createElement("div", "content");
     _element_SideMenu.appendChild(_element_SideMenu_Content);
@@ -1776,8 +1779,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (!_datePickerModeEnabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-        var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-        titleBar.appendChild(sideMenuButtonDividerLine);
+        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay);
       if (_options.exportEventsEnabled && _options.showExtraToolbarButtons) {
@@ -2207,7 +2209,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           var eventIndex = 0;
           for (; eventIndex < eventsLength; eventIndex++) {
             var eventSizeDetails = _element_FullDayView_EventsShown_Sizes[eventIndex];
-            if (eventSizeDetails.height != eventSizeDetails.eventElement.offsetHeight) {
+            if (eventSizeDetails.height !== eventSizeDetails.eventElement.offsetHeight) {
               var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height;
               var differenceMinutes = difference / pixelsPerMinute;
               eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;
@@ -2360,8 +2362,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
         if (!_datePickerModeEnabled && isSideMenuAvailable()) {
           buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-          var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-          titleBar.appendChild(sideMenuButtonDividerLine);
+          titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
         }
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
@@ -2584,8 +2585,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (!_datePickerModeEnabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-        var sideMenuButtonDividerLine = createElement("div", "side-menu-button-divider-line");
-        titleBar.appendChild(sideMenuButtonDividerLine);
+        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek);
       if (_options.showExtraToolbarButtons) {
@@ -3358,12 +3358,20 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function dropFileOnDisplay(e) {
-    if (isDefined(_window.FileReader)) {
-      var reader = new FileReader();
-      reader.onload = function(event) {
-        _this.addEventsFromJson(event.target.result);
-      };
-      reader.readAsText(e.dataTransfer.files[0]);
+    if (isDefined(_window.FileReader) && _options.importEventsEnabled) {
+      var filesLength = e.dataTransfer.files.length;
+      var fileIndex = 0;
+      for (; fileIndex < filesLength; fileIndex++) {
+        readDropFileOnDisplay(e.dataTransfer.files[fileIndex]);
+      }
+    }
+  }
+  function readDropFileOnDisplay(blob) {
+    var extension = blob.name.split(".").pop().toLowerCase();
+    if (extension === "json") {
+      importEventsFromJson(blob);
+    } else if (extension === "ics" || extension === "ical") {
+      importEventsFromICal(blob);
     }
   }
   function getObjectFromString(objectString) {
@@ -3379,6 +3387,193 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
     return result;
+  }
+  function importEventsFromJson(blob) {
+    var reader = new FileReader();
+    reader.readAsText(blob);
+    reader.onload = function(event) {
+      var readingEvents = getObjectFromString(event.target.result);
+      if (isDefinedObject(readingEvents) && readingEvents.hasOwnProperty("events")) {
+        readingEvents = readingEvents.events;
+      }
+      var readingEventsAdded = [];
+      var readingEventsLength = readingEvents.length;
+      var readingEventsIndex = 0;
+      for (; readingEventsIndex < readingEventsLength; readingEventsIndex++) {
+        var eventDetails = readingEvents[readingEventsIndex];
+        _this.removeEvent(eventDetails.id, false, false);
+        if (_this.addEvent(eventDetails, false, false)) {
+          readingEventsAdded.push(eventDetails);
+        }
+      }
+      importFromFilesCompleted(readingEventsAdded);
+    };
+  }
+  function importEventsFromICal(blob) {
+    var reader = new FileReader();
+    reader.readAsText(blob);
+    reader.onload = function(event) {
+      var content = event.target.result;
+      var contentLines = content.split(_iCalLineBreak);
+      var contentLinesLength = contentLines.length;
+      if (contentLines[0].indexOf("BEGIN:VCALENDAR") > -1 && contentLines[contentLinesLength - 1].indexOf("END:VCALENDAR") > -1) {
+        var readingEvent = false;
+        var readingEventDetails = {};
+        var readingEventsAdded = [];
+        var contentLineIndex = 0;
+        for (; contentLineIndex < contentLinesLength; contentLineIndex++) {
+          var contentLine = contentLines[contentLineIndex];
+          if (contentLine.indexOf("BEGIN:VEVENT") > -1) {
+            readingEvent = true;
+          } else if (contentLine.indexOf("END:VEVENT") > -1) {
+            var eventDetails = JSON.parse(JSON.stringify(readingEventDetails));
+            readingEvent = false;
+            readingEventDetails = {};
+            _this.removeEvent(eventDetails.id, false, false);
+            if (_this.addEvent(eventDetails, false, false)) {
+              readingEventsAdded.push(eventDetails);
+            }
+          }
+          if (readingEvent) {
+            if (startsWith(contentLine, "UID:")) {
+              readingEventDetails.id = contentLine.split(":")[1];
+            } else if (startsWith(contentLine, "SUMMARY:")) {
+              readingEventDetails.title = contentLine.split(":")[1];
+            } else if (startsWith(contentLine, "DESCRIPTION:")) {
+              readingEventDetails.description = contentLine.split(":")[1];
+            } else if (startsWith(contentLine, "DTSTART:")) {
+              readingEventDetails.from = importICalDateTime(contentLine.split(":")[1]);
+              readingEventDetails.isAllDay = contentLine.split(":")[1].length === 8;
+            } else if (startsWith(contentLine, "DTEND:")) {
+              readingEventDetails.to = importICalDateTime(contentLine.split(":")[1], true);
+            } else if (startsWith(contentLine, "CREATED:")) {
+              readingEventDetails.created = importICalDateTime(contentLine.split(":")[1]);
+            } else if (startsWith(contentLine, "LOCATION:")) {
+              readingEventDetails.location = contentLine.split(":")[1];
+            } else if (startsWith(contentLine, "URL:")) {
+              readingEventDetails.url = contentLine.split(":")[1];
+            } else if (startsWith(contentLine, "TRANSP:")) {
+              readingEventDetails.showAsBusy = contentLine.split(":")[1] === "OPAQUE";
+            } else if (startsWith(contentLine, "BEGIN:VALARM")) {
+              readingEventDetails.showAlerts = true;
+            } else if (startsWith(contentLine, "CATEGORIES:")) {
+              readingEventDetails.group = contentLine.split(":")[1];
+            } else if (startsWith(contentLine, "ORGANIZER;")) {
+              importICalOrganizer(readingEventDetails, contentLine);
+            } else if (startsWith(contentLine, "RRULE:")) {
+              importICalRRule(readingEventDetails, contentLine);
+            }
+          }
+        }
+        importFromFilesCompleted(readingEventsAdded);
+      }
+    };
+  }
+  function importICalDateTime(dateTime, isEndDate) {
+    var result = _string.empty;
+    var isAllDay = dateTime.length === 8;
+    result = result + dateTime.substring(0, 4);
+    dateTime = dateTime.slice(4);
+    result = result + ("-" + dateTime.substring(0, 2));
+    dateTime = dateTime.slice(2);
+    result = result + ("-" + dateTime.substring(0, 2));
+    dateTime = dateTime.slice(2);
+    result = result + "T";
+    if (!isAllDay) {
+      dateTime = dateTime.slice(1);
+      result = result + dateTime.substring(0, 2);
+      dateTime = dateTime.slice(2);
+      result = result + (":" + dateTime.substring(0, 2));
+      dateTime = dateTime.slice(2);
+      result = result + (":" + dateTime.substring(0, 2));
+      dateTime = dateTime.slice(2);
+    } else {
+      isEndDate = isDefined(isEndDate) ? isEndDate : false;
+      result = result + (!isEndDate ? "00:00:00" : "23:59:00");
+    }
+    result = result + "Z";
+    return new Date(result);
+  }
+  function importICalOrganizer(readingEventDetails, contentLine) {
+    var organizerDetails = contentLine.split(";")[1];
+    var organizerDetailsParts = organizerDetails.split(":");
+    readingEventDetails.organizerName = organizerDetailsParts[0].replace("CN=", _string.empty);
+    readingEventDetails.organizerEmailAddress = organizerDetailsParts[2];
+  }
+  function importICalRRule(readingEventDetails, contentLine) {
+    var rRuleDetails = contentLine.split(":")[1];
+    var rRuleDetailsParts = rRuleDetails.split(";");
+    var rRuleDetailsPartsLength = rRuleDetailsParts.length;
+    var freq = null;
+    var interval = null;
+    var until = null;
+    var rRuleDetailsPartsIndex = 0;
+    for (; rRuleDetailsPartsIndex < rRuleDetailsPartsLength; rRuleDetailsPartsIndex++) {
+      var rRulePart = rRuleDetailsParts[rRuleDetailsPartsIndex];
+      if (startsWith(rRulePart, "FREQ=")) {
+        freq = rRulePart.split("=")[1];
+      } else if (startsWith(rRulePart, "INTERVAL=")) {
+        interval = rRulePart.split("=")[1];
+      } else if (startsWith(rRulePart, "UNTIL=")) {
+        until = rRulePart.split("=")[1];
+      }
+    }
+    if (isDefined(freq)) {
+      if (isDefined(interval)) {
+        interval = parseInt(interval);
+        if (interval >= 2 && freq !== "WEEKLY") {
+          readingEventDetails.repeatEveryCustomValue = interval;
+        }
+      }
+      if (isDefined(readingEventDetails.repeatEveryCustomValue)) {
+        if (freq === "DAILY") {
+          readingEventDetails.repeatEveryCustomType = _repeatCustomType.daily;
+        } else if (freq === "WEEKLY") {
+          readingEventDetails.repeatEveryCustomType = _repeatCustomType.weekly;
+        } else if (freq === "MONTHLY") {
+          readingEventDetails.repeatEveryCustomType = _repeatCustomType.monthly;
+        } else if (freq === "YEARLY") {
+          readingEventDetails.repeatEveryCustomType = _repeatCustomType.yearly;
+        }
+      } else {
+        if (freq === "DAILY") {
+          readingEventDetails.repeatEvery = _repeatType.everyDay;
+        } else if (freq === "WEEKLY") {
+          readingEventDetails.repeatEvery = _repeatType.everyWeek;
+        } else if (freq === "MONTHLY") {
+          readingEventDetails.repeatEvery = _repeatType.everyMonth;
+        } else if (freq === "MONTHLY" && interval === 2) {
+          readingEventDetails.repeatEvery = _repeatType.every2Weeks;
+        } else if (freq === "YEARLY") {
+          readingEventDetails.repeatEvery = _repeatType.everyYear;
+        }
+      }
+      if (isDefined(until)) {
+        readingEventDetails.repeatEnds = importICalDateTime(until);
+      }
+    }
+  }
+  function importEventsFromFileSelected() {
+    var input = createElement("input", null, "file");
+    input.accept = ".ical, .ics, .json";
+    input.onchange = function() {
+      var filesLength = input.files.length;
+      var fileIndex = 0;
+      for (; fileIndex < filesLength; fileIndex++) {
+        readDropFileOnDisplay(input.files[fileIndex]);
+      }
+    };
+    input.click();
+  }
+  function importFromFilesCompleted(eventsAddedOrUpdated) {
+    if (eventsAddedOrUpdated.length > 0) {
+      storeEventsInLocalStorage();
+      updateSideMenu();
+      buildDayEvents();
+      refreshOpenedViews();
+      showNotificationPopUp(_options.eventsImportedText.replace("{0}", eventsAddedOrUpdated.length));
+      triggerOptionsEventWithData("onEventsImported", eventsAddedOrUpdated);
+    }
   }
   function buildDropDownMenus() {
     if (!_datePickerModeEnabled) {
@@ -4935,7 +5130,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function hideSearchHistoryDropDownMenu() {
     var closed = false;
-    if (_element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-up-full") {
+    if (_element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className === "ib-arrow-up-full") {
       _element_SearchDialog_History_DropDown.style.display = "none";
       _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-down-full";
       closed = true;
@@ -4943,7 +5138,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return closed;
   }
   function showSearchHistoryDropDownMenu() {
-    if (_element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-down-full") {
+    if (_element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className === "ib-arrow-down-full") {
       _element_SearchDialog_History_DropDown.style.display = "block";
       _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-up-full";
     }
@@ -6128,7 +6323,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _document.body.removeChild(tempLink);
         showNotificationPopUp(_options.eventsExportedToText.replace("{0}", filename));
       }
-      triggerOptionsEvent("onEventsExported");
+      triggerOptionsEventWithData("onEventsExported", contentsEvents);
     }
   }
   function getExportFileAttributes(exportType) {
@@ -6238,11 +6433,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getArrayText(value, includeSpeechMarks) {
     includeSpeechMarks = isDefined(includeSpeechMarks) ? includeSpeechMarks : false;
     var array = getArray(value);
-    if (includeSpeechMarks) {
-      var arrayLength = array.length;
-      var arrayIndex = 0;
-      for (; arrayIndex < arrayLength; arrayIndex++) {
+    var arrayLength = array.length;
+    var arrayIndex = 0;
+    for (; arrayIndex < arrayLength; arrayIndex++) {
+      if (includeSpeechMarks) {
         array[arrayIndex] = '"' + array[arrayIndex] + '"';
+      } else {
+        array[arrayIndex] = array[arrayIndex];
       }
     }
     return array.join(",");
@@ -6262,7 +6459,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         result = getArrayDays(value);
       } else {
         if (forJson) {
-          result = "[" + getArrayText(value, true) + "]";
+          result = "[" + getArrayText(value) + "]";
         } else {
           result = getArrayText(value);
         }
@@ -6542,7 +6739,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push("END:VEVENT");
     }
     contents.push("END:VCALENDAR");
-    return contents.join("\r\n");
+    return contents.join(_iCalLineBreak);
   }
   function getICalSingleLine(value) {
     return stripNewLines(stripHTMLTagsFromText(getString(value)));
@@ -6839,6 +7036,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.workingHoursStart = getDefaultString(_options.workingHoursStart, null);
     _options.workingHoursEnd = getDefaultString(_options.workingHoursEnd, null);
     _options.reverseOrderDaysOfWeek = getDefaultBoolean(_options.reverseOrderDaysOfWeek, false);
+    _options.importEventsEnabled = getDefaultBoolean(_options.importEventsEnabled, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _previousDaysVisibleBeforeSingleDayView = [];
@@ -7052,6 +7250,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.showAsBusyText = getDefaultString(_options.showAsBusyText, "Show As Busy");
     _options.selectAllText = getDefaultString(_options.selectAllText, "Select All");
     _options.selectNoneText = getDefaultString(_options.selectNoneText, "Select None");
+    _options.importEventsTooltipText = getDefaultString(_options.importEventsTooltipText, "Import Events");
+    _options.eventsImportedText = getDefaultString(_options.eventsImportedText, "{0} events imported.");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -7130,6 +7330,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _copiedEventDetails = [];
   var _copiedEventDetails_Cut = false;
   var _previousDaysVisibleBeforeSingleDayView = [];
+  var _iCalLineBreak = "\r\n";
   var _elementID_Day = "day-";
   var _elementID_Month = "month-";
   var _elementID_WeekDay = "week-day-";
@@ -7890,7 +8091,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.4.0";
+    return "2.5.0";
   };
   this.getId = function() {
     return _elementID;

@@ -33,11 +33,6 @@
             <button onclick="calendarInstance.exportAllEvents( 'md' );">Export All Events (md)</button>
             <button onclick="calendarInstance.exportAllEvents( 'html' );">Export All Events (html)</button>
             <button onclick="calendarInstance.exportAllEvents( 'tsv' );">Export All Events (tsv)</button>
-            <br />
-
-            <h2>Import Events:</h2>
-            <input id="importjson" type="file" onchange="importJsonFile( this );">
-            <br />
         </div>
     </body>
 
@@ -50,25 +45,13 @@
             manualEditingEnabled: true,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
-            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ]
+            visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
+            onEventsExported: function( events ) {
+                console.log( events )
+            }
         } );
 
         document.title += " v" + calendarInstance.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
-
-        function importJsonFile( input ) {
-            var file = input.files[ 0 ],
-                reader = new FileReader();
-
-            reader.readAsText( file );
-
-            reader.onload = function() {
-                calendarInstance.addEventsFromJson( reader.result );
-            };
-
-            reader.onerror = function() {
-                console.log( reader.error );
-            };
-        }
     </script>
 </html>

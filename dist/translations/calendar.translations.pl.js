@@ -217,5 +217,7 @@ var __TRANSLATION_OPTIONS = {
   "weekendDaysText": "Dni weekendowe",
   "showAsBusyText": "Pokaż jako zajęty",
   "selectAllText": "Zaznacz wszystko",
-  "selectNoneText": "Wybierz opcję Brak"
+  "selectNoneText": "Wybierz opcję Brak",
+  "importEventsTooltipText": "Importuj wydarzenia",
+  "eventsImportedText": "Zaimportowano {0} wydarzeń."
 };

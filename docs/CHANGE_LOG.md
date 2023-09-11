@@ -1,5 +1,35 @@
 # Calendar.js - Change Log:
 
+## Version 2.5.0:
+
+#### **File Importing:**
+- Added multiple Json/ICal file drop support for adding events.
+- Added full ICal/Ics file import/drop support, which will import all the fields supported under new/existing events.
+- Only Json and ICal/Ics files are now accepted for importing, and file dropping.
+- Event files can now only be dropped on the display if the setting "importEventsEnabled" is set to true.
+- When events are imported (from file dropping, or file selection), Calendar.js will attempt to update the existing events with the details in the file (instead of just adding the ones that don't exist).
+
+#### **General Improvements:**
+- Added a new "Import Events" button to the Side Menu title bar, which will allow you to select the files you want to import.
+- The "Close" button shown on the main title bar in DatePicker mode is now all the way on the right, and is separated from the other buttons.
+
+#### **Custom Trigger Events:**
+- Added a new custom trigger "onEventsImported", which is triggered when events are imported from files (when dropped, or selected).
+- Updated the custom trigger "onEventsExported", which will now have all the events exported passed to it.
+
+#### **Settings:**
+- Added a new setting "importEventsEnabled" (defaults to true) which states if importing events from files is enabled.
+- Added a new setting "importEventsTooltipText" (defaults to "Import Events") which states the tooltip text to use for the new Import title bar button.
+- Added a new setting "eventsImportedText" (defaults to "{0} events imported.") which states the notification text to show when events are imported.
+
+#### **Fixes:**
+- Fixed a fault that caused the "repeatEveryExcludeDays" event property to be exported in the wrong format for JSON.
+- Fixed some strict equal faults when checking to see if menus/dropdowns are open.
+- Fixed some strict not-equals faults when verifying if an event has been resized in the Full Day view.
+- Fixed lots of documentation grammar/spelling mistakes in the .MD files, and the main .JS file.
+
+<br>
+
 ## Version 2.4.0:
 
 #### **New Custom Trigger Events:**

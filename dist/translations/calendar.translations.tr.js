@@ -217,5 +217,7 @@ var __TRANSLATION_OPTIONS = {
     "weekendDaysText": "Hafta Sonu Günleri",
     "showAsBusyText": "Meşgul Olarak Göster",
     "selectAllText": "Hepsini seç",
-    "selectNoneText": "Hiçbirini Seçme"
+    "selectNoneText": "Hiçbirini Seçme",
+    "importEventsTooltipText": "Etkinlikleri İçe Aktar",
+    "eventsImportedText": "{0} etkinlik içe aktarıldı."
 };

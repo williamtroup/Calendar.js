@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.4.0
+ * Calendar.js Library v2.5.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -730,11 +730,13 @@ div.calendar div.header-date {
   position: relative;
 }
 div.calendar div.header-date div[class^=ib-],
-div.calendar div.header-date div.side-menu-button-divider-line {
+div.calendar div.header-date div.side-menu-button-divider-line,
+div.calendar div.header-date div.date-picker-close-divider-line {
   margin-left: 5px;
   margin-right: 5px;
 }
-div.calendar div.header-date div.side-menu-button-divider-line {
+div.calendar div.header-date div.side-menu-button-divider-line,
+div.calendar div.header-date div.date-picker-close-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -933,7 +935,8 @@ div.calendar div.header-date div.ib-plus,
 div.calendar div.header-date div.ib-arrow-right-full,
 div.calendar div.header-date div.ib-arrow-expand-left-right,
 div.calendar div.header-date div.ib-arrow-contract-left-right,
-div.calendar div.header-date div.ib-forward {
+div.calendar div.header-date div.ib-forward,
+div.calendar div.header-date div.date-picker-close-divider-line {
   float: right;
 }
 @media screen and (min-width: 451px) {
@@ -4052,6 +4055,44 @@ div.calendar-drop-down-menu div.separator {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
+}
+
+.ib-arrow-up-full-line {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+.ib-arrow-up-full-line:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-arrow-up-full-line:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-arrow-up-full-line::before, .ib-arrow-up-full-line::after {
+  position: absolute;
+  content: "";
+}
+.ib-arrow-up-full-line:before {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid var(--title-bar-button-color);
+  left: 0;
+  top: 0;
+}
+.ib-arrow-up-full-line:after {
+  left: 50%;
+  transform: translate(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: var(--title-bar-button-color);
+  bottom: 0;
 }
 
 .ib-plus-icon {

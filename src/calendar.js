@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.4.0
+ * @version     v2.5.0
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -44,7 +44,7 @@
  * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
  * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
  * @property    {Object}    customTags                                  Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar).
- * @property    {boolean}   showAsBusy                                  States if the calendar should show this events time period as busy (defaults to true).
+ * @property    {boolean}   showAsBusy                                  States if the calendar should show the events time period as busy (defaults to true).
  */
 
 
@@ -60,7 +60,7 @@
  * @property    {number}    year                                        The year that the holiday occurs (if the holiday only occurs once. Defaults to null).
  * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
  * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
- * @property    {string}    onClickUrl                                  Specifies a URL that will opened when the holiday is clicked (overrides "onClick").
+ * @property    {string}    onClickUrl                                  Specifies a URL that will be opened when the holiday is clicked (overrides "onClick").
  * @property    {string}    backgroundColor                             The background color the day should use (defaults to null).
  * @property    {string}    textColor                                   The text color the day should use (defaults to null).
  */
@@ -83,7 +83,7 @@
  * @property    {Object}    onEventRemoved                              Specifies an event that will be triggered when an event is removed (passes the event to the function).
  * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
  * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
- * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed.
+ * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed (passes the events to the function).
  * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally (passes the new date to the function).
  * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
  * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
@@ -113,24 +113,25 @@
  * @property    {Object}    onBeforeEventAddEdit                        Specifies an event that will be triggered before an event is added/edit (passes the event to the function and stops tje event editor dialog from showing).
  * @property    {Object}    onBusyStateChange                           Specifies an event that will be triggered when the calendars busy state is changed (passes the state to the function).
  * @property    {Object}    onEventsFetch                               Specifies an event that will be triggered when the calendar refreshes (it will pull a array of events to add, or update).
+ * @property    {Object}    onEventsImported                            Specifies an event that will be triggered when events are imported (passes the events to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
- * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for for the "Previous Month" button.
- * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for for the "Next Month" button.
- * @property    {string}    previousDayTooltipText                      The tooltip text that should be used for for the "Previous Day" button.
- * @property    {string}    nextDayTooltipText                          The tooltip text that should be used for for the "Next Day" button.
- * @property    {string}    previousWeekTooltipText                     The tooltip text that should be used for for the "Previous Week" button.
- * @property    {string}    nextWeekTooltipText                         The tooltip text that should be used for for the "Next Week" button.
- * @property    {string}    addEventTooltipText                         The tooltip text that should be used for for the "Add Event" button.
- * @property    {string}    closeTooltipText                            The tooltip text that should be used for for the "Close" button.
- * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for for the "Export Events" button.
- * @property    {string}    listAllEventsTooltipText                    The tooltip text that should be used for for the "View All Events" button.
- * @property    {string}    listWeekEventsTooltipText                   The tooltip text that should be used for for the "View Current Week Events" button.
- * @property    {string}    todayTooltipText                            The tooltip text that should be used for for the "Today" button.
- * @property    {string}    refreshTooltipText                          The tooltip text that should be used for for the "Refresh" button.
- * @property    {string}    searchTooltipText                           The tooltip text that should be used for for the "Search" button.
- * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for for the "Expand Day" button.
+ * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for the "Previous Month" button.
+ * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for the "Next Month" button.
+ * @property    {string}    previousDayTooltipText                      The tooltip text that should be used for the "Previous Day" button.
+ * @property    {string}    nextDayTooltipText                          The tooltip text that should be used for the "Next Day" button.
+ * @property    {string}    previousWeekTooltipText                     The tooltip text that should be used for the "Previous Week" button.
+ * @property    {string}    nextWeekTooltipText                         The tooltip text that should be used for the "Next Week" button.
+ * @property    {string}    addEventTooltipText                         The tooltip text that should be used for the "Add Event" button.
+ * @property    {string}    closeTooltipText                            The tooltip text that should be used for the "Close" button.
+ * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for the "Export Events" button.
+ * @property    {string}    listAllEventsTooltipText                    The tooltip text that should be used for the "View All Events" button.
+ * @property    {string}    listWeekEventsTooltipText                   The tooltip text that should be used for the "View Current Week Events" button.
+ * @property    {string}    todayTooltipText                            The tooltip text that should be used for the "Today" button.
+ * @property    {string}    refreshTooltipText                          The tooltip text that should be used for the "Refresh" button.
+ * @property    {string}    searchTooltipText                           The tooltip text that should be used for the "Search" button.
+ * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for the "Expand Day" button.
  * @property    {string[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
  * @property    {string[]}  dayNames                                    The full day names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
  * @property    {string[]}  dayNamesAbbreviated                         The abbreviated day names (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
@@ -162,8 +163,8 @@
  * @property    {string}    allDayText                                  The text that should be displayed for the "All-Day" label.
  * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
  * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
- * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message shown when removing an event (defaults to "Confirm Event Removal").
- * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
+ * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message that is shown when removing an event (defaults to "Confirm Event Removal").
+ * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message that is shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
  * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
  * @property    {string}    exportEventsTitle                           The text that should be displayed for the "Export Events" label.
  * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
@@ -188,16 +189,16 @@
  * @property    {string}    repeatOptionsTitle                          The text that should be displayed for the "Repeat Options" label.
  * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
  * @property    {string}    includeText                                 The text that should be displayed for the "Include:" label.
- * @property    {string}    minimizedTooltipText                        The tooltip text that should be used for for the "Minimize" button.
- * @property    {string}    restoreTooltipText                          The tooltip text that should be used for for the "Restore" button.
+ * @property    {string}    minimizedTooltipText                        The tooltip text that should be used for the "Minimize" button.
+ * @property    {string}    restoreTooltipText                          The tooltip text that should be used for the "Restore" button.
  * @property    {string}    removeAllEventsInSeriesText                 The text that should be displayed for the "Remove All Events In Series" label.
  * @property    {string}    createdText                                 The text that should be displayed for the "Created:" label.
  * @property    {string}    organizerNameText                           The text that should be displayed for the "Organizer:" label.
  * @property    {string}    organizerEmailAddressText                   The text that should be displayed for the "Organizer Email:" label.
- * @property    {string}    enableFullScreenTooltipText                 The tooltip text that should be used for for the "Turn On Full-Screen Mode" button.
- * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for for the "Turn Off Full-Screen Mode" button.
+ * @property    {string}    enableFullScreenTooltipText                 The tooltip text that should be used for the "Turn On Full-Screen Mode" button.
+ * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for the "Turn Off Full-Screen Mode" button.
  * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
- * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for for the "Expand Month" button.
+ * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for the "Expand Month" button.
  * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
  * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
  * @property    {string}    viewWeekEventsText                          The text that should be displayed for the "View Week Events" label.
@@ -207,7 +208,7 @@
  * @property    {string}    toAddANewEventText                          The text that should be displayed for the "to add a new event." label.
  * @property    {string}    weekText                                    The text that should be displayed for the "Week" label.
  * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
- * @property    {string}    configurationTooltipText                    The tooltip text that should be used for for the "Configuration" button.
+ * @property    {string}    configurationTooltipText                    The tooltip text that should be used for the "Configuration" button.
  * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
  * @property    {string}    groupsText                                  The text that should be displayed for the "Groups" label.
  * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
@@ -228,15 +229,15 @@
  * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
  * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
  * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
- * @property    {string}    removeEventsTooltipText                     The tooltip text that should be used for for the "Remove Events" button.
- * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message shown when removing events (defaults to "Confirm Events Removal").
- * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message shown when removing events (defaults to "Removing these non-repeating events cannot be undone.  Do you want to continue?").
+ * @property    {string}    removeEventsTooltipText                     The tooltip text that should be used for the "Remove Events" button.
+ * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message that is shown when removing events (defaults to "Confirm Events Removal").
+ * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message that is shown when removing events (defaults to "Removing these non-repeating events cannot be undone.  Do you want to continue?").
  * @property    {string}    eventText                                   The text that should be displayed for the "Event" label.
  * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
  * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
  * @property    {string}    openUrlText                                 The text that should be displayed for the "Open Url" label.
  * @property    {string}    enableDayNameHeadersInMainDisplayText       The text that should be displayed for the "Enable day name headers in the main display" label.
- * @property    {string}    thisWeekTooltipText                         The tooltip text that should be used for for the "This Week" button.
+ * @property    {string}    thisWeekTooltipText                         The tooltip text that should be used for the "This Week" button.
  * @property    {string}    dailyText                                   The text that should be displayed for the "Daily" label.
  * @property    {string}    weeklyText                                  The text that should be displayed for the "Weekly" label.
  * @property    {string}    monthlyText                                 The text that should be displayed for the "Monthly" label.
@@ -258,7 +259,7 @@
  * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
  * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
  * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
- * @property    {string}    showMenuTooltipText                         The tooltip text that should be used for for the "Show Menu" button.
+ * @property    {string}    showMenuTooltipText                         The tooltip text that should be used for the "Show Menu" button.
  * @property    {string}    eventTypesText                              The text that should be displayed for the "Event Types" label.
  * @property    {string}    eventTypeNormalText                         The text that should be displayed for the "Normal" event label.
  * @property    {string}    eventTypeMeetingText                        The text that should be displayed for the "Meeting" event label.
@@ -270,8 +271,8 @@
  * @property    {string}    sideMenuHeaderText                          The text that should be displayed for the "Calendar.js" side menu header label.
  * @property    {string}    sideMenuDaysText                            The text that should be displayed for the "Days" side menu label.
  * @property    {string}    visibleDaysText                             The text that should be displayed for the "Visible Days" label.
- * @property    {string}    previousYearTooltipText                     The tooltip text that should be used for for the "Previous Year" button.
- * @property    {string}    nextYearTooltipText                         The tooltip text that should be used for for the "Next Year" button.
+ * @property    {string}    previousYearTooltipText                     The tooltip text that should be used for the "Previous Year" button.
+ * @property    {string}    nextYearTooltipText                         The tooltip text that should be used for the "Next Year" button.
  * @property    {string}    showOnlyWorkingDaysText                     The text that should be displayed for the "Show Only Working Days" label.
  * @property    {string}    exportFilenamePlaceholderText               The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)").
  * @property    {string}    exportText                                  The text that should be displayed for the "Export" button.
@@ -287,28 +288,30 @@
  * @property    {string}    workingDaysText                             The text that should be displayed for the "Working Days" label.
  * @property    {string}    weekendDaysText                             The text that should be displayed for the "Weekend Days" label.
  * @property    {string}    showAsBusyText                              The text that should be displayed for the "Show As Busy" label.
- * @property    {string}    selectAllText                               The text that should be displayed for the "Select All" label.
- * @property    {string}    selectNoneText                              The text that should be displayed for the "Select None" label.
+ * @property    {string}    selectAllText                               The tooltip text that should be displayed for the "Select All" label.
+ * @property    {string}    selectNoneText                              The tooltip text that should be displayed for the "Select None" label.
+ * @property    {string}    importEventsTooltipText                     The tooltip text that should be used for the "Import Events" button.
+ * @property    {string}    eventsImportedText                          The text that should be displayed for the "{0} events imported." notification.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
  * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
  * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
- * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be display per day in the main calendar display (defaults to 3, 0 disables it).
+ * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be displayed per day in the main calendar display (defaults to 3, 0 disables it).
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
  * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
  * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full-screen mode (defaults to true).
  * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
- * @property    {number}    minimumDayHeight                            States the height the main calendar days should used (defaults to 0 - auto).
+ * @property    {number}    minimumDayHeight                            States the height the main calendar days should use (defaults to 0 - auto).
  * @property    {Holiday[]} holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
- * @property    {string}    organizerName                               The default name of the organizer (defaults to empty string).
- * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to empty string).
+ * @property    {string}    organizerName                               The default name of the organizer (defaults to an empty string).
+ * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to an empty string).
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins (defaults to 10).
  * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
  * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
- * @property    {boolean}   showTimelineArrowOnFullDayView              States if the timeline arrow should be shown in the full day view (defaults to true).
+ * @property    {boolean}   showTimelineArrowOnFullDayView              States if the timeline arrow should be shown in the full-day view (defaults to true).
  * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
  * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
@@ -320,7 +323,7 @@
  * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
  * @property    {number[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {boolean}   allowEventScrollingOnMainDisplay            States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
- * @property    {string}    urlWindowTarget                             States the target that an event Url should be opened in (defaults to _blank for a new window).
+ * @property    {string}    urlWindowTarget                             States the target that an event URL should be opened in (defaults to _blank for a new window).
  * @property    {string}    defaultEventBackgroundColor                 States the default background color that should be used for events (defaults to "#484848").
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
@@ -344,11 +347,11 @@
  * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
  * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
- * @property    {number}    defaultEventDuration                        The default duration used when a new event is added (defaults to 30 minutes).
+ * @property    {number}    defaultEventDuration                        States the default duration used when a new event is added (defaults to 30 minutes).
  * @property    {string}    monthTitleBarDateFormat                     States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
  * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
- * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) is enabled (defaults to true).
- * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
+ * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) are enabled (defaults to true).
+ * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
  * @property    {boolean}   showSideMenuDays                            States if the "Days" section on the Side Menu is visible (defaults to true).
  * @property    {boolean}   showSideMenuGroups                          States if the "Groups" section on the Side Menu is visible (defaults to true).
  * @property    {boolean}   showSideMenuEventTypes                      States if the "Event Types" section on the Side Menu is visible (defaults to true).
@@ -357,9 +360,10 @@
  * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
  * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
  * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
- * @property    {string}    workingHoursStart                           States when the time the working hours start (for example, "09:00", ane defaults to null).
- * @property    {string}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", ane defaults to null).
+ * @property    {string}    workingHoursStart                           States when the time the working hours start (for example, "09:00", and defaults to null).
+ * @property    {string}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", and defaults to null).
  * @property    {boolean}   reverseOrderDaysOfWeek                      States if the days of the week should be reversed (for hebrew calendars, for example. Defaults to true).
+ * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
  */
 
 
@@ -384,7 +388,7 @@
  * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
  * @property    {number}    left                                        States the left position of the dialog (defaults to null).
  * @property    {number}    top                                         States the top position of the dialog (defaults to null).
- * @property    {string[]}  history                                     States the dropdown search history that should be display (used previously, defaults to []).
+ * @property    {string[]}  history                                     States the dropdown search history that should be displayed (used previously, defaults to []).
  */
 
 
@@ -539,6 +543,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _copiedEventDetails = [],
         _copiedEventDetails_Cut = false,
         _previousDaysVisibleBeforeSingleDayView = [],
+        _iCalLineBreak = "\r\n",
         _elementID_Day = "day-",
         _elementID_Month = "month-",
         _elementID_WeekDay = "week-day-",
@@ -998,8 +1003,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
             
-            var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
-            _element_HeaderDateDisplay.appendChild( sideMenuButtonDividerLine );
+            _element_HeaderDateDisplay.appendChild( createElement( "div", "side-menu-button-divider-line" ) );
         }
 
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
@@ -1022,14 +1026,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
+        if ( _datePickerModeEnabled ) {
+            buildToolbarButton( _element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode );
+
+            _element_HeaderDateDisplay.appendChild( createElement( "div", "date-picker-close-divider-line" ) );
+        }
+
         buildToolbarButton( _element_HeaderDateDisplay, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
 
         if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
             buildToolbarButton( _element_HeaderDateDisplay, "ib-forward", _options.nextYearTooltipText, moveForwardYear );
-        }
-
-        if ( _datePickerModeEnabled ) {
-            buildToolbarButton( _element_HeaderDateDisplay, "ib-close", _options.closeTooltipText, hideDatePickerMode );
         }
 
         if ( _options.showExtraToolbarButtons ) {
@@ -1329,6 +1335,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 hideSideMenu();
                 showConfigurationDialog();
             } );
+        }
+
+        if ( _options.importEventsEnabled && _options.manualEditingEnabled ) {
+            buildToolbarButton( header, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected );
         }
 
         _element_SideMenu_Content = createElement( "div", "content" );
@@ -3150,8 +3160,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
 
-                var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
-                titleBar.appendChild( sideMenuButtonDividerLine );
+                titleBar.appendChild( createElement( "div", "side-menu-button-divider-line" ) );
             }
 
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay );
@@ -3713,7 +3722,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
                         var eventSizeDetails = _element_FullDayView_EventsShown_Sizes[ eventIndex ];
     
-                        if ( eventSizeDetails.height != eventSizeDetails.eventElement.offsetHeight ) {
+                        if ( eventSizeDetails.height !== eventSizeDetails.eventElement.offsetHeight ) {
                             var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height,
                                 differenceMinutes = difference / pixelsPerMinute;
     
@@ -3929,8 +3938,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                     buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
 
-                    var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
-                    titleBar.appendChild( sideMenuButtonDividerLine );
+                    titleBar.appendChild( createElement( "div", "side-menu-button-divider-line" ) );
                 }
         
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
@@ -4225,8 +4233,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
 
-                var sideMenuButtonDividerLine = createElement( "div", "side-menu-button-divider-line" );
-                titleBar.appendChild( sideMenuButtonDividerLine );
+                titleBar.appendChild( createElement( "div", "side-menu-button-divider-line" ) );
             }
 
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek );
@@ -5239,14 +5246,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function dropFileOnDisplay( e ) {
-        if ( isDefined( _window.FileReader ) ) {
-            var reader = new FileReader();
+        if ( isDefined( _window.FileReader ) && _options.importEventsEnabled ) {
+            var filesLength = e.dataTransfer.files.length;
 
-            reader.onload = function( event ) {
-                _this.addEventsFromJson( event.target.result );
-            };
-    
-            reader.readAsText( e.dataTransfer.files[ 0 ] );
+            for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
+                readDropFileOnDisplay( e.dataTransfer.files[ fileIndex ] );
+            }
+        }
+    }
+
+    function readDropFileOnDisplay( blob ) {
+        var extension = blob.name.split( "." ).pop().toLowerCase();
+
+        if ( extension === "json" ) {
+            importEventsFromJson( blob );
+        } else if ( extension === "ics" || extension === "ical" ) {
+            importEventsFromICal( blob );
         }
     }
 
@@ -5266,6 +5281,242 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Import Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function importEventsFromJson( blob ) {
+        var reader = new FileReader();
+        reader.readAsText( blob );
+    
+        reader.onload = function( event ) {
+            var readingEvents = getObjectFromString( event.target.result );
+
+            if ( isDefinedObject( readingEvents ) && readingEvents.hasOwnProperty( "events" ) ) {
+                readingEvents = readingEvents.events;
+            }
+
+            var readingEventsAdded = [],
+                readingEventsLength = readingEvents.length;
+
+            for ( var readingEventsIndex = 0; readingEventsIndex < readingEventsLength; readingEventsIndex++ ) {
+                var eventDetails = readingEvents[ readingEventsIndex ];
+
+                _this.removeEvent( eventDetails.id, false, false );
+
+                if ( _this.addEvent( eventDetails, false, false ) ) {
+                    readingEventsAdded.push( eventDetails);
+                }
+            }
+
+            importFromFilesCompleted( readingEventsAdded );
+        };
+    }
+
+    function importEventsFromICal( blob ) {
+        var reader = new FileReader();
+        reader.readAsText( blob );
+    
+        reader.onload = function( event ) {
+            var content = event.target.result,
+                contentLines = content.split( _iCalLineBreak ),
+                contentLinesLength = contentLines.length;
+
+            if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > -1 && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > -1 ) {
+                var readingEvent = false,
+                    readingEventDetails = {},
+                    readingEventsAdded = [];
+                
+                for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
+                    var contentLine = contentLines[ contentLineIndex ];
+
+                    if ( contentLine.indexOf( "BEGIN:VEVENT" ) > -1 ) {
+                        readingEvent = true;
+                    } else if ( contentLine.indexOf( "END:VEVENT" ) > -1 ) {
+                        var eventDetails = JSON.parse( JSON.stringify( readingEventDetails ) );
+
+                        readingEvent = false;
+                        readingEventDetails = {};
+
+                        _this.removeEvent( eventDetails.id, false, false );
+
+                        if ( _this.addEvent( eventDetails, false, false ) ) {
+                            readingEventsAdded.push( eventDetails );
+                        }
+                    }
+
+                    if ( readingEvent ) {
+                        if ( startsWith( contentLine, "UID:" ) ) {
+                            readingEventDetails.id = contentLine.split( ":" )[ 1 ];
+                        } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
+                            readingEventDetails.title = contentLine.split( ":" )[ 1 ];
+                        } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
+                            readingEventDetails.description = contentLine.split( ":" )[ 1 ];
+                        } else if ( startsWith( contentLine, "DTSTART:" ) ) {
+                            readingEventDetails.from = importICalDateTime( contentLine.split( ":" )[ 1 ] );
+                            readingEventDetails.isAllDay = contentLine.split( ":" )[ 1 ].length === 8;
+                        } else if ( startsWith( contentLine, "DTEND:" ) ) {
+                            readingEventDetails.to = importICalDateTime( contentLine.split( ":" )[ 1 ], true );
+                        } else if ( startsWith( contentLine, "CREATED:" ) ) {
+                            readingEventDetails.created = importICalDateTime( contentLine.split( ":" )[ 1 ] );
+                        } else if ( startsWith( contentLine, "LOCATION:" ) ) {
+                            readingEventDetails.location = contentLine.split( ":" )[ 1 ];
+                        } else if ( startsWith( contentLine, "URL:" ) ) {
+                            readingEventDetails.url = contentLine.split( ":" )[ 1 ];
+                        } else if ( startsWith( contentLine, "TRANSP:" ) ) {
+                            readingEventDetails.showAsBusy = contentLine.split( ":" )[ 1 ] === "OPAQUE";
+                        } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
+                            readingEventDetails.showAlerts = true;
+                        } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
+                            readingEventDetails.group = contentLine.split( ":" )[ 1 ];
+                        } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
+                            importICalOrganizer( readingEventDetails, contentLine );
+                        } else if ( startsWith( contentLine, "RRULE:" ) ) {
+                            importICalRRule( readingEventDetails, contentLine );
+                        }
+                    }
+                }
+
+                importFromFilesCompleted( readingEventsAdded );
+            }
+        };
+    }
+
+    function importICalDateTime( dateTime, isEndDate ) {
+        var result = _string.empty,
+            isAllDay = dateTime.length === 8;
+
+        result += dateTime.substring( 0, 4 );
+        dateTime = dateTime.slice( 4 );
+
+        result += "-" + dateTime.substring( 0, 2 );
+        dateTime = dateTime.slice( 2 );
+
+        result += "-" + dateTime.substring( 0, 2 );
+        dateTime = dateTime.slice( 2 );
+
+        result += "T";
+
+        if ( !isAllDay ) {
+            dateTime = dateTime.slice( 1 );
+
+            result += dateTime.substring( 0, 2 );
+            dateTime = dateTime.slice( 2 );
+    
+            result += ":" + dateTime.substring( 0, 2 );
+            dateTime = dateTime.slice( 2 );
+    
+            result += ":" + dateTime.substring( 0, 2 );
+            dateTime = dateTime.slice( 2 );
+
+        } else {
+            isEndDate = isDefined( isEndDate ) ? isEndDate : false;
+            
+            result += !isEndDate ? "00:00:00" : "23:59:00";
+        }
+
+        result += "Z";
+
+        return new Date( result );
+    }
+
+    function importICalOrganizer( readingEventDetails, contentLine ) {
+        var organizerDetails = contentLine.split( ";" )[ 1 ],
+            organizerDetailsParts = organizerDetails.split( ":" );
+
+        readingEventDetails.organizerName = organizerDetailsParts[ 0 ].replace( "CN=", _string.empty );
+        readingEventDetails.organizerEmailAddress = organizerDetailsParts[ 2 ];
+    }
+
+    function importICalRRule( readingEventDetails, contentLine ) {
+        var rRuleDetails = contentLine.split( ":" )[ 1 ],
+            rRuleDetailsParts = rRuleDetails.split( ";" ),
+            rRuleDetailsPartsLength = rRuleDetailsParts.length,
+            freq = null,
+            interval = null,
+            until = null;
+
+        for ( var rRuleDetailsPartsIndex = 0; rRuleDetailsPartsIndex < rRuleDetailsPartsLength; rRuleDetailsPartsIndex++ ) {
+            var rRulePart = rRuleDetailsParts[ rRuleDetailsPartsIndex ];
+
+            if ( startsWith( rRulePart, "FREQ=" ) ) {
+                freq = rRulePart.split( "=" )[ 1 ];
+            } else if ( startsWith( rRulePart, "INTERVAL=" ) ) {
+                interval = rRulePart.split( "=" )[ 1 ];
+            } else if ( startsWith( rRulePart, "UNTIL=" ) ) {
+                until = rRulePart.split( "=" )[ 1 ];
+            }
+        }
+
+        if ( isDefined( freq ) ) {
+            if ( isDefined( interval ) ) {
+                interval = parseInt( interval );
+
+                if ( interval >= 2 && freq !== "WEEKLY" ) {
+                    readingEventDetails.repeatEveryCustomValue = interval;
+                }
+            }
+            
+            if ( isDefined( readingEventDetails.repeatEveryCustomValue ) ) {
+                if ( freq === "DAILY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.daily;
+                } else if ( freq === "WEEKLY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.weekly;
+                } else if ( freq === "MONTHLY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.monthly;
+                } else if ( freq === "YEARLY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.yearly;
+                }
+            } else {
+                
+                if ( freq === "DAILY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyDay;
+                } else if ( freq === "WEEKLY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyWeek;
+                } else if ( freq === "MONTHLY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyMonth;
+                } else if ( freq === "MONTHLY" && interval === 2 ) {
+                    readingEventDetails.repeatEvery = _repeatType.every2Weeks;
+                } else if ( freq === "YEARLY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyYear;
+                }
+            }
+
+            if ( isDefined( until ) ) {
+                readingEventDetails.repeatEnds = importICalDateTime( until );
+            }
+        }
+    }
+
+    function importEventsFromFileSelected() {
+        var input = createElement( "input", null, "file" );
+        input.accept = ".ical, .ics, .json";
+
+        input.onchange = function() {
+            var filesLength = input.files.length;
+
+            for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
+                readDropFileOnDisplay( input.files[ fileIndex ] );
+            }
+        };
+
+        input.click();
+    }
+
+    function importFromFilesCompleted( eventsAddedOrUpdated ) {
+        if ( eventsAddedOrUpdated.length > 0 ) {
+            storeEventsInLocalStorage();
+            updateSideMenu();
+            buildDayEvents();
+            refreshOpenedViews();
+            showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAddedOrUpdated.length ) );
+            triggerOptionsEventWithData( "onEventsImported", eventsAddedOrUpdated );
+        }
     }
 
 
@@ -7366,7 +7617,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function hideSearchHistoryDropDownMenu() {
         var closed = false;
 
-        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-up-full" ) {
+        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className === "ib-arrow-up-full" ) {
             _element_SearchDialog_History_DropDown.style.display = "none";
             _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-down-full";
 
@@ -7377,7 +7628,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showSearchHistoryDropDownMenu() {
-        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className == "ib-arrow-down-full" ) {
+        if ( _element_SearchDialog_History_DropDown !== null && _element_SearchDialog_History_DropDown_Button.className === "ib-arrow-down-full" ) {
             _element_SearchDialog_History_DropDown.style.display = "block";
             _element_SearchDialog_History_DropDown_Button.className = "ib-arrow-up-full";
         }
@@ -9030,7 +9281,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showNotificationPopUp( _options.eventsExportedToText.replace( "{0}", filename ) );
             }
 
-            triggerOptionsEvent( "onEventsExported" );
+            triggerOptionsEventWithData( "onEventsExported", contentsEvents );
         }
     }
 
@@ -9177,13 +9428,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function getArrayText( value, includeSpeechMarks ) {
         includeSpeechMarks = isDefined( includeSpeechMarks ) ? includeSpeechMarks : false;
 
-        var array = getArray( value );
+        var array = getArray( value ),
+            arrayLength = array.length;
 
-        if ( includeSpeechMarks ) {
-            var arrayLength = array.length;
-
-            for ( var arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++ ) {
+        for ( var arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++ ) {
+            if ( includeSpeechMarks ) {
                 array[ arrayIndex ] = "\"" + array[ arrayIndex ] + "\"";
+            } else {
+                array[ arrayIndex ] = array[ arrayIndex ];
             }
         }
 
@@ -9211,7 +9463,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else {
 
                 if ( forJson ) {
-                    result = "[" + getArrayText( value, true ) + "]";
+                    result = "[" + getArrayText( value ) + "]";
                 } else {
                     result = getArrayText( value );
                 }
@@ -9619,7 +9871,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         contents.push( "END:VCALENDAR" );
 
-        return contents.join( "\r\n" );
+        return contents.join( _iCalLineBreak );
     }
 
     function getICalSingleLine( value ) {
@@ -9874,7 +10126,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * turnOnFullScreen().
      * 
-     * Turns on the full-screen mode (if enabled).
+     * Turn on the full-screen mode (if enabled).
      * 
      * @public
      * 
@@ -9891,7 +10143,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * turnOffFullScreen().
      * 
-     * Turns off the full-screen mode (if enabled).
+     * Turn off the full-screen mode (if enabled).
      * 
      * @public
      * 
@@ -9908,11 +10160,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * isFullScreenActivated().
      * 
-     * States if full-screen mode is activated.
+     * States if the full-screen mode is activated.
      * 
      * @public
      * 
-     * @returns     {boolean}                                               States if full-screen mode is activated.
+     * @returns     {boolean}                                               States if the full-screen mode is activated.
      */
     this.isFullScreenActivated = function() {
         return _isFullScreenModeActivated;
@@ -10420,7 +10672,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * addEvent().
      * 
-     * Adds a of new event.
+     * Adds a new event.
      * 
      * @public
      * @fires       onEventAdded
@@ -10895,7 +11147,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * setVisibleEventTypes().
      * 
-     * Set which events types are visible.
+     * Set which event types are visible.
      * 
      * @public
      * @fires       onVisibleEventTypesChanged
@@ -11169,7 +11421,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.4.0";
+        return "2.5.0";
     };
 
     /**
@@ -11438,6 +11690,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.workingHoursStart = getDefaultString( _options.workingHoursStart, null );
         _options.workingHoursEnd = getDefaultString( _options.workingHoursEnd, null );
         _options.reverseOrderDaysOfWeek = getDefaultBoolean( _options.reverseOrderDaysOfWeek, false );
+        _options.importEventsEnabled = getDefaultBoolean( _options.importEventsEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -11712,6 +11965,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showAsBusyText = getDefaultString( _options.showAsBusyText, "Show As Busy" );
         _options.selectAllText = getDefaultString( _options.selectAllText, "Select All" );
         _options.selectNoneText = getDefaultString( _options.selectNoneText, "Select None" );
+        _options.importEventsTooltipText = getDefaultString( _options.importEventsTooltipText, "Import Events" );
+        _options.eventsImportedText = getDefaultString( _options.eventsImportedText, "{0} events imported." );
     }
 
     function setEventTypeTranslationStringOptions() {

@@ -7,19 +7,19 @@ Below is a list of all the public functions that can be called from a Calendar.j
 <h1>Main controls:</h1>
 
 ### **turnOnFullScreen()**:
-Turns on the full-screen mode (if enabled).
+Turn on the full-screen mode (if enabled).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **turnOffFullScreen()**:
-Turns off the full-screen mode (if enabled).
+Turn off the full-screen mode (if enabled).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **isFullScreenActivated()**:
 States if full-screen mode is activated.
 <br>
-***Returns***: '*boolean*' - States if full-screen mode is activated.
+***Returns***: '*boolean*' - States if the full-screen mode is activated.
 
 ### **startTheAutoRefreshTimer()**:
 Starts the auto-refresh timer (if enabled).
@@ -178,7 +178,7 @@ Adds new events from JSON data.
 ***Returns***: '*Object*' - The Calendar.js class instance.
 
 ### **addEvent( *event*, *[updateEvents]*, *[triggerEvent]*, *[setLastUpdated]* )**:
-Adds a of new event.
+Adds a new event.
 <br>
 ***Fires***:  onEventAdded
 <br>
@@ -307,7 +307,7 @@ Removes an event type.
 ***Returns***: '*boolean*' - States if the event type was removed.
 
 ### **setVisibleEventTypes( *ids*, *[triggerEvent]* )**:
-Set which events types are visible.
+Set which event types are visible.
 <br>
 ***Fires***:  onVisibleEventTypesChanged
 <br>

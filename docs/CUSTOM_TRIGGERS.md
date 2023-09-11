@@ -27,35 +27,37 @@ Fires when an event is removed.
 ***Parameter: event***: '*Event*' - The event details.
 
 ### **options.onEventsAdded( *events* )**:
-Fires when an events are added.
+Fires when events are added.
 <br>
 ***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsUpdated( *events* )**:
-Fires when an events are updated.
+Fires when events are updated.
 <br>
 ***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsSet( *events* )**:
-Fires when an events are set (all all other events are cleared).
+Fires when events are set (all other events are cleared).
 <br>
 ***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsSetFromJSON( *json* )**:
-Fires when an events are set from JSON (all all other events are cleared).
+Fires when events are set from JSON (all other events are cleared).
 <br>
 ***Parameter: json***: '*string*' - The JSON.
 
 ### **options.onEventsAddedFromJSON( *json* )**:
-Fires when an events are added from JSON.
+Fires when events are added from JSON.
 <br>
 ***Parameter: json***: '*string*' - The JSON.
 
-### **options.onEventsExported()**:
-Fires when an events are exported.
+### **options.onEventsExported( *events* )**:
+Fires when events are exported.
+<br>
+***Parameter: events***: '*Event[]*' - The array of events.
 
 ### **options.onEventsCleared()**:
-Fires when an events are cleared.
+Fires when events are cleared.
 
 ### **options.onEventDragStart( *event* )**:
 Fires when dragging an event is started.
@@ -80,7 +82,7 @@ Fires when an event is clicked.
 ***Parameter: event***: '*Event*' - The event details.
 
 ### **options.onEventDoubleClick( *event* )**:
-Fires when an event is double clicked (only enabled when Editing Mode is disabled).
+Fires when an event is double-clicked (only enabled when Editing Mode is disabled).
 <br>
 ***Parameter: event***: '*Event*' - The event details.
 
@@ -90,9 +92,14 @@ Fires when an event URL is clicked.
 ***Parameter: url***: '*string*' - The URL clicked.
 
 ### **options.onEventsFetch()**:
-Fires when the calendar refreshes (it will pull a array of events to add, or update).
+Fires when the calendar refreshes (it will pull an array of events to add, or update).
 <br>
 ***Returns: '*Event[]*' - An array of event.
+
+### **options.onEventsImported( *events* )**:
+Fires when events are imported.
+<br>
+***Parameter: events***: '*Event[]*' - The array of events.
 
 
 <br>
@@ -119,7 +126,7 @@ Fires when the calendar moves to the next year.
 ***Parameter: date***: '*Object*' - The new display date.
 
 ### **options.onToday()**:
-Fires when the calendar is moved to todays date.
+Fires when the calendar is moved to today's date.
 
 ### **options.onSetDate( *date* )**:
 Fires when the calendar date is set manually.
@@ -194,7 +201,7 @@ Fires when the Calendar is rendered.
 ***Parameter: id***: '*string*' - The Id of the Calendar.
 
 ### **options.onBusyStateChange( *flag* )**:
-Fires when the Calendars busy state changes.
+Fires when the busy state changes.
 <br>
 ***Parameter: flag***: '*boolean*' - The flag that states if the calendar is busy.
 
