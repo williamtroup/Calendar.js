@@ -3568,13 +3568,14 @@ function calendarJs(elementOrId, options, searchOptions) {
     };
     input.click();
   }
-  function importFromFilesCompleted(eventsAdded) {
-    if (eventsAdded.length > 0) {
+  function importFromFilesCompleted(eventsAddedOrUpdated) {
+    if (eventsAddedOrUpdated.length > 0) {
       storeEventsInLocalStorage();
       updateSideMenu();
       buildDayEvents();
       refreshOpenedViews();
-      showNotificationPopUp(_options.eventsImportedText.replace("{0}", eventsAdded.length));
+      showNotificationPopUp(_options.eventsImportedText.replace("{0}", eventsAddedOrUpdated.length));
+      triggerOptionsEventWithData("onEventsImported", eventsAddedOrUpdated);
     }
   }
   function buildDropDownMenus() {

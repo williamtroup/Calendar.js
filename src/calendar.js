@@ -113,6 +113,7 @@
  * @property    {Object}    onBeforeEventAddEdit                        Specifies an event that will be triggered before an event is added/edit (passes the event to the function and stops tje event editor dialog from showing).
  * @property    {Object}    onBusyStateChange                           Specifies an event that will be triggered when the calendars busy state is changed (passes the state to the function).
  * @property    {Object}    onEventsFetch                               Specifies an event that will be triggered when the calendar refreshes (it will pull a array of events to add, or update).
+ * @property    {Object}    onEventsImported                            Specifies an event that will be triggered when events are imported (passes the events to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -5509,13 +5510,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         input.click();
     }
 
-    function importFromFilesCompleted( eventsAdded ) {
-        if ( eventsAdded.length > 0 ) {
+    function importFromFilesCompleted( eventsAddedOrUpdated ) {
+        if ( eventsAddedOrUpdated.length > 0 ) {
             storeEventsInLocalStorage();
             updateSideMenu();
             buildDayEvents();
             refreshOpenedViews();
-            showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAdded.length ) );
+            showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAddedOrUpdated.length ) );
+            triggerOptionsEventWithData( "onEventsImported", eventsAddedOrUpdated );
         }
     }
 

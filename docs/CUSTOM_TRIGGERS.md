@@ -52,10 +52,10 @@ Fires when an events are added from JSON.
 ***Parameter: json***: '*string*' - The JSON.
 
 ### **options.onEventsExported()**:
-Fires when an events are exported.
+Fires when events are exported.
 
 ### **options.onEventsCleared()**:
-Fires when an events are cleared.
+Fires when events are cleared.
 
 ### **options.onEventDragStart( *event* )**:
 Fires when dragging an event is started.
@@ -93,6 +93,11 @@ Fires when an event URL is clicked.
 Fires when the calendar refreshes (it will pull a array of events to add, or update).
 <br>
 ***Returns: '*Event[]*' - An array of event.
+
+### **options.onEventsImported( *events* )**:
+Fires when events are imported.
+<br>
+***Parameter: events***: '*Event[]*' - The array of events.
 
 
 <br>
