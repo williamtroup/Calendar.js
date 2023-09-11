@@ -21,4 +21,4 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 | *boolean* | contains | States if the search should run a "contains with" check (defaults to true). |
 | *number* | left | States the left position of the dialog (defaults to null). |
 | *number* | top | States the top position of the dialog (defaults to null). |
-| *string[]* | history | States the dropdown search history that should be display (used previously, defaults to []). |
+| *string[]* | history | States the dropdown search history that should be displayed (used previously, defaults to []). |

@@ -1,6 +1,6 @@
 # Calendar.js - Class:
 
-Below details how a Calendar.js class instance can be created.
+Below shows how a Calendar.js class instance can be created.
 <br>
 <br>
 

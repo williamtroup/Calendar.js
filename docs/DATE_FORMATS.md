@@ -1,6 +1,6 @@
 # Calendar.js - Date Formats:
 
-These are the formatter options are used to state how dates are displayed (where supported).
+Below is a list of all the formatting options which state how dates are displayed (where supported).
 
 | Formatter: | Description: |
 | --- | --- |

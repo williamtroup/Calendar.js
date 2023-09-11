@@ -44,7 +44,7 @@
  * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
  * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
  * @property    {Object}    customTags                                  Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar).
- * @property    {boolean}   showAsBusy                                  States if the calendar should show this events time period as busy (defaults to true).
+ * @property    {boolean}   showAsBusy                                  States if the calendar should show the events time period as busy (defaults to true).
  */
 
 
@@ -60,7 +60,7 @@
  * @property    {number}    year                                        The year that the holiday occurs (if the holiday only occurs once. Defaults to null).
  * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
  * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
- * @property    {string}    onClickUrl                                  Specifies a URL that will opened when the holiday is clicked (overrides "onClick").
+ * @property    {string}    onClickUrl                                  Specifies a URL that will be opened when the holiday is clicked (overrides "onClick").
  * @property    {string}    backgroundColor                             The background color the day should use (defaults to null).
  * @property    {string}    textColor                                   The text color the day should use (defaults to null).
  */
@@ -388,7 +388,7 @@
  * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
  * @property    {number}    left                                        States the left position of the dialog (defaults to null).
  * @property    {number}    top                                         States the top position of the dialog (defaults to null).
- * @property    {string[]}  history                                     States the dropdown search history that should be display (used previously, defaults to []).
+ * @property    {string[]}  history                                     States the dropdown search history that should be displayed (used previously, defaults to []).
  */
 
 
@@ -10128,7 +10128,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * turnOnFullScreen().
      * 
-     * Turns on the full-screen mode (if enabled).
+     * Turn on the full-screen mode (if enabled).
      * 
      * @public
      * 
@@ -10145,7 +10145,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * turnOffFullScreen().
      * 
-     * Turns off the full-screen mode (if enabled).
+     * Turn off the full-screen mode (if enabled).
      * 
      * @public
      * 
@@ -10162,11 +10162,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * isFullScreenActivated().
      * 
-     * States if full-screen mode is activated.
+     * States if the full-screen mode is activated.
      * 
      * @public
      * 
-     * @returns     {boolean}                                               States if full-screen mode is activated.
+     * @returns     {boolean}                                               States if the full-screen mode is activated.
      */
     this.isFullScreenActivated = function() {
         return _isFullScreenModeActivated;
@@ -10674,7 +10674,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * addEvent().
      * 
-     * Adds a of new event.
+     * Adds a new event.
      * 
      * @public
      * @fires       onEventAdded
@@ -11149,7 +11149,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * setVisibleEventTypes().
      * 
-     * Set which events types are visible.
+     * Set which event types are visible.
      * 
      * @public
      * @fires       onVisibleEventTypesChanged
