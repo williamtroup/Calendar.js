@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 (function($) {
     $.fn.calendarJs = function(options) {
       var instances = [];
