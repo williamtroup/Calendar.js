@@ -3436,28 +3436,28 @@ function calendarJs(elementOrId, options, searchOptions) {
           }
           if (readingEvent) {
             if (startsWith(contentLine, "UID:")) {
-              readingEventDetails.id = contentLine.split(":")[1];
+              readingEventDetails.id = contentLine.split(":").pop();
             } else if (startsWith(contentLine, "SUMMARY:")) {
-              readingEventDetails.title = contentLine.split(":")[1];
+              readingEventDetails.title = contentLine.split(":").pop();
             } else if (startsWith(contentLine, "DESCRIPTION:")) {
-              readingEventDetails.description = contentLine.split(":")[1];
+              readingEventDetails.description = contentLine.split(":").pop();
             } else if (startsWith(contentLine, "DTSTART:")) {
-              readingEventDetails.from = importICalDateTime(contentLine.split(":")[1]);
-              readingEventDetails.isAllDay = contentLine.split(":")[1].length === 8;
+              readingEventDetails.from = importICalDateTime(contentLine.split(":").pop());
+              readingEventDetails.isAllDay = contentLine.split(":").pop().length === 8;
             } else if (startsWith(contentLine, "DTEND:")) {
-              readingEventDetails.to = importICalDateTime(contentLine.split(":")[1], true);
+              readingEventDetails.to = importICalDateTime(contentLine.split(":").pop(), true);
             } else if (startsWith(contentLine, "CREATED:")) {
-              readingEventDetails.created = importICalDateTime(contentLine.split(":")[1]);
+              readingEventDetails.created = importICalDateTime(contentLine.split(":").pop());
             } else if (startsWith(contentLine, "LOCATION:")) {
-              readingEventDetails.location = contentLine.split(":")[1];
+              readingEventDetails.location = contentLine.split(":").pop();
             } else if (startsWith(contentLine, "URL:")) {
-              readingEventDetails.url = contentLine.split(":")[1];
+              readingEventDetails.url = contentLine.split(":").pop();
             } else if (startsWith(contentLine, "TRANSP:")) {
-              readingEventDetails.showAsBusy = contentLine.split(":")[1] === "OPAQUE";
+              readingEventDetails.showAsBusy = contentLine.split(":").pop() === "OPAQUE";
             } else if (startsWith(contentLine, "BEGIN:VALARM")) {
               readingEventDetails.showAlerts = true;
             } else if (startsWith(contentLine, "CATEGORIES:")) {
-              readingEventDetails.group = contentLine.split(":")[1];
+              readingEventDetails.group = contentLine.split(":").pop();
             } else if (startsWith(contentLine, "ORGANIZER;")) {
               importICalOrganizer(readingEventDetails, contentLine);
             } else if (startsWith(contentLine, "RRULE:")) {
@@ -3495,13 +3495,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     return new Date(result);
   }
   function importICalOrganizer(readingEventDetails, contentLine) {
-    var organizerDetails = contentLine.split(";")[1];
+    var organizerDetails = contentLine.split(";").pop();
     var organizerDetailsParts = organizerDetails.split(":");
     readingEventDetails.organizerName = organizerDetailsParts[0].replace("CN=", _string.empty);
     readingEventDetails.organizerEmailAddress = organizerDetailsParts[2];
   }
   function importICalRRule(readingEventDetails, contentLine) {
-    var rRuleDetails = contentLine.split(":")[1];
+    var rRuleDetails = contentLine.split(":").pop();
     var rRuleDetailsParts = rRuleDetails.split(";");
     var rRuleDetailsPartsLength = rRuleDetailsParts.length;
     var freq = null;

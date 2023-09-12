@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.5.1:
+- Fixed a fault that prevented all-day events from other iCal sources being handled correctly when imported.
 - 
 
 <br>
