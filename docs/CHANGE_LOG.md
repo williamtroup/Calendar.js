@@ -3,8 +3,7 @@
 ## Version 2.5.1:
 - Fixed a fault that prevented all-day events from other iCal sources being handled correctly when imported.
 - Added missing version headers to the translation .JS files.
-- Fixed the "Import Events" select dialog not supporting multiple file selection on some devices.
-- 
+- Fixed the "Import Events" select dialog not supporting multiple file selections on some devices.
 
 <br>
 
