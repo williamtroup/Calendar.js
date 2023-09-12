@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.5.0
+ * @version     v2.5.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -5352,28 +5352,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     if ( readingEvent ) {
                         if ( startsWith( contentLine, "UID:" ) ) {
-                            readingEventDetails.id = contentLine.split( ":" )[ 1 ];
+                            readingEventDetails.id = contentLine.split( ":" ).pop();
                         } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
-                            readingEventDetails.title = contentLine.split( ":" )[ 1 ];
+                            readingEventDetails.title = contentLine.split( ":" ).pop();
                         } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
-                            readingEventDetails.description = contentLine.split( ":" )[ 1 ];
-                        } else if ( startsWith( contentLine, "DTSTART:" ) ) {
-                            readingEventDetails.from = importICalDateTime( contentLine.split( ":" )[ 1 ] );
-                            readingEventDetails.isAllDay = contentLine.split( ":" )[ 1 ].length === 8;
-                        } else if ( startsWith( contentLine, "DTEND:" ) ) {
-                            readingEventDetails.to = importICalDateTime( contentLine.split( ":" )[ 1 ], true );
+                            readingEventDetails.description = contentLine.split( ":" ).pop();
+                        } else if ( startsWith( contentLine, "DTSTART:" ) || startsWith( contentLine, "DTSTART;" ) ) {
+                            readingEventDetails.from = importICalDateTime( contentLine.split( ":" ).pop() );
+                            readingEventDetails.isAllDay = contentLine.split( ":" ).pop().length === 8;
+                        } else if ( startsWith( contentLine, "DTEND:" ) || startsWith( contentLine, "DTEND;" ) ) {
+                            readingEventDetails.to = importICalDateTime( contentLine.split( ":" ).pop(), true );
                         } else if ( startsWith( contentLine, "CREATED:" ) ) {
-                            readingEventDetails.created = importICalDateTime( contentLine.split( ":" )[ 1 ] );
+                            readingEventDetails.created = importICalDateTime( contentLine.split( ":" ).pop() );
                         } else if ( startsWith( contentLine, "LOCATION:" ) ) {
-                            readingEventDetails.location = contentLine.split( ":" )[ 1 ];
+                            readingEventDetails.location = contentLine.split( ":" ).pop();
                         } else if ( startsWith( contentLine, "URL:" ) ) {
-                            readingEventDetails.url = contentLine.split( ":" )[ 1 ];
+                            readingEventDetails.url = contentLine.split( ":" ).pop();
                         } else if ( startsWith( contentLine, "TRANSP:" ) ) {
-                            readingEventDetails.showAsBusy = contentLine.split( ":" )[ 1 ] === "OPAQUE";
+                            readingEventDetails.showAsBusy = contentLine.split( ":" ).pop() === "OPAQUE";
                         } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
                             readingEventDetails.showAlerts = true;
                         } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
-                            readingEventDetails.group = contentLine.split( ":" )[ 1 ];
+                            readingEventDetails.group = contentLine.split( ":" ).pop();
                         } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
                             importICalOrganizer( readingEventDetails, contentLine );
                         } else if ( startsWith( contentLine, "RRULE:" ) ) {
@@ -5426,7 +5426,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function importICalOrganizer( readingEventDetails, contentLine ) {
-        var organizerDetails = contentLine.split( ";" )[ 1 ],
+        var organizerDetails = contentLine.split( ";" ).pop(),
             organizerDetailsParts = organizerDetails.split( ":" );
 
         readingEventDetails.organizerName = organizerDetailsParts[ 0 ].replace( "CN=", _string.empty );
@@ -5434,7 +5434,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function importICalRRule( readingEventDetails, contentLine ) {
-        var rRuleDetails = contentLine.split( ":" )[ 1 ],
+        var rRuleDetails = contentLine.split( ":" ).pop(),
             rRuleDetailsParts = rRuleDetails.split( ";" ),
             rRuleDetailsPartsLength = rRuleDetailsParts.length,
             freq = null,
@@ -5496,6 +5496,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function importEventsFromFileSelected() {
         var input = createElement( "input", null, "file" );
         input.accept = ".ical, .ics, .json";
+        input.multiple = "multiple";
 
         input.onchange = function() {
             var filesLength = input.files.length;
@@ -11421,7 +11422,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.5.0";
+        return "2.5.1";
     };
 
     /**
