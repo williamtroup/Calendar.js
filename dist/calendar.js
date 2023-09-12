@@ -3441,10 +3441,10 @@ function calendarJs(elementOrId, options, searchOptions) {
               readingEventDetails.title = contentLine.split(":").pop();
             } else if (startsWith(contentLine, "DESCRIPTION:")) {
               readingEventDetails.description = contentLine.split(":").pop();
-            } else if (startsWith(contentLine, "DTSTART:")) {
+            } else if (startsWith(contentLine, "DTSTART:") || startsWith(contentLine, "DTSTART;")) {
               readingEventDetails.from = importICalDateTime(contentLine.split(":").pop());
               readingEventDetails.isAllDay = contentLine.split(":").pop().length === 8;
-            } else if (startsWith(contentLine, "DTEND:")) {
+            } else if (startsWith(contentLine, "DTEND:") || startsWith(contentLine, "DTEND;")) {
               readingEventDetails.to = importICalDateTime(contentLine.split(":").pop(), true);
             } else if (startsWith(contentLine, "CREATED:")) {
               readingEventDetails.created = importICalDateTime(contentLine.split(":").pop());
@@ -3556,6 +3556,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function importEventsFromFileSelected() {
     var input = createElement("input", null, "file");
     input.accept = ".ical, .ics, .json";
+    input.multiple = "multiple";
     input.onchange = function() {
       var filesLength = input.files.length;
       var fileIndex = 0;
