@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.5.3:
+- 
+
+<br>
+
 ## Version 2.5.2:
 - Updated the Day/Month names for all translations.
 - The translation strings "stText", "ndText", "rdText", and "thText" are now empty for all translation files (except .EN).
