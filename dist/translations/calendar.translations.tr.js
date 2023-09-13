@@ -1,13 +1,13 @@
 /*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
-      "Pazartesi",
-      "Salı",
-      "evlenmek",
-      "Per",
-      "Cuma",
-      "Doygunluk",
-      "Güneş"
+      "Pzt",
+      "Sa",
+      "Çrs",
+      "Prs",
+      "Cum",
+      "Cmt",
+      "Paz"
     ],
     "dayNames": [
       "Pazartesi",
@@ -19,13 +19,13 @@ var __TRANSLATION_OPTIONS = {
       "Pazar"
     ],
     "dayNamesAbbreviated": [
-      "Pazartesi",
-      "Salı",
-      "evlenmek",
-      "Per",
-      "Cuma",
-      "Doygunluk",
-      "Güneş"
+      "Pzt",
+      "Sa",
+      "Çrs",
+      "Prs",
+      "Cum",
+      "Cmt",
+      "Paz"
     ],
     "monthNames": [
       "Ocak",

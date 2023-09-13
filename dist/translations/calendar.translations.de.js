@@ -3,11 +3,11 @@ var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Mo",
     "Di",
-    "Heiraten",
+    "Mi",
     "Do",
     "Fr",
     "Sa",
-    "Sonne"
+    "So"
   ],
   "dayNames": [
     "Montag",
@@ -21,16 +21,16 @@ var __TRANSLATION_OPTIONS = {
   "dayNamesAbbreviated": [
     "Mo",
     "Di",
-    "Heiraten",
+    "Mi",
     "Do",
     "Fr",
     "Sa",
-    "Sonne"
+    "So"
   ],
   "monthNames": [
     "Januar",
     "Februar",
-    "Marsch",
+    "März",
     "April",
     "Mai",
     "Juni",
@@ -43,8 +43,8 @@ var __TRANSLATION_OPTIONS = {
   ],
   "monthNamesAbbreviated": [
     "Jan",
-    "Febr",
-    "Beschädigen",
+    "Feb",
+    "März",
     "Apr",
     "Mai",
     "Jun",
