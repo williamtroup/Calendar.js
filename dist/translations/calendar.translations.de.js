@@ -1,13 +1,13 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Mo",
     "Di",
-    "Heiraten",
+    "Mi",
     "Do",
     "Fr",
     "Sa",
-    "Sonne"
+    "So"
   ],
   "dayNames": [
     "Montag",
@@ -21,16 +21,16 @@ var __TRANSLATION_OPTIONS = {
   "dayNamesAbbreviated": [
     "Mo",
     "Di",
-    "Heiraten",
+    "Mi",
     "Do",
     "Fr",
     "Sa",
-    "Sonne"
+    "So"
   ],
   "monthNames": [
     "Januar",
     "Februar",
-    "Marsch",
+    "März",
     "April",
     "Mai",
     "Juni",
@@ -43,8 +43,8 @@ var __TRANSLATION_OPTIONS = {
   ],
   "monthNamesAbbreviated": [
     "Jan",
-    "Febr",
-    "Beschädigen",
+    "Feb",
+    "März",
     "Apr",
     "Mai",
     "Jun",
@@ -87,10 +87,10 @@ var __TRANSLATION_OPTIONS = {
   "toTimeErrorMessage": "Bitte wählen Sie eine gültige Bis-Zeit aus.",
   "toSmallerThanFromErrorMessage": "Bitte wählen Sie ein „Bis“-Datum aus, das größer als das „Von“-Datum ist.",
   "titleErrorMessage": "Bitte geben Sie einen Wert in das Feld „Titel“ ein (kein Leerzeichen).",
-  "stText": "st",
-  "ndText": "nd",
-  "rdText": "rd",
-  "thText": "Th",
+  "stText": "",
+  "ndText": "",
+  "rdText": "",
+  "thText": "",
   "yesText": "Ja",
   "noText": "NEIN",
   "allDayText": "Den ganzen Tag",

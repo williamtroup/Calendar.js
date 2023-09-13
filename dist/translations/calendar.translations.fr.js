@@ -1,13 +1,13 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Lun",
       "Mar",
-      "Épouser",
+      "Mer",
       "Jeu",
       "Ven",
-      "Assis",
-      "Soleil"
+      "Sam",
+      "Dim"
     ],
     "dayNames": [
       "Lundi",
@@ -21,18 +21,18 @@ var __TRANSLATION_OPTIONS = {
     "dayNamesAbbreviated": [
       "Lun",
       "Mar",
-      "Épouser",
+      "Mer",
       "Jeu",
       "Ven",
-      "Assis",
-      "Soleil"
+      "Sam",
+      "Dim"
     ],
     "monthNames": [
       "Janvier",
       "Février",
       "Mars",
       "Avril",
-      "Peut",
+      "Mai",
       "Juin",
       "Juillet",
       "Août",
@@ -42,16 +42,16 @@ var __TRANSLATION_OPTIONS = {
       "Décembre"
     ],
     "monthNamesAbbreviated": [
-      "Jan",
-      "Fév",
-      "Mar",
+      "Janv",
+      "Févr",
+      "Mars",
       "Avr",
-      "Peut",
-      "juin",
-      "Juillet",
+      "Mai",
+      "Juin",
+      "Juil",
       "Août",
-      "Sep",
-      "Octobre",
+      "Sept",
+      "Oct",
       "Nov",
       "Déc"
     ],
@@ -87,10 +87,10 @@ var __TRANSLATION_OPTIONS = {
     "toTimeErrorMessage": "Veuillez sélectionner une heure « À » valide.",
     "toSmallerThanFromErrorMessage": "Veuillez sélectionner une date « À » supérieure à la date « De ».",
     "titleErrorMessage": "Veuillez saisir une valeur dans le champ « Titre » (pas d'espace vide).",
-    "stText": "St",
-    "ndText": "sd",
-    "rdText": "rd",
-    "thText": "ème",
+    "stText": "",
+    "ndText": "",
+    "rdText": "",
+    "thText": "",
     "yesText": "Oui",
     "noText": "Non",
     "allDayText": "Toute la journée",

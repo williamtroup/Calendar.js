@@ -1,13 +1,13 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
-    "seg",
-    "ter",
-    "qua",
-    "qui",
-    "sex",
-    "Sentado",
-    "Sol"
+    "Seg",
+    "Ter",
+    "Qua",
+    "Qui",
+    "Sex",
+    "Sáb",
+    "Dom"
   ],
   "dayNames": [
     "Segunda-feira",
@@ -19,20 +19,20 @@ var __TRANSLATION_OPTIONS = {
     "Domingo"
   ],
   "dayNamesAbbreviated": [
-    "seg",
-    "ter",
-    "qua",
-    "qui",
-    "sex",
-    "Sentado",
-    "Sol"
+    "Seg",
+    "Ter",
+    "Qua",
+    "Qui",
+    "Sex",
+    "Sáb",
+    "Dom"
   ],
   "monthNames": [
     "Janeiro",
     "Fevereiro",
-    "Marchar",
+    "março",
     "abril",
-    "Poderia",
+    "maio",
     "Junho",
     "Julho",
     "Agosto",
@@ -46,7 +46,7 @@ var __TRANSLATION_OPTIONS = {
     "Fevereiro",
     "Março",
     "abril",
-    "Poderia",
+    "maio",
     "junho",
     "julho",
     "Agosto",
@@ -87,10 +87,10 @@ var __TRANSLATION_OPTIONS = {
   "toTimeErrorMessage": "Selecione um horário 'até' válido.",
   "toSmallerThanFromErrorMessage": "Selecione uma data 'Até' que seja maior que a data 'De'.",
   "titleErrorMessage": "Insira um valor no campo 'Título' (sem espaço vazio).",
-  "stText": "st",
-  "ndText": "e",
-  "rdText": "terceiro",
-  "thText": "º",
+  "stText": "",
+  "ndText": "",
+  "rdText": "",
+  "thText": "",
   "yesText": "Sim",
   "noText": "Não",
   "allDayText": "Dia todo",

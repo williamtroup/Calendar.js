@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "सोमवार",
@@ -87,10 +87,10 @@ var __TRANSLATION_OPTIONS = {
   "toTimeErrorMessage": "कृपया एक वैध 'टू' समय चुनें।",
   "toSmallerThanFromErrorMessage": "कृपया ऐसी 'प्रति' तिथि चुनें जो 'प्रेषक' तिथि से बड़ी हो।",
   "titleErrorMessage": "कृपया 'शीर्षक' फ़ील्ड में एक मान दर्ज करें (कोई खाली स्थान नहीं)।",
-  "stText": "अनुसूचित जनजाति",
-  "ndText": "रा",
-  "rdText": "तृतीय",
-  "thText": "वां",
+  "stText": "",
+  "ndText": "",
+  "rdText": "",
+  "thText": "",
   "yesText": "हाँ",
   "noText": "नहीं",
   "allDayText": "पूरे दिन",

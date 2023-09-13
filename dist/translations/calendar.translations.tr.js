@@ -1,13 +1,13 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
-      "Pazartesi",
-      "Salı",
-      "evlenmek",
-      "Per",
-      "Cuma",
-      "Doygunluk",
-      "Güneş"
+      "Pzt",
+      "Sa",
+      "Çrs",
+      "Prs",
+      "Cum",
+      "Cmt",
+      "Paz"
     ],
     "dayNames": [
       "Pazartesi",
@@ -19,13 +19,13 @@ var __TRANSLATION_OPTIONS = {
       "Pazar"
     ],
     "dayNamesAbbreviated": [
-      "Pazartesi",
-      "Salı",
-      "evlenmek",
-      "Per",
-      "Cuma",
-      "Doygunluk",
-      "Güneş"
+      "Pzt",
+      "Sa",
+      "Çrs",
+      "Prs",
+      "Cum",
+      "Cmt",
+      "Paz"
     ],
     "monthNames": [
       "Ocak",
@@ -87,10 +87,10 @@ var __TRANSLATION_OPTIONS = {
     "toTimeErrorMessage": "Lütfen geçerli bir 'Kime' saati seçin.",
     "toSmallerThanFromErrorMessage": "Lütfen 'Başlangıç' tarihinden daha büyük bir 'Bitiş' tarihi seçin.",
     "titleErrorMessage": "Lütfen 'Başlık' alanına bir değer girin (boş alan olmadan).",
-    "stText": "st",
-    "ndText": "ve",
-    "rdText": "üçüncü",
-    "thText": "bu",
+    "stText": "",
+    "ndText": "",
+    "rdText": "",
+    "thText": "",
     "yesText": "Evet",
     "noText": "HAYIR",
     "allDayText": "Tüm gün",

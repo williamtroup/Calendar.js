@@ -1,13 +1,13 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
-    "pon",
-    "wt",
-    "Poślubić",
-    "czw",
-    "piątek",
-    "sob",
-    "Słońce"
+    "Pn",
+    "Tt",
+    "Śr",
+    "Czw",
+    "Pt",
+    "Sob",
+    "Ndz"
   ],
   "dayNames": [
     "Poniedziałek",
@@ -19,20 +19,20 @@ var __TRANSLATION_OPTIONS = {
     "Niedziela"
   ],
   "dayNamesAbbreviated": [
-    "pon",
-    "wt",
-    "Poślubić",
-    "czw",
-    "piątek",
-    "sob",
-    "Słońce"
+    "Pn",
+    "Tt",
+    "Śr",
+    "Czw",
+    "Pt",
+    "Sob",
+    "Ndz"
   ],
   "monthNames": [
     "Styczeń",
     "Luty",
-    "Marsz",
+    "Marzec",
     "Kwiecień",
-    "Móc",
+    "Maj",
     "Czerwiec",
     "Lipiec",
     "Sierpień",
@@ -42,18 +42,18 @@ var __TRANSLATION_OPTIONS = {
     "Grudzień"
   ],
   "monthNamesAbbreviated": [
-    "styczeń",
-    "luty",
-    "Zniszczyć",
-    "kwiecień",
-    "Móc",
-    "czerwca",
-    "lipiec",
-    "sierpień",
-    "wrzesień",
-    "paź",
-    "listopad",
-    "grudzień"
+    "Sty",
+    "Lut",
+    "Mar",
+    "Kwi",
+    "Maj",
+    "Cze",
+    "Lip",
+    "Sie",
+    "Wrz",
+    "Paź",
+    "Lis",
+    "Gru"
   ],
   "previousMonthTooltipText": "Poprzedni miesiac",
   "nextMonthTooltipText": "W następnym miesiącu",
@@ -87,10 +87,10 @@ var __TRANSLATION_OPTIONS = {
   "toTimeErrorMessage": "Proszę wybrać prawidłowy czas „Do”.",
   "toSmallerThanFromErrorMessage": "Wybierz datę „Do” dłuższą niż data „Od”.",
   "titleErrorMessage": "Proszę wpisać wartość w polu „Tytuł” ​​(bez pustych miejsc).",
-  "stText": "ul",
-  "ndText": "II",
-  "rdText": "r & D",
-  "thText": "t",
+  "stText": "",
+  "ndText": "",
+  "rdText": "",
+  "thText": "",
   "yesText": "Tak",
   "noText": "NIE",
   "allDayText": "Cały dzień",

@@ -1,13 +1,13 @@
-/*! Calendar.js v2.5.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.2 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Lun",
     "Mar",
-    "Casarse",
-    "Jue",
+    "Mie",
+    "Juev",
     "Vie",
-    "Se sentó",
-    "Sol"
+    "Sab",
+    "Dom"
   ],
   "dayNames": [
     "Lunes",
@@ -21,18 +21,18 @@ var __TRANSLATION_OPTIONS = {
   "dayNamesAbbreviated": [
     "Lun",
     "Mar",
-    "Casarse",
-    "Jue",
+    "Mie",
+    "Juev",
     "Vie",
-    "Se sentó",
-    "Sol"
+    "Sab",
+    "Dom"
   ],
   "monthNames": [
     "Enero",
     "Febrero",
     "Marzo",
     "Abril",
-    "Puede",
+    "Mayo",
     "Junio",
     "Julio",
     "Agosto",
@@ -46,7 +46,7 @@ var __TRANSLATION_OPTIONS = {
     "Feb",
     "Mar",
     "Abr",
-    "Puede",
+    "May",
     "Jun",
     "Jul",
     "Ago",
@@ -87,10 +87,10 @@ var __TRANSLATION_OPTIONS = {
   "toTimeErrorMessage": "Seleccione una hora 'Hasta' válida.",
   "toSmallerThanFromErrorMessage": "Seleccione una fecha \"Hasta\" que sea mayor que la fecha \"Desde\".",
   "titleErrorMessage": "Introduzca un valor en el campo 'Título' (sin espacios vacíos).",
-  "stText": "calle",
-  "ndText": "Dakota del Norte",
-  "rdText": "tercero",
-  "thText": "th",
+  "stText": "",
+  "ndText": "",
+  "rdText": "",
+  "thText": "",
   "yesText": "Sí",
   "noText": "No",
   "allDayText": "Todo el dia",
