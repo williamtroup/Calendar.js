@@ -2,6 +2,7 @@
 
 ## Version 2.5.2:
 - Updated the Day/Month names for the Spanish translations.
+- The translation strings "stText", "ndText", "rdText", and "thText" are now empty for all translation files (except .EN).
 - 
 
 <br>
