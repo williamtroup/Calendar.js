@@ -3,11 +3,11 @@ var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Lun",
     "Mar",
-    "Casarse",
-    "Jue",
+    "Mie",
+    "Juev",
     "Vie",
-    "Se sentó",
-    "Sol"
+    "Sab",
+    "Dom"
   ],
   "dayNames": [
     "Lunes",
@@ -21,18 +21,18 @@ var __TRANSLATION_OPTIONS = {
   "dayNamesAbbreviated": [
     "Lun",
     "Mar",
-    "Casarse",
-    "Jue",
+    "Mie",
+    "Juev",
     "Vie",
-    "Se sentó",
-    "Sol"
+    "Sab",
+    "Dom"
   ],
   "monthNames": [
     "Enero",
     "Febrero",
     "Marzo",
     "Abril",
-    "Puede",
+    "Mayo",
     "Junio",
     "Julio",
     "Agosto",
@@ -46,7 +46,7 @@ var __TRANSLATION_OPTIONS = {
     "Feb",
     "Mar",
     "Abr",
-    "Puede",
+    "May",
     "Jun",
     "Jul",
     "Ago",

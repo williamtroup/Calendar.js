@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.5.2:
+- Updated the Day/Month names for the Spanish translations.
 - 
 
 <br>
