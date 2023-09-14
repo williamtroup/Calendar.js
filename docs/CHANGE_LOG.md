@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.5.3:
+- Updated documentation to show the DatePicker mode.
 - 
 
 <br>

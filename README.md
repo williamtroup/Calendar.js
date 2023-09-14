@@ -9,6 +9,7 @@ Calendar.js
 
 ![CalendarJs](docs/images/main.png)
 ![CalendarJs - Menu](docs/images/main-menu.png)
+![CalendarJs - Date-Picker](docs/images/date-picker.png)
 
 <h1>What features does Calendar.js have?</h1>
 
