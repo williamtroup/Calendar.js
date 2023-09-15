@@ -2,6 +2,7 @@
 
 ## Version 2.5.3:
 - Updated documentation to show the DatePicker mode.
+- Added a shadow effect to the notifications shown when specific actions are completed.
 - 
 
 <br>

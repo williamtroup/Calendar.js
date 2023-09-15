@@ -160,6 +160,7 @@ div.calendar-notification div.success {
   background-color: #EFE;
   border: 1px solid #DED;
   color: #9A9;
+  box-shadow: 4px 4px 4px var(--dark-color);
 }
 div.calendar-notification div.success div.ib-close-icon::before, div.calendar-notification div.success div.ib-close-icon::after {
   background-color: #9A9;
@@ -168,6 +169,7 @@ div.calendar-notification div.error {
   background-color: #FEE;
   border: 1px solid #EDD;
   color: #A66;
+  box-shadow: 4px 4px 4px var(--dark-color);
 }
 div.calendar-notification div.error div.ib-close-icon::before, div.calendar-notification div.error div.ib-close-icon::after {
   background-color: #A66;

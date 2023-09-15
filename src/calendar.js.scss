@@ -123,6 +123,7 @@ div.calendar-notification {
         background-color: #EFE;
         border: $standard-border-size solid #DED;
         color: #9A9;
+        box-shadow: 4px 4px 4px var(--dark-color);
 
         div.ib-close-icon {
             &::before,
@@ -136,7 +137,8 @@ div.calendar-notification {
         background-color: #FEE;
         border: $standard-border-size solid #EDD;
         color: #A66;
-
+        box-shadow: 4px 4px 4px var(--dark-color);
+        
         div.ib-close-icon {
             &::before,
             &::after {
