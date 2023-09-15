@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.5.2
+ * Calendar.js Library v2.5.3
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -123,6 +123,7 @@ div.calendar-notification {
         background-color: #EFE;
         border: $standard-border-size solid #DED;
         color: #9A9;
+        box-shadow: 4px 4px 4px var(--dark-color);
 
         div.ib-close-icon {
             &::before,
@@ -136,7 +137,8 @@ div.calendar-notification {
         background-color: #FEE;
         border: $standard-border-size solid #EDD;
         color: #A66;
-
+        box-shadow: 4px 4px 4px var(--dark-color);
+        
         div.ib-close-icon {
             &::before,
             &::after {

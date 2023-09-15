@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.5.3:
+- Updated documentation to show the DatePicker mode.
+- Added a shadow effect to the notifications shown when specific actions are completed.
+- Fixed a fault that caused the custom event "onEventsImported" to be called multiple times when handling multiple files.
+- Fixed a fault that caused the "eventsImportedText" notification to show the wrong number of events imported when handling multiple files.
+
+<br>
+
 ## Version 2.5.2:
 - Updated the Day/Month names for all translations.
 - The translation strings "stText", "ndText", "rdText", and "thText" are now empty for all translation files (except .EN).
