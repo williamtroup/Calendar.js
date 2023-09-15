@@ -5247,21 +5247,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function dropFileOnDisplay( e ) {
         if ( isDefined( _window.FileReader ) && _options.importEventsEnabled ) {
-            var filesLength = e.dataTransfer.files.length;
-
-            for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
-                readDropFileOnDisplay( e.dataTransfer.files[ fileIndex ] );
-            }
-        }
-    }
-
-    function readDropFileOnDisplay( blob ) {
-        var extension = blob.name.split( "." ).pop().toLowerCase();
-
-        if ( extension === "json" ) {
-            importEventsFromJson( blob );
-        } else if ( extension === "ics" || extension === "ical" ) {
-            importEventsFromICal( blob );
+            importEventsFromFiles( e.dataTransfer.files );
         }
     }
 
@@ -5290,9 +5276,41 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function importEventsFromJson( blob ) {
-        var reader = new FileReader();
-        reader.readAsText( blob );
+    function importEventsFromFiles( files ) {
+        var filesLength = files.length,
+            filesCompleted = [],
+            filesCompletedEvents = [];
+
+        var onLoadEnd = function( filename, events ) {
+            filesCompleted.push( filename );
+            filesCompletedEvents = filesCompletedEvents.concat( events );
+
+            if ( filesCompleted.length === filesLength ) {
+                importFromFilesCompleted( filesCompletedEvents );
+            }
+        };
+
+        for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
+            var file = files[ fileIndex ],
+                fileExtension = file.name.split( "." ).pop().toLowerCase();
+
+            if ( fileExtension === "json" ) {
+                importEventsFromJson( file, onLoadEnd );
+            } else if ( fileExtension === "ics" || fileExtension === "ical" ) {
+                importEventsFromICal( file, onLoadEnd );
+            }
+        }
+    }
+
+    function importEventsFromJson( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingEventsAdded = [];
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingEventsAdded );
+        };
     
         reader.onload = function( event ) {
             var readingEvents = getObjectFromString( event.target.result );
@@ -5301,8 +5319,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 readingEvents = readingEvents.events;
             }
 
-            var readingEventsAdded = [],
-                readingEventsLength = readingEvents.length;
+            var readingEventsLength = readingEvents.length;
 
             for ( var readingEventsIndex = 0; readingEventsIndex < readingEventsLength; readingEventsIndex++ ) {
                 var eventDetails = readingEvents[ readingEventsIndex ];
@@ -5313,14 +5330,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     readingEventsAdded.push( eventDetails);
                 }
             }
-
-            importFromFilesCompleted( readingEventsAdded );
         };
     }
 
-    function importEventsFromICal( blob ) {
-        var reader = new FileReader();
-        reader.readAsText( blob );
+    function importEventsFromICal( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingEventsAdded = [];
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingEventsAdded );
+        };
     
         reader.onload = function( event ) {
             var content = event.target.result,
@@ -5329,8 +5350,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > -1 && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > -1 ) {
                 var readingEvent = false,
-                    readingEventDetails = {},
-                    readingEventsAdded = [];
+                    readingEventDetails = {};
                 
                 for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
                     var contentLine = contentLines[ contentLineIndex ];
@@ -5381,8 +5401,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         }
                     }
                 }
-
-                importFromFilesCompleted( readingEventsAdded );
             }
         };
     }
@@ -5499,11 +5517,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         input.multiple = "multiple";
 
         input.onchange = function() {
-            var filesLength = input.files.length;
-
-            for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
-                readDropFileOnDisplay( input.files[ fileIndex ] );
-            }
+            importEventsFromFiles( input.files );
         };
 
         input.click();
