@@ -5,7 +5,6 @@
 - Added a shadow effect to the notifications shown when specific actions are completed.
 - Fixed a fault that caused the custom event "onEventsImported" to be called multiple times when handling multiple files.
 - Fixed a fault that caused the "eventsImportedText" notification to show the wrong number of events imported when handling multiple files.
-- 
 
 <br>
 
