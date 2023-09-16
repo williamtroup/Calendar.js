@@ -5,6 +5,7 @@
 - The "Close" buttons for all views (Full Day, Weekly, All) are now on the right side of the title bar and separated with a line.
 - Fixed the "Side Menu" button being hidden on the "All Events" view when the setting "showExtraToolbarButtons" is set to false.
 - Fixed the "escape" key not closing the Calendar (in DatePicker mode) when something other than the input field is focused.
+- Fixed iCAL exports ending repeating events a day earlier than shown in the display (in the new target calendar).
 - 
 
 <br>

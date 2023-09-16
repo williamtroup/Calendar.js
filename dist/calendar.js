@@ -6816,7 +6816,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
     if (isDefinedDate(orderedEvent.repeatEnds)) {
-      contents.push("UNTIL=" + getICalDateTimeString(orderedEvent.repeatEnds));
+      var repeatEnds = new Date(orderedEvent.repeatEnds);
+      repeatEnds.setDate(repeatEnds.getDate() + 1);
+      contents.push("UNTIL=" + getICalDateTimeString(repeatEnds));
     }
     return contents.join(";");
   }
