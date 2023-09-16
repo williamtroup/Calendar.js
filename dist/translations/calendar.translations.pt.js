@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Seg",
