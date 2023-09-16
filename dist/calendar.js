@@ -2996,9 +2996,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     createSpanElement(container, date.getDate());
     if (_options.showDayNumberOrdinals) {
-      var sup = createElement("sup");
-      sup.innerText = getDayOrdinal(date.getDate());
-      container.appendChild(sup);
+      var ordinal = getDayOrdinal(date.getDate());
+      if (isDefined(ordinal)) {
+        var sup = createElement("sup");
+        sup.innerText = ordinal;
+        container.appendChild(sup);
+      }
     }
     if (isDefined(afterText)) {
       createSpanElement(container, afterText);
@@ -3090,9 +3093,12 @@ function calendarJs(elementOrId, options, searchOptions) {
         showDayDropDownMenu(e, dayDate);
       };
       if (_options.showDayNumberOrdinals) {
-        var sup = createElement("sup");
-        sup.innerText = getDayOrdinal(actualDay);
-        dayText.appendChild(sup);
+        var ordinal = getDayOrdinal(actualDay);
+        if (isDefined(ordinal)) {
+          var sup = createElement("sup");
+          sup.innerText = ordinal;
+          dayText.appendChild(sup);
+        }
       }
       dayElement.appendChild(dayText);
       dayElement.appendChild(createElement("span", "blank"));

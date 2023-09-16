@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.5.4:
+- Day ordinals are now only included in the UI when text for the setting is available (mainly seen when using translation files).
 - 
 
 <br>
