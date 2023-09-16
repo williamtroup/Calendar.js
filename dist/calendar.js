@@ -2362,10 +2362,12 @@ function calendarJs(elementOrId, options, searchOptions) {
             showExportEventsDialog(_element_ListAllEventsView_EventsShown);
           });
         }
-        if (!_datePickerModeEnabled && isSideMenuAvailable()) {
-          buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-          titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
-        }
+      }
+      if (!_datePickerModeEnabled && isSideMenuAvailable()) {
+        buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
+      }
+      if (_options.showExtraToolbarButtons) {
+        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });

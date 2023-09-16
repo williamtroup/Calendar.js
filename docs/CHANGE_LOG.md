@@ -3,6 +3,7 @@
 ## Version 2.5.4:
 - Day ordinals are now only included in the UI when text for the settings are available (seen when using translation files).
 - The "Close" buttons for all views (Full Day, Weekly, All) are now on the right side of the title bar and separated with a line.
+- Fixed the "Side Menu" button being hidden on the "All Events" view when the setting "showExtraToolbarButtons" is set to false.
 - 
 
 <br>
