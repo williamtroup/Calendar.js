@@ -6578,7 +6578,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
       storeCsvData(csvContents, orderedEvents[orderedEventIndex]);
     }
-    return csvContents.join("\n");
+    return csvContents.join(_string.newLine);
   }
   function storeCsvData(csvContents, eventDetails) {
     var eventContents = getExportRow(eventDetails);
@@ -6628,7 +6628,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push("</Event>");
     }
     contents.push("</Events>");
-    return contents.join("\n");
+    return contents.join(_string.newLine);
   }
   function getJsonContents(orderedEvents) {
     var contents = [];
@@ -6657,7 +6657,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     contents[contents.length - 1] = "}";
     contents.push("]");
     contents.push("}");
-    return contents.join("\n");
+    return contents.join(_string.newLine);
   }
   function getTextContents(orderedEvents, filename) {
     var contents = [];
@@ -6684,7 +6684,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       contents.push(_string.empty);
     }
     contents.pop();
-    return contents.join("\n");
+    return contents.join(_string.newLine);
   }
   function getICalContents(orderedEvents) {
     var contents = [];
@@ -6840,7 +6840,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var rowContents = getExportRow(orderedEvents[orderedEventIndex]);
       contents.push(getMdFileRow(rowContents));
     }
-    return contents.join("\n");
+    return contents.join(_string.newLine);
   }
   function getMdFileRow(contents) {
     return "| " + contents.join(" | ") + " |";
@@ -6878,7 +6878,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     contents.push("</body>");
     contents.push("</html>");
-    return contents.join("\n");
+    return contents.join(_string.newLine);
   }
   function getTsvContents(orderedEvents) {
     var orderedEventLength = orderedEvents.length;
@@ -6896,7 +6896,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     for (; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
       storeTsvData(csvContents, orderedEvents[orderedEventIndex]);
     }
-    return csvContents.join("\n");
+    return csvContents.join(_string.newLine);
   }
   function storeTsvData(csvContents, eventDetails) {
     var eventContents = getExportRow(eventDetails);
@@ -7310,7 +7310,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     {day:11, month:11, title:"Remembrance Day", onClickUrl:"https://en.wikipedia.org/wiki/Remembrance_Day"}, {day:24, month:12, title:"Christmas Eve", onClickUrl:"https://en.wikipedia.org/wiki/Christmas_Eve"}, {day:25, month:12, title:"Christmas Day", onClickUrl:"https://en.wikipedia.org/wiki/Christmas"}, {day:26, month:12, title:"Boxing Day", onClickUrl:"https://en.wikipedia.org/wiki/Boxing_Day"}, {day:31, month:12, title:"New Year's Eve", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Eve"}];
   }
   var _this = this;
-  var _string = {empty:"", space:" "};
+  var _string = {empty:"", space:" ", newLine:"\n"};
   var _day = {monday:0, saturday:5, sunday:6};
   var _keyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, m:77, o:79, v:86, x:88, f5:116, f11:122};
   var _repeatType = {never:0, everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6};
