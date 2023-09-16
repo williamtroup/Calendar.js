@@ -1,5 +1,15 @@
 # Calendar.js - Change Log:
 
+## Version 2.5.4:
+- Day ordinals are now only included in the UI when text for the settings is available (seen when using translation files).
+- The "Close" buttons for all views (Full Day, Weekly, All) are now on the right side of the title bar and separated with a line.
+- Fixed the "Side Menu" button being hidden on the "All Events" view when the setting "showExtraToolbarButtons" is set to false.
+- Fixed the "escape" key not closing the Calendar (in DatePicker mode) when something other than the input field is focused.
+- Fixed iCAL exports ending repeating events a day earlier than shown in the display (in the new target calendar).
+- Fixed a fault when importing from iCAL files that caused the "repeatEnds" property on events to get set one day ahead.
+
+<br>
+
 ## Version 2.5.3:
 - Updated documentation to show the DatePicker mode.
 - Added a shadow effect to the notifications shown when specific actions are completed.
