@@ -1864,7 +1864,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         container.appendChild( _element_Calendar );
 
         _datePickerInput.onclick = toggleDatePickerModeVisible;
-        _datePickerInput.onkeydown = onDatePickerInputKeyDown;
         _document.addEventListener( "click", hideDatePickerMode );
 
         resetOptionsForDatePickerMode();
@@ -1902,12 +1901,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _datePickerVisible = !_datePickerVisible;
-    }
-
-    function onDatePickerInputKeyDown( e ) {
-        if ( e.keyCode === _keyCodes.escape && _datePickerVisible ) {
-            hideDatePickerMode();
-        }
     }
 
     function hideDatePickerMode() {
@@ -2401,7 +2394,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else {
 
             if ( _datePickerVisible ) {
-                if ( isControlKey( e ) && e.keyCode === _keyCodes.left ) {
+                if ( e.keyCode === _keyCodes.escape ) {
+                    hideDatePickerMode();
+
+                } else if ( isControlKey( e ) && e.keyCode === _keyCodes.left ) {
                     e.preventDefault();
                     moveBackYear();
     
