@@ -6,6 +6,7 @@
 - Fixed the "Side Menu" button being hidden on the "All Events" view when the setting "showExtraToolbarButtons" is set to false.
 - Fixed the "escape" key not closing the Calendar (in DatePicker mode) when something other than the input field is focused.
 - Fixed iCAL exports ending repeating events a day earlier than shown in the display (in the new target calendar).
+- Fixed a fault when importing from iCAL files that caused the "repeatEnds" property on events to get set one day ahead.
 - 
 
 <br>

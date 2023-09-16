@@ -5519,7 +5519,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( isDefined( until ) ) {
-                readingEventDetails.repeatEnds = importICalDateTime( until );
+                var repeatEnds = importICalDateTime( until );
+                repeatEnds.setDate( repeatEnds.getDate() - 1 );
+
+                readingEventDetails.repeatEnds = repeatEnds;
             }
         }
     }
