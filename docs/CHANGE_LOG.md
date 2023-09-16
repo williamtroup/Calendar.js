@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.5.5:
+- Fixed the default value for the setting "eventNotificationBody" using an invalid value.
 - 
 
 <br>

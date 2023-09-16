@@ -145,7 +145,7 @@ var __TRANSLATION_OPTIONS = {
     "configurationTitleText": "Yapılandırma",
     "groupsText": "Gruplar",
     "eventNotificationTitle": "Takvim.js",
-    "eventNotificationBody": "'{0' etkinliği başladı.",
+    "eventNotificationBody": "'{0}' etkinliği başladı.",
     "optionsText": "Seçenekler:",
     "startsWithText": "İle başlar",
     "endsWithText": "Şununla biter:",

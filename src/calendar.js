@@ -11926,7 +11926,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.configurationTitleText = getDefaultString( _options.configurationTitleText, "Configuration" );
         _options.groupsText = getDefaultString( _options.groupsText, "Groups" );
         _options.eventNotificationTitle = getDefaultString( _options.eventNotificationTitle, "Calendar.js" );
-        _options.eventNotificationBody = getDefaultString( _options.eventNotificationBody, "The event '{0' has started." );
+        _options.eventNotificationBody = getDefaultString( _options.eventNotificationBody, "The event '{0}' has started." );
         _options.optionsText = getDefaultString( _options.optionsText, "Options:" );
         _options.startsWithText = getDefaultString( _options.startsWithText, "Starts With" );
         _options.endsWithText = getDefaultString( _options.endsWithText, "Ends With" );

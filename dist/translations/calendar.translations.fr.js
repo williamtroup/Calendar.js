@@ -145,7 +145,7 @@ var __TRANSLATION_OPTIONS = {
     "configurationTitleText": "Configuration",
     "groupsText": "Groupes",
     "eventNotificationTitle": "Calendrier.js",
-    "eventNotificationBody": "L'événement '{0' a commencé.",
+    "eventNotificationBody": "L'événement '{0}' a commencé.",
     "optionsText": "Possibilités :",
     "startsWithText": "Commence avec",
     "endsWithText": "Se termine par",

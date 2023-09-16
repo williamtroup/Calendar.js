@@ -145,7 +145,7 @@ var __TRANSLATION_OPTIONS = {
   "configurationTitleText": "विन्यास",
   "groupsText": "समूह",
   "eventNotificationTitle": "कैलेंडर.जे.एस",
-  "eventNotificationBody": "इवेंट '{0' शुरू हो गया है.",
+  "eventNotificationBody": "इवेंट '{0}' शुरू हो गया है.",
   "optionsText": "विकल्प:",
   "startsWithText": "इसके साथ आरंभ होता है",
   "endsWithText": "इसी के साथ समाप्त होता है",
