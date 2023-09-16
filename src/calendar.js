@@ -3140,9 +3140,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_FullDayView_Title = createElement( "div", "title" );
             titleBar.appendChild( _element_FullDayView_Title );
+
+            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
+
+            titleBar.appendChild( createElement( "div", "side-menu-close-button-divider-line" ) );
     
             buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextDay );
-            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
     
             if ( _options.manualEditingEnabled && _options.showExtraToolbarButtons ) {
                 buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
@@ -3925,6 +3928,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
     
             if ( _options.showExtraToolbarButtons ) {
+                titleBar.appendChild( createElement( "div", "side-menu-close-button-divider-line" ) );
+
                 if ( _options.manualEditingEnabled ) {
                     buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
                 }
@@ -4217,14 +4222,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_ListAllWeekEventsView_Title = createElement( "div", "title" );
             titleBar.appendChild( _element_ListAllWeekEventsView_Title );
-    
-            buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextWeek );
-    
+
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
                 _element_ListAllWeekEventsView_EventsShown = [];
     
                 hideOverlay( _element_ListAllWeekEventsView );
             } );
+
+            titleBar.appendChild( createElement( "div", "side-menu-close-button-divider-line" ) );
+    
+            buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextWeek );
     
             if ( _options.manualEditingEnabled && _options.showExtraToolbarButtons ) {
                 buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );

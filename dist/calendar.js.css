@@ -1068,11 +1068,17 @@ div.calendar div.full-day-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line {
-  float: left;
+div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line,
+div.calendar div.full-day-view div.title-bar div.side-menu-close-button-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
+}
+div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+}
+div.calendar div.full-day-view div.title-bar div.side-menu-close-button-divider-line {
+  float: right;
 }
 div.calendar div.full-day-view div.title-bar div.title {
   font-weight: 900 !important;
@@ -1315,11 +1321,17 @@ div.calendar div.list-all-events-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line {
-  float: left;
+div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line,
+div.calendar div.list-all-events-view div.title-bar div.side-menu-close-button-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
+}
+div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+}
+div.calendar div.list-all-events-view div.title-bar div.side-menu-close-button-divider-line {
+  float: right;
 }
 div.calendar div.list-all-events-view div.title-bar div.title {
   font-weight: 900 !important;
@@ -1485,11 +1497,17 @@ div.calendar div.list-all-week-events-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line {
-  float: left;
+div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line,
+div.calendar div.list-all-week-events-view div.title-bar div.side-menu-close-button-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
+}
+div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+}
+div.calendar div.list-all-week-events-view div.title-bar div.side-menu-close-button-divider-line {
+  float: right;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.title {
   font-weight: 900 !important;
