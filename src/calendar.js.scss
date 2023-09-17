@@ -446,8 +446,8 @@ div.calendar {
             span {
                 display: inline-block;
                 padding: 4px;
-                padding-left: 0px;
-                padding-right: 0px;
+                padding-left: 0;
+                padding-right: 0;
                 border-radius: $border-view-radius;
         
                 &.today,
@@ -745,6 +745,13 @@ div.calendar {
             span.year-dropdown-button {
                 white-space: nowrap;
                 overflow: hidden;
+                padding: 3px;
+                padding-left: 6px;
+                padding-right: 6px;
+                border-radius: $border-view-radius;
+                background-color: #474545;
+                border: $standard-border-size solid #575555;
+                font-weight: 500;
 
                 span.ib-arrow-down-full-medium,
                 span.ib-arrow-up-full-medium {
@@ -897,7 +904,7 @@ div.calendar {
 
             div.years-drop-down-no-months {
                 div.contents {
-                    margin-top: 0px;
+                    margin-top: 0;
                     height: 180px;
                 }
             }

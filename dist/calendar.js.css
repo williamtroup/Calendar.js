@@ -467,8 +467,8 @@ div.calendar div.row-cells div.cell span.no-click {
 div.calendar div.row-cells div.cell span {
   display: inline-block;
   padding: 4px;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
   border-radius: 0.25rem;
 }
 div.calendar div.row-cells div.cell span.today, div.calendar div.row-cells div.cell span.first-day {
@@ -751,6 +751,13 @@ div.calendar div.header-date div.title-container {
 div.calendar div.header-date div.title-container span.year-dropdown-button {
   white-space: nowrap;
   overflow: hidden;
+  padding: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 0.25rem;
+  background-color: #474545;
+  border: 1px solid #575555;
+  font-weight: 500;
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
@@ -916,7 +923,7 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   color: var(--dark-color);
 }
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents {
-  margin-top: 0px;
+  margin-top: 0;
   height: 180px;
 }
 div.calendar div.header-date div.ib-arrow-left-full,

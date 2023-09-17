@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.6.0:
+- The Year Drop-Down button on the main displays title bar now uses a button style (make it clearer it can be clicked).
 - 
 
 <br>
