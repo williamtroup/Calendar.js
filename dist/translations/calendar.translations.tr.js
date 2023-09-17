@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Pzt",
@@ -144,8 +144,8 @@ var __TRANSLATION_OPTIONS = {
     "configurationTooltipText": "Yapılandırma",
     "configurationTitleText": "Yapılandırma",
     "groupsText": "Gruplar",
-    "eventNotificationTitle": "Takvim.js",
-    "eventNotificationBody": "'{0' etkinliği başladı.",
+    "eventNotificationTitle": "Calendar.js",
+    "eventNotificationBody": "'{0}' etkinliği başladı.",
     "optionsText": "Seçenekler:",
     "startsWithText": "İle başlar",
     "endsWithText": "Şununla biter:",
@@ -196,7 +196,7 @@ var __TRANSLATION_OPTIONS = {
     "eventTypesText": "Etkinlik Türleri",
     "lockedText": "Kilitli:",
     "typeText": "Tip:",
-    "sideMenuHeaderText": "Takvim.js",
+    "sideMenuHeaderText": "Calendar.js",
     "sideMenuDaysText": "Günler",
     "visibleDaysText": "Görünür Günler",
     "previousYearTooltipText": "Geçen yıl",

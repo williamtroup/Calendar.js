@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.5.5:
+- Fixed the default value for the setting "eventNotificationBody" using an invalid value.
+- Fixed the translation .JS files showing the incorrect project name for settings "eventNotificationTitle" and "sideMenuHeaderText".
+
+<br>
+
 ## Version 2.5.4:
 - Day ordinals are now only included in the UI when text for the settings is available (seen when using translation files).
 - The "Close" buttons for all views (Full Day, Weekly, All) are now on the right side of the title bar and separated with a line.

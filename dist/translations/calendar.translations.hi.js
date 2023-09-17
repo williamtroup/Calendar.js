@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "सोमवार",
@@ -144,8 +144,8 @@ var __TRANSLATION_OPTIONS = {
   "configurationTooltipText": "विन्यास",
   "configurationTitleText": "विन्यास",
   "groupsText": "समूह",
-  "eventNotificationTitle": "कैलेंडर.जे.एस",
-  "eventNotificationBody": "इवेंट '{0' शुरू हो गया है.",
+  "eventNotificationTitle": "Calendar.js",
+  "eventNotificationBody": "इवेंट '{0}' शुरू हो गया है.",
   "optionsText": "विकल्प:",
   "startsWithText": "इसके साथ आरंभ होता है",
   "endsWithText": "इसी के साथ समाप्त होता है",
@@ -196,7 +196,7 @@ var __TRANSLATION_OPTIONS = {
   "eventTypesText": "घटना के प्रकार",
   "lockedText": "बंद:",
   "typeText": "प्रकार:",
-  "sideMenuHeaderText": "कैलेंडर.जे.एस",
+  "sideMenuHeaderText": "Calendar.js",
   "sideMenuDaysText": "दिन",
   "visibleDaysText": "दर्शनीय दिन",
   "previousYearTooltipText": "पिछले वर्ष",

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Seg",
@@ -144,8 +144,8 @@ var __TRANSLATION_OPTIONS = {
   "configurationTooltipText": "Configuração",
   "configurationTitleText": "Configuração",
   "groupsText": "Grupos",
-  "eventNotificationTitle": "Calendário.js",
-  "eventNotificationBody": "O evento '{0' começou.",
+  "eventNotificationTitle": "Calendar.js",
+  "eventNotificationBody": "O evento '{0}' começou.",
   "optionsText": "Opções:",
   "startsWithText": "Começa com",
   "endsWithText": "Termina com",
@@ -196,7 +196,7 @@ var __TRANSLATION_OPTIONS = {
   "eventTypesText": "Tipos de eventos",
   "lockedText": "Bloqueado:",
   "typeText": "Tipo:",
-  "sideMenuHeaderText": "Calendário.js",
+  "sideMenuHeaderText": "Calendar.js",
   "sideMenuDaysText": "Dias",
   "visibleDaysText": "Dias Visíveis",
   "previousYearTooltipText": "Ano anterior",

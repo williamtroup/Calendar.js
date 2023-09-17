@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.5.4
+ * @version     v2.5.5
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -431,7 +431,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     var _this = this,
         _string = {
             empty: "",
-            space: " "
+            space: " ",
+            newLine: "\n"
         },
         _day = {
             monday: 0,
@@ -9643,7 +9644,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             storeCsvData( csvContents, orderedEvents[ orderedEventIndex ] );
         }
 
-        return csvContents.join( "\n" );
+        return csvContents.join( _string.newLine );
     }
 
     function storeCsvData( csvContents, eventDetails ) {
@@ -9715,7 +9716,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         contents.push( "</Events>" );
 
-        return contents.join( "\n" );
+        return contents.join( _string.newLine );
     }
 
 
@@ -9758,7 +9759,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         contents.push( "]" );
         contents.push( "}" );
 
-        return contents.join( "\n" );
+        return contents.join( _string.newLine );
     }
 
 
@@ -9799,7 +9800,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         contents.pop();
 
-        return contents.join( "\n" );
+        return contents.join( _string.newLine );
     }
 
 
@@ -10010,7 +10011,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             contents.push( getMdFileRow( rowContents ) );
         }
 
-        return contents.join( "\n" );
+        return contents.join( _string.newLine );
     }
 
     function getMdFileRow( contents ) {
@@ -10065,7 +10066,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         contents.push( "</body>" );
         contents.push( "</html>" );
 
-        return contents.join( "\n" );
+        return contents.join( _string.newLine );
     }
 
 
@@ -10093,7 +10094,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             storeTsvData( csvContents, orderedEvents[ orderedEventIndex ] );
         }
 
-        return csvContents.join( "\n" );
+        return csvContents.join( _string.newLine );
     }
 
     function storeTsvData( csvContents, eventDetails ) {
@@ -11455,7 +11456,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.5.4";
+        return "2.5.5";
     };
 
     /**
@@ -11925,7 +11926,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.configurationTitleText = getDefaultString( _options.configurationTitleText, "Configuration" );
         _options.groupsText = getDefaultString( _options.groupsText, "Groups" );
         _options.eventNotificationTitle = getDefaultString( _options.eventNotificationTitle, "Calendar.js" );
-        _options.eventNotificationBody = getDefaultString( _options.eventNotificationBody, "The event '{0' has started." );
+        _options.eventNotificationBody = getDefaultString( _options.eventNotificationBody, "The event '{0}' has started." );
         _options.optionsText = getDefaultString( _options.optionsText, "Options:" );
         _options.startsWithText = getDefaultString( _options.startsWithText, "Starts With" );
         _options.endsWithText = getDefaultString( _options.endsWithText, "Ends With" );

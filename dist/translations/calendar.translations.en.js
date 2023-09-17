@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "Mon",
@@ -145,7 +145,7 @@ var __TRANSLATION_OPTIONS = {
     "configurationTitleText": "Configuration",
     "groupsText": "Groups",
     "eventNotificationTitle": "Calendar.js",
-    "eventNotificationBody": "The event '{0' has started.",
+    "eventNotificationBody": "The event '{0}' has started.",
     "optionsText": "Options:",
     "startsWithText": "Starts With",
     "endsWithText": "Ends With",
