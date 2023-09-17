@@ -3,7 +3,6 @@
 ## Version 2.5.5:
 - Fixed the default value for the setting "eventNotificationBody" using an invalid value.
 - Fixed the translation .JS files showing the incorrect project name for settings "eventNotificationTitle" and "sideMenuHeaderText".
-- 
 
 <br>
 
