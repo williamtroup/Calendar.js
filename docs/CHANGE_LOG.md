@@ -3,6 +3,7 @@
 ## Version 2.6.0:
 - The Year Drop-Down button on the main displays title bar now uses a button style (make it clearer it can be clicked).
 - Renamed the CSS class "calendar-drop-down-menu" to "calendar-context-menu" (with large JS internal renames).
+- Massive class variable re-organization at the top of the main class.  Everything is now sectioned and named correctly.
 - 
 
 <br>
