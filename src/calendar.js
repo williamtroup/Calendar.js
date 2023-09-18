@@ -4630,37 +4630,48 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var headerNamesLength = _options.dayHeaderNames.length;
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            var yearMonth = createElement( "div", "year-month" );
-            _element_FullYearView_Contents.appendChild( yearMonth );
-
-            var titleBar = createElement( "div", "title-bar" );
-            setNodeText( titleBar, _options.monthNames[ monthIndex ] );
-            yearMonth.appendChild( titleBar );
-
-            var daysHeader = createElement( "div", "row-cells header-days" );
-            yearMonth.appendChild( daysHeader );
-
-            if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-                buildFullYearMonthDaysHeader( daysHeader, _options.startOfWeekDay, headerNamesLength );
-                buildFullYearMonthDaysHeader( daysHeader, 0, _options.startOfWeekDay );
-            } else {
-                buildFullYearMonthDaysHeader( daysHeader, 0, headerNamesLength );
-            }
-            
-            var monthDayId = ( monthIndex + 1 ) + "-month-",
-                firstDay = new Date( _element_FullYearView_CurrentYear, monthIndex, 1 ),
-                startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() );
-    
-            buildDayRows( yearMonth, monthDayId );
-
-            if ( startDay > 1 ) {
-                buildFullYearMonthPreviousMonthDays( startDay, monthDayId, monthIndex );
-            }
-
-            var lastFilledDay = buildFullYearMonthDays( startDay, monthDayId, monthIndex );
-
-            buildFullYearMonthNextMonthDays( lastFilledDay, monthDayId, monthIndex );
+            buildFullYearMonth( monthIndex, headerNamesLength );
         }
+    }
+
+    function buildFullYearMonth( monthIndex, headerNamesLength ) {
+        var expandMonthDate = new Date( _element_FullYearView_CurrentYear, monthIndex, 1 );
+
+        var yearMonth = createElement( "div", "year-month" );
+        _element_FullYearView_Contents.appendChild( yearMonth );
+
+        var titleBar = createElement( "div", "title-bar" );
+        setNodeText( titleBar, _options.monthNames[ monthIndex ] );
+        yearMonth.appendChild( titleBar );
+
+        buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
+            hideOverlay( _element_FullYearView );
+            build( expandMonthDate );
+        } );
+
+        var daysHeader = createElement( "div", "row-cells header-days" );
+        yearMonth.appendChild( daysHeader );
+
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            buildFullYearMonthDaysHeader( daysHeader, _options.startOfWeekDay, headerNamesLength );
+            buildFullYearMonthDaysHeader( daysHeader, 0, _options.startOfWeekDay );
+        } else {
+            buildFullYearMonthDaysHeader( daysHeader, 0, headerNamesLength );
+        }
+        
+        var monthDayId = ( monthIndex + 1 ) + "-month-",
+            firstDay = new Date( _element_FullYearView_CurrentYear, monthIndex, 1 ),
+            startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() );
+
+        buildDayRows( yearMonth, monthDayId );
+
+        if ( startDay > 1 ) {
+            buildFullYearMonthPreviousMonthDays( startDay, monthDayId, monthIndex );
+        }
+
+        var lastFilledDay = buildFullYearMonthDays( startDay, monthDayId, monthIndex );
+
+        buildFullYearMonthNextMonthDays( lastFilledDay, monthDayId, monthIndex );
     }
 
     function buildFullYearMonthDaysHeader( daysHeader, startIndex, endIndex ) {
