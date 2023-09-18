@@ -4649,6 +4649,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             build( expandMonthDate );
         } );
 
+        buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
+            showEventEditingDialog( null, expandMonthDate );
+        } );
+
         var daysHeader = createElement( "div", "row-cells header-days" );
         yearMonth.appendChild( daysHeader );
 
