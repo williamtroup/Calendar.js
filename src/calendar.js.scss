@@ -1340,12 +1340,17 @@ div.calendar {
 
             div.year-month {
                 border-radius: $border-view-radius;
+                border: $standard-border-size solid var(--dark-color);
                 background-color: var(--day-names-color);
                 height: 330px;
                 width: 330px;
                 display: inline-block;
                 margin: calc( $spacing / 2 );
                 overflow: hidden;
+
+                div.cell {
+                    padding: calc( $spacing / 2 ) !important;
+                }
 
                 div.title-bar {
                     background-color: var(--dark-color);

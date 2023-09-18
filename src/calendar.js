@@ -4615,6 +4615,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullYearMonths() {
         _element_FullYearView_Contents.innerHTML = _string.empty;
 
+        var headerNamesLength = _options.dayHeaderNames.length;
+
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
             var yearMonth = createElement( "div", "year-month" );
             _element_FullYearView_Contents.appendChild( yearMonth );
@@ -4622,6 +4624,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var titleBar = createElement( "div", "title-bar" );
             setNodeText( titleBar, _options.monthNames[ monthIndex ] );
             yearMonth.appendChild( titleBar );
+
+            var daysHeader = createElement( "div", "row-cells header-days" );
+            yearMonth.appendChild( daysHeader );
+
+            if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+                buildFullYearMonthDaysHeader( daysHeader, _options.startOfWeekDay, headerNamesLength );
+                buildFullYearMonthDaysHeader( daysHeader, 0, _options.startOfWeekDay );
+            } else {
+                buildFullYearMonthDaysHeader( daysHeader, 0, headerNamesLength );
+            }
+        }
+    }
+
+    function buildFullYearMonthDaysHeader( daysHeader, startIndex, endIndex ) {
+        for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
+            if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
+                var headerName = _options.dayHeaderNames[ headerNameIndex ],
+                    header = createElement( "div", getCellName() );
+        
+                setNodeText( header, headerName );
+        
+                daysHeader.appendChild( header );
+            }
         }
     }
 

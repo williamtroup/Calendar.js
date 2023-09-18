@@ -1772,12 +1772,16 @@ div.calendar div.full-year-view div.contents {
 }
 div.calendar div.full-year-view div.contents div.year-month {
   border-radius: 0.25rem;
+  border: 1px solid var(--dark-color);
   background-color: var(--day-names-color);
   height: 330px;
   width: 330px;
   display: inline-block;
   margin: 5px;
   overflow: hidden;
+}
+div.calendar div.full-year-view div.contents div.year-month div.cell {
+  padding: 5px !important;
 }
 div.calendar div.full-year-view div.contents div.year-month div.title-bar {
   background-color: var(--dark-color);
