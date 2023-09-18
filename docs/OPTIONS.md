@@ -259,3 +259,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | selectNoneText | The tooltip text that should be displayed for the "Select None" label. |
 | *string* | importEventsTooltipText | The tooltip text that should be used for the "Import Events" button. |
 | *string* | fullYearTooltipText | The tooltip text that should be used for the "View Full Year" button. |
+| *string* | currentYearTooltipText | The tooltip text that should be used for the "Current Year" button. |

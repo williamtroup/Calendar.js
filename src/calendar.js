@@ -293,6 +293,7 @@
  * @property    {string}    importEventsTooltipText                     The tooltip text that should be used for the "Import Events" button.
  * @property    {string}    eventsImportedText                          The text that should be displayed for the "{0} events imported." notification.
  * @property    {string}    fullYearTooltipText                         The tooltip text that should be used for the "View Full Year" button.
+ * @property    {string}    currentYearTooltipText                      The tooltip text that should be used for the "Current Year" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -4595,6 +4596,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onFullYearPreviousYear );
+
+            if ( _options.showExtraToolbarButtons ) {
+                buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onFullYearCurrentYear );
+            }
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
                 hideOverlay( _element_FullYearView );
@@ -4751,6 +4756,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             showFullYearView( _element_FullYearView_CurrentYear );
         }
+    }
+
+    function onFullYearCurrentYear() {
+        var today = new Date();
+        _element_FullYearView_CurrentYear = today.getFullYear();
+
+        showFullYearView( _element_FullYearView_CurrentYear );
     }
 
 
@@ -12278,6 +12290,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.importEventsTooltipText = getDefaultString( _options.importEventsTooltipText, "Import Events" );
         _options.eventsImportedText = getDefaultString( _options.eventsImportedText, "{0} events imported." );
         _options.fullYearTooltipText = getDefaultString( _options.fullYearTooltipText, "View Full Year" );
+        _options.currentYearTooltipText = getDefaultString( _options.currentYearTooltipText, "Current Year" );
     }
 
     function setEventTypeTranslationStringOptions() {
