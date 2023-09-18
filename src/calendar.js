@@ -604,7 +604,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         // Variables: View - Full Day
         _element_FullDayView = null,
-        _element_FullDayView_Title = null,
+        _element_FullDayView_TitleBar = null,
         _element_FullDayView_Contents = null,
         _element_FullDayView_Contents_AllDayEvents = null,
         _element_FullDayView_Contents_Hours = null,
@@ -633,7 +633,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         // Variables: View - List All Week Events
         _element_ListAllWeekEventsView = null,
-        _element_ListAllWeekEventsView_Title = null,
+        _element_ListAllWeekEventsView_TitleBar = null,
         _element_ListAllWeekEventsView_ExportEventsButton = null,
         _element_ListAllWeekEventsView_FullScreenButton = null,
         _element_ListAllWeekEventsView_SearchButton = null,
@@ -3192,8 +3192,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 titleBar.ondblclick = headerDoubleClick;
             }
     
-            _element_FullDayView_Title = createElement( "div", "title" );
-            titleBar.appendChild( _element_FullDayView_Title );
+            _element_FullDayView_TitleBar = createElement( "div", "title" );
+            titleBar.appendChild( _element_FullDayView_TitleBar );
 
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideFullDayView );
 
@@ -3323,7 +3323,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             weekDayNumber = getWeekdayNumber( currentDate ),
             isCurrentDateVisible = _options.visibleDays.indexOf( weekDayNumber ) > -1;
 
-        _element_FullDayView_Title.innerHTML = _string.empty;
+        _element_FullDayView_TitleBar.innerHTML = _string.empty;
         _element_FullDayView_DateSelected = new Date( date );
         _element_FullDayView_EventsShown = [];
         _element_FullDayView_EventsShown_Sizes = [];
@@ -3333,7 +3333,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         updateToolbarButtonVisibleState( _element_FullDayView_TodayButton, isCurrentDateVisible );
         clearElementsByClassName( _element_FullDayView_Contents, "event" );
         showOverlay( _element_FullDayView );
-        buildDateTimeDisplay( _element_FullDayView_Title, date, false, true, true );
+        buildDateTimeDisplay( _element_FullDayView_TitleBar, date, false, true, true );
 
         if ( isWorkingDay( date ) ) {
             showFullDayWorkingHours();
@@ -3343,7 +3343,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             orderedEvents = [];
 
         if ( holidayText !== null ) {
-            createSpanElement( _element_FullDayView_Title, " (" + holidayText + ")", "light-title-bar-text" );
+            createSpanElement( _element_FullDayView_TitleBar, " (" + holidayText + ")", "light-title-bar-text" );
         }
 
         getAllEventsFunc( function( eventDetails ) {
@@ -4276,8 +4276,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 titleBar.ondblclick = headerDoubleClick;
             }
     
-            _element_ListAllWeekEventsView_Title = createElement( "div", "title" );
-            titleBar.appendChild( _element_ListAllWeekEventsView_Title );
+            _element_ListAllWeekEventsView_TitleBar = createElement( "div", "title" );
+            titleBar.appendChild( _element_ListAllWeekEventsView_TitleBar );
 
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
                 _element_ListAllWeekEventsView_EventsShown = [];
@@ -4475,22 +4475,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function setAllWeekEventsViewTitle( weekStartDate, weekEndDate ) {
-        _element_ListAllWeekEventsView_Title.innerHTML = _string.empty;
+        _element_ListAllWeekEventsView_TitleBar.innerHTML = _string.empty;
 
         if ( _options.showWeekNumbersInTitles ) {
-            createSpanElement( _element_ListAllWeekEventsView_Title, _options.weekText + _string.space + getWeekNumber( weekStartDate ) + ": " );
+            createSpanElement( _element_ListAllWeekEventsView_TitleBar, _options.weekText + _string.space + getWeekNumber( weekStartDate ) + ": " );
         }
         
         if ( weekStartDate.getFullYear() === weekEndDate.getFullYear() ) {
-            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, false );
-            createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
-            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, false );
-            createSpanElement( _element_ListAllWeekEventsView_Title, ", " + weekStartDate.getFullYear() );
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_TitleBar, weekStartDate, false, false );
+            createSpanElement( _element_ListAllWeekEventsView_TitleBar, " - " );
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_TitleBar, weekEndDate, false, false );
+            createSpanElement( _element_ListAllWeekEventsView_TitleBar, ", " + weekStartDate.getFullYear() );
         } else {
 
-            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekStartDate, false, true );
-            createSpanElement( _element_ListAllWeekEventsView_Title, " - " );
-            buildDateTimeDisplay( _element_ListAllWeekEventsView_Title, weekEndDate, false, true );
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_TitleBar, weekStartDate, false, true );
+            createSpanElement( _element_ListAllWeekEventsView_TitleBar, " - " );
+            buildDateTimeDisplay( _element_ListAllWeekEventsView_TitleBar, weekEndDate, false, true );
         }
     }
 
