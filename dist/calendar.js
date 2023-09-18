@@ -43,9 +43,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildContainer();
       if (_element_Calendar !== null) {
         buildSideMenu();
+        buildFullDayView();
         buildListAllEventsView();
         buildListAllWeekEventsView();
-        buildFullDayView();
+        buildFullYearView();
         buildDateHeader();
         buildDayNamesHeader();
         buildDayRows();
@@ -151,6 +152,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(_element_Calendar_TitleBar, "ib-hamburger-side", _options.listWeekEventsTooltipText, function() {
         showListAllWeekEventsView(null, true);
       });
+      buildToolbarButton(_element_Calendar_TitleBar, "ib-expand", _options.fullYearTooltipText, function() {
+        showFullYearView();
+      });
     }
     if (_options.showExtraToolbarButtons) {
       if (_options.fullScreenModeEnabled) {
@@ -243,8 +247,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
-  function buildDayRows() {
-    if (_element_Calendar_Rows.length > 0) {
+  function buildDayRows(container, dayStartID) {
+    var isForCustomContainer = isDefined(container);
+    container = !isForCustomContainer ? _element_Calendar : container;
+    dayStartID = isDefined(dayStartID) ? dayStartID : _elementID_DayElement;
+    if (!isForCustomContainer && _element_Calendar_Rows.length > 0) {
       var rowsLength = _element_Calendar_Rows.length;
       var rowsIndex = 0;
       for (; rowsIndex < rowsLength; rowsIndex++) {
@@ -255,8 +262,10 @@ function calendarJs(elementOrId, options, searchOptions) {
     var rowIndex = 0;
     for (; rowIndex < 6; rowIndex++) {
       var rowData = createElement("div", "row-cells days");
-      _element_Calendar.appendChild(rowData);
-      _element_Calendar_Rows.push(rowData);
+      container.appendChild(rowData);
+      if (!isForCustomContainer) {
+        _element_Calendar_Rows.push(rowData);
+      }
       var columnDataIndex = 0;
       for (; columnDataIndex < 7; columnDataIndex++) {
         var dayNumber = columnDataIndex;
@@ -269,7 +278,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (_options.visibleDays.indexOf(dayNumber) > -1) {
           var columnDataNumber = rowIndex * 7 + (columnDataIndex + 1);
           var columnData = createElement("div", getCellName(_options.allowEventScrollingOnMainDisplay));
-          columnData.id = _elementID_DayElement + columnDataNumber;
+          columnData.id = dayStartID + columnDataNumber;
           rowData.appendChild(columnData);
           if (_options.allowEventScrollingOnMainDisplay) {
             columnData.className += " scrollY";
@@ -336,10 +345,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     setElementClassName(_element_FullDayView_FullScreenButton, className);
     setElementClassName(_element_ListAllEventsView_FullScreenButton, className);
     setElementClassName(_element_ListAllWeekEventsView_FullScreenButton, className);
+    setElementClassName(_element_FullYearView_FullScreenButton, className);
     addToolTip(_element_Calendar_TitleBar_FullScreenButton, tooltipText);
     addToolTip(_element_FullDayView_FullScreenButton, tooltipText);
     addToolTip(_element_ListAllEventsView_FullScreenButton, tooltipText);
     addToolTip(_element_ListAllWeekEventsView_FullScreenButton, tooltipText);
+    addToolTip(_element_FullYearView_FullScreenButton, tooltipText);
   }
   function buildPreviousMonthDays(startDay) {
     if (startDay > 1) {
@@ -1305,10 +1316,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       _events_Copied_Cut = false;
       done = true;
     }
-    if (!done && (isOverlayVisible(_element_FullDayView) || isOverlayVisible(_element_ListAllEventsView) || isOverlayVisible(_element_ListAllWeekEventsView))) {
+    if (!done && (isOverlayVisible(_element_FullDayView) || isOverlayVisible(_element_ListAllEventsView) || isOverlayVisible(_element_ListAllWeekEventsView) || isOverlayVisible(_element_FullYearView))) {
       hideOverlay(_element_FullDayView);
       hideOverlay(_element_ListAllEventsView);
       hideOverlay(_element_ListAllWeekEventsView);
+      hideOverlay(_element_FullYearView);
       _element_FullDayView_EventsShown = [];
       _element_FullDayView_EventsShown_Sizes = [];
       _element_ListAllEventsView_EventsShown = [];
@@ -1676,7 +1688,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
-  function updateFullDayViewFromEventEdit() {
+  function updateFullDayView() {
     if (isOverlayVisible(_element_FullDayView)) {
       showFullDayView(_element_FullDayView_DateSelected);
     }
@@ -2374,7 +2386,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       addToolTip(minimizeButton, _options.minimizedTooltipText);
     }
   }
-  function updateViewAllEventsViewFromEventEdit() {
+  function updateViewAllEventsView() {
     if (isOverlayVisible(_element_ListAllEventsView)) {
       showListAllEventsView();
     }
@@ -2767,7 +2779,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       addToolTip(minimizeButton, _options.minimizedTooltipText);
     }
   }
-  function updateViewAllWeekEventsViewFromEventEdit() {
+  function updateViewAllWeekEventsView() {
     if (isOverlayVisible(_element_ListAllWeekEventsView)) {
       showListAllWeekEventsView(_element_ListAllWeekEventsView_DateSelected);
     }
@@ -2791,6 +2803,213 @@ function calendarJs(elementOrId, options, searchOptions) {
       for (; functionIndex < functionsLength; functionIndex++) {
         _element_ListAllWeekEventsView_MinimizeRestoreFunctions[functionIndex]();
       }
+    }
+  }
+  function buildFullYearView() {
+    if (!_datePickerModeEnabled) {
+      var wasAddedAlready = _element_FullYearView !== null;
+      if (wasAddedAlready) {
+        _element_FullYearView.innerHTML = _string.empty;
+      }
+      if (!wasAddedAlready) {
+        _element_FullYearView = createElement("div", "full-year-view");
+        _element_Calendar.appendChild(_element_FullYearView);
+      }
+      var titleBar = createElement("div", "title-bar");
+      _element_FullYearView.appendChild(titleBar);
+      if (_options.fullScreenModeEnabled) {
+        titleBar.ondblclick = headerDoubleClick;
+      }
+      _element_FullYearView_TitleBar = createElement("div", "title");
+      titleBar.appendChild(_element_FullYearView_TitleBar);
+      if (!_datePickerModeEnabled && isSideMenuAvailable()) {
+        buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
+        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
+      }
+      buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onFullYearPreviousYear);
+      if (_options.showExtraToolbarButtons) {
+        buildToolbarButton(titleBar, "ib-pin", _options.currentYearTooltipText, onFullYearCurrentYear);
+      }
+      buildToolbarButton(titleBar, "ib-close", _options.closeTooltipText, function() {
+        hideOverlay(_element_FullYearView);
+      });
+      if (_options.showExtraToolbarButtons) {
+        titleBar.appendChild(createElement("div", "side-menu-close-button-divider-line"));
+        buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onFullYearNextYear);
+        if (_options.manualEditingEnabled) {
+          buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);
+        }
+      }
+      if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
+        _element_FullYearView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
+      }
+      _element_FullYearView_Contents = createElement("div", "contents custom-scroll-bars");
+      _element_FullYearView.appendChild(_element_FullYearView_Contents);
+    }
+  }
+  function buildFullYearMonths() {
+    _element_FullYearView_Contents.innerHTML = _string.empty;
+    var headerNamesLength = _options.dayHeaderNames.length;
+    var monthIndex = 0;
+    for (; monthIndex < 12; monthIndex++) {
+      buildFullYearMonth(monthIndex, headerNamesLength);
+    }
+  }
+  function buildFullYearMonth(monthIndex, headerNamesLength) {
+    var expandMonthDate = new Date(_element_FullYearView_CurrentYear, monthIndex, 1);
+    var yearMonth = createElement("div", "year-month");
+    _element_FullYearView_Contents.appendChild(yearMonth);
+    var titleBar = createElement("div", "title-bar");
+    setNodeText(titleBar, _options.monthNames[monthIndex]);
+    yearMonth.appendChild(titleBar);
+    titleBar.ondblclick = function() {
+      hideOverlay(_element_FullYearView);
+      build(expandMonthDate);
+    };
+    buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
+      hideOverlay(_element_FullYearView);
+      build(expandMonthDate);
+    });
+    if (_options.manualEditingEnabled) {
+      buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, function() {
+        showEventEditingDialog(null, expandMonthDate);
+      });
+    }
+    var daysHeader = createElement("div", "row-cells header-days");
+    yearMonth.appendChild(daysHeader);
+    if (_options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday) {
+      buildFullYearMonthDaysHeader(daysHeader, _options.startOfWeekDay, headerNamesLength);
+      buildFullYearMonthDaysHeader(daysHeader, 0, _options.startOfWeekDay);
+    } else {
+      buildFullYearMonthDaysHeader(daysHeader, 0, headerNamesLength);
+    }
+    var monthDayId = monthIndex + 1 + "-month-";
+    var firstDay = new Date(_element_FullYearView_CurrentYear, monthIndex, 1);
+    var startDay = getStartOfWeekDayNumber(firstDay.getDay() === 0 ? 7 : firstDay.getDay());
+    buildDayRows(yearMonth, monthDayId);
+    if (startDay > 1) {
+      buildFullYearMonthPreviousMonthDays(startDay, monthDayId, monthIndex);
+    }
+    var lastFilledDay = buildFullYearMonthDays(startDay, monthDayId, monthIndex);
+    buildFullYearMonthNextMonthDays(lastFilledDay, monthDayId, monthIndex);
+  }
+  function buildFullYearMonthDaysHeader(daysHeader, startIndex, endIndex) {
+    var headerNameIndex = startIndex;
+    for (; headerNameIndex < endIndex; headerNameIndex++) {
+      if (_options.visibleDays.indexOf(headerNameIndex) > -1) {
+        var headerName = _options.dayHeaderNames[headerNameIndex];
+        var header = createElement("div", getCellName());
+        setNodeText(header, headerName);
+        daysHeader.appendChild(header);
+      }
+    }
+  }
+  function buildFullYearMonthPreviousMonthDays(startDay, monthDayId, monthIndex) {
+    var previousMonth = new Date(_element_FullYearView_CurrentYear, monthIndex, 1);
+    previousMonth.setMonth(previousMonth.getMonth() - 1);
+    var totalDaysInMonthInPreviousMonth = getTotalDaysInMonth(previousMonth.getFullYear(), previousMonth.getMonth());
+    var previousDayIndex = startDay - 1;
+    var previousDay = totalDaysInMonthInPreviousMonth;
+    for (; previousDayIndex > 0;) {
+      buildFullYearMonthPreviousMonthDay(monthDayId, previousDayIndex, previousMonth, previousDay);
+      previousDayIndex--;
+      previousDay--;
+    }
+  }
+  function buildFullYearMonthPreviousMonthDay(monthDayId, previousDayIndex, previousMonth, previousDay) {
+    var previousMonthDayFullDayElement = getElementByID(monthDayId + previousDayIndex);
+    if (previousMonthDayFullDayElement !== null) {
+      var previousMonthDate = new Date(previousMonth.getFullYear(), previousMonth.getMonth(), previousDay);
+      previousMonthDayFullDayElement.className += " cell-muted";
+      previousMonthDayFullDayElement.onclick = function() {
+        showFullDayView(previousMonthDate, true);
+      };
+      buildFullYearMonthDayClasses(previousMonthDayFullDayElement, previousMonthDate);
+      buildDayDisplay(previousMonthDayFullDayElement, previousMonthDate);
+    }
+  }
+  function buildFullYearMonthDays(startDay, monthDayId, monthIndex) {
+    var elementDayNumber = 0;
+    var totalDaysInMonth = getTotalDaysInMonth(_element_FullYearView_CurrentYear, monthIndex);
+    var day = 0;
+    for (; day < totalDaysInMonth; day++) {
+      elementDayNumber = startDay + day;
+      buildFullYearMonthDay(monthDayId, monthIndex, day, elementDayNumber);
+    }
+    return elementDayNumber;
+  }
+  function buildFullYearMonthDay(monthDayId, monthIndex, day, elementDayNumber) {
+    var currentMonthDayFullDayElement = getElementByID(monthDayId + elementDayNumber);
+    if (currentMonthDayFullDayElement !== null) {
+      var currentMonthDayDate = new Date(_element_FullYearView_CurrentYear, monthIndex, day + 1);
+      currentMonthDayFullDayElement.onclick = function() {
+        showFullDayView(currentMonthDayDate, true);
+      };
+      buildFullYearMonthDayClasses(currentMonthDayFullDayElement, currentMonthDayDate);
+      buildDayDisplay(currentMonthDayFullDayElement, currentMonthDayDate);
+    }
+  }
+  function buildFullYearMonthNextMonthDays(lastDayFilled, monthDayId, monthIndex) {
+    if (lastDayFilled < 42) {
+      var nextMonth = new Date(_element_FullYearView_CurrentYear, monthIndex, 1);
+      var actualDay = 1;
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      var day = lastDayFilled + 1;
+      for (; day < 43; day++) {
+        buildFullYearMonthNextMonthDay(monthDayId, nextMonth, day, actualDay);
+        actualDay++;
+      }
+    }
+  }
+  function buildFullYearMonthNextMonthDay(monthDayId, nextMonth, day, actualDay) {
+    var nextMonthDayFullDayElement = getElementByID(monthDayId + day);
+    if (nextMonthDayFullDayElement !== null) {
+      var nextMonthDayDate = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), actualDay);
+      nextMonthDayFullDayElement.className += " cell-muted";
+      nextMonthDayFullDayElement.onclick = function() {
+        showFullDayView(nextMonthDayDate, true);
+      };
+      buildFullYearMonthDayClasses(nextMonthDayFullDayElement, nextMonthDayDate);
+      buildDayDisplay(nextMonthDayFullDayElement, nextMonthDayDate);
+    }
+  }
+  function buildFullYearMonthDayClasses(element, date) {
+    if (isWeekendDay(date)) {
+      element.className += " weekend-day";
+    }
+    if (isWorkingDay(date)) {
+      element.className += " working-day";
+    }
+    if (isDateToday(date)) {
+      element.className += " cell-today";
+    }
+  }
+  function showFullYearView(year) {
+    _element_FullYearView_CurrentYear = isDefined(year) ? year : _currentDate.getFullYear();
+    buildFullYearMonths();
+    showOverlay(_element_FullYearView);
+    _element_FullYearView_TitleBar.innerText = _element_FullYearView_CurrentYear;
+  }
+  function onFullYearPreviousYear() {
+    if (_element_FullYearView_CurrentYear > _options.minimumYear) {
+      _element_FullYearView_CurrentYear = _element_FullYearView_CurrentYear - 1;
+      showFullYearView(_element_FullYearView_CurrentYear);
+    }
+  }
+  function onFullYearNextYear() {
+    if (_element_FullYearView_CurrentYear < _options.maximumYear) {
+      _element_FullYearView_CurrentYear = _element_FullYearView_CurrentYear + 1;
+      showFullYearView(_element_FullYearView_CurrentYear);
+    }
+  }
+  function onFullYearCurrentYear() {
+    var today = new Date();
+    _element_FullYearView_CurrentYear = today.getFullYear();
+    showFullYearView(_element_FullYearView_CurrentYear);
+  }
+  function updateFullYearView() {
+    if (isOverlayVisible(_element_FullYearView)) {
+      showFullYearView(_element_FullYearView_CurrentYear);
     }
   }
   function buildContextMenus() {
@@ -3616,9 +3835,10 @@ function calendarJs(elementOrId, options, searchOptions) {
     showMessageDialog(_options.confirmEventRemoveTitle, _options.confirmEventRemoveMessage, onYesEvent, onNoEvent);
   }
   function refreshOpenedViews() {
-    updateFullDayViewFromEventEdit();
-    updateViewAllEventsViewFromEventEdit();
-    updateViewAllWeekEventsViewFromEventEdit();
+    updateFullDayView();
+    updateViewAllEventsView();
+    updateViewAllWeekEventsView();
+    updateFullYearView();
   }
   function buildBlankTemplateEvent(fromDate, toDate, fromTime, toTime) {
     fromTime = isDefined(fromTime) ? fromTime : "09:00";
@@ -7274,6 +7494,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.selectNoneText = getDefaultString(_options.selectNoneText, "Select None");
     _options.importEventsTooltipText = getDefaultString(_options.importEventsTooltipText, "Import Events");
     _options.eventsImportedText = getDefaultString(_options.eventsImportedText, "{0} events imported.");
+    _options.fullYearTooltipText = getDefaultString(_options.fullYearTooltipText, "View Full Year");
+    _options.currentYearTooltipText = getDefaultString(_options.currentYearTooltipText, "Current Year");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -7424,6 +7646,11 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_ListAllWeekEventsView_EventsShown = [];
   var _element_ListAllWeekEventsView_DateSelected = null;
   var _element_ListAllWeekEventsView_MinimizeRestoreFunctions = [];
+  var _element_FullYearView = null;
+  var _element_FullYearView_FullScreenButton = null;
+  var _element_FullYearView_TitleBar = null;
+  var _element_FullYearView_Contents = null;
+  var _element_FullYearView_CurrentYear = null;
   var _element_Dialog_AllOpened = [];
   var _element_Dialog_Move = null;
   var _element_Dialog_Move_Original_X = 0;
