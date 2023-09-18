@@ -2,6 +2,9 @@
 
 ## Version 2.6.0:
 
+#### **New Features:**
+- Added a new Year view! This view will show all the months for a specific year, and will you to quickly add events, and view the full month, or specific days.
+
 #### **UI Improvements:**
 - The Year Drop-Down button on the main displays title bar now uses a button style (make it clearer it can be clicked).
 

@@ -20,7 +20,7 @@ Calendar.js
 - Drag and Drop for moving events to new times, and resizing to adjust event durations (only in Full Day view).
 - Cut, Copy, Paste (with multi-select support), and Duplication of events.
 - Configurable text for translations (see "dist/translations" for languages already available).
-- Day, Week, Month, and All Events views.
+- Day, Week, Month, Year, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
 - Full CSS color themes support (using :root variables, with dark-mode support).
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc.).
