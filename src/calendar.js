@@ -652,6 +652,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullYearView_FullScreenButton = null,
         _element_FullYearView_TitleBar = null,
         _element_FullYearView_Contents = null,
+        _element_FullYearView_CurrentYear = null,
 
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
@@ -4579,6 +4580,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_FullYearView_TitleBar = createElement( "div", "title" );
             titleBar.appendChild( _element_FullYearView_TitleBar );
+
+            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
+                buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+
+                titleBar.appendChild( createElement( "div", "side-menu-button-divider-line" ) );
+            }
+    
+            buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onFullYearPreviousYear );
     
             buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
                 hideOverlay( _element_FullYearView );
@@ -4587,13 +4596,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.showExtraToolbarButtons ) {
                 titleBar.appendChild( createElement( "div", "side-menu-close-button-divider-line" ) );
 
+                buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onFullYearNextYear );
+
                 if ( _options.manualEditingEnabled ) {
                     buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
                 }
-            }
-
-            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
-                buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
             }
 
             if ( _options.showExtraToolbarButtons && _options.fullScreenModeEnabled ) {
@@ -4606,11 +4613,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showFullYearView( year ) {
-        year = isDefined( year ) ? year : _currentDate.getFullYear();
+        _element_FullYearView_CurrentYear = isDefined( year ) ? year : _currentDate.getFullYear();
 
         showOverlay( _element_FullYearView );
 
-        _element_FullYearView_TitleBar.innerText = year;
+        _element_FullYearView_TitleBar.innerText = _element_FullYearView_CurrentYear;
+    }
+
+    function onFullYearPreviousYear() {
+        if ( _element_FullYearView_CurrentYear > _options.minimumYear ) {
+            _element_FullYearView_CurrentYear -= 1;
+
+            showFullYearView( _element_FullYearView_CurrentYear );
+        }
+    }
+
+    function onFullYearNextYear() {
+        if ( _element_FullYearView_CurrentYear < _options.maximumYear ) {
+            _element_FullYearView_CurrentYear += 1;
+
+            showFullYearView( _element_FullYearView_CurrentYear );
+        }
     }
 
 
