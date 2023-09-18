@@ -4644,6 +4644,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         setNodeText( titleBar, _options.monthNames[ monthIndex ] );
         yearMonth.appendChild( titleBar );
 
+        titleBar.ondblclick = function() {
+            hideOverlay( _element_FullYearView );
+            build( expandMonthDate );
+        };
+
         buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
             hideOverlay( _element_FullYearView );
             build( expandMonthDate );
