@@ -4698,9 +4698,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         while ( previousDayIndex > 0 ) {
             var previousMonthDayFullDayElement = getElementByID( monthDayId + previousDayIndex );
             if ( previousMonthDayFullDayElement !== null ) {
-                previousMonthDayFullDayElement.className += " muted";
+                var previousMonthDate = new Date( previousMonth.getFullYear(), previousMonth.getMonth(), previousDay );
 
-                buildDayDisplay( previousMonthDayFullDayElement, new Date( previousMonth.getFullYear(), previousMonth.getMonth(), previousDay ) );
+                previousMonthDayFullDayElement.className += " cell-muted";
+
+                if ( isDateToday( previousMonthDate ) ) {
+                    previousMonthDayFullDayElement.className += " cell-today";
+                }
+
+                buildDayDisplay( previousMonthDayFullDayElement, previousMonthDate );
             }
 
             previousDayIndex--;
@@ -4717,7 +4723,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             var currentMonthDayFullDayElement = getElementByID( monthDayId + elementDayNumber );
             if ( currentMonthDayFullDayElement !== null ) {
-                buildDayDisplay( currentMonthDayFullDayElement, new Date( _element_FullYearView_CurrentYear, monthIndex, day + 1 ) );
+                var currentMonthDayDate = new Date( _element_FullYearView_CurrentYear, monthIndex, day + 1 );
+
+                if ( isDateToday( currentMonthDayDate ) ) {
+                    currentMonthDayFullDayElement.className += " cell-today";
+                }
+
+                buildDayDisplay( currentMonthDayFullDayElement, currentMonthDayDate );
             }
         }
 
@@ -4734,9 +4746,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var day = lastDayFilled + 1; day < 43; day++ ) {
                 var nextMonthDayFullDayElement = getElementByID( monthDayId + day );
                 if ( nextMonthDayFullDayElement !== null ) {
-                    nextMonthDayFullDayElement.className += " muted";
+                    var nextMonthDayDate = new Date( _element_FullYearView_CurrentYear, monthIndex, actualDay );
 
-                    buildDayDisplay( nextMonthDayFullDayElement, new Date( _element_FullYearView_CurrentYear, monthIndex, actualDay ) );
+                    nextMonthDayFullDayElement.className += " cell-muted";
+
+                    if ( isDateToday( nextMonthDayDate ) ) {
+                        nextMonthDayFullDayElement.className += " cell-today";
+                    }
+
+                    buildDayDisplay( nextMonthDayFullDayElement, nextMonthDayDate );
                 }
 
                 actualDay++;

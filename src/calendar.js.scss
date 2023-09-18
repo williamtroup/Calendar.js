@@ -1351,16 +1351,33 @@ div.calendar {
                     padding: calc( $spacing / 2 ) !important;
                 }
 
+                div.days {
+                    div.cell-today {
+                        background-color: var(--dark-color) !important;
+                        color: var(--light-color) !important;
+                    }
+        
+                    div.cell:not( .cell-no-click ):hover {
+                        cursor: pointer;
+                        background-color: var(--day-date-picker-hover-color);
+                        transition: $transition;
+                    }
+        
+                    div.cell:not( .cell-no-click ):active {
+                        @include opacity-active-effect;
+                    }
+
+                    div.cell-muted span,
+                    div.cell-muted sup {
+                        opacity: 0.3;
+                    }
+                }
+
                 div.title-bar {
                     background-color: var(--dark-color);
                     color: var(--light-color);
                     font-weight: 900;
                     text-align: center;
-                }
-
-                div.muted span,
-                div.muted sup {
-                    opacity: 0.3;
                 }
             }
         }
