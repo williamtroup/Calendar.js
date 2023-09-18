@@ -3096,7 +3096,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function updateFullDayViewFromEventEdit() {
+    function updateFullDayView() {
         if ( isOverlayVisible( _element_FullDayView ) ) {
             showFullDayView( _element_FullDayView_DateSelected );
         }
@@ -4019,7 +4019,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function updateViewAllEventsViewFromEventEdit() {
+    function updateViewAllEventsView() {
         if ( isOverlayVisible( _element_ListAllEventsView ) ) {
             showListAllEventsView();
         }
@@ -4527,7 +4527,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function updateViewAllWeekEventsViewFromEventEdit() {
+    function updateViewAllWeekEventsView() {
         if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
             showListAllWeekEventsView( _element_ListAllWeekEventsView_DateSelected );
         }
@@ -4817,6 +4817,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullYearView_CurrentYear = today.getFullYear();
 
         showFullYearView( _element_FullYearView_CurrentYear );
+    }
+
+    function updateFullYearView() {
+        if ( isOverlayVisible( _element_FullYearView ) ) {
+            showFullYearView( _element_FullYearView_CurrentYear );
+        }
     }
 
 
@@ -5907,9 +5913,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function refreshOpenedViews() {
-        updateFullDayViewFromEventEdit();
-        updateViewAllEventsViewFromEventEdit();
-        updateViewAllWeekEventsViewFromEventEdit();
+        updateFullDayView();
+        updateViewAllEventsView();
+        updateViewAllWeekEventsView();
+        updateFullYearView();
     }
 
     function buildBlankTemplateEvent( fromDate, toDate, fromTime, toTime ) {
