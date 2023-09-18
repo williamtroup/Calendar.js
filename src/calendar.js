@@ -4700,21 +4700,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
             previousDay = totalDaysInMonthInPreviousMonth;
 
         while ( previousDayIndex > 0 ) {
-            var previousMonthDayFullDayElement = getElementByID( monthDayId + previousDayIndex );
-            if ( previousMonthDayFullDayElement !== null ) {
-                var previousMonthDate = new Date( previousMonth.getFullYear(), previousMonth.getMonth(), previousDay );
-
-                previousMonthDayFullDayElement.className += " cell-muted";
-
-                if ( isDateToday( previousMonthDate ) ) {
-                    previousMonthDayFullDayElement.className += " cell-today";
-                }
-
-                buildDayDisplay( previousMonthDayFullDayElement, previousMonthDate );
-            }
+            buildFullYearMonthPreviousMonthDay( monthDayId, monthIndex, previousDayIndex, previousMonth, previousDay );
 
             previousDayIndex--;
             previousDay--;
+        }
+    }
+
+    function buildFullYearMonthPreviousMonthDay( monthDayId, monthIndex, previousDayIndex, previousMonth, previousDay ) {
+        var previousMonthDayFullDayElement = getElementByID( monthDayId + previousDayIndex );
+        if ( previousMonthDayFullDayElement !== null ) {
+            var previousMonthDate = new Date( previousMonth.getFullYear(), previousMonth.getMonth(), previousDay );
+
+            previousMonthDayFullDayElement.className += " cell-muted";
+            previousMonthDayFullDayElement.onclick = function() {
+                showFullDayView( previousMonthDate, true );
+            };
+
+            if ( isDateToday( previousMonthDate ) ) {
+                previousMonthDayFullDayElement.className += " cell-today";
+            }
+
+            buildDayDisplay( previousMonthDayFullDayElement, previousMonthDate );
         }
     }
 
@@ -4725,19 +4732,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( var day = 0; day < totalDaysInMonth; day++ ) {
             elementDayNumber = startDay + day;
             
-            var currentMonthDayFullDayElement = getElementByID( monthDayId + elementDayNumber );
-            if ( currentMonthDayFullDayElement !== null ) {
-                var currentMonthDayDate = new Date( _element_FullYearView_CurrentYear, monthIndex, day + 1 );
-
-                if ( isDateToday( currentMonthDayDate ) ) {
-                    currentMonthDayFullDayElement.className += " cell-today";
-                }
-
-                buildDayDisplay( currentMonthDayFullDayElement, currentMonthDayDate );
-            }
+            buildFullYearMonthDay( monthDayId, monthIndex, day, elementDayNumber );
         }
 
         return elementDayNumber;
+    }
+
+    function buildFullYearMonthDay( monthDayId, monthIndex, day, elementDayNumber ) {
+        var currentMonthDayFullDayElement = getElementByID( monthDayId + elementDayNumber );
+        if ( currentMonthDayFullDayElement !== null ) {
+            var currentMonthDayDate = new Date( _element_FullYearView_CurrentYear, monthIndex, day + 1 );
+
+            currentMonthDayFullDayElement.onclick = function() {
+                showFullDayView( currentMonthDayDate, true );
+            };
+
+            if ( isDateToday( currentMonthDayDate ) ) {
+                currentMonthDayFullDayElement.className += " cell-today";
+            }
+
+            buildDayDisplay( currentMonthDayFullDayElement, currentMonthDayDate );
+        }
     }
 
     function buildFullYearMonthNextMonthDays( lastDayFilled, monthDayId, monthIndex  ) {
@@ -4748,21 +4763,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
             nextMonth.setMonth( nextMonth.getMonth() + 1 );
 
             for ( var day = lastDayFilled + 1; day < 43; day++ ) {
-                var nextMonthDayFullDayElement = getElementByID( monthDayId + day );
-                if ( nextMonthDayFullDayElement !== null ) {
-                    var nextMonthDayDate = new Date( _element_FullYearView_CurrentYear, monthIndex, actualDay );
-
-                    nextMonthDayFullDayElement.className += " cell-muted";
-
-                    if ( isDateToday( nextMonthDayDate ) ) {
-                        nextMonthDayFullDayElement.className += " cell-today";
-                    }
-
-                    buildDayDisplay( nextMonthDayFullDayElement, nextMonthDayDate );
-                }
-
+                buildFullYearMonthNextMonthDay( monthDayId, monthIndex, day, actualDay );
                 actualDay++;
             }
+        }
+    }
+
+    function buildFullYearMonthNextMonthDay( monthDayId, monthIndex, day, actualDay ) {
+        var nextMonthDayFullDayElement = getElementByID( monthDayId + day );
+        if ( nextMonthDayFullDayElement !== null ) {
+            var nextMonthDayDate = new Date( _element_FullYearView_CurrentYear, monthIndex, actualDay );
+
+            nextMonthDayFullDayElement.className += " cell-muted";
+            nextMonthDayFullDayElement.onclick = function() {
+                showFullDayView( nextMonthDayDate, true );
+            };
+
+            if ( isDateToday( nextMonthDayDate ) ) {
+                nextMonthDayFullDayElement.className += " cell-today";
+            }
+
+            buildDayDisplay( nextMonthDayFullDayElement, nextMonthDayDate );
         }
     }
 
