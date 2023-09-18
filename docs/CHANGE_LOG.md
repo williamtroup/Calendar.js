@@ -1,10 +1,17 @@
 # Calendar.js - Change Log:
 
 ## Version 2.6.0:
+
+#### **UI Improvements:**
 - The Year Drop-Down button on the main displays title bar now uses a button style (make it clearer it can be clicked).
+
+#### **Breaking Change Improvements:**
 - Renamed the CSS class "calendar-drop-down-menu" to "calendar-context-menu" (with large JS internal renames).
+
+#### **Code Improvements:**
 - Massive class variable re-organization at the top of the main class.  Everything is now sectioned and named correctly.
-- 
+- Massive function re-organization.  All the main building functions are near the top, whereas the supplier/add-on builders are further down.
+
 
 <br>
 

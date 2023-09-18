@@ -889,84 +889,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Getting/Remove Events
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function getAllEvents() {
-        var events = [];
-    
-        getAllEventsFunc( function( eventDetails ) {
-            events.push( eventDetails );
-        } );
-
-        return events;
-    }
-
-    function getAllEventsFunc( func ) {
-        for ( var storageDate in _events ) {
-            if ( _events.hasOwnProperty( storageDate ) ) {
-                for ( var storageGuid in _events[ storageDate ] ) {
-                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                        var event = getAdjustedAllDayEvent( _events[ storageDate ][ storageGuid ] ),
-                            result = func( event, storageDate, storageGuid );
-
-                        if ( result ) {
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    function getOrderedEvents( events, sortAllDayEvents ) {
-        sortAllDayEvents = isDefined( sortAllDayEvents ) ? sortAllDayEvents : true;
-
-        events = events.sort( function( a, b ) {
-            return a.from - b.from;
-        } );
-
-        if ( sortAllDayEvents ) {
-            events = events.sort( function( a, b ) {
-                return getBooleanAsNumber( b.isAllDay ) - getBooleanAsNumber( a.isAllDay );
-            } );
-        }
-
-        return events;
-    }
-
-    function removeNonRepeatingEventsOnSpecificDate( date, compareFunc ) {
-        addNode( _document.body, _element_DisabledBackground );
-
-        var onNoEvent = function() {
-            removeNode( _document.body, _element_DisabledBackground );
-        };
-
-        var onYesEvent = function() {
-            var eventsRemoved = 0;
-
-            onNoEvent();
-
-            getAllEventsFunc( function( eventDetails ) {
-                var repeatEvery = getNumber( eventDetails.repeatEvery );
-                if ( repeatEvery === _repeatType.never && compareFunc( eventDetails.from, date ) ) {
-                    _this.removeEvent( eventDetails.id, false );
-                    eventsRemoved++;
-                }
-            } );
-
-            storeEventsInLocalStorage();
-            showNotificationPopUp( _options.eventsRemovedText.replace( "{0}", eventsRemoved ) );
-            refreshViews();
-        };
-
-        showMessageDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Build Layout
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -1355,6 +1277,189 @@ function calendarJs( elementOrId, options, searchOptions ) {
         addToolTip( _element_FullDayView_FullScreenButton, tooltipText );
         addToolTip( _element_ListAllEventsView_FullScreenButton, tooltipText );
         addToolTip( _element_ListAllWeekEventsView_FullScreenButton, tooltipText );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Month Days
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+    
+    function buildPreviousMonthDays( startDay ) {
+        if ( startDay > 1 ) {
+            var previousMonth = new Date( _currentDate );
+            previousMonth.setMonth( previousMonth.getMonth() - 1 );
+
+            var totalDaysInMonth = getTotalDaysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
+                elementDayNumber = 1,
+                dayStart = ( totalDaysInMonth - startDay ) + 1;
+
+            for ( var day = dayStart; day < totalDaysInMonth; day++ ) {
+                var addMonthName = day === ( totalDaysInMonth - 1 );
+
+                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName );
+                elementDayNumber++;
+            }
+        }
+    }
+
+    function buildMonthDays( startDay ) {
+        var elementDayNumber = 0,
+            totalDaysInMonth = getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
+
+        for ( var day = 0; day < totalDaysInMonth; day++ ) {
+            elementDayNumber = startDay + day;
+
+            buildDay( day + 1, elementDayNumber, _currentDate.getMonth(), _currentDate.getFullYear(), false );
+        }
+
+        return elementDayNumber;
+    }
+
+    function buildNextMonthDays( lastDayFilled ) {
+        if ( lastDayFilled < 42 ) {
+            var actualDay = 1,
+                nextMonth = new Date( _currentDate );
+
+            nextMonth.setMonth( nextMonth.getMonth() + 1 );
+
+            for ( var elementDayNumber = lastDayFilled + 1; elementDayNumber < 43; elementDayNumber++ ) {
+                var addMonthName = actualDay === 1;
+
+                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName );
+                actualDay++;
+            }
+
+            var nextDay = getTotalDaysInMonth( nextMonth.getFullYear(), nextMonth.getMonth() );
+            nextDay = Math.round( nextDay / 2 );
+
+            _element_Calendar_LargestDateAvailable = new Date( nextMonth.getFullYear(), nextMonth.getMonth(), nextDay );
+
+        } else {
+            _element_Calendar_LargestDateAvailable = null;
+        }
+    }
+
+    function buildDay( actualDay, elementDayNumber, month, year, isMuted, includeMonthName ) {
+        var dayElement = getElementByID( _elementID_DayElement + elementDayNumber );
+        
+        if ( dayElement !== null ) {
+            var today = new Date(),
+                dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
+                dayText = createElement( "span" ),
+                dayDate = new Date( year, month, actualDay ),
+                dayMutedClass = isMuted ? " day-muted" : _string.empty,
+                allowDatePickerHoverAndSelect = true;
+            
+            includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
+
+            dayElement.innerHTML = _string.empty;
+            dayElement.className = dayElement.className.replace( " cell-today", _string.empty ).replace( " cell-selected", _string.empty ).replace( " cell-no-click", _string.empty );
+            
+            if ( _datePickerModeEnabled && dayIsToday ) {
+                dayElement.className += " cell-today";
+            }
+
+            if ( _datePickerModeEnabled && !dayIsToday && _currentDate_ForDatePicker !== null && doDatesMatch( dayDate, _currentDate_ForDatePicker ) ) {
+                dayElement.className += " cell-selected";
+            }
+
+            if ( _datePickerModeEnabled ) {
+                allowDatePickerHoverAndSelect = isDateValidForDatePicker( dayDate );
+    
+                if ( !allowDatePickerHoverAndSelect ) {
+                    dayElement.className += " cell-no-click";
+                    dayText.className = "no-click";
+                }
+                
+            } else {
+                dayText.className = _string.empty;
+            }
+
+            dayText.className += dayMutedClass;
+            dayText.className += dayIsToday && !_datePickerModeEnabled ? " today" : _string.empty;
+            dayText.innerText = actualDay;
+
+            if ( actualDay === 1 && !_datePickerModeEnabled ) {
+                dayText.className += " first-day";
+            }
+
+            if ( isWeekendDay( dayDate ) && dayElement.className.indexOf( "weekend-day" ) === -1 ) {
+                dayElement.className += " weekend-day";
+            }
+
+            if ( isWorkingDay( dayDate ) && dayElement.className.indexOf( "working-day" ) === -1 ) {
+                dayElement.className += " working-day";
+            }
+
+            dayElement.oncontextmenu = function( e ) {
+                showDayContextMenu( e, dayDate );
+            };
+
+            if ( _options.showDayNumberOrdinals ) {
+                var ordinal = getDayOrdinal( actualDay );
+
+                if ( isDefined( ordinal ) ) {
+                    var sup = createElement( "sup" );
+                    sup.innerText = ordinal;
+                    dayText.appendChild( sup );
+                }
+            }
+
+            dayElement.appendChild( dayText );
+            dayElement.appendChild( createElement( "span", "blank" ) );
+            
+            var expandDayButton = createElement( "div", "ib-arrow-expand-left-right-icon" );
+            dayElement.appendChild( expandDayButton );
+
+            addToolTip( expandDayButton, _options.expandDayTooltipText );
+
+            expandDayButton.onclick = function() {
+                showFullDayView( dayDate, true );
+            };
+
+            if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
+                createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + dayMutedClass, function() {
+                    if ( actualDay === 1 ) {
+                        moveForwardMonth();
+                    } else {
+                        moveBackMonth();
+                    }
+                }, true, true );
+            }
+
+            addHolidays( dayDate, dayMutedClass, dayElement );
+
+            if ( _options.manualEditingEnabled ) {
+                dayElement.ondblclick = function() {
+                    if ( _options.useTemplateWhenAddingNewEvent ) {
+                        var newBlankTemplateEvent = buildBlankTemplateEvent( dayDate, dayDate );
+
+                        showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
+                    } else {
+                        showEventEditingDialog( null, dayDate );
+                    }
+                };
+
+                makeAreaDroppable( dayElement, year, month, actualDay );
+            }
+
+            if ( _datePickerModeEnabled ) {
+                if ( allowDatePickerHoverAndSelect ) {
+                    dayElement.onclick = function( e ) {
+                        setDatePickerDate( e, dayDate );
+                    };
+                } else {
+                    dayElement.onclick = cancelBubble;
+                }
+            }
+
+            if ( _options.useOnlyDotEventsForMainDisplay ) {
+                dayElement.appendChild( createElement( "div", "dots-separator" ) );
+            }
+        }
     }
 
 
@@ -1848,48 +1953,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function sideMenuSelectionsChanged() {
         _element_SideMenu_Changed = true;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Event Types
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function setEventTypeInputCheckedStates( selectedEventType ) {
-        selectedEventType = isDefined( selectedEventType ) && _eventType.hasOwnProperty( selectedEventType ) ? selectedEventType : 0;
-
-        for ( var eventType in _eventType ) {
-            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) ) {
-                _eventType[ eventType ].eventEditorInput.checked = false;
-            }
-        }
-
-        if ( isDefined( _eventType[ selectedEventType ].eventEditorInput ) ) {
-            _eventType[ selectedEventType ].eventEditorInput.checked = true;
-        }
-    }
-
-    function setEventTypeInputDisabledStates( disabled ) {
-        for ( var eventType in _eventType ) {
-            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) ) {
-                _eventType[ eventType ].eventEditorInput.disabled = disabled;
-            }
-        }
-    }
-
-    function getEventTypeInputChecked() {
-        var result = 0;
-
-        for ( var eventType in _eventType ) {
-            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) && _eventType[ eventType ].eventEditorInput.checked ) {
-                result = parseInt( eventType );
-                break;
-            }
-        }
-
-        return result;
     }
 
 
@@ -2535,307 +2598,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return done;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Date/Time Validation & Handling
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function doDatesMatch( date1, date2 ) {
-        return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
-    }
-
-    function doDatesMatchMonthAndYear( date1, date2 ) {
-        return date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
-    }
-
-    function isDateSmallerOrEqualToDate( date1, date2 ) {
-        var newDate1 = new Date( date1.getFullYear(), date1.getMonth(), date1.getDate() );
-        newDate1.setHours( 0, 0, 0, 0 );
-
-        var newDate2 = new Date( date2.getFullYear(), date2.getMonth(), date2.getDate() );
-        newDate2.setHours( 0, 0, 0, 0 );
-
-        return newDate1 <= newDate2;
-    }
-
-    function isDateToday( date ) {
-        var today = new Date();
-        
-        return date !== null && date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
-    }
-
-    function isDateTodaysMonthAndYear( date ) {
-        var today = new Date();
-        
-        return date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
-    }
-
-    function toStorageFormattedDate( date ) {
-        var day = ( "0" + date.getDate() ).slice( -2 ),
-            month = ( "0" + ( date.getMonth() ) ).slice( -2 ),
-            formatted = day + "/" + month + "/" + date.getFullYear();
-
-        return formatted;
-    }
-
-    function toFormattedTime( date ) {
-        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
-    }
-
-    function getWeekdayNumber( date ) {
-        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
-    }
-
-    function getWeekStartEndDates( date ) {
-        date = isDefined( date ) ? date : new Date();
-
-        var day = date.getDay() === 0 ? 7 : date.getDay(),
-            firstDayNumber = ( date.getDate() - day ) + 1,
-            lastDayNumber = firstDayNumber + 6,
-            weekStartDate = new Date( date ),
-            weekEndDate = new Date( date );
-
-        weekStartDate.setDate( firstDayNumber );
-        weekStartDate.setHours( 0, 0, 0, 0 );
-        weekEndDate.setDate( lastDayNumber );
-        weekEndDate.setHours( 23, 59, 59, 99 );
-
-        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-            weekStartDate.setDate( weekStartDate.getDate() - ( 7 - _options.startOfWeekDay ) );
-            weekEndDate.setDate( weekEndDate.getDate() - ( 7 - _options.startOfWeekDay ) );
-        }
-        
-        return [ weekStartDate, weekEndDate ];
-    }
-
-    function getTotalDaysInMonth( year, month ) {
-        return new Date( year, month + 1, 0 ).getDate();
-    }
-
-    function getDayOrdinal( value ) {
-        var result = _options.thText;
-
-        if ( value === 31 || value === 21 || value === 1 ) {
-            result = _options.stText;
-        } else if ( value === 22 || value === 2 ) {
-            result = _options.ndText;
-        } else if ( value === 23 || value === 3 ) {
-            result = _options.rdText;
-        }
-
-        return result;
-    }
-
-    function getMinutesIntoDay( date ) {
-        var hours = date.getHours(),
-            minutes = date.getMinutes();
-        
-        return ( hours * 60 ) + minutes;
-    }
-
-    function getTotalDaysBetweenDates( from, to ) {
-        var fromDate = new Date( from.getFullYear(), from.getMonth(), from.getDate() ),
-            toDate = new Date( to.getFullYear(), to.getMonth(), to.getDate() ),
-            differenceTime = Math.abs( toDate - fromDate ),
-            differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
-        
-        return differenceDays;
-    }
-
-    function getWeekNumber( date ) {
-        var firstDay = new Date( date.getFullYear(), 0, 1 ),
-            weekNumber = Math.ceil( ( ( ( date - firstDay ) / 86400000 ) + firstDay.getDay() + 1 ) / 7 );
-        
-        if ( firstDay.getDay() > 4 ) {
-            weekNumber--;
-        }
-        
-        return weekNumber;
-    }
-
-    function isWeekendDay( date ) {
-        return _options.weekendDays.indexOf( date.getDay() ) >= 0;
-    }
-
-    function isWorkingDay( date ) {
-        return _options.workingDays.indexOf( getWeekdayNumber( date ) ) >= 0;
-    }
-
-    function moveDateBackOneDay( date ) {
-        date.setDate( date.getDate() - 1 );
-    }
-
-    function moveDateBackOneWeek( date ) {
-        date.setDate( date.getDate() - 7 );
-    }
-
-    function moveDateForwardDay( date, dayCount ) {
-        dayCount = isDefinedNumber( dayCount ) ? dayCount : 1;
-
-        date.setDate( date.getDate() + dayCount );
-    }
-
-    function moveDateForwardWeek( date, weekCount ) {
-        weekCount = isDefinedNumber( weekCount ) ? weekCount : 1;
-
-        date.setDate( date.getDate() + ( weekCount * 7 ) );
-    }
-
-    function moveDateForwardMonth( date, monthCount ) {
-        monthCount = isDefinedNumber( monthCount ) ? monthCount : 1;
-
-        date.setMonth( date.getMonth() + monthCount );
-    }
-
-    function moveDateForwardYear( date, yearCount ) {
-        yearCount = isDefinedNumber( yearCount ) ? yearCount : 1;
-
-        date.setFullYear( date.getFullYear() + yearCount );
-    }
-
-    function getFriendlyTimeBetweenTwoDate( date1, date2 ) {
-        var text = [],
-            delta = Math.abs( date2 - date1 ) / 1000;
-
-        var days = Math.floor( delta / 86400 );
-        delta -= days * 86400;
-
-        if ( days > 0 ) {
-            text.push( days.toString() + _string.space + ( days === 1 ? _options.dayText : _options.daysText ) );
-        }
-
-        var hours = Math.floor( delta / 3600 ) % 24;
-        delta -= hours * 3600;
-
-        if ( hours > 0 ) {
-            text.push( hours.toString() + _string.space + ( hours === 1 ? _options.hourText : _options.hoursText ) );
-        }
-
-        var minutes = Math.floor( delta / 60 ) % 60;
-
-        if ( minutes > 0 ) {
-            text.push( minutes.toString() + _string.space + ( minutes === 1 ? _options.minuteText : _options.minutesText ) );
-        }
-
-        return text.join( ", " );
-    }
-
-    function setSelectedDate( date, input ) {
-        if ( isDefined( date ) ) {
-            var day = ( "0" + date.getDate() ).slice( -2 ),
-                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
-
-            if ( input.type === "date" ) {
-                input.value = date.getFullYear() + "-" + month + "-" + day;
-            } else {
-                input.value = day + "/" + month + "/" + date.getFullYear();
-            }
-        }
-    }
-
-    function getSelectedDate( input, defaultValue ) {
-        var result = isDefinedOnly( defaultValue ) ? defaultValue : new Date();
-
-        if ( input.value !== _string.empty ) {
-            if ( input.type === "date" ) {
-                result = new Date( input.value + "T00:00:00Z" );
-            } else {
-    
-                var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
-                if ( match ) {
-    
-                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
-                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
-                        result = newDate;
-                    }
-                }
-            }
-        }
-
-        if ( isDefined( result ) ) {
-            result = new Date( result.getTime() + Math.abs( result.getTimezoneOffset() * 60000 ) );
-        }
-
-        return result;
-    }
-
-    function setMinimumDate( input, date ) {
-        if ( input.type === "date" ) {
-            var day = ( "0" + date.getDate() ).slice( -2 ),
-                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
-
-            input.setAttribute( "min", date.getFullYear() + "-" + month + "-" + day );
-        }
-    }
-
-    function setTimeOnDate( date, timeData ) {
-        var hours = 0,
-            minutes = 0,
-            splitData = timeData.split( ":" );
-
-        if ( splitData.length === 2 ) {
-            var newHours = parseInt( splitData[ 0 ] ),
-                newMinutes = parseInt( splitData[ 1 ] );
-
-            if ( !isNaN( newHours ) && newHours.toString().length <= 2 ) {
-                hours = newHours;
-            }
-
-            if ( !isNaN( newMinutes ) && newMinutes.toString().length <= 2 ) {
-                minutes = newMinutes;
-            }
-        }
-
-        date.setHours( hours );
-        date.setMinutes( minutes );
-    }
-
-    function getHoursAndMinutesFromMinutes( totalMinutes ) {
-        var hours = ( totalMinutes / 60 ),
-            remainingHours = Math.floor( hours ),
-            remainingMinutes = Math.round( ( hours - remainingHours ) * 60 );
-
-        return [ remainingHours, remainingMinutes ];
-    }
-
-    function addMinutesToDate( date, minutes ) {
-        return new Date( date.getTime() + minutes * 60000 );
-    }
-
-    function getCustomFormattedDateText( dateFormat, date ) {
-        var result = dateFormat,
-            weekDayNumber = getWeekdayNumber( date );
-
-        result = result.replace( "{dddd}", _options.dayNames[ weekDayNumber ] );
-        result = result.replace( "{ddd}", _options.dayNamesAbbreviated[ weekDayNumber ] );
-        result = result.replace( "{dd}", padNumber( date.getDate() ) );
-        result = result.replace( "{d}", date.getDate() );
-
-        result = result.replace( "{o}", getDayOrdinal( date.getDate() ) );
-
-        result = result.replace( "{mmmm}", _options.monthNames[ date.getMonth() ] );
-        result = result.replace( "{mmm}", _options.monthNamesAbbreviated[ date.getMonth() ] );
-        result = result.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
-        result = result.replace( "{m}", date.getMonth() + 1 );
-
-        result = result.replace( "{yyyy}", date.getFullYear() );
-        result = result.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
-        result = result.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
-        result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
-
-        return result;
-    }
-
-    function getStartOfWeekDayNumber( dayNumber ) {
-        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-            dayNumber += ( 7 - _options.startOfWeekDay );
-        }
-
-        return dayNumber;
     }
 
 
@@ -4770,841 +4532,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var functionIndex = 0; functionIndex < functionsLength; functionIndex++ ) {
                 _element_ListAllWeekEventsView_MinimizeRestoreFunctions[ functionIndex ]();
             }
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Build Date/Time Displays
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function getTimeToTimeDisplay( fromDate, toDate ) {
-        return getTimeForDisplay( fromDate ) + _string.space + _options.toTimeText + _string.space + getTimeForDisplay( toDate );
-    }
-
-    function getTimeForDisplay( date ) {
-        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
-    }
-
-    function buildDateTimeToDateTimeDisplay( container, fromDate, toDate ) {
-        container.innerHTML = _string.empty;
-
-        buildDateTimeDisplay( container, fromDate );
-        createSpanElement( container, _string.space + _options.toTimeText + _string.space );
-        buildDateTimeDisplay( container, toDate );
-    }
-
-    function buildDateTimeDisplay( container, date, addTime, addYear, addDayName ) {
-        addTime = !isDefined( addTime ) ? true : addTime;
-        addYear = !isDefined( addYear ) ? true : addYear;
-        addDayName = !isDefined( addDayName ) ? false : addDayName;
-
-        if ( addDayName ) {
-            createSpanElement( container, _options.dayNames[ getWeekdayNumber( date ) ] + ", " );
-        }
-
-        buildDayDisplay( container, date );
-        createSpanElement( container, _string.space + _options.monthNames[ date.getMonth() ] );
-
-        if ( addYear ) {
-            createSpanElement( container, _string.space + date.getFullYear() );
-        }
-
-        if ( addTime ) {
-            createSpanElement( container, _string.space + getTimeForDisplay( date ) );
-        }
-    }
-
-    function buildDayDisplay( container, date, beforeText, afterText ) {
-        if ( isDefined( beforeText ) ) {
-            createSpanElement( container, beforeText );
-        }
-
-        createSpanElement( container, date.getDate() );
-
-        if ( _options.showDayNumberOrdinals ) {
-            var ordinal = getDayOrdinal( date.getDate() );
-
-            if ( isDefined( ordinal ) ) {
-                var sup = createElement( "sup" );
-                sup.innerText = ordinal;
-                container.appendChild( sup );
-            }
-        }
-
-        if ( isDefined( afterText ) ) {
-            createSpanElement( container, afterText );
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Build Month Days
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-    
-    function buildPreviousMonthDays( startDay ) {
-        if ( startDay > 1 ) {
-            var previousMonth = new Date( _currentDate );
-            previousMonth.setMonth( previousMonth.getMonth() - 1 );
-
-            var totalDaysInMonth = getTotalDaysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
-                elementDayNumber = 1,
-                dayStart = ( totalDaysInMonth - startDay ) + 1;
-
-            for ( var day = dayStart; day < totalDaysInMonth; day++ ) {
-                var addMonthName = day === ( totalDaysInMonth - 1 );
-
-                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName );
-                elementDayNumber++;
-            }
-        }
-    }
-
-    function buildMonthDays( startDay ) {
-        var elementDayNumber = 0,
-            totalDaysInMonth = getTotalDaysInMonth( _currentDate.getFullYear(), _currentDate.getMonth() );
-
-        for ( var day = 0; day < totalDaysInMonth; day++ ) {
-            elementDayNumber = startDay + day;
-
-            buildDay( day + 1, elementDayNumber, _currentDate.getMonth(), _currentDate.getFullYear(), false );
-        }
-
-        return elementDayNumber;
-    }
-
-    function buildNextMonthDays( lastDayFilled ) {
-        if ( lastDayFilled < 42 ) {
-            var actualDay = 1,
-                nextMonth = new Date( _currentDate );
-
-            nextMonth.setMonth( nextMonth.getMonth() + 1 );
-
-            for ( var elementDayNumber = lastDayFilled + 1; elementDayNumber < 43; elementDayNumber++ ) {
-                var addMonthName = actualDay === 1;
-
-                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName );
-                actualDay++;
-            }
-
-            var nextDay = getTotalDaysInMonth( nextMonth.getFullYear(), nextMonth.getMonth() );
-            nextDay = Math.round( nextDay / 2 );
-
-            _element_Calendar_LargestDateAvailable = new Date( nextMonth.getFullYear(), nextMonth.getMonth(), nextDay );
-
-        } else {
-            _element_Calendar_LargestDateAvailable = null;
-        }
-    }
-
-    function buildDay( actualDay, elementDayNumber, month, year, isMuted, includeMonthName ) {
-        var dayElement = getElementByID( _elementID_DayElement + elementDayNumber );
-        
-        if ( dayElement !== null ) {
-            var today = new Date(),
-                dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth(),
-                dayText = createElement( "span" ),
-                dayDate = new Date( year, month, actualDay ),
-                dayMutedClass = isMuted ? " day-muted" : _string.empty,
-                allowDatePickerHoverAndSelect = true;
-            
-            includeMonthName = isDefined( includeMonthName ) ? includeMonthName : false;
-
-            dayElement.innerHTML = _string.empty;
-            dayElement.className = dayElement.className.replace( " cell-today", _string.empty ).replace( " cell-selected", _string.empty ).replace( " cell-no-click", _string.empty );
-            
-            if ( _datePickerModeEnabled && dayIsToday ) {
-                dayElement.className += " cell-today";
-            }
-
-            if ( _datePickerModeEnabled && !dayIsToday && _currentDate_ForDatePicker !== null && doDatesMatch( dayDate, _currentDate_ForDatePicker ) ) {
-                dayElement.className += " cell-selected";
-            }
-
-            if ( _datePickerModeEnabled ) {
-                allowDatePickerHoverAndSelect = isDateValidForDatePicker( dayDate );
-    
-                if ( !allowDatePickerHoverAndSelect ) {
-                    dayElement.className += " cell-no-click";
-                    dayText.className = "no-click";
-                }
-                
-            } else {
-                dayText.className = _string.empty;
-            }
-
-            dayText.className += dayMutedClass;
-            dayText.className += dayIsToday && !_datePickerModeEnabled ? " today" : _string.empty;
-            dayText.innerText = actualDay;
-
-            if ( actualDay === 1 && !_datePickerModeEnabled ) {
-                dayText.className += " first-day";
-            }
-
-            if ( isWeekendDay( dayDate ) && dayElement.className.indexOf( "weekend-day" ) === -1 ) {
-                dayElement.className += " weekend-day";
-            }
-
-            if ( isWorkingDay( dayDate ) && dayElement.className.indexOf( "working-day" ) === -1 ) {
-                dayElement.className += " working-day";
-            }
-
-            dayElement.oncontextmenu = function( e ) {
-                showDayContextMenu( e, dayDate );
-            };
-
-            if ( _options.showDayNumberOrdinals ) {
-                var ordinal = getDayOrdinal( actualDay );
-
-                if ( isDefined( ordinal ) ) {
-                    var sup = createElement( "sup" );
-                    sup.innerText = ordinal;
-                    dayText.appendChild( sup );
-                }
-            }
-
-            dayElement.appendChild( dayText );
-            dayElement.appendChild( createElement( "span", "blank" ) );
-            
-            var expandDayButton = createElement( "div", "ib-arrow-expand-left-right-icon" );
-            dayElement.appendChild( expandDayButton );
-
-            addToolTip( expandDayButton, _options.expandDayTooltipText );
-
-            expandDayButton.onclick = function() {
-                showFullDayView( dayDate, true );
-            };
-
-            if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
-                createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + dayMutedClass, function() {
-                    if ( actualDay === 1 ) {
-                        moveForwardMonth();
-                    } else {
-                        moveBackMonth();
-                    }
-                }, true, true );
-            }
-
-            addHolidays( dayDate, dayMutedClass, dayElement );
-
-            if ( _options.manualEditingEnabled ) {
-                dayElement.ondblclick = function() {
-                    if ( _options.useTemplateWhenAddingNewEvent ) {
-                        var newBlankTemplateEvent = buildBlankTemplateEvent( dayDate, dayDate );
-
-                        showEventEditingDialog( newBlankTemplateEvent );
-                        showEventEditingDialogTitleSelected();
-                    } else {
-                        showEventEditingDialog( null, dayDate );
-                    }
-                };
-
-                makeAreaDroppable( dayElement, year, month, actualDay );
-            }
-
-            if ( _datePickerModeEnabled ) {
-                if ( allowDatePickerHoverAndSelect ) {
-                    dayElement.onclick = function( e ) {
-                        setDatePickerDate( e, dayDate );
-                    };
-                } else {
-                    dayElement.onclick = cancelBubble;
-                }
-            }
-
-            if ( _options.useOnlyDotEventsForMainDisplay ) {
-                dayElement.appendChild( createElement( "div", "dots-separator" ) );
-            }
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Holidays
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function getHolidaysText( date ) {
-        var result = null;
-
-        if ( _options.showHolidays ) {
-            var holidayTextItems = [],
-                holidayTextItemsAnyCase = [],
-                holidaysLength = _options.holidays.length;
-
-            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                var holiday = _options.holidays[ holidayIndex ],
-                    holidayText = getString( holiday.title, _string.empty );
-
-                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                    holidayTextItems.push( holidayText );
-                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
-                }
-            }
-
-            if ( holidayTextItems.length > 0 ) {
-                result = holidayTextItems.join( ", " );
-            }
-        }
-
-        return result;
-    }
-
-    function addHolidays( date, dayMutedClass, dayElement ) {
-        if ( _options.showHolidays ) {
-            var holidayTextItemsAnyCase = [],
-                holidaysLength = _options.holidays.length;
-
-            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                var holiday = _options.holidays[ holidayIndex ],
-                    holidayText = getString( holiday.title, _string.empty ),
-                    holidayBackgroundColor = getString( holiday.backgroundColor, _string.empty ),
-                    holidayTextColor = getString( holiday.textColor, _string.empty );
-
-                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
-                    addHolidayText( holiday, dayElement, holidayText, dayMutedClass );
-
-                    if ( holidayBackgroundColor !== _string.empty ) {
-                        dayElement.style.setProperty( "background-color", holidayBackgroundColor, "important" );
-                    }
-
-                    if ( holidayTextColor !== _string.empty ) {
-                        dayElement.style.setProperty( "color", holidayTextColor, "important" );
-                    }
-
-                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
-                }
-            }
-        }
-    }
-
-    function addHolidayText( holiday, dayElement, holidayText, dayMutedClass ) {
-        var className = isDefinedFunction( holiday.onClick ) || isDefinedString( holiday.onClickUrl ) ? "holiday-link" : "holiday",
-            onClickEvent = holiday.onClick;
-        
-        if ( isDefinedString( holiday.onClickUrl ) ) {
-            onClickEvent = function() {
-                _window.open( holiday.onClickUrl, _options.urlWindowTarget );
-            };
-        }
-
-        createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true, true );
-    }
-
-    function isHolidayDateValidForDate( holiday, date ) {
-        var day = getNumber( holiday.day ),
-            month = getNumber( holiday.month ),
-            year = getNumber( holiday.year ),
-            valid = false;
-
-        if ( year === 0 && day === date.getDate() && month === date.getMonth() + 1 ) {
-            valid = true;
-        } else if ( year > 0 && day === date.getDate() && month === date.getMonth() + 1 && year === date.getFullYear() ) {
-            valid = true;
-        }
-
-        return valid;
-    }
-
-    function addHolidayColors( container, date ) {
-        if ( _options.showHolidays ) {
-            var holidaysLength = _options.holidays.length;
-
-            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
-                var holiday = _options.holidays[ holidayIndex ],
-                    holidayText = getString( holiday.title, _string.empty ),
-                    holidayBackgroundColor = getString( holiday.backgroundColor, _string.empty ),
-                    holidayTextColor = getString( holiday.textColor, _string.empty );
-
-                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty ) {
-                    if ( holidayBackgroundColor !== _string.empty ) {
-                        container.style.setProperty( "background-color", holidayBackgroundColor, "important" );
-                    }
-
-                    if ( holidayTextColor !== _string.empty ) {
-                        container.style.setProperty( "color", holidayTextColor, "important" );
-                    }
-                }
-            }
-        }
-    }
-
-    
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Drag & Drop
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function makeEventDraggable( event, eventDetails, dragFromDate, container ) {
-        if ( !isEventLocked( eventDetails ) && _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-            var draggedFromDate = new Date( dragFromDate ),
-                isDateWeekendDay = isWeekendDay( draggedFromDate ),
-                dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
-
-            event.setAttribute( "draggable", true );
-            
-            event.ondragstart = function( e ) {
-                triggerOptionsEventWithData( "onEventDragStart", eventDetails );
-
-                e.dataTransfer.setData( "event_details", JSON.stringify( eventDetails ) );
-
-                _events_Dragged_DateFrom = draggedFromDate;
-                _events_Dragged = eventDetails;
-
-                if ( isDefined( container ) ) {
-                    container.className += dragDisabledClass;
-
-                    makeAreaNonDroppable( container );
-                }
-
-                updateContainerClassChildren( "cell", function( element ) {
-                    element.className += " prevent-pointer-events";
-                }, event );
-
-                updateContainerClassChildren( "events", function( element ) {
-                    element.className += " prevent-pointer-events";
-                }, event );
-            };
-
-            event.ondragend = function() {
-                triggerOptionsEventWithData( "onEventDragStop", _events_Dragged );
-
-                _events_Dragged_DateFrom = null;
-                _events_Dragged = null;
-
-                if ( isDefined( container ) ) {
-                    container.className = container.className.replace( dragDisabledClass, _string.empty );
-
-                    makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
-                }
-
-                updateContainerClassChildren( "cell", function( element ) {
-                    element.className = element.className.replace( " prevent-pointer-events", _string.empty );
-                }, event );
-                
-                updateContainerClassChildren( "events", function( element ) {
-                    element.className = element.className.replace( " prevent-pointer-events", _string.empty );
-                }, event );
-            };
-        }
-    }
-
-    function makeAreaDroppable( element, year, month, actualDay ) {
-        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-            var areaDate = new Date( year, month, actualDay );
-
-            element.ondragover = function( e ) {
-                showDraggingEffect( e, element, areaDate );
-            };
-        
-            element.ondragenter = function( e ) {
-                showDraggingEffect( e, element, areaDate );
-            };
-        
-            element.ondragleave = function( e ) {
-                hideDraggingEffect( e, element, areaDate );
-            };
-        
-            element.ondrop = function( e ) {
-                cancelBubble( e );
-                hideDraggingEffect( e, element, areaDate );
-
-                if ( e.dataTransfer.files.length === 0 ) {
-                    dropEventOnDay( e, year, month, actualDay );
-                } else {
-                    dropFileOnDisplay( e );
-                }
-            };
-        }
-    }
-
-    function makeAreaNonDroppable( element ) {
-        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
-            element.ondragover = null;
-            element.ondragenter = null;
-            element.ondragleave = null;
-            element.ondrop = null;
-        }
-    }
-
-    function showDraggingEffect( e, dayElement, areaDate ) {
-        cancelBubble( e );
-
-        if ( _events_Dragged !== null && dayElement.className.indexOf( " drag-over" ) === -1 && !doDatesMatch( _events_Dragged_DateFrom, areaDate ) ) {
-            dayElement.className += " drag-over";
-        }
-    }
-
-    function hideDraggingEffect( e, dayElement, areaDate ) {
-        cancelBubble( e );
-
-        if ( _events_Dragged !== null && dayElement.className.indexOf( " drag-over" ) > -1 && !doDatesMatch( _events_Dragged_DateFrom, areaDate ) ) {
-            dayElement.className = dayElement.className.replace( " drag-over", _string.empty );
-        }
-    }
-
-    function dropEventOnDay( e, year, month, day ) {
-        var dropDate = new Date( year, month, day );
-
-        if ( _events_Dragged !== null && !doDatesMatch( _events_Dragged_DateFrom, dropDate ) ) {
-            triggerOptionsEventWithMultipleData( "onEventDragDrop", _events_Dragged, dropDate );
-
-            if ( !isDefined( day ) ) {
-                var totalDaysInMonth = getTotalDaysInMonth( year, month );
-                day = _events_Dragged.from.getDate();
-
-                if ( day > totalDaysInMonth ) {
-                    day = totalDaysInMonth;
-                }
-            }
-
-            var daysBetweenDraggedFromAndFrom = getTotalDaysBetweenDates( _events_Dragged.from, _events_Dragged_DateFrom ),
-                daysBetweenFromAndTo = getTotalDaysBetweenDates( _events_Dragged.from, _events_Dragged.to ),
-                fromDate = new Date( year, month, day, _events_Dragged.from.getHours(), _events_Dragged.from.getMinutes() ),
-                toDate = new Date( year, month, day, _events_Dragged.to.getHours(), _events_Dragged.to.getMinutes() ),
-                repeatEndsDate = _events_Dragged.repeatEnds;               
-
-            if ( daysBetweenDraggedFromAndFrom > 0 ) {
-                fromDate.setDate( fromDate.getDate() - daysBetweenDraggedFromAndFrom );
-                toDate.setDate( toDate.getDate() - daysBetweenDraggedFromAndFrom );
-            }
-
-            if ( isDefined( repeatEndsDate ) ) {
-                var newFromDaysDifference = getTotalDaysBetweenDates( fromDate, _events_Dragged.from );
-
-                if ( fromDate > _events_Dragged.from ) {
-                    repeatEndsDate.setDate( repeatEndsDate.getDate() + newFromDaysDifference );
-                } else {
-                    repeatEndsDate.setDate( repeatEndsDate.getDate() - newFromDaysDifference );
-                }
-            }
-
-            if ( daysBetweenFromAndTo > 0 ) {
-                toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
-            }
-
-            _this.updateEventDateTimes( _events_Dragged.id, fromDate, toDate, repeatEndsDate );
-            
-            showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _events_Dragged.title ) );           
-            refreshViews();
-        } else {
-
-            if ( _events_Dragged === null ) {
-                dropEventsFromOtherCalendar( e, year, month, day );
-            }
-        }
-    }
-
-    function dropEventsFromOtherCalendar( e, year, month, day ) {
-        var eventDetails = getObjectFromString( e.dataTransfer.getData( "event_details" ) );
-        if ( eventDetails !== null ) {
-            var sourceFromDate = new Date( eventDetails.from ),
-                sourceToDate = new Date( eventDetails.to );
-
-            eventDetails.from = new Date( year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0 );
-            eventDetails.to = new Date( year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0 );
-
-            _this.addEvent( eventDetails );
-
-            showNotificationPopUp( _options.eventAddedText.replace( "{0}", eventDetails.title ) );
-        }
-    }
-
-    function dropFileOnDisplay( e ) {
-        if ( isDefined( _window.FileReader ) && _options.importEventsEnabled ) {
-            importEventsFromFiles( e.dataTransfer.files );
-        }
-    }
-
-    function getObjectFromString( objectString ) {
-        var result;
-
-        try {
-            result = JSON.parse( objectString );
-        } catch ( e1 ) {
-
-            try {
-                result = eval( "(" + objectString + ")" );
-            } catch ( e2 ) {
-                console.error( "Errors in object: " + e1.message + ", " + e2.message );
-                result = null;
-            }
-        }
-
-        return result;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Import Events
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function importEventsFromFiles( files ) {
-        var filesLength = files.length,
-            filesCompleted = [],
-            filesCompletedEvents = [];
-
-        var onLoadEnd = function( filename, events ) {
-            filesCompleted.push( filename );
-            filesCompletedEvents = filesCompletedEvents.concat( events );
-
-            if ( filesCompleted.length === filesLength ) {
-                importFromFilesCompleted( filesCompletedEvents );
-            }
-        };
-
-        for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
-            var file = files[ fileIndex ],
-                fileExtension = file.name.split( "." ).pop().toLowerCase();
-
-            if ( fileExtension === "json" ) {
-                importEventsFromJson( file, onLoadEnd );
-            } else if ( fileExtension === "ics" || fileExtension === "ical" ) {
-                importEventsFromICal( file, onLoadEnd );
-            }
-        }
-    }
-
-    function importEventsFromJson( file, onLoadEnd ) {
-        var reader = new FileReader(),
-            readingEventsAdded = [];
-
-        reader.readAsText( file );
-
-        reader.onloadend = function() {
-            onLoadEnd( file.name, readingEventsAdded );
-        };
-    
-        reader.onload = function( event ) {
-            var readingEvents = getObjectFromString( event.target.result );
-
-            if ( isDefinedObject( readingEvents ) && readingEvents.hasOwnProperty( "events" ) ) {
-                readingEvents = readingEvents.events;
-            }
-
-            var readingEventsLength = readingEvents.length;
-
-            for ( var readingEventsIndex = 0; readingEventsIndex < readingEventsLength; readingEventsIndex++ ) {
-                var eventDetails = readingEvents[ readingEventsIndex ];
-
-                _this.removeEvent( eventDetails.id, false, false );
-
-                if ( _this.addEvent( eventDetails, false, false ) ) {
-                    readingEventsAdded.push( eventDetails);
-                }
-            }
-        };
-    }
-
-    function importEventsFromICal( file, onLoadEnd ) {
-        var reader = new FileReader(),
-            readingEventsAdded = [];
-
-        reader.readAsText( file );
-
-        reader.onloadend = function() {
-            onLoadEnd( file.name, readingEventsAdded );
-        };
-    
-        reader.onload = function( event ) {
-            var content = event.target.result,
-                contentLines = content.split( _string.newLineCharacterReturn ),
-                contentLinesLength = contentLines.length;
-
-            if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > -1 && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > -1 ) {
-                var readingEvent = false,
-                    readingEventDetails = {};
-                
-                for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
-                    var contentLine = contentLines[ contentLineIndex ];
-
-                    if ( contentLine.indexOf( "BEGIN:VEVENT" ) > -1 ) {
-                        readingEvent = true;
-                    } else if ( contentLine.indexOf( "END:VEVENT" ) > -1 ) {
-                        var eventDetails = JSON.parse( JSON.stringify( readingEventDetails ) );
-
-                        readingEvent = false;
-                        readingEventDetails = {};
-
-                        _this.removeEvent( eventDetails.id, false, false );
-
-                        if ( _this.addEvent( eventDetails, false, false ) ) {
-                            readingEventsAdded.push( eventDetails );
-                        }
-                    }
-
-                    if ( readingEvent ) {
-                        if ( startsWith( contentLine, "UID:" ) ) {
-                            readingEventDetails.id = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
-                            readingEventDetails.title = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
-                            readingEventDetails.description = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "DTSTART:" ) || startsWith( contentLine, "DTSTART;" ) ) {
-                            readingEventDetails.from = importICalDateTime( contentLine.split( ":" ).pop() );
-                            readingEventDetails.isAllDay = contentLine.split( ":" ).pop().length === 8;
-                        } else if ( startsWith( contentLine, "DTEND:" ) || startsWith( contentLine, "DTEND;" ) ) {
-                            readingEventDetails.to = importICalDateTime( contentLine.split( ":" ).pop(), true );
-                        } else if ( startsWith( contentLine, "CREATED:" ) ) {
-                            readingEventDetails.created = importICalDateTime( contentLine.split( ":" ).pop() );
-                        } else if ( startsWith( contentLine, "LOCATION:" ) ) {
-                            readingEventDetails.location = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "URL:" ) ) {
-                            readingEventDetails.url = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "TRANSP:" ) ) {
-                            readingEventDetails.showAsBusy = contentLine.split( ":" ).pop() === "OPAQUE";
-                        } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
-                            readingEventDetails.showAlerts = true;
-                        } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
-                            readingEventDetails.group = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
-                            importICalOrganizer( readingEventDetails, contentLine );
-                        } else if ( startsWith( contentLine, "RRULE:" ) ) {
-                            importICalRRule( readingEventDetails, contentLine );
-                        }
-                    }
-                }
-            }
-        };
-    }
-
-    function importICalDateTime( dateTime, isEndDate ) {
-        var result = _string.empty,
-            isAllDay = dateTime.length === 8;
-
-        result += dateTime.substring( 0, 4 );
-        dateTime = dateTime.slice( 4 );
-
-        result += "-" + dateTime.substring( 0, 2 );
-        dateTime = dateTime.slice( 2 );
-
-        result += "-" + dateTime.substring( 0, 2 );
-        dateTime = dateTime.slice( 2 );
-
-        result += "T";
-
-        if ( !isAllDay ) {
-            dateTime = dateTime.slice( 1 );
-
-            result += dateTime.substring( 0, 2 );
-            dateTime = dateTime.slice( 2 );
-    
-            result += ":" + dateTime.substring( 0, 2 );
-            dateTime = dateTime.slice( 2 );
-    
-            result += ":" + dateTime.substring( 0, 2 );
-            dateTime = dateTime.slice( 2 );
-
-        } else {
-            isEndDate = isDefined( isEndDate ) ? isEndDate : false;
-            
-            result += !isEndDate ? "00:00:00" : "23:59:00";
-        }
-
-        result += "Z";
-
-        return new Date( result );
-    }
-
-    function importICalOrganizer( readingEventDetails, contentLine ) {
-        var organizerDetails = contentLine.split( ";" ).pop(),
-            organizerDetailsParts = organizerDetails.split( ":" );
-
-        readingEventDetails.organizerName = organizerDetailsParts[ 0 ].replace( "CN=", _string.empty );
-        readingEventDetails.organizerEmailAddress = organizerDetailsParts[ 2 ];
-    }
-
-    function importICalRRule( readingEventDetails, contentLine ) {
-        var rRuleDetails = contentLine.split( ":" ).pop(),
-            rRuleDetailsParts = rRuleDetails.split( ";" ),
-            rRuleDetailsPartsLength = rRuleDetailsParts.length,
-            freq = null,
-            interval = null,
-            until = null;
-
-        for ( var rRuleDetailsPartsIndex = 0; rRuleDetailsPartsIndex < rRuleDetailsPartsLength; rRuleDetailsPartsIndex++ ) {
-            var rRulePart = rRuleDetailsParts[ rRuleDetailsPartsIndex ];
-
-            if ( startsWith( rRulePart, "FREQ=" ) ) {
-                freq = rRulePart.split( "=" )[ 1 ];
-            } else if ( startsWith( rRulePart, "INTERVAL=" ) ) {
-                interval = rRulePart.split( "=" )[ 1 ];
-            } else if ( startsWith( rRulePart, "UNTIL=" ) ) {
-                until = rRulePart.split( "=" )[ 1 ];
-            }
-        }
-
-        if ( isDefined( freq ) ) {
-            if ( isDefined( interval ) ) {
-                interval = parseInt( interval );
-
-                if ( interval >= 2 && freq !== "WEEKLY" ) {
-                    readingEventDetails.repeatEveryCustomValue = interval;
-                }
-            }
-            
-            if ( isDefined( readingEventDetails.repeatEveryCustomValue ) ) {
-                if ( freq === "DAILY" ) {
-                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.daily;
-                } else if ( freq === "WEEKLY" ) {
-                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.weekly;
-                } else if ( freq === "MONTHLY" ) {
-                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.monthly;
-                } else if ( freq === "YEARLY" ) {
-                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.yearly;
-                }
-            } else {
-                
-                if ( freq === "DAILY" ) {
-                    readingEventDetails.repeatEvery = _repeatType.everyDay;
-                } else if ( freq === "WEEKLY" ) {
-                    readingEventDetails.repeatEvery = _repeatType.everyWeek;
-                } else if ( freq === "MONTHLY" ) {
-                    readingEventDetails.repeatEvery = _repeatType.everyMonth;
-                } else if ( freq === "MONTHLY" && interval === 2 ) {
-                    readingEventDetails.repeatEvery = _repeatType.every2Weeks;
-                } else if ( freq === "YEARLY" ) {
-                    readingEventDetails.repeatEvery = _repeatType.everyYear;
-                }
-            }
-
-            if ( isDefined( until ) ) {
-                var repeatEnds = importICalDateTime( until );
-                repeatEnds.setDate( repeatEnds.getDate() - 1 );
-
-                readingEventDetails.repeatEnds = repeatEnds;
-            }
-        }
-    }
-
-    function importEventsFromFileSelected() {
-        var input = createElement( "input", null, "file" );
-        input.accept = ".ical, .ics, .json";
-        input.multiple = "multiple";
-
-        input.onchange = function() {
-            importEventsFromFiles( input.files );
-        };
-
-        input.click();
-    }
-
-    function importFromFilesCompleted( eventsAddedOrUpdated ) {
-        if ( eventsAddedOrUpdated.length > 0 ) {
-            storeEventsInLocalStorage();
-            updateSideMenu();
-            buildDayEvents();
-            refreshOpenedViews();
-            showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAddedOrUpdated.length ) );
-            triggerOptionsEventWithData( "onEventsImported", eventsAddedOrUpdated );
         }
     }
 
@@ -8063,6 +6990,811 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Holidays
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getHolidaysText( date ) {
+        var result = null;
+
+        if ( _options.showHolidays ) {
+            var holidayTextItems = [],
+                holidayTextItemsAnyCase = [],
+                holidaysLength = _options.holidays.length;
+
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, _string.empty );
+
+                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                    holidayTextItems.push( holidayText );
+                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+                }
+            }
+
+            if ( holidayTextItems.length > 0 ) {
+                result = holidayTextItems.join( ", " );
+            }
+        }
+
+        return result;
+    }
+
+    function addHolidays( date, dayMutedClass, dayElement ) {
+        if ( _options.showHolidays ) {
+            var holidayTextItemsAnyCase = [],
+                holidaysLength = _options.holidays.length;
+
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, _string.empty ),
+                    holidayBackgroundColor = getString( holiday.backgroundColor, _string.empty ),
+                    holidayTextColor = getString( holiday.textColor, _string.empty );
+
+                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty && holidayTextItemsAnyCase.indexOf( holidayText.toLowerCase() ) ) {
+                    addHolidayText( holiday, dayElement, holidayText, dayMutedClass );
+
+                    if ( holidayBackgroundColor !== _string.empty ) {
+                        dayElement.style.setProperty( "background-color", holidayBackgroundColor, "important" );
+                    }
+
+                    if ( holidayTextColor !== _string.empty ) {
+                        dayElement.style.setProperty( "color", holidayTextColor, "important" );
+                    }
+
+                    holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+                }
+            }
+        }
+    }
+
+    function addHolidayText( holiday, dayElement, holidayText, dayMutedClass ) {
+        var className = isDefinedFunction( holiday.onClick ) || isDefinedString( holiday.onClickUrl ) ? "holiday-link" : "holiday",
+            onClickEvent = holiday.onClick;
+        
+        if ( isDefinedString( holiday.onClickUrl ) ) {
+            onClickEvent = function() {
+                _window.open( holiday.onClickUrl, _options.urlWindowTarget );
+            };
+        }
+
+        createSpanElement( dayElement, holidayText, className + dayMutedClass, onClickEvent, true, true );
+    }
+
+    function isHolidayDateValidForDate( holiday, date ) {
+        var day = getNumber( holiday.day ),
+            month = getNumber( holiday.month ),
+            year = getNumber( holiday.year ),
+            valid = false;
+
+        if ( year === 0 && day === date.getDate() && month === date.getMonth() + 1 ) {
+            valid = true;
+        } else if ( year > 0 && day === date.getDate() && month === date.getMonth() + 1 && year === date.getFullYear() ) {
+            valid = true;
+        }
+
+        return valid;
+    }
+
+    function addHolidayColors( container, date ) {
+        if ( _options.showHolidays ) {
+            var holidaysLength = _options.holidays.length;
+
+            for ( var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++ ) {
+                var holiday = _options.holidays[ holidayIndex ],
+                    holidayText = getString( holiday.title, _string.empty ),
+                    holidayBackgroundColor = getString( holiday.backgroundColor, _string.empty ),
+                    holidayTextColor = getString( holiday.textColor, _string.empty );
+
+                if ( isHolidayDateValidForDate( holiday, date ) && holidayText !== _string.empty ) {
+                    if ( holidayBackgroundColor !== _string.empty ) {
+                        container.style.setProperty( "background-color", holidayBackgroundColor, "important" );
+                    }
+
+                    if ( holidayTextColor !== _string.empty ) {
+                        container.style.setProperty( "color", holidayTextColor, "important" );
+                    }
+                }
+            }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Getting/Remove Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getAllEvents() {
+        var events = [];
+    
+        getAllEventsFunc( function( eventDetails ) {
+            events.push( eventDetails );
+        } );
+
+        return events;
+    }
+
+    function getAllEventsFunc( func ) {
+        for ( var storageDate in _events ) {
+            if ( _events.hasOwnProperty( storageDate ) ) {
+                for ( var storageGuid in _events[ storageDate ] ) {
+                    if ( _events[ storageDate ].hasOwnProperty( storageGuid ) ) {
+                        var event = getAdjustedAllDayEvent( _events[ storageDate ][ storageGuid ] ),
+                            result = func( event, storageDate, storageGuid );
+
+                        if ( result ) {
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function getOrderedEvents( events, sortAllDayEvents ) {
+        sortAllDayEvents = isDefined( sortAllDayEvents ) ? sortAllDayEvents : true;
+
+        events = events.sort( function( a, b ) {
+            return a.from - b.from;
+        } );
+
+        if ( sortAllDayEvents ) {
+            events = events.sort( function( a, b ) {
+                return getBooleanAsNumber( b.isAllDay ) - getBooleanAsNumber( a.isAllDay );
+            } );
+        }
+
+        return events;
+    }
+
+    function removeNonRepeatingEventsOnSpecificDate( date, compareFunc ) {
+        addNode( _document.body, _element_DisabledBackground );
+
+        var onNoEvent = function() {
+            removeNode( _document.body, _element_DisabledBackground );
+        };
+
+        var onYesEvent = function() {
+            var eventsRemoved = 0;
+
+            onNoEvent();
+
+            getAllEventsFunc( function( eventDetails ) {
+                var repeatEvery = getNumber( eventDetails.repeatEvery );
+                if ( repeatEvery === _repeatType.never && compareFunc( eventDetails.from, date ) ) {
+                    _this.removeEvent( eventDetails.id, false );
+                    eventsRemoved++;
+                }
+            } );
+
+            storeEventsInLocalStorage();
+            showNotificationPopUp( _options.eventsRemovedText.replace( "{0}", eventsRemoved ) );
+            refreshViews();
+        };
+
+        showMessageDialog( _options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Event Types
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function setEventTypeInputCheckedStates( selectedEventType ) {
+        selectedEventType = isDefined( selectedEventType ) && _eventType.hasOwnProperty( selectedEventType ) ? selectedEventType : 0;
+
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) ) {
+                _eventType[ eventType ].eventEditorInput.checked = false;
+            }
+        }
+
+        if ( isDefined( _eventType[ selectedEventType ].eventEditorInput ) ) {
+            _eventType[ selectedEventType ].eventEditorInput.checked = true;
+        }
+    }
+
+    function setEventTypeInputDisabledStates( disabled ) {
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) ) {
+                _eventType[ eventType ].eventEditorInput.disabled = disabled;
+            }
+        }
+    }
+
+    function getEventTypeInputChecked() {
+        var result = 0;
+
+        for ( var eventType in _eventType ) {
+            if ( _eventType.hasOwnProperty( eventType ) && isDefined( _eventType[ eventType ].eventEditorInput ) && _eventType[ eventType ].eventEditorInput.checked ) {
+                result = parseInt( eventType );
+                break;
+            }
+        }
+
+        return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Date/Time Validation & Handling
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function doDatesMatch( date1, date2 ) {
+        return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+    }
+
+    function doDatesMatchMonthAndYear( date1, date2 ) {
+        return date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+    }
+
+    function isDateSmallerOrEqualToDate( date1, date2 ) {
+        var newDate1 = new Date( date1.getFullYear(), date1.getMonth(), date1.getDate() );
+        newDate1.setHours( 0, 0, 0, 0 );
+
+        var newDate2 = new Date( date2.getFullYear(), date2.getMonth(), date2.getDate() );
+        newDate2.setHours( 0, 0, 0, 0 );
+
+        return newDate1 <= newDate2;
+    }
+
+    function isDateToday( date ) {
+        var today = new Date();
+        
+        return date !== null && date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
+    }
+
+    function isDateTodaysMonthAndYear( date ) {
+        var today = new Date();
+        
+        return date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth();
+    }
+
+    function toStorageFormattedDate( date ) {
+        var day = ( "0" + date.getDate() ).slice( -2 ),
+            month = ( "0" + ( date.getMonth() ) ).slice( -2 ),
+            formatted = day + "/" + month + "/" + date.getFullYear();
+
+        return formatted;
+    }
+
+    function toFormattedTime( date ) {
+        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
+    }
+
+    function getWeekdayNumber( date ) {
+        return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
+    }
+
+    function getWeekStartEndDates( date ) {
+        date = isDefined( date ) ? date : new Date();
+
+        var day = date.getDay() === 0 ? 7 : date.getDay(),
+            firstDayNumber = ( date.getDate() - day ) + 1,
+            lastDayNumber = firstDayNumber + 6,
+            weekStartDate = new Date( date ),
+            weekEndDate = new Date( date );
+
+        weekStartDate.setDate( firstDayNumber );
+        weekStartDate.setHours( 0, 0, 0, 0 );
+        weekEndDate.setDate( lastDayNumber );
+        weekEndDate.setHours( 23, 59, 59, 99 );
+
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            weekStartDate.setDate( weekStartDate.getDate() - ( 7 - _options.startOfWeekDay ) );
+            weekEndDate.setDate( weekEndDate.getDate() - ( 7 - _options.startOfWeekDay ) );
+        }
+        
+        return [ weekStartDate, weekEndDate ];
+    }
+
+    function getTotalDaysInMonth( year, month ) {
+        return new Date( year, month + 1, 0 ).getDate();
+    }
+
+    function getDayOrdinal( value ) {
+        var result = _options.thText;
+
+        if ( value === 31 || value === 21 || value === 1 ) {
+            result = _options.stText;
+        } else if ( value === 22 || value === 2 ) {
+            result = _options.ndText;
+        } else if ( value === 23 || value === 3 ) {
+            result = _options.rdText;
+        }
+
+        return result;
+    }
+
+    function getMinutesIntoDay( date ) {
+        var hours = date.getHours(),
+            minutes = date.getMinutes();
+        
+        return ( hours * 60 ) + minutes;
+    }
+
+    function getTotalDaysBetweenDates( from, to ) {
+        var fromDate = new Date( from.getFullYear(), from.getMonth(), from.getDate() ),
+            toDate = new Date( to.getFullYear(), to.getMonth(), to.getDate() ),
+            differenceTime = Math.abs( toDate - fromDate ),
+            differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
+        
+        return differenceDays;
+    }
+
+    function getWeekNumber( date ) {
+        var firstDay = new Date( date.getFullYear(), 0, 1 ),
+            weekNumber = Math.ceil( ( ( ( date - firstDay ) / 86400000 ) + firstDay.getDay() + 1 ) / 7 );
+        
+        if ( firstDay.getDay() > 4 ) {
+            weekNumber--;
+        }
+        
+        return weekNumber;
+    }
+
+    function isWeekendDay( date ) {
+        return _options.weekendDays.indexOf( date.getDay() ) >= 0;
+    }
+
+    function isWorkingDay( date ) {
+        return _options.workingDays.indexOf( getWeekdayNumber( date ) ) >= 0;
+    }
+
+    function moveDateBackOneDay( date ) {
+        date.setDate( date.getDate() - 1 );
+    }
+
+    function moveDateBackOneWeek( date ) {
+        date.setDate( date.getDate() - 7 );
+    }
+
+    function moveDateForwardDay( date, dayCount ) {
+        dayCount = isDefinedNumber( dayCount ) ? dayCount : 1;
+
+        date.setDate( date.getDate() + dayCount );
+    }
+
+    function moveDateForwardWeek( date, weekCount ) {
+        weekCount = isDefinedNumber( weekCount ) ? weekCount : 1;
+
+        date.setDate( date.getDate() + ( weekCount * 7 ) );
+    }
+
+    function moveDateForwardMonth( date, monthCount ) {
+        monthCount = isDefinedNumber( monthCount ) ? monthCount : 1;
+
+        date.setMonth( date.getMonth() + monthCount );
+    }
+
+    function moveDateForwardYear( date, yearCount ) {
+        yearCount = isDefinedNumber( yearCount ) ? yearCount : 1;
+
+        date.setFullYear( date.getFullYear() + yearCount );
+    }
+
+    function getFriendlyTimeBetweenTwoDate( date1, date2 ) {
+        var text = [],
+            delta = Math.abs( date2 - date1 ) / 1000;
+
+        var days = Math.floor( delta / 86400 );
+        delta -= days * 86400;
+
+        if ( days > 0 ) {
+            text.push( days.toString() + _string.space + ( days === 1 ? _options.dayText : _options.daysText ) );
+        }
+
+        var hours = Math.floor( delta / 3600 ) % 24;
+        delta -= hours * 3600;
+
+        if ( hours > 0 ) {
+            text.push( hours.toString() + _string.space + ( hours === 1 ? _options.hourText : _options.hoursText ) );
+        }
+
+        var minutes = Math.floor( delta / 60 ) % 60;
+
+        if ( minutes > 0 ) {
+            text.push( minutes.toString() + _string.space + ( minutes === 1 ? _options.minuteText : _options.minutesText ) );
+        }
+
+        return text.join( ", " );
+    }
+
+    function setSelectedDate( date, input ) {
+        if ( isDefined( date ) ) {
+            var day = ( "0" + date.getDate() ).slice( -2 ),
+                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+            if ( input.type === "date" ) {
+                input.value = date.getFullYear() + "-" + month + "-" + day;
+            } else {
+                input.value = day + "/" + month + "/" + date.getFullYear();
+            }
+        }
+    }
+
+    function getSelectedDate( input, defaultValue ) {
+        var result = isDefinedOnly( defaultValue ) ? defaultValue : new Date();
+
+        if ( input.value !== _string.empty ) {
+            if ( input.type === "date" ) {
+                result = new Date( input.value + "T00:00:00Z" );
+            } else {
+    
+                var match = input.value.match( /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/ );
+                if ( match ) {
+    
+                    var newDate = new Date( match[ 3 ], match[ 2 ] - 1, match[ 1 ], 0, 0, 0, 0 );
+                    if ( newDate instanceof Date && !isNaN( newDate ) ) {
+                        result = newDate;
+                    }
+                }
+            }
+        }
+
+        if ( isDefined( result ) ) {
+            result = new Date( result.getTime() + Math.abs( result.getTimezoneOffset() * 60000 ) );
+        }
+
+        return result;
+    }
+
+    function setMinimumDate( input, date ) {
+        if ( input.type === "date" ) {
+            var day = ( "0" + date.getDate() ).slice( -2 ),
+                month = ( "0" + ( date.getMonth() + 1 ) ).slice( -2 );
+
+            input.setAttribute( "min", date.getFullYear() + "-" + month + "-" + day );
+        }
+    }
+
+    function setTimeOnDate( date, timeData ) {
+        var hours = 0,
+            minutes = 0,
+            splitData = timeData.split( ":" );
+
+        if ( splitData.length === 2 ) {
+            var newHours = parseInt( splitData[ 0 ] ),
+                newMinutes = parseInt( splitData[ 1 ] );
+
+            if ( !isNaN( newHours ) && newHours.toString().length <= 2 ) {
+                hours = newHours;
+            }
+
+            if ( !isNaN( newMinutes ) && newMinutes.toString().length <= 2 ) {
+                minutes = newMinutes;
+            }
+        }
+
+        date.setHours( hours );
+        date.setMinutes( minutes );
+    }
+
+    function getHoursAndMinutesFromMinutes( totalMinutes ) {
+        var hours = ( totalMinutes / 60 ),
+            remainingHours = Math.floor( hours ),
+            remainingMinutes = Math.round( ( hours - remainingHours ) * 60 );
+
+        return [ remainingHours, remainingMinutes ];
+    }
+
+    function addMinutesToDate( date, minutes ) {
+        return new Date( date.getTime() + minutes * 60000 );
+    }
+
+    function getCustomFormattedDateText( dateFormat, date ) {
+        var result = dateFormat,
+            weekDayNumber = getWeekdayNumber( date );
+
+        result = result.replace( "{dddd}", _options.dayNames[ weekDayNumber ] );
+        result = result.replace( "{ddd}", _options.dayNamesAbbreviated[ weekDayNumber ] );
+        result = result.replace( "{dd}", padNumber( date.getDate() ) );
+        result = result.replace( "{d}", date.getDate() );
+
+        result = result.replace( "{o}", getDayOrdinal( date.getDate() ) );
+
+        result = result.replace( "{mmmm}", _options.monthNames[ date.getMonth() ] );
+        result = result.replace( "{mmm}", _options.monthNamesAbbreviated[ date.getMonth() ] );
+        result = result.replace( "{mm}", padNumber( date.getMonth() + 1 ) );
+        result = result.replace( "{m}", date.getMonth() + 1 );
+
+        result = result.replace( "{yyyy}", date.getFullYear() );
+        result = result.replace( "{yyy}", date.getFullYear().toString().substring( 1 ) );
+        result = result.replace( "{yy}", date.getFullYear().toString().substring( 2 ) );
+        result = result.replace( "{y}", parseInt( date.getFullYear().toString().substring( 2 ) ).toString() );
+
+        return result;
+    }
+
+    function getStartOfWeekDayNumber( dayNumber ) {
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            dayNumber += ( 7 - _options.startOfWeekDay );
+        }
+
+        return dayNumber;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Date/Time Displays
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function getTimeToTimeDisplay( fromDate, toDate ) {
+        return getTimeForDisplay( fromDate ) + _string.space + _options.toTimeText + _string.space + getTimeForDisplay( toDate );
+    }
+
+    function getTimeForDisplay( date ) {
+        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
+    }
+
+    function buildDateTimeToDateTimeDisplay( container, fromDate, toDate ) {
+        container.innerHTML = _string.empty;
+
+        buildDateTimeDisplay( container, fromDate );
+        createSpanElement( container, _string.space + _options.toTimeText + _string.space );
+        buildDateTimeDisplay( container, toDate );
+    }
+
+    function buildDateTimeDisplay( container, date, addTime, addYear, addDayName ) {
+        addTime = !isDefined( addTime ) ? true : addTime;
+        addYear = !isDefined( addYear ) ? true : addYear;
+        addDayName = !isDefined( addDayName ) ? false : addDayName;
+
+        if ( addDayName ) {
+            createSpanElement( container, _options.dayNames[ getWeekdayNumber( date ) ] + ", " );
+        }
+
+        buildDayDisplay( container, date );
+        createSpanElement( container, _string.space + _options.monthNames[ date.getMonth() ] );
+
+        if ( addYear ) {
+            createSpanElement( container, _string.space + date.getFullYear() );
+        }
+
+        if ( addTime ) {
+            createSpanElement( container, _string.space + getTimeForDisplay( date ) );
+        }
+    }
+
+    function buildDayDisplay( container, date, beforeText, afterText ) {
+        if ( isDefined( beforeText ) ) {
+            createSpanElement( container, beforeText );
+        }
+
+        createSpanElement( container, date.getDate() );
+
+        if ( _options.showDayNumberOrdinals ) {
+            var ordinal = getDayOrdinal( date.getDate() );
+
+            if ( isDefined( ordinal ) ) {
+                var sup = createElement( "sup" );
+                sup.innerText = ordinal;
+                container.appendChild( sup );
+            }
+        }
+
+        if ( isDefined( afterText ) ) {
+            createSpanElement( container, afterText );
+        }
+    }
+
+    
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Drag & Drop
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function makeEventDraggable( event, eventDetails, dragFromDate, container ) {
+        if ( !isEventLocked( eventDetails ) && _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            var draggedFromDate = new Date( dragFromDate ),
+                isDateWeekendDay = isWeekendDay( draggedFromDate ),
+                dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
+
+            event.setAttribute( "draggable", true );
+            
+            event.ondragstart = function( e ) {
+                triggerOptionsEventWithData( "onEventDragStart", eventDetails );
+
+                e.dataTransfer.setData( "event_details", JSON.stringify( eventDetails ) );
+
+                _events_Dragged_DateFrom = draggedFromDate;
+                _events_Dragged = eventDetails;
+
+                if ( isDefined( container ) ) {
+                    container.className += dragDisabledClass;
+
+                    makeAreaNonDroppable( container );
+                }
+
+                updateContainerClassChildren( "cell", function( element ) {
+                    element.className += " prevent-pointer-events";
+                }, event );
+
+                updateContainerClassChildren( "events", function( element ) {
+                    element.className += " prevent-pointer-events";
+                }, event );
+            };
+
+            event.ondragend = function() {
+                triggerOptionsEventWithData( "onEventDragStop", _events_Dragged );
+
+                _events_Dragged_DateFrom = null;
+                _events_Dragged = null;
+
+                if ( isDefined( container ) ) {
+                    container.className = container.className.replace( dragDisabledClass, _string.empty );
+
+                    makeAreaDroppable( container, draggedFromDate.getFullYear(), draggedFromDate.getMonth(), draggedFromDate.getDate() );
+                }
+
+                updateContainerClassChildren( "cell", function( element ) {
+                    element.className = element.className.replace( " prevent-pointer-events", _string.empty );
+                }, event );
+                
+                updateContainerClassChildren( "events", function( element ) {
+                    element.className = element.className.replace( " prevent-pointer-events", _string.empty );
+                }, event );
+            };
+        }
+    }
+
+    function makeAreaDroppable( element, year, month, actualDay ) {
+        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            var areaDate = new Date( year, month, actualDay );
+
+            element.ondragover = function( e ) {
+                showDraggingEffect( e, element, areaDate );
+            };
+        
+            element.ondragenter = function( e ) {
+                showDraggingEffect( e, element, areaDate );
+            };
+        
+            element.ondragleave = function( e ) {
+                hideDraggingEffect( e, element, areaDate );
+            };
+        
+            element.ondrop = function( e ) {
+                cancelBubble( e );
+                hideDraggingEffect( e, element, areaDate );
+
+                if ( e.dataTransfer.files.length === 0 ) {
+                    dropEventOnDay( e, year, month, actualDay );
+                } else {
+                    dropFileOnDisplay( e );
+                }
+            };
+        }
+    }
+
+    function makeAreaNonDroppable( element ) {
+        if ( _options.dragAndDropForEventsEnabled && _options.manualEditingEnabled ) {
+            element.ondragover = null;
+            element.ondragenter = null;
+            element.ondragleave = null;
+            element.ondrop = null;
+        }
+    }
+
+    function showDraggingEffect( e, dayElement, areaDate ) {
+        cancelBubble( e );
+
+        if ( _events_Dragged !== null && dayElement.className.indexOf( " drag-over" ) === -1 && !doDatesMatch( _events_Dragged_DateFrom, areaDate ) ) {
+            dayElement.className += " drag-over";
+        }
+    }
+
+    function hideDraggingEffect( e, dayElement, areaDate ) {
+        cancelBubble( e );
+
+        if ( _events_Dragged !== null && dayElement.className.indexOf( " drag-over" ) > -1 && !doDatesMatch( _events_Dragged_DateFrom, areaDate ) ) {
+            dayElement.className = dayElement.className.replace( " drag-over", _string.empty );
+        }
+    }
+
+    function dropEventOnDay( e, year, month, day ) {
+        var dropDate = new Date( year, month, day );
+
+        if ( _events_Dragged !== null && !doDatesMatch( _events_Dragged_DateFrom, dropDate ) ) {
+            triggerOptionsEventWithMultipleData( "onEventDragDrop", _events_Dragged, dropDate );
+
+            if ( !isDefined( day ) ) {
+                var totalDaysInMonth = getTotalDaysInMonth( year, month );
+                day = _events_Dragged.from.getDate();
+
+                if ( day > totalDaysInMonth ) {
+                    day = totalDaysInMonth;
+                }
+            }
+
+            var daysBetweenDraggedFromAndFrom = getTotalDaysBetweenDates( _events_Dragged.from, _events_Dragged_DateFrom ),
+                daysBetweenFromAndTo = getTotalDaysBetweenDates( _events_Dragged.from, _events_Dragged.to ),
+                fromDate = new Date( year, month, day, _events_Dragged.from.getHours(), _events_Dragged.from.getMinutes() ),
+                toDate = new Date( year, month, day, _events_Dragged.to.getHours(), _events_Dragged.to.getMinutes() ),
+                repeatEndsDate = _events_Dragged.repeatEnds;               
+
+            if ( daysBetweenDraggedFromAndFrom > 0 ) {
+                fromDate.setDate( fromDate.getDate() - daysBetweenDraggedFromAndFrom );
+                toDate.setDate( toDate.getDate() - daysBetweenDraggedFromAndFrom );
+            }
+
+            if ( isDefined( repeatEndsDate ) ) {
+                var newFromDaysDifference = getTotalDaysBetweenDates( fromDate, _events_Dragged.from );
+
+                if ( fromDate > _events_Dragged.from ) {
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() + newFromDaysDifference );
+                } else {
+                    repeatEndsDate.setDate( repeatEndsDate.getDate() - newFromDaysDifference );
+                }
+            }
+
+            if ( daysBetweenFromAndTo > 0 ) {
+                toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
+            }
+
+            _this.updateEventDateTimes( _events_Dragged.id, fromDate, toDate, repeatEndsDate );
+            
+            showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _events_Dragged.title ) );           
+            refreshViews();
+        } else {
+
+            if ( _events_Dragged === null ) {
+                dropEventsFromOtherCalendar( e, year, month, day );
+            }
+        }
+    }
+
+    function dropEventsFromOtherCalendar( e, year, month, day ) {
+        var eventDetails = getObjectFromString( e.dataTransfer.getData( "event_details" ) );
+        if ( eventDetails !== null ) {
+            var sourceFromDate = new Date( eventDetails.from ),
+                sourceToDate = new Date( eventDetails.to );
+
+            eventDetails.from = new Date( year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0 );
+            eventDetails.to = new Date( year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0 );
+
+            _this.addEvent( eventDetails );
+
+            showNotificationPopUp( _options.eventAddedText.replace( "{0}", eventDetails.title ) );
+        }
+    }
+
+    function dropFileOnDisplay( e ) {
+        if ( isDefined( _window.FileReader ) && _options.importEventsEnabled ) {
+            importEventsFromFiles( e.dataTransfer.files );
+        }
+    }
+
+    function getObjectFromString( objectString ) {
+        var result;
+
+        try {
+            result = JSON.parse( objectString );
+        } catch ( e1 ) {
+
+            try {
+                result = eval( "(" + objectString + ")" );
+            } catch ( e2 ) {
+                console.error( "Errors in object: " + e1.message + ", " + e2.message );
+                result = null;
+            }
+        }
+
+        return result;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Moving Dialogs
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -9308,6 +9040,274 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _this.addEvent( event, false, false, false );
                 }
             }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Import Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function importEventsFromFiles( files ) {
+        var filesLength = files.length,
+            filesCompleted = [],
+            filesCompletedEvents = [];
+
+        var onLoadEnd = function( filename, events ) {
+            filesCompleted.push( filename );
+            filesCompletedEvents = filesCompletedEvents.concat( events );
+
+            if ( filesCompleted.length === filesLength ) {
+                importFromFilesCompleted( filesCompletedEvents );
+            }
+        };
+
+        for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
+            var file = files[ fileIndex ],
+                fileExtension = file.name.split( "." ).pop().toLowerCase();
+
+            if ( fileExtension === "json" ) {
+                importEventsFromJson( file, onLoadEnd );
+            } else if ( fileExtension === "ics" || fileExtension === "ical" ) {
+                importEventsFromICal( file, onLoadEnd );
+            }
+        }
+    }
+
+    function importEventsFromJson( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingEventsAdded = [];
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingEventsAdded );
+        };
+    
+        reader.onload = function( event ) {
+            var readingEvents = getObjectFromString( event.target.result );
+
+            if ( isDefinedObject( readingEvents ) && readingEvents.hasOwnProperty( "events" ) ) {
+                readingEvents = readingEvents.events;
+            }
+
+            var readingEventsLength = readingEvents.length;
+
+            for ( var readingEventsIndex = 0; readingEventsIndex < readingEventsLength; readingEventsIndex++ ) {
+                var eventDetails = readingEvents[ readingEventsIndex ];
+
+                _this.removeEvent( eventDetails.id, false, false );
+
+                if ( _this.addEvent( eventDetails, false, false ) ) {
+                    readingEventsAdded.push( eventDetails);
+                }
+            }
+        };
+    }
+
+    function importEventsFromICal( file, onLoadEnd ) {
+        var reader = new FileReader(),
+            readingEventsAdded = [];
+
+        reader.readAsText( file );
+
+        reader.onloadend = function() {
+            onLoadEnd( file.name, readingEventsAdded );
+        };
+    
+        reader.onload = function( event ) {
+            var content = event.target.result,
+                contentLines = content.split( _string.newLineCharacterReturn ),
+                contentLinesLength = contentLines.length;
+
+            if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > -1 && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > -1 ) {
+                var readingEvent = false,
+                    readingEventDetails = {};
+                
+                for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
+                    var contentLine = contentLines[ contentLineIndex ];
+
+                    if ( contentLine.indexOf( "BEGIN:VEVENT" ) > -1 ) {
+                        readingEvent = true;
+                    } else if ( contentLine.indexOf( "END:VEVENT" ) > -1 ) {
+                        var eventDetails = JSON.parse( JSON.stringify( readingEventDetails ) );
+
+                        readingEvent = false;
+                        readingEventDetails = {};
+
+                        _this.removeEvent( eventDetails.id, false, false );
+
+                        if ( _this.addEvent( eventDetails, false, false ) ) {
+                            readingEventsAdded.push( eventDetails );
+                        }
+                    }
+
+                    if ( readingEvent ) {
+                        if ( startsWith( contentLine, "UID:" ) ) {
+                            readingEventDetails.id = contentLine.split( ":" ).pop();
+                        } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
+                            readingEventDetails.title = contentLine.split( ":" ).pop();
+                        } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
+                            readingEventDetails.description = contentLine.split( ":" ).pop();
+                        } else if ( startsWith( contentLine, "DTSTART:" ) || startsWith( contentLine, "DTSTART;" ) ) {
+                            readingEventDetails.from = importICalDateTime( contentLine.split( ":" ).pop() );
+                            readingEventDetails.isAllDay = contentLine.split( ":" ).pop().length === 8;
+                        } else if ( startsWith( contentLine, "DTEND:" ) || startsWith( contentLine, "DTEND;" ) ) {
+                            readingEventDetails.to = importICalDateTime( contentLine.split( ":" ).pop(), true );
+                        } else if ( startsWith( contentLine, "CREATED:" ) ) {
+                            readingEventDetails.created = importICalDateTime( contentLine.split( ":" ).pop() );
+                        } else if ( startsWith( contentLine, "LOCATION:" ) ) {
+                            readingEventDetails.location = contentLine.split( ":" ).pop();
+                        } else if ( startsWith( contentLine, "URL:" ) ) {
+                            readingEventDetails.url = contentLine.split( ":" ).pop();
+                        } else if ( startsWith( contentLine, "TRANSP:" ) ) {
+                            readingEventDetails.showAsBusy = contentLine.split( ":" ).pop() === "OPAQUE";
+                        } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
+                            readingEventDetails.showAlerts = true;
+                        } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
+                            readingEventDetails.group = contentLine.split( ":" ).pop();
+                        } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
+                            importICalOrganizer( readingEventDetails, contentLine );
+                        } else if ( startsWith( contentLine, "RRULE:" ) ) {
+                            importICalRRule( readingEventDetails, contentLine );
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    function importICalDateTime( dateTime, isEndDate ) {
+        var result = _string.empty,
+            isAllDay = dateTime.length === 8;
+
+        result += dateTime.substring( 0, 4 );
+        dateTime = dateTime.slice( 4 );
+
+        result += "-" + dateTime.substring( 0, 2 );
+        dateTime = dateTime.slice( 2 );
+
+        result += "-" + dateTime.substring( 0, 2 );
+        dateTime = dateTime.slice( 2 );
+
+        result += "T";
+
+        if ( !isAllDay ) {
+            dateTime = dateTime.slice( 1 );
+
+            result += dateTime.substring( 0, 2 );
+            dateTime = dateTime.slice( 2 );
+    
+            result += ":" + dateTime.substring( 0, 2 );
+            dateTime = dateTime.slice( 2 );
+    
+            result += ":" + dateTime.substring( 0, 2 );
+            dateTime = dateTime.slice( 2 );
+
+        } else {
+            isEndDate = isDefined( isEndDate ) ? isEndDate : false;
+            
+            result += !isEndDate ? "00:00:00" : "23:59:00";
+        }
+
+        result += "Z";
+
+        return new Date( result );
+    }
+
+    function importICalOrganizer( readingEventDetails, contentLine ) {
+        var organizerDetails = contentLine.split( ";" ).pop(),
+            organizerDetailsParts = organizerDetails.split( ":" );
+
+        readingEventDetails.organizerName = organizerDetailsParts[ 0 ].replace( "CN=", _string.empty );
+        readingEventDetails.organizerEmailAddress = organizerDetailsParts[ 2 ];
+    }
+
+    function importICalRRule( readingEventDetails, contentLine ) {
+        var rRuleDetails = contentLine.split( ":" ).pop(),
+            rRuleDetailsParts = rRuleDetails.split( ";" ),
+            rRuleDetailsPartsLength = rRuleDetailsParts.length,
+            freq = null,
+            interval = null,
+            until = null;
+
+        for ( var rRuleDetailsPartsIndex = 0; rRuleDetailsPartsIndex < rRuleDetailsPartsLength; rRuleDetailsPartsIndex++ ) {
+            var rRulePart = rRuleDetailsParts[ rRuleDetailsPartsIndex ];
+
+            if ( startsWith( rRulePart, "FREQ=" ) ) {
+                freq = rRulePart.split( "=" )[ 1 ];
+            } else if ( startsWith( rRulePart, "INTERVAL=" ) ) {
+                interval = rRulePart.split( "=" )[ 1 ];
+            } else if ( startsWith( rRulePart, "UNTIL=" ) ) {
+                until = rRulePart.split( "=" )[ 1 ];
+            }
+        }
+
+        if ( isDefined( freq ) ) {
+            if ( isDefined( interval ) ) {
+                interval = parseInt( interval );
+
+                if ( interval >= 2 && freq !== "WEEKLY" ) {
+                    readingEventDetails.repeatEveryCustomValue = interval;
+                }
+            }
+            
+            if ( isDefined( readingEventDetails.repeatEveryCustomValue ) ) {
+                if ( freq === "DAILY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.daily;
+                } else if ( freq === "WEEKLY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.weekly;
+                } else if ( freq === "MONTHLY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.monthly;
+                } else if ( freq === "YEARLY" ) {
+                    readingEventDetails.repeatEveryCustomType = _repeatCustomType.yearly;
+                }
+            } else {
+                
+                if ( freq === "DAILY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyDay;
+                } else if ( freq === "WEEKLY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyWeek;
+                } else if ( freq === "MONTHLY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyMonth;
+                } else if ( freq === "MONTHLY" && interval === 2 ) {
+                    readingEventDetails.repeatEvery = _repeatType.every2Weeks;
+                } else if ( freq === "YEARLY" ) {
+                    readingEventDetails.repeatEvery = _repeatType.everyYear;
+                }
+            }
+
+            if ( isDefined( until ) ) {
+                var repeatEnds = importICalDateTime( until );
+                repeatEnds.setDate( repeatEnds.getDate() - 1 );
+
+                readingEventDetails.repeatEnds = repeatEnds;
+            }
+        }
+    }
+
+    function importEventsFromFileSelected() {
+        var input = createElement( "input", null, "file" );
+        input.accept = ".ical, .ics, .json";
+        input.multiple = "multiple";
+
+        input.onchange = function() {
+            importEventsFromFiles( input.files );
+        };
+
+        input.click();
+    }
+
+    function importFromFilesCompleted( eventsAddedOrUpdated ) {
+        if ( eventsAddedOrUpdated.length > 0 ) {
+            storeEventsInLocalStorage();
+            updateSideMenu();
+            buildDayEvents();
+            refreshOpenedViews();
+            showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAddedOrUpdated.length ) );
+            triggerOptionsEventWithData( "onEventsImported", eventsAddedOrUpdated );
         }
     }
 
