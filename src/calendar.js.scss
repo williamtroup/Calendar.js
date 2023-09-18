@@ -1342,7 +1342,6 @@ div.calendar {
                 border-radius: $border-view-radius;
                 border: $standard-border-size solid var(--dark-color);
                 background-color: var(--day-names-color);
-                height: 330px;
                 width: 330px;
                 display: inline-block;
                 margin: calc( $spacing / 2 );

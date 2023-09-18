@@ -1170,8 +1170,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildDayRows() {
-        if ( _element_Calendar_Rows.length > 0 ) {
+    function buildDayRows( container ) {
+        var isForCustomContainer = isDefined( container );
+
+        container = !isForCustomContainer ? _element_Calendar : container;
+
+        if ( !isForCustomContainer && _element_Calendar_Rows.length > 0 ) {
             var rowsLength = _element_Calendar_Rows.length;
             
             for ( var rowsIndex = 0; rowsIndex < rowsLength; rowsIndex++ ) {
@@ -1183,9 +1187,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         for ( var rowIndex = 0; rowIndex < 6; rowIndex++ ) {
             var rowData = createElement( "div", "row-cells days" );
-            _element_Calendar.appendChild( rowData );
+            container.appendChild( rowData );
 
-            _element_Calendar_Rows.push( rowData );
+            if ( !isForCustomContainer ) {
+                _element_Calendar_Rows.push( rowData );
+            }
 
             for ( var columnDataIndex = 0; columnDataIndex < 7; columnDataIndex++ ) {
                 var dayNumber = columnDataIndex;
@@ -4634,6 +4640,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else {
                 buildFullYearMonthDaysHeader( daysHeader, 0, headerNamesLength );
             }
+
+            buildDayRows( yearMonth );
         }
     }
 
