@@ -12,6 +12,9 @@
 - Massive class variable re-organization at the top of the main class.  Everything is now sectioned and named correctly.
 - Massive function re-organization.  All the main building functions are near the top, whereas the supplier/add-on builders are further down.
 
+#### **Fixes:**
+- Fixed a fault that caused padding to appear on the right side of the days in the Month view when only one day is visible.
+
 
 <br>
 

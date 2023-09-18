@@ -409,7 +409,7 @@ div.calendar div.row-cells {
   width: 100%;
 }
 div.calendar div.row-cells div.cell-1 {
-  width: calc(100% - ( 20px + 1px ));
+  width: 100%;
 }
 div.calendar div.row-cells div.cell-2 {
   width: calc(100% - ( 20px + 1px ) / 2);

@@ -379,7 +379,7 @@ div.calendar {
         width: 100%;
 
         div.cell-1 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) );
+            width: 100%;
         }
 
         div.cell-2 {
