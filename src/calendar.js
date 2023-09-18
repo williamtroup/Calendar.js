@@ -585,7 +585,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         // Variables: View - Main
         _element_Calendar = null,
         _element_Calendar_FullScreenModeOn = false,
-        _element_Calendar_CachedStyled = null,
+        _element_Calendar_FullScreenModeCachedStyled = null,
         _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [],
         _element_Calendar_Rows = [],
         _element_Calendar_TitleBar = null,
@@ -1327,7 +1327,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _element_Calendar_FullScreenModeOn && _options.fullScreenModeEnabled ) {
             _element_Calendar_FullScreenModeOn = false;
             _element_Calendar.className = _element_Calendar.className.replace( " full-screen-view", _string.empty );
-            _element_Calendar.style.cssText = _element_Calendar_CachedStyled;
+            _element_Calendar.style.cssText = _element_Calendar_FullScreenModeCachedStyled;
 
             updateExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
             refreshOpenedViews();
@@ -1336,7 +1336,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function forceTurnOnFullScreenMode() {
-        _element_Calendar_CachedStyled = _element_Calendar.style.cssText;
+        _element_Calendar_FullScreenModeCachedStyled = _element_Calendar.style.cssText;
         _element_Calendar_FullScreenModeOn = true;
         _element_Calendar.className += " full-screen-view";
         _element_Calendar.removeAttribute( "style" );

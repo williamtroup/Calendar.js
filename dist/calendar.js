@@ -374,14 +374,14 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_element_Calendar_FullScreenModeOn && _options.fullScreenModeEnabled) {
       _element_Calendar_FullScreenModeOn = false;
       _element_Calendar.className = _element_Calendar.className.replace(" full-screen-view", _string.empty);
-      _element_Calendar.style.cssText = _element_Calendar_CachedStyled;
+      _element_Calendar.style.cssText = _element_Calendar_FullScreenModeCachedStyled;
       updateExpandButtons("ib-arrow-expand-left-right", _options.enableFullScreenTooltipText);
       refreshOpenedViews();
       triggerOptionsEventWithData("onFullScreenModeChanged", false);
     }
   }
   function forceTurnOnFullScreenMode() {
-    _element_Calendar_CachedStyled = _element_Calendar.style.cssText;
+    _element_Calendar_FullScreenModeCachedStyled = _element_Calendar.style.cssText;
     _element_Calendar_FullScreenModeOn = true;
     _element_Calendar.className += " full-screen-view";
     _element_Calendar.removeAttribute("style");
@@ -7370,7 +7370,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _datePickerVisible = false;
   var _element_Calendar = null;
   var _element_Calendar_FullScreenModeOn = false;
-  var _element_Calendar_CachedStyled = null;
+  var _element_Calendar_FullScreenModeCachedStyled = null;
   var _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
   var _element_Calendar_Rows = [];
   var _element_Calendar_TitleBar = null;
