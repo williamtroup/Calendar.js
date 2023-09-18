@@ -1788,6 +1788,10 @@ div.calendar div.full-year-view div.contents div.year-month div.title-bar {
   font-weight: 900;
   text-align: center;
 }
+div.calendar div.full-year-view div.contents div.year-month div.muted span,
+div.calendar div.full-year-view div.contents div.year-month div.muted sup {
+  opacity: 0.3;
+}
 
 /*
     -------------------------------------------------------------------------

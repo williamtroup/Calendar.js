@@ -1357,6 +1357,11 @@ div.calendar {
                     font-weight: 900;
                     text-align: center;
                 }
+
+                div.muted span,
+                div.muted sup {
+                    opacity: 0.3;
+                }
             }
         }
     }

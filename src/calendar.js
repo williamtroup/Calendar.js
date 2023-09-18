@@ -4641,8 +4641,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else {
                 buildFullYearMonthDaysHeader( daysHeader, 0, headerNamesLength );
             }
+            
+            var monthDayId = ( monthIndex + 1 ) + "-month-",
+                firstDay = new Date( _element_FullYearView_CurrentYear, monthIndex, 1 ),
+                startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() );
+    
+            buildDayRows( yearMonth, monthDayId );
 
-            buildDayRows( yearMonth, ( monthIndex + 1 ) + "-month-" );
+            if ( startDay > 1 ) {
+                buildFullYearMonthPreviousMonthDays( startDay, monthDayId, monthIndex );
+            }
+
+            var lastFilledDay = buildFullYearMonthDays( startDay, monthDayId, monthIndex );
+
+            buildFullYearMonthNextMonthDays( lastFilledDay, monthDayId, monthIndex );
         }
     }
 
@@ -4655,6 +4667,63 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 setNodeText( header, headerName );
         
                 daysHeader.appendChild( header );
+            }
+        }
+    }
+
+    function buildFullYearMonthPreviousMonthDays( startDay, monthDayId, monthIndex ) {
+        var previousMonth = new Date( _element_FullYearView_CurrentYear, monthIndex, 1 );
+        previousMonth.setMonth( previousMonth.getMonth() - 1 );
+
+        var totalDaysInMonthInPreviousMonth = getTotalDaysInMonth( previousMonth.getFullYear(), previousMonth.getMonth() ),
+            previousDayIndex = startDay - 1,
+            previousDay = totalDaysInMonthInPreviousMonth;
+
+        while ( previousDayIndex > 0 ) {
+            var previousMonthDayFullDayElement = getElementByID( monthDayId + previousDayIndex );
+            if ( previousMonthDayFullDayElement !== null ) {
+                previousMonthDayFullDayElement.className += " muted";
+
+                buildDayDisplay( previousMonthDayFullDayElement, new Date( previousMonth.getFullYear(), previousMonth.getMonth(), previousDay ) );
+            }
+
+            previousDayIndex--;
+            previousDay--;
+        }
+    }
+
+    function buildFullYearMonthDays( startDay, monthDayId, monthIndex ) {
+        var elementDayNumber = 0,
+            totalDaysInMonth = getTotalDaysInMonth( _element_FullYearView_CurrentYear, monthIndex );
+
+        for ( var day = 0; day < totalDaysInMonth; day++ ) {
+            elementDayNumber = startDay + day;
+            
+            var currentMonthDayFullDayElement = getElementByID( monthDayId + elementDayNumber );
+            if ( currentMonthDayFullDayElement !== null ) {
+                buildDayDisplay( currentMonthDayFullDayElement, new Date( _element_FullYearView_CurrentYear, monthIndex, day + 1 ) );
+            }
+        }
+
+        return elementDayNumber;
+    }
+
+    function buildFullYearMonthNextMonthDays( lastDayFilled, monthDayId, monthIndex  ) {
+        if ( lastDayFilled < 42 ) {
+            var nextMonth = new Date( _element_FullYearView_CurrentYear, monthIndex, 1 ),
+                actualDay = 1;
+            
+            nextMonth.setMonth( nextMonth.getMonth() + 1 );
+
+            for ( var day = lastDayFilled + 1; day < 43; day++ ) {
+                var nextMonthDayFullDayElement = getElementByID( monthDayId + day );
+                if ( nextMonthDayFullDayElement !== null ) {
+                    nextMonthDayFullDayElement.className += " muted";
+
+                    buildDayDisplay( nextMonthDayFullDayElement, new Date( _element_FullYearView_CurrentYear, monthIndex, actualDay ) );
+                }
+
+                actualDay++;
             }
         }
     }
