@@ -54,7 +54,7 @@
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
-div.calendar-drop-down-menu,
+div.calendar-context-menu,
 div.calendar-dialog,
 div.calendar-dialog input,
 div.calendar-dialog textarea {
@@ -2140,11 +2140,11 @@ div.calendar-tooltip-event {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Drop-Down Menu
+    Calendar.js - Context Menu
     -------------------------------------------------------------------------
 */
 
-div.calendar-drop-down-menu {
+div.calendar-context-menu {
     @include no-selection-allowed;
     @include fade-in-effect-animation( 0.5s );
     background-color: var(--drop-down-menu-background-color);
