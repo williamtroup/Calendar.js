@@ -4612,9 +4612,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function buildFullYearMonths() {
+        _element_FullYearView_Contents.innerHTML = _string.empty;
+
+        for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
+            var yearMonth = createElement( "div", "year-month" );
+            _element_FullYearView_Contents.appendChild( yearMonth );
+
+            var titleBar = createElement( "div", "title-bar" );
+            setNodeText( titleBar, _options.monthNames[ monthIndex ] );
+            yearMonth.appendChild( titleBar );
+        }
+    }
+
     function showFullYearView( year ) {
         _element_FullYearView_CurrentYear = isDefined( year ) ? year : _currentDate.getFullYear();
 
+        buildFullYearMonths();
         showOverlay( _element_FullYearView );
 
         _element_FullYearView_TitleBar.innerText = _element_FullYearView_CurrentYear;

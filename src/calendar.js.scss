@@ -1335,6 +1335,25 @@ div.calendar {
 
         div.contents {
             @include overlay-contents;
+
+            text-align: center;
+
+            div.year-month {
+                border-radius: $border-view-radius;
+                background-color: var(--day-names-color);
+                height: 330px;
+                width: 330px;
+                display: inline-block;
+                margin: calc( $spacing / 2 );
+                overflow: hidden;
+
+                div.title-bar {
+                    background-color: var(--dark-color);
+                    color: var(--light-color);
+                    font-weight: 900;
+                    text-align: center;
+                }
+            }
         }
     }
 }
