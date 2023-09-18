@@ -945,6 +945,7 @@ div.calendar div.header-date div.ib-arrow-right-full,
 div.calendar div.header-date div.ib-arrow-expand-left-right,
 div.calendar div.header-date div.ib-arrow-contract-left-right,
 div.calendar div.header-date div.ib-forward,
+div.calendar div.header-date div.ib-expand,
 div.calendar div.header-date div.date-picker-close-divider-line {
   float: right;
 }
@@ -955,7 +956,8 @@ div.calendar div.header-date div.date-picker-close-divider-line {
   div.calendar div.header-date div.ib-hamburger-side,
   div.calendar div.header-date div.ib-eye,
   div.calendar div.header-date div.ib-arrow-down-full-line,
-  div.calendar div.header-date div.ib-octagon-hollow {
+  div.calendar div.header-date div.ib-octagon-hollow,
+  div.calendar div.header-date div.ib-expand {
     display: inline-block;
   }
 }
@@ -965,7 +967,8 @@ div.calendar div.header-date div.date-picker-close-divider-line {
   div.calendar div.header-date div.ib-hamburger-side,
   div.calendar div.header-date div.ib-eye,
   div.calendar div.header-date div.ib-arrow-down-full-line,
-  div.calendar div.header-date div.ib-octagon-hollow {
+  div.calendar div.header-date div.ib-octagon-hollow,
+  div.calendar div.header-date div.ib-expand {
     display: none !important;
   }
 }
@@ -1659,6 +1662,112 @@ div.calendar div.list-all-week-events-view div.contents div.day div.events:last-
 }
 div.calendar div.list-all-week-events-view div.contents div.day:last-child {
   margin-bottom: 1px !important;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Full Year View
+    -------------------------------------------------------------------------
+*/
+div.calendar div.full-year-view {
+  top: -100%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  background-color: var(--light-color);
+  transition: all 0.3s;
+  visibility: hidden;
+}
+div.calendar div.full-year-view div.title-bar {
+  width: calc( 100% - 10px );
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: var(--dark-color);
+  color: var(--title-bar-text-color);
+  text-align: center;
+}
+div.calendar div.full-year-view div.title-bar div.side-menu-button-divider-line,
+div.calendar div.full-year-view div.title-bar div.side-menu-close-button-divider-line {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
+div.calendar div.full-year-view div.title-bar div.side-menu-button-divider-line {
+  float: left;
+}
+div.calendar div.full-year-view div.title-bar div.side-menu-close-button-divider-line {
+  float: right;
+}
+div.calendar div.full-year-view div.title-bar div.title {
+  font-weight: 900 !important;
+  display: inline-block;
+}
+div.calendar div.full-year-view div.title-bar div {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.full-year-view div.title-bar div.ib-pin,
+div.calendar div.full-year-view div.title-bar div.ib-refresh,
+div.calendar div.full-year-view div.title-bar div.ib-search,
+div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.full-year-view div.title-bar div.ib-hamburger {
+  float: left;
+}
+div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.full-year-view div.title-bar div.ib-plus,
+div.calendar div.full-year-view div.title-bar div.ib-close,
+div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
+  float: right;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-year-view div.title-bar div.ib-search,
+  div.calendar div.full-year-view div.title-bar div.ib-refresh,
+  div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow {
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-year-view div.title-bar div.ib-search,
+  div.calendar div.full-year-view div.title-bar div.ib-refresh,
+  div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow {
+    display: none !important;
+  }
+}
+div.calendar div.full-year-view div.contents {
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - ( 10px * 2 ));
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-year-view div.contents {
+    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-year-view div.contents {
+    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
+  }
 }
 
 /*
@@ -4119,6 +4228,45 @@ div.calendar-context-menu div.separator {
   width: 8px;
   height: 8px;
   background-color: var(--title-bar-button-color);
+  bottom: 0;
+}
+
+.ib-expand {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+.ib-expand:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-expand:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-expand::before, .ib-expand::after {
+  position: absolute;
+  content: "";
+}
+.ib-expand:before {
+  border-left: 6px solid var(--title-bar-button-color);
+  border-right: 6px solid var(--title-bar-button-color);
+  width: 4px;
+  height: 6px;
+  border-radius: 4px;
+  left: 0;
+  top: 0;
+}
+.ib-expand:after {
+  border-left: 6px solid var(--title-bar-button-color);
+  border-right: 6px solid var(--title-bar-button-color);
+  width: 4px;
+  height: 6px;
+  border-radius: 4px;
+  left: 0;
   bottom: 0;
 }
 

@@ -1,0 +1,27 @@
+@import "button";
+
+$border-width: 6px;
+
+.ib-expand {
+    @include button;
+
+    &:before {
+        border-left: $border-width solid $button-color;
+        border-right: $border-width solid $button-color;
+        width: calc( $size - $border-width * 2 );
+        height: $border-width;
+        border-radius: $border-radius;
+        left: 0;
+        top: 0;
+    }
+
+    &:after {
+        border-left: $border-width solid $button-color;
+        border-right: $border-width solid $button-color;
+        width: calc( $size - $border-width * 2 );
+        height: $border-width;
+        border-radius: $border-radius;
+        left: 0;
+        bottom: 0;
+    }
+}

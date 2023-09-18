@@ -292,6 +292,7 @@
  * @property    {string}    selectNoneText                              The tooltip text that should be displayed for the "Select None" label.
  * @property    {string}    importEventsTooltipText                     The tooltip text that should be used for the "Import Events" button.
  * @property    {string}    eventsImportedText                          The text that should be displayed for the "{0} events imported." notification.
+ * @property    {string}    fullYearTooltipText                         The tooltip text that should be used for the "View Full Year" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -646,6 +647,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ListAllWeekEventsView_DateSelected = null,
         _element_ListAllWeekEventsView_MinimizeRestoreFunctions = [],
 
+        // Variables: View - Full Year
+        _element_FullYearView = null,
+        _element_FullYearView_FullScreenButton = null,
+        _element_FullYearView_TitleBar = null,
+        _element_FullYearView_Contents = null,
+
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
         _element_Dialog_Move = null,
@@ -899,9 +906,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( _element_Calendar !== null ) {
                 buildSideMenu();
+                buildFullDayView();
                 buildListAllEventsView();
                 buildListAllWeekEventsView();
-                buildFullDayView();
+                buildFullYearView();
                 buildDateHeader();
                 buildDayNamesHeader();
                 buildDayRows();
@@ -1037,6 +1045,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             buildToolbarButton( _element_Calendar_TitleBar, "ib-hamburger-side", _options.listWeekEventsTooltipText, function() {
                 showListAllWeekEventsView( null, true );
+            } );
+
+            buildToolbarButton( _element_Calendar_TitleBar, "ib-expand", _options.fullYearTooltipText, function() {
+                showFullYearView();
             } );
         }
 
@@ -1272,11 +1284,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         setElementClassName( _element_FullDayView_FullScreenButton, className );
         setElementClassName( _element_ListAllEventsView_FullScreenButton, className );
         setElementClassName( _element_ListAllWeekEventsView_FullScreenButton, className );
+        setElementClassName( _element_FullYearView_FullScreenButton, className );
 
         addToolTip( _element_Calendar_TitleBar_FullScreenButton, tooltipText );
         addToolTip( _element_FullDayView_FullScreenButton, tooltipText );
         addToolTip( _element_ListAllEventsView_FullScreenButton, tooltipText );
         addToolTip( _element_ListAllWeekEventsView_FullScreenButton, tooltipText );
+        addToolTip( _element_FullYearView_FullScreenButton, tooltipText );
     }
 
 
@@ -2582,10 +2596,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
-        if ( !done && ( isOverlayVisible( _element_FullDayView ) || isOverlayVisible( _element_ListAllEventsView ) || isOverlayVisible( _element_ListAllWeekEventsView ) ) ) {
+        if ( !done && ( isOverlayVisible( _element_FullDayView ) || isOverlayVisible( _element_ListAllEventsView ) || isOverlayVisible( _element_ListAllWeekEventsView ) || isOverlayVisible( _element_FullYearView ) ) ) {
             hideOverlay( _element_FullDayView );
             hideOverlay( _element_ListAllEventsView );
             hideOverlay( _element_ListAllWeekEventsView );
+            hideOverlay( _element_FullYearView );
 
             _element_FullDayView_EventsShown = [];
             _element_FullDayView_EventsShown_Sizes = [];
@@ -4533,6 +4548,69 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_ListAllWeekEventsView_MinimizeRestoreFunctions[ functionIndex ]();
             }
         }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Full Year View
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildFullYearView() {
+        if ( !_datePickerModeEnabled ) {
+            var wasAddedAlready = _element_FullYearView !== null;
+
+            if ( wasAddedAlready ) {
+                _element_FullYearView.innerHTML = _string.empty;
+            }
+
+            if ( !wasAddedAlready ) {
+                _element_FullYearView = createElement( "div", "full-year-view" );
+                _element_Calendar.appendChild( _element_FullYearView );
+            }
+    
+            var titleBar = createElement( "div", "title-bar" );
+            _element_FullYearView.appendChild( titleBar );
+    
+            if ( _options.fullScreenModeEnabled ) {
+                titleBar.ondblclick = headerDoubleClick;
+            }
+    
+            _element_FullYearView_TitleBar = createElement( "div", "title" );
+            titleBar.appendChild( _element_FullYearView_TitleBar );
+    
+            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
+                hideOverlay( _element_FullYearView );
+            } );
+    
+            if ( _options.showExtraToolbarButtons ) {
+                titleBar.appendChild( createElement( "div", "side-menu-close-button-divider-line" ) );
+
+                if ( _options.manualEditingEnabled ) {
+                    buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+                }
+            }
+
+            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
+                buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+            }
+
+            if ( _options.showExtraToolbarButtons && _options.fullScreenModeEnabled ) {
+                _element_FullYearView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+            }
+    
+            _element_FullYearView_Contents = createElement( "div", "contents custom-scroll-bars" );
+            _element_FullYearView.appendChild( _element_FullYearView_Contents );
+        }
+    }
+
+    function showFullYearView( year ) {
+        year = isDefined( year ) ? year : _currentDate.getFullYear();
+
+        showOverlay( _element_FullYearView );
+
+        _element_FullYearView_TitleBar.innerText = year;
     }
 
 
@@ -12059,6 +12137,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.selectNoneText = getDefaultString( _options.selectNoneText, "Select None" );
         _options.importEventsTooltipText = getDefaultString( _options.importEventsTooltipText, "Import Events" );
         _options.eventsImportedText = getDefaultString( _options.eventsImportedText, "{0} events imported." );
+        _options.fullYearTooltipText = getDefaultString( _options.fullYearTooltipText, "View Full Year" );
     }
 
     function setEventTypeTranslationStringOptions() {
