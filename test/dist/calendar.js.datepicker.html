@@ -70,31 +70,36 @@
                 onDatePickerClosed: datePickerClosed,
                 events: getEvents(),
                 addYearButtonsInDatePickerMode: true,
-                startOfWeekDay: 6
+                startOfWeekDay: 6,
+                monthTitleBarDateFormat: "{mmm} {yyyy}"
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
                 maximumDatePickerDate: new Date(),
                 datePickerSelectedDateFormat: "{dd}/{mm}/{yyyy}",
                 onDatePickerOpened: datePickerOpened,
-                onDatePickerClosed: datePickerClosed
+                onDatePickerClosed: datePickerClosed,
+                monthTitleBarDateFormat: "{mmm} {yyyy}"
             } ),
             calendarInstance3 = new calendarJs( "myCalendar3", {
                 openInFullScreenMode: true,
                 datePickerSelectedDateFormat: "{d}-{m}-{yy}",
                 onDatePickerOpened: datePickerOpened,
-                onDatePickerClosed: datePickerClosed
+                onDatePickerClosed: datePickerClosed,
+                monthTitleBarDateFormat: "{mmm} {yyyy}"
             } ),
             calendarInstance4 = new calendarJs( calendarElement4, {
                 openInFullScreenMode: true,
                 onDatePickerOpened: datePickerOpened,
-                onDatePickerClosed: datePickerClosed
+                onDatePickerClosed: datePickerClosed,
+                monthTitleBarDateFormat: "{mmm} {yyyy}"
             } ),
             calendarInstance5 = new calendarJs( "myCalendar5", {
                 openInFullScreenMode: true,
                 datePickerSelectedDateFormat: "{dddd} {d}{o} {mmmm}",
                 onDatePickerOpened: datePickerOpened,
-                onDatePickerClosed: datePickerClosed
+                onDatePickerClosed: datePickerClosed,
+                monthTitleBarDateFormat: "{mmm} {yyyy}"
             } );
 
         document.title += " - v" + calendarInstance1.getVersion();
