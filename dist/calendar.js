@@ -2842,12 +2842,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(titleBar, "ib-close", _options.closeTooltipText, function() {
         hideOverlay(_element_FullYearView);
       });
-      if (_options.showExtraToolbarButtons) {
-        titleBar.appendChild(createElement("div", "side-menu-close-button-divider-line"));
-        buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onFullYearNextYear);
-        if (_options.manualEditingEnabled) {
-          buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);
-        }
+      titleBar.appendChild(createElement("div", "side-menu-close-button-divider-line"));
+      buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onFullYearNextYear);
+      if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
+        buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);
       }
       if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
         _element_FullYearView_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick);
