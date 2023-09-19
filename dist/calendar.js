@@ -157,7 +157,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         showListAllWeekEventsView(null, true);
       });
       buildToolbarButton(_element_Calendar_TitleBar, "ib-expand", _options.fullYearTooltipText, function() {
-        showFullYearView();
+        showFullYearView(null, true);
       });
     }
     var titleContainer = createElement("div", "title-container");
@@ -3021,8 +3021,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       element.className += " cell-today";
     }
   }
-  function showFullYearView(year) {
+  function showFullYearView(year, fromOpen) {
+    fromOpen = isDefined(fromOpen) ? fromOpen : false;
     _element_FullYearView_CurrentYear = isDefined(year) ? year : _currentDate.getFullYear();
+    if (fromOpen) {
+      _element_FullYearView_Contents.scrollTop = 0;
+    }
     buildFullYearMonths();
     showOverlay(_element_FullYearView);
     _element_FullYearView_TitleBar.innerText = _element_FullYearView_CurrentYear;

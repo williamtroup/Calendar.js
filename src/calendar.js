@@ -1057,7 +1057,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
 
             buildToolbarButton( _element_Calendar_TitleBar, "ib-expand", _options.fullYearTooltipText, function() {
-                showFullYearView();
+                showFullYearView( null, true );
             } );
         }
 
@@ -4860,8 +4860,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function showFullYearView( year ) {
+    function showFullYearView( year, fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
         _element_FullYearView_CurrentYear = isDefined( year ) ? year : _currentDate.getFullYear();
+
+        if ( fromOpen ) {
+            _element_FullYearView_Contents.scrollTop = 0;
+        }
 
         buildFullYearMonths();
         showOverlay( _element_FullYearView );
