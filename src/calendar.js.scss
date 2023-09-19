@@ -1334,7 +1334,8 @@ div.calendar {
         @import "foundation/overlay-title-bar";
 
         div.contents {
-            @include overlay-contents;
+            @include overlay-contents( true );
+            padding: calc( $spacing / 2 );
 
             text-align: center;
 

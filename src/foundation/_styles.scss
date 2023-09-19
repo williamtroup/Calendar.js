@@ -84,20 +84,36 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     transform: $property;
 }
 
-@mixin overlay-contents {
+@mixin overlay-contents( $half-spacing: false ) {
     display: inline-block;
     padding: $spacing;
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
-    width: calc( 100% - ( #{$spacing} * 2 ) );
+
+    @if $half-spacing {
+        width: calc( 100% - #{$spacing} );
+    }
+    @else {
+        width: calc( 100% - ( #{$spacing} * 2 ) );
+    }
 
     @media screen and ( min-width: $minimum-width ) {
-        height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$large-font-size} ) - #{$standard-border-size} );
+        @if $half-spacing {
+            height: calc( 100% - ( ( #{$spacing} * 3 ) + #{$large-font-size} ) - #{$standard-border-size} );
+        }
+        @else {
+            height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$large-font-size} ) - #{$standard-border-size} );
+        }
     }
     
     @media screen and ( max-width: $maximum-width ) {
-        height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$small-font-size} ) - #{$standard-border-size} );
+        @if $half-spacing {
+            height: calc( 100% - ( ( #{$spacing} * 3 ) + #{$small-font-size} ) - #{$standard-border-size} );
+        }
+        @else {
+            height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$small-font-size} ) - #{$standard-border-size} );
+        }
     }
 }
 

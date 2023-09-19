@@ -1757,17 +1757,18 @@ div.calendar div.full-year-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - ( 10px * 2 ));
+  width: calc( 100% - 10px );
+  padding: 5px;
   text-align: center;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
+    height: calc( 100% - ( ( 10px * 3 ) + 0.9rem ) - 1px );
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
+    height: calc( 100% - ( ( 10px * 3 ) + 0.7rem ) - 1px );
   }
 }
 div.calendar div.full-year-view div.contents div.year-month {
