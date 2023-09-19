@@ -220,5 +220,7 @@ var __TRANSLATION_OPTIONS = {
   "selectAllText": "Wählen Sie Alle",
   "selectNoneText": "Nichts ausgewählt",
   "importEventsTooltipText": "Ereignisse importieren",
-  "eventsImportedText": "{0} Ereignisse importiert."
+  "eventsImportedText": "{0} Ereignisse importiert.",
+  "fullYearTooltipText": "Ganzes Jahr anzeigen",
+  "currentYearTooltipText": "Laufendes Jahr"
 };

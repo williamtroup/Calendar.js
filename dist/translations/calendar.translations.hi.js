@@ -220,5 +220,7 @@ var __TRANSLATION_OPTIONS = {
   "selectAllText": "सबका चयन करें",
   "selectNoneText": "कुछ मत चुनिए",
   "importEventsTooltipText": "घटनाएँ आयात करें",
-  "eventsImportedText": "{0} इवेंट आयातित."
+  "eventsImportedText": "{0} इवेंट आयातित.",
+  "fullYearTooltipText": "पूरा वर्ष देखें",
+  "currentYearTooltipText": "चालू वर्ष"
 };
