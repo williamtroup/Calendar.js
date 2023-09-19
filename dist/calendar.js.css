@@ -1774,7 +1774,7 @@ div.calendar div.full-year-view div.contents div.year-month {
   border-radius: 0.25rem;
   border: 1px solid var(--dark-color);
   background-color: var(--day-names-color);
-  width: 330px;
+  width: calc(50% - 12.5px);
   display: inline-block;
   margin: 5px;
   overflow: hidden;
