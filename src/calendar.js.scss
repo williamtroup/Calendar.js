@@ -593,7 +593,12 @@ div.calendar {
                 margin: 0 !important;
             }
 
-            div[class^='ib-'] {
+            div.right-divider-line {
+                @include title-bar-divider-line;
+            }
+
+            div[class^='ib-'],
+            div.right-divider-line {
                 margin-top: 3px;
                 float: right;
                 margin-left: $spacing;
