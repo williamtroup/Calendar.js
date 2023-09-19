@@ -1397,7 +1397,8 @@ div.calendar {
                     background-color: var(--dark-color);
                     color: var(--light-color);
                     font-weight: 900;
-                    text-align: center;
+                    text-align: left;
+                    padding: $spacing;
 
                     div.right-divider-line {
                         @include title-bar-divider-line;
@@ -1407,7 +1408,8 @@ div.calendar {
                     div.ib-plus,
                     div.right-divider-line {
                         float: right;
-                        margin-left: $spacing;
+                        margin-right: $spacing !important;
+                        margin-left: 0 !important;
                     }
                 }
             }
