@@ -2507,11 +2507,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
                 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.f ) {
-                    e.preventDefault();
-    
-                    if ( _optionsForSearch.enabled && ( _element_FullDayView_EventsShown.length > 0 || _element_Calendar_AllVisibleEvents.length > 0 || _element_ListAllEventsView_EventsShown.length > 0 || _element_ListAllWeekEventsView_EventsShown.length > 0 ) ) {
-                        showSearchDialog();
-                    }
+                    onFKey( e );
 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _keyCodes.m ) {
                     e.preventDefault();
@@ -2609,6 +2605,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
             onFullYearCurrentYear();
         } else {
             moveToday();
+        }
+    }
+
+    function onFKey( e ) {
+        e.preventDefault();
+
+        var openSearch = false;
+
+        if ( isOverlayVisible( _element_FullDayView ) ) {
+            openSearch = _element_FullDayView_EventsShown.length > 0;
+        } else if ( isOverlayVisible( _element_ListAllEventsView ) ) {
+            openSearch = _element_ListAllEventsView_EventsShown.length > 0;
+        } else if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
+            openSearch = _element_ListAllWeekEventsView_EventsShown.length > 0;
+        } else {
+            openSearch = _element_Calendar_AllVisibleEvents.length > 0;
+        }
+
+        if ( openSearch ) {
+            showSearchDialog();
         }
     }
 
@@ -3210,6 +3226,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         clearElementsByClassName( _element_FullDayView_Contents, "event" );
         showOverlay( _element_FullDayView );
         buildDateTimeDisplay( _element_FullDayView_TitleBar, date, false, true, true );
+        hideSearchDialog();
 
         if ( isWorkingDay( date ) ) {
             showFullDayWorkingHours();
@@ -4213,6 +4230,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         showOverlay( _element_ListAllWeekEventsView );
+        hideSearchDialog();
 
         _element_ListAllWeekEventsView_Contents.innerHTML = _string.empty;
         _element_ListAllWeekEventsView_Contents_FullView = {};
