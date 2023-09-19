@@ -1393,11 +1393,11 @@ div.calendar div.list-all-events-view div.title-bar div.ib-arrow-contract-left-r
 }
 div.calendar div.list-all-events-view div.contents {
   display: inline-block;
-  padding: 10px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
   width: calc(100% - ( 10px * 2 ));
+  padding: 10px;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.list-all-events-view div.contents {
@@ -1569,11 +1569,11 @@ div.calendar div.list-all-week-events-view div.title-bar div.ib-arrow-contract-l
 }
 div.calendar div.list-all-week-events-view div.contents {
   display: inline-block;
-  padding: 10px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
   width: calc(100% - ( 10px * 2 ));
+  padding: 10px;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.list-all-week-events-view div.contents {
@@ -1753,13 +1753,11 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
 }
 div.calendar div.full-year-view div.contents {
   display: inline-block;
-  padding: 10px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
   width: calc( 100% - 10px );
   padding: 5px;
-  text-align: center;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.contents {
