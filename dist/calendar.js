@@ -110,7 +110,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (!_datePickerModeEnabled && isSideMenuAvailable()) {
       buildToolbarButton(_element_Calendar_TitleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-      _element_Calendar_TitleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
+      _element_Calendar_TitleBar.appendChild(createElement("div", "left-divider-line"));
     }
     buildToolbarButton(_element_Calendar_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
@@ -129,7 +129,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (_datePickerModeEnabled) {
       buildToolbarButton(_element_Calendar_TitleBar, "ib-close", _options.closeTooltipText, hideDatePickerMode);
-      _element_Calendar_TitleBar.appendChild(createElement("div", "date-picker-close-divider-line"));
+      _element_Calendar_TitleBar.appendChild(createElement("div", "right-divider-line"));
     }
     buildToolbarButton(_element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth);
     if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
@@ -808,7 +808,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     setNodeText(header, text + ":");
     var arrow = createElement("div", "ib-arrow-up-full");
     header.appendChild(arrow);
-    var buttonDividerLine = createElement("div", "button-divider-line");
+    var buttonDividerLine = createElement("div", "right-divider-line");
     header.appendChild(buttonDividerLine);
     var selectAll = buildToolbarButton(header, "ib-square", _options.selectAllText, function(e) {
       changeCheckboxesCheckedState(e, checkBoxes, true);
@@ -1612,7 +1612,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_FullDayView_TitleBar = createElement("div", "title");
       titleBar.appendChild(_element_FullDayView_TitleBar);
       buildToolbarButton(titleBar, "ib-close", _options.closeTooltipText, hideFullDayView);
-      titleBar.appendChild(createElement("div", "side-menu-close-button-divider-line"));
+      titleBar.appendChild(createElement("div", "right-divider-line"));
       buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextDay);
       if (_options.manualEditingEnabled && _options.showExtraToolbarButtons) {
         buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, function() {
@@ -1627,7 +1627,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (!_datePickerModeEnabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
+        titleBar.appendChild(createElement("div", "left-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousDay);
       if (_options.exportEventsEnabled && _options.showExtraToolbarButtons) {
@@ -2200,7 +2200,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         hideOverlay(_element_ListAllEventsView);
       });
       if (_options.showExtraToolbarButtons) {
-        titleBar.appendChild(createElement("div", "side-menu-close-button-divider-line"));
+        titleBar.appendChild(createElement("div", "right-divider-line"));
         if (_options.manualEditingEnabled) {
           buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);
         }
@@ -2214,7 +2214,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
       }
       if (_options.showExtraToolbarButtons) {
-        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
+        titleBar.appendChild(createElement("div", "left-divider-line"));
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
@@ -2430,14 +2430,14 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_ListAllWeekEventsView_EventsShown = [];
         hideOverlay(_element_ListAllWeekEventsView);
       });
-      titleBar.appendChild(createElement("div", "side-menu-close-button-divider-line"));
+      titleBar.appendChild(createElement("div", "right-divider-line"));
       buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextWeek);
       if (_options.manualEditingEnabled && _options.showExtraToolbarButtons) {
         buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);
       }
       if (!_datePickerModeEnabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
+        titleBar.appendChild(createElement("div", "left-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousWeek);
       if (_options.showExtraToolbarButtons) {
@@ -2833,7 +2833,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       titleBar.appendChild(_element_FullYearView_TitleBar);
       if (!_datePickerModeEnabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-        titleBar.appendChild(createElement("div", "side-menu-button-divider-line"));
+        titleBar.appendChild(createElement("div", "left-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onFullYearPreviousYear);
       if (_options.showExtraToolbarButtons) {
@@ -2842,7 +2842,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(titleBar, "ib-close", _options.closeTooltipText, function() {
         hideOverlay(_element_FullYearView);
       });
-      titleBar.appendChild(createElement("div", "side-menu-close-button-divider-line"));
+      titleBar.appendChild(createElement("div", "right-divider-line"));
       buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onFullYearNextYear);
       if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
         buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);

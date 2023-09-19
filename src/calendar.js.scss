@@ -627,7 +627,7 @@ div.calendar {
                     margin-bottom: 0;
                     cursor: pointer;
 
-                    div.button-divider-line,
+                    div.right-divider-line,
                     div.ib-arrow-down-full,
                     div.ib-arrow-up-full,
                     div.ib-square,
@@ -641,7 +641,7 @@ div.calendar {
                         }
                     }
 
-                    div.button-divider-line {
+                    div.right-divider-line {
                         width: 1px;
                         background-color: var(--light-color);
                         height: 16px;
@@ -724,14 +724,14 @@ div.calendar {
         position: relative;
 
         div[class^='ib-'],
-        div.side-menu-button-divider-line,
-        div.date-picker-close-divider-line {
+        div.left-divider-line,
+        div.right-divider-line {
             margin-left: calc( $spacing / 2 );
             margin-right: calc( $spacing / 2 );
         }
 
-        div.side-menu-button-divider-line,
-        div.date-picker-close-divider-line {
+        div.left-divider-line,
+        div.right-divider-line {
             width: 1px;
             background-color: var(--title-bar-button-color);
             height: 16px;
@@ -917,7 +917,7 @@ div.calendar {
         div.ib-octagon-hollow,
         div.ib-hamburger,
         div.ib-rewind,
-        div.side-menu-button-divider-line {
+        div.left-divider-line {
             float: left;
         }
 
@@ -931,7 +931,7 @@ div.calendar {
         div.ib-arrow-contract-left-right,
         div.ib-forward,
         div.ib-expand,
-        div.date-picker-close-divider-line {
+        div.right-divider-line {
             float: right;
         }
 

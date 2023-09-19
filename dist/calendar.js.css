@@ -631,12 +631,12 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
   margin-bottom: 0;
   cursor: pointer;
 }
-div.calendar div.side-menu div.content div.content-section div.text-header div.button-divider-line,
+div.calendar div.side-menu div.content div.content-section div.text-header div.right-divider-line,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square-hollow,
-div.calendar div.side-menu div.content div.content-section div.text-header-closed div.button-divider-line,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.right-divider-line,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square,
@@ -645,20 +645,20 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
   margin-top: 1px;
   margin-right: 10px;
 }
-div.calendar div.side-menu div.content div.content-section div.text-header div.button-divider-line:first-of-type,
+div.calendar div.side-menu div.content div.content-section div.text-header div.right-divider-line:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-up-full:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-square-hollow:first-of-type,
-div.calendar div.side-menu div.content div.content-section div.text-header-closed div.button-divider-line:first-of-type,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.right-divider-line:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square-hollow:first-of-type {
   margin-right: 0;
 }
-div.calendar div.side-menu div.content div.content-section div.text-header div.button-divider-line,
-div.calendar div.side-menu div.content div.content-section div.text-header-closed div.button-divider-line {
+div.calendar div.side-menu div.content div.content-section div.text-header div.right-divider-line,
+div.calendar div.side-menu div.content div.content-section div.text-header-closed div.right-divider-line {
   width: 1px;
   background-color: var(--light-color);
   height: 16px;
@@ -732,13 +732,13 @@ div.calendar div.header-date {
   position: relative;
 }
 div.calendar div.header-date div[class^=ib-],
-div.calendar div.header-date div.side-menu-button-divider-line,
-div.calendar div.header-date div.date-picker-close-divider-line {
+div.calendar div.header-date div.left-divider-line,
+div.calendar div.header-date div.right-divider-line {
   margin-left: 5px;
   margin-right: 5px;
 }
-div.calendar div.header-date div.side-menu-button-divider-line,
-div.calendar div.header-date div.date-picker-close-divider-line {
+div.calendar div.header-date div.left-divider-line,
+div.calendar div.header-date div.right-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -933,7 +933,7 @@ div.calendar div.header-date div.ib-search,
 div.calendar div.header-date div.ib-octagon-hollow,
 div.calendar div.header-date div.ib-hamburger,
 div.calendar div.header-date div.ib-rewind,
-div.calendar div.header-date div.side-menu-button-divider-line {
+div.calendar div.header-date div.left-divider-line {
   float: left;
 }
 div.calendar div.header-date div.ib-close,
@@ -946,7 +946,7 @@ div.calendar div.header-date div.ib-arrow-expand-left-right,
 div.calendar div.header-date div.ib-arrow-contract-left-right,
 div.calendar div.header-date div.ib-forward,
 div.calendar div.header-date div.ib-expand,
-div.calendar div.header-date div.date-picker-close-divider-line {
+div.calendar div.header-date div.right-divider-line {
   float: right;
 }
 @media screen and (min-width: 451px) {
@@ -1078,16 +1078,16 @@ div.calendar div.full-day-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line,
-div.calendar div.full-day-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.full-day-view div.title-bar div.left-divider-line,
+div.calendar div.full-day-view div.title-bar div.right-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.full-day-view div.title-bar div.side-menu-button-divider-line {
+div.calendar div.full-day-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.full-day-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.full-day-view div.title-bar div.right-divider-line {
   float: right;
 }
 div.calendar div.full-day-view div.title-bar div.title {
@@ -1331,16 +1331,16 @@ div.calendar div.list-all-events-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line,
-div.calendar div.list-all-events-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.list-all-events-view div.title-bar div.left-divider-line,
+div.calendar div.list-all-events-view div.title-bar div.right-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.list-all-events-view div.title-bar div.side-menu-button-divider-line {
+div.calendar div.list-all-events-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.list-all-events-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.list-all-events-view div.title-bar div.right-divider-line {
   float: right;
 }
 div.calendar div.list-all-events-view div.title-bar div.title {
@@ -1507,16 +1507,16 @@ div.calendar div.list-all-week-events-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line,
-div.calendar div.list-all-week-events-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.list-all-week-events-view div.title-bar div.left-divider-line,
+div.calendar div.list-all-week-events-view div.title-bar div.right-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.list-all-week-events-view div.title-bar div.side-menu-button-divider-line {
+div.calendar div.list-all-week-events-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.list-all-week-events-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.list-all-week-events-view div.title-bar div.right-divider-line {
   float: right;
 }
 div.calendar div.list-all-week-events-view div.title-bar div.title {
@@ -1691,16 +1691,16 @@ div.calendar div.full-year-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.full-year-view div.title-bar div.side-menu-button-divider-line,
-div.calendar div.full-year-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.full-year-view div.title-bar div.left-divider-line,
+div.calendar div.full-year-view div.title-bar div.right-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.full-year-view div.title-bar div.side-menu-button-divider-line {
+div.calendar div.full-year-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.full-year-view div.title-bar div.side-menu-close-button-divider-line {
+div.calendar div.full-year-view div.title-bar div.right-divider-line {
   float: right;
 }
 div.calendar div.full-year-view div.title-bar div.title {
