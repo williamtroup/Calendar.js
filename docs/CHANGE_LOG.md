@@ -11,6 +11,9 @@
 #### **Breaking Change Improvements:**
 - Renamed the CSS class "calendar-drop-down-menu" to "calendar-context-menu" (with large JS internal renames).
 
+#### **Shortcut Keys:**
+- Pressing the escape shortcut key will now only close one view at a time, instead of all of them.
+
 #### **Code Improvements:**
 - Massive class variable re-organization at the top of the main class.  Everything is now sectioned and named correctly.
 - Massive function re-organization.  All the main building functions are near the top, whereas the supplier/add-on builders are further down.

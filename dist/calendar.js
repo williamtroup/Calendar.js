@@ -1316,16 +1316,25 @@ function calendarJs(elementOrId, options, searchOptions) {
       _events_Copied_Cut = false;
       done = true;
     }
-    if (!done && (isOverlayVisible(_element_FullDayView) || isOverlayVisible(_element_ListAllEventsView) || isOverlayVisible(_element_ListAllWeekEventsView) || isOverlayVisible(_element_FullYearView))) {
+    if (!done && isOverlayVisible(_element_FullDayView)) {
       hideOverlay(_element_FullDayView);
-      hideOverlay(_element_ListAllEventsView);
-      hideOverlay(_element_ListAllWeekEventsView);
-      hideOverlay(_element_FullYearView);
+      stopFullDayEventSizeTracking();
       _element_FullDayView_EventsShown = [];
       _element_FullDayView_EventsShown_Sizes = [];
-      _element_ListAllEventsView_EventsShown = [];
+      done = true;
+    }
+    if (!done && isOverlayVisible(_element_ListAllWeekEventsView)) {
+      hideOverlay(_element_ListAllWeekEventsView);
       _element_ListAllWeekEventsView_EventsShown = [];
-      stopFullDayEventSizeTracking();
+      done = true;
+    }
+    if (!done && isOverlayVisible(_element_ListAllEventsView)) {
+      hideOverlay(_element_ListAllEventsView);
+      _element_ListAllEventsView_EventsShown = [];
+      done = true;
+    }
+    if (!done && isOverlayVisible(_element_FullYearView)) {
+      hideOverlay(_element_FullYearView);
       done = true;
     }
     return done;
@@ -5876,9 +5885,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function hideOverlay(element) {
+    var result = false;
     if (isOverlayVisible(element)) {
       element.className = element.className.replace(" overlay-shown", _string.empty);
+      result = true;
     }
+    return result;
   }
   function isOverlayVisible(element) {
     return element !== null && element.className.indexOf("overlay-shown") > -1;
