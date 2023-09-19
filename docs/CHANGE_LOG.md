@@ -4,6 +4,7 @@
 
 #### **New Features:**
 - Added a Year view! This view will show all the months for a specific year, and will you to quickly add events, and view the full month, or specific days.
+- Added alert notification offset support for events (states how many minutes before an event is due to start to show an alert).
 
 #### **UI Improvements:**
 - The Year Drop-Down button on the main displays title bar now uses a button style (make it clearer it can be clicked).

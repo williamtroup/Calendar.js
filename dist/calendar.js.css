@@ -1875,6 +1875,9 @@ div.event-editor div.tab-content {
   height: 258px;
   margin-bottom: 20px;
 }
+div.event-editor div.tab-content div.split:last-of-type input {
+  margin-bottom: 0 !important;
+}
 div.event-editor div.view {
   position: relative;
 }

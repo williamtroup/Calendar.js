@@ -1430,6 +1430,10 @@ div.event-editor {
     div.tab-content {
         height: 258px;
         margin-bottom: $spacing * 2;
+
+        div.split:last-of-type input {
+            margin-bottom: 0 !important;
+        }
     }
 
     div.view {

@@ -3569,19 +3569,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Yearly = buildRadioButton(radioButtonsCustomRepeatsContainer, _options.yearlyText, "RepeatCustomType");
   }
   function buildEventEditorExtraTabContent() {
-    var inputFields1TextSplitContainer = createElement("div", "split");
-    _element_Dialog_EventEditor_Tab_Extra.appendChild(inputFields1TextSplitContainer);
-    createTextHeaderElement(inputFields1TextSplitContainer, _options.locationText);
-    createTextHeaderElement(inputFields1TextSplitContainer, _options.groupText);
-    var inputFields1SplitContainer = createElement("div", "split");
-    _element_Dialog_EventEditor_Tab_Extra.appendChild(inputFields1SplitContainer);
-    _element_Dialog_EventEditor_Location = createElement("input", null, "text");
-    inputFields1SplitContainer.appendChild(_element_Dialog_EventEditor_Location);
-    if (_options.maximumEventLocationLength > 0) {
-      _element_Dialog_EventEditor_Location.maxLength = _options.maximumEventLocationLength;
-    }
+    var splitContainer1 = createElement("div", "split");
+    _element_Dialog_EventEditor_Tab_Extra.appendChild(splitContainer1);
+    createTextHeaderElement(splitContainer1, _options.alertOffsetText);
+    createTextHeaderElement(splitContainer1, _options.groupText);
+    var splitContainer2 = createElement("div", "split");
+    _element_Dialog_EventEditor_Tab_Extra.appendChild(splitContainer2);
+    _element_Dialog_EventEditor_AlertOffset = createElement("input", null, "number");
+    splitContainer2.appendChild(_element_Dialog_EventEditor_AlertOffset);
     _element_Dialog_EventEditor_Group = createElement("input", null, "text");
-    inputFields1SplitContainer.appendChild(_element_Dialog_EventEditor_Group);
+    splitContainer2.appendChild(_element_Dialog_EventEditor_Group);
     if (_options.maximumEventGroupLength > 0) {
       _element_Dialog_EventEditor_Group.maxLength = _options.maximumEventGroupLength;
     }
@@ -3591,9 +3588,19 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_options.maximumEventDescriptionLength > 0) {
       _element_Dialog_EventEditor_Description.maxLength = _options.maximumEventDescriptionLength;
     }
-    createTextHeaderElement(_element_Dialog_EventEditor_Tab_Extra, _options.urlText);
+    var splitContainer3 = createElement("div", "split");
+    _element_Dialog_EventEditor_Tab_Extra.appendChild(splitContainer3);
+    createTextHeaderElement(splitContainer3, _options.urlText);
+    createTextHeaderElement(splitContainer3, _options.locationText);
+    var splitContainer4 = createElement("div", "split");
+    _element_Dialog_EventEditor_Tab_Extra.appendChild(splitContainer4);
     _element_Dialog_EventEditor_Url = createElement("input", null, "url");
-    _element_Dialog_EventEditor_Tab_Extra.appendChild(_element_Dialog_EventEditor_Url);
+    splitContainer4.appendChild(_element_Dialog_EventEditor_Url);
+    _element_Dialog_EventEditor_Location = createElement("input", null, "text");
+    splitContainer4.appendChild(_element_Dialog_EventEditor_Location);
+    if (_options.maximumEventLocationLength > 0) {
+      _element_Dialog_EventEditor_Location.maxLength = _options.maximumEventLocationLength;
+    }
   }
   function addNewEvent() {
     showEventEditingDialog(null, _element_FullDayView_DateSelected);
@@ -3682,6 +3689,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_Dialog_EventEditor_Colors_ColorText.value = getString(eventDetails.colorText, _options.defaultEventTextColor);
         _element_Dialog_EventEditor_Colors_ColorBorder.value = getString(eventDetails.colorBorder, _options.defaultEventBorderColor);
         _element_Dialog_EventEditor_RepeatEvery_Custom_Value.value = getNumber(eventDetails.repeatEveryCustomValue, 1);
+        _element_Dialog_EventEditor_AlertOffset.value = getNumber(eventDetails.alertOffset, 0);
         setSelectedDate(eventDetails.from, _element_Dialog_EventEditor_DateFrom);
         setSelectedDate(eventDetails.to, _element_Dialog_EventEditor_DateTo);
         var repeatEvery = getNumber(eventDetails.repeatEvery);
@@ -3755,6 +3763,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_Dialog_EventEditor_RepeatOptions_RepeatEnds.value = null;
         _element_Dialog_EventEditor_RepeatEvery_Custom_Value.value = "1";
         _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily.checked = true;
+        _element_Dialog_EventEditor_AlertOffset.value = 0;
         if (isDefinedArray(overrideTimeValues)) {
           fromDate.setHours(overrideTimeValues[0]);
           fromDate.setMinutes(overrideTimeValues[1]);
@@ -3804,6 +3813,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Dialog_EventEditor_RepeatEvery_EveryYear.disabled = locked;
     _element_Dialog_EventEditor_RepeatEvery_Custom.disabled = locked;
     _element_Dialog_EventEditor_RepeatEvery_RepeatOptionsButton.disabled = locked;
+    _element_Dialog_EventEditor_AlertOffset.disabled = locked;
   }
   function setEventEditingDialogInDuplicateMode() {
     setNodeText(_element_Dialog_EventEditor_TitleBar, _options.addEventTitle);
@@ -3834,6 +3844,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var repeatEnds = getSelectedDate(_element_Dialog_EventEditor_RepeatOptions_RepeatEnds, null);
       var repeatEveryCustomValue = parseInt(_element_Dialog_EventEditor_RepeatEvery_Custom_Value.value);
       var type = getEventTypeInputChecked();
+      var alertOffset = parseInt(_element_Dialog_EventEditor_AlertOffset.value);
       setTimeOnDate(fromDate, _element_Dialog_EventEditor_TimeFrom.value);
       setTimeOnDate(toDate, _element_Dialog_EventEditor_TimeTo.value);
       if (isNaN(repeatEveryCustomValue)) {
@@ -3841,13 +3852,16 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_Dialog_EventEditor_RepeatEvery_Never.checked = true;
         _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily.checked = true;
       }
+      if (isNaN(alertOffset)) {
+        alertOffset = 0;
+      }
       if (toDate < fromDate) {
         showEventEditorErrorMessage(_options.toSmallerThanFromErrorMessage);
       } else {
         eventDialogEvent_Cancel();
         var isExistingEvent = isDefined(_element_Dialog_EventEditor_EventDetails.id);
         var newEvent = {from:fromDate, to:toDate, title:title, description:description, location:location, group:group, isAllDay:_element_Dialog_EventEditor_IsAllDay.checked, showAlerts:_element_Dialog_EventEditor_ShowAlerts.checked, showAsBusy:_element_Dialog_EventEditor_ShowAsBusy.checked, color:_element_Dialog_EventEditor_EventDetails.color, colorText:_element_Dialog_EventEditor_EventDetails.colorText, colorBorder:_element_Dialog_EventEditor_EventDetails.colorBorder, repeatEveryExcludeDays:_element_Dialog_EventEditor_EventDetails.repeatEveryExcludeDays, 
-        repeatEnds:repeatEnds, url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type, customTags:_element_Dialog_EventEditor_EventDetails.customTags};
+        repeatEnds:repeatEnds, url:url, repeatEveryCustomValue:repeatEveryCustomValue, type:type, customTags:_element_Dialog_EventEditor_EventDetails.customTags, alertOffset:alertOffset};
         if (_element_Dialog_EventEditor_RepeatEvery_Never.checked) {
           newEvent.repeatEvery = _repeatType.never;
         } else if (_element_Dialog_EventEditor_RepeatEvery_EveryDay.checked) {
@@ -3924,7 +3938,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     setTimeOnDate(toDate, toTime);
     toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
     var newEvent = {from:fromDate, to:toDate, title:_options.newEventDefaultTitle, description:_string.empty, location:_string.empty, group:_string.empty, isAllDay:false, showAlerts:true, showAsBusy:true, color:_options.defaultEventBackgroundColor, colorText:_options.defaultEventTextColor, colorBorder:_options.defaultEventBorderColor, repeatEveryExcludeDays:[], repeatEnds:null, url:_string.empty, repeatEveryCustomValue:_string.empty, repeatEvery:_repeatType.never, repeatEveryCustomType:_repeatCustomType.daily, 
-    organizerName:_string.empty, organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null};
+    organizerName:_string.empty, organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null, alertOffset:0};
     _this.addEvent(newEvent, false);
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
     buildDayEvents();
@@ -5666,6 +5680,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (repeatEvery === _repeatType.never && !isDateToday(eventDetails.to)) {
         newTo.setHours(23, 59, 59, 99);
       }
+      if (isDefinedNumber(eventDetails.alertOffset) && eventDetails.alertOffset > 0) {
+        newFrom = addMinutesToDate(newFrom, -eventDetails.alertOffset);
+      }
       if (today >= newFrom && today <= newTo) {
         if (!isDefinedBoolean(eventDetails.showAsBusy) || eventDetails.showAsBusy) {
           _isCalendarBusy = true;
@@ -6815,7 +6832,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function getExportHeaders() {
     var headers = [_options.idText, _options.typeText, _options.fromText, _options.toText, _options.isAllDayText, _options.titleText, _options.descriptionText, _options.locationText, _options.backgroundColorText, _options.textColorText, _options.borderColorText, _options.repeatsText, _options.repeatEndsText, _options.repeatDaysToExcludeText, _options.seriesIgnoreDatesText, _options.createdText, _options.lastUpdatedText, _options.organizerNameText, _options.organizerEmailAddressText, _options.urlText, 
-    _options.lockedText, _options.showAlertsText, _options.showAsBusyText];
+    _options.lockedText, _options.showAlertsText, _options.showAsBusyText, _options.alertOffsetText];
     var headersLength = headers.length;
     return [headers, headersLength];
   }
@@ -6844,6 +6861,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     eventContents.push(getYesNoFromBoolean(eventDetails.locked));
     eventContents.push(getYesNoFromBoolean(!isDefinedBoolean(eventDetails.showAlerts) || eventDetails.showAlerts));
     eventContents.push(getYesNoFromBoolean(!isDefinedBoolean(eventDetails.showAsBusy) || eventDetails.showAsBusy));
+    eventContents.push(getNumber(eventDetails.alertOffset));
     return eventContents;
   }
   function getOrderedEventPropertyNameList(eventDetails) {
@@ -7577,6 +7595,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.eventsImportedText = getDefaultString(_options.eventsImportedText, "{0} events imported.");
     _options.fullYearTooltipText = getDefaultString(_options.fullYearTooltipText, "View Full Year");
     _options.currentYearTooltipText = getDefaultString(_options.currentYearTooltipText, "Current Year");
+    _options.alertOffsetText = getDefaultString(_options.alertOffsetText, "Alert Offset (minutes):");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -7776,6 +7795,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_Dialog_EventEditor_EventDetails = {};
   var _element_Dialog_EventEditor_AddUpdateButton = null;
   var _element_Dialog_EventEditor_RemoveButton = null;
+  var _element_Dialog_EventEditor_AlertOffset = null;
   var _element_Dialog_EventEditor_Colors = null;
   var _element_Dialog_EventEditor_Colors_Color = null;
   var _element_Dialog_EventEditor_Colors_ColorText = null;

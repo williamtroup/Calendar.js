@@ -32,7 +32,7 @@ Calendar.js
 - Customizable holidays.
 - Shortcut keys (click [here](docs/SHORTCUT_KEYS.md) to see the full list).
 - Custom event groups (with configurable toggles via the side menu).
-- Browser notifications for events (modern browsers only).
+- Browser notifications for events, with offset support (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
 - DatePicker mode (just assign to the ID of a text input).
 - HTML text support (off by default).

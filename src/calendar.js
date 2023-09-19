@@ -45,6 +45,7 @@
  * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
  * @property    {Object}    customTags                                  Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar).
  * @property    {boolean}   showAsBusy                                  States if the calendar should show the events time period as busy (defaults to true).
+ * @property    {number}    alertOffset                                 States the number of minutes before the "from" date/time to show a browser notification (defaults to zero).
  */
 
 
@@ -294,6 +295,7 @@
  * @property    {string}    eventsImportedText                          The text that should be displayed for the "{0} events imported." notification.
  * @property    {string}    fullYearTooltipText                         The tooltip text that should be used for the "View Full Year" button.
  * @property    {string}    currentYearTooltipText                      The tooltip text that should be used for the "Current Year" button.
+ * @property    {string}    alertOffsetText                             The text that should be displayed for the "Alert Offset:" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -702,6 +704,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_EventEditor_EventDetails = {},
         _element_Dialog_EventEditor_AddUpdateButton = null,
         _element_Dialog_EventEditor_RemoveButton = null,
+        _element_Dialog_EventEditor_AlertOffset = null,
 
         // Variables: Dialog - Event Editor - Repeat Options
         _element_Dialog_EventEditor_Colors = null,
@@ -5596,24 +5599,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildEventEditorExtraTabContent() {
-        var inputFields1TextSplitContainer = createElement( "div", "split" );
-        _element_Dialog_EventEditor_Tab_Extra.appendChild( inputFields1TextSplitContainer );
+        var splitContainer1 = createElement( "div", "split" );
+        _element_Dialog_EventEditor_Tab_Extra.appendChild( splitContainer1 );
 
-        createTextHeaderElement( inputFields1TextSplitContainer, _options.locationText );
-        createTextHeaderElement( inputFields1TextSplitContainer, _options.groupText );
+        createTextHeaderElement( splitContainer1, _options.alertOffsetText );
+        createTextHeaderElement( splitContainer1, _options.groupText );
 
-        var inputFields1SplitContainer = createElement( "div", "split" );
-        _element_Dialog_EventEditor_Tab_Extra.appendChild( inputFields1SplitContainer );
+        var splitContainer2 = createElement( "div", "split" );
+        _element_Dialog_EventEditor_Tab_Extra.appendChild( splitContainer2 );
 
-        _element_Dialog_EventEditor_Location = createElement( "input", null, "text" );
-        inputFields1SplitContainer.appendChild( _element_Dialog_EventEditor_Location );
-
-        if ( _options.maximumEventLocationLength > 0 ) {
-            _element_Dialog_EventEditor_Location.maxLength = _options.maximumEventLocationLength ;
-        }
+        _element_Dialog_EventEditor_AlertOffset = createElement( "input", null, "number" );
+        splitContainer2.appendChild( _element_Dialog_EventEditor_AlertOffset );
 
         _element_Dialog_EventEditor_Group = createElement( "input", null, "text" );
-        inputFields1SplitContainer.appendChild( _element_Dialog_EventEditor_Group );
+        splitContainer2.appendChild( _element_Dialog_EventEditor_Group );
 
         if ( _options.maximumEventGroupLength > 0 ) {
             _element_Dialog_EventEditor_Group.maxLength = _options.maximumEventGroupLength ;
@@ -5628,10 +5627,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Dialog_EventEditor_Description.maxLength = _options.maximumEventDescriptionLength ;
         }
 
-        createTextHeaderElement( _element_Dialog_EventEditor_Tab_Extra, _options.urlText );
+        var splitContainer3 = createElement( "div", "split" );
+        _element_Dialog_EventEditor_Tab_Extra.appendChild( splitContainer3 );
+
+        createTextHeaderElement( splitContainer3, _options.urlText );
+        createTextHeaderElement( splitContainer3, _options.locationText );
+
+        var splitContainer4 = createElement( "div", "split" );
+        _element_Dialog_EventEditor_Tab_Extra.appendChild( splitContainer4 );
 
         _element_Dialog_EventEditor_Url = createElement( "input", null, "url" );
-        _element_Dialog_EventEditor_Tab_Extra.appendChild( _element_Dialog_EventEditor_Url );
+        splitContainer4.appendChild( _element_Dialog_EventEditor_Url );
+
+        _element_Dialog_EventEditor_Location = createElement( "input", null, "text" );
+        splitContainer4.appendChild( _element_Dialog_EventEditor_Location );
+
+        if ( _options.maximumEventLocationLength > 0 ) {
+            _element_Dialog_EventEditor_Location.maxLength = _options.maximumEventLocationLength ;
+        }
     }
 
     function addNewEvent() {
@@ -5737,6 +5750,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_Dialog_EventEditor_Colors_ColorText.value = getString( eventDetails.colorText, _options.defaultEventTextColor );
                 _element_Dialog_EventEditor_Colors_ColorBorder.value = getString( eventDetails.colorBorder, _options.defaultEventBorderColor );
                 _element_Dialog_EventEditor_RepeatEvery_Custom_Value.value = getNumber( eventDetails.repeatEveryCustomValue, 1 );
+                _element_Dialog_EventEditor_AlertOffset.value = getNumber( eventDetails.alertOffset, 0 );
     
                 setSelectedDate( eventDetails.from, _element_Dialog_EventEditor_DateFrom );
                 setSelectedDate( eventDetails.to, _element_Dialog_EventEditor_DateTo );
@@ -5820,6 +5834,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_Dialog_EventEditor_RepeatOptions_RepeatEnds.value = null;
                 _element_Dialog_EventEditor_RepeatEvery_Custom_Value.value = "1";
                 _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily.checked = true;
+                _element_Dialog_EventEditor_AlertOffset.value = 0;
     
                 if ( isDefinedArray( overrideTimeValues ) ) {
                     fromDate.setHours( overrideTimeValues[ 0 ] );
@@ -5880,6 +5895,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_EventEditor_RepeatEvery_EveryYear.disabled = locked;
         _element_Dialog_EventEditor_RepeatEvery_Custom.disabled = locked;
         _element_Dialog_EventEditor_RepeatEvery_RepeatOptionsButton.disabled = locked;
+        _element_Dialog_EventEditor_AlertOffset.disabled = locked;
     }
 
     function setEventEditingDialogInDuplicateMode() {
@@ -5916,7 +5932,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 group = trimString( _element_Dialog_EventEditor_Group.value ),
                 repeatEnds = getSelectedDate( _element_Dialog_EventEditor_RepeatOptions_RepeatEnds, null ),
                 repeatEveryCustomValue = parseInt( _element_Dialog_EventEditor_RepeatEvery_Custom_Value.value ),
-                type = getEventTypeInputChecked();
+                type = getEventTypeInputChecked(),
+                alertOffset = parseInt( _element_Dialog_EventEditor_AlertOffset.value );
 
             setTimeOnDate( fromDate, _element_Dialog_EventEditor_TimeFrom.value );
             setTimeOnDate( toDate, _element_Dialog_EventEditor_TimeTo.value );
@@ -5925,6 +5942,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 repeatEveryCustomValue = 0;
                 _element_Dialog_EventEditor_RepeatEvery_Never.checked = true;
                 _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily.checked = true;
+            }
+
+            if ( isNaN( alertOffset ) ) {
+                alertOffset = 0;
             }
 
             if ( toDate < fromDate ) {
@@ -5952,7 +5973,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         url: url,
                         repeatEveryCustomValue: repeatEveryCustomValue,
                         type: type,
-                        customTags: _element_Dialog_EventEditor_EventDetails.customTags
+                        customTags: _element_Dialog_EventEditor_EventDetails.customTags,
+                        alertOffset: alertOffset
                     };
 
                 if ( _element_Dialog_EventEditor_RepeatEvery_Never.checked ) {
@@ -6071,7 +6093,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             organizerEmailAddress: _string.empty,
             type: 0,
             locked: false,
-            customTags: null
+            customTags: null,
+            alertOffset: 0
         };
 
         _this.addEvent( newEvent, false );
@@ -8443,6 +8466,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( repeatEvery === _repeatType.never && !isDateToday( eventDetails.to ) ) {
                 newTo.setHours( 23, 59, 59, 99 );
             }
+
+            if ( isDefinedNumber( eventDetails.alertOffset ) && eventDetails.alertOffset > 0 ) {
+                newFrom = addMinutesToDate( newFrom, -eventDetails.alertOffset );
+            }
             
             if ( today >= newFrom && today <= newTo ) {
                 if ( !isDefinedBoolean( eventDetails.showAsBusy ) || eventDetails.showAsBusy ) {
@@ -10034,7 +10061,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _options.urlText,
                 _options.lockedText,
                 _options.showAlertsText,
-                _options.showAsBusyText
+                _options.showAsBusyText,
+                _options.alertOffsetText
             ],
             headersLength = headers.length;
 
@@ -10067,6 +10095,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         eventContents.push( getYesNoFromBoolean( eventDetails.locked ) );
         eventContents.push( getYesNoFromBoolean( !isDefinedBoolean( eventDetails.showAlerts ) || eventDetails.showAlerts ) );
         eventContents.push( getYesNoFromBoolean( !isDefinedBoolean( eventDetails.showAsBusy ) || eventDetails.showAsBusy ) );
+        eventContents.push( getNumber( eventDetails.alertOffset ) );
 
         return eventContents;
     }
@@ -12479,6 +12508,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.eventsImportedText = getDefaultString( _options.eventsImportedText, "{0} events imported." );
         _options.fullYearTooltipText = getDefaultString( _options.fullYearTooltipText, "View Full Year" );
         _options.currentYearTooltipText = getDefaultString( _options.currentYearTooltipText, "Current Year" );
+        _options.alertOffsetText = getDefaultString( _options.alertOffsetText, "Alert Offset (minutes):" );
     }
 
     function setEventTypeTranslationStringOptions() {
