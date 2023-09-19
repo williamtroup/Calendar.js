@@ -1774,10 +1774,19 @@ div.calendar div.full-year-view div.contents div.year-month {
   border-radius: 0.25rem;
   border: 1px solid var(--dark-color);
   background-color: var(--day-names-color);
-  width: calc(50% - 12.5px);
   display: inline-block;
   margin: 5px;
   overflow: hidden;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-year-view div.contents div.year-month {
+    width: calc(50% - 12.5px);
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-year-view div.contents div.year-month {
+    width: calc(100% - 12.5px);
+  }
 }
 div.calendar div.full-year-view div.contents div.year-month div.cell {
   padding: 5px !important;
