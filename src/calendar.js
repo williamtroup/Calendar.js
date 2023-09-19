@@ -3979,6 +3979,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
+            header.appendChild( createElement( "div", "right-divider-line" ) );
+
             if ( _options.manualEditingEnabled ) {
                 var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
 
@@ -4171,7 +4173,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                 if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
-                    var containers = buildListAllEventsDay( nextDate ),
+                    var containers = buildListAllWeekEventsDay( nextDate ),
                         dayContents = containers[ 0 ],
                         dayHeader = containers[ 1 ];
     
@@ -4267,7 +4269,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
-                    var containers = buildListAllEventsDay( newFromDate ),
+                    var containers = buildListAllWeekEventsDay( newFromDate ),
                         dayContents = containers[ 0 ],
                         dayHeader = containers[ 1 ];
 
@@ -4420,13 +4422,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             dayIndex = 1;
 
         do {
-            buildListAllEventsDay( startOfWeek, dayIndex );
+            buildListAllWeekEventsDay( startOfWeek, dayIndex );
             moveDateForwardDay( startOfWeek );
 
         } while ( startOfWeek < weekEndDate );
     }
 
-    function buildListAllEventsDay( date ) {
+    function buildListAllWeekEventsDay( date ) {
         var weekDayNumber = getWeekdayNumber( date ),
             dateID = date.getDate() + date.getMonth() + date.getFullYear(),
             dayContents = null,
@@ -4480,6 +4482,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             buildToolbarButton( dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction );
+
+            dayHeader.appendChild( createElement( "div", "right-divider-line" ) );
 
             if ( _options.manualEditingEnabled ) {
                 buildToolbarButton( dayHeader, "ib-plus", _options.addEventTooltipText, addEventFunction );
@@ -4677,6 +4681,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } );
 
         if ( _options.manualEditingEnabled ) {
+            titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+
             buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
                 showEventEditingDialog( null, expandMonthDate );
             } );

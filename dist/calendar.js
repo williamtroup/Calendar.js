@@ -2349,6 +2349,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       header.ondblclick = expandFunction;
       month.appendChild(header);
       buildToolbarButton(header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction);
+      header.appendChild(createElement("div", "right-divider-line"));
       if (_options.manualEditingEnabled) {
         var addNewEventDate = new Date(date.getFullYear(), date.getMonth(), 1);
         buildToolbarButton(header, "ib-plus", _options.addEventTooltipText, function() {
@@ -2493,7 +2494,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var dayIndex = 0;
       for (; dayIndex < totalDays; dayIndex++) {
         if (nextDate >= weekStartDate && nextDate <= weekEndDate) {
-          var containers = buildListAllEventsDay(nextDate);
+          var containers = buildListAllWeekEventsDay(nextDate);
           var dayContents = containers[0];
           var dayHeader = containers[1];
           if (dayContents !== null && dayHeader !== null) {
@@ -2571,7 +2572,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
       if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
         if (newFromDate >= weekStartDate && newFromDate <= weekEndDate) {
-          var containers = buildListAllEventsDay(newFromDate);
+          var containers = buildListAllWeekEventsDay(newFromDate);
           var dayContents = containers[0];
           var dayHeader = containers[1];
           if (dayContents !== null && dayHeader !== null) {
@@ -2691,11 +2692,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     var startOfWeek = new Date(weekStartDate);
     var dayIndex = 1;
     do {
-      buildListAllEventsDay(startOfWeek, dayIndex);
+      buildListAllWeekEventsDay(startOfWeek, dayIndex);
       moveDateForwardDay(startOfWeek);
     } while (startOfWeek < weekEndDate);
   }
-  function buildListAllEventsDay(date) {
+  function buildListAllWeekEventsDay(date) {
     var weekDayNumber = getWeekdayNumber(date);
     var dateID = date.getDate() + date.getMonth() + date.getFullYear();
     var dayContents = null;
@@ -2738,6 +2739,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         createSpanElement(dayHeader, " (" + holidayText + ")", "light-title-bar-text");
       }
       buildToolbarButton(dayHeader, "ib-arrow-expand-left-right", _options.expandDayTooltipText, expandFunction);
+      dayHeader.appendChild(createElement("div", "right-divider-line"));
       if (_options.manualEditingEnabled) {
         buildToolbarButton(dayHeader, "ib-plus", _options.addEventTooltipText, addEventFunction);
       }
@@ -2881,6 +2883,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       build(expandMonthDate);
     });
     if (_options.manualEditingEnabled) {
+      titleBar.appendChild(createElement("div", "right-divider-line"));
       buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, function() {
         showEventEditingDialog(null, expandMonthDate);
       });

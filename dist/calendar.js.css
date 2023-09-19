@@ -660,7 +660,7 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
 div.calendar div.side-menu div.content div.content-section div.text-header div.right-divider-line,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.right-divider-line {
   width: 1px;
-  background-color: var(--light-color);
+  background-color: var(--title-bar-button-color);
   height: 16px;
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
@@ -1421,11 +1421,17 @@ div.calendar div.list-all-events-view div.contents div.month div.header {
   padding: 10px;
   font-weight: 900;
 }
+div.calendar div.list-all-events-view div.contents div.month div.header div.right-divider-line {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-arrow-expand-left-right,
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-plus,
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-close,
 div.calendar div.list-all-events-view div.contents div.month div.header div.ib-minus,
-div.calendar div.list-all-events-view div.contents div.month div.header div.ib-square-hollow {
+div.calendar div.list-all-events-view div.contents div.month div.header div.ib-square-hollow,
+div.calendar div.list-all-events-view div.contents div.month div.header div.right-divider-line {
   float: right;
   margin-left: 10px;
 }
@@ -1602,11 +1608,17 @@ div.calendar div.list-all-week-events-view div.contents div.day div.header {
   padding: 10px;
   font-weight: 900;
 }
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.right-divider-line {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-plus,
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-close,
 div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-minus,
-div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-square-hollow {
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.ib-square-hollow,
+div.calendar div.list-all-week-events-view div.contents div.day div.header div.right-divider-line {
   float: right;
   margin-left: 10px;
 }
@@ -1813,6 +1825,17 @@ div.calendar div.full-year-view div.contents div.year-month div.title-bar {
   color: var(--light-color);
   font-weight: 900;
   text-align: center;
+}
+div.calendar div.full-year-view div.contents div.year-month div.title-bar div.right-divider-line {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
+div.calendar div.full-year-view div.contents div.year-month div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.full-year-view div.contents div.year-month div.title-bar div.ib-plus,
+div.calendar div.full-year-view div.contents div.year-month div.title-bar div.right-divider-line {
+  float: right;
+  margin-left: 10px;
 }
 
 /*

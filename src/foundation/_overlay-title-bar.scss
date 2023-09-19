@@ -13,9 +13,7 @@ div.title-bar {
 
     div.left-divider-line,
     div.right-divider-line {
-        width: 1px;
-        background-color: var(--title-bar-button-color);
-        height: 16px;
+        @include title-bar-divider-line;
     }
 
     div.left-divider-line {

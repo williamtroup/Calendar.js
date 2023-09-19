@@ -251,3 +251,9 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     border-radius: $border-view-radius;
     border: $standard-border-size solid #D0D0D0;
 }
+
+@mixin title-bar-divider-line {
+    width: 1px;
+    background-color: var(--title-bar-button-color);
+    height: 16px;
+}

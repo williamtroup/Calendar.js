@@ -642,9 +642,7 @@ div.calendar {
                     }
 
                     div.right-divider-line {
-                        width: 1px;
-                        background-color: var(--light-color);
-                        height: 16px;
+                        @include title-bar-divider-line;
                     }
 
                     div.ib-arrow-down-full,
@@ -732,9 +730,7 @@ div.calendar {
 
         div.left-divider-line,
         div.right-divider-line {
-            width: 1px;
-            background-color: var(--title-bar-button-color);
-            height: 16px;
+            @include title-bar-divider-line;
         }
 
         div.title-container {
@@ -1234,11 +1230,16 @@ div.calendar {
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
+                    }
+
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
                     div.ib-close,
                     div.ib-minus,
-                    div.ib-square-hollow {
+                    div.ib-square-hollow,
+                    div.right-divider-line {
                         float: right;
                         margin-left: $spacing;
                     }
@@ -1292,11 +1293,16 @@ div.calendar {
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
+                    }
+
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
                     div.ib-close,
                     div.ib-minus,
-                    div.ib-square-hollow {
+                    div.ib-square-hollow,
+                    div.right-divider-line {
                         float: right;
                         margin-left: $spacing;
                     }
@@ -1383,6 +1389,17 @@ div.calendar {
                     color: var(--light-color);
                     font-weight: 900;
                     text-align: center;
+
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
+                    }
+
+                    div.ib-arrow-expand-left-right,
+                    div.ib-plus,
+                    div.right-divider-line {
+                        float: right;
+                        margin-left: $spacing;
+                    }
                 }
             }
         }
