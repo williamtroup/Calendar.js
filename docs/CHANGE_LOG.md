@@ -7,6 +7,7 @@
 
 #### **UI Improvements:**
 - The Year Drop-Down button on the main displays title bar now uses a button style (make it clearer it can be clicked).
+- The "Turn On Full-Screen Mode" buttons in the title bars are now on the right hand side (after the close buttons in the views).
 
 #### **Breaking Change Improvements:**
 - Renamed the CSS class "calendar-drop-down-menu" to "calendar-context-menu" (with large JS internal renames).
