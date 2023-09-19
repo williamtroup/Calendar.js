@@ -531,6 +531,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         // Variables: Events
         _events = {},
+        _events_DatesAvailable = [],
         _events_Selected = [],
         _events_Copied = [],
         _events_Copied_Cut = false,
@@ -2657,6 +2658,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _isCalendarBusy = false;
         _element_Calendar_AllVisibleEvents = [];
+        _events_DatesAvailable = [];
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length;
@@ -2709,18 +2711,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildRepeatedDayEvents( orderedEvent, dateFunc, dateFuncForwardValue ) {
         var newFromDate = new Date( orderedEvent.from ),
-            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays );
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
+            largestDate = new Date( _options.maximumYear, 11, 31 );
 
-        while ( newFromDate < _element_Calendar_LargestDateAvailable ) {
+        while ( newFromDate < largestDate ) {
             dateFunc( newFromDate, dateFuncForwardValue );
 
             var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
 
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
-                var repeatDayElement = getDayElement( newFromDate );
+                var formattedNewFromDate = toStorageFormattedDate( newFromDate );
 
-                if ( repeatDayElement !== null ) {
-                    buildDayEvent( newFromDate, orderedEvent );
+                if ( _events_DatesAvailable.indexOf( formattedNewFromDate ) === -1 ) {
+                    _events_DatesAvailable.push( formattedNewFromDate );
+                }
+
+                if ( newFromDate < _element_Calendar_LargestDateAvailable ) {
+                    var repeatDayElement = getDayElement( newFromDate );
+
+                    if ( repeatDayElement !== null ) {
+                        buildDayEvent( newFromDate, orderedEvent );
+                    }
                 }
             }
         }
@@ -2737,7 +2748,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                     moveDateForwardDay( nextDayDate );
     
-                    var elementNextDay = getDayElement( nextDayDate );
+                    var elementNextDay = getDayElement( nextDayDate ),
+                        formattedNextDayDate = toStorageFormattedDate( nextDayDate );
+
+                    if ( _events_DatesAvailable.indexOf( formattedNextDayDate ) === -1 ) {
+                        _events_DatesAvailable.push( formattedNextDayDate );
+                    }
+
                     if ( elementNextDay !== null ) {
                         buildDayEvent( nextDayDate, orderedEvent );
                     }
@@ -2751,85 +2768,91 @@ function calendarJs( elementOrId, options, searchOptions ) {
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             formattedDayDate = toStorageFormattedDate( dayDate );
 
-        if ( elementDay !== null && isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
-            checkEventForBrowserNotifications( dayDate, eventDetails );
+        if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
+            if ( _events_DatesAvailable.indexOf( formattedDayDate ) === -1 ) {
+                _events_DatesAvailable.push( formattedDayDate );
+            }
 
-            if ( !_datePickerModeEnabled ) {
-                var events = elementDay.getElementsByClassName( "event" );
-
-                if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay ) {
-                    var event = createElement( "div", "event" ),
-                        eventTitle = eventDetails.title;
-
-                    event.setAttribute( "event-type", getNumber( eventDetails.type ) );
-                    event.setAttribute( "event-id", eventDetails.id );
+            if ( elementDay !== null ) {
+                checkEventForBrowserNotifications( dayDate, eventDetails );
+            
+                if ( !_datePickerModeEnabled ) {
+                    var events = elementDay.getElementsByClassName( "event" );
     
-                    if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                        eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
-                    }
+                    if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay ) {
+                        var event = createElement( "div", "event" ),
+                            eventTitle = eventDetails.title;
     
-                    if ( !_options.useOnlyDotEventsForMainDisplay ) {
-                        var repeatEvery = getNumber( eventDetails.repeatEvery );
-                        if ( repeatEvery > _repeatType.never ) {
-                            var icon = createElement( "div", "ib-refresh-small ib-no-hover ib-no-active" );
-                            icon.style.borderColor = event.style.color;
-                            event.appendChild( icon );
-                        }
-    
-                        event.innerHTML += stripHTMLTagsFromText( eventTitle );
-    
-                    } else {
-                        event.className += " event-circle";
-                    }
-                    
-                    elementDay.appendChild( event );
-    
-                    makeEventDraggable( event, eventDetails, dayDate, elementDay );
-                    setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
-                    setEventClassesForActions( event, eventDetails );
-
-                    if ( doDatesMatch( eventDetails.from, dayDate ) ) {
-                        event.id = _elementID_Day + eventDetails.id;
-                    }
-    
-                    event.onmousemove = function( e ) {
-                        if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
-                            cancelBubble( e );
-                        } else {
-                            showTooltip( e, eventDetails );
-                        }
-                    };
-    
-                    event.oncontextmenu = function( e ) {
-                        showEventContextMenu( e, eventDetails, formattedDayDate );
-                    };
-
-                    event.addEventListener( "click", function( e ) {
-                        storeMultiSelectEvent( e, eventDetails );
-                    } );
-
-                    if ( isOptionEventSet( "onEventClick" ) ) {
-                        event.addEventListener( "click", function() {
-                            triggerOptionsEventWithData( "onEventClick", eventDetails );
-                        } );
-                    }
+                        event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+                        event.setAttribute( "event-id", eventDetails.id );
         
-                    if ( _options.manualEditingEnabled ) {
-                        event.ondblclick = function( e ) {
-                            cancelBubble( e );
-                            showEventEditingDialog( eventDetails );
-                        };
-                    } else {
-
-                        if ( isOptionEventSet( "onEventDoubleClick" ) ) {
-                            event.ondblclick = function() {
-                                triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
-                            };
+                        if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                            eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
                         }
-                    }
+        
+                        if ( !_options.useOnlyDotEventsForMainDisplay ) {
+                            var repeatEvery = getNumber( eventDetails.repeatEvery );
+                            if ( repeatEvery > _repeatType.never ) {
+                                var icon = createElement( "div", "ib-refresh-small ib-no-hover ib-no-active" );
+                                icon.style.borderColor = event.style.color;
+                                event.appendChild( icon );
+                            }
+        
+                            event.innerHTML += stripHTMLTagsFromText( eventTitle );
+        
+                        } else {
+                            event.className += " event-circle";
+                        }
+                        
+                        elementDay.appendChild( event );
+        
+                        makeEventDraggable( event, eventDetails, dayDate, elementDay );
+                        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
+                        setEventClassesForActions( event, eventDetails );
     
-                } else {
-                    buildDayEventPlusText( elementDay, dayDate );
+                        if ( doDatesMatch( eventDetails.from, dayDate ) ) {
+                            event.id = _elementID_Day + eventDetails.id;
+                        }
+        
+                        event.onmousemove = function( e ) {
+                            if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
+                                cancelBubble( e );
+                            } else {
+                                showTooltip( e, eventDetails );
+                            }
+                        };
+        
+                        event.oncontextmenu = function( e ) {
+                            showEventContextMenu( e, eventDetails, formattedDayDate );
+                        };
+    
+                        event.addEventListener( "click", function( e ) {
+                            storeMultiSelectEvent( e, eventDetails );
+                        } );
+    
+                        if ( isOptionEventSet( "onEventClick" ) ) {
+                            event.addEventListener( "click", function() {
+                                triggerOptionsEventWithData( "onEventClick", eventDetails );
+                            } );
+                        }
+            
+                        if ( _options.manualEditingEnabled ) {
+                            event.ondblclick = function( e ) {
+                                cancelBubble( e );
+                                showEventEditingDialog( eventDetails );
+                            };
+                        } else {
+    
+                            if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                                event.ondblclick = function() {
+                                    triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                                };
+                            }
+                        }
+        
+                    } else {
+                        buildDayEventPlusText( elementDay, dayDate );
+                    }
                 }
             }
         }
@@ -4818,12 +4841,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullYearMonthDayClasses( element, date ) {
+        var formattedDate = toStorageFormattedDate( date );
+
         if ( isWeekendDay( date ) ) {
             element.className += " weekend-day";
         }
 
         if ( isWorkingDay( date ) ) {
             element.className += " working-day";
+        }
+
+        if ( _events_DatesAvailable.indexOf( formattedDate ) > -1 ) {
+            element.className += " has-events";
         }
 
         if ( isDateToday( date ) ) {

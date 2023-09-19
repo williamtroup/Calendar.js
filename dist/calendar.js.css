@@ -1812,6 +1812,9 @@ div.calendar div.full-year-view div.contents div.year-month div.days div.cell-to
   background-color: var(--dark-color) !important;
   color: var(--light-color) !important;
 }
+div.calendar div.full-year-view div.contents div.year-month div.days div.has-events {
+  background-color: rgba(135, 206, 250, 0.4);
+}
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
   background-color: var(--day-date-picker-hover-color);

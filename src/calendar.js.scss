@@ -1372,6 +1372,10 @@ div.calendar {
                         background-color: var(--dark-color) !important;
                         color: var(--light-color) !important;
                     }
+
+                    div.has-events {
+                        background-color: rgba( 135, 206, 250, 0.4 );
+                    }
         
                     div.cell:not( .cell-no-click ):hover {
                         cursor: pointer;
