@@ -6525,6 +6525,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     input.onchange = function() {
       importEventsFromFiles(input.files);
     };
+    hideSideMenu();
     input.click();
   }
   function importFromFilesCompleted(eventsAddedOrUpdated) {

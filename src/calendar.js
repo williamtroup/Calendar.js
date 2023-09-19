@@ -9633,6 +9633,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             importEventsFromFiles( input.files );
         };
 
+        hideSideMenu();
+
         input.click();
     }
 
