@@ -17,6 +17,7 @@
 
 #### **Shortcut Keys:**
 - Pressing the escape shortcut key will now only close one view at a time, instead of all of them.
+- The Left, Right, and Down keys (in Full-Screen Mode) now support the active view (moving to years, months, weeks, and days).
 
 #### **Code Improvements:**
 - Massive class variable re-organization at the top of the main class.  Everything is now sectioned and named correctly.
@@ -24,7 +25,6 @@
 
 #### **Fixes:**
 - Fixed a fault that caused padding to appear on the right side of the days in the Month view when only one day is visible.
-
 
 <br>
 

@@ -2460,13 +2460,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         }
         
                     } else if ( e.keyCode === _keyCodes.left && isMainDisplayVisible ) {
-                        moveBackMonth();
+                        onLeftKey( e );
         
                     } else if ( e.keyCode === _keyCodes.right && isMainDisplayVisible ) {
-                        moveForwardMonth();
+                        onRightKey( e );
         
                     } else if ( e.keyCode === _keyCodes.down && isMainDisplayVisible ) {
-                        moveToday();
+                        onDownKey( e );
                         
                     } else if ( e.keyCode === _keyCodes.f5 && isMainDisplayVisible ) {
                         refreshViews( false, true );
@@ -2564,6 +2564,48 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     moveToday();
                 }
             }
+        }
+    }
+
+    function onLeftKey( e ) {
+        e.preventDefault();
+
+        if ( isOverlayVisible( _element_FullDayView ) ) {
+            onPreviousDay();
+        } else if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
+            onPreviousWeek();
+        } else if ( isOverlayVisible( _element_FullYearView ) ) {
+            onFullYearPreviousYear();
+        } else {
+            moveBackMonth();
+        }
+    }
+
+    function onRightKey( e ) {
+        e.preventDefault();
+
+        if ( isOverlayVisible( _element_FullDayView ) ) {
+            onNextDay();
+        } else if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
+            onNextWeek();
+        } else if ( isOverlayVisible( _element_FullYearView ) ) {
+            onFullYearNextYear();
+        } else {
+            moveForwardMonth();
+        }
+    }
+
+    function onDownKey( e ) {
+        e.preventDefault();
+
+        if ( isOverlayVisible( _element_FullDayView ) ) {
+            onToday();
+        } else if ( isOverlayVisible( _element_ListAllWeekEventsView ) ) {
+            onThisWeek();
+        } else if ( isOverlayVisible( _element_FullYearView ) ) {
+            onFullYearCurrentYear();
+        } else {
+            moveToday();
         }
     }
 
