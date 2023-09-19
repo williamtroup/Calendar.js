@@ -27,6 +27,7 @@
 #### **Fixes:**
 - Fixed a fault that caused padding to appear on the right side of the days in the Month view when only one day is visible.
 - Fixed a fault that allowed the "Search" dialog to be opened via the shortcut key when no events are available for the active view.
+- Fixed a fault that caused the Left, Right, and Down keys to still allow the default action of the browser to occur (in all modes).
 
 <br>
 

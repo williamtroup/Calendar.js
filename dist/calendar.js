@@ -1261,12 +1261,14 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       } else {
         if (e.keyCode === _keyCodes.escape && isSideMenuOpen()) {
+          e.preventDefault();
           hideSideMenu();
         }
       }
     } else {
       if (_datePickerVisible) {
         if (e.keyCode === _keyCodes.escape) {
+          e.preventDefault();
           hideDatePickerMode();
         } else if (isControlKey(e) && e.keyCode === _keyCodes.left) {
           e.preventDefault();
@@ -1275,10 +1277,13 @@ function calendarJs(elementOrId, options, searchOptions) {
           e.preventDefault();
           moveForwardYear();
         } else if (e.keyCode === _keyCodes.left) {
+          e.preventDefault();
           moveBackMonth();
         } else if (e.keyCode === _keyCodes.right) {
+          e.preventDefault();
           moveForwardMonth();
         } else if (e.keyCode === _keyCodes.down) {
+          e.preventDefault();
           moveToday();
         }
       }
