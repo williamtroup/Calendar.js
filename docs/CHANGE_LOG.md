@@ -3,7 +3,7 @@
 ## Version 2.6.0:
 
 #### **New Features:**
-- Added a Year view! This view will show all the months for a specific year, and will you to quickly add events, and view the full month, or specific days.
+- Added a Full Year view! This view will show all the months for a specific year, and will you to quickly add events, and view the full month, or specific days.
 - Added alert notification offset support for events (states how many minutes before an event is due to start to show an alert).
 
 #### **UI Improvements:**
