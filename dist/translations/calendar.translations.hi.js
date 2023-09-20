@@ -223,5 +223,6 @@ var __TRANSLATION_OPTIONS = {
   "eventsImportedText": "{0} इवेंट आयातित.",
   "viewFullYearTooltipText": "पूरा वर्ष देखें",
   "currentYearTooltipText": "चालू वर्ष",
-  "alertOffsetText": "अलर्ट ऑफसेट (मिनट):"
+  "alertOffsetText": "अलर्ट ऑफसेट (मिनट):",
+  "viewFullDayTooltipText": "पूरा दिन देखें"
 };

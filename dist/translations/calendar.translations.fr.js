@@ -223,5 +223,6 @@ var __TRANSLATION_OPTIONS = {
     "eventsImportedText": "{0} événements importés.",
     "viewFullYearTooltipText": "Voir l'année complète",
     "currentYearTooltipText": "Année actuelle",
-    "alertOffsetText": "Décalage d'alerte (minutes):"
+    "alertOffsetText": "Décalage d'alerte (minutes):",
+    "viewFullDayTooltipText": "Voir la journée complète"
 };

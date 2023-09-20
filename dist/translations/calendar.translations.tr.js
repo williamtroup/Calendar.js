@@ -223,5 +223,6 @@ var __TRANSLATION_OPTIONS = {
     "eventsImportedText": "{0} etkinlik içe aktarıldı.",
     "viewFullYearTooltipText": "Tüm Yılı Görüntüle",
     "currentYearTooltipText": "Mevcut yıl",
-    "alertOffsetText": "Uyarı Dengesi (dakika):"
+    "alertOffsetText": "Uyarı Dengesi (dakika):",
+    "viewFullDayTooltipText": "Tüm Günü Görüntüle"
 };
