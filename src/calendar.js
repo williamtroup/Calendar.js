@@ -296,6 +296,7 @@
  * @property    {string}    fullYearTooltipText                         The tooltip text that should be used for the "View Full Year" button.
  * @property    {string}    currentYearTooltipText                      The tooltip text that should be used for the "Current Year" button.
  * @property    {string}    alertOffsetText                             The text that should be displayed for the "Alert Offset:" label.
+ * @property    {string}    fullDayTooltipText                          The tooltip text that should be used for the "View Full Day" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -1051,6 +1052,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             buildToolbarButton( _element_Calendar_TitleBar, "ib-expand", _options.fullYearTooltipText, function() {
                 showFullYearView( null, true );
+            } );
+
+            buildToolbarButton( _element_Calendar_TitleBar, "ib-hourglass", _options.fullDayTooltipText, function() {
+                showFullDayView( null, true );
             } );
         }
 
@@ -3221,6 +3226,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showFullDayView( date, fromOpen ) {
+        date = isDefined( date ) ? date : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         var currentDate = new Date(),
@@ -12515,6 +12521,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.fullYearTooltipText = getDefaultString( _options.fullYearTooltipText, "View Full Year" );
         _options.currentYearTooltipText = getDefaultString( _options.currentYearTooltipText, "Current Year" );
         _options.alertOffsetText = getDefaultString( _options.alertOffsetText, "Alert Offset (minutes):" );
+        _options.fullDayTooltipText = getDefaultString( _options.fullDayTooltipText, "View Full Day" );
     }
 
     function setEventTypeTranslationStringOptions() {

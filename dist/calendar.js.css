@@ -952,6 +952,7 @@ div.calendar div.header-date div.ib-arrow-expand-left-right,
 div.calendar div.header-date div.ib-arrow-contract-left-right,
 div.calendar div.header-date div.ib-forward,
 div.calendar div.header-date div.ib-expand,
+div.calendar div.header-date div.ib-hourglass,
 div.calendar div.header-date div.right-divider-line {
   float: right;
 }
@@ -963,7 +964,8 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-eye,
   div.calendar div.header-date div.ib-arrow-down-full-line,
   div.calendar div.header-date div.ib-octagon-hollow,
-  div.calendar div.header-date div.ib-expand {
+  div.calendar div.header-date div.ib-expand,
+  div.calendar div.header-date div.ib-hourglass {
     display: inline-block;
   }
 }
@@ -974,7 +976,8 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-eye,
   div.calendar div.header-date div.ib-arrow-down-full-line,
   div.calendar div.header-date div.ib-octagon-hollow,
-  div.calendar div.header-date div.ib-expand {
+  div.calendar div.header-date div.ib-expand,
+  div.calendar div.header-date div.ib-hourglass {
     display: none !important;
   }
 }
@@ -4350,6 +4353,45 @@ div.calendar-context-menu div.separator {
   border-radius: 4px;
   left: 0;
   bottom: 0;
+}
+
+.ib-hourglass {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+.ib-hourglass:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-hourglass:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-hourglass::before, .ib-hourglass::after {
+  position: absolute;
+  content: "";
+}
+.ib-hourglass:before {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid var(--title-bar-button-color);
+  left: 0;
+  bottom: 0;
+}
+.ib-hourglass:after {
+  width: 0;
+  height: 0;
+  border-top: 10px solid var(--title-bar-button-color);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  left: 0;
+  top: 0;
 }
 
 .ib-plus-icon {

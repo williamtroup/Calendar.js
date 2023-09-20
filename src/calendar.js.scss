@@ -932,6 +932,7 @@ div.calendar {
         div.ib-arrow-contract-left-right,
         div.ib-forward,
         div.ib-expand,
+        div.ib-hourglass,
         div.right-divider-line {
             float: right;
         }
@@ -944,7 +945,8 @@ div.calendar {
             div.ib-eye,
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow,
-            div.ib-expand {
+            div.ib-expand,
+            div.ib-hourglass {
                 display: inline-block;
             }
         }
@@ -956,7 +958,8 @@ div.calendar {
             div.ib-eye,
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow,
-            div.ib-expand {
+            div.ib-expand,
+            div.ib-hourglass {
                 display: none !important;
             }
         }
@@ -2432,6 +2435,7 @@ div.calendar-context-menu {
 @import "foundation/buttons/square";
 @import "foundation/buttons/arrow-up-full-line";
 @import "foundation/buttons/expand";
+@import "foundation/buttons/hourglass";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

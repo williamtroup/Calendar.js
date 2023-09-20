@@ -261,3 +261,4 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | fullYearTooltipText | The tooltip text that should be used for the "View Full Year" button. |
 | *string* | currentYearTooltipText | The tooltip text that should be used for the "Current Year" button. |
 | *string* | alertOffsetText | The tooltip text that should be displayed for the "Alert Offset:" label. |
+| *string* | fullDayTooltipText | The tooltip text that should be used for the "View Full Day" button. |
