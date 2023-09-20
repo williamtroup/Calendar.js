@@ -147,11 +147,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(_element_Calendar_TitleBar, "ib-eye", _options.listAllEventsTooltipText, function() {
         showListAllEventsView(true);
       });
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-hamburger-side", _options.listWeekEventsTooltipText, function() {
-        showListAllWeekEventsView(null, true);
-      });
       buildToolbarButton(_element_Calendar_TitleBar, "ib-expand", _options.fullYearTooltipText, function() {
         showFullYearView(null, true);
+      });
+      buildToolbarButton(_element_Calendar_TitleBar, "ib-hamburger-side", _options.listWeekEventsTooltipText, function() {
+        showListAllWeekEventsView(null, true);
       });
       buildToolbarButton(_element_Calendar_TitleBar, "ib-hourglass", _options.fullDayTooltipText, function() {
         showFullDayView(null, true);
