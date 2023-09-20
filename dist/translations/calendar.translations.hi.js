@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.6.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "सोमवार",
@@ -68,8 +68,8 @@ var __TRANSLATION_OPTIONS = {
   "refreshTooltipText": "ताज़ा करना",
   "searchTooltipText": "खोज",
   "expandDayTooltipText": "दिन का विस्तार करें",
-  "listAllEventsTooltipText": "सभी घटनाएँ देखें",
-  "listWeekEventsTooltipText": "वर्तमान सप्ताह की घटनाएँ देखें",
+  "viewAllEventsTooltipText": "सभी घटनाएँ देखें",
+  "viewCurrentWeekEventsTooltipText": "वर्तमान सप्ताह की घटनाएँ देखें",
   "fromText": "से:",
   "toText": "को:",
   "isAllDayText": "ऑल-डे है",
@@ -220,5 +220,9 @@ var __TRANSLATION_OPTIONS = {
   "selectAllText": "सबका चयन करें",
   "selectNoneText": "कुछ मत चुनिए",
   "importEventsTooltipText": "घटनाएँ आयात करें",
-  "eventsImportedText": "{0} इवेंट आयातित."
+  "eventsImportedText": "{0} इवेंट आयातित.",
+  "viewFullYearTooltipText": "पूरा वर्ष देखें",
+  "currentYearTooltipText": "चालू वर्ष",
+  "alertOffsetText": "अलर्ट ऑफसेट (मिनट):",
+  "viewFullDayTooltipText": "पूरा दिन देखें"
 };

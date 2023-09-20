@@ -8,10 +8,10 @@ Below is a list of all the shortcut keys supported in Calendar.js.
 
 | Key: | Description: |
 | --- | --- |
-| *Left* | Moves to the previous month. |
-| *Right* | Moves to the next month. |
+| *Left* | Moves to the previous year, month, week, or day (depending on the active view). |
+| *Right* | Moves to the next year, month, week, or day (depending on the active view). |
 | *Escape* | Close the active dialog, or full-screen mode. |
-| *Down* | Jumps to the current month. |
+| *Down* | Jumps to the current year, month, week, or day (depending on the active view). |
 | *F5* | Refreshes the current view. |
 | *Ctrl/Command + Left* | Moves to the previous year. |
 | *Ctrl/Command + Right* | Moves to the next year. |

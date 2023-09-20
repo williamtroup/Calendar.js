@@ -20,6 +20,9 @@
                 <p>Some data that should be cleared.</p>
             </div>
             <br>
+
+            <h2>Calendar Container:</h2>
+            <button onclick="document.getElementById( 'myCalendar' ).style.maxWidth = 'none';">Remove Max-Width</button>
     
             <h2>Navigation:</h2>
             <button onclick="calendarInstance.moveToPreviousMonth();">Previous Month</button>
@@ -89,6 +92,7 @@
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
             showTimesInMainCalendarEvents: false,
+            fullScreenModeEnabled: true,
             minimumDayHeight: 0,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",

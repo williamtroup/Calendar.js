@@ -1,5 +1,43 @@
 # Calendar.js - Change Log:
 
+## Version 2.6.0:
+
+#### **New Features:**
+- Added a Full Year view! This view will show all the months for a specific year, and will you to quickly add events, and view the full month, or specific days.
+- Added alert notification offset support for events (states how many minutes before an event is due to start to show an alert).
+
+#### **UI Improvements:**
+- The Year Drop-Down button on the main display's title bar now uses a button style (make it clearer it can be clicked).
+- The "Turn On Full-Screen Mode" buttons in the title bars are now on the right-hand side (after the close buttons in the views).
+- The "Expand" buttons in the View section title bars are now separated with a divider line.
+- Clicking the "Import Events" button in the Side Menu title bar will now close the Side Menu.
+- The "Close" button on the Side Menu title bar is now separated with a divider line.
+- Moved the "Export Events" button on all title bars (including views) to the Side Menu (next to the "Import Events" button).
+- Added a "View Full Day" button to the main display's title bar, which will open the Full Day view on the current day.
+- The "All Events" view now separates the months into year sections (clicking the header will show the Full Year view).
+
+#### **Breaking Change Improvements:**
+- Renamed the CSS class "calendar-drop-down-menu" to "calendar-context-menu" (with large JS internal renames).
+- Renamed the CSS class "list-all-events-view" to "all-events-view" (with large JS internal renames).
+- Renamed the CSS class "list-all-week-events-view" to "all-week-events-view" (with large JS internal renames).
+- Renamed the setting "listAllEventsTooltipText" to "viewAllEventsTooltipText".
+- Renamed the setting "listWeekEventsTooltipText" to "viewCurrentWeekEventsTooltipText".
+
+#### **Shortcut Keys:**
+- Pressing the escape shortcut key will now only close one view at a time, instead of all of them.
+- The Left, Right, and Down keys (in Full-Screen Mode) now support the active view (moving to years, months, weeks, and days).
+
+#### **Code Improvements:**
+- Massive class variable re-organization at the top of the main class.  Everything is now sectioned and named correctly.
+- Massive function re-organization.  All the main building functions are near the top, whereas the supplier/add-on builders are further down.
+
+#### **Fixes:**
+- Fixed a fault that caused padding to appear on the right side of the days in the Month view when only one day is visible.
+- Fixed a fault that allowed the "Search" dialog to be opened via the shortcut key when no events are available for the active view.
+- Fixed a fault that caused the Left, Right, and Down keys to still allow the default action of the browser to occur (in all modes).
+
+<br>
+
 ## Version 2.5.5:
 - Fixed the default value for the setting "eventNotificationBody" using an invalid value.
 - Fixed the translation .JS files showing the incorrect project name for settings "eventNotificationTitle" and "sideMenuHeaderText".

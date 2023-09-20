@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.6.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Seg",
@@ -68,8 +68,8 @@ var __TRANSLATION_OPTIONS = {
   "refreshTooltipText": "Atualizar",
   "searchTooltipText": "Procurar",
   "expandDayTooltipText": "Expandir dia",
-  "listAllEventsTooltipText": "Ver todos os eventos",
-  "listWeekEventsTooltipText": "Ver eventos da semana atual",
+  "viewAllEventsTooltipText": "Ver todos os eventos",
+  "viewCurrentWeekEventsTooltipText": "Ver eventos da semana atual",
   "fromText": "De:",
   "toText": "Para:",
   "isAllDayText": "É o dia todo",
@@ -220,5 +220,9 @@ var __TRANSLATION_OPTIONS = {
   "selectAllText": "Selecionar tudo",
   "selectNoneText": "Selecione nenhum",
   "importEventsTooltipText": "Importar eventos",
-  "eventsImportedText": "{0} eventos importados."
+  "eventsImportedText": "{0} eventos importados.",
+  "viewFullYearTooltipText": "Ver o ano completo",
+  "currentYearTooltipText": "Ano atual",
+  "alertOffsetText": "Compensação de alerta (minutos):",
+  "viewFullDayTooltipText": "Ver dia inteiro"
 };

@@ -1,0 +1,25 @@
+@import "button";
+
+.ib-hourglass {
+    @include button;
+
+    &:before {
+        width: 0; 
+        height: 0; 
+        border-left: calc( $size / 2 ) solid transparent;
+        border-right: calc( $size / 2 ) solid transparent;
+        border-bottom: calc( $size - $border-width * 2 ) solid $button-color;
+        left: 0;
+        bottom: 0;
+    }
+
+    &:after {
+        width: 0; 
+        height: 0;
+        border-top: calc( $size - $border-width * 2 ) solid $button-color;
+        border-left: calc( $size / 2 ) solid transparent;
+        border-right: calc( $size / 2 ) solid transparent;
+        left: 0;
+        top: 0;
+    }
+}

@@ -31,3 +31,4 @@ Below is the format that is expected for an event object when calling "addEvents
 | *number* | type | States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task). |
 | *Object* | customTags | Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar). |
 | *boolean* | showAsBusy | States if the calendar should show the events time period as busy (defaults to true). |
+| *number* | alertOffset | States the number of minutes before the "from" date/time to show a browser notification (defaults to zero). |

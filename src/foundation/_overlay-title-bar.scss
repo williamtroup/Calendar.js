@@ -11,18 +11,16 @@ div.title-bar {
     color: var(--title-bar-text-color);
     text-align: center;
 
-    div.side-menu-button-divider-line,
-    div.side-menu-close-button-divider-line {
-        width: 1px;
-        background-color: var(--title-bar-button-color);
-        height: 16px;
+    div.left-divider-line,
+    div.right-divider-line {
+        @include title-bar-divider-line;
     }
 
-    div.side-menu-button-divider-line {
+    div.left-divider-line {
         float: left;
     }
 
-    div.side-menu-close-button-divider-line {
+    div.right-divider-line {
         float: right;
     }
 

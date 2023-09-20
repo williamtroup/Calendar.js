@@ -93,8 +93,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | addEventTooltipText | The tooltip text that should be used for the "Add Event" button. |
 | *string* | closeTooltipText | The tooltip text that should be used for the "Close" button. |
 | *string* | exportEventsTooltipText | The tooltip text that should be used for the "Export Events" button. |
-| *string* | listAllEventsTooltipText | The tooltip text that should be used for the "View All Events" button. |
-| *string* | listWeekEventsTooltipText | The tooltip text that should be used for the "View Current Week Events" button. |
+| *string* | viewAllEventsTooltipText | The tooltip text that should be used for the "View All Events" button. |
+| *string* | viewCurrentWeekEventsTooltipText | The tooltip text that should be used for the "View Current Week Events" button. |
 | *string* | todayTooltipText | The tooltip text that should be used for the "Today" button. |
 | *string* | refreshTooltipText | The tooltip text that should be used for the "Refresh" button. |
 | *string* | searchTooltipText | The tooltip text that should be used for the "Search" button. |
@@ -258,3 +258,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | selectAllText | The tooltip text that should be displayed for the "Select All" label. |
 | *string* | selectNoneText | The tooltip text that should be displayed for the "Select None" label. |
 | *string* | importEventsTooltipText | The tooltip text that should be used for the "Import Events" button. |
+| *string* | viewFullYearTooltipText | The tooltip text that should be used for the "View Full Year" button. |
+| *string* | currentYearTooltipText | The tooltip text that should be used for the "Current Year" button. |
+| *string* | alertOffsetText | The tooltip text that should be displayed for the "Alert Offset:" label. |
+| *string* | viewFullDayTooltipText | The tooltip text that should be used for the "View Full Day" button. |

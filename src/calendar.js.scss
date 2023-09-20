@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.5.5
+ * Calendar.js Library v2.6.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -54,7 +54,7 @@
 div.calendar,
 div.calendar-tooltip,
 div.calendar-tooltip-event,
-div.calendar-drop-down-menu,
+div.calendar-context-menu,
 div.calendar-dialog,
 div.calendar-dialog input,
 div.calendar-dialog textarea {
@@ -379,7 +379,7 @@ div.calendar {
         width: 100%;
 
         div.cell-1 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) );
+            width: 100%;
         }
 
         div.cell-2 {
@@ -446,8 +446,8 @@ div.calendar {
             span {
                 display: inline-block;
                 padding: 4px;
-                padding-left: 0px;
-                padding-right: 0px;
+                padding-left: 0;
+                padding-right: 0;
                 border-radius: $border-view-radius;
         
                 &.today,
@@ -593,7 +593,12 @@ div.calendar {
                 margin: 0 !important;
             }
 
-            div[class^='ib-'] {
+            div.right-divider-line {
+                @include title-bar-divider-line;
+            }
+
+            div[class^='ib-'],
+            div.right-divider-line {
                 margin-top: 3px;
                 float: right;
                 margin-left: $spacing;
@@ -627,7 +632,7 @@ div.calendar {
                     margin-bottom: 0;
                     cursor: pointer;
 
-                    div.button-divider-line,
+                    div.right-divider-line,
                     div.ib-arrow-down-full,
                     div.ib-arrow-up-full,
                     div.ib-square,
@@ -641,10 +646,8 @@ div.calendar {
                         }
                     }
 
-                    div.button-divider-line {
-                        width: 1px;
-                        background-color: var(--light-color);
-                        height: 16px;
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
                     }
 
                     div.ib-arrow-down-full,
@@ -724,17 +727,15 @@ div.calendar {
         position: relative;
 
         div[class^='ib-'],
-        div.side-menu-button-divider-line,
-        div.date-picker-close-divider-line {
+        div.left-divider-line,
+        div.right-divider-line {
             margin-left: calc( $spacing / 2 );
             margin-right: calc( $spacing / 2 );
         }
 
-        div.side-menu-button-divider-line,
-        div.date-picker-close-divider-line {
-            width: 1px;
-            background-color: var(--title-bar-button-color);
-            height: 16px;
+        div.left-divider-line,
+        div.right-divider-line {
+            @include title-bar-divider-line;
         }
 
         div.title-container {
@@ -745,6 +746,13 @@ div.calendar {
             span.year-dropdown-button {
                 white-space: nowrap;
                 overflow: hidden;
+                padding: 3px;
+                padding-left: 6px;
+                padding-right: 6px;
+                border-radius: $border-view-radius;
+                background-color: #474545;
+                border: $standard-border-size solid #575555;
+                font-weight: 500;
 
                 span.ib-arrow-down-full-medium,
                 span.ib-arrow-up-full-medium {
@@ -897,7 +905,7 @@ div.calendar {
 
             div.years-drop-down-no-months {
                 div.contents {
-                    margin-top: 0px;
+                    margin-top: 0;
                     height: 180px;
                 }
             }
@@ -910,7 +918,7 @@ div.calendar {
         div.ib-octagon-hollow,
         div.ib-hamburger,
         div.ib-rewind,
-        div.side-menu-button-divider-line {
+        div.left-divider-line {
             float: left;
         }
 
@@ -923,7 +931,9 @@ div.calendar {
         div.ib-arrow-expand-left-right,
         div.ib-arrow-contract-left-right,
         div.ib-forward,
-        div.date-picker-close-divider-line {
+        div.ib-expand,
+        div.ib-hourglass,
+        div.right-divider-line {
             float: right;
         }
 
@@ -934,7 +944,9 @@ div.calendar {
             div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
-            div.ib-octagon-hollow {
+            div.ib-octagon-hollow,
+            div.ib-expand,
+            div.ib-hourglass {
                 display: inline-block;
             }
         }
@@ -945,7 +957,9 @@ div.calendar {
             div.ib-hamburger-side,
             div.ib-eye,
             div.ib-arrow-down-full-line,
-            div.ib-octagon-hollow {
+            div.ib-octagon-hollow,
+            div.ib-expand,
+            div.ib-hourglass {
                 display: none !important;
             }
         }
@@ -1049,6 +1063,8 @@ div.calendar {
 div.calendar {
     div.full-day-view {
         @include full-size-view-display( 2 );
+
+        z-index: 3;
 
         span.holiday {
             font-weight: 300 !important;
@@ -1199,64 +1215,12 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - All Events View
-    -------------------------------------------------------------------------
-*/
-
-div.calendar {
-    div.list-all-events-view {
-        @include full-size-view-display;
-
-        @import "foundation/overlay-title-bar";
-
-        div.contents {
-            @include overlay-contents;
-
-            div.month {
-                border-radius: $border-view-radius;
-                border: $standard-border-size solid var(--dark-color);
-                overflow: hidden;
-                margin-bottom: $spacing;
-
-                div.header {
-                    background-color: var(--dark-color) !important;
-                    color: var(--light-color) !important;
-                    padding: $spacing;
-                    font-weight: $title-bar-font-weight;
-
-                    div.ib-arrow-expand-left-right,
-                    div.ib-plus,
-                    div.ib-close,
-                    div.ib-minus,
-                    div.ib-square-hollow {
-                        float: right;
-                        margin-left: $spacing;
-                    }
-                }
-
-                div.events {
-                    padding: $spacing;
-
-                    @import "foundation/overlay-event";
-                }
-
-                &:last-child {
-                    margin-bottom: $standard-border-size !important;
-                }
-            }
-        }
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
     Calendar.js - All Week Events View
     -------------------------------------------------------------------------
 */
 
 div.calendar {
-    div.list-all-week-events-view {
+    div.all-week-events-view {
         @include full-size-view-display;
 
         @import "foundation/overlay-title-bar";
@@ -1282,17 +1246,194 @@ div.calendar {
                     padding: $spacing;
                     font-weight: $title-bar-font-weight;
 
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
+                    }
+
                     div.ib-arrow-expand-left-right,
                     div.ib-plus,
                     div.ib-close,
                     div.ib-minus,
-                    div.ib-square-hollow {
+                    div.ib-square-hollow,
+                    div.right-divider-line {
                         float: right;
                         margin-left: $spacing;
                     }
 
                     div.ib-close {
                         display: none;
+                    }
+                }
+
+                div.events {
+                    padding: $spacing;
+
+                    @import "foundation/overlay-event";
+                }
+
+                &:last-child {
+                    margin-bottom: $standard-border-size !important;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Full Year View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.full-year-view {
+        @include full-size-view-display;
+
+        z-index: 2;
+
+        @import "foundation/overlay-title-bar";
+
+        div.contents {
+            @include overlay-contents( true );
+
+            div.year-month {
+                border-radius: $border-view-radius;
+                border: $standard-border-size solid var(--dark-color);
+                background-color: var(--day-names-color);
+                display: inline-block;
+                margin: calc( $spacing / 2 );
+                overflow: hidden;
+
+                @media screen and ( min-width: $minimum-width ) {
+                    width: calc( 50% - ( $spacing + ( $spacing / 4 ) ) );
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    width: calc( 100% - ( $spacing + ( $spacing / 4 ) ) );
+                }
+
+                div.cell {
+                    padding: calc( $spacing / 2 ) !important;
+                }
+
+                div.days {
+                    div.cell-today {
+                        background-color: var(--dark-color) !important;
+                        color: var(--light-color) !important;
+                    }
+
+                    div.has-events {
+                        background-color: rgba( 135, 206, 250, 0.4 );
+                    }
+        
+                    div.cell:not( .cell-no-click ):hover {
+                        cursor: pointer;
+                        background-color: var(--day-date-picker-hover-color);
+                        transition: $transition;
+                    }
+        
+                    div.cell:not( .cell-no-click ):active {
+                        @include opacity-active-effect;
+                    }
+
+                    div.cell-muted span,
+                    div.cell-muted sup {
+                        opacity: 0.3;
+                    }
+                }
+
+                div.title-bar {
+                    background-color: var(--dark-color);
+                    color: var(--light-color);
+                    font-weight: 900;
+                    text-align: left;
+                    padding: $spacing;
+
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
+                    }
+
+                    div.ib-arrow-expand-left-right,
+                    div.ib-plus,
+                    div.right-divider-line {
+                        float: right;
+                        margin-right: $spacing !important;
+                        margin-left: 0 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - All Events View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.all-events-view {
+        @include full-size-view-display;
+
+        @import "foundation/overlay-title-bar";
+
+        div.contents {
+            @include overlay-contents;
+
+            div.year-header {
+                margin-top: calc( $spacing * 2 );
+
+                span.header-text {
+                    font-weight: 900;
+                    font-size: 22px;
+
+                    &:hover {
+                        @include opacity-hover-effect;
+                    }
+            
+                    &:active {
+                        @include opacity-active-effect;
+                    }
+                }
+
+                div.line {
+                    margin-top: calc( $spacing / 2 );
+                    border-bottom: $standard-border-size solid var(--dark-color);
+                    margin-bottom: $spacing;
+                }
+
+                &:first-of-type {
+                    margin-top: 0;
+                }
+            }
+
+            div.month {
+                border-radius: $border-view-radius;
+                border: $standard-border-size solid var(--dark-color);
+                overflow: hidden;
+                margin-bottom: $spacing;
+
+                div.header {
+                    background-color: var(--dark-color) !important;
+                    color: var(--light-color) !important;
+                    padding: $spacing;
+                    font-weight: $title-bar-font-weight;
+
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
+                    }
+
+                    div.ib-arrow-expand-left-right,
+                    div.ib-plus,
+                    div.ib-close,
+                    div.ib-minus,
+                    div.ib-square-hollow,
+                    div.right-divider-line {
+                        float: right;
+                        margin-left: $spacing;
                     }
                 }
 
@@ -1323,6 +1464,10 @@ div.event-editor {
     div.tab-content {
         height: 258px;
         margin-bottom: $spacing * 2;
+
+        div.split:last-of-type input {
+            margin-bottom: 0 !important;
+        }
     }
 
     div.view {
@@ -2133,11 +2278,11 @@ div.calendar-tooltip-event {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Drop-Down Menu
+    Calendar.js - Context Menu
     -------------------------------------------------------------------------
 */
 
-div.calendar-drop-down-menu {
+div.calendar-context-menu {
     @include no-selection-allowed;
     @include fade-in-effect-animation( 0.5s );
     background-color: var(--drop-down-menu-background-color);
@@ -2320,6 +2465,8 @@ div.calendar-drop-down-menu {
 @import "foundation/buttons/arrow-up-full";
 @import "foundation/buttons/square";
 @import "foundation/buttons/arrow-up-full-line";
+@import "foundation/buttons/expand";
+@import "foundation/buttons/hourglass";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

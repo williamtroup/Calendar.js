@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-<p align="center">v2.5.5</p>
+<p align="center">v2.6.0</p>
 <br />
 
 ![CalendarJs](docs/images/main.png)
@@ -20,7 +20,7 @@ Calendar.js
 - Drag and Drop for moving events to new times, and resizing to adjust event durations (only in Full Day view).
 - Cut, Copy, Paste (with multi-select support), and Duplication of events.
 - Configurable text for translations (see "dist/translations" for languages already available).
-- Day, Week, Month, and All Events views.
+- Day, Week, Month, Year, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
 - Full CSS color themes support (using :root variables, with dark-mode support).
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc.).
@@ -32,7 +32,7 @@ Calendar.js
 - Customizable holidays.
 - Shortcut keys (click [here](docs/SHORTCUT_KEYS.md) to see the full list).
 - Custom event groups (with configurable toggles via the side menu).
-- Browser notifications for events (modern browsers only).
+- Browser notifications for events, with offset support (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
 - DatePicker mode (just assign to the ID of a text input).
 - HTML text support (off by default).

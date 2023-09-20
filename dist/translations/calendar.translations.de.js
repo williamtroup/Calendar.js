@@ -1,4 +1,4 @@
-/*! Calendar.js v2.5.5 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.6.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Mo",
@@ -68,8 +68,8 @@ var __TRANSLATION_OPTIONS = {
   "refreshTooltipText": "Aktualisierung",
   "searchTooltipText": "Suchen",
   "expandDayTooltipText": "Tag erweitern",
-  "listAllEventsTooltipText": "Alle Ereignisse anzeigen",
-  "listWeekEventsTooltipText": "Ereignisse der aktuellen Woche anzeigen",
+  "viewAllEventsTooltipText": "Alle Ereignisse anzeigen",
+  "viewCurrentWeekEventsTooltipText": "Ereignisse der aktuellen Woche anzeigen",
   "fromText": "Aus:",
   "toText": "Zu:",
   "isAllDayText": "Ist ganztägig",
@@ -220,5 +220,9 @@ var __TRANSLATION_OPTIONS = {
   "selectAllText": "Wählen Sie Alle",
   "selectNoneText": "Nichts ausgewählt",
   "importEventsTooltipText": "Ereignisse importieren",
-  "eventsImportedText": "{0} Ereignisse importiert."
+  "eventsImportedText": "{0} Ereignisse importiert.",
+  "viewFullYearTooltipText": "Ganzes Jahr anzeigen",
+  "currentYearTooltipText": "Laufendes Jahr",
+  "alertOffsetText": "Alarm-Offset (Minuten):",
+  "viewFullDayTooltipText": "Ganzen Tag anzeigen"
 };
