@@ -75,13 +75,13 @@ div.calendar-dialog textarea {
     font-size: 0.7rem;
   }
 }
-div.calendar div.overlay-shown,
-div.calendar-tooltip div.overlay-shown,
-div.calendar-tooltip-event div.overlay-shown,
-div.calendar-context-menu div.overlay-shown,
-div.calendar-dialog div.overlay-shown,
-div.calendar-dialog input div.overlay-shown,
-div.calendar-dialog textarea div.overlay-shown {
+div.calendar div.view-shown,
+div.calendar-tooltip div.view-shown,
+div.calendar-tooltip-event div.view-shown,
+div.calendar-context-menu div.view-shown,
+div.calendar-dialog div.view-shown,
+div.calendar-dialog input div.view-shown,
+div.calendar-dialog textarea div.view-shown {
   top: 0 !important;
   visibility: visible !important;
 }
@@ -1068,11 +1068,9 @@ div.calendar div.full-day-view {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 2;
   background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
-  z-index: 3;
 }
 div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
@@ -1325,7 +1323,6 @@ div.calendar div.all-week-events-view {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 1;
   background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
@@ -1515,11 +1512,9 @@ div.calendar div.full-year-view {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 1;
   background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
-  z-index: 2;
 }
 div.calendar div.full-year-view div.title-bar {
   width: calc( 100% - 10px );
@@ -1683,7 +1678,6 @@ div.calendar div.all-events-view {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 1;
   background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
