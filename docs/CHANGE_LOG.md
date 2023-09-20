@@ -17,6 +17,10 @@
 
 #### **Breaking Change Improvements:**
 - Renamed the CSS class "calendar-drop-down-menu" to "calendar-context-menu" (with large JS internal renames).
+- Renamed the CSS class "list-all-events-view" to "all-events-view" (with large JS internal renames).
+- Renamed the CSS class "list-all-week-events-view" to "all-week-events-view" (with large JS internal renames).
+- Renamed the setting "listAllEventsTooltipText" to "viewAllEventsTooltipText".
+- Renamed the setting "listWeekEventsTooltipText" to "viewCurrentWeekEventsTooltipText".
 
 #### **Shortcut Keys:**
 - Pressing the escape shortcut key will now only close one view at a time, instead of all of them.

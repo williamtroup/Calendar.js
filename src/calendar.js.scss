@@ -1218,7 +1218,7 @@ div.calendar {
 */
 
 div.calendar {
-    div.list-all-week-events-view {
+    div.all-week-events-view {
         @include full-size-view-display;
 
         @import "foundation/overlay-title-bar";
@@ -1371,7 +1371,7 @@ div.calendar {
 */
 
 div.calendar {
-    div.list-all-events-view {
+    div.all-events-view {
         @include full-size-view-display;
 
         @import "foundation/overlay-title-bar";
