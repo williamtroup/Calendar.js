@@ -1,4 +1,4 @@
-/*! Calendar.js v2.6.0 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.6.1 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "Mon",
