@@ -14,6 +14,7 @@
 - The "Close" button on the Side Menu title bar is now separated with a divider line.
 - Moved the "Export Events" button on all title bars (including views) to the Side Menu (next to the "Import Events" button).
 - Added a "View Full Day" button to the main displays title bar, which will open the Full Day view on the current day.
+- The "All Events" view now separates the months into year sections (clicking the header will show the Full Year view).
 
 #### **Breaking Change Improvements:**
 - Renamed the CSS class "calendar-drop-down-menu" to "calendar-context-menu" (with large JS internal renames).

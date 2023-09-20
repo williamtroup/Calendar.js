@@ -655,6 +655,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_AllEvents_Contents = null,
         _element_View_AllEvents_EventsShown = [],
         _element_View_AllEvents_MinimizeRestoreFunctions = [],
+        _element_View_AllEvents_YearHeadersAdded = [],
 
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
@@ -2716,16 +2717,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             done = true;
         }
 
-        if ( !done && isOverlayVisible( _element_View_AllEvents ) ) {
-            hideOverlay( _element_View_AllEvents );
-
-            _element_View_AllEvents_EventsShown = [];
+        if ( !done && isOverlayVisible( _element_View_FullYear ) ) {
+            hideOverlay( _element_View_FullYear );
 
             done = true;
         }
 
-        if ( !done && isOverlayVisible( _element_View_FullYear ) ) {
-            hideOverlay( _element_View_FullYear );
+        if ( !done && isOverlayVisible( _element_View_AllEvents ) ) {
+            hideOverlay( _element_View_AllEvents );
+
+            _element_View_AllEvents_EventsShown = [];
 
             done = true;
         }
@@ -4462,6 +4463,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
             hideOverlay( _element_View_FullYear );
+            hideOverlay( _element_View_AllEvents );
             build( expandMonthDate );
         } );
 
@@ -4744,6 +4746,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_AllEvents_Contents.innerHTML = _string.empty;
         _element_View_AllEvents_EventsShown = [];
         _element_View_AllEvents_MinimizeRestoreFunctions = [];
+        _element_View_AllEvents_YearHeadersAdded = [];
 
         if ( fromOpen ) {
             _element_View_AllEvents_Contents.scrollTop = 0;
@@ -4753,7 +4756,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             orderedEventsLength = orderedEvents.length;
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            buildAllEventsEvent( orderedEvents[ orderedEventIndex ] );
+            buildAllEventsViewEvent( orderedEvents[ orderedEventIndex ] );
         }
 
         updateToolbarButtonVisibleState( _element_View_AllEvents_SearchButton, _element_View_AllEvents_EventsShown.length > 0 );
@@ -4763,9 +4766,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildAllEventsEvent( eventDetails ) {
+    function buildAllEventsViewEvent( eventDetails ) {
         if ( isEventVisible( eventDetails ) ) {
-            var container = buildAllEventsMonth( eventDetails.from ),
+            var container = buildAllEventsViewMonth( eventDetails.from ),
                 event = createElement( "div", "event" );
 
             container.appendChild( event );
@@ -4863,7 +4866,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildAllEventsMonth( date ) {
+    function buildAllEventsViewMonth( date ) {
         var monthContentsID = "month-" + date.getMonth() + "-" + date.getFullYear(),
             monthContents = getElementByID( monthContentsID );
         
@@ -4875,6 +4878,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     hideOverlay( _element_View_AllEvents );
                     build( expandMonthDate );
                 };
+
+            var yearHeader = buildAllEventsViewMonthHeader( date );
+            if ( yearHeader !== null ) {
+                _element_View_AllEvents_Contents.appendChild( yearHeader );
+            }
 
             var month = createElement( "div", "month" );
             _element_View_AllEvents_Contents.appendChild( month );
@@ -4910,7 +4918,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             var minimizeRestoreFunction = function() {
-                minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID );
+                minimizeRestoreAllEventsViewMonth( minimizeButton, monthContents, monthContentsID );
             };
 
             var minimizeButton = buildToolbarButton( header, "ib-minus", _options.minimizedTooltipText, minimizeRestoreFunction );
@@ -4933,7 +4941,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return monthContents;
     }
 
-    function minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID ) {
+    function buildAllEventsViewMonthHeader( date ) {
+        var yearHeader = null;
+
+        if ( _element_View_AllEvents_YearHeadersAdded.indexOf( date.getFullYear() ) === -1 ) {
+            _element_View_AllEvents_YearHeadersAdded.push( date.getFullYear() );
+
+            yearHeader = createElement( "div", "year-header" );
+
+            var text = createElement( "span", "header-text" );
+            setNodeText( text, date.getFullYear() + ":" );
+            yearHeader.appendChild( text );
+
+            text.onclick = function() {
+                showFullYearView( date.getFullYear() );
+            };
+
+            yearHeader.appendChild( createElement( "div", "line" ) );
+        }
+
+        return yearHeader;
+    }
+
+    function minimizeRestoreAllEventsViewMonth( minimizeButton, monthContents, monthContentsID ) {
         if ( monthContents.style.display !== "none" ) {
             monthContents.style.display = "none";
             minimizeButton.className = "ib-square-hollow";

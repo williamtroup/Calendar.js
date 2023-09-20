@@ -1406,13 +1406,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_View_AllWeekEvents_EventsShown = [];
       done = true;
     }
+    if (!done && isOverlayVisible(_element_View_FullYear)) {
+      hideOverlay(_element_View_FullYear);
+      done = true;
+    }
     if (!done && isOverlayVisible(_element_View_AllEvents)) {
       hideOverlay(_element_View_AllEvents);
       _element_View_AllEvents_EventsShown = [];
-      done = true;
-    }
-    if (!done && isOverlayVisible(_element_View_FullYear)) {
-      hideOverlay(_element_View_FullYear);
       done = true;
     }
     return done;
@@ -2726,6 +2726,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     };
     buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
       hideOverlay(_element_View_FullYear);
+      hideOverlay(_element_View_AllEvents);
       build(expandMonthDate);
     });
     if (_options.manualEditingEnabled) {
@@ -2936,6 +2937,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_AllEvents_Contents.innerHTML = _string.empty;
     _element_View_AllEvents_EventsShown = [];
     _element_View_AllEvents_MinimizeRestoreFunctions = [];
+    _element_View_AllEvents_YearHeadersAdded = [];
     if (fromOpen) {
       _element_View_AllEvents_Contents.scrollTop = 0;
     }
@@ -2943,16 +2945,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     var orderedEventsLength = orderedEvents.length;
     var orderedEventIndex = 0;
     for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
-      buildAllEventsEvent(orderedEvents[orderedEventIndex]);
+      buildAllEventsViewEvent(orderedEvents[orderedEventIndex]);
     }
     updateToolbarButtonVisibleState(_element_View_AllEvents_SearchButton, _element_View_AllEvents_EventsShown.length > 0);
     if (_element_View_AllEvents_EventsShown.length === 0) {
       buildNoEventsAvailableText(_element_View_AllEvents_Contents, addNewEvent);
     }
   }
-  function buildAllEventsEvent(eventDetails) {
+  function buildAllEventsViewEvent(eventDetails) {
     if (isEventVisible(eventDetails)) {
-      var container = buildAllEventsMonth(eventDetails.from);
+      var container = buildAllEventsViewMonth(eventDetails.from);
       var event = createElement("div", "event");
       container.appendChild(event);
       event.oncontextmenu = function(e) {
@@ -3029,7 +3031,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_View_AllEvents_EventsShown.push(eventDetails);
     }
   }
-  function buildAllEventsMonth(date) {
+  function buildAllEventsViewMonth(date) {
     var monthContentsID = "month-" + date.getMonth() + "-" + date.getFullYear();
     var monthContents = getElementByID(monthContentsID);
     if (monthContents === null) {
@@ -3039,6 +3041,10 @@ function calendarJs(elementOrId, options, searchOptions) {
         hideOverlay(_element_View_AllEvents);
         build(expandMonthDate);
       };
+      var yearHeader = buildAllEventsViewMonthHeader(date);
+      if (yearHeader !== null) {
+        _element_View_AllEvents_Contents.appendChild(yearHeader);
+      }
       var month = createElement("div", "month");
       _element_View_AllEvents_Contents.appendChild(month);
       var header = createElement("div", "header");
@@ -3065,7 +3071,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         });
       }
       var minimizeRestoreFunction = function() {
-        minimizeRestoreAllEventMonth(minimizeButton, monthContents, monthContentsID);
+        minimizeRestoreAllEventsViewMonth(minimizeButton, monthContents, monthContentsID);
       };
       var minimizeButton = buildToolbarButton(header, "ib-minus", _options.minimizedTooltipText, minimizeRestoreFunction);
       _element_View_AllEvents_MinimizeRestoreFunctions.push(minimizeRestoreFunction);
@@ -3081,7 +3087,22 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     return monthContents;
   }
-  function minimizeRestoreAllEventMonth(minimizeButton, monthContents, monthContentsID) {
+  function buildAllEventsViewMonthHeader(date) {
+    var yearHeader = null;
+    if (_element_View_AllEvents_YearHeadersAdded.indexOf(date.getFullYear()) === -1) {
+      _element_View_AllEvents_YearHeadersAdded.push(date.getFullYear());
+      yearHeader = createElement("div", "year-header");
+      var text = createElement("span", "header-text");
+      setNodeText(text, date.getFullYear() + ":");
+      yearHeader.appendChild(text);
+      text.onclick = function() {
+        showFullYearView(date.getFullYear());
+      };
+      yearHeader.appendChild(createElement("div", "line"));
+    }
+    return yearHeader;
+  }
+  function minimizeRestoreAllEventsViewMonth(minimizeButton, monthContents, monthContentsID) {
     if (monthContents.style.display !== "none") {
       monthContents.style.display = "none";
       minimizeButton.className = "ib-square-hollow";
@@ -7769,6 +7790,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_AllEvents_Contents = null;
   var _element_View_AllEvents_EventsShown = [];
   var _element_View_AllEvents_MinimizeRestoreFunctions = [];
+  var _element_View_AllEvents_YearHeadersAdded = [];
   var _element_Dialog_AllOpened = [];
   var _element_Dialog_Move = null;
   var _element_Dialog_Move_Original_X = 0;

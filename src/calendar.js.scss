@@ -1064,6 +1064,8 @@ div.calendar {
     div.full-day-view {
         @include full-size-view-display( 2 );
 
+        z-index: 3;
+
         span.holiday {
             font-weight: 300 !important;
         }
@@ -1288,6 +1290,8 @@ div.calendar {
     div.full-year-view {
         @include full-size-view-display;
 
+        z-index: 2;
+
         @import "foundation/overlay-title-bar";
 
         div.contents {
@@ -1378,6 +1382,33 @@ div.calendar {
 
         div.contents {
             @include overlay-contents;
+
+            div.year-header {
+                margin-top: calc( $spacing * 2 );
+
+                span.header-text {
+                    font-weight: 900;
+                    font-size: 22px;
+
+                    &:hover {
+                        @include opacity-hover-effect;
+                    }
+            
+                    &:active {
+                        @include opacity-active-effect;
+                    }
+                }
+
+                div.line {
+                    margin-top: calc( $spacing / 2 );
+                    border-bottom: $standard-border-size solid var(--dark-color);
+                    margin-bottom: $spacing;
+                }
+
+                &:first-of-type {
+                    margin-top: 0;
+                }
+            }
 
             div.month {
                 border-radius: $border-view-radius;

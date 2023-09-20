@@ -1072,6 +1072,7 @@ div.calendar div.full-day-view {
   background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
+  z-index: 3;
 }
 div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
@@ -1518,6 +1519,7 @@ div.calendar div.full-year-view {
   background-color: var(--light-color);
   transition: all 0.3s;
   visibility: hidden;
+  z-index: 2;
 }
 div.calendar div.full-year-view div.title-bar {
   width: calc( 100% - 10px );
@@ -1774,6 +1776,31 @@ div.calendar div.all-events-view div.contents {
   div.calendar div.all-events-view div.contents {
     height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
   }
+}
+div.calendar div.all-events-view div.contents div.year-header {
+  margin-top: 20px;
+}
+div.calendar div.all-events-view div.contents div.year-header span.header-text {
+  font-weight: 900;
+  font-size: 22px;
+}
+div.calendar div.all-events-view div.contents div.year-header span.header-text:hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.6;
+}
+div.calendar div.all-events-view div.contents div.year-header span.header-text:active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.4;
+}
+div.calendar div.all-events-view div.contents div.year-header div.line {
+  margin-top: 5px;
+  border-bottom: 1px solid var(--dark-color);
+  margin-bottom: 10px;
+}
+div.calendar div.all-events-view div.contents div.year-header:first-of-type {
+  margin-top: 0;
 }
 div.calendar div.all-events-view div.contents div.month {
   border-radius: 0.25rem;
