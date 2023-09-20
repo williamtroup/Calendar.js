@@ -2968,6 +2968,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     } else {
       buildFullYearMonthDaysHeader(daysHeader, 0, headerNamesLength);
     }
+    if (_options.reverseOrderDaysOfWeek) {
+      reverseElementsOrder(daysHeader);
+    }
     var monthDayId = monthIndex + 1 + "-month-";
     var firstDay = new Date(_element_FullYearView_CurrentYear, monthIndex, 1);
     var startDay = getStartOfWeekDayNumber(firstDay.getDay() === 0 ? 7 : firstDay.getDay());
