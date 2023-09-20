@@ -4380,14 +4380,14 @@ div.calendar-context-menu div.separator {
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 10px solid var(--title-bar-button-color);
+  border-bottom: 8px solid var(--title-bar-button-color);
   left: 0;
   bottom: 0;
 }
 .ib-hourglass:after {
   width: 0;
   height: 0;
-  border-top: 10px solid var(--title-bar-button-color);
+  border-top: 8px solid var(--title-bar-button-color);
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   left: 0;
