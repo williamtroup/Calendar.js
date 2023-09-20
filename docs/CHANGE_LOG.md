@@ -7,13 +7,13 @@
 - Added alert notification offset support for events (states how many minutes before an event is due to start to show an alert).
 
 #### **UI Improvements:**
-- The Year Drop-Down button on the main displays title bar now uses a button style (make it clearer it can be clicked).
-- The "Turn On Full-Screen Mode" buttons in the title bars are now on the right hand side (after the close buttons in the views).
+- The Year Drop-Down button on the main display's title bar now uses a button style (make it clearer it can be clicked).
+- The "Turn On Full-Screen Mode" buttons in the title bars are now on the right-hand side (after the close buttons in the views).
 - The "Expand" buttons in the View section title bars are now separated with a divider line.
 - Clicking the "Import Events" button in the Side Menu title bar will now close the Side Menu.
 - The "Close" button on the Side Menu title bar is now separated with a divider line.
 - Moved the "Export Events" button on all title bars (including views) to the Side Menu (next to the "Import Events" button).
-- Added a "View Full Day" button to the main displays title bar, which will open the Full Day view on the current day.
+- Added a "View Full Day" button to the main display's title bar, which will open the Full Day view on the current day.
 - The "All Events" view now separates the months into year sections (clicking the header will show the Full Year view).
 
 #### **Breaking Change Improvements:**
