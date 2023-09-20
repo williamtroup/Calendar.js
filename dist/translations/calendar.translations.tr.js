@@ -221,7 +221,7 @@ var __TRANSLATION_OPTIONS = {
     "selectNoneText": "Hiçbirini Seçme",
     "importEventsTooltipText": "Etkinlikleri İçe Aktar",
     "eventsImportedText": "{0} etkinlik içe aktarıldı.",
-    "fullYearTooltipText": "Tüm Yılı Görüntüle",
+    "viewFullYearTooltipText": "Tüm Yılı Görüntüle",
     "currentYearTooltipText": "Mevcut yıl",
     "alertOffsetText": "Uyarı Dengesi (dakika):"
 };

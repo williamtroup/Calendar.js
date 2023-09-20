@@ -221,7 +221,7 @@ var __TRANSLATION_OPTIONS = {
   "selectNoneText": "Seleccionar Ninguno",
   "importEventsTooltipText": "Importar eventos",
   "eventsImportedText": "{0} eventos importados.",
-  "fullYearTooltipText": "Ver año completo",
+  "viewFullYearTooltipText": "Ver año completo",
   "currentYearTooltipText": "Año corriente",
   "alertOffsetText": "Compensación de alerta (minutos):"
 };
