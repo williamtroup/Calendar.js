@@ -627,14 +627,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullDayView_Event_Dragged_EventDetails = null,
         _element_FullDayView_Event_Dragged_Offset = null,
 
-        // Variables: View - List All Events
-        _element_ListAllEventsView = null,
-        _element_ListAllEventsView_FullScreenButton = null,
-        _element_ListAllEventsView_SearchButton = null,
-        _element_ListAllEventsView_Contents = null,
-        _element_ListAllEventsView_EventsShown = [],
-        _element_ListAllEventsView_MinimizeRestoreFunctions = [],
-
         // Variables: View - List All Week Events
         _element_ListAllWeekEventsView = null,
         _element_ListAllWeekEventsView_TitleBar = null,
@@ -655,6 +647,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_FullYearView_TitleBar = null,
         _element_FullYearView_Contents = null,
         _element_FullYearView_CurrentYear = null,
+
+        // Variables: View - List All Events
+        _element_ListAllEventsView = null,
+        _element_ListAllEventsView_FullScreenButton = null,
+        _element_ListAllEventsView_SearchButton = null,
+        _element_ListAllEventsView_Contents = null,
+        _element_ListAllEventsView_EventsShown = [],
+        _element_ListAllEventsView_MinimizeRestoreFunctions = [],
 
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
@@ -911,9 +911,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _element_Calendar !== null ) {
                 buildSideMenu();
                 buildFullDayView();
-                buildListAllEventsView();
                 buildListAllWeekEventsView();
                 buildFullYearView();
+                buildListAllEventsView();
                 buildDateHeader();
                 buildDayNamesHeader();
                 buildDayRows();
@@ -3854,305 +3854,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * List All Events View
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function buildListAllEventsView() {
-        if ( !_datePickerModeEnabled ) {
-            var wasAddedAlready = _element_ListAllEventsView !== null;
-
-            if ( wasAddedAlready ) {
-                _element_ListAllEventsView.innerHTML = _string.empty;
-            }
-
-            if ( !wasAddedAlready ) {
-                _element_ListAllEventsView = createElement( "div", "list-all-events-view" );
-                _element_Calendar.appendChild( _element_ListAllEventsView );
-            }
-    
-            var titleBar = createElement( "div", "title-bar" );
-            _element_ListAllEventsView.appendChild( titleBar );
-    
-            if ( _options.fullScreenModeEnabled ) {
-                titleBar.ondblclick = headerDoubleClick;
-            }
-    
-            var title = createElement( "div", "title" );
-            setNodeText( title, _options.allEventsText );
-            titleBar.appendChild( title );
-    
-            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
-                _element_ListAllEventsView_EventsShown = [];
-    
-                hideOverlay( _element_ListAllEventsView );
-            } );
-    
-            if ( _options.showExtraToolbarButtons ) {
-                titleBar.appendChild( createElement( "div", "right-divider-line" ) );
-
-                if ( _options.fullScreenModeEnabled ) {
-                    _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
-
-                    titleBar.appendChild( createElement( "div", "right-divider-line" ) );
-                }
-
-                if ( _options.manualEditingEnabled ) {
-                    buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
-                }
-            }
-
-            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
-                buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
-            }
-
-            if ( _options.showExtraToolbarButtons ) {
-                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
-                
-                buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-                    refreshViews( true, true );
-                } );
-
-                if ( _optionsForSearch.enabled ) {
-                    _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
-                }
-            }
-    
-            _element_ListAllEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
-            _element_ListAllEventsView.appendChild( _element_ListAllEventsView_Contents );
-        }
-    }
-
-    function showListAllEventsView( fromOpen ) {
-        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
-
-        showOverlay( _element_ListAllEventsView );
-        _element_ListAllEventsView_Contents.innerHTML = _string.empty;
-        _element_ListAllEventsView_EventsShown = [];
-        _element_ListAllEventsView_MinimizeRestoreFunctions = [];
-
-        if ( fromOpen ) {
-            _element_ListAllEventsView_Contents.scrollTop = 0;
-        }
-
-        var orderedEvents = getOrderedEvents( getAllEvents() ),
-            orderedEventsLength = orderedEvents.length;
-
-        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            buildListAllEventsEvent( orderedEvents[ orderedEventIndex ] );
-        }
-
-        updateToolbarButtonVisibleState( _element_ListAllEventsView_SearchButton, _element_ListAllEventsView_EventsShown.length > 0 );
-
-        if ( _element_ListAllEventsView_EventsShown.length === 0 ) {
-            buildNoEventsAvailableText( _element_ListAllEventsView_Contents, addNewEvent );
-        }
-    }
-
-    function buildListAllEventsEvent( eventDetails ) {
-        if ( isEventVisible( eventDetails ) ) {
-            var container = buildListAllEventsMonth( eventDetails.from ),
-                event = createElement( "div", "event" );
-
-            container.appendChild( event );
-    
-            event.oncontextmenu = function( e ) {
-                showEventContextMenu( e, eventDetails );
-            };
-    
-            makeEventDraggable( event, eventDetails, eventDetails.from, container );
-            setEventClassesAndColors( event, eventDetails );
-            setEventClassesForActions( event, eventDetails );
-
-            event.id = _elementID_Month + eventDetails.id;
-            event.setAttribute( "event-type", getNumber( eventDetails.type ) );
-            event.setAttribute( "event-id", eventDetails.id );
-
-            var title = createElement( "div", "title" ),
-                repeatEvery = getNumber( eventDetails.repeatEvery );
-
-            if ( repeatEvery > _repeatType.never ) {
-                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
-                icon.style.borderColor = event.style.color;
-                title.appendChild( icon );
-            }
-            
-            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
-            event.appendChild( title );
-    
-            var startTime = createElement( "div", "date" );
-            event.appendChild( startTime );
-
-            var duration = createElement( "div", "duration" );
-            event.appendChild( duration );
-    
-            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                if ( eventDetails.isAllDay ) {
-                    buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
-                } else {
-                    buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
-                    setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
-                }
-            } else {
-
-                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-                setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
-            }
-
-            if ( duration.innerHTML === _string.empty ) {
-                event.removeChild( duration );
-            }
-    
-            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
-                var repeats = createElement( "div", "repeats" );
-                setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
-                event.appendChild( repeats );
-            }
-    
-            if ( isDefinedStringAndSet( eventDetails.location ) ) {
-                var location = createElement( "div", "location" );
-                setNodeText( location, eventDetails.location );
-                event.appendChild( location );
-            }
-    
-            if ( isDefinedStringAndSet( eventDetails.description ) ) {
-                var description = createElement( "div", "description" );
-                setNodeText( description, eventDetails.description );
-                event.appendChild( description );
-            }
-
-            event.addEventListener( "click", function( e ) {
-                storeMultiSelectEvent( e, eventDetails );
-            } );
-
-            if ( isOptionEventSet( "onEventClick" ) ) {
-                event.addEventListener( "click", function() {
-                    triggerOptionsEventWithData( "onEventClick", eventDetails );
-                } );
-            }
-    
-            if ( _options.manualEditingEnabled ) {
-                event.ondblclick = function( e ) {
-                    cancelBubble( e );
-                    showEventEditingDialog( eventDetails );
-                };
-            } else {
-
-                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
-                    event.ondblclick = function() {
-                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
-                    };
-                }
-            }
-
-            _element_ListAllEventsView_EventsShown.push( eventDetails );
-        }
-    }
-
-    function buildListAllEventsMonth( date ) {
-        var monthContentsID = "month-" + date.getMonth() + "-" + date.getFullYear(),
-            monthContents = getElementByID( monthContentsID );
-        
-        if ( monthContents === null ) {
-            var expandMonthDate = new Date( date ),
-                expandFunction = function() {
-                    _element_ListAllEventsView_EventsShown = [];
-
-                    hideOverlay( _element_ListAllEventsView );
-                    build( expandMonthDate );
-                };
-
-            var month = createElement( "div", "month" );
-            _element_ListAllEventsView_Contents.appendChild( month );
-
-            var header = createElement( "div", "header" );
-            setNodeText( header, _options.monthNames[ date.getMonth() ] + _string.space + date.getFullYear() );
-            header.ondblclick = expandFunction;
-            month.appendChild( header );
-
-            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
-
-            header.appendChild( createElement( "div", "right-divider-line" ) );
-
-            if ( _options.manualEditingEnabled ) {
-                var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
-
-                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
-                    if ( _options.useTemplateWhenAddingNewEvent ) {
-                        var newBlankTemplateEvent = buildBlankTemplateEvent( addNewEventDate, addNewEventDate );
-
-                        showEventEditingDialog( newBlankTemplateEvent );
-                        showEventEditingDialogTitleSelected();
-                    } else {
-                        showEventEditingDialog( null, addNewEventDate );
-                    }
-                } );
-            }
-
-            if ( _options.manualEditingEnabled ) { 
-                buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
-                    removeNonRepeatingEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
-                } );
-            }
-
-            var minimizeRestoreFunction = function() {
-                minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID );
-            };
-
-            var minimizeButton = buildToolbarButton( header, "ib-minus", _options.minimizedTooltipText, minimizeRestoreFunction );
-
-            _element_ListAllEventsView_MinimizeRestoreFunctions.push( minimizeRestoreFunction );
-
-            monthContents = createElement( "div", "events" );
-            monthContents.id = monthContentsID;
-            month.appendChild( monthContents );
-
-            if ( _configuration.visibleAllEventsMonths.hasOwnProperty( monthContentsID ) && !_configuration.visibleAllEventsMonths[ monthContentsID ] ) {
-                monthContents.style.display = "none";
-                minimizeButton.className = "ib-square-hollow";
-                addToolTip( minimizeButton, _options.restoreTooltipText );
-            }
-
-            makeAreaDroppable( monthContents, date.getFullYear(), date.getMonth(), date.getDate() );
-        }
-
-        return monthContents;
-    }
-
-    function minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID ) {
-        if ( monthContents.style.display !== "none" ) {
-            monthContents.style.display = "none";
-            minimizeButton.className = "ib-square-hollow";
-            _configuration.visibleAllEventsMonths[ monthContentsID ] = false;
-            addToolTip( minimizeButton, _options.restoreTooltipText );
-        
-        } else {
-            monthContents.style.display = "block";
-            minimizeButton.className = "ib-minus";
-            _configuration.visibleAllEventsMonths[ monthContentsID ] = true;
-            addToolTip( minimizeButton, _options.minimizedTooltipText );
-        }
-    }
-
-    function updateViewAllEventsView() {
-        if ( isOverlayVisible( _element_ListAllEventsView ) ) {
-            showListAllEventsView();
-        }
-    }
-
-    function callMinimizeRestoreFunctionsForAllEventView() {
-        if ( isOverlayVisible( _element_ListAllEventsView ) ) {
-            var functionsLength = _element_ListAllEventsView_MinimizeRestoreFunctions.length;
-
-            for ( var functionIndex = 0; functionIndex < functionsLength; functionIndex++ ) {
-                _element_ListAllEventsView_MinimizeRestoreFunctions[ functionIndex ]();
-            }
-        }
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * List All Week Events View
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -4961,6 +4662,305 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function updateFullYearView() {
         if ( isOverlayVisible( _element_FullYearView ) ) {
             showFullYearView( _element_FullYearView_CurrentYear );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * List All Events View
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildListAllEventsView() {
+        if ( !_datePickerModeEnabled ) {
+            var wasAddedAlready = _element_ListAllEventsView !== null;
+
+            if ( wasAddedAlready ) {
+                _element_ListAllEventsView.innerHTML = _string.empty;
+            }
+
+            if ( !wasAddedAlready ) {
+                _element_ListAllEventsView = createElement( "div", "list-all-events-view" );
+                _element_Calendar.appendChild( _element_ListAllEventsView );
+            }
+    
+            var titleBar = createElement( "div", "title-bar" );
+            _element_ListAllEventsView.appendChild( titleBar );
+    
+            if ( _options.fullScreenModeEnabled ) {
+                titleBar.ondblclick = headerDoubleClick;
+            }
+    
+            var title = createElement( "div", "title" );
+            setNodeText( title, _options.allEventsText );
+            titleBar.appendChild( title );
+    
+            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
+                _element_ListAllEventsView_EventsShown = [];
+    
+                hideOverlay( _element_ListAllEventsView );
+            } );
+    
+            if ( _options.showExtraToolbarButtons ) {
+                titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+
+                if ( _options.fullScreenModeEnabled ) {
+                    _element_ListAllEventsView_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, headerDoubleClick );
+
+                    titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+                }
+
+                if ( _options.manualEditingEnabled ) {
+                    buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+                }
+            }
+
+            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
+                buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+            }
+
+            if ( _options.showExtraToolbarButtons ) {
+                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
+                
+                buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+                    refreshViews( true, true );
+                } );
+
+                if ( _optionsForSearch.enabled ) {
+                    _element_ListAllEventsView_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+                }
+            }
+    
+            _element_ListAllEventsView_Contents = createElement( "div", "contents custom-scroll-bars" );
+            _element_ListAllEventsView.appendChild( _element_ListAllEventsView_Contents );
+        }
+    }
+
+    function showListAllEventsView( fromOpen ) {
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
+
+        showOverlay( _element_ListAllEventsView );
+        _element_ListAllEventsView_Contents.innerHTML = _string.empty;
+        _element_ListAllEventsView_EventsShown = [];
+        _element_ListAllEventsView_MinimizeRestoreFunctions = [];
+
+        if ( fromOpen ) {
+            _element_ListAllEventsView_Contents.scrollTop = 0;
+        }
+
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            buildListAllEventsEvent( orderedEvents[ orderedEventIndex ] );
+        }
+
+        updateToolbarButtonVisibleState( _element_ListAllEventsView_SearchButton, _element_ListAllEventsView_EventsShown.length > 0 );
+
+        if ( _element_ListAllEventsView_EventsShown.length === 0 ) {
+            buildNoEventsAvailableText( _element_ListAllEventsView_Contents, addNewEvent );
+        }
+    }
+
+    function buildListAllEventsEvent( eventDetails ) {
+        if ( isEventVisible( eventDetails ) ) {
+            var container = buildListAllEventsMonth( eventDetails.from ),
+                event = createElement( "div", "event" );
+
+            container.appendChild( event );
+    
+            event.oncontextmenu = function( e ) {
+                showEventContextMenu( e, eventDetails );
+            };
+    
+            makeEventDraggable( event, eventDetails, eventDetails.from, container );
+            setEventClassesAndColors( event, eventDetails );
+            setEventClassesForActions( event, eventDetails );
+
+            event.id = _elementID_Month + eventDetails.id;
+            event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+            event.setAttribute( "event-id", eventDetails.id );
+
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _repeatType.never ) {
+                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+                icon.style.borderColor = event.style.color;
+                title.appendChild( icon );
+            }
+            
+            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+            event.appendChild( title );
+    
+            var startTime = createElement( "div", "date" );
+            event.appendChild( startTime );
+
+            var duration = createElement( "div", "duration" );
+            event.appendChild( duration );
+    
+            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                if ( eventDetails.isAllDay ) {
+                    buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
+                } else {
+                    buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                    setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+                }
+            } else {
+
+                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+                setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+            }
+
+            if ( duration.innerHTML === _string.empty ) {
+                event.removeChild( duration );
+            }
+    
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
+                var repeats = createElement( "div", "repeats" );
+                setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
+                event.appendChild( repeats );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                var location = createElement( "div", "location" );
+                setNodeText( location, eventDetails.location );
+                event.appendChild( location );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                var description = createElement( "div", "description" );
+                setNodeText( description, eventDetails.description );
+                event.appendChild( description );
+            }
+
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.addEventListener( "click", function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                } );
+            }
+    
+            if ( _options.manualEditingEnabled ) {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
+                    showEventEditingDialog( eventDetails );
+                };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
+            }
+
+            _element_ListAllEventsView_EventsShown.push( eventDetails );
+        }
+    }
+
+    function buildListAllEventsMonth( date ) {
+        var monthContentsID = "month-" + date.getMonth() + "-" + date.getFullYear(),
+            monthContents = getElementByID( monthContentsID );
+        
+        if ( monthContents === null ) {
+            var expandMonthDate = new Date( date ),
+                expandFunction = function() {
+                    _element_ListAllEventsView_EventsShown = [];
+
+                    hideOverlay( _element_ListAllEventsView );
+                    build( expandMonthDate );
+                };
+
+            var month = createElement( "div", "month" );
+            _element_ListAllEventsView_Contents.appendChild( month );
+
+            var header = createElement( "div", "header" );
+            setNodeText( header, _options.monthNames[ date.getMonth() ] + _string.space + date.getFullYear() );
+            header.ondblclick = expandFunction;
+            month.appendChild( header );
+
+            buildToolbarButton( header, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
+
+            header.appendChild( createElement( "div", "right-divider-line" ) );
+
+            if ( _options.manualEditingEnabled ) {
+                var addNewEventDate = new Date( date.getFullYear(), date.getMonth(), 1 );
+
+                buildToolbarButton( header, "ib-plus", _options.addEventTooltipText, function() {
+                    if ( _options.useTemplateWhenAddingNewEvent ) {
+                        var newBlankTemplateEvent = buildBlankTemplateEvent( addNewEventDate, addNewEventDate );
+
+                        showEventEditingDialog( newBlankTemplateEvent );
+                        showEventEditingDialogTitleSelected();
+                    } else {
+                        showEventEditingDialog( null, addNewEventDate );
+                    }
+                } );
+            }
+
+            if ( _options.manualEditingEnabled ) { 
+                buildToolbarButton( header, "ib-close", _options.removeEventsTooltipText, function() {
+                    removeNonRepeatingEventsOnSpecificDate( expandMonthDate, doDatesMatchMonthAndYear );
+                } );
+            }
+
+            var minimizeRestoreFunction = function() {
+                minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID );
+            };
+
+            var minimizeButton = buildToolbarButton( header, "ib-minus", _options.minimizedTooltipText, minimizeRestoreFunction );
+
+            _element_ListAllEventsView_MinimizeRestoreFunctions.push( minimizeRestoreFunction );
+
+            monthContents = createElement( "div", "events" );
+            monthContents.id = monthContentsID;
+            month.appendChild( monthContents );
+
+            if ( _configuration.visibleAllEventsMonths.hasOwnProperty( monthContentsID ) && !_configuration.visibleAllEventsMonths[ monthContentsID ] ) {
+                monthContents.style.display = "none";
+                minimizeButton.className = "ib-square-hollow";
+                addToolTip( minimizeButton, _options.restoreTooltipText );
+            }
+
+            makeAreaDroppable( monthContents, date.getFullYear(), date.getMonth(), date.getDate() );
+        }
+
+        return monthContents;
+    }
+
+    function minimizeRestoreAllEventMonth( minimizeButton, monthContents, monthContentsID ) {
+        if ( monthContents.style.display !== "none" ) {
+            monthContents.style.display = "none";
+            minimizeButton.className = "ib-square-hollow";
+            _configuration.visibleAllEventsMonths[ monthContentsID ] = false;
+            addToolTip( minimizeButton, _options.restoreTooltipText );
+        
+        } else {
+            monthContents.style.display = "block";
+            minimizeButton.className = "ib-minus";
+            _configuration.visibleAllEventsMonths[ monthContentsID ] = true;
+            addToolTip( minimizeButton, _options.minimizedTooltipText );
+        }
+    }
+
+    function updateViewAllEventsView() {
+        if ( isOverlayVisible( _element_ListAllEventsView ) ) {
+            showListAllEventsView();
+        }
+    }
+
+    function callMinimizeRestoreFunctionsForAllEventView() {
+        if ( isOverlayVisible( _element_ListAllEventsView ) ) {
+            var functionsLength = _element_ListAllEventsView_MinimizeRestoreFunctions.length;
+
+            for ( var functionIndex = 0; functionIndex < functionsLength; functionIndex++ ) {
+                _element_ListAllEventsView_MinimizeRestoreFunctions[ functionIndex ]();
+            }
         }
     }
 

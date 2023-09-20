@@ -1213,63 +1213,6 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - All Events View
-    -------------------------------------------------------------------------
-*/
-
-div.calendar {
-    div.list-all-events-view {
-        @include full-size-view-display;
-
-        @import "foundation/overlay-title-bar";
-
-        div.contents {
-            @include overlay-contents;
-
-            div.month {
-                border-radius: $border-view-radius;
-                border: $standard-border-size solid var(--dark-color);
-                overflow: hidden;
-                margin-bottom: $spacing;
-
-                div.header {
-                    background-color: var(--dark-color) !important;
-                    color: var(--light-color) !important;
-                    padding: $spacing;
-                    font-weight: $title-bar-font-weight;
-
-                    div.right-divider-line {
-                        @include title-bar-divider-line;
-                    }
-
-                    div.ib-arrow-expand-left-right,
-                    div.ib-plus,
-                    div.ib-close,
-                    div.ib-minus,
-                    div.ib-square-hollow,
-                    div.right-divider-line {
-                        float: right;
-                        margin-left: $spacing;
-                    }
-                }
-
-                div.events {
-                    padding: $spacing;
-
-                    @import "foundation/overlay-event";
-                }
-
-                &:last-child {
-                    margin-bottom: $standard-border-size !important;
-                }
-            }
-        }
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
     Calendar.js - All Week Events View
     -------------------------------------------------------------------------
 */
@@ -1414,6 +1357,63 @@ div.calendar {
                         margin-right: $spacing !important;
                         margin-left: 0 !important;
                     }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - All Events View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.list-all-events-view {
+        @include full-size-view-display;
+
+        @import "foundation/overlay-title-bar";
+
+        div.contents {
+            @include overlay-contents;
+
+            div.month {
+                border-radius: $border-view-radius;
+                border: $standard-border-size solid var(--dark-color);
+                overflow: hidden;
+                margin-bottom: $spacing;
+
+                div.header {
+                    background-color: var(--dark-color) !important;
+                    color: var(--light-color) !important;
+                    padding: $spacing;
+                    font-weight: $title-bar-font-weight;
+
+                    div.right-divider-line {
+                        @include title-bar-divider-line;
+                    }
+
+                    div.ib-arrow-expand-left-right,
+                    div.ib-plus,
+                    div.ib-close,
+                    div.ib-minus,
+                    div.ib-square-hollow,
+                    div.right-divider-line {
+                        float: right;
+                        margin-left: $spacing;
+                    }
+                }
+
+                div.events {
+                    padding: $spacing;
+
+                    @import "foundation/overlay-event";
+                }
+
+                &:last-child {
+                    margin-bottom: $standard-border-size !important;
                 }
             }
         }
