@@ -5,6 +5,7 @@
 - Added open view tracking, which will increase the z-index of each view opened and track which are opened and in what order (so views can be opened/closed in the right order).
 - The CSS class "overlay-shown" has been renamed to "view-shown".
 - Internal renames from the use of "Overlay" to "View" (including files).
+- Added translation support for Chinese (simplified).
 - 
 
 <br>
