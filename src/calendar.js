@@ -7501,7 +7501,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var viewElement = null;
 
         while ( viewElement === null ) {
-            viewElement = _element_View_Opened.pop();
+            viewElement = _element_View_Opened[ _element_View_Opened.length - 1 ];
+            _element_View_Opened.pop();
 
             if ( viewElement !== null ) {
                 hideView( viewElement );

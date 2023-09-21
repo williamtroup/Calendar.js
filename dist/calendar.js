@@ -4979,7 +4979,8 @@ function calendarJs(elementOrId, options, searchOptions) {
   function closeLastViewOpened() {
     var viewElement = null;
     for (; viewElement === null;) {
-      viewElement = _element_View_Opened.pop();
+      viewElement = _element_View_Opened[_element_View_Opened.length - 1];
+      _element_View_Opened.pop();
       if (viewElement !== null) {
         hideView(viewElement);
         if (viewElement === _element_View_FullDay) {
