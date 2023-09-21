@@ -4988,6 +4988,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       }
     }
+    if (_element_View_Opened.length === 0) {
+      _element_View_LastZIndex = 0;
+    }
   }
   function addNewViewOpened(viewElement) {
     var viewElementIndex = _element_View_Opened.indexOf(viewElement);
