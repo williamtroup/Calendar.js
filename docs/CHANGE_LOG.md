@@ -8,6 +8,9 @@
 - Renamed the setting "viewWeekEventsText" to "viewFullWeekText" (default value is now "View Full Week").
 - Renamed all internal JS code to reflect the rename from "All Week Events" to "Full Week".
 
+#### **Full Year View:**
+- Added full context menu support to the Day Names in each month (same one used in the main display), allowing days to be toggled.
+
 #### **Code Improvements:**
 - Moved Full-Screen Mode into its own section, with some refactoring to make things clearer.
 

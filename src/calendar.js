@@ -1073,8 +1073,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var wasAddedAlready = _element_Calendar_DayNamesHeader !== null;
         
         if ( _options.showDayNamesInMainDisplay ) {
-            var headerNamesLength = _options.dayHeaderNames.length;
-
             if ( wasAddedAlready ) {
                 _element_Calendar_DayNamesHeader.innerHTML = _string.empty;
             }
@@ -1088,12 +1086,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_Calendar_DayNamesHeader.onclick = cancelBubble;
             }
 
-            if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-                buildDayNamesHeaderSection( _options.startOfWeekDay, headerNamesLength );
-                buildDayNamesHeaderSection( 0, _options.startOfWeekDay );
-            } else {
-                buildDayNamesHeaderSection( 0, headerNamesLength );
-            }
+            buildViewDayNamesHeader( _element_Calendar_DayNamesHeader );
 
             if ( _options.reverseOrderDaysOfWeek ) {
                 reverseElementsOrder( _element_Calendar_DayNamesHeader );
@@ -1103,72 +1096,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( wasAddedAlready ) {
                 _element_Calendar.removeChild( _element_Calendar_DayNamesHeader );
                 _element_Calendar_DayNamesHeader = null;
-            }
-        }
-    }
-
-    function buildDayNamesHeaderSection( startIndex, endIndex ) {
-        for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
-            if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                buildDayNamesHeaderItem( _element_Calendar_DayNamesHeader, headerNameIndex );
-            }
-        }
-    }
-
-    function buildDayNamesHeaderItem( headerRow, headerNameIndex ) {
-        var headerName = _options.dayHeaderNames[ headerNameIndex ],
-            header = createElement( "div", getCellName() );
-
-        setNodeText( header, headerName );
-
-        headerRow.appendChild( header );
-
-        header.oncontextmenu = function( e ) {
-            showDayHeaderContextMenu( e, headerNameIndex );
-        };
-
-        header.ondblclick = function( e ) {
-            toggleSingleDayView( headerNameIndex );
-        };
-    }
-
-    function toggleSingleDayView( headerNameIndex ) {
-        if ( !_datePickerModeEnabled ) {
-            var updateDisplay = false;
-
-            if ( _element_Calendar_PreviousDaysVisibleBeforeSingleDayView.length === 0 ) {
-                var visibleDaysLength = _options.visibleDays.length;
-
-                if ( visibleDaysLength > 1 ) {
-                    for ( var visibleDayIndex = 0; visibleDayIndex < visibleDaysLength; visibleDayIndex++ ) {
-                        _element_Calendar_PreviousDaysVisibleBeforeSingleDayView.push( _options.visibleDays[ visibleDayIndex ] );
-                    }
-        
-                    _options.visibleDays = [];
-                    _options.visibleDays.push( headerNameIndex );
-
-                    updateDisplay = true;
-                }
-            } else {
-    
-                _options.visibleDays = [];
-    
-                var originalVisibleDaysLength = _element_Calendar_PreviousDaysVisibleBeforeSingleDayView.length;
-    
-                for ( var previousVisibleDayIndex = 0; previousVisibleDayIndex < originalVisibleDaysLength; previousVisibleDayIndex++ ) {
-                    _options.visibleDays.push( _element_Calendar_PreviousDaysVisibleBeforeSingleDayView[ previousVisibleDayIndex ] );
-                }
-    
-                _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
-
-                updateDisplay = true;
-            }
-    
-            if ( updateDisplay ) {
-                _initialized = false;
-    
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
-                build( _currentDate, true );
             }
         }
     }
@@ -3871,32 +3798,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Days );
     }
 
-    function buildFullWeekDayNamesHeader() {
-        _element_View_FullWeek_Contents_DayNamesHeader.innerHTML = "";
-
-        var headerNamesLength = _options.dayHeaderNames.length;
-
-        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-            buildFullWeekDaysHeader( _options.startOfWeekDay, headerNamesLength );
-            buildFullWeekDaysHeader( 0, _options.startOfWeekDay );
-        } else {
-            buildFullWeekDaysHeader( 0, headerNamesLength );
-        }
-    }
-
-    function buildFullWeekDaysHeader( startIndex, endIndex ) {
-        for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
-            if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                var headerName = _options.dayHeaderNames[ headerNameIndex ],
-                    header = createElement( "div", getCellName() );
-        
-                setNodeText( header, headerName );
-        
-                _element_View_FullWeek_Contents_DayNamesHeader.appendChild( header );
-            }
-        }
-    }
-
     function buildFullWeekViewTitle( weekStartDate, weekEndDate ) {
         _element_View_FullWeek_TitleBar.innerHTML = _string.empty;
 
@@ -3930,7 +3831,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         hideSearchDialog();
         addNewViewOpened( _element_View_FullWeek );
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
-        buildFullWeekDayNamesHeader();
+        buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
     }
 
     function updateViewFullWeekView() {
@@ -4023,14 +3924,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullYearMonths() {
         _element_View_FullYear_Contents.innerHTML = _string.empty;
 
-        var headerNamesLength = _options.dayHeaderNames.length;
-
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            buildFullYearMonth( monthIndex, headerNamesLength );
+            buildFullYearMonth( monthIndex );
         }
     }
 
-    function buildFullYearMonth( monthIndex, headerNamesLength ) {
+    function buildFullYearMonth( monthIndex ) {
         var expandMonthDate = new Date( _element_View_FullYear_CurrentYear, monthIndex, 1 );
 
         var yearMonth = createElement( "div", "year-month" );
@@ -4061,12 +3960,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var daysHeader = createElement( "div", "row-cells header-days" );
         yearMonth.appendChild( daysHeader );
 
-        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-            buildFullYearMonthDaysHeader( daysHeader, _options.startOfWeekDay, headerNamesLength );
-            buildFullYearMonthDaysHeader( daysHeader, 0, _options.startOfWeekDay );
-        } else {
-            buildFullYearMonthDaysHeader( daysHeader, 0, headerNamesLength );
-        }
+        buildViewDayNamesHeader( daysHeader );
 
         if ( _options.reverseOrderDaysOfWeek ) {
             reverseElementsOrder( daysHeader );
@@ -4085,19 +3979,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var lastFilledDay = buildFullYearMonthDays( startDay, monthDayId, monthIndex );
 
         buildFullYearMonthNextMonthDays( lastFilledDay, monthDayId, monthIndex );
-    }
-
-    function buildFullYearMonthDaysHeader( daysHeader, startIndex, endIndex ) {
-        for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
-            if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                var headerName = _options.dayHeaderNames[ headerNameIndex ],
-                    header = createElement( "div", getCellName() );
-        
-                setNodeText( header, headerName );
-        
-                daysHeader.appendChild( header );
-            }
-        }
     }
 
     function buildFullYearMonthPreviousMonthDays( startDay, monthDayId, monthIndex ) {
@@ -7064,6 +6945,92 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function hideNotificationPopUp() {
         _element_Notification.style.display = "none";
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Day Name Headers
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildViewDayNamesHeader( container ) {
+        var headerNamesLength = _options.dayHeaderNames.length;
+
+        container.innerHTML = _string.empty;
+
+        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            buildViewDayNamesHeaderSection( container, _options.startOfWeekDay, headerNamesLength );
+            buildViewDayNamesHeaderSection( container, 0, _options.startOfWeekDay );
+        } else {
+            buildViewDayNamesHeaderSection( container, 0, headerNamesLength );
+        }
+    }
+
+    function buildViewDayNamesHeaderSection( container, startIndex, endIndex ) {
+        for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
+            if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
+                buildViewDayNamesHeaderDay( container, headerNameIndex );
+            }
+        }
+    }
+
+    function buildViewDayNamesHeaderDay( container, headerNameIndex ) {
+        var headerName = _options.dayHeaderNames[ headerNameIndex ],
+            header = createElement( "div", getCellName() );
+
+        setNodeText( header, headerName );
+
+        container.appendChild( header );
+
+        header.oncontextmenu = function( e ) {
+            showDayHeaderContextMenu( e, headerNameIndex );
+        };
+
+        header.ondblclick = function( e ) {
+            toggleSingleDayView( headerNameIndex );
+        };
+    }
+
+    function toggleSingleDayView( headerNameIndex ) {
+        if ( !_datePickerModeEnabled ) {
+            var updateDisplay = false;
+
+            if ( _element_Calendar_PreviousDaysVisibleBeforeSingleDayView.length === 0 ) {
+                var visibleDaysLength = _options.visibleDays.length;
+
+                if ( visibleDaysLength > 1 ) {
+                    for ( var visibleDayIndex = 0; visibleDayIndex < visibleDaysLength; visibleDayIndex++ ) {
+                        _element_Calendar_PreviousDaysVisibleBeforeSingleDayView.push( _options.visibleDays[ visibleDayIndex ] );
+                    }
+        
+                    _options.visibleDays = [];
+                    _options.visibleDays.push( headerNameIndex );
+
+                    updateDisplay = true;
+                }
+            } else {
+    
+                _options.visibleDays = [];
+    
+                var originalVisibleDaysLength = _element_Calendar_PreviousDaysVisibleBeforeSingleDayView.length;
+    
+                for ( var previousVisibleDayIndex = 0; previousVisibleDayIndex < originalVisibleDaysLength; previousVisibleDayIndex++ ) {
+                    _options.visibleDays.push( _element_Calendar_PreviousDaysVisibleBeforeSingleDayView[ previousVisibleDayIndex ] );
+                }
+    
+                _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
+
+                updateDisplay = true;
+            }
+    
+            if ( updateDisplay ) {
+                _initialized = false;
+    
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                build( _currentDate, true );
+            }
+        }
     }
 
 
