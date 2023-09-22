@@ -1062,21 +1062,13 @@ div.calendar {
 
 div.calendar {
     div.full-day-view {
-        @include full-size-view-display();
+        @include full-size-view-display;
 
         span.holiday {
             font-weight: 300 !important;
         }
 
         @import "foundation/view-title-bar";
-
-        @media screen and ( min-width: $minimum-width ) {
-            height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
-        }
-        
-        @media screen and ( max-width: $maximum-width ) {
-            height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
-        }
         
         div.contents {
             display: inline-block;
@@ -1144,8 +1136,16 @@ div.calendar {
                         width: 100%;
                     }
                 }
-                
+
                 @import "foundation/view-hours";
+            }
+        
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
             }
 
             @import "foundation/view-event";

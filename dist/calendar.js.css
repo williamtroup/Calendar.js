@@ -1146,16 +1146,6 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
     display: none !important;
   }
 }
-@media screen and (min-width: 451px) {
-  div.calendar div.full-day-view {
-    height: calc(100% - ( ( 10px * 2 ) + 0.9rem ));
-  }
-}
-@media screen and (max-width: 450px) {
-  div.calendar div.full-day-view {
-    height: calc(100% - ( ( 10px * 2 ) + 0.7rem ));
-  }
-}
 div.calendar div.full-day-view div.contents {
   display: inline-block;
   position: relative;
@@ -1248,6 +1238,16 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:nth-chi
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour:last-child {
   border-bottom: none;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-day-view div.contents {
+    height: calc(100% - ( ( 10px * 2 ) + 0.9rem ));
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-day-view div.contents {
+    height: calc(100% - ( ( 10px * 2 ) + 0.7rem ));
+  }
 }
 div.calendar div.full-day-view div.contents div.expired {
   opacity: 0.7;
