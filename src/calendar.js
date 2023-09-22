@@ -637,6 +637,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_FullScreenButton = null,
         _element_View_FullWeek_SearchButton = null,
         _element_View_FullWeek_Contents = null,
+        _element_View_FullWeek_Contents_Hours = null,
+        _element_View_FullWeek_Contents_Days = null,
         _element_View_FullWeek_EventsShown = [],
         _element_View_FullWeek_DateSelected = null,
 
@@ -3835,7 +3837,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             _element_View_FullWeek_Contents = createElement( "div", "contents custom-scroll-bars" );
             _element_View_FullWeek.appendChild( _element_View_FullWeek_Contents );
+
+            buildFullWeekDays();
         }
+    }
+
+    function buildFullWeekDays() {
+        _element_View_FullWeek_Contents_Hours = createElement( "div", "hours" );
+        _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Hours );
+
+        for ( var hour = 0; hour < 24; hour++ ) {
+            var row = createElement( "div", "hour" );
+            _element_View_FullWeek_Contents_Hours.appendChild( row );
+
+            var newHour1 = createElement( "div", "hour-text" );
+            newHour1.innerText = padNumber( hour ) + ":00";
+            row.appendChild( newHour1 );
+
+            var newHour2 = createElement( "div", "hour-text" );
+            newHour2.innerText = padNumber( hour ) + ":30";
+            row.appendChild( newHour2 );
+        }
+
+        _element_View_FullWeek_Contents_Days = createElement( "div", "days" );
+        _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Days );
     }
 
     function buildFullWeekViewTitle( weekStartDate, weekEndDate ) {

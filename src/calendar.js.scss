@@ -1062,7 +1062,7 @@ div.calendar {
 
 div.calendar {
     div.full-day-view {
-        @include full-size-view-display;
+        @include full-size-view-display();
 
         span.holiday {
             font-weight: 300 !important;
@@ -1136,45 +1136,8 @@ div.calendar {
                         width: 100%;
                     }
                 }
-
-                div.hour {
-                    background-color: var(--light-color);
-                    border-bottom: $standard-border-size solid var(--dark-color);
-                    position: relative;
-
-                    &::before {
-                        border-bottom: $standard-border-size dashed var(--input-border-color);
-                        width: calc( 100% - ( #{$time-hours-width} + #{$spacing * 2} ) );
-                        height: ( $time-hours-height + $spacing * 2 ) - $standard-border-size;
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        top: 0;
-                        left: $time-hours-width + $spacing * 2;
-                    }
-
-                    div.hour-text {
-                        width: $time-hours-width;
-                        height: $time-hours-height;
-                        padding: $spacing;
-                        background-color: var(--light-color);
-                        color: var(--dark-color);
-                        border-right: $standard-border-size solid var(--dark-color);
-                        
-                        &:nth-child( odd ) {
-                            background-color: var(--dark-color);
-                            color: var(--light-color);
-                        }
-                    }
-    
-                    &:nth-child( odd ) {
-                        background-color: var(--day-names-color);
-                    }
-    
-                    &:last-child {
-                        border-bottom: none;
-                    }
-                }
+                
+                @import "foundation/view-hours";
             }
         
             @media screen and ( min-width: $minimum-width ) {
@@ -1224,7 +1187,32 @@ div.calendar {
         @import "foundation/view-title-bar";
 
         div.contents {
-            @include view-contents;
+            display: inline-block;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            padding: 0 !important;
+
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
+            }
+
+            div.hours {
+                @import "foundation/view-hours";
+            }
+
+            div.days {
+                position: absolute;
+                width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
+                height: calc( ( ( $time-hours-height * 48 ) + ( ( $spacing * 2 ) * 48 ) ) + ( $spacing * 2 ) + ( $standard-border-size * 2 ) );
+                top: 0;
+                left: $time-hours-width + ( $spacing * 2 );
+            }
         }
     }
 }

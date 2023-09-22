@@ -1403,18 +1403,58 @@ div.calendar div.full-week-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - ( 10px * 2 ));
-  padding: 10px;
+  width: 100%;
+  padding: 0 !important;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
+    height: calc(100% - ( ( 10px * 2 ) + 0.9rem ));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
+    height: calc(100% - ( ( 10px * 2 ) + 0.7rem ));
   }
+}
+div.calendar div.full-week-view div.contents div.hours div.hour {
+  background-color: var(--light-color);
+  border-bottom: 1px solid var(--dark-color);
+  position: relative;
+}
+div.calendar div.full-week-view div.contents div.hours div.hour::before {
+  border-bottom: 1px dashed var(--input-border-color);
+  width: calc(100% - ( 70px + 20px ));
+  height: 54px;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 90px;
+}
+div.calendar div.full-week-view div.contents div.hours div.hour div.hour-text {
+  width: 70px;
+  height: 35px;
+  padding: 10px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: 1px solid var(--dark-color);
+}
+div.calendar div.full-week-view div.contents div.hours div.hour div.hour-text:nth-child(odd) {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+}
+div.calendar div.full-week-view div.contents div.hours div.hour:nth-child(odd) {
+  background-color: var(--day-names-color);
+}
+div.calendar div.full-week-view div.contents div.hours div.hour:last-child {
+  border-bottom: none;
+}
+div.calendar div.full-week-view div.contents div.days {
+  position: absolute;
+  width: calc(100% - 70px - 20px);
+  height: 2662px;
+  top: 0;
+  left: 90px;
 }
 
 /*
