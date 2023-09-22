@@ -8,6 +8,12 @@
 - Renamed the setting "viewWeekEventsText" to "viewFullWeekText" (default value is now "View Full Week").
 - Renamed all internal JS code to reflect the rename from "All Week Events" to "Full Week".
 
+#### **Code Improvements:**
+- Moved Full-Screen Mode into its own section, with some refactoring to make things clearer.
+
+#### **Documentation:**
+- Added missing shortcut keys documentation to the SHORTCUT_KEY.md file.
+
 <br>
 
 ## Version 2.6.1:
