@@ -66,13 +66,12 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     width: 100%;
 }
 
-@mixin full-size-view-display( $z-index: 1 ) {
+@mixin full-size-view-display {
     top: -100%;
     left: 0;
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index: $z-index;
     background-color: var(--light-color);
     transition: $transition;
     visibility: hidden;
@@ -84,7 +83,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     transform: $property;
 }
 
-@mixin overlay-contents( $half-spacing: false ) {
+@mixin view-contents( $half-spacing: false ) {
     display: inline-block;
     position: relative;
     overflow-x: hidden;

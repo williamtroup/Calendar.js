@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.6.0
+ * Calendar.js Library v2.6.1
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -68,7 +68,7 @@ div.calendar-dialog textarea {
         font-size: $small-font-size;
     }
 
-    div.overlay-shown {
+    div.view-shown {
         top: 0 !important;
         visibility: visible !important;
     }
@@ -1062,15 +1062,13 @@ div.calendar {
 
 div.calendar {
     div.full-day-view {
-        @include full-size-view-display( 2 );
-
-        z-index: 3;
+        @include full-size-view-display;
 
         span.holiday {
             font-weight: 300 !important;
         }
 
-        @import "foundation/overlay-title-bar";
+        @import "foundation/view-title-bar";
         
         div.contents {
             display: inline-block;
@@ -1187,7 +1185,7 @@ div.calendar {
                 height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
             }
 
-            @import "foundation/overlay-event";
+            @import "foundation/view-event";
 
             div.event {
                 position: absolute;
@@ -1223,10 +1221,10 @@ div.calendar {
     div.all-week-events-view {
         @include full-size-view-display;
 
-        @import "foundation/overlay-title-bar";
+        @import "foundation/view-title-bar";
 
         div.contents {
-            @include overlay-contents;
+            @include view-contents;
 
             div.no-events-text {
                 margin-top: $spacing;
@@ -1268,7 +1266,7 @@ div.calendar {
                 div.events {
                     padding: $spacing;
 
-                    @import "foundation/overlay-event";
+                    @import "foundation/view-event";
                 }
 
                 &:last-child {
@@ -1290,12 +1288,10 @@ div.calendar {
     div.full-year-view {
         @include full-size-view-display;
 
-        z-index: 2;
-
-        @import "foundation/overlay-title-bar";
+        @import "foundation/view-title-bar";
 
         div.contents {
-            @include overlay-contents( true );
+            @include view-contents( true );
 
             div.year-month {
                 border-radius: $border-view-radius;
@@ -1378,10 +1374,10 @@ div.calendar {
     div.all-events-view {
         @include full-size-view-display;
 
-        @import "foundation/overlay-title-bar";
+        @import "foundation/view-title-bar";
 
         div.contents {
-            @include overlay-contents;
+            @include view-contents;
 
             div.year-header {
                 margin-top: calc( $spacing * 2 );
@@ -1440,7 +1436,7 @@ div.calendar {
                 div.events {
                     padding: $spacing;
 
-                    @import "foundation/overlay-event";
+                    @import "foundation/view-event";
                 }
 
                 &:last-child {
