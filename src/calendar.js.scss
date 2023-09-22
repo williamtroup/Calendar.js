@@ -1226,7 +1226,16 @@ div.calendar {
                 width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
                 height: calc( ( ( $time-hours-height * 48 ) + ( ( $spacing * 2 ) * 48 ) ) + ( $spacing * 2 ) + ( $standard-border-size * 2 ) );
                 top: 0;
-                left: $time-hours-width + ( $spacing * 2 );
+                left: ( $time-hours-width + ( $spacing * 2 ) ) + $standard-border-size;
+                background-color: transparent;
+
+                @media screen and ( min-width: $minimum-width ) {
+                    padding-top: calc( ( ( $spacing * 2 ) + $large-font-size ) + ( $standard-border-size * 2 ) );
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    padding-top: calc( ( ( $spacing * 2 ) + $small-font-size ) + ( $standard-border-size * 2 ) );
+                }
             }
         }
     }

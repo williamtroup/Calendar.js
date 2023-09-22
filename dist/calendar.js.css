@@ -1467,7 +1467,18 @@ div.calendar div.full-week-view div.contents div.days {
   width: calc(100% - 70px - 20px);
   height: 2662px;
   top: 0;
-  left: 90px;
+  left: 91px;
+  background-color: transparent;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-week-view div.contents div.days {
+    padding-top: calc(20px + 0.9rem + 2px);
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-week-view div.contents div.days {
+    padding-top: calc(20px + 0.7rem + 2px);
+  }
 }
 
 /*
