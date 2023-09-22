@@ -1162,7 +1162,7 @@ div.calendar {
 
             div.working-hours {
                 position: absolute;
-                width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 2 ) );
+                width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
                 left: $time-hours-width + ( $spacing * 2 );
                 background-color: rgba(  40, 40, 40, 0.4  );
                 display: none;
@@ -1235,6 +1235,15 @@ div.calendar {
                 
                 @media screen and ( max-width: $maximum-width ) {
                     padding-top: calc( ( ( $spacing * 2 ) + $small-font-size ) + ( $standard-border-size * 2 ) );
+                }
+
+                div.working-hours {
+                    position: absolute;
+                    width: 100%;
+                    background-color: rgba(  40, 40, 40, 0.4  );
+                    display: none;
+                    pointer-events: none;
+                    z-index: 0;
                 }
             }
         }

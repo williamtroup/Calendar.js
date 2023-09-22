@@ -1304,7 +1304,7 @@ div.calendar div.full-day-view div.contents div.event {
 }
 div.calendar div.full-day-view div.contents div.working-hours {
   position: absolute;
-  width: calc( 100% - 70px - ( 10px * 2 ) );
+  width: calc(100% - 70px - 20px);
   left: 90px;
   background-color: rgba(40, 40, 40, 0.4);
   display: none;
@@ -1479,6 +1479,14 @@ div.calendar div.full-week-view div.contents div.days {
   div.calendar div.full-week-view div.contents div.days {
     padding-top: calc(20px + 0.7rem + 2px);
   }
+}
+div.calendar div.full-week-view div.contents div.days div.working-hours {
+  position: absolute;
+  width: 100%;
+  background-color: rgba(40, 40, 40, 0.4);
+  display: none;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /*

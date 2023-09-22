@@ -638,6 +638,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_FullScreenButton = null,
         _element_View_FullWeek_SearchButton = null,
         _element_View_FullWeek_Contents = null,
+        _element_View_FullWeek_Contents_WorkingHours = null,
         _element_View_FullWeek_Contents_DayNamesHeader = null,
         _element_View_FullWeek_Contents_Hours = null,
         _element_View_FullWeek_Contents_Days = null,
@@ -3810,6 +3811,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _options.reverseOrderDaysOfWeek ) {
             reverseElementsOrder( _element_View_FullWeek_Contents_Days );
         }
+
+        _element_View_FullWeek_Contents_WorkingHours = createElement( "div", "working-hours" );
+        _element_View_FullWeek_Contents_Days.appendChild( _element_View_FullWeek_Contents_WorkingHours );
     }
 
     function buildFullWeekDayColumn( startIndex, endIndex ) {
@@ -3857,6 +3861,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
         buildFullWeekDayColumns();
+        showFullWeekWorkingHours();
+    }
+
+    function showFullWeekWorkingHours() {
+        if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd ) {
+            var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                workingHoursStartParts = _options.workingHoursStart.split( ":" ),
+                workingHoursEndParts = _options.workingHoursEnd.split( ":" ),
+                top = ( ( parseInt( workingHoursStartParts[ 0 ] ) * 60 ) + parseInt( workingHoursStartParts[ 1 ] ) ) * pixelsPerMinute,
+                height = ( ( ( parseInt( workingHoursEndParts[ 0 ] ) * 60 ) + parseInt( workingHoursEndParts[ 1 ] ) ) * pixelsPerMinute ) - top,
+                firstDayColumnTop = _element_View_FullWeek_Contents_Days.children[ 0 ].offsetTop;
+
+            _element_View_FullWeek_Contents_WorkingHours.style.display = "block";
+            _element_View_FullWeek_Contents_WorkingHours.style.top = ( top + firstDayColumnTop ) + "px";
+            _element_View_FullWeek_Contents_WorkingHours.style.height = height + "px";
+        }
     }
 
     function updateViewFullWeekView() {
