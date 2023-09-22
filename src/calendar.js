@@ -7024,7 +7024,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _initialized = false;
     
                 triggerOptionsEventWithData( "onOptionsUpdated", _options );
-                build( _currentDate, true );
+                build( _currentDate, true, true );
             }
         }
     }
