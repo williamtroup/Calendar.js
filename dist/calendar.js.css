@@ -1424,7 +1424,7 @@ div.calendar div.full-week-view div.contents div.header-days-container {
   z-index: 1;
 }
 div.calendar div.full-week-view div.contents div.header-days-container div.header-days {
-  width: calc(100% - 70px - 20px - 1px);
+  width: calc(100% - 70px - 20px);
   background-color: blue;
   margin-left: 91px;
   border-bottom: 1px solid var(--grid-border-color);
@@ -1480,13 +1480,14 @@ div.calendar div.full-week-view div.contents div.days {
     padding-top: calc(20px + 0.7rem + 2px);
   }
 }
-div.calendar div.full-week-view div.contents div.days div.working-hours {
+div.calendar div.full-week-view div.contents div.days div.cell div.working-hours {
   position: absolute;
   width: 100%;
   background-color: rgba(40, 40, 40, 0.4);
   display: none;
   pointer-events: none;
   z-index: 0;
+  left: 0;
 }
 
 /*
