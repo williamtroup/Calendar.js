@@ -1087,10 +1087,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             buildViewDayNamesHeader( _element_Calendar_DayNamesHeader );
-
-            if ( _options.reverseOrderDaysOfWeek ) {
-                reverseElementsOrder( _element_Calendar_DayNamesHeader );
-            }
         } else {
 
             if ( wasAddedAlready ) {
@@ -3961,10 +3957,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         yearMonth.appendChild( daysHeader );
 
         buildViewDayNamesHeader( daysHeader );
-
-        if ( _options.reverseOrderDaysOfWeek ) {
-            reverseElementsOrder( daysHeader );
-        }
         
         var monthDayId = ( monthIndex + 1 ) + "-month-",
             firstDay = new Date( _element_View_FullYear_CurrentYear, monthIndex, 1 ),
@@ -6964,6 +6956,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildViewDayNamesHeaderSection( container, 0, _options.startOfWeekDay );
         } else {
             buildViewDayNamesHeaderSection( container, 0, headerNamesLength );
+        }
+
+        if ( _options.reverseOrderDaysOfWeek ) {
+            reverseElementsOrder( container );
         }
     }
 
