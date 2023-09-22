@@ -1314,10 +1314,10 @@ div.calendar div.full-day-view div.contents div.working-hours {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - All Week Events View
+    Calendar.js - Full Week View
     -------------------------------------------------------------------------
 */
-div.calendar div.all-week-events-view {
+div.calendar div.full-week-view {
   top: -100%;
   left: 0;
   height: 100%;
@@ -1327,7 +1327,7 @@ div.calendar div.all-week-events-view {
   transition: all 0.3s;
   visibility: hidden;
 }
-div.calendar div.all-week-events-view div.title-bar {
+div.calendar div.full-week-view div.title-bar {
   width: calc( 100% - 10px );
   display: inline-block;
   padding-top: 10px;
@@ -1338,67 +1338,67 @@ div.calendar div.all-week-events-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.all-week-events-view div.title-bar div.left-divider-line,
-div.calendar div.all-week-events-view div.title-bar div.right-divider-line {
+div.calendar div.full-week-view div.title-bar div.left-divider-line,
+div.calendar div.full-week-view div.title-bar div.right-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.all-week-events-view div.title-bar div.left-divider-line {
+div.calendar div.full-week-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.all-week-events-view div.title-bar div.right-divider-line {
+div.calendar div.full-week-view div.title-bar div.right-divider-line {
   float: right;
 }
-div.calendar div.all-week-events-view div.title-bar div.title {
+div.calendar div.full-week-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
-div.calendar div.all-week-events-view div.title-bar div {
+div.calendar div.full-week-view div.title-bar div {
   margin-left: 5px !important;
   margin-right: 5px !important;
 }
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-left-full,
-div.calendar div.all-week-events-view div.title-bar div.ib-pin,
-div.calendar div.all-week-events-view div.title-bar div.ib-refresh,
-div.calendar div.all-week-events-view div.title-bar div.ib-search,
-div.calendar div.all-week-events-view div.title-bar div.ib-octagon-hollow,
-div.calendar div.all-week-events-view div.title-bar div.ib-hamburger {
+div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.full-week-view div.title-bar div.ib-pin,
+div.calendar div.full-week-view div.title-bar div.ib-refresh,
+div.calendar div.full-week-view div.title-bar div.ib-search,
+div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.full-week-view div.title-bar div.ib-hamburger {
   float: left;
 }
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-down-full-line,
-div.calendar div.all-week-events-view div.title-bar div.ib-plus,
-div.calendar div.all-week-events-view div.title-bar div.ib-close,
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-right-full,
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.full-week-view div.title-bar div.ib-plus,
+div.calendar div.full-week-view div.title-bar div.ib-close,
+div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-right-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-search,
-  div.calendar div.all-week-events-view div.title-bar div.ib-refresh,
-  div.calendar div.all-week-events-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-search,
+  div.calendar div.full-week-view div.title-bar div.ib-refresh,
+  div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow {
     display: inline-block;
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-right-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-search,
-  div.calendar div.all-week-events-view div.title-bar div.ib-refresh,
-  div.calendar div.all-week-events-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-search,
+  div.calendar div.full-week-view div.title-bar div.ib-refresh,
+  div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow {
     display: none !important;
   }
 }
-div.calendar div.all-week-events-view div.contents {
+div.calendar div.full-week-view div.contents {
   display: inline-block;
   position: relative;
   overflow-x: hidden;
@@ -1407,60 +1407,60 @@ div.calendar div.all-week-events-view div.contents {
   padding: 10px;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.all-week-events-view div.contents {
+  div.calendar div.full-week-view div.contents {
     height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.all-week-events-view div.contents {
+  div.calendar div.full-week-view div.contents {
     height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
   }
 }
-div.calendar div.all-week-events-view div.contents div.no-events-text {
+div.calendar div.full-week-view div.contents div.no-events-text {
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
 }
-div.calendar div.all-week-events-view div.contents div.day {
+div.calendar div.full-week-view div.contents div.day {
   border-radius: 0.25rem;
   border: 1px solid var(--dark-color);
   overflow: hidden;
   margin-bottom: 10px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.header {
+div.calendar div.full-week-view div.contents div.day div.header {
   background-color: var(--dark-color) !important;
   color: var(--light-color) !important;
   padding: 10px;
   font-weight: 900;
 }
-div.calendar div.all-week-events-view div.contents div.day div.header div.right-divider-line {
+div.calendar div.full-week-view div.contents div.day div.header div.right-divider-line {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-plus,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-close,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-minus,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-square-hollow,
-div.calendar div.all-week-events-view div.contents div.day div.header div.right-divider-line {
+div.calendar div.full-week-view div.contents div.day div.header div.ib-arrow-expand-left-right,
+div.calendar div.full-week-view div.contents div.day div.header div.ib-plus,
+div.calendar div.full-week-view div.contents div.day div.header div.ib-close,
+div.calendar div.full-week-view div.contents div.day div.header div.ib-minus,
+div.calendar div.full-week-view div.contents div.day div.header div.ib-square-hollow,
+div.calendar div.full-week-view div.contents div.day div.header div.right-divider-line {
   float: right;
   margin-left: 10px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-close {
+div.calendar div.full-week-view div.contents div.day div.header div.ib-close {
   display: none;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events {
+div.calendar div.full-week-view div.contents div.day div.events {
   padding: 10px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.expired {
+div.calendar div.full-week-view div.contents div.day div.events div.expired {
   opacity: 0.7;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.all-day {
+div.calendar div.full-week-view div.contents div.day div.events div.all-day {
   background-color: var(--event-color-all-day) !important;
   color: var(--event-text-color-all-day) !important;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event {
+div.calendar div.full-week-view div.contents div.day div.events div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
@@ -1471,33 +1471,33 @@ div.calendar div.all-week-events-view div.contents div.day div.events div.event 
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div {
+div.calendar div.full-week-view div.contents div.day div.events div.event div {
   margin-bottom: 5px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div:last-child {
+div.calendar div.full-week-view div.contents div.day div.events div.event div:last-child {
   margin-bottom: 0;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.title {
+div.calendar div.full-week-view div.contents div.day div.events div.event div.title {
   font-weight: 900;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.date,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.duration,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.description,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.location,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.repeats {
+div.calendar div.full-week-view div.contents div.day div.events div.event div.date,
+div.calendar div.full-week-view div.contents div.day div.events div.event div.duration,
+div.calendar div.full-week-view div.contents div.day div.events div.event div.description,
+div.calendar div.full-week-view div.contents div.day div.events div.event div.location,
+div.calendar div.full-week-view div.contents div.day div.events div.event div.repeats {
   font-size: smaller;
   font-weight: 300;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.ib-refresh-medium {
+div.calendar div.full-week-view div.contents div.day div.events div.event div.ib-refresh-medium {
   margin-right: 5px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event:last-child {
+div.calendar div.full-week-view div.contents div.day div.events div.event:last-child {
   margin-bottom: 0;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events:last-child {
+div.calendar div.full-week-view div.contents div.day div.events:last-child {
   margin-bottom: 0;
 }
-div.calendar div.all-week-events-view div.contents div.day:last-child {
+div.calendar div.full-week-view div.contents div.day:last-child {
   margin-bottom: 1px !important;
 }
 

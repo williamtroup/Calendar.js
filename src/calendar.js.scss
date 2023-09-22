@@ -1213,12 +1213,12 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - All Week Events View
+    Calendar.js - Full Week View
     -------------------------------------------------------------------------
 */
 
 div.calendar {
-    div.all-week-events-view {
+    div.full-week-view {
         @include full-size-view-display;
 
         @import "foundation/view-title-bar";

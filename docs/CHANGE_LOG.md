@@ -1,7 +1,9 @@
 # Calendar.js - Change Log:
 
 ## Version 2.7.0:
-- 
+
+#### **Breaking Change Improvements:**
+- Renamed CSS class "all-week-events-view" to "full-week-view".
 
 <br>
 
