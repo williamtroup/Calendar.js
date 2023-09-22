@@ -1280,6 +1280,25 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Full Week View (new
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.full-week-view-new {
+        @include full-size-view-display;
+
+        @import "foundation/view-title-bar";
+
+        div.contents {
+            @include view-contents;
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Full Year View
     -------------------------------------------------------------------------
 */

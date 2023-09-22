@@ -1503,6 +1503,111 @@ div.calendar div.full-week-view div.contents div.day:last-child {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Full Week View (new
+    -------------------------------------------------------------------------
+*/
+div.calendar div.full-week-view-new {
+  top: -100%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: var(--light-color);
+  transition: all 0.3s;
+  visibility: hidden;
+}
+div.calendar div.full-week-view-new div.title-bar {
+  width: calc( 100% - 10px );
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: var(--dark-color);
+  color: var(--title-bar-text-color);
+  text-align: center;
+}
+div.calendar div.full-week-view-new div.title-bar div.left-divider-line,
+div.calendar div.full-week-view-new div.title-bar div.right-divider-line {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
+div.calendar div.full-week-view-new div.title-bar div.left-divider-line {
+  float: left;
+}
+div.calendar div.full-week-view-new div.title-bar div.right-divider-line {
+  float: right;
+}
+div.calendar div.full-week-view-new div.title-bar div.title {
+  font-weight: 900 !important;
+  display: inline-block;
+}
+div.calendar div.full-week-view-new div.title-bar div {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+div.calendar div.full-week-view-new div.title-bar div.ib-arrow-left-full,
+div.calendar div.full-week-view-new div.title-bar div.ib-pin,
+div.calendar div.full-week-view-new div.title-bar div.ib-refresh,
+div.calendar div.full-week-view-new div.title-bar div.ib-search,
+div.calendar div.full-week-view-new div.title-bar div.ib-octagon-hollow,
+div.calendar div.full-week-view-new div.title-bar div.ib-hamburger {
+  float: left;
+}
+div.calendar div.full-week-view-new div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.full-week-view-new div.title-bar div.ib-plus,
+div.calendar div.full-week-view-new div.title-bar div.ib-close,
+div.calendar div.full-week-view-new div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-week-view-new div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.full-week-view-new div.title-bar div.ib-arrow-contract-left-right {
+  float: right;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-week-view-new div.title-bar div.ib-search,
+  div.calendar div.full-week-view-new div.title-bar div.ib-refresh,
+  div.calendar div.full-week-view-new div.title-bar div.ib-octagon-hollow {
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-week-view-new div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-week-view-new div.title-bar div.ib-search,
+  div.calendar div.full-week-view-new div.title-bar div.ib-refresh,
+  div.calendar div.full-week-view-new div.title-bar div.ib-octagon-hollow {
+    display: none !important;
+  }
+}
+div.calendar div.full-week-view-new div.contents {
+  display: inline-block;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - ( 10px * 2 ));
+  padding: 10px;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-week-view-new div.contents {
+    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-week-view-new div.contents {
+    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
+  }
+}
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Full Year View
     -------------------------------------------------------------------------
 */
