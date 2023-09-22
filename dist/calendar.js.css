@@ -1398,6 +1398,15 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
     display: none !important;
   }
 }
+div.calendar div.full-week-view div.header-days-container {
+  background-color: var(--dark-color);
+}
+div.calendar div.full-week-view div.header-days-container div.header-days {
+  width: calc(100% - 70px - 20px);
+  background-color: blue;
+  margin-left: 91px;
+  border-bottom: 1px solid var(--grid-border-color);
+}
 div.calendar div.full-week-view div.contents {
   display: inline-block;
   position: relative;
@@ -1408,12 +1417,12 @@ div.calendar div.full-week-view div.contents {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.contents {
-    height: calc(100% - ( ( 10px * 2 ) + 0.9rem ));
+    height: calc(100% - (( 10px * 4 ) + ( 0.9rem * 2 ) + 2px));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.contents {
-    height: calc(100% - ( ( 10px * 2 ) + 0.7rem ));
+    height: calc(100% - (( 10px * 4 ) + ( 0.7rem * 2 ) + 2px));
   }
 }
 div.calendar div.full-week-view div.contents div.hours div.hour {
