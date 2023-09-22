@@ -3780,7 +3780,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( !wasAddedAlready ) {
-                _element_View_FullWeek = createElement( "div", "full-week-view-new" );
+                _element_View_FullWeek = createElement( "div", "full-week-view" );
                 _element_Calendar.appendChild( _element_View_FullWeek );
             }
     
