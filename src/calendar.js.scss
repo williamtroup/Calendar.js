@@ -1069,6 +1069,14 @@ div.calendar {
         }
 
         @import "foundation/view-title-bar";
+
+        @media screen and ( min-width: $minimum-width ) {
+            height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
+        }
+        
+        @media screen and ( max-width: $maximum-width ) {
+            height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
+        }
         
         div.contents {
             display: inline-block;
@@ -1139,14 +1147,6 @@ div.calendar {
                 
                 @import "foundation/view-hours";
             }
-        
-            @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
-            }
-            
-            @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
-            }
 
             @import "foundation/view-event";
 
@@ -1186,17 +1186,6 @@ div.calendar {
 
         @import "foundation/view-title-bar";
 
-        div.header-days-container {
-            background-color: var(--dark-color);
-
-            div.header-days {
-                width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
-                background-color: blue;
-                margin-left: $time-hours-width + ( $spacing * 2 ) + $standard-border-size;
-                border-bottom: $standard-border-size solid var(--grid-border-color);
-            }
-        }
-
         div.contents {
             display: inline-block;
             position: relative;
@@ -1206,11 +1195,26 @@ div.calendar {
             padding: 0 !important;
 
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( ( #{$spacing} * 4 ) + ( #{$large-font-size} * 2 ) ) + ( $standard-border-size * 2 ) ) );
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( ( #{$spacing} * 4 ) + ( #{$small-font-size} * 2 ) ) + ( $standard-border-size * 2 ) ) );
+                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
+            }
+
+            div.header-days-container {
+                position: sticky;
+                overflow: auto;
+                top: 0;
+                background-color: var(--dark-color);
+                z-index: 1;
+    
+                div.header-days {
+                    width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
+                    background-color: blue;
+                    margin-left: $time-hours-width + ( $spacing * 2 ) + $standard-border-size;
+                    border-bottom: $standard-border-size solid var(--grid-border-color);
+                }
             }
 
             div.hours {

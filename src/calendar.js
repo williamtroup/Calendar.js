@@ -3835,13 +3835,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _element_View_FullWeek_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
                 }
             }
-
-            var dayNamesHeaderContainer = createElement( "div", "header-days-container" );
-            _element_View_FullWeek.appendChild( dayNamesHeaderContainer );
-
-            _element_View_FullWeek_Contents_DayNamesHeader = createElement( "div", "row-cells header-days" );
-            _element_View_FullWeek_Contents_DayNamesHeader.innerHTML = "Day Names Header";
-            dayNamesHeaderContainer.appendChild( _element_View_FullWeek_Contents_DayNamesHeader );
     
             _element_View_FullWeek_Contents = createElement( "div", "contents custom-scroll-bars" );
             _element_View_FullWeek.appendChild( _element_View_FullWeek_Contents );
@@ -3851,6 +3844,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullWeekDays() {
+        var dayNamesHeaderContainer = createElement( "div", "header-days-container" );
+        _element_View_FullWeek_Contents.appendChild( dayNamesHeaderContainer );
+
+        _element_View_FullWeek_Contents_DayNamesHeader = createElement( "div", "row-cells header-days" );
+        _element_View_FullWeek_Contents_DayNamesHeader.innerHTML = "Day Names Header";
+        dayNamesHeaderContainer.appendChild( _element_View_FullWeek_Contents_DayNamesHeader );
+
         _element_View_FullWeek_Contents_Hours = createElement( "div", "hours" );
         _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Hours );
 
