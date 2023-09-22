@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.7.0:
+- 
+
+<br>
+
 ## Version 2.6.1:
 - Added context menu support for Days shown in each Month in the Full Year view (the same menu used for all other day views).
 - Added open view tracking, which will increase the z-index of each view opened and track which are opened and in what order (so views can be opened/closed in the right order).
