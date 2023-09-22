@@ -1424,7 +1424,7 @@ div.calendar div.full-week-view div.contents div.header-days-container {
   z-index: 1;
 }
 div.calendar div.full-week-view div.contents div.header-days-container div.header-days {
-  width: calc(100% - 70px - 20px);
+  width: calc(100% - 70px - 20px - 1px);
   background-color: blue;
   margin-left: 91px;
   border-bottom: 1px solid var(--grid-border-color);

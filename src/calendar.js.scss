@@ -1210,7 +1210,7 @@ div.calendar {
                 z-index: 1;
     
                 div.header-days {
-                    width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
+                    width: calc( 100% - $time-hours-width - ( $spacing * 2 ) - $standard-border-size );
                     background-color: blue;
                     margin-left: $time-hours-width + ( $spacing * 2 ) + $standard-border-size;
                     border-bottom: $standard-border-size solid var(--grid-border-color);
