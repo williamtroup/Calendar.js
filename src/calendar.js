@@ -128,7 +128,7 @@
  * @property    {string}    closeTooltipText                            The tooltip text that should be used for the "Close" button.
  * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for the "Export Events" button.
  * @property    {string}    viewAllEventsTooltipText                    The tooltip text that should be used for the "View All Events" button.
- * @property    {string}    viewCurrentWeekEventsTooltipText            The tooltip text that should be used for the "View Current Week Events" button.
+ * @property    {string}    viewFullWeekTooltipText                     The tooltip text that should be used for the "View Full Week" button.
  * @property    {string}    todayTooltipText                            The tooltip text that should be used for the "Today" button.
  * @property    {string}    refreshTooltipText                          The tooltip text that should be used for the "Refresh" button.
  * @property    {string}    searchTooltipText                           The tooltip text that should be used for the "Search" button.
@@ -202,7 +202,7 @@
  * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for the "Expand Month" button.
  * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
  * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
- * @property    {string}    viewWeekEventsText                          The text that should be displayed for the "View Week Events" label.
+ * @property    {string}    viewFullWeekText                            The text that should be displayed for the "View Full Week" label.
  * @property    {string}    noEventsAvailableFullText                   The text that should be displayed for the "There are no events available to view." label.
  * @property    {string}    clickText                                   The text that should be displayed for the "Click" label.
  * @property    {string}    hereText                                    The text that should be displayed for the "here" label.
@@ -1055,7 +1055,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showFullYearView( null, true );
             } );
 
-            buildToolbarButton( _element_Calendar_TitleBar, "ib-hamburger-side", _options.viewCurrentWeekEventsTooltipText, function() {
+            buildToolbarButton( _element_Calendar_TitleBar, "ib-hamburger-side", _options.viewFullWeekTooltipText, function() {
                 showFullWeekView( null, true );
             } );
 
@@ -5036,7 +5036,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildContextMenuSeparator( _element_ContextMenu_Day );
 
-        buildContextMenuItemWithIcon( _element_ContextMenu_Day, "ib-hamburger-side-icon", _options.viewWeekEventsText, function() {
+        buildContextMenuItemWithIcon( _element_ContextMenu_Day, "ib-hamburger-side-icon", _options.viewFullWeekText, function() {
             showFullWeekView( _element_ContextMenu_Day_DateSelected, true );
         } );
 
@@ -12440,7 +12440,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.searchTooltipText = getDefaultString( _options.searchTooltipText, "Search" );
         _options.expandDayTooltipText = getDefaultString( _options.expandDayTooltipText, "Expand Day" );
         _options.viewAllEventsTooltipText = getDefaultString( _options.viewAllEventsTooltipText, "View All Events" );
-        _options.viewCurrentWeekEventsTooltipText = getDefaultString( _options.viewCurrentWeekEventsTooltipText, "View Current Week Events" );
+        _options.viewFullWeekTooltipText = getDefaultString( _options.viewFullWeekTooltipText, "View Full Week" );
         _options.fromText = getDefaultString( _options.fromText, "From:" );
         _options.toText = getDefaultString( _options.toText, "To:" );
         _options.isAllDayText = getDefaultString( _options.isAllDayText, "Is All-Day" );
@@ -12505,7 +12505,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.expandMonthTooltipText = getDefaultString( _options.expandMonthTooltipText, "Expand Month" );
         _options.repeatEndsText = getDefaultString( _options.repeatEndsText, "Repeat Ends:" );
         _options.noEventsAvailableText = getDefaultString( _options.noEventsAvailableText, "No events available." );
-        _options.viewWeekEventsText = getDefaultString( _options.viewWeekEventsText, "View Week Events" );
+        _options.viewFullWeekText = getDefaultString( _options.viewFullWeekText, "View Full Week" );
         _options.noEventsAvailableFullText = getDefaultString( _options.noEventsAvailableFullText, "There are no events available to view." );
         _options.clickText = getDefaultString( _options.clickText, "Click" );
         _options.hereText = getDefaultString( _options.hereText, "here" );

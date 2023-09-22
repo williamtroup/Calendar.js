@@ -4,6 +4,9 @@
 
 #### **Breaking Change Improvements:**
 - Renamed CSS class "all-week-events-view" to "full-week-view".
+- Renamed the setting "viewCurrentWeekEventsTooltipText" to "viewFullWeekTooltipText" (default value is now "View Full Week").
+- Renamed the setting "viewWeekEventsText" to "viewFullWeekText" (default value is now "View Full Week").
+- Renamed all internal JS code to reflect the rename from "All Week Events" to "Full Week".
 
 <br>
 
