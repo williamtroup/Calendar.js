@@ -6,7 +6,6 @@
 - The CSS class "overlay-shown" has been renamed to "view-shown".
 - Internal renames from the use of "Overlay" to "View" (including files).
 - Added translation support for Chinese (simplified), Arabic, Bengali, and Japanese.
-- 
 
 <br>
 
