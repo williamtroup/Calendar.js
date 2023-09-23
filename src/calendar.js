@@ -1006,14 +1006,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Calendar_TitleBar.appendChild( createElement( "div", "left-divider-line" ) );
         }
 
-        buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, moveBackMonth );
+        buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, onPreviousMonth );
 
         if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
             buildToolbarButton( _element_Calendar_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear );
         }
 
         if ( _datePickerModeEnabled || _options.showExtraToolbarButtons ) {
-            buildToolbarButton( _element_Calendar_TitleBar, "ib-pin", _options.currentMonthTooltipText, moveCurrentFullDay );
+            buildToolbarButton( _element_Calendar_TitleBar, "ib-pin", _options.currentMonthTooltipText, onCurrentMonth );
         }
 
         if ( _options.showExtraToolbarButtons ) {
@@ -1038,7 +1038,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Calendar_TitleBar.appendChild( createElement( "div", "right-divider-line" ) );
         }
 
-        buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, moveForwardMonth );
+        buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth );
 
         if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
             buildToolbarButton( _element_Calendar_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear );
@@ -1325,9 +1325,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
                 createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + dayMutedClass, function() {
                     if ( actualDay === 1 ) {
-                        moveForwardMonth();
+                        onNextMonth();
                     } else {
-                        moveBackMonth();
+                        onPreviousMonth();
                     }
                 }, true, true );
             }
@@ -2459,15 +2459,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 } else if ( e.keyCode === _keyCodes.left ) {
                     e.preventDefault();
-                    moveBackMonth();
+                    onPreviousMonth();
     
                 } else if ( e.keyCode === _keyCodes.right ) {
                     e.preventDefault();
-                    moveForwardMonth();
+                    onNextMonth();
     
                 } else if ( e.keyCode === _keyCodes.down ) {
                     e.preventDefault();
-                    moveCurrentFullDay();
+                    onCurrentMonth();
                 }
             }
         }
@@ -2483,7 +2483,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else if ( isViewVisible( _element_View_FullYear ) ) {
             onPreviousFullYear();
         } else {
-            moveBackMonth();
+            onPreviousMonth();
         }
     }
 
@@ -2497,7 +2497,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else if ( isViewVisible( _element_View_FullYear ) ) {
             onNextFullYear();
         } else {
-            moveForwardMonth();
+            onNextMonth();
         }
     }
 
@@ -2505,13 +2505,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         e.preventDefault();
 
         if ( isViewVisible( _element_View_FullDay ) ) {
-            onToday();
+            onCurrentFullDay();
         } else if ( isViewVisible( _element_View_FullWeek ) ) {
-            onThisFullWeek();
+            onCurrentFullWeek();
         } else if ( isViewVisible( _element_View_FullYear ) ) {
             onCurrentFullYear();
         } else {
-            moveCurrentFullDay();
+            onCurrentMonth();
         }
     }
 
@@ -2986,7 +2986,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousFullDay );
     
             if ( _options.showExtraToolbarButtons ) {
-                _element_View_FullDay_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onToday );
+                _element_View_FullDay_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onCurrentFullDay );
     
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -3410,7 +3410,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         showFullDayView( _element_View_FullDay_DateSelected, true );
     }
 
-    function onToday() {
+    function onCurrentFullDay() {
         _element_View_FullDay_DateSelected = new Date();
             
         showFullDayView( _element_View_FullDay_DateSelected, true );
@@ -3475,7 +3475,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousFullWeek );
     
             if ( _options.showExtraToolbarButtons ) {
-                buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onThisFullWeek );
+                buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onCurrentFullWeek );
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
                 } );
@@ -3953,7 +3953,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         showFullWeekView( _element_View_FullWeek_DateSelected, true );
     }
 
-    function onThisFullWeek() {
+    function onCurrentFullWeek() {
         _element_View_FullWeek_DateSelected = new Date();
         
         showFullWeekView( _element_View_FullWeek_DateSelected, true );
@@ -10940,7 +10940,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToPreviousMonth = function() {
-        moveBackMonth();
+        onPreviousMonth();
 
         return this;
     };
@@ -10956,7 +10956,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToNextMonth = function() {
-        moveForwardMonth();
+        onNextMonth();
 
         return this;
     };
@@ -11004,7 +11004,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.moveToToday = function() {
-        moveCurrentFullDay();
+        onCurrentMonth();
 
         return this;
     };
@@ -11135,7 +11135,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return this;
     };
 
-    function moveBackMonth( e ) {
+    function onPreviousMonth( e ) {
         if ( isDefined( e ) ) {
             cancelBubble( e );
         }
@@ -11151,7 +11151,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function moveForwardMonth( e ) {
+    function onNextMonth( e ) {
         if ( isDefined( e ) ) {
             cancelBubble( e );
         }
@@ -11191,7 +11191,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function moveCurrentFullDay() {
+    function onCurrentMonth() {
         if ( !_datePickerModeEnabled || _datePickerVisible ) {
             var today = new Date();
 
