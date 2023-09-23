@@ -3109,7 +3109,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
 
                     event.ondragstart = function( e ) {
-                        onViewEventDragStart( e, event, eventDetails, displayDate );
+                        onViewEventDragStart( e, event, eventDetails, displayDate, _element_View_FullWeek_Contents_Hours );
+                    };
+
+                    event.ondragEnd = function( e ) {
+                        startEventSizeTracking( _element_View_FullWeek_Contents_Hours );
                     };
 
                     event.setAttribute( "draggable", true );
@@ -3700,6 +3704,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 event.ondragstart = function( e ) {
                     onViewEventDragStart( e, event, eventDetails, displayDate );
+                };
+
+                event.ondragEnd = function( e ) {
+                    startEventSizeTracking( _element_View_FullDay_Contents_Hours );
                 };
 
                 event.setAttribute( "draggable", true );
@@ -7451,6 +7459,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Event_Dragged_EventDetails = eventDetails;
         _element_View_Event_Dragged_ClickOffset = offset.top - e.pageY;
         _element_View_Event_Dragged_FromDate = fromDate;
+
+        stopEventSizeTracking();
     }
 
     function onViewEventDropped( e, dateDropped, container ) {
