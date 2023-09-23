@@ -1225,6 +1225,8 @@ div.calendar {
                         margin-right: 0;
                         overflow: hidden;
                         z-index: 1;
+                        left: $spacing;
+                        width: calc( 100% - ( ( $spacing * 5 ) - ( $standard-border-size * 2 ) ) );
                     }
                     
                     div.working-hours {
