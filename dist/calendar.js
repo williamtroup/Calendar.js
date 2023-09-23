@@ -2203,7 +2203,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return topPosition;
   }
   function isFullDayTimeArrowVisible() {
-    return isDateToday(_element_View_FullDay_DateSelected) && isViewVisible(_element_View_FullDay) && _options.showTimelineArrowOnFullDayView;
+    return isDateToday(_element_View_FullDay_DateSelected) && isViewVisible(_element_View_FullDay) && _options.showTimelineArrowsOnViews;
   }
   function buildFullWeekView() {
     if (!_datePickerModeEnabled) {
@@ -7398,7 +7398,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.spacing = getDefaultNumber(_options.spacing, 10);
     _options.showAllDayEventDetailsInFullDayView = getDefaultBoolean(_options.showAllDayEventDetailsInFullDayView, false);
     _options.showWeekNumbersInTitles = getDefaultBoolean(_options.showWeekNumbersInTitles, false);
-    _options.showTimelineArrowOnFullDayView = getDefaultBoolean(_options.showTimelineArrowOnFullDayView, true);
+    _options.showTimelineArrowsOnViews = getDefaultBoolean(_options.showTimelineArrowsOnViews, true);
     _options.maximumEventTitleLength = getDefaultNumber(_options.maximumEventTitleLength, 0);
     _options.maximumEventDescriptionLength = getDefaultNumber(_options.maximumEventDescriptionLength, 0);
     _options.maximumEventLocationLength = getDefaultNumber(_options.maximumEventLocationLength, 0);

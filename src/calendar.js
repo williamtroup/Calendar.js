@@ -316,7 +316,7 @@
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins (defaults to 10).
  * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
  * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
- * @property    {boolean}   showTimelineArrowOnFullDayView              States if the timeline arrow should be shown in the full-day view (defaults to true).
+ * @property    {boolean}   showTimelineArrowsOnViews                   States if the timeline arrows should be shown in the views (defaults to true).
  * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
  * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
@@ -7380,7 +7380,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isTimeArrowVisible( date, elementView ) {
-        return isDateToday( date ) && isViewVisible( elementView ) && _options.showTimelineArrowOnFullDayView ;
+        return isDateToday( date ) && isViewVisible( elementView ) && _options.showTimelineArrowsOnViews ;
     }
 
 
@@ -12248,7 +12248,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.spacing = getDefaultNumber( _options.spacing, 10 );
         _options.showAllDayEventDetailsInFullDayView = getDefaultBoolean( _options.showAllDayEventDetailsInFullDayView, false );
         _options.showWeekNumbersInTitles = getDefaultBoolean( _options.showWeekNumbersInTitles, false );
-        _options.showTimelineArrowOnFullDayView = getDefaultBoolean( _options.showTimelineArrowOnFullDayView, true );
+        _options.showTimelineArrowsOnViews = getDefaultBoolean( _options.showTimelineArrowsOnViews, true );
         _options.maximumEventTitleLength = getDefaultNumber( _options.maximumEventTitleLength, 0 );
         _options.maximumEventDescriptionLength = getDefaultNumber( _options.maximumEventDescriptionLength, 0 );
         _options.maximumEventLocationLength = getDefaultNumber( _options.maximumEventLocationLength, 0 );
