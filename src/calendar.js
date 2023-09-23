@@ -3831,11 +3831,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
     }
-
-
-
-
-
+    
     function buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc, dateFuncForwardValue ) {
         var newFromDate = new Date( orderedEvent.from ),
             excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
