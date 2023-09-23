@@ -3861,7 +3861,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
 
-            setEventPositionAndGetScrollTop( column, column, displayDate, event, eventDetails );
+            setEventPositionAndGetScrollTop( column, column, displayDate, event, eventDetails, true );
 
             added = true;
         }
@@ -7305,13 +7305,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return pixelsPerMinute;
     }
 
-    function setEventPositionAndGetScrollTop( contents, container, displayDate, event, eventDetails ) {
+    function setEventPositionAndGetScrollTop( contents, container, displayDate, event, eventDetails, overAllDayCheck ) {
+        overAllDayCheck = isDefined( overAllDayCheck ) ? overAllDayCheck : false;
+
         var contentHoursHeight = container.offsetHeight,
             pixelsPerMinute = getFullDayPixelsPerMinute( container ),
             minutesTop = _options.spacing,
             minutesHeight = null;
 
-        if ( !eventDetails.isAllDay ) {
+        if ( !eventDetails.isAllDay || overAllDayCheck ) {
             var repeatEvery = getNumber( eventDetails.repeatEvery );
 
             if ( doDatesMatch( eventDetails.from, displayDate ) || repeatEvery > _repeatType.never ) {
