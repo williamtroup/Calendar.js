@@ -627,7 +627,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullDay_TodayButton = null,
         _element_View_FullDay_TimeArrow = null,
         _element_View_FullDay_SearchButton = null,
-        _element_View_FullDay_ContextMenu_ClickPositionHourMinutes = null,
         _element_View_FullDay_Event_Dragged = null,
         _element_View_FullDay_Event_Dragged_EventDetails = null,
         _element_View_FullDay_Event_Dragged_Offset = null,
@@ -819,6 +818,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ContextMenu_FullDay_RemoveEvents = null,
         _element_ContextMenu_FullDay_Paste_Separator = null,
         _element_ContextMenu_FullDay_Paste = null,
+        _element_ContextMenu_FullDay_ClickPositionHourMinutes = null,
+        _element_ContextMenu_FullDay_DateSelected = null,
 
         // Variables: Context Menu - Header Day
         _element_ContextMenu_HeaderDay = null,
@@ -2996,11 +2997,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_View_FullDay.appendChild( _element_View_FullDay_Contents );
     
             _element_View_FullDay_Contents.oncontextmenu = function( e ) {
-                 var hoursMinutes = getHourMinutesFromMousePositionClick( e );
+                 var hoursMinutes = getHourMinutesFromMousePositionClick( e, _element_View_FullDay_Contents_Hours );
 
-                 _element_View_FullDay_ContextMenu_ClickPositionHourMinutes = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] );
+                 _element_ContextMenu_FullDay_ClickPositionHourMinutes = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] );
 
-                showFullDayContextMenu( e );
+                showFullDayContextMenu( e, _element_View_FullDay_DateSelected );
             };
     
             _element_View_FullDay_Contents_AllDayEvents = createElement( "div", "content-events-all-day" );
@@ -3044,7 +3045,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function fullDayViewDoubleClick( e ) {
         if ( _options.manualEditingEnabled ) {
-            var hoursMinutes = getHourMinutesFromMousePositionClick( e );
+            var hoursMinutes = getHourMinutesFromMousePositionClick( e, _element_View_FullDay_Contents_Hours );
             
             if ( _options.useTemplateWhenAddingNewEvent ) {
                 var newBlankTemplateEventTime = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] ),
@@ -3455,15 +3456,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.style.zIndex = zIndex.toString();
     }
 
-    function getHourMinutesFromMousePositionClick( e ) {
-        var contentHoursOffset = getOffset( _element_View_FullDay_Contents_Hours ),
-            pixelsPerMinute = getFullDayPixelsPerMinute(),
-            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top ) ) / pixelsPerMinute ),
-            hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
-
-        return hoursMinutes;
-    }
-
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3795,16 +3787,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Days );
     }
 
-    function buildFullWeekDayColumns() {
-        var headerNamesLength = _options.dayHeaderNames.length;
+    function buildFullWeekDayColumns( weekStartDate, weekEndDate ) {
+        var headerNamesLength = _options.dayHeaderNames.length,
+            droppableDates = {},
+            startWeekDate = new Date( weekStartDate );
+
+        while ( startWeekDate < weekEndDate ) {
+            droppableDates[ getWeekdayNumber( startWeekDate ) ] = new Date( startWeekDate );
+
+            startWeekDate.setDate( startWeekDate.getDate() + 1 );
+        }
 
         _element_View_FullWeek_Contents_Days.innerHTML = _string.empty;
     
         if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-            buildFullWeekDayColumn( _options.startOfWeekDay, headerNamesLength );
-            buildFullWeekDayColumn( 0, _options.startOfWeekDay );
+            buildFullWeekDayColumn( _options.startOfWeekDay, headerNamesLength, droppableDates );
+            buildFullWeekDayColumn( 0, _options.startOfWeekDay, droppableDates );
         } else {
-            buildFullWeekDayColumn( 0, headerNamesLength );
+            buildFullWeekDayColumn( 0, headerNamesLength, droppableDates );
         }
 
         if ( _options.reverseOrderDaysOfWeek ) {
@@ -3812,17 +3812,31 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildFullWeekDayColumn( startIndex, endIndex ) {
+    function buildFullWeekDayColumn( startIndex, endIndex, droppableDates ) {
         for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
             if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                var column = createElement( "div", getCellName() );
-                column.id = _elementID_WeekDayElement + headerNameIndex;
-                _element_View_FullWeek_Contents_Days.appendChild( column );
-
-                buildFullWeekDayColumnWorkingHours( column, headerNameIndex );
-                //makeAreaDroppable( column, expandDate.getFullYear(), expandDate.getMonth(), expandDate.getDate() );
+                buildFullWeekDayColumnWithEvents( droppableDates, headerNameIndex );
             }
         }
+    }
+
+    function buildFullWeekDayColumnWithEvents( droppableDates, headerNameIndex ) {
+        var column = createElement( "div", getCellName() ),
+            columnDate = new Date( droppableDates[ headerNameIndex ] );
+
+        column.id = _elementID_WeekDayElement + headerNameIndex;
+        _element_View_FullWeek_Contents_Days.appendChild( column );
+
+        buildFullWeekDayColumnWorkingHours( column, headerNameIndex );
+        makeAreaDroppable( column, columnDate.getFullYear(), columnDate.getMonth(), columnDate.getDate() );
+
+        column.oncontextmenu = function( e ) {
+            var hoursMinutes = getHourMinutesFromMousePositionClick( e, column );
+
+            _element_ContextMenu_FullDay_ClickPositionHourMinutes = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] );
+
+            showFullDayContextMenu( e, columnDate );
+        };
     }
 
     function buildFullWeekDayColumnWorkingHours( column, headerNameIndex ) {
@@ -3868,7 +3882,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 createSpanElement( _element_View_FullWeek_TitleBar, " - " );
                 buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekEndDate, false, false );
                 createSpanElement( _element_View_FullWeek_TitleBar, ", " + weekStartDate.getFullYear() );
-                
+
             } else {
                 buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekStartDate, false, true );
                 createSpanElement( _element_View_FullWeek_TitleBar, " - " );
@@ -3891,7 +3905,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         addNewViewOpened( _element_View_FullWeek );
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
-        buildFullWeekDayColumns();
+        buildFullWeekDayColumns( weekStartDate, weekEndDate );
     }
 
     function updateViewFullWeekView() {
@@ -4718,25 +4732,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
                 if ( _options.useTemplateWhenAddingNewEvent ) {
-                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_View_FullDay_DateSelected, _element_View_FullDay_DateSelected, _element_View_FullDay_ContextMenu_ClickPositionHourMinutes, _element_View_FullDay_ContextMenu_ClickPositionHourMinutes );
+                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_ClickPositionHourMinutes, _element_ContextMenu_FullDay_ClickPositionHourMinutes );
 
                     showEventEditingDialog( newBlankTemplateEvent );
                     showEventEditingDialogTitleSelected();
                 } else {
-                    showEventEditingDialog( null, _element_View_FullDay_DateSelected, _element_View_FullDay_ContextMenu_ClickPositionHourMinutes );
+                    showEventEditingDialog( null, _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_ClickPositionHourMinutes );
                 }
             }, true );
 
             _element_ContextMenu_FullDay_RemoveEvents_Separator = buildContextMenuSeparator( _element_ContextMenu_FullDay );
 
             _element_ContextMenu_FullDay_RemoveEvents = buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
-                removeNonRepeatingEventsOnSpecificDate( _element_View_FullDay_DateSelected, doDatesMatch );
+                removeNonRepeatingEventsOnSpecificDate( _element_ContextMenu_FullDay_DateSelected, doDatesMatch );
             } );
 
             _element_ContextMenu_FullDay_Paste_Separator = buildContextMenuSeparator( _element_ContextMenu_FullDay );
                 
             _element_ContextMenu_FullDay_Paste = buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
-                pasteEventsToDate( _element_View_FullDay_DateSelected, _events_Copied_Cut );
+                pasteEventsToDate( _element_ContextMenu_FullDay_DateSelected, _events_Copied_Cut );
             } );
         }
     }
@@ -4928,11 +4942,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function showFullDayContextMenu( e ) {
+    function showFullDayContextMenu( e, dateSelected ) {
         if ( _element_ContextMenu_FullDay !== null ) {
             if ( !isControlKey( e ) ) {
                 clearSelectedEvents();
             }
+
+            _element_ContextMenu_FullDay_DateSelected = dateSelected;
 
             if ( _element_ContextMenu_FullDay_Paste !== null ) {
                 var pasteDisplay = _events_Copied.length > 0 ? "block" : "none";
@@ -7167,6 +7183,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         while ( _element_View_Opened.length > 0 ) {
             closeLastViewOpened();
         }
+    }
+
+    function getHourMinutesFromMousePositionClick( e, container ) {
+        var contentHoursOffset = getOffset( container ),
+            pixelsPerMinute = getFullDayPixelsPerMinute(),
+            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top ) ) / pixelsPerMinute ),
+            hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
+
+        return hoursMinutes;
     }
 
 
