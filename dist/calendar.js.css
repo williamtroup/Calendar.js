@@ -1511,6 +1511,10 @@ div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow di
   height: 6px;
   width: 100%;
 }
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
+  width: 100%;
+  left: 0;
+}
 div.calendar div.full-week-view div.contents div.days div.cell div.working-hours {
   position: absolute;
   width: 100%;

@@ -642,6 +642,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents_Days = null,
         _element_View_FullWeek_EventsShown = [],
         _element_View_FullWeek_DateSelected = null,
+        _element_View_FullWeek_TimeArrow = null,
 
         // Variables: View - Full Year
         _element_View_FullYear = null,
@@ -3219,6 +3220,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return scrollTop;
     }
 
+    function buildFullDayViewTimeArrow() {
+        _element_View_FullDay_TimeArrow = createElement( "div", "time-arrow" );
+        _element_View_FullDay_Contents_Hours.appendChild( _element_View_FullDay_TimeArrow );
+
+        _element_View_FullDay_TimeArrow.appendChild( createElement( "div", "arrow-left" ) );
+        _element_View_FullDay_TimeArrow.appendChild( createElement( "div", "line" ) );
+    }
+
     function showFullDayView( date, fromOpen ) {
         date = isDefined( date ) ? date : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
@@ -3301,7 +3310,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var orderedEventsLength = orderedEvents.length,
             orderedEventsFirstTopPosition = null,
-            timeArrowPosition = updateFullDayViewTimeArrowPosition();
+            timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var newTopPosition = buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date );
@@ -3311,7 +3320,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( fromOpen ) {
-            if ( isFullDayTimeArrowVisible() ) {
+            if ( isTimeArrowVisible( _element_View_FullDay_DateSelected, _element_View_FullDay ) ) {
                 _element_View_FullDay_Contents.scrollTop = timeArrowPosition;
             } else {
                 _element_View_FullDay_Contents.scrollTop = orderedEventsFirstTopPosition - ( _element_View_FullDay_Contents.offsetHeight / 2 );
@@ -3647,45 +3656,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Full Day View - Time Arrow
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     */
-
-    function buildFullDayViewTimeArrow() {
-        _element_View_FullDay_TimeArrow = createElement( "div", "time-arrow" );
-        _element_View_FullDay_Contents_Hours.appendChild( _element_View_FullDay_TimeArrow );
-
-        _element_View_FullDay_TimeArrow.appendChild( createElement( "div", "arrow-left" ) );
-        _element_View_FullDay_TimeArrow.appendChild( createElement( "div", "line" ) );
-    }
-
-    function updateFullDayViewTimeArrowPosition() {
-        var topPosition = 0;
-
-        if ( _element_View_FullDay_TimeArrow !== null ) {
-            if ( isFullDayTimeArrowVisible() ) {
-                var pixelsPerMinute = getFullDayPixelsPerMinute(),
-                    top = pixelsPerMinute * getMinutesIntoDay( new Date() );
-    
-                _element_View_FullDay_TimeArrow.style.display = "block";
-                _element_View_FullDay_TimeArrow.style.top = ( top - ( _element_View_FullDay_TimeArrow.offsetHeight / 2 ) ) + "px";
-                topPosition = top;
-    
-            } else {
-                _element_View_FullDay_TimeArrow.style.display = "none";
-            }
-        }
-
-        return topPosition;
-    }
-
-    function isFullDayTimeArrowVisible() {
-        return isDateToday( _element_View_FullDay_DateSelected ) && isViewVisible( _element_View_FullDay ) && _options.showTimelineArrowOnFullDayView ;
-    }
-
-
-    /*
-     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Full Week View
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -3834,6 +3804,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildFullWeekDayColumnWorkingHours( column, headerNameIndex );
         makeAreaDroppable( column, columnDate.getFullYear(), columnDate.getMonth(), columnDate.getDate() );
 
+        if ( isDateToday( columnDate ) ) {
+            buildFullWeekDayColumnTimeArrow( column, columnDate );
+        }
+
         column.oncontextmenu = function( e ) {
             var hoursMinutes = getHourMinutesFromMousePositionClick( e, column );
 
@@ -3841,6 +3815,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             showFullDayContextMenu( e, columnDate );
         };
+    }
+
+    function buildFullWeekDayColumnTimeArrow( column, columnDate ) {
+        _element_View_FullWeek_TimeArrow = createElement( "div", "time-arrow" );
+        column.appendChild( _element_View_FullWeek_TimeArrow );
+
+        _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "arrow-left" ) );
+        _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "line" ) );
+
+        updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow )
     }
 
     function buildFullWeekDayColumnWorkingHours( column, headerNameIndex ) {
@@ -3899,6 +3883,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         _element_View_FullWeek_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
+        _element_View_FullWeek_TimeArrow = null;
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
@@ -7244,6 +7229,37 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Views - Management - Time Arrow
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function updateViewTimeArrowPosition( date, elementView, elementTimeArrow ) {
+        var topPosition = 0;
+
+        if ( elementTimeArrow !== null ) {
+            if ( isTimeArrowVisible( date, elementView ) ) {
+                var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                    top = pixelsPerMinute * getMinutesIntoDay( new Date() );
+    
+                elementTimeArrow.style.display = "block";
+                elementTimeArrow.style.top = ( top - ( elementTimeArrow.offsetHeight / 2 ) ) + "px";
+                topPosition = top;
+    
+            } else {
+                elementTimeArrow.style.display = "none";
+            }
+        }
+
+        return topPosition;
+    }
+
+    function isTimeArrowVisible( date, elementView ) {
+        return isDateToday( date ) && isViewVisible( elementView ) && _options.showTimelineArrowOnFullDayView ;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Full-Screen Mode
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
@@ -8617,7 +8633,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( isOnlyMainDisplayVisible() || fromButton ) {
             refreshOpenedViews();
-            updateFullDayViewTimeArrowPosition();
 
             if ( _currentDate_IsToday ) {
                 build();

@@ -1212,6 +1212,11 @@ div.calendar {
 
                 div.cell {
                     @import "foundation/view-time-arrow";
+
+                    div.time-arrow {
+                        width: 100%;
+                        left: 0;
+                    }
                     
                     div.working-hours {
                         position: absolute;
