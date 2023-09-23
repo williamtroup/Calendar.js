@@ -1218,6 +1218,14 @@ div.calendar {
                         width: 100%;
                         left: 0;
                     }
+
+                    div.event {
+                        position: absolute;
+                        margin-left: 0;
+                        margin-right: 0;
+                        overflow: hidden;
+                        z-index: 1;
+                    }
                     
                     div.working-hours {
                         position: absolute;
