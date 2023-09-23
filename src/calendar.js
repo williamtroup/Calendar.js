@@ -7329,6 +7329,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             minutesHeight -= _options.spacing * 2;
         }
 
+        if ( minutesTop <= _options.spacing ) {
+            minutesTop += _options.spacing;
+            minutesHeight -= _options.spacing;
+        }
+
         event.style.top = minutesTop + "px";
 
         if ( minutesHeight !== null ) {

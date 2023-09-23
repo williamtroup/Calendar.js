@@ -1221,8 +1221,7 @@ div.calendar {
 
                     div.event {
                         position: absolute;
-                        margin-left: 0;
-                        margin-right: 0;
+                        margin: 0;
                         overflow: hidden;
                         z-index: 1;
                         left: $spacing;
