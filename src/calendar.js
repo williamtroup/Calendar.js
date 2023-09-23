@@ -3046,7 +3046,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullDayWorkingHours() {
         if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd ) {
-            var pixelsPerMinute = getFullDayPixelsPerMinute(),
+            var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_FullDay_Contents_Hours ),
                 workingHoursStartParts = _options.workingHoursStart.split( ":" ),
                 workingHoursEndParts = _options.workingHoursEnd.split( ":" ),
                 top = ( ( parseInt( workingHoursStartParts[ 0 ] ) * 60 ) + parseInt( workingHoursStartParts[ 1 ] ) ) * pixelsPerMinute,
@@ -3310,7 +3310,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var orderedEventsLength = orderedEvents.length,
             orderedEventsFirstTopPosition = null,
-            timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow );
+            timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow, _element_View_FullDay_Contents_Hours );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var newTopPosition = buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date );
@@ -3344,7 +3344,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function setEventPositionAndGetScrollTop( displayDate, event, eventDetails ) {
         var contentHoursHeight = _element_View_FullDay_Contents_Hours.offsetHeight,
-            pixelsPerMinute = getFullDayPixelsPerMinute(),
+            pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_FullDay_Contents_Hours ),
             minutesTop = _options.spacing,
             minutesHeight = null;
 
@@ -3380,13 +3380,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return scrollTop;
-    }
-
-    function getFullDayPixelsPerMinute() {
-        var contentHoursHeight = _element_View_FullDay_Contents_Hours.offsetHeight,
-            pixelsPerMinute = contentHoursHeight / 1440;
-
-        return pixelsPerMinute;
     }
 
     function increaseEventZIndex( e, event ) {
@@ -3491,7 +3484,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         } else {
 
-            var pixelsPerMinute = getFullDayPixelsPerMinute(),
+            var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_FullDay_Contents_Hours ),
                 offset = getOffset( _element_View_FullDay_Contents_Hours ),
                 top = ( Math.abs( e.pageY ) - offset.top ) + _element_View_FullDay_Event_Dragged_Offset,
                 difference = top - _element_View_FullDay_Event_Dragged.offsetTop,
@@ -3521,7 +3514,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var eventsLength = _element_View_FullDay_EventsShown_Sizes.length;
     
                 if ( eventsLength > 0 ) {
-                    var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                    var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_FullDay_Contents_Hours ),
                         eventsResized = false;
     
                     for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -3799,7 +3792,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         column.ondblclick = function( e ) {
             onFullWeekViewDayColumnDoubleClick( e, column, columnDate );
-        }
+        };
 
         buildFullWeekDayColumnWorkingHours( column, headerNameIndex );
         makeAreaDroppable( column, columnDate.getFullYear(), columnDate.getMonth(), columnDate.getDate() );
@@ -3824,12 +3817,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "arrow-left" ) );
         _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "line" ) );
 
-        updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow )
+        updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow, column );
     }
 
     function buildFullWeekDayColumnWorkingHours( column, headerNameIndex ) {
         if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd && isIndexWorkingDay( headerNameIndex ) ) {
-            var pixelsPerMinute = getFullDayPixelsPerMinute(),
+            var pixelsPerMinute = getFullDayPixelsPerMinute( column ),
                 workingHoursStartParts = _options.workingHoursStart.split( ":" ),
                 workingHoursEndParts = _options.workingHoursEnd.split( ":" ),
                 top = ( ( parseInt( workingHoursStartParts[ 0 ] ) * 60 ) + parseInt( workingHoursStartParts[ 1 ] ) ) * pixelsPerMinute,
@@ -7217,13 +7210,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Views - Management - Positioning
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
     function getHourMinutesFromMousePositionClick( e, container ) {
         var contentHoursOffset = getOffset( container ),
-            pixelsPerMinute = getFullDayPixelsPerMinute(),
+            pixelsPerMinute = getFullDayPixelsPerMinute( container ),
             minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top ) ) / pixelsPerMinute ),
             hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
 
         return hoursMinutes;
+    }
+
+    function getFullDayPixelsPerMinute( container ) {
+        var contentHoursHeight = container.offsetHeight,
+            pixelsPerMinute = contentHoursHeight / 1440;
+
+        return pixelsPerMinute;
     }
 
 
@@ -7233,12 +7240,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function updateViewTimeArrowPosition( date, elementView, elementTimeArrow ) {
+    function updateViewTimeArrowPosition( date, elementView, elementTimeArrow, container ) {
         var topPosition = 0;
 
         if ( elementTimeArrow !== null ) {
             if ( isTimeArrowVisible( date, elementView ) ) {
-                var pixelsPerMinute = getFullDayPixelsPerMinute(),
+                var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
                     top = pixelsPerMinute * getMinutesIntoDay( new Date() );
     
                 elementTimeArrow.style.display = "block";
