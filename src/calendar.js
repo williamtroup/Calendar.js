@@ -3827,6 +3827,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         column.id = _elementID_WeekDayElement + headerNameIndex;
         _element_View_FullWeek_Contents_Days.appendChild( column );
 
+        column.ondblclick = function( e ) {
+            onFullWeekViewDayColumnDoubleClick( e, column, columnDate );
+        }
+
         buildFullWeekDayColumnWorkingHours( column, headerNameIndex );
         makeAreaDroppable( column, columnDate.getFullYear(), columnDate.getMonth(), columnDate.getDate() );
 
@@ -3906,6 +3910,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
         buildFullWeekDayColumns( weekStartDate, weekEndDate );
+    }
+
+    function onFullWeekViewDayColumnDoubleClick( e, column, columnDate ) {
+        if ( _options.manualEditingEnabled ) {
+            var hoursMinutes = getHourMinutesFromMousePositionClick( e, column );
+            
+            if ( _options.useTemplateWhenAddingNewEvent ) {
+                var newBlankTemplateEventTime = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] ),
+                    newBlankTemplateEvent = buildBlankTemplateEvent( columnDate, columnDate, newBlankTemplateEventTime, newBlankTemplateEventTime );
+
+                showEventEditingDialog( newBlankTemplateEvent );
+                showEventEditingDialogTitleSelected();
+            } else {
+                showEventEditingDialog( null, columnDate, hoursMinutes );
+            }
+        }
     }
 
     function updateViewFullWeekView() {
