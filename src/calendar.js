@@ -3734,7 +3734,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
                 if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
-                    var column = getElementByID( _elementID_WeekDayElement + getWeekNumber( newFromDate ) );
+                    var column = getElementByID( _elementID_WeekDayElement + getWeekdayNumber( newFromDate ) );
 
                     if ( column !== null ) {
                         buildFullWeekViewEvent( column, orderedEvent, newFromDate );
