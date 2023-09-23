@@ -1429,7 +1429,7 @@ div.calendar div.full-week-view div.contents div.header-days-container {
   position: sticky;
   top: 0;
   background-color: var(--dark-color);
-  z-index: 1;
+  z-index: 100;
 }
 div.calendar div.full-week-view div.contents div.header-days-container div.header-days {
   width: calc(100% - 70px - 20px);

@@ -1180,7 +1180,7 @@ div.calendar {
                 position: sticky;
                 top: 0;
                 background-color: var(--dark-color);
-                z-index: 1;
+                z-index: 100;
     
                 div.header-days {
                     width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
