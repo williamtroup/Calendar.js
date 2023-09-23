@@ -7,7 +7,7 @@ div.hour {
 
     &::before {
         border-bottom: $standard-border-size dashed var(--input-border-color);
-        width: calc( 100% - ( #{$time-hours-width} + #{$spacing * 2} ) );
+        width: calc( 100% - ( $time-hours-width + $spacing * 2 ) );
         height: ( $time-hours-height + $spacing * 2 ) - $standard-border-size;
         content: '';
         display: block;

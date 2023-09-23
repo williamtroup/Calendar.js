@@ -1,7 +1,7 @@
 @import "styles";
 
 div.title-bar {
-    width: calc( 100% - #{$spacing} );
+    width: calc( 100% - $spacing );
     display: inline-block;
     padding-top: $spacing;
     padding-bottom: $spacing;
