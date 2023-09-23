@@ -3342,19 +3342,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function increaseEventZIndex( e, event ) {
-        cancelBubble( e );
-
-        var zIndex = getStyleValueByName( event, "z-index" );
-        if ( zIndex === null || zIndex === "auto" ) {
-            zIndex = 1;
-        } else {
-            zIndex = parseInt( zIndex ) + 1;
-        }
-
-        event.style.zIndex = zIndex.toString();
-    }
-
     function hideFullDayView() {
         hideView( _element_View_FullDay );
         stopFullDayEventSizeTracking();
@@ -3769,6 +3756,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var event = createElement( "div", "event" );
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
             event.setAttribute( "event-id", eventDetails.id );
+
+            event.onclick = function ( e ) {
+                increaseEventZIndex( e, event );
+            };
             
             column.appendChild( event );
 
@@ -7389,6 +7380,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Views - Management - Overlapping Events
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    function increaseEventZIndex( e, event ) {
+        cancelBubble( e );
+
+        var zIndex = getStyleValueByName( event, "z-index" );
+        if ( zIndex === null || zIndex === "auto" ) {
+            zIndex = 1;
+        } else {
+            zIndex = parseInt( zIndex ) + 1;
+        }
+
+        event.style.zIndex = zIndex.toString();
+    }
 
     function adjustViewEventsThatOverlap( container ) {
         var eventsElements = container.getElementsByClassName( "event" ),
