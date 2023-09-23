@@ -1270,6 +1270,7 @@ div.calendar div.full-day-view div.contents div.event {
   color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
+  text-align: left;
 }
 div.calendar div.full-day-view div.contents div.event div {
   margin-bottom: 5px;
@@ -1510,6 +1511,51 @@ div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow di
   top: 3px;
   height: 6px;
   width: 100%;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.expired {
+  opacity: 0.7;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.all-day {
+  background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event {
+  white-space: pre-line;
+  -ms-word-break: normal;
+  word-break: normal;
+  border-radius: 0.25rem;
+  background-color: var(--event-color);
+  padding: 10px;
+  color: var(--event-text-color);
+  margin-bottom: 10px;
+  border-left: 7px solid var(--dark-color);
+  text-align: left;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div {
+  margin-bottom: 5px;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.title {
+  font-weight: 900;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.date,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.duration,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.description,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.location,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.repeats {
+  font-size: smaller;
+  font-weight: 300;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.ib-refresh-medium {
+  margin-right: 5px;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.days div.cell:last-child {
+  margin-bottom: 0;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
   width: 100%;
@@ -1874,6 +1920,7 @@ div.calendar div.all-events-view div.contents div.month div.events div.event {
   color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
+  text-align: left;
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div {
   margin-bottom: 5px;

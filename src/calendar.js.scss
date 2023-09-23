@@ -1212,6 +1212,7 @@ div.calendar {
 
                 div.cell {
                     @import "foundation/view-time-arrow";
+                    @import "foundation/view-event";
 
                     div.time-arrow {
                         width: 100%;

@@ -3203,7 +3203,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
             
             if ( !eventDetails.isAllDay ) {
-                scrollTop = setEventPositionAndGetScrollTop( displayDate, event, eventDetails );
+                scrollTop = setEventPositionAndGetScrollTop( _element_View_FullDay_Contents, _element_View_FullDay_Contents_Hours, displayDate, event, eventDetails );
             }
 
             _element_View_FullDay_EventsShown.push( eventDetails );
@@ -3340,46 +3340,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( isViewVisible( _element_View_FullDay ) ) {
             showFullDayView( _element_View_FullDay_DateSelected );
         }
-    }
-
-    function setEventPositionAndGetScrollTop( displayDate, event, eventDetails ) {
-        var contentHoursHeight = _element_View_FullDay_Contents_Hours.offsetHeight,
-            pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_FullDay_Contents_Hours ),
-            minutesTop = _options.spacing,
-            minutesHeight = null;
-
-        if ( !eventDetails.isAllDay ) {
-            var repeatEvery = getNumber( eventDetails.repeatEvery );
-
-            if ( doDatesMatch( eventDetails.from, displayDate ) || repeatEvery > _repeatType.never ) {
-                minutesTop = pixelsPerMinute * getMinutesIntoDay( eventDetails.from );
-            }
-
-            if ( doDatesMatch( eventDetails.to, displayDate ) || repeatEvery > _repeatType.never ) {
-                minutesHeight = ( pixelsPerMinute * getMinutesIntoDay( eventDetails.to ) ) - minutesTop;
-            } else {
-                minutesHeight = contentHoursHeight;
-            }
-
-            minutesHeight -= _options.spacing * 2;
-        }
-
-        event.style.top = minutesTop + "px";
-
-        if ( minutesHeight !== null ) {
-            event.style.height = minutesHeight + "px";
-        }
-
-        if ( event.offsetTop + event.offsetHeight > ( contentHoursHeight - _options.spacing ) ) {
-            event.style.height = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
-        }
-
-        var scrollTop = minutesTop + ( _element_View_FullDay_Contents.offsetHeight / 2 );
-        if ( scrollTop <= _element_View_FullDay_Contents.offsetHeight ) {
-            scrollTop = 0;
-        }
-
-        return scrollTop;
     }
 
     function increaseEventZIndex( e, event ) {
@@ -3872,6 +3832,144 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+
+
+
+
+    function buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, dateFunc, dateFuncForwardValue ) {
+        var newFromDate = new Date( orderedEvent.from ),
+            excludeDays = getArray( orderedEvent.repeatEveryExcludeDays ),
+            added = false;
+    
+        while ( newFromDate < weekEndDate ) {
+            dateFunc( newFromDate, dateFuncForwardValue );
+
+            var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
+            
+            if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
+                if ( newFromDate >= weekStartDate && newFromDate <= weekEndDate ) {
+                    var column = getElementByID( _elementID_WeekDayElement + getWeekNumber( newFromDate ) );
+
+                    if ( column !== null ) {
+                        buildFullWeekViewEvent( column, orderedEvent, newFromDate );
+                        added = true;
+                    }
+                }
+            }
+        }
+
+        return added;
+    }
+
+    function buildFullWeekViewEvent( column, eventDetails, displayDate ) {
+        var added = false,
+            seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
+            formattedDate = toStorageFormattedDate( displayDate );
+
+        if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
+            var event = createElement( "div", "event" );
+            event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+            event.setAttribute( "event-id", eventDetails.id );
+            
+            column.appendChild( event );
+
+            event.oncontextmenu = function( e ) {
+                showEventContextMenu( e, eventDetails, formattedDate );
+            };
+    
+            makeEventDraggable( event, eventDetails, displayDate, column );
+            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
+            setEventClassesForActions( event, eventDetails );
+
+            if ( doDatesMatch( eventDetails.from, displayDate ) ) {
+                event.id = _elementID_Event_WeekDay + eventDetails.id;
+            }
+
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( repeatEvery > _repeatType.never ) {
+                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+                icon.style.borderColor = event.style.color;
+                title.appendChild( icon );
+            }
+            
+            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+            event.appendChild( title );
+
+            var startTime = createElement( "div", "date" );
+            event.appendChild( startTime );
+
+            var duration = createElement( "div", "duration" );
+            event.appendChild( duration );
+    
+            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                if ( eventDetails.isAllDay ) {
+                    setNodeText( startTime, _options.allDayText );
+                } else {
+                    setNodeText( startTime, getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                    setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+                }
+            } else {
+
+                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+                setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+            }
+
+            if ( duration.innerHTML === _string.empty ) {
+                event.removeChild( duration );
+            }
+    
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
+                var repeats = createElement( "div", "repeats" );
+                setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
+                event.appendChild( repeats );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                var location = createElement( "div", "location" );
+                setNodeText( location, eventDetails.location );
+                event.appendChild( location );
+            }
+    
+            if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                var description = createElement( "div", "description" );
+                setNodeText( description, eventDetails.description );
+                event.appendChild( description );
+            }
+
+            event.addEventListener( "click", function( e ) {
+                storeMultiSelectEvent( e, eventDetails );
+            } );
+
+            if ( isOptionEventSet( "onEventClick" ) ) {
+                event.addEventListener( "click", function() {
+                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                } );
+            }
+    
+            if ( _options.manualEditingEnabled ) {
+                event.ondblclick = function( e ) {
+                    cancelBubble( e );
+                    showEventEditingDialog( eventDetails );
+                };
+            } else {
+
+                if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                    event.ondblclick = function() {
+                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    };
+                }
+            }
+
+            setEventPositionAndGetScrollTop( column, column, displayDate, event, eventDetails );
+
+            added = true;
+        }
+
+        return added;
+    }
+
     function showFullWeekView( weekDate, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
@@ -3888,6 +3986,72 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
         buildFullWeekDayColumns( weekStartDate, weekEndDate );
+
+        var orderedEvents = getOrderedEvents( getAllEvents() ),
+            orderedEventsLength = orderedEvents.length;
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            var orderedEvent = orderedEvents[ orderedEventIndex ],
+                totalDays = getTotalDaysBetweenDates( orderedEvent.from, orderedEvent.to ) + 1,
+                nextDate = new Date( orderedEvent.from ),
+                addedNow = false;
+            
+            for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
+                if ( nextDate >= weekStartDate && nextDate <= weekEndDate ) {
+                    var column = getElementByID( _elementID_WeekDayElement + getWeekdayNumber( nextDate ) );
+                    
+                    if ( column !== null ) {
+                        var added = buildFullWeekViewEvent( column, orderedEvent, nextDate );
+                        if ( added ) {
+                            addedNow = true;
+                        }
+                    }
+                }
+
+                moveDateForwardDay( nextDate );
+            }
+
+            if ( addedNow ) {
+                _element_View_FullWeek_EventsShown.push( orderedEvent );
+            }
+
+            var repeatEvery = getNumber( orderedEvent.repeatEvery ),
+                repeatAdded = false;
+
+            if ( repeatEvery > _repeatType.never ) {
+                if ( repeatEvery === _repeatType.everyDay ) {
+                    repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardDay, 1 );
+                } else if ( repeatEvery === _repeatType.everyWeek ) {
+                    repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 1 );
+                } else if ( repeatEvery === _repeatType.every2Weeks ) {
+                    repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, 2 );
+                } else if ( repeatEvery === _repeatType.everyMonth ) {
+                    repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardMonth, 1 );
+                } else if ( repeatEvery === _repeatType.everyYear ) {
+                    repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardYear, 1 );
+                } else if ( repeatEvery === _repeatType.custom ) {
+
+                    var repeatEveryCustomType = getNumber( orderedEvent.repeatEveryCustomType ),
+                        repeatEveryCustomValue = getNumber( orderedEvent.repeatEveryCustomValue );
+                    
+                    if ( repeatEveryCustomValue > 0 ) {
+                        if ( repeatEveryCustomType === _repeatCustomType.daily ) {
+                            repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardDay, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
+                            repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardWeek, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
+                            repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardMonth, repeatEveryCustomValue );
+                        } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
+                            repeatAdded = buildFullWeekViewRepeatedDayEvents( orderedEvent, weekStartDate, weekEndDate, moveDateForwardYear, repeatEveryCustomValue );
+                        }
+                    }
+                }
+            }
+
+            if ( repeatAdded && !addedNow ) {
+                _element_View_FullWeek_EventsShown.push( orderedEvent );
+            }
+        }
     }
 
     function updateViewFullWeekView() {
@@ -7231,6 +7395,46 @@ function calendarJs( elementOrId, options, searchOptions ) {
             pixelsPerMinute = contentHoursHeight / 1440;
 
         return pixelsPerMinute;
+    }
+
+    function setEventPositionAndGetScrollTop( contents, container, displayDate, event, eventDetails ) {
+        var contentHoursHeight = container.offsetHeight,
+            pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+            minutesTop = _options.spacing,
+            minutesHeight = null;
+
+        if ( !eventDetails.isAllDay ) {
+            var repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( doDatesMatch( eventDetails.from, displayDate ) || repeatEvery > _repeatType.never ) {
+                minutesTop = pixelsPerMinute * getMinutesIntoDay( eventDetails.from );
+            }
+
+            if ( doDatesMatch( eventDetails.to, displayDate ) || repeatEvery > _repeatType.never ) {
+                minutesHeight = ( pixelsPerMinute * getMinutesIntoDay( eventDetails.to ) ) - minutesTop;
+            } else {
+                minutesHeight = contentHoursHeight;
+            }
+
+            minutesHeight -= _options.spacing * 2;
+        }
+
+        event.style.top = minutesTop + "px";
+
+        if ( minutesHeight !== null ) {
+            event.style.height = minutesHeight + "px";
+        }
+
+        if ( event.offsetTop + event.offsetHeight > ( contentHoursHeight - _options.spacing ) ) {
+            event.style.height = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
+        }
+
+        var scrollTop = minutesTop + ( contents.offsetHeight / 2 );
+        if ( scrollTop <= contents.offsetHeight ) {
+            scrollTop = 0;
+        }
+
+        return scrollTop;
     }
 
 
