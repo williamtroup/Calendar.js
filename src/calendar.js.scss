@@ -1236,6 +1236,7 @@ div.calendar {
                         pointer-events: none;
                         z-index: 0;
                         left: 0;
+                        margin-top: $standard-border-size;
                     }
 
                     div.resizable {
