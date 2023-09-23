@@ -791,7 +791,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_Configuration_Organizer_Name = null,
         _element_Dialog_Configuration_Organizer_Email = null,
 
-        // Variables: Context Menu - MonthDay
+        // Variables: Context Menu - Month Day
         _element_ContextMenu_Day = null,
         _element_ContextMenu_Day_Paste_Separator = null,
         _element_ContextMenu_Day_Paste = null,
@@ -824,7 +824,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ContextMenu_FullDay_ClickPositionHourMinutes = null,
         _element_ContextMenu_FullDay_DateSelected = null,
 
-        // Variables: Context Menu - Header Day
+        // Variables: Context Menu - Day Header
         _element_ContextMenu_HeaderDay = null,
         _element_ContextMenu_HeaderDay_HideDay = null,
         _element_ContextMenu_HeaderDay_HideDay_Separator = null,
@@ -4631,7 +4631,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Context Menu - Day
+     * Context Menu - Month Day
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
