@@ -1237,6 +1237,10 @@ div.calendar {
                         z-index: 0;
                         left: 0;
                     }
+
+                    div.resizable {
+                        resize: vertical;
+                    }
                 }
             }
         }
