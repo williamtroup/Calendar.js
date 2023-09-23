@@ -3002,7 +3002,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                  _element_ContextMenu_FullDay_ClickPositionHourMinutes = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] );
 
-                showFullDayContextMenu( e, _element_View_FullDay_DateSelected );
+                showFullDayContextMenu( e, _element_View_FullDay_DateSelected, _element_View_FullDay_EventsShown );
             };
     
             _element_View_FullDay_Contents_AllDayEvents = createElement( "div", "content-events-all-day" );
@@ -3656,7 +3656,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_ContextMenu_FullDay_ClickPositionHourMinutes = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] );
 
-            showFullDayContextMenu( e, columnDate );
+            showFullDayContextMenu( e, columnDate, _element_View_FullWeek_EventsShown );
         };
     }
 
@@ -3865,6 +3865,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_View_FullWeek_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
         _element_View_FullWeek_TimeArrow = null;
+        _element_View_FullWeek_EventsShown = [];
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
@@ -5009,7 +5010,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function showFullDayContextMenu( e, dateSelected ) {
+    function showFullDayContextMenu( e, dateSelected, eventsShown ) {
         if ( _element_ContextMenu_FullDay !== null ) {
             if ( !isControlKey( e ) ) {
                 clearSelectedEvents();
@@ -5024,8 +5025,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_ContextMenu_FullDay_Paste.style.display = pasteDisplay;
             }
 
-            if ( _element_View_FullDay_EventsShown !== null ) {
-                var removeEventsDisplay = _element_View_FullDay_EventsShown.length > 0 ? "block" : "none";
+            if ( eventsShown !== null ) {
+                var removeEventsDisplay = eventsShown.length > 0 ? "block" : "none";
 
                 _element_ContextMenu_FullDay_RemoveEvents_Separator.style.display = removeEventsDisplay;
                 _element_ContextMenu_FullDay_RemoveEvents.style.display = removeEventsDisplay;
