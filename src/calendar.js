@@ -3049,7 +3049,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildFullDayWorkingHours() {
+    function buildFullDayViewWorkingHours() {
         if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd ) {
             var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_FullDay_Contents_Hours ),
                 workingHoursStartParts = _options.workingHoursStart.split( ":" ),
@@ -3063,7 +3063,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
+    function buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, dateFunc, dateFuncForwardValue ) {
         var newFromDate = new Date( eventDetails.from ),
             excludeDays = getArray( eventDetails.repeatEveryExcludeDays );
     
@@ -3081,7 +3081,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildFullDayDayEvent( eventDetails, displayDate ) {
+    function buildFullDayViewEvent( eventDetails, displayDate ) {
         var scrollTop = 0,
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             formattedDate = toStorageFormattedDate( displayDate );
@@ -3110,7 +3110,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
 
                     event.ondragstart = function( e ) {
-                        onViewEventDragStart( e, event, eventDetails, displayDate, _element_View_FullWeek_Contents_Hours );
+                        onViewEventDragStart( e, event, eventDetails, displayDate );
                     };
 
                     event.ondragEnd = function( e ) {
@@ -3262,7 +3262,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         addNewViewOpened( _element_View_FullDay );
 
         if ( isWorkingDay( date ) ) {
-            buildFullDayWorkingHours();
+            buildFullDayViewWorkingHours();
         }
 
         var holidayText = getHolidaysText( date ),
@@ -3288,15 +3288,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var repeatEvery = getNumber( eventDetails.repeatEvery );
             if ( repeatEvery > _repeatType.never ) {
                 if ( repeatEvery === _repeatType.everyDay ) {
-                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardDay, 1 );
+                    buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardDay, 1 );
                 } else if ( repeatEvery === _repeatType.everyWeek ) {
-                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, 1 );
+                    buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, 1 );
                 } else if ( repeatEvery === _repeatType.every2Weeks ) {
-                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, 2 );
+                    buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, 2 );
                 } else if ( repeatEvery === _repeatType.everyMonth ) {
-                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardMonth, 1 );
+                    buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardMonth, 1 );
                 } else if ( repeatEvery === _repeatType.everyYear ) {
-                    buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardYear, 1 );
+                    buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardYear, 1 );
                 } else if ( repeatEvery === _repeatType.custom ) {
 
                     var repeatEveryCustomType = getNumber( eventDetails.repeatEveryCustomType ),
@@ -3304,13 +3304,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     
                     if ( repeatEveryCustomValue > 0 ) {
                         if ( repeatEveryCustomType === _repeatCustomType.daily ) {
-                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardDay, repeatEveryCustomValue );
+                            buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardDay, repeatEveryCustomValue );
                         } else if ( repeatEveryCustomType === _repeatCustomType.weekly ) {
-                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, repeatEveryCustomValue );
+                            buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardWeek, repeatEveryCustomValue );
                         } else if ( repeatEveryCustomType === _repeatCustomType.monthly ) {
-                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardMonth, repeatEveryCustomValue );
+                            buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardMonth, repeatEveryCustomValue );
                         } else if ( repeatEveryCustomType === _repeatCustomType.yearly ) {
-                            buildFullDayRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardYear, repeatEveryCustomValue );
+                            buildFullDayViewRepeatedDayEvents( eventDetails, orderedEvents, date, moveDateForwardYear, repeatEveryCustomValue );
                         }
                     }
                 }
@@ -3324,7 +3324,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow, _element_View_FullDay_Contents_Hours );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            var newTopPosition = buildFullDayDayEvent( orderedEvents[ orderedEventIndex ], date );
+            var newTopPosition = buildFullDayViewEvent( orderedEvents[ orderedEventIndex ], date );
             if ( orderedEventsFirstTopPosition === null ) {
                 orderedEventsFirstTopPosition = newTopPosition;
             }
@@ -3488,11 +3488,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_View_FullWeek_Contents = createElement( "div", "contents custom-scroll-bars" );
             _element_View_FullWeek.appendChild( _element_View_FullWeek_Contents );
 
-            buildFullWeekLayout();
+            buildFullWeekViewLayout();
         }
     }
 
-    function buildFullWeekLayout() {
+    function buildFullWeekViewLayout() {
         var dayNamesHeaderContainer = createElement( "div", "header-days-container" );
         _element_View_FullWeek_Contents.appendChild( dayNamesHeaderContainer );
 
@@ -3520,7 +3520,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Days );
     }
 
-    function buildFullWeekDayColumns( weekStartDate, weekEndDate ) {
+    function buildFullWeekViewDayColumns( weekStartDate, weekEndDate ) {
         var headerNamesLength = _options.dayHeaderNames.length,
             droppableDates = {},
             startWeekDate = new Date( weekStartDate );
@@ -3534,10 +3534,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents_Days.innerHTML = _string.empty;
     
         if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-            buildFullWeekDayColumn( _options.startOfWeekDay, headerNamesLength, droppableDates );
-            buildFullWeekDayColumn( 0, _options.startOfWeekDay, droppableDates );
+            buildFullWeekViewDayColumn( _options.startOfWeekDay, headerNamesLength, droppableDates );
+            buildFullWeekViewDayColumn( 0, _options.startOfWeekDay, droppableDates );
         } else {
-            buildFullWeekDayColumn( 0, headerNamesLength, droppableDates );
+            buildFullWeekViewDayColumn( 0, headerNamesLength, droppableDates );
         }
 
         if ( _options.reverseOrderDaysOfWeek ) {
@@ -3545,15 +3545,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildFullWeekDayColumn( startIndex, endIndex, droppableDates ) {
+    function buildFullWeekViewDayColumn( startIndex, endIndex, droppableDates ) {
         for ( var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++ ) {
             if ( _options.visibleDays.indexOf( headerNameIndex ) > -1 ) {
-                buildFullWeekDayColumnWithEvents( droppableDates, headerNameIndex );
+                buildFullWeekDayViewColumnWithEvents( droppableDates, headerNameIndex );
             }
         }
     }
 
-    function buildFullWeekDayColumnWithEvents( droppableDates, headerNameIndex ) {
+    function buildFullWeekDayViewColumnWithEvents( droppableDates, headerNameIndex ) {
         var column = createElement( "div", getCellName() ),
             columnDate = new Date( droppableDates[ headerNameIndex ] );
 
@@ -3564,10 +3564,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             onFullWeekViewDayColumnDoubleClick( e, column, columnDate );
         };
 
-        buildFullWeekDayColumnWorkingHours( column, headerNameIndex );
+        buildFullWeekViewDayColumnWorkingHours( column, headerNameIndex );
 
         if ( isDateToday( columnDate ) ) {
-            buildFullWeekDayColumnTimeArrow( column, columnDate );
+            buildFullWeekViewDayColumnTimeArrow( column, columnDate );
         }
 
         if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled ) {
@@ -3588,7 +3588,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         };
     }
 
-    function buildFullWeekDayColumnTimeArrow( column, columnDate ) {
+    function buildFullWeekViewDayColumnTimeArrow( column, columnDate ) {
         _element_View_FullWeek_TimeArrow = createElement( "div", "time-arrow" );
         column.appendChild( _element_View_FullWeek_TimeArrow );
 
@@ -3598,7 +3598,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow, column );
     }
 
-    function buildFullWeekDayColumnWorkingHours( column, headerNameIndex ) {
+    function buildFullWeekViewDayColumnWorkingHours( column, headerNameIndex ) {
         if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd && isIndexWorkingDay( headerNameIndex ) ) {
             var pixelsPerMinute = getFullDayPixelsPerMinute( column ),
                 workingHoursStartParts = _options.workingHoursStart.split( ":" ),
@@ -3678,11 +3678,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullWeekViewEvent( column, eventDetails, displayDate ) {
         var added = false,
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
-            formattedDate = toStorageFormattedDate( displayDate );
+            actualDisplayDate = new Date( displayDate ),
+            formattedDate = toStorageFormattedDate( actualDisplayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", "event" ),
-                weekdayNumber = getWeekdayNumber( displayDate );
+                weekdayNumber = getWeekdayNumber( actualDisplayDate );
 
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
             event.setAttribute( "event-id", eventDetails.id );
@@ -3706,7 +3707,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
 
                 event.ondragstart = function( e ) {
-                    onViewEventDragStart( e, event, eventDetails, displayDate );
+                    onViewEventDragStart( e, event, eventDetails, actualDisplayDate );
                 };
 
                 event.ondragEnd = function( e ) {
@@ -3716,10 +3717,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.setAttribute( "draggable", true );
             }
     
-            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
+            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, actualDisplayDate ) );
             setEventClassesForActions( event, eventDetails );
 
-            if ( doDatesMatch( eventDetails.from, displayDate ) ) {
+            if ( doDatesMatch( eventDetails.from, actualDisplayDate ) ) {
                 event.id = _elementID_Event_WeekDay + eventDetails.id;
             }
 
@@ -3800,7 +3801,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
 
-            setEventPositionAndGetScrollTop( column, column, displayDate, event, eventDetails, true );
+            setEventPositionAndGetScrollTop( column, column, actualDisplayDate, event, eventDetails, true );
 
             if ( !eventDetails.isAllDay ) {
                 _element_View_Event_Dragged_Sizes.push( {
@@ -3839,7 +3840,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         addNewViewOpened( _element_View_FullWeek );
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
-        buildFullWeekDayColumns( weekStartDate, weekEndDate );
+        buildFullWeekViewDayColumns( weekStartDate, weekEndDate );
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length;
@@ -3855,7 +3856,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     var column = getElementByID( _elementID_WeekDayElement + getWeekdayNumber( nextDate ) );
                     
                     if ( column !== null ) {
-                        var added = buildFullWeekViewEvent( column, orderedEvent, new Date( nextDate ) );
+                        var added = buildFullWeekViewEvent( column, orderedEvent, nextDate );
                         if ( added ) {
                             addedNow = true;
                         }
@@ -4027,11 +4028,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullYear_Contents.innerHTML = _string.empty;
 
         for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
-            buildFullYearMonth( monthIndex );
+            buildFullYearViewMonth( monthIndex );
         }
     }
 
-    function buildFullYearMonth( monthIndex ) {
+    function buildFullYearViewMonth( monthIndex ) {
         var expandMonthDate = new Date( _element_View_FullYear_CurrentYear, monthIndex, 1 );
 
         var yearMonth = createElement( "div", "year-month" );
@@ -4071,15 +4072,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDayRows( yearMonth, monthDayId );
 
         if ( startDay > 1 ) {
-            buildFullYearMonthPreviousMonthDays( startDay, monthDayId, monthIndex );
+            buildFullYearViewMonthPreviousMonthDays( startDay, monthDayId, monthIndex );
         }
 
-        var lastFilledDay = buildFullYearMonthDays( startDay, monthDayId, monthIndex );
+        var lastFilledDay = buildFullYearViewMonthDays( startDay, monthDayId, monthIndex );
 
-        buildFullYearMonthNextMonthDays( lastFilledDay, monthDayId, monthIndex );
+        buildFullYearViewMonthNextMonthDays( lastFilledDay, monthDayId, monthIndex );
     }
 
-    function buildFullYearMonthPreviousMonthDays( startDay, monthDayId, monthIndex ) {
+    function buildFullYearViewMonthPreviousMonthDays( startDay, monthDayId, monthIndex ) {
         var previousMonth = new Date( _element_View_FullYear_CurrentYear, monthIndex, 1 );
         previousMonth.setMonth( previousMonth.getMonth() - 1 );
 
@@ -4088,14 +4089,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             previousDay = totalDaysInMonthInPreviousMonth;
 
         while ( previousDayIndex > 0 ) {
-            buildFullYearMonthPreviousMonthDay( monthDayId, previousDayIndex, previousMonth, previousDay );
+            buildFullYearViewMonthPreviousMonthDay( monthDayId, previousDayIndex, previousMonth, previousDay );
 
             previousDayIndex--;
             previousDay--;
         }
     }
 
-    function buildFullYearMonthPreviousMonthDay( monthDayId, previousDayIndex, previousMonth, previousDay ) {
+    function buildFullYearViewMonthPreviousMonthDay( monthDayId, previousDayIndex, previousMonth, previousDay ) {
         var previousMonthDayFullDayElement = getElementByID( monthDayId + previousDayIndex );
         if ( previousMonthDayFullDayElement !== null ) {
             var previousMonthDate = new Date( previousMonth.getFullYear(), previousMonth.getMonth(), previousDay );
@@ -4109,25 +4110,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showDayContextMenu( e, previousMonthDate );
             };
 
-            buildFullYearMonthDayClasses( previousMonthDayFullDayElement, previousMonthDate );
+            buildFullYearViewMonthDayClasses( previousMonthDayFullDayElement, previousMonthDate );
             buildDayDisplay( previousMonthDayFullDayElement, previousMonthDate );
         }
     }
 
-    function buildFullYearMonthDays( startDay, monthDayId, monthIndex ) {
+    function buildFullYearViewMonthDays( startDay, monthDayId, monthIndex ) {
         var elementDayNumber = 0,
             totalDaysInMonth = getTotalDaysInMonth( _element_View_FullYear_CurrentYear, monthIndex );
 
         for ( var day = 0; day < totalDaysInMonth; day++ ) {
             elementDayNumber = startDay + day;
             
-            buildFullYearMonthDay( monthDayId, monthIndex, day, elementDayNumber );
+            buildFullYearViewMonthDay( monthDayId, monthIndex, day, elementDayNumber );
         }
 
         return elementDayNumber;
     }
 
-    function buildFullYearMonthDay( monthDayId, monthIndex, day, elementDayNumber ) {
+    function buildFullYearViewMonthDay( monthDayId, monthIndex, day, elementDayNumber ) {
         var currentMonthDayFullDayElement = getElementByID( monthDayId + elementDayNumber );
         if ( currentMonthDayFullDayElement !== null ) {
             var currentMonthDayDate = new Date( _element_View_FullYear_CurrentYear, monthIndex, day + 1 );
@@ -4140,12 +4141,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showDayContextMenu( e, currentMonthDayDate );
             };
 
-            buildFullYearMonthDayClasses( currentMonthDayFullDayElement, currentMonthDayDate );
+            buildFullYearViewMonthDayClasses( currentMonthDayFullDayElement, currentMonthDayDate );
             buildDayDisplay( currentMonthDayFullDayElement, currentMonthDayDate );
         }
     }
 
-    function buildFullYearMonthNextMonthDays( lastDayFilled, monthDayId, monthIndex  ) {
+    function buildFullYearViewMonthNextMonthDays( lastDayFilled, monthDayId, monthIndex  ) {
         if ( lastDayFilled < 42 ) {
             var nextMonth = new Date( _element_View_FullYear_CurrentYear, monthIndex, 1 ),
                 actualDay = 1;
@@ -4153,13 +4154,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             nextMonth.setMonth( nextMonth.getMonth() + 1 );
 
             for ( var day = lastDayFilled + 1; day < 43; day++ ) {
-                buildFullYearMonthNextMonthDay( monthDayId, nextMonth, day, actualDay );
+                buildFullYearViewMonthNextMonthDay( monthDayId, nextMonth, day, actualDay );
                 actualDay++;
             }
         }
     }
 
-    function buildFullYearMonthNextMonthDay( monthDayId, nextMonth, day, actualDay ) {
+    function buildFullYearViewMonthNextMonthDay( monthDayId, nextMonth, day, actualDay ) {
         var nextMonthDayFullDayElement = getElementByID( monthDayId + day );
         if ( nextMonthDayFullDayElement !== null ) {
             var nextMonthDayDate = new Date( nextMonth.getFullYear(), nextMonth.getMonth(), actualDay );
@@ -4173,12 +4174,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showDayContextMenu( e, nextMonthDayDate );
             };
 
-            buildFullYearMonthDayClasses( nextMonthDayFullDayElement, nextMonthDayDate );
+            buildFullYearViewMonthDayClasses( nextMonthDayFullDayElement, nextMonthDayDate );
             buildDayDisplay( nextMonthDayFullDayElement, nextMonthDayDate );
         }
     }
 
-    function buildFullYearMonthDayClasses( element, date ) {
+    function buildFullYearViewMonthDayClasses( element, date ) {
         var formattedDate = toStorageFormattedDate( date );
 
         if ( isWeekendDay( date ) ) {
@@ -7481,7 +7482,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         } else {
 
-            if ( !doDatesMatch( _element_View_Event_Dragged_EventDetails.from, dateDropped ) ) {
+            if ( !doDatesMatch( _element_View_Event_Dragged_FromDate, dateDropped ) ) {
                 _events_Dragged = _element_View_Event_Dragged_EventDetails;
                 _events_Dragged_DateFrom = _element_View_Event_Dragged_FromDate;
 
