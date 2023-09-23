@@ -1218,7 +1218,7 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
 div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
   border-bottom: 1px dashed var(--input-border-color);
   width: calc(100% - 90px);
-  height: 54px;
+  height: 44px;
   content: "";
   display: block;
   position: absolute;
@@ -1226,8 +1226,10 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour::before
   left: 90px;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
+  display: flex;
+  align-items: center;
   width: 70px;
-  height: 35px;
+  height: 25px;
   padding: 10px;
   background-color: var(--light-color);
   color: var(--dark-color);
@@ -1445,7 +1447,7 @@ div.calendar div.full-week-view div.contents div.hours div.hour {
 div.calendar div.full-week-view div.contents div.hours div.hour::before {
   border-bottom: 1px dashed var(--input-border-color);
   width: calc(100% - 90px);
-  height: 54px;
+  height: 44px;
   content: "";
   display: block;
   position: absolute;
@@ -1453,8 +1455,10 @@ div.calendar div.full-week-view div.contents div.hours div.hour::before {
   left: 90px;
 }
 div.calendar div.full-week-view div.contents div.hours div.hour div.hour-text {
+  display: flex;
+  align-items: center;
   width: 70px;
-  height: 35px;
+  height: 25px;
   padding: 10px;
   background-color: var(--light-color);
   color: var(--dark-color);
@@ -1473,7 +1477,7 @@ div.calendar div.full-week-view div.contents div.hours div.hour:last-child {
 div.calendar div.full-week-view div.contents div.days {
   position: absolute;
   width: calc(100% - 70px - 20px);
-  height: 2662px;
+  height: 2182px;
   top: 0;
   left: 91px;
   background-color: transparent;

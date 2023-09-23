@@ -17,6 +17,8 @@ div.hour {
     }
 
     div.hour-text {
+        display: flex;
+        align-items: center;
         width: $time-hours-width;
         height: $time-hours-height;
         padding: $spacing;
