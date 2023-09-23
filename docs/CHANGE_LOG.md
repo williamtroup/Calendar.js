@@ -2,6 +2,9 @@
 
 ## Version 2.7.0:
 
+#### **New Features:**
+- Completely redesigned Full Week view, which now shows the days in a similar way to the Full Day view, with resizing and time dragging support!
+
 #### **Breaking Change Improvements:**
 - Renamed CSS class "all-week-events-view" to "full-week-view".
 - Renamed the setting "viewCurrentWeekEventsTooltipText" to "viewFullWeekTooltipText" (default value is now "View Full Week").
