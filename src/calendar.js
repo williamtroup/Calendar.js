@@ -4560,6 +4560,63 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function buildContextMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
+        isBold = isDefined( isBold ) ? isBold : false;
+
+        var menuItem = createElement( "div", "item" );
+        container.appendChild( menuItem );
+
+        menuItem.appendChild( createElement( "div", iconCSS ) );
+
+        var menuText = createElement( "div", "menu-text" );
+        setNodeText( menuText, text );
+        menuItem.appendChild( menuText );
+
+        if ( isBold ) {
+            menuText.className += " bold";
+        }
+
+        menuItem.onclick = function() {
+            onClickEvent();
+        };
+
+        return menuItem;
+    }
+
+    function buildContextMenuSeparator( container ) {
+        var separator = createElement( "div", "separator" );
+
+        container.appendChild( separator );
+
+        return separator;
+    }
+
+    function hideContextMenu( element ) {
+        var closed = false;
+
+        if ( isContextMenuVisible( element ) ) {
+            element.style.display = "none";
+            closed = true;
+        }
+
+        return closed;
+    }
+
+    function isContextMenuVisible( element ) {
+        return element !== null && element.style.display === "block";
+    }
+
+    function areContextMenusVisible() {
+        return isContextMenuVisible( _element_ContextMenu_Day ) || isContextMenuVisible( _element_ContextMenu_Event ) || isContextMenuVisible( _element_ContextMenu_FullDay ) || isContextMenuVisible( _element_ContextMenu_HeaderDay ) || isContextMenuVisible( _element_Dialog_Search_History_DropDown );
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Context Menu - Day
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
     function buildDayContextMenu() {
         if ( _element_ContextMenu_Day !== null ) {
             removeNode( _document.body, _element_ContextMenu_Day );
@@ -4604,6 +4661,34 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
         }
     }
+
+    function showDayContextMenu( e, date ) {
+        if ( !_datePickerModeEnabled && _element_ContextMenu_Day !== null ) {
+            if ( !isControlKey( e ) ) {
+                clearSelectedEvents();
+            }
+
+            _element_ContextMenu_Day_DateSelected = new Date( date );
+
+            if ( _element_ContextMenu_Day_Paste !== null ) {
+                var display = _events_Copied.length > 0 ? "block" : "none";
+    
+                _element_ContextMenu_Day_Paste_Separator.style.display = display;
+                _element_ContextMenu_Day_Paste.style.display = display;
+            }
+    
+            hideAllDropDowns();
+            cancelBubble( e );
+            showElementAtMousePosition( e, _element_ContextMenu_Day );
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Context Menu - Event
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
 
     function buildEventContextMenu() {
         if ( _element_ContextMenu_Event !== null ) {
@@ -4715,131 +4800,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildFullDayViewContextMenu() {
-        if ( _element_ContextMenu_FullDay !== null ) {
-            removeNode( _document.body, _element_ContextMenu_FullDay );
-
-            _element_ContextMenu_FullDay = null;
-            _element_ContextMenu_FullDay_RemoveEvents_Separator = null;
-            _element_ContextMenu_FullDay_RemoveEvents = null;
-            _element_ContextMenu_FullDay_Paste_Separator = null;
-            _element_ContextMenu_FullDay_Paste = null;
-        }
-
-        if ( _options.manualEditingEnabled ) {
-            _element_ContextMenu_FullDay = createElement( "div", "calendar-context-menu" );
-            _document.body.appendChild( _element_ContextMenu_FullDay );
-
-            buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
-                if ( _options.useTemplateWhenAddingNewEvent ) {
-                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_ClickPositionHourMinutes, _element_ContextMenu_FullDay_ClickPositionHourMinutes );
-
-                    showEventEditingDialog( newBlankTemplateEvent );
-                    showEventEditingDialogTitleSelected();
-                } else {
-                    showEventEditingDialog( null, _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_ClickPositionHourMinutes );
-                }
-            }, true );
-
-            _element_ContextMenu_FullDay_RemoveEvents_Separator = buildContextMenuSeparator( _element_ContextMenu_FullDay );
-
-            _element_ContextMenu_FullDay_RemoveEvents = buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
-                removeNonRepeatingEventsOnSpecificDate( _element_ContextMenu_FullDay_DateSelected, doDatesMatch );
-            } );
-
-            _element_ContextMenu_FullDay_Paste_Separator = buildContextMenuSeparator( _element_ContextMenu_FullDay );
-                
-            _element_ContextMenu_FullDay_Paste = buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
-                pasteEventsToDate( _element_ContextMenu_FullDay_DateSelected, _events_Copied_Cut );
-            } );
-        }
-    }
-
-    function buildDayHeaderContextMenu() {
-        if ( _element_ContextMenu_HeaderDay === null ) {
-            _element_ContextMenu_HeaderDay = createElement( "div", "calendar-context-menu" );
-            _document.body.appendChild( _element_ContextMenu_HeaderDay );
-    
-            _element_ContextMenu_HeaderDay_HideDay = buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-close-icon", _options.hideDayText, function() {
-                _options.visibleDays.splice( _options.visibleDays.indexOf( _element_ContextMenu_HeaderDay_SelectedDay ), 1 );
-                _initialized = false;
-    
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
-                build( _currentDate, true, true );
-            }, true );
-    
-            _element_ContextMenu_HeaderDay_HideDay_Separator = buildContextMenuSeparator( _element_ContextMenu_HeaderDay );
-    
-            _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays = buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-rhombus-hollow-icon", _options.showOnlyWorkingDaysText, function() {
-                if ( _options.workingDays.length >= 1 ) {
-                    _options.visibleDays = [].slice.call( _options.workingDays );
-                    _initialized = false;
-        
-                    triggerOptionsEventWithData( "onOptionsUpdated", _options );
-                    build( _currentDate, true, true );
-                }
-            } );
-
-            _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays_Separator = buildContextMenuSeparator( _element_ContextMenu_HeaderDay );
-    
-            buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
-                showSideMenu( true );
-            } );
-        }
-    }
-
-    function buildContextMenuItemWithIcon( container, iconCSS, text, onClickEvent, isBold ) {
-        isBold = isDefined( isBold ) ? isBold : false;
-
-        var menuItem = createElement( "div", "item" );
-        container.appendChild( menuItem );
-
-        menuItem.appendChild( createElement( "div", iconCSS ) );
-
-        var menuText = createElement( "div", "menu-text" );
-        setNodeText( menuText, text );
-        menuItem.appendChild( menuText );
-
-        if ( isBold ) {
-            menuText.className += " bold";
-        }
-
-        menuItem.onclick = function() {
-            onClickEvent();
-        };
-
-        return menuItem;
-    }
-
-    function buildContextMenuSeparator( container ) {
-        var separator = createElement( "div", "separator" );
-
-        container.appendChild( separator );
-
-        return separator;
-    }
-
-    function showDayContextMenu( e, date ) {
-        if ( !_datePickerModeEnabled && _element_ContextMenu_Day !== null ) {
-            if ( !isControlKey( e ) ) {
-                clearSelectedEvents();
-            }
-
-            _element_ContextMenu_Day_DateSelected = new Date( date );
-
-            if ( _element_ContextMenu_Day_Paste !== null ) {
-                var display = _events_Copied.length > 0 ? "block" : "none";
-    
-                _element_ContextMenu_Day_Paste_Separator.style.display = display;
-                _element_ContextMenu_Day_Paste.style.display = display;
-            }
-    
-            hideAllDropDowns();
-            cancelBubble( e );
-            showElementAtMousePosition( e, _element_ContextMenu_Day );
-        }
-    }
-
     function showEventContextMenu( e, eventDetails, selectedDate ) {
         if ( _element_ContextMenu_Event !== null ) {
             var url = getString( eventDetails.url ),
@@ -4942,6 +4902,53 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Context Menu - Full Day
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildFullDayViewContextMenu() {
+        if ( _element_ContextMenu_FullDay !== null ) {
+            removeNode( _document.body, _element_ContextMenu_FullDay );
+
+            _element_ContextMenu_FullDay = null;
+            _element_ContextMenu_FullDay_RemoveEvents_Separator = null;
+            _element_ContextMenu_FullDay_RemoveEvents = null;
+            _element_ContextMenu_FullDay_Paste_Separator = null;
+            _element_ContextMenu_FullDay_Paste = null;
+        }
+
+        if ( _options.manualEditingEnabled ) {
+            _element_ContextMenu_FullDay = createElement( "div", "calendar-context-menu" );
+            _document.body.appendChild( _element_ContextMenu_FullDay );
+
+            buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
+                if ( _options.useTemplateWhenAddingNewEvent ) {
+                    var newBlankTemplateEvent = buildBlankTemplateEvent( _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_ClickPositionHourMinutes, _element_ContextMenu_FullDay_ClickPositionHourMinutes );
+
+                    showEventEditingDialog( newBlankTemplateEvent );
+                    showEventEditingDialogTitleSelected();
+                } else {
+                    showEventEditingDialog( null, _element_ContextMenu_FullDay_DateSelected, _element_ContextMenu_FullDay_ClickPositionHourMinutes );
+                }
+            }, true );
+
+            _element_ContextMenu_FullDay_RemoveEvents_Separator = buildContextMenuSeparator( _element_ContextMenu_FullDay );
+
+            _element_ContextMenu_FullDay_RemoveEvents = buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-close-icon", _options.removeEventsTooltipText, function() {
+                removeNonRepeatingEventsOnSpecificDate( _element_ContextMenu_FullDay_DateSelected, doDatesMatch );
+            } );
+
+            _element_ContextMenu_FullDay_Paste_Separator = buildContextMenuSeparator( _element_ContextMenu_FullDay );
+                
+            _element_ContextMenu_FullDay_Paste = buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-circle-icon", _options.pasteText, function() {
+                pasteEventsToDate( _element_ContextMenu_FullDay_DateSelected, _events_Copied_Cut );
+            } );
+        }
+    }
+
     function showFullDayContextMenu( e, dateSelected ) {
         if ( _element_ContextMenu_FullDay !== null ) {
             if ( !isControlKey( e ) ) {
@@ -4970,6 +4977,46 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Context Menu - Day Header
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildDayHeaderContextMenu() {
+        if ( _element_ContextMenu_HeaderDay === null ) {
+            _element_ContextMenu_HeaderDay = createElement( "div", "calendar-context-menu" );
+            _document.body.appendChild( _element_ContextMenu_HeaderDay );
+    
+            _element_ContextMenu_HeaderDay_HideDay = buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-close-icon", _options.hideDayText, function() {
+                _options.visibleDays.splice( _options.visibleDays.indexOf( _element_ContextMenu_HeaderDay_SelectedDay ), 1 );
+                _initialized = false;
+    
+                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                build( _currentDate, true, true );
+            }, true );
+    
+            _element_ContextMenu_HeaderDay_HideDay_Separator = buildContextMenuSeparator( _element_ContextMenu_HeaderDay );
+    
+            _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays = buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-rhombus-hollow-icon", _options.showOnlyWorkingDaysText, function() {
+                if ( _options.workingDays.length >= 1 ) {
+                    _options.visibleDays = [].slice.call( _options.workingDays );
+                    _initialized = false;
+        
+                    triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                    build( _currentDate, true, true );
+                }
+            } );
+
+            _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays_Separator = buildContextMenuSeparator( _element_ContextMenu_HeaderDay );
+    
+            buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-octagon-hollow-icon", _options.visibleDaysText + "...", function() {
+                showSideMenu( true );
+            } );
+        }
+    }
+
     function showDayHeaderContextMenu( e, selectedDay ) {
         if ( !_datePickerModeEnabled ) {
             if ( !isControlKey( e ) ) {
@@ -4993,25 +5040,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showElementAtMousePosition( e, _element_ContextMenu_HeaderDay );
             }
         }
-    }
-
-    function hideContextMenu( element ) {
-        var closed = false;
-
-        if ( isDropContextMenuVisible( element ) ) {
-            element.style.display = "none";
-            closed = true;
-        }
-
-        return closed;
-    }
-
-    function isDropContextMenuVisible( element ) {
-        return element !== null && element.style.display === "block";
-    }
-
-    function areContextMenusVisible() {
-        return isDropContextMenuVisible( _element_ContextMenu_Day ) || isDropContextMenuVisible( _element_ContextMenu_Event ) || isDropContextMenuVisible( _element_ContextMenu_FullDay ) || isDropContextMenuVisible( _element_ContextMenu_HeaderDay ) || isDropContextMenuVisible( _element_Dialog_Search_History_DropDown );
     }
 
 
