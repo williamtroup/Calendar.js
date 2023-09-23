@@ -3946,10 +3946,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var headerNamesLength = _options.dayHeaderNames.length;
         for ( var headerNamesIndex = 0; headerNamesIndex < headerNamesLength; headerNamesIndex++ ) {
-            var column = getElementByID( _elementID_WeekDayElement + headerNamesIndex );
+            var columnForOverlapChecks = getElementByID( _elementID_WeekDayElement + headerNamesIndex );
                     
-            if ( column !== null ) {
-                adjustViewEventsThatOverlap( column );
+            if ( columnForOverlapChecks !== null ) {
+                adjustViewEventsThatOverlap( columnForOverlapChecks );
             }
         }
     }
