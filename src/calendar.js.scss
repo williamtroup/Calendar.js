@@ -2199,8 +2199,6 @@ div.calendar-tooltip-event {
     div.title {
         font-weight: 900;
         width: calc( 100% - 24px - $spacing );
-        display: flex;
-        align-items: center;
     }
 
     div.date,

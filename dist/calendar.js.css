@@ -1280,8 +1280,6 @@ div.calendar div.full-day-view div.contents div.event div:last-child {
 }
 div.calendar div.full-day-view div.contents div.event div.title {
   font-weight: 900;
-  display: flex;
-  align-items: center;
 }
 div.calendar div.full-day-view div.contents div.event div.date,
 div.calendar div.full-day-view div.contents div.event div.duration,
@@ -1541,8 +1539,6 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event div:las
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.title {
   font-weight: 900;
-  display: flex;
-  align-items: center;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.date,
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.duration,
@@ -1946,8 +1942,6 @@ div.calendar div.all-events-view div.contents div.month div.events div.event div
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div.title {
   font-weight: 900;
-  display: flex;
-  align-items: center;
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div.date,
 div.calendar div.all-events-view div.contents div.month div.events div.event div.duration,
@@ -3543,8 +3537,6 @@ div.calendar-tooltip-event div:last-child {
 div.calendar-tooltip-event div.title {
   font-weight: 900;
   width: calc(100% - 24px - 10px);
-  display: flex;
-  align-items: center;
 }
 div.calendar-tooltip-event div.date,
 div.calendar-tooltip-event div.duration,
