@@ -3219,7 +3219,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return scrollTop;
     }
 
-
     function showFullDayView( date, fromOpen ) {
         date = isDefined( date ) ? date : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;

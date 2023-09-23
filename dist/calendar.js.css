@@ -1487,6 +1487,30 @@ div.calendar div.full-week-view div.contents div.days {
     padding-top: calc(10px + 0.7rem + 2px);
   }
 }
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
+  position: absolute;
+  width: calc(100% - 70px - 20px - 1px);
+  left: 91px;
+  top: 0;
+  z-index: 10;
+  height: 12px;
+  display: none;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 12px solid var(--link-color);
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.line {
+  background-color: var(--link-color);
+  position: absolute;
+  left: 12px;
+  top: 3px;
+  height: 6px;
+  width: 100%;
+}
 div.calendar div.full-week-view div.contents div.days div.cell div.working-hours {
   position: absolute;
   width: 100%;
