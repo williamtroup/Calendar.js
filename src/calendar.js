@@ -643,6 +643,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents_Hours = null,
         _element_View_FullWeek_Contents_Days = null,
         _element_View_FullWeek_EventsShown = [],
+        _element_View_FullWeek_EventsShown_PerDay = {},
         _element_View_FullWeek_DateSelected = null,
         _element_View_FullWeek_TimeArrow = null,
 
@@ -3583,7 +3584,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_ContextMenu_FullDay_ClickPositionHourMinutes = padNumber( hoursMinutes[ 0 ] ) + ":" + padNumber( hoursMinutes[ 1 ] );
 
-            showFullDayContextMenu( e, columnDate, _element_View_FullWeek_EventsShown );
+            showFullDayContextMenu( e, columnDate, _element_View_FullWeek_EventsShown_PerDay[ headerNameIndex ] );
         };
     }
 
@@ -3680,7 +3681,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             formattedDate = toStorageFormattedDate( displayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
-            var event = createElement( "div", "event" );
+            var event = createElement( "div", "event" ),
+                weekdayNumber = getWeekdayNumber( displayDate );
+
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
             event.setAttribute( "event-id", eventDetails.id );
             column.appendChild( event );
@@ -3807,6 +3810,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
 
+            if ( !_element_View_FullWeek_EventsShown_PerDay.hasOwnProperty( weekdayNumber ) ) {
+                _element_View_FullWeek_EventsShown_PerDay[ weekdayNumber ] = [];
+            }
+
+            _element_View_FullWeek_EventsShown_PerDay[ weekdayNumber ].push( eventDetails );
             added = true;
         }
 
@@ -3819,6 +3827,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
         _element_View_FullWeek_TimeArrow = null;
         _element_View_FullWeek_EventsShown = [];
+        _element_View_FullWeek_EventsShown_PerDay = {};
         _element_View_Event_Dragged_Sizes = [];
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
@@ -4982,12 +4991,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_ContextMenu_FullDay_Paste.style.display = pasteDisplay;
             }
 
-            if ( eventsShown !== null ) {
-                var removeEventsDisplay = eventsShown.length > 0 ? "block" : "none";
+            var removeEventsDisplay = isDefinedArray( eventsShown ) && eventsShown.length > 0 ? "block" : "none";
 
-                _element_ContextMenu_FullDay_RemoveEvents_Separator.style.display = removeEventsDisplay;
-                _element_ContextMenu_FullDay_RemoveEvents.style.display = removeEventsDisplay;
-            }
+            _element_ContextMenu_FullDay_RemoveEvents_Separator.style.display = removeEventsDisplay;
+            _element_ContextMenu_FullDay_RemoveEvents.style.display = removeEventsDisplay;
 
             hideAllDropDowns();
             cancelBubble( e );
