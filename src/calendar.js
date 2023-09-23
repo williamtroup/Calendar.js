@@ -3952,6 +3952,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 adjustViewEventsThatOverlap( columnForOverlapChecks );
             }
         }
+
+        updateToolbarButtonVisibleState( _element_View_FullWeek_SearchButton, _element_View_FullWeek_EventsShown.length > 0 );
     }
 
     function updateViewFullWeekView() {
