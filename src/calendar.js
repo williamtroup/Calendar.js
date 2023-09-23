@@ -2954,7 +2954,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.showExtraToolbarButtons && _options.fullScreenModeEnabled ) {
                 _element_View_FullDay_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick );
 
-                titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "right-divider-line-full-screen-mode" ) );
             }
     
             buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextFullDay );
@@ -3732,7 +3732,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.showExtraToolbarButtons && _options.fullScreenModeEnabled ) {
                 _element_View_FullWeek_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick );
 
-                titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "right-divider-line-full-screen-mode" ) );
             }
     
             buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextFullWeek );
@@ -3951,7 +3951,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.showExtraToolbarButtons && _options.fullScreenModeEnabled ) {
                 _element_View_FullYear_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick );
 
-                titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "right-divider-line-full-screen-mode" ) );
             }
 
             buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onNextFullYear );
@@ -4228,7 +4228,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( _options.fullScreenModeEnabled ) {
                     _element_View_AllEvents_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick );
 
-                    titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+                    titleBar.appendChild( createElement( "div", "right-divider-line-full-screen-mode" ) );
                 }
 
                 if ( _options.manualEditingEnabled ) {

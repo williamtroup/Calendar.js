@@ -17,6 +17,9 @@
 #### **Documentation:**
 - Added missing shortcut keys documentation to the SHORTCUT_KEY.md file.
 
+#### **Fixes:**
+- Fixed the "Turn On/Off Full-Screen Mode" button divider lines in the views not disappearing in mobile mode.
+
 <br>
 
 ## Version 2.6.1:
