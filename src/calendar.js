@@ -3624,30 +3624,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _options.reverseOrderDaysOfWeek ) {
-            if ( weekStartDate.getFullYear() === weekEndDate.getFullYear() ) {
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekEndDate, false, false );
-                createSpanElement( _element_View_FullWeek_TitleBar, " - " );
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekStartDate, false, false );
-                createSpanElement( _element_View_FullWeek_TitleBar, ", " + weekStartDate.getFullYear() );
+            buildFullWeekViewTitleDate( weekEndDate, weekStartDate );
+        } else {
+            buildFullWeekViewTitleDate( weekStartDate, weekEndDate );
+        }
+    }
 
-            } else {
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekEndDate, false, true );
-                createSpanElement( _element_View_FullWeek_TitleBar, " - " );
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekStartDate, false, true );
-            }
+    function buildFullWeekViewTitleDate( from, to ) {
+        if ( from.getFullYear() === to.getFullYear() ) {
+            buildDateTimeDisplay( _element_View_FullWeek_TitleBar, from, false, false );
+            createSpanElement( _element_View_FullWeek_TitleBar, " - " );
+            buildDateTimeDisplay( _element_View_FullWeek_TitleBar, to, false, false );
+            createSpanElement( _element_View_FullWeek_TitleBar, ", " + from.getFullYear() );
 
         } else {
-            if ( weekStartDate.getFullYear() === weekEndDate.getFullYear() ) {
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekStartDate, false, false );
-                createSpanElement( _element_View_FullWeek_TitleBar, " - " );
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekEndDate, false, false );
-                createSpanElement( _element_View_FullWeek_TitleBar, ", " + weekStartDate.getFullYear() );
-
-            } else {
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekStartDate, false, true );
-                createSpanElement( _element_View_FullWeek_TitleBar, " - " );
-                buildDateTimeDisplay( _element_View_FullWeek_TitleBar, weekEndDate, false, true );
-            }
+            buildDateTimeDisplay( _element_View_FullWeek_TitleBar, from, false, true );
+            createSpanElement( _element_View_FullWeek_TitleBar, " - " );
+            buildDateTimeDisplay( _element_View_FullWeek_TitleBar, to, false, true );
         }
     }
 
