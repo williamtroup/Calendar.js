@@ -7884,31 +7884,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function getWeekStartEndDates( date ) {
         date = isDefined( date ) ? new Date( date ) : new Date();
 
-        var day = date.getDay() === 0 ? 7 : date.getDay(),
-            firstDayNumber = ( date.getDate() - day ) + 1,
-            lastDayNumber = firstDayNumber + 6,
-            weekStartDate = new Date( date ),
-            weekEndDate = new Date( date );
+        if ( date.getDay() > 0 ) {
+            date.setDate( date.getDate() - date.getDay() );
+        } else {
 
-        weekStartDate.setDate( firstDayNumber );
-        weekStartDate.setHours( 0, 0, 0, 0 );
-        weekEndDate.setDate( lastDayNumber );
-        weekEndDate.setHours( 23, 59, 59, 99 );
-
-        if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
-            var today = new Date();
-            
-            weekStartDate.setDate( weekStartDate.getDate() - ( 7 - _options.startOfWeekDay ) );
-            weekEndDate.setDate( weekEndDate.getDate() - ( 7 - _options.startOfWeekDay ) );
-
-            if ( today > weekEndDate ) {
-                var adjustedResult = getWeekStartEndDates( weekEndDate.setDate( weekEndDate.getDate() + 3 ) );
-    
-                weekStartDate = adjustedResult[ 0 ];
-                weekEndDate = adjustedResult[ 1 ];
+            if ( _options.startOfWeekDay === _day.monday ) {
+                date.setDate( date.getDate() - 7 );
             }
         }
-        
+
+        if ( _options.startOfWeekDay === _day.monday ) {
+            date.setDate( date.getDate() + 1 );
+        } else if ( _options.startOfWeekDay === _day.saturday ) {
+            date.setDate( date.getDate() - 1 );
+        }
+
+        var weekStartDate = new Date( date ),
+            weekEndDate = new Date( date );
+
+        weekStartDate.setHours( 0, 0, 0, 0 );
+        weekEndDate.setDate( weekEndDate.getDate() + 6 );
+        weekEndDate.setHours( 23, 59, 59, 99 );
+
         return [ weekStartDate, weekEndDate ];
     }
 
