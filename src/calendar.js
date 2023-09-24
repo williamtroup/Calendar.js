@@ -2939,6 +2939,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( !wasAddedAlready ) {
                 _element_View_FullDay = createElement( "div", "full-day-view" );
+                _element_View_FullDay.id = newGuid();
                 _element_Calendar.appendChild( _element_View_FullDay );
             }
     
@@ -3432,6 +3433,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( !wasAddedAlready ) {
                 _element_View_FullWeek = createElement( "div", "full-week-view" );
+                _element_View_FullWeek.id = newGuid();
                 _element_Calendar.appendChild( _element_View_FullWeek );
             }
     
@@ -3982,6 +3984,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( !wasAddedAlready ) {
                 _element_View_FullYear = createElement( "div", "full-year-view" );
+                _element_View_FullYear.id = newGuid();
                 _element_Calendar.appendChild( _element_View_FullYear );
             }
     
@@ -4265,6 +4268,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( !wasAddedAlready ) {
                 _element_View_AllEvents = createElement( "div", "all-events-view" );
+                _element_View_AllEvents.id = newGuid();
                 _element_Calendar.appendChild( _element_View_AllEvents );
             }
     
@@ -7210,7 +7214,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isViewVisible( element ) {
-        return element !== null && element.className.indexOf( "view-shown" ) > -1;
+        return element !== null && element.className && element.className.indexOf( "view-shown" ) > -1;
     }
 
     function closeLastViewOpened() {
