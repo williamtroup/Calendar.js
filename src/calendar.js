@@ -3259,7 +3259,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         showView( _element_View_FullDay );
         buildDateTimeDisplay( _element_View_FullDay_TitleBar, date, false, true, true );
         hideSearchDialog();
-        addNewViewOpened( _element_View_FullDay );
 
         if ( isWorkingDay( date ) ) {
             buildFullDayViewWorkingHours();
@@ -3845,7 +3844,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         showView( _element_View_FullWeek );
         hideSearchDialog();
-        addNewViewOpened( _element_View_FullWeek );
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
         buildFullWeekViewDayColumns( weekStartDate, weekEndDate );
@@ -4217,7 +4215,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildFullYearMonths();
         showView( _element_View_FullYear );
-        addNewViewOpened( _element_View_FullYear );
 
         _element_View_FullYear_TitleBar.innerText = _element_View_FullYear_CurrentYear;
     }
@@ -4524,7 +4521,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         showView( _element_View_AllEvents );
-        addNewViewOpened( _element_View_AllEvents );
 
         _element_View_AllEvents_Contents.innerHTML = _string.empty;
         _element_View_AllEvents_EventsShown = [];
@@ -7180,7 +7176,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showView( element ) {
         if ( !isViewVisible( element ) ) {
+            var elementIndex = _element_View_Opened.indexOf( element );
+
+            if ( elementIndex > -1 ) {
+                delete _element_View_Opened[ elementIndex ];
+            }
+    
+            _element_View_Opened.push( element );
+            _element_View_LastZIndex++;
+    
             element.className += " view-shown";
+            element.style.zIndex = _element_View_LastZIndex;
             
             hideSearchDialog();
         }
@@ -7228,19 +7234,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _element_View_Opened.length === 0 ) {
             _element_View_LastZIndex = 0;
         }
-    }
-
-    function addNewViewOpened( viewElement ) {
-        var viewElementIndex = _element_View_Opened.indexOf( viewElement );
-
-        if ( viewElementIndex > -1 ) {
-            delete _element_View_Opened[ viewElementIndex ];
-        }
-
-        _element_View_Opened.push( viewElement );
-        _element_View_LastZIndex++;
-
-        viewElement.style.zIndex = _element_View_LastZIndex;
     }
 
     function closeAllViews() {
