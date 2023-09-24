@@ -1226,6 +1226,20 @@ div.calendar {
                         z-index: 1;
                         left: $spacing;
                         width: calc( 100% - ( ( $spacing * 5 ) - ( $standard-border-size * 2 ) ) );
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+
+                        span {
+                            white-space: pre;
+                        }
+
+                        @media screen and ( min-width: $minimum-width ) {
+                            font-size: $large-font-size !important;
+                        }
+                        
+                        @media screen and ( max-width: $maximum-width ) {
+                            font-size: $small-font-size !important;
+                        }
                     }
                     
                     div.working-hours {
