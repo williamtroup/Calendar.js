@@ -1417,6 +1417,28 @@ div.calendar div.full-week-view div.contents {
   width: 100%;
   padding: 0 !important;
 }
+div.calendar div.full-week-view div.contents div.content-events-all-day {
+  position: relative;
+  border-bottom: 1px solid var(--dark-color);
+  overflow: hidden;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.all-day-text {
+  width: 70px;
+  padding: 10px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: 1px solid var(--dark-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.event {
+  position: static !important;
+  margin-left: 100px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.contents {
     height: calc(100% - (20px + 0.9rem));
@@ -1438,6 +1460,9 @@ div.calendar div.full-week-view div.contents div.header-days-container div.heade
   background-color: blue;
   margin-left: 91px;
   border-bottom: 1px solid var(--grid-border-color);
+}
+div.calendar div.full-week-view div.contents div.hours {
+  position: relative;
 }
 div.calendar div.full-week-view div.contents div.hours div.hour {
   background-color: var(--light-color);
@@ -1474,6 +1499,58 @@ div.calendar div.full-week-view div.contents div.hours div.hour:nth-child(odd) {
 div.calendar div.full-week-view div.contents div.hours div.hour:last-child {
   border-bottom: none;
 }
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days {
+  height: 100% !important;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.expired {
+  opacity: 0.7;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.all-day {
+  background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event {
+  white-space: pre-line;
+  -ms-word-break: normal;
+  word-break: normal;
+  border-radius: 0.25rem;
+  background-color: var(--event-color);
+  padding: 10px;
+  color: var(--event-text-color);
+  margin-bottom: 10px;
+  border-left: 7px solid var(--dark-color);
+  text-align: left;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div {
+  margin-bottom: 5px;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.title {
+  font-weight: 900;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.date,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.duration,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.description,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.location,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.repeats {
+  font-size: smaller;
+  font-weight: 300;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.ib-refresh-medium {
+  margin-right: 5px;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event {
+  width: calc(100% - 25px) !important;
+  margin-left: 0 !important;
+}
 div.calendar div.full-week-view div.contents div.days {
   position: absolute;
   width: calc(100% - 70px - 20px);
@@ -1481,16 +1558,6 @@ div.calendar div.full-week-view div.contents div.days {
   top: 0;
   left: 91px;
   background-color: transparent;
-}
-@media screen and (min-width: 451px) {
-  div.calendar div.full-week-view div.contents div.days {
-    padding-top: calc(20px + 0.9rem + 2px);
-  }
-}
-@media screen and (max-width: 450px) {
-  div.calendar div.full-week-view div.contents div.days {
-    padding-top: calc(10px + 0.7rem + 2px);
-  }
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
   position: absolute;

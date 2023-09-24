@@ -1,0 +1,26 @@
+@import "styles";
+
+div.content-events-all-day {
+    position: relative;
+    border-bottom: $standard-border-size solid var(--dark-color);
+    overflow: hidden;
+
+    div.all-day-text {
+        width: $time-hours-width;
+        padding: $spacing;
+        background-color: var(--light-color);
+        color: var(--dark-color);
+        border-right: $standard-border-size solid var(--dark-color);
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+    }
+    
+    div.event {
+        position: static !important;
+        margin-left: $time-hours-width + ( $spacing * 3 ) !important;
+        margin-top: $spacing;
+        margin-bottom: $spacing;
+    }
+}

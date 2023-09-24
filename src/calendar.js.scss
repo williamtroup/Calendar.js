@@ -1078,30 +1078,7 @@ div.calendar {
             width: 100%;
             padding: 0 !important;
 
-            div.content-events-all-day {
-                position: relative;
-                border-bottom: $standard-border-size solid var(--dark-color);
-                overflow: hidden;
-    
-                div.all-day-text {
-                    width: $time-hours-width;
-                    padding: $spacing;
-                    background-color: var(--light-color);
-                    color: var(--dark-color);
-                    border-right: $standard-border-size solid var(--dark-color);
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    height: 100%;
-                }
-                
-                div.event {
-                    position: static !important;
-                    margin-left: $time-hours-width + ( $spacing * 3 ) !important;
-                    margin-top: $spacing;
-                    margin-bottom: $spacing;
-                }
-            }
+            @import "foundation/view-all-day-events";
     
             div.contents-events {
                 position: relative;
@@ -1168,6 +1145,8 @@ div.calendar {
             width: 100%;
             padding: 0 !important;
 
+            @import "foundation/view-all-day-events";
+
             @media screen and ( min-width: $minimum-width ) {
                 height: calc( 100% - ( ( $spacing * 2 ) + $large-font-size ) );
             }
@@ -1191,7 +1170,24 @@ div.calendar {
             }
 
             div.hours {
+                position: relative;
+
                 @import "foundation/view-hours";
+            }
+
+            div.content-events-all-day {
+                div.days {
+                    height: 100% !important;
+
+                    div.cell {
+                        @import "foundation/view-event";
+
+                        div.event {
+                            width: calc( 100% - ( ( $spacing * 2 ) + ( $standard-border-size * 5 ) ) ) !important;
+                            margin-left: 0 !important;
+                        }
+                    }
+                }
             }
 
             div.days {
@@ -1201,14 +1197,6 @@ div.calendar {
                 top: 0;
                 left: ( $time-hours-width + ( $spacing * 2 ) ) + $standard-border-size;
                 background-color: transparent;
-
-                @media screen and ( min-width: $minimum-width ) {
-                    padding-top: calc( ( ( $spacing * 2 ) + $large-font-size ) + ( $standard-border-size * 2 ) );
-                }
-                
-                @media screen and ( max-width: $maximum-width ) {
-                    padding-top: calc( ( $spacing + $small-font-size ) + ( $standard-border-size * 2 ) );
-                }
 
                 div.cell {
                     @import "foundation/view-time-arrow";
