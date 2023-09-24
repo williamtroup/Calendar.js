@@ -7874,7 +7874,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function getWeekStartEndDates( date ) {
-        date = isDefined( date ) ? date : new Date();
+        date = isDefined( date ) ? new Date( date ) : new Date();
 
         var day = date.getDay() === 0 ? 7 : date.getDay(),
             firstDayNumber = ( date.getDate() - day ) + 1,
@@ -7888,8 +7888,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
         weekEndDate.setHours( 23, 59, 59, 99 );
 
         if ( _options.startOfWeekDay === _day.saturday || _options.startOfWeekDay === _day.sunday ) {
+            var today = new Date();
+            
             weekStartDate.setDate( weekStartDate.getDate() - ( 7 - _options.startOfWeekDay ) );
             weekEndDate.setDate( weekEndDate.getDate() - ( 7 - _options.startOfWeekDay ) );
+
+            if ( today > weekEndDate ) {
+                var adjustedResult = getWeekStartEndDates( weekEndDate.setDate( weekEndDate.getDate() + 3 ) );
+    
+                weekStartDate = adjustedResult[ 0 ];
+                weekEndDate = adjustedResult[ 1 ];
+            }
         }
         
         return [ weekStartDate, weekEndDate ];

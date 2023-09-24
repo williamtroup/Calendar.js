@@ -23,6 +23,7 @@
 
 #### **Fixes:**
 - Fixed the "Turn On/Off Full-Screen Mode" button divider lines in the views not disappearing in mobile mode.
+- Fixed a fault that caused the wrong week to be shown when the setting "startOfWeekDay" is not Monday and the current day is Saturday or Sunday.
 
 <br>
 
