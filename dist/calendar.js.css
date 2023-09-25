@@ -1194,6 +1194,7 @@ div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   z-index: 10;
   height: 12px;
   display: none;
+  pointer-events: none;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow div.arrow-left {
   width: 0;
@@ -1567,6 +1568,7 @@ div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
   z-index: 10;
   height: 12px;
   display: none;
+  pointer-events: none;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.arrow-left {
   width: 0;

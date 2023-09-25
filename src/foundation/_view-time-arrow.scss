@@ -8,6 +8,7 @@ div.time-arrow {
     z-index: 10;
     height: $time-arrow-line-height;
     display: none;
+    pointer-events: none;
 
     div.arrow-left {
         width: 0; 
