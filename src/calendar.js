@@ -8450,7 +8450,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function dropEventsFromOtherCalendar( e, year, month, day ) {
         var eventDetails = getObjectFromString( e.dataTransfer.getData( "event_details" ) );
-        if ( eventDetails !== null && _events_Dragged === null ) {
+        if ( isDefined( eventDetails ) && _events_Dragged === null ) {
             var sourceFromDate = new Date( eventDetails.from ),
                 sourceToDate = new Date( eventDetails.to );
 
