@@ -3707,14 +3707,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showEventContextMenu( e, eventDetails, formattedDate );
             };
 
-            event.onmousemove = function( e ) {
-                if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
-                    cancelBubble( e );
-                } else {
-                    showTooltip( e, eventDetails );
-                }
-            };
-
             if ( eventDetails.isAllDay ) {
                 columnAllDay.appendChild( event );
 
