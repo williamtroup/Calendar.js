@@ -3951,7 +3951,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 adjustViewEventsThatOverlap( columnForOverlapChecks );
             }
         }
+        
+        updateUpdateFullViewAllDayEventsHeight();
+        updateToolbarButtonVisibleState( _element_View_FullWeek_SearchButton, _element_View_FullWeek_EventsShown.length > 0 );
+        startEventSizeTracking( _element_View_FullWeek_Contents_Hours );
+    }
 
+    function updateViewFullWeekView() {
+        if ( isViewVisible( _element_View_FullWeek ) ) {
+            showFullWeekView( _element_View_FullWeek_DateSelected );
+        }
+    }
+
+    function updateUpdateFullViewAllDayEventsHeight() {
         if ( _element_View_FullWeek_AllDayEventsAdded ) {
             _element_View_FullWeek_Contents_AllDayEvents.style.display = "block";
 
@@ -3971,15 +3983,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             _element_View_FullWeek_Contents_AllDayEvents.style.height = ( height + _options.spacing ) + "px";
-        }
-
-        updateToolbarButtonVisibleState( _element_View_FullWeek_SearchButton, _element_View_FullWeek_EventsShown.length > 0 );
-        startEventSizeTracking( _element_View_FullWeek_Contents_Hours );
-    }
-
-    function updateViewFullWeekView() {
-        if ( isViewVisible( _element_View_FullWeek ) ) {
-            showFullWeekView( _element_View_FullWeek_DateSelected );
         }
     }
 
