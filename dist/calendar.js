@@ -2054,6 +2054,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     column.ondblclick = function(e) {
       onFullWeekViewDayColumnDoubleClick(e, column, columnDate);
     };
+    makeAreaDroppable(columnAll, columnDate.getFullYear(), columnDate.getMonth(), columnDate.getDate());
     buildFullWeekViewDayColumnWorkingHours(column, headerNameIndex);
     if (isDateToday(columnDate)) {
       buildFullWeekViewDayColumnTimeArrow(column, columnDate);
@@ -2162,6 +2163,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       };
       if (eventDetails.isAllDay) {
         columnAllDay.appendChild(event);
+        makeEventDraggable(event, eventDetails, actualDisplayDate, columnAllDay);
         _element_View_FullWeek_AllDayEventsAdded = true;
       } else {
         if (_options.manualEditingEnabled && _options.dragAndDropForEventsEnabled && !isEventLocked(eventDetails)) {
@@ -5623,7 +5625,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function dropEventsFromOtherCalendar(e, year, month, day) {
     var eventDetails = getObjectFromString(e.dataTransfer.getData("event_details"));
-    if (eventDetails !== null) {
+    if (eventDetails !== null && _events_Dragged === null) {
       var sourceFromDate = new Date(eventDetails.from);
       var sourceToDate = new Date(eventDetails.to);
       eventDetails.from = new Date(year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0);
