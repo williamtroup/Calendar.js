@@ -651,6 +651,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_TimeArrow = null,
         _element_View_FullWeek_AllDayEventsAdded = false,
         _element_View_FullWeek_TimeArrow_Position = null,
+        _element_View_FullWeek_Contents_SmallestEventTop = 0,
 
         // Variables: View - Full Year
         _element_View_FullYear = null,
@@ -3855,6 +3856,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_View_FullWeek_EventsShown_PerDay[ weekdayNumber ] = [];
             }
 
+            if ( _element_View_FullWeek_Contents_SmallestEventTop === 0 ) {
+                _element_View_FullWeek_Contents_SmallestEventTop = event.offsetTop;
+            } else {
+                _element_View_FullWeek_Contents_SmallestEventTop = Math.min( _element_View_FullWeek_Contents_SmallestEventTop, event.offsetTop );
+            }
+            
             _element_View_FullWeek_EventsShown_PerDay[ weekdayNumber ].push( eventDetails );
             added = true;
         }
@@ -3869,10 +3876,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_TimeArrow = null;
         _element_View_FullWeek_EventsShown = [];
         _element_View_FullWeek_EventsShown_PerDay = {};
-        _element_View_Event_Dragged_Sizes = [];
         _element_View_FullWeek_AllDayEventsAdded = false;
         _element_View_FullWeek_TimeArrow_Position = null;
+        _element_View_FullWeek_Contents_SmallestEventTop = 0;
         _element_View_FullWeek_Contents_AllDayEvents.style.display = "none";
+        _element_View_Event_Dragged_Sizes = [];
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
@@ -3968,7 +3976,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 _element_View_FullWeek_Contents.scrollTop = _element_View_FullWeek_TimeArrow_Position - allDayEventsHeight;
             } else {
-                _element_View_FullWeek_Contents.scrollTop = 0;
+                _element_View_FullWeek_Contents.scrollTop = _element_View_FullWeek_Contents_SmallestEventTop;
             }
         }
 
