@@ -600,6 +600,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Event_Dragged_ClickOffset = null,
         _element_View_Event_Dragged_Sizes = [],
         _element_View_Event_Dragged_FromDate = null,
+        _element_View_EventResizeTracking_Container = null,
 
         // Variables: View - Main
         _element_Calendar = null,
@@ -2277,6 +2278,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         documentBodyFunc( "click", onDocumentClick );
         documentBodyFunc( "contextmenu", onEventHideAllDropDowns );
         documentBodyFunc( "mousemove", onMoveDocumentMouseMove );
+        documentBodyFunc( "mouseup", onMouseUpResizeTracking );
         documentBodyFunc( "mouseleave", onMoveDocumentMouseLeave );
         documentFunc( "scroll", onEventHideAllDropDowns );
         windowFunc( "resize", onEventHideAllDropDowns );
@@ -3110,20 +3112,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled ) {
                     if ( doDatesMatch( eventDetails.from, eventDetails.to ) ) {
                         event.className += " resizable";
-                        event.onmousedown = stopEventSizeTracking;
-                        event.onmouseup = function() {
-                            startEventSizeTracking( _element_View_FullWeek_Contents_Hours );
+
+                        event.onmousedown = function() {
+                            onMouseDownResizeTracking( _element_View_FullDay_Contents_Hours );
                         };
+
+                        event.onmouseup = onMouseUpResizeTracking;
                     }
 
                     event.ondragstart = function( e ) {
                         onViewEventDragStart( e, event, eventDetails, displayDate );
                     };
 
-                    event.ondragEnd = function( e ) {
-                        startEventSizeTracking( _element_View_FullWeek_Contents_Hours );
-                    };
-
+                    event.ondragEnd = onMouseUpResizeTracking;
                     event.setAttribute( "draggable", true );
                 }
 
@@ -3353,7 +3354,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         updateToolbarButtonVisibleState( _element_View_FullDay_SearchButton, _element_View_FullDay_EventsShown.length > 0 );
         adjustViewEventsThatOverlap( _element_View_FullDay_Contents_Hours );
-        startEventSizeTracking( _element_View_FullDay_Contents_Hours );
     }
 
     function updateFullDayView() {
@@ -3364,7 +3364,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function hideFullDayView() {
         hideView( _element_View_FullDay );
-        stopEventSizeTracking();
 
         _element_View_FullDay_DateSelected = null;
         _element_View_FullDay_EventsShown = [];
@@ -3735,20 +3734,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled && !isEventLocked( eventDetails ) ) {
                     if ( doDatesMatch( eventDetails.from, eventDetails.to ) && !eventDetails.isAllDay ) {
                         event.className += " resizable";
-                        event.onmousedown = stopEventSizeTracking;
-                        event.onmouseup = function() {
-                            startEventSizeTracking( _element_View_FullDay_Contents_Hours );
+
+                        event.onmousedown = function() {
+                            onMouseDownResizeTracking( _element_View_FullWeek_Contents_Hours );
                         };
+
+                        event.onmouseup = onMouseUpResizeTracking;
                     }
     
                     event.ondragstart = function( e ) {
                         onViewEventDragStart( e, event, eventDetails, actualDisplayDate );
                     };
     
-                    event.ondragEnd = function( e ) {
-                        startEventSizeTracking( _element_View_FullDay_Contents_Hours );
-                    };
-    
+                    event.ondragEnd = onMouseUpResizeTracking;
                     event.setAttribute( "draggable", true );
                 }
             }
@@ -4002,7 +4000,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         updateToolbarButtonVisibleState( _element_View_FullWeek_SearchButton, _element_View_FullWeek_EventsShown.length > 0 );
-        startEventSizeTracking( _element_View_FullWeek_Contents_Hours );
     }
 
     function updateViewFullWeekView() {
@@ -7330,12 +7327,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( viewElement !== null ) {
                 hideView( viewElement );
-    
-                if ( viewElement === _element_View_FullDay ) {
-                    stopEventSizeTracking();
-                } else if ( viewElement === _element_View_FullWeek ) {
-                    stopEventSizeTracking();
-                }
             }
         }
 
@@ -7574,8 +7565,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Event_Dragged_EventDetails = eventDetails;
         _element_View_Event_Dragged_ClickOffset = offset.top - e.pageY;
         _element_View_Event_Dragged_FromDate = fromDate;
-
-        stopEventSizeTracking();
     }
 
     function onViewEventDropped( e, dateDropped, container ) {
@@ -7617,15 +7606,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function startEventSizeTracking( container ) {
-        stopEventSizeTracking();
+    function onMouseDownResizeTracking( container ) {
+        _element_View_EventResizeTracking_Container = container;
+    }
 
-        if ( _options.manualEditingEnabled ) {
+    function onMouseUpResizeTracking() {
+        if ( _options.manualEditingEnabled && _element_View_EventResizeTracking_Container !== null ) {
+            stopAndResetTimer( _timerName.eventSizeTracking );
+            
             startTimer( _timerName.eventSizeTracking, function() {
                 var eventsLength = _element_View_Event_Dragged_Sizes.length;
     
                 if ( eventsLength > 0 ) {
-                    var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+                    var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_EventResizeTracking_Container ),
                         eventsResized = false;
     
                     for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -7649,14 +7642,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         refreshOpenedViews();
                     }
                 }
-    
-            }, 50 );
-        }
-    }
 
-    function stopEventSizeTracking() {
-        if ( _options.manualEditingEnabled ) {
-            stopAndResetTimer( _timerName.eventSizeTracking );
+                _element_View_EventResizeTracking_Container = null;
+    
+            }, 50, false );
         }
     }
 
