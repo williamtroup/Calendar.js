@@ -30,6 +30,7 @@
 - Fixed the time arrow not allowing the right context menu to be shown when clicked over an event, or empty space.
 - Fixed event resizing not working correctly when the mouse leaves the event being resized.
 - Fixed the event resize tracking timer always firing in the background.
+- Fixed event resizing not working in Safari (desktop).
 
 <br>
 

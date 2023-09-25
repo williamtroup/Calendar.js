@@ -1691,10 +1691,6 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (_options.manualEditingEnabled && _options.dragAndDropForEventsEnabled) {
           if (doDatesMatch(eventDetails.from, eventDetails.to)) {
             event.className += " resizable";
-            event.onmousedown = function() {
-              onMouseDownResizeTracking(_element_View_FullDay_Contents_Hours);
-            };
-            event.onmouseup = onMouseUpResizeTracking;
           }
           event.ondragstart = function(e) {
             onViewEventDragStart(e, event, eventDetails, displayDate);
@@ -2165,10 +2161,6 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (_options.manualEditingEnabled && _options.dragAndDropForEventsEnabled && !isEventLocked(eventDetails)) {
           if (doDatesMatch(eventDetails.from, eventDetails.to) && !eventDetails.isAllDay) {
             event.className += " resizable";
-            event.onmousedown = function() {
-              onMouseDownResizeTracking(_element_View_FullWeek_Contents_Hours);
-            };
-            event.onmouseup = onMouseUpResizeTracking;
           }
           event.ondragstart = function(e) {
             onViewEventDragStart(e, event, eventDetails, actualDisplayDate);
@@ -5010,15 +5002,19 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_View_Event_Dragged_OffsetTop = 0;
     }
   }
-  function onMouseDownResizeTracking(container) {
-    _element_View_EventResizeTracking_Container = container;
-  }
-  function onMouseUpResizeTracking() {
-    if (_options.manualEditingEnabled && _element_View_EventResizeTracking_Container !== null) {
-      stopAndResetTimer(_timerName.eventSizeTracking);
-      startTimer(_timerName.eventSizeTracking, function() {
-        var eventsLength = _element_View_Event_Dragged_Sizes.length;
-        if (eventsLength > 0) {
+  function onMouseUpResizeTracking(e) {
+    cancelBubble(e);
+    if (_options.manualEditingEnabled) {
+      var eventsLength = _element_View_Event_Dragged_Sizes.length;
+      if (eventsLength > 0) {
+        if (_element_View_EventResizeTracking_Container === null) {
+          if (isViewVisible(_element_View_FullDay)) {
+            _element_View_EventResizeTracking_Container = _element_View_FullDay_Contents_Hours;
+          } else if (isViewVisible(_element_View_FullWeek)) {
+            _element_View_EventResizeTracking_Container = _element_View_FullWeek_Contents_Hours;
+          }
+        }
+        if (_element_View_EventResizeTracking_Container !== null) {
           var pixelsPerMinute = getFullDayPixelsPerMinute(_element_View_EventResizeTracking_Container);
           var eventsResized = false;
           var eventIndex = 0;
@@ -5039,8 +5035,8 @@ function calendarJs(elementOrId, options, searchOptions) {
             refreshOpenedViews();
           }
         }
-        _element_View_EventResizeTracking_Container = null;
-      }, 50, false);
+      }
+      _element_View_EventResizeTracking_Container = null;
     }
   }
   function fullScreenModeHeaderDoubleClick() {
@@ -7779,7 +7775,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _repeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3};
   var _eventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}};
   var _configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}, visibleWeeklyEventsDay:{}};
-  var _timerName = {windowResize:"WindowResize", eventSizeTracking:"eventSizeTracking", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"};
+  var _timerName = {windowResize:"WindowResize", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"};
   var _options = {};
   var _optionsForSearch = {};
   var _initialized = false;

@@ -514,7 +514,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         },
         _timerName = {
             windowResize: "WindowResize",
-            eventSizeTracking: "eventSizeTracking",
             searchOptionsChanged: "SearchOptionsChanged",
             searchEventsHistoryDropDown: "SearchEventsHistoryDropDown",
             showToolTip: "ShowToolTip",
@@ -3112,12 +3111,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled ) {
                     if ( doDatesMatch( eventDetails.from, eventDetails.to ) ) {
                         event.className += " resizable";
-
-                        event.onmousedown = function() {
-                            onMouseDownResizeTracking( _element_View_FullDay_Contents_Hours );
-                        };
-
-                        event.onmouseup = onMouseUpResizeTracking;
                     }
 
                     event.ondragstart = function( e ) {
@@ -3734,12 +3727,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( _options.manualEditingEnabled && _options.dragAndDropForEventsEnabled && !isEventLocked( eventDetails ) ) {
                     if ( doDatesMatch( eventDetails.from, eventDetails.to ) && !eventDetails.isAllDay ) {
                         event.className += " resizable";
-
-                        event.onmousedown = function() {
-                            onMouseDownResizeTracking( _element_View_FullWeek_Contents_Hours );
-                        };
-
-                        event.onmouseup = onMouseUpResizeTracking;
                     }
     
                     event.ondragstart = function( e ) {
@@ -7606,28 +7593,32 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function onMouseDownResizeTracking( container ) {
-        _element_View_EventResizeTracking_Container = container;
-    }
+    function onMouseUpResizeTracking( e ) {
+        cancelBubble( e );
 
-    function onMouseUpResizeTracking() {
-        if ( _options.manualEditingEnabled && _element_View_EventResizeTracking_Container !== null ) {
-            stopAndResetTimer( _timerName.eventSizeTracking );
-            
-            startTimer( _timerName.eventSizeTracking, function() {
-                var eventsLength = _element_View_Event_Dragged_Sizes.length;
+        if ( _options.manualEditingEnabled ) {
+            var eventsLength = _element_View_Event_Dragged_Sizes.length;
     
-                if ( eventsLength > 0 ) {
+            if ( eventsLength > 0 ) {
+                if ( _element_View_EventResizeTracking_Container === null ) {
+                    if ( isViewVisible( _element_View_FullDay ) ) {
+                        _element_View_EventResizeTracking_Container = _element_View_FullDay_Contents_Hours;
+                    } else if ( isViewVisible( _element_View_FullWeek ) ) {
+                        _element_View_EventResizeTracking_Container = _element_View_FullWeek_Contents_Hours;
+                    }
+                }
+
+                if ( _element_View_EventResizeTracking_Container !== null ) {
                     var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_EventResizeTracking_Container ),
                         eventsResized = false;
-    
+
                     for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
                         var eventSizeDetails = _element_View_Event_Dragged_Sizes[ eventIndex ];
-    
+
                         if ( eventSizeDetails.height !== eventSizeDetails.eventElement.offsetHeight ) {
                             var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height,
                                 differenceMinutes = difference / pixelsPerMinute;
-    
+
                             eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;
                             eventSizeDetails.eventDetails.to = addMinutesToDate( eventSizeDetails.eventDetails.to, differenceMinutes );
                             eventsResized = true;
@@ -7636,16 +7627,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
                             showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", eventSizeDetails.eventDetails.title ) );
                         }
                     }
-    
+
                     if ( eventsResized ) {
                         storeEventsInLocalStorage();
                         refreshOpenedViews();
                     }
                 }
+            }
 
-                _element_View_EventResizeTracking_Container = null;
-    
-            }, 50, false );
+            _element_View_EventResizeTracking_Container = null;
         }
     }
 
