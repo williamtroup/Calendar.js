@@ -5007,15 +5007,14 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_options.manualEditingEnabled) {
       var eventsLength = _element_View_Event_Dragged_Sizes.length;
       if (eventsLength > 0) {
-        if (_element_View_EventResizeTracking_Container === null) {
-          if (isViewVisible(_element_View_FullDay)) {
-            _element_View_EventResizeTracking_Container = _element_View_FullDay_Contents_Hours;
-          } else if (isViewVisible(_element_View_FullWeek)) {
-            _element_View_EventResizeTracking_Container = _element_View_FullWeek_Contents_Hours;
-          }
+        var container = null;
+        if (isViewVisible(_element_View_FullDay)) {
+          container = _element_View_FullDay_Contents_Hours;
+        } else if (isViewVisible(_element_View_FullWeek)) {
+          container = _element_View_FullWeek_Contents_Hours;
         }
-        if (_element_View_EventResizeTracking_Container !== null) {
-          var pixelsPerMinute = getFullDayPixelsPerMinute(_element_View_EventResizeTracking_Container);
+        if (container !== null) {
+          var pixelsPerMinute = getFullDayPixelsPerMinute(container);
           var eventsResized = false;
           var eventIndex = 0;
           for (; eventIndex < eventsLength; eventIndex++) {
@@ -5036,7 +5035,6 @@ function calendarJs(elementOrId, options, searchOptions) {
           }
         }
       }
-      _element_View_EventResizeTracking_Container = null;
     }
   }
   function fullScreenModeHeaderDoubleClick() {
@@ -7834,7 +7832,6 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_Event_Dragged_ClickOffset = null;
   var _element_View_Event_Dragged_Sizes = [];
   var _element_View_Event_Dragged_FromDate = null;
-  var _element_View_EventResizeTracking_Container = null;
   var _element_Calendar = null;
   var _element_Calendar_FullScreenModeOn = false;
   var _element_Calendar_FullScreenModeCachedStyled = null;

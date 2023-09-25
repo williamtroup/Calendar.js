@@ -599,7 +599,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Event_Dragged_ClickOffset = null,
         _element_View_Event_Dragged_Sizes = [],
         _element_View_Event_Dragged_FromDate = null,
-        _element_View_EventResizeTracking_Container = null,
 
         // Variables: View - Main
         _element_Calendar = null,
@@ -7600,16 +7599,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var eventsLength = _element_View_Event_Dragged_Sizes.length;
     
             if ( eventsLength > 0 ) {
-                if ( _element_View_EventResizeTracking_Container === null ) {
-                    if ( isViewVisible( _element_View_FullDay ) ) {
-                        _element_View_EventResizeTracking_Container = _element_View_FullDay_Contents_Hours;
-                    } else if ( isViewVisible( _element_View_FullWeek ) ) {
-                        _element_View_EventResizeTracking_Container = _element_View_FullWeek_Contents_Hours;
-                    }
+                var container = null;
+
+                if ( isViewVisible( _element_View_FullDay ) ) {
+                    container = _element_View_FullDay_Contents_Hours;
+                } else if ( isViewVisible( _element_View_FullWeek ) ) {
+                    container = _element_View_FullWeek_Contents_Hours;
                 }
 
-                if ( _element_View_EventResizeTracking_Container !== null ) {
-                    var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_EventResizeTracking_Container ),
+                if ( container !== null ) {
+                    var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
                         eventsResized = false;
 
                     for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -7634,8 +7633,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
                 }
             }
-
-            _element_View_EventResizeTracking_Container = null;
         }
     }
 
