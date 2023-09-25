@@ -3507,7 +3507,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents.appendChild( dayNamesHeaderContainer );
 
         _element_View_FullWeek_Contents_DayNamesHeader = createElement( "div", "row-cells header-days" );
-        _element_View_FullWeek_Contents_DayNamesHeader.innerHTML = "Day Names Header";
         dayNamesHeaderContainer.appendChild( _element_View_FullWeek_Contents_DayNamesHeader );
 
         _element_View_FullWeek_Contents_AllDayEvents = createElement( "div", "content-events-all-day" );
@@ -3869,6 +3868,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return added;
     }
 
+    function buildFullWeekViewDayNameHeaderDates( weekStartDate, weekEndDate ) {
+        var fromDate = new Date( weekStartDate ),
+            childrenIndex = 0,
+            children = _element_View_FullWeek_Contents_DayNamesHeader.children;
+
+        while ( fromDate < weekEndDate ) {
+            var weekDayNumber = getWeekdayNumber( fromDate );
+
+            if ( _options.visibleDays.indexOf( weekDayNumber ) > -1 ) {
+                children[ childrenIndex ].innerHTML += _string.space + fromDate.getDate() + "/" + ( fromDate.getMonth() + 1 );
+                childrenIndex++;
+            }
+
+            fromDate.setDate( fromDate.getDate() + 1 );
+        }
+
+        if ( _options.reverseOrderDaysOfWeek ) {
+            reverseElementsOrder( _element_View_FullWeek_Contents_DayNamesHeader );
+        }
+    }
+
     function showFullWeekView( weekDate, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
@@ -3889,8 +3909,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         showView( _element_View_FullWeek );
         hideSearchDialog();
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
-        buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader );
+        buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader, false );
         buildFullWeekViewDayColumns( weekStartDate, weekEndDate );
+        buildFullWeekViewDayNameHeaderDates( weekStartDate, weekEndDate );
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length;
@@ -7169,7 +7190,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildViewDayNamesHeader( container ) {
+    function buildViewDayNamesHeader( container, reverseHeaders ) {
+        reverseHeaders = isDefined( reverseHeaders ) ? reverseHeaders : true;
+
         var headerNamesLength = _options.dayHeaderNames.length;
 
         container.innerHTML = _string.empty;
@@ -7181,7 +7204,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildViewDayNamesHeaderSection( container, 0, headerNamesLength );
         }
 
-        if ( _options.reverseOrderDaysOfWeek ) {
+        if ( _options.reverseOrderDaysOfWeek && reverseHeaders ) {
             reverseElementsOrder( container );
         }
     }
