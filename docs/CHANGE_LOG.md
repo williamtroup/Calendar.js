@@ -15,6 +15,9 @@
 #### **Full Year View:**
 - Added full context menu support to the Day Names in each month (same one used in the main display), allowing days to be toggled.
 
+#### **Full Day View:**
+- Improved the position used for the current time arrow shown for the current day (when all-day events are not shown).
+
 #### **Code Improvements:**
 - Moved Full-Screen Mode into its own section, with some refactoring to make things clearer.
 

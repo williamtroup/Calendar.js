@@ -650,6 +650,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_DateSelected = null,
         _element_View_FullWeek_TimeArrow = null,
         _element_View_FullWeek_AllDayEventsAdded = false,
+        _element_View_FullWeek_TimeArrow_Position = null,
 
         // Variables: View - Full Year
         _element_View_FullYear = null,
@@ -3336,7 +3337,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( fromOpen ) {
             if ( isTimeArrowVisible( _element_View_FullDay_DateSelected, _element_View_FullDay ) ) {
-                _element_View_FullDay_Contents.scrollTop = timeArrowPosition;
+                var allDayEventsHeight = _element_View_FullDay_Contents_AllDayEvents.offsetHeight;
+                allDayEventsHeight = allDayEventsHeight <= 1 ? _options.spacing * 4 : allDayEventsHeight;
+
+                _element_View_FullDay_Contents.scrollTop = timeArrowPosition - allDayEventsHeight;
             } else {
                 _element_View_FullDay_Contents.scrollTop = orderedEventsFirstTopPosition - ( _element_View_FullDay_Contents.offsetHeight / 2 );
             }
@@ -3615,7 +3619,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "arrow-left" ) );
         _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "line" ) );
 
-        updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow, column );
+        _element_View_FullWeek_TimeArrow_Position = updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow, column );
     }
 
     function buildFullWeekViewDayColumnWorkingHours( column, headerNameIndex ) {
@@ -3864,6 +3868,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_EventsShown_PerDay = {};
         _element_View_Event_Dragged_Sizes = [];
         _element_View_FullWeek_AllDayEventsAdded = false;
+        _element_View_FullWeek_TimeArrow_Position = null;
         _element_View_FullWeek_Contents_AllDayEvents.style.display = "none";
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
@@ -3952,7 +3957,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
         
-        updateUpdateFullViewAllDayEventsHeight();
+        var allDayEventsHeight = updateUpdateFullViewAllDayEventsHeight();
+
+        if ( fromOpen ) {
+            if ( _element_View_FullWeek_TimeArrow_Position !== null ) {
+                allDayEventsHeight = allDayEventsHeight <= 0 ? _options.spacing * 4 : allDayEventsHeight;
+
+                _element_View_FullWeek_Contents.scrollTop = _element_View_FullWeek_TimeArrow_Position - allDayEventsHeight;
+            } else {
+                _element_View_FullWeek_Contents.scrollTop = 0;
+            }
+        }
+
         updateToolbarButtonVisibleState( _element_View_FullWeek_SearchButton, _element_View_FullWeek_EventsShown.length > 0 );
         startEventSizeTracking( _element_View_FullWeek_Contents_Hours );
     }
@@ -3964,11 +3980,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function updateUpdateFullViewAllDayEventsHeight() {
+        var height = 0;
+
         if ( _element_View_FullWeek_AllDayEventsAdded ) {
             _element_View_FullWeek_Contents_AllDayEvents.style.display = "block";
 
-            var height = 0,
-                columnsLength = _element_View_FullWeek_Contents_Days_AllDay.children.length;
+            var columnsLength = _element_View_FullWeek_Contents_Days_AllDay.children.length;
 
             for ( var columnIndex = 0; columnIndex < columnsLength; columnIndex++ ) {
                 var events = _element_View_FullWeek_Contents_Days_AllDay.children[ columnIndex ].children,
@@ -3984,6 +4001,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_View_FullWeek_Contents_AllDayEvents.style.height = ( height + _options.spacing ) + "px";
         }
+
+        return height;
     }
 
     function onFullWeekViewDayColumnDoubleClick( e, column, columnDate ) {
