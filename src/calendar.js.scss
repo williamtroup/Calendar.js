@@ -317,7 +317,7 @@ div.calendar {
             var(--light-color),
             var(--light-color) $spacing,
             var(--area-disabled-stripped) $spacing,
-            var(--area-disabled-stripped) $spacing * 2
+            var(--area-disabled-stripped) calc( $spacing * 2 )
          );
 
         div.ib-arrow-expand-left-right-icon {
@@ -331,7 +331,7 @@ div.calendar {
             var(--day-names-color),
             var(--day-names-color) $spacing,
             var(--area-disabled-stripped-weekend-day) $spacing,
-            var(--area-disabled-stripped-weekend-day) $spacing * 2
+            var(--area-disabled-stripped-weekend-day) calc( $spacing * 2 )
          );
 
         div.ib-arrow-expand-left-right-icon {

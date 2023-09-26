@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.7.1:
+- Fixed a SCSS issue with "repeating-linear-gradient" not using calc() for sizing.
 - 
 
 <br>
