@@ -1,4 +1,4 @@
-/*! Calendar.js v2.6.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.7.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Pn",
@@ -69,7 +69,7 @@ var __TRANSLATION_OPTIONS = {
   "searchTooltipText": "Szukaj",
   "expandDayTooltipText": "Rozwiń Dzień",
   "viewAllEventsTooltipText": "Zobacz wszystkie wydarzenia",
-  "viewCurrentWeekEventsTooltipText": "Zobacz wydarzenia z bieżącego tygodnia",
+  "viewFullWeekTooltipText": "Zobacz cały tydzień",
   "fromText": "Z:",
   "toText": "Do:",
   "isAllDayText": "Jest całodniowy",
@@ -134,7 +134,7 @@ var __TRANSLATION_OPTIONS = {
   "expandMonthTooltipText": "Rozwiń Miesiąc",
   "repeatEndsText": "Powtarzanie kończy się:",
   "noEventsAvailableText": "Brak dostępnych wydarzeń.",
-  "viewWeekEventsText": "Zobacz wydarzenia tygodnia",
+  "viewFullWeekText": "Zobacz cały tydzień",
   "noEventsAvailableFullText": "Brak wydarzeń do wyświetlenia.",
   "clickText": "Kliknij",
   "hereText": "Tutaj",

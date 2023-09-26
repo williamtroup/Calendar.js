@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.6.1
+ * Calendar.js Library v2.7.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -215,12 +215,12 @@ div.full-screen-view {
 }
 @media screen and (min-width: 451px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - (( 1px * 10 ) + ( 10px * 4 ) + ( 0.9rem * 2 ))) / 6);
+    height: calc((100% - (10px + 40px + 1.8rem)) / 6);
   }
 }
 @media screen and (max-width: 450px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - (( 1px * 10 ) + ( 10px * 3 ) + ( 0.7rem * 2 ))) / 6);
+    height: calc((100% - (10px + 30px + 1.4rem)) / 6);
   }
 }
 div.full-screen-view div.header-days {
@@ -412,22 +412,22 @@ div.calendar div.row-cells div.cell-1 {
   width: 100%;
 }
 div.calendar div.row-cells div.cell-2 {
-  width: calc(100% - ( 20px + 1px ) / 2);
+  width: calc(100% - 10.5px);
 }
 div.calendar div.row-cells div.cell-3 {
-  width: calc(100% - ( 20px + 1px ) / 3);
+  width: calc(100% - 7px);
 }
 div.calendar div.row-cells div.cell-4 {
-  width: calc(100% - ( 20px + 1px ) / 4);
+  width: calc(100% - 5.25px);
 }
 div.calendar div.row-cells div.cell-5 {
-  width: calc(100% - ( 20px + 1px ) / 5);
+  width: calc(100% - 4.2px);
 }
 div.calendar div.row-cells div.cell-6 {
-  width: calc(100% - ( 20px + 1px ) / 6);
+  width: calc(100% - 3.5px);
 }
 div.calendar div.row-cells div.cell-7 {
-  width: calc(100% - ( 20px + 1px ) / 7);
+  width: calc(100% - 3px);
 }
 div.calendar div.row-cells div.scrollY {
   overflow-y: auto !important;
@@ -808,13 +808,13 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months {
 @media screen and (min-width: 451px) {
   div.calendar div.header-date div.title-container div.years-drop-down,
   div.calendar div.header-date div.title-container div.years-drop-down-no-months {
-    top: calc( 10px + 0.9rem );
+    top: calc(10px + 0.9rem);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.header-date div.title-container div.years-drop-down,
   div.calendar div.header-date div.title-container div.years-drop-down-no-months {
-    top: calc( 10px + 0.7rem );
+    top: calc(10px + 0.7rem);
   }
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months,
@@ -1076,7 +1076,7 @@ div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
 }
 div.calendar div.full-day-view div.title-bar {
-  width: calc( 100% - 10px );
+  width: calc(100% - 10px);
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1087,7 +1087,8 @@ div.calendar div.full-day-view div.title-bar {
   text-align: center;
 }
 div.calendar div.full-day-view div.title-bar div.left-divider-line,
-div.calendar div.full-day-view div.title-bar div.right-divider-line {
+div.calendar div.full-day-view div.title-bar div.right-divider-line,
+div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -1095,7 +1096,8 @@ div.calendar div.full-day-view div.title-bar div.right-divider-line {
 div.calendar div.full-day-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.full-day-view div.title-bar div.right-divider-line {
+div.calendar div.full-day-view div.title-bar div.right-divider-line,
+div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
   float: right;
 }
 div.calendar div.full-day-view div.title-bar div.title {
@@ -1130,7 +1132,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
   div.calendar div.full-day-view div.title-bar div.ib-refresh,
-  div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
     display: inline-block;
   }
 }
@@ -1142,7 +1145,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
   div.calendar div.full-day-view div.title-bar div.ib-refresh,
-  div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
     display: none !important;
   }
 }
@@ -1184,12 +1188,13 @@ div.calendar div.full-day-view div.contents div.contents-events div.resizable {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
-  width: calc( 100% - 70px - ( 10px * 2 ) - 1px );
+  width: calc(100% - 70px - 20px - 1px);
   left: 91px;
   top: 0;
   z-index: 10;
   height: 12px;
   display: none;
+  pointer-events: none;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow div.arrow-left {
   width: 0;
@@ -1213,8 +1218,8 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
   border-bottom: 1px dashed var(--input-border-color);
-  width: calc(100% - ( 70px + 20px ));
-  height: 54px;
+  width: calc(100% - 90px);
+  height: 44px;
   content: "";
   display: block;
   position: absolute;
@@ -1222,8 +1227,10 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour::before
   left: 90px;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
+  display: flex;
+  align-items: center;
   width: 70px;
-  height: 35px;
+  height: 25px;
   padding: 10px;
   background-color: var(--light-color);
   color: var(--dark-color);
@@ -1241,12 +1248,12 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:last-ch
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ( ( 10px * 2 ) + 0.9rem ));
+    height: calc(100% - (20px + 0.9rem));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - ( ( 10px * 2 ) + 0.7rem ));
+    height: calc(100% - (20px + 0.7rem));
   }
 }
 div.calendar div.full-day-view div.contents div.expired {
@@ -1266,6 +1273,7 @@ div.calendar div.full-day-view div.contents div.event {
   color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
+  text-align: left;
 }
 div.calendar div.full-day-view div.contents div.event div {
   margin-bottom: 5px;
@@ -1297,14 +1305,14 @@ div.calendar div.full-day-view div.contents div.event {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
-  width: calc( 100% - 70px - ( 10px * 6 ) - ( 10px / 2 ) );
+  width: calc(100% - 70px - 60px - 5px);
   left: 100px;
   overflow: hidden;
   z-index: 1;
 }
 div.calendar div.full-day-view div.contents div.working-hours {
   position: absolute;
-  width: calc( 100% - 70px - ( 10px * 2 ) );
+  width: calc(100% - 70px - 20px);
   left: 90px;
   background-color: rgba(40, 40, 40, 0.4);
   display: none;
@@ -1314,10 +1322,10 @@ div.calendar div.full-day-view div.contents div.working-hours {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - All Week Events View
+    Calendar.js - Full Week View
     -------------------------------------------------------------------------
 */
-div.calendar div.all-week-events-view {
+div.calendar div.full-week-view {
   top: -100%;
   left: 0;
   height: 100%;
@@ -1327,8 +1335,8 @@ div.calendar div.all-week-events-view {
   transition: all 0.3s;
   visibility: hidden;
 }
-div.calendar div.all-week-events-view div.title-bar {
-  width: calc( 100% - 10px );
+div.calendar div.full-week-view div.title-bar {
+  width: calc(100% - 10px);
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1338,129 +1346,171 @@ div.calendar div.all-week-events-view div.title-bar {
   color: var(--title-bar-text-color);
   text-align: center;
 }
-div.calendar div.all-week-events-view div.title-bar div.left-divider-line,
-div.calendar div.all-week-events-view div.title-bar div.right-divider-line {
+div.calendar div.full-week-view div.title-bar div.left-divider-line,
+div.calendar div.full-week-view div.title-bar div.right-divider-line,
+div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.all-week-events-view div.title-bar div.left-divider-line {
+div.calendar div.full-week-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.all-week-events-view div.title-bar div.right-divider-line {
+div.calendar div.full-week-view div.title-bar div.right-divider-line,
+div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
   float: right;
 }
-div.calendar div.all-week-events-view div.title-bar div.title {
+div.calendar div.full-week-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
-div.calendar div.all-week-events-view div.title-bar div {
+div.calendar div.full-week-view div.title-bar div {
   margin-left: 5px !important;
   margin-right: 5px !important;
 }
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-left-full,
-div.calendar div.all-week-events-view div.title-bar div.ib-pin,
-div.calendar div.all-week-events-view div.title-bar div.ib-refresh,
-div.calendar div.all-week-events-view div.title-bar div.ib-search,
-div.calendar div.all-week-events-view div.title-bar div.ib-octagon-hollow,
-div.calendar div.all-week-events-view div.title-bar div.ib-hamburger {
+div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.full-week-view div.title-bar div.ib-pin,
+div.calendar div.full-week-view div.title-bar div.ib-refresh,
+div.calendar div.full-week-view div.title-bar div.ib-search,
+div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.full-week-view div.title-bar div.ib-hamburger {
   float: left;
 }
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-down-full-line,
-div.calendar div.all-week-events-view div.title-bar div.ib-plus,
-div.calendar div.all-week-events-view div.title-bar div.ib-close,
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-right-full,
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-div.calendar div.all-week-events-view div.title-bar div.ib-arrow-contract-left-right {
+div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.full-week-view div.title-bar div.ib-plus,
+div.calendar div.full-week-view div.title-bar div.ib-close,
+div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-right-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-search,
-  div.calendar div.all-week-events-view div.title-bar div.ib-refresh,
-  div.calendar div.all-week-events-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-search,
+  div.calendar div.full-week-view div.title-bar div.ib-refresh,
+  div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
     display: inline-block;
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-right-full,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-expand-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-arrow-contract-left-right,
-  div.calendar div.all-week-events-view div.title-bar div.ib-search,
-  div.calendar div.all-week-events-view div.title-bar div.ib-refresh,
-  div.calendar div.all-week-events-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.full-week-view div.title-bar div.ib-search,
+  div.calendar div.full-week-view div.title-bar div.ib-refresh,
+  div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
     display: none !important;
   }
 }
-div.calendar div.all-week-events-view div.contents {
+div.calendar div.full-week-view div.contents {
   display: inline-block;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - ( 10px * 2 ));
+  width: 100%;
+  padding: 0 !important;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day {
+  position: relative;
+  border-bottom: 1px solid var(--dark-color);
+  overflow: hidden;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.all-day-text {
+  width: 70px;
   padding: 10px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: 1px solid var(--dark-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.event {
+  position: static !important;
+  margin-left: 100px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.all-week-events-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
+  div.calendar div.full-week-view div.contents {
+    height: calc(100% - (20px + 0.9rem));
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.all-week-events-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
+  div.calendar div.full-week-view div.contents {
+    height: calc(100% - (20px + 0.7rem));
   }
 }
-div.calendar div.all-week-events-view div.contents div.no-events-text {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: center;
+div.calendar div.full-week-view div.contents div.header-days-container {
+  position: sticky;
+  top: 0;
+  background-color: var(--dark-color);
+  z-index: 100;
 }
-div.calendar div.all-week-events-view div.contents div.day {
-  border-radius: 0.25rem;
-  border: 1px solid var(--dark-color);
-  overflow: hidden;
-  margin-bottom: 10px;
+div.calendar div.full-week-view div.contents div.header-days-container div.header-days {
+  width: calc(100% - 70px - 20px);
+  background-color: blue;
+  margin-left: 91px;
+  border-bottom: 1px solid var(--grid-border-color);
 }
-div.calendar div.all-week-events-view div.contents div.day div.header {
-  background-color: var(--dark-color) !important;
-  color: var(--light-color) !important;
+div.calendar div.full-week-view div.contents div.hours {
+  position: relative;
+}
+div.calendar div.full-week-view div.contents div.hours div.hour {
+  background-color: var(--light-color);
+  border-bottom: 1px solid var(--dark-color);
+  position: relative;
+}
+div.calendar div.full-week-view div.contents div.hours div.hour::before {
+  border-bottom: 1px dashed var(--input-border-color);
+  width: calc(100% - 90px);
+  height: 44px;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 90px;
+}
+div.calendar div.full-week-view div.contents div.hours div.hour div.hour-text {
+  display: flex;
+  align-items: center;
+  width: 70px;
+  height: 25px;
   padding: 10px;
-  font-weight: 900;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: 1px solid var(--dark-color);
 }
-div.calendar div.all-week-events-view div.contents div.day div.header div.right-divider-line {
-  width: 1px;
-  background-color: var(--title-bar-button-color);
-  height: 16px;
+div.calendar div.full-week-view div.contents div.hours div.hour div.hour-text:nth-child(odd) {
+  background-color: var(--dark-color);
+  color: var(--light-color);
 }
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-arrow-expand-left-right,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-plus,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-close,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-minus,
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-square-hollow,
-div.calendar div.all-week-events-view div.contents div.day div.header div.right-divider-line {
-  float: right;
-  margin-left: 10px;
+div.calendar div.full-week-view div.contents div.hours div.hour:nth-child(odd) {
+  background-color: var(--day-names-color);
 }
-div.calendar div.all-week-events-view div.contents div.day div.header div.ib-close {
-  display: none;
+div.calendar div.full-week-view div.contents div.hours div.hour:last-child {
+  border-bottom: none;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events {
-  padding: 10px;
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days {
+  height: 100% !important;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.expired {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.expired {
   opacity: 0.7;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.all-day {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.all-day {
   background-color: var(--event-color-all-day) !important;
   color: var(--event-text-color-all-day) !important;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
@@ -1470,35 +1520,155 @@ div.calendar div.all-week-events-view div.contents div.day div.events div.event 
   color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
+  text-align: left;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div {
   margin-bottom: 5px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div:last-child {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div:last-child {
   margin-bottom: 0;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.title {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.title {
   font-weight: 900;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.date,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.duration,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.description,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.location,
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.repeats {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.date,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.duration,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.description,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.location,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.repeats {
   font-size: smaller;
   font-weight: 300;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event div.ib-refresh-medium {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.ib-refresh-medium {
   margin-right: 5px;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events div.event:last-child {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event:last-child {
   margin-bottom: 0;
 }
-div.calendar div.all-week-events-view div.contents div.day div.events:last-child {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell:last-child {
   margin-bottom: 0;
 }
-div.calendar div.all-week-events-view div.contents div.day:last-child {
-  margin-bottom: 1px !important;
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event {
+  width: calc(100% - 25px) !important;
+  margin-left: 0 !important;
+}
+div.calendar div.full-week-view div.contents div.days {
+  position: absolute;
+  width: calc(100% - 70px - 20px);
+  height: 2182px;
+  top: 0;
+  left: 91px;
+  background-color: transparent;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
+  position: absolute;
+  width: calc(100% - 70px - 20px - 1px);
+  left: 91px;
+  top: 0;
+  z-index: 10;
+  height: 12px;
+  display: none;
+  pointer-events: none;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 12px solid var(--link-color);
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.line {
+  background-color: var(--link-color);
+  position: absolute;
+  left: 12px;
+  top: 3px;
+  height: 6px;
+  width: 100%;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.expired {
+  opacity: 0.7;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.all-day {
+  background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event {
+  white-space: pre-line;
+  -ms-word-break: normal;
+  word-break: normal;
+  border-radius: 0.25rem;
+  background-color: var(--event-color);
+  padding: 10px;
+  color: var(--event-text-color);
+  margin-bottom: 10px;
+  border-left: 7px solid var(--dark-color);
+  text-align: left;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div {
+  margin-bottom: 5px;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.title {
+  font-weight: 900;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.date,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.duration,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.description,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.location,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.repeats {
+  font-size: smaller;
+  font-weight: 300;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.ib-refresh-medium {
+  margin-right: 5px;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.days div.cell:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
+  width: 100%;
+  left: 0;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  z-index: 1;
+  left: 10px;
+  width: calc(100% - 48px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event span {
+  white-space: pre;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-week-view div.contents div.days div.cell div.event {
+    font-size: 0.9rem !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-week-view div.contents div.days div.cell div.event {
+    font-size: 0.7rem !important;
+  }
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.working-hours {
+  position: absolute;
+  width: 100%;
+  background-color: rgba(40, 40, 40, 0.4);
+  display: none;
+  pointer-events: none;
+  z-index: 0;
+  left: 0;
+  margin-top: 1px;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.resizable {
+  resize: vertical;
 }
 
 /*
@@ -1517,7 +1687,7 @@ div.calendar div.full-year-view {
   visibility: hidden;
 }
 div.calendar div.full-year-view div.title-bar {
-  width: calc( 100% - 10px );
+  width: calc(100% - 10px);
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1528,7 +1698,8 @@ div.calendar div.full-year-view div.title-bar {
   text-align: center;
 }
 div.calendar div.full-year-view div.title-bar div.left-divider-line,
-div.calendar div.full-year-view div.title-bar div.right-divider-line {
+div.calendar div.full-year-view div.title-bar div.right-divider-line,
+div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -1536,7 +1707,8 @@ div.calendar div.full-year-view div.title-bar div.right-divider-line {
 div.calendar div.full-year-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.full-year-view div.title-bar div.right-divider-line {
+div.calendar div.full-year-view div.title-bar div.right-divider-line,
+div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
   float: right;
 }
 div.calendar div.full-year-view div.title-bar div.title {
@@ -1571,7 +1743,8 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-search,
   div.calendar div.full-year-view div.title-bar div.ib-refresh,
-  div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
     display: inline-block;
   }
 }
@@ -1583,7 +1756,8 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-search,
   div.calendar div.full-year-view div.title-bar div.ib-refresh,
-  div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
     display: none !important;
   }
 }
@@ -1592,17 +1766,17 @@ div.calendar div.full-year-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc( 100% - 10px );
+  width: calc(100% - 10px);
   padding: 5px;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.contents {
-    height: calc( 100% - ( ( 10px * 3 ) + 0.9rem ) - 1px );
+    height: calc(100% - (30px + 0.9rem) - 1px);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.contents {
-    height: calc( 100% - ( ( 10px * 3 ) + 0.7rem ) - 1px );
+    height: calc(100% - (30px + 0.7rem) - 1px);
   }
 }
 div.calendar div.full-year-view div.contents div.year-month {
@@ -1683,7 +1857,7 @@ div.calendar div.all-events-view {
   visibility: hidden;
 }
 div.calendar div.all-events-view div.title-bar {
-  width: calc( 100% - 10px );
+  width: calc(100% - 10px);
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1694,7 +1868,8 @@ div.calendar div.all-events-view div.title-bar {
   text-align: center;
 }
 div.calendar div.all-events-view div.title-bar div.left-divider-line,
-div.calendar div.all-events-view div.title-bar div.right-divider-line {
+div.calendar div.all-events-view div.title-bar div.right-divider-line,
+div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -1702,7 +1877,8 @@ div.calendar div.all-events-view div.title-bar div.right-divider-line {
 div.calendar div.all-events-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.all-events-view div.title-bar div.right-divider-line {
+div.calendar div.all-events-view div.title-bar div.right-divider-line,
+div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
   float: right;
 }
 div.calendar div.all-events-view div.title-bar div.title {
@@ -1737,7 +1913,8 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-search,
   div.calendar div.all-events-view div.title-bar div.ib-refresh,
-  div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
     display: inline-block;
   }
 }
@@ -1749,7 +1926,8 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-search,
   div.calendar div.all-events-view div.title-bar div.ib-refresh,
-  div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow {
+  div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
     display: none !important;
   }
 }
@@ -1758,17 +1936,17 @@ div.calendar div.all-events-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   padding: 10px;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.all-events-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.9rem ) - 1px );
+    height: calc(100% - (40px + 0.9rem) - 1px);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.all-events-view div.contents {
-    height: calc( 100% - ( ( 10px * 4 ) + 0.7rem ) - 1px );
+    height: calc(100% - (40px + 0.7rem) - 1px);
   }
 }
 div.calendar div.all-events-view div.contents div.year-header {
@@ -1842,6 +2020,7 @@ div.calendar div.all-events-view div.contents div.month div.events div.event {
   color: var(--event-text-color);
   margin-bottom: 10px;
   border-left: 7px solid var(--dark-color);
+  text-align: left;
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div {
   margin-bottom: 5px;
@@ -1879,7 +2058,7 @@ div.calendar div.all-events-view div.contents div.month:last-child {
     -------------------------------------------------------------------------
 */
 div.event-editor {
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   max-width: 420px;
   border-radius: 0.25rem;
   background-color: var(--light-color);
@@ -1992,7 +2171,7 @@ div.event-editor div.view div.split input,
 div.event-editor div.view div.split select,
 div.event-editor div.view div.split div.split-contents,
 div.event-editor div.view div.split p {
-  width: calc(50% - ( 10px / 2 ));
+  width: calc(50% - 5px);
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2145,7 +2324,7 @@ div.event-editor div.view input[type=button].repeat-options {
     -------------------------------------------------------------------------
 */
 div.event-editor-colors {
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   max-width: 300px;
   border-radius: 0.25rem;
   background-color: var(--light-color);
@@ -2303,7 +2482,7 @@ div.event-editor-colors input[type=button].update, div.event-editor-colors input
     -------------------------------------------------------------------------
 */
 div.event-editor-repeat-options {
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   max-width: 300px;
   border-radius: 0.25rem;
   background-color: var(--light-color);
@@ -2470,7 +2649,7 @@ div.event-editor-repeat-options input[type=button].update, div.event-editor-repe
     -------------------------------------------------------------------------
 */
 div.message {
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   max-width: 330px;
   border-radius: 0.25rem;
   background-color: var(--light-color);
@@ -2586,7 +2765,7 @@ div.message input[type=button].yes-ok, div.message input[type=button].no {
     -------------------------------------------------------------------------
 */
 div.export-events {
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   max-width: 300px;
   border-radius: 0.25rem;
   background-color: var(--light-color);
@@ -2673,7 +2852,7 @@ div.export-events div.split input,
 div.export-events div.split select,
 div.export-events div.split div.split-contents,
 div.export-events div.split p {
-  width: calc(50% - ( 10px / 2 ));
+  width: calc(50% - 5px);
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -2766,7 +2945,7 @@ div.export-events input[type=button].export, div.export-events input[type=button
     -------------------------------------------------------------------------
 */
 div.search {
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   max-width: 310px;
   border-radius: 0.25rem;
   background-color: var(--light-color);
@@ -2906,7 +3085,7 @@ div.search div.split input,
 div.search div.split select,
 div.search div.split div.split-contents,
 div.search div.split p {
-  width: calc(50% - ( 10px / 2 ));
+  width: calc(50% - 5px);
   margin-right: 5px;
   margin-left: 5px;
   display: inline-block;
@@ -3007,7 +3186,7 @@ div.search div.ib-square-hollow {
     -------------------------------------------------------------------------
 */
 div.configuration {
-  width: calc(100% - ( 10px * 2 ));
+  width: calc(100% - 20px);
   max-width: 400px;
   border-radius: 0.25rem;
   background-color: var(--light-color);
@@ -3445,7 +3624,7 @@ div.calendar-tooltip-event div:last-child {
 }
 div.calendar-tooltip-event div.title {
   font-weight: 900;
-  width: calc( 100% - 24px - 10px );
+  width: calc(100% - 24px - 10px);
 }
 div.calendar-tooltip-event div.date,
 div.calendar-tooltip-event div.duration,
@@ -3666,7 +3845,7 @@ div.calendar-context-menu div.separator {
   transform: translate(-50%);
   background-color: var(--title-bar-button-color);
   width: 4px;
-  height: calc( 100% - 4px - 2px );
+  height: calc(100% - 4px - 2px);
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
@@ -3846,7 +4025,7 @@ div.calendar-context-menu div.separator {
 .ib-eye::before {
   position: absolute;
   content: "";
-  left: calc( 50% - 2px );
+  left: calc(50% - 2px);
   transform: translate(-50%);
   top: 50%;
   transform: translate(0, -50%);

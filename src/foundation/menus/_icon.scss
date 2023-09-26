@@ -7,11 +7,11 @@ $icon-color: var(--menu-item-icon-color);
 $border: $border-width solid $icon-color;
 
 @mixin top-center-minus($minus-value) {
-    top: calc(50% - #{$minus-value});
-    transform: translate(0, -50%);
+    top: calc( 50% - $minus-value );
+    transform: translate( 0, -50% );
 }
 
 @mixin top-center-add($add-value) {
-    top: calc(50% + #{$add-value});
-    transform: translate(0, -50%);
+    top: calc( 50% + $add-value );
+    transform: translate( 0, -50% );
 }

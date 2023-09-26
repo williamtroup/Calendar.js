@@ -1,7 +1,7 @@
 @import "styles";
 
 div.title-bar {
-    width: calc( 100% - #{$spacing} );
+    width: calc( 100% - $spacing );
     display: inline-block;
     padding-top: $spacing;
     padding-bottom: $spacing;
@@ -12,7 +12,8 @@ div.title-bar {
     text-align: center;
 
     div.left-divider-line,
-    div.right-divider-line {
+    div.right-divider-line,
+    div.right-divider-line-full-screen-mode {
         @include title-bar-divider-line;
     }
 
@@ -20,7 +21,8 @@ div.title-bar {
         float: left;
     }
 
-    div.right-divider-line {
+    div.right-divider-line,
+    div.right-divider-line-full-screen-mode {
         float: right;
     }
 
@@ -60,7 +62,8 @@ div.title-bar {
         div.ib-arrow-contract-left-right,
         div.ib-search,
         div.ib-refresh,
-        div.ib-octagon-hollow {
+        div.ib-octagon-hollow,
+        div.right-divider-line-full-screen-mode {
             display: inline-block;
         }
     }
@@ -73,7 +76,8 @@ div.title-bar {
         div.ib-arrow-contract-left-right,
         div.ib-search,
         div.ib-refresh,
-        div.ib-octagon-hollow {
+        div.ib-octagon-hollow,
+        div.right-divider-line-full-screen-mode {
             display: none !important;
         }
     }

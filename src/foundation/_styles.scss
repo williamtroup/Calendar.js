@@ -7,7 +7,7 @@ $spacing: 10px;
 $maximum-width: 450px;
 $minimum-width: $maximum-width + 1;
 $time-hours-width: 70px;
-$time-hours-height: 35px;
+$time-hours-height: 25px;
 $time-arrow-line-height: 12px;
 $title-bar-font-weight: 900;
 $input-box-shadow-size: 2px;
@@ -90,35 +90,35 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     overflow-y: auto;
 
     @if $half-spacing {
-        width: calc( 100% - #{$spacing} );
+        width: calc( 100% - $spacing );
         padding: calc( $spacing / 2 );
     }
     @else {
-        width: calc( 100% - ( #{$spacing} * 2 ) );
+        width: calc( 100% - ( $spacing * 2 ) );
         padding: $spacing;
     }
 
     @media screen and ( min-width: $minimum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( #{$spacing} * 3 ) + #{$large-font-size} ) - #{$standard-border-size} );
+            height: calc( 100% - ( ( $spacing * 3 ) + $large-font-size ) - $standard-border-size );
         }
         @else {
-            height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$large-font-size} ) - #{$standard-border-size} );
+            height: calc( 100% - ( ( $spacing * 4 ) + $large-font-size ) - $standard-border-size );
         }
     }
     
     @media screen and ( max-width: $maximum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( #{$spacing} * 3 ) + #{$small-font-size} ) - #{$standard-border-size} );
+            height: calc( 100% - ( ( $spacing * 3 ) + $small-font-size ) - $standard-border-size );
         }
         @else {
-            height: calc( 100% - ( ( #{$spacing} * 4 ) + #{$small-font-size} ) - #{$standard-border-size} );
+            height: calc( 100% - ( ( $spacing * 4 ) + $small-font-size ) - $standard-border-size );
         }
     }
 }
 
 @mixin dialog-styles( $width, $includeTransform: true, $z-index: 1500 ) {
-    width: calc( 100% - ( #{$spacing} * 2 ) );
+    width: calc( 100% - ( $spacing * 2 ) );
     max-width: $width;
     border-radius: $border-view-radius;
     background-color: var(--light-color);

@@ -24,7 +24,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |
 | *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
-| *boolean* | showTimelineArrowOnFullDayView | States if the timeline arrow should be shown in the full-day view (defaults to true). |
+| *boolean* | showTimelineArrowsOnViews | States if the timeline arrows should be shown in the views (defaults to true). |
 | *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
 | *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
 | *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
@@ -94,7 +94,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | closeTooltipText | The tooltip text that should be used for the "Close" button. |
 | *string* | exportEventsTooltipText | The tooltip text that should be used for the "Export Events" button. |
 | *string* | viewAllEventsTooltipText | The tooltip text that should be used for the "View All Events" button. |
-| *string* | viewCurrentWeekEventsTooltipText | The tooltip text that should be used for the "View Current Week Events" button. |
+| *string* | viewFullWeekTooltipText | The tooltip text that should be used for the "View Full Week" button. |
 | *string* | todayTooltipText | The tooltip text that should be used for the "Today" button. |
 | *string* | refreshTooltipText | The tooltip text that should be used for the "Refresh" button. |
 | *string* | searchTooltipText | The tooltip text that should be used for the "Search" button. |
@@ -168,7 +168,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | expandMonthTooltipText | The tooltip text that should be used for the "Expand Month" button. |
 | *string* | repeatEndsText | The text that should be displayed for the "Repeat Ends:" label. |
 | *string* | noEventsAvailableText | The text that should be displayed for the "No events available." label. |
-| *string* | viewWeekEventsText | The text that should be displayed for the "View Week Events" label. |
+| *string* | viewWeekEventsText | The text that should be displayed for the "View Full Week" label. |
 | *string* | noEventsAvailableFullText | The text that should be displayed for the "There are no events available to view." label. |
 | *string* | clickText | The text that should be displayed for the "Click" label. |
 | *string* | hereText | The text that should be displayed for the "here" label. |

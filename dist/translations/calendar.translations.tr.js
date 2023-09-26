@@ -1,4 +1,4 @@
-/*! Calendar.js v2.6.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.7.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Pzt",
@@ -69,7 +69,7 @@ var __TRANSLATION_OPTIONS = {
     "searchTooltipText": "Aramak",
     "expandDayTooltipText": "Günü Genişlet",
     "viewAllEventsTooltipText": "Tüm Etkinlikleri Görüntüle",
-    "viewCurrentWeekEventsTooltipText": "Mevcut Hafta Etkinliklerini Görüntüle",
+    "viewFullWeekTooltipText": "Tüm Haftayı Görüntüle",
     "fromText": "İtibaren:",
     "toText": "İle:",
     "isAllDayText": "Tüm Gün",
@@ -134,7 +134,7 @@ var __TRANSLATION_OPTIONS = {
     "expandMonthTooltipText": "Ayı Genişlet",
     "repeatEndsText": "Tekrar Bitişleri:",
     "noEventsAvailableText": "Hiçbir etkinlik mevcut değil.",
-    "viewWeekEventsText": "Hafta Etkinliklerini Görüntüle",
+    "viewFullWeekText": "Tüm Haftayı Görüntüle",
     "noEventsAvailableFullText": "Görüntülenecek etkinlik yok.",
     "clickText": "Tıklamak",
     "hereText": "Burada",

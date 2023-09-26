@@ -19,6 +19,7 @@ div.event {
     color: var(--event-text-color);
     margin-bottom: $spacing;
     border-left: $event-left-border;
+    text-align: left;
 
     @include div-label-spacing;
 

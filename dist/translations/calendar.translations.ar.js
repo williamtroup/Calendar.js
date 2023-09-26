@@ -1,4 +1,4 @@
-/*! Calendar.js v2.6.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.7.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "الاثنين",
@@ -69,7 +69,7 @@ var __TRANSLATION_OPTIONS = {
     "searchTooltipText": "يبحث",
     "expandDayTooltipText": "قم بتوسيع اليوم",
     "viewAllEventsTooltipText": "عرض جميع الأحداث",
-    "viewCurrentWeekEventsTooltipText": "عرض أحداث الأسبوع الحالي",
+    "viewFullWeekTooltipText": "عرض الاسبوع كاملا",
     "fromText": "من:",
     "toText": "ل:",
     "isAllDayText": "طوال اليوم",
@@ -134,7 +134,7 @@ var __TRANSLATION_OPTIONS = {
     "expandMonthTooltipText": "قم بتوسيع الشهر",
     "repeatEndsText": "تكرار ينتهي:",
     "noEventsAvailableText": "لا توجد أحداث متاحة.",
-    "viewWeekEventsText": "عرض أحداث الأسبوع",
+    "viewFullWeekText": "عرض الاسبوع كاملا",
     "noEventsAvailableFullText": "لا توجد أحداث متاحة للعرض.",
     "clickText": "انقر",
     "hereText": "هنا",

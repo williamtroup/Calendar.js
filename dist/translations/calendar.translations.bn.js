@@ -1,4 +1,4 @@
-/*! Calendar.js v2.6.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.7.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "সোম",
@@ -69,7 +69,7 @@ var __TRANSLATION_OPTIONS = {
     "searchTooltipText": "অনুসন্ধান করুন",
     "expandDayTooltipText": "দিন প্রসারিত করুন",
     "viewAllEventsTooltipText": "সমস্ত ইভেন্ট দেখুন",
-    "viewCurrentWeekEventsTooltipText": "বর্তমান সপ্তাহের ঘটনা দেখুন",
+    "viewFullWeekTooltipText": "পুরো সপ্তাহ দেখুন",
     "fromText": "থেকে:",
     "toText": "প্রতি:",
     "isAllDayText": "সারাদিন হল",
@@ -134,7 +134,7 @@ var __TRANSLATION_OPTIONS = {
     "expandMonthTooltipText": "মাস প্রসারিত করুন",
     "repeatEndsText": "পুনরাবৃত্তি শেষ:",
     "noEventsAvailableText": "কোন ইভেন্ট উপলব্ধ.",
-    "viewWeekEventsText": "সপ্তাহের ঘটনা দেখুন",
+    "viewFullWeekText": "পুরো সপ্তাহ দেখুন",
     "noEventsAvailableFullText": "দেখার জন্য কোন ইভেন্ট উপলব্ধ নেই.",
     "clickText": "ক্লিক",
     "hereText": "এখানে",

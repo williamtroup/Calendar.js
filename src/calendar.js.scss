@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.6.1
+ * Calendar.js Library v2.7.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -171,11 +171,11 @@ div.full-screen-view {
 
     div.row-cells {
         @media screen and ( min-width: $minimum-width ) {
-            height: calc( ( 100% - ( ( #{$standard-border-size} * 10 ) + ( ( #{$spacing} * 4 ) + ( #{$large-font-size} * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( $spacing * 4 ) + ( $large-font-size * 2 ) ) ) ) / 6 );
         }
         
         @media screen and ( max-width: $maximum-width ) {
-            height: calc( ( 100% - ( ( #{$standard-border-size} * 10 ) + ( ( #{$spacing} * 3 ) + ( #{$small-font-size} * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( $spacing * 3 ) + ( $small-font-size * 2 ) ) ) ) / 6 );
         }
     }
 
@@ -383,27 +383,27 @@ div.calendar {
         }
 
         div.cell-2 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 2 );
+            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 2 );
         }
 
         div.cell-3 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 3 );
+            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 3 );
         }
         
         div.cell-4 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 4 );
+            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 4 );
         }
 
         div.cell-5 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 5 );
+            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 5 );
         }
 
         div.cell-6 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 6 );
+            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 6 );
         }
 
         div.cell-7 {
-            width: calc( 100% - ( #{$spacing * 2} + #{$standard-border-size} ) / 7 );
+            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 7 );
         }
 
         div.scrollY {
@@ -793,11 +793,11 @@ div.calendar {
                 font-weight: 500;
 
                 @media screen and ( min-width: $minimum-width ) {
-                    top: calc( #{$spacing} + #{$large-font-size} );
+                    top: calc( $spacing + $large-font-size );
                 }
                 
                 @media screen and ( max-width: $maximum-width ) {
-                    top: calc( #{$spacing} + #{$small-font-size} );
+                    top: calc( $spacing + $small-font-size );
                 }
 
                 div.months {
@@ -1078,30 +1078,7 @@ div.calendar {
             width: 100%;
             padding: 0 !important;
 
-            div.content-events-all-day {
-                position: relative;
-                border-bottom: $standard-border-size solid var(--dark-color);
-                overflow: hidden;
-    
-                div.all-day-text {
-                    width: $time-hours-width;
-                    padding: $spacing;
-                    background-color: var(--light-color);
-                    color: var(--dark-color);
-                    border-right: $standard-border-size solid var(--dark-color);
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    height: 100%;
-                }
-                
-                div.event {
-                    position: static !important;
-                    margin-left: $time-hours-width + ( $spacing * 3 ) !important;
-                    margin-top: $spacing;
-                    margin-bottom: $spacing;
-                }
-            }
+            @import "foundation/view-all-day-events";
     
             div.contents-events {
                 position: relative;
@@ -1110,79 +1087,16 @@ div.calendar {
                     resize: vertical;
                 }
 
-                div.time-arrow {
-                    position: absolute;
-                    width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 2 ) - #{$standard-border-size} );
-                    left: $time-hours-width + ( $spacing * 2 ) + $standard-border-size;
-                    top: 0;                    
-                    z-index: 10;
-                    height: $time-arrow-line-height;
-                    display: none;
-
-                    div.arrow-left {
-                        width: 0; 
-                        height: 0; 
-                        border-top: calc( $time-arrow-line-height / 2 ) solid transparent;
-                        border-bottom: calc( $time-arrow-line-height / 2 ) solid transparent;
-                        border-right: $time-arrow-line-height solid var(--link-color);
-                    }
-
-                    div.line {
-                        background-color: var(--link-color);
-                        position: absolute;
-                        left: $time-arrow-line-height;
-                        top: calc( $time-arrow-line-height / 4 );
-                        height: calc( $time-arrow-line-height / 2 );
-                        width: 100%;
-                    }
-                }
-
-                div.hour {
-                    background-color: var(--light-color);
-                    border-bottom: $standard-border-size solid var(--dark-color);
-                    position: relative;
-
-                    &::before {
-                        border-bottom: $standard-border-size dashed var(--input-border-color);
-                        width: calc( 100% - ( #{$time-hours-width} + #{$spacing * 2} ) );
-                        height: ( $time-hours-height + $spacing * 2 ) - $standard-border-size;
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        top: 0;
-                        left: $time-hours-width + $spacing * 2;
-                    }
-
-                    div.hour-text {
-                        width: $time-hours-width;
-                        height: $time-hours-height;
-                        padding: $spacing;
-                        background-color: var(--light-color);
-                        color: var(--dark-color);
-                        border-right: $standard-border-size solid var(--dark-color);
-                        
-                        &:nth-child( odd ) {
-                            background-color: var(--dark-color);
-                            color: var(--light-color);
-                        }
-                    }
-    
-                    &:nth-child( odd ) {
-                        background-color: var(--day-names-color);
-                    }
-    
-                    &:last-child {
-                        border-bottom: none;
-                    }
-                }
+                @import "foundation/view-time-arrow";
+                @import "foundation/view-hours";
             }
         
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$large-font-size} ) );
+                height: calc( 100% - ( ( $spacing * 2 ) + $large-font-size ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( #{$spacing} * 2 ) + #{$small-font-size} ) );
+                height: calc( 100% - ( ( $spacing * 2 ) + $small-font-size ) );
             }
 
             @import "foundation/view-event";
@@ -1191,7 +1105,7 @@ div.calendar {
                 position: absolute;
                 margin-left: 0;
                 margin-right: 0;
-                width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 6 ) - ( #{$spacing} / 2 ) );
+                width: calc( 100% - $time-hours-width - ( $spacing * 6 ) - ( $spacing / 2 ) );
                 left: $time-hours-width + ( $spacing * 3 );
                 overflow: hidden;
                 z-index: 1;
@@ -1199,7 +1113,7 @@ div.calendar {
 
             div.working-hours {
                 position: absolute;
-                width: calc( 100% - #{$time-hours-width} - ( #{$spacing} * 2 ) );
+                width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
                 left: $time-hours-width + ( $spacing * 2 );
                 background-color: rgba(  40, 40, 40, 0.4  );
                 display: none;
@@ -1213,64 +1127,123 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - All Week Events View
+    Calendar.js - Full Week View
     -------------------------------------------------------------------------
 */
 
 div.calendar {
-    div.all-week-events-view {
+    div.full-week-view {
         @include full-size-view-display;
 
         @import "foundation/view-title-bar";
 
         div.contents {
-            @include view-contents;
+            display: inline-block;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            padding: 0 !important;
 
-            div.no-events-text {
-                margin-top: $spacing;
-                margin-bottom: $spacing;
-                text-align: center;
+            @import "foundation/view-all-day-events";
+
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( $spacing * 2 ) + $large-font-size ) );
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( $spacing * 2 ) + $small-font-size ) );
             }
 
-            div.day {
-                border-radius: $border-view-radius;
-                border: $standard-border-size solid var(--dark-color);
-                overflow: hidden;
-                margin-bottom: $spacing;
+            div.header-days-container {
+                position: sticky;
+                top: 0;
+                background-color: var(--dark-color);
+                z-index: 100;
+    
+                div.header-days {
+                    width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
+                    background-color: blue;
+                    margin-left: $time-hours-width + ( $spacing * 2 ) + $standard-border-size;
+                    border-bottom: $standard-border-size solid var(--grid-border-color);
+                }
+            }
 
-                div.header {
-                    background-color: var(--dark-color) !important;
-                    color: var(--light-color) !important;
-                    padding: $spacing;
-                    font-weight: $title-bar-font-weight;
+            div.hours {
+                position: relative;
 
-                    div.right-divider-line {
-                        @include title-bar-divider-line;
-                    }
+                @import "foundation/view-hours";
+            }
 
-                    div.ib-arrow-expand-left-right,
-                    div.ib-plus,
-                    div.ib-close,
-                    div.ib-minus,
-                    div.ib-square-hollow,
-                    div.right-divider-line {
-                        float: right;
-                        margin-left: $spacing;
-                    }
+            div.content-events-all-day {
+                div.days {
+                    height: 100% !important;
 
-                    div.ib-close {
-                        display: none;
+                    div.cell {
+                        @import "foundation/view-event";
+
+                        div.event {
+                            width: calc( 100% - ( ( $spacing * 2 ) + ( $standard-border-size * 5 ) ) ) !important;
+                            margin-left: 0 !important;
+                        }
                     }
                 }
+            }
 
-                div.events {
-                    padding: $spacing;
+            div.days {
+                position: absolute;
+                width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
+                height: calc( ( ( $time-hours-height * 48 ) + ( ( $spacing * 2 ) * 48 ) ) + ( $spacing * 2 ) + ( $standard-border-size * 2 ) );
+                top: 0;
+                left: ( $time-hours-width + ( $spacing * 2 ) ) + $standard-border-size;
+                background-color: transparent;
 
+                div.cell {
+                    @import "foundation/view-time-arrow";
                     @import "foundation/view-event";
-                }
 
-                &:last-child {
-                    margin-bottom: $standard-border-size !important;
+                    div.time-arrow {
+                        width: 100%;
+                        left: 0;
+                    }
+
+                    div.event {
+                        position: absolute;
+                        margin: 0;
+                        overflow: hidden;
+                        z-index: 1;
+                        left: $spacing;
+                        width: calc( 100% - ( ( $spacing * 5 ) - ( $standard-border-size * 2 ) ) );
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+
+                        span {
+                            white-space: pre;
+                        }
+
+                        @media screen and ( min-width: $minimum-width ) {
+                            font-size: $large-font-size !important;
+                        }
+                        
+                        @media screen and ( max-width: $maximum-width ) {
+                            font-size: $small-font-size !important;
+                        }
+                    }
+                    
+                    div.working-hours {
+                        position: absolute;
+                        width: 100%;
+                        background-color: rgba(  40, 40, 40, 0.4  );
+                        display: none;
+                        pointer-events: none;
+                        z-index: 0;
+                        left: 0;
+                        margin-top: $standard-border-size;
+                    }
+
+                    div.resizable {
+                        resize: vertical;
+                    }
                 }
             }
         }
@@ -2227,7 +2200,7 @@ div.calendar-tooltip-event {
 
     div.title {
         font-weight: 900;
-        width: calc( 100% - 24px - #{$spacing} );
+        width: calc( 100% - 24px - $spacing );
     }
 
     div.date,

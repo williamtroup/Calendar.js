@@ -55,7 +55,7 @@ $border: $border-width solid $button-color;
 }
 
 @mixin left-center-minus( $minus-value ) {
-    left: calc( 50% - #{$minus-value} );
+    left: calc( 50% - $minus-value );
     transform: translate( -50% );
 }
 
