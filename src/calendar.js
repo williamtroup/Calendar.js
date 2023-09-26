@@ -597,7 +597,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Event_Dragged_OffsetTop = null,
         _element_View_Event_Dragged_EventDetails = null,
         _element_View_Event_Dragged_ClickOffset = null,
-        _element_View_Event_Dragged_Sizes = [],
         _element_View_Event_Dragged_FromDate = null,
 
         // Variables: View - Main
@@ -632,6 +631,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullDay_TodayButton = null,
         _element_View_FullDay_TimeArrow = null,
         _element_View_FullDay_SearchButton = null,
+        _element_View_FullDay_Events_Dragged_Sizes = [],
 
         // Variables: View - Full Week
         _element_View_FullWeek = null,
@@ -651,6 +651,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_AllDayEventsAdded = false,
         _element_View_FullWeek_TimeArrow_Position = null,
         _element_View_FullWeek_Contents_SmallestEventTop = 0,
+        _element_View_FullWeek_Events_Dragged_Sizes = [],
 
         // Variables: View - Full Year
         _element_View_FullYear = null,
@@ -3220,7 +3221,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_View_FullDay_EventsShown.push( eventDetails );
 
             if ( !eventDetails.isAllDay ) {
-                _element_View_Event_Dragged_Sizes.push( {
+                _element_View_FullDay_Events_Dragged_Sizes.push( {
                     eventDetails: eventDetails,
                     eventElement: event,
                     height: event.offsetHeight
@@ -3250,7 +3251,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullDay_TitleBar.innerHTML = _string.empty;
         _element_View_FullDay_DateSelected = new Date( date );
         _element_View_FullDay_EventsShown = [];
-        _element_View_Event_Dragged_Sizes = [];
+        _element_View_FullDay_Events_Dragged_Sizes = [];
         _element_View_FullDay_Contents_AllDayEvents.style.display = "block";
         _element_View_FullDay_Contents_WorkingHours.style.display = "none";
 
@@ -3359,7 +3360,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_View_FullDay_DateSelected = null;
         _element_View_FullDay_EventsShown = [];
-        _element_View_Event_Dragged_Sizes = [];
+        _element_View_FullDay_Events_Dragged_Sizes = [];
     }
 
     function onFullDayViewDoubleClick( e ) {
@@ -3820,7 +3821,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( !eventDetails.isAllDay ) {
-                _element_View_Event_Dragged_Sizes.push( {
+                _element_View_FullWeek_Events_Dragged_Sizes.push( {
                     eventDetails: eventDetails,
                     eventElement: event,
                     height: event.offsetHeight
@@ -3876,7 +3877,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_TimeArrow_Position = null;
         _element_View_FullWeek_Contents_SmallestEventTop = 0;
         _element_View_FullWeek_Contents_AllDayEvents.style.display = "none";
-        _element_View_Event_Dragged_Sizes = [];
+        _element_View_FullWeek_Events_Dragged_Sizes = [];
 
         var weekStartEndDates = getWeekStartEndDates( weekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
@@ -7588,41 +7589,43 @@ function calendarJs( elementOrId, options, searchOptions ) {
         cancelBubble( e );
 
         if ( _options.manualEditingEnabled ) {
-            var eventsLength = _element_View_Event_Dragged_Sizes.length;
-    
-            if ( eventsLength > 0 ) {
-                var container = null;
+            var container = null,
+                events = null,
+                eventsLength = 0;
 
-                if ( isViewVisible( _element_View_FullDay ) ) {
-                    container = _element_View_FullDay_Contents_Hours;
-                } else if ( isViewVisible( _element_View_FullWeek ) ) {
-                    container = _element_View_FullWeek_Contents_Hours;
+            if ( isViewVisible( _element_View_FullDay ) ) {
+                container = _element_View_FullDay_Contents_Hours;
+                events = _element_View_FullDay_Events_Dragged_Sizes;
+                eventsLength = events.length;
+            } else if ( isViewVisible( _element_View_FullWeek ) ) {
+                container = _element_View_FullWeek_Contents_Hours;
+                events = _element_View_FullWeek_Events_Dragged_Sizes;
+                eventsLength = events.length;
+            }
+
+            if ( container !== null && eventsLength > 0 ) {
+                var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+                    eventsResized = false;
+
+                for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
+                    var eventSizeDetails = events[ eventIndex ];
+
+                    if ( eventSizeDetails.height !== eventSizeDetails.eventElement.offsetHeight ) {
+                        var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height,
+                            differenceMinutes = difference / pixelsPerMinute;
+
+                        eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;
+                        eventSizeDetails.eventDetails.to = addMinutesToDate( eventSizeDetails.eventDetails.to, differenceMinutes );
+                        eventsResized = true;
+
+                        triggerOptionsEventWithData( "onEventUpdated", eventSizeDetails.eventDetails );
+                        showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", eventSizeDetails.eventDetails.title ) );
+                    }
                 }
 
-                if ( container !== null ) {
-                    var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
-                        eventsResized = false;
-
-                    for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
-                        var eventSizeDetails = _element_View_Event_Dragged_Sizes[ eventIndex ];
-
-                        if ( eventSizeDetails.height !== eventSizeDetails.eventElement.offsetHeight ) {
-                            var difference = eventSizeDetails.eventElement.offsetHeight - eventSizeDetails.height,
-                                differenceMinutes = difference / pixelsPerMinute;
-
-                            eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;
-                            eventSizeDetails.eventDetails.to = addMinutesToDate( eventSizeDetails.eventDetails.to, differenceMinutes );
-                            eventsResized = true;
-
-                            triggerOptionsEventWithData( "onEventUpdated", eventSizeDetails.eventDetails );
-                            showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", eventSizeDetails.eventDetails.title ) );
-                        }
-                    }
-
-                    if ( eventsResized ) {
-                        storeEventsInLocalStorage();
-                        refreshOpenedViews();
-                    }
+                if ( eventsResized ) {
+                    storeEventsInLocalStorage();
+                    refreshOpenedViews();
                 }
             }
         }
