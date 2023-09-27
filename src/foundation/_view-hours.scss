@@ -7,13 +7,13 @@ div.hour {
 
     &::before {
         border-bottom: $standard-border-size dashed var(--input-border-color);
-        width: calc( 100% - ( $time-hours-width + $spacing * 2 ) );
-        height: ( $time-hours-height + $spacing * 2 ) - $standard-border-size;
+        width: calc( 100% - ( $time-hours-width + var(--spacing) * 2 ) );
+        height: calc( ( $time-hours-height + var(--spacing) * 2 ) - $standard-border-size );
         content: '';
         display: block;
         position: absolute;
         top: 0;
-        left: $time-hours-width + $spacing * 2;
+        left: calc( $time-hours-width + var(--spacing) * 2 );
     }
 
     div.hour-text {
@@ -21,7 +21,7 @@ div.hour {
         align-items: center;
         width: $time-hours-width;
         height: $time-hours-height;
-        padding: $spacing;
+        padding: var(--spacing);
         background-color: var(--light-color);
         color: var(--dark-color);
         border-right: $standard-border-size solid var(--dark-color);

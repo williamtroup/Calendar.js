@@ -31,6 +31,7 @@
   --transition: all .3s;
   --transition-faster: all .2s;
   --border-radius: 0.25rem;
+  --spacing: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -137,27 +138,27 @@ div.calendar-notification {
   user-select: none;
   cursor: default;
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: var(--spacing);
+  right: var(--spacing);
   width: auto;
   height: auto;
   display: none;
   z-index: 2500;
 }
 div.calendar-notification div.ib-close-icon {
-  margin-left: 20px;
+  margin-left: calc(var(--spacing) * 2);
 }
 div.calendar-notification div.ib-close-icon::before, div.calendar-notification div.ib-close-icon::after {
   background-color: #9A9;
 }
 div.calendar-notification div.success,
 div.calendar-notification div.error {
-  padding: 10px;
+  padding: var(--spacing);
   border-radius: var(--border-radius);
 }
 div.calendar-notification div.success div.ib-close-icon,
 div.calendar-notification div.error div.ib-close-icon {
-  margin-left: 20px;
+  margin-left: calc(var(--spacing) * 2);
 }
 div.calendar-notification div.success {
   background-color: #EFE;
@@ -218,12 +219,12 @@ div.full-screen-view {
 }
 @media screen and (min-width: 451px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - (10px + 40px + 1.8rem)) / 6);
+    height: calc((100% - (10px + var(--spacing) * 4 + 1.8rem)) / 6);
   }
 }
 @media screen and (max-width: 450px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - (10px + 30px + 1.4rem)) / 6);
+    height: calc((100% - (10px + var(--spacing) * 3 + 1.4rem)) / 6);
   }
 }
 div.full-screen-view div.header-days {
@@ -285,7 +286,7 @@ div.calendar-date-picker div.calendar {
   margin-left: -1px;
 }
 div.calendar-date-picker div.calendar div.cell {
-  padding: 5px !important;
+  padding: calc(var(--spacing) / 2) !important;
 }
 div.calendar-date-picker div.calendar div.days div.cell-today {
   background-color: var(--dark-color) !important;
@@ -362,13 +363,13 @@ div.calendar div.drag-over {
   transition: var(--transition-faster);
 }
 div.calendar div.drag-not-allowed {
-  background: repeating-linear-gradient(135deg, var(--light-color), var(--light-color) 10px, var(--area-disabled-stripped) 10px, var(--area-disabled-stripped) 20px);
+  background: repeating-linear-gradient(135deg, var(--light-color), var(--light-color) var(--spacing), var(--area-disabled-stripped) var(--spacing), var(--area-disabled-stripped) calc(var(--spacing) * 2));
 }
 div.calendar div.drag-not-allowed div.ib-arrow-expand-left-right-icon {
   display: none !important;
 }
 div.calendar div.drag-not-allowed-weekend-day {
-  background: repeating-linear-gradient(135deg, var(--day-names-color), var(--day-names-color) 10px, var(--area-disabled-stripped-weekend-day) 10px, var(--area-disabled-stripped-weekend-day) 20px);
+  background: repeating-linear-gradient(135deg, var(--day-names-color), var(--day-names-color) var(--spacing), var(--area-disabled-stripped-weekend-day) var(--spacing), var(--area-disabled-stripped-weekend-day) calc(var(--spacing) * 2));
 }
 div.calendar div.drag-not-allowed-weekend-day div.ib-arrow-expand-left-right-icon {
   display: none !important;
@@ -384,7 +385,7 @@ div.calendar div.no-events-available-text {
 }
 div.calendar div.no-events-available-text p {
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
 }
 div.calendar span.link {
   text-decoration: underline !important;
@@ -415,22 +416,22 @@ div.calendar div.row-cells div.cell-1 {
   width: 100%;
 }
 div.calendar div.row-cells div.cell-2 {
-  width: calc(100% - 10.5px);
+  width: calc(100% - (var(--spacing) * 2 + 1px) / 2);
 }
 div.calendar div.row-cells div.cell-3 {
-  width: calc(100% - 7px);
+  width: calc(100% - (var(--spacing) * 2 + 1px) / 3);
 }
 div.calendar div.row-cells div.cell-4 {
-  width: calc(100% - 5.25px);
+  width: calc(100% - (var(--spacing) * 2 + 1px) / 4);
 }
 div.calendar div.row-cells div.cell-5 {
-  width: calc(100% - 4.2px);
+  width: calc(100% - (var(--spacing) * 2 + 1px) / 5);
 }
 div.calendar div.row-cells div.cell-6 {
-  width: calc(100% - 3.5px);
+  width: calc(100% - (var(--spacing) * 2 + 1px) / 6);
 }
 div.calendar div.row-cells div.cell-7 {
-  width: calc(100% - 3px);
+  width: calc(100% - (var(--spacing) * 2 + 1px) / 7);
 }
 div.calendar div.row-cells div.scrollY {
   overflow-y: auto !important;
@@ -445,12 +446,12 @@ div.calendar div.row-cells div.cell {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.row-cells div.cell {
-    padding: 10px;
+    padding: var(--spacing);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.row-cells div.cell {
-    padding: 5px;
+    padding: calc(var(--spacing) / 2);
   }
 }
 div.calendar div.row-cells div.cell div.separator,
@@ -586,7 +587,7 @@ div.calendar div.side-menu div.main-header {
   position: sticky;
   top: 0;
   background-color: var(--dark-color);
-  padding: 10px;
+  padding: var(--spacing);
   z-index: 1;
   color: var(--title-bar-text-color);
 }
@@ -613,17 +614,17 @@ div.calendar div.side-menu div.main-header div[class^=ib-],
 div.calendar div.side-menu div.main-header div.right-divider-line {
   margin-top: 3px;
   float: right;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 div.calendar div.side-menu div.content {
-  padding: 10px;
+  padding: var(--spacing);
   padding-top: 0;
 }
 div.calendar div.side-menu div.content div.content-section-opened {
   border-left: 6px solid #656363 !important;
 }
 div.calendar div.side-menu div.content div.content-section {
-  margin-top: 10px;
+  margin-top: var(--spacing);
   border-radius: var(--border-radius);
   background-color: #474545;
   border: 1px solid #575555;
@@ -635,7 +636,7 @@ div.calendar div.side-menu div.content div.content-section:first-of-type {
 div.calendar div.side-menu div.content div.content-section div.text-header,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed {
   position: relative;
-  padding: 10px;
+  padding: var(--spacing);
   margin-top: 0 !important;
   margin-bottom: 0;
   cursor: pointer;
@@ -652,7 +653,7 @@ div.calendar div.side-menu div.content div.content-section div.text-header-close
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-square-hollow {
   float: right;
   margin-top: 1px;
-  margin-right: 10px;
+  margin-right: var(--spacing);
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.right-divider-line:first-of-type,
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full:first-of-type,
@@ -703,13 +704,13 @@ div.calendar div.side-menu div.content div.content-section div.checkbox-containe
   -moz-animation: fade-in-effect ease 0.5s;
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+  padding-bottom: var(--spacing);
 }
 div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox {
-  margin-bottom: 5px;
-  margin-left: 10px;
+  margin-bottom: calc(var(--spacing) / 2);
+  margin-left: var(--spacing);
   color: var(--light-color) !important;
 }
 div.calendar div.side-menu div.content div.content-section div.checkbox-container label.checkbox span.check-mark {
@@ -734,17 +735,17 @@ div.calendar div.header-date {
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(var(--spacing) / 2);
+  padding-right: calc(var(--spacing) / 2);
   position: relative;
 }
 div.calendar div.header-date div[class^=ib-],
 div.calendar div.header-date div.left-divider-line,
 div.calendar div.header-date div.right-divider-line {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: calc(var(--spacing) / 2);
+  margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.header-date div.left-divider-line,
 div.calendar div.header-date div.right-divider-line {
@@ -770,7 +771,7 @@ div.calendar div.header-date div.title-container span.year-dropdown-button {
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
-  margin-left: 5px;
+  margin-left: calc(var(--spacing) / 2);
   pointer-events: none;
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium {
@@ -811,13 +812,13 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months {
 @media screen and (min-width: 451px) {
   div.calendar div.header-date div.title-container div.years-drop-down,
   div.calendar div.header-date div.title-container div.years-drop-down-no-months {
-    top: calc(10px + 0.9rem);
+    top: calc(var(--spacing) + 0.9rem);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.header-date div.title-container div.years-drop-down,
   div.calendar div.header-date div.title-container div.years-drop-down-no-months {
-    top: calc(10px + 0.7rem);
+    top: calc(var(--spacing) + 0.7rem);
   }
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months,
@@ -835,8 +836,8 @@ div.calendar div.header-date div.title-container div.years-drop-down div.months 
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
-  width: calc(33.33% - 12px);
-  padding: 5px;
+  width: calc(33.33% - ((var(--spacing)) + 2px));
+  padding: calc(var(--spacing) / 2);
   margin: 1px;
   display: inline-block;
   border-radius: var(--border-radius);
@@ -888,10 +889,10 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   width: 100%;
   margin-left: 0 !important;
   margin-right: 0 !important;
-  margin-top: 3.3333333333px;
+  margin-top: calc(var(--spacing) / 3);
   padding: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: calc(var(--spacing) / 2);
+  padding-bottom: calc(var(--spacing) / 2);
   background-color: var(--light-color) !important;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year,
@@ -1016,7 +1017,7 @@ div.calendar div.row-cells div.cell div.event:last-child {
   margin-bottom: 0;
 }
 div.calendar div.row-cells div.cell div.event div.ib-refresh-small {
-  margin-right: 5px;
+  margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.row-cells div.cell div.event-circle {
   display: inline-block;
@@ -1044,7 +1045,7 @@ div.calendar div.row-cells div.cell div.plus-x-events {
   display: inline-block;
   font-size: smaller;
   text-align: center;
-  margin-top: 5px;
+  margin-top: calc(var(--spacing) / 2);
   margin-left: auto;
   margin-right: auto;
 }
@@ -1079,12 +1080,12 @@ div.calendar div.full-day-view span.holiday {
   font-weight: 300 !important;
 }
 div.calendar div.full-day-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc(100% - var(--spacing));
   display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(var(--spacing) / 2);
+  padding-right: calc(var(--spacing) / 2);
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
   text-align: center;
@@ -1108,8 +1109,8 @@ div.calendar div.full-day-view div.title-bar div.title {
   display: inline-block;
 }
 div.calendar div.full-day-view div.title-bar div {
-  margin-left: 5px !important;
-  margin-right: 5px !important;
+  margin-left: calc(var(--spacing) / 2) !important;
+  margin-right: calc(var(--spacing) / 2) !important;
 }
 div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-day-view div.title-bar div.ib-pin,
@@ -1168,7 +1169,7 @@ div.calendar div.full-day-view div.contents div.content-events-all-day {
 }
 div.calendar div.full-day-view div.contents div.content-events-all-day div.all-day-text {
   width: 70px;
-  padding: 10px;
+  padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
   border-right: 1px solid var(--dark-color);
@@ -1179,9 +1180,9 @@ div.calendar div.full-day-view div.contents div.content-events-all-day div.all-d
 }
 div.calendar div.full-day-view div.contents div.content-events-all-day div.event {
   position: static !important;
-  margin-left: 100px !important;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-left: calc(70px + var(--spacing) * 3) !important;
+  margin-top: var(--spacing);
+  margin-bottom: var(--spacing);
 }
 div.calendar div.full-day-view div.contents div.contents-events {
   position: relative;
@@ -1191,8 +1192,8 @@ div.calendar div.full-day-view div.contents div.contents-events div.resizable {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
-  width: calc(100% - 70px - 20px - 1px);
-  left: 91px;
+  width: calc(100% - 70px - var(--spacing) * 2 - 1px);
+  left: calc(70px + var(--spacing) * 2 + 1px);
   top: 0;
   z-index: 10;
   height: 12px;
@@ -1221,20 +1222,20 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
   border-bottom: 1px dashed var(--input-border-color);
-  width: calc(100% - 90px);
-  height: 44px;
+  width: calc(100% - (70px + var(--spacing) * 2));
+  height: calc(25px + var(--spacing) * 2 - 1px);
   content: "";
   display: block;
   position: absolute;
   top: 0;
-  left: 90px;
+  left: calc(70px + var(--spacing) * 2);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
   display: flex;
   align-items: center;
   width: 70px;
   height: 25px;
-  padding: 10px;
+  padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
   border-right: 1px solid var(--dark-color);
@@ -1251,12 +1252,12 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:last-ch
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - (20px + 0.9rem));
+    height: calc(100% - (var(--spacing) * 2 + 0.9rem));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - (20px + 0.7rem));
+    height: calc(100% - (var(--spacing) * 2 + 0.7rem));
   }
 }
 div.calendar div.full-day-view div.contents div.expired {
@@ -1272,14 +1273,14 @@ div.calendar div.full-day-view div.contents div.event {
   word-break: normal;
   border-radius: var(--border-radius);
   background-color: var(--event-color);
-  padding: 10px;
+  padding: var(--spacing);
   color: var(--event-text-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   border-left: 7px solid var(--dark-color);
   text-align: left;
 }
 div.calendar div.full-day-view div.contents div.event div {
-  margin-bottom: 5px;
+  margin-bottom: calc(var(--spacing) / 2);
 }
 div.calendar div.full-day-view div.contents div.event div:last-child {
   margin-bottom: 0;
@@ -1296,7 +1297,7 @@ div.calendar div.full-day-view div.contents div.event div.repeats {
   font-weight: 300;
 }
 div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium {
-  margin-right: 5px;
+  margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.full-day-view div.contents div.event:last-child {
   margin-bottom: 0;
@@ -1308,15 +1309,15 @@ div.calendar div.full-day-view div.contents div.event {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
-  width: calc(100% - 70px - 60px - 5px);
-  left: 100px;
+  width: calc(100% - 70px - var(--spacing) * 6 - var(--spacing) / 2);
+  left: calc(70px + var(--spacing) * 3);
   overflow: hidden;
   z-index: 1;
 }
 div.calendar div.full-day-view div.contents div.working-hours {
   position: absolute;
-  width: calc(100% - 70px - 20px);
-  left: 90px;
+  width: calc(100% - 70px - var(--spacing) * 2);
+  left: calc(70px + var(--spacing) * 2);
   background-color: rgba(40, 40, 40, 0.4);
   display: none;
   pointer-events: none;
@@ -1339,12 +1340,12 @@ div.calendar div.full-week-view {
   visibility: hidden;
 }
 div.calendar div.full-week-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc(100% - var(--spacing));
   display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(var(--spacing) / 2);
+  padding-right: calc(var(--spacing) / 2);
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
   text-align: center;
@@ -1368,8 +1369,8 @@ div.calendar div.full-week-view div.title-bar div.title {
   display: inline-block;
 }
 div.calendar div.full-week-view div.title-bar div {
-  margin-left: 5px !important;
-  margin-right: 5px !important;
+  margin-left: calc(var(--spacing) / 2) !important;
+  margin-right: calc(var(--spacing) / 2) !important;
 }
 div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-week-view div.title-bar div.ib-pin,
@@ -1428,7 +1429,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day {
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.all-day-text {
   width: 70px;
-  padding: 10px;
+  padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
   border-right: 1px solid var(--dark-color);
@@ -1439,18 +1440,18 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.all-
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.event {
   position: static !important;
-  margin-left: 100px !important;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-left: calc(70px + var(--spacing) * 3) !important;
+  margin-top: var(--spacing);
+  margin-bottom: var(--spacing);
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.contents {
-    height: calc(100% - (20px + 0.9rem));
+    height: calc(100% - (var(--spacing) * 2 + 0.9rem));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.contents {
-    height: calc(100% - (20px + 0.7rem));
+    height: calc(100% - (var(--spacing) * 2 + 0.7rem));
   }
 }
 div.calendar div.full-week-view div.contents div.header-days-container {
@@ -1460,9 +1461,9 @@ div.calendar div.full-week-view div.contents div.header-days-container {
   z-index: 100;
 }
 div.calendar div.full-week-view div.contents div.header-days-container div.header-days {
-  width: calc(100% - 70px - 20px);
+  width: calc(100% - 70px - var(--spacing) * 2);
   background-color: blue;
-  margin-left: 91px;
+  margin-left: calc(70px + var(--spacing) * 2 + 1px);
   border-bottom: 1px solid var(--grid-border-color);
 }
 div.calendar div.full-week-view div.contents div.hours {
@@ -1475,20 +1476,20 @@ div.calendar div.full-week-view div.contents div.hours div.hour {
 }
 div.calendar div.full-week-view div.contents div.hours div.hour::before {
   border-bottom: 1px dashed var(--input-border-color);
-  width: calc(100% - 90px);
-  height: 44px;
+  width: calc(100% - (70px + var(--spacing) * 2));
+  height: calc(25px + var(--spacing) * 2 - 1px);
   content: "";
   display: block;
   position: absolute;
   top: 0;
-  left: 90px;
+  left: calc(70px + var(--spacing) * 2);
 }
 div.calendar div.full-week-view div.contents div.hours div.hour div.hour-text {
   display: flex;
   align-items: center;
   width: 70px;
   height: 25px;
-  padding: 10px;
+  padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
   border-right: 1px solid var(--dark-color);
@@ -1519,14 +1520,14 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
   word-break: normal;
   border-radius: var(--border-radius);
   background-color: var(--event-color);
-  padding: 10px;
+  padding: var(--spacing);
   color: var(--event-text-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   border-left: 7px solid var(--dark-color);
   text-align: left;
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div {
-  margin-bottom: 5px;
+  margin-bottom: calc(var(--spacing) / 2);
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div:last-child {
   margin-bottom: 0;
@@ -1543,7 +1544,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
   font-weight: 300;
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.ib-refresh-medium {
-  margin-right: 5px;
+  margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event:last-child {
   margin-bottom: 0;
@@ -1552,21 +1553,21 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
   margin-bottom: 0;
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event {
-  width: calc(100% - 25px) !important;
+  width: calc(100% - (var(--spacing) * 2 + 5px)) !important;
   margin-left: 0 !important;
 }
 div.calendar div.full-week-view div.contents div.days {
   position: absolute;
-  width: calc(100% - 70px - 20px);
-  height: 2182px;
+  width: calc(100% - 70px - var(--spacing) * 2);
+  height: calc(1200px + var(--spacing) * 2 * 48 + var(--spacing) * 2 + 2px);
   top: 0;
-  left: 91px;
+  left: calc(70px + var(--spacing) * 2 + 1px);
   background-color: transparent;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
   position: absolute;
-  width: calc(100% - 70px - 20px - 1px);
-  left: 91px;
+  width: calc(100% - 70px - var(--spacing) * 2 - 1px);
+  left: calc(70px + var(--spacing) * 2 + 1px);
   top: 0;
   z-index: 10;
   height: 12px;
@@ -1601,14 +1602,14 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event {
   word-break: normal;
   border-radius: var(--border-radius);
   background-color: var(--event-color);
-  padding: 10px;
+  padding: var(--spacing);
   color: var(--event-text-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   border-left: 7px solid var(--dark-color);
   text-align: left;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event div {
-  margin-bottom: 5px;
+  margin-bottom: calc(var(--spacing) / 2);
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event div:last-child {
   margin-bottom: 0;
@@ -1625,7 +1626,7 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event div.rep
   font-weight: 300;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.ib-refresh-medium {
-  margin-right: 5px;
+  margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event:last-child {
   margin-bottom: 0;
@@ -1642,8 +1643,8 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event {
   margin: 0;
   overflow: hidden;
   z-index: 1;
-  left: 10px;
-  width: calc(100% - 48px);
+  left: var(--spacing);
+  width: calc(100% - (var(--spacing) * 5 - 2px));
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1690,12 +1691,12 @@ div.calendar div.full-year-view {
   visibility: hidden;
 }
 div.calendar div.full-year-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc(100% - var(--spacing));
   display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(var(--spacing) / 2);
+  padding-right: calc(var(--spacing) / 2);
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
   text-align: center;
@@ -1719,8 +1720,8 @@ div.calendar div.full-year-view div.title-bar div.title {
   display: inline-block;
 }
 div.calendar div.full-year-view div.title-bar div {
-  margin-left: 5px !important;
-  margin-right: 5px !important;
+  margin-left: calc(var(--spacing) / 2) !important;
+  margin-right: calc(var(--spacing) / 2) !important;
 }
 div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.full-year-view div.title-bar div.ib-pin,
@@ -1769,17 +1770,17 @@ div.calendar div.full-year-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - 10px);
-  padding: 5px;
+  width: calc(100% - var(--spacing));
+  padding: calc(var(--spacing) / 2);
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.contents {
-    height: calc(100% - (30px + 0.9rem) - 1px);
+    height: calc(100% - (var(--spacing) * 3 + 0.9rem) - 1px);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.contents {
-    height: calc(100% - (30px + 0.7rem) - 1px);
+    height: calc(100% - (var(--spacing) * 3 + 0.7rem) - 1px);
   }
 }
 div.calendar div.full-year-view div.contents div.year-month {
@@ -1787,21 +1788,21 @@ div.calendar div.full-year-view div.contents div.year-month {
   border: 1px solid var(--dark-color);
   background-color: var(--day-names-color);
   display: inline-block;
-  margin: 5px;
+  margin: calc(var(--spacing) / 2);
   overflow: hidden;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.contents div.year-month {
-    width: calc(50% - 12.5px);
+    width: calc(50% - (var(--spacing) + var(--spacing) / 4));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.contents div.year-month {
-    width: calc(100% - 12.5px);
+    width: calc(100% - (var(--spacing) + var(--spacing) / 4));
   }
 }
 div.calendar div.full-year-view div.contents div.year-month div.cell {
-  padding: 5px !important;
+  padding: calc(var(--spacing) / 2) !important;
 }
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell-today {
   background-color: var(--dark-color) !important;
@@ -1829,7 +1830,7 @@ div.calendar div.full-year-view div.contents div.year-month div.title-bar {
   color: var(--light-color);
   font-weight: 900;
   text-align: left;
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.calendar div.full-year-view div.contents div.year-month div.title-bar div.right-divider-line {
   width: 1px;
@@ -1840,7 +1841,7 @@ div.calendar div.full-year-view div.contents div.year-month div.title-bar div.ib
 div.calendar div.full-year-view div.contents div.year-month div.title-bar div.ib-plus,
 div.calendar div.full-year-view div.contents div.year-month div.title-bar div.right-divider-line {
   float: right;
-  margin-right: 10px !important;
+  margin-right: var(--spacing) !important;
   margin-left: 0 !important;
 }
 
@@ -1860,12 +1861,12 @@ div.calendar div.all-events-view {
   visibility: hidden;
 }
 div.calendar div.all-events-view div.title-bar {
-  width: calc(100% - 10px);
+  width: calc(100% - var(--spacing));
   display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(var(--spacing) / 2);
+  padding-right: calc(var(--spacing) / 2);
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
   text-align: center;
@@ -1889,8 +1890,8 @@ div.calendar div.all-events-view div.title-bar div.title {
   display: inline-block;
 }
 div.calendar div.all-events-view div.title-bar div {
-  margin-left: 5px !important;
-  margin-right: 5px !important;
+  margin-left: calc(var(--spacing) / 2) !important;
+  margin-right: calc(var(--spacing) / 2) !important;
 }
 div.calendar div.all-events-view div.title-bar div.ib-arrow-left-full,
 div.calendar div.all-events-view div.title-bar div.ib-pin,
@@ -1939,21 +1940,21 @@ div.calendar div.all-events-view div.contents {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  width: calc(100% - 20px);
-  padding: 10px;
+  width: calc(100% - var(--spacing) * 2);
+  padding: var(--spacing);
 }
 @media screen and (min-width: 451px) {
   div.calendar div.all-events-view div.contents {
-    height: calc(100% - (40px + 0.9rem) - 1px);
+    height: calc(100% - (var(--spacing) * 4 + 0.9rem) - 1px);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.all-events-view div.contents {
-    height: calc(100% - (40px + 0.7rem) - 1px);
+    height: calc(100% - (var(--spacing) * 4 + 0.7rem) - 1px);
   }
 }
 div.calendar div.all-events-view div.contents div.year-header {
-  margin-top: 20px;
+  margin-top: calc(var(--spacing) * 2);
 }
 div.calendar div.all-events-view div.contents div.year-header span.header-text {
   font-weight: 900;
@@ -1970,9 +1971,9 @@ div.calendar div.all-events-view div.contents div.year-header span.header-text:a
   opacity: 0.4;
 }
 div.calendar div.all-events-view div.contents div.year-header div.line {
-  margin-top: 5px;
+  margin-top: calc(var(--spacing) / 2);
   border-bottom: 1px solid var(--dark-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
 }
 div.calendar div.all-events-view div.contents div.year-header:first-of-type {
   margin-top: 0;
@@ -1981,12 +1982,12 @@ div.calendar div.all-events-view div.contents div.month {
   border-radius: var(--border-radius);
   border: 1px solid var(--dark-color);
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
 }
 div.calendar div.all-events-view div.contents div.month div.header {
   background-color: var(--dark-color) !important;
   color: var(--light-color) !important;
-  padding: 10px;
+  padding: var(--spacing);
   font-weight: 900;
 }
 div.calendar div.all-events-view div.contents div.month div.header div.right-divider-line {
@@ -2001,10 +2002,10 @@ div.calendar div.all-events-view div.contents div.month div.header div.ib-minus,
 div.calendar div.all-events-view div.contents div.month div.header div.ib-square-hollow,
 div.calendar div.all-events-view div.contents div.month div.header div.right-divider-line {
   float: right;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 div.calendar div.all-events-view div.contents div.month div.events {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.calendar div.all-events-view div.contents div.month div.events div.expired {
   opacity: 0.7;
@@ -2019,14 +2020,14 @@ div.calendar div.all-events-view div.contents div.month div.events div.event {
   word-break: normal;
   border-radius: var(--border-radius);
   background-color: var(--event-color);
-  padding: 10px;
+  padding: var(--spacing);
   color: var(--event-text-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   border-left: 7px solid var(--dark-color);
   text-align: left;
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div {
-  margin-bottom: 5px;
+  margin-bottom: calc(var(--spacing) / 2);
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div:last-child {
   margin-bottom: 0;
@@ -2043,7 +2044,7 @@ div.calendar div.all-events-view div.contents div.month div.events div.event div
   font-weight: 300;
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div.ib-refresh-medium {
-  margin-right: 5px;
+  margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event:last-child {
   margin-bottom: 0;
@@ -2061,7 +2062,7 @@ div.calendar div.all-events-view div.contents div.month:last-child {
     -------------------------------------------------------------------------
 */
 div.event-editor {
-  width: calc(100% - 20px);
+  width: calc(100% - var(--spacing) * 2);
   max-width: 420px;
   border-radius: var(--border-radius);
   background-color: var(--light-color);
@@ -2079,7 +2080,7 @@ div.event-editor div.ib-close {
 }
 div.event-editor div.tab-content {
   height: 258px;
-  margin-bottom: 20px;
+  margin-bottom: calc(var(--spacing) * 2);
 }
 div.event-editor div.tab-content div.split:last-of-type input {
   margin-bottom: 0 !important;
@@ -2096,13 +2097,13 @@ div.event-editor div.view div.title-bar {
   cursor: default;
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
-  padding: 10px;
+  padding: var(--spacing);
   text-align: center;
   font-weight: 900;
 }
 div.event-editor div.view div.input-title-container {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
 }
 div.event-editor div.view div.input-title-container input[type=text] {
   flex-grow: 1;
@@ -2110,11 +2111,11 @@ div.event-editor div.view div.input-title-container input[type=text] {
 }
 div.event-editor div.view div.input-title-container input[type=button] {
   padding: 0.375rem 0.75rem;
-  margin-left: 10px;
+  margin-left: var(--spacing);
   line-height: 0;
 }
 div.event-editor div.view div.contents {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.event-editor div.view input:not([type=button]),
 div.event-editor div.view textarea {
@@ -2125,7 +2126,7 @@ div.event-editor div.view textarea {
   padding: 0.375rem 0.75rem;
   line-height: 21px;
   color: var(--dark-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   background-color: var(--input-background-color);
   transition: var(--transition);
   box-sizing: border-box;
@@ -2174,9 +2175,9 @@ div.event-editor div.view div.split input,
 div.event-editor div.view div.split select,
 div.event-editor div.view div.split div.split-contents,
 div.event-editor div.view div.split p {
-  width: calc(50% - 5px);
-  margin-right: 5px;
-  margin-left: 5px;
+  width: calc(50% - var(--spacing) / 2);
+  margin-right: calc(var(--spacing) / 2);
+  margin-left: calc(var(--spacing) / 2);
   display: inline-block;
   vertical-align: top;
 }
@@ -2305,7 +2306,7 @@ div.event-editor div.view input[type=button].add-update, div.event-editor div.vi
   width: 100%;
   max-width: 110px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 div.event-editor div.view input[type=button].remove {
   margin-left: 0;
@@ -2327,7 +2328,7 @@ div.event-editor div.view input[type=button].repeat-options {
     -------------------------------------------------------------------------
 */
 div.event-editor-colors {
-  width: calc(100% - 20px);
+  width: calc(100% - var(--spacing) * 2);
   max-width: 300px;
   border-radius: var(--border-radius);
   background-color: var(--light-color);
@@ -2352,12 +2353,12 @@ div.event-editor-colors div.title-bar {
   cursor: default;
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
-  padding: 10px;
+  padding: var(--spacing);
   text-align: center;
   font-weight: 900;
 }
 div.event-editor-colors div.contents {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.event-editor-colors div.contents div.section {
   animation: fade-in-effect ease 0.5s;
@@ -2366,13 +2367,13 @@ div.event-editor-colors div.contents div.section {
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: var(--day-names-color);
-  padding: 10px;
+  padding: var(--spacing);
   margin-top: 0 !important;
   margin-left: 25px;
   border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
   margin-left: 0;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
 }
 div.event-editor-colors div.contents div.section p {
   -moz-user-select: none;
@@ -2393,7 +2394,7 @@ div.event-editor-colors input[type=text] {
   padding: 0.375rem 0.75rem;
   line-height: 21px;
   color: var(--dark-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   background-color: var(--input-background-color);
   transition: var(--transition);
   box-sizing: border-box;
@@ -2414,7 +2415,7 @@ div.event-editor-colors input[type=text]:not(:disabled):hover {
   border: 1px solid var(--input-hover-color);
 }
 div.event-editor-colors div.buttons-container {
-  margin-top: 20px;
+  margin-top: calc(var(--spacing) * 2);
   text-align: right;
 }
 div.event-editor-colors input[type=button] {
@@ -2476,7 +2477,7 @@ div.event-editor-colors input[type=button].update, div.event-editor-colors input
   width: 100%;
   max-width: 110px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 
 /*
@@ -2485,7 +2486,7 @@ div.event-editor-colors input[type=button].update, div.event-editor-colors input
     -------------------------------------------------------------------------
 */
 div.event-editor-repeat-options {
-  width: calc(100% - 20px);
+  width: calc(100% - var(--spacing) * 2);
   max-width: 300px;
   border-radius: var(--border-radius);
   background-color: var(--light-color);
@@ -2510,12 +2511,12 @@ div.event-editor-repeat-options div.title-bar {
   cursor: default;
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
-  padding: 10px;
+  padding: var(--spacing);
   text-align: center;
   font-weight: 900;
 }
 div.event-editor-repeat-options div.contents {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.event-editor-repeat-options div.contents div.section {
   animation: fade-in-effect ease 0.5s;
@@ -2524,13 +2525,13 @@ div.event-editor-repeat-options div.contents div.section {
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: var(--day-names-color);
-  padding: 10px;
+  padding: var(--spacing);
   margin-top: 0 !important;
   margin-left: 25px;
   border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
   margin-left: 0;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
 }
 div.event-editor-repeat-options div.contents div.section p {
   -moz-user-select: none;
@@ -2555,7 +2556,7 @@ div.event-editor-repeat-options textarea {
   padding: 0.375rem 0.75rem;
   line-height: 21px;
   color: var(--dark-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   background-color: var(--input-background-color);
   transition: var(--transition);
   box-sizing: border-box;
@@ -2578,11 +2579,11 @@ div.event-editor-repeat-options input[type=date] {
   margin-bottom: 0 !important;
 }
 div.event-editor-repeat-options label.checkbox {
-  margin-bottom: 5px !important;
+  margin-bottom: calc(var(--spacing) / 2) !important;
 }
 div.event-editor-repeat-options div.buttons-container {
   text-align: right;
-  margin-top: 20px;
+  margin-top: calc(var(--spacing) * 2);
 }
 div.event-editor-repeat-options input[type=button] {
   -moz-user-select: none;
@@ -2643,7 +2644,7 @@ div.event-editor-repeat-options input[type=button].update, div.event-editor-repe
   width: 100%;
   max-width: 110px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 
 /*
@@ -2652,7 +2653,7 @@ div.event-editor-repeat-options input[type=button].update, div.event-editor-repe
     -------------------------------------------------------------------------
 */
 div.message {
-  width: calc(100% - 20px);
+  width: calc(100% - var(--spacing) * 2);
   max-width: 330px;
   border-radius: var(--border-radius);
   background-color: var(--light-color);
@@ -2677,12 +2678,12 @@ div.message div.title-bar {
   cursor: default;
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
-  padding: 10px;
+  padding: var(--spacing);
   text-align: center;
   font-weight: 900;
 }
 div.message div.contents {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.message div.contents div.text {
   -moz-user-select: none;
@@ -2691,14 +2692,14 @@ div.message div.contents div.text {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
 }
 div.message label.checkbox {
   margin-bottom: 0 !important;
 }
 div.message div.buttons-container {
   text-align: right;
-  margin-top: 20px;
+  margin-top: calc(var(--spacing) * 2);
 }
 div.message input[type=button] {
   -moz-user-select: none;
@@ -2759,7 +2760,7 @@ div.message input[type=button].yes-ok, div.message input[type=button].no {
   width: 100%;
   max-width: 110px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 
 /*
@@ -2768,7 +2769,7 @@ div.message input[type=button].yes-ok, div.message input[type=button].no {
     -------------------------------------------------------------------------
 */
 div.export-events {
-  width: calc(100% - 20px);
+  width: calc(100% - var(--spacing) * 2);
   max-width: 300px;
   border-radius: var(--border-radius);
   background-color: var(--light-color);
@@ -2793,12 +2794,12 @@ div.export-events div.title-bar {
   cursor: default;
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
-  padding: 10px;
+  padding: var(--spacing);
   text-align: center;
   font-weight: 900;
 }
 div.export-events div.contents {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.export-events div.contents input[type=text] {
   border: 1px solid var(--input-border-color);
@@ -2808,7 +2809,7 @@ div.export-events div.contents input[type=text] {
   padding: 0.375rem 0.75rem;
   line-height: 21px;
   color: var(--dark-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   background-color: var(--input-background-color);
   transition: var(--transition);
   box-sizing: border-box;
@@ -2842,7 +2843,7 @@ div.export-events div.contents div.options {
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: var(--day-names-color);
-  padding: 10px;
+  padding: var(--spacing);
   margin-top: 0 !important;
   margin-left: 25px;
   border-radius: var(--border-radius);
@@ -2855,9 +2856,9 @@ div.export-events div.split input,
 div.export-events div.split select,
 div.export-events div.split div.split-contents,
 div.export-events div.split p {
-  width: calc(50% - 5px);
-  margin-right: 5px;
-  margin-left: 5px;
+  width: calc(50% - var(--spacing) / 2);
+  margin-right: calc(var(--spacing) / 2);
+  margin-left: calc(var(--spacing) / 2);
   display: inline-block;
   vertical-align: top;
 }
@@ -2878,7 +2879,7 @@ div.export-events div.split-margin {
 }
 div.export-events div.buttons-container {
   text-align: right;
-  margin-top: 20px;
+  margin-top: calc(var(--spacing) * 2);
 }
 div.export-events input[type=button] {
   -moz-user-select: none;
@@ -2939,7 +2940,7 @@ div.export-events input[type=button].export, div.export-events input[type=button
   width: 100%;
   max-width: 110px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 
 /*
@@ -2948,7 +2949,7 @@ div.export-events input[type=button].export, div.export-events input[type=button
     -------------------------------------------------------------------------
 */
 div.search {
-  width: calc(100% - 20px);
+  width: calc(100% - var(--spacing) * 2);
   max-width: 310px;
   border-radius: var(--border-radius);
   background-color: var(--light-color);
@@ -2970,27 +2971,27 @@ div.search div.title-bar {
   cursor: default;
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
-  padding: 10px;
+  padding: var(--spacing);
   text-align: center;
   font-weight: 900;
 }
 div.search div.contents {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.search div.contents div.history-container {
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   overflow-y: visible;
 }
 div.search div.contents div.history-container div.ib-arrow-down-full,
 div.search div.contents div.history-container div.ib-arrow-up-full {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: var(--spacing);
+  top: var(--spacing);
 }
 div.search div.contents div.history-container input {
   margin-bottom: 0 !important;
-  padding-right: 36px;
+  padding-right: calc(16px + var(--spacing) * 2);
 }
 div.search div.contents div.history-container div.history-dropdown {
   border: 1px solid var(--input-border-color);
@@ -3009,7 +3010,7 @@ div.search div.contents div.history-container div.history-dropdown {
   margin-top: 4px;
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item {
-  padding: 10px;
+  padding: var(--spacing);
   border-bottom: 1px dotted var(--input-border-color);
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item span.search-search {
@@ -3045,7 +3046,7 @@ div.search div.contents div.advanced {
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: var(--day-names-color);
-  padding: 10px;
+  padding: var(--spacing);
   margin-top: 10px !important;
   margin-left: 25px;
   border-radius: var(--border-radius);
@@ -3055,10 +3056,10 @@ div.search div.contents div.advanced div.split {
   margin-top: 0 !important;
 }
 div.search div.contents div.advanced div.split div.checkbox-container label.checkbox {
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 div.search div.contents div.advanced div.split div.radio-buttons-container label.radio-button {
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 div.search input[type=text] {
   border: 1px solid var(--input-border-color);
@@ -3068,7 +3069,7 @@ div.search input[type=text] {
   padding: 0.375rem 0.75rem;
   line-height: 21px;
   color: var(--dark-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   background-color: var(--input-background-color);
   transition: var(--transition);
   box-sizing: border-box;
@@ -3088,9 +3089,9 @@ div.search div.split input,
 div.search div.split select,
 div.search div.split div.split-contents,
 div.search div.split p {
-  width: calc(50% - 5px);
-  margin-right: 5px;
-  margin-left: 5px;
+  width: calc(50% - var(--spacing) / 2);
+  margin-right: calc(var(--spacing) / 2);
+  margin-left: calc(var(--spacing) / 2);
   display: inline-block;
   vertical-align: top;
 }
@@ -3111,7 +3112,7 @@ div.search div.split-margin {
 }
 div.search div.buttons-container {
   text-align: right;
-  margin-top: 20px;
+  margin-top: calc(var(--spacing) * 2);
 }
 div.search input[type=button] {
   -moz-user-select: none;
@@ -3172,7 +3173,7 @@ div.search input[type=button].next, div.search input[type=button].previous {
   width: 100%;
   max-width: 110px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 div.search div.ib-minus,
 div.search div.ib-square-hollow {
@@ -3180,7 +3181,7 @@ div.search div.ib-square-hollow {
 }
 div.search div.ib-minus,
 div.search div.ib-square-hollow {
-  margin-right: 10px;
+  margin-right: var(--spacing);
 }
 
 /*
@@ -3189,7 +3190,7 @@ div.search div.ib-square-hollow {
     -------------------------------------------------------------------------
 */
 div.configuration {
-  width: calc(100% - 20px);
+  width: calc(100% - var(--spacing) * 2);
   max-width: 400px;
   border-radius: var(--border-radius);
   background-color: var(--light-color);
@@ -3214,12 +3215,12 @@ div.configuration div.title-bar {
   cursor: default;
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
-  padding: 10px;
+  padding: var(--spacing);
   text-align: center;
   font-weight: 900;
 }
 div.configuration div.contents {
-  padding: 10px;
+  padding: var(--spacing);
 }
 div.configuration div.contents p {
   -moz-user-select: none;
@@ -3240,7 +3241,7 @@ div.configuration div.contents input[type=email] {
   padding: 0.375rem 0.75rem;
   line-height: 21px;
   color: var(--dark-color);
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   background-color: var(--input-background-color);
   transition: var(--transition);
   box-sizing: border-box;
@@ -3264,7 +3265,7 @@ div.configuration div.contents div.tab-content {
 }
 div.configuration div.buttons-container {
   text-align: right;
-  margin-top: 20px;
+  margin-top: calc(var(--spacing) * 2);
 }
 div.configuration input[type=button] {
   -moz-user-select: none;
@@ -3325,7 +3326,7 @@ div.configuration input[type=button].update, div.configuration input[type=button
   width: 100%;
   max-width: 110px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: var(--spacing);
 }
 
 /*
@@ -3340,20 +3341,20 @@ div.calendar-dialog div.tab {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  padding: 10px;
+  padding: var(--spacing);
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
   border-bottom: none !important;
   text-align: center;
   display: inline-block;
-  margin-left: 5px;
+  margin-left: calc(var(--spacing) / 2);
   vertical-align: bottom;
 }
 div.calendar-dialog div.tab-control-selected {
   border: 1px solid var(--dark-color);
   background-color: var(--dark-color);
   color: var(--light-color);
-  padding: 12.5px;
+  padding: var(--spacing)calc(var(--spacing) / 4);
 }
 div.calendar-dialog div.tab-control {
   border: 1px solid var(--input-border-color);
@@ -3383,7 +3384,7 @@ div.calendar-dialog div.tab-content {
   -ms-animation: fade-in-effect ease 0.5s;
   border: 1px solid var(--input-border-color);
   border-radius: var(--border-radius);
-  padding: 10px;
+  padding: var(--spacing);
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -3396,7 +3397,7 @@ div.calendar-dialog div.tab-content {
 div.calendar div.checkbox-container label.checkbox,
 div.calendar-dialog div.checkbox-container label.checkbox,
 div.calendar div.side-menu div.checkbox-container label.checkbox {
-  margin-bottom: 5px !important;
+  margin-bottom: calc(var(--spacing) / 2) !important;
 }
 div.calendar div.checkbox-container div:last-child label.checkbox,
 div.calendar-dialog div.checkbox-container div:last-child label.checkbox,
@@ -3426,7 +3427,7 @@ div.calendar div.side-menu label.checkbox {
   position: relative;
   padding-left: 25px;
   padding-top: 1px;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing);
   color: var(--dark-color);
 }
 div.calendar label.checkbox input,
@@ -3507,7 +3508,7 @@ div.calendar-dialog div.radio-buttons-container {
 }
 div.calendar div.radio-button-container,
 div.calendar-dialog div.radio-button-container {
-  margin-bottom: 5px;
+  margin-bottom: calc(var(--spacing) / 2);
 }
 div.calendar div.radio-button-container label.radio-button,
 div.calendar-dialog div.radio-button-container label.radio-button {
@@ -3604,7 +3605,7 @@ div.calendar-tooltip-event {
   border-radius: var(--border-radius);
   background-color: rgb(240, 237, 199);
   color: var(--dark-color);
-  padding: 10px;
+  padding: var(--spacing);
   display: none;
   z-index: 2000;
 }
@@ -3620,14 +3621,14 @@ div.calendar-tooltip-event {
   max-width: 300px;
 }
 div.calendar-tooltip-event div {
-  margin-bottom: 5px;
+  margin-bottom: calc(var(--spacing) / 2);
 }
 div.calendar-tooltip-event div:last-child {
   margin-bottom: 0;
 }
 div.calendar-tooltip-event div.title {
   font-weight: 900;
-  width: calc(100% - 24px - 10px);
+  width: calc(100% - 24px - var(--spacing));
 }
 div.calendar-tooltip-event div.date,
 div.calendar-tooltip-event div.duration,
@@ -3646,16 +3647,16 @@ div.calendar-tooltip-event div.url:hover {
   text-decoration: underline;
 }
 div.calendar-tooltip-event div.ib-refresh-medium {
-  margin-right: 5px;
+  margin-right: calc(var(--spacing) / 2);
 }
 div.calendar-tooltip-event div.title-buttons {
   position: absolute !important;
-  right: 10px;
-  top: 10px;
+  right: var(--spacing);
+  top: var(--spacing);
 }
 div.calendar-tooltip-event div.title-buttons div.ib-close,
 div.calendar-tooltip-event div.title-buttons div.ib-plus {
-  margin-left: 5px;
+  margin-left: calc(var(--spacing) / 2);
   float: right;
 }
 div.calendar-tooltip-event div.title-buttons div.ib-close::before, div.calendar-tooltip-event div.title-buttons div.ib-close::after,
@@ -3713,11 +3714,11 @@ div.calendar-context-menu div.ib-pipe-icon,
 div.calendar-context-menu div.ib-equals-icon,
 div.calendar-context-menu div.ib-rhombus-hollow-icon,
 div.calendar-context-menu div.ib-arrow-down-full-line-icon {
-  margin-right: 10px;
+  margin-right: var(--spacing);
 }
 div.calendar-context-menu div.item {
-  padding: 8px;
-  padding-right: 30px;
+  padding: calc(var(--spacing) - var(--spacing) / 5);
+  padding-right: calc(var(--spacing) * 3);
 }
 div.calendar-context-menu div.item:hover {
   background-color: var(--dark-color);

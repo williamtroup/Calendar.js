@@ -2,8 +2,9 @@
 
 ## Version 2.7.1:
 - Fixed a SCSS issue with "repeating-linear-gradient" not using calc() for sizing.
-- The border radius used for everything is now a CSS variable.
-- The transition effects and lengths are now CSS variables.
+- The border radius SCSS variable used for everything is now a CSS variable.
+- The transition effect and length variables are now CSS variables.
+- The spacing SCSS variable is now a CSS variable (calc() improvements have been included to make size changes easier).
 - 
 
 <br>

@@ -40,6 +40,9 @@
 
     // Radius
     --border-radius: 0.25rem;
+
+    // Spacing
+    --spacing: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -101,15 +104,15 @@ div.calendar-notification {
     @include fade-in-effect-animation( 0.5s );
     @include no-selection-allowed;
     position: fixed;
-    bottom: $spacing;
-    right: $spacing;
+    bottom: var(--spacing);
+    right: var(--spacing);
     width: auto;
     height: auto;
     display: none;
     z-index: 2500;
 
     div.ib-close-icon {
-        margin-left: calc( $spacing * 2 );
+        margin-left: calc( var(--spacing) * 2 );
 
         &::before,
         &::after {
@@ -119,11 +122,11 @@ div.calendar-notification {
 
     div.success,
     div.error {
-        padding: $spacing;
+        padding: var(--spacing);
         border-radius: var(--border-radius);
 
         div.ib-close-icon {
-            margin-left: calc( $spacing * 2 );
+            margin-left: calc( var(--spacing) * 2 );
         }
     }
 
@@ -179,11 +182,11 @@ div.full-screen-view {
 
     div.row-cells {
         @media screen and ( min-width: $minimum-width ) {
-            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( $spacing * 4 ) + ( $large-font-size * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 4 ) + ( $large-font-size * 2 ) ) ) ) / 6 );
         }
         
         @media screen and ( max-width: $maximum-width ) {
-            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( $spacing * 3 ) + ( $small-font-size * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 3 ) + ( $small-font-size * 2 ) ) ) ) / 6 );
         }
     }
 
@@ -229,7 +232,7 @@ div.calendar-date-picker {
         margin-left: -$standard-border-size;
 
         div.cell {
-            padding: calc( $spacing / 2 ) !important;
+            padding: calc( var(--spacing) / 2 ) !important;
         }
 
         div.days {
@@ -323,9 +326,9 @@ div.calendar {
         background: repeating-linear-gradient( 
             135deg,
             var(--light-color),
-            var(--light-color) $spacing,
-            var(--area-disabled-stripped) $spacing,
-            var(--area-disabled-stripped) calc( $spacing * 2 )
+            var(--light-color) var(--spacing),
+            var(--area-disabled-stripped) var(--spacing),
+            var(--area-disabled-stripped) calc( var(--spacing) * 2 )
          );
 
         div.ib-arrow-expand-left-right-icon {
@@ -337,9 +340,9 @@ div.calendar {
         background: repeating-linear-gradient( 
             135deg,
             var(--day-names-color),
-            var(--day-names-color) $spacing,
-            var(--area-disabled-stripped-weekend-day) $spacing,
-            var(--area-disabled-stripped-weekend-day) calc( $spacing * 2 )
+            var(--day-names-color) var(--spacing),
+            var(--area-disabled-stripped-weekend-day) var(--spacing),
+            var(--area-disabled-stripped-weekend-day) calc( var(--spacing) * 2 )
          );
 
         div.ib-arrow-expand-left-right-icon {
@@ -358,7 +361,7 @@ div.calendar {
 
         p {
             margin-top: 0;
-            margin-bottom: $spacing;
+            margin-bottom: var(--spacing);
         }
     }
 
@@ -391,27 +394,27 @@ div.calendar {
         }
 
         div.cell-2 {
-            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 2 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 2 );
         }
 
         div.cell-3 {
-            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 3 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 3 );
         }
         
         div.cell-4 {
-            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 4 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 4 );
         }
 
         div.cell-5 {
-            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 5 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 5 );
         }
 
         div.cell-6 {
-            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 6 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 6 );
         }
 
         div.cell-7 {
-            width: calc( 100% - ( ( $spacing * 2 ) + $standard-border-size ) / 7 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 7 );
         }
 
         div.scrollY {
@@ -427,11 +430,11 @@ div.calendar {
             color: var(--dark-color);
 
             @media screen and ( min-width: $minimum-width ) {
-                padding: $spacing;
+                padding: var(--spacing);
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                padding: calc( $spacing / 2 );
+                padding: calc( var(--spacing) / 2 );
             }
 
             div.separator,
@@ -584,7 +587,7 @@ div.calendar {
             position: sticky;
             top: 0;
             background-color: var(--dark-color);
-            padding: $spacing;
+            padding: var(--spacing);
             z-index: 1;
             color: var(--title-bar-text-color);
             
@@ -609,12 +612,12 @@ div.calendar {
             div.right-divider-line {
                 margin-top: 3px;
                 float: right;
-                margin-left: $spacing;
+                margin-left: var(--spacing);
             }
         }
 
         div.content {
-            padding: $spacing;
+            padding: var(--spacing);
             padding-top: 0;
 
             div.content-section-opened {
@@ -622,7 +625,7 @@ div.calendar {
             }
 
             div.content-section {
-                margin-top: $spacing;
+                margin-top: var(--spacing);
                 border-radius: var(--border-radius);
                 background-color: #474545;
                 border: $standard-border-size solid #575555;
@@ -635,7 +638,7 @@ div.calendar {
                 div.text-header,
                 div.text-header-closed {
                     position: relative;
-                    padding: $spacing;
+                    padding: var(--spacing);
                     margin-top: 0 !important;
                     margin-bottom: 0;
                     cursor: pointer;
@@ -647,7 +650,7 @@ div.calendar {
                     div.ib-square-hollow {
                         float: right;
                         margin-top: 1px;
-                        margin-right: $spacing;
+                        margin-right: var(--spacing);
 
                         &:first-of-type {
                             margin-right: 0;
@@ -686,13 +689,13 @@ div.calendar {
 
                 div.checkbox-container {
                     @include fade-in-effect-animation( 0.5s );
-                    padding-left: $spacing;
-                    padding-right: $spacing;
-                    padding-bottom: $spacing;
+                    padding-left: var(--spacing);
+                    padding-right: var(--spacing);
+                    padding-bottom: var(--spacing);
 
                     label.checkbox {
-                        margin-bottom: calc( $spacing / 2 );
-                        margin-left: $spacing;
+                        margin-bottom: calc( var(--spacing) / 2 );
+                        margin-left: var(--spacing);
                         color: var(--light-color) !important;
         
                         span.check-mark {
@@ -728,17 +731,17 @@ div.calendar {
         background-color: var(--dark-color);
         color: var(--title-bar-text-color);
         text-align: center;
-        padding-top: $spacing;
-        padding-bottom: $spacing;
-        padding-left: calc( $spacing / 2 );
-        padding-right: calc( $spacing / 2 );
+        padding-top: var(--spacing);
+        padding-bottom: var(--spacing);
+        padding-left: calc( var(--spacing) / 2 );
+        padding-right: calc( var(--spacing) / 2 );
         position: relative;
 
         div[class^='ib-'],
         div.left-divider-line,
         div.right-divider-line {
-            margin-left: calc( $spacing / 2 );
-            margin-right: calc( $spacing / 2 );
+            margin-left: calc( var(--spacing) / 2 );
+            margin-right: calc( var(--spacing) / 2 );
         }
 
         div.left-divider-line,
@@ -764,7 +767,7 @@ div.calendar {
 
                 span.ib-arrow-down-full-medium,
                 span.ib-arrow-up-full-medium {
-                    margin-left: calc( $spacing / 2 );
+                    margin-left: calc( var(--spacing) / 2 );
                     pointer-events: none;
                 }
 
@@ -801,11 +804,11 @@ div.calendar {
                 font-weight: 500;
 
                 @media screen and ( min-width: $minimum-width ) {
-                    top: calc( $spacing + $large-font-size );
+                    top: calc( var(--spacing) + $large-font-size );
                 }
                 
                 @media screen and ( max-width: $maximum-width ) {
-                    top: calc( $spacing + $small-font-size );
+                    top: calc( var(--spacing) + $small-font-size );
                 }
 
                 div.months {
@@ -821,8 +824,8 @@ div.calendar {
                     div.month-name,
                     div.month-name-selected,
                     div.month-name-current-month {
-                        width: calc( 33.33% - ( ( $spacing ) + ( $button-spacing * 2 ) ) );
-                        padding: calc( $spacing / 2 );
+                        width: calc( 33.33% - ( ( var(--spacing) ) + ( $button-spacing * 2 ) ) );
+                        padding: calc( var(--spacing) / 2 );
                         margin: $button-spacing;
                         display: inline-block;
                         border-radius: var(--border-radius);
@@ -868,10 +871,10 @@ div.calendar {
                     width: 100%;
                     margin-left: 0 !important;
                     margin-right: 0 !important;
-                    margin-top: calc( $spacing / 3 );
+                    margin-top: calc( var(--spacing) / 3 );
                     padding: 0;
-                    padding-top: calc( $spacing / 2 );
-                    padding-bottom: calc( $spacing / 2 );
+                    padding-top: calc( var(--spacing) / 2 );
+                    padding-bottom: calc( var(--spacing) / 2 );
                     background-color: var(--light-color) !important;
     
                     div.year {
@@ -1009,7 +1012,7 @@ div.calendar {
                 }
 
                 div.ib-refresh-small {
-                    margin-right: calc( $spacing / 2 );
+                    margin-right: calc( var(--spacing) / 2 );
                 }
             }
 
@@ -1044,7 +1047,7 @@ div.calendar {
                 display: inline-block;
                 font-size: smaller;
                 text-align: center;
-                margin-top: calc( $spacing / 2 );
+                margin-top: calc( var(--spacing) / 2 );
                 margin-left: auto;
                 margin-right: auto;
 
@@ -1100,11 +1103,11 @@ div.calendar {
             }
         
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( $spacing * 2 ) + $large-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + $large-font-size ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( $spacing * 2 ) + $small-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + $small-font-size ) );
             }
 
             @import "foundation/view-event";
@@ -1113,16 +1116,16 @@ div.calendar {
                 position: absolute;
                 margin-left: 0;
                 margin-right: 0;
-                width: calc( 100% - $time-hours-width - ( $spacing * 6 ) - ( $spacing / 2 ) );
-                left: $time-hours-width + ( $spacing * 3 );
+                width: calc( 100% - $time-hours-width - ( var(--spacing) * 6 ) - ( var(--spacing) / 2 ) );
+                left: calc( $time-hours-width + ( var(--spacing) * 3 ) );
                 overflow: hidden;
                 z-index: 1;
             }
 
             div.working-hours {
                 position: absolute;
-                width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
-                left: $time-hours-width + ( $spacing * 2 );
+                width: calc( 100% - $time-hours-width - ( var(--spacing) * 2 ) );
+                left: calc( $time-hours-width + ( var(--spacing) * 2 ) );
                 background-color: rgba(  40, 40, 40, 0.4  );
                 display: none;
                 pointer-events: none;
@@ -1156,11 +1159,11 @@ div.calendar {
             @import "foundation/view-all-day-events";
 
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( $spacing * 2 ) + $large-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + $large-font-size ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( $spacing * 2 ) + $small-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + $small-font-size ) );
             }
 
             div.header-days-container {
@@ -1170,9 +1173,9 @@ div.calendar {
                 z-index: 100;
     
                 div.header-days {
-                    width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
+                    width: calc( 100% - $time-hours-width - ( var(--spacing) * 2 ) );
                     background-color: blue;
-                    margin-left: $time-hours-width + ( $spacing * 2 ) + $standard-border-size;
+                    margin-left: calc( $time-hours-width + ( var(--spacing) * 2 ) + $standard-border-size );
                     border-bottom: $standard-border-size solid var(--grid-border-color);
                 }
             }
@@ -1191,7 +1194,7 @@ div.calendar {
                         @import "foundation/view-event";
 
                         div.event {
-                            width: calc( 100% - ( ( $spacing * 2 ) + ( $standard-border-size * 5 ) ) ) !important;
+                            width: calc( 100% - ( ( var(--spacing) * 2 ) + ( $standard-border-size * 5 ) ) ) !important;
                             margin-left: 0 !important;
                         }
                     }
@@ -1200,10 +1203,10 @@ div.calendar {
 
             div.days {
                 position: absolute;
-                width: calc( 100% - $time-hours-width - ( $spacing * 2 ) );
-                height: calc( ( ( $time-hours-height * 48 ) + ( ( $spacing * 2 ) * 48 ) ) + ( $spacing * 2 ) + ( $standard-border-size * 2 ) );
+                width: calc( 100% - $time-hours-width - ( var(--spacing) * 2 ) );
+                height: calc( ( ( $time-hours-height * 48 ) + ( ( var(--spacing) * 2 ) * 48 ) ) + ( var(--spacing) * 2 ) + ( $standard-border-size * 2 ) );
                 top: 0;
-                left: ( $time-hours-width + ( $spacing * 2 ) ) + $standard-border-size;
+                left: calc( ( $time-hours-width + ( var(--spacing) * 2 ) ) + $standard-border-size );
                 background-color: transparent;
 
                 div.cell {
@@ -1220,8 +1223,8 @@ div.calendar {
                         margin: 0;
                         overflow: hidden;
                         z-index: 1;
-                        left: $spacing;
-                        width: calc( 100% - ( ( $spacing * 5 ) - ( $standard-border-size * 2 ) ) );
+                        left: var(--spacing);
+                        width: calc( 100% - ( ( var(--spacing) * 5 ) - ( $standard-border-size * 2 ) ) );
                         overflow: hidden;
                         text-overflow: ellipsis;
 
@@ -1279,19 +1282,19 @@ div.calendar {
                 border: $standard-border-size solid var(--dark-color);
                 background-color: var(--day-names-color);
                 display: inline-block;
-                margin: calc( $spacing / 2 );
+                margin: calc( var(--spacing) / 2 );
                 overflow: hidden;
 
                 @media screen and ( min-width: $minimum-width ) {
-                    width: calc( 50% - ( $spacing + ( $spacing / 4 ) ) );
+                    width: calc( 50% - ( var(--spacing) + ( var(--spacing) / 4 ) ) );
                 }
                 
                 @media screen and ( max-width: $maximum-width ) {
-                    width: calc( 100% - ( $spacing + ( $spacing / 4 ) ) );
+                    width: calc( 100% - ( var(--spacing) + ( var(--spacing) / 4 ) ) );
                 }
 
                 div.cell {
-                    padding: calc( $spacing / 2 ) !important;
+                    padding: calc( var(--spacing) / 2 ) !important;
                 }
 
                 div.days {
@@ -1325,7 +1328,7 @@ div.calendar {
                     color: var(--light-color);
                     font-weight: 900;
                     text-align: left;
-                    padding: $spacing;
+                    padding: var(--spacing);
 
                     div.right-divider-line {
                         @include title-bar-divider-line;
@@ -1335,7 +1338,7 @@ div.calendar {
                     div.ib-plus,
                     div.right-divider-line {
                         float: right;
-                        margin-right: $spacing !important;
+                        margin-right: var(--spacing) !important;
                         margin-left: 0 !important;
                     }
                 }
@@ -1361,7 +1364,7 @@ div.calendar {
             @include view-contents;
 
             div.year-header {
-                margin-top: calc( $spacing * 2 );
+                margin-top: calc( var(--spacing) * 2 );
 
                 span.header-text {
                     font-weight: 900;
@@ -1377,9 +1380,9 @@ div.calendar {
                 }
 
                 div.line {
-                    margin-top: calc( $spacing / 2 );
+                    margin-top: calc( var(--spacing) / 2 );
                     border-bottom: $standard-border-size solid var(--dark-color);
-                    margin-bottom: $spacing;
+                    margin-bottom: var(--spacing);
                 }
 
                 &:first-of-type {
@@ -1391,12 +1394,12 @@ div.calendar {
                 border-radius: var(--border-radius);
                 border: $standard-border-size solid var(--dark-color);
                 overflow: hidden;
-                margin-bottom: $spacing;
+                margin-bottom: var(--spacing);
 
                 div.header {
                     background-color: var(--dark-color) !important;
                     color: var(--light-color) !important;
-                    padding: $spacing;
+                    padding: var(--spacing);
                     font-weight: $title-bar-font-weight;
 
                     div.right-divider-line {
@@ -1410,12 +1413,12 @@ div.calendar {
                     div.ib-square-hollow,
                     div.right-divider-line {
                         float: right;
-                        margin-left: $spacing;
+                        margin-left: var(--spacing);
                     }
                 }
 
                 div.events {
-                    padding: $spacing;
+                    padding: var(--spacing);
 
                     @import "foundation/view-event";
                 }
@@ -1440,7 +1443,7 @@ div.event-editor {
 
     div.tab-content {
         height: 258px;
-        margin-bottom: $spacing * 2;
+        margin-bottom: calc( var(--spacing) * 2 );
 
         div.split:last-of-type input {
             margin-bottom: 0 !important;
@@ -1454,7 +1457,7 @@ div.event-editor {
 
         div.input-title-container {
             display: flex;
-            margin-bottom: $spacing;
+            margin-bottom: var(--spacing);
 
             input[type="text"] {
                 flex-grow: 1;
@@ -1463,13 +1466,13 @@ div.event-editor {
 
             input[type="button"] {
                 padding: .375rem .75rem;
-                margin-left: $spacing;
+                margin-left: var(--spacing);
                 line-height: 0;
             }
         }
         
         div.contents {
-            padding: $spacing;
+            padding: var(--spacing);
         }
         
         input:not( [type="button"] ),
@@ -1516,7 +1519,7 @@ div.event-editor {
                 width: 100%;
                 max-width: 110px;
                 display: inline-block;
-                margin-left: $spacing;
+                margin-left: var(--spacing);
             }
 
             &.remove {
@@ -1551,12 +1554,12 @@ div.event-editor-colors {
     @include dialog-title-bar;
     
     div.contents {
-        padding: $spacing;
+        padding: var(--spacing);
 
         div.section {
             @include advanced-options-container( 0 );
             margin-left: 0;
-            margin-bottom: $spacing;
+            margin-bottom: var(--spacing);
 
             p {
                 @include no-selection-allowed;
@@ -1572,7 +1575,7 @@ div.event-editor-colors {
     }
 
     div.buttons-container {
-        margin-top: calc( $spacing * 2 );
+        margin-top: calc( var(--spacing) * 2 );
         text-align: right;
     }
 
@@ -1586,7 +1589,7 @@ div.event-editor-colors {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: $spacing;
+            margin-left: var(--spacing);
         }
     }
 }
@@ -1603,12 +1606,12 @@ div.event-editor-repeat-options {
     @include dialog-title-bar;
     
     div.contents {
-        padding: $spacing;
+        padding: var(--spacing);
 
         div.section {
             @include advanced-options-container( 0 );
             margin-left: 0;
-            margin-bottom: $spacing;
+            margin-bottom: var(--spacing);
 
             p {
                 @include no-selection-allowed;
@@ -1633,12 +1636,12 @@ div.event-editor-repeat-options {
     }
 
     label.checkbox {
-        margin-bottom: calc( $spacing / 2 ) !important;
+        margin-bottom: calc( var(--spacing) / 2 ) !important;
     }
 
     div.buttons-container {
         text-align: right;
-        margin-top: $spacing * 2;
+        margin-top: calc( var(--spacing) * 2 );
     }
 
     input[type="button"] {
@@ -1651,7 +1654,7 @@ div.event-editor-repeat-options {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: $spacing;
+            margin-left: var(--spacing);
         }
     }
 }
@@ -1668,11 +1671,11 @@ div.message {
     @include dialog-title-bar;
 
     div.contents {
-        padding: $spacing;
+        padding: var(--spacing);
 
         div.text {
             @include no-selection-allowed;
-            margin-bottom: $spacing;
+            margin-bottom: var(--spacing);
         }
     }
 
@@ -1682,7 +1685,7 @@ div.message {
 
     div.buttons-container {
         text-align: right;
-        margin-top: $spacing * 2;
+        margin-top: calc( var(--spacing) * 2 );
     }
 
     input[type="button"] {
@@ -1695,7 +1698,7 @@ div.message {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: $spacing;
+            margin-left: var(--spacing);
         }
     }
 }
@@ -1712,7 +1715,7 @@ div.export-events {
     @include dialog-title-bar;
 
     div.contents {
-        padding: $spacing;
+        padding: var(--spacing);
 
         input[type="text"] {
             @include input-fields( 40px );
@@ -1737,7 +1740,7 @@ div.export-events {
 
     div.buttons-container {
         text-align: right;
-        margin-top: $spacing * 2;
+        margin-top: calc( var(--spacing) * 2 );
     }
 
     input[type="button"] {
@@ -1750,7 +1753,7 @@ div.export-events {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: $spacing;
+            margin-left: var(--spacing);
         }
     }
 }
@@ -1767,23 +1770,23 @@ div.search {
     @include dialog-title-bar;
 
     div.contents {
-        padding: $spacing;
+        padding: var(--spacing);
 
         div.history-container {
             position: relative;
-            margin-bottom: $spacing;
+            margin-bottom: var(--spacing);
             overflow-y: visible;
 
             div.ib-arrow-down-full,
             div.ib-arrow-up-full {
                 position: absolute;
-                right: $spacing;
-                top: $spacing;
+                right: var(--spacing);
+                top: var(--spacing);
             }
 
             input {
                 margin-bottom: 0 !important;
-                padding-right: 16px + ( $spacing * 2 );
+                padding-right: calc( 16px + ( var(--spacing) * 2 ) );
             }
 
             div.history-dropdown {
@@ -1801,7 +1804,7 @@ div.search {
                 margin-top: $input-box-shadow-size + 2px;
 
                 div.history-dropdown-item {
-                    padding: $spacing;
+                    padding: var(--spacing);
                     border-bottom: 1px dotted var(--input-border-color);
 
                     span.search-search {
@@ -1839,13 +1842,13 @@ div.search {
 
                 div.checkbox-container {
                     label.checkbox {
-                        margin-left: $spacing;
+                        margin-left: var(--spacing);
                     }
                 }
 
                 div.radio-buttons-container {
                     label.radio-button {
-                        margin-left: $spacing;
+                        margin-left: var(--spacing);
                     }
                 }
             }
@@ -1860,7 +1863,7 @@ div.search {
 
     div.buttons-container {
         text-align: right;
-        margin-top: $spacing * 2;
+        margin-top: calc( var(--spacing) * 2 );
     }
 
     input[type="button"] {
@@ -1873,7 +1876,7 @@ div.search {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: $spacing;
+            margin-left: var(--spacing);
         }
     }
 
@@ -1884,7 +1887,7 @@ div.search {
 
     div.ib-minus,
     div.ib-square-hollow {
-        margin-right: $spacing;
+        margin-right: var(--spacing);
     }
 }
 
@@ -1900,7 +1903,7 @@ div.configuration {
     @include dialog-title-bar;
 
     div.contents {
-        padding: $spacing;
+        padding: var(--spacing);
         
         p {
             @include no-selection-allowed;
@@ -1920,7 +1923,7 @@ div.configuration {
 
     div.buttons-container {
         text-align: right;
-        margin-top: $spacing * 2;
+        margin-top: calc( var(--spacing) * 2 );
     }
 
     input[type="button"] {
@@ -1933,7 +1936,7 @@ div.configuration {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: $spacing;
+            margin-left: var(--spacing);
         }
     }
 }
@@ -1948,13 +1951,13 @@ div.configuration {
 div.calendar-dialog {
     div.tab {
         @include no-selection-allowed;
-        padding: $spacing;
+        padding: var(--spacing);
         border-top-left-radius: var(--border-radius);
         border-top-right-radius: var(--border-radius);
         border-bottom: none !important;
         text-align: center;
         display: inline-block;
-        margin-left: calc( $spacing / 2 );
+        margin-left: calc( var(--spacing) / 2 );
         vertical-align: bottom;
     }
 
@@ -1962,7 +1965,7 @@ div.calendar-dialog {
         border: $standard-border-size solid var(--dark-color);
         background-color: var(--dark-color);
         color: var(--light-color);
-        padding: $spacing + calc( $spacing / 4 );
+        padding: var(--spacing) + calc( var(--spacing) / 4 );
     }
 
     div.tab-control {
@@ -1991,7 +1994,7 @@ div.calendar-dialog {
         @include fade-in-effect-animation( 0.5s );
         border: $standard-border-size solid var(--input-border-color);
         border-radius: var(--border-radius);
-        padding: $spacing;
+        padding: var(--spacing);
         overflow-x: hidden;
         overflow-y: auto;
     }
@@ -2009,7 +2012,7 @@ div.calendar-dialog,
 div.calendar div.side-menu {
     div.checkbox-container {
         label.checkbox {
-            margin-bottom: calc( $spacing / 2 ) !important;
+            margin-bottom: calc( var(--spacing) / 2 ) !important;
         }
 
         div:last-child label.checkbox {
@@ -2031,7 +2034,7 @@ div.calendar div.side-menu {
         position: relative;
         padding-left: $checkbox-size-with-spacing;
         padding-top: 1px;
-        margin-bottom: $spacing;
+        margin-bottom: var(--spacing);
         color: var(--dark-color);
 
         input {
@@ -2105,7 +2108,7 @@ div.calendar-dialog {
     }
 
     div.radio-button-container {
-        margin-bottom: calc( $spacing / 2 );
+        margin-bottom: calc( var(--spacing) / 2 );
 
         label.radio-button {
             @include no-selection-allowed;
@@ -2189,7 +2192,7 @@ div.calendar-tooltip-event {
     border-radius: var(--border-radius);
     background-color: rgb( 240, 237, 199 );
     color: var(--dark-color);
-    padding: $spacing;
+    padding: var(--spacing);
     display: none;
     z-index: 2000;
 }
@@ -2208,7 +2211,7 @@ div.calendar-tooltip-event {
 
     div.title {
         font-weight: 900;
-        width: calc( 100% - 24px - $spacing );
+        width: calc( 100% - 24px - var(--spacing) );
     }
 
     div.date,
@@ -2231,17 +2234,17 @@ div.calendar-tooltip-event {
     }
 
     div.ib-refresh-medium {
-        margin-right: calc( $spacing / 2 );
+        margin-right: calc( var(--spacing) / 2 );
     }
 
     div.title-buttons {
         position: absolute !important;
-        right: $spacing;
-        top: $spacing;
+        right: var(--spacing);
+        top: var(--spacing);
 
         div.ib-close,
         div.ib-plus {
-            margin-left: calc( $spacing / 2 );
+            margin-left: calc( var(--spacing) / 2 );
             float: right;
 
             &::before,
@@ -2296,12 +2299,12 @@ div.calendar-context-menu {
     div.ib-equals-icon,
     div.ib-rhombus-hollow-icon,
     div.ib-arrow-down-full-line-icon {
-        margin-right: $spacing;
+        margin-right: var(--spacing);
     }
 
     div.item {
-        padding: $spacing - calc( $spacing / 5 );
-        padding-right: $spacing * 3;
+        padding: calc( var(--spacing) - calc( var(--spacing) / 5 ) );
+        padding-right: calc( var(--spacing) * 3 );
 
         &:hover {
             background-color: var(--dark-color);
