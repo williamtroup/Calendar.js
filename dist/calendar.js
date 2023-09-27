@@ -2077,9 +2077,16 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullWeekViewTitleDate(from, to) {
     if (from.getFullYear() === to.getFullYear()) {
-      buildDateTimeDisplay(_element_View_FullWeek_TitleBar, from, false, false);
-      createSpanElement(_element_View_FullWeek_TitleBar, " - ");
-      buildDateTimeDisplay(_element_View_FullWeek_TitleBar, to, false, false);
+      if (from.getMonth() === to.getMonth()) {
+        buildDayDisplay(_element_View_FullWeek_TitleBar, from);
+        createSpanElement(_element_View_FullWeek_TitleBar, " - ");
+        buildDayDisplay(_element_View_FullWeek_TitleBar, to, null, _string.space);
+        createSpanElement(_element_View_FullWeek_TitleBar, _options.monthNames[from.getMonth()]);
+      } else {
+        buildDateTimeDisplay(_element_View_FullWeek_TitleBar, from, false, false);
+        createSpanElement(_element_View_FullWeek_TitleBar, " - ");
+        buildDateTimeDisplay(_element_View_FullWeek_TitleBar, to, false, false);
+      }
       createSpanElement(_element_View_FullWeek_TitleBar, ", " + from.getFullYear());
     } else {
       buildDateTimeDisplay(_element_View_FullWeek_TitleBar, from, false, true);
