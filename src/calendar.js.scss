@@ -291,7 +291,7 @@ div.calendar {
     }
 
     div.selected-event {
-        box-shadow: 0 0 $selected-event-shadow-size $selected-event-shadow-size var(--alert-color);
+        box-shadow: 0 0 1.5px 1.5px var(--alert-color);
     }
 
     div.cut-event {
