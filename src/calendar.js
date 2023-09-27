@@ -533,7 +533,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         // Variables: Events
         _events = {},
-        _events_DatesAvailable = [],
+        _events_DatesAvailable = {},
         _events_Selected = [],
         _events_Copied = [],
         _events_Copied_Cut = false,
@@ -2606,7 +2606,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _isCalendarBusy = false;
         _element_Calendar_AllVisibleEvents = [];
-        _events_DatesAvailable = [];
+        _events_DatesAvailable = {};
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
             orderedEventsLength = orderedEvents.length;
@@ -2668,11 +2668,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
 
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
-                var formattedNewFromDate = toStorageFormattedDate( newFromDate );
-
-                if ( _events_DatesAvailable.indexOf( formattedNewFromDate ) === -1 ) {
-                    _events_DatesAvailable.push( formattedNewFromDate );
-                }
+                updateDateTotalEventsTracked( toStorageFormattedDate( newFromDate ) );
 
                 if ( newFromDate < _element_Calendar_LargestDateAvailable ) {
                     var repeatDayElement = getDayElement( newFromDate );
@@ -2695,14 +2691,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var nextDayDate = new Date( orderedEvent.from );
                 for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                     moveDateForwardDay( nextDayDate );
+                    updateDateTotalEventsTracked( toStorageFormattedDate( nextDayDate ) );
     
-                    var elementNextDay = getDayElement( nextDayDate ),
-                        formattedNextDayDate = toStorageFormattedDate( nextDayDate );
-
-                    if ( _events_DatesAvailable.indexOf( formattedNextDayDate ) === -1 ) {
-                        _events_DatesAvailable.push( formattedNextDayDate );
-                    }
-
+                    var elementNextDay = getDayElement( nextDayDate );
                     if ( elementNextDay !== null ) {
                         buildDayEvent( nextDayDate, orderedEvent );
                     }
@@ -2717,9 +2708,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             formattedDayDate = toStorageFormattedDate( dayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
-            if ( _events_DatesAvailable.indexOf( formattedDayDate ) === -1 ) {
-                _events_DatesAvailable.push( formattedDayDate );
-            }
+            updateDateTotalEventsTracked( formattedDayDate );
 
             if ( elementDay !== null ) {
                 checkEventForBrowserNotifications( dayDate, eventDetails );
@@ -2927,6 +2916,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             triggerOptionsEventWithData( "onBusyStateChange", _isCalendarBusy );
         }
+    }
+
+    function updateDateTotalEventsTracked( formattedNewFromDate ) {
+        if ( !_events_DatesAvailable.hasOwnProperty( formattedNewFromDate ) ) {
+            _events_DatesAvailable[ formattedNewFromDate ] = 0;
+        }
+
+        _events_DatesAvailable[ formattedNewFromDate ]++;
     }
 
 
@@ -4102,9 +4099,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var yearMonth = createElement( "div", "year-month" );
         _element_View_FullYear_Contents.appendChild( yearMonth );
 
+        var titleBarContainer = createElement( "div", "title-bar-container" );
+        yearMonth.appendChild( titleBarContainer );
+
         var titleBar = createElement( "div", "title-bar" );
         setNodeText( titleBar, _options.monthNames[ monthIndex ] );
-        yearMonth.appendChild( titleBar );
+        titleBarContainer.appendChild( titleBar );
 
         titleBar.ondblclick = function() {
             hideView( _element_View_FullYear );
@@ -4254,8 +4254,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             element.className += " working-day";
         }
 
-        if ( _events_DatesAvailable.indexOf( formattedDate ) > -1 ) {
+        if ( _events_DatesAvailable.hasOwnProperty( formattedDate ) ) {
             element.className += " has-events";
+
+            var eventsCount = _events_DatesAvailable[ formattedDate ],
+                eventsCountElement = createElement( "div", "events-count" );
+
+            eventsCountElement.innerText = eventsCount.toString();
+            element.appendChild( eventsCountElement );
         }
 
         if ( isDateToday( date ) ) {

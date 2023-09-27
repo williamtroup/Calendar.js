@@ -1302,7 +1302,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     clearAutoRefreshTimer();
     _isCalendarBusy = false;
     _element_Calendar_AllVisibleEvents = [];
-    _events_DatesAvailable = [];
+    _events_DatesAvailable = {};
     var orderedEvents = getOrderedEvents(getAllEvents());
     var orderedEventsLength = orderedEvents.length;
     var orderedEventIndex = 0;
@@ -1353,10 +1353,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       dateFunc(newFromDate, dateFuncForwardValue);
       var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
       if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
-        var formattedNewFromDate = toStorageFormattedDate(newFromDate);
-        if (_events_DatesAvailable.indexOf(formattedNewFromDate) === -1) {
-          _events_DatesAvailable.push(formattedNewFromDate);
-        }
+        updateDateTotalEventsTracked(toStorageFormattedDate(newFromDate));
         if (newFromDate < _element_Calendar_LargestDateAvailable) {
           var repeatDayElement = getDayElement(newFromDate);
           if (repeatDayElement !== null) {
@@ -1375,11 +1372,8 @@ function calendarJs(elementOrId, options, searchOptions) {
         var dayIndex = 0;
         for (; dayIndex < totalDays; dayIndex++) {
           moveDateForwardDay(nextDayDate);
+          updateDateTotalEventsTracked(toStorageFormattedDate(nextDayDate));
           var elementNextDay = getDayElement(nextDayDate);
-          var formattedNextDayDate = toStorageFormattedDate(nextDayDate);
-          if (_events_DatesAvailable.indexOf(formattedNextDayDate) === -1) {
-            _events_DatesAvailable.push(formattedNextDayDate);
-          }
           if (elementNextDay !== null) {
             buildDayEvent(nextDayDate, orderedEvent);
           }
@@ -1392,9 +1386,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates);
     var formattedDayDate = toStorageFormattedDate(dayDate);
     if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDayDate) === -1) {
-      if (_events_DatesAvailable.indexOf(formattedDayDate) === -1) {
-        _events_DatesAvailable.push(formattedDayDate);
-      }
+      updateDateTotalEventsTracked(formattedDayDate);
       if (elementDay !== null) {
         checkEventForBrowserNotifications(dayDate, eventDetails);
         if (!_datePickerModeEnabled) {
@@ -1557,6 +1549,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       _isCalendarBusy_LastState = _isCalendarBusy;
       triggerOptionsEventWithData("onBusyStateChange", _isCalendarBusy);
     }
+  }
+  function updateDateTotalEventsTracked(formattedNewFromDate) {
+    if (!_events_DatesAvailable.hasOwnProperty(formattedNewFromDate)) {
+      _events_DatesAvailable[formattedNewFromDate] = 0;
+    }
+    _events_DatesAvailable[formattedNewFromDate]++;
   }
   function buildFullDayView() {
     if (!_datePickerModeEnabled) {
@@ -2446,9 +2444,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     var expandMonthDate = new Date(_element_View_FullYear_CurrentYear, monthIndex, 1);
     var yearMonth = createElement("div", "year-month");
     _element_View_FullYear_Contents.appendChild(yearMonth);
+    var titleBarContainer = createElement("div", "title-bar-container");
+    yearMonth.appendChild(titleBarContainer);
     var titleBar = createElement("div", "title-bar");
     setNodeText(titleBar, _options.monthNames[monthIndex]);
-    yearMonth.appendChild(titleBar);
+    titleBarContainer.appendChild(titleBar);
     titleBar.ondblclick = function() {
       hideView(_element_View_FullYear);
       build(expandMonthDate);
@@ -2562,8 +2562,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isWorkingDay(date)) {
       element.className += " working-day";
     }
-    if (_events_DatesAvailable.indexOf(formattedDate) > -1) {
+    if (_events_DatesAvailable.hasOwnProperty(formattedDate)) {
       element.className += " has-events";
+      var eventsCount = _events_DatesAvailable[formattedDate];
+      var eventsCountElement = createElement("div", "events-count");
+      eventsCountElement.innerText = eventsCount.toString();
+      element.appendChild(eventsCountElement);
     }
     if (isDateToday(date)) {
       element.className += " cell-today";
@@ -7769,7 +7773,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _initializedFirstTime = false;
   var _initializedDocumentEvents = false;
   var _events = {};
-  var _events_DatesAvailable = [];
+  var _events_DatesAvailable = {};
   var _events_Selected = [];
   var _events_Copied = [];
   var _events_Copied_Cut = false;
