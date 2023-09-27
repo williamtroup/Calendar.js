@@ -5,7 +5,7 @@
 - The border radius SCSS variable used for everything is now a CSS variable.
 - The transition effect and length variables are now CSS variables.
 - The spacing SCSS variable is now a CSS variable (calc() improvements have been included to make size changes easier).
-- 
+- The font based SCSS variables are now CSS variables.
 
 <br>
 

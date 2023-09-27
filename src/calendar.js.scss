@@ -43,6 +43,11 @@
 
     // Spacing
     --spacing: 10px;
+
+    // Fonts
+    --title-bar-font-weight: 900;
+    --large-font-size: 0.9rem;
+    --small-font-size: 0.7rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -72,11 +77,11 @@ div.calendar-dialog textarea {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and ( min-width: $minimum-width ) {
-        font-size: $large-font-size;
+        font-size: var(--large-font-size);
     }
     
     @media screen and ( max-width: $maximum-width ) {
-        font-size: $small-font-size;
+        font-size: var(--small-font-size);
     }
 
     div.view-shown {
@@ -182,11 +187,11 @@ div.full-screen-view {
 
     div.row-cells {
         @media screen and ( min-width: $minimum-width ) {
-            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 4 ) + ( $large-font-size * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 4 ) + ( var(--large-font-size) * 2 ) ) ) ) / 6 );
         }
         
         @media screen and ( max-width: $maximum-width ) {
-            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 3 ) + ( $small-font-size * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 3 ) + ( var(--small-font-size) * 2 ) ) ) ) / 6 );
         }
     }
 
@@ -217,12 +222,12 @@ div.calendar-date-picker {
 
     div.header-date {
         div.title-container {
-            font-size: $large-font-size !important;
+            font-size: var(--large-font-size) !important;
         }
     }
 
     div.calendar {
-        font-size: $small-font-size !important;
+        font-size: var(--small-font-size) !important;
         position: absolute;
         width: 100%;
         max-width: 330px;
@@ -727,7 +732,7 @@ div.calendar {
 
 div.calendar {  
     div.header-date {
-        font-weight: $title-bar-font-weight;
+        font-weight: var(--title-bar-font-weight);
         background-color: var(--dark-color);
         color: var(--title-bar-text-color);
         text-align: center;
@@ -752,7 +757,7 @@ div.calendar {
         div.title-container {
             display: inline-block;
             position: relative;
-            font-size: $large-font-size !important;
+            font-size: var(--large-font-size) !important;
 
             span.year-dropdown-button {
                 white-space: nowrap;
@@ -804,11 +809,11 @@ div.calendar {
                 font-weight: 500;
 
                 @media screen and ( min-width: $minimum-width ) {
-                    top: calc( var(--spacing) + $large-font-size );
+                    top: calc( var(--spacing) + var(--large-font-size) );
                 }
                 
                 @media screen and ( max-width: $maximum-width ) {
-                    top: calc( var(--spacing) + $small-font-size );
+                    top: calc( var(--spacing) + var(--small-font-size) );
                 }
 
                 div.months {
@@ -1103,11 +1108,11 @@ div.calendar {
             }
         
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + $large-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + $small-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
             }
 
             @import "foundation/view-event";
@@ -1159,11 +1164,11 @@ div.calendar {
             @import "foundation/view-all-day-events";
 
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + $large-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + $small-font-size ) );
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
             }
 
             div.header-days-container {
@@ -1233,11 +1238,11 @@ div.calendar {
                         }
 
                         @media screen and ( min-width: $minimum-width ) {
-                            font-size: $large-font-size !important;
+                            font-size: var(--large-font-size) !important;
                         }
                         
                         @media screen and ( max-width: $maximum-width ) {
-                            font-size: $small-font-size !important;
+                            font-size: var(--small-font-size) !important;
                         }
                     }
                     
@@ -1400,7 +1405,7 @@ div.calendar {
                     background-color: var(--dark-color) !important;
                     color: var(--light-color) !important;
                     padding: var(--spacing);
-                    font-weight: $title-bar-font-weight;
+                    font-weight: var(--title-bar-font-weight);
 
                     div.right-divider-line {
                         @include title-bar-divider-line;

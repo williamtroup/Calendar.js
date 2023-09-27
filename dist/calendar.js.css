@@ -32,6 +32,9 @@
   --transition-faster: all .2s;
   --border-radius: 0.25rem;
   --spacing: 10px;
+  --title-bar-font-weight: 900;
+  --large-font-size: 0.9rem;
+  --small-font-size: 0.7rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -65,7 +68,7 @@ div.calendar-dialog textarea {
   div.calendar-dialog,
   div.calendar-dialog input,
   div.calendar-dialog textarea {
-    font-size: 0.9rem;
+    font-size: var(--large-font-size);
   }
 }
 @media screen and (max-width: 450px) {
@@ -76,7 +79,7 @@ div.calendar-dialog textarea {
   div.calendar-dialog,
   div.calendar-dialog input,
   div.calendar-dialog textarea {
-    font-size: 0.7rem;
+    font-size: var(--small-font-size);
   }
 }
 div.calendar div.view-shown,
@@ -219,12 +222,12 @@ div.full-screen-view {
 }
 @media screen and (min-width: 451px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - (10px + var(--spacing) * 4 + 1.8rem)) / 6);
+    height: calc((100% - (10px + var(--spacing) * 4 + var(--large-font-size) * 2)) / 6);
   }
 }
 @media screen and (max-width: 450px) {
   div.full-screen-view div.row-cells {
-    height: calc((100% - (10px + var(--spacing) * 3 + 1.4rem)) / 6);
+    height: calc((100% - (10px + var(--spacing) * 3 + var(--small-font-size) * 2)) / 6);
   }
 }
 div.full-screen-view div.header-days {
@@ -273,10 +276,10 @@ div.calendar-date-picker div.calendar-shown {
   display: block;
 }
 div.calendar-date-picker div.header-date div.title-container {
-  font-size: 0.9rem !important;
+  font-size: var(--large-font-size) !important;
 }
 div.calendar-date-picker div.calendar {
-  font-size: 0.7rem !important;
+  font-size: var(--small-font-size) !important;
   position: absolute;
   width: 100%;
   max-width: 330px;
@@ -731,7 +734,7 @@ div.calendar div.side-menu-open {
     -------------------------------------------------------------------------
 */
 div.calendar div.header-date {
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
   text-align: center;
@@ -756,7 +759,7 @@ div.calendar div.header-date div.right-divider-line {
 div.calendar div.header-date div.title-container {
   display: inline-block;
   position: relative;
-  font-size: 0.9rem !important;
+  font-size: var(--large-font-size) !important;
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button {
   white-space: nowrap;
@@ -812,13 +815,13 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months {
 @media screen and (min-width: 451px) {
   div.calendar div.header-date div.title-container div.years-drop-down,
   div.calendar div.header-date div.title-container div.years-drop-down-no-months {
-    top: calc(var(--spacing) + 0.9rem);
+    top: calc(var(--spacing) + var(--large-font-size));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.header-date div.title-container div.years-drop-down,
   div.calendar div.header-date div.title-container div.years-drop-down-no-months {
-    top: calc(var(--spacing) + 0.7rem);
+    top: calc(var(--spacing) + var(--small-font-size));
   }
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months,
@@ -1252,12 +1255,12 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:last-ch
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + 0.9rem));
+    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + 0.7rem));
+    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
   }
 }
 div.calendar div.full-day-view div.contents div.expired {
@@ -1446,12 +1449,12 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.even
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + 0.9rem));
+    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + 0.7rem));
+    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
   }
 }
 div.calendar div.full-week-view div.contents div.header-days-container {
@@ -1653,12 +1656,12 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event span {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.contents div.days div.cell div.event {
-    font-size: 0.9rem !important;
+    font-size: var(--large-font-size) !important;
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.contents div.days div.cell div.event {
-    font-size: 0.7rem !important;
+    font-size: var(--small-font-size) !important;
   }
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.working-hours {
@@ -1775,12 +1778,12 @@ div.calendar div.full-year-view div.contents {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.contents {
-    height: calc(100% - (var(--spacing) * 3 + 0.9rem) - 1px);
+    height: calc(100% - (var(--spacing) * 3 + var(--large-font-size)) - 1px);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.contents {
-    height: calc(100% - (var(--spacing) * 3 + 0.7rem) - 1px);
+    height: calc(100% - (var(--spacing) * 3 + var(--small-font-size)) - 1px);
   }
 }
 div.calendar div.full-year-view div.contents div.year-month {
@@ -1945,12 +1948,12 @@ div.calendar div.all-events-view div.contents {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.all-events-view div.contents {
-    height: calc(100% - (var(--spacing) * 4 + 0.9rem) - 1px);
+    height: calc(100% - (var(--spacing) * 4 + var(--large-font-size)) - 1px);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.all-events-view div.contents {
-    height: calc(100% - (var(--spacing) * 4 + 0.7rem) - 1px);
+    height: calc(100% - (var(--spacing) * 4 + var(--small-font-size)) - 1px);
   }
 }
 div.calendar div.all-events-view div.contents div.year-header {
@@ -1988,7 +1991,7 @@ div.calendar div.all-events-view div.contents div.month div.header {
   background-color: var(--dark-color) !important;
   color: var(--light-color) !important;
   padding: var(--spacing);
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.calendar div.all-events-view div.contents div.month div.header div.right-divider-line {
   width: 1px;
@@ -2099,7 +2102,7 @@ div.event-editor div.view div.title-bar {
   color: var(--title-bar-text-color);
   padding: var(--spacing);
   text-align: center;
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.event-editor div.view div.input-title-container {
   display: flex;
@@ -2355,7 +2358,7 @@ div.event-editor-colors div.title-bar {
   color: var(--title-bar-text-color);
   padding: var(--spacing);
   text-align: center;
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.event-editor-colors div.contents {
   padding: var(--spacing);
@@ -2513,7 +2516,7 @@ div.event-editor-repeat-options div.title-bar {
   color: var(--title-bar-text-color);
   padding: var(--spacing);
   text-align: center;
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.event-editor-repeat-options div.contents {
   padding: var(--spacing);
@@ -2680,7 +2683,7 @@ div.message div.title-bar {
   color: var(--title-bar-text-color);
   padding: var(--spacing);
   text-align: center;
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.message div.contents {
   padding: var(--spacing);
@@ -2796,7 +2799,7 @@ div.export-events div.title-bar {
   color: var(--title-bar-text-color);
   padding: var(--spacing);
   text-align: center;
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.export-events div.contents {
   padding: var(--spacing);
@@ -2973,7 +2976,7 @@ div.search div.title-bar {
   color: var(--title-bar-text-color);
   padding: var(--spacing);
   text-align: center;
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.search div.contents {
   padding: var(--spacing);
@@ -3217,7 +3220,7 @@ div.configuration div.title-bar {
   color: var(--title-bar-text-color);
   padding: var(--spacing);
   text-align: center;
-  font-weight: 900;
+  font-weight: var(--title-bar-font-weight);
 }
 div.configuration div.contents {
   padding: var(--spacing);
