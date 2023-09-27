@@ -13,7 +13,7 @@ div.event {
     white-space: pre-line;
     -ms-word-break: normal;
     word-break: normal;
-    border-radius: $border-view-radius;
+    border-radius: var(--border-radius);
     background-color: var(--event-color);
     padding: $spacing;
     color: var(--event-text-color);

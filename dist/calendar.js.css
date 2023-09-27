@@ -28,6 +28,9 @@
   --title-bar-button-color: var(--light-color);
   --menu-item-icon-color: var(--dark-color);
   --title-bar-text-color: var(--light-color);
+  --transition: all .3s;
+  --transition-faster: all .2s;
+  --border-radius: 0.25rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -150,7 +153,7 @@ div.calendar-notification div.ib-close-icon::before, div.calendar-notification d
 div.calendar-notification div.success,
 div.calendar-notification div.error {
   padding: 10px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
 }
 div.calendar-notification div.success div.ib-close-icon,
 div.calendar-notification div.error div.ib-close-icon {
@@ -235,7 +238,7 @@ div.calendar-date-picker {
 }
 div.calendar-date-picker input.calendar-date-picker-input {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   width: auto;
   padding: 0.375rem 0.75rem;
@@ -243,7 +246,7 @@ div.calendar-date-picker input.calendar-date-picker-input {
   color: var(--dark-color);
   margin-bottom: 0 !important;
   background-color: var(--input-background-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   box-sizing: border-box;
   max-height: 35px;
 }
@@ -294,7 +297,7 @@ div.calendar-date-picker div.calendar div.days div.cell-selected {
 div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
   background-color: var(--day-date-picker-hover-color);
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):active {
   transition: all 0.2s;
@@ -317,7 +320,7 @@ div.calendar {
   -o-user-select: none;
   user-select: none;
   cursor: default;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   overflow: hidden;
   width: 100%;
   min-width: 260px;
@@ -356,7 +359,7 @@ div.calendar div.working-day {
 }
 div.calendar div.drag-over {
   background-color: rgba(135, 206, 250, 0.4) !important;
-  transition: all 0.2s;
+  transition: var(--transition-faster);
 }
 div.calendar div.drag-not-allowed {
   background: repeating-linear-gradient(135deg, var(--light-color), var(--light-color) 10px, var(--area-disabled-stripped) 10px, var(--area-disabled-stripped) 20px);
@@ -388,7 +391,7 @@ div.calendar span.link {
   color: var(--link-color) !important;
 }
 div.calendar span.link:hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -469,7 +472,7 @@ div.calendar div.row-cells div.cell span {
   padding: 4px;
   padding-left: 0;
   padding-right: 0;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
 }
 div.calendar div.row-cells div.cell span.today, div.calendar div.row-cells div.cell span.first-day {
   padding-left: 7px;
@@ -557,10 +560,10 @@ div.calendar div.side-menu {
   top: 0;
   color: var(--light-color) !important;
   z-index: 1500;
-  transition: all 0.3s;
+  transition: var(--transition);
   background-color: var(--dark-color);
   border-right: 5px solid var(--light-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -621,10 +624,10 @@ div.calendar div.side-menu div.content div.content-section-opened {
 }
 div.calendar div.side-menu div.content div.content-section {
   margin-top: 10px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: #474545;
   border: 1px solid #575555;
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar div.side-menu div.content div.content-section:first-of-type {
   margin-top: 0;
@@ -717,7 +720,7 @@ div.calendar div.side-menu div.content div.content-section div.checkbox-containe
 }
 div.calendar div.side-menu-open {
   left: 0 !important;
-  transition: all 0.3s;
+  transition: var(--transition);
   box-shadow: 0 0 10px 10px var(--dark-color);
 }
 
@@ -760,7 +763,7 @@ div.calendar div.header-date div.title-container span.year-dropdown-button {
   padding: 3px;
   padding-left: 6px;
   padding-right: 6px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: #474545;
   border: 1px solid #575555;
   font-weight: 500;
@@ -777,7 +780,7 @@ div.calendar div.header-date div.title-container span.year-dropdown-button span.
   border-bottom-color: var(--title-bar-text-color);
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button:hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -799,7 +802,7 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months {
   left: 50%;
   transform: translate(-50%);
   background-color: var(--light-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   z-index: 1500;
   display: none;
   overflow: hidden;
@@ -836,7 +839,7 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   padding: 5px;
   margin: 1px;
   display: inline-block;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   font-size: 0.7rem;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name,
@@ -853,7 +856,7 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   background-color: var(--dark-color);
   color: var(--light-color);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected),
 div.calendar div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month:active:not(.year-selected),
@@ -875,7 +878,7 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents,
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents {
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   height: 100px;
   white-space: pre-line;
   -ms-word-break: break-all;
@@ -901,7 +904,7 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   padding: 3px;
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:hover,
@@ -909,7 +912,7 @@ div.calendar div.header-date div.title-container div.years-drop-down-no-months d
   background-color: var(--dark-color);
   color: var(--light-color);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar div.header-date div.title-container div.years-drop-down div.contents div.year:active:not(.year-selected),
 div.calendar div.header-date div.title-container div.years-drop-down-no-months div.contents div.year:active:not(.year-selected) {
@@ -988,7 +991,7 @@ div.calendar div.header-date div.right-divider-line {
     -------------------------------------------------------------------------
 */
 div.calendar div.row-cells div.cell div.event {
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--event-color);
   padding: 3px;
   color: var(--event-text-color);
@@ -1046,7 +1049,7 @@ div.calendar div.row-cells div.cell div.plus-x-events {
   margin-right: auto;
 }
 div.calendar div.row-cells div.cell div.plus-x-events:hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
   text-decoration: underline;
@@ -1069,7 +1072,7 @@ div.calendar div.full-day-view {
   width: 100%;
   position: absolute;
   background-color: var(--light-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   visibility: hidden;
 }
 div.calendar div.full-day-view span.holiday {
@@ -1267,7 +1270,7 @@ div.calendar div.full-day-view div.contents div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--event-color);
   padding: 10px;
   color: var(--event-text-color);
@@ -1332,7 +1335,7 @@ div.calendar div.full-week-view {
   width: 100%;
   position: absolute;
   background-color: var(--light-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   visibility: hidden;
 }
 div.calendar div.full-week-view div.title-bar {
@@ -1514,7 +1517,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--event-color);
   padding: 10px;
   color: var(--event-text-color);
@@ -1596,7 +1599,7 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--event-color);
   padding: 10px;
   color: var(--event-text-color);
@@ -1683,7 +1686,7 @@ div.calendar div.full-year-view {
   width: 100%;
   position: absolute;
   background-color: var(--light-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   visibility: hidden;
 }
 div.calendar div.full-year-view div.title-bar {
@@ -1780,7 +1783,7 @@ div.calendar div.full-year-view div.contents {
   }
 }
 div.calendar div.full-year-view div.contents div.year-month {
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   border: 1px solid var(--dark-color);
   background-color: var(--day-names-color);
   display: inline-block;
@@ -1810,7 +1813,7 @@ div.calendar div.full-year-view div.contents div.year-month div.days div.has-eve
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
   background-color: var(--day-date-picker-hover-color);
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell:not(.cell-no-click):active {
   transition: all 0.2s;
@@ -1853,7 +1856,7 @@ div.calendar div.all-events-view {
   width: 100%;
   position: absolute;
   background-color: var(--light-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   visibility: hidden;
 }
 div.calendar div.all-events-view div.title-bar {
@@ -1957,7 +1960,7 @@ div.calendar div.all-events-view div.contents div.year-header span.header-text {
   font-size: 22px;
 }
 div.calendar div.all-events-view div.contents div.year-header span.header-text:hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -1975,7 +1978,7 @@ div.calendar div.all-events-view div.contents div.year-header:first-of-type {
   margin-top: 0;
 }
 div.calendar div.all-events-view div.contents div.month {
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   border: 1px solid var(--dark-color);
   overflow: hidden;
   margin-bottom: 10px;
@@ -2014,7 +2017,7 @@ div.calendar div.all-events-view div.contents div.month div.events div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--event-color);
   padding: 10px;
   color: var(--event-text-color);
@@ -2060,7 +2063,7 @@ div.calendar div.all-events-view div.contents div.month:last-child {
 div.event-editor {
   width: calc(100% - 20px);
   max-width: 420px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
   position: fixed;
@@ -2116,7 +2119,7 @@ div.event-editor div.view div.contents {
 div.event-editor div.view input:not([type=button]),
 div.event-editor div.view textarea {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -2124,7 +2127,7 @@ div.event-editor div.view textarea {
   color: var(--dark-color);
   margin-bottom: 10px;
   background-color: var(--input-background-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   box-sizing: border-box;
   max-height: 35px;
 }
@@ -2208,7 +2211,7 @@ div.event-editor div.view input[type=button] {
   border: none;
   padding: 0.255rem 0.55rem;
   line-height: 1.8;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: 0;
   cursor: pointer;
 }
@@ -2225,7 +2228,7 @@ div.event-editor div.view input[type=button].add-update {
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].add-update:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2241,7 +2244,7 @@ div.event-editor div.view input[type=button].cancel {
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2257,7 +2260,7 @@ div.event-editor div.view input[type=button].remove {
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].remove:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2273,7 +2276,7 @@ div.event-editor div.view input[type=button].select-colors {
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].select-colors:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2289,7 +2292,7 @@ div.event-editor div.view input[type=button].repeat-options {
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].repeat-options:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2326,7 +2329,7 @@ div.event-editor div.view input[type=button].repeat-options {
 div.event-editor-colors {
   width: calc(100% - 20px);
   max-width: 300px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
   position: fixed;
@@ -2366,7 +2369,7 @@ div.event-editor-colors div.contents div.section {
   padding: 10px;
   margin-top: 0 !important;
   margin-left: 25px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
   margin-left: 0;
   margin-bottom: 10px;
@@ -2384,7 +2387,7 @@ div.event-editor-colors div.contents div.section p {
 div.event-editor-colors input[type=color],
 div.event-editor-colors input[type=text] {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -2392,7 +2395,7 @@ div.event-editor-colors input[type=text] {
   color: var(--dark-color);
   margin-bottom: 10px;
   background-color: var(--input-background-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   box-sizing: border-box;
   max-height: 35px;
   height: 40px;
@@ -2427,7 +2430,7 @@ div.event-editor-colors input[type=button] {
   border: none;
   padding: 0.255rem 0.55rem;
   line-height: 1.8;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: 0;
   cursor: pointer;
 }
@@ -2444,7 +2447,7 @@ div.event-editor-colors input[type=button].update {
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].update:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2460,7 +2463,7 @@ div.event-editor-colors input[type=button].cancel {
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2484,7 +2487,7 @@ div.event-editor-colors input[type=button].update, div.event-editor-colors input
 div.event-editor-repeat-options {
   width: calc(100% - 20px);
   max-width: 300px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
   position: fixed;
@@ -2524,7 +2527,7 @@ div.event-editor-repeat-options div.contents div.section {
   padding: 10px;
   margin-top: 0 !important;
   margin-left: 25px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
   margin-left: 0;
   margin-bottom: 10px;
@@ -2546,7 +2549,7 @@ div.event-editor-repeat-options div.contents div.section p:first-child {
 div.event-editor-repeat-options input:not([type=button]),
 div.event-editor-repeat-options textarea {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -2554,7 +2557,7 @@ div.event-editor-repeat-options textarea {
   color: var(--dark-color);
   margin-bottom: 10px;
   background-color: var(--input-background-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   box-sizing: border-box;
   max-height: 35px;
 }
@@ -2594,7 +2597,7 @@ div.event-editor-repeat-options input[type=button] {
   border: none;
   padding: 0.255rem 0.55rem;
   line-height: 1.8;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: 0;
   cursor: pointer;
 }
@@ -2611,7 +2614,7 @@ div.event-editor-repeat-options input[type=button].update {
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].update:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2627,7 +2630,7 @@ div.event-editor-repeat-options input[type=button].cancel {
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2651,7 +2654,7 @@ div.event-editor-repeat-options input[type=button].update, div.event-editor-repe
 div.message {
   width: calc(100% - 20px);
   max-width: 330px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
   position: fixed;
@@ -2710,7 +2713,7 @@ div.message input[type=button] {
   border: none;
   padding: 0.255rem 0.55rem;
   line-height: 1.8;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: 0;
   cursor: pointer;
 }
@@ -2727,7 +2730,7 @@ div.message input[type=button].yes-ok {
   box-sizing: border-box;
 }
 div.message input[type=button].yes-ok:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2743,7 +2746,7 @@ div.message input[type=button].no {
   box-sizing: border-box;
 }
 div.message input[type=button].no:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2767,7 +2770,7 @@ div.message input[type=button].yes-ok, div.message input[type=button].no {
 div.export-events {
   width: calc(100% - 20px);
   max-width: 300px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
   position: fixed;
@@ -2799,7 +2802,7 @@ div.export-events div.contents {
 }
 div.export-events div.contents input[type=text] {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -2807,7 +2810,7 @@ div.export-events div.contents input[type=text] {
   color: var(--dark-color);
   margin-bottom: 10px;
   background-color: var(--input-background-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   box-sizing: border-box;
   max-height: 35px;
   height: 40px;
@@ -2842,7 +2845,7 @@ div.export-events div.contents div.options {
   padding: 10px;
   margin-top: 0 !important;
   margin-left: 25px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
 }
 div.export-events div.contents div.options div.split {
@@ -2890,7 +2893,7 @@ div.export-events input[type=button] {
   border: none;
   padding: 0.255rem 0.55rem;
   line-height: 1.8;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: 0;
   cursor: pointer;
 }
@@ -2907,7 +2910,7 @@ div.export-events input[type=button].export {
   box-sizing: border-box;
 }
 div.export-events input[type=button].export:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2923,7 +2926,7 @@ div.export-events input[type=button].cancel {
   box-sizing: border-box;
 }
 div.export-events input[type=button].cancel:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -2947,7 +2950,7 @@ div.export-events input[type=button].export, div.export-events input[type=button
 div.search {
   width: calc(100% - 20px);
   max-width: 310px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
   position: fixed;
@@ -2991,7 +2994,7 @@ div.search div.contents div.history-container input {
 }
 div.search div.contents div.history-container div.history-dropdown {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   background-color: var(--input-background-color);
   position: absolute;
@@ -3017,7 +3020,7 @@ div.search div.contents div.history-container div.history-dropdown div.history-d
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item:hover {
   background-color: var(--day-names-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item:active {
@@ -3045,7 +3048,7 @@ div.search div.contents div.advanced {
   padding: 10px;
   margin-top: 10px !important;
   margin-left: 25px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
 }
 div.search div.contents div.advanced div.split {
@@ -3059,7 +3062,7 @@ div.search div.contents div.advanced div.split div.radio-buttons-container label
 }
 div.search input[type=text] {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -3067,7 +3070,7 @@ div.search input[type=text] {
   color: var(--dark-color);
   margin-bottom: 10px;
   background-color: var(--input-background-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   box-sizing: border-box;
   max-height: 35px;
 }
@@ -3123,7 +3126,7 @@ div.search input[type=button] {
   border: none;
   padding: 0.255rem 0.55rem;
   line-height: 1.8;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: 0;
   cursor: pointer;
 }
@@ -3140,7 +3143,7 @@ div.search input[type=button].next {
   box-sizing: border-box;
 }
 div.search input[type=button].next:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -3156,7 +3159,7 @@ div.search input[type=button].previous {
   box-sizing: border-box;
 }
 div.search input[type=button].previous:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -3188,7 +3191,7 @@ div.search div.ib-square-hollow {
 div.configuration {
   width: calc(100% - 20px);
   max-width: 400px;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
   position: fixed;
@@ -3231,7 +3234,7 @@ div.configuration div.contents p {
 div.configuration div.contents input[type=text],
 div.configuration div.contents input[type=email] {
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: none;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -3239,7 +3242,7 @@ div.configuration div.contents input[type=email] {
   color: var(--dark-color);
   margin-bottom: 10px;
   background-color: var(--input-background-color);
-  transition: all 0.3s;
+  transition: var(--transition);
   box-sizing: border-box;
   max-height: 35px;
 }
@@ -3276,7 +3279,7 @@ div.configuration input[type=button] {
   border: none;
   padding: 0.255rem 0.55rem;
   line-height: 1.8;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   outline: 0;
   cursor: pointer;
 }
@@ -3293,7 +3296,7 @@ div.configuration input[type=button].update {
   box-sizing: border-box;
 }
 div.configuration input[type=button].update:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -3309,7 +3312,7 @@ div.configuration input[type=button].cancel {
   box-sizing: border-box;
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
-  transition: all 0.3s;
+  transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
@@ -3338,8 +3341,8 @@ div.calendar-dialog div.tab {
   user-select: none;
   cursor: default;
   padding: 10px;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
   border-bottom: none !important;
   text-align: center;
   display: inline-block;
@@ -3360,7 +3363,7 @@ div.calendar-dialog div.tab-control:hover {
   border: 1px solid var(--dark-color);
   background-color: var(--dark-color);
   color: var(--light-color);
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar-dialog div.tab-control:active {
   transition: all 0.2s;
@@ -3379,7 +3382,7 @@ div.calendar-dialog div.tab-content {
   -o-animation: fade-in-effect ease 0.5s;
   -ms-animation: fade-in-effect ease 0.5s;
   border: 1px solid var(--input-border-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   padding: 10px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -3463,9 +3466,9 @@ div.calendar div.side-menu label.checkbox span.check-mark {
   height: 15px;
   width: 15px;
   background-color: var(--input-background-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   border: 1px solid var(--input-border-color);
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar label.checkbox span.check-mark::before,
 div.calendar-dialog label.checkbox span.check-mark::before,
@@ -3552,7 +3555,7 @@ div.calendar-dialog div.radio-button-container label.radio-button span.check-mar
   background-color: var(--input-background-color);
   border-radius: 50%;
   border: 1px solid var(--input-border-color);
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar div.radio-button-container label.radio-button span.check-mark::before,
 div.calendar-dialog div.radio-button-container label.radio-button span.check-mark::before {
@@ -3598,7 +3601,7 @@ div.calendar-tooltip-event {
   cursor: default;
   position: absolute;
   border: 1px solid var(--dark-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: rgb(240, 237, 199);
   color: var(--dark-color);
   padding: 10px;
@@ -3683,7 +3686,7 @@ div.calendar-context-menu {
   border-left: 6px solid var(--dark-color);
   color: var(--dark-color);
   box-shadow: 4px 4px 4px var(--dark-color);
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   white-space: nowrap;
   overflow: hidden;
   position: absolute;
@@ -3719,7 +3722,7 @@ div.calendar-context-menu div.item {
 div.calendar-context-menu div.item:hover {
   background-color: var(--dark-color);
   color: var(--light-color);
-  transition: all 0.3s;
+  transition: var(--transition);
 }
 div.calendar-context-menu div.item:hover div.ib-plus-icon::before, div.calendar-context-menu div.item:hover div.ib-plus-icon::after, div.calendar-context-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-context-menu div.item:hover div.ib-close-icon::before, div.calendar-context-menu div.item:hover div.ib-close-icon::after, div.calendar-context-menu div.item:hover div.ib-circle-icon, div.calendar-context-menu div.item:hover div.ib-minus-icon::before, div.calendar-context-menu div.item:hover div.ib-pipe-icon::before, div.calendar-context-menu div.item:hover div.ib-equals-icon::before, div.calendar-context-menu div.item:hover div.ib-equals-icon::after, div.calendar-context-menu div.item:hover div.ib-arrow-down-full-line-icon::after {
   background-color: var(--light-color);

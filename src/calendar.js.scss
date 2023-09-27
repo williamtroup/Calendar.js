@@ -9,6 +9,7 @@
 @import "foundation/styles";
 
 :root {
+    // Colors
     --dark-color: #3b3a3a;
     --light-color: #F5F5F5;
     --day-date-picker-hover-color: #a7a7a7;
@@ -32,6 +33,13 @@
     --title-bar-button-color: var(--light-color);
     --menu-item-icon-color: var(--dark-color);
     --title-bar-text-color: var(--light-color);
+
+    // Transitions
+    --transition: all .3s;
+    --transition-faster: all .2s;
+
+    // Radius
+    --border-radius: 0.25rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -112,7 +120,7 @@ div.calendar-notification {
     div.success,
     div.error {
         padding: $spacing;
-        border-radius: $border-view-radius;
+        border-radius: var(--border-radius);
 
         div.ib-close-icon {
             margin-left: calc( $spacing * 2 );
@@ -237,7 +245,7 @@ div.calendar-date-picker {
             div.cell:not( .cell-no-click ):hover {
                 cursor: pointer;
                 background-color: var(--day-date-picker-hover-color);
-                transition: $transition;
+                transition: var(--transition);
             }
 
             div.cell:not( .cell-no-click ):active {
@@ -260,7 +268,7 @@ div.calendar-date-picker {
 
 div.calendar {
     @include no-selection-allowed;
-    border-radius: $border-view-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
     width: 100%;
     min-width: 260px;
@@ -308,7 +316,7 @@ div.calendar {
 
     div.drag-over {
         background-color: rgba( 135, 206, 250, 0.4 ) !important;
-        transition: $transition-faster;
+        transition: var(--transition-faster);
     }
 
     div.drag-not-allowed {
@@ -448,7 +456,7 @@ div.calendar {
                 padding: 4px;
                 padding-left: 0;
                 padding-right: 0;
-                border-radius: $border-view-radius;
+                border-radius: var(--border-radius);
         
                 &.today,
                 &.first-day {
@@ -552,10 +560,10 @@ div.calendar {
         top: 0;
         color: var(--light-color) !important;
         z-index: 1500;
-        transition: $transition; 
+        transition: var(--transition); 
         background-color: var(--dark-color);
         border-right: $side-menu-right-border-width solid var(--light-color);
-        border-radius: $border-view-radius;
+        border-radius: var(--border-radius);
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -615,10 +623,10 @@ div.calendar {
 
             div.content-section {
                 margin-top: $spacing;
-                border-radius: $border-view-radius;
+                border-radius: var(--border-radius);
                 background-color: #474545;
                 border: $standard-border-size solid #575555;
-                transition: $transition;
+                transition: var(--transition);
 
                 &:first-of-type {
                     margin-top: 0;
@@ -702,7 +710,7 @@ div.calendar {
 
     div.side-menu-open {
         left: 0 !important;
-        transition: $transition;
+        transition: var(--transition);
         box-shadow: 0 0 10px 10px var(--dark-color);
     }
 }
@@ -749,7 +757,7 @@ div.calendar {
                 padding: 3px;
                 padding-left: 6px;
                 padding-right: 6px;
-                border-radius: $border-view-radius;
+                border-radius: var(--border-radius);
                 background-color: #474545;
                 border: $standard-border-size solid #575555;
                 font-weight: 500;
@@ -786,7 +794,7 @@ div.calendar {
                 left: 50%;
                 transform: translate( -50% );
                 background-color: var(--light-color);
-                border-radius: $border-view-radius;
+                border-radius: var(--border-radius);
                 z-index: 1500;
                 display: none;
                 overflow: hidden;
@@ -817,7 +825,7 @@ div.calendar {
                         padding: calc( $spacing / 2 );
                         margin: $button-spacing;
                         display: inline-block;
-                        border-radius: $border-view-radius;
+                        border-radius: var(--border-radius);
                         font-size: 0.7rem;
                     }
 
@@ -830,7 +838,7 @@ div.calendar {
                             background-color: var(--dark-color);
                             color: var(--light-color);
                             cursor: pointer;
-                            transition: $transition;
+                            transition: var(--transition);
                         }
     
                         &:active:not( .year-selected ) {
@@ -850,7 +858,7 @@ div.calendar {
                 }
     
                 div.contents {
-                    border-radius: $border-view-radius;
+                    border-radius: var(--border-radius);
                     height: 100px;
                     white-space: pre-line;
                     -ms-word-break: break-all;
@@ -875,14 +883,14 @@ div.calendar {
                         text-align: center;
                         margin-top: 5px;
                         margin-bottom: 5px;
-                        border-radius: $border-view-radius;
+                        border-radius: var(--border-radius);
                         padding: 3px;
         
                         &:hover {
                             background-color: var(--dark-color);
                             color: var(--light-color);
                             cursor: pointer;
-                            transition: $transition;
+                            transition: var(--transition);
                         }
     
                         &:active:not( .year-selected ) {
@@ -977,7 +985,7 @@ div.calendar {
     div.row-cells {
         div.cell {
             div.event {
-                border-radius: $border-view-radius;
+                border-radius: var(--border-radius);
                 background-color: var(--event-color);
                 padding: 3px;
                 color: var(--event-text-color);
@@ -1267,7 +1275,7 @@ div.calendar {
             @include view-contents( true );
 
             div.year-month {
-                border-radius: $border-view-radius;
+                border-radius: var(--border-radius);
                 border: $standard-border-size solid var(--dark-color);
                 background-color: var(--day-names-color);
                 display: inline-block;
@@ -1299,7 +1307,7 @@ div.calendar {
                     div.cell:not( .cell-no-click ):hover {
                         cursor: pointer;
                         background-color: var(--day-date-picker-hover-color);
-                        transition: $transition;
+                        transition: var(--transition);
                     }
         
                     div.cell:not( .cell-no-click ):active {
@@ -1380,7 +1388,7 @@ div.calendar {
             }
 
             div.month {
-                border-radius: $border-view-radius;
+                border-radius: var(--border-radius);
                 border: $standard-border-size solid var(--dark-color);
                 overflow: hidden;
                 margin-bottom: $spacing;
@@ -1806,7 +1814,7 @@ div.search {
 
                     &:hover {
                         background-color: var(--day-names-color);
-                        transition: $transition;
+                        transition: var(--transition);
                         cursor: pointer;
                     }
             
@@ -1941,8 +1949,8 @@ div.calendar-dialog {
     div.tab {
         @include no-selection-allowed;
         padding: $spacing;
-        border-top-left-radius: $border-view-radius;
-        border-top-right-radius: $border-view-radius;
+        border-top-left-radius: var(--border-radius);
+        border-top-right-radius: var(--border-radius);
         border-bottom: none !important;
         text-align: center;
         display: inline-block;
@@ -1965,7 +1973,7 @@ div.calendar-dialog {
             border: $standard-border-size solid var(--dark-color);
             background-color: var(--dark-color);
             color: var(--light-color);
-            transition: $transition;
+            transition: var(--transition);
         }
 
         &:active {
@@ -1982,7 +1990,7 @@ div.calendar-dialog {
     div.tab-content {
         @include fade-in-effect-animation( 0.5s );
         border: $standard-border-size solid var(--input-border-color);
-        border-radius: $border-view-radius;
+        border-radius: var(--border-radius);
         padding: $spacing;
         overflow-x: hidden;
         overflow-y: auto;
@@ -2055,9 +2063,9 @@ div.calendar div.side-menu {
             height: 15px;
             width: 15px;
             background-color: var(--input-background-color);
-            border-radius: $border-view-radius;
+            border-radius: var(--border-radius);
             border: $standard-border-size solid var(--input-border-color);
-            transition: $transition;
+            transition: var(--transition);
 
             &::before {
                 @include transform( rotate( 45deg ) );
@@ -2138,7 +2146,7 @@ div.calendar-dialog {
                 background-color: var(--input-background-color);
                 border-radius: 50%;
                 border: $standard-border-size solid var(--input-border-color);
-                transition: $transition;
+                transition: var(--transition);
     
                 &::before {
                     @include transform( rotate( 45deg ) );
@@ -2178,7 +2186,7 @@ div.calendar-tooltip-event {
     @include no-selection-allowed;
     position: absolute;
     border: $standard-border-size solid var(--dark-color);
-    border-radius: $border-view-radius;
+    border-radius: var(--border-radius);
     background-color: rgb( 240, 237, 199 );
     color: var(--dark-color);
     padding: $spacing;
@@ -2259,7 +2267,7 @@ div.calendar-context-menu {
     border-left: calc( $standard-border-size * 6 ) solid var(--dark-color);
     color: var(--dark-color);
     box-shadow: 4px 4px 4px var(--dark-color);
-    border-radius: $border-view-radius;
+    border-radius: var(--border-radius);
     white-space: nowrap;
     overflow: hidden;
     position: absolute;
@@ -2298,7 +2306,7 @@ div.calendar-context-menu {
         &:hover {
             background-color: var(--dark-color);
             color: var(--light-color);
-            transition: $transition;
+            transition: var(--transition);
         }
 
         &:hover div.ib-plus-icon::before,
