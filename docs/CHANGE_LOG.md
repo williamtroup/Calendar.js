@@ -6,6 +6,8 @@
 - The transition effect and length variables are now CSS variables.
 - The spacing SCSS variable is now a CSS variable (calc() improvements have been included to make size changes easier).
 - The font based SCSS variables are now CSS variables.
+- Removed repetitive code that builds the hours display for the Full Day/Week views.
+- 
 
 <br>
 

@@ -3039,20 +3039,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     onViewEventDropped( e, _element_View_FullDay_DateSelected, _element_View_FullDay_Contents_Hours );
                 };
             }
-    
-            for ( var hour = 0; hour < 24; hour++ ) {
-                var row = createElement( "div", "hour" );
-                _element_View_FullDay_Contents_Hours.appendChild( row );
-    
-                var newHour1 = createElement( "div", "hour-text" );
-                newHour1.innerText = padNumber( hour ) + ":00";
-                row.appendChild( newHour1 );
-    
-                var newHour2 = createElement( "div", "hour-text" );
-                newHour2.innerText = padNumber( hour ) + ":30";
-                row.appendChild( newHour2 );
-            }
-    
+
+            buildHoursForTimeBasedView( _element_View_FullDay_Contents_Hours );
             buildFullDayViewTimeArrow();
         }
     }
@@ -3514,18 +3502,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents_Hours = createElement( "div", "hours" );
         _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Hours );
 
-        for ( var hour = 0; hour < 24; hour++ ) {
-            var row = createElement( "div", "hour" );
-            _element_View_FullWeek_Contents_Hours.appendChild( row );
-
-            var newHour1 = createElement( "div", "hour-text" );
-            newHour1.innerText = padNumber( hour ) + ":00";
-            row.appendChild( newHour1 );
-
-            var newHour2 = createElement( "div", "hour-text" );
-            newHour2.innerText = padNumber( hour ) + ":30";
-            row.appendChild( newHour2 );
-        }
+        buildHoursForTimeBasedView( _element_View_FullWeek_Contents_Hours );
 
         _element_View_FullWeek_Contents_Days = createElement( "div", "row-cells days" );
         _element_View_FullWeek_Contents_Hours.appendChild( _element_View_FullWeek_Contents_Days );
@@ -7326,6 +7303,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * Views - Management - Positioning
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
+    function buildHoursForTimeBasedView( container ) {
+        for ( var hour = 0; hour < 24; hour++ ) {
+            var row = createElement( "div", "hour" );
+            container.appendChild( row );
+
+            var newHour1 = createElement( "div", "hour-text" );
+            newHour1.innerText = padNumber( hour ) + ":00";
+            row.appendChild( newHour1 );
+
+            var newHour2 = createElement( "div", "hour-text" );
+            newHour2.innerText = padNumber( hour ) + ":30";
+            row.appendChild( newHour2 );
+        }
+    }
 
     function getHourMinutesFromMousePositionClick( e, container ) {
         var contentHoursOffset = getOffset( container ),
