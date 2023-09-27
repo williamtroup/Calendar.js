@@ -22,7 +22,7 @@ Calendar.js
 - Configurable text for translations (see "dist/translations" for languages already available).
 - Day, Week, Month, Year, and All Events views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
-- Full CSS color themes support (using :root variables, with dark-mode support).
+- Full CSS themes support for colors, transitions, spacing, and fonts (using :root variables, with dark-mode support).
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc.).
 - Export events to CSV, XML, JSON, TEXT, iCAL, MD, HTML, and TSV, with system clipboard setting support.
 - Import events from iCAL and JSON files.
