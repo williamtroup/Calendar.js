@@ -6186,6 +6186,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showExportEventsDialog( events ) {
         addNode( _document.body, _element_DisabledBackground );
+        hideSideMenu();
 
         _element_Dialog_AllOpened.push( hideExportEventsDialog );
         _element_Dialog_ExportEvents.style.display = "block";
