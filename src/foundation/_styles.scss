@@ -1,13 +1,5 @@
-
-
 $maximum-width: 450px;
 $minimum-width: $maximum-width + 1;
-
-
-
-
-
-
 
 @mixin fade-in-effect-animation( $seconds ) {
     animation: fade-in-effect ease $seconds;
