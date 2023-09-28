@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.7.2:
+- 
+
+<br>
+
+
 ## Version 2.7.1:
 - Fixed a SCSS issue with "repeating-linear-gradient" not using calc() for sizing.
 - Completed CSS theming support! You can now change the Colors, Sizes, Spacing, Borders (etc.) to use CSS theme files!
