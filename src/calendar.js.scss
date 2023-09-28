@@ -2018,7 +2018,7 @@ div.calendar-dialog {
         border: var(--spacing-border-size) solid var(--dark-color);
         background-color: var(--dark-color);
         color: var(--light-color);
-        padding: var(--spacing) + calc( var(--spacing) / 4 );
+        padding: calc( var(--spacing) + ( var(--spacing) / 4 ) );
     }
 
     div.tab-control {
