@@ -13,7 +13,7 @@ div.hour {
         display: block;
         position: absolute;
         top: 0;
-        left: calc( var(--time-view-hours-width) + var(--spacing) * 2 );
+        left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) );
     }
 
     div.hour-text {
