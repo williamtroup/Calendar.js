@@ -2,28 +2,28 @@
 
 div.time-arrow {
     position: absolute;
-    width: calc( 100% - $time-hours-width - ( var(--spacing) * 2 ) - $standard-border-size );
-    left: calc( $time-hours-width + ( var(--spacing) * 2 ) + $standard-border-size );
+    width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) - $standard-border-size );
+    left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + $standard-border-size );
     top: 0;                    
     z-index: 10;
-    height: $time-arrow-line-height;
+    height: var(--time-view-arrow-line-height);
     display: none;
     pointer-events: none;
 
     div.arrow-left {
         width: 0; 
         height: 0; 
-        border-top: calc( $time-arrow-line-height / 2 ) solid transparent;
-        border-bottom: calc( $time-arrow-line-height / 2 ) solid transparent;
-        border-right: $time-arrow-line-height solid var(--link-color);
+        border-top: calc( var(--time-view-arrow-line-height) / 2 ) solid transparent;
+        border-bottom: calc( var(--time-view-arrow-line-height) / 2 ) solid transparent;
+        border-right: var(--time-view-arrow-line-height) solid var(--link-color);
     }
 
     div.line {
         background-color: var(--link-color);
         position: absolute;
-        left: $time-arrow-line-height;
-        top: calc( $time-arrow-line-height / 4 );
-        height: calc( $time-arrow-line-height / 2 );
+        left: var(--time-view-arrow-line-height);
+        top: calc( var(--time-view-arrow-line-height) / 4 );
+        height: calc( var(--time-view-arrow-line-height) / 2 );
         width: 100%;
     }
 }

@@ -6,7 +6,7 @@ div.content-events-all-day {
     overflow: hidden;
 
     div.all-day-text {
-        width: $time-hours-width;
+        width: var(--time-view-hours-width);
         padding: var(--spacing);
         background-color: var(--light-color);
         color: var(--dark-color);
@@ -19,7 +19,7 @@ div.content-events-all-day {
     
     div.event {
         position: static !important;
-        margin-left: calc( $time-hours-width + ( var(--spacing) * 3 ) ) !important;
+        margin-left: calc( var(--time-view-hours-width) + ( var(--spacing) * 3 ) ) !important;
         margin-top: var(--spacing);
         margin-bottom: var(--spacing);
     }

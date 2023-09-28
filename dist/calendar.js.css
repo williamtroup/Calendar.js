@@ -39,6 +39,14 @@
   --side-menu-width: 300px;
   --side-menu-width-small: 250px;
   --side-menu-right-border-width: 5px;
+  --time-view-hours-width: 70px;
+  --time-view-hours-height: 25px;
+  --time-view-arrow-line-height: 12px;
+  --input-box-shadow-size: 2px;
+  --input-checkbox-size-with-spacing: 25px;
+  --event-left-border: 7px solid var(--dark-color);
+  --event-expired-opacity: 0.7;
+  --scroll-bar-border-style: inset 0 0 6px gray;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -263,7 +271,7 @@ div.calendar-date-picker input.calendar-date-picker-input:last-child {
 }
 div.calendar-date-picker input.calendar-date-picker-input:focus {
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
 }
 div.calendar-date-picker input.calendar-date-picker-input:not(:disabled):hover {
   border: 1px solid var(--input-hover-color);
@@ -1005,7 +1013,7 @@ div.calendar div.row-cells div.cell div.event {
   color: var(--event-text-color);
   margin-top: 5px;
   margin-bottom: 5px;
-  border-left: 7px solid var(--dark-color);
+  border-left: var(--event-left-border);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1039,7 +1047,7 @@ div.calendar div.row-cells div.cell div.event-circle:last-child {
   margin-bottom: 5px;
 }
 div.calendar div.row-cells div.cell div.expired {
-  opacity: 0.7;
+  opacity: var(--event-expired-opacity);
 }
 div.calendar div.row-cells div.cell div.not-in-current-month {
   opacity: 0.1;
@@ -1175,7 +1183,7 @@ div.calendar div.full-day-view div.contents div.content-events-all-day {
   overflow: hidden;
 }
 div.calendar div.full-day-view div.contents div.content-events-all-day div.all-day-text {
-  width: 70px;
+  width: var(--time-view-hours-width);
   padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
@@ -1187,7 +1195,7 @@ div.calendar div.full-day-view div.contents div.content-events-all-day div.all-d
 }
 div.calendar div.full-day-view div.contents div.content-events-all-day div.event {
   position: static !important;
-  margin-left: calc(70px + var(--spacing) * 3) !important;
+  margin-left: calc(var(--time-view-hours-width) + var(--spacing) * 3) !important;
   margin-top: var(--spacing);
   margin-bottom: var(--spacing);
 }
@@ -1199,27 +1207,27 @@ div.calendar div.full-day-view div.contents div.contents-events div.resizable {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow {
   position: absolute;
-  width: calc(100% - 70px - var(--spacing) * 2 - 1px);
-  left: calc(70px + var(--spacing) * 2 + 1px);
+  width: calc(100% - var(--time-view-hours-width) - var(--spacing) * 2 - 1px);
+  left: calc(var(--time-view-hours-width) + var(--spacing) * 2 + 1px);
   top: 0;
   z-index: 10;
-  height: 12px;
+  height: var(--time-view-arrow-line-height);
   display: none;
   pointer-events: none;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow div.arrow-left {
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-right: 12px solid var(--link-color);
+  border-top: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
+  border-bottom: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
+  border-right: var(--time-view-arrow-line-height) solid var(--link-color);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow div.line {
   background-color: var(--link-color);
   position: absolute;
-  left: 12px;
-  top: 3px;
-  height: 6px;
+  left: var(--time-view-arrow-line-height);
+  top: calc(var(--time-view-arrow-line-height) / 4);
+  height: calc(var(--time-view-arrow-line-height) / 2);
   width: 100%;
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour {
@@ -1229,19 +1237,19 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour {
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour::before {
   border-bottom: 1px dashed var(--input-border-color);
-  width: calc(100% - (70px + var(--spacing) * 2));
-  height: calc(25px + var(--spacing) * 2 - 1px);
+  width: calc(100% - (var(--time-view-hours-width) + var(--spacing) * 2));
+  height: calc(var(--time-view-hours-height) + var(--spacing) * 2 - 1px);
   content: "";
   display: block;
   position: absolute;
   top: 0;
-  left: calc(70px + var(--spacing) * 2);
+  left: calc(var(--time-view-hours-width) + var(--spacing) * 2);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.hour div.hour-text {
   display: flex;
   align-items: center;
-  width: 70px;
-  height: 25px;
+  width: var(--time-view-hours-width);
+  height: var(--time-view-hours-height);
   padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
@@ -1268,7 +1276,7 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:last-ch
   }
 }
 div.calendar div.full-day-view div.contents div.expired {
-  opacity: 0.7;
+  opacity: var(--event-expired-opacity);
 }
 div.calendar div.full-day-view div.contents div.all-day {
   background-color: var(--event-color-all-day) !important;
@@ -1283,7 +1291,7 @@ div.calendar div.full-day-view div.contents div.event {
   padding: var(--spacing);
   color: var(--event-text-color);
   margin-bottom: var(--spacing);
-  border-left: 7px solid var(--dark-color);
+  border-left: var(--event-left-border);
   text-align: left;
 }
 div.calendar div.full-day-view div.contents div.event div {
@@ -1316,15 +1324,15 @@ div.calendar div.full-day-view div.contents div.event {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
-  width: calc(100% - 70px - var(--spacing) * 6 - var(--spacing) / 2);
-  left: calc(70px + var(--spacing) * 3);
+  width: calc(100% - var(--time-view-hours-width) - var(--spacing) * 6 - var(--spacing) / 2);
+  left: calc(var(--time-view-hours-width) + var(--spacing) * 3);
   overflow: hidden;
   z-index: 1;
 }
 div.calendar div.full-day-view div.contents div.working-hours {
   position: absolute;
-  width: calc(100% - 70px - var(--spacing) * 2);
-  left: calc(70px + var(--spacing) * 2);
+  width: calc(100% - var(--time-view-hours-width) - var(--spacing) * 2);
+  left: calc(var(--time-view-hours-width) + var(--spacing) * 2);
   background-color: rgba(40, 40, 40, 0.4);
   display: none;
   pointer-events: none;
@@ -1435,7 +1443,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day {
   overflow: hidden;
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.all-day-text {
-  width: 70px;
+  width: var(--time-view-hours-width);
   padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
@@ -1447,7 +1455,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.all-
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.event {
   position: static !important;
-  margin-left: calc(70px + var(--spacing) * 3) !important;
+  margin-left: calc(var(--time-view-hours-width) + var(--spacing) * 3) !important;
   margin-top: var(--spacing);
   margin-bottom: var(--spacing);
 }
@@ -1468,9 +1476,9 @@ div.calendar div.full-week-view div.contents div.header-days-container {
   z-index: 100;
 }
 div.calendar div.full-week-view div.contents div.header-days-container div.header-days {
-  width: calc(100% - 70px - var(--spacing) * 2);
+  width: calc(100% - var(--time-view-hours-width) - var(--spacing) * 2);
   background-color: blue;
-  margin-left: calc(70px + var(--spacing) * 2 + 1px);
+  margin-left: calc(var(--time-view-hours-width) + var(--spacing) * 2 + 1px);
   border-bottom: 1px solid var(--grid-border-color);
 }
 div.calendar div.full-week-view div.contents div.hours {
@@ -1483,19 +1491,19 @@ div.calendar div.full-week-view div.contents div.hours div.hour {
 }
 div.calendar div.full-week-view div.contents div.hours div.hour::before {
   border-bottom: 1px dashed var(--input-border-color);
-  width: calc(100% - (70px + var(--spacing) * 2));
-  height: calc(25px + var(--spacing) * 2 - 1px);
+  width: calc(100% - (var(--time-view-hours-width) + var(--spacing) * 2));
+  height: calc(var(--time-view-hours-height) + var(--spacing) * 2 - 1px);
   content: "";
   display: block;
   position: absolute;
   top: 0;
-  left: calc(70px + var(--spacing) * 2);
+  left: calc(var(--time-view-hours-width) + var(--spacing) * 2);
 }
 div.calendar div.full-week-view div.contents div.hours div.hour div.hour-text {
   display: flex;
   align-items: center;
-  width: 70px;
-  height: 25px;
+  width: var(--time-view-hours-width);
+  height: var(--time-view-hours-height);
   padding: var(--spacing);
   background-color: var(--light-color);
   color: var(--dark-color);
@@ -1515,7 +1523,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
   height: 100% !important;
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.expired {
-  opacity: 0.7;
+  opacity: var(--event-expired-opacity);
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.all-day {
   background-color: var(--event-color-all-day) !important;
@@ -1530,7 +1538,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
   padding: var(--spacing);
   color: var(--event-text-color);
   margin-bottom: var(--spacing);
-  border-left: 7px solid var(--dark-color);
+  border-left: var(--event-left-border);
   text-align: left;
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div {
@@ -1565,39 +1573,39 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
 }
 div.calendar div.full-week-view div.contents div.days {
   position: absolute;
-  width: calc(100% - 70px - var(--spacing) * 2);
-  height: calc(1200px + var(--spacing) * 2 * 48 + var(--spacing) * 2 + 2px);
+  width: calc(100% - var(--time-view-hours-width) - var(--spacing) * 2);
+  height: calc(var(--time-view-hours-height) * 48 + var(--spacing) * 2 * 48 + var(--spacing) * 2 + 2px);
   top: 0;
-  left: calc(70px + var(--spacing) * 2 + 1px);
+  left: calc(var(--time-view-hours-width) + var(--spacing) * 2 + 1px);
   background-color: transparent;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow {
   position: absolute;
-  width: calc(100% - 70px - var(--spacing) * 2 - 1px);
-  left: calc(70px + var(--spacing) * 2 + 1px);
+  width: calc(100% - var(--time-view-hours-width) - var(--spacing) * 2 - 1px);
+  left: calc(var(--time-view-hours-width) + var(--spacing) * 2 + 1px);
   top: 0;
   z-index: 10;
-  height: 12px;
+  height: var(--time-view-arrow-line-height);
   display: none;
   pointer-events: none;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.arrow-left {
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-right: 12px solid var(--link-color);
+  border-top: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
+  border-bottom: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
+  border-right: var(--time-view-arrow-line-height) solid var(--link-color);
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.line {
   background-color: var(--link-color);
   position: absolute;
-  left: 12px;
-  top: 3px;
-  height: 6px;
+  left: var(--time-view-arrow-line-height);
+  top: calc(var(--time-view-arrow-line-height) / 4);
+  height: calc(var(--time-view-arrow-line-height) / 2);
   width: 100%;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.expired {
-  opacity: 0.7;
+  opacity: var(--event-expired-opacity);
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.all-day {
   background-color: var(--event-color-all-day) !important;
@@ -1612,7 +1620,7 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event {
   padding: var(--spacing);
   color: var(--event-text-color);
   margin-bottom: var(--spacing);
-  border-left: 7px solid var(--dark-color);
+  border-left: var(--event-left-border);
   text-align: left;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event div {
@@ -2036,7 +2044,7 @@ div.calendar div.all-events-view div.contents div.month div.events {
   padding: var(--spacing);
 }
 div.calendar div.all-events-view div.contents div.month div.events div.expired {
-  opacity: 0.7;
+  opacity: var(--event-expired-opacity);
 }
 div.calendar div.all-events-view div.contents div.month div.events div.all-day {
   background-color: var(--event-color-all-day) !important;
@@ -2051,7 +2059,7 @@ div.calendar div.all-events-view div.contents div.month div.events div.event {
   padding: var(--spacing);
   color: var(--event-text-color);
   margin-bottom: var(--spacing);
-  border-left: 7px solid var(--dark-color);
+  border-left: var(--event-left-border);
   text-align: left;
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div {
@@ -2167,7 +2175,7 @@ div.event-editor div.view textarea:last-child {
 div.event-editor div.view input:not([type=button]):focus,
 div.event-editor div.view textarea:focus {
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
 }
 div.event-editor div.view input:not([type=button]):not(:disabled):hover,
 div.event-editor div.view textarea:not(:disabled):hover {
@@ -2397,7 +2405,7 @@ div.event-editor-colors div.contents div.section {
   background-color: var(--day-names-color);
   padding: var(--spacing);
   margin-top: 0 !important;
-  margin-left: 25px;
+  margin-left: var(--input-checkbox-size-with-spacing);
   border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
   margin-left: 0;
@@ -2436,7 +2444,7 @@ div.event-editor-colors input[type=text]:last-child {
 div.event-editor-colors input[type=color]:focus,
 div.event-editor-colors input[type=text]:focus {
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
 }
 div.event-editor-colors input[type=color]:not(:disabled):hover,
 div.event-editor-colors input[type=text]:not(:disabled):hover {
@@ -2555,7 +2563,7 @@ div.event-editor-repeat-options div.contents div.section {
   background-color: var(--day-names-color);
   padding: var(--spacing);
   margin-top: 0 !important;
-  margin-left: 25px;
+  margin-left: var(--input-checkbox-size-with-spacing);
   border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
   margin-left: 0;
@@ -2597,7 +2605,7 @@ div.event-editor-repeat-options textarea:last-child {
 div.event-editor-repeat-options input:not([type=button]):focus,
 div.event-editor-repeat-options textarea:focus {
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
 }
 div.event-editor-repeat-options input:not([type=button]):not(:disabled):hover,
 div.event-editor-repeat-options textarea:not(:disabled):hover {
@@ -2849,7 +2857,7 @@ div.export-events div.contents input[type=text]:last-child {
 }
 div.export-events div.contents input[type=text]:focus {
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
 }
 div.export-events div.contents input[type=text]:not(:disabled):hover {
   border: 1px solid var(--input-hover-color);
@@ -2873,7 +2881,7 @@ div.export-events div.contents div.options {
   background-color: var(--day-names-color);
   padding: var(--spacing);
   margin-top: 0 !important;
-  margin-left: 25px;
+  margin-left: var(--input-checkbox-size-with-spacing);
   border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
 }
@@ -3031,11 +3039,11 @@ div.search div.contents div.history-container div.history-dropdown {
   max-height: 200px;
   z-index: 2000;
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
   display: none;
   overflow-x: hidden;
   overflow-y: auto;
-  margin-top: 4px;
+  margin-top: var(--input-box-shadow-size)2px;
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item {
   padding: var(--spacing);
@@ -3076,7 +3084,7 @@ div.search div.contents div.advanced {
   background-color: var(--day-names-color);
   padding: var(--spacing);
   margin-top: 10px !important;
-  margin-left: 25px;
+  margin-left: var(--input-checkbox-size-with-spacing);
   border-radius: var(--border-radius);
   border: 1px solid #D0D0D0;
 }
@@ -3108,7 +3116,7 @@ div.search input[type=text]:last-child {
 }
 div.search input[type=text]:focus {
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
 }
 div.search input[type=text]:not(:disabled):hover {
   border: 1px solid var(--input-hover-color);
@@ -3282,7 +3290,7 @@ div.configuration div.contents input[type=email]:last-child {
 div.configuration div.contents input[type=text]:focus,
 div.configuration div.contents input[type=email]:focus {
   border: 1px solid var(--dark-color) !important;
-  box-shadow: 0 0 2px 2px var(--dark-color);
+  box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
 }
 div.configuration div.contents input[type=text]:not(:disabled):hover,
 div.configuration div.contents input[type=email]:not(:disabled):hover {
@@ -3435,7 +3443,7 @@ div.calendar div.side-menu div.checkbox-container div:last-child label.checkbox 
 div.calendar label.checkbox-tabbed-in,
 div.calendar-dialog label.checkbox-tabbed-in,
 div.calendar div.side-menu label.checkbox-tabbed-in {
-  margin-left: 25px;
+  margin-left: var(--input-checkbox-size-with-spacing);
 }
 div.calendar label.checkbox-tabbed-down,
 div.calendar-dialog label.checkbox-tabbed-down,
@@ -3453,7 +3461,7 @@ div.calendar div.side-menu label.checkbox {
   cursor: default;
   display: inline-block;
   position: relative;
-  padding-left: 25px;
+  padding-left: var(--input-checkbox-size-with-spacing);
   padding-top: 1px;
   margin-bottom: var(--spacing);
   color: var(--dark-color);
@@ -3780,12 +3788,12 @@ div.calendar-context-menu div.separator {
   width: 12px;
 }
 .custom-scroll-bars::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px gray;
-  box-shadow: inset 0 0 6px gray;
+  -webkit-box-shadow: var(--scroll-bar-border-style);
+  box-shadow: var(--scroll-bar-border-style);
 }
 .custom-scroll-bars::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: inset 0 0 6px gray;
-  box-shadow: inset 0 0 6px gray;
+  -webkit-box-shadow: var(--scroll-bar-border-style);
+  box-shadow: var(--scroll-bar-border-style);
   background: var(--light-color);
 }
 .custom-scroll-bars::-webkit-scrollbar-thumb:hover {

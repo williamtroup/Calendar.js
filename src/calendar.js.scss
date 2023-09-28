@@ -54,6 +54,22 @@
     --side-menu-width: 300px;
     --side-menu-width-small: 250px;
     --side-menu-right-border-width: 5px;
+
+    // Time Views
+    --time-view-hours-width: 70px;
+    --time-view-hours-height: 25px;
+    --time-view-arrow-line-height: 12px;
+
+    // Inputs
+    --input-box-shadow-size: 2px;
+    --input-checkbox-size-with-spacing: 25px;
+
+    // Events
+    --event-left-border: 7px solid var(--dark-color);
+    --event-expired-opacity: 0.7;
+
+    // Scrollbars
+    --scroll-bar-border-style: inset 0 0 6px gray;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1005,7 +1021,7 @@ div.calendar {
                 color: var(--event-text-color);
                 margin-top: 5px;
                 margin-bottom: 5px;
-                border-left: $event-left-border;
+                border-left: var(--event-left-border);
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -1042,7 +1058,7 @@ div.calendar {
             }
             
             div.expired {
-                opacity: $event-expired-opacity;
+                opacity: var(--event-expired-opacity);
             }
 
             div.not-in-current-month {
@@ -1127,16 +1143,16 @@ div.calendar {
                 position: absolute;
                 margin-left: 0;
                 margin-right: 0;
-                width: calc( 100% - $time-hours-width - ( var(--spacing) * 6 ) - ( var(--spacing) / 2 ) );
-                left: calc( $time-hours-width + ( var(--spacing) * 3 ) );
+                width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 6 ) - ( var(--spacing) / 2 ) );
+                left: calc( var(--time-view-hours-width) + ( var(--spacing) * 3 ) );
                 overflow: hidden;
                 z-index: 1;
             }
 
             div.working-hours {
                 position: absolute;
-                width: calc( 100% - $time-hours-width - ( var(--spacing) * 2 ) );
-                left: calc( $time-hours-width + ( var(--spacing) * 2 ) );
+                width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
+                left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) );
                 background-color: rgba(  40, 40, 40, 0.4  );
                 display: none;
                 pointer-events: none;
@@ -1184,9 +1200,9 @@ div.calendar {
                 z-index: 100;
     
                 div.header-days {
-                    width: calc( 100% - $time-hours-width - ( var(--spacing) * 2 ) );
+                    width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
                     background-color: blue;
-                    margin-left: calc( $time-hours-width + ( var(--spacing) * 2 ) + $standard-border-size );
+                    margin-left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + $standard-border-size );
                     border-bottom: $standard-border-size solid var(--grid-border-color);
                 }
             }
@@ -1214,10 +1230,10 @@ div.calendar {
 
             div.days {
                 position: absolute;
-                width: calc( 100% - $time-hours-width - ( var(--spacing) * 2 ) );
-                height: calc( ( ( $time-hours-height * 48 ) + ( ( var(--spacing) * 2 ) * 48 ) ) + ( var(--spacing) * 2 ) + ( $standard-border-size * 2 ) );
+                width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
+                height: calc( ( ( var(--time-view-hours-height) * 48 ) + ( ( var(--spacing) * 2 ) * 48 ) ) + ( var(--spacing) * 2 ) + ( $standard-border-size * 2 ) );
                 top: 0;
-                left: calc( ( $time-hours-width + ( var(--spacing) * 2 ) ) + $standard-border-size );
+                left: calc( ( var(--time-view-hours-width) + ( var(--spacing) * 2 ) ) + $standard-border-size );
                 background-color: transparent;
 
                 div.cell {
@@ -1831,11 +1847,11 @@ div.search {
                 max-height: 200px;
                 z-index: 2000;
                 border: $standard-border-size solid var(--dark-color) !important;
-                box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size var(--dark-color);
+                box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
                 display: none;
                 overflow-x: hidden;
                 overflow-y: auto;
-                margin-top: $input-box-shadow-size + 2px;
+                margin-top: var(--input-box-shadow-size) + 2px;
 
                 div.history-dropdown-item {
                     padding: var(--spacing);
@@ -2055,7 +2071,7 @@ div.calendar div.side-menu {
     }
 
     label.checkbox-tabbed-in {
-        margin-left: $checkbox-size-with-spacing;
+        margin-left: var(--input-checkbox-size-with-spacing);
     }
 
     label.checkbox-tabbed-down {
@@ -2066,7 +2082,7 @@ div.calendar div.side-menu {
         @include no-selection-allowed;
         display: inline-block;
         position: relative;
-        padding-left: $checkbox-size-with-spacing;
+        padding-left: var(--input-checkbox-size-with-spacing);
         padding-top: 1px;
         margin-bottom: var(--spacing);
         color: var(--dark-color);
@@ -2398,13 +2414,13 @@ div.calendar-context-menu {
     }
     
     &::-webkit-scrollbar-track {
-        -webkit-box-shadow: $scroll-bar-border-style;
-        box-shadow: $scroll-bar-border-style;
+        -webkit-box-shadow: var(--scroll-bar-border-style);
+        box-shadow: var(--scroll-bar-border-style);
     }
     
     &::-webkit-scrollbar-thumb {
-        -webkit-box-shadow: $scroll-bar-border-style;
-        box-shadow: $scroll-bar-border-style;
+        -webkit-box-shadow: var(--scroll-bar-border-style);
+        box-shadow: var(--scroll-bar-border-style);
         background: var(--light-color);
 
         &:hover {
