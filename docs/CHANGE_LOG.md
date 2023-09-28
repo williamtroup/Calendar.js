@@ -2,12 +2,11 @@
 
 ## Version 2.7.1:
 - Fixed a SCSS issue with "repeating-linear-gradient" not using calc() for sizing.
-- Completed CSS theming support! You can now change the Colors, Sizes, Spacing, Borders (etc) use CSS theme files!
+- Completed CSS theming support! You can now change the Colors, Sizes, Spacing, Borders (etc.) to use CSS theme files!
 - Removed repetitive code that builds the hours display for the Full Day/Week views.
 - The Full Year view now shows the total number of events that are available per day in each month (little indicator).
-- The title bar text shown in the Full Week view is now smaller when the viewing week days are in the same month of the year.
+- The title bar text shown in the Full Week view is now smaller when the viewing weekdays are in the same month of the year.
 - Fixed the half-hour line in the Full Day/Week view overlapping the hours border by 1 pixel.
-- 
 
 <br>
 
