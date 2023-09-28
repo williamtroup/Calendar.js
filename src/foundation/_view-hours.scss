@@ -2,29 +2,29 @@
 
 div.hour {
     background-color: var(--light-color);
-    border-bottom: $standard-border-size solid var(--dark-color);
+    border-bottom: var(--spacing-border-size) solid var(--dark-color);
     position: relative;
 
     &::before {
-        border-bottom: $standard-border-size dashed var(--input-border-color);
-        width: calc( 100% - ( $time-hours-width + $spacing * 2 ) );
-        height: ( $time-hours-height + $spacing * 2 ) - $standard-border-size;
+        border-bottom: var(--spacing-border-size) dashed var(--input-border-color);
+        width: calc( 100% - ( var(--time-view-hours-width) + var(--spacing) * 2 ) );
+        height: calc( ( var(--time-view-hours-height) + var(--spacing) * 2 ) - var(--spacing-border-size) );
         content: '';
         display: block;
         position: absolute;
         top: 0;
-        left: $time-hours-width + $spacing * 2;
+        left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) );
     }
 
     div.hour-text {
         display: flex;
         align-items: center;
-        width: $time-hours-width;
-        height: $time-hours-height;
-        padding: $spacing;
+        width: var(--time-view-hours-width);
+        height: var(--time-view-hours-height);
+        padding: var(--spacing);
         background-color: var(--light-color);
         color: var(--dark-color);
-        border-right: $standard-border-size solid var(--dark-color);
+        border-right: var(--spacing-border-size) solid var(--dark-color);
         
         &:nth-child( odd ) {
             background-color: var(--dark-color);

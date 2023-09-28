@@ -1,34 +1,5 @@
-$border-view-radius: 0.25rem;
-$border-circle-radius: 50%;
-$event-expired-opacity: 0.7;
-$standard-border-size: 1px;
-$standard-border-size-left: 7px;
-$spacing: 10px;
 $maximum-width: 450px;
 $minimum-width: $maximum-width + 1;
-$time-hours-width: 70px;
-$time-hours-height: 25px;
-$time-arrow-line-height: 12px;
-$title-bar-font-weight: 900;
-$input-box-shadow-size: 2px;
-$selected-event-shadow-size: 1.5px;
-$side-menu-width: 300px;
-$side-menu-width-small: 250px;
-$side-menu-right-border-width: 5px;
-$checkbox-size-with-spacing: 25px;
-
-$large-font-size: 0.9rem;
-$small-font-size: 0.7rem;
-
-$transition: all .3s;
-$transition-faster: all .2s;
-
-$header-date-toolbar-button-border: 4px solid var(--light-color);
-$header-date-toolbar-button-small-border: 3px solid var(--light-color);
-$header-toolbar-button-border: 4px solid var(--light-color);
-$scroll-bar-border-style: inset 0 0 6px gray;
-$event-left-border: $standard-border-size-left solid var(--dark-color);
-
 
 @mixin fade-in-effect-animation( $seconds ) {
     animation: fade-in-effect ease $seconds;
@@ -48,7 +19,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
 }
 
 @mixin opacity-hover-effect {
-    transition: $transition;
+    transition: var(--transition);
     cursor: pointer;
     opacity: 0.6;
 }
@@ -73,7 +44,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     width: 100%;
     position: absolute;
     background-color: var(--light-color);
-    transition: $transition;
+    transition: var(--transition);
     visibility: hidden;
 }
 
@@ -90,39 +61,39 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     overflow-y: auto;
 
     @if $half-spacing {
-        width: calc( 100% - $spacing );
-        padding: calc( $spacing / 2 );
+        width: calc( 100% - var(--spacing) );
+        padding: calc( var(--spacing) / 2 );
     }
     @else {
-        width: calc( 100% - ( $spacing * 2 ) );
-        padding: $spacing;
+        width: calc( 100% - ( var(--spacing) * 2 ) );
+        padding: var(--spacing);
     }
 
     @media screen and ( min-width: $minimum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( $spacing * 3 ) + $large-font-size ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--large-font-size) ) - var(--spacing-border-size) );
         }
         @else {
-            height: calc( 100% - ( ( $spacing * 4 ) + $large-font-size ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--large-font-size) ) - var(--spacing-border-size) );
         }
     }
     
     @media screen and ( max-width: $maximum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( $spacing * 3 ) + $small-font-size ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--small-font-size) ) - var(--spacing-border-size) );
         }
         @else {
-            height: calc( 100% - ( ( $spacing * 4 ) + $small-font-size ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--small-font-size) ) - var(--spacing-border-size) );
         }
     }
 }
 
 @mixin dialog-styles( $width, $includeTransform: true, $z-index: 1500 ) {
-    width: calc( 100% - ( $spacing * 2 ) );
+    width: calc( 100% - ( var(--spacing) * 2 ) );
     max-width: $width;
-    border-radius: $border-view-radius;
+    border-radius: var(--border-radius);
     background-color: var(--light-color);
-    border: $standard-border-size solid var(--dark-color);
+    border: var(--spacing-border-size) solid var(--dark-color);
     position: fixed;
     display: none;
     box-shadow: 4px 4px 4px var(--dark-color);
@@ -147,7 +118,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     border: none;
     padding: .255rem .55rem;
     line-height: 1.8;
-    border-radius: $border-view-radius;
+    border-radius: var(--border-radius);
     outline: 0;
     cursor: pointer;
 
@@ -163,7 +134,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     &.#{$name} {
         color: $color;
         background-color: $background-color;
-        border: calc( $standard-border-size * 2 ) solid $border-color;
+        border: calc( var(--spacing-border-size) * 2 ) solid $border-color;
         box-sizing: border-box;
 
         &:not( :disabled ):hover {
@@ -186,7 +157,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
 
 @mixin div-label-spacing {
     div {
-        margin-bottom: calc( $spacing / 2 );
+        margin-bottom: calc( var(--spacing) / 2 );
 
         &:last-child {
             margin-bottom: 0;
@@ -195,12 +166,12 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
 }
 
 @mixin input-style {
-    border: $standard-border-size solid var(--input-border-color);
-    border-radius: $border-view-radius;
+    border: var(--spacing-border-size) solid var(--input-border-color);
+    border-radius: var(--border-radius);
     outline: none;
 }
 
-@mixin input-fields( $height: 0px, $width: 100%, $margin-bottom: $spacing ) {
+@mixin input-fields( $height: 0px, $width: 100%, $margin-bottom: var(--spacing) ) {
     @include input-style;
     width: $width;
     padding: .375rem .75rem;
@@ -208,7 +179,7 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     color: var(--dark-color);
     margin-bottom: $margin-bottom;
     background-color: var(--input-background-color);
-    transition: $transition;
+    transition: var(--transition);
     box-sizing: border-box;
     max-height: 35px;
 
@@ -221,12 +192,12 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
     }
 
     &:focus {
-        border: $standard-border-size solid var(--dark-color) !important;
-        box-shadow: 0 0 $input-box-shadow-size $input-box-shadow-size var(--dark-color);
+        border: var(--spacing-border-size) solid var(--dark-color) !important;
+        box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
     }
 
     &:not( :disabled ):hover {
-        border: $standard-border-size solid var(--input-hover-color);
+        border: var(--spacing-border-size) solid var(--input-hover-color);
     }
 }
 
@@ -235,20 +206,20 @@ $event-left-border: $standard-border-size-left solid var(--dark-color);
         @include no-selection-allowed;
         background-color: var(--dark-color);
         color: var(--title-bar-text-color);
-        padding: $spacing;
+        padding: var(--spacing);
         text-align: center;
-        font-weight: $title-bar-font-weight;
+        font-weight: var(--title-bar-font-weight);
     }
 }
 
 @mixin advanced-options-container( $margin-top: 10px ) {
     @include fade-in-effect-animation( 0.5s );
     background-color: var(--day-names-color);
-    padding: $spacing;
+    padding: var(--spacing);
     margin-top: $margin-top !important;
-    margin-left: $checkbox-size-with-spacing;
-    border-radius: $border-view-radius;
-    border: $standard-border-size solid #D0D0D0;
+    margin-left: var(--input-checkbox-size-with-spacing);
+    border-radius: var(--border-radius);
+    border: var(--spacing-border-size) solid #D0D0D0;
 }
 
 @mixin title-bar-divider-line {

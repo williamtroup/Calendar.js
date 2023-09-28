@@ -1,4 +1,4 @@
-/*! Calendar.js v2.7.0 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.7.1 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -1302,7 +1302,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     clearAutoRefreshTimer();
     _isCalendarBusy = false;
     _element_Calendar_AllVisibleEvents = [];
-    _events_DatesAvailable = [];
+    _events_DatesAvailable = {};
     var orderedEvents = getOrderedEvents(getAllEvents());
     var orderedEventsLength = orderedEvents.length;
     var orderedEventIndex = 0;
@@ -1353,10 +1353,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       dateFunc(newFromDate, dateFuncForwardValue);
       var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
       if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
-        var formattedNewFromDate = toStorageFormattedDate(newFromDate);
-        if (_events_DatesAvailable.indexOf(formattedNewFromDate) === -1) {
-          _events_DatesAvailable.push(formattedNewFromDate);
-        }
+        updateDateTotalEventsTracked(toStorageFormattedDate(newFromDate));
         if (newFromDate < _element_Calendar_LargestDateAvailable) {
           var repeatDayElement = getDayElement(newFromDate);
           if (repeatDayElement !== null) {
@@ -1375,11 +1372,8 @@ function calendarJs(elementOrId, options, searchOptions) {
         var dayIndex = 0;
         for (; dayIndex < totalDays; dayIndex++) {
           moveDateForwardDay(nextDayDate);
+          updateDateTotalEventsTracked(toStorageFormattedDate(nextDayDate));
           var elementNextDay = getDayElement(nextDayDate);
-          var formattedNextDayDate = toStorageFormattedDate(nextDayDate);
-          if (_events_DatesAvailable.indexOf(formattedNextDayDate) === -1) {
-            _events_DatesAvailable.push(formattedNextDayDate);
-          }
           if (elementNextDay !== null) {
             buildDayEvent(nextDayDate, orderedEvent);
           }
@@ -1392,9 +1386,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates);
     var formattedDayDate = toStorageFormattedDate(dayDate);
     if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDayDate) === -1) {
-      if (_events_DatesAvailable.indexOf(formattedDayDate) === -1) {
-        _events_DatesAvailable.push(formattedDayDate);
-      }
+      updateDateTotalEventsTracked(formattedDayDate);
       if (elementDay !== null) {
         checkEventForBrowserNotifications(dayDate, eventDetails);
         if (!_datePickerModeEnabled) {
@@ -1558,6 +1550,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       triggerOptionsEventWithData("onBusyStateChange", _isCalendarBusy);
     }
   }
+  function updateDateTotalEventsTracked(formattedNewFromDate) {
+    if (!_events_DatesAvailable.hasOwnProperty(formattedNewFromDate)) {
+      _events_DatesAvailable[formattedNewFromDate] = 0;
+    }
+    _events_DatesAvailable[formattedNewFromDate]++;
+  }
   function buildFullDayView() {
     if (!_datePickerModeEnabled) {
       var wasAddedAlready = _element_View_FullDay !== null;
@@ -1633,17 +1631,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           onViewEventDropped(e, _element_View_FullDay_DateSelected, _element_View_FullDay_Contents_Hours);
         };
       }
-      var hour = 0;
-      for (; hour < 24; hour++) {
-        var row = createElement("div", "hour");
-        _element_View_FullDay_Contents_Hours.appendChild(row);
-        var newHour1 = createElement("div", "hour-text");
-        newHour1.innerText = padNumber(hour) + ":00";
-        row.appendChild(newHour1);
-        var newHour2 = createElement("div", "hour-text");
-        newHour2.innerText = padNumber(hour) + ":30";
-        row.appendChild(newHour2);
-      }
+      buildHoursForTimeBasedView(_element_View_FullDay_Contents_Hours);
       buildFullDayViewTimeArrow();
     }
   }
@@ -1993,17 +1981,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_FullWeek_Contents_AllDayEvents.appendChild(allDayText);
     _element_View_FullWeek_Contents_Hours = createElement("div", "hours");
     _element_View_FullWeek_Contents.appendChild(_element_View_FullWeek_Contents_Hours);
-    var hour = 0;
-    for (; hour < 24; hour++) {
-      var row = createElement("div", "hour");
-      _element_View_FullWeek_Contents_Hours.appendChild(row);
-      var newHour1 = createElement("div", "hour-text");
-      newHour1.innerText = padNumber(hour) + ":00";
-      row.appendChild(newHour1);
-      var newHour2 = createElement("div", "hour-text");
-      newHour2.innerText = padNumber(hour) + ":30";
-      row.appendChild(newHour2);
-    }
+    buildHoursForTimeBasedView(_element_View_FullWeek_Contents_Hours);
     _element_View_FullWeek_Contents_Days = createElement("div", "row-cells days");
     _element_View_FullWeek_Contents_Hours.appendChild(_element_View_FullWeek_Contents_Days);
   }
@@ -2099,9 +2077,16 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullWeekViewTitleDate(from, to) {
     if (from.getFullYear() === to.getFullYear()) {
-      buildDateTimeDisplay(_element_View_FullWeek_TitleBar, from, false, false);
-      createSpanElement(_element_View_FullWeek_TitleBar, " - ");
-      buildDateTimeDisplay(_element_View_FullWeek_TitleBar, to, false, false);
+      if (from.getMonth() === to.getMonth()) {
+        buildDayDisplay(_element_View_FullWeek_TitleBar, from);
+        createSpanElement(_element_View_FullWeek_TitleBar, " - ");
+        buildDayDisplay(_element_View_FullWeek_TitleBar, to, null, _string.space);
+        createSpanElement(_element_View_FullWeek_TitleBar, _options.monthNames[from.getMonth()]);
+      } else {
+        buildDateTimeDisplay(_element_View_FullWeek_TitleBar, from, false, false);
+        createSpanElement(_element_View_FullWeek_TitleBar, " - ");
+        buildDateTimeDisplay(_element_View_FullWeek_TitleBar, to, false, false);
+      }
       createSpanElement(_element_View_FullWeek_TitleBar, ", " + from.getFullYear());
     } else {
       buildDateTimeDisplay(_element_View_FullWeek_TitleBar, from, false, true);
@@ -2466,9 +2451,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     var expandMonthDate = new Date(_element_View_FullYear_CurrentYear, monthIndex, 1);
     var yearMonth = createElement("div", "year-month");
     _element_View_FullYear_Contents.appendChild(yearMonth);
+    var titleBarContainer = createElement("div", "title-bar-container");
+    yearMonth.appendChild(titleBarContainer);
     var titleBar = createElement("div", "title-bar");
     setNodeText(titleBar, _options.monthNames[monthIndex]);
-    yearMonth.appendChild(titleBar);
+    titleBarContainer.appendChild(titleBar);
     titleBar.ondblclick = function() {
       hideView(_element_View_FullYear);
       build(expandMonthDate);
@@ -2582,8 +2569,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (isWorkingDay(date)) {
       element.className += " working-day";
     }
-    if (_events_DatesAvailable.indexOf(formattedDate) > -1) {
+    if (_events_DatesAvailable.hasOwnProperty(formattedDate)) {
       element.className += " has-events";
+      var eventsCount = _events_DatesAvailable[formattedDate];
+      var eventsCountElement = createElement("div", "events-count");
+      eventsCountElement.innerText = eventsCount.toString();
+      element.appendChild(eventsCountElement);
     }
     if (isDateToday(date)) {
       element.className += " cell-today";
@@ -4807,6 +4798,19 @@ function calendarJs(elementOrId, options, searchOptions) {
   function closeAllViews() {
     for (; _element_View_Opened.length > 0;) {
       closeLastViewOpened();
+    }
+  }
+  function buildHoursForTimeBasedView(container) {
+    var hour = 0;
+    for (; hour < 24; hour++) {
+      var row = createElement("div", "hour");
+      container.appendChild(row);
+      var newHour1 = createElement("div", "hour-text");
+      newHour1.innerText = padNumber(hour) + ":00";
+      row.appendChild(newHour1);
+      var newHour2 = createElement("div", "hour-text");
+      newHour2.innerText = padNumber(hour) + ":30";
+      row.appendChild(newHour2);
     }
   }
   function getHourMinutesFromMousePositionClick(e, container) {
@@ -7776,7 +7780,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _initializedFirstTime = false;
   var _initializedDocumentEvents = false;
   var _events = {};
-  var _events_DatesAvailable = [];
+  var _events_DatesAvailable = {};
   var _events_Selected = [];
   var _events_Copied = [];
   var _events_Copied_Cut = false;
@@ -8578,7 +8582,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.7.0";
+    return "2.7.1";
   };
   this.getId = function() {
     return _elementID;

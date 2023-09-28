@@ -1,7 +1,7 @@
 @import "styles";
 
 div.expired {
-    opacity: $event-expired-opacity;
+    opacity: var(--event-expired-opacity);
 }
 
 div.all-day {
@@ -13,12 +13,12 @@ div.event {
     white-space: pre-line;
     -ms-word-break: normal;
     word-break: normal;
-    border-radius: $border-view-radius;
+    border-radius: var(--border-radius);
     background-color: var(--event-color);
-    padding: $spacing;
+    padding: var(--spacing);
     color: var(--event-text-color);
-    margin-bottom: $spacing;
-    border-left: $event-left-border;
+    margin-bottom: var(--spacing);
+    border-left: var(--event-left-border);
     text-align: left;
 
     @include div-label-spacing;
@@ -37,7 +37,7 @@ div.event {
     }
 
     div.ib-refresh-medium {
-        margin-right: calc( $spacing / 2 );
+        margin-right: calc( var(--spacing) / 2 );
     }
 
     &:last-child {
