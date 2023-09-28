@@ -3397,7 +3397,7 @@ div.calendar-dialog div.tab-control-selected {
   border: var(--spacing-border-size) solid var(--dark-color);
   background-color: var(--dark-color);
   color: var(--light-color);
-  padding: var(--spacing)calc(var(--spacing) / 4);
+  padding: calc(var(--spacing) + var(--spacing) / 4);
 }
 div.calendar-dialog div.tab-control {
   border: var(--spacing-border-size) solid var(--input-border-color);

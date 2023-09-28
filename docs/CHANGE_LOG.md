@@ -4,7 +4,9 @@
 - The year jumping buttons available for the DatePicker mode can now be shown in the regular calendar mode.
 - Renamed the setting "addYearButtonsInDatePickerMode" to "addYearButtonsOnMainDisplay".
 - Removed more replicated code.
-- 
+- Fixed a CSS issue around the class "tab-control-selected" (missing calc(), was causing active tabs to look a bit strange).
+- Added a new setting "useAmPmForTimeDisplays" (defaults to false), which states if the times shown in the event/hour displays use AM/PM format.
+-  
 
 <br>
 

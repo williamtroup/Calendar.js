@@ -3444,8 +3444,8 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_Dialog_EventEditor_AddUpdateButton.value = _options.updateText;
         _element_Dialog_EventEditor_RemoveButton.style.display = "inline-block";
         _element_Dialog_EventEditor_EventDetails = eventDetails;
-        _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay(eventDetails.from);
-        _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay(eventDetails.to);
+        _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay(eventDetails.from, false);
+        _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay(eventDetails.to, false);
         _element_Dialog_EventEditor_IsAllDay.checked = getBoolean(eventDetails.isAllDay);
         _element_Dialog_EventEditor_ShowAlerts.checked = getBoolean(eventDetails.showAlerts, true);
         _element_Dialog_EventEditor_ShowAsBusy.checked = getBoolean(eventDetails.showAsBusy, true);
@@ -3540,8 +3540,8 @@ function calendarJs(elementOrId, options, searchOptions) {
           toDate.setMinutes(overrideTimeValues[1]);
           toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
         }
-        _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay(fromDate);
-        _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay(toDate);
+        _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay(fromDate, false);
+        _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay(toDate, false);
         setSelectedDate(fromDate, _element_Dialog_EventEditor_DateFrom);
         setSelectedDate(toDate, _element_Dialog_EventEditor_DateTo);
       }
@@ -4804,12 +4804,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     var hour = 0;
     for (; hour < 24; hour++) {
       var row = createElement("div", "hour");
+      var firstDate = new Date();
+      var secondDate = new Date();
       container.appendChild(row);
+      firstDate.setHours(hour, 0, 0, 0);
+      secondDate.setHours(hour, 30, 0, 0);
       var newHour1 = createElement("div", "hour-text");
-      newHour1.innerText = padNumber(hour) + ":00";
+      newHour1.innerText = getTimeForDisplay(firstDate);
       row.appendChild(newHour1);
       var newHour2 = createElement("div", "hour-text");
-      newHour2.innerText = padNumber(hour) + ":30";
+      newHour2.innerText = getTimeForDisplay(secondDate);
       row.appendChild(newHour2);
     }
   }
@@ -5460,8 +5464,30 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getTimeToTimeDisplay(fromDate, toDate) {
     return getTimeForDisplay(fromDate) + _string.space + _options.toTimeText + _string.space + getTimeForDisplay(toDate);
   }
-  function getTimeForDisplay(date) {
-    return padNumber(date.getHours()) + ":" + padNumber(date.getMinutes());
+  function getTimeForDisplay(date, useAmPm) {
+    var result;
+    useAmPm = isDefined(useAmPm) ? useAmPm : _options.useAmPmForTimeDisplays;
+    if (_options.useAmPmForTimeDisplays && useAmPm) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var amPmText = "am";
+      if (hours > 12) {
+        hours = hours - 12;
+        amPmText = "pm";
+      } else if (hours === 12) {
+        amPmText = "pm";
+      } else if (hours === 0) {
+        hours = 12;
+      }
+      result = hours;
+      if (minutes > 0) {
+        result = result + (":" + padNumber(date.getMinutes()));
+      }
+      result = result + amPmText;
+    } else {
+      result = padNumber(date.getHours()) + ":" + padNumber(date.getMinutes());
+    }
+    return result;
   }
   function buildDateTimeToDateTimeDisplay(container, fromDate, toDate) {
     container.innerHTML = _string.empty;
@@ -7504,6 +7530,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.workingHoursEnd = getDefaultString(_options.workingHoursEnd, null);
     _options.reverseOrderDaysOfWeek = getDefaultBoolean(_options.reverseOrderDaysOfWeek, false);
     _options.importEventsEnabled = getDefaultBoolean(_options.importEventsEnabled, true);
+    _options.useAmPmForTimeDisplays = getDefaultBoolean(_options.useAmPmForTimeDisplays, false);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];

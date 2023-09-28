@@ -369,6 +369,7 @@
  * @property    {string}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", and defaults to null).
  * @property    {boolean}   reverseOrderDaysOfWeek                      States if the days of the week should be reversed (for hebrew calendars, for example. Defaults to true).
  * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
+ * @property    {boolean}   useAmPmForTimeDisplays                      States if the AM/PM time format should be used for all time displays (defaults to false).
  */
 
 
@@ -5465,8 +5466,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_Dialog_EventEditor_AddUpdateButton.value = _options.updateText;
                 _element_Dialog_EventEditor_RemoveButton.style.display = "inline-block";
                 _element_Dialog_EventEditor_EventDetails = eventDetails;
-                _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay( eventDetails.from );
-                _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay( eventDetails.to );
+                _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay( eventDetails.from, false );
+                _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay( eventDetails.to, false );
                 _element_Dialog_EventEditor_IsAllDay.checked = getBoolean( eventDetails.isAllDay );
                 _element_Dialog_EventEditor_ShowAlerts.checked = getBoolean( eventDetails.showAlerts, true );
                 _element_Dialog_EventEditor_ShowAsBusy.checked = getBoolean( eventDetails.showAsBusy, true );
@@ -5575,8 +5576,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     toDate = addMinutesToDate( toDate, _options.defaultEventDuration );
                 }
     
-                _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay( fromDate );
-                _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay( toDate );
+                _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay( fromDate, false );
+                _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay( toDate, false );
     
                 setSelectedDate( fromDate, _element_Dialog_EventEditor_DateFrom );
                 setSelectedDate( toDate, _element_Dialog_EventEditor_DateTo );
@@ -7320,15 +7321,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildHoursForTimeBasedView( container ) {
         for ( var hour = 0; hour < 24; hour++ ) {
-            var row = createElement( "div", "hour" );
+            var row = createElement( "div", "hour" ),
+                firstDate = new Date(),
+                secondDate = new Date();
+                
             container.appendChild( row );
 
+            firstDate.setHours( hour, 0, 0, 0 );
+            secondDate.setHours( hour, 30, 0, 0 );
+
             var newHour1 = createElement( "div", "hour-text" );
-            newHour1.innerText = padNumber( hour ) + ":00";
+            newHour1.innerText = getTimeForDisplay( firstDate );
             row.appendChild( newHour1 );
 
             var newHour2 = createElement( "div", "hour-text" );
-            newHour2.innerText = padNumber( hour ) + ":30";
+            newHour2.innerText = getTimeForDisplay( secondDate );
             row.appendChild( newHour2 );
         }
     }
@@ -8222,8 +8229,38 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return getTimeForDisplay( fromDate ) + _string.space + _options.toTimeText + _string.space + getTimeForDisplay( toDate );
     }
 
-    function getTimeForDisplay( date ) {
-        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
+    function getTimeForDisplay( date, useAmPm ) {
+        var result;
+
+        useAmPm = isDefined( useAmPm ) ? useAmPm : _options.useAmPmForTimeDisplays;
+
+        if ( _options.useAmPmForTimeDisplays && useAmPm ) {
+            var hours = date.getHours(),
+                minutes = date.getMinutes(),
+                amPmText = "am";
+
+            if ( hours > 12 ) {
+                hours = hours - 12;
+                amPmText = "pm";
+            } else if ( hours === 12 ) {
+                amPmText = "pm";
+            } else if ( hours === 0 ) {
+                hours = 12;
+            }
+
+            result = hours;
+
+            if ( minutes > 0 ) {
+                result += ":" + padNumber( date.getMinutes() );
+            }
+
+            result += amPmText;
+
+        } else {
+            result = padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
+        }
+
+        return result;
     }
 
     function buildDateTimeToDateTimeDisplay( container, fromDate, toDate ) {
@@ -12456,6 +12493,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.workingHoursEnd = getDefaultString( _options.workingHoursEnd, null );
         _options.reverseOrderDaysOfWeek = getDefaultBoolean( _options.reverseOrderDaysOfWeek, false );
         _options.importEventsEnabled = getDefaultBoolean( _options.importEventsEnabled, true );
+        _options.useAmPmForTimeDisplays = getDefaultBoolean( _options.useAmPmForTimeDisplays, false );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
