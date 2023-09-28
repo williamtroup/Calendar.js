@@ -6,6 +6,7 @@
 - The transition effect and length variables are now CSS variables.
 - The spacing SCSS variable is now a CSS variable (calc() improvements have been included to make size changes easier).
 - The font based SCSS variables are now CSS variables.
+- The side menu SCSS variables are now CSS variables.
 - Removed repetitive code that builds the hours display for the Full Day/Week views.
 - The Full Year view now shows the total number of events that are available per day in each month (little indicator).
 - The title bar text shown in the Full Week view is now smaller when the viewing week days are in the same month of the year.

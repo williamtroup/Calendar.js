@@ -49,6 +49,11 @@
     --title-bar-font-weight: 900;
     --large-font-size: 0.9rem;
     --small-font-size: 0.7rem;
+
+    // Side Menu
+    --side-menu-width: 300px;
+    --side-menu-width-small: 250px;
+    --side-menu-right-border-width: 5px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -571,19 +576,19 @@ div.calendar {
         z-index: 1500;
         transition: var(--transition); 
         background-color: var(--dark-color);
-        border-right: $side-menu-right-border-width solid var(--light-color);
+        border-right: var(--side-menu-right-border-width) solid var(--light-color);
         border-radius: var(--border-radius);
         overflow-x: hidden;
         overflow-y: auto;
 
         @media screen and ( min-width: $minimum-width ) {
-            width: $side-menu-width;
-            left: -( $side-menu-width + $side-menu-right-border-width );
+            width: var(--side-menu-width);
+            left: calc( 0px - ( var(--side-menu-width) + var(--side-menu-right-border-width) ) );
         }
         
         @media screen and ( max-width: $maximum-width ) {
-            width: $side-menu-width-small;
-            left: -( $side-menu-width-small + $side-menu-right-border-width );
+            width: var(--side-menu-width-small);
+            left: calc( 0px - ( var(--side-menu-width-small) + var(--side-menu-right-border-width) ) );
         }
 
         div.main-header {
