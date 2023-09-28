@@ -1,5 +1,5 @@
 
-$standard-border-size: 1px;
+
 $maximum-width: 450px;
 $minimum-width: $maximum-width + 1;
 
@@ -79,19 +79,19 @@ $minimum-width: $maximum-width + 1;
 
     @media screen and ( min-width: $minimum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--large-font-size) ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--large-font-size) ) - var(--spacing-border-size) );
         }
         @else {
-            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--large-font-size) ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--large-font-size) ) - var(--spacing-border-size) );
         }
     }
     
     @media screen and ( max-width: $maximum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--small-font-size) ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--small-font-size) ) - var(--spacing-border-size) );
         }
         @else {
-            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--small-font-size) ) - $standard-border-size );
+            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--small-font-size) ) - var(--spacing-border-size) );
         }
     }
 }
@@ -101,7 +101,7 @@ $minimum-width: $maximum-width + 1;
     max-width: $width;
     border-radius: var(--border-radius);
     background-color: var(--light-color);
-    border: $standard-border-size solid var(--dark-color);
+    border: var(--spacing-border-size) solid var(--dark-color);
     position: fixed;
     display: none;
     box-shadow: 4px 4px 4px var(--dark-color);
@@ -142,7 +142,7 @@ $minimum-width: $maximum-width + 1;
     &.#{$name} {
         color: $color;
         background-color: $background-color;
-        border: calc( $standard-border-size * 2 ) solid $border-color;
+        border: calc( var(--spacing-border-size) * 2 ) solid $border-color;
         box-sizing: border-box;
 
         &:not( :disabled ):hover {
@@ -174,7 +174,7 @@ $minimum-width: $maximum-width + 1;
 }
 
 @mixin input-style {
-    border: $standard-border-size solid var(--input-border-color);
+    border: var(--spacing-border-size) solid var(--input-border-color);
     border-radius: var(--border-radius);
     outline: none;
 }
@@ -200,12 +200,12 @@ $minimum-width: $maximum-width + 1;
     }
 
     &:focus {
-        border: $standard-border-size solid var(--dark-color) !important;
+        border: var(--spacing-border-size) solid var(--dark-color) !important;
         box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
     }
 
     &:not( :disabled ):hover {
-        border: $standard-border-size solid var(--input-hover-color);
+        border: var(--spacing-border-size) solid var(--input-hover-color);
     }
 }
 
@@ -227,7 +227,7 @@ $minimum-width: $maximum-width + 1;
     margin-top: $margin-top !important;
     margin-left: var(--input-checkbox-size-with-spacing);
     border-radius: var(--border-radius);
-    border: $standard-border-size solid #D0D0D0;
+    border: var(--spacing-border-size) solid #D0D0D0;
 }
 
 @mixin title-bar-divider-line {

@@ -44,6 +44,7 @@
 
     // Spacing
     --spacing: 10px;
+    --spacing-border-size: 1px;
 
     // Fonts
     --title-bar-font-weight: 900;
@@ -68,7 +69,7 @@
     --event-left-border: 7px solid var(--dark-color);
     --event-expired-opacity: 0.7;
 
-    // Scrollbars
+    // Scroll Bars
     --scroll-bar-border-style: inset 0 0 6px gray;
 }
 
@@ -159,7 +160,7 @@ div.calendar-notification {
 
     div.success {
         background-color: #EFE;
-        border: $standard-border-size solid #DED;
+        border: var(--spacing-border-size) solid #DED;
         color: #9A9;
         box-shadow: 4px 4px 4px var(--dark-color);
 
@@ -173,7 +174,7 @@ div.calendar-notification {
 
     div.error {
         background-color: #FEE;
-        border: $standard-border-size solid #EDD;
+        border: var(--spacing-border-size) solid #EDD;
         color: #A66;
         box-shadow: 4px 4px 4px var(--dark-color);
         
@@ -209,11 +210,11 @@ div.full-screen-view {
 
     div.row-cells {
         @media screen and ( min-width: $minimum-width ) {
-            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 4 ) + ( var(--large-font-size) * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( var(--spacing-border-size) * 10 ) + ( ( var(--spacing) * 4 ) + ( var(--large-font-size) * 2 ) ) ) ) / 6 );
         }
         
         @media screen and ( max-width: $maximum-width ) {
-            height: calc( ( 100% - ( ( $standard-border-size * 10 ) + ( ( var(--spacing) * 3 ) + ( var(--small-font-size) * 2 ) ) ) ) / 6 );
+            height: calc( ( 100% - ( ( var(--spacing-border-size) * 10 ) + ( ( var(--spacing) * 3 ) + ( var(--small-font-size) * 2 ) ) ) ) / 6 );
         }
     }
 
@@ -255,8 +256,8 @@ div.calendar-date-picker {
         max-width: 330px;
         z-index: 1000;
         box-shadow: 4px 4px 4px var(--dark-color);
-        margin-top: $standard-border-size;
-        margin-left: -$standard-border-size;
+        margin-top: var(--spacing-border-size);
+        margin-left: -var(--spacing-border-size);
 
         div.cell {
             padding: calc( var(--spacing) / 2 ) !important;
@@ -302,7 +303,7 @@ div.calendar {
     overflow: hidden;
     width: 100%;
     min-width: 260px;
-    border: $standard-border-size solid var(--dark-color);
+    border: var(--spacing-border-size) solid var(--dark-color);
     position: relative;
 
     sup {
@@ -406,7 +407,7 @@ div.calendar {
     }
     
     div.row-cells {
-        border-bottom: $standard-border-size solid var(--grid-border-color);
+        border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
@@ -421,27 +422,27 @@ div.calendar {
         }
 
         div.cell-2 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 2 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 2 );
         }
 
         div.cell-3 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 3 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 3 );
         }
         
         div.cell-4 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 4 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 4 );
         }
 
         div.cell-5 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 5 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 5 );
         }
 
         div.cell-6 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 6 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 6 );
         }
 
         div.cell-7 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + $standard-border-size ) / 7 );
+            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 7 );
         }
 
         div.scrollY {
@@ -451,7 +452,7 @@ div.calendar {
         div.cell {
             display: inline-block;
             text-align: center;
-            border-right: $standard-border-size solid var(--grid-border-color);
+            border-right: var(--spacing-border-size) solid var(--grid-border-color);
             position: relative;
             overflow: hidden;
             color: var(--dark-color);
@@ -648,14 +649,14 @@ div.calendar {
             padding-top: 0;
 
             div.content-section-opened {
-                border-left: calc( $standard-border-size * 6 ) solid #656363 !important;
+                border-left: calc( var(--spacing-border-size) * 6 ) solid #656363 !important;
             }
 
             div.content-section {
                 margin-top: var(--spacing);
                 border-radius: var(--border-radius);
                 background-color: #474545;
-                border: $standard-border-size solid var(--dark-lighter-color);
+                border: var(--spacing-border-size) solid var(--dark-lighter-color);
                 transition: var(--transition);
 
                 &:first-of-type {
@@ -789,7 +790,7 @@ div.calendar {
                 padding-right: 6px;
                 border-radius: var(--border-radius);
                 background-color: #474545;
-                border: $standard-border-size solid var(--dark-lighter-color);
+                border: var(--spacing-border-size) solid var(--dark-lighter-color);
                 font-weight: 500;
 
                 span.ib-arrow-down-full-medium,
@@ -820,7 +821,7 @@ div.calendar {
                 @include fade-in-effect-animation( 0.5s );
                 position: absolute;
                 width: 240px;
-                border: $standard-border-size solid var(--dark-color);
+                border: var(--spacing-border-size) solid var(--dark-color);
                 left: 50%;
                 transform: translate( -50% );
                 background-color: var(--light-color);
@@ -1202,8 +1203,8 @@ div.calendar {
                 div.header-days {
                     width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
                     background-color: blue;
-                    margin-left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + $standard-border-size );
-                    border-bottom: $standard-border-size solid var(--grid-border-color);
+                    margin-left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) );
+                    border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
                 }
             }
 
@@ -1221,7 +1222,7 @@ div.calendar {
                         @import "foundation/view-event";
 
                         div.event {
-                            width: calc( 100% - ( ( var(--spacing) * 2 ) + ( $standard-border-size * 5 ) ) ) !important;
+                            width: calc( 100% - ( ( var(--spacing) * 2 ) + ( var(--spacing-border-size) * 5 ) ) ) !important;
                             margin-left: 0 !important;
                         }
                     }
@@ -1231,9 +1232,9 @@ div.calendar {
             div.days {
                 position: absolute;
                 width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
-                height: calc( ( ( var(--time-view-hours-height) * 48 ) + ( ( var(--spacing) * 2 ) * 48 ) ) + ( var(--spacing) * 2 ) + ( $standard-border-size * 2 ) );
+                height: calc( ( ( var(--time-view-hours-height) * 48 ) + ( ( var(--spacing) * 2 ) * 48 ) ) + ( var(--spacing) * 2 ) + ( var(--spacing-border-size) * 2 ) );
                 top: 0;
-                left: calc( ( var(--time-view-hours-width) + ( var(--spacing) * 2 ) ) + $standard-border-size );
+                left: calc( ( var(--time-view-hours-width) + ( var(--spacing) * 2 ) ) + var(--spacing-border-size) );
                 background-color: transparent;
 
                 div.cell {
@@ -1251,7 +1252,7 @@ div.calendar {
                         overflow: hidden;
                         z-index: 1;
                         left: var(--spacing);
-                        width: calc( 100% - ( ( var(--spacing) * 5 ) - ( $standard-border-size * 2 ) ) );
+                        width: calc( 100% - ( ( var(--spacing) * 5 ) - ( var(--spacing-border-size) * 2 ) ) );
                         overflow: hidden;
                         text-overflow: ellipsis;
 
@@ -1276,7 +1277,7 @@ div.calendar {
                         pointer-events: none;
                         z-index: 0;
                         left: 0;
-                        margin-top: $standard-border-size;
+                        margin-top: var(--spacing-border-size);
                     }
 
                     div.resizable {
@@ -1306,7 +1307,7 @@ div.calendar {
 
             div.year-month {
                 border-radius: var(--border-radius);
-                border: $standard-border-size solid var(--dark-color);
+                border: var(--spacing-border-size) solid var(--dark-color);
                 background-color: var(--day-names-color);
                 display: inline-block;
                 margin: calc( var(--spacing) / 2 );
@@ -1431,7 +1432,7 @@ div.calendar {
 
                 div.line {
                     margin-top: calc( var(--spacing) / 2 );
-                    border-bottom: $standard-border-size solid var(--dark-color);
+                    border-bottom: var(--spacing-border-size) solid var(--dark-color);
                     margin-bottom: var(--spacing);
                 }
 
@@ -1442,7 +1443,7 @@ div.calendar {
 
             div.month {
                 border-radius: var(--border-radius);
-                border: $standard-border-size solid var(--dark-color);
+                border: var(--spacing-border-size) solid var(--dark-color);
                 overflow: hidden;
                 margin-bottom: var(--spacing);
 
@@ -1474,7 +1475,7 @@ div.calendar {
                 }
 
                 &:last-child {
-                    margin-bottom: $standard-border-size !important;
+                    margin-bottom: var(--spacing-border-size) !important;
                 }
             }
         }
@@ -1846,7 +1847,7 @@ div.search {
                 width: calc( 100% - 2px );
                 max-height: 200px;
                 z-index: 2000;
-                border: $standard-border-size solid var(--dark-color) !important;
+                border: var(--spacing-border-size) solid var(--dark-color) !important;
                 box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
                 display: none;
                 overflow-x: hidden;
@@ -2012,18 +2013,18 @@ div.calendar-dialog {
     }
 
     div.tab-control-selected {
-        border: $standard-border-size solid var(--dark-color);
+        border: var(--spacing-border-size) solid var(--dark-color);
         background-color: var(--dark-color);
         color: var(--light-color);
         padding: var(--spacing) + calc( var(--spacing) / 4 );
     }
 
     div.tab-control {
-        border: $standard-border-size solid var(--input-border-color);
+        border: var(--spacing-border-size) solid var(--input-border-color);
 
         &:hover {
             cursor: pointer;
-            border: $standard-border-size solid var(--dark-color);
+            border: var(--spacing-border-size) solid var(--dark-color);
             background-color: var(--dark-color);
             color: var(--light-color);
             transition: var(--transition);
@@ -2042,7 +2043,7 @@ div.calendar-dialog {
 
     div.tab-content {
         @include fade-in-effect-animation( 0.5s );
-        border: $standard-border-size solid var(--input-border-color);
+        border: var(--spacing-border-size) solid var(--input-border-color);
         border-radius: var(--border-radius);
         padding: var(--spacing);
         overflow-x: hidden;
@@ -2092,7 +2093,7 @@ div.calendar div.side-menu {
 
             &:checked ~ span.check-mark {
                 background-color: var(--dark-color);
-                border: $standard-border-size solid var(--dark-color);
+                border: var(--spacing-border-size) solid var(--dark-color);
             }
 
             &:checked ~ span.check-mark::before {
@@ -2105,7 +2106,7 @@ div.calendar div.side-menu {
             }
             
             &:disabled ~ span.check-mark {
-                border: $standard-border-size solid var(--dark-color) !important;
+                border: var(--spacing-border-size) solid var(--dark-color) !important;
             }
         }
 
@@ -2117,7 +2118,7 @@ div.calendar div.side-menu {
             width: 15px;
             background-color: var(--input-background-color);
             border-radius: var(--border-radius);
-            border: $standard-border-size solid var(--input-border-color);
+            border: var(--spacing-border-size) solid var(--input-border-color);
             transition: var(--transition);
 
             &::before {
@@ -2135,7 +2136,7 @@ div.calendar div.side-menu {
         }
 
         &:hover span.check-mark {
-            border: $standard-border-size solid var(--input-hover-color);
+            border: var(--spacing-border-size) solid var(--input-hover-color);
         }
     }
 }
@@ -2173,7 +2174,7 @@ div.calendar-dialog {
     
                 &:checked ~ span.check-mark {
                     background-color: var(--dark-color) !important;
-                    border: $standard-border-size solid var(--dark-color) !important;
+                    border: var(--spacing-border-size) solid var(--dark-color) !important;
                 }
     
                 &:checked ~ span.check-mark::before {
@@ -2186,7 +2187,7 @@ div.calendar-dialog {
                 }
                 
                 &:disabled ~ span.check-mark {
-                    border: $standard-border-size solid var(--dark-color) !important;
+                    border: var(--spacing-border-size) solid var(--dark-color) !important;
                 }
             }
     
@@ -2198,7 +2199,7 @@ div.calendar-dialog {
                 width: 15px;
                 background-color: var(--input-background-color);
                 border-radius: 50%;
-                border: $standard-border-size solid var(--input-border-color);
+                border: var(--spacing-border-size) solid var(--input-border-color);
                 transition: var(--transition);
     
                 &::before {
@@ -2216,7 +2217,7 @@ div.calendar-dialog {
             }
 
             &:hover span.check-mark {
-                border: $standard-border-size solid var(--input-hover-color);
+                border: var(--spacing-border-size) solid var(--input-hover-color);
             }
         }
 
@@ -2238,7 +2239,7 @@ div.calendar-tooltip-event {
     @include fade-in-effect-animation( 1s );
     @include no-selection-allowed;
     position: absolute;
-    border: $standard-border-size solid var(--dark-color);
+    border: var(--spacing-border-size) solid var(--dark-color);
     border-radius: var(--border-radius);
     background-color: rgb( 240, 237, 199 );
     color: var(--dark-color);
@@ -2316,8 +2317,8 @@ div.calendar-context-menu {
     @include no-selection-allowed;
     @include fade-in-effect-animation( 0.5s );
     background-color: var(--drop-down-menu-background-color);
-    border: $standard-border-size solid var(--dark-color);
-    border-left: calc( $standard-border-size * 6 ) solid var(--dark-color);
+    border: var(--spacing-border-size) solid var(--dark-color);
+    border-left: calc( var(--spacing-border-size) * 6 ) solid var(--dark-color);
     color: var(--dark-color);
     box-shadow: 4px 4px 4px var(--dark-color);
     border-radius: var(--border-radius);
@@ -2397,7 +2398,7 @@ div.calendar-context-menu {
     }
 
     div.separator {
-        border-bottom: $standard-border-size solid var(--dark-color);
+        border-bottom: var(--spacing-border-size) solid var(--dark-color);
     }
 }
 

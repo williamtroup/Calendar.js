@@ -2,7 +2,7 @@
 
 div.content-events-all-day {
     position: relative;
-    border-bottom: $standard-border-size solid var(--dark-color);
+    border-bottom: var(--spacing-border-size) solid var(--dark-color);
     overflow: hidden;
 
     div.all-day-text {
@@ -10,7 +10,7 @@ div.content-events-all-day {
         padding: var(--spacing);
         background-color: var(--light-color);
         color: var(--dark-color);
-        border-right: $standard-border-size solid var(--dark-color);
+        border-right: var(--spacing-border-size) solid var(--dark-color);
         position: absolute;
         left: 0;
         top: 0;

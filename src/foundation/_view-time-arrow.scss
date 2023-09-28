@@ -2,8 +2,8 @@
 
 div.time-arrow {
     position: absolute;
-    width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) - $standard-border-size );
-    left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + $standard-border-size );
+    width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) - var(--spacing-border-size) );
+    left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) );
     top: 0;                    
     z-index: 10;
     height: var(--time-view-arrow-line-height);
