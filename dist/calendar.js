@@ -112,7 +112,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_Calendar_TitleBar.appendChild(createElement("div", "left-divider-line"));
     }
     buildToolbarButton(_element_Calendar_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, onPreviousMonth);
-    if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
+    if (_options.addYearButtonsOnMainDisplay) {
       buildToolbarButton(_element_Calendar_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear);
     }
     if (_datePickerModeEnabled || _options.showExtraToolbarButtons) {
@@ -135,7 +135,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_Calendar_TitleBar.appendChild(createElement("div", "right-divider-line"));
     }
     buildToolbarButton(_element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth);
-    if (_datePickerModeEnabled && _options.addYearButtonsInDatePickerMode) {
+    if (_options.addYearButtonsOnMainDisplay) {
       buildToolbarButton(_element_Calendar_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear);
     }
     if (_options.showExtraToolbarButtons) {
@@ -7486,7 +7486,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.events = getDefaultArray(_options.events, null);
     _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean(_options.applyCssToEventsNotInCurrentMonth, true);
     _options.weekendDays = isInvalidOptionArray(_options.weekendDays, 0) ? [0, 6] : _options.weekendDays;
-    _options.addYearButtonsInDatePickerMode = getDefaultBoolean(_options.addYearButtonsInDatePickerMode, false);
+    _options.addYearButtonsOnMainDisplay = getDefaultBoolean(_options.addYearButtonsOnMainDisplay, false);
     _options.workingDays = isInvalidOptionArray(_options.workingDays, 0) ? [] : _options.workingDays;
     _options.minimumYear = getDefaultNumber(_options.minimumYear, 1900);
     _options.maximumYear = getDefaultNumber(_options.maximumYear, 2099);

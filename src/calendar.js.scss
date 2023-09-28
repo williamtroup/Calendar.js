@@ -985,7 +985,9 @@ div.calendar {
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow,
             div.ib-expand,
-            div.ib-hourglass {
+            div.ib-hourglass,
+            div.ib-rewind,
+            div.ib-forward {
                 display: inline-block;
             }
         }
@@ -998,7 +1000,9 @@ div.calendar {
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow,
             div.ib-expand,
-            div.ib-hourglass {
+            div.ib-hourglass,
+            div.ib-rewind,
+            div.ib-forward {
                 display: none !important;
             }
         }

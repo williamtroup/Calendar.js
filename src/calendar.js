@@ -348,7 +348,7 @@
  * @property    {Search}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
  * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true).
- * @property    {boolean}   addYearButtonsInDatePickerMode              States if the year-jumping buttons should be added in DatePicker mode (defaults to false).
+ * @property    {boolean}   addYearButtonsOnMainDisplay                 States if the year-jumping buttons should be added in the main display (defaults to false).
  * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
  * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
@@ -1014,7 +1014,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, onPreviousMonth );
 
-        if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
+        if ( _options.addYearButtonsOnMainDisplay ) {
             buildToolbarButton( _element_Calendar_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear );
         }
 
@@ -1046,7 +1046,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth );
 
-        if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
+        if ( _options.addYearButtonsOnMainDisplay ) {
             buildToolbarButton( _element_Calendar_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear );
         }
 
@@ -12439,7 +12439,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.events = getDefaultArray( _options.events, null );
         _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.applyCssToEventsNotInCurrentMonth, true );
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
-        _options.addYearButtonsInDatePickerMode = getDefaultBoolean( _options.addYearButtonsInDatePickerMode, false );
+        _options.addYearButtonsOnMainDisplay = getDefaultBoolean( _options.addYearButtonsOnMainDisplay, false );
         _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
         _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
         _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );

@@ -985,7 +985,9 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-arrow-down-full-line,
   div.calendar div.header-date div.ib-octagon-hollow,
   div.calendar div.header-date div.ib-expand,
-  div.calendar div.header-date div.ib-hourglass {
+  div.calendar div.header-date div.ib-hourglass,
+  div.calendar div.header-date div.ib-rewind,
+  div.calendar div.header-date div.ib-forward {
     display: inline-block;
   }
 }
@@ -997,7 +999,9 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-arrow-down-full-line,
   div.calendar div.header-date div.ib-octagon-hollow,
   div.calendar div.header-date div.ib-expand,
-  div.calendar div.header-date div.ib-hourglass {
+  div.calendar div.header-date div.ib-hourglass,
+  div.calendar div.header-date div.ib-rewind,
+  div.calendar div.header-date div.ib-forward {
     display: none !important;
   }
 }
