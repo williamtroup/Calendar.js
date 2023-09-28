@@ -6,6 +6,7 @@
  */
 :root {
   --dark-color: #3b3a3a;
+  --dark-lighter-color: #575555;
   --light-color: #F5F5F5;
   --day-date-picker-hover-color: #a7a7a7;
   --grid-border-color: #B0B0B0;
@@ -630,7 +631,7 @@ div.calendar div.side-menu div.content div.content-section {
   margin-top: var(--spacing);
   border-radius: var(--border-radius);
   background-color: #474545;
-  border: 1px solid #575555;
+  border: 1px solid var(--dark-lighter-color);
   transition: var(--transition);
 }
 div.calendar div.side-menu div.content div.content-section:first-of-type {
@@ -769,7 +770,7 @@ div.calendar div.header-date div.title-container span.year-dropdown-button {
   padding-right: 6px;
   border-radius: var(--border-radius);
   background-color: #474545;
-  border: 1px solid #575555;
+  border: 1px solid var(--dark-lighter-color);
   font-weight: 500;
 }
 div.calendar div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
@@ -1841,7 +1842,7 @@ div.calendar div.full-year-view div.contents div.year-month div.days div.cell di
   padding-right: calc(var(--spacing) / 2);
   padding-left: calc(var(--spacing) / 2);
   color: var(--light-color);
-  background-color: var(--alert-color);
+  background-color: var(--dark-lighter-color);
   bottom: -4px;
   right: -4px;
   border-radius: 50%;
