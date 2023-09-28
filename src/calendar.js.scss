@@ -1307,6 +1307,8 @@ div.calendar {
 
             div.year-month {
                 border-radius: var(--border-radius);
+                border-bottom-left-radius: 0.15rem;
+                border-bottom-right-radius: 0.15rem;
                 border: var(--spacing-border-size) solid var(--dark-color);
                 background-color: var(--day-names-color);
                 display: inline-block;
