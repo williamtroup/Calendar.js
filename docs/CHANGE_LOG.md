@@ -2,7 +2,9 @@
 
 ## Version 2.7.2:
 - The year jumping buttons available for the DatePicker mode can now be shown in the regular calendar mode.
-- Renamed the setting "addYearButtonsInDatePickerMode" to "addYearButtonsOnMainDisplay",
+- Renamed the setting "addYearButtonsInDatePickerMode" to "addYearButtonsOnMainDisplay".
+- Removed more replicated code.
+- 
 
 <br>
 

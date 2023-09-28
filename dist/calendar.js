@@ -3444,8 +3444,8 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_Dialog_EventEditor_AddUpdateButton.value = _options.updateText;
         _element_Dialog_EventEditor_RemoveButton.style.display = "inline-block";
         _element_Dialog_EventEditor_EventDetails = eventDetails;
-        _element_Dialog_EventEditor_TimeFrom.value = toFormattedTime(eventDetails.from);
-        _element_Dialog_EventEditor_TimeTo.value = toFormattedTime(eventDetails.to);
+        _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay(eventDetails.from);
+        _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay(eventDetails.to);
         _element_Dialog_EventEditor_IsAllDay.checked = getBoolean(eventDetails.isAllDay);
         _element_Dialog_EventEditor_ShowAlerts.checked = getBoolean(eventDetails.showAlerts, true);
         _element_Dialog_EventEditor_ShowAsBusy.checked = getBoolean(eventDetails.showAsBusy, true);
@@ -3540,8 +3540,8 @@ function calendarJs(elementOrId, options, searchOptions) {
           toDate.setMinutes(overrideTimeValues[1]);
           toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
         }
-        _element_Dialog_EventEditor_TimeFrom.value = toFormattedTime(fromDate);
-        _element_Dialog_EventEditor_TimeTo.value = toFormattedTime(toDate);
+        _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay(fromDate);
+        _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay(toDate);
         setSelectedDate(fromDate, _element_Dialog_EventEditor_DateFrom);
         setSelectedDate(toDate, _element_Dialog_EventEditor_DateTo);
       }
@@ -5260,9 +5260,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     var month = ("0" + date.getMonth()).slice(-2);
     var formatted = day + "/" + month + "/" + date.getFullYear();
     return formatted;
-  }
-  function toFormattedTime(date) {
-    return padNumber(date.getHours()) + ":" + padNumber(date.getMinutes());
   }
   function getWeekdayNumber(date) {
     return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
