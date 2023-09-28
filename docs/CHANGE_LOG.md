@@ -6,7 +6,8 @@
 - Removed more replicated code.
 - Fixed a CSS issue around the class "tab-control-selected" (missing calc(), was causing active tabs to look a bit strange).
 - Added a new setting "useAmPmForTimeDisplays" (defaults to false), which states if the times shown in the event/hour displays use AM/PM format.
--  
+- Fixed the Full Year view showing the current date in the next month as a previous day (can be confusing).
+- 
 
 <br>
 
