@@ -8,23 +8,43 @@
     </head>
 
     <body>
-        <div id="calendar"></div>
+        <div id="calendar1"></div>
+        <br/>
+        <br/>
+        <div id="calendar2"></div>
+        <br/>
+        <br/>
+
+        <h2>Main Controls:</h2>
+        <button onclick="calendarInstance1.destroy();">Destroy (1)</button>
+        <button onclick="calendarInstance2.destroy();">Destroy (2)</button>
     </body>
 
     <script>
-        var calendarInstance = new calendarJs( "calendar", { 
-            exportEventsEnabled: true, 
-        } );
+        var calendarInstance1 = new calendarJs( "calendar1", { 
+                exportEventsEnabled: true,
+                useAmPmForTimeDisplays: true
+            } ),
+            calendarInstance2 = new calendarJs( "calendar2", { 
+                exportEventsEnabled: false,
+            } );
 
-        document.title += " v" + calendarInstance.getVersion();
+        document.title += " v" + calendarInstance1.getVersion();
 
-        var event = {
-            from: new Date(),
-            to: new Date(),
-            title: "New Event",
-            description: "A description of the new event"
-        };
+        var event1 = {
+                from: new Date(),
+                to: new Date(),
+                title: "New Event 1",
+                description: "A description of the new event"
+            },
+            event2 = {
+                from: new Date(),
+                to: new Date(),
+                title: "New Event 2",
+                description: "A description of the new event"
+            };
 
-        calendarInstance.addEvent( event );
+        calendarInstance1.addEvent( event1 );
+        calendarInstance2.addEvent( event2 );
     </script>
 </html>

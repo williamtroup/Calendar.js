@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.7.1
+ * Calendar.js Library v2.7.2
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -985,7 +985,9 @@ div.calendar {
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow,
             div.ib-expand,
-            div.ib-hourglass {
+            div.ib-hourglass,
+            div.ib-rewind,
+            div.ib-forward {
                 display: inline-block;
             }
         }
@@ -998,7 +1000,9 @@ div.calendar {
             div.ib-arrow-down-full-line,
             div.ib-octagon-hollow,
             div.ib-expand,
-            div.ib-hourglass {
+            div.ib-hourglass,
+            div.ib-rewind,
+            div.ib-forward {
                 display: none !important;
             }
         }

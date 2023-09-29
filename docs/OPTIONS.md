@@ -56,7 +56,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Search* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
 | *Event[]* | events | States the events that will be shown when the calendar first renders (defaults to null). |
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true). |
-| *boolean* | addYearButtonsInDatePickerMode | States if the year-jumping buttons should be added in DatePicker mode (defaults to false). |
+| *boolean* | addYearButtonsOnMainDisplay | States if the year-jumping buttons should be added in the main display (defaults to false). |
 | *number[]* | workingDays | States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *number* | minimumYear | The minimum year that can be shown in the Calendar (defaults to 1900). |
 | *number* | maximumYear | The maximum year that can be shown in the Calendar (defaults to 2099). |
@@ -77,6 +77,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | workingHoursEnd | States when the time the working hours end (for example, "17:00", and defaults to null). |
 | *boolean* | reverseOrderDaysOfWeek | States if the days of the week should be reversed (for Hebrew calendars, for example. Defaults to true). |
 | *boolean* | importEventsEnabled | States if importing events is enabled (defaults to true). |
+| *boolean* | useAmPmForTimeDisplays | States if the AM/PM time format should be used for all time displays (defaults to false). |
 <br/>
 
 ### Translatable String Options:

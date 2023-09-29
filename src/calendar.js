@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.7.1
+ * @version     v2.7.2
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -348,7 +348,7 @@
  * @property    {Search}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
  * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true).
- * @property    {boolean}   addYearButtonsInDatePickerMode              States if the year-jumping buttons should be added in DatePicker mode (defaults to false).
+ * @property    {boolean}   addYearButtonsOnMainDisplay                 States if the year-jumping buttons should be added in the main display (defaults to false).
  * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
  * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
@@ -369,6 +369,7 @@
  * @property    {string}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", and defaults to null).
  * @property    {boolean}   reverseOrderDaysOfWeek                      States if the days of the week should be reversed (for hebrew calendars, for example. Defaults to true).
  * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
+ * @property    {boolean}   useAmPmForTimeDisplays                      States if the AM/PM time format should be used for all time displays (defaults to false).
  */
 
 
@@ -547,8 +548,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _currentDate_ForDatePicker = null,
 
         // Variables: Elements
-        _elementTypes = {},
         _elements = {},
+        _elements_InDocumentBody = [],
+        _elementTypes = {},
         _element_DisabledBackground = null,
         _elementID_Event_Day = "day-",
         _elementID_Event_Month = "month-",
@@ -1014,7 +1016,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, onPreviousMonth );
 
-        if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
+        if ( _options.addYearButtonsOnMainDisplay ) {
             buildToolbarButton( _element_Calendar_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear );
         }
 
@@ -1046,7 +1048,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth );
 
-        if ( _datePickerModeEnabled && _options.addYearButtonsInDatePickerMode ) {
+        if ( _options.addYearButtonsOnMainDisplay ) {
             buildToolbarButton( _element_Calendar_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear );
         }
 
@@ -4213,7 +4215,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showDayContextMenu( e, currentMonthDayDate );
             };
 
-            buildFullYearViewMonthDayClasses( currentMonthDayFullDayElement, currentMonthDayDate );
+            buildFullYearViewMonthDayClasses( currentMonthDayFullDayElement, currentMonthDayDate, true );
             buildDayDisplay( currentMonthDayFullDayElement, currentMonthDayDate );
         }
     }
@@ -4251,7 +4253,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildFullYearViewMonthDayClasses( element, date ) {
+    function buildFullYearViewMonthDayClasses( element, date, showTodayCss ) {
+        showTodayCss = isDefined( showTodayCss ) ? showTodayCss : false;
+
         var formattedDate = toStorageFormattedDate( date );
 
         if ( isWeekendDay( date ) ) {
@@ -4272,7 +4276,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             element.appendChild( eventsCountElement );
         }
 
-        if ( isDateToday( date ) ) {
+        if ( showTodayCss && isDateToday( date ) ) {
             element.className += " cell-today";
         }
     }
@@ -4731,6 +4735,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _element_ContextMenu_Day = createElement( "div", "calendar-context-menu" );
+        _elements_InDocumentBody.push( _element_ContextMenu_Day );
         _document.body.appendChild( _element_ContextMenu_Day );
 
         if ( _options.manualEditingEnabled ) {
@@ -4814,6 +4819,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _element_ContextMenu_Event = createElement( "div", "calendar-context-menu" );
+        _elements_InDocumentBody.push( _element_ContextMenu_Event );
         _document.body.appendChild( _element_ContextMenu_Event );
 
         if ( _options.manualEditingEnabled ) {
@@ -5027,6 +5033,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _options.manualEditingEnabled ) {
             _element_ContextMenu_FullDay = createElement( "div", "calendar-context-menu" );
+            _elements_InDocumentBody.push( _element_ContextMenu_FullDay );
             _document.body.appendChild( _element_ContextMenu_FullDay );
 
             buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
@@ -5090,6 +5097,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDayHeaderContextMenu() {
         if ( _element_ContextMenu_HeaderDay === null ) {
             _element_ContextMenu_HeaderDay = createElement( "div", "calendar-context-menu" );
+            _elements_InDocumentBody.push( _element_ContextMenu_HeaderDay );
             _document.body.appendChild( _element_ContextMenu_HeaderDay );
     
             _element_ContextMenu_HeaderDay_HideDay = buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-close-icon", _options.hideDayText, function() {
@@ -5172,6 +5180,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildEventEditingDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_EventEditor === null ) {
             _element_Dialog_EventEditor = createElement( "div", "calendar-dialog event-editor" );
+            _elements_InDocumentBody.push( _element_Dialog_EventEditor );
             _document.body.appendChild( _element_Dialog_EventEditor );
     
             var view = createElement( "div", "view" );
@@ -5465,8 +5474,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_Dialog_EventEditor_AddUpdateButton.value = _options.updateText;
                 _element_Dialog_EventEditor_RemoveButton.style.display = "inline-block";
                 _element_Dialog_EventEditor_EventDetails = eventDetails;
-                _element_Dialog_EventEditor_TimeFrom.value = toFormattedTime( eventDetails.from );
-                _element_Dialog_EventEditor_TimeTo.value = toFormattedTime( eventDetails.to );
+                _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay( eventDetails.from, false );
+                _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay( eventDetails.to, false );
                 _element_Dialog_EventEditor_IsAllDay.checked = getBoolean( eventDetails.isAllDay );
                 _element_Dialog_EventEditor_ShowAlerts.checked = getBoolean( eventDetails.showAlerts, true );
                 _element_Dialog_EventEditor_ShowAsBusy.checked = getBoolean( eventDetails.showAsBusy, true );
@@ -5575,8 +5584,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     toDate = addMinutesToDate( toDate, _options.defaultEventDuration );
                 }
     
-                _element_Dialog_EventEditor_TimeFrom.value = toFormattedTime( fromDate );
-                _element_Dialog_EventEditor_TimeTo.value = toFormattedTime( toDate );
+                _element_Dialog_EventEditor_TimeFrom.value = getTimeForDisplay( fromDate, false );
+                _element_Dialog_EventEditor_TimeTo.value = getTimeForDisplay( toDate, false );
     
                 setSelectedDate( fromDate, _element_Dialog_EventEditor_DateFrom );
                 setSelectedDate( toDate, _element_Dialog_EventEditor_DateTo );
@@ -5863,6 +5872,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildEventEditingColorDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_EventEditor_Colors === null ) {
             _element_Dialog_EventEditor_Colors = createElement( "div", "calendar-dialog event-editor-colors" );
+            _elements_InDocumentBody.push( _element_Dialog_EventEditor_Colors );
             _document.body.appendChild( _element_Dialog_EventEditor_Colors );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -5945,6 +5955,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildEventEditingRepeatOptionsDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_EventEditor_RepeatOptions === null ) {
             _element_Dialog_EventEditor_RepeatOptions = createElement( "div", "calendar-dialog event-editor-repeat-options" );
+            _elements_InDocumentBody.push( _element_Dialog_EventEditor_RepeatOptions );
             _document.body.appendChild( _element_Dialog_EventEditor_RepeatOptions );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6048,6 +6059,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildMessageDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_Message === null ) {
             _element_Dialog_Message = createElement( "div", "calendar-dialog message" );
+            _elements_InDocumentBody.push( _element_Dialog_Message );
             _document.body.appendChild( _element_Dialog_Message );
     
             _element_Dialog_Message_TitleBar = createElement( "div", "title-bar" );
@@ -6126,6 +6138,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildExportEventsDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_ExportEvents === null ) {
             _element_Dialog_ExportEvents = createElement( "div", "calendar-dialog export-events" );
+            _elements_InDocumentBody.push( _element_Dialog_ExportEvents );
             _document.body.appendChild( _element_Dialog_ExportEvents );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6183,6 +6196,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showExportEventsDialog( events ) {
         addNode( _document.body, _element_DisabledBackground );
+        hideSideMenu();
 
         _element_Dialog_AllOpened.push( hideExportEventsDialog );
         _element_Dialog_ExportEvents.style.display = "block";
@@ -6256,6 +6270,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildSearchDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_Search === null ) {
             _element_Dialog_Search = createElement( "div", "calendar-dialog search" );
+            _elements_InDocumentBody.push( _element_Dialog_Search );
             _document.body.appendChild( _element_Dialog_Search );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6823,6 +6838,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildConfigurationDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_Configuration === null ) {
             _element_Dialog_Configuration = createElement( "div", "calendar-dialog configuration" );
+            _elements_InDocumentBody.push( _element_Dialog_Configuration );
             _document.body.appendChild( _element_Dialog_Configuration );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6958,6 +6974,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildTooltip() {
         if ( _element_Tooltip === null ) {
             _element_Tooltip = createElement( "div", "calendar-tooltip" );
+            _elements_InDocumentBody.push( _element_Tooltip );
             _document.body.appendChild( _element_Tooltip );
 
             _element_Tooltip_TitleButtons_CloseButton = createElement( "div", "ib-close" );
@@ -7120,6 +7137,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildNotificationPopUp() {
         if ( _element_Notification === null && !_datePickerModeEnabled ) {
             _element_Notification = createElement( "div", "calendar-notification" );
+            _elements_InDocumentBody.push( _element_Notification );
             _document.body.appendChild( _element_Notification );
         }
     }
@@ -7320,15 +7338,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildHoursForTimeBasedView( container ) {
         for ( var hour = 0; hour < 24; hour++ ) {
-            var row = createElement( "div", "hour" );
+            var row = createElement( "div", "hour" ),
+                firstDate = new Date(),
+                secondDate = new Date();
+                
             container.appendChild( row );
 
+            firstDate.setHours( hour, 0, 0, 0 );
+            secondDate.setHours( hour, 30, 0, 0 );
+
             var newHour1 = createElement( "div", "hour-text" );
-            newHour1.innerText = padNumber( hour ) + ":00";
+            newHour1.innerText = getTimeForDisplay( firstDate );
             row.appendChild( newHour1 );
 
             var newHour2 = createElement( "div", "hour-text" );
-            newHour2.innerText = padNumber( hour ) + ":30";
+            newHour2.innerText = getTimeForDisplay( secondDate );
             row.appendChild( newHour2 );
         }
     }
@@ -7949,10 +7973,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return formatted;
     }
 
-    function toFormattedTime( date ) {
-        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
-    }
-
     function getWeekdayNumber( date ) {
         return date.getDay() - 1 < 0 ? 6 : date.getDay() - 1;
     }
@@ -8226,8 +8246,38 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return getTimeForDisplay( fromDate ) + _string.space + _options.toTimeText + _string.space + getTimeForDisplay( toDate );
     }
 
-    function getTimeForDisplay( date ) {
-        return padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
+    function getTimeForDisplay( date, useAmPm ) {
+        var result;
+
+        useAmPm = isDefined( useAmPm ) ? useAmPm : _options.useAmPmForTimeDisplays;
+
+        if ( _options.useAmPmForTimeDisplays && useAmPm ) {
+            var hours = date.getHours(),
+                minutes = date.getMinutes(),
+                amPmText = "am";
+
+            if ( hours > 12 ) {
+                hours = hours - 12;
+                amPmText = "pm";
+            } else if ( hours === 12 ) {
+                amPmText = "pm";
+            } else if ( hours === 0 ) {
+                hours = 12;
+            }
+
+            result = hours;
+
+            if ( minutes > 0 ) {
+                result += ":" + padNumber( date.getMinutes() );
+            }
+
+            result += amPmText;
+
+        } else {
+            result = padNumber( date.getHours() ) + ":" + padNumber( date.getMinutes() );
+        }
+
+        return result;
     }
 
     function buildDateTimeToDateTimeDisplay( container, fromDate, toDate ) {
@@ -9428,6 +9478,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( ; childrenLength--; ) {
             parent.appendChild( children[ childrenLength ] );
         }
+    }
+
+    function removeTrackedElementsFromDocument() {
+        var elementsLength = _elements_InDocumentBody.length;
+
+        for ( var elementsIndex = 0; elementsIndex < elementsLength; elementsIndex++ ) {
+            _document.body.removeChild( _elements_InDocumentBody[ elementsIndex ] );
+        }
+
+        _elements_InDocumentBody = [];
     }
 
 
@@ -10990,11 +11050,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     this.destroy = function() {
         removeDocumentEvents();
         stopAndResetAllTimers();
-        clearElementsByClassName( _document.body, "calendar-dialog" );
-        clearElementsByClassName( _document.body, "calendar-context-menu" );
-        clearElementsByClassName( _document.body, "calendar-tooltip" );
-        clearElementsByClassName( _document.body, "calendar-tooltip-event" );
-        clearElementsByClassName( _document.body, "calendar-notification" );
+        removeTrackedElementsFromDocument();
 
         if ( _datePickerModeEnabled ) {
             _document.removeEventListener( "click", hideDatePickerMode );
@@ -11004,8 +11060,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             document.body.removeEventListener( "mousemove", hideTooltip );
         }
 
-        _element_Calendar.className = _string.empty;
-        _element_Calendar.innerHTML = _string.empty;
+        if ( isDefined( _element_Calendar ) ) {
+            _element_Calendar.className = _string.empty;
+            _element_Calendar.innerHTML = _string.empty;
+        }
 
         triggerOptionsEvent( "onDestroy", _elementID );
 
@@ -12190,7 +12248,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.7.1";
+        return "2.7.2";
     };
 
     /**
@@ -12439,7 +12497,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.events = getDefaultArray( _options.events, null );
         _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.applyCssToEventsNotInCurrentMonth, true );
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
-        _options.addYearButtonsInDatePickerMode = getDefaultBoolean( _options.addYearButtonsInDatePickerMode, false );
+        _options.addYearButtonsOnMainDisplay = getDefaultBoolean( _options.addYearButtonsOnMainDisplay, false );
         _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
         _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
         _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );
@@ -12460,6 +12518,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.workingHoursEnd = getDefaultString( _options.workingHoursEnd, null );
         _options.reverseOrderDaysOfWeek = getDefaultBoolean( _options.reverseOrderDaysOfWeek, false );
         _options.importEventsEnabled = getDefaultBoolean( _options.importEventsEnabled, true );
+        _options.useAmPmForTimeDisplays = getDefaultBoolean( _options.useAmPmForTimeDisplays, false );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
