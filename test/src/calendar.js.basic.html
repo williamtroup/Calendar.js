@@ -22,10 +22,11 @@
 
     <script>
         var calendarInstance1 = new calendarJs( "calendar1", { 
-                exportEventsEnabled: true, 
+                exportEventsEnabled: true,
+                useAmPmForTimeDisplays: true
             } ),
             calendarInstance2 = new calendarJs( "calendar2", { 
-                exportEventsEnabled: false, 
+                exportEventsEnabled: false,
             } );
 
         document.title += " v" + calendarInstance1.getVersion();
@@ -39,7 +40,7 @@
             event2 = {
                 from: new Date(),
                 to: new Date(),
-                title: "New Event 1",
+                title: "New Event 2",
                 description: "A description of the new event"
             };
 
