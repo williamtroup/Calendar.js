@@ -8,6 +8,8 @@
 - Added a new setting "useAmPmForTimeDisplays" (defaults to false), which states if the times shown in the event/hour displays use AM/PM format.
 - Fixed the Full Year view showing the current date in the next month as a previous day (can be confusing).
 - Clicking the "Export Events" button in the Side Menu title bar will now close the Side Menu.
+- Fixed a script fault that occurs when calling the public function "destroy()" when a calendar has not been rendered.
+- Fixed a fault that caused all the dialogs, context menus, tooltips, and notifications to be removed for all calendar instances when the public function "destroy()" is called.
 - 
 
 <br>

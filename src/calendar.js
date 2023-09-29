@@ -548,8 +548,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _currentDate_ForDatePicker = null,
 
         // Variables: Elements
-        _elementTypes = {},
         _elements = {},
+        _elements_InDocumentBody = [],
+        _elementTypes = {},
         _element_DisabledBackground = null,
         _elementID_Event_Day = "day-",
         _elementID_Event_Month = "month-",
@@ -4734,6 +4735,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _element_ContextMenu_Day = createElement( "div", "calendar-context-menu" );
+        _elements_InDocumentBody.push( _element_ContextMenu_Day );
         _document.body.appendChild( _element_ContextMenu_Day );
 
         if ( _options.manualEditingEnabled ) {
@@ -4817,6 +4819,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _element_ContextMenu_Event = createElement( "div", "calendar-context-menu" );
+        _elements_InDocumentBody.push( _element_ContextMenu_Event );
         _document.body.appendChild( _element_ContextMenu_Event );
 
         if ( _options.manualEditingEnabled ) {
@@ -5030,6 +5033,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _options.manualEditingEnabled ) {
             _element_ContextMenu_FullDay = createElement( "div", "calendar-context-menu" );
+            _elements_InDocumentBody.push( _element_ContextMenu_FullDay );
             _document.body.appendChild( _element_ContextMenu_FullDay );
 
             buildContextMenuItemWithIcon( _element_ContextMenu_FullDay, "ib-plus-icon", _options.addEventTitle + "...", function() {
@@ -5093,6 +5097,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDayHeaderContextMenu() {
         if ( _element_ContextMenu_HeaderDay === null ) {
             _element_ContextMenu_HeaderDay = createElement( "div", "calendar-context-menu" );
+            _elements_InDocumentBody.push( _element_ContextMenu_HeaderDay );
             _document.body.appendChild( _element_ContextMenu_HeaderDay );
     
             _element_ContextMenu_HeaderDay_HideDay = buildContextMenuItemWithIcon( _element_ContextMenu_HeaderDay, "ib-close-icon", _options.hideDayText, function() {
@@ -5175,6 +5180,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildEventEditingDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_EventEditor === null ) {
             _element_Dialog_EventEditor = createElement( "div", "calendar-dialog event-editor" );
+            _elements_InDocumentBody.push( _element_Dialog_EventEditor );
             _document.body.appendChild( _element_Dialog_EventEditor );
     
             var view = createElement( "div", "view" );
@@ -5866,6 +5872,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildEventEditingColorDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_EventEditor_Colors === null ) {
             _element_Dialog_EventEditor_Colors = createElement( "div", "calendar-dialog event-editor-colors" );
+            _elements_InDocumentBody.push( _element_Dialog_EventEditor_Colors );
             _document.body.appendChild( _element_Dialog_EventEditor_Colors );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -5948,6 +5955,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildEventEditingRepeatOptionsDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_EventEditor_RepeatOptions === null ) {
             _element_Dialog_EventEditor_RepeatOptions = createElement( "div", "calendar-dialog event-editor-repeat-options" );
+            _elements_InDocumentBody.push( _element_Dialog_EventEditor_RepeatOptions );
             _document.body.appendChild( _element_Dialog_EventEditor_RepeatOptions );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6051,6 +6059,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildMessageDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_Message === null ) {
             _element_Dialog_Message = createElement( "div", "calendar-dialog message" );
+            _elements_InDocumentBody.push( _element_Dialog_Message );
             _document.body.appendChild( _element_Dialog_Message );
     
             _element_Dialog_Message_TitleBar = createElement( "div", "title-bar" );
@@ -6129,6 +6138,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildExportEventsDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_ExportEvents === null ) {
             _element_Dialog_ExportEvents = createElement( "div", "calendar-dialog export-events" );
+            _elements_InDocumentBody.push( _element_Dialog_ExportEvents );
             _document.body.appendChild( _element_Dialog_ExportEvents );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6260,6 +6270,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildSearchDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_Search === null ) {
             _element_Dialog_Search = createElement( "div", "calendar-dialog search" );
+            _elements_InDocumentBody.push( _element_Dialog_Search );
             _document.body.appendChild( _element_Dialog_Search );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6827,6 +6838,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildConfigurationDialog() {
         if ( !_datePickerModeEnabled && _element_Dialog_Configuration === null ) {
             _element_Dialog_Configuration = createElement( "div", "calendar-dialog configuration" );
+            _elements_InDocumentBody.push( _element_Dialog_Configuration );
             _document.body.appendChild( _element_Dialog_Configuration );
     
             var titleBar = createElement( "div", "title-bar" );
@@ -6962,6 +6974,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildTooltip() {
         if ( _element_Tooltip === null ) {
             _element_Tooltip = createElement( "div", "calendar-tooltip" );
+            _elements_InDocumentBody.push( _element_Tooltip );
             _document.body.appendChild( _element_Tooltip );
 
             _element_Tooltip_TitleButtons_CloseButton = createElement( "div", "ib-close" );
@@ -7124,6 +7137,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildNotificationPopUp() {
         if ( _element_Notification === null && !_datePickerModeEnabled ) {
             _element_Notification = createElement( "div", "calendar-notification" );
+            _elements_InDocumentBody.push( _element_Notification );
             _document.body.appendChild( _element_Notification );
         }
     }
@@ -9466,6 +9480,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function removeTrackedElementsFromDocument() {
+        var elementsLength = _elements_InDocumentBody.length;
+
+        for ( var elementsIndex = 0; elementsIndex < elementsLength; elementsIndex++ ) {
+            _document.body.removeChild( _elements_InDocumentBody[ elementsIndex ] );
+        }
+
+        _elements_InDocumentBody = [];
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -11026,11 +11050,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     this.destroy = function() {
         removeDocumentEvents();
         stopAndResetAllTimers();
-        clearElementsByClassName( _document.body, "calendar-dialog" );
-        clearElementsByClassName( _document.body, "calendar-context-menu" );
-        clearElementsByClassName( _document.body, "calendar-tooltip" );
-        clearElementsByClassName( _document.body, "calendar-tooltip-event" );
-        clearElementsByClassName( _document.body, "calendar-notification" );
+        removeTrackedElementsFromDocument();
 
         if ( _datePickerModeEnabled ) {
             _document.removeEventListener( "click", hideDatePickerMode );
@@ -11040,8 +11060,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             document.body.removeEventListener( "mousemove", hideTooltip );
         }
 
-        _element_Calendar.className = _string.empty;
-        _element_Calendar.innerHTML = _string.empty;
+        if ( isDefined( _element_Calendar ) ) {
+            _element_Calendar.className = _string.empty;
+            _element_Calendar.innerHTML = _string.empty;
+        }
 
         triggerOptionsEvent( "onDestroy", _elementID );
 
