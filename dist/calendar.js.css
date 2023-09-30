@@ -1150,8 +1150,6 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
@@ -1163,8 +1161,6 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
@@ -1410,8 +1406,6 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-search,
@@ -1423,8 +1417,6 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-search,
@@ -1761,8 +1753,6 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-search,
@@ -1774,8 +1764,6 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-search,
@@ -1954,8 +1942,6 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
 }
 @media screen and (min-width: 451px) {
   div.calendar div.all-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-search,
@@ -1967,8 +1953,6 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
 }
 @media screen and (max-width: 450px) {
   div.calendar div.all-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-search,

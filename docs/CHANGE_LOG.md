@@ -5,6 +5,9 @@
 #### **New Features:**
 - Repeating event can now be edited as an entire series, or from a specific point forward (forward creates a new event, and stops the original event from that point).
 
+#### **UI Improvements:**
+- Previous/Next buttons in all views are now visible by default in mobile mode.
+
 #### **Full Year View:**
 - Moving Back/Forward through the years will force the scroll position to revert to the top (same as Full Day/Week views).
 - Moving to the current year full auto-scroll the view to the current month (similar to how the Full Day/Week views work).

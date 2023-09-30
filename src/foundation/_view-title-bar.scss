@@ -56,8 +56,6 @@ div.title-bar {
 
     @media screen and ( min-width: $minimum-width ) {
         div.ib-arrow-down-full-line,
-        div.ib-arrow-left-full,
-        div.ib-arrow-right-full,
         div.ib-arrow-expand-left-right,
         div.ib-arrow-contract-left-right,
         div.ib-search,
@@ -70,8 +68,6 @@ div.title-bar {
     
     @media screen and ( max-width: $maximum-width ) {
         div.ib-arrow-down-full-line,
-        div.ib-arrow-left-full,
-        div.ib-arrow-right-full,
         div.ib-arrow-expand-left-right,
         div.ib-arrow-contract-left-right,
         div.ib-search,
