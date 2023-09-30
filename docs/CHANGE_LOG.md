@@ -7,6 +7,8 @@
 
 #### **Full Year View:**
 - Moving Back/Forward through the years will force the scroll position to revert to the top (same as Full Day/Week views).
+- Moving to the current year full auto-scroll the view to the current month (similar to how the Full Day/Week views work).
+- 
 
 #### **Fixes:**
 - Fixed a major issue that prevented the events assigned to the buttons on the Message dialog being reset.  This caused old events assigned to be called again.

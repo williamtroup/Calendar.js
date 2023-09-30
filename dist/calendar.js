@@ -2443,11 +2443,18 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_View_FullYear.appendChild(_element_View_FullYear_Contents);
     }
   }
-  function buildFullYearMonths() {
+  function buildFullYearMonths(fromOpen) {
     _element_View_FullYear_Contents.innerHTML = _string.empty;
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
       buildFullYearViewMonth(monthIndex);
+    }
+    if (fromOpen) {
+      if (_element_View_FullYear_Contents_CurrentMonthTop > 0) {
+        _element_View_FullYear_Contents.scrollTop = _element_View_FullYear_Contents_CurrentMonthTop - _options.spacing * 4;
+      } else {
+        _element_View_FullYear_Contents.scrollTop = 0;
+      }
     }
   }
   function buildFullYearViewMonth(monthIndex) {
@@ -2483,8 +2490,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (startDay > 1) {
       buildFullYearViewMonthPreviousMonthDays(startDay, monthDayId, monthIndex);
     }
-    var lastFilledDay = buildFullYearViewMonthDays(startDay, monthDayId, monthIndex);
+    var currentMonthFillDetails = buildFullYearViewMonthDays(startDay, monthDayId, monthIndex);
+    var isCurrentMonth = currentMonthFillDetails[0];
+    var lastFilledDay = currentMonthFillDetails[1];
     buildFullYearViewMonthNextMonthDays(lastFilledDay, monthDayId, monthIndex);
+    if (isCurrentMonth) {
+      _element_View_FullYear_Contents_CurrentMonthTop = yearMonth.offsetTop;
+    }
   }
   function buildFullYearViewMonthPreviousMonthDays(startDay, monthDayId, monthIndex) {
     var previousMonth = new Date(_element_View_FullYear_CurrentYear, monthIndex, 1);
@@ -2516,15 +2528,17 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildFullYearViewMonthDays(startDay, monthDayId, monthIndex) {
     var elementDayNumber = 0;
     var totalDaysInMonth = getTotalDaysInMonth(_element_View_FullYear_CurrentYear, monthIndex);
+    var isCurrentMonth = false;
     var day = 0;
     for (; day < totalDaysInMonth; day++) {
       elementDayNumber = startDay + day;
-      buildFullYearViewMonthDay(monthDayId, monthIndex, day, elementDayNumber);
+      isCurrentMonth = buildFullYearViewMonthDay(monthDayId, monthIndex, day, elementDayNumber);
     }
-    return elementDayNumber;
+    return [isCurrentMonth, elementDayNumber];
   }
   function buildFullYearViewMonthDay(monthDayId, monthIndex, day, elementDayNumber) {
     var currentMonthDayFullDayElement = getElementByID(monthDayId + elementDayNumber);
+    var isCurrentMonth = false;
     if (currentMonthDayFullDayElement !== null) {
       var currentMonthDayDate = new Date(_element_View_FullYear_CurrentYear, monthIndex, day + 1);
       currentMonthDayFullDayElement.onclick = function() {
@@ -2533,9 +2547,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       currentMonthDayFullDayElement.oncontextmenu = function(e) {
         showDayContextMenu(e, currentMonthDayDate);
       };
-      buildFullYearViewMonthDayClasses(currentMonthDayFullDayElement, currentMonthDayDate, true);
+      isCurrentMonth = buildFullYearViewMonthDayClasses(currentMonthDayFullDayElement, currentMonthDayDate, true);
       buildDayDisplay(currentMonthDayFullDayElement, currentMonthDayDate);
     }
+    return isCurrentMonth;
   }
   function buildFullYearViewMonthNextMonthDays(lastDayFilled, monthDayId, monthIndex) {
     if (lastDayFilled < 42) {
@@ -2565,8 +2580,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildFullYearViewMonthDayClasses(element, date, showTodayCss) {
-    showTodayCss = isDefined(showTodayCss) ? showTodayCss : false;
     var formattedDate = toStorageFormattedDate(date);
+    var isCurrentMonth = false;
+    showTodayCss = isDefined(showTodayCss) ? showTodayCss : false;
     if (isWeekendDay(date)) {
       element.className += " weekend-day";
     }
@@ -2582,17 +2598,17 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (showTodayCss && isDateToday(date)) {
       element.className += " cell-today";
+      isCurrentMonth = true;
     }
+    return isCurrentMonth;
   }
   function showFullYearView(year, fromOpen) {
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
     _element_View_FullYear_CurrentYear = isDefined(year) ? year : _currentDate.getFullYear();
-    if (fromOpen) {
-      _element_View_FullYear_Contents.scrollTop = 0;
-    }
-    buildFullYearMonths();
-    showView(_element_View_FullYear);
+    _element_View_FullYear_Contents_CurrentMonthTop = 0;
     _element_View_FullYear_TitleBar.innerText = _element_View_FullYear_CurrentYear;
+    buildFullYearMonths(fromOpen);
+    showView(_element_View_FullYear);
   }
   function updateFullYearView() {
     if (isViewVisible(_element_View_FullYear)) {
@@ -7979,6 +7995,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_FullYear_TitleBar = null;
   var _element_View_FullYear_Contents = null;
   var _element_View_FullYear_CurrentYear = null;
+  var _element_View_FullYear_Contents_CurrentMonthTop = 0;
   var _element_View_AllEvents = null;
   var _element_View_AllEvents_FullScreenButton = null;
   var _element_View_AllEvents_SearchButton = null;
