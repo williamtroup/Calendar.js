@@ -4615,7 +4615,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             yearHeader.appendChild( text );
 
             text.onclick = function() {
-                showFullYearView( date.getFullYear() );
+                showFullYearView( date.getFullYear(), true );
             };
 
             yearHeader.appendChild( createElement( "div", "line" ) );

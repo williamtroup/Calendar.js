@@ -12,6 +12,7 @@
 
 #### **Fixes:**
 - Fixed a major issue that prevented the events assigned to the buttons on the Message dialog being reset.  This caused old events assigned to be called again.
+- Fixed a fault that caused the Full Year view to use the last scroll position when opened from the All Events view.
 
 <br>
 

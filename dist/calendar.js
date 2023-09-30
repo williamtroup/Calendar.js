@@ -2825,7 +2825,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       setNodeText(text, date.getFullYear() + ":");
       yearHeader.appendChild(text);
       text.onclick = function() {
-        showFullYearView(date.getFullYear());
+        showFullYearView(date.getFullYear(), true);
       };
       yearHeader.appendChild(createElement("div", "line"));
     }
