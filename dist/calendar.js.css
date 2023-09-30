@@ -759,12 +759,14 @@ div.calendar div.header-date {
 }
 div.calendar div.header-date div[class^=ib-],
 div.calendar div.header-date div.left-divider-line,
-div.calendar div.header-date div.right-divider-line {
+div.calendar div.header-date div.right-divider-line,
+div.calendar div.header-date div.right-divider-line-full-screen-mode {
   margin-left: calc(var(--spacing) / 2);
   margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.header-date div.left-divider-line,
-div.calendar div.header-date div.right-divider-line {
+div.calendar div.header-date div.right-divider-line,
+div.calendar div.header-date div.right-divider-line-full-screen-mode {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -973,7 +975,8 @@ div.calendar div.header-date div.ib-arrow-contract-left-right,
 div.calendar div.header-date div.ib-forward,
 div.calendar div.header-date div.ib-expand,
 div.calendar div.header-date div.ib-hourglass,
-div.calendar div.header-date div.right-divider-line {
+div.calendar div.header-date div.right-divider-line,
+div.calendar div.header-date div.right-divider-line-full-screen-mode {
   float: right;
 }
 @media screen and (min-width: 451px) {
@@ -987,7 +990,9 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-expand,
   div.calendar div.header-date div.ib-hourglass,
   div.calendar div.header-date div.ib-rewind,
-  div.calendar div.header-date div.ib-forward {
+  div.calendar div.header-date div.ib-forward,
+  div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.right-divider-line-full-screen-mode {
     display: inline-block;
   }
 }
@@ -1001,7 +1006,9 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-expand,
   div.calendar div.header-date div.ib-hourglass,
   div.calendar div.header-date div.ib-rewind,
-  div.calendar div.header-date div.ib-forward {
+  div.calendar div.header-date div.ib-forward,
+  div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.right-divider-line-full-screen-mode {
     display: none !important;
   }
 }

@@ -1050,7 +1050,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _options.showExtraToolbarButtons && _options.fullScreenModeEnabled ) {
             _element_Calendar_TitleBar_FullScreenButton = buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick );
 
-            _element_Calendar_TitleBar.appendChild( createElement( "div", "right-divider-line" ) );
+            _element_Calendar_TitleBar.appendChild( createElement( "div", "right-divider-line-full-screen-mode" ) );
         }
 
         buildToolbarButton( _element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth );

@@ -3,7 +3,7 @@
 ## Version 2.8.0:
 
 #### **New Features:**
-- Repeating event can now be edited as an entire series, or from a specific point forward (forward creates a new event, and stops the original event from that point).
+- Repeating events can now be edited as an entire series, or from a specific point forward (forward creates a new event, and stops the original event from that point).
 
 #### **UI Improvements:**
 - Previous/Next buttons in all views are now visible by default in mobile mode.
@@ -17,6 +17,7 @@
 #### **Fixes:**
 - Fixed a major issue that prevented the events assigned to the buttons on the Message dialog being reset.  This caused old events assigned to be called again.
 - Fixed a fault that caused the Full Year view to use the last scroll position when opened from the All Events view.
+- Fixed the "Expand" icon on the main display being visible in mobile mode (should be hidden, as with the other views).
 
 <br>
 
