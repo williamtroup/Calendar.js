@@ -20,7 +20,7 @@
 - Fixed a fault that caused the Full Year view to use the last scroll position when opened from the All Events view.
 - Fixed the "Expand" icon on the main display being visible in mobile mode (should be hidden, as with the other views).
 - Fixed the title bar text being slightly misaligned (vertically) on all views when in mobile mode.
-- Fixed the title bar text in all views somethings being too long, which caused the buttons to jump down, causing the title bar to look strange.
+- Fixed the title bar text in all views somethings being too long, which caused the buttons to jump down, making the title bar to look strange.
 
 <br>
 
