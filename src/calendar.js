@@ -4314,7 +4314,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _element_View_FullYear_CurrentYear > _options.minimumYear ) {
             _element_View_FullYear_CurrentYear -= 1;
 
-            showFullYearView( _element_View_FullYear_CurrentYear );
+            showFullYearView( _element_View_FullYear_CurrentYear, true );
         }
     }
 
@@ -4322,7 +4322,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _element_View_FullYear_CurrentYear < _options.maximumYear ) {
             _element_View_FullYear_CurrentYear += 1;
 
-            showFullYearView( _element_View_FullYear_CurrentYear );
+            showFullYearView( _element_View_FullYear_CurrentYear, true );
         }
     }
 
@@ -4330,7 +4330,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var today = new Date();
         _element_View_FullYear_CurrentYear = today.getFullYear();
 
-        showFullYearView( _element_View_FullYear_CurrentYear );
+        showFullYearView( _element_View_FullYear_CurrentYear, true );
     }
 
 

@@ -5,6 +5,9 @@
 #### **New Features:**
 - Repeating event can now be edited as an entire series, or from a specific point forward (forward creates a new event, and stops the original event from that point).
 
+#### **Full Year View:**
+- Moving Back/Forward through the years will force the scroll position to revert to the top (same as Full Day/Week views).
+
 #### **Fixes:**
 - Fixed a major issue that prevented the events assigned to the buttons on the Message dialog being reset.  This caused old events assigned to be called again.
 
