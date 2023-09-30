@@ -19,6 +19,7 @@
 - Fixed a major issue that prevented the events assigned to the buttons on the Message dialog being reset.  This caused old events assigned to be called again.
 - Fixed a fault that caused the Full Year view to use the last scroll position when opened from the All Events view.
 - Fixed the "Expand" icon on the main display being visible in mobile mode (should be hidden, as with the other views).
+- Fixed the title bar text being slightly misaligned (vertically) on all views when in mobile mode.
 
 <br>
 

@@ -1140,6 +1140,11 @@ div.calendar div.full-day-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
+@media screen and (max-width: 450px) {
+  div.calendar div.full-day-view div.title-bar div.title {
+    margin-top: 2px;
+  }
+}
 div.calendar div.full-day-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;
   margin-right: calc(var(--spacing) / 2) !important;
@@ -1395,6 +1400,11 @@ div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen
 div.calendar div.full-week-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-week-view div.title-bar div.title {
+    margin-top: 2px;
+  }
 }
 div.calendar div.full-week-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;
@@ -1743,6 +1753,11 @@ div.calendar div.full-year-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
+@media screen and (max-width: 450px) {
+  div.calendar div.full-year-view div.title-bar div.title {
+    margin-top: 2px;
+  }
+}
 div.calendar div.full-year-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;
   margin-right: calc(var(--spacing) / 2) !important;
@@ -1931,6 +1946,11 @@ div.calendar div.all-events-view div.title-bar div.right-divider-line-full-scree
 div.calendar div.all-events-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.all-events-view div.title-bar div.title {
+    margin-top: 2px;
+  }
 }
 div.calendar div.all-events-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;

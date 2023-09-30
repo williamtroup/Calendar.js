@@ -29,6 +29,10 @@ div.title-bar {
     div.title {
         font-weight: 900 !important;
         display: inline-block;
+        
+        @media screen and ( max-width: $maximum-width ) {
+            margin-top: 2px;
+        }
     }
 
     div {
