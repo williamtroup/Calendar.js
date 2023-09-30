@@ -2427,6 +2427,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_options.showExtraToolbarButtons) {
         buildToolbarButton(titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentFullYear);
       }
+      buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+        refreshViews(true, true);
+      });
       buildToolbarButton(titleBar, "ib-close", _options.closeTooltipText, function() {
         hideView(_element_View_FullYear);
       });
