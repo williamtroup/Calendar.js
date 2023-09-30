@@ -4126,7 +4126,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullYearViewMonth( monthIndex ) {
-        var expandMonthDate = new Date( _element_View_FullYear_CurrentYear, monthIndex, 1 );
+        var expandMonthDate = new Date( _element_View_FullYear_CurrentYear, monthIndex, 1 ),
+            expandFunction = function() {
+                if ( !doDatesMatch( _currentDate, expandMonthDate ) ) {
+                    build( expandMonthDate );
+                }
+
+                closeAllViews();
+            };
 
         var yearMonth = createElement( "div", "year-month" );
         _element_View_FullYear_Contents.appendChild( yearMonth );
@@ -4135,18 +4142,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         yearMonth.appendChild( titleBarContainer );
 
         var titleBar = createElement( "div", "title-bar" );
+        titleBar.ondblclick = expandFunction;
         setNodeText( titleBar, _options.monthNames[ monthIndex ] );
         titleBarContainer.appendChild( titleBar );
 
-        titleBar.ondblclick = function() {
-            hideView( _element_View_FullYear );
-            build( expandMonthDate );
-        };
-
-        buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, function() {
-            closeAllViews();
-            build( expandMonthDate );
-        } );
+        buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.expandMonthTooltipText, expandFunction );
 
         if ( _options.manualEditingEnabled ) {
             titleBar.appendChild( createElement( "div", "right-divider-line" ) );

@@ -12,6 +12,7 @@
 - Moving Back/Forward through the years will force the scroll position to revert to the top (same as Full Day/Week views).
 - Moving to the current year full auto-scroll the view to the current month (similar to how the Full Day/Week views work).
 - Added the "Refresh" button to the toolbar (next to the "Current Year" button).
+- When expanding a month, if the current month is already in view, no rebuild occurs.
 
 #### **Fixes:**
 - Fixed a major issue that prevented the events assigned to the buttons on the Message dialog being reset.  This caused old events assigned to be called again.
