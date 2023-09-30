@@ -1143,6 +1143,10 @@ div.calendar div.full-day-view div.title-bar div.title {
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.title-bar div.title {
     margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 div.calendar div.full-day-view div.title-bar div {
@@ -1404,6 +1408,10 @@ div.calendar div.full-week-view div.title-bar div.title {
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.title-bar div.title {
     margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 div.calendar div.full-week-view div.title-bar div {
@@ -1756,6 +1764,10 @@ div.calendar div.full-year-view div.title-bar div.title {
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.title-bar div.title {
     margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 div.calendar div.full-year-view div.title-bar div {
@@ -1950,6 +1962,10 @@ div.calendar div.all-events-view div.title-bar div.title {
 @media screen and (max-width: 450px) {
   div.calendar div.all-events-view div.title-bar div.title {
     margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 div.calendar div.all-events-view div.title-bar div {

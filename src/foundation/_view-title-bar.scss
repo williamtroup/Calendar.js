@@ -32,6 +32,10 @@ div.title-bar {
         
         @media screen and ( max-width: $maximum-width ) {
             margin-top: 2px;
+            max-width: 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 
