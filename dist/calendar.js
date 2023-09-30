@@ -2426,10 +2426,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onPreviousFullYear);
       if (_options.showExtraToolbarButtons) {
         buildToolbarButton(titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentFullYear);
+        buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+          refreshViews(true, true);
+        });
       }
-      buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
-        refreshViews(true, true);
-      });
       buildToolbarButton(titleBar, "ib-close", _options.closeTooltipText, function() {
         hideView(_element_View_FullYear);
       });
