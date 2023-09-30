@@ -7,6 +7,7 @@
 
 #### **UI Improvements:**
 - Previous/Next buttons in all views are now visible by default in mobile mode.
+- The view buttons are on the main displays title bar are now separated with a divider line from the other buttons.
 
 #### **Full Year View:**
 - Moving Back/Forward through the years will force the scroll position to revert to the top (same as Full Day/Week views).

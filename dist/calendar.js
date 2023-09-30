@@ -138,12 +138,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_options.addYearButtonsOnMainDisplay) {
       buildToolbarButton(_element_Calendar_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear);
     }
-    if (_options.showExtraToolbarButtons) {
-      if (_options.manualEditingEnabled) {
-        buildToolbarButton(_element_Calendar_TitleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);
-      }
+    if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
+      buildToolbarButton(_element_Calendar_TitleBar, "ib-plus", _options.addEventTooltipText, addNewEvent);
     }
     if (!_datePickerModeEnabled) {
+      _element_Calendar_TitleBar.appendChild(createElement("div", "right-divider-line-views"));
       buildToolbarButton(_element_Calendar_TitleBar, "ib-eye", _options.viewAllEventsTooltipText, function() {
         showAllEventsView(true);
       });

@@ -768,14 +768,16 @@ div.calendar {
         div[class^='ib-'],
         div.left-divider-line,
         div.right-divider-line,
-        div.right-divider-line-full-screen-mode {
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             margin-left: calc( var(--spacing) / 2 );
             margin-right: calc( var(--spacing) / 2 );
         }
 
         div.left-divider-line,
         div.right-divider-line,
-        div.right-divider-line-full-screen-mode {
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             @include title-bar-divider-line;
         }
 
@@ -975,7 +977,8 @@ div.calendar {
         div.ib-expand,
         div.ib-hourglass,
         div.right-divider-line,
-        div.right-divider-line-full-screen-mode {
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             float: right;
         }
 
@@ -992,7 +995,8 @@ div.calendar {
             div.ib-rewind,
             div.ib-forward,
             div.ib-arrow-expand-left-right,
-            div.right-divider-line-full-screen-mode {
+            div.right-divider-line-full-screen-mode,
+            div.right-divider-line-views {
                 display: inline-block;
             }
         }
@@ -1009,7 +1013,8 @@ div.calendar {
             div.ib-rewind,
             div.ib-forward,
             div.ib-arrow-expand-left-right,
-            div.right-divider-line-full-screen-mode {
+            div.right-divider-line-full-screen-mode,
+            div.right-divider-line-views {
                 display: none !important;
             }
         }
