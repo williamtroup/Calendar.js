@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
   "viewFullYearTooltipText": "पूरा वर्ष देखें",
   "currentYearTooltipText": "चालू वर्ष",
   "alertOffsetText": "अलर्ट ऑफसेट (मिनट):",
-  "viewFullDayTooltipText": "पूरा दिन देखें"
+  "viewFullDayTooltipText": "पूरा दिन देखें",
+  "confirmEventUpdateTitle": "इवेंट अपडेट की पुष्टि करें",
+  "confirmEventUpdateMessage": "क्या आप इस बिंदु से आगे की घटना को अद्यतन करना चाहेंगे, या पूरी शृंखला को?",
+  "forwardText": "आगे",
+  "seriesText": "शृंखला"
 };

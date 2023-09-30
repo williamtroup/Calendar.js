@@ -263,3 +263,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | currentYearTooltipText | The tooltip text that should be used for the "Current Year" button. |
 | *string* | alertOffsetText | The tooltip text that should be displayed for the "Alert Offset:" label. |
 | *string* | viewFullDayTooltipText | The tooltip text that should be used for the "View Full Day" button. |
+| *string* | confirmEventUpdateTitle | The title of the confirmation message that is shown when updating a repeating event (defaults to "Confirm Event Update"). |
+| *string* | confirmEventUpdateMessage | The text for the confirmation message that is shown when updating a repeating event (defaults to "Would you like to update the event from this point forward, or the entire series?"). |
+| *string* | forwardText | The text that should be displayed for the "Forward" button. |
+| *string* | seriesText | The text that should be displayed for the "Series" button. |

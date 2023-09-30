@@ -1,7 +1,12 @@
 # Calendar.js - Change Log:
 
 ## Version 2.8.0:
-- 
+
+#### **New Features:**
+- Repeating event can now be edited as an entire series, or from a specific point forward (forward creates a new event, and stops the original event from that point).
+
+#### **Fixes:**
+- Fixed a major issue that prevented the events assigned to the buttons on the Message dialog being reset.  This caused old events assigned to be called again.
 
 <br>
 

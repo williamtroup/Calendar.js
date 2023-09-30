@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "عرض سنة كاملة",
     "currentYearTooltipText": "السنة الحالية",
     "alertOffsetText": "إزاحة التنبيه (بالدقائق):",
-    "viewFullDayTooltipText": "عرض يوم كامل"
+    "viewFullDayTooltipText": "عرض يوم كامل",
+    "confirmEventUpdateTitle": "تأكيد تحديث الحدث",
+    "confirmEventUpdateMessage": "هل ترغب في تحديث الحدث من الآن فصاعدًا أم السلسلة بأكملها؟",
+    "forwardText": "إلى الأمام",
+    "seriesText": "مسلسل"
   };

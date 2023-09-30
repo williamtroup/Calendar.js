@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
   "viewFullYearTooltipText": "Ganzes Jahr anzeigen",
   "currentYearTooltipText": "Laufendes Jahr",
   "alertOffsetText": "Alarm-Offset (Minuten):",
-  "viewFullDayTooltipText": "Ganzen Tag anzeigen"
+  "viewFullDayTooltipText": "Ganzen Tag anzeigen",
+  "confirmEventUpdateTitle": "Bestätigen Sie die Ereignisaktualisierung",
+  "confirmEventUpdateMessage": "Möchten Sie die Veranstaltung ab diesem Zeitpunkt oder die gesamte Serie aktualisieren?",
+  "forwardText": "Nach vorne",
+  "seriesText": "Serie"
 };

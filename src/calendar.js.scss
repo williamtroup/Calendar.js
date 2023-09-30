@@ -1752,8 +1752,7 @@ div.message {
 
         &.yes-ok,
         &.no {
-            width: 100%;
-            max-width: 110px;
+            min-width: 110px;
             display: inline-block;
             margin-left: var(--spacing);
         }

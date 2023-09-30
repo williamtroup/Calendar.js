@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
   "viewFullYearTooltipText": "Ver o ano completo",
   "currentYearTooltipText": "Ano atual",
   "alertOffsetText": "Compensação de alerta (minutos):",
-  "viewFullDayTooltipText": "Ver dia inteiro"
+  "viewFullDayTooltipText": "Ver dia inteiro",
+  "confirmEventUpdateTitle": "Confirmar atualização do evento",
+  "confirmEventUpdateMessage": "Você gostaria de atualizar o evento deste ponto em diante ou a série inteira?",
+  "forwardText": "Avançar",
+  "seriesText": "Series"
 };

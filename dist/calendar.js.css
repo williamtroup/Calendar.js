@@ -2800,8 +2800,7 @@ div.message input[type=button].no:not(:disabled):active {
   opacity: 0.4;
 }
 div.message input[type=button].yes-ok, div.message input[type=button].no {
-  width: 100%;
-  max-width: 110px;
+  min-width: 110px;
   display: inline-block;
   margin-left: var(--spacing);
 }

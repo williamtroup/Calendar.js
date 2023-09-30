@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "পুরো বছর দেখুন",
     "currentYearTooltipText": "বর্তমান বছর",
     "alertOffsetText": "সতর্কতা অফসেট (মিনিট):",
-    "viewFullDayTooltipText": "পুরো দিন দেখুন"
+    "viewFullDayTooltipText": "পুরো দিন দেখুন",
+    "confirmEventUpdateTitle": "ইভেন্ট আপডেট নিশ্চিত করুন",
+    "confirmEventUpdateMessage": "আপনি কি এই বিন্দু থেকে ইভেন্টটি আপডেট করতে চান, নাকি পুরো সিরিজটি?",
+    "forwardText": "ফরোয়ার্ড",
+    "seriesText": "সিরিজ"
   };

@@ -297,6 +297,10 @@
  * @property    {string}    currentYearTooltipText                      The tooltip text that should be used for the "Current Year" button.
  * @property    {string}    alertOffsetText                             The text that should be displayed for the "Alert Offset:" label.
  * @property    {string}    viewFullDayTooltipText                      The tooltip text that should be used for the "View Full Day" button.
+ * @property    {string}    confirmEventUpdateTitle                     The title of the confirmation message that is shown when updating a repeating event (defaults to "Confirm Event Update").
+ * @property    {string}    confirmEventUpdateMessage                   The text for the confirmation message that is shown when updating a repeating event (defaults to "Would you like to update the event from this point forward, or the entire series?").
+ * @property    {string}    forwardText                                 The text that should be displayed for the "Forward" button.
+ * @property    {string}    seriesText                                  The text that should be displayed for the "Series" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -718,6 +722,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_EventEditor_AddUpdateButton = null,
         _element_Dialog_EventEditor_RemoveButton = null,
         _element_Dialog_EventEditor_AlertOffset = null,
+        _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarning = null,
+        _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate = null,
 
         // Variables: Dialog - Event Editor - Repeat Options
         _element_Dialog_EventEditor_Colors = null,
@@ -742,8 +748,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_Message_Message = null,
         _element_Dialog_Message_RemoveAllEvents = null,
         _element_Dialog_Message_RemoveAllEvents_Label = null,
-        _element_Dialog_Message_YesButton = null,
-        _element_Dialog_Message_NoButton = null,
+        _element_Dialog_Message_ButtonContainer = null,
 
         // Variables: Dialog - Export Events
         _element_Dialog_ExportEvents = null,
@@ -809,6 +814,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         // Variables: Context Menu - Event
         _element_ContextMenu_Event = null,
         _element_ContextMenu_Event_EventDetails = null,
+        _element_ContextMenu_Event_DateSelected = null,
         _element_ContextMenu_Event_FormattedDateSelected = null,
         _element_ContextMenu_Event_OpenUrlSeparator = null,
         _element_ContextMenu_Event_OpenUrl = null,
@@ -2707,7 +2713,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDayEvent( dayDate, eventDetails ) {
         var elementDay = getDayElement( dayDate ),
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
-            formattedDayDate = toStorageFormattedDate( dayDate );
+            formattedDayDate = toStorageFormattedDate( dayDate ),
+            editEventDate = new Date( dayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
             updateDateTotalEventsTracked( formattedDayDate );
@@ -2778,7 +2785,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         if ( _options.manualEditingEnabled ) {
                             event.ondblclick = function( e ) {
                                 cancelBubble( e );
-                                showEventEditingDialog( eventDetails );
+                                showEventEditingDialog( eventDetails, null, null, editEventDate );
                             };
                         } else {
     
@@ -3079,7 +3086,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullDayViewEvent( eventDetails, displayDate ) {
         var scrollTop = 0,
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
-            formattedDate = toStorageFormattedDate( displayDate );
+            formattedDate = toStorageFormattedDate( displayDate ),
+            editEventDate = new Date( displayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", "event" );
@@ -3190,7 +3198,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
-                    showEventEditingDialog( eventDetails );
+                    showEventEditingDialog( eventDetails, null, null, editEventDate );
                 };
             } else {
 
@@ -3674,7 +3682,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var added = false,
             seriesIgnoreDates = getArray( eventDetails.seriesIgnoreDates ),
             actualDisplayDate = new Date( displayDate ),
-            formattedDate = toStorageFormattedDate( actualDisplayDate );
+            formattedDate = toStorageFormattedDate( actualDisplayDate ),
+            editEventDate = new Date( displayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDate ) === -1 ) {
             var event = createElement( "div", "event" ),
@@ -3789,7 +3798,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.manualEditingEnabled ) {
                 event.ondblclick = function( e ) {
                     cancelBubble( e );
-                    showEventEditingDialog( eventDetails );
+                    showEventEditingDialog( eventDetails, null, null, editEventDate );
                 };
             } else {
 
@@ -4824,7 +4833,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _options.manualEditingEnabled ) {
             _element_ContextMenu_Event_EditEvent = buildContextMenuItemWithIcon( _element_ContextMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
-                showEventEditingDialog( _element_ContextMenu_Event_EventDetails );
+                showEventEditingDialog( _element_ContextMenu_Event_EventDetails, null, null, _element_ContextMenu_Event_DateSelected );
             }, true );
 
             _element_ContextMenu_Event_CutSeparator = buildContextMenuSeparator( _element_ContextMenu_Event );
@@ -4921,6 +4930,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             _element_ContextMenu_Event_EventDetails = eventDetails;
+            _element_ContextMenu_Event_DateSelected = new Date( selectedDate );
             _element_ContextMenu_Event_FormattedDateSelected = isDefined( selectedDate ) ? selectedDate : null;
 
             if ( _events_Selected.length > 1 ) {
@@ -5458,7 +5468,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues ) {
+    function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues, originDayDate ) {
         if ( isFunction( _options.onBeforeEventAddEdit ) ) {
             triggerOptionsEventWithData( "onBeforeEventAddEdit", eventDetails );
         } else {
@@ -5531,6 +5541,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_Dialog_EventEditor_RepeatOptions_Sun.checked = excludeDays.indexOf( 0 ) > -1;
     
                 setSelectedDate( eventDetails.repeatEnds, _element_Dialog_EventEditor_RepeatOptions_RepeatEnds );
+
+                _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarning = repeatEvery > _repeatType.never && isDefined( originDayDate ) && !doDatesMatch( eventDetails.from, originDayDate );
+                _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate = originDayDate;
             } else {
     
                 var date = new Date(),
@@ -5589,6 +5602,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 setSelectedDate( fromDate, _element_Dialog_EventEditor_DateFrom );
                 setSelectedDate( toDate, _element_Dialog_EventEditor_DateTo );
+
+                _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarning = false;
+                _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate = null;
             }
     
             buildToolbarButton( _element_Dialog_EventEditor_TitleBar, "ib-close", _options.closeTooltipText, eventDialogEvent_Cancel, true );
@@ -5660,9 +5676,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             showEventEditorErrorMessage( _options.titleErrorMessage );
         } else if ( url.length > 0 && !isValidUrl( url ) ) {
             showEventEditorErrorMessage( _options.urlErrorMessage );
-        }
-        else {
 
+        } else {
             var fromDate = getSelectedDate( _element_Dialog_EventEditor_DateFrom ),
                 toDate = getSelectedDate( _element_Dialog_EventEditor_DateTo ),
                 description = trimString( _element_Dialog_EventEditor_Description.value ),
@@ -5672,9 +5687,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 repeatEveryCustomValue = parseInt( _element_Dialog_EventEditor_RepeatEvery_Custom_Value.value ),
                 type = getEventTypeInputChecked(),
                 alertOffset = parseInt( _element_Dialog_EventEditor_AlertOffset.value );
-
-            setTimeOnDate( fromDate, _element_Dialog_EventEditor_TimeFrom.value );
-            setTimeOnDate( toDate, _element_Dialog_EventEditor_TimeTo.value );
 
             if ( isNaN( repeatEveryCustomValue ) ) {
                 repeatEveryCustomValue = 0;
@@ -5689,77 +5701,117 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( toDate < fromDate ) {
                 showEventEditorErrorMessage( _options.toSmallerThanFromErrorMessage );
             } else {
+
+                var normalSave = function( newId, newFromDate, newToDate, newRepeatEndsDate, ignoreFields ) {
+                    ignoreFields = isDefined( ignoreFields ) ? ignoreFields : false;
+
+                    setTimeOnDate( newFromDate, _element_Dialog_EventEditor_TimeFrom.value );
+                    setTimeOnDate( newToDate, _element_Dialog_EventEditor_TimeTo.value );
+
+                    if ( !ignoreFields ) {
+                        var isExistingEvent = isDefined( newId ),
+                            newEvent = {
+                                from: newFromDate,
+                                to: newToDate,
+                                title: title,
+                                description: description,
+                                location: location,
+                                group: group,
+                                isAllDay: _element_Dialog_EventEditor_IsAllDay.checked,
+                                showAlerts: _element_Dialog_EventEditor_ShowAlerts.checked,
+                                showAsBusy: _element_Dialog_EventEditor_ShowAsBusy.checked,
+                                color: _element_Dialog_EventEditor_EventDetails.color,
+                                colorText: _element_Dialog_EventEditor_EventDetails.colorText,
+                                colorBorder: _element_Dialog_EventEditor_EventDetails.colorBorder,
+                                repeatEveryExcludeDays: _element_Dialog_EventEditor_EventDetails.repeatEveryExcludeDays,
+                                repeatEnds: newRepeatEndsDate,
+                                url: url,
+                                repeatEveryCustomValue: repeatEveryCustomValue,
+                                type: type,
+                                customTags: _element_Dialog_EventEditor_EventDetails.customTags,
+                                alertOffset: alertOffset
+                            };
+        
+                        if ( _element_Dialog_EventEditor_RepeatEvery_Never.checked ) {
+                            newEvent.repeatEvery = _repeatType.never;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryDay.checked ) {
+                            newEvent.repeatEvery = _repeatType.everyDay;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryWeek.checked ) {
+                            newEvent.repeatEvery = _repeatType.everyWeek;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_Every2Weeks.checked ) {
+                            newEvent.repeatEvery = _repeatType.every2Weeks;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryMonth.checked ) {
+                            newEvent.repeatEvery = _repeatType.everyMonth;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryYear.checked ) {
+                            newEvent.repeatEvery = _repeatType.everyYear;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom.checked ) {
+                            newEvent.repeatEvery = _repeatType.custom;
+                        }
+        
+                        if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily.checked ) {
+                            newEvent.repeatEveryCustomType = _repeatCustomType.daily;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Weekly.checked ) {
+                            newEvent.repeatEveryCustomType = _repeatCustomType.weekly;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Monthly.checked ) {
+                            newEvent.repeatEveryCustomType = _repeatCustomType.monthly;
+                        } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Yearly.checked ) {
+                            newEvent.repeatEveryCustomType = _repeatCustomType.yearly;
+                        }
+        
+                        if ( !isExistingEvent ) {
+                            newEvent.organizerName = _options.organizerName;
+                            newEvent.organizerEmailAddress = _options.organizerEmailAddress;
+                        } else {
+                            newEvent.id = newId;
+                        }
+            
+                        if ( isExistingEvent ) {
+                            _this.updateEvent( newId, newEvent, false );
+        
+                            showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _element_Dialog_EventEditor_EventDetails.title ) );
+                        } else {
+                            _this.addEvent( newEvent, false );
+        
+                            showNotificationPopUp( _options.eventAddedText.replace( "{0}", _element_Dialog_EventEditor_EventDetails.title ) );
+                        }
+            
+                        buildDayEvents();
+                        refreshOpenedViews();
+
+                    } else {
+                        _element_Dialog_EventEditor_EventDetails.from = newFromDate;
+                        _element_Dialog_EventEditor_EventDetails.to = newToDate;
+                        _element_Dialog_EventEditor_EventDetails.repeatEnds = newRepeatEndsDate;
+                    }
+                };
                 
-                eventDialogEvent_Cancel();
+                if ( _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarning ) {
+                    showEventEditorDisabledArea();
 
-                var isExistingEvent = isDefined( _element_Dialog_EventEditor_EventDetails.id ),
-                    newEvent = {
-                        from: fromDate,
-                        to: toDate,
-                        title: title,
-                        description: description,
-                        location: location,
-                        group: group,
-                        isAllDay: _element_Dialog_EventEditor_IsAllDay.checked,
-                        showAlerts: _element_Dialog_EventEditor_ShowAlerts.checked,
-                        showAsBusy: _element_Dialog_EventEditor_ShowAsBusy.checked,
-                        color: _element_Dialog_EventEditor_EventDetails.color,
-                        colorText: _element_Dialog_EventEditor_EventDetails.colorText,
-                        colorBorder: _element_Dialog_EventEditor_EventDetails.colorBorder,
-                        repeatEveryExcludeDays: _element_Dialog_EventEditor_EventDetails.repeatEveryExcludeDays,
-                        repeatEnds: repeatEnds,
-                        url: url,
-                        repeatEveryCustomValue: repeatEveryCustomValue,
-                        type: type,
-                        customTags: _element_Dialog_EventEditor_EventDetails.customTags,
-                        alertOffset: alertOffset
+                    var onNoEvent = function() {
+                        hideEventEditorDisabledArea();
+                        normalSave( _element_Dialog_EventEditor_EventDetails.id, fromDate, toDate, repeatEnds );
+                        eventDialogEvent_Cancel();
                     };
+            
+                    var onYesEvent = function() {
+                        var newFromDate = new Date( _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate ),
+                            newToDate = new Date( _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate ),
+                            newRepeatEndsDate = new Date( _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate );
 
-                if ( _element_Dialog_EventEditor_RepeatEvery_Never.checked ) {
-                    newEvent.repeatEvery = _repeatType.never;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryDay.checked ) {
-                    newEvent.repeatEvery = _repeatType.everyDay;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryWeek.checked ) {
-                    newEvent.repeatEvery = _repeatType.everyWeek;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_Every2Weeks.checked ) {
-                    newEvent.repeatEvery = _repeatType.every2Weeks;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryMonth.checked ) {
-                    newEvent.repeatEvery = _repeatType.everyMonth;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_EveryYear.checked ) {
-                    newEvent.repeatEvery = _repeatType.everyYear;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom.checked ) {
-                    newEvent.repeatEvery = _repeatType.custom;
-                }
+                        hideEventEditorDisabledArea();
+                        moveDateForwardDay( newRepeatEndsDate, -1 );
+                        normalSave( _element_Dialog_EventEditor_EventDetails.id, fromDate, toDate, newRepeatEndsDate, true );
+                        normalSave( null, newFromDate, newToDate, repeatEnds );
+                        eventDialogEvent_Cancel();
+                    };
+            
+                    showMessageDialog( _options.confirmEventUpdateTitle, _options.confirmEventUpdateMessage, onYesEvent, onNoEvent, false, true, _options.forwardText, _options.seriesText );
 
-                if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily.checked ) {
-                    newEvent.repeatEveryCustomType = _repeatCustomType.daily;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Weekly.checked ) {
-                    newEvent.repeatEveryCustomType = _repeatCustomType.weekly;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Monthly.checked ) {
-                    newEvent.repeatEveryCustomType = _repeatCustomType.monthly;
-                } else if ( _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Yearly.checked ) {
-                    newEvent.repeatEveryCustomType = _repeatCustomType.yearly;
-                }
-
-                if ( !isExistingEvent ) {
-                    newEvent.organizerName = _options.organizerName;
-                    newEvent.organizerEmailAddress = _options.organizerEmailAddress;
                 } else {
-                    newEvent.id = _element_Dialog_EventEditor_EventDetails.id;
+                    normalSave( _element_Dialog_EventEditor_EventDetails.id, fromDate, toDate, repeatEnds );
+                    eventDialogEvent_Cancel();
                 }
-    
-                if ( isExistingEvent ) {
-                    _this.updateEvent( _element_Dialog_EventEditor_EventDetails.id, newEvent, false );
-
-                    showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _element_Dialog_EventEditor_EventDetails.title ) );
-                } else {
-                    _this.addEvent( newEvent, false );
-
-                    showNotificationPopUp( _options.eventAddedText.replace( "{0}", _element_Dialog_EventEditor_EventDetails.title ) );
-                }
-    
-                buildDayEvents();
-                refreshOpenedViews();
             }
         }
     }
@@ -6075,22 +6127,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Dialog_Message_RemoveAllEvents = checkbox[ 0 ];
             _element_Dialog_Message_RemoveAllEvents_Label = checkbox[ 1 ];
     
-            var buttonsContainer = createElement( "div", "buttons-container" );
-            contents.appendChild( buttonsContainer );
-    
-            _element_Dialog_Message_YesButton = createElement( "input", "yes-ok", "button" );
-            _element_Dialog_Message_YesButton.value = _options.yesText;
-            buttonsContainer.appendChild( _element_Dialog_Message_YesButton );
-
-            _element_Dialog_Message_NoButton = createElement( "input", "no", "button" );
-            _element_Dialog_Message_NoButton.value = _options.noText;
-            buttonsContainer.appendChild( _element_Dialog_Message_NoButton );
+            _element_Dialog_Message_ButtonContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( _element_Dialog_Message_ButtonContainer );
         }
     }
 
-    function showMessageDialog( title, message, onYesEvent, onNoEvent, showRemoveAllEventsCheckBox, showNoButton ) {
+    function showMessageDialog( title, message, onYesEvent, onNoEvent, showRemoveAllEventsCheckBox, showNoButton, yesText, noText ) {
         showRemoveAllEventsCheckBox = isDefined( showRemoveAllEventsCheckBox ) ? showRemoveAllEventsCheckBox : false;
         showNoButton = isDefined( showNoButton ) ? showNoButton : true;
+
+        var newYesText = isDefined( yesText ) ? yesText : _options.yesText,
+            newNoText = isDefined( noText ) ? noText : _options.noText;
+
+        _element_Dialog_Message_ButtonContainer.innerHTML = _string.empty;
+
+        var yesButton = createElement( "input", "yes-ok", "button" );
+        yesButton.value = newYesText;
+        _element_Dialog_Message_ButtonContainer.appendChild( yesButton );
+
+        var noButton = createElement( "input", "no", "button" );
+        noButton.value = newNoText;
+        _element_Dialog_Message_ButtonContainer.appendChild( noButton );
 
         _element_Dialog_AllOpened.push( false );
         _element_Dialog_Message.style.display = "block";
@@ -6098,16 +6155,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
         setNodeText( _element_Dialog_Message_TitleBar, title );
         setNodeText( _element_Dialog_Message_Message, message );
 
-        _element_Dialog_Message_YesButton.onclick = hideMessageDialog;
-        _element_Dialog_Message_YesButton.addEventListener( "click", onYesEvent );
-        _element_Dialog_Message_NoButton.onclick = hideMessageDialog;
+        yesButton.onclick = hideMessageDialog;
+        yesButton.addEventListener( "click", onYesEvent );
+        noButton.onclick = hideMessageDialog;
 
-        if ( showNoButton ) {
-            _element_Dialog_Message_NoButton.style.display = "inline-block";
-            _element_Dialog_Message_YesButton.value = _options.yesText;
-        } else {
-            _element_Dialog_Message_NoButton.style.display = "none";
-            _element_Dialog_Message_YesButton.value = _options.okText;
+        if ( isDefinedFunction( onNoEvent ) ) {
+            noButton.addEventListener( "click", onNoEvent );
+        }
+
+        if ( !isDefined( yesText ) && !isDefined( noText ) ) {
+            if ( showNoButton ) {
+                noButton.style.display = "inline-block";
+                yesButton.value = _options.yesText;
+            } else {
+                noButton.style.display = "none";
+                yesButton.value = _options.okText;
+            }
         }
 
         if ( showRemoveAllEventsCheckBox ) {
@@ -6116,10 +6179,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else {
             _element_Dialog_Message_RemoveAllEvents_Label.style.display = "none";
             _element_Dialog_Message_RemoveAllEvents.checked = true;
-        }
-
-        if ( isDefinedFunction( onNoEvent ) ) {
-            _element_Dialog_Message_NoButton.addEventListener( "click", onNoEvent );
         }
     }
 
@@ -12799,6 +12858,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.currentYearTooltipText = getDefaultString( _options.currentYearTooltipText, "Current Year" );
         _options.alertOffsetText = getDefaultString( _options.alertOffsetText, "Alert Offset (minutes):" );
         _options.viewFullDayTooltipText = getDefaultString( _options.viewFullDayTooltipText, "View Full Day" );
+        _options.confirmEventUpdateTitle = getDefaultString( _options.confirmEventUpdateTitle, "Confirm Event Update" );
+        _options.confirmEventUpdateMessage = getDefaultString( _options.confirmEventUpdateMessage, "Would you like to update the event from this point forward, or the entire series?" );
+        _options.forwardText = getDefaultString( _options.forwardText, "Forward" );
+        _options.seriesText = getDefaultString( _options.seriesText, "Series" );
     }
 
     function setEventTypeTranslationStringOptions() {

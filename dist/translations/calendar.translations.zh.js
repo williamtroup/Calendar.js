@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "查看全年",
     "currentYearTooltipText": "今年",
     "alertOffsetText": "警报偏移（分钟）：",
-    "viewFullDayTooltipText": "查看全天"
+    "viewFullDayTooltipText": "查看全天",
+    "confirmEventUpdateTitle": "确认活动更新",
+    "confirmEventUpdateMessage": "您想更新从现在开始的活动，还是整个系列？",
+    "forwardText": "向前",
+    "seriesText": "系列"
   };
