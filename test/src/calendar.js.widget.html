@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - Widget</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <script src="../../src/calendar.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Widget</h1>
+            <p>A test that shows Calendar.js working as a widget, pointing at another instance for data.</p>
+        </div>
+
+        <div class="contents">
+            <div id="myCalendar1" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+            <br>
+
+            <div id="myCalendar2" style="max-width: 800px;">
+                <p>Some data that should be cleared.</p>
+            </div>
+            <br>
+
+            <h2>Events:</h2>
+            <button onclick="calendarInstance1.clearEvents();">Clear Events</button>
+        </div>
+    </body>
+
+    <script>
+        var calendarInstance1 = new calendarJs( "myCalendar1", { 
+                manualEditingEnabled: true
+            } ),
+            calendarInstance2 = new calendarJs( "myCalendar2", { 
+                manualEditingEnabled: true,
+                isWidget: true
+            } );
+
+        document.title += " v" + calendarInstance1.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance1.getVersion();
+    </script>
+</html>
