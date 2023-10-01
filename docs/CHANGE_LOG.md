@@ -29,6 +29,7 @@
 - Fixed the Full Year view randomly jumping its scroll top position when the refresh timer fires.
 - Fixed the Full Week views inner content height being set manually instead of being set to 100% (did not scale properly when adjusting variables).
 - Fixed a fault that prevented events (in all views) showing the right default colors (for example, All Day event was always shown in the normal event color).
+- Fixed the side menu right border now showing the rounded corners correctly.
 
 <br>
 
