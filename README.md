@@ -28,7 +28,7 @@ Calendar.js
 - Import events from iCAL and JSON files.
 - Full-screen mode (double-clicking the title bar).
 - Search support (with search history).
-- Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support).
+- Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support), with editing forward, and series support.
 - Customizable holidays.
 - Shortcut keys (click [here](docs/SHORTCUT_KEYS.md) to see the full list).
 - Custom event groups (with configurable toggles via the side menu).
