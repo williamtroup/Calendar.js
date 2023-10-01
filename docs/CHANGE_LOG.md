@@ -4,7 +4,7 @@
 
 #### **New Features:**
 - Repeating events can now be edited as an entire series, or from a specific point forward (forward creates a new event, and stops the original event from that point).
-- Added a widget mode, which will render a widget based display for handling single days (event adding/editing enabled if turned off).
+- Added widget mode support, which will render a widget view solely for handling single days (event adding/editing enabled if turned on).
 
 #### **UI Improvements:**
 - Previous/Next buttons in all views are now visible by default in mobile mode.
@@ -12,7 +12,7 @@
 - Decreased the default border size from 1px to 0.5px (gives the calendar a more modern feel).
 
 #### **Settings:**
-- Added a new setting "isWidget" (defaults to false), which states if the calendar being rendered is just a small widget.
+- Added a new setting "isWidget" (defaults to false), which states if the calendar is a widget.
 
 #### **Full Year View:**
 - Moving Back/Forward through the years will force the scroll position to revert to the top (same as Full Day/Week views).
