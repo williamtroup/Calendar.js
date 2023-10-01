@@ -31,6 +31,8 @@
 - Fixed a fault that prevented events (in all views) showing the right default colors (for example, All Day event was always shown in the normal event color).
 - Fixed the side menu right border now showing the rounded corners correctly.
 - Fixed some grammar mistakes in the documentation.
+- Fixed a script error that occurred when pressing escape to close a open view.
+- Fixed a fault that prevented the z-index counter from resetting when a view is manually closed.
 
 <br>
 

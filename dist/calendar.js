@@ -5025,21 +5025,24 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (indexOfViewOpened > -1) {
         delete _element_View_Opened[indexOfViewOpened];
       }
+      if (_element_View_Opened.length === 0) {
+        _element_View_LastZIndex = 0;
+      }
       result = true;
     }
     return result;
   }
   function isViewVisible(element) {
-    return element !== null && element.className && element.className.indexOf("view-shown") > -1;
+    return isDefined(element) && element.className && element.className.indexOf("view-shown") > -1;
   }
   function closeLastViewOpened() {
     var viewElement = null;
     for (; viewElement === null;) {
       viewElement = _element_View_Opened[_element_View_Opened.length - 1];
-      _element_View_Opened.pop();
-      if (viewElement !== null) {
-        hideView(viewElement);
+      if (!hideView(viewElement)) {
+        viewElement = null;
       }
+      _element_View_Opened.pop();
     }
     if (_element_View_Opened.length === 0) {
       _element_View_LastZIndex = 0;
