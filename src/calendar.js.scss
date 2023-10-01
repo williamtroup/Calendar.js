@@ -298,6 +298,7 @@ div.calendar-date-picker {
 */
 
 div.calendar-widget {
+    @include no-selection-allowed;
     border-radius: var(--border-radius);
     padding: var(--spacing);
     background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
@@ -328,8 +329,17 @@ div.calendar-widget {
         font-size: x-large;
     }
 
+    div.scroll-margin {
+        padding-right: var(--spacing);
+    }
+
     div.events {
-        margin-top: calc( var(--spacing) / 2 );
+        margin-top: var(--spacing);
+        font-weight: 300;
+        max-height: 400px;
+        overflow-y: auto;
+
+        @import "foundation/view-event";
 
         div.event {
             margin-bottom: calc( var(--spacing) / 2 );

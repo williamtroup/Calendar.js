@@ -565,6 +565,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _elementID_WeekDayElement = "calendar-week-day-",
         _elementID_WeekAllDayElement = "calendar-week-all-day-",
         _elementID_YearSelected = "year-selected-",
+        _elementID_Widget_Day = "widget-day-",
 
         // Variables: Is Busy
         _isCalendarBusy = false,
@@ -1982,7 +1983,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildWidgetModeEvents() {
-        var events = createElement( "div", "events" ),
+        var events = createElement( "div", "events custom-scroll-bars" ),
             orderedEvents = [];
 
         _element_Calendar.appendChild( events );
@@ -1992,15 +1993,103 @@ function calendarJs( elementOrId, options, searchOptions ) {
         orderedEvents = getOrderedEvents( orderedEvents );
 
         var orderedEventsLength = orderedEvents.length;
-        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            buildWidgetModeEvent( events, orderedEvents[ orderedEventIndex ] );
+
+        if ( orderedEventsLength > 0 ) {
+            for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+                buildWidgetModeEvent( events, orderedEvents[ orderedEventIndex ] );
+            }
+        } else {
+            createTextHeaderElement( events, _options.noEventsAvailableFullText );
         }
     }
 
     function buildWidgetModeEvent( events, eventDetails ) {
         var event = createElement( "div", "event" );
-        setNodeText( event, eventDetails.title );
         events.appendChild( event );
+
+        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _currentDate ) );
+        setEventClassesForActions( event, eventDetails );
+
+        event.id = _elementID_Widget_Day + eventDetails.id;
+        event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+        event.setAttribute( "event-id", eventDetails.id );
+
+        var title = createElement( "div", "title" ),
+            repeatEvery = getNumber( eventDetails.repeatEvery );
+
+        if ( repeatEvery > _repeatType.never ) {
+            var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+            icon.style.borderColor = event.style.color;
+            title.appendChild( icon );
+        }
+        
+        title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+        event.appendChild( title );
+
+        var startTime = createElement( "div", "date" );
+        event.appendChild( startTime );
+
+        var duration = createElement( "div", "duration" );
+        event.appendChild( duration );
+
+        if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+            if ( eventDetails.isAllDay ) {
+                buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
+            } else {
+                buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+            }
+        } else {
+
+            buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
+            setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+        }
+
+        if ( duration.innerHTML === _string.empty ) {
+            event.removeChild( duration );
+        }
+
+        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
+            var repeats = createElement( "div", "repeats" );
+            setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
+            event.appendChild( repeats );
+        }
+
+        if ( isDefinedStringAndSet( eventDetails.location ) ) {
+            var location = createElement( "div", "location" );
+            setNodeText( location, eventDetails.location );
+            event.appendChild( location );
+        }
+
+        if ( isDefinedStringAndSet( eventDetails.description ) ) {
+            var description = createElement( "div", "description" );
+            setNodeText( description, eventDetails.description );
+            event.appendChild( description );
+        }
+
+        if ( isOptionEventSet( "onEventClick" ) ) {
+            event.addEventListener( "click", function() {
+                triggerOptionsEventWithData( "onEventClick", eventDetails );
+            } );
+        }
+
+        if ( _options.manualEditingEnabled ) {
+            event.ondblclick = function( e ) {
+                cancelBubble( e );
+                showEventEditingDialog( eventDetails );
+            };
+        } else {
+
+            if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                event.ondblclick = function() {
+                    triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                };
+            }
+        }
+
+        if ( events.scrollHeight > events.clientHeight && events.className.indexOf( " scroll-margin" ) === -1 ) {
+            events.className += " scroll-margin";
+        }
     }
 
     function onCurrentWidgetDay( e ) {
@@ -6003,8 +6092,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isDefined( _element_Dialog_EventEditor_EventDetails.id ) ) {
                 _this.removeEvent( _element_Dialog_EventEditor_EventDetails.id, true );
+
+                if ( _options.isWidget ) {
+                    build( _currentDate );
+                } else {
+                    refreshOpenedViews();
+                }
+
                 showNotificationPopUp( _options.eventRemovedText.replace( "{0}", _element_Dialog_EventEditor_EventDetails.title ) );
-                refreshOpenedViews();
             }
         };
 

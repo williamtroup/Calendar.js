@@ -331,6 +331,12 @@ div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
     -------------------------------------------------------------------------
 */
 div.calendar-widget {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
   border-radius: var(--border-radius);
   padding: var(--spacing);
   background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
@@ -359,8 +365,59 @@ div.calendar-widget div.day-date {
   font-weight: 300;
   font-size: x-large;
 }
+div.calendar-widget div.scroll-margin {
+  padding-right: var(--spacing);
+}
 div.calendar-widget div.events {
-  margin-top: calc(var(--spacing) / 2);
+  margin-top: var(--spacing);
+  font-weight: 300;
+  max-height: 400px;
+  overflow-y: auto;
+}
+div.calendar-widget div.events div.expired {
+  opacity: var(--event-expired-opacity);
+}
+div.calendar-widget div.events div.all-day {
+  background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
+}
+div.calendar-widget div.events div.event {
+  white-space: pre-line;
+  -ms-word-break: normal;
+  word-break: normal;
+  border-radius: var(--border-radius);
+  background-color: var(--event-color);
+  padding: var(--spacing);
+  color: var(--event-text-color);
+  margin-bottom: var(--spacing);
+  border-left: var(--event-left-border);
+  text-align: left;
+}
+div.calendar-widget div.events div.event div {
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.events div.event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar-widget div.events div.event div.title {
+  font-weight: 900;
+}
+div.calendar-widget div.events div.event div.date,
+div.calendar-widget div.events div.event div.duration,
+div.calendar-widget div.events div.event div.description,
+div.calendar-widget div.events div.event div.location,
+div.calendar-widget div.events div.event div.repeats {
+  font-size: smaller;
+  font-weight: 300;
+}
+div.calendar-widget div.events div.event div.ib-refresh-medium {
+  margin-right: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.events div.event:last-child {
+  margin-bottom: 0;
+}
+div.calendar-widget div.events:last-child {
+  margin-bottom: 0;
 }
 div.calendar-widget div.events div.event {
   margin-bottom: calc(var(--spacing) / 2);
