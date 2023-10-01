@@ -4225,7 +4225,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( var day = 0; day < totalDaysInMonth; day++ ) {
             elementDayNumber = startDay + day;
             
-            isCurrentMonth = buildFullYearViewMonthDay( monthDayId, monthIndex, day, elementDayNumber );
+            var isDayInCurrentMonth = buildFullYearViewMonthDay( monthDayId, monthIndex, day, elementDayNumber );
+            if ( isDayInCurrentMonth ) {
+                isCurrentMonth = true;
+            }
         }
 
         return [ isCurrentMonth, elementDayNumber ];
