@@ -21,6 +21,7 @@
 - Fixed the "Expand" icon on the main display being visible in mobile mode (should be hidden, as with the other views).
 - Fixed the title bar text being slightly misaligned (vertically) on all views when in mobile mode.
 - Fixed the title bar text in all views somethings being too long, which caused the buttons to jump down, making the title bar to look strange.
+- Fixed the Full Year view randomly jumping its scroll top position when the refresh timer fires.
 
 <br>
 

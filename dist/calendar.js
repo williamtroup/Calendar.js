@@ -2446,6 +2446,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildFullYearMonths(fromOpen) {
+    var previousScrollTop = !fromOpen ? _element_View_FullYear_Contents.scrollTop : 0;
     _element_View_FullYear_Contents.innerHTML = _string.empty;
     var monthIndex = 0;
     for (; monthIndex < 12; monthIndex++) {
@@ -2457,6 +2458,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       } else {
         _element_View_FullYear_Contents.scrollTop = 0;
       }
+    } else {
+      _element_View_FullYear_Contents.scrollTop = previousScrollTop;
     }
   }
   function buildFullYearViewMonth(monthIndex) {
