@@ -24,7 +24,7 @@
 - Fixed a fault that caused the Full Year view to use the last scroll position when opened from the All Events view.
 - Fixed the "Expand" icon on the main display being visible in mobile mode (should be hidden, as with the other views).
 - Fixed the title bar text being slightly misaligned (vertically) on all views when in mobile mode.
-- Fixed the title bar text in all views somethings being too long, which caused the buttons to jump down, making the title bar to look strange.
+- Fixed the title bar text in all views sometimes being too long, which caused the buttons to jump down, making the title bar to look strange.
 - Fixed the Full Year view randomly jumping its scroll top position when the refresh timer fires.
 - Fixed the Full Week views inner content height being set manually instead of being set to 100% (did not scale properly when adjusting variables).
 - Fixed a fault that prevented events (in all views) showing the right default colors (for example, All Day event was always shown in the normal event color).
