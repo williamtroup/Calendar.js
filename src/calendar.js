@@ -977,7 +977,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         buildWidgetMode();
-        startAutoRefreshTimer();
     }
 
     function buildLayoutEventsFromSources() {
@@ -1952,6 +1951,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildWidgetMode() {
+        clearAutoRefreshTimer();
+
         _element_Calendar.innerHTML = _string.empty;
 
         var weekDayNumber = getWeekdayNumber( _currentDate );
@@ -1974,6 +1975,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var dayDate = createElement( "div", "day-date" );
         buildDateTimeDisplay( dayDate, _currentDate, false, true, false );
         _element_Calendar.appendChild( dayDate );
+
+        var testText = createElement( "div", "events" );
+        setNodeText( testText, "Total Events: " + getAllEvents().length );
+        _element_Calendar.appendChild( testText );
+
+        startAutoRefreshTimer();
     }
 
     function onCurrentWidgetDay( e ) {
@@ -6635,7 +6642,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function hideSearchDialog() {
         var result = false;
 
-        if ( _element_Dialog_Search.style.display === "block" ) {
+        if ( _element_Dialog_Search !== null && _element_Dialog_Search.style.display === "block" ) {
             _element_Dialog_Search.style.display = "none";
             searchForTextChanged();
             result = true;
@@ -9255,20 +9262,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function refreshViews( fromButton, triggerEvent ) {
-        fromButton = isDefined( fromButton ) ? fromButton : false;
-        triggerEvent = isDefined( triggerEvent ) ? triggerEvent : false;
+        if ( _options.isWidget ) {
+            build( _currentDate );
+        } else {
 
-        if ( isOnlyMainDisplayVisible() || fromButton ) {
-            refreshOpenedViews();
-
-            if ( _currentDate_IsToday ) {
-                build();
-            } else {
-                buildDayEvents();
-            }
-
-            if ( triggerEvent ) {
-                triggerOptionsEvent( "onRefresh" );
+            fromButton = isDefined( fromButton ) ? fromButton : false;
+            triggerEvent = isDefined( triggerEvent ) ? triggerEvent : false;
+    
+            if ( isOnlyMainDisplayVisible() || fromButton ) {
+                refreshOpenedViews();
+    
+                if ( _currentDate_IsToday ) {
+                    build();
+                } else {
+                    buildDayEvents();
+                }
+    
+                if ( triggerEvent ) {
+                    triggerOptionsEvent( "onRefresh" );
+                }
             }
         }
     }

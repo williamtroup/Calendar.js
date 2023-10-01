@@ -327,6 +327,10 @@ div.calendar-widget {
         font-weight: 300;
         font-size: x-large;
     }
+
+    div.events {
+        margin-top: calc( var(--spacing) / 2 );
+    }
 }
 
  

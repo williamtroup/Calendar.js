@@ -359,6 +359,9 @@ div.calendar-widget div.day-date {
   font-weight: 300;
   font-size: x-large;
 }
+div.calendar-widget div.events {
+  margin-top: calc(var(--spacing) / 2);
+}
 
 /*
     -------------------------------------------------------------------------
