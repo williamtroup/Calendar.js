@@ -965,6 +965,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildContainer( true );
 
             if ( _element_Calendar !== null ) {
+                buildDisabledBackground();
                 buildEventEditingDialog();
                 buildEventEditingColorDialog();
                 buildEventEditingRepeatOptionsDialog();
