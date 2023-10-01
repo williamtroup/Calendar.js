@@ -327,7 +327,42 @@ div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Layout
+    Calendar.js - Layout - Widget
+    -------------------------------------------------------------------------
+*/
+div.calendar-widget {
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  max-width: 400px !important;
+  width: 100%;
+}
+div.calendar-widget div.day-name {
+  font-weight: 900;
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.day-name div.right-divider-line {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
+div.calendar-widget div.day-name div.ib-arrow-left-full,
+div.calendar-widget div.day-name div.ib-arrow-right-full,
+div.calendar-widget div.day-name div.ib-plus,
+div.calendar-widget div.day-name div.ib-pin,
+div.calendar-widget div.day-name div.right-divider-line {
+  float: right;
+  margin-left: var(--spacing);
+}
+div.calendar-widget div.day-date {
+  font-weight: 300;
+  font-size: x-large;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Full
     -------------------------------------------------------------------------
 */
 div.calendar {

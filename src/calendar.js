@@ -875,17 +875,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function build( newStartDateTime, fullRebuild, forceRefreshViews ) {
         _currentDate = isDefinedDate( newStartDateTime ) ? newStartDateTime : new Date();
-        _currentDate.setDate( 1 );
-        _currentDate.setHours( 0, 0, 0, 0 );
-        _currentDate_IsToday = isDateTodaysMonthAndYear( _currentDate );
 
         fullRebuild = isDefined( fullRebuild ) ? fullRebuild : false;
         forceRefreshViews = isDefined( forceRefreshViews ) ? forceRefreshViews : false;
 
-        var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
-            startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() );
-
-        buildLayout( startDay, fullRebuild, forceRefreshViews );
+        buildLayout( fullRebuild, forceRefreshViews );
     }
 
 
@@ -895,10 +889,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildLayout( startDay, fullRebuild, forceRefreshViews ) {
+    function buildLayout( fullRebuild, forceRefreshViews ) {
         if ( _options.isWidget ) {
             buildLayoutWidget();
         } else {
+
+            _currentDate.setDate( 1 );
+            _currentDate.setHours( 0, 0, 0, 0 );
+            _currentDate_IsToday = isDateTodaysMonthAndYear( _currentDate );
+    
+            var firstDay = new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ),
+                startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() );
 
             if ( isSideMenuOpen() ) {
                 hideSideMenu();
@@ -964,10 +965,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildContainer( true );
 
             if ( _element_Calendar !== null ) {
+                buildEventEditingDialog();
+                buildEventEditingColorDialog();
+                buildEventEditingRepeatOptionsDialog();
+                buildMessageDialog();
+                buildDocumentEvents();
+                buildTooltip();
                 buildLayoutEventsFromSources();
                 buildLayoutTriggerRenderComplete();
             }
         }
+
+        buildWidgetMode();
+        startAutoRefreshTimer();
     }
 
     function buildLayoutEventsFromSources() {
@@ -1932,6 +1942,65 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function sideMenuSelectionsChanged() {
         _element_SideMenu_Changed = true;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Build Widget Mode
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildWidgetMode() {
+        _element_Calendar.innerHTML = _string.empty;
+
+        var weekDayNumber = getWeekdayNumber( _currentDate );
+
+        var dayName = createElement( "div", "day-name" );
+        setNodeText( dayName, _options.dayNames[ weekDayNumber ] );
+        _element_Calendar.appendChild( dayName );
+
+        buildToolbarButton( dayName, "ib-arrow-right-full", _options.nextDayTooltipText, onNextWidgetDay );
+        buildToolbarButton( dayName, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousWidgetDay );
+
+        dayName.appendChild( createElement( "div", "right-divider-line" ) );
+        
+        if ( _options.manualEditingEnabled ) {
+            buildToolbarButton( dayName, "ib-plus", _options.addEventTooltipText, addNewEvent );
+        }
+
+        buildToolbarButton( dayName, "ib-pin", _options.todayTooltipText, onCurrentWidgetDay );
+
+        var dayDate = createElement( "div", "day-date" );
+        buildDateTimeDisplay( dayDate, _currentDate, false, true, false );
+        _element_Calendar.appendChild( dayDate );
+    }
+
+    function onCurrentWidgetDay( e ) {
+        cancelBubble( e );
+        build();
+    }
+
+    function onNextWidgetDay( e ) {
+        cancelBubble( e );
+
+        var nextDay = new Date( _currentDate );
+        nextDay.setDate( nextDay.getDate() + 1 );
+
+        if ( nextDay.getFullYear() <= _options.maximumYear ) {
+            build( nextDay );
+        }
+    }
+
+    function onPreviousWidgetDay( e ) {
+        cancelBubble( e );
+
+        var previousDay = new Date( _currentDate );
+        previousDay.setDate( previousDay.getDate() - 1 );
+
+        if ( previousDay.getFullYear() >= _options.minimumYear ) {
+            build( previousDay );
+        }
     }
 
 
