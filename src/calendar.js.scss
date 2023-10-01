@@ -1309,7 +1309,7 @@ div.calendar {
             div.days {
                 position: absolute;
                 width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
-                height: calc( ( ( var(--time-view-hours-height) * 48 ) + ( ( var(--spacing) * 2 ) * 48 ) ) + ( var(--spacing) * 2 ) + ( var(--spacing-border-size) * 2 ) );
+                height: 100%;
                 top: 0;
                 left: calc( ( var(--time-view-hours-width) + ( var(--spacing) * 2 ) ) + var(--spacing-border-size) );
                 background-color: transparent;

@@ -26,6 +26,7 @@
 - Fixed the title bar text being slightly misaligned (vertically) on all views when in mobile mode.
 - Fixed the title bar text in all views somethings being too long, which caused the buttons to jump down, making the title bar to look strange.
 - Fixed the Full Year view randomly jumping its scroll top position when the refresh timer fires.
+- Fixed the Full Week views inner content height being set manually instead of being set to 100% (did not scale properly when adjusting variables).
 
 <br>
 
