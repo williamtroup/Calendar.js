@@ -1976,11 +1976,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDateTimeDisplay( dayDate, _currentDate, false, true, false );
         _element_Calendar.appendChild( dayDate );
 
-        var testText = createElement( "div", "events" );
-        setNodeText( testText, "Total Events: " + getAllEvents().length );
-        _element_Calendar.appendChild( testText );
-
+        buildWidgetModeEvents();
         startAutoRefreshTimer();
+    }
+
+    function buildWidgetModeEvents() {
+        var events = createElement( "div", "events" ),
+            orderedEvents = [];
+
+        _element_Calendar.appendChild( events );
+
+        getFullDayViewOrderedEvents( _currentDate, orderedEvents );
+
+        orderedEvents = getOrderedEvents( orderedEvents );
+
+        var orderedEventsLength = orderedEvents.length;
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            buildWidgetModeEvent( events, orderedEvents[ orderedEventIndex ] );
+        }
+    }
+
+    function buildWidgetModeEvent( events, eventDetails ) {
+        var event = createElement( "div", "event" );
+        setNodeText( event, eventDetails.title );
+        events.appendChild( event );
     }
 
     function onCurrentWidgetDay( e ) {
@@ -3374,6 +3393,41 @@ function calendarJs( elementOrId, options, searchOptions ) {
             createSpanElement( _element_View_FullDay_TitleBar, " (" + holidayText + ")", "light-title-bar-text" );
         }
 
+        getFullDayViewOrderedEvents( date, orderedEvents );
+
+        orderedEvents = getOrderedEvents( orderedEvents );
+
+        var orderedEventsLength = orderedEvents.length,
+            orderedEventsFirstTopPosition = null,
+            timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow, _element_View_FullDay_Contents_Hours );
+
+        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+            var newTopPosition = buildFullDayViewEvent( orderedEvents[ orderedEventIndex ], date );
+            if ( orderedEventsFirstTopPosition === null ) {
+                orderedEventsFirstTopPosition = newTopPosition;
+            }
+        }
+
+        if ( fromOpen ) {
+            if ( isTimeArrowVisible( _element_View_FullDay_DateSelected, _element_View_FullDay ) ) {
+                var allDayEventsHeight = _element_View_FullDay_Contents_AllDayEvents.offsetHeight;
+                allDayEventsHeight = allDayEventsHeight <= 1 ? _options.spacing * 4 : allDayEventsHeight;
+
+                _element_View_FullDay_Contents.scrollTop = timeArrowPosition - allDayEventsHeight;
+            } else {
+                _element_View_FullDay_Contents.scrollTop = orderedEventsFirstTopPosition - ( _element_View_FullDay_Contents.offsetHeight / 2 );
+            }
+        }
+
+        if ( _element_View_FullDay_Contents_AllDayEvents.offsetHeight <= 1 ) {
+            _element_View_FullDay_Contents_AllDayEvents.style.display = "none";
+        }
+
+        updateToolbarButtonVisibleState( _element_View_FullDay_SearchButton, _element_View_FullDay_EventsShown.length > 0 );
+        adjustViewEventsThatOverlap( _element_View_FullDay_Contents_Hours );
+    }
+
+    function getFullDayViewOrderedEvents( date, orderedEvents ) {
         getAllEventsFunc( function( eventDetails ) {
             var totalDays = getTotalDaysBetweenDates( eventDetails.from, eventDetails.to ) + 1,
                 nextDate = new Date( eventDetails.from );
@@ -3418,37 +3472,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
         } );
-
-        orderedEvents = getOrderedEvents( orderedEvents );
-
-        var orderedEventsLength = orderedEvents.length,
-            orderedEventsFirstTopPosition = null,
-            timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow, _element_View_FullDay_Contents_Hours );
-
-        for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-            var newTopPosition = buildFullDayViewEvent( orderedEvents[ orderedEventIndex ], date );
-            if ( orderedEventsFirstTopPosition === null ) {
-                orderedEventsFirstTopPosition = newTopPosition;
-            }
-        }
-
-        if ( fromOpen ) {
-            if ( isTimeArrowVisible( _element_View_FullDay_DateSelected, _element_View_FullDay ) ) {
-                var allDayEventsHeight = _element_View_FullDay_Contents_AllDayEvents.offsetHeight;
-                allDayEventsHeight = allDayEventsHeight <= 1 ? _options.spacing * 4 : allDayEventsHeight;
-
-                _element_View_FullDay_Contents.scrollTop = timeArrowPosition - allDayEventsHeight;
-            } else {
-                _element_View_FullDay_Contents.scrollTop = orderedEventsFirstTopPosition - ( _element_View_FullDay_Contents.offsetHeight / 2 );
-            }
-        }
-
-        if ( _element_View_FullDay_Contents_AllDayEvents.offsetHeight <= 1 ) {
-            _element_View_FullDay_Contents_AllDayEvents.style.display = "none";
-        }
-
-        updateToolbarButtonVisibleState( _element_View_FullDay_SearchButton, _element_View_FullDay_EventsShown.length > 0 );
-        adjustViewEventsThatOverlap( _element_View_FullDay_Contents_Hours );
     }
 
     function updateFullDayView() {

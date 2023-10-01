@@ -362,6 +362,12 @@ div.calendar-widget div.day-date {
 div.calendar-widget div.events {
   margin-top: calc(var(--spacing) / 2);
 }
+div.calendar-widget div.events div.event {
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.events div.event:last-of-type {
+  margin-bottom: 0;
+}
 
 /*
     -------------------------------------------------------------------------
