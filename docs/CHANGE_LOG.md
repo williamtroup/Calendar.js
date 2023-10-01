@@ -30,6 +30,7 @@
 - Fixed the Full Week views inner content height being set manually instead of being set to 100% (did not scale properly when adjusting variables).
 - Fixed a fault that prevented events (in all views) showing the right default colors (for example, All Day event was always shown in the normal event color).
 - Fixed the side menu right border now showing the rounded corners correctly.
+- Fixed some grammar mistakes in the documentation.
 
 <br>
 
