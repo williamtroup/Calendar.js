@@ -847,7 +847,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     var event = createElement("div", "event");
     events.appendChild(event);
     setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, _currentDate));
-    setEventClassesForActions(event, eventDetails);
     event.id = _elementID_Widget_Day + eventDetails.id;
     event.setAttribute("event-type", getNumber(eventDetails.type));
     event.setAttribute("event-id", eventDetails.id);
