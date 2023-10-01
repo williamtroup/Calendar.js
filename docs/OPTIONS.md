@@ -78,6 +78,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | reverseOrderDaysOfWeek | States if the days of the week should be reversed (for Hebrew calendars, for example. Defaults to true). |
 | *boolean* | importEventsEnabled | States if importing events is enabled (defaults to true). |
 | *boolean* | useAmPmForTimeDisplays | States if the AM/PM time format should be used for all time displays (defaults to false). |
+| *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
 <br/>
 
 ### Translatable String Options:
