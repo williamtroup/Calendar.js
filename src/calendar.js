@@ -5913,9 +5913,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
                             showNotificationPopUp( _options.eventAddedText.replace( "{0}", _element_Dialog_EventEditor_EventDetails.title ) );
                         }
-            
-                        buildDayEvents();
-                        refreshOpenedViews();
+
+                        if ( _options.isWidget ) {
+                            build( _currentDate );
+                        } else {
+                            buildDayEvents();
+                            refreshOpenedViews();
+                        }
 
                     } else {
                         _element_Dialog_EventEditor_EventDetails.from = newFromDate;
@@ -7341,7 +7345,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showNotificationPopUp( text, success ) {
-        if ( _options.popUpNotificationsEnabled ) {
+        if ( _element_Notification !== null && _options.popUpNotificationsEnabled ) {
             success = isDefined( success ) ? success : true;
 
             stopAndResetTimer( _timerName.hideNotification );
