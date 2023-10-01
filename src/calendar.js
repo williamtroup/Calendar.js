@@ -6650,7 +6650,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function centerSearchDialog() {
-        if ( !_element_Dialog_Search_Moved && !_datePickerModeEnabled ) {
+        if ( _element_Dialog_Search !== null && !_element_Dialog_Search_Moved && !_datePickerModeEnabled ) {
 
             if ( isDefinedNumber( _optionsForSearch.left ) ) {
                 _element_Dialog_Search.style.left = _optionsForSearch.left + "px";
