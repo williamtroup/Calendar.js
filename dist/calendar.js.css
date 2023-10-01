@@ -333,7 +333,7 @@ div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
 div.calendar-widget {
   border-radius: var(--border-radius);
   padding: var(--spacing);
-  background-color: var(--dark-color);
+  background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
   color: var(--light-color);
   max-width: 400px !important;
   width: 100%;
