@@ -37,7 +37,9 @@
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", { 
                 manualEditingEnabled: true,
-                isWidget: true
+                isWidget: true,
+                onEventsFetch: calendarInstance1.getEvents,
+                autoRefreshTimerDelay: 5000
             } );
 
         document.title += " v" + calendarInstance1.getVersion();
