@@ -920,13 +920,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     buildDayRows();
                     buildDocumentEvents();
                     buildLayoutEventsFromSources();
-
-                    _initialized = true;
-        
-                    if ( !_initializedFirstTime ) {
-                        triggerOptionsEventWithData( "onRender", _elementID );
-                        _initializedFirstTime = true;
-                    }
+                    buildLayoutTriggerRenderComplete();
                 }
             }
     
@@ -971,11 +965,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( _element_Calendar !== null ) {
                 buildLayoutEventsFromSources();
-    
-                if ( !_initializedFirstTime ) {
-                    triggerOptionsEventWithData( "onRender", _elementID );
-                    _initializedFirstTime = true;
-                }
+                buildLayoutTriggerRenderComplete();
             }
         }
     }
@@ -987,6 +977,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         loadEventsFromLocalStorage();
         loadEventsToAddOrUpdateFromFetchTrigger();
+    }
+
+    function buildLayoutTriggerRenderComplete() {
+        _initialized = true;
+    
+        if ( !_initializedFirstTime ) {
+            triggerOptionsEventWithData( "onRender", _elementID );
+            _initializedFirstTime = true;
+        }
     }
 
     function buildContainer( isWidget ) {
