@@ -8541,6 +8541,15 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (isDefinedString(event.lastUpdated)) {
         event.lastUpdated = new Date(event.lastUpdated);
       }
+      if (event.color === _options.defaultEventBackgroundColor) {
+        event.color = null;
+      }
+      if (event.colorText === _options.defaultEventTextColor) {
+        event.colorText = null;
+      }
+      if (event.colorBorder === _options.defaultEventBorderColor) {
+        event.colorBorder = null;
+      }
       if (event.from <= event.to) {
         var storageDate = toStorageDate(event.from);
         var storageGuid = newGuid();
