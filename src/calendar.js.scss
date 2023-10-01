@@ -56,7 +56,7 @@
     // Side Menu
     --side-menu-width: 300px;
     --side-menu-width-small: 250px;
-    --side-menu-right-border-width: 5px;
+    --side-menu-right-border-width: calc( var(--spacing-border-size) * 12 );
 
     // Time Views
     --time-view-hours-width: 70px;
