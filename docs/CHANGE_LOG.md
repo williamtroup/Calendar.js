@@ -9,6 +9,7 @@
 #### **UI Improvements:**
 - Previous/Next buttons in all views are now visible by default in mobile mode.
 - The view buttons are on the main displays title bar are now separated with a divider line from the other buttons.
+- Decreased the default border size from 1px to 0.5px (gives the calendar a more modern feel).
 
 #### **Settings:**
 - Added a new setting "isWidget" (defaults to false), which states if the calendar being rendered is just a small widget.

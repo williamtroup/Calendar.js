@@ -134,7 +134,7 @@ $minimum-width: $maximum-width + 1;
     &.#{$name} {
         color: $color;
         background-color: $background-color;
-        border: calc( var(--spacing-border-size) * 2 ) solid $border-color;
+        border: var(--spacing-border-size-button) solid $border-color;
         box-sizing: border-box;
 
         &:not( :disabled ):hover {

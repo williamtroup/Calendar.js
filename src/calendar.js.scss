@@ -44,7 +44,9 @@
 
     // Spacing
     --spacing: 10px;
-    --spacing-border-size: 1px;
+    --spacing-border-size: 0.5px;
+    --spacing-border-left-size: calc( var(--spacing-border-size) * 12 );
+    --spacing-border-size-button: var(--spacing-border-size);
 
     // Fonts
     --title-bar-font-weight: 900;
@@ -710,7 +712,7 @@ div.calendar {
             padding-top: 0;
 
             div.content-section-opened {
-                border-left: calc( var(--spacing-border-size) * 6 ) solid #656363 !important;
+                border-left: var(--spacing-border-left-size) solid #656363 !important;
             }
 
             div.content-section {
@@ -2396,7 +2398,7 @@ div.calendar-context-menu {
     @include fade-in-effect-animation( 0.5s );
     background-color: var(--drop-down-menu-background-color);
     border: var(--spacing-border-size) solid var(--dark-color);
-    border-left: calc( var(--spacing-border-size) * 6 ) solid var(--dark-color);
+    border-left: var(--spacing-border-left-size) solid var(--dark-color);
     color: var(--dark-color);
     box-shadow: 4px 4px 4px var(--dark-color);
     border-radius: var(--border-radius);

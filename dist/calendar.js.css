@@ -33,7 +33,9 @@
   --transition-faster: all .2s;
   --border-radius: 0.25rem;
   --spacing: 10px;
-  --spacing-border-size: 1px;
+  --spacing-border-size: 0.5px;
+  --spacing-border-left-size: calc( var(--spacing-border-size) * 12 );
+  --spacing-border-size-button: var(--spacing-border-size);
   --title-bar-font-weight: 900;
   --large-font-size: 0.9rem;
   --small-font-size: 0.7rem;
@@ -738,7 +740,7 @@ div.calendar div.side-menu div.content {
   padding-top: 0;
 }
 div.calendar div.side-menu div.content div.content-section-opened {
-  border-left: calc(var(--spacing-border-size) * 6) solid #656363 !important;
+  border-left: var(--spacing-border-left-size) solid #656363 !important;
 }
 div.calendar div.side-menu div.content div.content-section {
   margin-top: var(--spacing);
@@ -2401,7 +2403,7 @@ div.event-editor div.view input[type=button]:disabled {
 div.event-editor div.view input[type=button].add-update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].add-update:not(:disabled):hover {
@@ -2417,7 +2419,7 @@ div.event-editor div.view input[type=button].add-update:not(:disabled):active {
 div.event-editor div.view input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
@@ -2433,7 +2435,7 @@ div.event-editor div.view input[type=button].cancel:not(:disabled):active {
 div.event-editor div.view input[type=button].remove {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].remove:not(:disabled):hover {
@@ -2449,7 +2451,7 @@ div.event-editor div.view input[type=button].remove:not(:disabled):active {
 div.event-editor div.view input[type=button].select-colors {
   color: var(--light-color);
   background-color: var(--tertiary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--tertiary-button-color);
+  border: var(--spacing-border-size-button) solid var(--tertiary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].select-colors:not(:disabled):hover {
@@ -2465,7 +2467,7 @@ div.event-editor div.view input[type=button].select-colors:not(:disabled):active
 div.event-editor div.view input[type=button].repeat-options {
   color: var(--light-color);
   background-color: var(--tertiary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--tertiary-button-color);
+  border: var(--spacing-border-size-button) solid var(--tertiary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].repeat-options:not(:disabled):hover {
@@ -2620,7 +2622,7 @@ div.event-editor-colors input[type=button]:disabled {
 div.event-editor-colors input[type=button].update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].update:not(:disabled):hover {
@@ -2636,7 +2638,7 @@ div.event-editor-colors input[type=button].update:not(:disabled):active {
 div.event-editor-colors input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
@@ -2787,7 +2789,7 @@ div.event-editor-repeat-options input[type=button]:disabled {
 div.event-editor-repeat-options input[type=button].update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].update:not(:disabled):hover {
@@ -2803,7 +2805,7 @@ div.event-editor-repeat-options input[type=button].update:not(:disabled):active 
 div.event-editor-repeat-options input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
@@ -2903,7 +2905,7 @@ div.message input[type=button]:disabled {
 div.message input[type=button].yes-ok {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.message input[type=button].yes-ok:not(:disabled):hover {
@@ -2919,7 +2921,7 @@ div.message input[type=button].yes-ok:not(:disabled):active {
 div.message input[type=button].no {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.message input[type=button].no:not(:disabled):hover {
@@ -3082,7 +3084,7 @@ div.export-events input[type=button]:disabled {
 div.export-events input[type=button].export {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.export-events input[type=button].export:not(:disabled):hover {
@@ -3098,7 +3100,7 @@ div.export-events input[type=button].export:not(:disabled):active {
 div.export-events input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.export-events input[type=button].cancel:not(:disabled):hover {
@@ -3315,7 +3317,7 @@ div.search input[type=button]:disabled {
 div.search input[type=button].next {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.search input[type=button].next:not(:disabled):hover {
@@ -3331,7 +3333,7 @@ div.search input[type=button].next:not(:disabled):active {
 div.search input[type=button].previous {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.search input[type=button].previous:not(:disabled):hover {
@@ -3468,7 +3470,7 @@ div.configuration input[type=button]:disabled {
 div.configuration input[type=button].update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.configuration input[type=button].update:not(:disabled):hover {
@@ -3484,7 +3486,7 @@ div.configuration input[type=button].update:not(:disabled):active {
 div.configuration input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
@@ -3859,7 +3861,7 @@ div.calendar-context-menu {
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: var(--drop-down-menu-background-color);
   border: var(--spacing-border-size) solid var(--dark-color);
-  border-left: calc(var(--spacing-border-size) * 6) solid var(--dark-color);
+  border-left: var(--spacing-border-left-size) solid var(--dark-color);
   color: var(--dark-color);
   box-shadow: 4px 4px 4px var(--dark-color);
   border-radius: var(--border-radius);
