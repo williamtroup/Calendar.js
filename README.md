@@ -7,9 +7,40 @@ Calendar.js
 <p align="center">v2.8.0</p>
 <br />
 
+<h1>What views does Calendar.js support?</h1>
+
+Calendar.js supports 7 different views (two are modes), which can be accessed from the context menus, and title bar buttons.  They are as follows:
+
+<h3>1. Full Month (default view)</h1>
+
 ![CalendarJs](docs/images/main.png)
 ![CalendarJs - Menu](docs/images/main-menu.png)
-![CalendarJs - Date-Picker](docs/images/date-picker.png)
+
+<h3>2. Full Day</h1>
+
+![CalendarJs](docs/images/main.png)
+
+<h3>3. Full Week</h1>
+
+![CalendarJs](docs/images/main.png)
+
+<h3>4. Full Year</h1>
+
+![CalendarJs](docs/images/main.png)
+
+<h3>5. All Events</h1>
+
+![CalendarJs](docs/images/main.png)
+
+<h3>6. Date Picker Mode</h1>
+
+<img src="docs/images/date-picker.png" alt="CalendarJs - Date-Picker" width="300" />
+
+<h3>7. Widget Mode</h1>
+
+<img src="docs/images/date-picker.png" alt="CalendarJs - Date-Picker" width="300" />
+<br>
+<br>
 
 <h1>What features does Calendar.js have?</h1>
 
