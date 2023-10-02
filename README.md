@@ -18,19 +18,19 @@ Calendar.js supports 7 different views (two are modes), which can be accessed fr
 
 <h3>2. Full Day</h1>
 
-![CalendarJs](docs/images/full-day.png)
+![CalendarJs - Full Day](docs/images/full-day.png)
 
 <h3>3. Full Week</h1>
 
-![CalendarJs](docs/images/full-week.png)
+![CalendarJs - Full Week](docs/images/full-week.png)
 
 <h3>4. Full Year</h1>
 
-![CalendarJs](docs/images/full-year.png)
+![CalendarJs - Full Year](docs/images/full-year.png)
 
 <h3>5. All Events</h1>
 
-![CalendarJs](docs/images/all-events.png)
+![CalendarJs - All Events](docs/images/all-events.png)
 
 <h3>6. Date Picker Mode</h1>
 
@@ -38,7 +38,7 @@ Calendar.js supports 7 different views (two are modes), which can be accessed fr
 
 <h3>7. Widget Mode</h1>
 
-<img src="docs/images/widget.png" alt="CalendarJs - Date-Picker" width="350" />
+<img src="docs/images/widget.png" alt="CalendarJs - Widget" width="350" />
 <br>
 <br>
 
