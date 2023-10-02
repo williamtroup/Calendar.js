@@ -72,6 +72,7 @@ Calendar.js supports 7 different views (two are modes), which can be accessed fr
 - Popup notifications for actions (adding/updating/deleting events, updating configuration, etc.).
 - Start of week support (Monday, Saturday, or Sunday).
 - Local storage support for events!
+- Widget mode (small widget that shows the current/specific day).
 <br />
 <br />
 

@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.8.1:
+- In Widget mode, if the date is current date, the widget will jump to the next day automatically when the day changes.
 - 
 
 <br>
