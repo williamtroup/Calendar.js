@@ -7703,7 +7703,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function setEventPositionAndGetScrollTop( contents, container, displayDate, event, eventDetails ) {
         var contentHoursHeight = container.offsetHeight,
             pixelsPerMinute = getFullDayPixelsPerMinute( container ),
-            minutesTop = _options.spacing,
+            minutesTop = 0,
             minutesHeight = null;
 
         if ( !eventDetails.isAllDay ) {
@@ -7734,7 +7734,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( event.offsetTop + event.offsetHeight > ( contentHoursHeight - _options.spacing ) ) {
-            event.style.height = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
+            var newHeight = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
+
+            event.style.height = newHeight;
+            event.style.maxHeight = newHeight;
+
+        } else {
+            event.style.maxHeight = ( contentHoursHeight - ( event.offsetTop + ( _options.spacing * 2 ) ) - pixelsPerMinute ) + "px";
         }
 
         var scrollTop = minutesTop + ( contents.offsetHeight / 2 );
