@@ -64,7 +64,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildLayoutWidget() {
-    _currentDate_IsToday = isDateTodaysMonthAndYear(_currentDate);
+    _currentDate_IsToday = isDateToday(_currentDate);
     if (!_initialized) {
       buildContainer(true);
       if (_element_Calendar !== null) {
