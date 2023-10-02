@@ -1,4 +1,4 @@
-/*! Calendar.js v2.7.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Lun",
@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "Voir l'année complète",
     "currentYearTooltipText": "Année actuelle",
     "alertOffsetText": "Décalage d'alerte (minutes):",
-    "viewFullDayTooltipText": "Voir la journée complète"
+    "viewFullDayTooltipText": "Voir la journée complète",
+    "confirmEventUpdateTitle": "Confirmer la mise à jour de l'événement",
+    "confirmEventUpdateMessage": "Souhaitez-vous mettre à jour l'événement à partir de maintenant, ou la série entière ?",
+    "forwardText": "Avant",
+    "seriesText": "Série"
 };

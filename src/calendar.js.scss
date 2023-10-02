@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.7.2
+ * Calendar.js Library v2.8.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -44,7 +44,9 @@
 
     // Spacing
     --spacing: 10px;
-    --spacing-border-size: 1px;
+    --spacing-border-size: 0.5px;
+    --spacing-border-left-size: calc( var(--spacing-border-size) * 12 );
+    --spacing-border-size-button: var(--spacing-border-size);
 
     // Fonts
     --title-bar-font-weight: 900;
@@ -54,7 +56,7 @@
     // Side Menu
     --side-menu-width: 300px;
     --side-menu-width-small: 250px;
-    --side-menu-right-border-width: 5px;
+    --side-menu-right-border-width: calc( var(--spacing-border-size) * 12 );
 
     // Time Views
     --time-view-hours-width: 70px;
@@ -290,10 +292,71 @@ div.calendar-date-picker {
     }
 }
 
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Widget
+    -------------------------------------------------------------------------
+*/
+
+div.calendar-widget {
+    @include no-selection-allowed;
+    border-radius: var(--border-radius);
+    padding: var(--spacing);
+    background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
+    color: var(--light-color);
+    max-width: 400px !important;
+    width: 100%;
+
+    div.day-name {
+        font-weight: 900;
+        margin-bottom: calc( var(--spacing) / 2 );
+
+        div.right-divider-line {
+            @include title-bar-divider-line;
+        }
+        
+        div.ib-arrow-left-full,
+        div.ib-arrow-right-full,
+        div.ib-plus,
+        div.ib-pin,
+        div.right-divider-line {
+            float: right;
+            margin-left: var(--spacing);
+        }
+    }
+
+    div.day-date {
+        font-weight: 300;
+        font-size: x-large;
+    }
+
+    div.scroll-margin {
+        padding-right: var(--spacing);
+    }
+
+    div.events {
+        margin-top: var(--spacing);
+        font-weight: 300;
+        max-height: 400px;
+        overflow-y: auto;
+
+        @import "foundation/view-event";
+
+        div.event {
+            margin-bottom: calc( var(--spacing) / 2 );
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
  
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Layout
+    Calendar.js - Layout - Full
     -------------------------------------------------------------------------
 */
 
@@ -649,7 +712,7 @@ div.calendar {
             padding-top: 0;
 
             div.content-section-opened {
-                border-left: calc( var(--spacing-border-size) * 6 ) solid #656363 !important;
+                border-left: var(--spacing-border-left-size) solid #656363 !important;
             }
 
             div.content-section {
@@ -767,13 +830,17 @@ div.calendar {
 
         div[class^='ib-'],
         div.left-divider-line,
-        div.right-divider-line {
+        div.right-divider-line,
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             margin-left: calc( var(--spacing) / 2 );
             margin-right: calc( var(--spacing) / 2 );
         }
 
         div.left-divider-line,
-        div.right-divider-line {
+        div.right-divider-line,
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             @include title-bar-divider-line;
         }
 
@@ -972,7 +1039,9 @@ div.calendar {
         div.ib-forward,
         div.ib-expand,
         div.ib-hourglass,
-        div.right-divider-line {
+        div.right-divider-line,
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             float: right;
         }
 
@@ -987,7 +1056,10 @@ div.calendar {
             div.ib-expand,
             div.ib-hourglass,
             div.ib-rewind,
-            div.ib-forward {
+            div.ib-forward,
+            div.ib-arrow-expand-left-right,
+            div.right-divider-line-full-screen-mode,
+            div.right-divider-line-views {
                 display: inline-block;
             }
         }
@@ -1002,7 +1074,10 @@ div.calendar {
             div.ib-expand,
             div.ib-hourglass,
             div.ib-rewind,
-            div.ib-forward {
+            div.ib-forward,
+            div.ib-arrow-expand-left-right,
+            div.right-divider-line-full-screen-mode,
+            div.right-divider-line-views {
                 display: none !important;
             }
         }
@@ -1236,7 +1311,7 @@ div.calendar {
             div.days {
                 position: absolute;
                 width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
-                height: calc( ( ( var(--time-view-hours-height) * 48 ) + ( ( var(--spacing) * 2 ) * 48 ) ) + ( var(--spacing) * 2 ) + ( var(--spacing-border-size) * 2 ) );
+                height: 100%;
                 top: 0;
                 left: calc( ( var(--time-view-hours-width) + ( var(--spacing) * 2 ) ) + var(--spacing-border-size) );
                 background-color: transparent;
@@ -1752,8 +1827,7 @@ div.message {
 
         &.yes-ok,
         &.no {
-            width: 100%;
-            max-width: 110px;
+            min-width: 110px;
             display: inline-block;
             margin-left: var(--spacing);
         }
@@ -2324,7 +2398,7 @@ div.calendar-context-menu {
     @include fade-in-effect-animation( 0.5s );
     background-color: var(--drop-down-menu-background-color);
     border: var(--spacing-border-size) solid var(--dark-color);
-    border-left: calc( var(--spacing-border-size) * 6 ) solid var(--dark-color);
+    border-left: var(--spacing-border-left-size) solid var(--dark-color);
     color: var(--dark-color);
     box-shadow: 4px 4px 4px var(--dark-color);
     border-radius: var(--border-radius);

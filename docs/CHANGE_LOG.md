@@ -1,5 +1,42 @@
 # Calendar.js - Change Log:
 
+## Version 2.8.0:
+
+#### **New Features:**
+- Repeating events can now be edited as an entire series, or from a specific point forward (forward creates a new event, and stops the original event from that point).
+- Added widget mode support, which will render a widget view solely for handling single days (event adding/editing enabled if turned on).
+
+#### **UI Improvements:**
+- Previous/Next buttons in all views are now visible by default in mobile mode.
+- The view buttons on the main display's title bar are now separated with a divider line from the other buttons.
+- Decreased the default border size from 1px to 0.5px (gives the calendar a more modern feel).
+
+#### **Settings:**
+- Added a new setting "isWidget" (defaults to false), which states if the calendar is a widget.
+
+#### **Full Year View:**
+- Moving Back/Forward through the years will force the scroll position to revert to the top (same as Full Day/Week views).
+- Moving to the current full year auto-scroll the view to the current month (similar to how the Full Day/Week views work).
+- Added the "Refresh" button to the toolbar (next to the "Current Year" button).
+- When expanding a month, if the current month is already in view, no rebuild occurs.
+
+#### **Fixes:**
+- Fixed a major issue that prevented the events assigned to the buttons on the Message dialog from being reset.  This caused old events assigned to be called again.
+- Fixed a fault that caused the Full Year view to use the last scroll position when opened from the All Events view.
+- Fixed the "Expand" icon on the main display being visible in mobile mode (should be hidden, as with the other views).
+- Fixed the title bar text being slightly misaligned (vertically) on all views when in mobile mode.
+- Fixed the title bar text in all views sometimes being too long, which caused the buttons to jump down, making the title bar look strange.
+- Fixed the Full Year view randomly jumping its scroll top position when the refresh timer fires.
+- Fixed the Full Week views inner content height being set manually instead of being set to 100% (did not scale properly when adjusting variables).
+- Fixed a fault that prevented events (in all views) from showing the right default colors (for example, All Day event was always shown in the normal event color).
+- Fixed the side menu right border now showing the rounded corners correctly.
+- Fixed some grammar mistakes in the documentation.
+- Fixed a script error that occurred when pressing escape to close an open view.
+- Fixed a fault that prevented the z-index counter from resetting when a view is manually closed.
+
+<br>
+
+
 ## Version 2.7.2:
 - The year-jumping buttons available for the DatePicker mode can now be shown in the regular calendar mode.
 - Renamed the setting "addYearButtonsInDatePickerMode" to "addYearButtonsOnMainDisplay".

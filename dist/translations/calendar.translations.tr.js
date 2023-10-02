@@ -1,4 +1,4 @@
-/*! Calendar.js v2.7.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Pzt",
@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "Tüm Yılı Görüntüle",
     "currentYearTooltipText": "Mevcut yıl",
     "alertOffsetText": "Uyarı Dengesi (dakika):",
-    "viewFullDayTooltipText": "Tüm Günü Görüntüle"
+    "viewFullDayTooltipText": "Tüm Günü Görüntüle",
+    "confirmEventUpdateTitle": "Etkinlik Güncellemesini Onayla",
+    "confirmEventUpdateMessage": "Etkinliği bu noktadan itibaren mi yoksa tüm seriyi mi güncellemek istiyorsunuz?",
+    "forwardText": "İleri",
+    "seriesText": "Seri"
 };

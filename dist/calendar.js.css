@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.7.2
+ * Calendar.js Library v2.8.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -33,13 +33,15 @@
   --transition-faster: all .2s;
   --border-radius: 0.25rem;
   --spacing: 10px;
-  --spacing-border-size: 1px;
+  --spacing-border-size: 0.5px;
+  --spacing-border-left-size: calc( var(--spacing-border-size) * 12 );
+  --spacing-border-size-button: var(--spacing-border-size);
   --title-bar-font-weight: 900;
   --large-font-size: 0.9rem;
   --small-font-size: 0.7rem;
   --side-menu-width: 300px;
   --side-menu-width-small: 250px;
-  --side-menu-right-border-width: 5px;
+  --side-menu-right-border-width: calc( var(--spacing-border-size) * 12 );
   --time-view-hours-width: 70px;
   --time-view-hours-height: 25px;
   --time-view-arrow-line-height: 12px;
@@ -327,7 +329,108 @@ div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Layout
+    Calendar.js - Layout - Widget
+    -------------------------------------------------------------------------
+*/
+div.calendar-widget {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+  background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
+  color: var(--light-color);
+  max-width: 400px !important;
+  width: 100%;
+}
+div.calendar-widget div.day-name {
+  font-weight: 900;
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.day-name div.right-divider-line {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
+div.calendar-widget div.day-name div.ib-arrow-left-full,
+div.calendar-widget div.day-name div.ib-arrow-right-full,
+div.calendar-widget div.day-name div.ib-plus,
+div.calendar-widget div.day-name div.ib-pin,
+div.calendar-widget div.day-name div.right-divider-line {
+  float: right;
+  margin-left: var(--spacing);
+}
+div.calendar-widget div.day-date {
+  font-weight: 300;
+  font-size: x-large;
+}
+div.calendar-widget div.scroll-margin {
+  padding-right: var(--spacing);
+}
+div.calendar-widget div.events {
+  margin-top: var(--spacing);
+  font-weight: 300;
+  max-height: 400px;
+  overflow-y: auto;
+}
+div.calendar-widget div.events div.expired {
+  opacity: var(--event-expired-opacity);
+}
+div.calendar-widget div.events div.all-day {
+  background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
+}
+div.calendar-widget div.events div.event {
+  white-space: pre-line;
+  -ms-word-break: normal;
+  word-break: normal;
+  border-radius: var(--border-radius);
+  background-color: var(--event-color);
+  padding: var(--spacing);
+  color: var(--event-text-color);
+  margin-bottom: var(--spacing);
+  border-left: var(--event-left-border);
+  text-align: left;
+}
+div.calendar-widget div.events div.event div {
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.events div.event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar-widget div.events div.event div.title {
+  font-weight: 900;
+}
+div.calendar-widget div.events div.event div.date,
+div.calendar-widget div.events div.event div.duration,
+div.calendar-widget div.events div.event div.description,
+div.calendar-widget div.events div.event div.location,
+div.calendar-widget div.events div.event div.repeats {
+  font-size: smaller;
+  font-weight: 300;
+}
+div.calendar-widget div.events div.event div.ib-refresh-medium {
+  margin-right: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.events div.event:last-child {
+  margin-bottom: 0;
+}
+div.calendar-widget div.events:last-child {
+  margin-bottom: 0;
+}
+div.calendar-widget div.events div.event {
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar-widget div.events div.event:last-of-type {
+  margin-bottom: 0;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Full
     -------------------------------------------------------------------------
 */
 div.calendar {
@@ -637,7 +740,7 @@ div.calendar div.side-menu div.content {
   padding-top: 0;
 }
 div.calendar div.side-menu div.content div.content-section-opened {
-  border-left: calc(var(--spacing-border-size) * 6) solid #656363 !important;
+  border-left: var(--spacing-border-left-size) solid #656363 !important;
 }
 div.calendar div.side-menu div.content div.content-section {
   margin-top: var(--spacing);
@@ -759,12 +862,16 @@ div.calendar div.header-date {
 }
 div.calendar div.header-date div[class^=ib-],
 div.calendar div.header-date div.left-divider-line,
-div.calendar div.header-date div.right-divider-line {
+div.calendar div.header-date div.right-divider-line,
+div.calendar div.header-date div.right-divider-line-full-screen-mode,
+div.calendar div.header-date div.right-divider-line-views {
   margin-left: calc(var(--spacing) / 2);
   margin-right: calc(var(--spacing) / 2);
 }
 div.calendar div.header-date div.left-divider-line,
-div.calendar div.header-date div.right-divider-line {
+div.calendar div.header-date div.right-divider-line,
+div.calendar div.header-date div.right-divider-line-full-screen-mode,
+div.calendar div.header-date div.right-divider-line-views {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -973,7 +1080,9 @@ div.calendar div.header-date div.ib-arrow-contract-left-right,
 div.calendar div.header-date div.ib-forward,
 div.calendar div.header-date div.ib-expand,
 div.calendar div.header-date div.ib-hourglass,
-div.calendar div.header-date div.right-divider-line {
+div.calendar div.header-date div.right-divider-line,
+div.calendar div.header-date div.right-divider-line-full-screen-mode,
+div.calendar div.header-date div.right-divider-line-views {
   float: right;
 }
 @media screen and (min-width: 451px) {
@@ -987,7 +1096,10 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-expand,
   div.calendar div.header-date div.ib-hourglass,
   div.calendar div.header-date div.ib-rewind,
-  div.calendar div.header-date div.ib-forward {
+  div.calendar div.header-date div.ib-forward,
+  div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.right-divider-line-full-screen-mode,
+  div.calendar div.header-date div.right-divider-line-views {
     display: inline-block;
   }
 }
@@ -1001,7 +1113,10 @@ div.calendar div.header-date div.right-divider-line {
   div.calendar div.header-date div.ib-expand,
   div.calendar div.header-date div.ib-hourglass,
   div.calendar div.header-date div.ib-rewind,
-  div.calendar div.header-date div.ib-forward {
+  div.calendar div.header-date div.ib-forward,
+  div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.right-divider-line-full-screen-mode,
+  div.calendar div.header-date div.right-divider-line-views {
     display: none !important;
   }
 }
@@ -1128,6 +1243,15 @@ div.calendar div.full-day-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
+@media screen and (max-width: 450px) {
+  div.calendar div.full-day-view div.title-bar div.title {
+    margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 div.calendar div.full-day-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;
   margin-right: calc(var(--spacing) / 2) !important;
@@ -1150,8 +1274,6 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
@@ -1163,8 +1285,6 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-day-view div.title-bar div.ib-search,
@@ -1388,6 +1508,15 @@ div.calendar div.full-week-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
+@media screen and (max-width: 450px) {
+  div.calendar div.full-week-view div.title-bar div.title {
+    margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 div.calendar div.full-week-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;
   margin-right: calc(var(--spacing) / 2) !important;
@@ -1410,8 +1539,6 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-search,
@@ -1423,8 +1550,6 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-week-view div.title-bar div.ib-search,
@@ -1579,7 +1704,7 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
 div.calendar div.full-week-view div.contents div.days {
   position: absolute;
   width: calc(100% - var(--time-view-hours-width) - var(--spacing) * 2);
-  height: calc(var(--time-view-hours-height) * 48 + var(--spacing) * 2 * 48 + var(--spacing) * 2 + var(--spacing-border-size) * 2);
+  height: 100%;
   top: 0;
   left: calc(var(--time-view-hours-width) + var(--spacing) * 2 + var(--spacing-border-size));
   background-color: transparent;
@@ -1739,6 +1864,15 @@ div.calendar div.full-year-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
+@media screen and (max-width: 450px) {
+  div.calendar div.full-year-view div.title-bar div.title {
+    margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 div.calendar div.full-year-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;
   margin-right: calc(var(--spacing) / 2) !important;
@@ -1761,8 +1895,6 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (min-width: 451px) {
   div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-search,
@@ -1774,8 +1906,6 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
 }
 @media screen and (max-width: 450px) {
   div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.full-year-view div.title-bar div.ib-search,
@@ -1932,6 +2062,15 @@ div.calendar div.all-events-view div.title-bar div.title {
   font-weight: 900 !important;
   display: inline-block;
 }
+@media screen and (max-width: 450px) {
+  div.calendar div.all-events-view div.title-bar div.title {
+    margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 div.calendar div.all-events-view div.title-bar div {
   margin-left: calc(var(--spacing) / 2) !important;
   margin-right: calc(var(--spacing) / 2) !important;
@@ -1954,8 +2093,6 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
 }
 @media screen and (min-width: 451px) {
   div.calendar div.all-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-search,
@@ -1967,8 +2104,6 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
 }
 @media screen and (max-width: 450px) {
   div.calendar div.all-events-view div.title-bar div.ib-arrow-down-full-line,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-left-full,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-expand-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right,
   div.calendar div.all-events-view div.title-bar div.ib-search,
@@ -2268,7 +2403,7 @@ div.event-editor div.view input[type=button]:disabled {
 div.event-editor div.view input[type=button].add-update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].add-update:not(:disabled):hover {
@@ -2284,7 +2419,7 @@ div.event-editor div.view input[type=button].add-update:not(:disabled):active {
 div.event-editor div.view input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
@@ -2300,7 +2435,7 @@ div.event-editor div.view input[type=button].cancel:not(:disabled):active {
 div.event-editor div.view input[type=button].remove {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].remove:not(:disabled):hover {
@@ -2316,7 +2451,7 @@ div.event-editor div.view input[type=button].remove:not(:disabled):active {
 div.event-editor div.view input[type=button].select-colors {
   color: var(--light-color);
   background-color: var(--tertiary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--tertiary-button-color);
+  border: var(--spacing-border-size-button) solid var(--tertiary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].select-colors:not(:disabled):hover {
@@ -2332,7 +2467,7 @@ div.event-editor div.view input[type=button].select-colors:not(:disabled):active
 div.event-editor div.view input[type=button].repeat-options {
   color: var(--light-color);
   background-color: var(--tertiary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--tertiary-button-color);
+  border: var(--spacing-border-size-button) solid var(--tertiary-button-color);
   box-sizing: border-box;
 }
 div.event-editor div.view input[type=button].repeat-options:not(:disabled):hover {
@@ -2487,7 +2622,7 @@ div.event-editor-colors input[type=button]:disabled {
 div.event-editor-colors input[type=button].update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].update:not(:disabled):hover {
@@ -2503,7 +2638,7 @@ div.event-editor-colors input[type=button].update:not(:disabled):active {
 div.event-editor-colors input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
@@ -2654,7 +2789,7 @@ div.event-editor-repeat-options input[type=button]:disabled {
 div.event-editor-repeat-options input[type=button].update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].update:not(:disabled):hover {
@@ -2670,7 +2805,7 @@ div.event-editor-repeat-options input[type=button].update:not(:disabled):active 
 div.event-editor-repeat-options input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
@@ -2770,7 +2905,7 @@ div.message input[type=button]:disabled {
 div.message input[type=button].yes-ok {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.message input[type=button].yes-ok:not(:disabled):hover {
@@ -2786,7 +2921,7 @@ div.message input[type=button].yes-ok:not(:disabled):active {
 div.message input[type=button].no {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.message input[type=button].no:not(:disabled):hover {
@@ -2800,8 +2935,7 @@ div.message input[type=button].no:not(:disabled):active {
   opacity: 0.4;
 }
 div.message input[type=button].yes-ok, div.message input[type=button].no {
-  width: 100%;
-  max-width: 110px;
+  min-width: 110px;
   display: inline-block;
   margin-left: var(--spacing);
 }
@@ -2950,7 +3084,7 @@ div.export-events input[type=button]:disabled {
 div.export-events input[type=button].export {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.export-events input[type=button].export:not(:disabled):hover {
@@ -2966,7 +3100,7 @@ div.export-events input[type=button].export:not(:disabled):active {
 div.export-events input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.export-events input[type=button].cancel:not(:disabled):hover {
@@ -3183,7 +3317,7 @@ div.search input[type=button]:disabled {
 div.search input[type=button].next {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.search input[type=button].next:not(:disabled):hover {
@@ -3199,7 +3333,7 @@ div.search input[type=button].next:not(:disabled):active {
 div.search input[type=button].previous {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.search input[type=button].previous:not(:disabled):hover {
@@ -3336,7 +3470,7 @@ div.configuration input[type=button]:disabled {
 div.configuration input[type=button].update {
   color: var(--light-color);
   background-color: var(--primary-button-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--primary-button-color);
+  border: var(--spacing-border-size-button) solid var(--primary-button-color);
   box-sizing: border-box;
 }
 div.configuration input[type=button].update:not(:disabled):hover {
@@ -3352,7 +3486,7 @@ div.configuration input[type=button].update:not(:disabled):active {
 div.configuration input[type=button].cancel {
   color: var(--secondary-button-color);
   background-color: var(--light-color);
-  border: calc(var(--spacing-border-size) * 2) solid var(--secondary-button-color);
+  border: var(--spacing-border-size-button) solid var(--secondary-button-color);
   box-sizing: border-box;
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
@@ -3727,7 +3861,7 @@ div.calendar-context-menu {
   -ms-animation: fade-in-effect ease 0.5s;
   background-color: var(--drop-down-menu-background-color);
   border: var(--spacing-border-size) solid var(--dark-color);
-  border-left: calc(var(--spacing-border-size) * 6) solid var(--dark-color);
+  border-left: var(--spacing-border-left-size) solid var(--dark-color);
   color: var(--dark-color);
   box-shadow: 4px 4px 4px var(--dark-color);
   border-radius: var(--border-radius);

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.7.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "月",
@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "通年を見る",
     "currentYearTooltipText": "今年",
     "alertOffsetText": "アラート オフセット (分):",
-    "viewFullDayTooltipText": "一日中見る"
+    "viewFullDayTooltipText": "一日中見る",
+    "confirmEventUpdateTitle": "イベント更新の確認",
+    "confirmEventUpdateMessage": "今後のイベントを更新しますか、それともシリーズ全体を更新しますか?",
+    "forwardText": "フォワード",
+    "seriesText": "シリーズ"
 };

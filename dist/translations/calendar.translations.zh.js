@@ -1,4 +1,4 @@
-/*! Calendar.js v2.7.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "周一",
@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "查看全年",
     "currentYearTooltipText": "今年",
     "alertOffsetText": "警报偏移（分钟）：",
-    "viewFullDayTooltipText": "查看全天"
+    "viewFullDayTooltipText": "查看全天",
+    "confirmEventUpdateTitle": "确认活动更新",
+    "confirmEventUpdateMessage": "您想更新从现在开始的活动，还是整个系列？",
+    "forwardText": "向前",
+    "seriesText": "系列"
   };

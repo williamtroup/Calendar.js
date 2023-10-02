@@ -1,4 +1,4 @@
-/*! Calendar.js v2.7.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "الاثنين",
@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "عرض سنة كاملة",
     "currentYearTooltipText": "السنة الحالية",
     "alertOffsetText": "إزاحة التنبيه (بالدقائق):",
-    "viewFullDayTooltipText": "عرض يوم كامل"
+    "viewFullDayTooltipText": "عرض يوم كامل",
+    "confirmEventUpdateTitle": "تأكيد تحديث الحدث",
+    "confirmEventUpdateMessage": "هل ترغب في تحديث الحدث من الآن فصاعدًا أم السلسلة بأكملها؟",
+    "forwardText": "إلى الأمام",
+    "seriesText": "مسلسل"
   };

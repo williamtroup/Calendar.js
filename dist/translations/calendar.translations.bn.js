@@ -1,4 +1,4 @@
-/*! Calendar.js v2.7.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "সোম",
@@ -224,5 +224,9 @@ var __TRANSLATION_OPTIONS = {
     "viewFullYearTooltipText": "পুরো বছর দেখুন",
     "currentYearTooltipText": "বর্তমান বছর",
     "alertOffsetText": "সতর্কতা অফসেট (মিনিট):",
-    "viewFullDayTooltipText": "পুরো দিন দেখুন"
+    "viewFullDayTooltipText": "পুরো দিন দেখুন",
+    "confirmEventUpdateTitle": "ইভেন্ট আপডেট নিশ্চিত করুন",
+    "confirmEventUpdateMessage": "আপনি কি এই বিন্দু থেকে ইভেন্টটি আপডেট করতে চান, নাকি পুরো সিরিজটি?",
+    "forwardText": "ফরোয়ার্ড",
+    "seriesText": "সিরিজ"
   };
