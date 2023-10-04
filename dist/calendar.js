@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.0 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.1 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -64,6 +64,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildLayoutWidget() {
+    _currentDate_IsToday = isDateToday(_currentDate);
     if (!_initialized) {
       buildContainer(true);
       if (_element_Calendar !== null) {
@@ -5085,7 +5086,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function setEventPositionAndGetScrollTop(contents, container, displayDate, event, eventDetails) {
     var contentHoursHeight = container.offsetHeight;
     var pixelsPerMinute = getFullDayPixelsPerMinute(container);
-    var minutesTop = _options.spacing;
+    var minutesTop = 0;
     var minutesHeight = null;
     if (!eventDetails.isAllDay) {
       var repeatEvery = getNumber(eventDetails.repeatEvery);
@@ -5108,7 +5109,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       event.style.height = minutesHeight + "px";
     }
     if (event.offsetTop + event.offsetHeight > contentHoursHeight - _options.spacing) {
-      event.style.height = contentHoursHeight - event.offsetTop - _options.spacing * 3 + "px";
+      var newHeight = contentHoursHeight - event.offsetTop - _options.spacing * 3 + "px";
+      event.style.height = newHeight;
+      event.style.maxHeight = newHeight;
+    } else {
+      event.style.maxHeight = contentHoursHeight - (event.offsetTop + _options.spacing * 2) - pixelsPerMinute + "px";
     }
     var scrollTop = minutesTop + contents.offsetHeight / 2;
     if (scrollTop <= contents.offsetHeight) {
@@ -6322,7 +6327,11 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function refreshViews(fromButton, triggerEvent) {
     if (_options.isWidget) {
-      build(_currentDate);
+      if (_currentDate_IsToday) {
+        build();
+      } else {
+        build(_currentDate);
+      }
     } else {
       fromButton = isDefined(fromButton) ? fromButton : false;
       triggerEvent = isDefined(triggerEvent) ? triggerEvent : false;
@@ -6771,7 +6780,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     return isDefinedObject(object) && object.tagName !== undefined;
   }
   function isValidUrl(url) {
-    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url);
+    var regex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+    return regex.test(url);
   }
   function areArraysTheSame(array1, array2) {
     var result = isDefinedArray(array1) && isDefinedArray(array2);
@@ -8888,7 +8898,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.8.0";
+    return "2.8.1";
   };
   this.getId = function() {
     return _elementID;

@@ -1,5 +1,14 @@
 # Calendar.js - Change Log:
 
+## Version 2.8.1:
+- In Widget mode, if the date is the current date, the widget will jump to the next day automatically when the day changes.
+- Events in the Full Day/Week views can no longer be resized over the height of the day.
+- Fixed a fault that caused events that overlap over several days to show on the days in the slightly wrong position.
+- Removed the warnings around the RegEx used for validating URLs.
+
+<br>
+
+
 ## Version 2.8.0:
 
 #### **New Features:**

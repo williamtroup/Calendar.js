@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.8.0
+ * @version     v2.8.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -962,6 +962,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildLayoutWidget() {
+        _currentDate_IsToday = isDateToday( _currentDate );
+        
         if ( !_initialized ) {
             buildContainer( true );
 
@@ -7701,7 +7703,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function setEventPositionAndGetScrollTop( contents, container, displayDate, event, eventDetails ) {
         var contentHoursHeight = container.offsetHeight,
             pixelsPerMinute = getFullDayPixelsPerMinute( container ),
-            minutesTop = _options.spacing,
+            minutesTop = 0,
             minutesHeight = null;
 
         if ( !eventDetails.isAllDay ) {
@@ -7732,7 +7734,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( event.offsetTop + event.offsetHeight > ( contentHoursHeight - _options.spacing ) ) {
-            event.style.height = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
+            var newHeight = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
+
+            event.style.height = newHeight;
+            event.style.maxHeight = newHeight;
+
+        } else {
+            event.style.maxHeight = ( contentHoursHeight - ( event.offsetTop + ( _options.spacing * 2 ) ) - pixelsPerMinute ) + "px";
         }
 
         var scrollTop = minutesTop + ( contents.offsetHeight / 2 );
@@ -9390,7 +9398,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function refreshViews( fromButton, triggerEvent ) {
         if ( _options.isWidget ) {
-            build( _currentDate );
+            if ( _currentDate_IsToday ) {
+                build();
+            } else {
+                build( _currentDate );
+            }
         } else {
 
             fromButton = isDefined( fromButton ) ? fromButton : false;
@@ -10026,7 +10038,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isValidUrl( url ) {
-        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( url );
+        var regex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+
+        return regex.test( url );
     }
 
     function areArraysTheSame( array1, array2 ) {
@@ -12590,7 +12604,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.8.0";
+        return "2.8.1";
     };
 
     /**
