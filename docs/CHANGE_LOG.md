@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.8.2:
-- 
+- Fixed a fault that prevented the context menus on other calendar instances from closing when another context menu is opened.
 
 <br>
 

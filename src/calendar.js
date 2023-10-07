@@ -2570,6 +2570,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         hideTooltip();
+        hideAllContextMenusAcrossInstances();
 
         if ( hideSearchHistoryDropDown ) {
             hideSearchHistoryDropDownMenu();
@@ -4971,6 +4972,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return closed;
+    }
+
+    function hideAllContextMenusAcrossInstances() {
+        var elements = _document.getElementsByClassName( "calendar-context-menu" ),
+            elementsArray = [].slice.call( elements ),
+            elementsArrayLength = elementsArray.length;
+
+        for ( var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++ ) {
+            var element = elementsArray[ elementsArrayIndex ];
+
+            if ( element.id !== _elementID ) {
+                element.style.display = "none";
+            }
+        }
     }
 
     function isContextMenuVisible( element ) {

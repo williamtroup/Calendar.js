@@ -1263,6 +1263,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       itemClosed = true;
     }
     hideTooltip();
+    hideAllContextMenusAcrossInstances();
     if (hideSearchHistoryDropDown) {
       hideSearchHistoryDropDownMenu();
     }
@@ -3084,6 +3085,18 @@ function calendarJs(elementOrId, options, searchOptions) {
       closed = true;
     }
     return closed;
+  }
+  function hideAllContextMenusAcrossInstances() {
+    var elements = _document.getElementsByClassName("calendar-context-menu");
+    var elementsArray = [].slice.call(elements);
+    var elementsArrayLength = elementsArray.length;
+    var elementsArrayIndex = 0;
+    for (; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++) {
+      var element = elementsArray[elementsArrayIndex];
+      if (element.id !== _elementID) {
+        element.style.display = "none";
+      }
+    }
   }
   function isContextMenuVisible(element) {
     return element !== null && element.style.display === "block";
