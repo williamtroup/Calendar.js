@@ -4,7 +4,7 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-<p align="center">v2.8.3</p>
+<p align="center">v2.8.4</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
