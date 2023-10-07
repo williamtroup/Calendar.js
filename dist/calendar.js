@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.1 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.8.2 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _currentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -1263,6 +1263,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       itemClosed = true;
     }
     hideTooltip();
+    hideAllContextMenusAcrossInstances();
     if (hideSearchHistoryDropDown) {
       hideSearchHistoryDropDownMenu();
     }
@@ -3084,6 +3085,18 @@ function calendarJs(elementOrId, options, searchOptions) {
       closed = true;
     }
     return closed;
+  }
+  function hideAllContextMenusAcrossInstances() {
+    var elements = _document.getElementsByClassName("calendar-context-menu");
+    var elementsArray = [].slice.call(elements);
+    var elementsArrayLength = elementsArray.length;
+    var elementsArrayIndex = 0;
+    for (; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++) {
+      var element = elementsArray[elementsArrayIndex];
+      if (element.id !== _elementID) {
+        element.style.display = "none";
+      }
+    }
   }
   function isContextMenuVisible(element) {
     return element !== null && element.style.display === "block";
@@ -8898,7 +8911,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.8.1";
+    return "2.8.2";
   };
   this.getId = function() {
     return _elementID;

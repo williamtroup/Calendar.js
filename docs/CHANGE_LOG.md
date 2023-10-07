@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.8.2:
+- Fixed a fault that prevented the context menus on other calendar instances from closing when another context menu is opened.
+
+<br>
+
+
 ## Version 2.8.1:
 - In Widget mode, if the date is the current date, the widget will jump to the next day automatically when the day changes.
 - Events in the Full Day/Week views can no longer be resized over the height of the day.
