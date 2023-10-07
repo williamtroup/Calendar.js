@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.8.3:
+- Fixed "Export Events" failing due to a script error occurring when trying to convert Alert Offset times.
+
+<br>
+
+
 ## Version 2.8.2:
 - Fixed a fault that prevented the context menus on other calendar instances from closing when another context menu is opened.
 
