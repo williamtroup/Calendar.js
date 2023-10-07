@@ -4026,7 +4026,7 @@ div.calendar-context-menu div.separator {
   transform: translate(-50%);
   background-color: var(--title-bar-button-color);
   width: 4px;
-  height: calc(100% - 4px - 2px);
+  height: 6px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;

@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.8.4:
+- Fixed a fault that caused the pin button (for switching to current day, month, year, etc) to use the wrong height in some sceneries.
 - 
 
 <br>
