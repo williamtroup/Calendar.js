@@ -10812,7 +10812,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function getCsvValue( text ) {
-        text = text.replace( /(\r\n|\n|\r)/gm, _string.empty ).replace( /(\s\s)/gm, _string.space );
+        text = text.toString().replace( /(\r\n|\n|\r)/gm, _string.empty ).replace( /(\s\s)/gm, _string.space );
         text = text.replace( /"/g, '""' );
         text = '"' + text + '"';
 

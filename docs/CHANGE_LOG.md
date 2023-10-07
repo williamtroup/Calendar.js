@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.8.3:
+- Fixed "Export Events" failing due to a script error when trying to convert Offset times.
 - 
 
 <br>
