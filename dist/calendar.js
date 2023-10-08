@@ -969,7 +969,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function toggleDatePickerModeVisible(e) {
     cancelBubble(e);
-    closeAnyOtherDatePickers();
+    hideAllElementsAcrossInstances("calendar calendar-shown", "calendar calendar-hidden");
     if (!_datePickerVisible) {
       _element_Calendar.className = "calendar calendar-shown";
       build(new Date(_currentDate_ForDatePicker), !_initialized);
@@ -1005,18 +1005,6 @@ function calendarJs(elementOrId, options, searchOptions) {
   function updateDatePickerInputValueDisplay(date) {
     _datePickerInput.value = getCustomFormattedDateText(_options.datePickerSelectedDateFormat, date);
     _datePickerHiddenInput.value = padNumber(date.getDate()) + "/" + padNumber(date.getMonth()) + "/" + date.getFullYear();
-  }
-  function closeAnyOtherDatePickers() {
-    var elements = _document.getElementsByClassName("calendar calendar-shown");
-    var elementsArray = [].slice.call(elements);
-    var elementsArrayLength = elementsArray.length;
-    var elementsArrayIndex = 0;
-    for (; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++) {
-      var element = elementsArray[elementsArrayIndex];
-      if (element.id !== _elementID) {
-        element.className = "calendar calendar-hidden";
-      }
-    }
   }
   function getDataPickerInputValueDate() {
     var values = _datePickerHiddenInput.value.split("/");
@@ -1263,7 +1251,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       itemClosed = true;
     }
     hideTooltip();
-    hideAllContextMenusAcrossInstances();
+    hideAllElementsAcrossInstances("calendar-context-menu");
+    hideAllElementsAcrossInstances("years-drop-down");
+    hideAllElementsAcrossInstances("years-drop-down-no-months");
     if (hideSearchHistoryDropDown) {
       hideSearchHistoryDropDownMenu();
     }
@@ -3085,18 +3075,6 @@ function calendarJs(elementOrId, options, searchOptions) {
       closed = true;
     }
     return closed;
-  }
-  function hideAllContextMenusAcrossInstances() {
-    var elements = _document.getElementsByClassName("calendar-context-menu");
-    var elementsArray = [].slice.call(elements);
-    var elementsArrayLength = elementsArray.length;
-    var elementsArrayIndex = 0;
-    for (; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++) {
-      var element = elementsArray[elementsArrayIndex];
-      if (element.id !== _elementID) {
-        element.style.display = "none";
-      }
-    }
   }
   function isContextMenuVisible(element) {
     return element !== null && element.style.display === "block";
@@ -6659,6 +6637,22 @@ function calendarJs(elementOrId, options, searchOptions) {
       _document.body.removeChild(_elements_InDocumentBody[elementsIndex]);
     }
     _elements_InDocumentBody = [];
+  }
+  function hideAllElementsAcrossInstances(className, hideClassName) {
+    var elements = _document.getElementsByClassName(className);
+    var elementsArray = [].slice.call(elements);
+    var elementsArrayLength = elementsArray.length;
+    var elementsArrayIndex = 0;
+    for (; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++) {
+      var element = elementsArray[elementsArrayIndex];
+      if (element.id !== _elementID) {
+        if (isDefined(hideClassName)) {
+          element.className = hideClassName;
+        } else {
+          element.style.display = "none";
+        }
+      }
+    }
   }
   function buildRadioButton(container, labelText, groupName, onChangeEvent) {
     var lineContents = createElement("div", "radio-button-container");

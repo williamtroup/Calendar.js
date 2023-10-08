@@ -2171,7 +2171,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function toggleDatePickerModeVisible( e ) {
         cancelBubble( e );
-        closeAnyOtherDatePickers();
+        hideAllElementsAcrossInstances( "calendar calendar-shown", "calendar calendar-hidden" );
 
         if ( !_datePickerVisible ) {
             _element_Calendar.className = "calendar calendar-shown";
@@ -2220,20 +2220,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function updateDatePickerInputValueDisplay( date ) {
         _datePickerInput.value = getCustomFormattedDateText( _options.datePickerSelectedDateFormat, date );
         _datePickerHiddenInput.value = padNumber( date.getDate() ) + "/" + padNumber( date.getMonth() ) + "/" + date.getFullYear();
-    }
-
-    function closeAnyOtherDatePickers() {
-        var elements = _document.getElementsByClassName( "calendar calendar-shown" ),
-            elementsArray = [].slice.call( elements ),
-            elementsArrayLength = elementsArray.length;
-
-        for ( var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++ ) {
-            var element = elementsArray[ elementsArrayIndex ];
-
-            if ( element.id !== _elementID ) {
-                element.className = "calendar calendar-hidden";
-            }
-        }
     }
 
     function getDataPickerInputValueDate() {
@@ -2570,7 +2556,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         hideTooltip();
-        hideAllContextMenusAcrossInstances();
+        hideAllElementsAcrossInstances( "calendar-context-menu" );
+        hideAllElementsAcrossInstances( "years-drop-down" );
+        hideAllElementsAcrossInstances( "years-drop-down-no-months" );
 
         if ( hideSearchHistoryDropDown ) {
             hideSearchHistoryDropDownMenu();
@@ -4972,20 +4960,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return closed;
-    }
-
-    function hideAllContextMenusAcrossInstances() {
-        var elements = _document.getElementsByClassName( "calendar-context-menu" ),
-            elementsArray = [].slice.call( elements ),
-            elementsArrayLength = elementsArray.length;
-
-        for ( var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++ ) {
-            var element = elementsArray[ elementsArrayIndex ];
-
-            if ( element.id !== _elementID ) {
-                element.style.display = "none";
-            }
-        }
     }
 
     function isContextMenuVisible( element ) {
@@ -9845,6 +9819,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _elements_InDocumentBody = [];
+    }
+
+    function hideAllElementsAcrossInstances( className, hideClassName ) {
+        var elements = _document.getElementsByClassName( className ),
+            elementsArray = [].slice.call( elements ),
+            elementsArrayLength = elementsArray.length;
+
+        for ( var elementsArrayIndex = 0; elementsArrayIndex < elementsArrayLength; elementsArrayIndex++ ) {
+            var element = elementsArray[ elementsArrayIndex ];
+
+            if ( element.id !== _elementID ) {
+                if ( isDefined( hideClassName ) ) {
+                    element.className = hideClassName;
+                } else {
+                    element.style.display = "none";
+                }
+            }
+        }
     }
 
 

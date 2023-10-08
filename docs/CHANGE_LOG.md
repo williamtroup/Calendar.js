@@ -2,6 +2,7 @@
 
 ## Version 2.8.4:
 - Fixed a fault that caused the pin button (for switching to current day, month, year, etc) to use the wrong height in some sceneries.
+- Fixed a fault that prevented the year drop-down menus on other calendar instances from closing when another menu is opened.
 - 
 
 <br>
