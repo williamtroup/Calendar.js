@@ -4006,6 +4006,7 @@ div.calendar-context-menu div.separator {
   height: 12px;
   border-top: 4px solid var(--title-bar-button-color);
   border-radius: 50%;
+  box-sizing: content-box;
 }
 .ib-pin:not(.ib-no-hover):hover {
   transition: all 0.3s;
