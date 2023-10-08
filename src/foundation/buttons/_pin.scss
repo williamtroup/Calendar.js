@@ -5,12 +5,13 @@
     height: $size - $border-width;
     border-top: $border;
     border-radius: 50%;
+    box-sizing: content-box;
 
     &::before {
         @include left-center;
         background-color: $button-color;
         width: $border-width;
-        height: calc( 100% - $border-width - 2px );
+        height: calc( $size - ( ( $border-width * 2 ) + 2px ) );
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
         top: 0;

@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.8.3
+ * Calendar.js Library v2.8.4
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -4006,6 +4006,7 @@ div.calendar-context-menu div.separator {
   height: 12px;
   border-top: 4px solid var(--title-bar-button-color);
   border-radius: 50%;
+  box-sizing: content-box;
 }
 .ib-pin:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -4026,7 +4027,7 @@ div.calendar-context-menu div.separator {
   transform: translate(-50%);
   background-color: var(--title-bar-button-color);
   width: 4px;
-  height: calc(100% - 4px - 2px);
+  height: 6px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   top: 0;
