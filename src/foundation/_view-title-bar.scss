@@ -13,7 +13,8 @@ div.title-bar {
 
     div.left-divider-line,
     div.right-divider-line,
-    div.right-divider-line-full-screen-mode {
+    div.right-divider-line-full-screen-mode,
+    div.right-divider-line-views {
         @include title-bar-divider-line;
     }
 
@@ -22,7 +23,8 @@ div.title-bar {
     }
 
     div.right-divider-line,
-    div.right-divider-line-full-screen-mode {
+    div.right-divider-line-full-screen-mode,
+    div.right-divider-line-views {
         float: right;
     }
 
@@ -56,6 +58,7 @@ div.title-bar {
     div.ib-arrow-down-full-line,
     div.ib-plus,
     div.ib-close,
+    div.ib-bar-graph,
     div.ib-arrow-right-full,
     div.ib-arrow-expand-left-right,
     div.ib-arrow-contract-left-right {
@@ -69,7 +72,9 @@ div.title-bar {
         div.ib-search,
         div.ib-refresh,
         div.ib-octagon-hollow,
-        div.right-divider-line-full-screen-mode {
+        div.ib-bar-graph,
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             display: inline-block;
         }
     }
@@ -81,7 +86,9 @@ div.title-bar {
         div.ib-search,
         div.ib-refresh,
         div.ib-octagon-hollow,
-        div.right-divider-line-full-screen-mode {
+        div.ib-bar-graph,
+        div.right-divider-line-full-screen-mode,
+        div.right-divider-line-views {
             display: none !important;
         }
     }

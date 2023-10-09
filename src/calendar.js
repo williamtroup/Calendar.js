@@ -3213,6 +3213,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
                 } );
             }
+
+            titleBar.appendChild( createElement( "div", "right-divider-line-views" ) );
+
+            buildToolbarButton( titleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
+                showTimelineView( _element_View_FullDay_DateSelected, true );
+            } );
             
             if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
