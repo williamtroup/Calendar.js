@@ -4,6 +4,7 @@
 
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
+- Fixed a fault that allowed the current day to be viewed in the Full Day view when the day itself is not visible in the calendar (it now skips to the next visible day).
 
 <br>
 

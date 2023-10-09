@@ -684,6 +684,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline = null,
         _element_View_Timeline_FullScreenButton = null,
         _element_View_Timeline_SearchButton = null,
+        _element_View_Timeline_TodayButton = null,
         _element_View_Timeline_Contents = null,
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
@@ -3472,11 +3473,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullDay_Contents_AllDayEvents.style.display = "block";
         _element_View_FullDay_Contents_WorkingHours.style.display = "none";
 
+        if ( doDatesMatch( date, currentDate ) && !isCurrentDateVisible ) {
+            moveFullDayDateToNextDay();
+        }
+
         updateToolbarButtonVisibleState( _element_View_FullDay_TodayButton, isCurrentDateVisible );
         clearElementsByClassName( _element_View_FullDay_Contents, "event" );
-        showView( _element_View_FullDay );
-        buildDateTimeDisplay( _element_View_FullDay_TitleBar, date, false, true, true );
         hideSearchDialog();
+        buildDateTimeDisplay( _element_View_FullDay_TitleBar, _element_View_FullDay_DateSelected, false, true, true );
+        showView( _element_View_FullDay );
 
         if ( isWorkingDay( date ) ) {
             buildFullDayViewWorkingHours();
@@ -3617,6 +3622,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onNextFullDay() {
+        moveFullDayDateToNextDay( true );
+    }
+
+    function onCurrentFullDay() {
+        _element_View_FullDay_DateSelected = new Date();
+            
+        showFullDayView( _element_View_FullDay_DateSelected, true );
+    }
+
+    function moveFullDayDateToNextDay( showView ) {
+        showView = isDefined( showView ) ? showView : false;
+
         moveDateForwardDay( _element_View_FullDay_DateSelected );
 
         if ( _options.visibleDays.length < 7 ) {
@@ -3629,13 +3646,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        showFullDayView( _element_View_FullDay_DateSelected, true );
-    }
-
-    function onCurrentFullDay() {
-        _element_View_FullDay_DateSelected = new Date();
-            
-        showFullDayView( _element_View_FullDay_DateSelected, true );
+        if ( showView ) {
+            showFullDayView( _element_View_FullDay_DateSelected, true );
+        }
     }
 
 
@@ -4982,7 +4995,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onPreviousTimelineDay );
 
             if ( _options.showExtraToolbarButtons ) {
-                buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentTimelineDay );
+                _element_View_Timeline_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentTimelineDay );
 
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -5002,13 +5015,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
         date = isDefined( date ) ? date : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        showView( _element_View_Timeline );
+        var currentDate = new Date(),
+            weekDayNumber = getWeekdayNumber( currentDate ),
+            isCurrentDateVisible = _options.visibleDays.indexOf( weekDayNumber ) > -1;
 
         _element_View_Timeline_TitleBar.innerHTML = _string.empty;
         _element_View_Timeline_Contents.innerHTML = _string.empty;
         _element_View_Timeline_EventsShown = [];
         _element_View_Timeline_DateSelected = date;
-        buildDateTimeDisplay( _element_View_Timeline_TitleBar, date, false, true, true, _options.timelineText );
+
+        if ( doDatesMatch( date, currentDate ) && !isCurrentDateVisible ) {
+            moveTimelineDateToNextDay();
+        }
+
+        updateToolbarButtonVisibleState( _element_View_Timeline_TodayButton, isCurrentDateVisible );
+        buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true, _options.timelineText );
+        showView( _element_View_Timeline );
 
         if ( fromOpen ) {
             _element_View_Timeline_Contents.scrollTop = 0;
@@ -5040,6 +5062,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onNextTimelineDay() {
+        moveTimelineDateToNextDay( true );
+    }
+
+    function onCurrentTimelineDay() {
+        _element_View_Timeline_DateSelected = new Date();
+            
+        showTimelineView( _element_View_Timeline_DateSelected, true );
+    }
+
+    function moveTimelineDateToNextDay( showView ) {
+        showView = isDefined( showView ) ? showView : false;
+
         moveDateForwardDay( _element_View_Timeline_DateSelected );
 
         if ( _options.visibleDays.length < 7 ) {
@@ -5052,13 +5086,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        showTimelineView( _element_View_Timeline_DateSelected, true );
-    }
-
-    function onCurrentTimelineDay() {
-        _element_View_Timeline_DateSelected = new Date();
-            
-        showTimelineView( _element_View_Timeline_DateSelected, true );
+        if ( showView ) {
+            showTimelineView( _element_View_Timeline_DateSelected, true );
+        }
     }
 
 
