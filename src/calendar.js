@@ -5022,11 +5022,33 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var axis = createElement( "div", "axis" );
         _element_View_Timeline_Contents.appendChild( axis );
 
+        var axisSelector = createElement( "div", "axis-selector" );
+        axisSelector.innerHTML = _options.groupText;
+        axis.appendChild( axisSelector );
+
         var axisGroups = createElement( "div", "axis-groups" );
         _element_View_Timeline_Contents.appendChild( axisGroups );
+        
+        for ( var hour = 0; hour < 24; hour++ ) {
+            var firstDate = new Date(),
+                secondDate = new Date();
 
-        for ( var halfHour = 0; halfHour < 48; halfHour++ ) {
-            axisGroups.appendChild( createElement( "div", "axis-group-column" ) );
+            firstDate.setHours( hour, 0, 0, 0 );
+            secondDate.setHours( hour, 30, 0, 0 );
+
+            var newHour1 = createElement( "div", "axis-group-column" );
+            axisGroups.appendChild( newHour1 );
+
+            var newHour1Header = createElement( "div", "axis-group-header" );
+            newHour1Header.innerText = getTimeForDisplay( firstDate );
+            newHour1.appendChild( newHour1Header );
+
+            var newHour2 = createElement( "div", "axis-group-column" );
+            axisGroups.appendChild( newHour2 );
+
+            var newHour2Header = createElement( "div", "axis-group-header" );
+            newHour2Header.innerText = getTimeForDisplay( secondDate );
+            newHour2.appendChild( newHour2Header );
         }
     }
 

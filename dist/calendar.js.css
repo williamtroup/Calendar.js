@@ -2412,7 +2412,12 @@ div.calendar div.timeline-view div.contents div.axis {
   background-color: var(--dark-color);
   color: var(--light-color);
   min-height: 100%;
-  min-width: 250px;
+  width: 200px;
+}
+div.calendar div.timeline-view div.contents div.axis div.axis-selector {
+  padding: var(--spacing);
+  text-align: left;
+  border-bottom: var(--spacing-border-size) solid var(--light-color);
 }
 div.calendar div.timeline-view div.contents div.axis-groups {
   vertical-align: top;
@@ -2429,6 +2434,12 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-colum
   background-color: var(--light-color);
   color: var(--dark-color);
   border-right: var(--spacing-border-size) solid var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column div.axis-group-header {
+  background-color: var(--day-names-color);
+  padding: var(--spacing);
+  text-align: center;
+  border-bottom: var(--spacing-border-size) solid var(--dark-color);
 }
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:nth-child(odd) {
   background-color: var(--day-names-color);
