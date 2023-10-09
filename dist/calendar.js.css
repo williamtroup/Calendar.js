@@ -2391,6 +2391,8 @@ div.calendar div.timeline-view div.contents {
   overflow-y: auto;
   width: 100%;
   padding: 0 !important;
+  white-space: nowrap;
+  vertical-align: top;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.timeline-view div.contents {
@@ -2401,6 +2403,35 @@ div.calendar div.timeline-view div.contents {
   div.calendar div.timeline-view div.contents {
     height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
   }
+}
+div.calendar div.timeline-view div.contents div.axis {
+  display: inline-block;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  min-height: 100%;
+  min-width: 250px;
+}
+div.calendar div.timeline-view div.contents div.axis-groups {
+  vertical-align: top;
+  display: inline-block;
+  background-color: var(--day-names-color);
+  width: auto;
+  height: 100%;
+  white-space: nowrap;
+}
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column {
+  display: inline-block;
+  width: 150px;
+  height: 100%;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: var(--spacing-border-size) solid var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:nth-child(odd) {
+  background-color: var(--day-names-color);
+}
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:last-child {
+  border-right: none;
 }
 
 /*

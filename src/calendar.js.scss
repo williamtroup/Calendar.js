@@ -1588,6 +1588,8 @@ div.calendar {
             overflow-y: auto;
             width: 100%;
             padding: 0 !important;
+            white-space: nowrap;
+            vertical-align: top;
 
             @media screen and ( min-width: $minimum-width ) {
                 height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
@@ -1595,6 +1597,40 @@ div.calendar {
             
             @media screen and ( max-width: $maximum-width ) {
                 height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+            }
+
+            div.axis {
+                display: inline-block;
+                background-color: var(--dark-color);
+                color: var(--light-color);
+                min-height: 100%;
+                min-width: 250px;
+            }
+
+            div.axis-groups {
+                vertical-align: top;
+                display: inline-block;
+                background-color: var(--day-names-color);
+                width: auto;
+                height: 100%;
+                white-space: nowrap;
+
+                div.axis-group-column {
+                    display: inline-block;
+                    width: 150px;
+                    height: 100%;
+                    background-color: var(--light-color);
+                    color: var(--dark-color);
+                    border-right: var(--spacing-border-size) solid var(--dark-color);
+                    
+                    &:nth-child( odd ) {
+                        background-color: var(--day-names-color);
+                    }
+
+                    &:last-child {
+                        border-right: none;
+                    }
+                }
             }
         }
     }

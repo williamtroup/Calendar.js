@@ -686,6 +686,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_SearchButton = null,
         _element_View_Timeline_TodayButton = null,
         _element_View_Timeline_Contents = null,
+        _element_View_Timeline_Contents_AxisGroups = {},
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
@@ -5017,6 +5018,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function buildTimelineViewAxisGroupContent() {
+        var axis = createElement( "div", "axis" );
+        _element_View_Timeline_Contents.appendChild( axis );
+
+        var axisGroups = createElement( "div", "axis-groups" );
+        _element_View_Timeline_Contents.appendChild( axisGroups );
+
+        for ( var halfHour = 0; halfHour < 48; halfHour++ ) {
+            axisGroups.appendChild( createElement( "div", "axis-group-column" ) );
+        }
+    }
+
     function showTimelineView( date, fromOpen ) {
         date = isDefined( date ) ? date : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
@@ -5029,6 +5042,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_Contents.innerHTML = _string.empty;
         _element_View_Timeline_EventsShown = [];
         _element_View_Timeline_DateSelected = date;
+        _element_View_Timeline_Contents_AxisGroups = {};
 
         if ( doDatesMatch( date, currentDate ) && !isCurrentDateVisible ) {
             moveTimelineDateToNextDay();
@@ -5036,6 +5050,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         updateToolbarButtonVisibleState( _element_View_Timeline_TodayButton, isCurrentDateVisible );
         buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true, _options.timelineText );
+        buildTimelineViewAxisGroupContent();
         showView( _element_View_Timeline );
 
         if ( fromOpen ) {
