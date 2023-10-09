@@ -1202,8 +1202,17 @@ div.calendar {
             width: 100%;
             padding: 0 !important;
 
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+            }
+
             @import "foundation/view-all-day-events";
-    
+            @import "foundation/view-event";
+
             div.contents-events {
                 position: relative;
 
@@ -1214,16 +1223,6 @@ div.calendar {
                 @import "foundation/view-time-arrow";
                 @import "foundation/view-hours";
             }
-        
-            @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
-            }
-            
-            @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
-            }
-
-            @import "foundation/view-event";
 
             div.event {
                 position: absolute;
@@ -1269,8 +1268,6 @@ div.calendar {
             width: 100%;
             padding: 0 !important;
 
-            @import "foundation/view-all-day-events";
-
             @media screen and ( min-width: $minimum-width ) {
                 height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
             }
@@ -1278,6 +1275,8 @@ div.calendar {
             @media screen and ( max-width: $maximum-width ) {
                 height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
             }
+
+            @import "foundation/view-all-day-events";
 
             div.header-days-container {
                 position: sticky;
@@ -1583,7 +1582,20 @@ div.calendar {
         @import "foundation/view-title-bar";
 
         div.contents {
-            @include view-contents;
+            display: inline-block;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            padding: 0 !important;
+
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+            }
         }
     }
 }
