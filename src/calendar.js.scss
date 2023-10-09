@@ -1610,6 +1610,8 @@ div.calendar {
                 width: 200px;
 
                 div.axis-selector {
+                    position: sticky;
+                    top: 0;
                     padding: var(--spacing);
                     text-align: left;
                     border-bottom: var(--spacing-border-size) solid var(--light-color);
@@ -1633,6 +1635,8 @@ div.calendar {
                     border-right: var(--spacing-border-size) solid var(--dark-color);
 
                     div.axis-group-header {
+                        position: sticky;
+                        top: 0;
                         background-color: var(--day-names-color);
                         padding: var(--spacing);
                         text-align: center;

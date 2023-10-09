@@ -5077,6 +5077,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( fromOpen ) {
             _element_View_Timeline_Contents.scrollTop = 0;
+            _element_View_Timeline_Contents.scrollLeft = 0;
         }
 
         updateToolbarButtonVisibleState( _element_View_Timeline_SearchButton, _element_View_Timeline_EventsShown.length > 0 );
