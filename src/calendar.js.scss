@@ -1652,9 +1652,22 @@ div.calendar {
                     }
 
                     div.axis-group-row {
-                        padding-top: calc( var(--spacing) * 2 );
-                        padding-bottom: calc( var(--spacing) * 2 );
+                        position: relative;
+                        padding-top: calc( ( var(--spacing) * 3 ) - ( var(--spacing-border-size) * 3 ) );
+                        padding-bottom: calc( ( var(--spacing) * 3 ) - ( var(--spacing-border-size) * 3 ) );
                         border-bottom: var(--spacing-border-size) solid var(--dark-color);
+
+                        @import "foundation/view-event";
+
+                        div.event {
+                            position: absolute;
+                            margin-left: 0;
+                            margin-right: 0;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            z-index: 1;
+                            top: calc( var(--spacing) );
+                        }
                     }
                 }
 

@@ -568,6 +568,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _elementID_WeekAllDayElement = "calendar-week-all-day-",
         _elementID_YearSelected = "year-selected-",
         _elementID_Widget_Day = "widget-day-",
+        _elementID_Time_Day = "timeline-day-",
 
         // Variables: Is Busy
         _isCalendarBusy = false,
@@ -686,8 +687,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_SearchButton = null,
         _element_View_Timeline_TodayButton = null,
         _element_View_Timeline_Contents = null,
-        _element_View_Timeline_Contents_Rows = null,
-        _element_View_Timeline_Contents_AxisGroups = {},
+        _element_View_Timeline_Contents_Groups = null,
+        _element_View_Timeline_Contents_Groups_Rows = null,
+        _element_View_Timeline_Contents_Groups_Rows_Cache = {},
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
@@ -3285,7 +3287,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullDayViewWorkingHours() {
         if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd ) {
-            var pixelsPerMinute = getFullDayPixelsPerMinute( _element_View_FullDay_Contents_Hours ),
+            var pixelsPerMinute = getPixelsPerMinuteForHeight( _element_View_FullDay_Contents_Hours ),
                 workingHoursStartParts = _options.workingHoursStart.split( ":" ),
                 workingHoursEndParts = _options.workingHoursEnd.split( ":" ),
                 top = ( ( parseInt( workingHoursStartParts[ 0 ] ) * 60 ) + parseInt( workingHoursStartParts[ 1 ] ) ) * pixelsPerMinute,
@@ -3849,7 +3851,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullWeekViewDayColumnWorkingHours( column, headerNameIndex ) {
         if ( _options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd && isIndexWorkingDay( headerNameIndex ) ) {
-            var pixelsPerMinute = getFullDayPixelsPerMinute( column ),
+            var pixelsPerMinute = getPixelsPerMinuteForHeight( column ),
                 workingHoursStartParts = _options.workingHoursStart.split( ":" ),
                 workingHoursEndParts = _options.workingHoursEnd.split( ":" ),
                 top = ( ( parseInt( workingHoursStartParts[ 0 ] ) * 60 ) + parseInt( workingHoursStartParts[ 1 ] ) ) * pixelsPerMinute,
@@ -5028,11 +5030,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
         axisSelector.innerHTML = _options.groupText;
         _element_View_Timeline_Axis.appendChild( axisSelector );
 
-        var axisGroups = createElement( "div", "axis-groups" );
-        _element_View_Timeline_Contents.appendChild( axisGroups );
+        _element_View_Timeline_Contents_Groups = createElement( "div", "axis-groups" );
+        _element_View_Timeline_Contents.appendChild( _element_View_Timeline_Contents_Groups );
 
-        _element_View_Timeline_Contents_Rows = createElement( "div", "axis-group-rows" );
-        axisGroups.appendChild( _element_View_Timeline_Contents_Rows );
+        _element_View_Timeline_Contents_Groups_Rows = createElement( "div", "axis-group-rows" );
+        _element_View_Timeline_Contents_Groups.appendChild( _element_View_Timeline_Contents_Groups_Rows );
         
         for ( var hour = 0; hour < 24; hour++ ) {
             var firstDate = new Date(),
@@ -5042,14 +5044,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             secondDate.setHours( hour, 30, 0, 0 );
 
             var newHour1 = createElement( "div", "axis-group-column" );
-            axisGroups.appendChild( newHour1 );
+            _element_View_Timeline_Contents_Groups.appendChild( newHour1 );
 
             var newHour1Header = createElement( "div", "axis-group-header" );
             newHour1Header.innerText = getTimeForDisplay( firstDate );
             newHour1.appendChild( newHour1Header );
 
             var newHour2 = createElement( "div", "axis-group-column" );
-            axisGroups.appendChild( newHour2 );
+            _element_View_Timeline_Contents_Groups.appendChild( newHour2 );
 
             var newHour2Header = createElement( "div", "axis-group-header" );
             newHour2Header.innerText = getTimeForDisplay( secondDate );
@@ -5061,23 +5063,45 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var orderedEventsLength = orderedEvents.length;
 
         if ( orderedEventsLength > 0 ) {
+            var pixelsPerMinute = getPixelsPerMinuteForWidth( _element_View_Timeline_Contents_Groups );
+
             for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
-                var eventDetails = orderedEvents[ orderedEventIndex ],
-                    group = getString( eventDetails.group ),
-                    storageGroupName = group.toLowerCase();
+                var eventDetails = orderedEvents[ orderedEventIndex ];
 
-                if ( !_element_View_Timeline_Contents_AxisGroups.hasOwnProperty( storageGroupName ) ) {
-                    var axisGroupName = createElement( "div", "axis-group-name" );
-                    setNodeText( axisGroupName, group );
-                    _element_View_Timeline_Axis.appendChild( axisGroupName );
-                    
-                    var axisGroupRow = createElement( "div", "axis-group-row" );
-                    _element_View_Timeline_Contents_Rows.appendChild( axisGroupRow );
+                if ( !eventDetails.isAllDay ) {
+                    var group = getString( eventDetails.group ),
+                        storageGroupName = group.toLowerCase(),
+                        axisGroupRow = null;
+            
+                    if ( !_element_View_Timeline_Contents_Groups_Rows_Cache.hasOwnProperty( storageGroupName ) ) {
+                        var axisGroupName = createElement( "div", "axis-group-name" );
+                        setNodeText( axisGroupName, group );
+                        _element_View_Timeline_Axis.appendChild( axisGroupName );
+            
+                        axisGroupRow = createElement( "div", "axis-group-row" );
+                        _element_View_Timeline_Contents_Groups_Rows.appendChild( axisGroupRow );
+            
+                        _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ] = axisGroupRow;
+            
+                    } else {
+                        axisGroupRow = _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ];
+                    }
 
-                    _element_View_Timeline_Contents_AxisGroups[ storageGroupName ] = axisGroupRow;
+                    buildTimelineViewEvent( axisGroupRow, eventDetails, pixelsPerMinute );
                 }
             }
         }
+    }
+
+    function buildTimelineViewEvent( axisGroupRow, eventDetails, pixelsPerMinute ) {
+        var event = createElement( "div", "event" );
+        event.innerHTML = stripHTMLTagsFromText( eventDetails.title );
+        event.id = _elementID_Time_Day + eventDetails.id;
+        event.setAttribute( "event-type", getNumber( eventDetails.type ) );
+        event.setAttribute( "event-id", eventDetails.id );
+        axisGroupRow.appendChild( event );
+
+        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _element_View_Timeline_DateSelected ) );
     }
 
     function showTimelineView( date, fromOpen ) {
@@ -5093,7 +5117,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_Contents.innerHTML = _string.empty;
         _element_View_Timeline_EventsShown = [];
         _element_View_Timeline_DateSelected = date;
-        _element_View_Timeline_Contents_AxisGroups = {};
+        _element_View_Timeline_Contents_Groups_Rows_Cache = {};
 
         if ( doDatesMatch( date, currentDate ) && !isCurrentDateVisible ) {
             moveTimelineDateToNextDay();
@@ -7938,15 +7962,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function getHourMinutesFromMousePositionClick( e, container ) {
         var contentHoursOffset = getOffset( container ),
-            pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+            pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
             minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top ) ) / pixelsPerMinute ),
             hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
 
         return hoursMinutes;
     }
 
-    function getFullDayPixelsPerMinute( container ) {
+    function getPixelsPerMinuteForHeight( container ) {
         var contentHoursHeight = container.offsetHeight,
+            pixelsPerMinute = contentHoursHeight / 1440;
+
+        return pixelsPerMinute;
+    }
+
+    function getPixelsPerMinuteForWidth( container ) {
+        var contentHoursHeight = container.offsetWidth,
             pixelsPerMinute = contentHoursHeight / 1440;
 
         return pixelsPerMinute;
@@ -7954,7 +7985,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function setEventPositionAndGetScrollTop( contents, container, displayDate, event, eventDetails ) {
         var contentHoursHeight = container.offsetHeight,
-            pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+            pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
             minutesTop = 0,
             minutesHeight = null;
 
@@ -8015,7 +8046,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( elementTimeArrow !== null ) {
             if ( isTimeArrowVisible( date, elementView ) ) {
-                var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+                var pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
                     top = pixelsPerMinute * getMinutesIntoDay( new Date() );
     
                 elementTimeArrow.style.display = "block";
@@ -8179,7 +8210,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 dropEventOnDay( e, dateDropped.getFullYear(), dateDropped.getMonth(), dateDropped.getDate() );
             }
 
-            var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+            var pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
                 offset = getOffset( container ),
                 top = ( Math.abs( e.pageY ) - offset.top ) + _element_View_Event_Dragged_ClickOffset,
                 difference = top - _element_View_Event_Dragged_OffsetTop,
@@ -8219,7 +8250,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( container !== null && eventsLength > 0 ) {
-                var pixelsPerMinute = getFullDayPixelsPerMinute( container ),
+                var pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
                     eventsResized = false;
 
                 for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
