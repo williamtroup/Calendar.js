@@ -98,7 +98,9 @@ div.calendar-tooltip-event,
 div.calendar-context-menu,
 div.calendar-dialog,
 div.calendar-dialog input,
-div.calendar-dialog textarea {
+div.calendar-dialog textarea,
+div.calendar-notification,
+div.calendar-widget {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and ( min-width: $minimum-width ) {
@@ -310,7 +312,7 @@ div.calendar-widget {
 
     div.day-name {
         font-weight: 900;
-        margin-bottom: calc( var(--spacing) / 2 );
+        margin-bottom: var(--spacing);
 
         div.right-divider-line {
             @include title-bar-divider-line;
@@ -329,6 +331,7 @@ div.calendar-widget {
     div.day-date {
         font-weight: 300;
         font-size: x-large;
+        margin-bottom: calc( var(--spacing) * 2 );
     }
 
     div.scroll-margin {

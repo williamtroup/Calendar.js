@@ -1,7 +1,9 @@
 # Calendar.js - Change Log:
 
 ## Version 2.9.0:
-- 
+
+#### **Fixes:**
+- Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
 
 <br>
 

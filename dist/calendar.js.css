@@ -72,7 +72,9 @@ div.calendar-tooltip-event,
 div.calendar-context-menu,
 div.calendar-dialog,
 div.calendar-dialog input,
-div.calendar-dialog textarea {
+div.calendar-dialog textarea,
+div.calendar-notification,
+div.calendar-widget {
   font-family: "Montserrat", sans-serif;
 }
 @media screen and (min-width: 451px) {
@@ -82,7 +84,9 @@ div.calendar-dialog textarea {
   div.calendar-context-menu,
   div.calendar-dialog,
   div.calendar-dialog input,
-  div.calendar-dialog textarea {
+  div.calendar-dialog textarea,
+  div.calendar-notification,
+  div.calendar-widget {
     font-size: var(--large-font-size);
   }
 }
@@ -93,7 +97,9 @@ div.calendar-dialog textarea {
   div.calendar-context-menu,
   div.calendar-dialog,
   div.calendar-dialog input,
-  div.calendar-dialog textarea {
+  div.calendar-dialog textarea,
+  div.calendar-notification,
+  div.calendar-widget {
     font-size: var(--small-font-size);
   }
 }
@@ -103,7 +109,9 @@ div.calendar-tooltip-event div.view-shown,
 div.calendar-context-menu div.view-shown,
 div.calendar-dialog div.view-shown,
 div.calendar-dialog input div.view-shown,
-div.calendar-dialog textarea div.view-shown {
+div.calendar-dialog textarea div.view-shown,
+div.calendar-notification div.view-shown,
+div.calendar-widget div.view-shown {
   top: 0 !important;
   visibility: visible !important;
 }
@@ -113,7 +121,9 @@ div.calendar-tooltip-event span.light-title-bar-text,
 div.calendar-context-menu span.light-title-bar-text,
 div.calendar-dialog span.light-title-bar-text,
 div.calendar-dialog input span.light-title-bar-text,
-div.calendar-dialog textarea span.light-title-bar-text {
+div.calendar-dialog textarea span.light-title-bar-text,
+div.calendar-notification span.light-title-bar-text,
+div.calendar-widget span.light-title-bar-text {
   font-weight: 300 !important;
 }
 div.calendar *,
@@ -122,7 +132,9 @@ div.calendar-tooltip-event *,
 div.calendar-context-menu *,
 div.calendar-dialog *,
 div.calendar-dialog input *,
-div.calendar-dialog textarea * {
+div.calendar-dialog textarea *,
+div.calendar-notification *,
+div.calendar-widget * {
   box-sizing: content-box;
   line-height: normal;
 }
@@ -138,7 +150,11 @@ div.calendar-dialog *::after,
 div.calendar-dialog input *::before,
 div.calendar-dialog input *::after,
 div.calendar-dialog textarea *::before,
-div.calendar-dialog textarea *::after {
+div.calendar-dialog textarea *::after,
+div.calendar-notification *::before,
+div.calendar-notification *::after,
+div.calendar-widget *::before,
+div.calendar-widget *::after {
   box-sizing: content-box;
   line-height: normal;
 }
@@ -348,7 +364,7 @@ div.calendar-widget {
 }
 div.calendar-widget div.day-name {
   font-weight: 900;
-  margin-bottom: calc(var(--spacing) / 2);
+  margin-bottom: var(--spacing);
 }
 div.calendar-widget div.day-name div.right-divider-line {
   width: 1px;
@@ -366,6 +382,7 @@ div.calendar-widget div.day-name div.right-divider-line {
 div.calendar-widget div.day-date {
   font-weight: 300;
   font-size: x-large;
+  margin-bottom: calc(var(--spacing) * 2);
 }
 div.calendar-widget div.scroll-margin {
   padding-right: var(--spacing);
@@ -4006,7 +4023,6 @@ div.calendar-context-menu div.separator {
   height: 12px;
   border-top: 4px solid var(--title-bar-button-color);
   border-radius: 50%;
-  box-sizing: content-box;
 }
 .ib-pin:not(.ib-no-hover):hover {
   transition: all 0.3s;
