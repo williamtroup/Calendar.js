@@ -2,6 +2,12 @@
 
 ## Version 2.9.0:
 
+#### **New Features:**
+- Added a new Timeline view, which uses the "Group" event property as the view axis for a single day.
+
+#### **Full Day View:**
+- Add the "View Timeline" button to the Full Day view title bar (hidden in mobile view).
+
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
 - Fixed a fault that allowed the current day to be viewed in the Full Day view when the day itself is not visible in the calendar (it now skips to the next visible day).
