@@ -4956,28 +4956,34 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 hideView( _element_View_Timeline );
             } );
+
+            titleBar.appendChild( createElement( "div", "right-divider-line" ) );
     
             if ( _options.showExtraToolbarButtons ) {
-                titleBar.appendChild( createElement( "div", "right-divider-line" ) );
-
                 if ( _options.fullScreenModeEnabled ) {
                     _element_View_Timeline_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick );
 
                     titleBar.appendChild( createElement( "div", "right-divider-line-full-screen-mode" ) );
                 }
+            }
 
-                if ( _options.manualEditingEnabled ) {
-                    buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
-                }
+            buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onNextTimelineDay );
+
+            if ( _options.showExtraToolbarButtons && _options.manualEditingEnabled ) {
+                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
             }
 
             if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+
+                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
             }
+    
+            buildToolbarButton( titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onPreviousTimelineDay );
 
             if ( _options.showExtraToolbarButtons ) {
-                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
-                
+                buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentTimelineDay );
+
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
                 } );
@@ -5015,6 +5021,44 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( isViewVisible( _element_View_Timeline ) ) {
             showTimelineView( _element_View_Timeline_DateSelected );
         }
+    }
+
+    function onPreviousTimelineDay() {
+        moveDateBackOneDay( _element_View_Timeline_DateSelected );
+
+        if ( _options.visibleDays.length < 7 ) {
+            var weekDayNumber = getWeekdayNumber( _element_View_Timeline_DateSelected );
+
+            while ( _options.visibleDays.indexOf( weekDayNumber ) === -1 ) {
+                moveDateBackOneDay( _element_View_Timeline_DateSelected );
+    
+                weekDayNumber = getWeekdayNumber( _element_View_Timeline_DateSelected );
+            }
+        }
+
+        showTimelineView( _element_View_Timeline_DateSelected, true );
+    }
+
+    function onNextTimelineDay() {
+        moveDateForwardDay( _element_View_Timeline_DateSelected );
+
+        if ( _options.visibleDays.length < 7 ) {
+            var weekDayNumber = getWeekdayNumber( _element_View_Timeline_DateSelected );
+
+            while ( _options.visibleDays.indexOf( weekDayNumber ) === -1 ) {
+                moveDateForwardDay( _element_View_Timeline_DateSelected );
+    
+                weekDayNumber = getWeekdayNumber( _element_View_Timeline_DateSelected );
+            }
+        }
+
+        showTimelineView( _element_View_Timeline_DateSelected, true );
+    }
+
+    function onCurrentTimelineDay() {
+        _element_View_Timeline_DateSelected = new Date();
+            
+        showTimelineView( _element_View_Timeline_DateSelected, true );
     }
 
 
