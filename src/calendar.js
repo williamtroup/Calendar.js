@@ -1497,6 +1497,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     showExportEventsDialog( _element_View_AllEvents_EventsShown );
                 } else if ( isViewVisible( _element_View_FullWeek ) ) {
                     showExportEventsDialog( _element_View_FullWeek_EventsShown );
+                } else if ( isViewVisible( _element_View_Timeline ) ) {
+                    showExportEventsDialog( _element_View_Timeline_EventsShown );
                 } else {
                     showExportEventsDialog( _element_Calendar_AllVisibleEvents );
                 }
@@ -1555,14 +1557,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function updateSideMenuExportButtonVisibleState() {
-        if ( isViewVisible( _element_View_FullDay ) ) {
-            updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullDay_EventsShown.length > 0 );
-        } else if ( isViewVisible( _element_View_AllEvents ) ) {
-            updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_AllEvents_EventsShown.length > 0 );
-        } else if ( isViewVisible( _element_View_FullWeek ) ) {
-            updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullWeek_EventsShown.length > 0 );
-        } else {
+        var viewOpen = _element_View_Opened.length > 0 ? _element_View_Opened[ _element_View_Opened.length - 1 ] : null;
+
+        if ( viewOpen === null ) {
             updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_Calendar_AllVisibleEvents.length > 0 );
+        } else {
+
+            if ( viewOpen === _element_View_FullDay ) {
+                updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullDay_EventsShown.length > 0 );
+            } else if ( viewOpen === _element_View_AllEvents ) {
+                updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_AllEvents_EventsShown.length > 0 );
+            } else if ( viewOpen === _element_View_FullWeek ) {
+                updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullWeek_EventsShown.length > 0 );
+            } else if ( viewOpen === _element_View_Timeline ) {
+                updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_Timeline_EventsShown.length > 0 );
+            }
         }
     }
 
@@ -2771,6 +2780,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             openSearch = _element_View_AllEvents_EventsShown.length > 0;
         } else if ( isViewVisible( _element_View_FullWeek ) ) {
             openSearch = _element_View_FullWeek_EventsShown.length > 0;
+        } else if ( isViewVisible( _element_View_Timeline ) ) {
+            openSearch = _element_View_Timeline_EventsShown.length > 0;
         } else {
             openSearch = _element_Calendar_AllVisibleEvents.length > 0;
         }
@@ -5088,6 +5099,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
 
                     buildTimelineViewEvent( axisGroupRow, eventDetails );
+
+                    _element_View_Timeline_EventsShown.push( eventDetails );
                 }
             }
         }
@@ -5157,7 +5170,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             weekDayNumber = getWeekdayNumber( currentDate ),
             isCurrentDateVisible = _options.visibleDays.indexOf( weekDayNumber ) > -1,
             orderedEvents = [];
-
+        
         _element_View_Timeline_TitleBar.innerHTML = _string.empty;
         _element_View_Timeline_Contents.innerHTML = _string.empty;
         _element_View_Timeline_EventsShown = [];
@@ -6885,17 +6898,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showExportDialogFromWindowKeyDown() {
-        var isFullDayViewVisible = isViewVisible( _element_View_FullDay ),
-            isAllEventsViewVisible = isViewVisible( _element_View_AllEvents ),
-            isAllWeekEventsViewVisible = isViewVisible( _element_View_FullWeek ),
-            events = [];
+        var events = [];
 
-        if ( isFullDayViewVisible ) {
+        if ( isViewVisible( _element_View_FullDay ) ) {
             events = _element_View_FullDay_EventsShown;
-        } else if ( isAllEventsViewVisible ) {
+        } else if ( isViewVisible( _element_View_AllEvents ) ) {
             events = _element_View_AllEvents_EventsShown;
-        } else if ( isAllWeekEventsViewVisible ) {
+        } else if ( isViewVisible( _element_View_FullWeek ) ) {
             events = _element_View_FullWeek_EventsShown;
+        } else if ( isViewVisible( _element_View_Timeline ) ) {
+            events = _element_View_Timeline_EventsShown;
         } else {
             events = _element_Calendar_AllVisibleEvents;
         }
