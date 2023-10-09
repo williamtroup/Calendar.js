@@ -1042,6 +1042,7 @@ div.calendar {
         div.ib-forward,
         div.ib-expand,
         div.ib-hourglass,
+        div.ib-bar-graph,
         div.right-divider-line,
         div.right-divider-line-full-screen-mode,
         div.right-divider-line-views {
@@ -1061,6 +1062,7 @@ div.calendar {
             div.ib-rewind,
             div.ib-forward,
             div.ib-arrow-expand-left-right,
+            div.ib-bar-graph,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
                 display: inline-block;
@@ -1079,6 +1081,7 @@ div.calendar {
             div.ib-rewind,
             div.ib-forward,
             div.ib-arrow-expand-left-right,
+            div.ib-bar-graph,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
                 display: none !important;
@@ -1562,6 +1565,25 @@ div.calendar {
                     margin-bottom: var(--spacing-border-size) !important;
                 }
             }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Timeline View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.timeline-view {
+        @include full-size-view-display;
+
+        @import "foundation/view-title-bar";
+
+        div.contents {
+            @include view-contents;
         }
     }
 }
@@ -2581,6 +2603,7 @@ div.calendar-context-menu {
 @import "foundation/buttons/arrow-up-full-line";
 @import "foundation/buttons/expand";
 @import "foundation/buttons/hourglass";
+@import "foundation/buttons/bar-graph";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

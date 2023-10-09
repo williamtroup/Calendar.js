@@ -301,6 +301,8 @@
  * @property    {string}    confirmEventUpdateMessage                   The text for the confirmation message that is shown when updating a repeating event (defaults to "Would you like to update the event from this point forward, or the entire series?").
  * @property    {string}    forwardText                                 The text that should be displayed for the "Forward" button.
  * @property    {string}    seriesText                                  The text that should be displayed for the "Series" button.
+ * @property    {string}    timelineText                                The text that should be displayed for the "Timeline: " label.
+ * @property    {string}    viewTimelineTooltipText                     The tooltip text that should be used for the "View Timeline" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -678,6 +680,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_AllEvents_MinimizeRestoreFunctions = [],
         _element_View_AllEvents_YearHeadersAdded = [],
 
+        // Variables: View - Timeline
+        _element_View_Timeline = null,
+        _element_View_Timeline_FullScreenButton = null,
+        _element_View_Timeline_SearchButton = null,
+        _element_View_Timeline_Contents = null,
+        _element_View_Timeline_EventsShown = [],
+        _element_View_Timeline_DateSelected = null,
+        _element_View_Timeline_TitleBar = null,
+
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
         _element_Dialog_Move = null,
@@ -917,6 +928,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     buildFullWeekView();
                     buildFullYearView();
                     buildAllEventsView();
+                    buildTimelineView();
                     buildDateHeader();
                     buildDayNamesHeader();
                     buildDayRows();
@@ -1119,6 +1131,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             buildToolbarButton( _element_Calendar_TitleBar, "ib-hamburger-side", _options.viewFullWeekTooltipText, function() {
                 showFullWeekView( null, true );
+            } );
+
+            buildToolbarButton( _element_Calendar_TitleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
+                showTimelineView( null, true );
             } );
 
             buildToolbarButton( _element_Calendar_TitleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
@@ -3452,7 +3468,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullDay_TitleBar.innerHTML = _string.empty;
         _element_View_FullDay_DateSelected = new Date( date );
         _element_View_FullDay_EventsShown = [];
-        _element_View_FullDay_Events_Dragged_Sizes = [];
+        _element_View_FullDay_Events_Dragged_Sizes = [];    
         _element_View_FullDay_Contents_AllDayEvents.style.display = "block";
         _element_View_FullDay_Contents_WorkingHours.style.display = "none";
 
@@ -4184,7 +4200,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         updateToolbarButtonVisibleState( _element_View_FullWeek_SearchButton, _element_View_FullWeek_EventsShown.length > 0 );
     }
 
-    function updateViewFullWeekView() {
+    function updateFullWeekView() {
         if ( isViewVisible( _element_View_FullWeek ) ) {
             showFullWeekView( _element_View_FullWeek_DateSelected );
         }
@@ -4873,7 +4889,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function updateViewAllEventsView() {
+    function updateAllEventsView() {
         if ( isViewVisible( _element_View_AllEvents ) ) {
             showAllEventsView();
         }
@@ -4901,6 +4917,103 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var functionIndex = 0; functionIndex < functionsLength; functionIndex++ ) {
                 _element_View_AllEvents_MinimizeRestoreFunctions[ functionIndex ]();
             }
+        }
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Timeline View
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildTimelineView() {
+        if ( !_datePickerModeEnabled ) {
+            var wasAddedAlready = _element_View_Timeline !== null;
+
+            if ( wasAddedAlready ) {
+                _element_View_Timeline.innerHTML = _string.empty;
+            }
+
+            if ( !wasAddedAlready ) {
+                _element_View_Timeline = createElement( "div", "timeline-view" );
+                _element_View_Timeline.id = newGuid();
+                _element_Calendar.appendChild( _element_View_Timeline );
+            }
+    
+            var titleBar = createElement( "div", "title-bar" );
+            _element_View_Timeline.appendChild( titleBar );
+    
+            if ( _options.fullScreenModeEnabled ) {
+                titleBar.ondblclick = fullScreenModeHeaderDoubleClick;
+            }
+    
+            _element_View_Timeline_TitleBar = createElement( "div", "title" );
+            titleBar.appendChild( _element_View_Timeline_TitleBar );
+    
+            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, function() {
+                _element_View_Timeline_EventsShown = [];
+    
+                hideView( _element_View_Timeline );
+            } );
+    
+            if ( _options.showExtraToolbarButtons ) {
+                titleBar.appendChild( createElement( "div", "right-divider-line" ) );
+
+                if ( _options.fullScreenModeEnabled ) {
+                    _element_View_Timeline_FullScreenButton = buildToolbarButton( titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick );
+
+                    titleBar.appendChild( createElement( "div", "right-divider-line-full-screen-mode" ) );
+                }
+
+                if ( _options.manualEditingEnabled ) {
+                    buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+                }
+            }
+
+            if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
+                buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
+            }
+
+            if ( _options.showExtraToolbarButtons ) {
+                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
+                
+                buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
+                    refreshViews( true, true );
+                } );
+
+                if ( _optionsForSearch.enabled ) {
+                    _element_View_Timeline_SearchButton = buildToolbarButton( titleBar, "ib-search", _options.searchTooltipText, showSearchDialog );
+                }
+            }
+    
+            _element_View_Timeline_Contents = createElement( "div", "contents custom-scroll-bars" );
+            _element_View_Timeline.appendChild( _element_View_Timeline_Contents );
+        }
+    }
+
+    function showTimelineView( date, fromOpen ) {
+        date = isDefined( date ) ? date : new Date();
+        fromOpen = isDefined( fromOpen ) ? fromOpen : false;
+
+        showView( _element_View_Timeline );
+
+        _element_View_Timeline_TitleBar.innerHTML = _string.empty;
+        _element_View_Timeline_Contents.innerHTML = _string.empty;
+        _element_View_Timeline_EventsShown = [];
+        _element_View_Timeline_DateSelected = date;
+        buildDateTimeDisplay( _element_View_Timeline_TitleBar, date, false, true, true, _options.timelineText );
+
+        if ( fromOpen ) {
+            _element_View_Timeline_Contents.scrollTop = 0;
+        }
+
+        updateToolbarButtonVisibleState( _element_View_Timeline_SearchButton, _element_View_Timeline_EventsShown.length > 0 );
+    }
+
+    function updateTimelineView() {
+        if ( isViewVisible( _element_View_Timeline ) ) {
+            showTimelineView( _element_View_Timeline_DateSelected );
         }
     }
 
@@ -6098,9 +6211,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function refreshOpenedViews() {
         updateFullDayView();
-        updateViewAllEventsView();
-        updateViewFullWeekView();
+        updateFullWeekView();
         updateFullYearView();
+        updateAllEventsView();
+        updateTimelineView();
     }
 
     function buildBlankTemplateEvent( fromDate, toDate, fromTime, toTime ) {
@@ -8033,12 +8147,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         setElementClassName( _element_View_AllEvents_FullScreenButton, className );
         setElementClassName( _element_View_FullWeek_FullScreenButton, className );
         setElementClassName( _element_View_FullYear_FullScreenButton, className );
+        setElementClassName( _element_View_Timeline_FullScreenButton, className );
 
         addToolTip( _element_Calendar_TitleBar_FullScreenButton, tooltipText );
         addToolTip( _element_View_FullDay_FullScreenButton, tooltipText );
         addToolTip( _element_View_AllEvents_FullScreenButton, tooltipText );
         addToolTip( _element_View_FullWeek_FullScreenButton, tooltipText );
         addToolTip( _element_View_FullYear_FullScreenButton, tooltipText );
+        addToolTip( _element_View_Timeline_FullScreenButton, tooltipText );
     }
 
 
@@ -8610,10 +8726,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDateTimeDisplay( container, toDate );
     }
 
-    function buildDateTimeDisplay( container, date, addTime, addYear, addDayName ) {
+    function buildDateTimeDisplay( container, date, addTime, addYear, addDayName, beforeText ) {
         addTime = !isDefined( addTime ) ? true : addTime;
         addYear = !isDefined( addYear ) ? true : addYear;
         addDayName = !isDefined( addDayName ) ? false : addDayName;
+
+        if ( isDefined( beforeText ) ) {
+            createSpanElement( container, beforeText );
+        }
 
         if ( addDayName ) {
             createSpanElement( container, _options.dayNames[ getWeekdayNumber( date ) ] + ", " );
@@ -13167,6 +13287,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.confirmEventUpdateMessage = getDefaultString( _options.confirmEventUpdateMessage, "Would you like to update the event from this point forward, or the entire series?" );
         _options.forwardText = getDefaultString( _options.forwardText, "Forward" );
         _options.seriesText = getDefaultString( _options.seriesText, "Series" );
+        _options.timelineText = getDefaultString( _options.timelineText, "Timeline: " );
+        _options.viewTimelineTooltipText = getDefaultString( _options.viewTimelineTooltipText, "View Timeline" );
     }
 
     function setEventTypeTranslationStringOptions() {

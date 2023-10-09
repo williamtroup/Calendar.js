@@ -1097,6 +1097,7 @@ div.calendar div.header-date div.ib-arrow-contract-left-right,
 div.calendar div.header-date div.ib-forward,
 div.calendar div.header-date div.ib-expand,
 div.calendar div.header-date div.ib-hourglass,
+div.calendar div.header-date div.ib-bar-graph,
 div.calendar div.header-date div.right-divider-line,
 div.calendar div.header-date div.right-divider-line-full-screen-mode,
 div.calendar div.header-date div.right-divider-line-views {
@@ -1115,6 +1116,7 @@ div.calendar div.header-date div.right-divider-line-views {
   div.calendar div.header-date div.ib-rewind,
   div.calendar div.header-date div.ib-forward,
   div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.ib-bar-graph,
   div.calendar div.header-date div.right-divider-line-full-screen-mode,
   div.calendar div.header-date div.right-divider-line-views {
     display: inline-block;
@@ -1132,6 +1134,7 @@ div.calendar div.header-date div.right-divider-line-views {
   div.calendar div.header-date div.ib-rewind,
   div.calendar div.header-date div.ib-forward,
   div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.ib-bar-graph,
   div.calendar div.header-date div.right-divider-line-full-screen-mode,
   div.calendar div.header-date div.right-divider-line-views {
     display: none !important;
@@ -2249,6 +2252,120 @@ div.calendar div.all-events-view div.contents div.month div.events:last-child {
 }
 div.calendar div.all-events-view div.contents div.month:last-child {
   margin-bottom: var(--spacing-border-size) !important;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Timeline View
+    -------------------------------------------------------------------------
+*/
+div.calendar div.timeline-view {
+  top: -100%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: var(--light-color);
+  transition: var(--transition);
+  visibility: hidden;
+}
+div.calendar div.timeline-view div.title-bar {
+  width: calc(100% - var(--spacing));
+  display: inline-block;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(var(--spacing) / 2);
+  padding-right: calc(var(--spacing) / 2);
+  background-color: var(--dark-color);
+  color: var(--title-bar-text-color);
+  text-align: center;
+}
+div.calendar div.timeline-view div.title-bar div.left-divider-line,
+div.calendar div.timeline-view div.title-bar div.right-divider-line,
+div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
+div.calendar div.timeline-view div.title-bar div.left-divider-line {
+  float: left;
+}
+div.calendar div.timeline-view div.title-bar div.right-divider-line,
+div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode {
+  float: right;
+}
+div.calendar div.timeline-view div.title-bar div.title {
+  font-weight: 900 !important;
+  display: inline-block;
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.title-bar div.title {
+    margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+div.calendar div.timeline-view div.title-bar div {
+  margin-left: calc(var(--spacing) / 2) !important;
+  margin-right: calc(var(--spacing) / 2) !important;
+}
+div.calendar div.timeline-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.timeline-view div.title-bar div.ib-pin,
+div.calendar div.timeline-view div.title-bar div.ib-refresh,
+div.calendar div.timeline-view div.title-bar div.ib-search,
+div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.timeline-view div.title-bar div.ib-hamburger {
+  float: left;
+}
+div.calendar div.timeline-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.timeline-view div.title-bar div.ib-plus,
+div.calendar div.timeline-view div.title-bar div.ib-close,
+div.calendar div.timeline-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.timeline-view div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
+  float: right;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-search,
+  div.calendar div.timeline-view div.title-bar div.ib-refresh,
+  div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode {
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-search,
+  div.calendar div.timeline-view div.title-bar div.ib-refresh,
+  div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode {
+    display: none !important;
+  }
+}
+div.calendar div.timeline-view div.contents {
+  display: inline-block;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100% - var(--spacing) * 2);
+  padding: var(--spacing);
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents {
+    height: calc(100% - (var(--spacing) * 4 + var(--large-font-size)) - var(--spacing-border-size));
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents {
+    height: calc(100% - (var(--spacing) * 4 + var(--small-font-size)) - var(--spacing-border-size));
+  }
 }
 
 /*
@@ -4790,6 +4907,44 @@ div.calendar-context-menu div.separator {
   border-right: 8px solid transparent;
   left: 0;
   top: 0;
+}
+
+.ib-bar-graph {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  border-left: 4px solid var(--title-bar-button-color);
+  width: 12px;
+}
+.ib-bar-graph:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-bar-graph:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-bar-graph::before, .ib-bar-graph::after {
+  position: absolute;
+  content: "";
+}
+.ib-bar-graph:before {
+  left: calc(50% - 2px);
+  transform: translate(-50%);
+  background-color: var(--light-color);
+  width: 4px;
+  height: 5.3333333333px;
+  bottom: 0;
+}
+.ib-bar-graph:after {
+  background-color: var(--light-color);
+  width: 4px;
+  height: 8px;
+  bottom: 0;
+  right: 0;
 }
 
 .ib-plus-icon {
