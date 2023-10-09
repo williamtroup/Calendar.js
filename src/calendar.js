@@ -5063,8 +5063,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var orderedEventsLength = orderedEvents.length;
 
         if ( orderedEventsLength > 0 ) {
-            var pixelsPerMinute = getPixelsPerMinuteForWidth( _element_View_Timeline_Contents_Groups );
-
             for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
                 var eventDetails = orderedEvents[ orderedEventIndex ];
 
@@ -5087,13 +5085,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         axisGroupRow = _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ];
                     }
 
-                    buildTimelineViewEvent( axisGroupRow, eventDetails, pixelsPerMinute );
+                    buildTimelineViewEvent( axisGroupRow, eventDetails );
                 }
             }
         }
     }
 
-    function buildTimelineViewEvent( axisGroupRow, eventDetails, pixelsPerMinute ) {
+    function buildTimelineViewEvent( axisGroupRow, eventDetails ) {
         var event = createElement( "div", "event" );
         event.innerHTML = stripHTMLTagsFromText( eventDetails.title );
         event.id = _elementID_Time_Day + eventDetails.id;
@@ -5102,6 +5100,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         axisGroupRow.appendChild( event );
 
         setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _element_View_Timeline_DateSelected ) );
+        setEventPositionAndGetScrollLeft( _element_View_Timeline_Contents_Groups, _element_View_Timeline_DateSelected, event, eventDetails );
     }
 
     function showTimelineView( date, fromOpen ) {
@@ -7984,7 +7983,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function setEventPositionAndGetScrollTop( contents, container, displayDate, event, eventDetails ) {
-        var contentHoursHeight = container.offsetHeight,
+        var contentHeight = container.offsetHeight,
             pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
             minutesTop = 0,
             minutesHeight = null;
@@ -7999,7 +7998,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( doDatesMatch( eventDetails.to, displayDate ) || repeatEvery > _repeatType.never ) {
                 minutesHeight = ( pixelsPerMinute * getMinutesIntoDay( eventDetails.to ) ) - minutesTop;
             } else {
-                minutesHeight = contentHoursHeight;
+                minutesHeight = contentHeight;
             }
 
             minutesHeight -= _options.spacing * 2;
@@ -8016,14 +8015,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.style.height = minutesHeight + "px";
         }
 
-        if ( event.offsetTop + event.offsetHeight > ( contentHoursHeight - _options.spacing ) ) {
-            var newHeight = ( ( contentHoursHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
+        if ( event.offsetTop + event.offsetHeight > ( contentHeight - _options.spacing ) ) {
+            var newHeight = ( ( contentHeight - event.offsetTop ) - ( _options.spacing * 3 ) ) + "px";
 
             event.style.height = newHeight;
             event.style.maxHeight = newHeight;
 
         } else {
-            event.style.maxHeight = ( contentHoursHeight - ( event.offsetTop + ( _options.spacing * 2 ) ) - pixelsPerMinute ) + "px";
+            event.style.maxHeight = ( contentHeight - ( event.offsetTop + ( _options.spacing * 2 ) ) - pixelsPerMinute ) + "px";
         }
 
         var scrollTop = minutesTop + ( contents.offsetHeight / 2 );
@@ -8032,6 +8031,57 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return scrollTop;
+    }
+
+    function setEventPositionAndGetScrollLeft( contents, displayDate, event, eventDetails ) {
+        var contentWidth = contents.scrollWidth,
+            pixelsPerMinute = getPixelsPerMinuteForWidth( contents ),
+            minutesLeft = 0,
+            minutesWidth = null;
+
+        if ( !eventDetails.isAllDay ) {
+            var repeatEvery = getNumber( eventDetails.repeatEvery );
+
+            if ( doDatesMatch( eventDetails.from, displayDate ) || repeatEvery > _repeatType.never ) {
+                minutesLeft = pixelsPerMinute * getMinutesIntoDay( eventDetails.from );
+            }
+
+            if ( doDatesMatch( eventDetails.to, displayDate ) || repeatEvery > _repeatType.never ) {
+                minutesWidth = ( pixelsPerMinute * getMinutesIntoDay( eventDetails.to ) ) - minutesLeft;
+            } else {
+                minutesWidth = contentWidth;
+            }
+
+            minutesWidth -= _options.spacing * 2;
+        }
+
+        if ( minutesLeft <= _options.spacing ) {
+            minutesLeft += _options.spacing;
+            minutesWidth -= _options.spacing;
+        }
+
+        event.style.left = minutesLeft + "px";
+
+        if ( minutesWidth !== null ) {
+            event.style.width = minutesWidth + "px";
+        }
+
+        if ( event.offsetLeft + event.offsetWidth > ( contentWidth - _options.spacing ) ) {
+            var newWidth = ( ( contentWidth - event.offsetLeft ) - ( _options.spacing * 4 ) ) + "px";
+
+            event.style.width = newWidth;
+            event.style.maxWidth = newWidth;
+
+        } else {
+            event.style.maxWidth = ( contentWidth - ( event.offsetLeft + ( _options.spacing * 2 ) ) - pixelsPerMinute ) + "px";
+        }
+
+        var scrollLeft = minutesLeft + ( contents.offsetWidth / 2 );
+        if ( scrollLeft <= contents.offsetWidth ) {
+            scrollLeft = 0;
+        }
+
+        return scrollLeft;
     }
 
 

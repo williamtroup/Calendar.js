@@ -2412,7 +2412,7 @@ div.calendar div.timeline-view div.contents div.axis {
   background-color: var(--dark-color);
   color: var(--light-color);
   min-height: 100%;
-  z-index: 1;
+  z-index: 10;
 }
 div.calendar div.timeline-view div.contents div.axis div.axis-selector {
   position: sticky;
@@ -2512,7 +2512,6 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows 
   margin-right: 0;
   overflow: hidden;
   white-space: nowrap;
-  z-index: 1;
   top: calc(var(--spacing));
 }
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column {
