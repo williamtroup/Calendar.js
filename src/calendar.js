@@ -694,6 +694,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
         _element_View_Timeline_Axis = null,
+        _element_View_Timeline_Contents_SmallestEventLeft = 0,
+        _element_View_Timeline_Contents_SmallestEventTop = 0,
 
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
@@ -5131,7 +5133,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _element_View_Timeline_DateSelected ) );
         setEventClassesForActions( event, eventDetails );
-        setEventPositionAndGetScrollLeft( _element_View_Timeline_Contents_Groups, _element_View_Timeline_DateSelected, event, eventDetails );
+        
+        var scrollLeft = setEventPositionAndGetScrollLeft( _element_View_Timeline_Contents_Groups, _element_View_Timeline_DateSelected, event, eventDetails );
+
+        if ( _element_View_Timeline_Contents_SmallestEventLeft === 0 ) {
+            _element_View_Timeline_Contents_SmallestEventLeft = scrollLeft;
+        } else {
+            _element_View_Timeline_Contents_SmallestEventLeft = Math.min( _element_View_Timeline_Contents_SmallestEventLeft, scrollLeft );
+        }
+
+        if ( _element_View_Timeline_Contents_SmallestEventTop === 0 ) {
+            _element_View_Timeline_Contents_SmallestEventTop = axisGroupRow.offsetTop;
+        } else {
+            _element_View_Timeline_Contents_SmallestEventTop = Math.min( _element_View_Timeline_Contents_SmallestEventTop, axisGroupRow.offsetTop );
+        }
     }
 
     function showTimelineView( date, fromOpen ) {
@@ -5148,6 +5163,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_EventsShown = [];
         _element_View_Timeline_DateSelected = date;
         _element_View_Timeline_Contents_Groups_Rows_Cache = {};
+        _element_View_Timeline_Contents_SmallestEventLeft = 0;
+        _element_View_Timeline_Contents_SmallestEventTop = 0;
 
         if ( doDatesMatch( date, currentDate ) && !isCurrentDateVisible ) {
             moveTimelineDateToNextDay();
@@ -5161,8 +5178,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildTimelineViewEvents( getOrderedEvents( orderedEvents ) );
 
         if ( fromOpen ) {
-            _element_View_Timeline_Contents.scrollTop = 0;
-            _element_View_Timeline_Contents.scrollLeft = 0;
+            _element_View_Timeline_Contents.scrollLeft = _element_View_Timeline_Contents_SmallestEventLeft;
+            _element_View_Timeline_Contents.scrollTop = _element_View_Timeline_Contents_SmallestEventTop;
         }
 
         updateToolbarButtonVisibleState( _element_View_Timeline_SearchButton, _element_View_Timeline_EventsShown.length > 0 );
@@ -8107,12 +8124,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.style.maxWidth = ( contentWidth - ( event.offsetLeft + ( _options.spacing * 2 ) ) - pixelsPerMinute ) + "px";
         }
 
-        var scrollLeft = minutesLeft + ( contents.offsetWidth / 2 );
-        if ( scrollLeft <= contents.offsetWidth ) {
-            scrollLeft = 0;
-        }
-
-        return scrollLeft;
+        return ( minutesLeft - _options.spacing );
     }
 
 
