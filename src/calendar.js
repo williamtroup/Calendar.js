@@ -1121,6 +1121,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( !_datePickerModeEnabled ) {
             _element_Calendar_TitleBar.appendChild( createElement( "div", "right-divider-line-views" ) );
 
+            buildToolbarButton( _element_Calendar_TitleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
+                showTimelineView( null, true );
+            } );
+
             buildToolbarButton( _element_Calendar_TitleBar, "ib-eye", _options.viewAllEventsTooltipText, function() {
                 showAllEventsView( true );
             } );
@@ -1131,10 +1135,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             buildToolbarButton( _element_Calendar_TitleBar, "ib-hamburger-side", _options.viewFullWeekTooltipText, function() {
                 showFullWeekView( null, true );
-            } );
-
-            buildToolbarButton( _element_Calendar_TitleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
-                showTimelineView( null, true );
             } );
 
             buildToolbarButton( _element_Calendar_TitleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
