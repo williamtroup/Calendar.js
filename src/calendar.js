@@ -5092,14 +5092,45 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildTimelineViewEvent( axisGroupRow, eventDetails ) {
-        var event = createElement( "div", "event" );
+        var event = createElement( "div", "event" ),
+            formattedDate = toStorageFormattedDate( _element_View_Timeline_DateSelected );
+
         event.innerHTML = stripHTMLTagsFromText( eventDetails.title );
         event.id = _elementID_Time_Day + eventDetails.id;
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
         axisGroupRow.appendChild( event );
+    
+        event.oncontextmenu = function( e ) {
+            showEventContextMenu( e, eventDetails, formattedDate );
+        };
+
+        event.addEventListener( "click", function( e ) {
+            storeMultiSelectEvent( e, eventDetails );
+        } );
+
+        if ( isOptionEventSet( "onEventClick" ) ) {
+            event.addEventListener( "click", function() {
+                triggerOptionsEventWithData( "onEventClick", eventDetails );
+            } );
+        }
+
+        if ( _options.manualEditingEnabled ) {
+            event.ondblclick = function( e ) {
+                cancelBubble( e );
+                showEventEditingDialog( eventDetails, null, null, _element_View_Timeline_DateSelected );
+            };
+        } else {
+
+            if ( isOptionEventSet( "onEventDoubleClick" ) ) {
+                event.ondblclick = function() {
+                    triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                };
+            }
+        }
 
         setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _element_View_Timeline_DateSelected ) );
+        setEventClassesForActions( event, eventDetails );
         setEventPositionAndGetScrollLeft( _element_View_Timeline_Contents_Groups, _element_View_Timeline_DateSelected, event, eventDetails );
     }
 
