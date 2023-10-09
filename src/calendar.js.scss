@@ -1584,7 +1584,7 @@ div.calendar {
         div.contents {
             display: inline-block;
             position: relative;
-            overflow-x: hidden;
+            overflow-x: auto;
             overflow-y: auto;
             width: 100%;
             padding: 0 !important;

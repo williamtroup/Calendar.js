@@ -2387,7 +2387,7 @@ div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
 div.calendar div.timeline-view div.contents {
   display: inline-block;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
   width: 100%;
   padding: 0 !important;
