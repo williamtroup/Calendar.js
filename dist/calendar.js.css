@@ -2385,8 +2385,8 @@ div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
   }
 }
 div.calendar div.timeline-view div.contents {
-  display: inline-block;
   position: relative;
+  display: inline-block;
   overflow-x: auto;
   overflow-y: auto;
   width: 100%;
@@ -2405,6 +2405,9 @@ div.calendar div.timeline-view div.contents {
   }
 }
 div.calendar div.timeline-view div.contents div.axis {
+  position: sticky;
+  top: 0;
+  left: 0;
   display: inline-block;
   background-color: var(--dark-color);
   color: var(--light-color);

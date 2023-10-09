@@ -1582,8 +1582,8 @@ div.calendar {
         @import "foundation/view-title-bar";
 
         div.contents {
-            display: inline-block;
             position: relative;
+            display: inline-block;
             overflow-x: auto;
             overflow-y: auto;
             width: 100%;
@@ -1600,6 +1600,9 @@ div.calendar {
             }
 
             div.axis {
+                position: sticky;
+                top: 0;
+                left: 0;
                 display: inline-block;
                 background-color: var(--dark-color);
                 color: var(--light-color);
