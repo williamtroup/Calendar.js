@@ -1608,6 +1608,7 @@ div.calendar {
                 color: var(--light-color);
                 min-height: 100%;
                 width: 200px;
+                z-index: 1;
 
                 div.axis-selector {
                     position: sticky;

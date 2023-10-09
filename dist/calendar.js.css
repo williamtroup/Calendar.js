@@ -2413,6 +2413,7 @@ div.calendar div.timeline-view div.contents div.axis {
   color: var(--light-color);
   min-height: 100%;
   width: 200px;
+  z-index: 1;
 }
 div.calendar div.timeline-view div.contents div.axis div.axis-selector {
   position: sticky;
