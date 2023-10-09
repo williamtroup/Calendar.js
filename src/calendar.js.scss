@@ -1607,25 +1607,56 @@ div.calendar {
                 background-color: var(--dark-color);
                 color: var(--light-color);
                 min-height: 100%;
-                width: 200px;
                 z-index: 1;
 
                 div.axis-selector {
                     position: sticky;
                     top: 0;
                     padding: var(--spacing);
+                    padding-left: calc( var(--spacing) * 4 );
+                    padding-right: calc( var(--spacing) * 4 );
                     text-align: left;
+                    border-bottom: var(--spacing-border-size) solid var(--light-color);
+                }
+
+                div.axis-group-name {
+                    padding: calc( var(--spacing) * 2 );
+                    padding-left: calc( var(--spacing) * 4 );
+                    padding-right: calc( var(--spacing) * 4 );
                     border-bottom: var(--spacing-border-size) solid var(--light-color);
                 }
             }
 
             div.axis-groups {
+                position: relative;
                 vertical-align: top;
                 display: inline-block;
                 background-color: var(--day-names-color);
                 width: auto;
                 height: 100%;
                 white-space: nowrap;
+
+                div.axis-group-rows {
+                    position: absolute;
+                    left: 0;
+                    width: 100%;
+
+                    @media screen and ( min-width: $minimum-width ) {
+                        height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+                        top: calc( ( var(--spacing) * 2 ) + var(--large-font-size) + ( var(--spacing-border-size) * 4 ) );
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+                        top: calc( ( var(--spacing) * 2 ) + var(--small-font-size) + ( var(--spacing-border-size) * 4 ) );
+                    }
+
+                    div.axis-group-row {
+                        padding-top: calc( var(--spacing) * 2 );
+                        padding-bottom: calc( var(--spacing) * 2 );
+                        border-bottom: var(--spacing-border-size) solid var(--dark-color);
+                    }
+                }
 
                 div.axis-group-column {
                     display: inline-block;

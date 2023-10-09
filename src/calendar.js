@@ -686,10 +686,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_SearchButton = null,
         _element_View_Timeline_TodayButton = null,
         _element_View_Timeline_Contents = null,
+        _element_View_Timeline_Contents_Rows = null,
         _element_View_Timeline_Contents_AxisGroups = {},
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
+        _element_View_Timeline_Axis = null,
 
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
@@ -5019,15 +5021,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildTimelineViewAxisGroupContent() {
-        var axis = createElement( "div", "axis" );
-        _element_View_Timeline_Contents.appendChild( axis );
+        _element_View_Timeline_Axis = createElement( "div", "axis" );
+        _element_View_Timeline_Contents.appendChild( _element_View_Timeline_Axis );
 
         var axisSelector = createElement( "div", "axis-selector" );
         axisSelector.innerHTML = _options.groupText;
-        axis.appendChild( axisSelector );
+        _element_View_Timeline_Axis.appendChild( axisSelector );
 
         var axisGroups = createElement( "div", "axis-groups" );
         _element_View_Timeline_Contents.appendChild( axisGroups );
+
+        _element_View_Timeline_Contents_Rows = createElement( "div", "axis-group-rows" );
+        axisGroups.appendChild( _element_View_Timeline_Contents_Rows );
         
         for ( var hour = 0; hour < 24; hour++ ) {
             var firstDate = new Date(),
@@ -5052,13 +5057,37 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function buildTimelineViewEvents( orderedEvents ) {
+        var orderedEventsLength = orderedEvents.length;
+
+        if ( orderedEventsLength > 0 ) {
+            for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
+                var eventDetails = orderedEvents[ orderedEventIndex ],
+                    group = getString( eventDetails.group ),
+                    storageGroupName = group.toLowerCase();
+
+                if ( !_element_View_Timeline_Contents_AxisGroups.hasOwnProperty( storageGroupName ) ) {
+                    var axisGroupName = createElement( "div", "axis-group-name" );
+                    setNodeText( axisGroupName, group );
+                    _element_View_Timeline_Axis.appendChild( axisGroupName );
+                    
+                    var axisGroupRow = createElement( "div", "axis-group-row" );
+                    _element_View_Timeline_Contents_Rows.appendChild( axisGroupRow );
+
+                    _element_View_Timeline_Contents_AxisGroups[ storageGroupName ] = axisGroupRow;
+                }
+            }
+        }
+    }
+
     function showTimelineView( date, fromOpen ) {
         date = isDefined( date ) ? date : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         var currentDate = new Date(),
             weekDayNumber = getWeekdayNumber( currentDate ),
-            isCurrentDateVisible = _options.visibleDays.indexOf( weekDayNumber ) > -1;
+            isCurrentDateVisible = _options.visibleDays.indexOf( weekDayNumber ) > -1,
+            orderedEvents = [];
 
         _element_View_Timeline_TitleBar.innerHTML = _string.empty;
         _element_View_Timeline_Contents.innerHTML = _string.empty;
@@ -5070,10 +5099,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             moveTimelineDateToNextDay();
         }
 
+        getFullDayViewOrderedEvents( _element_View_Timeline_DateSelected, orderedEvents );
         updateToolbarButtonVisibleState( _element_View_Timeline_TodayButton, isCurrentDateVisible );
         buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true, _options.timelineText );
         buildTimelineViewAxisGroupContent();
         showView( _element_View_Timeline );
+        buildTimelineViewEvents( getOrderedEvents( orderedEvents ) );
 
         if ( fromOpen ) {
             _element_View_Timeline_Contents.scrollTop = 0;
