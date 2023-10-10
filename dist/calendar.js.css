@@ -2413,13 +2413,13 @@ div.calendar div.timeline-view div.contents div.timeline-column {
   width: 150px;
   height: 100%;
   background-color: var(--light-color);
-  border-right: var(--spacing-border-size) solid var(--dark-color);
+  border-right: var(--spacing-border-size) solid var(--grid-border-color);
 }
 div.calendar div.timeline-view div.contents div.timeline-column:nth-child(odd) {
   background-color: var(--day-names-color);
 }
 div.calendar div.timeline-view div.contents div.timeline-header {
-  border-bottom: var(--spacing-border-size) solid var(--dark-color);
+  border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
   position: sticky;
   top: 0;
   background-color: var(--day-names-color);
@@ -2433,7 +2433,7 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
   padding: var(--spacing);
   width: 150px;
   text-align: center;
-  border-right: var(--spacing-border-size) solid var(--dark-color);
+  border-right: var(--spacing-border-size) solid var(--grid-border-color);
 }
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:first-child {
   text-align: left;
@@ -2443,7 +2443,7 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
 }
 div.calendar div.timeline-view div.contents div.timeline-row {
   position: relative;
-  border-bottom: var(--spacing-border-size) solid var(--dark-color);
+  border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
   vertical-align: top;
   width: calc(49 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
   overflow: hidden;
@@ -2529,7 +2529,7 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
   padding-bottom: calc(var(--spacing) * 2);
   width: 150px;
   text-align: left;
-  border-right: var(--spacing-border-size) solid var(--dark-color);
+  border-right: var(--spacing-border-size) solid var(--grid-border-color);
   background-color: var(--dark-color);
   color: var(--light-color);
   text-overflow: ellipsis;
