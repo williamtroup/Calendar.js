@@ -228,5 +228,7 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateTitle": "इवेंट अपडेट की पुष्टि करें",
   "confirmEventUpdateMessage": "क्या आप इस बिंदु से आगे की घटना को अद्यतन करना चाहेंगे, या पूरी शृंखला को?",
   "forwardText": "आगे",
-  "seriesText": "शृंखला"
+  "seriesText": "शृंखला",
+  "timelineText": "समयरेखा: ",
+  "viewTimelineTooltipText": "समयसीमा जरूर देख लें"
 };

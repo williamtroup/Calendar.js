@@ -228,5 +228,7 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "Etkinlik Güncellemesini Onayla",
     "confirmEventUpdateMessage": "Etkinliği bu noktadan itibaren mi yoksa tüm seriyi mi güncellemek istiyorsunuz?",
     "forwardText": "İleri",
-    "seriesText": "Seri"
+    "seriesText": "Seri",
+    "timelineText": "Zaman çizelgesi: ",
+    "viewTimelineTooltipText": "Zaman Çizelgesini Görüntüle"
 };

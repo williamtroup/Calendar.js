@@ -228,5 +228,7 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateTitle": "Bestätigen Sie die Ereignisaktualisierung",
   "confirmEventUpdateMessage": "Möchten Sie die Veranstaltung ab diesem Zeitpunkt oder die gesamte Serie aktualisieren?",
   "forwardText": "Nach vorne",
-  "seriesText": "Serie"
+  "seriesText": "Serie",
+  "timelineText": "Zeitleiste: ",
+  "viewTimelineTooltipText": "Zeitleiste anzeigen"
 };

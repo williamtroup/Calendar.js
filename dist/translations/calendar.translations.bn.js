@@ -228,5 +228,7 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "ইভেন্ট আপডেট নিশ্চিত করুন",
     "confirmEventUpdateMessage": "আপনি কি এই বিন্দু থেকে ইভেন্টটি আপডেট করতে চান, নাকি পুরো সিরিজটি?",
     "forwardText": "ফরোয়ার্ড",
-    "seriesText": "সিরিজ"
+    "seriesText": "সিরিজ",
+    "timelineText": "সময়রেখা: ",
+    "viewTimelineTooltipText": "দেখুন টাইমলাইনে"
   };

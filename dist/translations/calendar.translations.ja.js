@@ -228,5 +228,7 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "イベント更新の確認",
     "confirmEventUpdateMessage": "今後のイベントを更新しますか、それともシリーズ全体を更新しますか?",
     "forwardText": "フォワード",
-    "seriesText": "シリーズ"
+    "seriesText": "シリーズ",
+    "timelineText": "タイムライン： ",
+    "viewTimelineTooltipText": "タイムラインをみる"
 };

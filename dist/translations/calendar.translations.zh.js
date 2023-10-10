@@ -228,5 +228,7 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "确认活动更新",
     "confirmEventUpdateMessage": "您想更新从现在开始的活动，还是整个系列？",
     "forwardText": "向前",
-    "seriesText": "系列"
+    "seriesText": "系列",
+    "timelineText": "时间线： ",
+    "viewTimelineTooltipText": "查看时间轴"
   };
