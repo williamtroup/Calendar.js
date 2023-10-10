@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "forwardText": "İleri",
     "seriesText": "Seri",
     "timelineText": "Zaman çizelgesi: ",
-    "viewTimelineTooltipText": "Zaman Çizelgesini Görüntüle"
+    "viewTimelineTooltipText": "Zaman Çizelgesini Görüntüle",
+    "nextPropertyTooltipText": "Sonraki Emlak",
+    "noneText": "(hiçbiri)"
 };

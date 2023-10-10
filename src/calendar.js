@@ -303,6 +303,8 @@
  * @property    {string}    seriesText                                  The text that should be displayed for the "Series" button.
  * @property    {string}    timelineText                                The text that should be displayed for the "Timeline: " label.
  * @property    {string}    viewTimelineTooltipText                     The tooltip text that should be used for the "View Timeline" button.
+ * @property    {string}    nextPropertyTooltipText                     The tooltip text that should be used for the "Next Property" button.
+ * @property    {string}    noneText                                    The text that should be displayed for the "(none)" label.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -695,6 +697,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
+        _element_View_Timeline_Selected_Axis = "group",
+        _element_View_Timeline_Selected_Axis_Supported = [
+            "location",
+            "organizerName",
+            "group"
+        ],
 
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
@@ -5040,8 +5048,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_Contents.appendChild( _element_View_Timeline_Contents_Header );
 
         var groupHeader = createElement( "div", "timeline-header-item" );
-        groupHeader.innerHTML = _options.groupText;
+        groupHeader.innerHTML = getTimelineViewAxisSelectedText();
         _element_View_Timeline_Contents_Header.appendChild( groupHeader );
+
+        buildToolbarButton( groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView );
 
         var offsetLeft = 0,
             actualWidth = 0;
@@ -5093,26 +5103,26 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var eventDetails = orderedEvents[ orderedEventIndex ];
 
                 if ( !eventDetails.isAllDay ) {
-                    var group = getString( eventDetails.group ),
-                        storageGroupName = group.toLowerCase(),
+                    var axisName = getString( eventDetails[ _element_View_Timeline_Selected_Axis ], _options.noneText ),
+                        storageAxisName = axisName.toLowerCase(),
                         timelineRowItems = null;
             
-                    if ( !_element_View_Timeline_Contents_Groups_Rows_Cache.hasOwnProperty( storageGroupName ) ) {
+                    if ( !_element_View_Timeline_Contents_Groups_Rows_Cache.hasOwnProperty( storageAxisName ) ) {
                         var timelineRow = createElement( "div", "timeline-row" );
                         _element_View_Timeline_Contents.appendChild( timelineRow );
                 
-                        var groupName = createElement( "div", "timeline-row-item" + ( rowCount % 2 !== 0 ? " timeline-row-item-odd" : _string.empty ) );
-                        setNodeText( groupName, group );
-                        timelineRow.appendChild( groupName );
+                        var axisNameRowName = createElement( "div", "timeline-row-item" + ( rowCount % 2 !== 0 ? " timeline-row-item-odd" : _string.empty ) );
+                        setNodeText( axisNameRowName, axisName );
+                        timelineRow.appendChild( axisNameRowName );
 
                         timelineRowItems = createElement( "div", "timeline-row-items" );
                         timelineRow.appendChild( timelineRowItems );
             
-                        _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ] = timelineRowItems;
+                        _element_View_Timeline_Contents_Groups_Rows_Cache[ storageAxisName ] = timelineRowItems;
                         rowCount++;
             
                     } else {
-                        timelineRowItems = _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ];
+                        timelineRowItems = _element_View_Timeline_Contents_Groups_Rows_Cache[ storageAxisName ];
                     }
 
                     buildTimelineViewEvent( timelineRowItems, eventDetails );
@@ -5281,6 +5291,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
         showTimelineView( _element_View_Timeline_DateSelected, true );
     }
 
+    function onNextAxisTimelineView() {
+        var indexOf = _element_View_Timeline_Selected_Axis_Supported.indexOf( _element_View_Timeline_Selected_Axis );
+        indexOf++;
+
+        if ( indexOf > ( _element_View_Timeline_Selected_Axis_Supported.length - 1 ) ) {
+            indexOf = 0;
+        }
+
+        _element_View_Timeline_Selected_Axis = _element_View_Timeline_Selected_Axis_Supported[ indexOf ];
+
+        showTimelineView( _element_View_Timeline_DateSelected );
+    }
+
     function moveTimelineDateToNextDay( showView ) {
         showView = isDefined( showView ) ? showView : false;
 
@@ -5299,6 +5322,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( showView ) {
             showTimelineView( _element_View_Timeline_DateSelected, true );
         }
+    }
+
+    function getTimelineViewAxisSelectedText() {
+        var result = _string.empty;
+
+        if ( _element_View_Timeline_Selected_Axis === "group" ) {
+            result = _options.groupText;
+        } else if ( _element_View_Timeline_Selected_Axis === "organizerName" ) {
+            result = _options.organizerNameText;
+        } else if ( _element_View_Timeline_Selected_Axis === "location" ) {
+            result = _options.locationText;
+        }
+
+        return result;
     }
 
 
@@ -13625,6 +13662,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.seriesText = getDefaultString( _options.seriesText, "Series" );
         _options.timelineText = getDefaultString( _options.timelineText, "Timeline: " );
         _options.viewTimelineTooltipText = getDefaultString( _options.viewTimelineTooltipText, "View Timeline" );
+        _options.nextPropertyTooltipText = getDefaultString( _options.nextPropertyTooltipText, "Next Property" );
+        _options.noneText = getDefaultString( _options.noneText, "(none)" );
     }
 
     function setEventTypeTranslationStringOptions() {

@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "forwardText": "आगे",
   "seriesText": "शृंखला",
   "timelineText": "समयरेखा: ",
-  "viewTimelineTooltipText": "समयसीमा जरूर देख लें"
+  "viewTimelineTooltipText": "समयसीमा जरूर देख लें",
+  "nextPropertyTooltipText": "अगली संपत्ति",
+  "noneText": "(कोई नहीं)"
 };

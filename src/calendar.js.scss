@@ -1640,6 +1640,11 @@ div.calendar {
                     &:last-child {
                         border-right: none;
                     }
+
+                    div.ib-arrow-right-full {
+                        float: right;
+                        border-left-color: var(--dark-color);
+                    }
                 }
             }
 

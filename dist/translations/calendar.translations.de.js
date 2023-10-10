@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "forwardText": "Nach vorne",
   "seriesText": "Serie",
   "timelineText": "Zeitleiste: ",
-  "viewTimelineTooltipText": "Zeitleiste anzeigen"
+  "viewTimelineTooltipText": "Zeitleiste anzeigen",
+  "nextPropertyTooltipText": "Nächste Eigenschaft",
+  "noneText": "(keiner)"
 };

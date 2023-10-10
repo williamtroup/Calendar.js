@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "forwardText": "フォワード",
     "seriesText": "シリーズ",
     "timelineText": "タイムライン： ",
-    "viewTimelineTooltipText": "タイムラインをみる"
+    "viewTimelineTooltipText": "タイムラインをみる",
+    "nextPropertyTooltipText": "次の物件",
+    "noneText": "（なし）"
 };

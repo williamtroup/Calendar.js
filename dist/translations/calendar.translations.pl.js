@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "forwardText": "Do przodu",
   "seriesText": "Seria",
   "timelineText": "Oś czasu: ",
-  "viewTimelineTooltipText": "Pokaż oś czasu"
+  "viewTimelineTooltipText": "Pokaż oś czasu",
+  "nextPropertyTooltipText": "Następna nieruchomość",
+  "noneText": "(nic)"
 };

@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "forwardText": "إلى الأمام",
     "seriesText": "مسلسل",
     "timelineText": "الجدول الزمني: ",
-    "viewTimelineTooltipText": "عرض الجدول الزمني"
+    "viewTimelineTooltipText": "عرض الجدول الزمني",
+    "nextPropertyTooltipText": "العقار التالي",
+    "noneText": "(لا أحد)"
   };

@@ -2442,6 +2442,10 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:last-child {
   border-right: none;
 }
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item div.ib-arrow-right-full {
+  float: right;
+  border-left-color: var(--dark-color);
+}
 div.calendar div.timeline-view div.contents div.timeline-row {
   position: relative;
   border-bottom: var(--spacing-border-size) solid var(--grid-border-color);

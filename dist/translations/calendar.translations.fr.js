@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "forwardText": "Avant",
     "seriesText": "Série",
     "timelineText": "Chronologie: ",
-    "viewTimelineTooltipText": "Voir la chronologie"
+    "viewTimelineTooltipText": "Voir la chronologie",
+    "nextPropertyTooltipText": "Propriété suivante",
+    "noneText": "(aucun)"
 };

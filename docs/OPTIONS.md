@@ -270,3 +270,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | seriesText | The text that should be displayed for the "Series" button. |
 | *string* | timelineText | The text that should be displayed for the "Timeline: " label. |
 | *string* | viewTimelineTooltipText | The tooltip text that should be used for the "View Timeline" button. |
+| *string* | nextPropertyTooltipText | The tooltip text that should be used for the "Next Property" button. |
+| *string* | noneText | The text that should be displayed for the "(none)" label. |

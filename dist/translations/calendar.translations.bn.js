@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "forwardText": "ফরোয়ার্ড",
     "seriesText": "সিরিজ",
     "timelineText": "সময়রেখা: ",
-    "viewTimelineTooltipText": "দেখুন টাইমলাইনে"
+    "viewTimelineTooltipText": "দেখুন টাইমলাইনে",
+    "nextPropertyTooltipText": "পরবর্তী সম্পত্তি",
+    "noneText": "(কোনটিই নয়)"
   };

@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "forwardText": "向前",
     "seriesText": "系列",
     "timelineText": "时间线： ",
-    "viewTimelineTooltipText": "查看时间轴"
+    "viewTimelineTooltipText": "查看时间轴",
+    "nextPropertyTooltipText": "下一个房产",
+    "noneText": "（没有任何）"
   };
