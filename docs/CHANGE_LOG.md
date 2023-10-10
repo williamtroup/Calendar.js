@@ -3,7 +3,7 @@
 ## Version 2.9.0:
 
 #### **New Features:**
-- Added a new Timeline view, which uses the "Group" event property as the view axis for a single day.
+- Added a new Timeline view, which uses the "Group" event property (default, you can switch to "Location" or "Organizer Name") as the view axis for a single day.
 
 #### **General Improvements:**
 - Completely re-written view handling, which will ensure that the most recent view opened is the one being handled for the current action (search, export, etc).
