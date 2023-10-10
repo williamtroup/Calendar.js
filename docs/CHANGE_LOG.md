@@ -19,6 +19,7 @@
 - Fixed a fault that allowed the current day to be viewed in the Full Day view when the day itself is not visible in the calendar (it now skips to the next visible day).
 - Fixed a fault that caused the "Export Events" button in the Side Menu to remain visible (due to multiple views being open).
 - Fixed a fault that caused dates in the other views to randomly change on auto-update when another view was recently opened.
+- Fixed a fault that caused the search dialog to shift the currently active view being searched into a strange position.
 
 <br>
 

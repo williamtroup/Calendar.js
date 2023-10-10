@@ -4842,7 +4842,16 @@ function calendarJs(elementOrId, options, searchOptions) {
       event.className += " focused-event";
       _element_Dialog_Search_FocusedEventID = eventDetails.id;
       if (isFullDayViewVisible || isAllEventsViewVisible || isFullWeekViewVisible || isTimelineViewVisible) {
-        event.scrollIntoView();
+        var parent = event.parentNode;
+        var parentScrollHeight = 0;
+        for (; true || !isDefined(parent);) {
+          parentScrollHeight = parent.scrollHeight;
+          if (parent.scrollHeight > 0 && parent.scrollHeight > parent.offsetHeight) {
+            parent.scrollTop = event.offsetTop;
+            break;
+          }
+          parent = parent.parentNode;
+        }
       }
     }
   }
