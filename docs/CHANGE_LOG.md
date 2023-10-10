@@ -6,7 +6,7 @@
 - Added a new Timeline view, which uses the "Group" event property as the view axis for a single day.
 
 #### **Full Day View:**
-- Add the "View Timeline" button to the Full Day view title bar (hidden in mobile view).
+- Added a "View Timeline" button to the Full Day view title bar (hidden in mobile view).
 
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
