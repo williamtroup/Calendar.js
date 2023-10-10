@@ -45,6 +45,7 @@
   --time-view-hours-width: 70px;
   --time-view-hours-height: 25px;
   --time-view-arrow-line-height: 12px;
+  --time-view-timeline-section-width: 150px;
   --input-box-shadow-size: 2px;
   --input-checkbox-size-with-spacing: 25px;
   --event-left-border: 7px solid var(--dark-color);
@@ -2410,7 +2411,7 @@ div.calendar div.timeline-view div.contents div.timeline-column {
   top: 0;
   padding-left: var(--spacing);
   padding-right: var(--spacing);
-  width: 150px;
+  width: var(--time-view-timeline-section-width);
   height: 100%;
   background-color: var(--light-color);
   border-right: var(--spacing-border-size) solid var(--grid-border-color);
@@ -2424,14 +2425,14 @@ div.calendar div.timeline-view div.contents div.timeline-header {
   top: 0;
   background-color: var(--day-names-color);
   vertical-align: top;
-  width: calc(49 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
+  width: calc(49 * (var(--time-view-timeline-section-width) + var(--spacing) * 2 + var(--spacing-border-size)));
   overflow: hidden;
   z-index: 10;
 }
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item {
   display: inline-block;
   padding: var(--spacing);
-  width: 150px;
+  width: var(--time-view-timeline-section-width);
   text-align: center;
   border-right: var(--spacing-border-size) solid var(--grid-border-color);
 }
@@ -2445,7 +2446,7 @@ div.calendar div.timeline-view div.contents div.timeline-row {
   position: relative;
   border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
   vertical-align: top;
-  width: calc(49 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
+  width: calc(49 * (var(--time-view-timeline-section-width) + var(--spacing) * 2 + var(--spacing-border-size)));
   overflow: hidden;
   vertical-align: top;
 }
@@ -2454,7 +2455,7 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
   padding: var(--spacing);
   padding-top: calc(var(--spacing) * 2);
   padding-bottom: calc(var(--spacing) * 2);
-  width: 150px;
+  width: var(--time-view-timeline-section-width);
   text-align: left;
   border-right: var(--spacing-border-size) solid var(--grid-border-color);
   background-color: var(--dark-color);
@@ -2473,7 +2474,7 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
 div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items {
   display: inline-block;
   vertical-align: top;
-  width: calc(48 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
+  width: calc(48 * (var(--time-view-timeline-section-width) + var(--spacing) * 2 + var(--spacing-border-size)));
   position: relative;
 }
 @media screen and (min-width: 451px) {
