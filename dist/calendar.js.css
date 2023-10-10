@@ -5095,8 +5095,8 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
-  border-left: 4px solid var(--title-bar-button-color);
-  width: 12px;
+  border-top: 4px solid var(--title-bar-button-color);
+  height: 12px;
 }
 .ib-bar-graph:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -5113,19 +5113,20 @@ div.calendar-context-menu div.separator {
   content: "";
 }
 .ib-bar-graph:before {
-  left: calc(50% - 2px);
-  transform: translate(-50%);
+  top: calc(50% - 2px);
+  transform: translate(0, -50%);
   background-color: var(--light-color);
-  width: 4px;
-  height: 5.3333333333px;
+  height: 4px;
+  width: 5.3333333333px;
   bottom: 0;
+  left: 0;
 }
 .ib-bar-graph:after {
   background-color: var(--light-color);
-  width: 4px;
-  height: 8px;
+  height: 4px;
+  width: 8px;
   bottom: 0;
-  right: 0;
+  left: 0;
 }
 
 .ib-plus-icon {
