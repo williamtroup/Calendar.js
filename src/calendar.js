@@ -565,12 +565,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _elementID_Event_Month = "month-",
         _elementID_Event_WeekDay = "week-day-",
         _elementID_Event_FullDay = "full-day-",
+        _elementID_Event_Widget_Day = "widget-day-",
+        _elementID_Event_Timeline_Day = "timeline-day-",
         _elementID_DayElement = "calendar-day-",
         _elementID_WeekDayElement = "calendar-week-day-",
         _elementID_WeekAllDayElement = "calendar-week-all-day-",
         _elementID_YearSelected = "year-selected-",
-        _elementID_Widget_Day = "widget-day-",
-        _elementID_Time_Day = "timeline-day-",
 
         // Variables: Is Busy
         _isCalendarBusy = false,
@@ -1498,16 +1498,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _options.exportEventsEnabled ) {
             _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton( header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                if ( isViewVisible( _element_View_FullDay ) ) {
-                    showExportEventsDialog( _element_View_FullDay_EventsShown );
-                } else if ( isViewVisible( _element_View_AllEvents ) ) {
-                    showExportEventsDialog( _element_View_AllEvents_EventsShown );
-                } else if ( isViewVisible( _element_View_FullWeek ) ) {
-                    showExportEventsDialog( _element_View_FullWeek_EventsShown );
-                } else if ( isViewVisible( _element_View_Timeline ) ) {
-                    showExportEventsDialog( _element_View_Timeline_EventsShown );
-                } else {
+                var viewOpen = getRecentViewOpened();
+
+                if ( viewOpen === null ) {
                     showExportEventsDialog( _element_Calendar_AllVisibleEvents );
+                } else {
+        
+                    if ( viewOpen === _element_View_FullDay ) {
+                        showExportEventsDialog( _element_View_FullDay_EventsShown );
+                    } else if ( viewOpen === _element_View_FullWeek ) {
+                        showExportEventsDialog( _element_View_FullWeek_EventsShown );
+                    } else if ( viewOpen === _element_View_Timeline ) {
+                        showExportEventsDialog( _element_View_Timeline_EventsShown );
+                    } else if ( viewOpen === _element_View_AllEvents ) {
+                        showExportEventsDialog( _element_View_AllEvents_EventsShown );
+                    }
                 }
             } );
         }
@@ -1564,7 +1569,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function updateSideMenuExportButtonVisibleState() {
-        var viewOpen = _element_View_Opened.length > 0 ? _element_View_Opened[ _element_View_Opened.length - 1 ] : null;
+        var viewOpen = getRecentViewOpened();
 
         if ( viewOpen === null ) {
             updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_Calendar_AllVisibleEvents.length > 0 );
@@ -1578,6 +1583,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullWeek_EventsShown.length > 0 );
             } else if ( viewOpen === _element_View_Timeline ) {
                 updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_Timeline_EventsShown.length > 0 );
+            } else {
+                updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, false );
             }
         }
     }
@@ -2051,7 +2058,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _currentDate ) );
 
-        event.id = _elementID_Widget_Day + eventDetails.id;
+        event.id = _elementID_Event_Widget_Day + eventDetails.id;
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
 
@@ -2737,60 +2744,85 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function onLeftKey( e ) {
         e.preventDefault();
 
-        if ( isViewVisible( _element_View_FullDay ) ) {
-            onPreviousFullDay();
-        } else if ( isViewVisible( _element_View_FullWeek ) ) {
-            onPreviousFullWeek();
-        } else if ( isViewVisible( _element_View_FullYear ) ) {
-            onPreviousFullYear();
-        } else {
+        var viewOpen = getRecentViewOpened();
+
+        if ( viewOpen === null ) {
             onPreviousMonth();
+        } else {
+
+            if ( viewOpen === _element_View_FullDay ) {
+                onPreviousFullDay();
+            } else if ( viewOpen === _element_View_FullWeek ) {
+                onPreviousFullWeek();
+            } else if ( viewOpen === _element_View_FullYear ) {
+                onPreviousFullYear();
+            } else if ( viewOpen === _element_View_Timeline ) {
+                onPreviousTimelineDay();
+            }
         }
     }
 
     function onRightKey( e ) {
         e.preventDefault();
 
-        if ( isViewVisible( _element_View_FullDay ) ) {
-            onNextFullDay();
-        } else if ( isViewVisible( _element_View_FullWeek ) ) {
-            onNextFullWeek();
-        } else if ( isViewVisible( _element_View_FullYear ) ) {
-            onNextFullYear();
-        } else {
+        var viewOpen = getRecentViewOpened();
+        
+        if ( viewOpen === null ) {
             onNextMonth();
+        } else {
+
+            if ( viewOpen === _element_View_FullDay ) {
+                onNextFullDay();
+            } else if ( viewOpen === _element_View_FullWeek ) {
+                onNextFullWeek();
+            } else if ( viewOpen === _element_View_FullYear ) {
+                onNextFullYear();
+            } else if ( viewOpen === _element_View_Timeline ) {
+                onNextTimelineDay();
+            }
         }
     }
 
     function onDownKey( e ) {
         e.preventDefault();
 
-        if ( isViewVisible( _element_View_FullDay ) ) {
-            onCurrentFullDay();
-        } else if ( isViewVisible( _element_View_FullWeek ) ) {
-            onCurrentFullWeek();
-        } else if ( isViewVisible( _element_View_FullYear ) ) {
-            onCurrentFullYear();
-        } else {
+        var viewOpen = getRecentViewOpened();
+        
+        if ( viewOpen === null ) {
             onCurrentMonth();
+        } else {
+
+            if ( viewOpen === _element_View_FullDay ) {
+                onCurrentFullDay();
+            } else if ( viewOpen === _element_View_FullWeek ) {
+                onCurrentFullWeek();
+            } else if ( viewOpen === _element_View_FullYear ) {
+                onCurrentFullYear();
+            } else if ( viewOpen === _element_View_Timeline ) {
+                onCurrentTimelineDay();
+            }
         }
     }
 
     function onFKey( e ) {
         e.preventDefault();
 
-        var openSearch = false;
-
-        if ( isViewVisible( _element_View_FullDay ) ) {
-            openSearch = _element_View_FullDay_EventsShown.length > 0;
-        } else if ( isViewVisible( _element_View_AllEvents ) ) {
-            openSearch = _element_View_AllEvents_EventsShown.length > 0;
-        } else if ( isViewVisible( _element_View_FullWeek ) ) {
-            openSearch = _element_View_FullWeek_EventsShown.length > 0;
-        } else if ( isViewVisible( _element_View_Timeline ) ) {
-            openSearch = _element_View_Timeline_EventsShown.length > 0;
-        } else {
+        var openSearch = false,
+            viewOpen = getRecentViewOpened();
+        
+        if ( viewOpen === null ) {
             openSearch = _element_Calendar_AllVisibleEvents.length > 0;
+        } else {
+
+            if ( viewOpen === _element_View_FullDay ) {
+                openSearch = _element_View_FullDay_EventsShown.length > 0;
+            } else if ( viewOpen === _element_View_FullWeek ) {
+                openSearch = _element_View_AllEvents_EventsShown.length > 0;
+            } else if ( viewOpen === _element_View_FullYear ) {
+                openSearch = _element_View_FullWeek_EventsShown.length > 0;
+            } else if ( viewOpen === _element_View_Timeline ) {
+                openSearch = _element_View_Timeline_EventsShown.length > 0;
+            }
         }
 
         if ( openSearch ) {
@@ -5153,7 +5185,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             formattedDate = toStorageFormattedDate( _element_View_Timeline_DateSelected ),
             repeatEvery = getNumber( eventDetails.repeatEvery );
         
-        event.id = _elementID_Time_Day + eventDetails.id;
+        event.id = _elementID_Event_Timeline_Day + eventDetails.id;
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
         timelineRowItems.appendChild( event );
@@ -6986,18 +7018,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showExportDialogFromWindowKeyDown() {
-        var events = [];
-
-        if ( isViewVisible( _element_View_FullDay ) ) {
-            events = _element_View_FullDay_EventsShown;
-        } else if ( isViewVisible( _element_View_AllEvents ) ) {
-            events = _element_View_AllEvents_EventsShown;
-        } else if ( isViewVisible( _element_View_FullWeek ) ) {
-            events = _element_View_FullWeek_EventsShown;
-        } else if ( isViewVisible( _element_View_Timeline ) ) {
-            events = _element_View_Timeline_EventsShown;
-        } else {
+        var events = [],
+            viewOpen = getRecentViewOpened();
+        
+        if ( viewOpen === null ) {
             events = _element_Calendar_AllVisibleEvents;
+        } else {
+
+            if ( viewOpen === _element_View_FullDay ) {
+                events = _element_View_FullDay_EventsShown;
+            } else if ( viewOpen === _element_View_FullWeek ) {
+                events = _element_View_FullWeek_EventsShown;
+            } else if ( viewOpen === _element_View_Timeline ) {
+                events = _element_View_Timeline_EventsShown;
+            } else if ( viewOpen === _element_View_AllEvents ) {
+                events = _element_View_AllEvents_EventsShown;
+            }
         }
 
         if ( events.length > 0 ) {
@@ -7245,16 +7281,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 monthYearsFound = {},
                 orderedEvents = getOrderedEvents( getAllEvents() ),
                 orderedEventsLength = orderedEvents.length,
-                isFullDayViewVisible = isViewVisible( _element_View_FullDay ),
-                isAllEventsViewVisible = isViewVisible( _element_View_AllEvents ),
-                isAllWeekEventsViewVisible = isViewVisible( _element_View_FullWeek );
+                viewOpen = getRecentViewOpened(),
+                isFullDayViewVisible = viewOpen === _element_View_FullDay,
+                isAllEventsViewVisible = viewOpen === _element_View_AllEvents,
+                isFullWeekViewVisible = viewOpen === _element_View_FullWeek,
+                isTimelineViewVisible = viewOpen === _element_View_Timeline;
             
             if ( isFullDayViewVisible ) {
                 startingID = _elementID_Event_FullDay;
             } else if ( isAllEventsViewVisible ) {
                 startingID = _elementID_Event_Month;
-            } else if ( isAllWeekEventsViewVisible ) {
+            } else if ( isFullWeekViewVisible ) {
                 startingID = _elementID_Event_WeekDay;
+            } else if ( isTimelineViewVisible ) {
+                startingID = _elementID_Event_Timeline_Day;
             }
 
             storeSearchOptions( true );
@@ -7296,9 +7336,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     if ( found ) {
                         var eventElement = getElementByID( startingID + eventDetails.id );
-                        if ( eventElement !== null || ( !isFullDayViewVisible && !isAllEventsViewVisible && !isAllWeekEventsViewVisible ) ) {
+                        if ( eventElement !== null || ( !isFullDayViewVisible && !isAllEventsViewVisible && !isFullWeekViewVisible && !isTimelineViewVisible ) ) {
 
-                            if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
+                            if ( isFullDayViewVisible || isAllEventsViewVisible || isFullWeekViewVisible || isTimelineViewVisible ) {
                                 _element_Dialog_Search_SearchResults.push( cloneEventDetails( eventDetails, false ) );
                             } else {
                                 
@@ -7331,9 +7371,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function updatedFocusedElementAfterSearch( eventDetails ) {
         var startingID = _elementID_Event_Day,
-            isFullDayViewVisible = isViewVisible( _element_View_FullDay ),
-            isAllEventsViewVisible = isViewVisible( _element_View_AllEvents ),
-            isAllWeekEventsViewVisible = isViewVisible( _element_View_FullWeek );
+            viewOpen = getRecentViewOpened(),
+            isFullDayViewVisible = viewOpen === _element_View_FullDay,
+            isAllEventsViewVisible = viewOpen === _element_View_AllEvents,
+            isFullWeekViewVisible = viewOpen === _element_View_FullWeek,
+            isTimelineViewVisible = viewOpen === _element_View_Timeline;
         
         removeElementsClassName( _element_Calendar, " focused-event" );
 
@@ -7341,8 +7383,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             startingID = _elementID_Event_FullDay;
         } else if ( isAllEventsViewVisible ) {
             startingID = _elementID_Event_Month;
-        } else if ( isAllWeekEventsViewVisible ) {
+        } else if ( isFullWeekViewVisible ) {
             startingID = _elementID_Event_WeekDay;
+        } else if ( isTimelineViewVisible ) {
+            startingID = _elementID_Event_Timeline_Day;
         }
 
         var event = getElementByID( startingID + eventDetails.id );
@@ -7350,7 +7394,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.className += " focused-event";
             _element_Dialog_Search_FocusedEventID = eventDetails.id;
 
-            if ( isFullDayViewVisible || isAllEventsViewVisible || isAllWeekEventsViewVisible ) {
+            if ( isFullDayViewVisible || isAllEventsViewVisible || isFullWeekViewVisible || isTimelineViewVisible ) {
                 event.scrollIntoView();
             }
         }
@@ -8014,12 +8058,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showView( element ) {
         if ( !isViewVisible( element ) ) {
-            var elementIndex = _element_View_Opened.indexOf( element );
+            removeViewOpened( element );
 
-            if ( elementIndex > -1 ) {
-                delete _element_View_Opened[ elementIndex ];
-            }
-    
             _element_View_Opened.push( element );
             _element_View_LastZIndex++;
     
@@ -8031,24 +8071,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function hideView( element ) {
-        var result = false;
-
         if ( isViewVisible( element ) ) {
             element.className = element.className.replace( " view-shown", _string.empty );
 
-            var indexOfViewOpened = _element_View_Opened.indexOf( element );
-            if ( indexOfViewOpened > -1 ) {
-                delete _element_View_Opened[ indexOfViewOpened ];
-            }
+            removeViewOpened( element );
 
             if ( _element_View_Opened.length === 0 ) {
                 _element_View_LastZIndex = 0;
             }
+        }
+    }
 
-            result = true;
+    function removeViewOpened( element ) {
+        var viewsOpened = [],
+            viewsOpenedLength = _element_View_Opened.length;
+
+        for ( var viewOpenedIndex = 0; viewOpenedIndex < viewsOpenedLength; viewOpenedIndex++ ) {
+            var view = _element_View_Opened[ viewOpenedIndex ];
+
+            if ( isDefined( view ) && view.id !== element.id ) {
+                viewsOpened.push( view );
+            }
         }
 
-        return result;
+        _element_View_Opened = [].slice.call( viewsOpened );
     }
 
     function isViewVisible( element ) {
@@ -8056,21 +8102,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function closeLastViewOpened() {
-        var viewElement = null;
+        var viewElement = getRecentViewOpened();
 
-        while ( viewElement === null ) {
-            viewElement = _element_View_Opened[ _element_View_Opened.length - 1 ];
-            
-            if ( !hideView( viewElement ) ) {
-                viewElement = null;
-            }
-
-            _element_View_Opened.pop();
-        }
+        hideView( viewElement );
 
         if ( _element_View_Opened.length === 0 ) {
             _element_View_LastZIndex = 0;
         }
+    }
+
+    function getRecentViewOpened() {
+        return _element_View_Opened.length > 0 ? _element_View_Opened[ _element_View_Opened.length - 1 ] : null;
     }
 
     function closeAllViews() {

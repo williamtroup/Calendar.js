@@ -5,8 +5,14 @@
 #### **New Features:**
 - Added a new Timeline view, which uses the "Group" event property as the view axis for a single day.
 
+#### **General Improvements:**
+- Completely re-written view handling, which will ensure that the most recent view opened is the one being handled for the current action (search, export, etc).
+
 #### **Full Day View:**
 - Added a "View Timeline" button to the Full Day view title bar (hidden in mobile view).
+
+#### **Full Year View:**
+- The side menu button "Export Events" is now disabled in the full year view (proper year exporting is coming soon, instead of exporting everything).
 
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
