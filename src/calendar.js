@@ -691,6 +691,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_Contents_SmallestEventLeft = 0,
         _element_View_Timeline_Contents_SmallestEventTop = 0,
         _element_View_Timeline_Contents_Groups_Rows_Cache = {},
+        _element_View_Timeline_Contents_Columns = [],
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
@@ -5034,13 +5035,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildTimelineViewAxisGroupContent() {
+    function buildTimelineViewContentLayout() {
         _element_View_Timeline_Contents_Header = createElement( "div", "timeline-header" );
         _element_View_Timeline_Contents.appendChild( _element_View_Timeline_Contents_Header );
 
         var groupHeader = createElement( "div", "timeline-header-item" );
         groupHeader.innerHTML = _options.groupText;
         _element_View_Timeline_Contents_Header.appendChild( groupHeader );
+
+        var offsetLeft = 0,
+            actualWidth = 0;
         
         for ( var hour = 0; hour < 24; hour++ ) {
             var firstDate = new Date(),
@@ -5056,6 +5060,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var newHour2Header = createElement( "div", "timeline-header-item" );
             newHour2Header.innerText = getTimeForDisplay( secondDate );
             _element_View_Timeline_Contents_Header.appendChild( newHour2Header );
+
+            var newColumn1 = createElement( "div", "timeline-column" );
+            newColumn1.style.left = offsetLeft + "px";
+            _element_View_Timeline_Contents.appendChild( newColumn1 );
+
+            if ( actualWidth === 0 ) {
+                var borderWidth = getStyleValueByName( newColumn1, "border-right-width" );
+                
+                actualWidth = newColumn1.clientWidth + parseFloat( borderWidth, 10 );
+            }
+
+            offsetLeft += actualWidth;
+
+            var newColumn2 = createElement( "div", "timeline-column" );
+            newColumn2.style.left = offsetLeft + "px";
+            _element_View_Timeline_Contents.appendChild( newColumn2 );
+
+            offsetLeft += actualWidth;
+
+            _element_View_Timeline_Contents_Columns.push( newColumn1 );
+            _element_View_Timeline_Contents_Columns.push( newColumn2 );
         }
     }
 
@@ -5095,6 +5120,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _element_View_Timeline_EventsShown.push( eventDetails );
                 }
             }
+        }
+    }
+
+    function buildTimelineViewColumnHeights() {
+        var columnsLength = _element_View_Timeline_Contents_Columns.length,
+            columnHeight = 0;
+            
+        for ( var columnIndex = 0; columnIndex < columnsLength; columnIndex++ ) {
+            var column = _element_View_Timeline_Contents_Columns[ columnIndex ];
+
+            if ( columnHeight === 0 ) {
+                columnHeight = _element_View_Timeline_Contents.scrollHeight  - column.offsetTop;
+            }
+
+            column.style.height = columnHeight + "px";
         }
     }
 
@@ -5186,6 +5226,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_Contents_Groups_Rows_Cache = {};
         _element_View_Timeline_Contents_SmallestEventLeft = 0;
         _element_View_Timeline_Contents_SmallestEventTop = 0;
+        _element_View_Timeline_Contents_Columns = [];
 
         if ( doDatesMatch( date, currentDate ) && !isCurrentDateVisible ) {
             moveTimelineDateToNextDay();
@@ -5194,9 +5235,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         getFullDayViewOrderedEvents( _element_View_Timeline_DateSelected, orderedEvents );
         updateToolbarButtonVisibleState( _element_View_Timeline_TodayButton, isCurrentDateVisible );
         buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true, _options.timelineText );
-        buildTimelineViewAxisGroupContent();
+        buildTimelineViewContentLayout();
         showView( _element_View_Timeline );
         buildTimelineViewEvents( getOrderedEvents( orderedEvents ) );
+        buildTimelineViewColumnHeights();
         
         if ( fromOpen ) {
             

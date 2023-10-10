@@ -2404,6 +2404,20 @@ div.calendar div.timeline-view div.contents {
     height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
   }
 }
+div.calendar div.timeline-view div.contents div.timeline-column {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+  width: 150px;
+  height: 100%;
+  background-color: var(--light-color);
+  border-right: var(--spacing-border-size) solid var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.timeline-column:nth-child(odd) {
+  background-color: var(--day-names-color);
+}
 div.calendar div.timeline-view div.contents div.timeline-header {
   border-bottom: var(--spacing-border-size) solid var(--dark-color);
   position: sticky;
@@ -2428,6 +2442,7 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
   border-right: none;
 }
 div.calendar div.timeline-view div.contents div.timeline-row {
+  position: relative;
   border-bottom: var(--spacing-border-size) solid var(--dark-color);
   vertical-align: top;
   width: calc(49 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
