@@ -2404,97 +2404,62 @@ div.calendar div.timeline-view div.contents {
     height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
   }
 }
-div.calendar div.timeline-view div.contents div.axis {
+div.calendar div.timeline-view div.contents div.timeline-header {
+  border-bottom: var(--spacing-border-size) solid var(--dark-color);
   position: sticky;
   top: 0;
-  left: 0;
-  display: inline-block;
-  background-color: var(--dark-color);
-  color: var(--light-color);
-  min-height: calc(100% - var(--spacing-border-size) * 4);
+  background-color: var(--day-names-color);
+  vertical-align: top;
+  width: calc(49 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
+  overflow: hidden;
   z-index: 10;
+}
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item {
+  display: inline-block;
+  padding: var(--spacing);
+  width: 150px;
+  text-align: center;
   border-right: var(--spacing-border-size) solid var(--dark-color);
 }
-div.calendar div.timeline-view div.contents div.axis div.axis-selector {
-  background-color: var(--day-names-color);
-  color: var(--dark-color);
-  padding: var(--spacing);
-  padding-left: calc(var(--spacing) * 4);
-  padding-right: calc(var(--spacing) * 4);
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:first-child {
   text-align: left;
 }
-div.calendar div.timeline-view div.contents div.axis div.axis-group-name {
-  padding: calc(var(--spacing) * 2);
-  padding-left: calc(var(--spacing) * 4);
-  padding-right: calc(var(--spacing) * 4);
-  border-bottom: var(--spacing-border-size) solid var(--light-color);
-}
-div.calendar div.timeline-view div.contents div.axis div.axis-group-name:nth-child(odd) {
-  background-color: var(--light-color);
-  color: var(--dark-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups {
-  position: relative;
-  vertical-align: top;
-  display: inline-block;
-  background-color: var(--day-names-color);
-  width: auto;
-  height: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column {
-  display: inline-block;
-  width: 150px;
-  height: 100%;
-  background-color: var(--light-color);
-  color: var(--dark-color);
-  border-right: var(--spacing-border-size) solid var(--dark-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column div.axis-group-header {
-  background-color: var(--day-names-color);
-  padding: var(--spacing);
-  text-align: center;
-  border-bottom: var(--spacing-border-size) solid var(--dark-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:nth-child(odd) {
-  background-color: var(--day-names-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:last-child {
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:last-child {
   border-right: none;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows {
-  position: absolute;
-  left: 0;
-  width: 100%;
+div.calendar div.timeline-view div.contents div.timeline-row {
+  border-bottom: var(--spacing-border-size) solid var(--dark-color);
+  vertical-align: top;
+  width: calc(49 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
   overflow: hidden;
+  vertical-align: top;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(48 * (150px + var(--spacing) * 2 + var(--spacing-border-size)));
+  position: relative;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows {
-    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
-    top: calc(var(--spacing) * 2 + var(--large-font-size) + var(--spacing-border-size) * 5);
+  div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items {
+    padding-top: calc(var(--spacing) * 2 + var(--large-font-size) / 2);
+    padding-bottom: calc(var(--spacing) * 2 + var(--large-font-size) / 2);
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows {
-    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
-    top: calc(var(--spacing) * 2 + var(--small-font-size) + var(--spacing-border-size) * 5);
+  div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items {
+    padding-top: calc(var(--spacing) * 2 + var(--small-font-size) / 2);
+    padding-bottom: calc(var(--spacing) * 2 + var(--small-font-size) / 2);
   }
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row {
-  position: relative;
-  padding-top: calc(var(--spacing) * 3 - var(--spacing-border-size) * 3);
-  padding-bottom: calc(var(--spacing) * 3 - var(--spacing-border-size) * 4);
-  border-bottom: var(--spacing-border-size) solid var(--dark-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.expired {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.expired {
   opacity: var(--event-expired-opacity);
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.all-day {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.all-day {
   background-color: var(--event-color-all-day) !important;
   color: var(--event-text-color-all-day) !important;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event {
   white-space: pre-line;
   -ms-word-break: normal;
   word-break: normal;
@@ -2506,33 +2471,33 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows 
   border-left: var(--event-left-border);
   text-align: left;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div {
   margin-bottom: calc(var(--spacing) / 2);
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div:last-child {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div:last-child {
   margin-bottom: 0;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div.title {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.title {
   font-weight: 900;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div.date,
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div.duration,
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div.description,
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div.location,
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div.repeats {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.date,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.duration,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.description,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.location,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.repeats {
   font-size: smaller;
   font-weight: 300;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event div.ib-refresh-medium {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.ib-refresh-medium {
   margin-right: calc(var(--spacing) / 2);
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event:last-child {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event:last-child {
   margin-bottom: 0;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row:last-child {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items:last-child {
   margin-bottom: 0;
 }
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.event {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event {
   position: absolute;
   margin-left: 0;
   margin-right: 0;
@@ -2540,6 +2505,28 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  z-index: 1;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item {
+  display: inline-block;
+  padding: var(--spacing);
+  padding-top: calc(var(--spacing) * 2);
+  padding-bottom: calc(var(--spacing) * 2);
+  width: 150px;
+  text-align: left;
+  border-right: var(--spacing-border-size) solid var(--dark-color);
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: top;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item:last-child {
+  border-right: none;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item-odd {
+  background-color: var(--light-color);
+  color: var(--dark-color);
 }
 
 /*

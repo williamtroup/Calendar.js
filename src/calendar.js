@@ -687,15 +687,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_SearchButton = null,
         _element_View_Timeline_TodayButton = null,
         _element_View_Timeline_Contents = null,
-        _element_View_Timeline_Contents_Groups = null,
-        _element_View_Timeline_Contents_Groups_Rows = null,
+        _element_View_Timeline_Contents_Header = null,
+        _element_View_Timeline_Contents_SmallestEventLeft = 0,
+        _element_View_Timeline_Contents_SmallestEventTop = 0,
         _element_View_Timeline_Contents_Groups_Rows_Cache = {},
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
-        _element_View_Timeline_Axis = null,
-        _element_View_Timeline_Contents_SmallestEventLeft = 0,
-        _element_View_Timeline_Contents_SmallestEventTop = 0,
 
         // Variables: Dialogs
         _element_Dialog_AllOpened = [],
@@ -5031,23 +5029,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             _element_View_Timeline_Contents = createElement( "div", "contents custom-scroll-bars" );
+            _element_View_Timeline_Contents.addEventListener( "scroll", hideTooltip );
             _element_View_Timeline.appendChild( _element_View_Timeline_Contents );
         }
     }
 
     function buildTimelineViewAxisGroupContent() {
-        _element_View_Timeline_Axis = createElement( "div", "axis" );
-        _element_View_Timeline_Contents.appendChild( _element_View_Timeline_Axis );
+        _element_View_Timeline_Contents_Header = createElement( "div", "timeline-header" );
+        _element_View_Timeline_Contents.appendChild( _element_View_Timeline_Contents_Header );
 
-        var axisSelector = createElement( "div", "axis-selector" );
-        axisSelector.innerHTML = _options.groupText;
-        _element_View_Timeline_Axis.appendChild( axisSelector );
-
-        _element_View_Timeline_Contents_Groups = createElement( "div", "axis-groups" );
-        _element_View_Timeline_Contents.appendChild( _element_View_Timeline_Contents_Groups );
-
-        _element_View_Timeline_Contents_Groups_Rows = createElement( "div", "axis-group-rows" );
-        _element_View_Timeline_Contents_Groups.appendChild( _element_View_Timeline_Contents_Groups_Rows );
+        var groupHeader = createElement( "div", "timeline-header-item" );
+        groupHeader.innerHTML = _options.groupText;
+        _element_View_Timeline_Contents_Header.appendChild( groupHeader );
         
         for ( var hour = 0; hour < 24; hour++ ) {
             var firstDate = new Date(),
@@ -5056,24 +5049,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
             firstDate.setHours( hour, 0, 0, 0 );
             secondDate.setHours( hour, 30, 0, 0 );
 
-            var newHour1 = createElement( "div", "axis-group-column" );
-            _element_View_Timeline_Contents_Groups.appendChild( newHour1 );
-
-            var newHour1Header = createElement( "div", "axis-group-header" );
+            var newHour1Header = createElement( "div", "timeline-header-item" );
             newHour1Header.innerText = getTimeForDisplay( firstDate );
-            newHour1.appendChild( newHour1Header );
+            _element_View_Timeline_Contents_Header.appendChild( newHour1Header );
 
-            var newHour2 = createElement( "div", "axis-group-column" );
-            _element_View_Timeline_Contents_Groups.appendChild( newHour2 );
-
-            var newHour2Header = createElement( "div", "axis-group-header" );
+            var newHour2Header = createElement( "div", "timeline-header-item" );
             newHour2Header.innerText = getTimeForDisplay( secondDate );
-            newHour2.appendChild( newHour2Header );
+            _element_View_Timeline_Contents_Header.appendChild( newHour2Header );
         }
     }
 
     function buildTimelineViewEvents( orderedEvents ) {
-        var orderedEventsLength = orderedEvents.length;
+        var orderedEventsLength = orderedEvents.length,
+            rowCount = 0;
 
         if ( orderedEventsLength > 0 ) {
             for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
@@ -5082,33 +5070,35 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( !eventDetails.isAllDay ) {
                     var group = getString( eventDetails.group ),
                         storageGroupName = group.toLowerCase(),
-                        axisGroupRow = null;
+                        timelineRowItems = null;
             
                     if ( !_element_View_Timeline_Contents_Groups_Rows_Cache.hasOwnProperty( storageGroupName ) ) {
-                        var axisGroupName = createElement( "div", "axis-group-name" );
-                        setNodeText( axisGroupName, group );
-                        _element_View_Timeline_Axis.appendChild( axisGroupName );
+                        var timelineRow = createElement( "div", "timeline-row" );
+                        _element_View_Timeline_Contents.appendChild( timelineRow );
+                
+                        var groupName = createElement( "div", "timeline-row-item" + ( rowCount % 2 !== 0 ? " timeline-row-item-odd" : _string.empty ) );
+                        setNodeText( groupName, group );
+                        timelineRow.appendChild( groupName );
+
+                        timelineRowItems = createElement( "div", "timeline-row-items" );
+                        timelineRow.appendChild( timelineRowItems );
             
-                        axisGroupRow = createElement( "div", "axis-group-row" );
-                        _element_View_Timeline_Contents_Groups_Rows.appendChild( axisGroupRow );
-            
-                        _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ] = axisGroupRow;
+                        _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ] = timelineRowItems;
+                        rowCount++;
             
                     } else {
-                        axisGroupRow = _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ];
+                        timelineRowItems = _element_View_Timeline_Contents_Groups_Rows_Cache[ storageGroupName ];
                     }
 
-                    buildTimelineViewEvent( axisGroupRow, eventDetails );
+                    buildTimelineViewEvent( timelineRowItems, eventDetails );
 
                     _element_View_Timeline_EventsShown.push( eventDetails );
                 }
             }
         }
-        
-        _element_View_Timeline_Contents_Groups.style.height = ( _element_View_Timeline_Axis.offsetHeight -1  ) + "px";
     }
 
-    function buildTimelineViewEvent( axisGroupRow, eventDetails ) {
+    function buildTimelineViewEvent( timelineRowItems, eventDetails ) {
         var event = createElement( "div", "event" ),
             formattedDate = toStorageFormattedDate( _element_View_Timeline_DateSelected ),
             repeatEvery = getNumber( eventDetails.repeatEvery );
@@ -5116,7 +5106,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.id = _elementID_Time_Day + eventDetails.id;
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
-        axisGroupRow.appendChild( event );
+        timelineRowItems.appendChild( event );
 
         if ( repeatEvery > _repeatType.never ) {
             var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
@@ -5165,7 +5155,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _element_View_Timeline_DateSelected ) );
         setEventClassesForActions( event, eventDetails );
         
-        var scrollLeft = setEventPositionAndGetScrollLeft( _element_View_Timeline_Contents_Groups, _element_View_Timeline_DateSelected, event, eventDetails );
+        var scrollLeft = setEventPositionAndGetScrollLeft( timelineRowItems, _element_View_Timeline_DateSelected, event, eventDetails );
 
         if ( _element_View_Timeline_Contents_SmallestEventLeft === 0 ) {
             _element_View_Timeline_Contents_SmallestEventLeft = scrollLeft;
@@ -5174,9 +5164,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _element_View_Timeline_Contents_SmallestEventTop === 0 ) {
-            _element_View_Timeline_Contents_SmallestEventTop = axisGroupRow.offsetTop;
+            _element_View_Timeline_Contents_SmallestEventTop = timelineRowItems.offsetTop;
         } else {
-            _element_View_Timeline_Contents_SmallestEventTop = Math.min( _element_View_Timeline_Contents_SmallestEventTop, axisGroupRow.offsetTop );
+            _element_View_Timeline_Contents_SmallestEventTop = Math.min( _element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop );
         }
     }
 
@@ -5207,8 +5197,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildTimelineViewAxisGroupContent();
         showView( _element_View_Timeline );
         buildTimelineViewEvents( getOrderedEvents( orderedEvents ) );
-
+        
         if ( fromOpen ) {
+            
             _element_View_Timeline_Contents.scrollLeft = _element_View_Timeline_Contents_SmallestEventLeft;
             _element_View_Timeline_Contents.scrollTop = _element_View_Timeline_Contents_SmallestEventTop;
         }

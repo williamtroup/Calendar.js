@@ -1599,107 +1599,92 @@ div.calendar {
                 height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
             }
 
-            div.axis {
+            div.timeline-header {
+                border-bottom: var(--spacing-border-size) solid var(--dark-color);
                 position: sticky;
                 top: 0;
-                left: 0;
-                display: inline-block;
-                background-color: var(--dark-color);
-                color: var(--light-color);
-                min-height: calc( 100% - ( var(--spacing-border-size) * 4 ) );
-                z-index: 10;
-                border-right: var(--spacing-border-size) solid var(--dark-color);
-
-                div.axis-selector {
-                    background-color: var(--day-names-color);
-                    color: var(--dark-color);
-                    padding: var(--spacing);
-                    padding-left: calc( var(--spacing) * 4 );
-                    padding-right: calc( var(--spacing) * 4 );
-                    text-align: left;
-                }
-
-                div.axis-group-name {
-                    padding: calc( var(--spacing) * 2 );
-                    padding-left: calc( var(--spacing) * 4 );
-                    padding-right: calc( var(--spacing) * 4 );
-                    border-bottom: var(--spacing-border-size) solid var(--light-color);
-
-                    &:nth-child( odd ) {
-                        background-color: var(--light-color);
-                        color: var(--dark-color);
-                    }
-                }
-            }
-
-            div.axis-groups {
-                position: relative;
-                vertical-align: top;
-                display: inline-block;
                 background-color: var(--day-names-color);
-                width: auto;
-                height: 100%;
-                white-space: nowrap;
+                vertical-align: top;
+                width: calc( 49 * ( 150px + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
                 overflow: hidden;
-
-                div.axis-group-column {
+                z-index: 10;
+                
+                div.timeline-header-item {
                     display: inline-block;
+                    padding: var(--spacing);
                     width: 150px;
-                    height: 100%;
-                    background-color: var(--light-color);
-                    color: var(--dark-color);
+                    text-align: center;
                     border-right: var(--spacing-border-size) solid var(--dark-color);
 
-                    div.axis-group-header {
-                        background-color: var(--day-names-color);
-                        padding: var(--spacing);
-                        text-align: center;
-                        border-bottom: var(--spacing-border-size) solid var(--dark-color);
-                    }
-                    
-                    &:nth-child( odd ) {
-                        background-color: var(--day-names-color);
+                    &:first-child {
+                        text-align: left;
                     }
 
                     &:last-child {
                         border-right: none;
                     }
                 }
+            }
 
-                div.axis-group-rows {
-                    position: absolute;
-                    left: 0;
-                    width: 100%;
-                    overflow: hidden;
+            div.timeline-row {
+                border-bottom: var(--spacing-border-size) solid var(--dark-color);
+                vertical-align: top;
+                width: calc( 49 * ( 150px + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                overflow: hidden;
+                vertical-align: top;
+
+                div.timeline-row-items {
+                    display: inline-block;
+                    vertical-align: top;
+                    width: calc( 48 * ( 150px + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                    position: relative;
 
                     @media screen and ( min-width: $minimum-width ) {
-                        height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
-                        top: calc( ( var(--spacing) * 2 ) + var(--large-font-size) + ( var(--spacing-border-size) * 5 ) );
+                        padding-top: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
+                        padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
                     }
                     
                     @media screen and ( max-width: $maximum-width ) {
-                        height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
-                        top: calc( ( var(--spacing) * 2 ) + var(--small-font-size) + ( var(--spacing-border-size) * 5 ) );
+                        padding-top: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
+                        padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
                     }
 
-                    div.axis-group-row {
-                        position: relative;
-                        padding-top: calc( ( var(--spacing) * 3 ) - ( var(--spacing-border-size) * 3 ) );
-                        padding-bottom: calc( ( var(--spacing) * 3 ) - ( var(--spacing-border-size) * 4 ) );
-                        border-bottom: var(--spacing-border-size) solid var(--dark-color);
+                    @import "foundation/view-event";
 
-                        @import "foundation/view-event";
-
-                        div.event {
-                            position: absolute;
-                            margin-left: 0;
-                            margin-right: 0;
-                            top: calc( var(--spacing) );
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                        }
+                    div.event {
+                        position: absolute;
+                        margin-left: 0;
+                        margin-right: 0;
+                        top: calc( var(--spacing) );
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        z-index: 1;
                     }
+                }
+
+                div.timeline-row-item {
+                    display: inline-block;
+                    padding: var(--spacing);
+                    padding-top: calc( ( var(--spacing) * 2 ) );
+                    padding-bottom: calc( ( var(--spacing) * 2 ) );
+                    width: 150px;
+                    text-align: left;
+                    border-right: var(--spacing-border-size) solid var(--dark-color);
+                    background-color: var(--dark-color);
+                    color: var(--light-color);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    vertical-align:top;
+
+                    &:last-child {
+                        border-right: none;
+                    }
+                }
+
+                div.timeline-row-item-odd {
+                    background-color: var(--light-color);
+                    color: var(--dark-color);
                 }
             }
         }
