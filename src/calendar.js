@@ -5108,13 +5108,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildTimelineViewEvent( axisGroupRow, eventDetails ) {
         var event = createElement( "div", "event" ),
-            formattedDate = toStorageFormattedDate( _element_View_Timeline_DateSelected );
-
-        event.innerHTML = stripHTMLTagsFromText( eventDetails.title );
+            formattedDate = toStorageFormattedDate( _element_View_Timeline_DateSelected ),
+            repeatEvery = getNumber( eventDetails.repeatEvery );
+        
         event.id = _elementID_Time_Day + eventDetails.id;
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
         axisGroupRow.appendChild( event );
+
+        if ( repeatEvery > _repeatType.never ) {
+            var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+            icon.style.borderColor = event.style.color;
+            event.appendChild( icon );
+        }
+
+        event.innerHTML += stripHTMLTagsFromText( eventDetails.title );
     
         event.oncontextmenu = function( e ) {
             showEventContextMenu( e, eventDetails, formattedDate );
@@ -5123,6 +5131,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.addEventListener( "click", function( e ) {
             storeMultiSelectEvent( e, eventDetails );
         } );
+
+        event.onmousemove = function( e ) {
+            if ( _element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id ) {
+                cancelBubble( e );
+            } else {
+                showTooltip( e, eventDetails );
+            }
+        };
 
         if ( isOptionEventSet( "onEventClick" ) ) {
             event.addEventListener( "click", function() {

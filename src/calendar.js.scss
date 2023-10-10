@@ -1663,9 +1663,10 @@ div.calendar {
                             position: absolute;
                             margin-left: 0;
                             margin-right: 0;
-                            overflow: hidden;
-                            white-space: nowrap;
                             top: calc( var(--spacing) );
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         }
                     }
                 }
