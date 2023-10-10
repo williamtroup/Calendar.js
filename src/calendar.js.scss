@@ -1650,6 +1650,30 @@ div.calendar {
                 overflow: hidden;
                 vertical-align: top;
 
+                div.timeline-row-item {
+                    display: inline-block;
+                    padding: var(--spacing);
+                    padding-top: calc( ( var(--spacing) * 2 ) );
+                    padding-bottom: calc( ( var(--spacing) * 2 ) );
+                    width: 150px;
+                    text-align: left;
+                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
+                    background-color: var(--dark-color);
+                    color: var(--light-color);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    vertical-align:top;
+
+                    &:last-child {
+                        border-right: none;
+                    }
+                }
+
+                div.timeline-row-item-odd {
+                    background-color: var(--light-color);
+                    color: var(--dark-color);
+                }
+
                 div.timeline-row-items {
                     display: inline-block;
                     vertical-align: top;
@@ -1678,30 +1702,6 @@ div.calendar {
                         text-overflow: ellipsis;
                         z-index: 1;
                     }
-                }
-
-                div.timeline-row-item {
-                    display: inline-block;
-                    padding: var(--spacing);
-                    padding-top: calc( ( var(--spacing) * 2 ) );
-                    padding-bottom: calc( ( var(--spacing) * 2 ) );
-                    width: 150px;
-                    text-align: left;
-                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
-                    background-color: var(--dark-color);
-                    color: var(--light-color);
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    vertical-align:top;
-
-                    &:last-child {
-                        border-right: none;
-                    }
-                }
-
-                div.timeline-row-item-odd {
-                    background-color: var(--light-color);
-                    color: var(--dark-color);
                 }
             }
         }
