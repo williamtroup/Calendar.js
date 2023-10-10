@@ -2413,21 +2413,27 @@ div.calendar div.timeline-view div.contents div.axis {
   color: var(--light-color);
   min-height: 100%;
   z-index: 10;
+  border-right: var(--spacing-border-size) solid var(--dark-color);
 }
 div.calendar div.timeline-view div.contents div.axis div.axis-selector {
   position: sticky;
+  background-color: var(--day-names-color);
+  color: var(--dark-color);
   top: 0;
   padding: var(--spacing);
   padding-left: calc(var(--spacing) * 4);
   padding-right: calc(var(--spacing) * 4);
   text-align: left;
-  border-bottom: var(--spacing-border-size) solid var(--light-color);
 }
 div.calendar div.timeline-view div.contents div.axis div.axis-group-name {
   padding: calc(var(--spacing) * 2);
   padding-left: calc(var(--spacing) * 4);
   padding-right: calc(var(--spacing) * 4);
   border-bottom: var(--spacing-border-size) solid var(--light-color);
+}
+div.calendar div.timeline-view div.contents div.axis div.axis-group-name:nth-child(odd) {
+  background-color: var(--light-color);
+  color: var(--dark-color);
 }
 div.calendar div.timeline-view div.contents div.axis-groups {
   position: relative;
@@ -2458,7 +2464,7 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows 
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row {
   position: relative;
   padding-top: calc(var(--spacing) * 3 - var(--spacing-border-size) * 3);
-  padding-bottom: calc(var(--spacing) * 3 - var(--spacing-border-size) * 3);
+  padding-bottom: calc(var(--spacing) * 3 - var(--spacing-border-size) * 4);
   border-bottom: var(--spacing-border-size) solid var(--dark-color);
 }
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row div.expired {
@@ -2510,9 +2516,10 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows 
   position: absolute;
   margin-left: 0;
   margin-right: 0;
-  overflow: hidden;
-  white-space: nowrap;
   top: calc(var(--spacing));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column {
   display: inline-block;

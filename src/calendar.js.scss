@@ -1608,15 +1608,17 @@ div.calendar {
                 color: var(--light-color);
                 min-height: 100%;
                 z-index: 10;
+                border-right: var(--spacing-border-size) solid var(--dark-color);
 
                 div.axis-selector {
                     position: sticky;
+                    background-color: var(--day-names-color);
+                    color: var(--dark-color);
                     top: 0;
                     padding: var(--spacing);
                     padding-left: calc( var(--spacing) * 4 );
                     padding-right: calc( var(--spacing) * 4 );
                     text-align: left;
-                    border-bottom: var(--spacing-border-size) solid var(--light-color);
                 }
 
                 div.axis-group-name {
@@ -1624,6 +1626,11 @@ div.calendar {
                     padding-left: calc( var(--spacing) * 4 );
                     padding-right: calc( var(--spacing) * 4 );
                     border-bottom: var(--spacing-border-size) solid var(--light-color);
+
+                    &:nth-child( odd ) {
+                        background-color: var(--light-color);
+                        color: var(--dark-color);
+                    }
                 }
             }
 
@@ -1654,7 +1661,7 @@ div.calendar {
                     div.axis-group-row {
                         position: relative;
                         padding-top: calc( ( var(--spacing) * 3 ) - ( var(--spacing-border-size) * 3 ) );
-                        padding-bottom: calc( ( var(--spacing) * 3 ) - ( var(--spacing-border-size) * 3 ) );
+                        padding-bottom: calc( ( var(--spacing) * 3 ) - ( var(--spacing-border-size) * 4 ) );
                         border-bottom: var(--spacing-border-size) solid var(--dark-color);
 
                         @import "foundation/view-event";
