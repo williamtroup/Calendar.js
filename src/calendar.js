@@ -661,7 +661,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_EventsShown_PerDay = {},
         _element_View_FullWeek_DateSelected = null,
         _element_View_FullWeek_DateSelected_StartOfWeek = null,
-        _element_View_FullWeek_DateSelected_EndOfWeek = null,
         _element_View_FullWeek_TimeArrow = null,
         _element_View_FullWeek_AllDayEventsAdded = false,
         _element_View_FullWeek_TimeArrow_Position = null,
@@ -1132,7 +1131,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _options.showExtraToolbarButtons && _options.manualEditingEnabled ) {
-            buildToolbarButton( _element_Calendar_TitleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+            buildToolbarButton( _element_Calendar_TitleBar, "ib-plus", _options.addEventTooltipText, function() {
+                if ( doDatesMatchMonthAndYear( _currentDate, new Date() ) ) {
+                    showEventEditingDialog( null );
+                } else {
+                    showEventEditingDialog( null, new Date( _currentDate.getFullYear(), _currentDate.getMonth(), 1 ) );
+                }
+            } );
         }
 
         if ( !_datePickerModeEnabled ) {
@@ -3270,7 +3275,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         showEventEditingDialog( newBlankTemplateEvent );
                         showEventEditingDialogTitleSelected();
                     } else {
-                        addNewEvent();
+                        showEventEditingDialog( null, _element_View_FullDay_DateSelected );
                     }
                 } );
             }
@@ -3767,11 +3772,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( _options.manualEditingEnabled && _options.showExtraToolbarButtons ) {
                 buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
-                    if ( !_options.reverseOrderDaysOfWeek ) {
-                        showEventEditingDialog( null, new Date( _element_View_FullWeek_DateSelected_StartOfWeek ) );
-                    } else {
-                        showEventEditingDialog( null, new Date( _element_View_FullWeek_DateSelected_EndOfWeek ) );
-                    }
+                    showEventEditingDialog( null, new Date( _element_View_FullWeek_DateSelected_StartOfWeek ) );
                 } );
             }
     
@@ -4189,7 +4190,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents_AllDayEvents.style.display = "none";
         _element_View_FullWeek_Events_Dragged_Sizes = [];
         _element_View_FullWeek_DateSelected_StartOfWeek = weekStartDate;
-        _element_View_FullWeek_DateSelected_EndOfWeek = weekEndDate;
 
         showView( _element_View_FullWeek );
         hideSearchDialog();
@@ -4730,7 +4730,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
 
                 if ( _options.manualEditingEnabled ) {
-                    buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+                    buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
+                        showEventEditingDialog( null );
+                    } );
                 }
             }
 
@@ -4976,7 +4978,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         updateToolbarButtonVisibleState( _element_View_AllEvents_SearchButton, _element_View_AllEvents_EventsShown.length > 0 );
 
         if ( _element_View_AllEvents_EventsShown.length === 0 ) {
-            buildNoEventsAvailableText( _element_View_AllEvents_Contents, addNewEvent );
+            buildNoEventsAvailableText( _element_View_AllEvents_Contents, function() {
+                showEventEditingDialog( null );
+            } );
         }
     }
 
@@ -6118,10 +6122,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _options.maximumEventLocationLength > 0 ) {
             _element_Dialog_EventEditor_Location.maxLength = _options.maximumEventLocationLength ;
         }
-    }
-
-    function addNewEvent() {
-        showEventEditingDialog( null, _element_View_FullDay_DateSelected );
     }
 
     function repeatEveryEvent() {

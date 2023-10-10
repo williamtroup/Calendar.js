@@ -12,14 +12,17 @@
 - Added a "View Timeline" button to the Full Day view title bar (hidden in mobile view).
 
 #### **Full Week View:**
-- The "Add Event" button will now default to add date to the start of the week being viewed (or the end, if "reverseOrderDaysOfWeek" is enabled).
+- The "Add Event" button will now default the add date to the start of the week being viewed.
 
 #### **Full Year View:**
 - The side menu button "Export Events" is now disabled in the full year view (proper year exporting is coming soon, instead of exporting everything).
 - The "Add Event" button in the title bar will now default the add date to the beginning of the selected year.
 
+#### **Month View (default):**
+- The "Add Event" button now defaults to the current date if the todays month is in view (otherwise, it will default to the 1st of the viewing month/year).
+
 #### **Widget Mode:**
-- The "Add Event" button will now default to add date to the current selected date being viewed.
+- The "Add Event" button will now default the add date to the currently selected date.
 
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
