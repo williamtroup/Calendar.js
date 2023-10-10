@@ -660,6 +660,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_EventsShown = [],
         _element_View_FullWeek_EventsShown_PerDay = {},
         _element_View_FullWeek_DateSelected = null,
+        _element_View_FullWeek_DateSelected_StartOfWeek = null,
+        _element_View_FullWeek_DateSelected_EndOfWeek = null,
         _element_View_FullWeek_TimeArrow = null,
         _element_View_FullWeek_AllDayEventsAdded = false,
         _element_View_FullWeek_TimeArrow_Position = null,
@@ -2018,7 +2020,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         dayName.appendChild( createElement( "div", "right-divider-line" ) );
         
         if ( _options.manualEditingEnabled ) {
-            buildToolbarButton( dayName, "ib-plus", _options.addEventTooltipText, addNewEvent );
+            buildToolbarButton( dayName, "ib-plus", _options.addEventTooltipText, function() {
+                showEventEditingDialog( null, new Date( _currentDate ) );
+            } );
         }
 
         buildToolbarButton( dayName, "ib-pin", _options.todayTooltipText, onCurrentWidgetDay );
@@ -3762,7 +3766,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextFullWeek );
     
             if ( _options.manualEditingEnabled && _options.showExtraToolbarButtons ) {
-                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
+                    if ( !_options.reverseOrderDaysOfWeek ) {
+                        showEventEditingDialog( null, new Date( _element_View_FullWeek_DateSelected_StartOfWeek ) );
+                    } else {
+                        showEventEditingDialog( null, new Date( _element_View_FullWeek_DateSelected_EndOfWeek ) );
+                    }
+                } );
             }
     
             if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
@@ -4164,7 +4174,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showFullWeekView( weekDate, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        _element_View_FullWeek_DateSelected = weekDate === null ? new Date() : new Date( weekDate );
+        var actualWeekDate = weekDate === null ? new Date() : new Date( weekDate ),
+            weekStartEndDates = getWeekStartEndDates( actualWeekDate ),
+            weekStartDate = weekStartEndDates[ 0 ],
+            weekEndDate = weekStartEndDates[ 1 ];
+
+        _element_View_FullWeek_DateSelected = actualWeekDate;
         _element_View_FullWeek_TimeArrow = null;
         _element_View_FullWeek_EventsShown = [];
         _element_View_FullWeek_EventsShown_PerDay = {};
@@ -4173,10 +4188,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents_SmallestEventTop = 0;
         _element_View_FullWeek_Contents_AllDayEvents.style.display = "none";
         _element_View_FullWeek_Events_Dragged_Sizes = [];
-
-        var weekStartEndDates = getWeekStartEndDates( weekDate ),
-            weekStartDate = weekStartEndDates[ 0 ],
-            weekEndDate = weekStartEndDates[ 1 ];
+        _element_View_FullWeek_DateSelected_StartOfWeek = weekStartDate;
+        _element_View_FullWeek_DateSelected_EndOfWeek = weekEndDate;
 
         showView( _element_View_FullWeek );
         hideSearchDialog();
@@ -4402,7 +4415,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onNextFullYear );
                 
             if ( _options.showExtraToolbarButtons && _options.manualEditingEnabled ) {
-                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
+                    showEventEditingDialog( null, new Date( _element_View_FullYear_CurrentYear, 0, 1 ) );
+                } );
             }
     
             _element_View_FullYear_Contents = createElement( "div", "contents custom-scroll-bars" );
@@ -5046,7 +5061,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildToolbarButton( titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onNextTimelineDay );
 
             if ( _options.showExtraToolbarButtons && _options.manualEditingEnabled ) {
-                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, addNewEvent );
+                buildToolbarButton( titleBar, "ib-plus", _options.addEventTooltipText, function() {
+                    showEventEditingDialog( null, new Date( _element_View_Timeline_DateSelected ) );
+                } );
             }
 
             if ( !_datePickerModeEnabled && isSideMenuAvailable() ) {
