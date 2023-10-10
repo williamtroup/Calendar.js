@@ -2444,6 +2444,28 @@ div.calendar div.timeline-view div.contents div.axis-groups {
   height: 100%;
   white-space: nowrap;
 }
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column {
+  display: inline-block;
+  width: 150px;
+  height: 100%;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border-right: var(--spacing-border-size) solid var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column div.axis-group-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--day-names-color);
+  padding: var(--spacing);
+  text-align: center;
+  border-bottom: var(--spacing-border-size) solid var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:nth-child(odd) {
+  background-color: var(--day-names-color);
+}
+div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:last-child {
+  border-right: none;
+}
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows {
   position: absolute;
   left: 0;
@@ -2520,28 +2542,6 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column {
-  display: inline-block;
-  width: 150px;
-  height: 100%;
-  background-color: var(--light-color);
-  color: var(--dark-color);
-  border-right: var(--spacing-border-size) solid var(--dark-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column div.axis-group-header {
-  position: sticky;
-  top: 0;
-  background-color: var(--day-names-color);
-  padding: var(--spacing);
-  text-align: center;
-  border-bottom: var(--spacing-border-size) solid var(--dark-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:nth-child(odd) {
-  background-color: var(--day-names-color);
-}
-div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column:last-child {
-  border-right: none;
 }
 
 /*

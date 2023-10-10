@@ -1643,6 +1643,32 @@ div.calendar {
                 height: 100%;
                 white-space: nowrap;
 
+                div.axis-group-column {
+                    display: inline-block;
+                    width: 150px;
+                    height: 100%;
+                    background-color: var(--light-color);
+                    color: var(--dark-color);
+                    border-right: var(--spacing-border-size) solid var(--dark-color);
+
+                    div.axis-group-header {
+                        position: sticky;
+                        top: 0;
+                        background-color: var(--day-names-color);
+                        padding: var(--spacing);
+                        text-align: center;
+                        border-bottom: var(--spacing-border-size) solid var(--dark-color);
+                    }
+                    
+                    &:nth-child( odd ) {
+                        background-color: var(--day-names-color);
+                    }
+
+                    &:last-child {
+                        border-right: none;
+                    }
+                }
+
                 div.axis-group-rows {
                     position: absolute;
                     left: 0;
@@ -1675,32 +1701,6 @@ div.calendar {
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
-                    }
-                }
-
-                div.axis-group-column {
-                    display: inline-block;
-                    width: 150px;
-                    height: 100%;
-                    background-color: var(--light-color);
-                    color: var(--dark-color);
-                    border-right: var(--spacing-border-size) solid var(--dark-color);
-
-                    div.axis-group-header {
-                        position: sticky;
-                        top: 0;
-                        background-color: var(--day-names-color);
-                        padding: var(--spacing);
-                        text-align: center;
-                        border-bottom: var(--spacing-border-size) solid var(--dark-color);
-                    }
-                    
-                    &:nth-child( odd ) {
-                        background-color: var(--day-names-color);
-                    }
-
-                    &:last-child {
-                        border-right: none;
                     }
                 }
             }
