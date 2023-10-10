@@ -1606,15 +1606,13 @@ div.calendar {
                 display: inline-block;
                 background-color: var(--dark-color);
                 color: var(--light-color);
-                min-height: 100%;
+                min-height: calc( 100% - ( var(--spacing-border-size) * 4 ) );
                 z-index: 10;
                 border-right: var(--spacing-border-size) solid var(--dark-color);
 
                 div.axis-selector {
-                    position: sticky;
                     background-color: var(--day-names-color);
                     color: var(--dark-color);
-                    top: 0;
                     padding: var(--spacing);
                     padding-left: calc( var(--spacing) * 4 );
                     padding-right: calc( var(--spacing) * 4 );
@@ -1642,6 +1640,7 @@ div.calendar {
                 width: auto;
                 height: 100%;
                 white-space: nowrap;
+                overflow: hidden;
 
                 div.axis-group-column {
                     display: inline-block;
@@ -1652,8 +1651,6 @@ div.calendar {
                     border-right: var(--spacing-border-size) solid var(--dark-color);
 
                     div.axis-group-header {
-                        position: sticky;
-                        top: 0;
                         background-color: var(--day-names-color);
                         padding: var(--spacing);
                         text-align: center;
@@ -1673,15 +1670,16 @@ div.calendar {
                     position: absolute;
                     left: 0;
                     width: 100%;
+                    overflow: hidden;
 
                     @media screen and ( min-width: $minimum-width ) {
                         height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
-                        top: calc( ( var(--spacing) * 2 ) + var(--large-font-size) + ( var(--spacing-border-size) * 4 ) );
+                        top: calc( ( var(--spacing) * 2 ) + var(--large-font-size) + ( var(--spacing-border-size) * 5 ) );
                     }
                     
                     @media screen and ( max-width: $maximum-width ) {
                         height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
-                        top: calc( ( var(--spacing) * 2 ) + var(--small-font-size) + ( var(--spacing-border-size) * 4 ) );
+                        top: calc( ( var(--spacing) * 2 ) + var(--small-font-size) + ( var(--spacing-border-size) * 5 ) );
                     }
 
                     div.axis-group-row {

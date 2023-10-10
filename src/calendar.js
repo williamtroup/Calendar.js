@@ -5105,7 +5105,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
         
-        _element_View_Timeline_Contents_Groups.style.height = _element_View_Timeline_Axis.offsetHeight + "px";
+        _element_View_Timeline_Contents_Groups.style.height = ( _element_View_Timeline_Axis.offsetHeight -1  ) + "px";
     }
 
     function buildTimelineViewEvent( axisGroupRow, eventDetails ) {

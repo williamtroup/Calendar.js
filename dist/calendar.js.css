@@ -2411,15 +2411,13 @@ div.calendar div.timeline-view div.contents div.axis {
   display: inline-block;
   background-color: var(--dark-color);
   color: var(--light-color);
-  min-height: 100%;
+  min-height: calc(100% - var(--spacing-border-size) * 4);
   z-index: 10;
   border-right: var(--spacing-border-size) solid var(--dark-color);
 }
 div.calendar div.timeline-view div.contents div.axis div.axis-selector {
-  position: sticky;
   background-color: var(--day-names-color);
   color: var(--dark-color);
-  top: 0;
   padding: var(--spacing);
   padding-left: calc(var(--spacing) * 4);
   padding-right: calc(var(--spacing) * 4);
@@ -2443,6 +2441,7 @@ div.calendar div.timeline-view div.contents div.axis-groups {
   width: auto;
   height: 100%;
   white-space: nowrap;
+  overflow: hidden;
 }
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column {
   display: inline-block;
@@ -2453,8 +2452,6 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-colum
   border-right: var(--spacing-border-size) solid var(--dark-color);
 }
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-column div.axis-group-header {
-  position: sticky;
-  top: 0;
   background-color: var(--day-names-color);
   padding: var(--spacing);
   text-align: center;
@@ -2470,17 +2467,18 @@ div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows 
   position: absolute;
   left: 0;
   width: 100%;
+  overflow: hidden;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows {
     height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
-    top: calc(var(--spacing) * 2 + var(--large-font-size) + var(--spacing-border-size) * 4);
+    top: calc(var(--spacing) * 2 + var(--large-font-size) + var(--spacing-border-size) * 5);
   }
 }
 @media screen and (max-width: 450px) {
   div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows {
     height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
-    top: calc(var(--spacing) * 2 + var(--small-font-size) + var(--spacing-border-size) * 4);
+    top: calc(var(--spacing) * 2 + var(--small-font-size) + var(--spacing-border-size) * 5);
   }
 }
 div.calendar div.timeline-view div.contents div.axis-groups div.axis-group-rows div.axis-group-row {
