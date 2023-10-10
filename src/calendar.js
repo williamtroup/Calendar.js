@@ -3522,7 +3522,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showFullDayView( date, fromOpen ) {
-        date = isDefined( date ) ? date : new Date();
+        date = isDefined( date ) ? new Date( date ) : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         var currentDate = new Date(),
@@ -5253,7 +5253,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showTimelineView( date, fromOpen ) {
-        date = isDefined( date ) ? date : new Date();
+        date = isDefined( date ) ? new Date( date ) : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
         var currentDate = new Date(),
