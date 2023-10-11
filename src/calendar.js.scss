@@ -63,6 +63,7 @@
     --time-view-hours-height: 25px;
     --time-view-arrow-line-height: 12px;
     --time-view-timeline-section-width: 150px;
+    --time-view-timeline-section-width-small: 100px;
 
     // Inputs
     --input-box-shadow-size: 2px;
@@ -1606,10 +1607,17 @@ div.calendar {
                 top: 0;
                 padding-left: var(--spacing);
                 padding-right: var(--spacing);
-                width: var(--time-view-timeline-section-width);
                 height: 100%;
                 background-color: var(--light-color);
                 border-right: var(--spacing-border-size) solid var(--grid-border-color);
+
+                @media screen and ( min-width: $minimum-width ) {
+                    width: var(--time-view-timeline-section-width);
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    width: var(--time-view-timeline-section-width-small);
+                }
                 
                 &:nth-child( odd ) {
                     background-color: var(--day-names-color);
@@ -1622,16 +1630,30 @@ div.calendar {
                 top: 0;
                 background-color: var(--day-names-color);
                 vertical-align: top;
-                width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
                 overflow: hidden;
                 z-index: 10;
+
+                @media screen and ( min-width: $minimum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
                 
                 div.timeline-header-item {
                     display: inline-block;
                     padding: var(--spacing);
-                    width: var(--time-view-timeline-section-width);
                     text-align: center;
                     border-right: var(--spacing-border-size) solid var(--grid-border-color);
+
+                    @media screen and ( min-width: $minimum-width ) {
+                        width: var(--time-view-timeline-section-width);
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        width: var(--time-view-timeline-section-width-small);
+                    }
 
                     &:first-child {
                         text-align: left;
@@ -1652,23 +1674,37 @@ div.calendar {
                 position: relative;
                 border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
                 vertical-align: top;
-                width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
                 overflow: hidden;
                 vertical-align: top;
+
+                @media screen and ( min-width: $minimum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
 
                 div.timeline-row-item {
                     display: inline-block;
                     padding: var(--spacing);
                     padding-top: calc( ( var(--spacing) * 2 ) );
                     padding-bottom: calc( ( var(--spacing) * 2 ) );
-                    width: var(--time-view-timeline-section-width);
                     text-align: left;
                     border-right: var(--spacing-border-size) solid var(--grid-border-color);
                     background-color: var(--dark-color);
                     color: var(--light-color);
                     text-overflow: ellipsis;
                     overflow: hidden;
-                    vertical-align:top;
+                    vertical-align: top;
+
+                    @media screen and ( min-width: $minimum-width ) {
+                        width: var(--time-view-timeline-section-width);
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        width: var(--time-view-timeline-section-width-small);
+                    }
 
                     &:last-child {
                         border-right: none;
@@ -1683,15 +1719,16 @@ div.calendar {
                 div.timeline-row-items {
                     display: inline-block;
                     vertical-align: top;
-                    width: calc( 48 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
                     position: relative;
 
                     @media screen and ( min-width: $minimum-width ) {
+                        width: calc( 48 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
                         padding-top: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
                         padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
                     }
                     
                     @media screen and ( max-width: $maximum-width ) {
+                        width: calc( 48 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
                         padding-top: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
                         padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
                     }
