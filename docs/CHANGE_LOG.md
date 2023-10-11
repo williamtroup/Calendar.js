@@ -42,6 +42,7 @@
 - Fixed a fault that caused dates in the other views to randomly change on auto-update when another view was recently opened.
 - Fixed a fault that caused the search dialog to shift the currently active view being searched into a strange position.
 - Fixed the CUSTOM_TRIGGERS.md documentation not rendering correctly.
+- Fixed a CSS fault that caused the Search history drop-down to appear in slightly in the wrong place.
 
 <br>
 
