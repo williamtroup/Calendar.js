@@ -2120,7 +2120,7 @@ div.search {
                 display: none;
                 overflow-x: hidden;
                 overflow-y: auto;
-                margin-top: calc( var(--input-box-shadow-size) + 2px );
+                margin-top: calc( var(--input-box-shadow-size) * 2 );
 
                 div.history-dropdown-item {
                     padding: var(--spacing);

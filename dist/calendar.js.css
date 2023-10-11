@@ -3546,7 +3546,7 @@ div.search div.contents div.history-container div.history-dropdown {
   display: none;
   overflow-x: hidden;
   overflow-y: auto;
-  margin-top: calc(var(--input-box-shadow-size) + 2px);
+  margin-top: calc(var(--input-box-shadow-size) * 2);
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item {
   padding: var(--spacing);
