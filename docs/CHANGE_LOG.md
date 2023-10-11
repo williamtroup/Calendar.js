@@ -33,7 +33,7 @@
 - Added a new custom trigger "onWidgetEventRender", which is triggered when an event in the Widget mode is rendered (allowing custom rendering, or just a notification).
 
 #### **Code Improvements:**
-- Renamed the internal variables used for tracking the DatePicker mode.
+- Finished the variable re-structuring and renaming in the main constructor.
 
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
