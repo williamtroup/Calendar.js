@@ -24,12 +24,21 @@
 #### **Widget Mode:**
 - The "Add Event" button will now default the add date to the currently selected date.
 
+#### **Custom Trigger Events:**
+- Added a new custom trigger "onFullDayEventRender", which is triggered when an event in the Full Day view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullWeekEventRender", which is triggered when an event in the Full Week view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onMonthEventRender", which is triggered when an event in the Month view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onAllEventsEventRender", which is triggered when an event in the All Events view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onTimelineEventRender", which is triggered when an event in the Timeline view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onWidgetEventRender", which is triggered when an event in the Widget mode is rendered (allowing custom rendering, or just a notification).
+
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
 - Fixed a fault that allowed the current day to be viewed in the Full Day view when the day itself is not visible in the calendar (it now skips to the next visible day).
 - Fixed a fault that caused the "Export Events" button in the Side Menu to remain visible (due to multiple views being open).
 - Fixed a fault that caused dates in the other views to randomly change on auto-update when another view was recently opened.
 - Fixed a fault that caused the search dialog to shift the currently active view being searched into a strange position.
+- Fixed the CUSTOM_TRIGGERS.md documentation not rendering correctly.
 
 <br>
 

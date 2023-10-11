@@ -115,6 +115,12 @@
  * @property    {Object}    onBusyStateChange                           Specifies an event that will be triggered when the calendars busy state is changed (passes the state to the function).
  * @property    {Object}    onEventsFetch                               Specifies an event that will be triggered when the calendar refreshes (it will pull a array of events to add, or update).
  * @property    {Object}    onEventsImported                            Specifies an event that will be triggered when events are imported (passes the events to the function).
+ * @property    {Object}    onFullDayEventRender                        Specifies an event that will be triggered when an event is rendered in the Full Day view (passes the DOM element and event to the function).
+ * @property    {Object}    onFullWeekEventRender                       Specifies an event that will be triggered when an event is rendered in the Full Week view (passes the DOM element and event to the function).
+ * @property    {Object}    onMonthEventRender                          Specifies an event that will be triggered when an event is rendered in the Month view (passes the DOM element and event to the function).
+ * @property    {Object}    onAllEventsEventRender                      Specifies an event that will be triggered when an event is rendered in the All Events view (passes the DOM element and event to the function).
+ * @property    {Object}    onTimelineEventRender                       Specifies an event that will be triggered when an event is rendered in the Timeline view (passes the DOM element and event to the function).
+ * @property    {Object}    onWidgetEventRender                         Specifies an event that will be triggered when an event is rendered in the Widget mode (passes the DOM element and event to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -2071,57 +2077,59 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
 
-        var title = createElement( "div", "title" ),
-            repeatEvery = getNumber( eventDetails.repeatEvery );
+        if ( !triggerOptionsEventWithMultipleData( "onWidgetEventRender", event, eventDetails ) ) {
+            var title = createElement( "div", "title" ),
+                repeatEvery = getNumber( eventDetails.repeatEvery );
 
-        if ( repeatEvery > _repeatType.never ) {
-            var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
-            icon.style.borderColor = event.style.color;
-            title.appendChild( icon );
-        }
-        
-        title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
-        event.appendChild( title );
+            if ( repeatEvery > _repeatType.never ) {
+                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+                icon.style.borderColor = event.style.color;
+                title.appendChild( icon );
+            }
+            
+            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+            event.appendChild( title );
 
-        var startTime = createElement( "div", "date" );
-        event.appendChild( startTime );
+            var startTime = createElement( "div", "date" );
+            event.appendChild( startTime );
 
-        var duration = createElement( "div", "duration" );
-        event.appendChild( duration );
+            var duration = createElement( "div", "duration" );
+            event.appendChild( duration );
 
-        if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-            if ( eventDetails.isAllDay ) {
-                buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
+            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                if ( eventDetails.isAllDay ) {
+                    buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
+                } else {
+                    buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                    setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+                }
             } else {
-                buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+
+                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                 setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
             }
-        } else {
 
-            buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-            setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
-        }
+            if ( duration.innerHTML === _string.empty ) {
+                event.removeChild( duration );
+            }
 
-        if ( duration.innerHTML === _string.empty ) {
-            event.removeChild( duration );
-        }
+            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
+                var repeats = createElement( "div", "repeats" );
+                setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
+                event.appendChild( repeats );
+            }
 
-        if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
-            var repeats = createElement( "div", "repeats" );
-            setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
-            event.appendChild( repeats );
-        }
+            if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                var location = createElement( "div", "location" );
+                setNodeText( location, eventDetails.location );
+                event.appendChild( location );
+            }
 
-        if ( isDefinedStringAndSet( eventDetails.location ) ) {
-            var location = createElement( "div", "location" );
-            setNodeText( location, eventDetails.location );
-            event.appendChild( location );
-        }
-
-        if ( isDefinedStringAndSet( eventDetails.description ) ) {
-            var description = createElement( "div", "description" );
-            setNodeText( description, eventDetails.description );
-            event.appendChild( description );
+            if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                var description = createElement( "div", "description" );
+                setNodeText( description, eventDetails.description );
+                event.appendChild( description );
+            }
         }
 
         if ( isOptionEventSet( "onEventClick" ) ) {
@@ -3016,34 +3024,40 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                     if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay ) {
                         var event = createElement( "div", "event" ),
-                            eventTitle = eventDetails.title;
+                            eventRendered = false;
     
                         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
                         event.setAttribute( "event-id", eventDetails.id );
-        
-                        if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                            eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
-                        }
-        
+
                         if ( !_options.useOnlyDotEventsForMainDisplay ) {
-                            var repeatEvery = getNumber( eventDetails.repeatEvery );
-                            if ( repeatEvery > _repeatType.never ) {
-                                var icon = createElement( "div", "ib-refresh-small ib-no-hover ib-no-active" );
-                                icon.style.borderColor = event.style.color;
-                                event.appendChild( icon );
+                            if ( !triggerOptionsEventWithMultipleData( "onMonthEventRender", event, eventDetails ) ) {
+                                var eventTitle = eventDetails.title,
+                                    repeatEvery = getNumber( eventDetails.repeatEvery );
+            
+                                if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                                    eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
+                                }
+
+                                if ( repeatEvery > _repeatType.never ) {
+                                    var icon = createElement( "div", "ib-refresh-small ib-no-hover ib-no-active" );
+                                    icon.style.borderColor = event.style.color;
+                                    event.appendChild( icon );
+                                }
+            
+                                event.innerHTML += stripHTMLTagsFromText( eventTitle );
+                                eventRendered = true;
                             }
-        
-                            event.innerHTML += stripHTMLTagsFromText( eventTitle );
         
                         } else {
                             event.className += " event-circle";
+                            eventRendered = true;
                         }
                         
                         elementDay.appendChild( event );
         
                         makeEventDraggable( event, eventDetails, dayDate, elementDay );
-                        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
                         setEventClassesForActions( event, eventDetails );
+                        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
     
                         if ( doDatesMatch( eventDetails.from, dayDate ) ) {
                             event.id = _elementID_Event_Day + eventDetails.id;
@@ -3418,65 +3432,67 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showEventContextMenu( e, eventDetails, formattedDate );
             };
     
-            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
             setEventClassesForActions( event, eventDetails );
+            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, displayDate ) );
 
             if ( doDatesMatch( eventDetails.from, displayDate ) ) {
                 event.id = _elementID_Event_FullDay + eventDetails.id;
             }
 
-            var title = createElement( "div", "title" ),
-                repeatEvery = getNumber( eventDetails.repeatEvery );
+            if ( !triggerOptionsEventWithMultipleData( "onFullDayEventRender", event, eventDetails ) ) {
+                var title = createElement( "div", "title" ),
+                    repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( repeatEvery > _repeatType.never ) {
-                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
-                icon.style.borderColor = event.style.color;
-                title.appendChild( icon );
-            }
-            
-            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
-            event.appendChild( title );
-    
-            if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
-                var startTime = createElement( "div", "date" );
-                event.appendChild( startTime );
-
-                var duration = createElement( "div", "duration" );
-                event.appendChild( duration );
+                if ( repeatEvery > _repeatType.never ) {
+                    var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+                    icon.style.borderColor = event.style.color;
+                    title.appendChild( icon );
+                }
+                
+                title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+                event.appendChild( title );
         
-                if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                    if ( eventDetails.isAllDay ) {
-                        setNodeText( startTime, _options.allDayText );
+                if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
+                    var startTime = createElement( "div", "date" );
+                    event.appendChild( startTime );
+
+                    var duration = createElement( "div", "duration" );
+                    event.appendChild( duration );
+            
+                    if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                        if ( eventDetails.isAllDay ) {
+                            setNodeText( startTime, _options.allDayText );
+                        } else {
+                            setNodeText( startTime, getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                            setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+                        }
                     } else {
-                        setNodeText( startTime, getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+
+                        buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                         setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                     }
-                } else {
 
-                    buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-                    setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
-                }
-
-                if ( duration.innerHTML === _string.empty ) {
-                    event.removeChild( duration );
-                }
-        
-                if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
-                    var repeats = createElement( "div", "repeats" );
-                    setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
-                    event.appendChild( repeats );
-                }
-        
-                if ( isDefinedStringAndSet( eventDetails.location ) ) {
-                    var location = createElement( "div", "location" );
-                    setNodeText( location, eventDetails.location );
-                    event.appendChild( location );
-                }
-        
-                if ( isDefinedStringAndSet( eventDetails.description ) ) {
-                    var description = createElement( "div", "description" );
-                    setNodeText( description, eventDetails.description );
-                    event.appendChild( description );
+                    if ( duration.innerHTML === _string.empty ) {
+                        event.removeChild( duration );
+                    }
+            
+                    if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
+                        var repeats = createElement( "div", "repeats" );
+                        setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
+                        event.appendChild( repeats );
+                    }
+            
+                    if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                        var location = createElement( "div", "location" );
+                        setNodeText( location, eventDetails.location );
+                        event.appendChild( location );
+                    }
+            
+                    if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                        var description = createElement( "div", "description" );
+                        setNodeText( description, eventDetails.description );
+                        event.appendChild( description );
+                    }
                 }
             }
 
@@ -4035,66 +4051,68 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event.setAttribute( "draggable", true );
                 }
             }
-    
-            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, actualDisplayDate ) );
+            
             setEventClassesForActions( event, eventDetails );
+            setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, actualDisplayDate ) );
 
             if ( doDatesMatch( eventDetails.from, actualDisplayDate ) ) {
                 event.id = _elementID_Event_WeekDay + eventDetails.id;
             }
 
-            var title = createElement( "div", "title" ),
-                repeatEvery = getNumber( eventDetails.repeatEvery );
+            if ( !triggerOptionsEventWithMultipleData( "onFullWeekEventRender", event, eventDetails ) ) {
+                var title = createElement( "div", "title" ),
+                    repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( repeatEvery > _repeatType.never ) {
-                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
-                icon.style.borderColor = event.style.color;
-                title.appendChild( icon );
-            }
+                if ( repeatEvery > _repeatType.never ) {
+                    var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+                    icon.style.borderColor = event.style.color;
+                    title.appendChild( icon );
+                }
+                
+                title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+                event.appendChild( title );
+
+                if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
+                    var startTime = createElement( "div", "date" );
+                    event.appendChild( startTime );
+
+                    var duration = createElement( "div", "duration" );
+                    event.appendChild( duration );
             
-            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
-            event.appendChild( title );
-
-            if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
-                var startTime = createElement( "div", "date" );
-                event.appendChild( startTime );
-
-                var duration = createElement( "div", "duration" );
-                event.appendChild( duration );
-        
-                if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                    if ( eventDetails.isAllDay ) {
-                        setNodeText( startTime, _options.allDayText );
+                    if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                        if ( eventDetails.isAllDay ) {
+                            setNodeText( startTime, _options.allDayText );
+                        } else {
+                            setNodeText( startTime, getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                            setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+                        }
                     } else {
-                        setNodeText( startTime, getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+
+                        buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                         setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                     }
-                } else {
 
-                    buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-                    setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
-                }
-
-                if ( duration.innerHTML === _string.empty ) {
-                    event.removeChild( duration );
-                }
-        
-                if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
-                    var repeats = createElement( "div", "repeats" );
-                    setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
-                    event.appendChild( repeats );
-                }
-        
-                if ( isDefinedStringAndSet( eventDetails.location ) ) {
-                    var location = createElement( "div", "location" );
-                    setNodeText( location, eventDetails.location );
-                    event.appendChild( location );
-                }
-        
-                if ( isDefinedStringAndSet( eventDetails.description ) ) {
-                    var description = createElement( "div", "description" );
-                    setNodeText( description, eventDetails.description );
-                    event.appendChild( description );
+                    if ( duration.innerHTML === _string.empty ) {
+                        event.removeChild( duration );
+                    }
+            
+                    if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
+                        var repeats = createElement( "div", "repeats" );
+                        setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
+                        event.appendChild( repeats );
+                    }
+            
+                    if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                        var location = createElement( "div", "location" );
+                        setNodeText( location, eventDetails.location );
+                        event.appendChild( location );
+                    }
+            
+                    if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                        var description = createElement( "div", "description" );
+                        setNodeText( description, eventDetails.description );
+                        event.appendChild( description );
+                    }
                 }
             }
 
@@ -4769,64 +4787,66 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
     
             makeEventDraggable( event, eventDetails, eventDetails.from, container );
-            setEventClassesAndColors( event, eventDetails );
             setEventClassesForActions( event, eventDetails );
+            setEventClassesAndColors( event, eventDetails );
 
             event.id = _elementID_Event_Month + eventDetails.id;
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
             event.setAttribute( "event-id", eventDetails.id );
 
-            var title = createElement( "div", "title" ),
-                repeatEvery = getNumber( eventDetails.repeatEvery );
-
-            if ( repeatEvery > _repeatType.never ) {
-                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
-                icon.style.borderColor = event.style.color;
-                title.appendChild( icon );
-            }
-            
-            title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
-            event.appendChild( title );
+            if ( !triggerOptionsEventWithMultipleData( "onAllEventsEventRender", event, eventDetails ) ) {
+                var title = createElement( "div", "title" ),
+                    repeatEvery = getNumber( eventDetails.repeatEvery );
     
-            var startTime = createElement( "div", "date" );
-            event.appendChild( startTime );
-
-            var duration = createElement( "div", "duration" );
-            event.appendChild( duration );
+                if ( repeatEvery > _repeatType.never ) {
+                    var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+                    icon.style.borderColor = event.style.color;
+                    title.appendChild( icon );
+                }
+                
+                title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+                event.appendChild( title );
+        
+                var startTime = createElement( "div", "date" );
+                event.appendChild( startTime );
     
-            if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
-                if ( eventDetails.isAllDay ) {
-                    buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
+                var duration = createElement( "div", "duration" );
+                event.appendChild( duration );
+        
+                if ( eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                    if ( eventDetails.isAllDay ) {
+                        buildDayDisplay( startTime, eventDetails.from, null, " - " + _options.allDayText );
+                    } else {
+                        buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+                        setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
+                    }
                 } else {
-                    buildDayDisplay( startTime, eventDetails.from, null, " - " + getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) );
+    
+                    buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
                     setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
                 }
-            } else {
-
-                buildDateTimeToDateTimeDisplay( startTime, eventDetails.from, eventDetails.to );
-                setNodeText( duration, getFriendlyTimeBetweenTwoDate( eventDetails.from, eventDetails.to ) );
-            }
-
-            if ( duration.innerHTML === _string.empty ) {
-                event.removeChild( duration );
-            }
     
-            if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
-                var repeats = createElement( "div", "repeats" );
-                setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
-                event.appendChild( repeats );
-            }
-    
-            if ( isDefinedStringAndSet( eventDetails.location ) ) {
-                var location = createElement( "div", "location" );
-                setNodeText( location, eventDetails.location );
-                event.appendChild( location );
-            }
-    
-            if ( isDefinedStringAndSet( eventDetails.description ) ) {
-                var description = createElement( "div", "description" );
-                setNodeText( description, eventDetails.description );
-                event.appendChild( description );
+                if ( duration.innerHTML === _string.empty ) {
+                    event.removeChild( duration );
+                }
+        
+                if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _repeatType.never ) {
+                    var repeats = createElement( "div", "repeats" );
+                    setNodeText( repeats, _options.repeatsText.replace( ":", _string.empty ) + _string.space + getRepeatsText( eventDetails.repeatEvery ) );
+                    event.appendChild( repeats );
+                }
+        
+                if ( isDefinedStringAndSet( eventDetails.location ) ) {
+                    var location = createElement( "div", "location" );
+                    setNodeText( location, eventDetails.location );
+                    event.appendChild( location );
+                }
+        
+                if ( isDefinedStringAndSet( eventDetails.description ) ) {
+                    var description = createElement( "div", "description" );
+                    setNodeText( description, eventDetails.description );
+                    event.appendChild( description );
+                }
             }
 
             event.addEventListener( "click", function( e ) {
@@ -5205,21 +5225,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildTimelineViewEvent( timelineRowItems, eventDetails ) {
         var event = createElement( "div", "event" ),
-            formattedDate = toStorageFormattedDate( _element_View_Timeline_DateSelected ),
-            repeatEvery = getNumber( eventDetails.repeatEvery );
+            formattedDate = toStorageFormattedDate( _element_View_Timeline_DateSelected );
         
         event.id = _elementID_Event_Timeline_Day + eventDetails.id;
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
         timelineRowItems.appendChild( event );
 
-        if ( repeatEvery > _repeatType.never ) {
-            var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
-            icon.style.borderColor = event.style.color;
-            event.appendChild( icon );
-        }
+        if ( !triggerOptionsEventWithMultipleData( "onTimelineEventRender", event, eventDetails ) ) {
+            var repeatEvery = getNumber( eventDetails.repeatEvery );
 
-        event.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+            if ( repeatEvery > _repeatType.never ) {
+                var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
+                icon.style.borderColor = event.style.color;
+                event.appendChild( icon );
+            }
+    
+            event.innerHTML += stripHTMLTagsFromText( eventDetails.title );
+        }
     
         event.oncontextmenu = function( e ) {
             showEventContextMenu( e, eventDetails, formattedDate );
@@ -5257,8 +5280,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _element_View_Timeline_DateSelected ) );
         setEventClassesForActions( event, eventDetails );
+        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, _element_View_Timeline_DateSelected ) );
         
         var scrollLeft = setEventPositionAndGetScrollLeft( timelineRowItems, _element_View_Timeline_DateSelected, event, eventDetails );
 
@@ -11854,9 +11877,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
+        var result = false;
+
         if ( _options !== null && isOptionEventSet( name ) ) {
-            _options[ name ]( data1, data2 );
+            result = _options[ name ]( data1, data2 );
         }
+
+        return result;
     }
 
 

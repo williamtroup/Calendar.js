@@ -123,13 +123,30 @@
             useAmPmForTimeDisplays: false,
             onRender: function( elementId ) {
                 console.log( "Calendar instance ID " + elementId + " rendered." );
-            }
+            },
+            onFullDayEventRender: onRenderCustom,
+            onFullWeekEventRender: onRenderCustom,
+            onAllEventsEventRender: onRenderCustom,
+            onTimelineEventRender: onRenderCustom,
+            onMonthEventRender: onRenderCustom,
+            onWidgetEventRender: onRenderCustom,
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
 
         calendarInstance.addEvents( getEvents() );
+
+        function onRenderCustom( event, eventDetails ) {
+            var result = false;
+
+            if ( eventDetails.id === "1234-5678" ) {
+                event.innerHTML = "I've been custom rendered!";
+                result = true;
+            }
+            
+            return result;
+        }
 
         function turnOnEventNotifications() {
             calendarInstance.setOptions( {
@@ -267,6 +284,16 @@
             overlappingEventTo5.setHours( 4, 40, 0, 0 );
 
             return [
+                {
+                    from: today,
+                    to: today3HoursAhead,
+                    title: "Custom Event",
+                    description: "This is a another event that should be rendered custom the custom triggers.",
+                    location: "Teams Meeting",
+                    group: "Group 6",
+                    type: 1,
+                    id: "1234-5678"
+                },
                 {
                     from: overlappingEvent1,
                     to: overlappingEventTo1,
