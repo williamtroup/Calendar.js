@@ -3204,26 +3204,28 @@ function calendarJs(elementOrId, options, searchOptions) {
       var orderedEventIndex = 0;
       for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
         var eventDetails = orderedEvents[orderedEventIndex];
-        if (!eventDetails.isAllDay) {
-          var axisName = getString(eventDetails[_element_View_Timeline_Selected_Axis], _options.noneText);
-          var storageAxisName = axisName.toLowerCase();
-          var timelineRowItems = null;
-          if (!_element_View_Timeline_Contents_Groups_Rows_Cache.hasOwnProperty(storageAxisName)) {
-            var timelineRow = createElement("div", "timeline-row");
-            _element_View_Timeline_Contents.appendChild(timelineRow);
-            var axisNameRowName = createElement("div", "timeline-row-item" + (rowCount % 2 !== 0 ? " timeline-row-item-odd" : _string.empty));
-            setNodeText(axisNameRowName, axisName);
-            timelineRow.appendChild(axisNameRowName);
-            timelineRowItems = createElement("div", "timeline-row-items");
-            timelineRow.appendChild(timelineRowItems);
-            _element_View_Timeline_Contents_Groups_Rows_Cache[storageAxisName] = timelineRowItems;
-            rowCount++;
-          } else {
-            timelineRowItems = _element_View_Timeline_Contents_Groups_Rows_Cache[storageAxisName];
-          }
-          buildTimelineViewEvent(timelineRowItems, eventDetails);
-          _element_View_Timeline_EventsShown.push(eventDetails);
+        var axisName = getString(eventDetails[_element_View_Timeline_Selected_Axis], _options.noneText);
+        var storageAxisName = axisName.toLowerCase();
+        var timelineRowItems = null;
+        if (eventDetails.isAllDay) {
+          axisName = _options.allDayText + ": " + axisName;
+          storageAxisName = storageAxisName + "-" + eventDetails.id;
         }
+        if (!_element_View_Timeline_Contents_Groups_Rows_Cache.hasOwnProperty(storageAxisName)) {
+          var timelineRow = createElement("div", "timeline-row");
+          _element_View_Timeline_Contents.appendChild(timelineRow);
+          var axisNameRowName = createElement("div", "timeline-row-item" + (rowCount % 2 !== 0 ? " timeline-row-item-odd" : _string.empty));
+          setNodeText(axisNameRowName, axisName);
+          timelineRow.appendChild(axisNameRowName);
+          timelineRowItems = createElement("div", "timeline-row-items");
+          timelineRow.appendChild(timelineRowItems);
+          _element_View_Timeline_Contents_Groups_Rows_Cache[storageAxisName] = timelineRowItems;
+          rowCount++;
+        } else {
+          timelineRowItems = _element_View_Timeline_Contents_Groups_Rows_Cache[storageAxisName];
+        }
+        buildTimelineViewEvent(timelineRowItems, eventDetails);
+        _element_View_Timeline_EventsShown.push(eventDetails);
       }
     }
   }
@@ -5485,18 +5487,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     var pixelsPerMinute = getPixelsPerMinuteForWidth(contents);
     var minutesLeft = 0;
     var minutesWidth = null;
-    if (!eventDetails.isAllDay) {
-      var repeatEvery = getNumber(eventDetails.repeatEvery);
-      if (doDatesMatch(eventDetails.from, displayDate) || repeatEvery > _repeatType.never) {
-        minutesLeft = pixelsPerMinute * getMinutesIntoDay(eventDetails.from);
-      }
-      if (doDatesMatch(eventDetails.to, displayDate) || repeatEvery > _repeatType.never) {
-        minutesWidth = pixelsPerMinute * getMinutesIntoDay(eventDetails.to) - minutesLeft;
-      } else {
-        minutesWidth = contentWidth;
-      }
-      minutesWidth = minutesWidth - _options.spacing * 2;
+    var repeatEvery = getNumber(eventDetails.repeatEvery);
+    if (doDatesMatch(eventDetails.from, displayDate) || repeatEvery > _repeatType.never) {
+      minutesLeft = pixelsPerMinute * getMinutesIntoDay(eventDetails.from);
     }
+    if (doDatesMatch(eventDetails.to, displayDate) || repeatEvery > _repeatType.never) {
+      minutesWidth = pixelsPerMinute * getMinutesIntoDay(eventDetails.to) - minutesLeft;
+    } else {
+      minutesWidth = contentWidth;
+    }
+    minutesWidth = minutesWidth - _options.spacing * 2;
     if (minutesLeft <= _options.spacing) {
       minutesLeft = minutesLeft + _options.spacing;
       minutesWidth = minutesWidth - _options.spacing;
