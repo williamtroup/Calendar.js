@@ -16,7 +16,7 @@
 #### **Full Week View:**
 - The "Add Event" button will now default the add date to the start of the week being viewed.
 
-#### **Month View (default):**
+#### **Full Month View (default):**
 - The "Add Event" button now defaults to the current date if the todays month is in view (otherwise, it will default to the 1st of the viewing month/year).
 
 #### **Full Year View:**
