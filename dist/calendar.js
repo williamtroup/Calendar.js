@@ -1913,6 +1913,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullMonthView() {
     buildFullMonthViewTitleBar();
+    buildFullMonthViewPinUp();
     buildFullMonthViewDayNamesHeader();
     buildFullMonthViewDayRows();
   }
@@ -1999,6 +2000,48 @@ function calendarJs(elementOrId, options, searchOptions) {
     buildFullMonthViewYearDropDownButton(titleContainer);
     buildFullMonthViewYearDropDown(titleContainer);
   }
+  function buildFullMonthViewPinUp() {
+    if (!_element_Mode_DatePicker_Enabled) {
+      var wasAddedAlready = _element_View_FullMonth_PinUp !== null;
+      if (_options.isPinUpViewEnabled) {
+        if (!wasAddedAlready) {
+          _element_View_FullMonth_PinUp = createElement("div", "pin-up");
+          _element_Calendar.appendChild(_element_View_FullMonth_PinUp);
+        }
+        buildFullMonthViewPinUpImageCache();
+        if (!_initialized_FirstTime) {
+          buildFullMonthViewPinUpImage();
+        }
+      } else {
+        if (wasAddedAlready) {
+          _element_Calendar.removeChild(_element_View_FullMonth_PinUp);
+          _element_View_FullMonth_PinUp = null;
+        }
+      }
+    }
+  }
+  function buildFullMonthViewPinUpImageCache() {
+    var imagesLength = _options.pinUpViewImageUrls.length;
+    if (imagesLength > 0) {
+      var imageIndex = 0;
+      for (; imageIndex < imagesLength; imageIndex++) {
+        var image = new Image();
+        image.src = _options.pinUpViewImageUrls[imageIndex];
+      }
+    }
+  }
+  function buildFullMonthViewPinUpImage() {
+    if (!_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null) {
+      if (_options.pinUpViewImageUrls.length > 0) {
+        _element_View_FullMonth_PinUp.style.backgroundImage = "url('" + _options.pinUpViewImageUrls[_element_View_FullMonth_PinUp_ImageIndex] + "')";
+        _element_View_FullMonth_PinUp_ImageIndex++;
+        if (_element_View_FullMonth_PinUp_ImageIndex === _options.pinUpViewImageUrls.length) {
+          _element_View_FullMonth_PinUp_ImageIndex = 0;
+        }
+      }
+      triggerOptionsEventWithMultipleData("onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate);
+    }
+  }
   function buildFullMonthViewDayNamesHeader() {
     var wasAddedAlready = _element_View_FullMonth_DayNamesHeader !== null;
     if (_options.showDayNamesInMainDisplay) {
@@ -2073,6 +2116,11 @@ function calendarJs(elementOrId, options, searchOptions) {
       className = className + " custom-scroll-bars";
     }
     return className;
+  }
+  function updatePinUpViewForFullScreenMode() {
+    if (_element_View_FullMonth_PinUp !== null) {
+      _element_View_FullMonth_PinUp.style.display = _element_Calendar_FullScreenModeOn ? "none" : "block";
+    }
   }
   function buildFullMonthViewYearDropDownButton(titleContainer) {
     _element_View_FullMonth_TitleBar_YearSelector_DropDown = createElement("span", "year-dropdown-button");
@@ -2465,7 +2513,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             event.setAttribute("event-type", getNumber(eventDetails.type));
             event.setAttribute("event-id", eventDetails.id);
             if (!_options.useOnlyDotEventsForMainDisplay) {
-              if (!triggerOptionsEventWithMultipleData("onMonthEventRender", event, eventDetails)) {
+              if (!triggerOptionsEventWithMultipleData("onFullMonthEventRender", event, eventDetails)) {
                 var eventTitle = eventDetails.title;
                 var repeatEvery = getNumber(eventDetails.repeatEvery);
                 if (_options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate()) {
@@ -5074,7 +5122,6 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_Dialog_Configuration_Display_EnableTooltips = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down")[0];
       _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDragAndDropForEventText)[0];
       _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDayNameHeadersInMainDisplayText)[0];
-      _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView = buildCheckBox(_element_Dialog_Configuration_Display, _options.showEmptyDaysInWeekViewText)[0];
       _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = buildCheckBox(_element_Dialog_Configuration_Display, _options.showHolidaysInTheDisplaysText)[0];
       createTextHeaderElement(_element_Dialog_Configuration_Organizer, _options.organizerNameText);
       _element_Dialog_Configuration_Organizer_Name = createElement("input", null, "text");
@@ -5098,7 +5145,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.tooltipsEnabled = _element_Dialog_Configuration_Display_EnableTooltips.checked;
     _options.dragAndDropForEventsEnabled = _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked;
     _options.showDayNamesInMainDisplay = _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked;
-    _options.showEmptyDaysInWeekView = _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView.checked;
     _options.showHolidays = _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked;
     _options.organizerName = _element_Dialog_Configuration_Organizer_Name.value;
     _options.organizerEmailAddress = _element_Dialog_Configuration_Organizer_Email.value;
@@ -5119,7 +5165,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Dialog_Configuration_Display_EnableTooltips.checked = _options.tooltipsEnabled;
     _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
     _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
-    _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView.checked = _options.showEmptyDaysInWeekView;
     _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
     _element_Dialog_Configuration_Organizer_Name.value = _options.organizerName;
     _element_Dialog_Configuration_Organizer_Email.value = _options.organizerEmailAddress;
@@ -5718,6 +5763,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       updateFullScreenModeExpandButtons("ib-arrow-expand-left-right", _options.enableFullScreenTooltipText);
       refreshOpenedViews();
       triggerOptionsEventWithData("onFullScreenModeChanged", false);
+      updatePinUpViewForFullScreenMode();
     }
   }
   function forceTurnOnFullScreenMode() {
@@ -5727,6 +5773,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Calendar.removeAttribute("style");
     updateFullScreenModeExpandButtons("ib-arrow-contract-left-right", _options.disableFullScreenTooltipText);
     refreshOpenedViews();
+    updatePinUpViewForFullScreenMode();
   }
   function updateFullScreenModeExpandButtons(className, tooltipText) {
     setElementClassName(_element_View_FullMonth_TitleBar_FullScreenButton, className);
@@ -8140,6 +8187,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (previousMonth.getFullYear() >= _options.minimumYear) {
         build(previousMonth);
         triggerOptionsEventWithData("onPreviousMonth", previousMonth);
+        buildFullMonthViewPinUpImage();
       }
     }
   }
@@ -8153,6 +8201,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (nextMonth.getFullYear() <= _options.maximumYear) {
         build(nextMonth);
         triggerOptionsEventWithData("onNextMonth", nextMonth);
+        buildFullMonthViewPinUpImage();
       }
     }
   }
@@ -8163,6 +8212,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (previousYear.getFullYear() >= _options.minimumYear) {
         build(previousYear);
         triggerOptionsEventWithData("onPreviousYear", previousYear);
+        buildFullMonthViewPinUpImage();
       }
     }
   }
@@ -8173,6 +8223,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (nextYear.getFullYear() <= _options.maximumYear) {
         build(nextYear);
         triggerOptionsEventWithData("onNextYear", nextYear);
+        buildFullMonthViewPinUpImage();
       }
     }
   }
@@ -8182,6 +8233,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_calendar_CurrentDate.getMonth() !== today.getMonth() || _calendar_CurrentDate.getFullYear() !== today.getFullYear()) {
         build();
         triggerOptionsEvent("onToday");
+        buildFullMonthViewPinUpImage();
       }
     }
   }
@@ -8221,7 +8273,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.defaultEventTextColor = getDefaultString(_options.defaultEventTextColor, "#F5F5F5");
     _options.defaultEventBorderColor = getDefaultString(_options.defaultEventBorderColor, "#282828");
     _options.showExtraToolbarButtons = getDefaultBoolean(_options.showExtraToolbarButtons, true);
-    _options.showEmptyDaysInWeekView = getDefaultBoolean(_options.showEmptyDaysInWeekView, true);
     _options.hideEventsWithoutGroupAssigned = getDefaultBoolean(_options.hideEventsWithoutGroupAssigned, false);
     _options.showHolidays = getDefaultBoolean(_options.showHolidays, true);
     _options.useTemplateWhenAddingNewEvent = getDefaultBoolean(_options.useTemplateWhenAddingNewEvent, true);
@@ -8257,6 +8308,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.importEventsEnabled = getDefaultBoolean(_options.importEventsEnabled, true);
     _options.useAmPmForTimeDisplays = getDefaultBoolean(_options.useAmPmForTimeDisplays, false);
     _options.isWidget = getDefaultBoolean(_options.isWidget, false);
+    _options.isPinUpViewEnabled = getDefaultBoolean(_options.isPinUpViewEnabled, false);
+    _options.pinUpViewImageUrls = getDefaultArray(_options.pinUpViewImageUrls, []);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
@@ -8436,7 +8489,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.selectDatePlaceholderText = getDefaultString(_options.selectDatePlaceholderText, "Select date...");
     _options.hideDayText = getDefaultString(_options.hideDayText, "Hide Day");
     _options.notSearchText = getDefaultString(_options.notSearchText, "Not (opposite)");
-    _options.showEmptyDaysInWeekViewText = getDefaultString(_options.showEmptyDaysInWeekViewText, "Show empty days in the week view");
     _options.showHolidaysInTheDisplaysText = getDefaultString(_options.showHolidaysInTheDisplaysText, "Show holidays in the main display and title bars");
     _options.newEventDefaultTitle = getDefaultString(_options.newEventDefaultTitle, "* New Event");
     _options.urlErrorMessage = getDefaultString(_options.urlErrorMessage, "Please enter a valid Url in the 'Url' field (or leave blank).");
@@ -8637,6 +8689,8 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_FullMonth_TitleBar_YearSelector_Contents_Months = {};
   var _element_View_FullMonth_TitleBar_FullScreenButton = null;
   var _element_View_FullMonth_TitleBar_SearchButton = null;
+  var _element_View_FullMonth_PinUp = null;
+  var _element_View_FullMonth_PinUp_ImageIndex = 0;
   var _element_View_FullMonth_DayNamesHeader = null;
   var _element_View_FullMonth_EventsShown = [];
   var _element_View_FullMonth_LargestDateAvailable = null;
@@ -8778,7 +8832,6 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_Dialog_Configuration_Display_EnableTooltips = null;
   var _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = null;
   var _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = null;
-  var _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView = null;
   var _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = null;
   var _element_Dialog_Configuration_Organizer_Name = null;
   var _element_Dialog_Configuration_Organizer_Email = null;
