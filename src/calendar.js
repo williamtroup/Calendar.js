@@ -121,6 +121,10 @@
  * @property    {Object}    onAllEventsEventRender                      Specifies an event that will be triggered when an event is rendered in the All Events view (passes the DOM element and event to the function).
  * @property    {Object}    onTimelineEventRender                       Specifies an event that will be triggered when an event is rendered in the Timeline view (passes the DOM element and event to the function).
  * @property    {Object}    onWidgetEventRender                         Specifies an event that will be triggered when an event is rendered in the Widget mode (passes the DOM element and event to the function).
+ * @property    {Object}    onToolTipEventRender                        Specifies an event that will be triggered when an tooltip is rendered for an event (passes the tooltip DOM element and event to the function).
+ * @property    {Object}    onFullDayTitleRender                        Specifies an event that will be triggered when the Full Day title is rendered (passes the date/time to the function).
+ * @property    {Object}    onFullWeekTitleRender                       Specifies an event that will be triggered when the Full Week title is rendered (passes the dates/times to the function).
+ * @property    {Object}    onTimelineTitleRender                       Specifies an event that will be triggered when the Timeline title is rendered (passes the date/time to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
