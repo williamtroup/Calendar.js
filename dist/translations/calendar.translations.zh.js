@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "选择日期...",
     "hideDayText": "隐藏日",
     "notSearchText": "不是（相反）",
-    "showEmptyDaysInWeekViewText": "在周视图中显示空天数",
     "showHolidaysInTheDisplaysText": "在主显示屏和标题栏中显示假期",
     "newEventDefaultTitle": "* 新事件",
     "urlErrorMessage": "请在“网址”字段中输入有效的网址（或留空）。",

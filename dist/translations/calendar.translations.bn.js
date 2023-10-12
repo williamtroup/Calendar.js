@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "তারিখ নির্বাচন করুন...",
     "hideDayText": "লুকিয়ে দিন",
     "notSearchText": "না (বিপরীত)",
-    "showEmptyDaysInWeekViewText": "সপ্তাহের দৃশ্যে খালি দিনগুলি দেখান",
     "showHolidaysInTheDisplaysText": "প্রধান প্রদর্শন এবং শিরোনাম বারে ছুটির দিনগুলি দেখান৷",
     "newEventDefaultTitle": "* নতুন ঘটনা",
     "urlErrorMessage": "অনুগ্রহ করে 'Url' ক্ষেত্রে একটি বৈধ Url লিখুন (বা ফাঁকা ছেড়ে দিন)।",

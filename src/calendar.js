@@ -264,7 +264,6 @@
  * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
  * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
  * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
- * @property    {string}    showEmptyDaysInWeekViewText                 The text that should be displayed for the "Show empty days in the week view" label.
  * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
  * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
  * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
@@ -352,7 +351,6 @@
  * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
  * @property    {boolean}   showExtraToolbarButtons                     States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
  * @property    {boolean}   openInFullScreenMode                        States if full-screen mode should be turned on when the calendar is rendered (defaults to false).
- * @property    {boolean}   showEmptyDaysInWeekView                     States if empty days should be shown in the Week view (defaults to true).
  * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
  * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
@@ -849,7 +847,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_Configuration_Display_EnableTooltips = null,
         _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = null,
         _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = null,
-        _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView = null,
         _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = null,
         _element_Dialog_Configuration_Organizer_Name = null,
         _element_Dialog_Configuration_Organizer_Email = null,
@@ -7771,7 +7768,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Dialog_Configuration_Display_EnableTooltips = buildCheckBox( _element_Dialog_Configuration_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down" )[ 0 ];
             _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = buildCheckBox( _element_Dialog_Configuration_Display, _options.enableDragAndDropForEventText )[ 0 ];
             _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = buildCheckBox( _element_Dialog_Configuration_Display, _options.enableDayNameHeadersInMainDisplayText )[ 0 ];
-            _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView = buildCheckBox( _element_Dialog_Configuration_Display, _options.showEmptyDaysInWeekViewText )[ 0 ];
             _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = buildCheckBox( _element_Dialog_Configuration_Display, _options.showHolidaysInTheDisplaysText )[ 0 ];
     
             createTextHeaderElement( _element_Dialog_Configuration_Organizer, _options.organizerNameText );
@@ -7803,7 +7799,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.tooltipsEnabled = _element_Dialog_Configuration_Display_EnableTooltips.checked;
         _options.dragAndDropForEventsEnabled = _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked;
         _options.showDayNamesInMainDisplay = _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked;
-        _options.showEmptyDaysInWeekView = _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView.checked;
         _options.showHolidays = _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked;
         _options.organizerName = _element_Dialog_Configuration_Organizer_Name.value;
         _options.organizerEmailAddress = _element_Dialog_Configuration_Organizer_Email.value;
@@ -7829,7 +7824,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_Configuration_Display_EnableTooltips.checked = _options.tooltipsEnabled;
         _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
         _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
-        _element_Dialog_Configuration_Display_ShowEmptyDaysInWeekView.checked = _options.showEmptyDaysInWeekView;
         _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
         _element_Dialog_Configuration_Organizer_Name.value = _options.organizerName;
         _element_Dialog_Configuration_Organizer_Email.value = _options.organizerEmailAddress;
@@ -13547,7 +13541,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.defaultEventTextColor = getDefaultString( _options.defaultEventTextColor, "#F5F5F5" );
         _options.defaultEventBorderColor = getDefaultString( _options.defaultEventBorderColor, "#282828" );
         _options.showExtraToolbarButtons = getDefaultBoolean( _options.showExtraToolbarButtons, true );
-        _options.showEmptyDaysInWeekView = getDefaultBoolean( _options.showEmptyDaysInWeekView, true );
         _options.hideEventsWithoutGroupAssigned = getDefaultBoolean( _options.hideEventsWithoutGroupAssigned, false );
         _options.showHolidays = getDefaultBoolean( _options.showHolidays, true );
         _options.useTemplateWhenAddingNewEvent = getDefaultBoolean( _options.useTemplateWhenAddingNewEvent, true );
@@ -13825,7 +13818,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.selectDatePlaceholderText = getDefaultString( _options.selectDatePlaceholderText, "Select date..." );
         _options.hideDayText = getDefaultString( _options.hideDayText, "Hide Day" );
         _options.notSearchText = getDefaultString( _options.notSearchText, "Not (opposite)" );
-        _options.showEmptyDaysInWeekViewText = getDefaultString( _options.showEmptyDaysInWeekViewText, "Show empty days in the week view" );
         _options.showHolidaysInTheDisplaysText = getDefaultString( _options.showHolidaysInTheDisplaysText, "Show holidays in the main display and title bars" );
         _options.newEventDefaultTitle = getDefaultString( _options.newEventDefaultTitle, "* New Event" );
         _options.urlErrorMessage = getDefaultString( _options.urlErrorMessage, "Please enter a valid Url in the 'Url' field (or leave blank)." );

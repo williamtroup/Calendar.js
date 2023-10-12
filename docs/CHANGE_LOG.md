@@ -26,7 +26,7 @@
 #### **Widget Mode:**
 - The "Add Event" button will now default the add date to the currently selected date.
 
-#### **New Custom Trigger Events:**
+#### **Custom Trigger Events:**
 - Added a new custom trigger "onFullDayEventRender", which is triggered when an event in the Full Day view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onFullWeekEventRender", which is triggered when an event in the Full Week view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onFullMonthEventRender", which is triggered when an event in the Full Month view is rendered (allowing custom rendering, or just a notification).
@@ -39,9 +39,11 @@
 - Added a new custom trigger "onTimelineTitleRender", which is triggered when the Timeline views title is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onFullMonthPinUpRender", which is triggered when the Full Month views pin-up is rendered (allowing custom rendering, or just a notification).
 
-#### **New Settings:**
+#### **Settings:**
 - Added a new setting "isPinUpViewEnabled" (defaults to false), which states if the pin-up view is enabled in the Full Month view.
 - Added a new setting "pinUpViewImageUrls" (defaults to []), which states the image URLs that should be used for the pin-up view in the Full Month view.
+- Removed the redundant setting "showEmptyDaysInWeekViewText".
+- Removed the redundant setting "showEmptyDaysInWeekView".
 
 #### **Code Improvements:**
 - Finished the variable re-structuring and renaming in the main constructor.
@@ -55,6 +57,7 @@
 - Fixed a fault that caused the search dialog to shift the currently active view being searched into a strange position.
 - Fixed the CUSTOM_TRIGGERS.md documentation not rendering correctly.
 - Fixed a CSS fault that caused the Search history drop-down to appear in slightly in the wrong place.
+- Fixed the "Show empty days in the week view" setting still being available in the "Configuration" dialog.
 
 <br>
 

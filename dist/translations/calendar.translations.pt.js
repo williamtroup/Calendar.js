@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
   "selectDatePlaceholderText": "Selecione a data...",
   "hideDayText": "Ocultar dia",
   "notSearchText": "Não (oposto)",
-  "showEmptyDaysInWeekViewText": "Mostrar dias vazios na visualização semanal",
   "showHolidaysInTheDisplaysText": "Mostrar feriados na tela principal e nas barras de título",
   "newEventDefaultTitle": "* Novo evento",
   "urlErrorMessage": "Insira um URL válido no campo 'Url' (ou deixe em branco).",

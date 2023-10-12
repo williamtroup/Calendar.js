@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "Tarih seç...",
     "hideDayText": "Günü Gizle",
     "notSearchText": "Değil (karşı)",
-    "showEmptyDaysInWeekViewText": "Hafta görünümünde boş günleri göster",
     "showHolidaysInTheDisplaysText": "Tatilleri ana ekranda ve başlık çubuklarında göster",
     "newEventDefaultTitle": "* Yeni etkinlik",
     "urlErrorMessage": "Lütfen 'URL' alanına geçerli bir URL girin (veya boş bırakın).",

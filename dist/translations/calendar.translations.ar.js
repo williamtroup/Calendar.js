@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "حدد تاريخ...",
     "hideDayText": "إخفاء اليوم",
     "notSearchText": "لا (عكس)",
-    "showEmptyDaysInWeekViewText": "إظهار الأيام الفارغة في عرض الأسبوع",
     "showHolidaysInTheDisplaysText": "إظهار أيام العطل في شاشة العرض الرئيسية وأشرطة العناوين",
     "newEventDefaultTitle": "* حدث جديد",
     "urlErrorMessage": "الرجاء إدخال عنوان URL صالح في حقل \"عنوان URL\" (أو اتركه فارغًا).",

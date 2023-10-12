@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "日付を選択してください...",
     "hideDayText": "日を隠す",
     "notSearchText": "そうじゃない（反対）",
-    "showEmptyDaysInWeekViewText": "週ビューで空の日を表示する",
     "showHolidaysInTheDisplaysText": "メインディスプレイとタイトルバーに祝日を表示する",
     "newEventDefaultTitle": "* 新しいイベント",
     "urlErrorMessage": "「URL」フィールドに有効な URL を入力してください (または空白のままにしてください)。",

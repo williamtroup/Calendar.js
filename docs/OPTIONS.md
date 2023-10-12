@@ -42,7 +42,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | defaultEventBorderColor | States the default border color that should be used for events (defaults to "#282828"). |
 | *boolean* | showExtraToolbarButtons | States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true). |
 | *boolean* | openInFullScreenMode | States if full-screen mode should be turned on when the calendar is rendered (defaults to false). |
-| *boolean* | showEmptyDaysInWeekView | States if empty days should be shown in the Week view (defaults to true). |
 | *boolean* | hideEventsWithoutGroupAssigned | States if events without a group should be hidden (defaults to false). |
 | *boolean* | showHolidays | States if the holidays should be shown (defaults to true). |
 | *boolean* | useTemplateWhenAddingNewEvent | States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true). |
@@ -223,7 +222,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | selectDatePlaceholderText | The text that should be displayed for the "Select date..." date-picker placeholder text. |
 | *string* | hideDayText | The text that should be displayed for the "Hide Day" label. |
 | *string* | notSearchText | The text that should be displayed for the "Not (opposite)" label. |
-| *string* | showEmptyDaysInWeekViewText | The text that should be displayed for the "Show empty days in the week view" label. |
 | *string* | showHolidaysInTheDisplaysText | The text that should be displayed for the "Show holidays in the main display and title bars" label. |
 | *string* | newEventDefaultTitle | The default title that should be used for new events (defaults to "* New Event"). |
 | *string* | urlErrorMessage | The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label. |
