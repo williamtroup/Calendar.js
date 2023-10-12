@@ -678,7 +678,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullMonth_TitleBar_FullScreenButton = null,
         _element_View_FullMonth_TitleBar_SearchButton = null,
         _element_View_FullMonth_DayNamesHeader = null,
-        _element_View_FullMonth_AllVisibleEvents = [],
+        _element_View_FullMonth_EventsShown = [],
         _element_View_FullMonth_LargestDateAvailable = null,
 
         // Variables: View - Full Year
@@ -1114,7 +1114,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var viewOpen = getRecentViewOpened();
 
                 if ( viewOpen === null ) {
-                    showExportEventsDialog( _element_View_FullMonth_AllVisibleEvents );
+                    showExportEventsDialog( _element_View_FullMonth_EventsShown );
                 } else {
         
                     if ( viewOpen === _element_View_FullDay ) {
@@ -1185,7 +1185,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var viewOpen = getRecentViewOpened();
 
         if ( viewOpen === null ) {
-            updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullMonth_AllVisibleEvents.length > 0 );
+            updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullMonth_EventsShown.length > 0 );
         } else {
 
             if ( viewOpen === _element_View_FullDay ) {
@@ -2230,7 +2230,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             viewOpen = getRecentViewOpened();
         
         if ( viewOpen === null ) {
-            openSearch = _element_View_FullMonth_AllVisibleEvents.length > 0;
+            openSearch = _element_View_FullMonth_EventsShown.length > 0;
         } else {
 
             if ( viewOpen === _element_View_FullDay ) {
@@ -4063,7 +4063,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         clearAutoRefreshTimer();
 
         _calendar_IsBusy = false;
-        _element_View_FullMonth_AllVisibleEvents = [];
+        _element_View_FullMonth_EventsShown = [];
         _events_DatesAvailable = {};
 
         var orderedEvents = getOrderedEvents( getAllEvents() ),
@@ -4075,7 +4075,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildFullMonthViewDayEventAcrossDays( orderedEvent );
 
             if ( isEventVisible( orderedEvent ) ) {
-                _element_View_FullMonth_AllVisibleEvents.push( orderedEvent );
+                _element_View_FullMonth_EventsShown.push( orderedEvent );
             }
 
             var repeatEvery = getNumber( orderedEvent.repeatEvery );
@@ -4111,7 +4111,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
         
         updateCalendarsLastBusyState();
-        updateFullMonthViewTitleBarButtonsVisibleStates( _element_View_FullMonth_AllVisibleEvents.length );
+        updateFullMonthViewTitleBarButtonsVisibleStates( _element_View_FullMonth_EventsShown.length );
         startAutoRefreshTimer();
     }
 
@@ -7060,7 +7060,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             viewOpen = getRecentViewOpened();
         
         if ( viewOpen === null ) {
-            events = _element_View_FullMonth_AllVisibleEvents;
+            events = _element_View_FullMonth_EventsShown;
         } else {
 
             if ( viewOpen === _element_View_FullDay ) {
