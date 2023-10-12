@@ -25,12 +25,10 @@ function calendarJs(elementOrId, options, searchOptions) {
           buildSideMenu();
           buildFullDayView();
           buildFullWeekView();
+          buildFullMonthView();
           buildFullYearView();
           buildAllEventsView();
           buildTimelineView();
-          buildDateHeader();
-          buildDayNamesHeader();
-          buildDayRows();
           buildDocumentEvents();
           buildLayoutEventsFromSources();
           buildLayoutTriggerRenderComplete();
@@ -40,10 +38,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildLayoutModalsAndMainView(startDay, fullRebuild, forceRefreshViews) {
-    buildPreviousMonthDays(startDay);
-    var lastDayFilled = buildMonthDays(startDay);
-    buildNextMonthDays(lastDayFilled);
-    buildDayEvents();
+    buildFullMonthViewDays(startDay);
     if (fullRebuild) {
       buildDisabledBackground();
       buildEventEditingDialog();
@@ -61,7 +56,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       refreshViews(true, false);
     }
     if (_element_Calendar !== null) {
-      setYearDropDownSelectorButtonText();
+      setFullMonthViewYearDropDownButtonText();
     }
   }
   function buildLayoutWidget() {
@@ -120,309 +115,6 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
-  function buildDateHeader() {
-    _element_Calendar_TitleBar_FullScreenButton = null;
-    _element_Calendar_TitleBar_SearchButton = null;
-    var wasAddedAlready = _element_Calendar_TitleBar !== null;
-    if (wasAddedAlready) {
-      _element_Calendar_TitleBar.innerHTML = _string.empty;
-    }
-    if (!wasAddedAlready) {
-      _element_Calendar_TitleBar = createElement("div", "header-date");
-      _element_Calendar.appendChild(_element_Calendar_TitleBar);
-    }
-    if (_options.fullScreenModeEnabled) {
-      _element_Calendar_TitleBar.ondblclick = fullScreenModeHeaderDoubleClick;
-    }
-    if (_element_Mode_DatePicker_Enabled) {
-      _element_Calendar_TitleBar.onclick = function(e) {
-        cancelBubble(e);
-        hideAllDropDowns();
-      };
-    }
-    if (!_element_Mode_DatePicker_Enabled && isSideMenuAvailable()) {
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
-      _element_Calendar_TitleBar.appendChild(createElement("div", "left-divider-line"));
-    }
-    buildToolbarButton(_element_Calendar_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, onPreviousMonth);
-    if (_options.addYearButtonsOnMainDisplay) {
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear);
-    }
-    if (_element_Mode_DatePicker_Enabled || _options.showExtraToolbarButtons) {
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-pin", _options.currentMonthTooltipText, onCurrentMonth);
-    }
-    if (_options.showExtraToolbarButtons) {
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-refresh", _options.refreshTooltipText, function() {
-        refreshViews(true, true);
-      });
-      if (_options_Search.enabled) {
-        _element_Calendar_TitleBar_SearchButton = buildToolbarButton(_element_Calendar_TitleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
-      }
-    }
-    if (_element_Mode_DatePicker_Enabled) {
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-close", _options.closeTooltipText, hideDatePickerMode);
-      _element_Calendar_TitleBar.appendChild(createElement("div", "right-divider-line"));
-    }
-    if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
-      _element_Calendar_TitleBar_FullScreenButton = buildToolbarButton(_element_Calendar_TitleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
-      _element_Calendar_TitleBar.appendChild(createElement("div", "right-divider-line-full-screen-mode"));
-    }
-    buildToolbarButton(_element_Calendar_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth);
-    if (_options.addYearButtonsOnMainDisplay) {
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear);
-    }
-    if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-plus", _options.addEventTooltipText, function() {
-        if (doDatesMatchMonthAndYear(_calendar_CurrentDate, new Date())) {
-          showEventEditingDialog(null);
-        } else {
-          showEventEditingDialog(null, new Date(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth(), 1));
-        }
-      });
-    }
-    if (!_element_Mode_DatePicker_Enabled) {
-      _element_Calendar_TitleBar.appendChild(createElement("div", "right-divider-line-views"));
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
-        showTimelineView(null, true);
-      });
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-eye", _options.viewAllEventsTooltipText, function() {
-        showAllEventsView(true);
-      });
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-expand", _options.viewFullYearTooltipText, function() {
-        showFullYearView(null, true);
-      });
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-hamburger-side", _options.viewFullWeekTooltipText, function() {
-        showFullWeekView(null, true);
-      });
-      buildToolbarButton(_element_Calendar_TitleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
-        showFullDayView(null, true);
-      });
-    }
-    var titleContainer = createElement("div", "title-container");
-    _element_Calendar_TitleBar.appendChild(titleContainer);
-    buildYearSelectorDropDownButton(titleContainer);
-    buildYearSelectorDropDown(titleContainer);
-  }
-  function buildDayNamesHeader() {
-    var wasAddedAlready = _element_Calendar_DayNamesHeader !== null;
-    if (_options.showDayNamesInMainDisplay) {
-      if (wasAddedAlready) {
-        _element_Calendar_DayNamesHeader.innerHTML = _string.empty;
-      }
-      if (!wasAddedAlready) {
-        _element_Calendar_DayNamesHeader = createElement("div", "row-cells header-days");
-        _element_Calendar.appendChild(_element_Calendar_DayNamesHeader);
-      }
-      if (_element_Mode_DatePicker_Enabled) {
-        _element_Calendar_DayNamesHeader.onclick = cancelBubble;
-      }
-      buildViewDayNamesHeader(_element_Calendar_DayNamesHeader);
-    } else {
-      if (wasAddedAlready) {
-        _element_Calendar.removeChild(_element_Calendar_DayNamesHeader);
-        _element_Calendar_DayNamesHeader = null;
-      }
-    }
-  }
-  function buildDayRows(container, dayStartID) {
-    var isForCustomContainer = isDefined(container);
-    container = !isForCustomContainer ? _element_Calendar : container;
-    dayStartID = isDefined(dayStartID) ? dayStartID : _element_ID_DayElement;
-    if (!isForCustomContainer && _element_Calendar_Rows.length > 0) {
-      var rowsLength = _element_Calendar_Rows.length;
-      var rowsIndex = 0;
-      for (; rowsIndex < rowsLength; rowsIndex++) {
-        _element_Calendar.removeChild(_element_Calendar_Rows[rowsIndex]);
-      }
-      _element_Calendar_Rows = [];
-    }
-    var rowIndex = 0;
-    for (; rowIndex < 6; rowIndex++) {
-      var rowData = createElement("div", "row-cells days");
-      container.appendChild(rowData);
-      if (!isForCustomContainer) {
-        _element_Calendar_Rows.push(rowData);
-      }
-      var columnDataIndex = 0;
-      for (; columnDataIndex < 7; columnDataIndex++) {
-        var dayNumber = columnDataIndex;
-        if (_options.startOfWeekDay === _enum_Day.saturday || _options.startOfWeekDay === _enum_Day.sunday) {
-          dayNumber = _options.startOfWeekDay + columnDataIndex;
-          if (dayNumber >= 7) {
-            dayNumber = dayNumber - 7;
-          }
-        }
-        if (_options.visibleDays.indexOf(dayNumber) > -1) {
-          var columnDataNumber = rowIndex * 7 + (columnDataIndex + 1);
-          var columnData = createElement("div", getCellName(_options.allowEventScrollingOnMainDisplay));
-          columnData.id = dayStartID + columnDataNumber;
-          rowData.appendChild(columnData);
-          if (_options.allowEventScrollingOnMainDisplay) {
-            columnData.className += " scrollY";
-          }
-          if (_options.minimumDayHeight > 0) {
-            columnData.style.height = _options.minimumDayHeight + "px";
-          }
-        }
-      }
-      if (_options.reverseOrderDaysOfWeek) {
-        reverseElementsOrder(rowData);
-      }
-    }
-  }
-  function getCellName(addScrollBars) {
-    addScrollBars = isDefined(addScrollBars) ? addScrollBars : false;
-    var className = "cell cell-" + _options.visibleDays.length;
-    if (addScrollBars) {
-      className = className + " custom-scroll-bars";
-    }
-    return className;
-  }
-  function getAdjustedAllDayEvent(eventDetails) {
-    var adjustedEvent = eventDetails;
-    if (adjustedEvent.isAllDay) {
-      adjustedEvent.from = new Date(adjustedEvent.from.getFullYear(), adjustedEvent.from.getMonth(), adjustedEvent.from.getDate(), 0, 0);
-      adjustedEvent.to = new Date(adjustedEvent.from.getFullYear(), adjustedEvent.from.getMonth(), adjustedEvent.from.getDate(), 23, 59);
-    }
-    return adjustedEvent;
-  }
-  function buildPreviousMonthDays(startDay) {
-    if (startDay > 1) {
-      var previousMonth = new Date(_calendar_CurrentDate);
-      previousMonth.setMonth(previousMonth.getMonth() - 1);
-      var totalDaysInMonth = getTotalDaysInMonth(previousMonth.getFullYear(), previousMonth.getMonth());
-      var elementDayNumber = 1;
-      var dayStart = totalDaysInMonth - startDay + 1;
-      var day = dayStart;
-      for (; day < totalDaysInMonth; day++) {
-        var addMonthName = day === totalDaysInMonth - 1;
-        buildDay(day + 1, elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName);
-        elementDayNumber++;
-      }
-    }
-  }
-  function buildMonthDays(startDay) {
-    var elementDayNumber = 0;
-    var totalDaysInMonth = getTotalDaysInMonth(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth());
-    var day = 0;
-    for (; day < totalDaysInMonth; day++) {
-      elementDayNumber = startDay + day;
-      buildDay(day + 1, elementDayNumber, _calendar_CurrentDate.getMonth(), _calendar_CurrentDate.getFullYear(), false);
-    }
-    return elementDayNumber;
-  }
-  function buildNextMonthDays(lastDayFilled) {
-    if (lastDayFilled < 42) {
-      var actualDay = 1;
-      var nextMonth = new Date(_calendar_CurrentDate);
-      nextMonth.setMonth(nextMonth.getMonth() + 1);
-      var elementDayNumber = lastDayFilled + 1;
-      for (; elementDayNumber < 43; elementDayNumber++) {
-        var addMonthName = actualDay === 1;
-        buildDay(actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName);
-        actualDay++;
-      }
-      var nextDay = getTotalDaysInMonth(nextMonth.getFullYear(), nextMonth.getMonth());
-      nextDay = Math.round(nextDay / 2);
-      _element_Calendar_LargestDateAvailable = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), nextDay);
-    } else {
-      _element_Calendar_LargestDateAvailable = null;
-    }
-  }
-  function buildDay(actualDay, elementDayNumber, month, year, isMuted, includeMonthName) {
-    var dayElement = getElementByID(_element_ID_DayElement + elementDayNumber);
-    if (dayElement !== null) {
-      var today = new Date();
-      var dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth();
-      var dayText = createElement("span");
-      var dayDate = new Date(year, month, actualDay);
-      var dayMutedClass = isMuted ? " day-muted" : _string.empty;
-      var allowDatePickerHoverAndSelect = true;
-      includeMonthName = isDefined(includeMonthName) ? includeMonthName : false;
-      dayElement.innerHTML = _string.empty;
-      dayElement.className = dayElement.className.replace(" cell-today", _string.empty).replace(" cell-selected", _string.empty).replace(" cell-no-click", _string.empty);
-      if (_element_Mode_DatePicker_Enabled && dayIsToday) {
-        dayElement.className += " cell-today";
-      }
-      if (_element_Mode_DatePicker_Enabled && !dayIsToday && _calendar_CurrentDate_ForDatePicker !== null && doDatesMatch(dayDate, _calendar_CurrentDate_ForDatePicker)) {
-        dayElement.className += " cell-selected";
-      }
-      if (_element_Mode_DatePicker_Enabled) {
-        allowDatePickerHoverAndSelect = isDateValidForDatePicker(dayDate);
-        if (!allowDatePickerHoverAndSelect) {
-          dayElement.className += " cell-no-click";
-          dayText.className = "no-click";
-        }
-      } else {
-        dayText.className = _string.empty;
-      }
-      dayText.className += dayMutedClass;
-      dayText.className += dayIsToday && !_element_Mode_DatePicker_Enabled ? " today" : _string.empty;
-      dayText.innerText = actualDay;
-      if (actualDay === 1 && !_element_Mode_DatePicker_Enabled) {
-        dayText.className += " first-day";
-      }
-      if (isWeekendDay(dayDate) && dayElement.className.indexOf("weekend-day") === -1) {
-        dayElement.className += " weekend-day";
-      }
-      if (isWorkingDay(dayDate) && dayElement.className.indexOf("working-day") === -1) {
-        dayElement.className += " working-day";
-      }
-      dayElement.oncontextmenu = function(e) {
-        showDayContextMenu(e, dayDate);
-      };
-      if (_options.showDayNumberOrdinals) {
-        var ordinal = getDayOrdinal(actualDay);
-        if (isDefined(ordinal)) {
-          var sup = createElement("sup");
-          sup.innerText = ordinal;
-          dayText.appendChild(sup);
-        }
-      }
-      dayElement.appendChild(dayText);
-      dayElement.appendChild(createElement("span", "blank"));
-      var expandDayButton = createElement("div", "ib-arrow-expand-left-right-icon");
-      dayElement.appendChild(expandDayButton);
-      addToolTip(expandDayButton, _options.expandDayTooltipText);
-      expandDayButton.onclick = function() {
-        showFullDayView(dayDate, true);
-      };
-      if (includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay) {
-        createSpanElement(dayElement, _options.monthNames[month], "month-name" + dayMutedClass, function() {
-          if (actualDay === 1) {
-            onNextMonth();
-          } else {
-            onPreviousMonth();
-          }
-        }, true, true);
-      }
-      addHolidays(dayDate, dayMutedClass, dayElement);
-      if (_options.manualEditingEnabled) {
-        dayElement.ondblclick = function() {
-          if (_options.useTemplateWhenAddingNewEvent) {
-            var newBlankTemplateEvent = buildBlankTemplateEvent(dayDate, dayDate);
-            showEventEditingDialog(newBlankTemplateEvent);
-            showEventEditingDialogTitleSelected();
-          } else {
-            showEventEditingDialog(null, dayDate);
-          }
-        };
-        makeAreaDroppable(dayElement, year, month, actualDay);
-      }
-      if (_element_Mode_DatePicker_Enabled) {
-        if (allowDatePickerHoverAndSelect) {
-          dayElement.onclick = function(e) {
-            setDatePickerDate(e, dayDate);
-          };
-        } else {
-          dayElement.onclick = cancelBubble;
-        }
-      }
-      if (_options.useOnlyDotEventsForMainDisplay) {
-        dayElement.appendChild(createElement("div", "dots-separator"));
-      }
-    }
-  }
   function buildSideMenu() {
     if (!_element_Mode_DatePicker_Enabled && _element_SideMenu === null) {
       buildSideMenuDisabledBackground();
@@ -455,7 +147,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton(header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
         var viewOpen = getRecentViewOpened();
         if (viewOpen === null) {
-          showExportEventsDialog(_element_Calendar_AllVisibleEvents);
+          showExportEventsDialog(_element_View_FullMonth_AllVisibleEvents);
         } else {
           if (viewOpen === _element_View_FullDay) {
             showExportEventsDialog(_element_View_FullDay_EventsShown);
@@ -513,7 +205,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function updateSideMenuExportButtonVisibleState() {
     var viewOpen = getRecentViewOpened();
     if (viewOpen === null) {
-      updateToolbarButtonVisibleState(_element_SideMenu_TitleBar_ExportEventsButton, _element_Calendar_AllVisibleEvents.length > 0);
+      updateToolbarButtonVisibleState(_element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullMonth_AllVisibleEvents.length > 0);
     } else {
       if (viewOpen === _element_View_FullDay) {
         updateToolbarButtonVisibleState(_element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullDay_EventsShown.length > 0);
@@ -1017,7 +709,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function setDatePickerDate(e, date) {
     cancelBubble(e);
-    if (!isYearSelectorDropDownVisible()) {
+    if (!isFullMonthViewYearDropDownVisible()) {
       var newDate = new Date(date);
       newDate.setHours(0, 0, 0, 0);
       hideDatePickerMode();
@@ -1058,153 +750,6 @@ function calendarJs(elementOrId, options, searchOptions) {
       newDateAllowed = isDateSmallerOrEqualToDate(newDate, _options.maximumDatePickerDate);
     }
     return newDateAllowed;
-  }
-  function buildYearSelectorDropDownButton(titleContainer) {
-    _element_Calendar_TitleBar_YearSelector_DropDown = createElement("span", "year-dropdown-button");
-    _element_Calendar_TitleBar_YearSelector_DropDown.ondblclick = cancelBubble;
-    _element_Calendar_TitleBar_YearSelector_DropDown.onclick = showYearSelectorDropDownMenu;
-    titleContainer.appendChild(_element_Calendar_TitleBar_YearSelector_DropDown);
-    _element_Calendar_TitleBar_YearSelector_DropDown_Text = createElement("span");
-    _element_Calendar_TitleBar_YearSelector_DropDown.appendChild(_element_Calendar_TitleBar_YearSelector_DropDown_Text);
-    _element_Calendar_TitleBar_YearSelector_DropDown_Arrow = createElement("span", "ib-arrow-down-full-medium");
-    _element_Calendar_TitleBar_YearSelector_DropDown.appendChild(_element_Calendar_TitleBar_YearSelector_DropDown_Arrow);
-  }
-  function buildYearSelectorDropDown(container) {
-    var yearDate = new Date(_options.minimumYear, 1, 1);
-    var monthContainer = null;
-    _element_Calendar_TitleBar_YearSelector = createElement("div", _options.showMonthButtonsInYearDropDownMenu ? "years-drop-down" : "years-drop-down-no-months");
-    container.appendChild(_element_Calendar_TitleBar_YearSelector);
-    if (_options.showMonthButtonsInYearDropDownMenu) {
-      var monthIndex = 0;
-      for (; monthIndex < 12; monthIndex++) {
-        if (monthIndex % 3 === 0) {
-          monthContainer = createElement("div", "months");
-          _element_Calendar_TitleBar_YearSelector.appendChild(monthContainer);
-        }
-        buildMonthNameButton(monthContainer, monthIndex);
-      }
-    }
-    _element_Calendar_TitleBar_YearSelector_Contents = createElement("div", "contents custom-scroll-bars");
-    _element_Calendar_TitleBar_YearSelector.appendChild(_element_Calendar_TitleBar_YearSelector_Contents);
-    for (; true;) {
-      buildYearSelectorDropDownYear(yearDate.getFullYear());
-      moveDateForwardYear(yearDate);
-      if (yearDate.getFullYear() > _options.maximumYear) {
-        break;
-      }
-    }
-  }
-  function buildMonthNameButton(container, monthNumber) {
-    var button = createElement("div", "month-name");
-    var buttonText = _options.monthNamesAbbreviated[monthNumber];
-    button.onclick = function(e) {
-      cancelBubble(e);
-      if (_calendar_CurrentDate.getMonth() !== monthNumber) {
-        _calendar_CurrentDate.setMonth(monthNumber);
-        build(_calendar_CurrentDate);
-        hideYearSelectorDropDown();
-      }
-    };
-    setNodeText(button, buttonText);
-    container.appendChild(button);
-    _element_Calendar_TitleBar_YearSelector_Contents_Months[monthNumber.toString()] = button;
-  }
-  function buildYearSelectorDropDownYear(actualYear) {
-    var year = createElement("div");
-    year.className = "year";
-    year.innerText = actualYear.toString();
-    year.id = _element_ID_YearSelected + actualYear.toString();
-    _element_Calendar_TitleBar_YearSelector_Contents.appendChild(year);
-    year.ondblclick = cancelBubble;
-    year.onclick = function(e) {
-      cancelBubble(e);
-      if (_calendar_CurrentDate.getFullYear() !== actualYear) {
-        _calendar_CurrentDate.setFullYear(actualYear);
-        build(_calendar_CurrentDate);
-        hideYearSelectorDropDown();
-      }
-    };
-  }
-  function setYearDropDownSelectorButtonText() {
-    _element_Calendar_TitleBar_YearSelector_DropDown_Text.innerText = getCustomFormattedDateText(_options.monthTitleBarDateFormat, _calendar_CurrentDate);
-  }
-  function showYearSelectorDropDownMenu(e) {
-    cancelBubble(e);
-    if (_element_Calendar_TitleBar_YearSelector.style.display !== "block") {
-      hideAllDropDowns();
-      _element_Calendar_TitleBar_YearSelector.style.display = "block";
-      _element_Calendar_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-up-full-medium";
-      updateYearSelectorMonthSelected();
-      var year = updateYearSelectorDropDownMenuColors();
-      if (year !== null) {
-        _element_Calendar_TitleBar_YearSelector_Contents.scrollTop = year.offsetTop - _element_Calendar_TitleBar_YearSelector_Contents.offsetTop - _options.spacing;
-      } else {
-        _element_Calendar_TitleBar_YearSelector_Contents.scrollTop = 0;
-      }
-    } else {
-      hideYearSelectorDropDown();
-    }
-  }
-  function updateYearSelectorMonthSelected() {
-    var monthNumber;
-    for (monthNumber in _element_Calendar_TitleBar_YearSelector_Contents_Months) {
-      if (_element_Calendar_TitleBar_YearSelector_Contents_Months.hasOwnProperty(monthNumber.toString())) {
-        _element_Calendar_TitleBar_YearSelector_Contents_Months[monthNumber.toString()].className = "month-name";
-      }
-    }
-    var monthNumberSelected = _calendar_CurrentDate.getMonth().toString();
-    var today = new Date();
-    if (_calendar_CurrentDate.getFullYear() === today.getFullYear()) {
-      var currentMonthNumber = today.getMonth().toString();
-      if (_element_Calendar_TitleBar_YearSelector_Contents_Months.hasOwnProperty(currentMonthNumber)) {
-        _element_Calendar_TitleBar_YearSelector_Contents_Months[currentMonthNumber].className = "month-name-current-month";
-      }
-    }
-    if (_element_Calendar_TitleBar_YearSelector_Contents_Months.hasOwnProperty(monthNumberSelected)) {
-      _element_Calendar_TitleBar_YearSelector_Contents_Months[monthNumberSelected].className = "month-name-selected";
-    }
-  }
-  function updateYearSelectorDropDownMenuColors() {
-    var yearSelected = _element_Calendar_TitleBar_YearSelector.getElementsByClassName("year");
-    var yearSelectedLength = yearSelected.length;
-    if (yearSelectedLength >= 1) {
-      var yearsSelectedIndex = 0;
-      for (; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++) {
-        if (yearSelected[yearsSelectedIndex].className !== "year") {
-          yearSelected[yearsSelectedIndex].className = "year";
-        }
-      }
-    }
-    var year = getElementByID(_element_ID_YearSelected + _calendar_CurrentDate.getFullYear());
-    if (year !== null) {
-      year.className += " year-selected";
-    }
-    if (!_element_Mode_DatePicker_Enabled) {
-      var yearsHandledForEvents = [];
-      getAllEventsFunc(function(eventDetails) {
-        var fromYear = eventDetails.from.getFullYear();
-        if (yearsHandledForEvents.indexOf(fromYear) === -1) {
-          var yearEvents = getElementByID(_element_ID_YearSelected + fromYear);
-          if (yearEvents !== null && yearEvents.className.indexOf(" year-selected") === -1) {
-            yearEvents.className += " year-has-events";
-          }
-          yearsHandledForEvents.push(fromYear);
-        }
-      });
-    }
-    return year;
-  }
-  function hideYearSelectorDropDown() {
-    var closed = false;
-    if (isYearSelectorDropDownVisible()) {
-      _element_Calendar_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-down-full-medium";
-      _element_Calendar_TitleBar_YearSelector.style.display = "none";
-      closed = true;
-    }
-    return closed;
-  }
-  function isYearSelectorDropDownVisible() {
-    return _element_Calendar_TitleBar_YearSelector !== null && _element_Calendar_TitleBar_YearSelector.style.display === "block";
   }
   function buildDocumentEvents() {
     if (!_initialized_DocumentEvents) {
@@ -1273,7 +818,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (hideContextMenu(_element_ContextMenu_HeaderDay)) {
       itemClosed = true;
     }
-    if (hideYearSelectorDropDown()) {
+    if (hideFullMonthViewYearDropDown()) {
       itemClosed = true;
     }
     hideTooltip();
@@ -1438,7 +983,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var openSearch = false;
     var viewOpen = getRecentViewOpened();
     if (viewOpen === null) {
-      openSearch = _element_Calendar_AllVisibleEvents.length > 0;
+      openSearch = _element_View_FullMonth_AllVisibleEvents.length > 0;
     } else {
       if (viewOpen === _element_View_FullDay) {
         openSearch = _element_View_FullDay_EventsShown.length > 0;
@@ -1490,271 +1035,6 @@ function calendarJs(elementOrId, options, searchOptions) {
       done = true;
     }
     return done;
-  }
-  function buildDayEvents() {
-    clearEventsFromDays();
-    clearAutoRefreshTimer();
-    _calendar_IsBusy = false;
-    _element_Calendar_AllVisibleEvents = [];
-    _events_DatesAvailable = {};
-    var orderedEvents = getOrderedEvents(getAllEvents());
-    var orderedEventsLength = orderedEvents.length;
-    var orderedEventIndex = 0;
-    for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
-      var orderedEvent = orderedEvents[orderedEventIndex];
-      buildDayEventAcrossDays(orderedEvent);
-      if (isEventVisible(orderedEvent)) {
-        _element_Calendar_AllVisibleEvents.push(orderedEvent);
-      }
-      var repeatEvery = getNumber(orderedEvent.repeatEvery);
-      if (repeatEvery > _enum_RepeatType.never) {
-        if (repeatEvery === _enum_RepeatType.everyDay) {
-          buildRepeatedDayEvents(orderedEvent, moveDateForwardDay, 1);
-        } else if (repeatEvery === _enum_RepeatType.everyWeek) {
-          buildRepeatedDayEvents(orderedEvent, moveDateForwardWeek, 1);
-        } else if (repeatEvery === _enum_RepeatType.every2Weeks) {
-          buildRepeatedDayEvents(orderedEvent, moveDateForwardWeek, 2);
-        } else if (repeatEvery === _enum_RepeatType.everyMonth) {
-          buildRepeatedDayEvents(orderedEvent, moveDateForwardMonth, 1);
-        } else if (repeatEvery === _enum_RepeatType.everyYear) {
-          buildRepeatedDayEvents(orderedEvent, moveDateForwardYear, 1);
-        } else if (repeatEvery === _enum_RepeatType.custom) {
-          var repeatEveryCustomType = getNumber(orderedEvent.repeatEveryCustomType);
-          var repeatEveryCustomValue = getNumber(orderedEvent.repeatEveryCustomValue);
-          if (repeatEveryCustomValue > 0) {
-            if (repeatEveryCustomType === _enum_RepeatCustomType.daily) {
-              buildRepeatedDayEvents(orderedEvent, moveDateForwardDay, repeatEveryCustomValue);
-            } else if (repeatEveryCustomType === _enum_RepeatCustomType.weekly) {
-              buildRepeatedDayEvents(orderedEvent, moveDateForwardWeek, repeatEveryCustomValue);
-            } else if (repeatEveryCustomType === _enum_RepeatCustomType.monthly) {
-              buildRepeatedDayEvents(orderedEvent, moveDateForwardMonth, repeatEveryCustomValue);
-            } else if (repeatEveryCustomType === _enum_RepeatCustomType.yearly) {
-              buildRepeatedDayEvents(orderedEvent, moveDateForwardYear, repeatEveryCustomValue);
-            }
-          }
-        }
-      }
-    }
-    updateCalendarsLastBusyState();
-    updateMainHeaderButtonsVisibleStates(_element_Calendar_AllVisibleEvents.length);
-    startAutoRefreshTimer();
-  }
-  function buildRepeatedDayEvents(orderedEvent, dateFunc, dateFuncForwardValue) {
-    var newFromDate = new Date(orderedEvent.from);
-    var excludeDays = getArray(orderedEvent.repeatEveryExcludeDays);
-    var largestDate = new Date(_options.maximumYear, 11, 31);
-    for (; newFromDate < largestDate;) {
-      dateFunc(newFromDate, dateFuncForwardValue);
-      var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
-      if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
-        updateDateTotalEventsTracked(toStorageFormattedDate(newFromDate));
-        if (newFromDate < _element_Calendar_LargestDateAvailable) {
-          var repeatDayElement = getDayElement(newFromDate);
-          if (repeatDayElement !== null) {
-            buildDayEvent(newFromDate, orderedEvent);
-          }
-        }
-      }
-    }
-  }
-  function buildDayEventAcrossDays(orderedEvent) {
-    buildDayEvent(orderedEvent.from, orderedEvent);
-    if (orderedEvent.from.getDate() !== orderedEvent.to.getDate() || orderedEvent.from.getMonth() !== orderedEvent.to.getMonth() || orderedEvent.from.getFullYear() !== orderedEvent.to.getFullYear()) {
-      var totalDays = getTotalDaysBetweenDates(orderedEvent.from, orderedEvent.to);
-      if (totalDays > 0) {
-        var nextDayDate = new Date(orderedEvent.from);
-        var dayIndex = 0;
-        for (; dayIndex < totalDays; dayIndex++) {
-          moveDateForwardDay(nextDayDate);
-          updateDateTotalEventsTracked(toStorageFormattedDate(nextDayDate));
-          var elementNextDay = getDayElement(nextDayDate);
-          if (elementNextDay !== null) {
-            buildDayEvent(nextDayDate, orderedEvent);
-          }
-        }
-      }
-    }
-  }
-  function buildDayEvent(dayDate, eventDetails) {
-    var elementDay = getDayElement(dayDate);
-    var seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates);
-    var formattedDayDate = toStorageFormattedDate(dayDate);
-    var editEventDate = new Date(dayDate);
-    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDayDate) === -1) {
-      updateDateTotalEventsTracked(formattedDayDate);
-      if (elementDay !== null) {
-        checkEventForBrowserNotifications(dayDate, eventDetails);
-        if (!_element_Mode_DatePicker_Enabled) {
-          var events = elementDay.getElementsByClassName("event");
-          if (events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay) {
-            var event = createElement("div", "event");
-            var eventRendered = false;
-            event.setAttribute("event-type", getNumber(eventDetails.type));
-            event.setAttribute("event-id", eventDetails.id);
-            if (!_options.useOnlyDotEventsForMainDisplay) {
-              if (!triggerOptionsEventWithMultipleData("onMonthEventRender", event, eventDetails)) {
-                var eventTitle = eventDetails.title;
-                var repeatEvery = getNumber(eventDetails.repeatEvery);
-                if (_options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate()) {
-                  eventTitle = getTimeToTimeDisplay(eventDetails.from, eventDetails.to) + ": " + eventTitle;
-                }
-                if (repeatEvery > _enum_RepeatType.never) {
-                  var icon = createElement("div", "ib-refresh-small ib-no-hover ib-no-active");
-                  icon.style.borderColor = event.style.color;
-                  event.appendChild(icon);
-                }
-                event.innerHTML += stripHTMLTagsFromText(eventTitle);
-                eventRendered = true;
-              }
-            } else {
-              event.className += " event-circle";
-              eventRendered = true;
-            }
-            elementDay.appendChild(event);
-            makeEventDraggable(event, eventDetails, dayDate, elementDay);
-            setEventClassesForActions(event, eventDetails);
-            setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, dayDate), _options.applyCssToEventsNotInCurrentMonth);
-            if (doDatesMatch(eventDetails.from, dayDate)) {
-              event.id = _element_ID_Event_Day + eventDetails.id;
-            }
-            event.onmousemove = function(e) {
-              if (_element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id) {
-                cancelBubble(e);
-              } else {
-                showTooltip(e, eventDetails);
-              }
-            };
-            event.oncontextmenu = function(e) {
-              showEventContextMenu(e, eventDetails, formattedDayDate);
-            };
-            event.addEventListener("click", function(e) {
-              storeMultiSelectEvent(e, eventDetails);
-            });
-            if (isOptionEventSet("onEventClick")) {
-              event.addEventListener("click", function() {
-                triggerOptionsEventWithData("onEventClick", eventDetails);
-              });
-            }
-            if (_options.manualEditingEnabled) {
-              event.ondblclick = function(e) {
-                cancelBubble(e);
-                showEventEditingDialog(eventDetails, null, null, editEventDate);
-              };
-            } else {
-              if (isOptionEventSet("onEventDoubleClick")) {
-                event.ondblclick = function() {
-                  triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
-                };
-              }
-            }
-          } else {
-            buildDayEventPlusText(elementDay, dayDate);
-          }
-        }
-      }
-    }
-  }
-  function buildDayEventPlusText(elementDay, dayDate) {
-    var plusXEvents = elementDay.getElementsByClassName("plus-x-events");
-    var plusXEventsText = plusXEvents.length > 0 ? plusXEvents[0] : null;
-    if (plusXEventsText === null) {
-      var showFullDayDay = new Date(dayDate);
-      plusXEventsText = createElement("div", "plus-x-events");
-      plusXEventsText.setAttribute("events", "1");
-      plusXEventsText.ondblclick = cancelBubble;
-      elementDay.appendChild(plusXEventsText);
-      if (_options.applyCssToEventsNotInCurrentMonth && dayDate.getMonth() !== _calendar_CurrentDate.getMonth() || dayDate.getFullYear() !== _calendar_CurrentDate.getFullYear()) {
-        plusXEventsText.className += " day-muted";
-      }
-      setNodeText(plusXEventsText, "+1 " + _options.moreText);
-      plusXEventsText.onclick = function() {
-        showFullDayView(showFullDayDay, true);
-      };
-    } else {
-      var numberOfEvents = parseInt(plusXEventsText.getAttribute("events")) + 1;
-      plusXEventsText.setAttribute("events", numberOfEvents.toString());
-      setNodeText(plusXEventsText, "+" + numberOfEvents + _string.space + _options.moreText);
-    }
-  }
-  function updateMainHeaderButtonsVisibleStates(orderedEventsLength) {
-    if (_element_Calendar_TitleBar_SearchButton !== null) {
-      updateToolbarButtonVisibleState(_element_Calendar_TitleBar_SearchButton, orderedEventsLength > 0);
-    }
-  }
-  function getDayElement(date) {
-    var firstDay = new Date(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth(), 1);
-    var startDay = -1;
-    var nextMonth = new Date(_calendar_CurrentDate);
-    var previousMonth = new Date(_calendar_CurrentDate);
-    var elementDay = null;
-    var elementDayNumber = 0;
-    var firstDayNumber = getWeekdayNumber(firstDay);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    previousMonth.setMonth(previousMonth.getMonth() - 1);
-    if (date.getMonth() === nextMonth.getMonth() && date.getFullYear() === nextMonth.getFullYear()) {
-      startDay = firstDayNumber + getTotalDaysInMonth(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth());
-      elementDayNumber = getStartOfWeekDayNumber(date.getDate() + startDay);
-    } else if (date.getMonth() === previousMonth.getMonth() && date.getFullYear() === previousMonth.getFullYear()) {
-      elementDayNumber = getStartOfWeekDayNumber(firstDayNumber - getTotalDaysBetweenDates(date, _calendar_CurrentDate) + 1);
-    } else if (date.getMonth() === _calendar_CurrentDate.getMonth() && date.getFullYear() === _calendar_CurrentDate.getFullYear()) {
-      startDay = firstDayNumber;
-      elementDayNumber = getStartOfWeekDayNumber(date.getDate() + startDay);
-    }
-    if (elementDayNumber > 0) {
-      elementDay = getElementByID(_element_ID_DayElement + elementDayNumber);
-    }
-    return elementDay;
-  }
-  function clearEventsFromDays() {
-    var rowIndex = 0;
-    for (; rowIndex < 6; rowIndex++) {
-      var columnDataIndex = 0;
-      for (; columnDataIndex < 7; columnDataIndex++) {
-        var columnDataNumber = rowIndex * 7 + (columnDataIndex + 1);
-        var columnDataElement = getElementByID(_element_ID_DayElement + columnDataNumber);
-        clearEventsFromDay(columnDataElement);
-      }
-    }
-  }
-  function clearEventsFromDay(elementDay) {
-    if (elementDay !== null) {
-      clearElementsByClassName(elementDay, "event");
-      clearElementsByClassName(elementDay, "plus-x-events");
-    }
-  }
-  function clearElementsByClassName(container, className) {
-    var elements = container.getElementsByClassName(className);
-    for (; elements[0];) {
-      elements[0].parentNode.removeChild(elements[0]);
-    }
-  }
-  function removeElementsClassName(container, className) {
-    var elements = container.getElementsByClassName(className);
-    for (; elements[0];) {
-      elements[0].className = elements[0].className.replace(className, _string.empty);
-    }
-  }
-  function getToTimeWithPassedDate(eventDetails, date) {
-    var repeatEvery = getNumber(eventDetails.repeatEvery);
-    var toDate = new Date(eventDetails.to);
-    if (repeatEvery > _enum_RepeatType.never) {
-      var newCurrentDate = new Date(date);
-      newCurrentDate.setHours(toDate.getHours(), toDate.getMinutes());
-      toDate = newCurrentDate;
-    }
-    return toDate;
-  }
-  function updateCalendarsLastBusyState() {
-    if (_calendar_IsBusy_LastState !== _calendar_IsBusy) {
-      _calendar_IsBusy_LastState = _calendar_IsBusy;
-      triggerOptionsEventWithData("onBusyStateChange", _calendar_IsBusy);
-    }
-  }
-  function updateDateTotalEventsTracked(formattedNewFromDate) {
-    if (!_events_DatesAvailable.hasOwnProperty(formattedNewFromDate)) {
-      _events_DatesAvailable[formattedNewFromDate] = 0;
-    }
-    _events_DatesAvailable[formattedNewFromDate]++;
   }
   function buildFullDayView() {
     if (!_element_Mode_DatePicker_Enabled) {
@@ -2631,6 +1911,702 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_FullWeek_DateSelected = new Date();
     showFullWeekView(_element_View_FullWeek_DateSelected, true);
   }
+  function buildFullMonthView() {
+    buildFullMonthViewTitleBar();
+    buildFullMonthViewDayNamesHeader();
+    buildFullMonthViewDayRows();
+  }
+  function buildFullMonthViewTitleBar() {
+    _element_View_FullMonth_TitleBar_FullScreenButton = null;
+    _element_View_FullMonth_TitleBar_SearchButton = null;
+    var wasAddedAlready = _element_View_FullMonth_TitleBar !== null;
+    if (wasAddedAlready) {
+      _element_View_FullMonth_TitleBar.innerHTML = _string.empty;
+    }
+    if (!wasAddedAlready) {
+      _element_View_FullMonth_TitleBar = createElement("div", "header-date");
+      _element_Calendar.appendChild(_element_View_FullMonth_TitleBar);
+    }
+    if (_options.fullScreenModeEnabled) {
+      _element_View_FullMonth_TitleBar.ondblclick = fullScreenModeHeaderDoubleClick;
+    }
+    if (_element_Mode_DatePicker_Enabled) {
+      _element_View_FullMonth_TitleBar.onclick = function(e) {
+        cancelBubble(e);
+        hideAllDropDowns();
+      };
+    }
+    if (!_element_Mode_DatePicker_Enabled && isSideMenuAvailable()) {
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
+      _element_View_FullMonth_TitleBar.appendChild(createElement("div", "left-divider-line"));
+    }
+    buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, onPreviousMonth);
+    if (_options.addYearButtonsOnMainDisplay) {
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear);
+    }
+    if (_element_Mode_DatePicker_Enabled || _options.showExtraToolbarButtons) {
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-pin", _options.currentMonthTooltipText, onCurrentMonth);
+    }
+    if (_options.showExtraToolbarButtons) {
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-refresh", _options.refreshTooltipText, function() {
+        refreshViews(true, true);
+      });
+      if (_options_Search.enabled) {
+        _element_View_FullMonth_TitleBar_SearchButton = buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-search", _options.searchTooltipText, showSearchDialog);
+      }
+    }
+    if (_element_Mode_DatePicker_Enabled) {
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-close", _options.closeTooltipText, hideDatePickerMode);
+      _element_View_FullMonth_TitleBar.appendChild(createElement("div", "right-divider-line"));
+    }
+    if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
+      _element_View_FullMonth_TitleBar_FullScreenButton = buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
+      _element_View_FullMonth_TitleBar.appendChild(createElement("div", "right-divider-line-full-screen-mode"));
+    }
+    buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth);
+    if (_options.addYearButtonsOnMainDisplay) {
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear);
+    }
+    if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-plus", _options.addEventTooltipText, function() {
+        if (doDatesMatchMonthAndYear(_calendar_CurrentDate, new Date())) {
+          showEventEditingDialog(null);
+        } else {
+          showEventEditingDialog(null, new Date(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth(), 1));
+        }
+      });
+    }
+    if (!_element_Mode_DatePicker_Enabled) {
+      _element_View_FullMonth_TitleBar.appendChild(createElement("div", "right-divider-line-views"));
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
+        showTimelineView(null, true);
+      });
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-eye", _options.viewAllEventsTooltipText, function() {
+        showAllEventsView(true);
+      });
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-expand", _options.viewFullYearTooltipText, function() {
+        showFullYearView(null, true);
+      });
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-hamburger-side", _options.viewFullWeekTooltipText, function() {
+        showFullWeekView(null, true);
+      });
+      buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
+        showFullDayView(null, true);
+      });
+    }
+    var titleContainer = createElement("div", "title-container");
+    _element_View_FullMonth_TitleBar.appendChild(titleContainer);
+    buildFullMonthViewYearDropDownButton(titleContainer);
+    buildFullMonthViewYearDropDown(titleContainer);
+  }
+  function buildFullMonthViewDayNamesHeader() {
+    var wasAddedAlready = _element_View_FullMonth_DayNamesHeader !== null;
+    if (_options.showDayNamesInMainDisplay) {
+      if (wasAddedAlready) {
+        _element_View_FullMonth_DayNamesHeader.innerHTML = _string.empty;
+      }
+      if (!wasAddedAlready) {
+        _element_View_FullMonth_DayNamesHeader = createElement("div", "row-cells header-days");
+        _element_Calendar.appendChild(_element_View_FullMonth_DayNamesHeader);
+      }
+      if (_element_Mode_DatePicker_Enabled) {
+        _element_View_FullMonth_DayNamesHeader.onclick = cancelBubble;
+      }
+      buildViewDayNamesHeader(_element_View_FullMonth_DayNamesHeader);
+    } else {
+      if (wasAddedAlready) {
+        _element_Calendar.removeChild(_element_View_FullMonth_DayNamesHeader);
+        _element_View_FullMonth_DayNamesHeader = null;
+      }
+    }
+  }
+  function buildFullMonthViewDayRows(container, dayStartID) {
+    var isForCustomContainer = isDefined(container);
+    container = !isForCustomContainer ? _element_Calendar : container;
+    dayStartID = isDefined(dayStartID) ? dayStartID : _element_ID_DayElement;
+    if (!isForCustomContainer && _element_View_FullMonth_Rows.length > 0) {
+      var rowsLength = _element_View_FullMonth_Rows.length;
+      var rowsIndex = 0;
+      for (; rowsIndex < rowsLength; rowsIndex++) {
+        _element_Calendar.removeChild(_element_View_FullMonth_Rows[rowsIndex]);
+      }
+      _element_View_FullMonth_Rows = [];
+    }
+    var rowIndex = 0;
+    for (; rowIndex < 6; rowIndex++) {
+      var rowData = createElement("div", "row-cells days");
+      container.appendChild(rowData);
+      if (!isForCustomContainer) {
+        _element_View_FullMonth_Rows.push(rowData);
+      }
+      var columnDataIndex = 0;
+      for (; columnDataIndex < 7; columnDataIndex++) {
+        var dayNumber = columnDataIndex;
+        if (_options.startOfWeekDay === _enum_Day.saturday || _options.startOfWeekDay === _enum_Day.sunday) {
+          dayNumber = _options.startOfWeekDay + columnDataIndex;
+          if (dayNumber >= 7) {
+            dayNumber = dayNumber - 7;
+          }
+        }
+        if (_options.visibleDays.indexOf(dayNumber) > -1) {
+          var columnDataNumber = rowIndex * 7 + (columnDataIndex + 1);
+          var columnData = createElement("div", getCellName(_options.allowEventScrollingOnMainDisplay));
+          columnData.id = dayStartID + columnDataNumber;
+          rowData.appendChild(columnData);
+          if (_options.allowEventScrollingOnMainDisplay) {
+            columnData.className += " scrollY";
+          }
+          if (_options.minimumDayHeight > 0) {
+            columnData.style.height = _options.minimumDayHeight + "px";
+          }
+        }
+      }
+      if (_options.reverseOrderDaysOfWeek) {
+        reverseElementsOrder(rowData);
+      }
+    }
+  }
+  function getCellName(addScrollBars) {
+    addScrollBars = isDefined(addScrollBars) ? addScrollBars : false;
+    var className = "cell cell-" + _options.visibleDays.length;
+    if (addScrollBars) {
+      className = className + " custom-scroll-bars";
+    }
+    return className;
+  }
+  function buildFullMonthViewYearDropDownButton(titleContainer) {
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown = createElement("span", "year-dropdown-button");
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown.ondblclick = cancelBubble;
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown.onclick = showFullMonthViewYearDropDown;
+    titleContainer.appendChild(_element_View_FullMonth_TitleBar_YearSelector_DropDown);
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text = createElement("span");
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown.appendChild(_element_View_FullMonth_TitleBar_YearSelector_DropDown_Text);
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow = createElement("span", "ib-arrow-down-full-medium");
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown.appendChild(_element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow);
+  }
+  function buildFullMonthViewYearDropDown(container) {
+    var yearDate = new Date(_options.minimumYear, 1, 1);
+    var monthContainer = null;
+    _element_View_FullMonth_TitleBar_YearSelector = createElement("div", _options.showMonthButtonsInYearDropDownMenu ? "years-drop-down" : "years-drop-down-no-months");
+    container.appendChild(_element_View_FullMonth_TitleBar_YearSelector);
+    if (_options.showMonthButtonsInYearDropDownMenu) {
+      var monthIndex = 0;
+      for (; monthIndex < 12; monthIndex++) {
+        if (monthIndex % 3 === 0) {
+          monthContainer = createElement("div", "months");
+          _element_View_FullMonth_TitleBar_YearSelector.appendChild(monthContainer);
+        }
+        buildFullMonthViewYearDropDownMonthNameButton(monthContainer, monthIndex);
+      }
+    }
+    _element_View_FullMonth_TitleBar_YearSelector_Contents = createElement("div", "contents custom-scroll-bars");
+    _element_View_FullMonth_TitleBar_YearSelector.appendChild(_element_View_FullMonth_TitleBar_YearSelector_Contents);
+    for (; true;) {
+      buildFullMonthViewYearDropDownYearButton(yearDate.getFullYear());
+      moveDateForwardYear(yearDate);
+      if (yearDate.getFullYear() > _options.maximumYear) {
+        break;
+      }
+    }
+  }
+  function buildFullMonthViewYearDropDownMonthNameButton(container, monthNumber) {
+    var button = createElement("div", "month-name");
+    var buttonText = _options.monthNamesAbbreviated[monthNumber];
+    button.onclick = function(e) {
+      cancelBubble(e);
+      if (_calendar_CurrentDate.getMonth() !== monthNumber) {
+        _calendar_CurrentDate.setMonth(monthNumber);
+        build(_calendar_CurrentDate);
+        hideFullMonthViewYearDropDown();
+      }
+    };
+    setNodeText(button, buttonText);
+    container.appendChild(button);
+    _element_View_FullMonth_TitleBar_YearSelector_Contents_Months[monthNumber.toString()] = button;
+  }
+  function buildFullMonthViewYearDropDownYearButton(actualYear) {
+    var year = createElement("div");
+    year.className = "year";
+    year.innerText = actualYear.toString();
+    year.id = _element_ID_YearSelected + actualYear.toString();
+    _element_View_FullMonth_TitleBar_YearSelector_Contents.appendChild(year);
+    year.ondblclick = cancelBubble;
+    year.onclick = function(e) {
+      cancelBubble(e);
+      if (_calendar_CurrentDate.getFullYear() !== actualYear) {
+        _calendar_CurrentDate.setFullYear(actualYear);
+        build(_calendar_CurrentDate);
+        hideFullMonthViewYearDropDown();
+      }
+    };
+  }
+  function setFullMonthViewYearDropDownButtonText() {
+    _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text.innerText = getCustomFormattedDateText(_options.monthTitleBarDateFormat, _calendar_CurrentDate);
+  }
+  function updateFullMonthViewYearMonthSelected() {
+    var monthNumber;
+    for (monthNumber in _element_View_FullMonth_TitleBar_YearSelector_Contents_Months) {
+      if (_element_View_FullMonth_TitleBar_YearSelector_Contents_Months.hasOwnProperty(monthNumber.toString())) {
+        _element_View_FullMonth_TitleBar_YearSelector_Contents_Months[monthNumber.toString()].className = "month-name";
+      }
+    }
+    var monthNumberSelected = _calendar_CurrentDate.getMonth().toString();
+    var today = new Date();
+    if (_calendar_CurrentDate.getFullYear() === today.getFullYear()) {
+      var currentMonthNumber = today.getMonth().toString();
+      if (_element_View_FullMonth_TitleBar_YearSelector_Contents_Months.hasOwnProperty(currentMonthNumber)) {
+        _element_View_FullMonth_TitleBar_YearSelector_Contents_Months[currentMonthNumber].className = "month-name-current-month";
+      }
+    }
+    if (_element_View_FullMonth_TitleBar_YearSelector_Contents_Months.hasOwnProperty(monthNumberSelected)) {
+      _element_View_FullMonth_TitleBar_YearSelector_Contents_Months[monthNumberSelected].className = "month-name-selected";
+    }
+  }
+  function updateFullMonthViewYearDropDownColors() {
+    var yearSelected = _element_View_FullMonth_TitleBar_YearSelector.getElementsByClassName("year");
+    var yearSelectedLength = yearSelected.length;
+    if (yearSelectedLength >= 1) {
+      var yearsSelectedIndex = 0;
+      for (; yearsSelectedIndex < yearSelectedLength; yearsSelectedIndex++) {
+        if (yearSelected[yearsSelectedIndex].className !== "year") {
+          yearSelected[yearsSelectedIndex].className = "year";
+        }
+      }
+    }
+    var year = getElementByID(_element_ID_YearSelected + _calendar_CurrentDate.getFullYear());
+    if (year !== null) {
+      year.className += " year-selected";
+    }
+    if (!_element_Mode_DatePicker_Enabled) {
+      var yearsHandledForEvents = [];
+      getAllEventsFunc(function(eventDetails) {
+        var fromYear = eventDetails.from.getFullYear();
+        if (yearsHandledForEvents.indexOf(fromYear) === -1) {
+          var yearEvents = getElementByID(_element_ID_YearSelected + fromYear);
+          if (yearEvents !== null && yearEvents.className.indexOf(" year-selected") === -1) {
+            yearEvents.className += " year-has-events";
+          }
+          yearsHandledForEvents.push(fromYear);
+        }
+      });
+    }
+    return year;
+  }
+  function showFullMonthViewYearDropDown(e) {
+    cancelBubble(e);
+    if (_element_View_FullMonth_TitleBar_YearSelector.style.display !== "block") {
+      hideAllDropDowns();
+      _element_View_FullMonth_TitleBar_YearSelector.style.display = "block";
+      _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-up-full-medium";
+      updateFullMonthViewYearMonthSelected();
+      var year = updateFullMonthViewYearDropDownColors();
+      if (year !== null) {
+        _element_View_FullMonth_TitleBar_YearSelector_Contents.scrollTop = year.offsetTop - _element_View_FullMonth_TitleBar_YearSelector_Contents.offsetTop - _options.spacing;
+      } else {
+        _element_View_FullMonth_TitleBar_YearSelector_Contents.scrollTop = 0;
+      }
+    } else {
+      hideFullMonthViewYearDropDown();
+    }
+  }
+  function hideFullMonthViewYearDropDown() {
+    var closed = false;
+    if (isFullMonthViewYearDropDownVisible()) {
+      _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-down-full-medium";
+      _element_View_FullMonth_TitleBar_YearSelector.style.display = "none";
+      closed = true;
+    }
+    return closed;
+  }
+  function isFullMonthViewYearDropDownVisible() {
+    return _element_View_FullMonth_TitleBar_YearSelector !== null && _element_View_FullMonth_TitleBar_YearSelector.style.display === "block";
+  }
+  function buildFullMonthViewDays(startDay) {
+    buildFullMonthViewPreviousMonthDays(startDay);
+    var lastDayFilled = buildFullMonthViewMonthDays(startDay);
+    buildFullMonthViewNextMonthDays(lastDayFilled);
+    buildFullMonthViewDayEvents();
+  }
+  function buildFullMonthViewPreviousMonthDays(startDay) {
+    if (startDay > 1) {
+      var previousMonth = new Date(_calendar_CurrentDate);
+      previousMonth.setMonth(previousMonth.getMonth() - 1);
+      var totalDaysInMonth = getTotalDaysInMonth(previousMonth.getFullYear(), previousMonth.getMonth());
+      var elementDayNumber = 1;
+      var dayStart = totalDaysInMonth - startDay + 1;
+      var day = dayStart;
+      for (; day < totalDaysInMonth; day++) {
+        var addMonthName = day === totalDaysInMonth - 1;
+        buildDay(day + 1, elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName);
+        elementDayNumber++;
+      }
+    }
+  }
+  function buildFullMonthViewMonthDays(startDay) {
+    var elementDayNumber = 0;
+    var totalDaysInMonth = getTotalDaysInMonth(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth());
+    var day = 0;
+    for (; day < totalDaysInMonth; day++) {
+      elementDayNumber = startDay + day;
+      buildDay(day + 1, elementDayNumber, _calendar_CurrentDate.getMonth(), _calendar_CurrentDate.getFullYear(), false);
+    }
+    return elementDayNumber;
+  }
+  function buildFullMonthViewNextMonthDays(lastDayFilled) {
+    if (lastDayFilled < 42) {
+      var actualDay = 1;
+      var nextMonth = new Date(_calendar_CurrentDate);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      var elementDayNumber = lastDayFilled + 1;
+      for (; elementDayNumber < 43; elementDayNumber++) {
+        var addMonthName = actualDay === 1;
+        buildDay(actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName);
+        actualDay++;
+      }
+      var nextDay = getTotalDaysInMonth(nextMonth.getFullYear(), nextMonth.getMonth());
+      nextDay = Math.round(nextDay / 2);
+      _element_View_FullMonth_LargestDateAvailable = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), nextDay);
+    } else {
+      _element_View_FullMonth_LargestDateAvailable = null;
+    }
+  }
+  function buildDay(actualDay, elementDayNumber, month, year, isMuted, includeMonthName) {
+    var dayElement = getElementByID(_element_ID_DayElement + elementDayNumber);
+    if (dayElement !== null) {
+      var today = new Date();
+      var dayIsToday = actualDay === today.getDate() && year === today.getFullYear() && month === today.getMonth();
+      var dayText = createElement("span");
+      var dayDate = new Date(year, month, actualDay);
+      var dayMutedClass = isMuted ? " day-muted" : _string.empty;
+      var allowDatePickerHoverAndSelect = true;
+      includeMonthName = isDefined(includeMonthName) ? includeMonthName : false;
+      dayElement.innerHTML = _string.empty;
+      dayElement.className = dayElement.className.replace(" cell-today", _string.empty).replace(" cell-selected", _string.empty).replace(" cell-no-click", _string.empty);
+      if (_element_Mode_DatePicker_Enabled && dayIsToday) {
+        dayElement.className += " cell-today";
+      }
+      if (_element_Mode_DatePicker_Enabled && !dayIsToday && _calendar_CurrentDate_ForDatePicker !== null && doDatesMatch(dayDate, _calendar_CurrentDate_ForDatePicker)) {
+        dayElement.className += " cell-selected";
+      }
+      if (_element_Mode_DatePicker_Enabled) {
+        allowDatePickerHoverAndSelect = isDateValidForDatePicker(dayDate);
+        if (!allowDatePickerHoverAndSelect) {
+          dayElement.className += " cell-no-click";
+          dayText.className = "no-click";
+        }
+      } else {
+        dayText.className = _string.empty;
+      }
+      dayText.className += dayMutedClass;
+      dayText.className += dayIsToday && !_element_Mode_DatePicker_Enabled ? " today" : _string.empty;
+      dayText.innerText = actualDay;
+      if (actualDay === 1 && !_element_Mode_DatePicker_Enabled) {
+        dayText.className += " first-day";
+      }
+      if (isWeekendDay(dayDate) && dayElement.className.indexOf("weekend-day") === -1) {
+        dayElement.className += " weekend-day";
+      }
+      if (isWorkingDay(dayDate) && dayElement.className.indexOf("working-day") === -1) {
+        dayElement.className += " working-day";
+      }
+      dayElement.oncontextmenu = function(e) {
+        showDayContextMenu(e, dayDate);
+      };
+      if (_options.showDayNumberOrdinals) {
+        var ordinal = getDayOrdinal(actualDay);
+        if (isDefined(ordinal)) {
+          var sup = createElement("sup");
+          sup.innerText = ordinal;
+          dayText.appendChild(sup);
+        }
+      }
+      dayElement.appendChild(dayText);
+      dayElement.appendChild(createElement("span", "blank"));
+      var expandDayButton = createElement("div", "ib-arrow-expand-left-right-icon");
+      dayElement.appendChild(expandDayButton);
+      addToolTip(expandDayButton, _options.expandDayTooltipText);
+      expandDayButton.onclick = function() {
+        showFullDayView(dayDate, true);
+      };
+      if (includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay) {
+        createSpanElement(dayElement, _options.monthNames[month], "month-name" + dayMutedClass, function() {
+          if (actualDay === 1) {
+            onNextMonth();
+          } else {
+            onPreviousMonth();
+          }
+        }, true, true);
+      }
+      addHolidays(dayDate, dayMutedClass, dayElement);
+      if (_options.manualEditingEnabled) {
+        dayElement.ondblclick = function() {
+          if (_options.useTemplateWhenAddingNewEvent) {
+            var newBlankTemplateEvent = buildBlankTemplateEvent(dayDate, dayDate);
+            showEventEditingDialog(newBlankTemplateEvent);
+            showEventEditingDialogTitleSelected();
+          } else {
+            showEventEditingDialog(null, dayDate);
+          }
+        };
+        makeAreaDroppable(dayElement, year, month, actualDay);
+      }
+      if (_element_Mode_DatePicker_Enabled) {
+        if (allowDatePickerHoverAndSelect) {
+          dayElement.onclick = function(e) {
+            setDatePickerDate(e, dayDate);
+          };
+        } else {
+          dayElement.onclick = cancelBubble;
+        }
+      }
+      if (_options.useOnlyDotEventsForMainDisplay) {
+        dayElement.appendChild(createElement("div", "dots-separator"));
+      }
+    }
+  }
+  function buildFullMonthViewDayEvents() {
+    clearFullMonthViewEventsFromDays();
+    clearAutoRefreshTimer();
+    _calendar_IsBusy = false;
+    _element_View_FullMonth_AllVisibleEvents = [];
+    _events_DatesAvailable = {};
+    var orderedEvents = getOrderedEvents(getAllEvents());
+    var orderedEventsLength = orderedEvents.length;
+    var orderedEventIndex = 0;
+    for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
+      var orderedEvent = orderedEvents[orderedEventIndex];
+      buildFullMonthViewDayEventAcrossDays(orderedEvent);
+      if (isEventVisible(orderedEvent)) {
+        _element_View_FullMonth_AllVisibleEvents.push(orderedEvent);
+      }
+      var repeatEvery = getNumber(orderedEvent.repeatEvery);
+      if (repeatEvery > _enum_RepeatType.never) {
+        if (repeatEvery === _enum_RepeatType.everyDay) {
+          buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardDay, 1);
+        } else if (repeatEvery === _enum_RepeatType.everyWeek) {
+          buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardWeek, 1);
+        } else if (repeatEvery === _enum_RepeatType.every2Weeks) {
+          buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardWeek, 2);
+        } else if (repeatEvery === _enum_RepeatType.everyMonth) {
+          buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardMonth, 1);
+        } else if (repeatEvery === _enum_RepeatType.everyYear) {
+          buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardYear, 1);
+        } else if (repeatEvery === _enum_RepeatType.custom) {
+          var repeatEveryCustomType = getNumber(orderedEvent.repeatEveryCustomType);
+          var repeatEveryCustomValue = getNumber(orderedEvent.repeatEveryCustomValue);
+          if (repeatEveryCustomValue > 0) {
+            if (repeatEveryCustomType === _enum_RepeatCustomType.daily) {
+              buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardDay, repeatEveryCustomValue);
+            } else if (repeatEveryCustomType === _enum_RepeatCustomType.weekly) {
+              buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardWeek, repeatEveryCustomValue);
+            } else if (repeatEveryCustomType === _enum_RepeatCustomType.monthly) {
+              buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardMonth, repeatEveryCustomValue);
+            } else if (repeatEveryCustomType === _enum_RepeatCustomType.yearly) {
+              buildFullMonthViewRepeatedDayEvents(orderedEvent, moveDateForwardYear, repeatEveryCustomValue);
+            }
+          }
+        }
+      }
+    }
+    updateCalendarsLastBusyState();
+    updateFullMonthViewTitleBarButtonsVisibleStates(_element_View_FullMonth_AllVisibleEvents.length);
+    startAutoRefreshTimer();
+  }
+  function buildFullMonthViewRepeatedDayEvents(orderedEvent, dateFunc, dateFuncForwardValue) {
+    var newFromDate = new Date(orderedEvent.from);
+    var excludeDays = getArray(orderedEvent.repeatEveryExcludeDays);
+    var largestDate = new Date(_options.maximumYear, 11, 31);
+    for (; newFromDate < largestDate;) {
+      dateFunc(newFromDate, dateFuncForwardValue);
+      var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
+      if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
+        updateDateTotalEventsTracked(toStorageFormattedDate(newFromDate));
+        if (newFromDate < _element_View_FullMonth_LargestDateAvailable) {
+          var repeatDayElement = getFullMonthViewDayElement(newFromDate);
+          if (repeatDayElement !== null) {
+            buildFullMonthViewDayEvent(newFromDate, orderedEvent);
+          }
+        }
+      }
+    }
+  }
+  function buildFullMonthViewDayEventAcrossDays(orderedEvent) {
+    buildFullMonthViewDayEvent(orderedEvent.from, orderedEvent);
+    if (orderedEvent.from.getDate() !== orderedEvent.to.getDate() || orderedEvent.from.getMonth() !== orderedEvent.to.getMonth() || orderedEvent.from.getFullYear() !== orderedEvent.to.getFullYear()) {
+      var totalDays = getTotalDaysBetweenDates(orderedEvent.from, orderedEvent.to);
+      if (totalDays > 0) {
+        var nextDayDate = new Date(orderedEvent.from);
+        var dayIndex = 0;
+        for (; dayIndex < totalDays; dayIndex++) {
+          moveDateForwardDay(nextDayDate);
+          updateDateTotalEventsTracked(toStorageFormattedDate(nextDayDate));
+          var elementNextDay = getFullMonthViewDayElement(nextDayDate);
+          if (elementNextDay !== null) {
+            buildFullMonthViewDayEvent(nextDayDate, orderedEvent);
+          }
+        }
+      }
+    }
+  }
+  function buildFullMonthViewDayEvent(dayDate, eventDetails) {
+    var elementDay = getFullMonthViewDayElement(dayDate);
+    var seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates);
+    var formattedDayDate = toStorageFormattedDate(dayDate);
+    var editEventDate = new Date(dayDate);
+    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDayDate) === -1) {
+      updateDateTotalEventsTracked(formattedDayDate);
+      if (elementDay !== null) {
+        checkEventForBrowserNotifications(dayDate, eventDetails);
+        if (!_element_Mode_DatePicker_Enabled) {
+          var events = elementDay.getElementsByClassName("event");
+          if (events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay) {
+            var event = createElement("div", "event");
+            var eventRendered = false;
+            event.setAttribute("event-type", getNumber(eventDetails.type));
+            event.setAttribute("event-id", eventDetails.id);
+            if (!_options.useOnlyDotEventsForMainDisplay) {
+              if (!triggerOptionsEventWithMultipleData("onMonthEventRender", event, eventDetails)) {
+                var eventTitle = eventDetails.title;
+                var repeatEvery = getNumber(eventDetails.repeatEvery);
+                if (_options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate()) {
+                  eventTitle = getTimeToTimeDisplay(eventDetails.from, eventDetails.to) + ": " + eventTitle;
+                }
+                if (repeatEvery > _enum_RepeatType.never) {
+                  var icon = createElement("div", "ib-refresh-small ib-no-hover ib-no-active");
+                  icon.style.borderColor = event.style.color;
+                  event.appendChild(icon);
+                }
+                event.innerHTML += stripHTMLTagsFromText(eventTitle);
+                eventRendered = true;
+              }
+            } else {
+              event.className += " event-circle";
+              eventRendered = true;
+            }
+            elementDay.appendChild(event);
+            makeEventDraggable(event, eventDetails, dayDate, elementDay);
+            setEventClassesForActions(event, eventDetails);
+            setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, dayDate), _options.applyCssToEventsNotInCurrentMonth);
+            if (doDatesMatch(eventDetails.from, dayDate)) {
+              event.id = _element_ID_Event_Day + eventDetails.id;
+            }
+            event.onmousemove = function(e) {
+              if (_element_Tooltip_EventDetails !== null && _element_Tooltip_EventDetails.id === eventDetails.id) {
+                cancelBubble(e);
+              } else {
+                showTooltip(e, eventDetails);
+              }
+            };
+            event.oncontextmenu = function(e) {
+              showEventContextMenu(e, eventDetails, formattedDayDate);
+            };
+            event.addEventListener("click", function(e) {
+              storeMultiSelectEvent(e, eventDetails);
+            });
+            if (isOptionEventSet("onEventClick")) {
+              event.addEventListener("click", function() {
+                triggerOptionsEventWithData("onEventClick", eventDetails);
+              });
+            }
+            if (_options.manualEditingEnabled) {
+              event.ondblclick = function(e) {
+                cancelBubble(e);
+                showEventEditingDialog(eventDetails, null, null, editEventDate);
+              };
+            } else {
+              if (isOptionEventSet("onEventDoubleClick")) {
+                event.ondblclick = function() {
+                  triggerOptionsEventWithData("onEventDoubleClick", eventDetails);
+                };
+              }
+            }
+          } else {
+            buildFullMonthViewDayEventPlusText(elementDay, dayDate);
+          }
+        }
+      }
+    }
+  }
+  function buildFullMonthViewDayEventPlusText(elementDay, dayDate) {
+    var plusXEvents = elementDay.getElementsByClassName("plus-x-events");
+    var plusXEventsText = plusXEvents.length > 0 ? plusXEvents[0] : null;
+    if (plusXEventsText === null) {
+      var showFullDayDay = new Date(dayDate);
+      plusXEventsText = createElement("div", "plus-x-events");
+      plusXEventsText.setAttribute("events", "1");
+      plusXEventsText.ondblclick = cancelBubble;
+      elementDay.appendChild(plusXEventsText);
+      if (_options.applyCssToEventsNotInCurrentMonth && dayDate.getMonth() !== _calendar_CurrentDate.getMonth() || dayDate.getFullYear() !== _calendar_CurrentDate.getFullYear()) {
+        plusXEventsText.className += " day-muted";
+      }
+      setNodeText(plusXEventsText, "+1 " + _options.moreText);
+      plusXEventsText.onclick = function() {
+        showFullDayView(showFullDayDay, true);
+      };
+    } else {
+      var numberOfEvents = parseInt(plusXEventsText.getAttribute("events")) + 1;
+      plusXEventsText.setAttribute("events", numberOfEvents.toString());
+      setNodeText(plusXEventsText, "+" + numberOfEvents + _string.space + _options.moreText);
+    }
+  }
+  function updateFullMonthViewTitleBarButtonsVisibleStates(orderedEventsLength) {
+    if (_element_View_FullMonth_TitleBar_SearchButton !== null) {
+      updateToolbarButtonVisibleState(_element_View_FullMonth_TitleBar_SearchButton, orderedEventsLength > 0);
+    }
+  }
+  function getFullMonthViewDayElement(date) {
+    var firstDay = new Date(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth(), 1);
+    var startDay = -1;
+    var nextMonth = new Date(_calendar_CurrentDate);
+    var previousMonth = new Date(_calendar_CurrentDate);
+    var elementDay = null;
+    var elementDayNumber = 0;
+    var firstDayNumber = getWeekdayNumber(firstDay);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    previousMonth.setMonth(previousMonth.getMonth() - 1);
+    if (date.getMonth() === nextMonth.getMonth() && date.getFullYear() === nextMonth.getFullYear()) {
+      startDay = firstDayNumber + getTotalDaysInMonth(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth());
+      elementDayNumber = getStartOfWeekDayNumber(date.getDate() + startDay);
+    } else if (date.getMonth() === previousMonth.getMonth() && date.getFullYear() === previousMonth.getFullYear()) {
+      elementDayNumber = getStartOfWeekDayNumber(firstDayNumber - getTotalDaysBetweenDates(date, _calendar_CurrentDate) + 1);
+    } else if (date.getMonth() === _calendar_CurrentDate.getMonth() && date.getFullYear() === _calendar_CurrentDate.getFullYear()) {
+      startDay = firstDayNumber;
+      elementDayNumber = getStartOfWeekDayNumber(date.getDate() + startDay);
+    }
+    if (elementDayNumber > 0) {
+      elementDay = getElementByID(_element_ID_DayElement + elementDayNumber);
+    }
+    return elementDay;
+  }
+  function clearFullMonthViewEventsFromDays() {
+    var rowIndex = 0;
+    for (; rowIndex < 6; rowIndex++) {
+      var columnDataIndex = 0;
+      for (; columnDataIndex < 7; columnDataIndex++) {
+        var columnDataNumber = rowIndex * 7 + (columnDataIndex + 1);
+        var columnDataElement = getElementByID(_element_ID_DayElement + columnDataNumber);
+        clearFullMonthViewEventsFromDay(columnDataElement);
+      }
+    }
+  }
+  function clearFullMonthViewEventsFromDay(elementDay) {
+    if (elementDay !== null) {
+      clearElementsByClassName(elementDay, "event");
+      clearElementsByClassName(elementDay, "plus-x-events");
+    }
+  }
+  function updateCalendarsLastBusyState() {
+    if (_calendar_IsBusy_LastState !== _calendar_IsBusy) {
+      _calendar_IsBusy_LastState = _calendar_IsBusy;
+      triggerOptionsEventWithData("onBusyStateChange", _calendar_IsBusy);
+    }
+  }
+  function updateDateTotalEventsTracked(formattedNewFromDate) {
+    if (!_events_DatesAvailable.hasOwnProperty(formattedNewFromDate)) {
+      _events_DatesAvailable[formattedNewFromDate] = 0;
+    }
+    _events_DatesAvailable[formattedNewFromDate]++;
+  }
   function buildFullYearView() {
     if (!_element_Mode_DatePicker_Enabled) {
       var wasAddedAlready = _element_View_FullYear !== null;
@@ -2724,7 +2700,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var monthDayId = monthIndex + 1 + "-month-";
     var firstDay = new Date(_element_View_FullYear_CurrentYear, monthIndex, 1);
     var startDay = getStartOfWeekDayNumber(firstDay.getDay() === 0 ? 7 : firstDay.getDay());
-    buildDayRows(yearMonth, monthDayId);
+    buildFullMonthViewDayRows(yearMonth, monthDayId);
     if (startDay > 1) {
       buildFullYearViewMonthPreviousMonthDays(startDay, monthDayId, monthIndex);
     }
@@ -3566,7 +3542,7 @@ function calendarJs(elementOrId, options, searchOptions) {
               } else {
                 _element_ContextMenu_Event_EventDetails.seriesIgnoreDates = [_element_ContextMenu_Event_FormattedDateSelected];
               }
-              buildDayEvents();
+              buildFullMonthViewDayEvents();
             } else {
               _this.removeEvent(_element_ContextMenu_Event_EventDetails.id, true);
               showNotificationPopUp(_options.eventRemovedText.replace("{0}", _element_ContextMenu_Event_EventDetails.title));
@@ -4235,7 +4211,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             if (_options.isWidget) {
               build(_calendar_CurrentDate);
             } else {
-              buildDayEvents();
+              buildFullMonthViewDayEvents();
               refreshOpenedViews();
             }
           } else {
@@ -4311,7 +4287,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     organizerName:_string.empty, organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null, alertOffset:0};
     _this.addEvent(newEvent, false);
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
-    buildDayEvents();
+    buildFullMonthViewDayEvents();
     refreshOpenedViews();
     storeEventsInLocalStorage();
     return newEvent;
@@ -4597,7 +4573,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var events = [];
     var viewOpen = getRecentViewOpened();
     if (viewOpen === null) {
-      events = _element_Calendar_AllVisibleEvents;
+      events = _element_View_FullMonth_AllVisibleEvents;
     } else {
       if (viewOpen === _element_View_FullDay) {
         events = _element_View_FullDay_EventsShown;
@@ -5203,7 +5179,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     overrideShow = isDefined(overrideShow) ? overrideShow : false;
     if (_element_Tooltip.style.display !== "block" && _options.tooltipsEnabled) {
       startTimer(_timer_Name.showToolTip, function() {
-        if (overrideShow || !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areContextMenusVisible() && _events_Dragged === null) {
+        if (overrideShow || !isDisabledBackgroundDisplayed() && !isFullMonthViewYearDropDownVisible() && !areContextMenusVisible() && _events_Dragged === null) {
           text = isDefined(text) ? text : _string.empty;
           _element_Tooltip.className = text === _string.empty ? "calendar-tooltip-event" : "calendar-tooltip";
           if (text !== _string.empty) {
@@ -5753,13 +5729,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     refreshOpenedViews();
   }
   function updateFullScreenModeExpandButtons(className, tooltipText) {
-    setElementClassName(_element_Calendar_TitleBar_FullScreenButton, className);
+    setElementClassName(_element_View_FullMonth_TitleBar_FullScreenButton, className);
     setElementClassName(_element_View_FullDay_FullScreenButton, className);
     setElementClassName(_element_View_AllEvents_FullScreenButton, className);
     setElementClassName(_element_View_FullWeek_FullScreenButton, className);
     setElementClassName(_element_View_FullYear_FullScreenButton, className);
     setElementClassName(_element_View_Timeline_FullScreenButton, className);
-    addToolTip(_element_Calendar_TitleBar_FullScreenButton, tooltipText);
+    addToolTip(_element_View_FullMonth_TitleBar_FullScreenButton, tooltipText);
     addToolTip(_element_View_FullDay_FullScreenButton, tooltipText);
     addToolTip(_element_View_AllEvents_FullScreenButton, tooltipText);
     addToolTip(_element_View_FullWeek_FullScreenButton, tooltipText);
@@ -5888,6 +5864,14 @@ function calendarJs(elementOrId, options, searchOptions) {
       refreshViews();
     };
     showMessageDialog(_options.confirmEventsRemoveTitle, _options.confirmEventsRemoveMessage, onYesEvent, onNoEvent);
+  }
+  function getAdjustedAllDayEvent(eventDetails) {
+    var adjustedEvent = eventDetails;
+    if (adjustedEvent.isAllDay) {
+      adjustedEvent.from = new Date(adjustedEvent.from.getFullYear(), adjustedEvent.from.getMonth(), adjustedEvent.from.getDate(), 0, 0);
+      adjustedEvent.to = new Date(adjustedEvent.from.getFullYear(), adjustedEvent.from.getMonth(), adjustedEvent.from.getDate(), 23, 59);
+    }
+    return adjustedEvent;
   }
   function setEventTypeInputCheckedStates(selectedEventType) {
     selectedEventType = isDefined(selectedEventType) && _options_EventType.hasOwnProperty(selectedEventType) ? selectedEventType : 0;
@@ -6142,6 +6126,16 @@ function calendarJs(elementOrId, options, searchOptions) {
       dayNumber = dayNumber + (7 - _options.startOfWeekDay);
     }
     return dayNumber;
+  }
+  function getToTimeWithPassedDate(eventDetails, date) {
+    var repeatEvery = getNumber(eventDetails.repeatEvery);
+    var toDate = new Date(eventDetails.to);
+    if (repeatEvery > _enum_RepeatType.never) {
+      var newCurrentDate = new Date(date);
+      newCurrentDate.setHours(toDate.getHours(), toDate.getMinutes());
+      toDate = newCurrentDate;
+    }
+    return toDate;
   }
   function getTimeToTimeDisplay(fromDate, toDate) {
     return getTimeForDisplay(fromDate) + _string.space + _options.toTimeText + _string.space + getTimeForDisplay(toDate);
@@ -6662,7 +6656,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _events_Copied = [];
       _events_Copied_Cut = false;
     }
-    buildDayEvents();
+    buildFullMonthViewDayEvents();
     refreshOpenedViews();
   }
   function storeMultiSelectEvent(e, eventDetails) {
@@ -6764,7 +6758,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (_calendar_CurrentDate_IsToday) {
           build();
         } else {
-          buildDayEvents();
+          buildFullMonthViewDayEvents();
         }
         if (triggerEvent) {
           triggerOptionsEvent("onRefresh");
@@ -6773,7 +6767,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function isOnlyMainDisplayVisible() {
-    return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isYearSelectorDropDownVisible() && !areContextMenusVisible() && !isSideMenuOpen() && _events_Dragged === null;
+    return !isTooltipVisible() && !isDisabledBackgroundDisplayed() && !isFullMonthViewYearDropDownVisible() && !areContextMenusVisible() && !isSideMenuOpen() && _events_Dragged === null;
   }
   function startTimer(timerName, func, timeout, interval) {
     interval = isDefined(interval) ? interval : true;
@@ -7085,6 +7079,18 @@ function calendarJs(elementOrId, options, searchOptions) {
           element.style.display = "none";
         }
       }
+    }
+  }
+  function clearElementsByClassName(container, className) {
+    var elements = container.getElementsByClassName(className);
+    for (; elements[0];) {
+      elements[0].parentNode.removeChild(elements[0]);
+    }
+  }
+  function removeElementsClassName(container, className) {
+    var elements = container.getElementsByClassName(className);
+    for (; elements[0];) {
+      elements[0].className = elements[0].className.replace(className, _string.empty);
     }
   }
   function buildRadioButton(container, labelText, groupName, onChangeEvent) {
@@ -7480,7 +7486,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (eventsAddedOrUpdated.length > 0) {
       storeEventsInLocalStorage();
       updateSideMenu();
-      buildDayEvents();
+      buildFullMonthViewDayEvents();
       refreshOpenedViews();
       showNotificationPopUp(_options.eventsImportedText.replace("{0}", eventsAddedOrUpdated.length));
       triggerOptionsEventWithData("onEventsImported", eventsAddedOrUpdated);
@@ -8589,19 +8595,6 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_Calendar_FullScreenModeOn = false;
   var _element_Calendar_FullScreenModeCachedStyled = null;
   var _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
-  var _element_Calendar_Rows = [];
-  var _element_Calendar_TitleBar = null;
-  var _element_Calendar_TitleBar_YearSelector_DropDown = null;
-  var _element_Calendar_TitleBar_YearSelector_DropDown_Text = null;
-  var _element_Calendar_TitleBar_YearSelector_DropDown_Arrow = null;
-  var _element_Calendar_TitleBar_YearSelector = null;
-  var _element_Calendar_TitleBar_YearSelector_Contents = null;
-  var _element_Calendar_TitleBar_YearSelector_Contents_Months = {};
-  var _element_Calendar_TitleBar_FullScreenButton = null;
-  var _element_Calendar_TitleBar_SearchButton = null;
-  var _element_Calendar_DayNamesHeader = null;
-  var _element_Calendar_AllVisibleEvents = [];
-  var _element_Calendar_LargestDateAvailable = null;
   var _element_View_FullDay = null;
   var _element_View_FullDay_TitleBar = null;
   var _element_View_FullDay_Contents = null;
@@ -8634,6 +8627,19 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_FullWeek_TimeArrow_Position = null;
   var _element_View_FullWeek_Contents_SmallestEventTop = 0;
   var _element_View_FullWeek_Events_Dragged_Sizes = [];
+  var _element_View_FullMonth_Rows = [];
+  var _element_View_FullMonth_TitleBar = null;
+  var _element_View_FullMonth_TitleBar_YearSelector_DropDown = null;
+  var _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text = null;
+  var _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow = null;
+  var _element_View_FullMonth_TitleBar_YearSelector = null;
+  var _element_View_FullMonth_TitleBar_YearSelector_Contents = null;
+  var _element_View_FullMonth_TitleBar_YearSelector_Contents_Months = {};
+  var _element_View_FullMonth_TitleBar_FullScreenButton = null;
+  var _element_View_FullMonth_TitleBar_SearchButton = null;
+  var _element_View_FullMonth_DayNamesHeader = null;
+  var _element_View_FullMonth_AllVisibleEvents = [];
+  var _element_View_FullMonth_LargestDateAvailable = null;
   var _element_View_FullYear = null;
   var _element_View_FullYear_FullScreenButton = null;
   var _element_View_FullYear_TitleBar = null;
@@ -8978,7 +8984,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (updateEvents) {
         updateSideMenu();
-        buildDayEvents();
+        buildFullMonthViewDayEvents();
         refreshOpenedViews();
       }
     }
@@ -9078,7 +9084,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (updateEvents) {
             storeEventsInLocalStorage();
             updateSideMenu();
-            buildDayEvents();
+            buildFullMonthViewDayEvents();
             refreshOpenedViews();
           }
         }
@@ -9102,7 +9108,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (updateEvents) {
         storeEventsInLocalStorage();
         updateSideMenu();
-        buildDayEvents();
+        buildFullMonthViewDayEvents();
         refreshOpenedViews();
       }
     }
@@ -9141,7 +9147,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (updateEvents) {
             storeEventsInLocalStorage();
             updateSideMenu();
-            buildDayEvents();
+            buildFullMonthViewDayEvents();
             refreshOpenedViews();
           }
           return true;
@@ -9165,7 +9171,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (updateEvents) {
             storeEventsInLocalStorage();
             updateSideMenu();
-            buildDayEvents();
+            buildFullMonthViewDayEvents();
             refreshOpenedViews();
           }
           return true;
@@ -9185,7 +9191,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (updateEvents) {
         storeEventsInLocalStorage();
         updateSideMenu();
-        buildDayEvents();
+        buildFullMonthViewDayEvents();
         refreshOpenedViews();
       }
     }
@@ -9223,7 +9229,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (updateEvents) {
         storeEventsInLocalStorage();
         updateSideMenu();
-        buildDayEvents();
+        buildFullMonthViewDayEvents();
         refreshOpenedViews();
       }
     }
@@ -9285,7 +9291,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (updateEvents) {
         updateSideMenu();
-        buildDayEvents();
+        buildFullMonthViewDayEvents();
         refreshOpenedViews();
       }
     }
@@ -9306,7 +9312,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (updateEvents) {
         updateSideMenu();
-        buildDayEvents();
+        buildFullMonthViewDayEvents();
         refreshOpenedViews();
       }
     }

@@ -39,6 +39,7 @@
 
 #### **Code Improvements:**
 - Finished the variable re-structuring and renaming in the main constructor.
+- Internal renames (the month display is now called Full Month).
 
 #### **Fixes:**
 - Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
