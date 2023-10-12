@@ -3812,7 +3812,7 @@ div.configuration div.contents input[type=email]:not(:disabled):hover {
   border: var(--spacing-border-size) solid var(--input-hover-color);
 }
 div.configuration div.contents div.tab-content {
-  height: 165px;
+  height: 135px;
 }
 div.configuration div.buttons-container {
   text-align: right;
