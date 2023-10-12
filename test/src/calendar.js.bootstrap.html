@@ -130,6 +130,7 @@
             onTimelineEventRender: onRenderCustom,
             onMonthEventRender: onRenderCustom,
             onWidgetEventRender: onRenderCustom,
+            onToolTipEventRender: onToolTipRenderCustom
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
@@ -142,6 +143,17 @@
 
             if ( eventDetails.id === "1234-5678" ) {
                 event.innerHTML = "I've been custom rendered!";
+                result = true;
+            }
+            
+            return result;
+        }
+
+        function onToolTipRenderCustom( tooltip, eventDetails ) {
+            var result = false;
+
+            if ( eventDetails.id === "1234-5678" ) {
+                tooltip.innerHTML = "This is a custom tooltip for an event.";
                 result = true;
             }
             

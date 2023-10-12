@@ -31,6 +31,7 @@
 - Added a new custom trigger "onAllEventsEventRender", which is triggered when an event in the All Events view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onTimelineEventRender", which is triggered when an event in the Timeline view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onWidgetEventRender", which is triggered when an event in the Widget mode is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onToolTipEventRender", which is triggered when a tooltip is rendered for an event (allowing custom rendering, or just a notification).
 
 #### **Code Improvements:**
 - Finished the variable re-structuring and renaming in the main constructor.

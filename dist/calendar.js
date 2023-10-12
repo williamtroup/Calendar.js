@@ -5197,70 +5197,72 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (text !== _string.empty) {
             setNodeText(_element_Tooltip, text);
           } else {
-            _element_Tooltip.onmousemove = cancelBubble;
             _element_Tooltip_EventDetails = eventDetails;
             _element_Tooltip.innerHTML = _string.empty;
             _element_Tooltip_Title.innerHTML = _string.empty;
             _element_Tooltip_TotalTime.innerHTML = _string.empty;
-            _element_Tooltip.appendChild(_element_Tooltip_TitleButtons);
-            _element_Tooltip.appendChild(_element_Tooltip_Title);
-            _element_Tooltip.appendChild(_element_Tooltip_Date);
-            _element_Tooltip.appendChild(_element_Tooltip_TotalTime);
-            updateToolbarButtonVisibleState(_element_Tooltip_TitleButtons_EditButton, _options.manualEditingEnabled);
-            if (isDefinedStringAndSet(eventDetails.url)) {
-              setNodeText(_element_Tooltip_Url, getShortUrlString(eventDetails.url));
-              addNode(_element_Tooltip, _element_Tooltip_Url);
-              _element_Tooltip_Url.onclick = function(e) {
-                cancelBubble(e);
-                openEventUrl(eventDetails.url);
-                hideTooltip();
-              };
-            } else {
-              _element_Tooltip_Url.innerHTML = _string.empty;
-              _element_Tooltip_Url.onclick = null;
-              removeNode(_element_Tooltip, _element_Tooltip_Url);
-            }
-            var repeatEvery = getNumber(eventDetails.repeatEvery);
-            if (repeatEvery > _enum_RepeatType.never) {
-              var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
-              icon.style.borderColor = _element_Tooltip_Title.style.color;
-              _element_Tooltip_Title.appendChild(icon);
-            }
-            _element_Tooltip_Title.innerHTML += stripHTMLTagsFromText(eventDetails.title);
-            if (isDefinedNumber(eventDetails.repeatEvery) && eventDetails.repeatEvery > _enum_RepeatType.never) {
-              setNodeText(_element_Tooltip_Repeats, _options.repeatsText.replace(":", _string.empty) + _string.space + getRepeatsText(eventDetails.repeatEvery));
-              addNode(_element_Tooltip, _element_Tooltip_Repeats);
-            } else {
-              _element_Tooltip_Repeats.innerHTML = _string.empty;
-              removeNode(_element_Tooltip, _element_Tooltip_Repeats);
-            }
-            if (isDefinedStringAndSet(eventDetails.location)) {
-              setNodeText(_element_Tooltip_Location, eventDetails.location);
-              addNode(_element_Tooltip, _element_Tooltip_Location);
-            } else {
-              _element_Tooltip_Location.innerHTML = _string.empty;
-              removeNode(_element_Tooltip, _element_Tooltip_Location);
-            }
-            if (isDefinedStringAndSet(eventDetails.description)) {
-              setNodeText(_element_Tooltip_Description, eventDetails.description);
-              addNode(_element_Tooltip, _element_Tooltip_Description);
-            } else {
-              _element_Tooltip_Description.innerHTML = _string.empty;
-              removeNode(_element_Tooltip, _element_Tooltip_Description);
-            }
-            if (eventDetails.from.getDate() === eventDetails.to.getDate()) {
-              if (eventDetails.isAllDay) {
-                setNodeText(_element_Tooltip_Date, _options.allDayText);
+            if (!triggerOptionsEventWithMultipleData("onToolTipEventRender", _element_Tooltip, eventDetails)) {
+              _element_Tooltip.onmousemove = cancelBubble;
+              _element_Tooltip.appendChild(_element_Tooltip_TitleButtons);
+              _element_Tooltip.appendChild(_element_Tooltip_Title);
+              _element_Tooltip.appendChild(_element_Tooltip_Date);
+              _element_Tooltip.appendChild(_element_Tooltip_TotalTime);
+              updateToolbarButtonVisibleState(_element_Tooltip_TitleButtons_EditButton, _options.manualEditingEnabled);
+              if (isDefinedStringAndSet(eventDetails.url)) {
+                setNodeText(_element_Tooltip_Url, getShortUrlString(eventDetails.url));
+                addNode(_element_Tooltip, _element_Tooltip_Url);
+                _element_Tooltip_Url.onclick = function(e) {
+                  cancelBubble(e);
+                  openEventUrl(eventDetails.url);
+                  hideTooltip();
+                };
               } else {
-                setNodeText(_element_Tooltip_Date, getTimeToTimeDisplay(eventDetails.from, eventDetails.to));
+                _element_Tooltip_Url.innerHTML = _string.empty;
+                _element_Tooltip_Url.onclick = null;
+                removeNode(_element_Tooltip, _element_Tooltip_Url);
+              }
+              var repeatEvery = getNumber(eventDetails.repeatEvery);
+              if (repeatEvery > _enum_RepeatType.never) {
+                var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
+                icon.style.borderColor = _element_Tooltip_Title.style.color;
+                _element_Tooltip_Title.appendChild(icon);
+              }
+              _element_Tooltip_Title.innerHTML += stripHTMLTagsFromText(eventDetails.title);
+              if (isDefinedNumber(eventDetails.repeatEvery) && eventDetails.repeatEvery > _enum_RepeatType.never) {
+                setNodeText(_element_Tooltip_Repeats, _options.repeatsText.replace(":", _string.empty) + _string.space + getRepeatsText(eventDetails.repeatEvery));
+                addNode(_element_Tooltip, _element_Tooltip_Repeats);
+              } else {
+                _element_Tooltip_Repeats.innerHTML = _string.empty;
+                removeNode(_element_Tooltip, _element_Tooltip_Repeats);
+              }
+              if (isDefinedStringAndSet(eventDetails.location)) {
+                setNodeText(_element_Tooltip_Location, eventDetails.location);
+                addNode(_element_Tooltip, _element_Tooltip_Location);
+              } else {
+                _element_Tooltip_Location.innerHTML = _string.empty;
+                removeNode(_element_Tooltip, _element_Tooltip_Location);
+              }
+              if (isDefinedStringAndSet(eventDetails.description)) {
+                setNodeText(_element_Tooltip_Description, eventDetails.description);
+                addNode(_element_Tooltip, _element_Tooltip_Description);
+              } else {
+                _element_Tooltip_Description.innerHTML = _string.empty;
+                removeNode(_element_Tooltip, _element_Tooltip_Description);
+              }
+              if (eventDetails.from.getDate() === eventDetails.to.getDate()) {
+                if (eventDetails.isAllDay) {
+                  setNodeText(_element_Tooltip_Date, _options.allDayText);
+                } else {
+                  setNodeText(_element_Tooltip_Date, getTimeToTimeDisplay(eventDetails.from, eventDetails.to));
+                  setNodeText(_element_Tooltip_TotalTime, getFriendlyTimeBetweenTwoDate(eventDetails.from, eventDetails.to));
+                }
+              } else {
+                buildDateTimeToDateTimeDisplay(_element_Tooltip_Date, eventDetails.from, eventDetails.to);
                 setNodeText(_element_Tooltip_TotalTime, getFriendlyTimeBetweenTwoDate(eventDetails.from, eventDetails.to));
               }
-            } else {
-              buildDateTimeToDateTimeDisplay(_element_Tooltip_Date, eventDetails.from, eventDetails.to);
-              setNodeText(_element_Tooltip_TotalTime, getFriendlyTimeBetweenTwoDate(eventDetails.from, eventDetails.to));
-            }
-            if (_element_Tooltip_TotalTime.innerHTML === _string.empty) {
-              _element_Tooltip.removeChild(_element_Tooltip_TotalTime);
+              if (_element_Tooltip_TotalTime.innerHTML === _string.empty) {
+                _element_Tooltip.removeChild(_element_Tooltip_TotalTime);
+              }
             }
           }
           showElementAtMousePosition(e, _element_Tooltip);

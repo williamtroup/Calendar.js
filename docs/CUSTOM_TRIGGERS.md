@@ -164,6 +164,15 @@ Fires when the Widget mode renders an event.
 <br>
 ***Returns:*** '*boolean*' - States if this event has been custom rendered.
 
+### **options.onToolTipEventRender( *tooltip*, *event* )**:
+Fires when a tooltip is rendered for an event.
+<br>
+***Parameter:*** url***: '*tooltip*' - The tooltip DOM element that has been shown.
+<br>
+***Parameter:*** event***: '*Event*' - The event details.
+<br>
+***Returns:*** '*boolean*' - States if this tooltip has been custom rendered.
+
 
 <br>
 <h1>For The Display Date:</h1>
