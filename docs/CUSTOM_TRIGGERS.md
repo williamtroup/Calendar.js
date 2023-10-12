@@ -103,7 +103,12 @@ Fires when events are imported.
 
 
 <br>
-<h1>For Event Rendering:</h1>
+<h1>For Rendering:</h1>
+
+### **options.onRender( *id* )**:
+Fires when the Calendar is rendered.
+<br>
+***Parameter:*** id***: '*string*' - The Id of the Calendar.
 
 ### **options.onFullDayEventRender( *element*, *event* )**:
 Fires when the Full Day view renders an event.
@@ -252,11 +257,6 @@ Fires when the Calendar is destroyed.
 
 ### **options.onRefresh()**:
 Fires when the Calendar is refreshed.
-
-### **options.onRender( *id* )**:
-Fires when the Calendar is rendered.
-<br>
-***Parameter:*** id***: '*string*' - The Id of the Calendar.
 
 ### **options.onBusyStateChange( *flag* )**:
 Fires when the busy state changes.
