@@ -4,6 +4,7 @@
 
 #### **New Features:**
 - Added a new Timeline view, which uses the "Group" event property (default, you can switch to "Location" or "Organizer Name") as the view axis for a single day.
+- Added custom event, tooltip, and title bar rendering support for various areas (see "Custom Triggers" documentation).
 
 #### **General Improvements:**
 - Completely re-written view handling, which will ensure that the most recent view opened is the one being handled for the current action (search, export, etc).
