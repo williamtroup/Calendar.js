@@ -128,8 +128,8 @@ Fires when the Full Week view renders an event.
 <br>
 ***Returns:*** '*boolean*' - States if this event has been custom rendered.
 
-### **options.onMonthEventRender( *element*, *event* )**:
-Fires when the Month view (default) renders an event.
+### **options.onFullMonthEventRender( *element*, *event* )**:
+Fires when the Full Month view (default) renders an event.
 <br>
 ***Parameter:*** element***: '*Object*' - The events DOM element that has been added.
 <br>
@@ -195,6 +195,13 @@ Fires when the Timeline view renders its title.
 ***Parameter:*** dateTime***: '*Object*' - The Date and Time being displayed.
 <br>
 ***Returns:*** '*boolean*' - States if the title has been custom rendered.
+
+### **options.onFullMonthPinUpRender( *pinup*, *date* )**:
+Fires when the Full Month pin-up is rendered after a month/year change.
+<br>
+***Parameter:*** pinup***: '*Object*' - The pinup DOM element that has been shown.
+<br>
+***Parameter:*** date***: '*Object*' - The Date being displayed.
 
 
 <br>

@@ -79,6 +79,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | importEventsEnabled | States if importing events is enabled (defaults to true). |
 | *boolean* | useAmPmForTimeDisplays | States if the AM/PM time format should be used for all time displays (defaults to false). |
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
+| *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
+| *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 <br/>
 
 ### Translatable String Options:

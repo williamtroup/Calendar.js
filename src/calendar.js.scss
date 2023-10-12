@@ -640,6 +640,21 @@ div.calendar {
     }
 }
 
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Pin-Up Mode
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.pin-up {
+        background-size: cover;
+        height: 250px;
+        background-color: var(--day-names-color);
+        border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+    }
+}
+
 
 /*
     -------------------------------------------------------------------------

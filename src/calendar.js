@@ -117,7 +117,7 @@
  * @property    {Object}    onEventsImported                            Specifies an event that will be triggered when events are imported (passes the events to the function).
  * @property    {Object}    onFullDayEventRender                        Specifies an event that will be triggered when an event is rendered in the Full Day view (passes the DOM element and event to the function).
  * @property    {Object}    onFullWeekEventRender                       Specifies an event that will be triggered when an event is rendered in the Full Week view (passes the DOM element and event to the function).
- * @property    {Object}    onMonthEventRender                          Specifies an event that will be triggered when an event is rendered in the Month view (passes the DOM element and event to the function).
+ * @property    {Object}    onFullMonthEventRender                      Specifies an event that will be triggered when an event is rendered in the Full Month view (passes the DOM element and event to the function).
  * @property    {Object}    onAllEventsEventRender                      Specifies an event that will be triggered when an event is rendered in the All Events view (passes the DOM element and event to the function).
  * @property    {Object}    onTimelineEventRender                       Specifies an event that will be triggered when an event is rendered in the Timeline view (passes the DOM element and event to the function).
  * @property    {Object}    onWidgetEventRender                         Specifies an event that will be triggered when an event is rendered in the Widget mode (passes the DOM element and event to the function).
@@ -125,6 +125,7 @@
  * @property    {Object}    onFullDayTitleRender                        Specifies an event that will be triggered when the Full Day title is rendered (passes the date/time to the function).
  * @property    {Object}    onFullWeekTitleRender                       Specifies an event that will be triggered when the Full Week title is rendered (passes the dates/times to the function).
  * @property    {Object}    onTimelineTitleRender                       Specifies an event that will be triggered when the Timeline title is rendered (passes the date/time to the function).
+ * @property    {Object}    onFullMonthPinUpRender                      Specifies an event that will be triggered when the Full Month views pin-up is rendered (passes the pin-up DOM element and the date/time to the function).
  * 
  * These are the translatable strings that are used in Calendar.js.
  * 
@@ -388,6 +389,8 @@
  * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
  * @property    {boolean}   useAmPmForTimeDisplays                      States if the AM/PM time format should be used for all time displays (defaults to false).
  * @property    {boolean}   isWidget                                    States if the new calendar instance is only a widget (defaults to false).
+ * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
+ * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
  */
 
 
@@ -677,6 +680,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullMonth_TitleBar_YearSelector_Contents_Months = {},
         _element_View_FullMonth_TitleBar_FullScreenButton = null,
         _element_View_FullMonth_TitleBar_SearchButton = null,
+        _element_View_FullMonth_PinUp = null,
+        _element_View_FullMonth_PinUp_ImageIndex = 0,
         _element_View_FullMonth_DayNamesHeader = null,
         _element_View_FullMonth_EventsShown = [],
         _element_View_FullMonth_LargestDateAvailable = null,
@@ -3450,6 +3455,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullMonthView() {
         buildFullMonthViewTitleBar();
+        buildFullMonthViewPinUp();
         buildFullMonthViewDayNamesHeader();
         buildFullMonthViewDayRows();
     }
@@ -3565,6 +3571,57 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildFullMonthViewYearDropDown( titleContainer );
     }
 
+    function buildFullMonthViewPinUp() {
+        if ( !_element_Mode_DatePicker_Enabled ) {
+            var wasAddedAlready = _element_View_FullMonth_PinUp !== null;
+
+            if ( _options.isPinUpViewEnabled ) {
+                if ( !wasAddedAlready ) {
+                    _element_View_FullMonth_PinUp = createElement( "div", "pin-up" );
+                    _element_Calendar.appendChild( _element_View_FullMonth_PinUp );
+                }
+    
+                buildFullMonthViewPinUpImageCache();
+    
+                if ( !_initialized_FirstTime ) {
+                    buildFullMonthViewPinUpImage();
+                }
+    
+            } else {
+                if ( wasAddedAlready ) {
+                    _element_Calendar.removeChild( _element_View_FullMonth_PinUp );
+                    _element_View_FullMonth_PinUp = null;
+                }
+            }
+        }
+    }
+
+    function buildFullMonthViewPinUpImageCache() {
+        var imagesLength = _options.pinUpViewImageUrls.length;
+
+        if ( imagesLength > 0 ) {
+            for ( var imageIndex = 0; imageIndex < imagesLength; imageIndex++ ) {
+                var image = new Image();
+                image.src = _options.pinUpViewImageUrls[ imageIndex ];
+            }
+        }
+    }
+
+    function buildFullMonthViewPinUpImage() {
+        if ( !_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null ) {
+            if ( _options.pinUpViewImageUrls.length > 0 ) {
+                _element_View_FullMonth_PinUp.style.backgroundImage = "url('" + _options.pinUpViewImageUrls[ _element_View_FullMonth_PinUp_ImageIndex ] + "')";
+
+                _element_View_FullMonth_PinUp_ImageIndex++;
+                if ( _element_View_FullMonth_PinUp_ImageIndex === _options.pinUpViewImageUrls.length ) {
+                    _element_View_FullMonth_PinUp_ImageIndex = 0;
+                }
+            }
+
+            triggerOptionsEventWithMultipleData( "onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate );
+        }
+    }
+
     function buildFullMonthViewDayNamesHeader() {
         var wasAddedAlready = _element_View_FullMonth_DayNamesHeader !== null;
         
@@ -3659,6 +3716,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return className;
+    }
+
+    function updatePinUpViewForFullScreenMode() {
+        if ( _element_View_FullMonth_PinUp !== null ) {
+            _element_View_FullMonth_PinUp.style.display = _element_Calendar_FullScreenModeOn ? "none" : "block";
+        }
     }
 
 
@@ -4183,7 +4246,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         event.setAttribute( "event-id", eventDetails.id );
 
                         if ( !_options.useOnlyDotEventsForMainDisplay ) {
-                            if ( !triggerOptionsEventWithMultipleData( "onMonthEventRender", event, eventDetails ) ) {
+                            if ( !triggerOptionsEventWithMultipleData( "onFullMonthEventRender", event, eventDetails ) ) {
                                 var eventTitle = eventDetails.title,
                                     repeatEvery = getNumber( eventDetails.repeatEvery );
             
@@ -8593,6 +8656,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             updateFullScreenModeExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
             refreshOpenedViews();
             triggerOptionsEventWithData( "onFullScreenModeChanged", false );
+            updatePinUpViewForFullScreenMode();
         }
     }
 
@@ -8604,6 +8668,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         updateFullScreenModeExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
         refreshOpenedViews();
+        updatePinUpViewForFullScreenMode();
     }
 
     function updateFullScreenModeExpandButtons( className, tooltipText ) {
@@ -12276,6 +12341,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( previousMonth.getFullYear() >= _options.minimumYear ) {
                 build( previousMonth );
                 triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+                buildFullMonthViewPinUpImage();
             }
         }
     }
@@ -12292,6 +12358,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( nextMonth.getFullYear() <= _options.maximumYear ) {
                 build( nextMonth );
                 triggerOptionsEventWithData( "onNextMonth", nextMonth );
+                buildFullMonthViewPinUpImage();
             }
         }
     }
@@ -12304,6 +12371,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( previousYear.getFullYear() >= _options.minimumYear ) {
                 build( previousYear );
                 triggerOptionsEventWithData( "onPreviousYear", previousYear );
+                buildFullMonthViewPinUpImage();
             }
         }
     }
@@ -12316,6 +12384,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( nextYear.getFullYear() <= _options.maximumYear ) {
                 build( nextYear );
                 triggerOptionsEventWithData( "onNextYear", nextYear );
+                buildFullMonthViewPinUpImage();
             }
         }
     }
@@ -12327,6 +12396,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _calendar_CurrentDate.getMonth() !== today.getMonth() || _calendar_CurrentDate.getFullYear() !== today.getFullYear() ) {
                 build();
                 triggerOptionsEvent( "onToday" );
+                buildFullMonthViewPinUpImage();
             }
         }
     }
@@ -13513,6 +13583,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.importEventsEnabled = getDefaultBoolean( _options.importEventsEnabled, true );
         _options.useAmPmForTimeDisplays = getDefaultBoolean( _options.useAmPmForTimeDisplays, false );
         _options.isWidget = getDefaultBoolean( _options.isWidget, false );
+        _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
+        _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

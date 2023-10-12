@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar.js - Persistence</title>
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../../dist/calendar.js.css" />
+        <script src="../../src/calendar.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Pin-Up</h1>
+            <p>A test that shows Calendar.js in Pin-Up mode.</p>
+        </div>
+
+        <div class="contents">
+            <div id="calendar"></div>
+        </div>
+    </body>
+
+    <script>
+        var calendarInstance = new calendarJs( "calendar", {
+            isPinUpViewEnabled: true,
+            pinUpViewImageUrls: [
+                "https://calendar-js.com/images/top.jpg",
+                "https://sleeplessocean.com/images/background_main.jpg"
+            ],
+        } );
+
+        document.title += " v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+    </script>
+</html>

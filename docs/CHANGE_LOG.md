@@ -5,6 +5,7 @@
 #### **New Features:**
 - Added a new Timeline view, which uses the "Group" event property (default, you can switch to "Location" or "Organizer Name") as the view axis for a single day.
 - Added custom event, tooltip, and title bar rendering support for various areas (see "Custom Triggers" documentation).
+- Added Full Month pin-up support! This will show an area above the Day Names header that will show custom images as the date changes (unavailable in full-screen mode).
 
 #### **General Improvements:**
 - Completely re-written view handling, which will ensure that the most recent view opened is the one being handled for the current action (search, export, etc).
@@ -25,17 +26,22 @@
 #### **Widget Mode:**
 - The "Add Event" button will now default the add date to the currently selected date.
 
-#### **Custom Trigger Events:**
+#### **New Custom Trigger Events:**
 - Added a new custom trigger "onFullDayEventRender", which is triggered when an event in the Full Day view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onFullWeekEventRender", which is triggered when an event in the Full Week view is rendered (allowing custom rendering, or just a notification).
-- Added a new custom trigger "onMonthEventRender", which is triggered when an event in the Month view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullMonthEventRender", which is triggered when an event in the Full Month view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onAllEventsEventRender", which is triggered when an event in the All Events view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onTimelineEventRender", which is triggered when an event in the Timeline view is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onWidgetEventRender", which is triggered when an event in the Widget mode is rendered (allowing custom rendering, or just a notification).
 - Added a new custom trigger "onToolTipEventRender", which is triggered when a tooltip is rendered for an event (allowing custom rendering, or just a notification).
-- Added a new custom trigger "onFullDayTitleRender", which is triggered the Full Day views title is rendered (allowing custom rendering, or just a notification).
-- Added a new custom trigger "onFullWeekTitleRender", which is triggered the Full Week views title is rendered (allowing custom rendering, or just a notification).
-- Added a new custom trigger "onTimelineTitleRender", which is triggered the Timeline views title is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullDayTitleRender", which is triggered when the Full Day views title is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullWeekTitleRender", which is triggered when the Full Week views title is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onTimelineTitleRender", which is triggered when the Timeline views title is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullMonthPinUpRender", which is triggered when the Full Month views pin-up is rendered (allowing custom rendering, or just a notification).
+
+#### **New Settings:**
+- Added a new setting "isPinUpViewEnabled" (defaults to false), which states if the pin-up view is enabled in the Full Month view.
+- Added a new setting "pinUpViewImageUrls" (defaults to []), which states the image URLs that should be used for the pin-up view in the Full Month view.
 
 #### **Code Improvements:**
 - Finished the variable re-structuring and renaming in the main constructor.
