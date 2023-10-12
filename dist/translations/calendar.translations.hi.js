@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateMessage": "क्या आप इस बिंदु से आगे की घटना को अद्यतन करना चाहेंगे, या पूरी शृंखला को?",
   "forwardText": "आगे",
   "seriesText": "शृंखला",
-  "timelineText": "समयरेखा: ",
   "viewTimelineTooltipText": "समयसीमा जरूर देख लें",
   "nextPropertyTooltipText": "अगली संपत्ति",
   "noneText": "(कोई नहीं)"

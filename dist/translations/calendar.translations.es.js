@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateMessage": "¿Le gustaría actualizar el evento a partir de ahora o la serie completa?",
   "forwardText": "Adelante",
   "seriesText": "Serie",
-  "timelineText": "Línea de tiempo: ",
   "viewTimelineTooltipText": "Ver línea de tiempo",
   "nextPropertyTooltipText": "Siguiente propiedad",
   "noneText": "(ninguno)"

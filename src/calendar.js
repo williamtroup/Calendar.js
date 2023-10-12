@@ -307,7 +307,6 @@
  * @property    {string}    confirmEventUpdateMessage                   The text for the confirmation message that is shown when updating a repeating event (defaults to "Would you like to update the event from this point forward, or the entire series?").
  * @property    {string}    forwardText                                 The text that should be displayed for the "Forward" button.
  * @property    {string}    seriesText                                  The text that should be displayed for the "Series" button.
- * @property    {string}    timelineText                                The text that should be displayed for the "Timeline: " label.
  * @property    {string}    viewTimelineTooltipText                     The tooltip text that should be used for the "View Timeline" button.
  * @property    {string}    nextPropertyTooltipText                     The tooltip text that should be used for the "Next Property" button.
  * @property    {string}    noneText                                    The text that should be displayed for the "(none)" label.
@@ -3549,6 +3548,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullDay_TimeArrow.appendChild( createElement( "div", "line" ) );
     }
 
+    function buildFullDayViewTitle() {
+        if ( !triggerOptionsEventWithData( "onFullDayTitleRender", _element_View_FullDay_DateSelected ) ) {
+            buildDateTimeDisplay( _element_View_FullDay_TitleBar, _element_View_FullDay_DateSelected, false, true, true );
+        }
+    }
+
     function showFullDayView( date, fromOpen ) {
         date = isDefined( date ) ? new Date( date ) : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
@@ -3571,7 +3576,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         updateToolbarButtonVisibleState( _element_View_FullDay_TodayButton, isCurrentDateVisible );
         clearElementsByClassName( _element_View_FullDay_Contents, "event" );
         hideSearchDialog();
-        buildDateTimeDisplay( _element_View_FullDay_TitleBar, _element_View_FullDay_DateSelected, false, true, true );
+        buildFullDayViewTitle();
         showView( _element_View_FullDay );
 
         if ( isWorkingDay( date ) ) {
@@ -3951,14 +3956,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullWeekViewTitle( weekStartDate, weekEndDate ) {
         _element_View_FullWeek_TitleBar.innerHTML = _string.empty;
 
-        if ( _options.showWeekNumbersInTitles ) {
-            createSpanElement( _element_View_FullWeek_TitleBar, _options.weekText + _string.space + getWeekNumber( weekStartDate ) + ": " );
-        }
-
-        if ( _options.reverseOrderDaysOfWeek ) {
-            buildFullWeekViewTitleDate( weekEndDate, weekStartDate );
-        } else {
-            buildFullWeekViewTitleDate( weekStartDate, weekEndDate );
+        if ( !triggerOptionsEventWithMultipleData( "onFullWeekTitleRender", weekStartDate, weekEndDate ) ) {
+            if ( _options.showWeekNumbersInTitles ) {
+                createSpanElement( _element_View_FullWeek_TitleBar, _options.weekText + _string.space + getWeekNumber( weekStartDate ) + ": " );
+            }
+    
+            if ( _options.reverseOrderDaysOfWeek ) {
+                buildFullWeekViewTitleDate( weekEndDate, weekStartDate );
+            } else {
+                buildFullWeekViewTitleDate( weekStartDate, weekEndDate );
+            }
         }
     }
 
@@ -5301,6 +5308,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
+    function buildTimelineViewTitle() {
+        if ( !triggerOptionsEventWithData( "onTimelineTitleRender", _element_View_FullDay_DateSelected ) ) {
+            buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true );
+        }
+    }
+
     function showTimelineView( date, fromOpen ) {
         date = isDefined( date ) ? new Date( date ) : new Date();
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
@@ -5325,11 +5338,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         getFullDayViewOrderedEvents( _element_View_Timeline_DateSelected, orderedEvents );
         updateToolbarButtonVisibleState( _element_View_Timeline_TodayButton, isCurrentDateVisible );
-        buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true, _options.timelineText );
         buildTimelineViewContentLayout();
         showView( _element_View_Timeline );
         buildTimelineViewEvents( getOrderedEvents( orderedEvents ) );
         buildTimelineViewColumnHeights();
+        buildTimelineViewTitle();
         
         if ( fromOpen ) {
             
@@ -9198,14 +9211,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDateTimeDisplay( container, toDate );
     }
 
-    function buildDateTimeDisplay( container, date, addTime, addYear, addDayName, beforeText ) {
+    function buildDateTimeDisplay( container, date, addTime, addYear, addDayName ) {
         addTime = !isDefined( addTime ) ? true : addTime;
         addYear = !isDefined( addYear ) ? true : addYear;
         addDayName = !isDefined( addDayName ) ? false : addDayName;
-
-        if ( isDefined( beforeText ) ) {
-            createSpanElement( container, beforeText );
-        }
 
         if ( addDayName ) {
             createSpanElement( container, _options.dayNames[ getWeekdayNumber( date ) ] + ", " );
@@ -11877,9 +11886,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function triggerOptionsEventWithData( name, data ) {
+        var result = false;
+
         if ( _options !== null && isOptionEventSet( name ) ) {
-            _options[ name ]( data );
+            result = _options[ name ]( data );
         }
+
+        return result;
     }
 
     function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
@@ -13763,7 +13776,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.confirmEventUpdateMessage = getDefaultString( _options.confirmEventUpdateMessage, "Would you like to update the event from this point forward, or the entire series?" );
         _options.forwardText = getDefaultString( _options.forwardText, "Forward" );
         _options.seriesText = getDefaultString( _options.seriesText, "Series" );
-        _options.timelineText = getDefaultString( _options.timelineText, "Timeline: " );
         _options.viewTimelineTooltipText = getDefaultString( _options.viewTimelineTooltipText, "View Timeline" );
         _options.nextPropertyTooltipText = getDefaultString( _options.nextPropertyTooltipText, "Next Property" );
         _options.noneText = getDefaultString( _options.noneText, "(none)" );

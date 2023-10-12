@@ -113,7 +113,7 @@ Fires when the Calendar is rendered.
 ### **options.onFullDayEventRender( *element*, *event* )**:
 Fires when the Full Day view renders an event.
 <br>
-***Parameter:*** url***: '*element*' - The events DOM element that has been added.
+***Parameter:*** element***: '*Object*' - The events DOM element that has been added.
 <br>
 ***Parameter:*** event***: '*Event*' - The event details.
 <br>
@@ -122,7 +122,7 @@ Fires when the Full Day view renders an event.
 ### **options.onFullWeekEventRender( *element*, *event* )**:
 Fires when the Full Week view renders an event.
 <br>
-***Parameter:*** url***: '*element*' - The events DOM element that has been added.
+***Parameter:*** element***: '*Object*' - The events DOM element that has been added.
 <br>
 ***Parameter:*** event***: '*Event*' - The event details.
 <br>
@@ -131,7 +131,7 @@ Fires when the Full Week view renders an event.
 ### **options.onMonthEventRender( *element*, *event* )**:
 Fires when the Month view (default) renders an event.
 <br>
-***Parameter:*** url***: '*element*' - The events DOM element that has been added.
+***Parameter:*** element***: '*Object*' - The events DOM element that has been added.
 <br>
 ***Parameter:*** event***: '*Event*' - The event details.
 <br>
@@ -140,7 +140,7 @@ Fires when the Month view (default) renders an event.
 ### **options.onAllEventsEventRender( *element*, *event* )**:
 Fires when the All Events view renders an event.
 <br>
-***Parameter:*** url***: '*element*' - The events DOM element that has been added.
+***Parameter:*** element***: '*Object*' - The events DOM element that has been added.
 <br>
 ***Parameter:*** event***: '*Event*' - The event details.
 <br>
@@ -149,7 +149,7 @@ Fires when the All Events view renders an event.
 ### **options.onTimelineEventRender( *element*, *event* )**:
 Fires when the Timeline view renders an event.
 <br>
-***Parameter:*** url***: '*element*' - The events DOM element that has been added.
+***Parameter:*** element***: '*Object*' - The events DOM element that has been added.
 <br>
 ***Parameter:*** event***: '*Event*' - The event details.
 <br>
@@ -158,7 +158,7 @@ Fires when the Timeline view renders an event.
 ### **options.onWidgetEventRender( *element*, *event* )**:
 Fires when the Widget mode renders an event.
 <br>
-***Parameter:*** url***: '*element*' - The events DOM element that has been added.
+***Parameter:*** element***: '*Object*' - The events DOM element that has been added.
 <br>
 ***Parameter:*** event***: '*Event*' - The event details.
 <br>
@@ -167,11 +167,34 @@ Fires when the Widget mode renders an event.
 ### **options.onToolTipEventRender( *tooltip*, *event* )**:
 Fires when a tooltip is rendered for an event.
 <br>
-***Parameter:*** url***: '*tooltip*' - The tooltip DOM element that has been shown.
+***Parameter:*** tooltip***: '*Object*' - The tooltip DOM element that has been shown.
 <br>
 ***Parameter:*** event***: '*Event*' - The event details.
 <br>
 ***Returns:*** '*boolean*' - States if this tooltip has been custom rendered.
+
+### **options.onFullDayTitleRender( *dateTime* )**:
+Fires when the Full Day view renders its title.
+<br>
+***Parameter:*** dateTime***: '*Object*' - The Date and Time being displayed.
+<br>
+***Returns:*** '*boolean*' - States if the title has been custom rendered.
+
+### **options.onFullWeekTitleRender( *weekStartDateTime*, *weekStartEndTime* )**:
+Fires when the Full Week view renders its title.
+<br>
+***Parameter:*** weekStartDateTime***: '*Object*' - The Date and Time being displayed for the start of the end.
+<br>
+***Parameter:*** weekStartEndTime***: '*Object*' - The Date and Time being displayed for the end of the week.
+<br>
+***Returns:*** '*boolean*' - States if the title has been custom rendered.
+
+### **options.onTimelineTitleRender( *dateTime* )**:
+Fires when the Timeline view renders its title.
+<br>
+***Parameter:*** dateTime***: '*Object*' - The Date and Time being displayed.
+<br>
+***Returns:*** '*boolean*' - States if the title has been custom rendered.
 
 
 <br>

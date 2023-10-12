@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateMessage": "Möchten Sie die Veranstaltung ab diesem Zeitpunkt oder die gesamte Serie aktualisieren?",
   "forwardText": "Nach vorne",
   "seriesText": "Serie",
-  "timelineText": "Zeitleiste: ",
   "viewTimelineTooltipText": "Zeitleiste anzeigen",
   "nextPropertyTooltipText": "Nächste Eigenschaft",
   "noneText": "(keiner)"

@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateMessage": "Czy chcesz aktualizować wydarzenie od tego momentu, czy od całej serii?",
   "forwardText": "Do przodu",
   "seriesText": "Seria",
-  "timelineText": "Oś czasu: ",
   "viewTimelineTooltipText": "Pokaż oś czasu",
   "nextPropertyTooltipText": "Następna nieruchomość",
   "noneText": "(nic)"

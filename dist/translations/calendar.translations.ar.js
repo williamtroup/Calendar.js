@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateMessage": "هل ترغب في تحديث الحدث من الآن فصاعدًا أم السلسلة بأكملها؟",
     "forwardText": "إلى الأمام",
     "seriesText": "مسلسل",
-    "timelineText": "الجدول الزمني: ",
     "viewTimelineTooltipText": "عرض الجدول الزمني",
     "nextPropertyTooltipText": "العقار التالي",
     "noneText": "(لا أحد)"

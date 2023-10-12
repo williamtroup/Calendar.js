@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateMessage": "今後のイベントを更新しますか、それともシリーズ全体を更新しますか?",
     "forwardText": "フォワード",
     "seriesText": "シリーズ",
-    "timelineText": "タイムライン： ",
     "viewTimelineTooltipText": "タイムラインをみる",
     "nextPropertyTooltipText": "次の物件",
     "noneText": "（なし）"

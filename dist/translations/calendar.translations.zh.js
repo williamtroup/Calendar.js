@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateMessage": "您想更新从现在开始的活动，还是整个系列？",
     "forwardText": "向前",
     "seriesText": "系列",
-    "timelineText": "时间线： ",
     "viewTimelineTooltipText": "查看时间轴",
     "nextPropertyTooltipText": "下一个房产",
     "noneText": "（没有任何）"

@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateMessage": "Etkinliği bu noktadan itibaren mi yoksa tüm seriyi mi güncellemek istiyorsunuz?",
     "forwardText": "İleri",
     "seriesText": "Seri",
-    "timelineText": "Zaman çizelgesi: ",
     "viewTimelineTooltipText": "Zaman Çizelgesini Görüntüle",
     "nextPropertyTooltipText": "Sonraki Emlak",
     "noneText": "(hiçbiri)"

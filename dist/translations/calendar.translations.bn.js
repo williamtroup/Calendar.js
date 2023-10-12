@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateMessage": "আপনি কি এই বিন্দু থেকে ইভেন্টটি আপডেট করতে চান, নাকি পুরো সিরিজটি?",
     "forwardText": "ফরোয়ার্ড",
     "seriesText": "সিরিজ",
-    "timelineText": "সময়রেখা: ",
     "viewTimelineTooltipText": "দেখুন টাইমলাইনে",
     "nextPropertyTooltipText": "পরবর্তী সম্পত্তি",
     "noneText": "(কোনটিই নয়)"

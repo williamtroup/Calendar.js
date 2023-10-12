@@ -229,7 +229,6 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateMessage": "Would you like to update the event from this point forward, or the entire series?",
     "forwardText": "Forward",
     "seriesText": "Series",
-    "timelineText": "Timeline: ",
     "viewTimelineTooltipText": "View Timeline",
     "nextPropertyTooltipText": "Next Property",
     "noneText": "(none)"
