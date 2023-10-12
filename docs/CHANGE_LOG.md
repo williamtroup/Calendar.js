@@ -5,7 +5,7 @@
 #### **New Features:**
 - Added a new Timeline view, which uses the "Group" event property (default, you can switch to "Location" or "Organizer Name") as the view axis for a single day.
 - Added custom event, tooltip, and title bar rendering support for various areas (see "Custom Triggers" documentation).
-- Added Full Month pin-up support! This will show an area above the Day Names header that will show custom images as the date changes (unavailable in full-screen mode).
+- Added Full Month pin-up support! This will show an area above the Day Names header that will show custom images as the date changes.
 
 #### **General Improvements:**
 - Completely re-written view handling, which will ensure that the most recent view opened is the one being handled for the current action (search, export, etc).
@@ -58,6 +58,7 @@
 - Fixed the CUSTOM_TRIGGERS.md documentation not rendering correctly.
 - Fixed a CSS fault that caused the Search history drop-down to appear in slightly in the wrong place.
 - Fixed the "Show empty days in the week view" setting still being available in the "Configuration" dialog.
+- Fixed a CSS fault that cause the Full-Screen mode to display incorrectly when the Day Names header is disabled in the Full Month view.
 
 <br>
 

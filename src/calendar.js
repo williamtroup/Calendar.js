@@ -3715,12 +3715,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return className;
     }
 
-    function updatePinUpViewForFullScreenMode() {
-        if ( _element_View_FullMonth_PinUp !== null ) {
-            _element_View_FullMonth_PinUp.style.display = _element_Calendar_FullScreenModeOn ? "none" : "block";
-        }
-    }
-
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -8650,7 +8644,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             updateFullScreenModeExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
             refreshOpenedViews();
             triggerOptionsEventWithData( "onFullScreenModeChanged", false );
-            updatePinUpViewForFullScreenMode();
         }
     }
 
@@ -8662,7 +8655,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         updateFullScreenModeExpandButtons( "ib-arrow-contract-left-right", _options.disableFullScreenTooltipText );
         refreshOpenedViews();
-        updatePinUpViewForFullScreenMode();
     }
 
     function updateFullScreenModeExpandButtons( className, tooltipText ) {

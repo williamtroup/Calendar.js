@@ -213,20 +213,16 @@ div.full-screen-view {
     position: fixed !important;
     border-radius: 0 !important;
     border: none !important;
-
-    div.row-cells {
-        @media screen and ( min-width: $minimum-width ) {
-            height: calc( ( 100% - ( ( var(--spacing-border-size) * 10 ) + ( ( var(--spacing) * 4 ) + ( var(--large-font-size) * 2 ) ) ) ) / 6 );
-        }
-        
-        @media screen and ( max-width: $maximum-width ) {
-            height: calc( ( 100% - ( ( var(--spacing-border-size) * 10 ) + ( ( var(--spacing) * 3 ) + ( var(--small-font-size) * 2 ) ) ) ) / 6 );
-        }
-    }
+    display: flex;
+    flex-flow: column;
 
     div.header-days {
-        height: auto !important;
+        flex: none !important;
     }
+
+    div.row-cells {
+        flex: 1 1 auto;
+    }    
 
     div.plus-x-events {
         display: none !important;
