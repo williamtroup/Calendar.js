@@ -15,12 +15,12 @@
 #### **Full Week View:**
 - The "Add Event" button will now default the add date to the start of the week being viewed.
 
+#### **Month View (default):**
+- The "Add Event" button now defaults to the current date if the todays month is in view (otherwise, it will default to the 1st of the viewing month/year).
+
 #### **Full Year View:**
 - The side menu button "Export Events" is now disabled in the full year view (proper year exporting is coming soon, instead of exporting everything).
 - The "Add Event" button in the title bar will now default the add date to the beginning of the selected year.
-
-#### **Month View (default):**
-- The "Add Event" button now defaults to the current date if the todays month is in view (otherwise, it will default to the 1st of the viewing month/year).
 
 #### **Widget Mode:**
 - The "Add Event" button will now default the add date to the currently selected date.
