@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.9.1:
+- OK, sorry about this ... fixed a major rendering issues in CUSTOM_TRIGGERS.md.
 - 
 
 <br>
