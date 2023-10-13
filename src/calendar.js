@@ -3822,6 +3822,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 build( _calendar_CurrentDate );
                 hideFullMonthViewYearDropDown();
+                buildFullMonthViewPinUpImage();
             }
         };
 
@@ -3848,6 +3849,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 build( _calendar_CurrentDate );
                 hideFullMonthViewYearDropDown();
+                buildFullMonthViewPinUpImage();
             }
         };
     }
@@ -4556,6 +4558,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             expandFunction = function() {
                 if ( !doDatesMatch( _calendar_CurrentDate, expandMonthDate ) ) {
                     build( expandMonthDate );
+                    buildFullMonthViewPinUpImage();
                 }
 
                 closeAllViews();
@@ -4975,6 +4978,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     hideView( _element_View_AllEvents );
                     build( expandMonthDate );
+                    buildFullMonthViewPinUpImage();
                 };
 
             var yearHeader = buildAllEventsViewMonthHeader( date );
