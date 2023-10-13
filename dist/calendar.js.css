@@ -678,10 +678,46 @@ div.calendar div.ib-arrow-expand-left-right-icon {
     -------------------------------------------------------------------------
 */
 div.calendar div.pin-up {
+  position: relative;
   background-size: cover;
   height: 250px;
   background-color: var(--day-names-color);
   border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+}
+div.calendar div.pin-up div.pin-up-text {
+  position: absolute;
+  color: var(--light-color);
+  bottom: calc(var(--spacing) * 2);
+  right: calc(var(--spacing) * 2);
+  font-weight: 900;
+  text-align: center;
+  border-radius: var(--border-radius);
+  background-color: rgba(59, 58, 59, 0.6);
+  padding: calc(var(--spacing) * 2);
+}
+div.calendar div.pin-up div.pin-up-text:hover {
+  background-color: rgba(59, 58, 59, 0.8);
+  transition: var(--transition);
+  cursor: pointer;
+  opacity: 1;
+}
+div.calendar div.pin-up div.pin-up-text:active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+div.calendar div.pin-up div.pin-up-text div.day {
+  font-size: 40px;
+}
+div.calendar div.pin-up div.pin-up-text div.day sup {
+  font-size: small;
+}
+div.calendar div.pin-up div.pin-up-text div.month {
+  font-size: 20px;
+}
+div.calendar div.pin-up div.pin-up-text div.year {
+  margin-top: 6px;
+  font-size: 14px;
 }
 
 /*

@@ -2039,7 +2039,39 @@ function calendarJs(elementOrId, options, searchOptions) {
           _element_View_FullMonth_PinUp_ImageIndex = 0;
         }
       }
-      triggerOptionsEventWithMultipleData("onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate);
+      buildFullMonthViewPinUpImageText();
+    }
+  }
+  function buildFullMonthViewPinUpImageText() {
+    if (!_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null && !triggerOptionsEventWithMultipleData("onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate)) {
+      var currentDate = new Date();
+      if (_element_View_FullMonth_PinUp_CurrentDate === null || !doDatesMatch(_element_View_FullMonth_PinUp_CurrentDate, currentDate)) {
+        _element_View_FullMonth_PinUp.innerHTML = _string.empty;
+        _element_View_FullMonth_PinUp_CurrentDate = currentDate;
+        var pinUpText = createElement("div", "pin-up-text");
+        var pinUpTextDay = createElement("div", "day");
+        var pinUpTextMonth = createElement("div", "month");
+        var pinUpTextYear = createElement("div", "year");
+        pinUpText.onclick = function() {
+          showEventEditingDialog(null, currentDate);
+        };
+        addToolTip(pinUpText, _options.addEventTooltipText);
+        _element_View_FullMonth_PinUp.appendChild(pinUpText);
+        pinUpText.appendChild(pinUpTextDay);
+        pinUpText.appendChild(pinUpTextMonth);
+        pinUpText.appendChild(pinUpTextYear);
+        createSpanElement(pinUpTextDay, currentDate.getDate());
+        if (_options.showDayNumberOrdinals) {
+          var ordinal = getDayOrdinal(currentDate.getDate());
+          if (isDefined(ordinal)) {
+            var sup = createElement("sup");
+            sup.innerText = ordinal;
+            pinUpTextDay.appendChild(sup);
+          }
+        }
+        setNodeText(pinUpTextMonth, _options.monthNames[currentDate.getMonth()]);
+        setNodeText(pinUpTextYear, currentDate.getFullYear());
+      }
     }
   }
   function buildFullMonthViewDayNamesHeader() {
@@ -6797,6 +6829,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
         if (_calendar_CurrentDate_IsToday) {
           build();
+          buildFullMonthViewPinUpImageText();
         } else {
           buildFullMonthViewDayEvents();
         }
@@ -8684,6 +8717,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_FullMonth_TitleBar_SearchButton = null;
   var _element_View_FullMonth_PinUp = null;
   var _element_View_FullMonth_PinUp_ImageIndex = 0;
+  var _element_View_FullMonth_PinUp_CurrentDate = null;
   var _element_View_FullMonth_DayNamesHeader = null;
   var _element_View_FullMonth_EventsShown = [];
   var _element_View_FullMonth_LargestDateAvailable = null;

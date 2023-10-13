@@ -644,10 +644,49 @@ div.calendar {
 
 div.calendar {
     div.pin-up {
+        position: relative;
         background-size: cover;
         height: 250px;
         background-color: var(--day-names-color);
         border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+
+        div.pin-up-text {
+            position: absolute;
+            color: var(--light-color);
+            bottom: calc( var(--spacing) * 2 );
+            right: calc( var(--spacing) * 2 );
+            font-weight: 900;
+            text-align: center;
+            border-radius: var(--border-radius);
+            background-color: rgba(59, 58, 59, 0.6);
+            padding: calc( var(--spacing) * 2 );
+
+            &:hover {
+                background-color: rgba(59, 58, 59, 0.8);
+                @include opacity-hover-effect( 1.0 );
+            }
+
+            &:active {
+                @include opacity-active-effect( 0.7 );
+            }
+
+            div.day {
+                font-size: 40px;
+
+                sup {
+                    font-size: small;
+                }
+            }
+
+            div.month {
+                font-size: 20px;
+            }
+
+            div.year {
+                margin-top: 6px;
+                font-size: 14px;
+            }
+        }
     }
 }
 

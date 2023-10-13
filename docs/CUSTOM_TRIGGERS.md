@@ -202,6 +202,8 @@ Fires when the Full Month pin-up is rendered after a month/year change.
 ***Parameter:*** pinup***: '*Object*' - The pinup DOM element that has been shown.
 <br>
 ***Parameter:*** date***: '*Object*' - The Date being displayed.
+<br>
+***Returns:*** '*boolean*' - States if the pin-up area has been custom rendered.
 
 
 <br>
