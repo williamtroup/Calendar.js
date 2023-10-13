@@ -1,5 +1,69 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.0:
+
+#### **New Features:**
+- Added a new Timeline view, which uses the "Group" event property (default, you can switch to "Location" or "Organizer Name") as the view axis for a single day.
+- Added custom event, tooltip, and title bar rendering support for various areas (see "Custom Triggers" documentation).
+- Added Full Month pin-up support! This shows an area above the Day Names header that will show custom images as the date changes (it also shows the current date by default).
+
+#### **General Improvements:**
+- Completely re-written view handling, which will ensure that the most recent view opened is the one being handled for the current action (search, export, etc).
+
+#### **Full Day View:**
+- Added a "View Timeline" button to the Full Day view title bar (hidden in mobile view).
+
+#### **Full Week View:**
+- The "Add Event" button will now default the add date to the start of the week being viewed.
+
+#### **Full Month View (default):**
+- The "Add Event" button now defaults to the current date if the todays month is in view (otherwise, it will default to the 1st of the viewing month/year).
+
+#### **Full Year View:**
+- The side menu button "Export Events" is now disabled in the full year view (proper year exporting is coming soon, instead of exporting everything).
+- The "Add Event" button in the title bar will now default the add date to the beginning of the selected year.
+
+#### **Widget Mode:**
+- The "Add Event" button will now default the add date to the currently selected date.
+
+#### **Custom Trigger Events:**
+- Added a new custom trigger "onFullDayEventRender", which is triggered when an event in the Full Day view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullWeekEventRender", which is triggered when an event in the Full Week view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullMonthEventRender", which is triggered when an event in the Full Month view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onAllEventsEventRender", which is triggered when an event in the All Events view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onTimelineEventRender", which is triggered when an event in the Timeline view is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onWidgetEventRender", which is triggered when an event in the Widget mode is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onToolTipEventRender", which is triggered when a tooltip is rendered for an event (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullDayTitleRender", which is triggered when the Full Day views title is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullWeekTitleRender", which is triggered when the Full Week views title is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onTimelineTitleRender", which is triggered when the Timeline views title is rendered (allowing custom rendering, or just a notification).
+- Added a new custom trigger "onFullMonthPinUpRender", which is triggered when the Full Month views pin-up is rendered (allowing custom rendering, or just a notification).
+
+#### **Settings:**
+- Added a new setting "isPinUpViewEnabled" (defaults to false), which states if the pin-up view is enabled in the Full Month view.
+- Added a new setting "pinUpViewImageUrls" (defaults to []), which states the image URLs that should be used for the pin-up view in the Full Month view.
+- Removed the redundant setting "showEmptyDaysInWeekViewText".
+- Removed the redundant setting "showEmptyDaysInWeekView".
+
+#### **Code Improvements:**
+- Finished the variable re-structuring and renaming in the main constructor.
+- Internal renames (the month display is now called Full Month).
+
+#### **Fixes:**
+- Fixed the Widget mode and Notification area using the wrong styles for fonts, colors, and spacing.
+- Fixed a fault that allowed the current day to be viewed in the Full Day view when the day itself is not visible in the calendar (it now skips to the next visible day).
+- Fixed a fault that caused the "Export Events" button in the Side Menu to remain visible (due to multiple views being open).
+- Fixed a fault that caused dates in the other views to randomly change on auto-update when another view was recently opened.
+- Fixed a fault that caused the search dialog to shift the currently active view being searched into a strange position.
+- Fixed the CUSTOM_TRIGGERS.md documentation not rendering correctly.
+- Fixed a CSS fault that caused the Search history drop-down to appear in slightly in the wrong place.
+- Fixed the "Show empty days in the week view" setting still being available in the "Configuration" dialog.
+- Fixed a CSS fault that cause the Full-Screen mode to display incorrectly when the Day Names header is disabled in the Full Month view.
+- Fixed all the testing HTML files missing the viewport meta data.
+
+<br>
+
+
 ## Version 2.8.4:
 - Fixed a fault that caused the pin button (for switching to current day, month, year, etc) to use the wrong height in some sceneries.
 - Fixed a fault that prevented the year drop-down menus on other calendar instances from closing when another menu was opened.

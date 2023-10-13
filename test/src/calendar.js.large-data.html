@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no" />
         <title>Calendar.js - Large Data</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
         <link rel="stylesheet" href="../css/styles.css" />
         <link rel="stylesheet" href="../../dist/calendar.js.css" />
         <script src="../../src/calendar.js"></script>
@@ -65,7 +65,8 @@
                     title: "Event " + ( eventIndex + 1 ),
                     description: "This is a description of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group " + ( eventIndex + 1 )
+                    group: "Group " + ( eventIndex + 1 ),
+                    location: "Location " + ( eventIndex + 1 )
                 };
 
                 events.push( newEvent );

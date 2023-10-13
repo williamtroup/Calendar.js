@@ -1,0 +1,24 @@
+@import "button";
+
+.ib-bar-graph {
+    @include button;
+    border-top: $border;
+    height: calc( $size - $border-width );
+
+    &:before {
+        @include top-center-minus( calc( $border-width / 2 ));
+        background-color: var(--light-color);
+        height: $border-width;
+        width: calc( $size / 3 );
+        bottom: 0;
+        left: 0;
+    }
+
+    &:after {
+        background-color: var(--light-color);
+        height: $border-width;
+        width: calc( $size / 2 );
+        bottom: 0;
+        left: 0;
+    }
+}

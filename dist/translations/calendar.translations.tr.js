@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Pzt",
@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "Tarih seç...",
     "hideDayText": "Günü Gizle",
     "notSearchText": "Değil (karşı)",
-    "showEmptyDaysInWeekViewText": "Hafta görünümünde boş günleri göster",
     "showHolidaysInTheDisplaysText": "Tatilleri ana ekranda ve başlık çubuklarında göster",
     "newEventDefaultTitle": "* Yeni etkinlik",
     "urlErrorMessage": "Lütfen 'URL' alanına geçerli bir URL girin (veya boş bırakın).",
@@ -228,5 +227,8 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "Etkinlik Güncellemesini Onayla",
     "confirmEventUpdateMessage": "Etkinliği bu noktadan itibaren mi yoksa tüm seriyi mi güncellemek istiyorsunuz?",
     "forwardText": "İleri",
-    "seriesText": "Seri"
+    "seriesText": "Seri",
+    "viewTimelineTooltipText": "Zaman Çizelgesini Görüntüle",
+    "nextPropertyTooltipText": "Sonraki Emlak",
+    "noneText": "(hiçbiri)"
 };

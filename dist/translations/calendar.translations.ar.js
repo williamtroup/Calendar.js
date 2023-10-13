@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "الاثنين",
@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "حدد تاريخ...",
     "hideDayText": "إخفاء اليوم",
     "notSearchText": "لا (عكس)",
-    "showEmptyDaysInWeekViewText": "إظهار الأيام الفارغة في عرض الأسبوع",
     "showHolidaysInTheDisplaysText": "إظهار أيام العطل في شاشة العرض الرئيسية وأشرطة العناوين",
     "newEventDefaultTitle": "* حدث جديد",
     "urlErrorMessage": "الرجاء إدخال عنوان URL صالح في حقل \"عنوان URL\" (أو اتركه فارغًا).",
@@ -228,5 +227,8 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "تأكيد تحديث الحدث",
     "confirmEventUpdateMessage": "هل ترغب في تحديث الحدث من الآن فصاعدًا أم السلسلة بأكملها؟",
     "forwardText": "إلى الأمام",
-    "seriesText": "مسلسل"
+    "seriesText": "مسلسل",
+    "viewTimelineTooltipText": "عرض الجدول الزمني",
+    "nextPropertyTooltipText": "العقار التالي",
+    "noneText": "(لا أحد)"
   };

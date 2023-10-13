@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "सोमवार",
@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
   "selectDatePlaceholderText": "तारीख़ चुनें...",
   "hideDayText": "छुपे दिन",
   "notSearchText": "नहीं (विपरीत)",
-  "showEmptyDaysInWeekViewText": "सप्ताह दृश्य में खाली दिन दिखाएँ",
   "showHolidaysInTheDisplaysText": "मुख्य प्रदर्शन और शीर्षक पट्टियों में छुट्टियाँ दिखाएँ",
   "newEventDefaultTitle": "* नई इवैंट",
   "urlErrorMessage": "कृपया 'यूआरएल' फ़ील्ड में एक वैध यूआरएल दर्ज करें (या खाली छोड़ दें)।",
@@ -228,5 +227,8 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateTitle": "इवेंट अपडेट की पुष्टि करें",
   "confirmEventUpdateMessage": "क्या आप इस बिंदु से आगे की घटना को अद्यतन करना चाहेंगे, या पूरी शृंखला को?",
   "forwardText": "आगे",
-  "seriesText": "शृंखला"
+  "seriesText": "शृंखला",
+  "viewTimelineTooltipText": "समयसीमा जरूर देख लें",
+  "nextPropertyTooltipText": "अगली संपत्ति",
+  "noneText": "(कोई नहीं)"
 };

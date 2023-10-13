@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no" />
         <title>Calendar.js - Bootstrap</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
         <link rel="stylesheet" href="../css/styles.css" />
         <link rel="stylesheet" href="../../dist/calendar.js.css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -121,15 +121,45 @@
             reverseOrderDaysOfWeek: false,
             addYearButtonsOnMainDisplay: false,
             useAmPmForTimeDisplays: false,
+            showWeekNumbersInTitles: false,
             onRender: function( elementId ) {
                 console.log( "Calendar instance ID " + elementId + " rendered." );
-            }
+            },
+            onFullDayEventRender: onRenderCustom,
+            onFullWeekEventRender: onRenderCustom,
+            onFullMonthEventRender: onRenderCustom,
+            onAllEventsEventRender: onRenderCustom,
+            onTimelineEventRender: onRenderCustom,
+            onWidgetEventRender: onRenderCustom,
+            onToolTipEventRender: onToolTipRenderCustom
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
 
         calendarInstance.addEvents( getEvents() );
+
+        function onRenderCustom( event, eventDetails ) {
+            var result = false;
+
+            if ( eventDetails.id === "1234-5678" ) {
+                event.innerHTML = "I've been custom rendered!";
+                result = true;
+            }
+            
+            return result;
+        }
+
+        function onToolTipRenderCustom( tooltip, eventDetails ) {
+            var result = false;
+
+            if ( eventDetails.id === "1234-5678" ) {
+                tooltip.innerHTML = "This is a custom tooltip for an event.";
+                result = true;
+            }
+            
+            return result;
+        }
 
         function turnOnEventNotifications() {
             calendarInstance.setOptions( {
@@ -267,6 +297,16 @@
 
             return [
                 {
+                    from: today,
+                    to: today3HoursAhead,
+                    title: "Custom Event",
+                    description: "This is a another event that should be rendered custom the custom triggers.",
+                    location: "Teams Meeting",
+                    group: "Group 6",
+                    type: 1,
+                    id: "1234-5678"
+                },
+                {
                     from: overlappingEvent1,
                     to: overlappingEventTo1,
                     title: "Overlapping Event 1",
@@ -284,7 +324,7 @@
                     title: "Overlapping Event 2",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1",
+                    group: "Group 2",
                     type: 1,
                     customTags: true
                 },
@@ -294,7 +334,7 @@
                     title: "Overlapping Event 3",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1",
+                    group: "Group 3",
                     type: 1,
                     customTags: [ 1 ]
                 },
@@ -304,7 +344,7 @@
                     title: "Overlapping Event 4",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1",
+                    group: "Group 4",
                     type: 1,
                     customTags: 1
                 },
@@ -314,7 +354,7 @@
                     title: "Overlapping Event 5",
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
-                    group: "Group 1",
+                    group: "Group 5",
                     type: 1,
                     customTags: "Test Tag"
                 },

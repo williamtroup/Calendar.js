@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Seg",
@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
   "selectDatePlaceholderText": "Selecione a data...",
   "hideDayText": "Ocultar dia",
   "notSearchText": "Não (oposto)",
-  "showEmptyDaysInWeekViewText": "Mostrar dias vazios na visualização semanal",
   "showHolidaysInTheDisplaysText": "Mostrar feriados na tela principal e nas barras de título",
   "newEventDefaultTitle": "* Novo evento",
   "urlErrorMessage": "Insira um URL válido no campo 'Url' (ou deixe em branco).",
@@ -228,5 +227,8 @@ var __TRANSLATION_OPTIONS = {
   "confirmEventUpdateTitle": "Confirmar atualização do evento",
   "confirmEventUpdateMessage": "Você gostaria de atualizar o evento deste ponto em diante ou a série inteira?",
   "forwardText": "Avançar",
-  "seriesText": "Series"
+  "seriesText": "Series",
+  "viewTimelineTooltipText": "Ver a linha do tempo",
+  "nextPropertyTooltipText": "Próxima propriedade",
+  "noneText": "(nenhum)"
 };

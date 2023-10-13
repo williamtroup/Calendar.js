@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.8.4
+ * Calendar.js Library v2.9.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -62,6 +62,8 @@
     --time-view-hours-width: 70px;
     --time-view-hours-height: 25px;
     --time-view-arrow-line-height: 12px;
+    --time-view-timeline-section-width: 150px;
+    --time-view-timeline-section-width-small: 100px;
 
     // Inputs
     --input-box-shadow-size: 2px;
@@ -98,7 +100,9 @@ div.calendar-tooltip-event,
 div.calendar-context-menu,
 div.calendar-dialog,
 div.calendar-dialog input,
-div.calendar-dialog textarea {
+div.calendar-dialog textarea,
+div.calendar-notification,
+div.calendar-widget {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and ( min-width: $minimum-width ) {
@@ -209,20 +213,16 @@ div.full-screen-view {
     position: fixed !important;
     border-radius: 0 !important;
     border: none !important;
-
-    div.row-cells {
-        @media screen and ( min-width: $minimum-width ) {
-            height: calc( ( 100% - ( ( var(--spacing-border-size) * 10 ) + ( ( var(--spacing) * 4 ) + ( var(--large-font-size) * 2 ) ) ) ) / 6 );
-        }
-        
-        @media screen and ( max-width: $maximum-width ) {
-            height: calc( ( 100% - ( ( var(--spacing-border-size) * 10 ) + ( ( var(--spacing) * 3 ) + ( var(--small-font-size) * 2 ) ) ) ) / 6 );
-        }
-    }
+    display: flex;
+    flex-flow: column;
 
     div.header-days {
-        height: auto !important;
+        flex: none !important;
     }
+
+    div.row-cells {
+        flex: 1 1 auto;
+    }    
 
     div.plus-x-events {
         display: none !important;
@@ -310,7 +310,7 @@ div.calendar-widget {
 
     div.day-name {
         font-weight: 900;
-        margin-bottom: calc( var(--spacing) / 2 );
+        margin-bottom: var(--spacing);
 
         div.right-divider-line {
             @include title-bar-divider-line;
@@ -329,6 +329,7 @@ div.calendar-widget {
     div.day-date {
         font-weight: 300;
         font-size: x-large;
+        margin-bottom: calc( var(--spacing) * 2 );
     }
 
     div.scroll-margin {
@@ -632,6 +633,60 @@ div.calendar {
         right: 5px;
         top: 5px;
         display: none;
+    }
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Pin-Up Mode
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.pin-up {
+        position: relative;
+        background-size: cover;
+        height: 250px;
+        background-color: var(--day-names-color);
+        border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+
+        div.pin-up-text {
+            position: absolute;
+            color: var(--light-color);
+            bottom: calc( var(--spacing) * 2 );
+            right: calc( var(--spacing) * 2 );
+            font-weight: 900;
+            text-align: center;
+            border-radius: var(--border-radius);
+            background-color: rgba(59, 58, 59, 0.6);
+            padding: calc( var(--spacing) * 2 );
+
+            &:hover {
+                background-color: rgba(59, 58, 59, 0.8);
+                @include opacity-hover-effect( 1.0 );
+            }
+
+            &:active {
+                @include opacity-active-effect( 0.7 );
+            }
+
+            div.day {
+                font-size: 40px;
+
+                sup {
+                    font-size: small;
+                }
+            }
+
+            div.month {
+                font-size: 20px;
+            }
+
+            div.year {
+                margin-top: 6px;
+                font-size: 14px;
+            }
+        }
     }
 }
 
@@ -1039,6 +1094,7 @@ div.calendar {
         div.ib-forward,
         div.ib-expand,
         div.ib-hourglass,
+        div.ib-bar-graph,
         div.right-divider-line,
         div.right-divider-line-full-screen-mode,
         div.right-divider-line-views {
@@ -1058,6 +1114,7 @@ div.calendar {
             div.ib-rewind,
             div.ib-forward,
             div.ib-arrow-expand-left-right,
+            div.ib-bar-graph,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
                 display: inline-block;
@@ -1076,6 +1133,7 @@ div.calendar {
             div.ib-rewind,
             div.ib-forward,
             div.ib-arrow-expand-left-right,
+            div.ib-bar-graph,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
                 display: none !important;
@@ -1196,8 +1254,17 @@ div.calendar {
             width: 100%;
             padding: 0 !important;
 
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+            }
+
             @import "foundation/view-all-day-events";
-    
+            @import "foundation/view-event";
+
             div.contents-events {
                 position: relative;
 
@@ -1208,16 +1275,6 @@ div.calendar {
                 @import "foundation/view-time-arrow";
                 @import "foundation/view-hours";
             }
-        
-            @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
-            }
-            
-            @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
-            }
-
-            @import "foundation/view-event";
 
             div.event {
                 position: absolute;
@@ -1263,8 +1320,6 @@ div.calendar {
             width: 100%;
             padding: 0 !important;
 
-            @import "foundation/view-all-day-events";
-
             @media screen and ( min-width: $minimum-width ) {
                 height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
             }
@@ -1272,6 +1327,8 @@ div.calendar {
             @media screen and ( max-width: $maximum-width ) {
                 height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
             }
+
+            @import "foundation/view-all-day-events";
 
             div.header-days-container {
                 position: sticky;
@@ -1557,6 +1614,187 @@ div.calendar {
 
                 &:last-child {
                     margin-bottom: var(--spacing-border-size) !important;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Timeline View
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.timeline-view {
+        @include full-size-view-display;
+
+        @import "foundation/view-title-bar";
+
+        div.contents {
+            position: relative;
+            display: inline-block;
+            overflow-x: auto;
+            overflow-y: auto;
+            width: 100%;
+            padding: 0 !important;
+            white-space: nowrap;
+            vertical-align: top;
+
+            @media screen and ( min-width: $minimum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+            }
+
+            div.timeline-column {
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                padding-left: var(--spacing);
+                padding-right: var(--spacing);
+                height: 100%;
+                background-color: var(--light-color);
+                border-right: var(--spacing-border-size) solid var(--grid-border-color);
+
+                @media screen and ( min-width: $minimum-width ) {
+                    width: var(--time-view-timeline-section-width);
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    width: var(--time-view-timeline-section-width-small);
+                }
+                
+                &:nth-child( odd ) {
+                    background-color: var(--day-names-color);
+                }
+            }
+
+            div.timeline-header {
+                border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+                position: sticky;
+                top: 0;
+                background-color: var(--day-names-color);
+                vertical-align: top;
+                overflow: hidden;
+                z-index: 10;
+
+                @media screen and ( min-width: $minimum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
+                
+                div.timeline-header-item {
+                    display: inline-block;
+                    padding: var(--spacing);
+                    text-align: center;
+                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
+
+                    @media screen and ( min-width: $minimum-width ) {
+                        width: var(--time-view-timeline-section-width);
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        width: var(--time-view-timeline-section-width-small);
+                    }
+
+                    &:first-child {
+                        text-align: left;
+                    }
+
+                    &:last-child {
+                        border-right: none;
+                    }
+
+                    div.ib-arrow-right-full {
+                        float: right;
+                        border-left-color: var(--dark-color);
+                    }
+                }
+            }
+
+            div.timeline-row {
+                position: relative;
+                border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+                vertical-align: top;
+                overflow: hidden;
+                vertical-align: top;
+
+                @media screen and ( min-width: $minimum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
+                
+                @media screen and ( max-width: $maximum-width ) {
+                    width: calc( 49 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                }
+
+                div.timeline-row-item {
+                    display: inline-block;
+                    padding: var(--spacing);
+                    padding-top: calc( ( var(--spacing) * 2 ) );
+                    padding-bottom: calc( ( var(--spacing) * 2 ) );
+                    text-align: left;
+                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
+                    background-color: var(--dark-color);
+                    color: var(--light-color);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    vertical-align: top;
+
+                    @media screen and ( min-width: $minimum-width ) {
+                        width: var(--time-view-timeline-section-width);
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        width: var(--time-view-timeline-section-width-small);
+                    }
+
+                    &:last-child {
+                        border-right: none;
+                    }
+                }
+
+                div.timeline-row-item-odd {
+                    background-color: var(--light-color);
+                    color: var(--dark-color);
+                }
+
+                div.timeline-row-items {
+                    display: inline-block;
+                    vertical-align: top;
+                    position: relative;
+
+                    @media screen and ( min-width: $minimum-width ) {
+                        width: calc( 48 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                        padding-top: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
+                        padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        width: calc( 48 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
+                        padding-top: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
+                        padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
+                    }
+
+                    @import "foundation/view-event";
+
+                    div.event {
+                        position: absolute;
+                        margin-left: 0;
+                        margin-right: 0;
+                        top: calc( var(--spacing) );
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        z-index: 1;
+                    }
                 }
             }
         }
@@ -1932,7 +2170,7 @@ div.search {
                 display: none;
                 overflow-x: hidden;
                 overflow-y: auto;
-                margin-top: var(--input-box-shadow-size) + 2px;
+                margin-top: calc( var(--input-box-shadow-size) * 2 );
 
                 div.history-dropdown-item {
                     padding: var(--spacing);
@@ -2048,7 +2286,7 @@ div.configuration {
         }
 
         div.tab-content {
-            height: 165px;
+            height: 135px;
         }
     }
 
@@ -2578,6 +2816,7 @@ div.calendar-context-menu {
 @import "foundation/buttons/arrow-up-full-line";
 @import "foundation/buttons/expand";
 @import "foundation/buttons/hourglass";
+@import "foundation/buttons/bar-graph";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

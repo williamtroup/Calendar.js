@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "সোম",
@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "তারিখ নির্বাচন করুন...",
     "hideDayText": "লুকিয়ে দিন",
     "notSearchText": "না (বিপরীত)",
-    "showEmptyDaysInWeekViewText": "সপ্তাহের দৃশ্যে খালি দিনগুলি দেখান",
     "showHolidaysInTheDisplaysText": "প্রধান প্রদর্শন এবং শিরোনাম বারে ছুটির দিনগুলি দেখান৷",
     "newEventDefaultTitle": "* নতুন ঘটনা",
     "urlErrorMessage": "অনুগ্রহ করে 'Url' ক্ষেত্রে একটি বৈধ Url লিখুন (বা ফাঁকা ছেড়ে দিন)।",
@@ -228,5 +227,8 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "ইভেন্ট আপডেট নিশ্চিত করুন",
     "confirmEventUpdateMessage": "আপনি কি এই বিন্দু থেকে ইভেন্টটি আপডেট করতে চান, নাকি পুরো সিরিজটি?",
     "forwardText": "ফরোয়ার্ড",
-    "seriesText": "সিরিজ"
+    "seriesText": "সিরিজ",
+    "viewTimelineTooltipText": "দেখুন টাইমলাইনে",
+    "nextPropertyTooltipText": "পরবর্তী সম্পত্তি",
+    "noneText": "(কোনটিই নয়)"
   };

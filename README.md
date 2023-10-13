@@ -4,17 +4,18 @@ Calendar.js
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 </h1>
 <p align="center">One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-<p align="center">v2.8.4</p>
+<p align="center">v2.9.0</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
 
-Calendar.js supports 7 different views (two are modes), which can be accessed from the context menus, and title bar buttons.  They are as follows:
+Calendar.js supports 8 different views (two are modes), which can be accessed from the context menus, and title bar buttons.  They are as follows:
 
 <h3>1. Full Month (default view)</h3>
 
 ![CalendarJs](docs/images/main.png)
 ![CalendarJs - Menu](docs/images/main-menu.png)
+![CalendarJs - Pin-Up](docs/images/main-pin-up.png)
 
 <h3>2. Full Day</h3>
 
@@ -32,11 +33,15 @@ Calendar.js supports 7 different views (two are modes), which can be accessed fr
 
 ![CalendarJs - All Events](docs/images/all-events.png)
 
-<h3>6. Date Picker Mode</h3>
+<h3>6. Timeline</h3>
+
+![CalendarJs - All Events](docs/images/timeline.png)
+
+<h3>7. Date Picker Mode</h3>
 
 <img src="docs/images/date-picker.png" alt="CalendarJs - Date-Picker" width="350" />
 
-<h3>7. Widget Mode</h3>
+<h3>8. Widget Mode</h3>
 
 <img src="docs/images/widget.png" alt="CalendarJs - Widget" width="350" />
 <br>
@@ -51,7 +56,7 @@ Calendar.js supports 7 different views (two are modes), which can be accessed fr
 - Drag and Drop for moving events to new times, and resizing to adjust event durations (in Full Day/Week views).
 - Cut, Copy, Paste (with multi-select support), and Duplication of events.
 - Configurable text for translations (see "dist/translations" for languages already available).
-- Day, Week, Month, Year, and All Events views.
+- Day, Week, Month, Year, All Events, and Timeline views.
 - Fully styled in CSS/SASS (including the buttons) and compatible with the Bootstrap library.
 - Full CSS theme support (using :root variables, with dark-mode support).
 - Custom triggers for actions (adding/updating/removing events, skipping months, etc.).

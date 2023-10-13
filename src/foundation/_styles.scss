@@ -18,10 +18,10 @@ $minimum-width: $maximum-width + 1;
     cursor: default;
 }
 
-@mixin opacity-hover-effect {
+@mixin opacity-hover-effect( $opacity-default: 0.6 ) {
     transition: var(--transition);
     cursor: pointer;
-    opacity: 0.6;
+    opacity: $opacity-default;
 }
 
 @mixin opacity-active-effect( $opacity-default: 0.4 ) {

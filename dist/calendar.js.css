@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.8.4
+ * Calendar.js Library v2.9.0
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -45,6 +45,8 @@
   --time-view-hours-width: 70px;
   --time-view-hours-height: 25px;
   --time-view-arrow-line-height: 12px;
+  --time-view-timeline-section-width: 150px;
+  --time-view-timeline-section-width-small: 100px;
   --input-box-shadow-size: 2px;
   --input-checkbox-size-with-spacing: 25px;
   --event-left-border: 7px solid var(--dark-color);
@@ -72,7 +74,9 @@ div.calendar-tooltip-event,
 div.calendar-context-menu,
 div.calendar-dialog,
 div.calendar-dialog input,
-div.calendar-dialog textarea {
+div.calendar-dialog textarea,
+div.calendar-notification,
+div.calendar-widget {
   font-family: "Montserrat", sans-serif;
 }
 @media screen and (min-width: 451px) {
@@ -82,7 +86,9 @@ div.calendar-dialog textarea {
   div.calendar-context-menu,
   div.calendar-dialog,
   div.calendar-dialog input,
-  div.calendar-dialog textarea {
+  div.calendar-dialog textarea,
+  div.calendar-notification,
+  div.calendar-widget {
     font-size: var(--large-font-size);
   }
 }
@@ -93,7 +99,9 @@ div.calendar-dialog textarea {
   div.calendar-context-menu,
   div.calendar-dialog,
   div.calendar-dialog input,
-  div.calendar-dialog textarea {
+  div.calendar-dialog textarea,
+  div.calendar-notification,
+  div.calendar-widget {
     font-size: var(--small-font-size);
   }
 }
@@ -103,7 +111,9 @@ div.calendar-tooltip-event div.view-shown,
 div.calendar-context-menu div.view-shown,
 div.calendar-dialog div.view-shown,
 div.calendar-dialog input div.view-shown,
-div.calendar-dialog textarea div.view-shown {
+div.calendar-dialog textarea div.view-shown,
+div.calendar-notification div.view-shown,
+div.calendar-widget div.view-shown {
   top: 0 !important;
   visibility: visible !important;
 }
@@ -113,7 +123,9 @@ div.calendar-tooltip-event span.light-title-bar-text,
 div.calendar-context-menu span.light-title-bar-text,
 div.calendar-dialog span.light-title-bar-text,
 div.calendar-dialog input span.light-title-bar-text,
-div.calendar-dialog textarea span.light-title-bar-text {
+div.calendar-dialog textarea span.light-title-bar-text,
+div.calendar-notification span.light-title-bar-text,
+div.calendar-widget span.light-title-bar-text {
   font-weight: 300 !important;
 }
 div.calendar *,
@@ -122,7 +134,9 @@ div.calendar-tooltip-event *,
 div.calendar-context-menu *,
 div.calendar-dialog *,
 div.calendar-dialog input *,
-div.calendar-dialog textarea * {
+div.calendar-dialog textarea *,
+div.calendar-notification *,
+div.calendar-widget * {
   box-sizing: content-box;
   line-height: normal;
 }
@@ -138,7 +152,11 @@ div.calendar-dialog *::after,
 div.calendar-dialog input *::before,
 div.calendar-dialog input *::after,
 div.calendar-dialog textarea *::before,
-div.calendar-dialog textarea *::after {
+div.calendar-dialog textarea *::after,
+div.calendar-notification *::before,
+div.calendar-notification *::after,
+div.calendar-widget *::before,
+div.calendar-widget *::after {
   box-sizing: content-box;
   line-height: normal;
 }
@@ -234,19 +252,14 @@ div.full-screen-view {
   position: fixed !important;
   border-radius: 0 !important;
   border: none !important;
-}
-@media screen and (min-width: 451px) {
-  div.full-screen-view div.row-cells {
-    height: calc((100% - (var(--spacing-border-size) * 10 + var(--spacing) * 4 + var(--large-font-size) * 2)) / 6);
-  }
-}
-@media screen and (max-width: 450px) {
-  div.full-screen-view div.row-cells {
-    height: calc((100% - (var(--spacing-border-size) * 10 + var(--spacing) * 3 + var(--small-font-size) * 2)) / 6);
-  }
+  display: flex;
+  flex-flow: column;
 }
 div.full-screen-view div.header-days {
-  height: auto !important;
+  flex: none !important;
+}
+div.full-screen-view div.row-cells {
+  flex: 1 1 auto;
 }
 div.full-screen-view div.plus-x-events {
   display: none !important;
@@ -348,7 +361,7 @@ div.calendar-widget {
 }
 div.calendar-widget div.day-name {
   font-weight: 900;
-  margin-bottom: calc(var(--spacing) / 2);
+  margin-bottom: var(--spacing);
 }
 div.calendar-widget div.day-name div.right-divider-line {
   width: 1px;
@@ -366,6 +379,7 @@ div.calendar-widget div.day-name div.right-divider-line {
 div.calendar-widget div.day-date {
   font-weight: 300;
   font-size: x-large;
+  margin-bottom: calc(var(--spacing) * 2);
 }
 div.calendar-widget div.scroll-margin {
   padding-right: var(--spacing);
@@ -656,6 +670,54 @@ div.calendar div.ib-arrow-expand-left-right-icon {
   right: 5px;
   top: 5px;
   display: none;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Layout - Pin-Up Mode
+    -------------------------------------------------------------------------
+*/
+div.calendar div.pin-up {
+  position: relative;
+  background-size: cover;
+  height: 250px;
+  background-color: var(--day-names-color);
+  border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+}
+div.calendar div.pin-up div.pin-up-text {
+  position: absolute;
+  color: var(--light-color);
+  bottom: calc(var(--spacing) * 2);
+  right: calc(var(--spacing) * 2);
+  font-weight: 900;
+  text-align: center;
+  border-radius: var(--border-radius);
+  background-color: rgba(59, 58, 59, 0.6);
+  padding: calc(var(--spacing) * 2);
+}
+div.calendar div.pin-up div.pin-up-text:hover {
+  background-color: rgba(59, 58, 59, 0.8);
+  transition: var(--transition);
+  cursor: pointer;
+  opacity: 1;
+}
+div.calendar div.pin-up div.pin-up-text:active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+div.calendar div.pin-up div.pin-up-text div.day {
+  font-size: 40px;
+}
+div.calendar div.pin-up div.pin-up-text div.day sup {
+  font-size: small;
+}
+div.calendar div.pin-up div.pin-up-text div.month {
+  font-size: 20px;
+}
+div.calendar div.pin-up div.pin-up-text div.year {
+  margin-top: 6px;
+  font-size: 14px;
 }
 
 /*
@@ -1080,6 +1142,7 @@ div.calendar div.header-date div.ib-arrow-contract-left-right,
 div.calendar div.header-date div.ib-forward,
 div.calendar div.header-date div.ib-expand,
 div.calendar div.header-date div.ib-hourglass,
+div.calendar div.header-date div.ib-bar-graph,
 div.calendar div.header-date div.right-divider-line,
 div.calendar div.header-date div.right-divider-line-full-screen-mode,
 div.calendar div.header-date div.right-divider-line-views {
@@ -1098,6 +1161,7 @@ div.calendar div.header-date div.right-divider-line-views {
   div.calendar div.header-date div.ib-rewind,
   div.calendar div.header-date div.ib-forward,
   div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.ib-bar-graph,
   div.calendar div.header-date div.right-divider-line-full-screen-mode,
   div.calendar div.header-date div.right-divider-line-views {
     display: inline-block;
@@ -1115,6 +1179,7 @@ div.calendar div.header-date div.right-divider-line-views {
   div.calendar div.header-date div.ib-rewind,
   div.calendar div.header-date div.ib-forward,
   div.calendar div.header-date div.ib-arrow-expand-left-right,
+  div.calendar div.header-date div.ib-bar-graph,
   div.calendar div.header-date div.right-divider-line-full-screen-mode,
   div.calendar div.header-date div.right-divider-line-views {
     display: none !important;
@@ -1227,7 +1292,8 @@ div.calendar div.full-day-view div.title-bar {
 }
 div.calendar div.full-day-view div.title-bar div.left-divider-line,
 div.calendar div.full-day-view div.title-bar div.right-divider-line,
-div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -1236,7 +1302,8 @@ div.calendar div.full-day-view div.title-bar div.left-divider-line {
   float: left;
 }
 div.calendar div.full-day-view div.title-bar div.right-divider-line,
-div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
   float: right;
 }
 div.calendar div.full-day-view div.title-bar div.title {
@@ -1267,6 +1334,7 @@ div.calendar div.full-day-view div.title-bar div.ib-hamburger {
 div.calendar div.full-day-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.full-day-view div.title-bar div.ib-plus,
 div.calendar div.full-day-view div.title-bar div.ib-close,
+div.calendar div.full-day-view div.title-bar div.ib-bar-graph,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
@@ -1279,7 +1347,9 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-search,
   div.calendar div.full-day-view div.title-bar div.ib-refresh,
   div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.full-day-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
     display: inline-block;
   }
 }
@@ -1290,7 +1360,9 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-search,
   div.calendar div.full-day-view div.title-bar div.ib-refresh,
   div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.full-day-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
     display: none !important;
   }
 }
@@ -1301,6 +1373,16 @@ div.calendar div.full-day-view div.contents {
   overflow-y: auto;
   width: 100%;
   padding: 0 !important;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-day-view div.contents {
+    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-day-view div.contents {
+    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
+  }
 }
 div.calendar div.full-day-view div.contents div.content-events-all-day {
   position: relative;
@@ -1323,6 +1405,51 @@ div.calendar div.full-day-view div.contents div.content-events-all-day div.event
   margin-left: calc(var(--time-view-hours-width) + var(--spacing) * 3) !important;
   margin-top: var(--spacing);
   margin-bottom: var(--spacing);
+}
+div.calendar div.full-day-view div.contents div.expired {
+  opacity: var(--event-expired-opacity);
+}
+div.calendar div.full-day-view div.contents div.all-day {
+  background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
+}
+div.calendar div.full-day-view div.contents div.event {
+  white-space: pre-line;
+  -ms-word-break: normal;
+  word-break: normal;
+  border-radius: var(--border-radius);
+  background-color: var(--event-color);
+  padding: var(--spacing);
+  color: var(--event-text-color);
+  margin-bottom: var(--spacing);
+  border-left: var(--event-left-border);
+  text-align: left;
+}
+div.calendar div.full-day-view div.contents div.event div {
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar div.full-day-view div.contents div.event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-day-view div.contents div.event div.title {
+  font-weight: 900;
+}
+div.calendar div.full-day-view div.contents div.event div.date,
+div.calendar div.full-day-view div.contents div.event div.duration,
+div.calendar div.full-day-view div.contents div.event div.description,
+div.calendar div.full-day-view div.contents div.event div.location,
+div.calendar div.full-day-view div.contents div.event div.repeats {
+  font-size: smaller;
+  font-weight: 300;
+}
+div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium {
+  margin-right: calc(var(--spacing) / 2);
+}
+div.calendar div.full-day-view div.contents div.event:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.full-day-view div.contents:last-child {
+  margin-bottom: 0;
 }
 div.calendar div.full-day-view div.contents div.contents-events {
   position: relative;
@@ -1390,61 +1517,6 @@ div.calendar div.full-day-view div.contents div.contents-events div.hour:nth-chi
 div.calendar div.full-day-view div.contents div.contents-events div.hour:last-child {
   border-bottom: none;
 }
-@media screen and (min-width: 451px) {
-  div.calendar div.full-day-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
-  }
-}
-@media screen and (max-width: 450px) {
-  div.calendar div.full-day-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
-  }
-}
-div.calendar div.full-day-view div.contents div.expired {
-  opacity: var(--event-expired-opacity);
-}
-div.calendar div.full-day-view div.contents div.all-day {
-  background-color: var(--event-color-all-day) !important;
-  color: var(--event-text-color-all-day) !important;
-}
-div.calendar div.full-day-view div.contents div.event {
-  white-space: pre-line;
-  -ms-word-break: normal;
-  word-break: normal;
-  border-radius: var(--border-radius);
-  background-color: var(--event-color);
-  padding: var(--spacing);
-  color: var(--event-text-color);
-  margin-bottom: var(--spacing);
-  border-left: var(--event-left-border);
-  text-align: left;
-}
-div.calendar div.full-day-view div.contents div.event div {
-  margin-bottom: calc(var(--spacing) / 2);
-}
-div.calendar div.full-day-view div.contents div.event div:last-child {
-  margin-bottom: 0;
-}
-div.calendar div.full-day-view div.contents div.event div.title {
-  font-weight: 900;
-}
-div.calendar div.full-day-view div.contents div.event div.date,
-div.calendar div.full-day-view div.contents div.event div.duration,
-div.calendar div.full-day-view div.contents div.event div.description,
-div.calendar div.full-day-view div.contents div.event div.location,
-div.calendar div.full-day-view div.contents div.event div.repeats {
-  font-size: smaller;
-  font-weight: 300;
-}
-div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium {
-  margin-right: calc(var(--spacing) / 2);
-}
-div.calendar div.full-day-view div.contents div.event:last-child {
-  margin-bottom: 0;
-}
-div.calendar div.full-day-view div.contents:last-child {
-  margin-bottom: 0;
-}
 div.calendar div.full-day-view div.contents div.event {
   position: absolute;
   margin-left: 0;
@@ -1492,7 +1564,8 @@ div.calendar div.full-week-view div.title-bar {
 }
 div.calendar div.full-week-view div.title-bar div.left-divider-line,
 div.calendar div.full-week-view div.title-bar div.right-divider-line,
-div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -1501,7 +1574,8 @@ div.calendar div.full-week-view div.title-bar div.left-divider-line {
   float: left;
 }
 div.calendar div.full-week-view div.title-bar div.right-divider-line,
-div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
   float: right;
 }
 div.calendar div.full-week-view div.title-bar div.title {
@@ -1532,6 +1606,7 @@ div.calendar div.full-week-view div.title-bar div.ib-hamburger {
 div.calendar div.full-week-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.full-week-view div.title-bar div.ib-plus,
 div.calendar div.full-week-view div.title-bar div.ib-close,
+div.calendar div.full-week-view div.title-bar div.ib-bar-graph,
 div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
@@ -1544,7 +1619,9 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-week-view div.title-bar div.ib-search,
   div.calendar div.full-week-view div.title-bar div.ib-refresh,
   div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.full-week-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
     display: inline-block;
   }
 }
@@ -1555,7 +1632,9 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-week-view div.title-bar div.ib-search,
   div.calendar div.full-week-view div.title-bar div.ib-refresh,
   div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.full-week-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
     display: none !important;
   }
 }
@@ -1566,6 +1645,16 @@ div.calendar div.full-week-view div.contents {
   overflow-y: auto;
   width: 100%;
   padding: 0 !important;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.full-week-view div.contents {
+    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.full-week-view div.contents {
+    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
+  }
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day {
   position: relative;
@@ -1588,16 +1677,6 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.even
   margin-left: calc(var(--time-view-hours-width) + var(--spacing) * 3) !important;
   margin-top: var(--spacing);
   margin-bottom: var(--spacing);
-}
-@media screen and (min-width: 451px) {
-  div.calendar div.full-week-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
-  }
-}
-@media screen and (max-width: 450px) {
-  div.calendar div.full-week-view div.contents {
-    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
-  }
 }
 div.calendar div.full-week-view div.contents div.header-days-container {
   position: sticky;
@@ -1848,7 +1927,8 @@ div.calendar div.full-year-view div.title-bar {
 }
 div.calendar div.full-year-view div.title-bar div.left-divider-line,
 div.calendar div.full-year-view div.title-bar div.right-divider-line,
-div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -1857,7 +1937,8 @@ div.calendar div.full-year-view div.title-bar div.left-divider-line {
   float: left;
 }
 div.calendar div.full-year-view div.title-bar div.right-divider-line,
-div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
   float: right;
 }
 div.calendar div.full-year-view div.title-bar div.title {
@@ -1888,6 +1969,7 @@ div.calendar div.full-year-view div.title-bar div.ib-hamburger {
 div.calendar div.full-year-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.full-year-view div.title-bar div.ib-plus,
 div.calendar div.full-year-view div.title-bar div.ib-close,
+div.calendar div.full-year-view div.title-bar div.ib-bar-graph,
 div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
@@ -1900,7 +1982,9 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-search,
   div.calendar div.full-year-view div.title-bar div.ib-refresh,
   div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.full-year-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
     display: inline-block;
   }
 }
@@ -1911,7 +1995,9 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-search,
   div.calendar div.full-year-view div.title-bar div.ib-refresh,
   div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.full-year-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
     display: none !important;
   }
 }
@@ -2046,7 +2132,8 @@ div.calendar div.all-events-view div.title-bar {
 }
 div.calendar div.all-events-view div.title-bar div.left-divider-line,
 div.calendar div.all-events-view div.title-bar div.right-divider-line,
-div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
@@ -2055,7 +2142,8 @@ div.calendar div.all-events-view div.title-bar div.left-divider-line {
   float: left;
 }
 div.calendar div.all-events-view div.title-bar div.right-divider-line,
-div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
+div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
   float: right;
 }
 div.calendar div.all-events-view div.title-bar div.title {
@@ -2086,6 +2174,7 @@ div.calendar div.all-events-view div.title-bar div.ib-hamburger {
 div.calendar div.all-events-view div.title-bar div.ib-arrow-down-full-line,
 div.calendar div.all-events-view div.title-bar div.ib-plus,
 div.calendar div.all-events-view div.title-bar div.ib-close,
+div.calendar div.all-events-view div.title-bar div.ib-bar-graph,
 div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full,
 div.calendar div.all-events-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right {
@@ -2098,7 +2187,9 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-search,
   div.calendar div.all-events-view div.title-bar div.ib-refresh,
   div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.all-events-view div.title-bar div.ib-bar-graph,
+  div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
     display: inline-block;
   }
 }
@@ -2109,7 +2200,9 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-search,
   div.calendar div.all-events-view div.title-bar div.ib-refresh,
   div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow,
-  div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode {
+  div.calendar div.all-events-view div.title-bar div.ib-bar-graph,
+  div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
     display: none !important;
   }
 }
@@ -2232,6 +2325,318 @@ div.calendar div.all-events-view div.contents div.month div.events:last-child {
 }
 div.calendar div.all-events-view div.contents div.month:last-child {
   margin-bottom: var(--spacing-border-size) !important;
+}
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Timeline View
+    -------------------------------------------------------------------------
+*/
+div.calendar div.timeline-view {
+  top: -100%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: var(--light-color);
+  transition: var(--transition);
+  visibility: hidden;
+}
+div.calendar div.timeline-view div.title-bar {
+  width: calc(100% - var(--spacing));
+  display: inline-block;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(var(--spacing) / 2);
+  padding-right: calc(var(--spacing) / 2);
+  background-color: var(--dark-color);
+  color: var(--title-bar-text-color);
+  text-align: center;
+}
+div.calendar div.timeline-view div.title-bar div.left-divider-line,
+div.calendar div.timeline-view div.title-bar div.right-divider-line,
+div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
+  width: 1px;
+  background-color: var(--title-bar-button-color);
+  height: 16px;
+}
+div.calendar div.timeline-view div.title-bar div.left-divider-line {
+  float: left;
+}
+div.calendar div.timeline-view div.title-bar div.right-divider-line,
+div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
+  float: right;
+}
+div.calendar div.timeline-view div.title-bar div.title {
+  font-weight: 900 !important;
+  display: inline-block;
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.title-bar div.title {
+    margin-top: 2px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+div.calendar div.timeline-view div.title-bar div {
+  margin-left: calc(var(--spacing) / 2) !important;
+  margin-right: calc(var(--spacing) / 2) !important;
+}
+div.calendar div.timeline-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.timeline-view div.title-bar div.ib-pin,
+div.calendar div.timeline-view div.title-bar div.ib-refresh,
+div.calendar div.timeline-view div.title-bar div.ib-search,
+div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.timeline-view div.title-bar div.ib-hamburger {
+  float: left;
+}
+div.calendar div.timeline-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.timeline-view div.title-bar div.ib-plus,
+div.calendar div.timeline-view div.title-bar div.ib-close,
+div.calendar div.timeline-view div.title-bar div.ib-bar-graph,
+div.calendar div.timeline-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.timeline-view div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
+  float: right;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-search,
+  div.calendar div.timeline-view div.title-bar div.ib-refresh,
+  div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.timeline-view div.title-bar div.ib-bar-graph,
+  div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right,
+  div.calendar div.timeline-view div.title-bar div.ib-search,
+  div.calendar div.timeline-view div.title-bar div.ib-refresh,
+  div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.timeline-view div.title-bar div.ib-bar-graph,
+  div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
+    display: none !important;
+  }
+}
+div.calendar div.timeline-view div.contents {
+  position: relative;
+  display: inline-block;
+  overflow-x: auto;
+  overflow-y: auto;
+  width: 100%;
+  padding: 0 !important;
+  white-space: nowrap;
+  vertical-align: top;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents {
+    height: calc(100% - (var(--spacing) * 2 + var(--large-font-size)));
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents {
+    height: calc(100% - (var(--spacing) * 2 + var(--small-font-size)));
+  }
+}
+div.calendar div.timeline-view div.contents div.timeline-column {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+  height: 100%;
+  background-color: var(--light-color);
+  border-right: var(--spacing-border-size) solid var(--grid-border-color);
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents div.timeline-column {
+    width: var(--time-view-timeline-section-width);
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents div.timeline-column {
+    width: var(--time-view-timeline-section-width-small);
+  }
+}
+div.calendar div.timeline-view div.contents div.timeline-column:nth-child(odd) {
+  background-color: var(--day-names-color);
+}
+div.calendar div.timeline-view div.contents div.timeline-header {
+  border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+  position: sticky;
+  top: 0;
+  background-color: var(--day-names-color);
+  vertical-align: top;
+  overflow: hidden;
+  z-index: 10;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents div.timeline-header {
+    width: calc(49 * (var(--time-view-timeline-section-width) + var(--spacing) * 2 + var(--spacing-border-size)));
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents div.timeline-header {
+    width: calc(49 * (var(--time-view-timeline-section-width-small) + var(--spacing) * 2 + var(--spacing-border-size)));
+  }
+}
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item {
+  display: inline-block;
+  padding: var(--spacing);
+  text-align: center;
+  border-right: var(--spacing-border-size) solid var(--grid-border-color);
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item {
+    width: var(--time-view-timeline-section-width);
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item {
+    width: var(--time-view-timeline-section-width-small);
+  }
+}
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:first-child {
+  text-align: left;
+}
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:last-child {
+  border-right: none;
+}
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item div.ib-arrow-right-full {
+  float: right;
+  border-left-color: var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.timeline-row {
+  position: relative;
+  border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+  vertical-align: top;
+  overflow: hidden;
+  vertical-align: top;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents div.timeline-row {
+    width: calc(49 * (var(--time-view-timeline-section-width) + var(--spacing) * 2 + var(--spacing-border-size)));
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents div.timeline-row {
+    width: calc(49 * (var(--time-view-timeline-section-width-small) + var(--spacing) * 2 + var(--spacing-border-size)));
+  }
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item {
+  display: inline-block;
+  padding: var(--spacing);
+  padding-top: calc(var(--spacing) * 2);
+  padding-bottom: calc(var(--spacing) * 2);
+  text-align: left;
+  border-right: var(--spacing-border-size) solid var(--grid-border-color);
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: top;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item {
+    width: var(--time-view-timeline-section-width);
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item {
+    width: var(--time-view-timeline-section-width-small);
+  }
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item:last-child {
+  border-right: none;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item-odd {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+@media screen and (min-width: 451px) {
+  div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items {
+    width: calc(48 * (var(--time-view-timeline-section-width) + var(--spacing) * 2 + var(--spacing-border-size)));
+    padding-top: calc(var(--spacing) * 2 + var(--large-font-size) / 2);
+    padding-bottom: calc(var(--spacing) * 2 + var(--large-font-size) / 2);
+  }
+}
+@media screen and (max-width: 450px) {
+  div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items {
+    width: calc(48 * (var(--time-view-timeline-section-width-small) + var(--spacing) * 2 + var(--spacing-border-size)));
+    padding-top: calc(var(--spacing) * 2 + var(--small-font-size) / 2);
+    padding-bottom: calc(var(--spacing) * 2 + var(--small-font-size) / 2);
+  }
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.expired {
+  opacity: var(--event-expired-opacity);
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.all-day {
+  background-color: var(--event-color-all-day) !important;
+  color: var(--event-text-color-all-day) !important;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event {
+  white-space: pre-line;
+  -ms-word-break: normal;
+  word-break: normal;
+  border-radius: var(--border-radius);
+  background-color: var(--event-color);
+  padding: var(--spacing);
+  color: var(--event-text-color);
+  margin-bottom: var(--spacing);
+  border-left: var(--event-left-border);
+  text-align: left;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div {
+  margin-bottom: calc(var(--spacing) / 2);
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.title {
+  font-weight: 900;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.date,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.duration,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.description,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.location,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.repeats {
+  font-size: smaller;
+  font-weight: 300;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.ib-refresh-medium {
+  margin-right: calc(var(--spacing) / 2);
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items:last-child {
+  margin-bottom: 0;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event {
+  position: absolute;
+  margin-left: 0;
+  margin-right: 0;
+  top: calc(var(--spacing));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 1;
 }
 
 /*
@@ -3184,7 +3589,7 @@ div.search div.contents div.history-container div.history-dropdown {
   display: none;
   overflow-x: hidden;
   overflow-y: auto;
-  margin-top: var(--input-box-shadow-size)2px;
+  margin-top: calc(var(--input-box-shadow-size) * 2);
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item {
   padding: var(--spacing);
@@ -3438,7 +3843,7 @@ div.configuration div.contents input[type=email]:not(:disabled):hover {
   border: var(--spacing-border-size) solid var(--input-hover-color);
 }
 div.configuration div.contents div.tab-content {
-  height: 165px;
+  height: 135px;
 }
 div.configuration div.buttons-container {
   text-align: right;
@@ -4006,7 +4411,6 @@ div.calendar-context-menu div.separator {
   height: 12px;
   border-top: 4px solid var(--title-bar-button-color);
   border-radius: 50%;
-  box-sizing: content-box;
 }
 .ib-pin:not(.ib-no-hover):hover {
   transition: all 0.3s;
@@ -4774,6 +5178,45 @@ div.calendar-context-menu div.separator {
   border-right: 8px solid transparent;
   left: 0;
   top: 0;
+}
+
+.ib-bar-graph {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  border-top: 4px solid var(--title-bar-button-color);
+  height: 12px;
+}
+.ib-bar-graph:not(.ib-no-hover):hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.ib-bar-graph:not(.ib-no-active):active {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.ib-bar-graph::before, .ib-bar-graph::after {
+  position: absolute;
+  content: "";
+}
+.ib-bar-graph:before {
+  top: calc(50% - 2px);
+  transform: translate(0, -50%);
+  background-color: var(--light-color);
+  height: 4px;
+  width: 5.3333333333px;
+  bottom: 0;
+  left: 0;
+}
+.ib-bar-graph:after {
+  background-color: var(--light-color);
+  height: 4px;
+  width: 8px;
+  bottom: 0;
+  left: 0;
 }
 
 .ib-plus-icon {

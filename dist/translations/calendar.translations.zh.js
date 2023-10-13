@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "周一",
@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "选择日期...",
     "hideDayText": "隐藏日",
     "notSearchText": "不是（相反）",
-    "showEmptyDaysInWeekViewText": "在周视图中显示空天数",
     "showHolidaysInTheDisplaysText": "在主显示屏和标题栏中显示假期",
     "newEventDefaultTitle": "* 新事件",
     "urlErrorMessage": "请在“网址”字段中输入有效的网址（或留空）。",
@@ -228,5 +227,8 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "确认活动更新",
     "confirmEventUpdateMessage": "您想更新从现在开始的活动，还是整个系列？",
     "forwardText": "向前",
-    "seriesText": "系列"
+    "seriesText": "系列",
+    "viewTimelineTooltipText": "查看时间轴",
+    "nextPropertyTooltipText": "下一个房产",
+    "noneText": "（没有任何）"
   };

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.8.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.0 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "月",
@@ -185,7 +185,6 @@ var __TRANSLATION_OPTIONS = {
     "selectDatePlaceholderText": "日付を選択してください...",
     "hideDayText": "日を隠す",
     "notSearchText": "そうじゃない（反対）",
-    "showEmptyDaysInWeekViewText": "週ビューで空の日を表示する",
     "showHolidaysInTheDisplaysText": "メインディスプレイとタイトルバーに祝日を表示する",
     "newEventDefaultTitle": "* 新しいイベント",
     "urlErrorMessage": "「URL」フィールドに有効な URL を入力してください (または空白のままにしてください)。",
@@ -228,5 +227,8 @@ var __TRANSLATION_OPTIONS = {
     "confirmEventUpdateTitle": "イベント更新の確認",
     "confirmEventUpdateMessage": "今後のイベントを更新しますか、それともシリーズ全体を更新しますか?",
     "forwardText": "フォワード",
-    "seriesText": "シリーズ"
+    "seriesText": "シリーズ",
+    "viewTimelineTooltipText": "タイムラインをみる",
+    "nextPropertyTooltipText": "次の物件",
+    "noneText": "（なし）"
 };
