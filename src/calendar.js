@@ -614,6 +614,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Mode_DatePicker_HiddenInput = null,
         _element_Mode_DatePicker_Enabled = false,
         _element_Mode_DatePicker_Visible = false,
+        _element_Mode_DatePicker_OriginalTop = null,
 
         // Variables: View
         _element_View_Opened = [],
@@ -1845,6 +1846,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             build( new Date( _calendar_CurrentDate_ForDatePicker ), !_initialized );
             triggerOptionsEventWithData( "onDatePickerOpened", _parameter_ElementID );
+            updateDatePickerPosition();
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
@@ -1854,6 +1856,34 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _element_Mode_DatePicker_Visible = !_element_Mode_DatePicker_Visible;
+    }
+
+    function updateDatePickerPosition() {
+        var actualTop = _element_Mode_DatePicker_OriginalTop;
+
+        if ( actualTop === null ) {
+            _element_Mode_DatePicker_OriginalTop = _element_Calendar.offsetTop;
+            actualTop = _element_Calendar.offsetTop;
+        }
+
+        _element_Calendar.style.top = actualTop + "px";
+
+        var offset = getOffset( _element_Calendar ),
+            scrollPosition = getScrollPosition(),
+            top = ( offset.top - scrollPosition.top );
+
+        if ( top + _element_Calendar.offsetHeight > _parameter_Window.innerHeight ) {
+            var calendarBorderWidth = parseFloat( getStyleValueByName( _element_Calendar, "border-width" ), 10 ),
+                inputBorderWidth = parseFloat( getStyleValueByName( _element_Mode_DatePicker_Input, "border-width" ), 10 );
+
+            actualTop -= ( _element_Calendar.offsetHeight + _element_Mode_DatePicker_Input.clientHeight + ( calendarBorderWidth * 4 ) + ( inputBorderWidth * 2 ) );
+            _element_Calendar.className += " calendar-shadow-top";
+
+            _element_Calendar.style.top = actualTop + "px";
+            
+        } else {
+            _element_Calendar.className += " calendar-shadow-bottom";
+        }
     }
 
     function hideDatePickerMode() {

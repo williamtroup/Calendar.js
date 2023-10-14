@@ -96,7 +96,7 @@ $minimum-width: $maximum-width + 1;
     border: var(--spacing-border-size) solid var(--dark-color);
     position: fixed;
     display: none;
-    box-shadow: 4px 4px 4px var(--dark-color);
+    box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
     z-index: $z-index;
 
     @if $includeTransform {

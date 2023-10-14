@@ -692,12 +692,33 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_Calendar.className = "calendar calendar-shown";
       build(new Date(_calendar_CurrentDate_ForDatePicker), !_initialized);
       triggerOptionsEventWithData("onDatePickerOpened", _parameter_ElementID);
+      updateDatePickerPosition();
     } else {
       _element_Calendar.className = "calendar calendar-hidden";
       hideAllDropDowns();
       triggerOptionsEventWithData("onDatePickerClosed", _parameter_ElementID);
     }
     _element_Mode_DatePicker_Visible = !_element_Mode_DatePicker_Visible;
+  }
+  function updateDatePickerPosition() {
+    var actualTop = _element_Mode_DatePicker_OriginalTop;
+    if (actualTop === null) {
+      _element_Mode_DatePicker_OriginalTop = _element_Calendar.offsetTop;
+      actualTop = _element_Calendar.offsetTop;
+    }
+    _element_Calendar.style.top = actualTop + "px";
+    var offset = getOffset(_element_Calendar);
+    var scrollPosition = getScrollPosition();
+    var top = offset.top - scrollPosition.top;
+    if (top + _element_Calendar.offsetHeight > _parameter_Window.innerHeight) {
+      var calendarBorderWidth = parseFloat(getStyleValueByName(_element_Calendar, "border-width"), 10);
+      var inputBorderWidth = parseFloat(getStyleValueByName(_element_Mode_DatePicker_Input, "border-width"), 10);
+      actualTop = actualTop - (_element_Calendar.offsetHeight + _element_Mode_DatePicker_Input.clientHeight + calendarBorderWidth * 4 + inputBorderWidth * 2);
+      _element_Calendar.className += " calendar-shadow-top";
+      _element_Calendar.style.top = actualTop + "px";
+    } else {
+      _element_Calendar.className += " calendar-shadow-bottom";
+    }
   }
   function hideDatePickerMode() {
     if (_element_Mode_DatePicker_Visible) {
@@ -8665,6 +8686,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_Mode_DatePicker_HiddenInput = null;
   var _element_Mode_DatePicker_Enabled = false;
   var _element_Mode_DatePicker_Visible = false;
+  var _element_Mode_DatePicker_OriginalTop = null;
   var _element_View_Opened = [];
   var _element_View_LastZIndex = 0;
   var _element_View_Event_Dragged = null;

@@ -2,6 +2,8 @@
 
 ## Version 2.9.1:
 - OK, sorry about this ... fixed a major rendering issues in CUSTOM_TRIGGERS.md.
+- Added new CSS root variable "--spacing-shadow-size", which will allow you to change the shadow sizes.
+- The DatePicker mode will now show correctly when an input could force the DatePicker to appear off the height of the window (will now appear above the input).
 - 
 
 <br>
