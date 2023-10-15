@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.9.0
+ * @version     v2.9.1
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -614,6 +614,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Mode_DatePicker_HiddenInput = null,
         _element_Mode_DatePicker_Enabled = false,
         _element_Mode_DatePicker_Visible = false,
+        _element_Mode_DatePicker_OriginalTop = null,
 
         // Variables: View
         _element_View_Opened = [],
@@ -1114,7 +1115,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _options.exportEventsEnabled ) {
             _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton( header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-                var viewOpen = getRecentViewOpened();
+                var viewOpen = getActiveView();
 
                 if ( viewOpen === null ) {
                     showExportEventsDialog( _element_View_FullMonth_EventsShown );
@@ -1185,7 +1186,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function updateSideMenuExportButtonVisibleState() {
-        var viewOpen = getRecentViewOpened();
+        var viewOpen = getActiveView();
 
         if ( viewOpen === null ) {
             updateToolbarButtonVisibleState( _element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullMonth_EventsShown.length > 0 );
@@ -1845,6 +1846,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             build( new Date( _calendar_CurrentDate_ForDatePicker ), !_initialized );
             triggerOptionsEventWithData( "onDatePickerOpened", _parameter_ElementID );
+            updateDatePickerPosition();
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
@@ -1854,6 +1856,34 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _element_Mode_DatePicker_Visible = !_element_Mode_DatePicker_Visible;
+    }
+
+    function updateDatePickerPosition() {
+        var actualTop = _element_Mode_DatePicker_OriginalTop;
+
+        if ( actualTop === null ) {
+            _element_Mode_DatePicker_OriginalTop = _element_Calendar.offsetTop;
+            actualTop = _element_Calendar.offsetTop;
+        }
+
+        _element_Calendar.style.top = actualTop + "px";
+
+        var offset = getOffset( _element_Calendar ),
+            scrollPosition = getScrollPosition(),
+            top = ( offset.top - scrollPosition.top );
+
+        if ( top + _element_Calendar.offsetHeight > _parameter_Window.innerHeight ) {
+            var calendarBorderWidth = parseFloat( getStyleValueByName( _element_Calendar, "border-width" ), 10 ),
+                inputBorderWidth = parseFloat( getStyleValueByName( _element_Mode_DatePicker_Input, "border-width" ), 10 );
+
+            actualTop -= ( _element_Calendar.offsetHeight + _element_Mode_DatePicker_Input.clientHeight + ( calendarBorderWidth * 4 ) + ( inputBorderWidth * 2 ) );
+            _element_Calendar.className += " calendar-shadow-top";
+
+            _element_Calendar.style.top = actualTop + "px";
+            
+        } else {
+            _element_Calendar.className += " calendar-shadow-bottom";
+        }
     }
 
     function hideDatePickerMode() {
@@ -2166,7 +2196,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function onLeftKey( e ) {
         e.preventDefault();
 
-        var viewOpen = getRecentViewOpened();
+        var viewOpen = getActiveView();
 
         if ( viewOpen === null ) {
             onPreviousMonth();
@@ -2187,7 +2217,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function onRightKey( e ) {
         e.preventDefault();
 
-        var viewOpen = getRecentViewOpened();
+        var viewOpen = getActiveView();
         
         if ( viewOpen === null ) {
             onNextMonth();
@@ -2208,7 +2238,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function onDownKey( e ) {
         e.preventDefault();
 
-        var viewOpen = getRecentViewOpened();
+        var viewOpen = getActiveView();
         
         if ( viewOpen === null ) {
             onCurrentMonth();
@@ -2230,7 +2260,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         e.preventDefault();
 
         var openSearch = false,
-            viewOpen = getRecentViewOpened();
+            viewOpen = getActiveView();
         
         if ( viewOpen === null ) {
             openSearch = _element_View_FullMonth_EventsShown.length > 0;
@@ -5181,6 +5211,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 } );
             }
 
+            titleBar.appendChild( createElement( "div", "right-divider-line-views" ) );
+
+            buildToolbarButton( titleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
+                showFullDayView( _element_View_Timeline_DateSelected, true );
+            } );
+
             if ( !_element_Mode_DatePicker_Enabled && isSideMenuAvailable() ) {
                 buildToolbarButton( titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu );
 
@@ -7158,7 +7194,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showExportDialogFromWindowKeyDown() {
         var events = [],
-            viewOpen = getRecentViewOpened();
+            viewOpen = getActiveView();
         
         if ( viewOpen === null ) {
             events = _element_View_FullMonth_EventsShown;
@@ -7420,7 +7456,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 monthYearsFound = {},
                 orderedEvents = getOrderedEvents( getAllEvents() ),
                 orderedEventsLength = orderedEvents.length,
-                viewOpen = getRecentViewOpened(),
+                viewOpen = getActiveView(),
                 isFullDayViewVisible = viewOpen === _element_View_FullDay,
                 isAllEventsViewVisible = viewOpen === _element_View_AllEvents,
                 isFullWeekViewVisible = viewOpen === _element_View_FullWeek,
@@ -7510,7 +7546,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function updatedFocusedElementAfterSearch( eventDetails ) {
         var startingID = _element_ID_Event_Day,
-            viewOpen = getRecentViewOpened(),
+            viewOpen = getActiveView(),
             isFullDayViewVisible = viewOpen === _element_View_FullDay,
             isAllEventsViewVisible = viewOpen === _element_View_AllEvents,
             isFullWeekViewVisible = viewOpen === _element_View_FullWeek,
@@ -8208,13 +8244,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function showView( element ) {
-        if ( !isViewVisible( element ) ) {
+        if ( getActiveView() !== element ) {
             removeViewOpened( element );
 
             _element_View_Opened.push( element );
             _element_View_LastZIndex++;
     
-            element.className += " view-shown";
+            if ( !isViewVisible( element ) ) {
+                element.className += " view-shown";
+            }
+            
             element.style.zIndex = _element_View_LastZIndex;
             
             hideSearchDialog();
@@ -8253,7 +8292,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function closeLastViewOpened() {
-        var viewElement = getRecentViewOpened();
+        var viewElement = getActiveView();
 
         hideView( viewElement );
 
@@ -8262,7 +8301,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function getRecentViewOpened() {
+    function getActiveView() {
         return _element_View_Opened.length > 0 ? _element_View_Opened[ _element_View_Opened.length - 1 ] : null;
     }
 
@@ -13345,7 +13384,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.9.0";
+        return "2.9.1";
     };
 
     /**
