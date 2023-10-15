@@ -4,21 +4,29 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no" />
         <title>Calendar.js</title>
+        <link rel="stylesheet" href="../css/styles.css" />
         <link rel="stylesheet" href="../../dist/calendar.js.css" />
         <script src="../../src/calendar.js"></script>
     </head>
 
     <body>
-        <div id="calendar1" style="max-width: 800px;"></div>
-        <br/>
-        <br/>
-        <div id="calendar2" style="max-width: 800px;"></div>
-        <br/>
-        <br/>
+        <div class="header">
+            <h1 id="header">Calendar.js - Basic</h1>
+            <p>This is an example of two basic calendar instances, using slightly different options.</p>
+        </div>
 
-        <h2>Main Controls:</h2>
-        <button onclick="calendarInstance1.destroy();">Destroy (1)</button>
-        <button onclick="calendarInstance2.destroy();">Destroy (2)</button>
+        <div class="contents">
+            <div id="calendar1" style="max-width: 800px;"></div>
+            <br/>
+            <br/>
+            <div id="calendar2" style="max-width: 800px;"></div>
+            <br/>
+            <br/>
+    
+            <h2>Main Controls:</h2>
+            <button onclick="calendarInstance1.destroy();">Destroy (1)</button>
+            <button onclick="calendarInstance2.destroy();">Destroy (2)</button>
+        </div>
     </body>
 
     <script>
