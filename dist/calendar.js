@@ -4215,7 +4215,7 @@ function calendarJs(elementOrId, options, searchOptions) {
               showNotificationPopUp(_options.eventUpdatedText.replace("{0}", _element_Dialog_EventEditor_EventDetails.title));
             } else {
               _this.addEvent(newEvent, false);
-              showNotificationPopUp(_options.eventAddedText.replace("{0}", _element_Dialog_EventEditor_EventDetails.title));
+              showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
             }
             if (_options.isWidget) {
               build(_calendar_CurrentDate);

@@ -3,6 +3,7 @@
 ## Version 2.9.2:
 - Merged custom trigger internal functions into a single internal functions with proper argument passing.
 - Merged duplicate code for handling event custom triggers and general event assignments.
+- Fixed a fault that caused the notification text for "eventAddedText" option to show "undefined" when adding a new event.
 - 
 
 <br>
