@@ -145,7 +145,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (_options.exportEventsEnabled) {
       _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton(header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
-        var viewOpen = getRecentViewOpened();
+        var viewOpen = getActiveView();
         if (viewOpen === null) {
           showExportEventsDialog(_element_View_FullMonth_EventsShown);
         } else {
@@ -203,7 +203,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function updateSideMenuExportButtonVisibleState() {
-    var viewOpen = getRecentViewOpened();
+    var viewOpen = getActiveView();
     if (viewOpen === null) {
       updateToolbarButtonVisibleState(_element_SideMenu_TitleBar_ExportEventsButton, _element_View_FullMonth_EventsShown.length > 0);
     } else {
@@ -950,7 +950,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function onLeftKey(e) {
     e.preventDefault();
-    var viewOpen = getRecentViewOpened();
+    var viewOpen = getActiveView();
     if (viewOpen === null) {
       onPreviousMonth();
     } else {
@@ -967,7 +967,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function onRightKey(e) {
     e.preventDefault();
-    var viewOpen = getRecentViewOpened();
+    var viewOpen = getActiveView();
     if (viewOpen === null) {
       onNextMonth();
     } else {
@@ -984,7 +984,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function onDownKey(e) {
     e.preventDefault();
-    var viewOpen = getRecentViewOpened();
+    var viewOpen = getActiveView();
     if (viewOpen === null) {
       onCurrentMonth();
     } else {
@@ -1002,7 +1002,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function onFKey(e) {
     e.preventDefault();
     var openSearch = false;
-    var viewOpen = getRecentViewOpened();
+    var viewOpen = getActiveView();
     if (viewOpen === null) {
       openSearch = _element_View_FullMonth_EventsShown.length > 0;
     } else {
@@ -3237,6 +3237,10 @@ function calendarJs(elementOrId, options, searchOptions) {
           showEventEditingDialog(null, new Date(_element_View_Timeline_DateSelected));
         });
       }
+      titleBar.appendChild(createElement("div", "right-divider-line-views"));
+      buildToolbarButton(titleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
+        showFullDayView(_element_View_Timeline_DateSelected, true);
+      });
       if (!_element_Mode_DatePicker_Enabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
         titleBar.appendChild(createElement("div", "left-divider-line"));
@@ -4671,7 +4675,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function showExportDialogFromWindowKeyDown() {
     var events = [];
-    var viewOpen = getRecentViewOpened();
+    var viewOpen = getActiveView();
     if (viewOpen === null) {
       events = _element_View_FullMonth_EventsShown;
     } else {
@@ -4869,7 +4873,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var monthYearsFound = {};
       var orderedEvents = getOrderedEvents(getAllEvents());
       var orderedEventsLength = orderedEvents.length;
-      var viewOpen = getRecentViewOpened();
+      var viewOpen = getActiveView();
       var isFullDayViewVisible = viewOpen === _element_View_FullDay;
       var isAllEventsViewVisible = viewOpen === _element_View_AllEvents;
       var isFullWeekViewVisible = viewOpen === _element_View_FullWeek;
@@ -4944,7 +4948,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function updatedFocusedElementAfterSearch(eventDetails) {
     var startingID = _element_ID_Event_Day;
-    var viewOpen = getRecentViewOpened();
+    var viewOpen = getActiveView();
     var isFullDayViewVisible = viewOpen === _element_View_FullDay;
     var isAllEventsViewVisible = viewOpen === _element_View_AllEvents;
     var isFullWeekViewVisible = viewOpen === _element_View_FullWeek;
@@ -5464,11 +5468,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function showView(element) {
-    if (!isViewVisible(element)) {
+    if (getActiveView() !== element) {
       removeViewOpened(element);
       _element_View_Opened.push(element);
       _element_View_LastZIndex++;
-      element.className += " view-shown";
+      if (!isViewVisible(element)) {
+        element.className += " view-shown";
+      }
       element.style.zIndex = _element_View_LastZIndex;
       hideSearchDialog();
     }
@@ -5498,13 +5504,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     return isDefined(element) && element.className && element.className.indexOf("view-shown") > -1;
   }
   function closeLastViewOpened() {
-    var viewElement = getRecentViewOpened();
+    var viewElement = getActiveView();
     hideView(viewElement);
     if (_element_View_Opened.length === 0) {
       _element_View_LastZIndex = 0;
     }
   }
-  function getRecentViewOpened() {
+  function getActiveView() {
     return _element_View_Opened.length > 0 ? _element_View_Opened[_element_View_Opened.length - 1] : null;
   }
   function closeAllViews() {

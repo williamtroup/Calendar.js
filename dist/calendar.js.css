@@ -1342,6 +1342,7 @@ div.calendar div.full-day-view div.title-bar div.ib-plus,
 div.calendar div.full-day-view div.title-bar div.ib-close,
 div.calendar div.full-day-view div.title-bar div.ib-bar-graph,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-day-view div.title-bar div.ib-hourglass,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
@@ -1354,6 +1355,7 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-refresh,
   div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.full-day-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-day-view div.title-bar div.ib-hourglass,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
     display: inline-block;
@@ -1367,6 +1369,7 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-refresh,
   div.calendar div.full-day-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.full-day-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-day-view div.title-bar div.ib-hourglass,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
     display: none !important;
@@ -1614,6 +1617,7 @@ div.calendar div.full-week-view div.title-bar div.ib-plus,
 div.calendar div.full-week-view div.title-bar div.ib-close,
 div.calendar div.full-week-view div.title-bar div.ib-bar-graph,
 div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-week-view div.title-bar div.ib-hourglass,
 div.calendar div.full-week-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
@@ -1626,6 +1630,7 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-week-view div.title-bar div.ib-refresh,
   div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.full-week-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-week-view div.title-bar div.ib-hourglass,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
     display: inline-block;
@@ -1639,6 +1644,7 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-week-view div.title-bar div.ib-refresh,
   div.calendar div.full-week-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.full-week-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-week-view div.title-bar div.ib-hourglass,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
     display: none !important;
@@ -1977,6 +1983,7 @@ div.calendar div.full-year-view div.title-bar div.ib-plus,
 div.calendar div.full-year-view div.title-bar div.ib-close,
 div.calendar div.full-year-view div.title-bar div.ib-bar-graph,
 div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-year-view div.title-bar div.ib-hourglass,
 div.calendar div.full-year-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
@@ -1989,6 +1996,7 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-refresh,
   div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.full-year-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-year-view div.title-bar div.ib-hourglass,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
     display: inline-block;
@@ -2002,6 +2010,7 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-refresh,
   div.calendar div.full-year-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.full-year-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-year-view div.title-bar div.ib-hourglass,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
     display: none !important;
@@ -2182,6 +2191,7 @@ div.calendar div.all-events-view div.title-bar div.ib-plus,
 div.calendar div.all-events-view div.title-bar div.ib-close,
 div.calendar div.all-events-view div.title-bar div.ib-bar-graph,
 div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.all-events-view div.title-bar div.ib-hourglass,
 div.calendar div.all-events-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
@@ -2194,6 +2204,7 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-refresh,
   div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.all-events-view div.title-bar div.ib-bar-graph,
+  div.calendar div.all-events-view div.title-bar div.ib-hourglass,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
     display: inline-block;
@@ -2207,6 +2218,7 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-refresh,
   div.calendar div.all-events-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.all-events-view div.title-bar div.ib-bar-graph,
+  div.calendar div.all-events-view div.title-bar div.ib-hourglass,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
     display: none !important;
@@ -2405,6 +2417,7 @@ div.calendar div.timeline-view div.title-bar div.ib-plus,
 div.calendar div.timeline-view div.title-bar div.ib-close,
 div.calendar div.timeline-view div.title-bar div.ib-bar-graph,
 div.calendar div.timeline-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.timeline-view div.title-bar div.ib-hourglass,
 div.calendar div.timeline-view div.title-bar div.ib-arrow-expand-left-right,
 div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
   float: right;
@@ -2417,6 +2430,7 @@ div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.timeline-view div.title-bar div.ib-refresh,
   div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.timeline-view div.title-bar div.ib-bar-graph,
+  div.calendar div.timeline-view div.title-bar div.ib-hourglass,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
     display: inline-block;
@@ -2430,6 +2444,7 @@ div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.timeline-view div.title-bar div.ib-refresh,
   div.calendar div.timeline-view div.title-bar div.ib-octagon-hollow,
   div.calendar div.timeline-view div.title-bar div.ib-bar-graph,
+  div.calendar div.timeline-view div.title-bar div.ib-hourglass,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
     display: none !important;
