@@ -1035,7 +1035,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _initialized = true;
     
         if ( !_initialized_FirstTime ) {
-            triggerOptionsEventWithData( "onRender", _parameter_ElementID );
+            triggerOptionsEvent( "onRender", _parameter_ElementID );
             _initialized_FirstTime = true;
         }
     }
@@ -1256,7 +1256,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options_Configuration.visibleGroups = visibleGroups;
                     itemWasChanged = true;
 
-                    triggerOptionsEventWithData( "onVisibleGroupsChanged", _options_Configuration.visibleGroups );
+                    triggerOptionsEvent( "onVisibleGroupsChanged", _options_Configuration.visibleGroups );
                 }
             }
             
@@ -1267,7 +1267,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options_Configuration.visibleEventTypes = visibleEventTypes;
                     itemWasChanged = true;
 
-                    triggerOptionsEventWithData( "onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes );
+                    triggerOptionsEvent( "onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes );
                 }
             }
     
@@ -1307,7 +1307,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( itemWasChanged ) {
                 if ( triggerOptionsEvent ) {
-                    triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                    triggerOptionsEvent( "onOptionsUpdated", _options );
                 }
         
                 _initialized = false;
@@ -1681,7 +1681,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
         event.setAttribute( "event-id", eventDetails.id );
 
-        if ( !triggerOptionsEventWithMultipleData( "onWidgetEventRender", event, eventDetails ) ) {
+        if ( !triggerOptionsEvent( "onWidgetEventRender", event, eventDetails ) ) {
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -1738,7 +1738,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( isOptionEventSet( "onEventClick" ) ) {
             event.addEventListener( "click", function() {
-                triggerOptionsEventWithData( "onEventClick", eventDetails );
+                triggerOptionsEvent( "onEventClick", eventDetails );
             } );
         }
 
@@ -1751,7 +1751,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isOptionEventSet( "onEventDoubleClick" ) ) {
                 event.ondblclick = function() {
-                    triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    triggerOptionsEvent( "onEventDoubleClick", eventDetails );
                 };
             }
         }
@@ -1845,14 +1845,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Calendar.className = "calendar calendar-shown";
 
             build( new Date( _calendar_CurrentDate_ForDatePicker ), !_initialized );
-            triggerOptionsEventWithData( "onDatePickerOpened", _parameter_ElementID );
+            triggerOptionsEvent( "onDatePickerOpened", _parameter_ElementID );
             updateDatePickerPosition();
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
             
             hideAllDropDowns();
-            triggerOptionsEventWithData( "onDatePickerClosed", _parameter_ElementID );
+            triggerOptionsEvent( "onDatePickerClosed", _parameter_ElementID );
         }
 
         _element_Mode_DatePicker_Visible = !_element_Mode_DatePicker_Visible;
@@ -1892,7 +1892,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Mode_DatePicker_Visible = false;
 
             hideAllDropDowns();
-            triggerOptionsEventWithData( "onDatePickerClosed", _parameter_ElementID );
+            triggerOptionsEvent( "onDatePickerClosed", _parameter_ElementID );
         }
     }
 
@@ -1905,7 +1905,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             hideDatePickerMode();
             updateDatePickerInputValueDisplay( date );
-            triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+            triggerOptionsEvent( "onDatePickerDateChanged", newDate );
 
             _calendar_CurrentDate_ForDatePicker = newDate;
             
@@ -2534,7 +2534,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.id = _element_ID_Event_FullDay + eventDetails.id;
             }
 
-            if ( !triggerOptionsEventWithMultipleData( "onFullDayEventRender", event, eventDetails ) ) {
+            if ( !triggerOptionsEvent( "onFullDayEventRender", event, eventDetails ) ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -2597,7 +2597,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isOptionEventSet( "onEventClick" ) ) {
                 event.addEventListener( "click", function() {
-                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                    triggerOptionsEvent( "onEventClick", eventDetails );
                 } );
             }
     
@@ -2610,7 +2610,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 if ( isOptionEventSet( "onEventDoubleClick" ) ) {
                     event.ondblclick = function() {
-                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                        triggerOptionsEvent( "onEventDoubleClick", eventDetails );
                     };
                 }
             }
@@ -2642,7 +2642,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullDayViewTitle() {
-        if ( !triggerOptionsEventWithData( "onFullDayTitleRender", _element_View_FullDay_DateSelected ) ) {
+        if ( !triggerOptionsEvent( "onFullDayTitleRender", _element_View_FullDay_DateSelected ) ) {
             buildDateTimeDisplay( _element_View_FullDay_TitleBar, _element_View_FullDay_DateSelected, false, true, true );
         }
     }
@@ -3049,7 +3049,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullWeekViewTitle( weekStartDate, weekEndDate ) {
         _element_View_FullWeek_TitleBar.innerHTML = _string.empty;
 
-        if ( !triggerOptionsEventWithMultipleData( "onFullWeekTitleRender", weekStartDate, weekEndDate ) ) {
+        if ( !triggerOptionsEvent( "onFullWeekTitleRender", weekStartDate, weekEndDate ) ) {
             if ( _options.showWeekNumbersInTitles ) {
                 createSpanElement( _element_View_FullWeek_TitleBar, _options.weekText + _string.space + getWeekNumber( weekStartDate ) + ": " );
             }
@@ -3162,7 +3162,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.id = _element_ID_Event_WeekDay + eventDetails.id;
             }
 
-            if ( !triggerOptionsEventWithMultipleData( "onFullWeekEventRender", event, eventDetails ) ) {
+            if ( !triggerOptionsEvent( "onFullWeekEventRender", event, eventDetails ) ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -3225,7 +3225,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isOptionEventSet( "onEventClick" ) ) {
                 event.addEventListener( "click", function() {
-                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                    triggerOptionsEvent( "onEventClick", eventDetails );
                 } );
             }
     
@@ -3238,7 +3238,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 if ( isOptionEventSet( "onEventDoubleClick" ) ) {
                     event.ondblclick = function() {
-                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                        triggerOptionsEvent( "onEventDoubleClick", eventDetails );
                     };
                 }
             }
@@ -3651,7 +3651,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullMonthViewPinUpImageText() {
-        if ( !_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null && !triggerOptionsEventWithMultipleData( "onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate ) ) {
+        if ( !_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null && !triggerOptionsEvent( "onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate ) ) {
             var currentDate = new Date();
 
             if ( _element_View_FullMonth_PinUp_CurrentDate === null || !doDatesMatch( _element_View_FullMonth_PinUp_CurrentDate, currentDate ) ) {
@@ -4312,7 +4312,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         event.setAttribute( "event-id", eventDetails.id );
 
                         if ( !_options.useOnlyDotEventsForMainDisplay ) {
-                            if ( !triggerOptionsEventWithMultipleData( "onFullMonthEventRender", event, eventDetails ) ) {
+                            if ( !triggerOptionsEvent( "onFullMonthEventRender", event, eventDetails ) ) {
                                 var eventTitle = eventDetails.title,
                                     repeatEvery = getNumber( eventDetails.repeatEvery );
             
@@ -4363,7 +4363,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                         if ( isOptionEventSet( "onEventClick" ) ) {
                             event.addEventListener( "click", function() {
-                                triggerOptionsEventWithData( "onEventClick", eventDetails );
+                                triggerOptionsEvent( "onEventClick", eventDetails );
                             } );
                         }
             
@@ -4376,7 +4376,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                             if ( isOptionEventSet( "onEventDoubleClick" ) ) {
                                 event.ondblclick = function() {
-                                    triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                                    triggerOptionsEvent( "onEventDoubleClick", eventDetails );
                                 };
                             }
                         }
@@ -4478,7 +4478,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _calendar_IsBusy_LastState !== _calendar_IsBusy ) {
             _calendar_IsBusy_LastState = _calendar_IsBusy;
 
-            triggerOptionsEventWithData( "onBusyStateChange", _calendar_IsBusy );
+            triggerOptionsEvent( "onBusyStateChange", _calendar_IsBusy );
         }
     }
 
@@ -4914,7 +4914,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.setAttribute( "event-type", getNumber( eventDetails.type ) );
             event.setAttribute( "event-id", eventDetails.id );
 
-            if ( !triggerOptionsEventWithMultipleData( "onAllEventsEventRender", event, eventDetails ) ) {
+            if ( !triggerOptionsEvent( "onAllEventsEventRender", event, eventDetails ) ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
     
@@ -4975,7 +4975,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isOptionEventSet( "onEventClick" ) ) {
                 event.addEventListener( "click", function() {
-                    triggerOptionsEventWithData( "onEventClick", eventDetails );
+                    triggerOptionsEvent( "onEventClick", eventDetails );
                 } );
             }
     
@@ -4988,7 +4988,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 if ( isOptionEventSet( "onEventDoubleClick" ) ) {
                     event.ondblclick = function() {
-                        triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                        triggerOptionsEvent( "onEventDoubleClick", eventDetails );
                     };
                 }
             }
@@ -5359,7 +5359,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.setAttribute( "event-id", eventDetails.id );
         timelineRowItems.appendChild( event );
 
-        if ( !triggerOptionsEventWithMultipleData( "onTimelineEventRender", event, eventDetails ) ) {
+        if ( !triggerOptionsEvent( "onTimelineEventRender", event, eventDetails ) ) {
             var repeatEvery = getNumber( eventDetails.repeatEvery );
 
             if ( repeatEvery > _enum_RepeatType.never ) {
@@ -5389,7 +5389,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( isOptionEventSet( "onEventClick" ) ) {
             event.addEventListener( "click", function() {
-                triggerOptionsEventWithData( "onEventClick", eventDetails );
+                triggerOptionsEvent( "onEventClick", eventDetails );
             } );
         }
 
@@ -5402,7 +5402,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( isOptionEventSet( "onEventDoubleClick" ) ) {
                 event.ondblclick = function() {
-                    triggerOptionsEventWithData( "onEventDoubleClick", eventDetails );
+                    triggerOptionsEvent( "onEventDoubleClick", eventDetails );
                 };
             }
         }
@@ -5426,7 +5426,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildTimelineViewTitle() {
-        if ( !triggerOptionsEventWithData( "onTimelineTitleRender", _element_View_FullDay_DateSelected ) ) {
+        if ( !triggerOptionsEvent( "onTimelineTitleRender", _element_View_FullDay_DateSelected ) ) {
             buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true );
         }
     }
@@ -6001,7 +6001,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _options.visibleDays.splice( _options.visibleDays.indexOf( _element_ContextMenu_HeaderDay_SelectedDay ), 1 );
                 _initialized = false;
     
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                triggerOptionsEvent( "onOptionsUpdated", _options );
                 build( _calendar_CurrentDate, true, true );
             }, true );
     
@@ -6012,7 +6012,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options.visibleDays = [].slice.call( _options.workingDays );
                     _initialized = false;
         
-                    triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                    triggerOptionsEvent( "onOptionsUpdated", _options );
                     build( _calendar_CurrentDate, true, true );
                 }
             } );
@@ -6353,7 +6353,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues, originDayDate ) {
         if ( isFunction( _options.onBeforeEventAddEdit ) ) {
-            triggerOptionsEventWithData( "onBeforeEventAddEdit", eventDetails );
+            triggerOptionsEvent( "onBeforeEventAddEdit", eventDetails );
         } else {
             
             addNode( _parameter_Document.body, _element_Calendar_DisabledBackground );
@@ -7657,7 +7657,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options_Search.top = _element_Dialog_Search.offsetTop;
                 }
     
-                triggerOptionsEventWithData( "onSearchOptionsUpdated", _options_Search );
+                triggerOptionsEvent( "onSearchOptionsUpdated", _options_Search );
             }
         }, 2000, false );
     }
@@ -7882,7 +7882,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _initialized = false;
 
-        triggerOptionsEventWithData( "onOptionsUpdated", _options );
+        triggerOptionsEvent( "onOptionsUpdated", _options );
         checkForBrowserNotificationsPermission();
         hideConfigurationDialog();
         build( _calendar_CurrentDate, true, true );
@@ -7997,7 +7997,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         _element_Tooltip_Title.innerHTML = _string.empty;
                         _element_Tooltip_TotalTime.innerHTML = _string.empty;
 
-                        if ( !triggerOptionsEventWithMultipleData( "onToolTipEventRender", _element_Tooltip, eventDetails ) ) {
+                        if ( !triggerOptionsEvent( "onToolTipEventRender", _element_Tooltip, eventDetails ) ) {
                             _element_Tooltip.onmousemove = cancelBubble;
                             _element_Tooltip.appendChild( _element_Tooltip_TitleButtons );
                             _element_Tooltip.appendChild( _element_Tooltip_Title );
@@ -8230,7 +8230,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( updateDisplay ) {
                 _initialized = false;
     
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                triggerOptionsEvent( "onOptionsUpdated", _options );
                 build( _calendar_CurrentDate, true, true );
             }
         }
@@ -8642,7 +8642,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_View_Event_Dragged_EventDetails.to = addMinutesToDate( _element_View_Event_Dragged_EventDetails.to, differenceMinutes );
             
             storeEventsInLocalStorage();
-            triggerOptionsEventWithData( "onEventUpdated", _element_View_Event_Dragged_EventDetails );
+            triggerOptionsEvent( "onEventUpdated", _element_View_Event_Dragged_EventDetails );
             showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _element_View_Event_Dragged_EventDetails.title ) );
             refreshOpenedViews();
 
@@ -8686,7 +8686,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         eventSizeDetails.eventDetails.to = addMinutesToDate( eventSizeDetails.eventDetails.to, differenceMinutes );
                         eventsResized = true;
 
-                        triggerOptionsEventWithData( "onEventUpdated", eventSizeDetails.eventDetails );
+                        triggerOptionsEvent( "onEventUpdated", eventSizeDetails.eventDetails );
                         showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", eventSizeDetails.eventDetails.title ) );
                     }
                 }
@@ -8717,7 +8717,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function turnOnFullScreenMode() {
         if ( !_element_Calendar_FullScreenModeOn && _options.fullScreenModeEnabled ) {
             forceTurnOnFullScreenMode();
-            triggerOptionsEventWithData( "onFullScreenModeChanged", true );
+            triggerOptionsEvent( "onFullScreenModeChanged", true );
         }
     }
 
@@ -8729,7 +8729,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             updateFullScreenModeExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
             refreshOpenedViews();
-            triggerOptionsEventWithData( "onFullScreenModeChanged", false );
+            triggerOptionsEvent( "onFullScreenModeChanged", false );
         }
     }
 
@@ -9412,7 +9412,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.setAttribute( "draggable", true );
             
             event.ondragstart = function( e ) {
-                triggerOptionsEventWithData( "onEventDragStart", eventDetails );
+                triggerOptionsEvent( "onEventDragStart", eventDetails );
 
                 e.dataTransfer.setData( "event_details", JSON.stringify( eventDetails ) );
 
@@ -9435,7 +9435,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
 
             event.ondragend = function() {
-                triggerOptionsEventWithData( "onEventDragStop", _events_Dragged );
+                triggerOptionsEvent( "onEventDragStop", _events_Dragged );
 
                 _events_Dragged_DateFrom = null;
                 _events_Dragged = null;
@@ -9515,7 +9515,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var dropDate = new Date( year, month, day );
 
         if ( _events_Dragged !== null && !doDatesMatch( _events_Dragged_DateFrom, dropDate ) ) {
-            triggerOptionsEventWithMultipleData( "onEventDragDrop", _events_Dragged, dropDate );
+            triggerOptionsEvent( "onEventDragDrop", _events_Dragged, dropDate );
 
             if ( !isDefined( day ) ) {
                 var totalDaysInMonth = getTotalDaysInMonth( year, month );
@@ -9877,7 +9877,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 openEventUrl( url );
             }
 
-            triggerOptionsEventWithData( "onNotificationClicked", eventDetails );
+            triggerOptionsEvent( "onNotificationClicked", eventDetails );
         };
     }
 
@@ -9902,7 +9902,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( isDefined( eventDetails ) ) {
-                triggerOptionsEventWithData( "onNotification", eventDetails );
+                triggerOptionsEvent( "onNotification", eventDetails );
             }
         }
     }
@@ -10001,7 +10001,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _this.addEvent( newEvent, false, true );
 
             } else {
-                triggerOptionsEventWithData( "onEventUpdated", newEvent );
+                triggerOptionsEvent( "onEventUpdated", newEvent );
             }
         }
 
@@ -11153,7 +11153,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildFullMonthViewDayEvents();
             refreshOpenedViews();
             showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAddedOrUpdated.length ) );
-            triggerOptionsEventWithData( "onEventsImported", eventsAddedOrUpdated );
+            triggerOptionsEvent( "onEventsImported", eventsAddedOrUpdated );
         }
     }
 
@@ -11216,7 +11216,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showNotificationPopUp( _options.eventsExportedToText.replace( "{0}", filename ) );
             }
 
-            triggerOptionsEventWithData( "onEventsExported", contentsEvents );
+            triggerOptionsEvent( "onEventsExported", contentsEvents );
         }
     }
 
@@ -12035,30 +12035,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function triggerOptionsEvent( name ) {
-        var result = null;
+        var result = null,
+            newArguments = [].slice.call( arguments, 1 );
 
-        if ( _options !== null && isOptionEventSet( name ) ) {
-            result = _options[ name ]();
+        if ( newArguments.length > 0 ) {
+            result = false;
         }
-
-        return result;
-    }
-
-    function triggerOptionsEventWithData( name, data ) {
-        var result = false;
-
+        
         if ( _options !== null && isOptionEventSet( name ) ) {
-            result = _options[ name ]( data );
-        }
-
-        return result;
-    }
-
-    function triggerOptionsEventWithMultipleData( name, data1, data2 ) {
-        var result = false;
-
-        if ( _options !== null && isOptionEventSet( name ) ) {
-            result = _options[ name ]( data1, data2 );
+            result = _options[ name ].apply( null, newArguments );
         }
 
         return result;
@@ -12308,7 +12293,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( !doDatesMatch( _calendar_CurrentDate, newDate ) ) {
                 if ( newDate.getFullYear() >= _options.minimumYear && newDate.getFullYear() <= _options.maximumYear ) {
                     build( newDate );
-                    triggerOptionsEventWithData( "onSetDate", newDate );
+                    triggerOptionsEvent( "onSetDate", newDate );
                 }
             }
         }
@@ -12352,7 +12337,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     hideDatePickerMode();
                     updateDatePickerInputValueDisplay( newDate );
-                    triggerOptionsEventWithData( "onDatePickerDateChanged", newDate );
+                    triggerOptionsEvent( "onDatePickerDateChanged", newDate );
     
                     _calendar_CurrentDate_ForDatePicker = newDate;
                 }
@@ -12413,7 +12398,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( previousMonth.getFullYear() >= _options.minimumYear ) {
                 build( previousMonth );
-                triggerOptionsEventWithData( "onPreviousMonth", previousMonth );
+                triggerOptionsEvent( "onPreviousMonth", previousMonth );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12430,7 +12415,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( nextMonth.getFullYear() <= _options.maximumYear ) {
                 build( nextMonth );
-                triggerOptionsEventWithData( "onNextMonth", nextMonth );
+                triggerOptionsEvent( "onNextMonth", nextMonth );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12443,7 +12428,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( previousYear.getFullYear() >= _options.minimumYear ) {
                 build( previousYear );
-                triggerOptionsEventWithData( "onPreviousYear", previousYear );
+                triggerOptionsEvent( "onPreviousYear", previousYear );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12456,7 +12441,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( nextYear.getFullYear() <= _options.maximumYear ) {
                 build( nextYear );
-                triggerOptionsEventWithData( "onNextYear", nextYear );
+                triggerOptionsEvent( "onNextYear", nextYear );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12503,7 +12488,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             this.addEvents( events, updateEvents, false );
     
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onEventsSet", events );
+                triggerOptionsEvent( "onEventsSet", events );
             }
         }
 
@@ -12537,7 +12522,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onEventsSetFromJSON", json );
+                triggerOptionsEvent( "onEventsSetFromJSON", json );
             }
         }
 
@@ -12573,7 +12558,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             storeEventsInLocalStorage();
     
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onEventsAdded", events );
+                triggerOptionsEvent( "onEventsAdded", events );
             }
     
             if ( updateEvents ) {
@@ -12613,7 +12598,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onEventsAddedFromJSON", json );
+                triggerOptionsEvent( "onEventsAddedFromJSON", json );
             }
         }
 
@@ -12733,7 +12718,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     added = true;
     
                     if ( triggerEvent ) {
-                        triggerOptionsEventWithData( "onEventAdded", event );
+                        triggerOptionsEvent( "onEventAdded", event );
                     }
             
                     if ( updateEvents ) {
@@ -12776,7 +12761,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onEventsUpdated", events );
+                triggerOptionsEvent( "onEventsUpdated", events );
             }
     
             if ( updateEvents ) {
@@ -12820,7 +12805,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 storeEventsInLocalStorage();
     
                 if ( updated && triggerEvent ) {
-                    triggerOptionsEventWithData( "onEventUpdated", event );
+                    triggerOptionsEvent( "onEventUpdated", event );
                 }
             }
         }
@@ -12860,7 +12845,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     updated = true;
     
                     if ( triggerEvent ) {
-                        triggerOptionsEventWithData( "onEventUpdated", eventDetails );
+                        triggerOptionsEvent( "onEventUpdated", eventDetails );
                     }
     
                     if ( updateEvents ) {
@@ -12905,7 +12890,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     removed = true;
     
                     if ( triggerEvent ) {
-                        triggerOptionsEventWithData( "onEventRemoved", event );
+                        triggerOptionsEvent( "onEventRemoved", event );
                     }
     
                     if ( updateEvents ) {
@@ -13449,7 +13434,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
 
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                triggerOptionsEvent( "onOptionsUpdated", _options );
             }
 
             _initialized = false;
@@ -13489,7 +13474,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onSearchOptionsUpdated", _options_Search );
+                triggerOptionsEvent( "onSearchOptionsUpdated", _options_Search );
             }
         }
 
@@ -13518,7 +13503,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.holidays = _options.holidays.concat( holidays );
     
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                triggerOptionsEvent( "onOptionsUpdated", _options );
             }
     
             if ( updateEvents ) {
@@ -13563,7 +13548,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.holidays = holidaysRemaining;
 
             if ( triggerEvent ) {
-                triggerOptionsEventWithData( "onOptionsUpdated", _options );
+                triggerOptionsEvent( "onOptionsUpdated", _options );
             }
 
             if ( updateEvents ) {
