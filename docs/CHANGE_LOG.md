@@ -5,7 +5,6 @@
 - Added new CSS root variable "--spacing-shadow-size", which will allow you to change the shadow sizes.
 - The DatePicker mode will now show correctly when an input could force the DatePicker to appear off the height of the window (will now appear above the input).
 - Added a "View Full Day" button to the "Timeline" views title bar (which will the Full Day view on the date selected, if not already open).
-- 
 
 <br>
 
