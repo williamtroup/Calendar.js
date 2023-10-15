@@ -2,6 +2,7 @@
 
 ## Version 2.9.2:
 - Merged custom trigger internal functions into a single internal functions with proper argument passing.
+- Merged duplicate code for handling event custom triggers and general event assignments.
 - 
 
 <br>
