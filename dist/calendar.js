@@ -256,7 +256,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_element_SideMenu_Content_Section_Groups !== null) {
         var visibleGroups = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_Groups);
         if (!areArraysTheSame(_options_Configuration.visibleGroups, visibleGroups)) {
-          _options_Configuration.visibleGroups = visibleGroups;
+          _options_Configuration.visibleGroups = [].slice.call(visibleGroups);
           itemWasChanged = true;
           fireCustomTrigger("onVisibleGroupsChanged", _options_Configuration.visibleGroups);
         }
@@ -264,7 +264,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_element_SideMenu_Content_Section_EventTypes !== null) {
         var visibleEventTypes = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_EventTypes, true);
         if (!areArraysTheSame(_options_Configuration.visibleEventTypes, visibleEventTypes)) {
-          _options_Configuration.visibleEventTypes = visibleEventTypes;
+          _options_Configuration.visibleEventTypes = [].slice.call(visibleEventTypes);
           itemWasChanged = true;
           fireCustomTrigger("onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes);
         }
@@ -272,7 +272,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_element_SideMenu_Content_Section_Days !== null) {
         var visibleDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_Days, true);
         if (visibleDays.length >= 1 && !areArraysTheSame(_options.visibleDays, visibleDays)) {
-          _options.visibleDays = visibleDays;
+          _options.visibleDays = [].slice.call(visibleDays);
           _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
           fireOptionsCustomTrigger = true;
           itemWasChanged = true;
@@ -281,7 +281,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_element_SideMenu_Content_Section_WorkingDays !== null) {
         var workingDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WorkingDays, true);
         if (!areArraysTheSame(_options.workingDays, workingDays)) {
-          _options.workingDays = workingDays;
+          _options.workingDays = [].slice.call(workingDays);
           fireOptionsCustomTrigger = true;
           itemWasChanged = true;
         }
@@ -9077,8 +9077,11 @@ function calendarJs(elementOrId, options, searchOptions) {
           var location = getString(event.location);
           var group = getString(event.group);
           var url = getString(event.url);
-          if (isDefined(_options_Configuration.visibleGroups)) {
-            _options_Configuration.visibleGroups.push(getGroupName(group));
+          if (isDefined(_options_Configuration.visibleGroups) && !isCustomTriggerSet("onEventsFetch")) {
+            var groupName = getGroupName(group);
+            if (_options_Configuration.visibleGroups.indexOf(groupName) === -1) {
+              _options_Configuration.visibleGroups.push(groupName);
+            }
           }
           if (!isDefined(event.id)) {
             event.id = storageGuid;
