@@ -1,11 +1,10 @@
 # Calendar.js - Change Log:
 
 ## Version 2.9.2:
-- Merged custom trigger internal functions into a single internal functions with proper argument passing.
+- Merged custom trigger internal functions into a single internal function with proper argument passing.
 - Merged duplicate code for handling event custom triggers and general event assignments.
 - Fixed a fault that caused the notification text for "eventAddedText" option to show "undefined" when adding a new event.
 - Fixed a fault that prevented visible groups (set via the Side Menu) from working when the custom trigger "onEventsFetch" is set.
-- 
 
 <br>
 
