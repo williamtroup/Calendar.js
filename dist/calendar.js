@@ -251,14 +251,14 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function saveSideMenuSelections() {
     if (_element_SideMenu_Changed) {
-      var triggerOptionsEvent = false;
+      var fireOptionsCustomTrigger = false;
       var itemWasChanged = false;
       if (_element_SideMenu_Content_Section_Groups !== null) {
         var visibleGroups = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_Groups);
         if (!areArraysTheSame(_options_Configuration.visibleGroups, visibleGroups)) {
           _options_Configuration.visibleGroups = visibleGroups;
           itemWasChanged = true;
-          triggerOptionsEvent("onVisibleGroupsChanged", _options_Configuration.visibleGroups);
+          fireCustomTrigger("onVisibleGroupsChanged", _options_Configuration.visibleGroups);
         }
       }
       if (_element_SideMenu_Content_Section_EventTypes !== null) {
@@ -266,7 +266,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (!areArraysTheSame(_options_Configuration.visibleEventTypes, visibleEventTypes)) {
           _options_Configuration.visibleEventTypes = visibleEventTypes;
           itemWasChanged = true;
-          triggerOptionsEvent("onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes);
+          fireCustomTrigger("onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes);
         }
       }
       if (_element_SideMenu_Content_Section_Days !== null) {
@@ -274,7 +274,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (visibleDays.length >= 1 && !areArraysTheSame(_options.visibleDays, visibleDays)) {
           _options.visibleDays = visibleDays;
           _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
-          triggerOptionsEvent = true;
+          fireOptionsCustomTrigger = true;
           itemWasChanged = true;
         }
       }
@@ -282,7 +282,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         var workingDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WorkingDays, true);
         if (!areArraysTheSame(_options.workingDays, workingDays)) {
           _options.workingDays = workingDays;
-          triggerOptionsEvent = true;
+          fireOptionsCustomTrigger = true;
           itemWasChanged = true;
         }
       }
@@ -290,13 +290,13 @@ function calendarJs(elementOrId, options, searchOptions) {
         var weekendDays = getSideMenuCheckedCheckBoxNames(_element_SideMenu_Content_Section_WeekendDays, true);
         if (!areArraysTheSame(_options.weekendDays, weekendDays)) {
           _options.weekendDays = weekendDays;
-          triggerOptionsEvent = true;
+          fireOptionsCustomTrigger = true;
           itemWasChanged = true;
         }
       }
       if (itemWasChanged) {
-        if (triggerOptionsEvent) {
-          triggerOptionsEvent("onOptionsUpdated", _options);
+        if (fireOptionsCustomTrigger) {
+          fireCustomTrigger("onOptionsUpdated", _options);
         }
         _initialized = false;
         build(_calendar_CurrentDate, true, true);
