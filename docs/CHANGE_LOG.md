@@ -1,10 +1,19 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.2:
+- Merged custom trigger internal functions into a single internal function with proper argument passing.
+- Merged duplicate code for handling event custom triggers and general event assignments.
+- Fixed a fault that caused the notification text for "eventAddedText" option to show "undefined" when adding a new event.
+- Fixed a fault that prevented visible groups (set via the Side Menu) from working when the custom trigger "onEventsFetch" is set.
+
+<br>
+
+
 ## Version 2.9.1:
-- OK, sorry about this ... fixed a major rendering issues in CUSTOM_TRIGGERS.md.
+- OK, sorry about this ... fixed a major rendering issue in CUSTOM_TRIGGERS.md.
 - Added new CSS root variable "--spacing-shadow-size", which will allow you to change the shadow sizes.
 - The DatePicker mode will now show correctly when an input could force the DatePicker to appear off the height of the window (will now appear above the input).
-- Added a "View Full Day" button to the "Timeline" views title bar (which will the Full Day view on the date selected, if not already open).
+- Added a "View Full Day" button to the "Timeline" views title bar (which will show the Full Day view on the date selected, if not already open).
 
 <br>
 
