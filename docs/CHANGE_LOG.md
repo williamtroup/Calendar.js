@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.3:
+- 
+
+<br>
+
+
 ## Version 2.9.2:
 - Merged custom trigger internal functions into a single internal function with proper argument passing.
 - Merged duplicate code for handling event custom triggers and general event assignments.
