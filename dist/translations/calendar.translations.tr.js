@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "İsteğe bağlı",
     "urlText": "URL:",
     "openUrlText": "Link aç",
-    "enableDayNameHeadersInMainDisplayText": "Ana ekranda gün adı başlıklarını etkinleştirin",
+    "enableDayNameHeadersText": "Gün adı başlıklarını etkinleştir",
     "thisWeekTooltipText": "Bu hafta",
     "dailyText": "Günlük",
     "weeklyText": "Haftalık",

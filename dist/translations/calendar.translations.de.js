@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
   "optionalText": "Optional",
   "urlText": "URL:",
   "openUrlText": "Öffne URL",
-  "enableDayNameHeadersInMainDisplayText": "Aktivieren Sie Tagesnamen-Kopfzeilen in der Hauptanzeige",
+  "enableDayNameHeadersText": "Tagesnamen-Header aktivieren",
   "thisWeekTooltipText": "Diese Woche",
   "dailyText": "Täglich",
   "weeklyText": "Wöchentlich",

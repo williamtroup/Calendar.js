@@ -1422,6 +1422,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var wasAddedAlready = _element_View_FullWeek !== null;
       if (wasAddedAlready) {
         _element_View_FullWeek.innerHTML = _string.empty;
+        _element_View_FullWeek_Contents_DayNamesHeader = null;
       }
       if (!wasAddedAlready) {
         _element_View_FullWeek = createElement("div", "full-week-view");
@@ -1472,8 +1473,10 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildFullWeekViewLayout() {
     var dayNamesHeaderContainer = createElement("div", "header-days-container");
     _element_View_FullWeek_Contents.appendChild(dayNamesHeaderContainer);
-    _element_View_FullWeek_Contents_DayNamesHeader = createElement("div", "row-cells header-days");
-    dayNamesHeaderContainer.appendChild(_element_View_FullWeek_Contents_DayNamesHeader);
+    if (_options.showDayNamesHeaders) {
+      _element_View_FullWeek_Contents_DayNamesHeader = createElement("div", "row-cells header-days");
+      dayNamesHeaderContainer.appendChild(_element_View_FullWeek_Contents_DayNamesHeader);
+    }
     _element_View_FullWeek_Contents_AllDayEvents = createElement("div", "content-events-all-day");
     _element_View_FullWeek_Contents.appendChild(_element_View_FullWeek_Contents_AllDayEvents);
     _element_View_FullWeek_Contents_Days_AllDay = createElement("div", "row-cells days");
@@ -1727,19 +1730,21 @@ function calendarJs(elementOrId, options, searchOptions) {
     return added;
   }
   function buildFullWeekViewDayNameHeaderDates(weekStartDate, weekEndDate) {
-    var fromDate = new Date(weekStartDate);
-    var childrenIndex = 0;
-    var children = _element_View_FullWeek_Contents_DayNamesHeader.children;
-    for (; fromDate < weekEndDate;) {
-      var weekDayNumber = getWeekdayNumber(fromDate);
-      if (_options.visibleDays.indexOf(weekDayNumber) > -1) {
-        children[childrenIndex].innerHTML += _string.space + fromDate.getDate() + "/" + (fromDate.getMonth() + 1);
-        childrenIndex++;
+    if (_element_View_FullWeek_Contents_DayNamesHeader !== null) {
+      var fromDate = new Date(weekStartDate);
+      var childrenIndex = 0;
+      var children = _element_View_FullWeek_Contents_DayNamesHeader.children;
+      for (; fromDate < weekEndDate;) {
+        var weekDayNumber = getWeekdayNumber(fromDate);
+        if (_options.visibleDays.indexOf(weekDayNumber) > -1) {
+          children[childrenIndex].innerHTML += _string.space + fromDate.getDate() + "/" + (fromDate.getMonth() + 1);
+          childrenIndex++;
+        }
+        fromDate.setDate(fromDate.getDate() + 1);
       }
-      fromDate.setDate(fromDate.getDate() + 1);
-    }
-    if (_options.reverseOrderDaysOfWeek) {
-      reverseElementsOrder(_element_View_FullWeek_Contents_DayNamesHeader);
+      if (_options.reverseOrderDaysOfWeek) {
+        reverseElementsOrder(_element_View_FullWeek_Contents_DayNamesHeader);
+      }
     }
   }
   function showFullWeekView(weekDate, fromOpen) {
@@ -2056,7 +2061,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullMonthViewDayNamesHeader() {
     var wasAddedAlready = _element_View_FullMonth_DayNamesHeader !== null;
-    if (_options.showDayNamesInMainDisplay) {
+    if (_options.showDayNamesHeaders) {
       if (wasAddedAlready) {
         _element_View_FullMonth_DayNamesHeader.innerHTML = _string.empty;
       }
@@ -5118,7 +5123,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_Dialog_Configuration_Display_EnableBrowserNotifications = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in")[0];
       _element_Dialog_Configuration_Display_EnableTooltips = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down")[0];
       _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDragAndDropForEventText)[0];
-      _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDayNameHeadersInMainDisplayText)[0];
+      _element_Dialog_Configuration_Display_EnableDayNamesHeaders = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDayNameHeadersText)[0];
       _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = buildCheckBox(_element_Dialog_Configuration_Display, _options.showHolidaysInTheDisplaysText)[0];
       createTextHeaderElement(_element_Dialog_Configuration_Organizer, _options.organizerNameText);
       _element_Dialog_Configuration_Organizer_Name = createElement("input", null, "text");
@@ -5141,7 +5146,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.eventNotificationsEnabled = _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked;
     _options.tooltipsEnabled = _element_Dialog_Configuration_Display_EnableTooltips.checked;
     _options.dragAndDropForEventsEnabled = _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked;
-    _options.showDayNamesInMainDisplay = _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked;
+    _options.showDayNamesHeaders = _element_Dialog_Configuration_Display_EnableDayNamesHeaders.checked;
     _options.showHolidays = _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked;
     _options.organizerName = _element_Dialog_Configuration_Organizer_Name.value;
     _options.organizerEmailAddress = _element_Dialog_Configuration_Organizer_Email.value;
@@ -5161,7 +5166,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
     _element_Dialog_Configuration_Display_EnableTooltips.checked = _options.tooltipsEnabled;
     _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
-    _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
+    _element_Dialog_Configuration_Display_EnableDayNamesHeaders.checked = _options.showDayNamesHeaders;
     _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
     _element_Dialog_Configuration_Organizer_Name.value = _options.organizerName;
     _element_Dialog_Configuration_Organizer_Email.value = _options.organizerEmailAddress;
@@ -5344,17 +5349,19 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Notification.style.display = "none";
   }
   function buildViewDayNamesHeader(container, reverseHeaders) {
-    reverseHeaders = isDefined(reverseHeaders) ? reverseHeaders : true;
-    var headerNamesLength = _options.dayHeaderNames.length;
-    container.innerHTML = _string.empty;
-    if (_options.startOfWeekDay === _enum_Day.saturday || _options.startOfWeekDay === _enum_Day.sunday) {
-      buildViewDayNamesHeaderSection(container, _options.startOfWeekDay, headerNamesLength);
-      buildViewDayNamesHeaderSection(container, 0, _options.startOfWeekDay);
-    } else {
-      buildViewDayNamesHeaderSection(container, 0, headerNamesLength);
-    }
-    if (_options.reverseOrderDaysOfWeek && reverseHeaders) {
-      reverseElementsOrder(container);
+    if (container !== null) {
+      reverseHeaders = isDefined(reverseHeaders) ? reverseHeaders : true;
+      var headerNamesLength = _options.dayHeaderNames.length;
+      container.innerHTML = _string.empty;
+      if (_options.startOfWeekDay === _enum_Day.saturday || _options.startOfWeekDay === _enum_Day.sunday) {
+        buildViewDayNamesHeaderSection(container, _options.startOfWeekDay, headerNamesLength);
+        buildViewDayNamesHeaderSection(container, 0, _options.startOfWeekDay);
+      } else {
+        buildViewDayNamesHeaderSection(container, 0, headerNamesLength);
+      }
+      if (_options.reverseOrderDaysOfWeek && reverseHeaders) {
+        reverseElementsOrder(container);
+      }
     }
   }
   function buildViewDayNamesHeaderSection(container, startIndex, endIndex) {
@@ -8291,7 +8298,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.maximumEventGroupLength = getDefaultNumber(_options.maximumEventGroupLength, 0);
     _options.eventNotificationsEnabled = getDefaultBoolean(_options.eventNotificationsEnabled, false);
     _options.showPreviousNextMonthNamesInMainDisplay = getDefaultBoolean(_options.showPreviousNextMonthNamesInMainDisplay, true);
-    _options.showDayNamesInMainDisplay = getDefaultBoolean(_options.showDayNamesInMainDisplay, true);
+    _options.showDayNamesHeaders = getDefaultBoolean(_options.showDayNamesHeaders, true);
     _options.tooltipsEnabled = getDefaultBoolean(_options.tooltipsEnabled, true);
     _options.useOnlyDotEventsForMainDisplay = getDefaultBoolean(_options.useOnlyDotEventsForMainDisplay, false);
     _options.urlWindowTarget = getDefaultString(_options.urlWindowTarget, "_blank");
@@ -8501,7 +8508,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.optionalText = getDefaultString(_options.optionalText, "Optional");
     _options.urlText = getDefaultString(_options.urlText, "Url:");
     _options.openUrlText = getDefaultString(_options.openUrlText, "Open Url");
-    _options.enableDayNameHeadersInMainDisplayText = getDefaultString(_options.enableDayNameHeadersInMainDisplayText, "Enable day name headers in the main display");
+    _options.enableDayNameHeadersText = getDefaultString(_options.enableDayNameHeadersText, "Enable day name headers");
     _options.thisWeekTooltipText = getDefaultString(_options.thisWeekTooltipText, "This Week");
     _options.dailyText = getDefaultString(_options.dailyText, "Daily");
     _options.weeklyText = getDefaultString(_options.weeklyText, "Weekly");
@@ -8864,7 +8871,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_Dialog_Configuration_Display_EnableBrowserNotifications = null;
   var _element_Dialog_Configuration_Display_EnableTooltips = null;
   var _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = null;
-  var _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = null;
+  var _element_Dialog_Configuration_Display_EnableDayNamesHeaders = null;
   var _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = null;
   var _element_Dialog_Configuration_Organizer_Name = null;
   var _element_Dialog_Configuration_Organizer_Email = null;

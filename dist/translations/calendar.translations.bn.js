@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "ঐচ্ছিক",
     "urlText": "ইউআরএল:",
     "openUrlText": "ইউআরএল খুলুন",
-    "enableDayNameHeadersInMainDisplayText": "প্রধান প্রদর্শনে দিনের নামের শিরোনামগুলি সক্ষম করুন৷",
+    "enableDayNameHeadersText": "দিনের নামের শিরোনাম সক্রিয় করুন",
     "thisWeekTooltipText": "এই সপ্তাহ",
     "dailyText": "দৈনিক",
     "weeklyText": "সাপ্তাহিক",

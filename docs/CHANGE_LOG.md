@@ -3,6 +3,9 @@
 ## Version 2.9.4:
 - Added a new event context menu item called "Share", which will allow events selected to be share using any supported apps (shares a text file containing JSON).
 - Fixed a fault that caused the Side Menu title bar buttons to remain visible when settings are disabled via the "setOptions()" public function.
+- Renamed the setting "enableDayNameHeadersInMainDisplayText" to "enableDayNameHeadersText" and changed default text;
+- Renamed the setting "showDayNamesInMainDisplay" to "showDayNamesHeaders".
+- The renamed setting "showDayNamesHeaders" now applies to the header on the Full Month view, and the Full Week view.
 - 
 
 <br>

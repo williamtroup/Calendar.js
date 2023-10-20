@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
   "optionalText": "Opcjonalny",
   "urlText": "Adres URL:",
   "openUrlText": "Otwórz URL",
-  "enableDayNameHeadersInMainDisplayText": "Włącz nagłówki nazw dni na głównym wyświetlaczu",
+  "enableDayNameHeadersText": "Włącz nagłówki nazw dni",
   "thisWeekTooltipText": "W tym tygodniu",
   "dailyText": "Codziennie",
   "weeklyText": "Co tydzień",

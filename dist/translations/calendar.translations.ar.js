@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "خياري",
     "urlText": "عنوان URL:",
     "openUrlText": "رابط مفتوح",
-    "enableDayNameHeadersInMainDisplayText": "تمكين رؤوس اسم اليوم في الشاشة الرئيسية",
+    "enableDayNameHeadersText": "تمكين رؤوس اسم اليوم",
     "thisWeekTooltipText": "هذا الاسبوع",
     "dailyText": "يوميًا",
     "weeklyText": "أسبوعي",

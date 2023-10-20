@@ -31,7 +31,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
 | *boolean* | eventNotificationsEnabled | States if notifications should be shown for events (defaults to false). |
 | *boolean* | showPreviousNextMonthNamesInMainDisplay | States if the previous/next month names should be shown in the main display days (defaults to true). |
-| *boolean* | showDayNamesInMainDisplay | States if the day names header should be shown in the main display (defaults to true). |
+| *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
 | *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
 | *number[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
@@ -208,7 +208,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | optionalText | The text that should be displayed for the "Optional" label. |
 | *string* | urlText | The text that should be displayed for the "Url:" label. |
 | *string* | openUrlText | The text that should be displayed for the "Open Url" label. |
-| *string* | enableDayNameHeadersInMainDisplayText | The text that should be displayed for the "Enable day name headers in the main display" label. |
+| *string* | enableDayNameHeadersText | The text that should be displayed for the "Enable day name headers" label. |
 | *string* | thisWeekTooltipText | The tooltip text that should be used for the "This Week" button. |
 | *string* | dailyText | The text that should be displayed for the "Daily" label. |
 | *string* | weeklyText | The text that should be displayed for the "Weekly" label. |
