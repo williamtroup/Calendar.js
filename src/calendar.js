@@ -390,6 +390,7 @@
  * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
  * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
  * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
+ * @property    {string}    timelineViewDefaultAxis                     States the default axis the timeline view should use (defaults to "group").
  */
 
 
@@ -718,7 +719,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
-        _element_View_Timeline_Selected_Axis = "group",
+        _element_View_Timeline_Selected_Axis = null,
         _element_View_Timeline_Selected_Axis_Supported = [
             "location",
             "organizerName",
@@ -5075,6 +5076,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( wasAddedAlready ) {
                 _element_View_Timeline.innerHTML = _string.empty;
+            }
+
+            if ( _element_View_Timeline_Selected_Axis === null ) {
+                _element_View_Timeline_Selected_Axis = _options.timelineViewDefaultAxis;
             }
 
             if ( !wasAddedAlready ) {
@@ -13599,6 +13604,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
         _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
         _options.minutesBetweenSectionsInViews = getDefaultNumber( _options.minutesBetweenSectionsInViews, 30 );
+        _options.timelineViewDefaultAxis = getDefaultString( _options.timelineViewDefaultAxis, "group" );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

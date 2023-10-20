@@ -81,6 +81,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 | *number* | minutesBetweenSectionsInViews | States the number of minutes that should be used between headers/rows in all views (defaults to 30). |
+| *string* | timelineViewDefaultAxis | States the default axis the timeline view should use (defaults to "group"). |
 <br/>
 
 ### Translatable String Options:

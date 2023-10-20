@@ -3128,6 +3128,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (wasAddedAlready) {
         _element_View_Timeline.innerHTML = _string.empty;
       }
+      if (_element_View_Timeline_Selected_Axis === null) {
+        _element_View_Timeline_Selected_Axis = _options.timelineViewDefaultAxis;
+      }
       if (!wasAddedAlready) {
         _element_View_Timeline = createElement("div", "timeline-view");
         _element_View_Timeline.id = newGuid();
@@ -8309,6 +8312,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.isPinUpViewEnabled = getDefaultBoolean(_options.isPinUpViewEnabled, false);
     _options.pinUpViewImageUrls = getDefaultArray(_options.pinUpViewImageUrls, []);
     _options.minutesBetweenSectionsInViews = getDefaultNumber(_options.minutesBetweenSectionsInViews, 30);
+    _options.timelineViewDefaultAxis = getDefaultString(_options.timelineViewDefaultAxis, "group");
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
@@ -8721,7 +8725,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_Timeline_EventsShown = [];
   var _element_View_Timeline_DateSelected = null;
   var _element_View_Timeline_TitleBar = null;
-  var _element_View_Timeline_Selected_Axis = "group";
+  var _element_View_Timeline_Selected_Axis = null;
   var _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group"];
   var _element_Dialog_AllOpened = [];
   var _element_Dialog_Move = null;
