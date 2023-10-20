@@ -13598,7 +13598,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.isWidget = getDefaultBoolean( _options.isWidget, false );
         _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
         _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
-        _options.minuteGapInViews = getDefaultNumber( _options.minuteGapInViews, 10 );
+        _options.minuteGapInViews = getDefaultNumber( _options.minuteGapInViews, 30 );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
