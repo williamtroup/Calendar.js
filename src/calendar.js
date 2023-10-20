@@ -389,7 +389,7 @@
  * @property    {boolean}   isWidget                                    States if the new calendar instance is only a widget (defaults to false).
  * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
  * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
- * @property    {number}    minuteGapInViews                            States the number of minutes that should be used between headers/rows in all views (defaults to 30).
+ * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
  */
 
 
@@ -5159,7 +5159,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView );
 
-        var loopDateMinutesIncrease = _options.minuteGapInViews,
+        var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
             loopDateToday = new Date(),
             loopDate = new Date(),
             offsetLeft = 0,
@@ -5234,7 +5234,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     timelineRowItems = createElement( "div", "timeline-row-items" );
                     timelineRow.appendChild( timelineRowItems );
 
-                    var loopDateMinutesIncrease = _options.minuteGapInViews,
+                    var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
                         loopDateToday = new Date(),
                         loopDate = new Date();
                         
@@ -8236,7 +8236,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildHoursForTimeBasedView( container ) {
-        var loopDateMinutesIncrease = _options.minuteGapInViews,
+        var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
             loopDateToday = new Date(),
             loopDate = new Date();
 
@@ -13598,7 +13598,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.isWidget = getDefaultBoolean( _options.isWidget, false );
         _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
         _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
-        _options.minuteGapInViews = getDefaultNumber( _options.minuteGapInViews, 30 );
+        _options.minutesBetweenSectionsInViews = getDefaultNumber( _options.minutesBetweenSectionsInViews, 30 );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

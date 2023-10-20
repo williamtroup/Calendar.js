@@ -3187,7 +3187,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     groupHeader.innerHTML = getTimelineViewAxisSelectedText();
     _element_View_Timeline_Contents_Header.appendChild(groupHeader);
     buildToolbarButton(groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView);
-    var loopDateMinutesIncrease = _options.minuteGapInViews;
+    var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
     var loopDateToday = new Date();
     var loopDate = new Date();
     var offsetLeft = 0;
@@ -3243,7 +3243,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           timelineRow.appendChild(axisNameRowName);
           timelineRowItems = createElement("div", "timeline-row-items");
           timelineRow.appendChild(timelineRowItems);
-          var loopDateMinutesIncrease = _options.minuteGapInViews;
+          var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
           var loopDateToday = new Date();
           var loopDate = new Date();
           loopDate.setHours(0, 0, 0, 0);
@@ -5443,7 +5443,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildHoursForTimeBasedView(container) {
-    var loopDateMinutesIncrease = _options.minuteGapInViews;
+    var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
     var loopDateToday = new Date();
     var loopDate = new Date();
     loopDate.setHours(0, 0, 0, 0);
@@ -8308,7 +8308,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.isWidget = getDefaultBoolean(_options.isWidget, false);
     _options.isPinUpViewEnabled = getDefaultBoolean(_options.isPinUpViewEnabled, false);
     _options.pinUpViewImageUrls = getDefaultArray(_options.pinUpViewImageUrls, []);
-    _options.minuteGapInViews = getDefaultNumber(_options.minuteGapInViews, 30);
+    _options.minutesBetweenSectionsInViews = getDefaultNumber(_options.minutesBetweenSectionsInViews, 30);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
