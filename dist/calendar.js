@@ -116,35 +116,40 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildSideMenu() {
-    if (!_element_Mode_DatePicker_Enabled && _element_SideMenu === null) {
+    if (!_element_Mode_DatePicker_Enabled) {
       buildSideMenuDisabledBackground();
       buildFullSideMenu();
     }
   }
   function buildSideMenuDisabledBackground() {
-    _element_SideMenu_DisabledBackground = createElement("div", "side-menu-disabled-background");
-    _element_SideMenu_DisabledBackground.onclick = hideSideMenu;
-    _element_Calendar.appendChild(_element_SideMenu_DisabledBackground);
+    if (_element_SideMenu_DisabledBackground === null) {
+      _element_SideMenu_DisabledBackground = createElement("div", "side-menu-disabled-background");
+      _element_SideMenu_DisabledBackground.onclick = hideSideMenu;
+      _element_Calendar.appendChild(_element_SideMenu_DisabledBackground);
+    }
   }
   function buildFullSideMenu() {
-    _element_SideMenu = createElement("div", "side-menu custom-scroll-bars");
-    _element_SideMenu.onclick = cancelBubble;
-    _element_Calendar.appendChild(_element_SideMenu);
-    var header = createElement("div", "main-header");
-    _element_SideMenu.appendChild(header);
-    createTextHeaderElement(header, _options.sideMenuHeaderText);
-    buildToolbarButton(header, "ib-close", _options.closeTooltipText, hideSideMenu);
+    if (!_initialized_FirstTime) {
+      _element_SideMenu = createElement("div", "side-menu custom-scroll-bars");
+      _element_SideMenu.onclick = cancelBubble;
+      _element_Calendar.appendChild(_element_SideMenu);
+      _element_SideMenu_Header = createElement("div", "main-header");
+      _element_SideMenu.appendChild(_element_SideMenu_Header);
+    }
+    _element_SideMenu_Header.innerHTML = _string.empty;
+    createTextHeaderElement(_element_SideMenu_Header, _options.sideMenuHeaderText);
+    buildToolbarButton(_element_SideMenu_Header, "ib-close", _options.closeTooltipText, hideSideMenu);
     if (_options.configurationDialogEnabled || _options.exportEventsEnabled || _options.importEventsEnabled && _options.manualEditingEnabled) {
-      header.appendChild(createElement("div", "right-divider-line"));
+      _element_SideMenu_Header.appendChild(createElement("div", "right-divider-line"));
     }
     if (_options.configurationDialogEnabled) {
-      buildToolbarButton(header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
+      buildToolbarButton(_element_SideMenu_Header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
         hideSideMenu();
         showConfigurationDialog();
       });
     }
     if (_options.exportEventsEnabled) {
-      _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton(header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
+      _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton(_element_SideMenu_Header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
         var viewOpen = getActiveView();
         if (viewOpen === null) {
           showExportEventsDialog(_element_View_FullMonth_EventsShown);
@@ -162,10 +167,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       });
     }
     if (_options.importEventsEnabled && _options.manualEditingEnabled) {
-      buildToolbarButton(header, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
+      buildToolbarButton(_element_SideMenu_Header, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
     }
-    _element_SideMenu_Content = createElement("div", "content");
-    _element_SideMenu.appendChild(_element_SideMenu_Content);
+    if (!_initialized_FirstTime) {
+      _element_SideMenu_Content = createElement("div", "content");
+      _element_SideMenu.appendChild(_element_SideMenu_Content);
+    }
   }
   function buildSideMenuContent(openDays) {
     var isDaysOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Days_Content) || openDays === true;
@@ -3597,7 +3604,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         showExportEventsDialog(_events_Selected);
       });
     }
-    if (_parameter_Navigator.share) {
+    if (_options.exportEventsEnabled && _parameter_Navigator.share) {
       buildContextMenuSeparator(_element_ContextMenu_Event);
       _element_ContextMenu_Event_ShareEvents = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-arrow-up-full-line-share-icon", _options.shareText + "...", function() {
         exportEventsForSharing(_events_Selected.length > 0 ? _events_Selected : [_element_ContextMenu_Event_EventDetails]);
@@ -8640,6 +8647,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _timer_AutoRefresh_Enabled = true;
   var _timer_Name = {windowResize:"WindowResize", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"};
   var _element_SideMenu = null;
+  var _element_SideMenu_Header = null;
   var _element_SideMenu_Changed = false;
   var _element_SideMenu_TitleBar_ExportEventsButton = null;
   var _element_SideMenu_Content = null;
