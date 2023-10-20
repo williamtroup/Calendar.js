@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.9.3:
+- Added new setting "minuteGapInViews" (defaults to 30), which states the minutes that should be used between headers/rows in all views for time displays.
 - 
 
 <br>

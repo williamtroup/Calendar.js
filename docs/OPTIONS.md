@@ -80,6 +80,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
 | *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
+| *number* | minuteGapInViews | States the number of minutes that should be used between headers/rows in all views (defaults to 30). |
 <br/>
 
 ### Translatable String Options:
