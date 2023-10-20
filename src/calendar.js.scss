@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.9.2
+ * Calendar.js Library v2.9.3
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -1683,21 +1683,13 @@ div.calendar {
             }
 
             div.timeline-header {
-                border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+                display: inline-block;
                 position: sticky;
+                border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
                 top: 0;
                 background-color: var(--day-names-color);
                 vertical-align: top;
-                overflow: hidden;
                 z-index: 10;
-
-                @media screen and ( min-width: $minimum-width ) {
-                    width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
-                }
-                
-                @media screen and ( max-width: $maximum-width ) {
-                    width: calc( 49 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
-                }
                 
                 div.timeline-header-item {
                     display: inline-block;
@@ -1729,28 +1721,18 @@ div.calendar {
             }
 
             div.timeline-row {
+                float: left;
+                clear: both;
                 position: relative;
                 border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
-                vertical-align: top;
-                overflow: hidden;
-                vertical-align: top;
 
-                @media screen and ( min-width: $minimum-width ) {
-                    width: calc( 49 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
-                }
-                
-                @media screen and ( max-width: $maximum-width ) {
-                    width: calc( 49 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
-                }
-
-                div.timeline-row-item {
+                div.timeline-row-item,
+                div.timeline-row-item-spacing {
                     display: inline-block;
                     padding: var(--spacing);
                     padding-top: calc( ( var(--spacing) * 2 ) );
                     padding-bottom: calc( ( var(--spacing) * 2 ) );
                     text-align: left;
-                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
-                    background-color: var(--dark-color);
                     color: var(--light-color);
                     text-overflow: ellipsis;
                     overflow: hidden;
@@ -1769,6 +1751,11 @@ div.calendar {
                     }
                 }
 
+                div.timeline-row-item {
+                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
+                    background-color: var(--dark-color);
+                }
+
                 div.timeline-row-item-odd {
                     background-color: var(--light-color);
                     color: var(--dark-color);
@@ -1779,16 +1766,9 @@ div.calendar {
                     vertical-align: top;
                     position: relative;
 
-                    @media screen and ( min-width: $minimum-width ) {
-                        width: calc( 48 * ( var(--time-view-timeline-section-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
-                        padding-top: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
-                        padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--large-font-size) / 2 ) );
-                    }
-                    
-                    @media screen and ( max-width: $maximum-width ) {
-                        width: calc( 48 * ( var(--time-view-timeline-section-width-small) + ( var(--spacing) * 2 ) + var(--spacing-border-size) ) );
-                        padding-top: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
-                        padding-bottom: calc( ( var(--spacing) * 2 ) + ( var(--small-font-size) / 2 ) );
+                    div.timeline-row-item-spacing {
+                        background-color: transparent !important;
+                        border-right: var(--spacing-border-size) solid transparent !important;
                     }
 
                     @import "foundation/view-event";

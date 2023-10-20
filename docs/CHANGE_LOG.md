@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.3:
+- Added a new setting "minutesBetweenSectionsInViews" (defaults to 30), which states the minutes that should be used between headers/rows in all views for time displays.
+- Added a new setting "timelineViewDefaultAxis" (defaults to "group"), which states the default axis the Timeline view should use.
+- Updated SHARE.sh to use Python 3 for running a simple HTTP Server.
+
+<br>
+
+
 ## Version 2.9.2:
 - Merged custom trigger internal functions into a single internal function with proper argument passing.
 - Merged duplicate code for handling event custom triggers and general event assignments.

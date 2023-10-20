@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.9.2
+ * @version     v2.9.3
  * @author      Bunoon
  * @license     GNU AGPLv3
  * @copyright   Bunoon 2023
@@ -389,6 +389,8 @@
  * @property    {boolean}   isWidget                                    States if the new calendar instance is only a widget (defaults to false).
  * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
  * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
+ * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
+ * @property    {string}    timelineViewDefaultAxis                     States the default axis the timeline view should use (defaults to "group").
  */
 
 
@@ -717,7 +719,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_EventsShown = [],
         _element_View_Timeline_DateSelected = null,
         _element_View_Timeline_TitleBar = null,
-        _element_View_Timeline_Selected_Axis = "group",
+        _element_View_Timeline_Selected_Axis = null,
         _element_View_Timeline_Selected_Axis_Supported = [
             "location",
             "organizerName",
@@ -5076,6 +5078,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _element_View_Timeline.innerHTML = _string.empty;
             }
 
+            if ( _element_View_Timeline_Selected_Axis === null ) {
+                _element_View_Timeline_Selected_Axis = _options.timelineViewDefaultAxis;
+            }
+
             if ( !wasAddedAlready ) {
                 _element_View_Timeline = createElement( "div", "timeline-view" );
                 _element_View_Timeline.id = newGuid();
@@ -5158,23 +5164,30 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView );
 
-        var offsetLeft = 0,
+        var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
+            loopDateToday = new Date(),
+            loopDate = new Date(),
+            offsetLeft = 0,
             actualWidth = 0;
         
-        for ( var hour = 0; hour < 24; hour++ ) {
-            var firstDate = new Date(),
-                secondDate = new Date();
-
-            firstDate.setHours( hour, 0, 0, 0 );
-            secondDate.setHours( hour, 30, 0, 0 );
-
-            var newHour1Header = createElement( "div", "timeline-header-item" );
-            newHour1Header.innerText = getTimeForDisplay( firstDate );
-            _element_View_Timeline_Contents_Header.appendChild( newHour1Header );
-
-            var newHour2Header = createElement( "div", "timeline-header-item" );
-            newHour2Header.innerText = getTimeForDisplay( secondDate );
-            _element_View_Timeline_Contents_Header.appendChild( newHour2Header );
+        loopDate.setHours( 0, 0, 0, 0 );
+        
+        if ( 60 % loopDateMinutesIncrease !== 0 ) {
+            loopDateMinutesIncrease = 30;
+        }
+        
+        while( doDatesMatch( loopDate, loopDateToday ) ) {
+            var headerItem1 = createElement( "div", "timeline-header-item" );
+            headerItem1.innerText = getTimeForDisplay( new Date( loopDate ) );
+            _element_View_Timeline_Contents_Header.appendChild( headerItem1 );
+            
+            loopDate = addMinutesToDate( loopDate, loopDateMinutesIncrease );
+            
+            var headerItem2 = createElement( "div", "timeline-header-item" );
+            headerItem2.innerText = getTimeForDisplay( new Date( loopDate ) );
+            _element_View_Timeline_Contents_Header.appendChild( headerItem2 );
+            
+            loopDate = addMinutesToDate( loopDate, loopDateMinutesIncrease );
 
             var newColumn1 = createElement( "div", "timeline-column" );
             newColumn1.style.left = offsetLeft + "px";
@@ -5225,6 +5238,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     timelineRowItems = createElement( "div", "timeline-row-items" );
                     timelineRow.appendChild( timelineRowItems );
+
+                    var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
+                        loopDateToday = new Date(),
+                        loopDate = new Date();
+                        
+                    loopDate.setHours( 0, 0, 0, 0 );
+                    
+                    if ( 60 % loopDateMinutesIncrease !== 0 ) {
+                        loopDateMinutesIncrease = 30;
+                    }
+                    
+                    while( doDatesMatch( loopDate, loopDateToday ) ) {
+                        var spacing1 = createElement( "div", "timeline-row-item-spacing" );
+                        timelineRowItems.appendChild( spacing1 );
+                        
+                        loopDate = addMinutesToDate( loopDate, loopDateMinutesIncrease );
+                        
+                        var spacing2 = createElement( "div", "timeline-row-item-spacing" );
+                        timelineRowItems.appendChild( spacing2 );
+                        
+                        loopDate = addMinutesToDate( loopDate, loopDateMinutesIncrease );
+                    }
         
                     _element_View_Timeline_Contents_Groups_Rows_Cache[ storageAxisName ] = timelineRowItems;
                     rowCount++;
@@ -8206,23 +8241,31 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildHoursForTimeBasedView( container ) {
-        for ( var hour = 0; hour < 24; hour++ ) {
-            var row = createElement( "div", "hour" ),
-                firstDate = new Date(),
-                secondDate = new Date();
-                
+        var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
+            loopDateToday = new Date(),
+            loopDate = new Date();
+
+        loopDate.setHours( 0, 0, 0, 0 );
+
+        if ( 60 % loopDateMinutesIncrease !== 0 ) {
+            loopDateMinutesIncrease = 30;
+        }
+
+        while( doDatesMatch( loopDate, loopDateToday ) ) {
+            var row = createElement( "div", "hour" );
             container.appendChild( row );
-
-            firstDate.setHours( hour, 0, 0, 0 );
-            secondDate.setHours( hour, 30, 0, 0 );
-
-            var newHour1 = createElement( "div", "hour-text" );
-            newHour1.innerText = getTimeForDisplay( firstDate );
-            row.appendChild( newHour1 );
-
-            var newHour2 = createElement( "div", "hour-text" );
-            newHour2.innerText = getTimeForDisplay( secondDate );
-            row.appendChild( newHour2 );
+            
+            var hourText1 = createElement( "div", "hour-text" );
+            hourText1.innerText = getTimeForDisplay( new Date( loopDate ) );
+            row.appendChild( hourText1 );
+            
+            loopDate = addMinutesToDate( loopDate, loopDateMinutesIncrease );
+            
+            var hourText2 = createElement( "div", "hour-text" );
+            hourText2.innerText = getTimeForDisplay( new Date( loopDate ) );
+            row.appendChild( hourText2 );
+            
+            loopDate = addMinutesToDate( loopDate, loopDateMinutesIncrease );
         }
     }
 
@@ -13287,7 +13330,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.9.2";
+        return "2.9.3";
     };
 
     /**
@@ -13560,6 +13603,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.isWidget = getDefaultBoolean( _options.isWidget, false );
         _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
         _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
+        _options.minutesBetweenSectionsInViews = getDefaultNumber( _options.minutesBetweenSectionsInViews, 30 );
+        _options.timelineViewDefaultAxis = getDefaultString( _options.timelineViewDefaultAxis, "group" );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.2 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.3 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -3128,6 +3128,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (wasAddedAlready) {
         _element_View_Timeline.innerHTML = _string.empty;
       }
+      if (_element_View_Timeline_Selected_Axis === null) {
+        _element_View_Timeline_Selected_Axis = _options.timelineViewDefaultAxis;
+      }
       if (!wasAddedAlready) {
         _element_View_Timeline = createElement("div", "timeline-view");
         _element_View_Timeline.id = newGuid();
@@ -3187,20 +3190,24 @@ function calendarJs(elementOrId, options, searchOptions) {
     groupHeader.innerHTML = getTimelineViewAxisSelectedText();
     _element_View_Timeline_Contents_Header.appendChild(groupHeader);
     buildToolbarButton(groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView);
+    var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
+    var loopDateToday = new Date();
+    var loopDate = new Date();
     var offsetLeft = 0;
     var actualWidth = 0;
-    var hour = 0;
-    for (; hour < 24; hour++) {
-      var firstDate = new Date();
-      var secondDate = new Date();
-      firstDate.setHours(hour, 0, 0, 0);
-      secondDate.setHours(hour, 30, 0, 0);
-      var newHour1Header = createElement("div", "timeline-header-item");
-      newHour1Header.innerText = getTimeForDisplay(firstDate);
-      _element_View_Timeline_Contents_Header.appendChild(newHour1Header);
-      var newHour2Header = createElement("div", "timeline-header-item");
-      newHour2Header.innerText = getTimeForDisplay(secondDate);
-      _element_View_Timeline_Contents_Header.appendChild(newHour2Header);
+    loopDate.setHours(0, 0, 0, 0);
+    if (60 % loopDateMinutesIncrease !== 0) {
+      loopDateMinutesIncrease = 30;
+    }
+    for (; doDatesMatch(loopDate, loopDateToday);) {
+      var headerItem1 = createElement("div", "timeline-header-item");
+      headerItem1.innerText = getTimeForDisplay(new Date(loopDate));
+      _element_View_Timeline_Contents_Header.appendChild(headerItem1);
+      loopDate = addMinutesToDate(loopDate, loopDateMinutesIncrease);
+      var headerItem2 = createElement("div", "timeline-header-item");
+      headerItem2.innerText = getTimeForDisplay(new Date(loopDate));
+      _element_View_Timeline_Contents_Header.appendChild(headerItem2);
+      loopDate = addMinutesToDate(loopDate, loopDateMinutesIncrease);
       var newColumn1 = createElement("div", "timeline-column");
       newColumn1.style.left = offsetLeft + "px";
       _element_View_Timeline_Contents.appendChild(newColumn1);
@@ -3239,6 +3246,21 @@ function calendarJs(elementOrId, options, searchOptions) {
           timelineRow.appendChild(axisNameRowName);
           timelineRowItems = createElement("div", "timeline-row-items");
           timelineRow.appendChild(timelineRowItems);
+          var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
+          var loopDateToday = new Date();
+          var loopDate = new Date();
+          loopDate.setHours(0, 0, 0, 0);
+          if (60 % loopDateMinutesIncrease !== 0) {
+            loopDateMinutesIncrease = 30;
+          }
+          for (; doDatesMatch(loopDate, loopDateToday);) {
+            var spacing1 = createElement("div", "timeline-row-item-spacing");
+            timelineRowItems.appendChild(spacing1);
+            loopDate = addMinutesToDate(loopDate, loopDateMinutesIncrease);
+            var spacing2 = createElement("div", "timeline-row-item-spacing");
+            timelineRowItems.appendChild(spacing2);
+            loopDate = addMinutesToDate(loopDate, loopDateMinutesIncrease);
+          }
           _element_View_Timeline_Contents_Groups_Rows_Cache[storageAxisName] = timelineRowItems;
           rowCount++;
         } else {
@@ -5424,20 +5446,24 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildHoursForTimeBasedView(container) {
-    var hour = 0;
-    for (; hour < 24; hour++) {
+    var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
+    var loopDateToday = new Date();
+    var loopDate = new Date();
+    loopDate.setHours(0, 0, 0, 0);
+    if (60 % loopDateMinutesIncrease !== 0) {
+      loopDateMinutesIncrease = 30;
+    }
+    for (; doDatesMatch(loopDate, loopDateToday);) {
       var row = createElement("div", "hour");
-      var firstDate = new Date();
-      var secondDate = new Date();
       container.appendChild(row);
-      firstDate.setHours(hour, 0, 0, 0);
-      secondDate.setHours(hour, 30, 0, 0);
-      var newHour1 = createElement("div", "hour-text");
-      newHour1.innerText = getTimeForDisplay(firstDate);
-      row.appendChild(newHour1);
-      var newHour2 = createElement("div", "hour-text");
-      newHour2.innerText = getTimeForDisplay(secondDate);
-      row.appendChild(newHour2);
+      var hourText1 = createElement("div", "hour-text");
+      hourText1.innerText = getTimeForDisplay(new Date(loopDate));
+      row.appendChild(hourText1);
+      loopDate = addMinutesToDate(loopDate, loopDateMinutesIncrease);
+      var hourText2 = createElement("div", "hour-text");
+      hourText2.innerText = getTimeForDisplay(new Date(loopDate));
+      row.appendChild(hourText2);
+      loopDate = addMinutesToDate(loopDate, loopDateMinutesIncrease);
     }
   }
   function getHourMinutesFromMousePositionClick(e, container) {
@@ -8285,6 +8311,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.isWidget = getDefaultBoolean(_options.isWidget, false);
     _options.isPinUpViewEnabled = getDefaultBoolean(_options.isPinUpViewEnabled, false);
     _options.pinUpViewImageUrls = getDefaultArray(_options.pinUpViewImageUrls, []);
+    _options.minutesBetweenSectionsInViews = getDefaultNumber(_options.minutesBetweenSectionsInViews, 30);
+    _options.timelineViewDefaultAxis = getDefaultString(_options.timelineViewDefaultAxis, "group");
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
@@ -8697,7 +8725,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_Timeline_EventsShown = [];
   var _element_View_Timeline_DateSelected = null;
   var _element_View_Timeline_TitleBar = null;
-  var _element_View_Timeline_Selected_Axis = "group";
+  var _element_View_Timeline_Selected_Axis = null;
   var _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group"];
   var _element_Dialog_AllOpened = [];
   var _element_Dialog_Move = null;
@@ -9401,7 +9429,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.9.2";
+    return "2.9.3";
   };
   this.getId = function() {
     return _parameter_ElementID;
