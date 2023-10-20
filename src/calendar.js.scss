@@ -2747,6 +2747,12 @@ div.calendar-context-menu {
     }
 }
 
+.dark-thumb-scroll {
+    &::-webkit-scrollbar-thumb {
+        background: var(--dark-lighter-color);
+    }
+}
+
 
 /*
     -------------------------------------------------------------------------

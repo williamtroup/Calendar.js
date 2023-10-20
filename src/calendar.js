@@ -1101,7 +1101,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildFullSideMenu() {
         if ( !_initialized_FirstTime ) {
-            _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars" );
+            _element_SideMenu = createElement( "div", "side-menu custom-scroll-bars dark-thumb-scroll" );
             _element_SideMenu.onclick = cancelBubble;
             _element_Calendar.appendChild( _element_SideMenu );
     

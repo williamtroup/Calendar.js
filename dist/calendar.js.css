@@ -4349,6 +4349,10 @@ div.calendar-context-menu div.separator {
   background-color: #C0C0C0;
 }
 
+.dark-thumb-scroll::-webkit-scrollbar-thumb {
+  background: var(--dark-lighter-color);
+}
+
 /*
     -------------------------------------------------------------------------
     Calendar.js - Effects

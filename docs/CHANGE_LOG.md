@@ -6,6 +6,7 @@
 - Renamed the setting "enableDayNameHeadersInMainDisplayText" to "enableDayNameHeadersText" and changed default text;
 - Renamed the setting "showDayNamesInMainDisplay" to "showDayNamesHeaders".
 - The renamed setting "showDayNamesHeaders" now applies to the header on the Full Month view, and the Full Week view.
+- Added a darker scrollbar effect for the side menu (aligns more with the side menu colors).
 - 
 
 <br>
