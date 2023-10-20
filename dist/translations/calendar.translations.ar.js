@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "seriesText": "مسلسل",
     "viewTimelineTooltipText": "عرض الجدول الزمني",
     "nextPropertyTooltipText": "العقار التالي",
-    "noneText": "(لا أحد)"
+    "noneText": "(لا أحد)",
+    "shareText": "يشارك",
+    "shareStartFilename": "shared_events_"
   };

@@ -121,7 +121,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | removeEventText | The text that should be displayed for the "Remove Event" button. |
 | *string* | addEventTitle | The title bar text that is shown for the "Add Event" label. |
 | *string* | editEventTitle | The title bar text that is shown for the "Edit Event" label. |
-| *string* | exportStartFilename | The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_"). |
+| *string* | exportStartFilename | The starting filename that should be used when exporting calendar events (defaults to "exported_events_"). |
 | *string* | fromTimeErrorMessage | The error message shown for the "Please select a valid 'From' time." label. |
 | *string* | toTimeErrorMessage | The error message shown for the "Please select a valid 'To' time." label. |
 | *string* | toSmallerThanFromErrorMessage | The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label. |
@@ -273,3 +273,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | viewTimelineTooltipText | The tooltip text that should be used for the "View Timeline" button. |
 | *string* | nextPropertyTooltipText | The tooltip text that should be used for the "Next Property" button. |
 | *string* | noneText | The text that should be displayed for the "(none)" label. |
+| *string* | shareText | The text that should be displayed for the "Share" label. |
+| *string* | shareStartFilename | The starting filename that should be used when sharing calendar events (defaults to "share_events_"). |

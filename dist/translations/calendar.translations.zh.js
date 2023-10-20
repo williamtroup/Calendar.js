@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "seriesText": "系列",
     "viewTimelineTooltipText": "查看时间轴",
     "nextPropertyTooltipText": "下一个房产",
-    "noneText": "（没有任何）"
+    "noneText": "（没有任何）",
+    "shareText": "分享",
+    "shareStartFilename": "共享事件_"
   };

@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "seriesText": "Series",
   "viewTimelineTooltipText": "Ver a linha do tempo",
   "nextPropertyTooltipText": "Próxima propriedade",
-  "noneText": "(nenhum)"
+  "noneText": "(nenhum)",
+  "shareText": "Compartilhar",
+  "shareStartFilename": "eventos_compartilhados_"
 };

@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "seriesText": "Seri",
     "viewTimelineTooltipText": "Zaman Çizelgesini Görüntüle",
     "nextPropertyTooltipText": "Sonraki Emlak",
-    "noneText": "(hiçbiri)"
+    "noneText": "(hiçbiri)",
+    "shareText": "Paylaşmak",
+    "shareStartFilename": "paylaşılan_events_"
 };

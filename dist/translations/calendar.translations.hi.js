@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "seriesText": "शृंखला",
   "viewTimelineTooltipText": "समयसीमा जरूर देख लें",
   "nextPropertyTooltipText": "अगली संपत्ति",
-  "noneText": "(कोई नहीं)"
+  "noneText": "(कोई नहीं)",
+  "shareText": "शेयर करना",
+  "shareStartFilename": "साझा_घटनाएँ_"
 };

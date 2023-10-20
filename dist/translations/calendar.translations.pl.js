@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "seriesText": "Seria",
   "viewTimelineTooltipText": "Pokaż oś czasu",
   "nextPropertyTooltipText": "Następna nieruchomość",
-  "noneText": "(nic)"
+  "noneText": "(nic)",
+  "shareText": "Udział",
+  "shareStartFilename": "wspólne_wydarzenia_"
 };

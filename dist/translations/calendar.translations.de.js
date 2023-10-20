@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "seriesText": "Serie",
   "viewTimelineTooltipText": "Zeitleiste anzeigen",
   "nextPropertyTooltipText": "Nächste Eigenschaft",
-  "noneText": "(keiner)"
+  "noneText": "(keiner)",
+  "shareText": "Aktie",
+  "shareStartFilename": "shared_events_"
 };

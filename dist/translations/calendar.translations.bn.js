@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "seriesText": "সিরিজ",
     "viewTimelineTooltipText": "দেখুন টাইমলাইনে",
     "nextPropertyTooltipText": "পরবর্তী সম্পত্তি",
-    "noneText": "(কোনটিই নয়)"
+    "noneText": "(কোনটিই নয়)",
+    "shareText": "শেয়ার করুন",
+    "shareStartFilename": "ভাগ করা_ঘটনা_"
   };

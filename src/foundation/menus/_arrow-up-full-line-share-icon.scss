@@ -1,0 +1,31 @@
+@import "icon";
+
+$side-border-size: 2px;
+
+.ib-arrow-up-full-line-share-icon {
+    @include button;
+    width: calc( $size - ( $side-border-size * 2 ) );
+    height: calc( $size - $side-border-size );
+    border-bottom: $side-border-size solid $icon-color;
+    border-left: $side-border-size solid $icon-color;
+    border-right: $side-border-size solid $icon-color;
+    border-radius: $border-radius;
+
+    &:before {
+        width: 0; 
+        height: 0; 
+        border-left: calc( ( $size / 2 ) - $side-border-size ) solid transparent;
+        border-right: calc( ( $size / 2 ) - $side-border-size ) solid transparent;
+        border-bottom: calc( $size / 2 ) solid $icon-color;
+        left: 0;
+        top: 0;
+    }
+
+    &:after {
+        @include left-center;
+        width: calc( ( $size / 2 ) - $side-border-size );
+        height: calc( ( $size / 2 ) - $side-border-size );
+        background-color: $icon-color;
+        bottom: 0;
+    }
+}

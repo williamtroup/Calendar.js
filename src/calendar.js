@@ -161,7 +161,7 @@
  * @property    {string}    removeEventText                             The text that should be displayed for the "Remove Event" button.
  * @property    {string}    addEventTitle                               The title bar text that is shown for the "Add Event" label.
  * @property    {string}    editEventTitle                              The title bar text that is shown for the "Edit Event" label.
- * @property    {string}    exportStartFilename                         The starting filename that should be used when exporting all the calendar events (defaults to "exported_events_").
+ * @property    {string}    exportStartFilename                         The starting filename that should be used when exporting calendar events (defaults to "exported_events_").
  * @property    {string}    fromTimeErrorMessage                        The error message shown for the "Please select a valid 'From' time." label.
  * @property    {string}    toTimeErrorMessage                          The error message shown for the "Please select a valid 'To' time." label.
  * @property    {string}    toSmallerThanFromErrorMessage               The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label.
@@ -314,6 +314,8 @@
  * @property    {string}    viewTimelineTooltipText                     The tooltip text that should be used for the "View Timeline" button.
  * @property    {string}    nextPropertyTooltipText                     The tooltip text that should be used for the "Next Property" button.
  * @property    {string}    noneText                                    The text that should be displayed for the "(none)" label.
+ * @property    {string}    shareText                                   The text that should be displayed for the "Share" label.
+ * @property    {string}    shareStartFilename                          The starting filename that should be used when sharing calendar events (defaults to "share_events_").
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -879,6 +881,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ContextMenu_Event_Remove = null,
         _element_ContextMenu_Event_ExportEventsSeparator = null,
         _element_ContextMenu_Event_ExportEvents = null,
+        _element_ContextMenu_Event_ShareEvents = null,
 
         // Variables: Context Menu - Full Day
         _element_ContextMenu_FullDay = null,
@@ -5634,6 +5637,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ContextMenu_Event_Remove = null;
             _element_ContextMenu_Event_ExportEventsSeparator = null;
             _element_ContextMenu_Event_ExportEvents = null;
+            _element_ContextMenu_Event_ShareEvents = null;
         }
 
         _element_ContextMenu_Event = createElement( "div", "calendar-context-menu" );
@@ -5725,6 +5729,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             _element_ContextMenu_Event_ExportEvents = buildContextMenuItemWithIcon( _element_ContextMenu_Event, "ib-arrow-down-full-line-icon", _options.exportEventsTooltipText + "...", function() {
                 showExportEventsDialog( _events_Selected );
+            } );
+        }
+
+        if ( _parameter_Navigator.share ) {
+            buildContextMenuSeparator( _element_ContextMenu_Event );
+        
+            _element_ContextMenu_Event_ShareEvents = buildContextMenuItemWithIcon( _element_ContextMenu_Event, "ib-arrow-up-full-line-share-icon", _options.shareText + "...", function() {
+                exportEventsForSharing( _events_Selected.length > 0 ? _events_Selected : [ _element_ContextMenu_Event_EventDetails ] );
             } );
         }
     }
@@ -11193,12 +11205,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return csvOrderedEvents;
     }
 
-    function getExportDownloadFilename( extension ) {
+    function getExportDownloadFilename( extension, filenameStart ) {
+        filenameStart = isDefined( filenameStart ) ? filenameStart : _options.exportStartFilename;
+
         var date = new Date(),
             datePart = padNumber( date.getDate() ) + "-" + padNumber( date.getMonth() + 1 ) + "-" + date.getFullYear(),
             timePart = padNumber( date.getHours() ) + "-" + padNumber( date.getMinutes() );
 
-        return _options.exportStartFilename + datePart + "_" + timePart + "." + extension;
+        return filenameStart + datePart + "_" + timePart + "." + extension;
     }
 
     function getYesNoFromBoolean( flag ) {
@@ -11452,6 +11466,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
         dateExportedMeta += " " + padNumber( dateExported.getHours() ) + ":" + padNumber( dateExported.getMinutes() ) + ":" + padNumber( dateExported.getSeconds() );
 
         return dateExportedMeta;
+    }
+
+    function exportEventsForSharing( events ) {
+        var fileContents = getJsonContents( events ),
+            fileMimeType = { 
+                type: "text/plain"
+            },
+            fileBlob = new Blob( [ fileContents ], fileMimeType ),
+            file = new File( [ fileBlob ], getExportDownloadFilename( "txt", _options.shareStartFilename ), fileMimeType ),
+            fileShareData = {
+                files: [ file ]
+            };
+
+        if ( _parameter_Navigator.canShare( fileShareData ) ) {
+            _parameter_Navigator.share( fileShareData );
+        }
     }
 
 
@@ -13891,6 +13921,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.viewTimelineTooltipText = getDefaultString( _options.viewTimelineTooltipText, "View Timeline" );
         _options.nextPropertyTooltipText = getDefaultString( _options.nextPropertyTooltipText, "Next Property" );
         _options.noneText = getDefaultString( _options.noneText, "(none)" );
+        _options.shareText = getDefaultString( _options.shareText, "Share" );
+        _options.shareStartFilename = getDefaultString( _options.shareStartFilename, "shared_events_" );
     }
 
     function setEventTypeTranslationStringOptions() {

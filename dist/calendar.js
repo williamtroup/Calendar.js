@@ -3531,6 +3531,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_ContextMenu_Event_Remove = null;
       _element_ContextMenu_Event_ExportEventsSeparator = null;
       _element_ContextMenu_Event_ExportEvents = null;
+      _element_ContextMenu_Event_ShareEvents = null;
     }
     _element_ContextMenu_Event = createElement("div", "calendar-context-menu");
     _elements_InDocumentBody.push(_element_ContextMenu_Event);
@@ -3594,6 +3595,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_ContextMenu_Event_ExportEventsSeparator = buildContextMenuSeparator(_element_ContextMenu_Event);
       _element_ContextMenu_Event_ExportEvents = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-arrow-down-full-line-icon", _options.exportEventsTooltipText + "...", function() {
         showExportEventsDialog(_events_Selected);
+      });
+    }
+    if (_parameter_Navigator.share) {
+      buildContextMenuSeparator(_element_ContextMenu_Event);
+      _element_ContextMenu_Event_ShareEvents = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-arrow-up-full-line-share-icon", _options.shareText + "...", function() {
+        exportEventsForSharing(_events_Selected.length > 0 ? _events_Selected : [_element_ContextMenu_Event_EventDetails]);
       });
     }
   }
@@ -7603,11 +7610,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     csvOrderedEvents = getOrderedEvents(csvOrderedEvents);
     return csvOrderedEvents;
   }
-  function getExportDownloadFilename(extension) {
+  function getExportDownloadFilename(extension, filenameStart) {
+    filenameStart = isDefined(filenameStart) ? filenameStart : _options.exportStartFilename;
     var date = new Date();
     var datePart = padNumber(date.getDate()) + "-" + padNumber(date.getMonth() + 1) + "-" + date.getFullYear();
     var timePart = padNumber(date.getHours()) + "-" + padNumber(date.getMinutes());
-    return _options.exportStartFilename + datePart + "_" + timePart + "." + extension;
+    return filenameStart + datePart + "_" + timePart + "." + extension;
   }
   function getYesNoFromBoolean(flag) {
     return flag ? _options.yesText : _options.noText;
@@ -7788,6 +7796,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     var dateExportedMeta = getCustomFormattedDateText("{ddd}, {dd} {mmm} {yyyy}", dateExported);
     dateExportedMeta = dateExportedMeta + (" " + padNumber(dateExported.getHours()) + ":" + padNumber(dateExported.getMinutes()) + ":" + padNumber(dateExported.getSeconds()));
     return dateExportedMeta;
+  }
+  function exportEventsForSharing(events) {
+    var fileContents = getJsonContents(events);
+    var fileMimeType = {type:"text/plain"};
+    var fileBlob = new Blob([fileContents], fileMimeType);
+    var file = new File([fileBlob], getExportDownloadFilename("txt", _options.shareStartFilename), fileMimeType);
+    var fileShareData = {files:[file]};
+    if (_parameter_Navigator.canShare(fileShareData)) {
+      _parameter_Navigator.share(fileShareData);
+    }
   }
   function getCsvContents(orderedEvents) {
     var orderedEventLength = orderedEvents.length;
@@ -8538,6 +8556,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.viewTimelineTooltipText = getDefaultString(_options.viewTimelineTooltipText, "View Timeline");
     _options.nextPropertyTooltipText = getDefaultString(_options.nextPropertyTooltipText, "Next Property");
     _options.noneText = getDefaultString(_options.noneText, "(none)");
+    _options.shareText = getDefaultString(_options.shareText, "Share");
+    _options.shareStartFilename = getDefaultString(_options.shareStartFilename, "shared_events_");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -8861,6 +8881,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_ContextMenu_Event_Remove = null;
   var _element_ContextMenu_Event_ExportEventsSeparator = null;
   var _element_ContextMenu_Event_ExportEvents = null;
+  var _element_ContextMenu_Event_ShareEvents = null;
   var _element_ContextMenu_FullDay = null;
   var _element_ContextMenu_FullDay_RemoveEvents_Separator = null;
   var _element_ContextMenu_FullDay_RemoveEvents = null;

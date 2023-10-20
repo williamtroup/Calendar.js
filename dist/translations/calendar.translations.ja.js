@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "seriesText": "シリーズ",
     "viewTimelineTooltipText": "タイムラインをみる",
     "nextPropertyTooltipText": "次の物件",
-    "noneText": "（なし）"
+    "noneText": "（なし）",
+    "shareText": "共有",
+    "shareStartFilename": "共有イベント_"
 };
