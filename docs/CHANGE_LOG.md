@@ -8,6 +8,7 @@
 - The renamed setting "showDayNamesHeaders" now applies to the header on the Full Month view, and the Full Week view.
 - Added a darker scrollbar effect for the side menu (aligns more with the side menu colors).
 - Fixed a fault that caused the Timeline view to scroll to the wrong position when an All Day event is visible.
+- Updated project description in all files.
 - 
 
 <br>
