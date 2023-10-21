@@ -3329,12 +3329,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     setEventClassesForActions(event, eventDetails);
     setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, _element_View_Timeline_DateSelected));
     var scrollLeft = setEventPositionAndGetScrollLeft(timelineRowItems, _element_View_Timeline_DateSelected, event, eventDetails);
-    if (_element_View_Timeline_Contents_SmallestEventLeft === 0) {
+    if (_element_View_Timeline_Contents_SmallestEventLeft === null) {
       _element_View_Timeline_Contents_SmallestEventLeft = scrollLeft;
     } else {
       _element_View_Timeline_Contents_SmallestEventLeft = Math.min(_element_View_Timeline_Contents_SmallestEventLeft, scrollLeft);
     }
-    if (_element_View_Timeline_Contents_SmallestEventTop === 0) {
+    if (_element_View_Timeline_Contents_SmallestEventTop === null) {
       _element_View_Timeline_Contents_SmallestEventTop = timelineRowItems.offsetTop;
     } else {
       _element_View_Timeline_Contents_SmallestEventTop = Math.min(_element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop);
@@ -3357,8 +3357,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_Timeline_EventsShown = [];
     _element_View_Timeline_DateSelected = date;
     _element_View_Timeline_Contents_Groups_Rows_Cache = {};
-    _element_View_Timeline_Contents_SmallestEventLeft = 0;
-    _element_View_Timeline_Contents_SmallestEventTop = 0;
+    _element_View_Timeline_Contents_SmallestEventLeft = null;
+    _element_View_Timeline_Contents_SmallestEventTop = null;
     _element_View_Timeline_Contents_Columns = [];
     if (doDatesMatch(date, currentDate) && !isCurrentDateVisible) {
       moveTimelineDateToNextDay();
@@ -8753,8 +8753,8 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_Timeline_TodayButton = null;
   var _element_View_Timeline_Contents = null;
   var _element_View_Timeline_Contents_Header = null;
-  var _element_View_Timeline_Contents_SmallestEventLeft = 0;
-  var _element_View_Timeline_Contents_SmallestEventTop = 0;
+  var _element_View_Timeline_Contents_SmallestEventLeft = null;
+  var _element_View_Timeline_Contents_SmallestEventTop = null;
   var _element_View_Timeline_Contents_Groups_Rows_Cache = {};
   var _element_View_Timeline_Contents_Columns = [];
   var _element_View_Timeline_EventsShown = [];

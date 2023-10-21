@@ -715,8 +715,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_TodayButton = null,
         _element_View_Timeline_Contents = null,
         _element_View_Timeline_Contents_Header = null,
-        _element_View_Timeline_Contents_SmallestEventLeft = 0,
-        _element_View_Timeline_Contents_SmallestEventTop = 0,
+        _element_View_Timeline_Contents_SmallestEventLeft = null,
+        _element_View_Timeline_Contents_SmallestEventTop = null,
         _element_View_Timeline_Contents_Groups_Rows_Cache = {},
         _element_View_Timeline_Contents_Columns = [],
         _element_View_Timeline_EventsShown = [],
@@ -5351,13 +5351,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
         var scrollLeft = setEventPositionAndGetScrollLeft( timelineRowItems, _element_View_Timeline_DateSelected, event, eventDetails );
 
-        if ( _element_View_Timeline_Contents_SmallestEventLeft === 0 ) {
+        if ( _element_View_Timeline_Contents_SmallestEventLeft === null ) {
             _element_View_Timeline_Contents_SmallestEventLeft = scrollLeft;
         } else {
             _element_View_Timeline_Contents_SmallestEventLeft = Math.min( _element_View_Timeline_Contents_SmallestEventLeft, scrollLeft );
         }
 
-        if ( _element_View_Timeline_Contents_SmallestEventTop === 0 ) {
+        if ( _element_View_Timeline_Contents_SmallestEventTop === null ) {
             _element_View_Timeline_Contents_SmallestEventTop = timelineRowItems.offsetTop;
         } else {
             _element_View_Timeline_Contents_SmallestEventTop = Math.min( _element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop );
@@ -5384,8 +5384,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_EventsShown = [];
         _element_View_Timeline_DateSelected = date;
         _element_View_Timeline_Contents_Groups_Rows_Cache = {};
-        _element_View_Timeline_Contents_SmallestEventLeft = 0;
-        _element_View_Timeline_Contents_SmallestEventTop = 0;
+        _element_View_Timeline_Contents_SmallestEventLeft = null;
+        _element_View_Timeline_Contents_SmallestEventTop = null;
         _element_View_Timeline_Contents_Columns = [];
 
         if ( doDatesMatch( date, currentDate ) && !isCurrentDateVisible ) {
@@ -5401,7 +5401,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildTimelineViewTitle();
         
         if ( fromOpen ) {
-            
             _element_View_Timeline_Contents.scrollLeft = _element_View_Timeline_Contents_SmallestEventLeft;
             _element_View_Timeline_Contents.scrollTop = _element_View_Timeline_Contents_SmallestEventTop;
         }
