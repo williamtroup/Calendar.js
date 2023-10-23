@@ -1,5 +1,17 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.4:
+- Added a new event context menu item called "Share", which will allow events selected to be shared using any supported apps (shares a text file containing JSON).
+- Fixed a fault that caused the Side Menu title bar buttons to remain visible when settings are disabled via the "setOptions()" public function.
+- Renamed the setting "enableDayNameHeadersInMainDisplayText" to "enableDayNameHeadersText" and changed default text;
+- Renamed the setting "showDayNamesInMainDisplay" to "showDayNamesHeaders".
+- The renamed setting "showDayNamesHeaders" now applies to the header on the Full Month view, and the Full Week view.
+- Added a darker scrollbar effect for the side menu (aligns more with the side menu colors).
+- Fixed a fault that caused the Timeline view to scroll to the wrong position when an All Day event is visible.
+
+<br>
+
+
 ## Version 2.9.3:
 - Added a new setting "minutesBetweenSectionsInViews" (defaults to 30), which states the minutes that should be used between headers/rows in all views for time displays.
 - Added a new setting "timelineViewDefaultAxis" (defaults to "group"), which states the default axis the Timeline view should use.

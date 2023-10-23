@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.3 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.4 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Pzt",
@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "İsteğe bağlı",
     "urlText": "URL:",
     "openUrlText": "Link aç",
-    "enableDayNameHeadersInMainDisplayText": "Ana ekranda gün adı başlıklarını etkinleştirin",
+    "enableDayNameHeadersText": "Gün adı başlıklarını etkinleştir",
     "thisWeekTooltipText": "Bu hafta",
     "dailyText": "Günlük",
     "weeklyText": "Haftalık",
@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "seriesText": "Seri",
     "viewTimelineTooltipText": "Zaman Çizelgesini Görüntüle",
     "nextPropertyTooltipText": "Sonraki Emlak",
-    "noneText": "(hiçbiri)"
+    "noneText": "(hiçbiri)",
+    "shareText": "Paylaşmak",
+    "shareStartFilename": "paylaşılan_events_"
 };

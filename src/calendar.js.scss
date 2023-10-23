@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.9.3
+ * Calendar.js Library v2.9.4
  *
  * Copyright 2023 Bunoon
  * Released under the GNU AGPLv3 license
@@ -2655,7 +2655,8 @@ div.calendar-context-menu {
     div.ib-pipe-icon,
     div.ib-equals-icon,
     div.ib-rhombus-hollow-icon,
-    div.ib-arrow-down-full-line-icon {
+    div.ib-arrow-down-full-line-icon,
+    div.ib-arrow-up-full-line-share-icon {
         margin-right: var(--spacing);
     }
 
@@ -2679,7 +2680,8 @@ div.calendar-context-menu {
         &:hover div.ib-pipe-icon::before,
         &:hover div.ib-equals-icon::before,
         &:hover div.ib-equals-icon::after,
-        &:hover div.ib-arrow-down-full-line-icon::after {
+        &:hover div.ib-arrow-down-full-line-icon::after,
+        &:hover div.ib-arrow-up-full-line-share-icon::after {
             background-color: var(--light-color);
         }
 
@@ -2690,12 +2692,17 @@ div.calendar-context-menu {
         &:hover div.ib-circle-hollow-icon,
         &:hover div.ib-octagon-hollow-icon::before,
         &:hover div.ib-octagon-hollow-icon::after,
-        &:hover div.ib-rhombus-hollow-icon::before{
+        &:hover div.ib-rhombus-hollow-icon::before,
+        &:hover div.ib-arrow-up-full-line-share-icon {
             border-color: var(--light-color);
         }
 
         &:hover div.ib-arrow-down-full-line-icon::before {
             border-top-color: var(--light-color);
+        }
+
+        &:hover div.ib-arrow-up-full-line-share-icon::before {
+            border-bottom-color: var(--light-color);
         }
 
         &:active {
@@ -2737,6 +2744,12 @@ div.calendar-context-menu {
         &:active {
             background-color: #C0C0C0;
         }
+    }
+}
+
+.dark-thumb-scroll {
+    &::-webkit-scrollbar-thumb {
+        background: var(--dark-lighter-color);
     }
 }
 
@@ -2819,6 +2832,7 @@ div.calendar-context-menu {
 @import "foundation/menus/equals-icon";
 @import "foundation/menus/rhombus-hollow-icon";
 @import "foundation/menus/arrow-down-full-line-icon";
+@import "foundation/menus/arrow-up-full-line-share-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
 @import "foundation/small/arrow-down-full-medium";

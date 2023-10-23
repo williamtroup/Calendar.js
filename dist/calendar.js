@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.3 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.4 | (c) Bunoon | GNU AGPLv3 License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -116,35 +116,40 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildSideMenu() {
-    if (!_element_Mode_DatePicker_Enabled && _element_SideMenu === null) {
+    if (!_element_Mode_DatePicker_Enabled) {
       buildSideMenuDisabledBackground();
       buildFullSideMenu();
     }
   }
   function buildSideMenuDisabledBackground() {
-    _element_SideMenu_DisabledBackground = createElement("div", "side-menu-disabled-background");
-    _element_SideMenu_DisabledBackground.onclick = hideSideMenu;
-    _element_Calendar.appendChild(_element_SideMenu_DisabledBackground);
+    if (_element_SideMenu_DisabledBackground === null) {
+      _element_SideMenu_DisabledBackground = createElement("div", "side-menu-disabled-background");
+      _element_SideMenu_DisabledBackground.onclick = hideSideMenu;
+      _element_Calendar.appendChild(_element_SideMenu_DisabledBackground);
+    }
   }
   function buildFullSideMenu() {
-    _element_SideMenu = createElement("div", "side-menu custom-scroll-bars");
-    _element_SideMenu.onclick = cancelBubble;
-    _element_Calendar.appendChild(_element_SideMenu);
-    var header = createElement("div", "main-header");
-    _element_SideMenu.appendChild(header);
-    createTextHeaderElement(header, _options.sideMenuHeaderText);
-    buildToolbarButton(header, "ib-close", _options.closeTooltipText, hideSideMenu);
+    if (!_initialized_FirstTime) {
+      _element_SideMenu = createElement("div", "side-menu custom-scroll-bars dark-thumb-scroll");
+      _element_SideMenu.onclick = cancelBubble;
+      _element_Calendar.appendChild(_element_SideMenu);
+      _element_SideMenu_Header = createElement("div", "main-header");
+      _element_SideMenu.appendChild(_element_SideMenu_Header);
+    }
+    _element_SideMenu_Header.innerHTML = _string.empty;
+    createTextHeaderElement(_element_SideMenu_Header, _options.sideMenuHeaderText);
+    buildToolbarButton(_element_SideMenu_Header, "ib-close", _options.closeTooltipText, hideSideMenu);
     if (_options.configurationDialogEnabled || _options.exportEventsEnabled || _options.importEventsEnabled && _options.manualEditingEnabled) {
-      header.appendChild(createElement("div", "right-divider-line"));
+      _element_SideMenu_Header.appendChild(createElement("div", "right-divider-line"));
     }
     if (_options.configurationDialogEnabled) {
-      buildToolbarButton(header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
+      buildToolbarButton(_element_SideMenu_Header, "ib-octagon-hollow", _options.configurationTooltipText, function() {
         hideSideMenu();
         showConfigurationDialog();
       });
     }
     if (_options.exportEventsEnabled) {
-      _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton(header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
+      _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton(_element_SideMenu_Header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
         var viewOpen = getActiveView();
         if (viewOpen === null) {
           showExportEventsDialog(_element_View_FullMonth_EventsShown);
@@ -162,10 +167,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       });
     }
     if (_options.importEventsEnabled && _options.manualEditingEnabled) {
-      buildToolbarButton(header, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
+      buildToolbarButton(_element_SideMenu_Header, "ib-arrow-up-full-line", _options.importEventsTooltipText, importEventsFromFileSelected);
     }
-    _element_SideMenu_Content = createElement("div", "content");
-    _element_SideMenu.appendChild(_element_SideMenu_Content);
+    if (!_initialized_FirstTime) {
+      _element_SideMenu_Content = createElement("div", "content");
+      _element_SideMenu.appendChild(_element_SideMenu_Content);
+    }
   }
   function buildSideMenuContent(openDays) {
     var isDaysOpen = isSideMenuContentOpen(_element_SideMenu_Content_Section_Days_Content) || openDays === true;
@@ -1415,6 +1422,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var wasAddedAlready = _element_View_FullWeek !== null;
       if (wasAddedAlready) {
         _element_View_FullWeek.innerHTML = _string.empty;
+        _element_View_FullWeek_Contents_DayNamesHeader = null;
       }
       if (!wasAddedAlready) {
         _element_View_FullWeek = createElement("div", "full-week-view");
@@ -1465,8 +1473,10 @@ function calendarJs(elementOrId, options, searchOptions) {
   function buildFullWeekViewLayout() {
     var dayNamesHeaderContainer = createElement("div", "header-days-container");
     _element_View_FullWeek_Contents.appendChild(dayNamesHeaderContainer);
-    _element_View_FullWeek_Contents_DayNamesHeader = createElement("div", "row-cells header-days");
-    dayNamesHeaderContainer.appendChild(_element_View_FullWeek_Contents_DayNamesHeader);
+    if (_options.showDayNamesHeaders) {
+      _element_View_FullWeek_Contents_DayNamesHeader = createElement("div", "row-cells header-days");
+      dayNamesHeaderContainer.appendChild(_element_View_FullWeek_Contents_DayNamesHeader);
+    }
     _element_View_FullWeek_Contents_AllDayEvents = createElement("div", "content-events-all-day");
     _element_View_FullWeek_Contents.appendChild(_element_View_FullWeek_Contents_AllDayEvents);
     _element_View_FullWeek_Contents_Days_AllDay = createElement("div", "row-cells days");
@@ -1720,19 +1730,21 @@ function calendarJs(elementOrId, options, searchOptions) {
     return added;
   }
   function buildFullWeekViewDayNameHeaderDates(weekStartDate, weekEndDate) {
-    var fromDate = new Date(weekStartDate);
-    var childrenIndex = 0;
-    var children = _element_View_FullWeek_Contents_DayNamesHeader.children;
-    for (; fromDate < weekEndDate;) {
-      var weekDayNumber = getWeekdayNumber(fromDate);
-      if (_options.visibleDays.indexOf(weekDayNumber) > -1) {
-        children[childrenIndex].innerHTML += _string.space + fromDate.getDate() + "/" + (fromDate.getMonth() + 1);
-        childrenIndex++;
+    if (_element_View_FullWeek_Contents_DayNamesHeader !== null) {
+      var fromDate = new Date(weekStartDate);
+      var childrenIndex = 0;
+      var children = _element_View_FullWeek_Contents_DayNamesHeader.children;
+      for (; fromDate < weekEndDate;) {
+        var weekDayNumber = getWeekdayNumber(fromDate);
+        if (_options.visibleDays.indexOf(weekDayNumber) > -1) {
+          children[childrenIndex].innerHTML += _string.space + fromDate.getDate() + "/" + (fromDate.getMonth() + 1);
+          childrenIndex++;
+        }
+        fromDate.setDate(fromDate.getDate() + 1);
       }
-      fromDate.setDate(fromDate.getDate() + 1);
-    }
-    if (_options.reverseOrderDaysOfWeek) {
-      reverseElementsOrder(_element_View_FullWeek_Contents_DayNamesHeader);
+      if (_options.reverseOrderDaysOfWeek) {
+        reverseElementsOrder(_element_View_FullWeek_Contents_DayNamesHeader);
+      }
     }
   }
   function showFullWeekView(weekDate, fromOpen) {
@@ -2049,7 +2061,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullMonthViewDayNamesHeader() {
     var wasAddedAlready = _element_View_FullMonth_DayNamesHeader !== null;
-    if (_options.showDayNamesInMainDisplay) {
+    if (_options.showDayNamesHeaders) {
       if (wasAddedAlready) {
         _element_View_FullMonth_DayNamesHeader.innerHTML = _string.empty;
       }
@@ -3317,12 +3329,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     setEventClassesForActions(event, eventDetails);
     setEventClassesAndColors(event, eventDetails, getToTimeWithPassedDate(eventDetails, _element_View_Timeline_DateSelected));
     var scrollLeft = setEventPositionAndGetScrollLeft(timelineRowItems, _element_View_Timeline_DateSelected, event, eventDetails);
-    if (_element_View_Timeline_Contents_SmallestEventLeft === 0) {
+    if (_element_View_Timeline_Contents_SmallestEventLeft === null) {
       _element_View_Timeline_Contents_SmallestEventLeft = scrollLeft;
     } else {
       _element_View_Timeline_Contents_SmallestEventLeft = Math.min(_element_View_Timeline_Contents_SmallestEventLeft, scrollLeft);
     }
-    if (_element_View_Timeline_Contents_SmallestEventTop === 0) {
+    if (_element_View_Timeline_Contents_SmallestEventTop === null) {
       _element_View_Timeline_Contents_SmallestEventTop = timelineRowItems.offsetTop;
     } else {
       _element_View_Timeline_Contents_SmallestEventTop = Math.min(_element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop);
@@ -3345,8 +3357,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_Timeline_EventsShown = [];
     _element_View_Timeline_DateSelected = date;
     _element_View_Timeline_Contents_Groups_Rows_Cache = {};
-    _element_View_Timeline_Contents_SmallestEventLeft = 0;
-    _element_View_Timeline_Contents_SmallestEventTop = 0;
+    _element_View_Timeline_Contents_SmallestEventLeft = null;
+    _element_View_Timeline_Contents_SmallestEventTop = null;
     _element_View_Timeline_Contents_Columns = [];
     if (doDatesMatch(date, currentDate) && !isCurrentDateVisible) {
       moveTimelineDateToNextDay();
@@ -3531,6 +3543,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_ContextMenu_Event_Remove = null;
       _element_ContextMenu_Event_ExportEventsSeparator = null;
       _element_ContextMenu_Event_ExportEvents = null;
+      _element_ContextMenu_Event_ShareEvents = null;
     }
     _element_ContextMenu_Event = createElement("div", "calendar-context-menu");
     _elements_InDocumentBody.push(_element_ContextMenu_Event);
@@ -3594,6 +3607,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_ContextMenu_Event_ExportEventsSeparator = buildContextMenuSeparator(_element_ContextMenu_Event);
       _element_ContextMenu_Event_ExportEvents = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-arrow-down-full-line-icon", _options.exportEventsTooltipText + "...", function() {
         showExportEventsDialog(_events_Selected);
+      });
+    }
+    if (_options.exportEventsEnabled && _parameter_Navigator.share) {
+      buildContextMenuSeparator(_element_ContextMenu_Event);
+      _element_ContextMenu_Event_ShareEvents = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-arrow-up-full-line-share-icon", _options.shareText + "...", function() {
+        exportEventsForSharing(_events_Selected.length > 0 ? _events_Selected : [_element_ContextMenu_Event_EventDetails]);
       });
     }
   }
@@ -5104,7 +5123,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_Dialog_Configuration_Display_EnableBrowserNotifications = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in")[0];
       _element_Dialog_Configuration_Display_EnableTooltips = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down")[0];
       _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDragAndDropForEventText)[0];
-      _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDayNameHeadersInMainDisplayText)[0];
+      _element_Dialog_Configuration_Display_EnableDayNamesHeaders = buildCheckBox(_element_Dialog_Configuration_Display, _options.enableDayNameHeadersText)[0];
       _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = buildCheckBox(_element_Dialog_Configuration_Display, _options.showHolidaysInTheDisplaysText)[0];
       createTextHeaderElement(_element_Dialog_Configuration_Organizer, _options.organizerNameText);
       _element_Dialog_Configuration_Organizer_Name = createElement("input", null, "text");
@@ -5127,7 +5146,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.eventNotificationsEnabled = _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked;
     _options.tooltipsEnabled = _element_Dialog_Configuration_Display_EnableTooltips.checked;
     _options.dragAndDropForEventsEnabled = _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked;
-    _options.showDayNamesInMainDisplay = _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked;
+    _options.showDayNamesHeaders = _element_Dialog_Configuration_Display_EnableDayNamesHeaders.checked;
     _options.showHolidays = _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked;
     _options.organizerName = _element_Dialog_Configuration_Organizer_Name.value;
     _options.organizerEmailAddress = _element_Dialog_Configuration_Organizer_Email.value;
@@ -5147,7 +5166,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
     _element_Dialog_Configuration_Display_EnableTooltips.checked = _options.tooltipsEnabled;
     _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
-    _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay.checked = _options.showDayNamesInMainDisplay;
+    _element_Dialog_Configuration_Display_EnableDayNamesHeaders.checked = _options.showDayNamesHeaders;
     _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
     _element_Dialog_Configuration_Organizer_Name.value = _options.organizerName;
     _element_Dialog_Configuration_Organizer_Email.value = _options.organizerEmailAddress;
@@ -5330,17 +5349,19 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Notification.style.display = "none";
   }
   function buildViewDayNamesHeader(container, reverseHeaders) {
-    reverseHeaders = isDefined(reverseHeaders) ? reverseHeaders : true;
-    var headerNamesLength = _options.dayHeaderNames.length;
-    container.innerHTML = _string.empty;
-    if (_options.startOfWeekDay === _enum_Day.saturday || _options.startOfWeekDay === _enum_Day.sunday) {
-      buildViewDayNamesHeaderSection(container, _options.startOfWeekDay, headerNamesLength);
-      buildViewDayNamesHeaderSection(container, 0, _options.startOfWeekDay);
-    } else {
-      buildViewDayNamesHeaderSection(container, 0, headerNamesLength);
-    }
-    if (_options.reverseOrderDaysOfWeek && reverseHeaders) {
-      reverseElementsOrder(container);
+    if (container !== null) {
+      reverseHeaders = isDefined(reverseHeaders) ? reverseHeaders : true;
+      var headerNamesLength = _options.dayHeaderNames.length;
+      container.innerHTML = _string.empty;
+      if (_options.startOfWeekDay === _enum_Day.saturday || _options.startOfWeekDay === _enum_Day.sunday) {
+        buildViewDayNamesHeaderSection(container, _options.startOfWeekDay, headerNamesLength);
+        buildViewDayNamesHeaderSection(container, 0, _options.startOfWeekDay);
+      } else {
+        buildViewDayNamesHeaderSection(container, 0, headerNamesLength);
+      }
+      if (_options.reverseOrderDaysOfWeek && reverseHeaders) {
+        reverseElementsOrder(container);
+      }
     }
   }
   function buildViewDayNamesHeaderSection(container, startIndex, endIndex) {
@@ -7603,11 +7624,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     csvOrderedEvents = getOrderedEvents(csvOrderedEvents);
     return csvOrderedEvents;
   }
-  function getExportDownloadFilename(extension) {
+  function getExportDownloadFilename(extension, filenameStart) {
+    filenameStart = isDefined(filenameStart) ? filenameStart : _options.exportStartFilename;
     var date = new Date();
     var datePart = padNumber(date.getDate()) + "-" + padNumber(date.getMonth() + 1) + "-" + date.getFullYear();
     var timePart = padNumber(date.getHours()) + "-" + padNumber(date.getMinutes());
-    return _options.exportStartFilename + datePart + "_" + timePart + "." + extension;
+    return filenameStart + datePart + "_" + timePart + "." + extension;
   }
   function getYesNoFromBoolean(flag) {
     return flag ? _options.yesText : _options.noText;
@@ -7788,6 +7810,16 @@ function calendarJs(elementOrId, options, searchOptions) {
     var dateExportedMeta = getCustomFormattedDateText("{ddd}, {dd} {mmm} {yyyy}", dateExported);
     dateExportedMeta = dateExportedMeta + (" " + padNumber(dateExported.getHours()) + ":" + padNumber(dateExported.getMinutes()) + ":" + padNumber(dateExported.getSeconds()));
     return dateExportedMeta;
+  }
+  function exportEventsForSharing(events) {
+    var fileContents = getJsonContents(events);
+    var fileMimeType = {type:"text/plain"};
+    var fileBlob = new Blob([fileContents], fileMimeType);
+    var file = new File([fileBlob], getExportDownloadFilename("txt", _options.shareStartFilename), fileMimeType);
+    var fileShareData = {files:[file]};
+    if (_parameter_Navigator.canShare(fileShareData)) {
+      _parameter_Navigator.share(fileShareData);
+    }
   }
   function getCsvContents(orderedEvents) {
     var orderedEventLength = orderedEvents.length;
@@ -8266,7 +8298,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.maximumEventGroupLength = getDefaultNumber(_options.maximumEventGroupLength, 0);
     _options.eventNotificationsEnabled = getDefaultBoolean(_options.eventNotificationsEnabled, false);
     _options.showPreviousNextMonthNamesInMainDisplay = getDefaultBoolean(_options.showPreviousNextMonthNamesInMainDisplay, true);
-    _options.showDayNamesInMainDisplay = getDefaultBoolean(_options.showDayNamesInMainDisplay, true);
+    _options.showDayNamesHeaders = getDefaultBoolean(_options.showDayNamesHeaders, true);
     _options.tooltipsEnabled = getDefaultBoolean(_options.tooltipsEnabled, true);
     _options.useOnlyDotEventsForMainDisplay = getDefaultBoolean(_options.useOnlyDotEventsForMainDisplay, false);
     _options.urlWindowTarget = getDefaultString(_options.urlWindowTarget, "_blank");
@@ -8476,7 +8508,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.optionalText = getDefaultString(_options.optionalText, "Optional");
     _options.urlText = getDefaultString(_options.urlText, "Url:");
     _options.openUrlText = getDefaultString(_options.openUrlText, "Open Url");
-    _options.enableDayNameHeadersInMainDisplayText = getDefaultString(_options.enableDayNameHeadersInMainDisplayText, "Enable day name headers in the main display");
+    _options.enableDayNameHeadersText = getDefaultString(_options.enableDayNameHeadersText, "Enable day name headers");
     _options.thisWeekTooltipText = getDefaultString(_options.thisWeekTooltipText, "This Week");
     _options.dailyText = getDefaultString(_options.dailyText, "Daily");
     _options.weeklyText = getDefaultString(_options.weeklyText, "Weekly");
@@ -8538,6 +8570,8 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.viewTimelineTooltipText = getDefaultString(_options.viewTimelineTooltipText, "View Timeline");
     _options.nextPropertyTooltipText = getDefaultString(_options.nextPropertyTooltipText, "Next Property");
     _options.noneText = getDefaultString(_options.noneText, "(none)");
+    _options.shareText = getDefaultString(_options.shareText, "Share");
+    _options.shareStartFilename = getDefaultString(_options.shareStartFilename, "shared_events_");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -8620,6 +8654,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _timer_AutoRefresh_Enabled = true;
   var _timer_Name = {windowResize:"WindowResize", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"};
   var _element_SideMenu = null;
+  var _element_SideMenu_Header = null;
   var _element_SideMenu_Changed = false;
   var _element_SideMenu_TitleBar_ExportEventsButton = null;
   var _element_SideMenu_Content = null;
@@ -8718,8 +8753,8 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_Timeline_TodayButton = null;
   var _element_View_Timeline_Contents = null;
   var _element_View_Timeline_Contents_Header = null;
-  var _element_View_Timeline_Contents_SmallestEventLeft = 0;
-  var _element_View_Timeline_Contents_SmallestEventTop = 0;
+  var _element_View_Timeline_Contents_SmallestEventLeft = null;
+  var _element_View_Timeline_Contents_SmallestEventTop = null;
   var _element_View_Timeline_Contents_Groups_Rows_Cache = {};
   var _element_View_Timeline_Contents_Columns = [];
   var _element_View_Timeline_EventsShown = [];
@@ -8836,7 +8871,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_Dialog_Configuration_Display_EnableBrowserNotifications = null;
   var _element_Dialog_Configuration_Display_EnableTooltips = null;
   var _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = null;
-  var _element_Dialog_Configuration_Display_EnableDayNamesInMainDisplay = null;
+  var _element_Dialog_Configuration_Display_EnableDayNamesHeaders = null;
   var _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = null;
   var _element_Dialog_Configuration_Organizer_Name = null;
   var _element_Dialog_Configuration_Organizer_Email = null;
@@ -8861,6 +8896,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_ContextMenu_Event_Remove = null;
   var _element_ContextMenu_Event_ExportEventsSeparator = null;
   var _element_ContextMenu_Event_ExportEvents = null;
+  var _element_ContextMenu_Event_ShareEvents = null;
   var _element_ContextMenu_FullDay = null;
   var _element_ContextMenu_FullDay_RemoveEvents_Separator = null;
   var _element_ContextMenu_FullDay_RemoveEvents = null;
@@ -9429,7 +9465,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.9.3";
+    return "2.9.4";
   };
   this.getId = function() {
     return _parameter_ElementID;

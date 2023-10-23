@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.3 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.4 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Lun",
@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
   "optionalText": "Opcional",
   "urlText": "URL:",
   "openUrlText": "URL abierta",
-  "enableDayNameHeadersInMainDisplayText": "Habilitar encabezados de nombres de días en la pantalla principal",
+  "enableDayNameHeadersText": "Habilitar encabezados de nombre de día",
   "thisWeekTooltipText": "Esta semana",
   "dailyText": "A diario",
   "weeklyText": "Semanalmente",
@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "seriesText": "Serie",
   "viewTimelineTooltipText": "Ver línea de tiempo",
   "nextPropertyTooltipText": "Siguiente propiedad",
-  "noneText": "(ninguno)"
+  "noneText": "(ninguno)",
+  "shareText": "Compartir",
+  "shareStartFilename": "eventos_compartidos_"
 };

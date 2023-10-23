@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.3 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.4 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "सोमवार",
@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
   "optionalText": "वैकल्पिक",
   "urlText": "यूआरएल:",
   "openUrlText": "यूआरएल खोलें",
-  "enableDayNameHeadersInMainDisplayText": "मुख्य डिस्प्ले में दिन का नाम हेडर सक्षम करें",
+  "enableDayNameHeadersText": "दिन का नाम शीर्षलेख सक्षम करें",
   "thisWeekTooltipText": "इस सप्ताह",
   "dailyText": "दैनिक",
   "weeklyText": "साप्ताहिक",
@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
   "seriesText": "शृंखला",
   "viewTimelineTooltipText": "समयसीमा जरूर देख लें",
   "nextPropertyTooltipText": "अगली संपत्ति",
-  "noneText": "(कोई नहीं)"
+  "noneText": "(कोई नहीं)",
+  "shareText": "शेयर करना",
+  "shareStartFilename": "साझा_घटनाएँ_"
 };

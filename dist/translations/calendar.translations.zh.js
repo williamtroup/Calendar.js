@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.3 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.4 | (c) Bunoon | GNU AGPLv3 License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "周一",
@@ -169,7 +169,7 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "选修的",
     "urlText": "网址：",
     "openUrlText": "打开网址",
-    "enableDayNameHeadersInMainDisplayText": "在主显示中启用日期名称标题",
+    "enableDayNameHeadersText": "启用日期名称标题",
     "thisWeekTooltipText": "本星期",
     "dailyText": "日常的",
     "weeklyText": "每周",
@@ -230,5 +230,7 @@ var __TRANSLATION_OPTIONS = {
     "seriesText": "系列",
     "viewTimelineTooltipText": "查看时间轴",
     "nextPropertyTooltipText": "下一个房产",
-    "noneText": "（没有任何）"
+    "noneText": "（没有任何）",
+    "shareText": "分享",
+    "shareStartFilename": "共享事件_"
   };
