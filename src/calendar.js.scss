@@ -2600,7 +2600,7 @@ div.calendar-tooltip-event {
         top: var(--spacing);
 
         div.ib-close,
-        div.ib-plus {
+        div.ib-edit {
             margin-left: calc( var(--spacing) / 2 );
             float: right;
 
@@ -2656,7 +2656,8 @@ div.calendar-context-menu {
     div.ib-equals-icon,
     div.ib-rhombus-hollow-icon,
     div.ib-arrow-down-full-line-icon,
-    div.ib-arrow-up-full-line-share-icon {
+    div.ib-arrow-up-full-line-share-icon,
+    div.ib-edit-icon {
         margin-right: var(--spacing);
     }
 
@@ -2681,7 +2682,9 @@ div.calendar-context-menu {
         &:hover div.ib-equals-icon::before,
         &:hover div.ib-equals-icon::after,
         &:hover div.ib-arrow-down-full-line-icon::after,
-        &:hover div.ib-arrow-up-full-line-share-icon::after {
+        &:hover div.ib-arrow-up-full-line-share-icon::after,
+        &:hover div.ib-edit-icon::before,
+        &:hover div.ib-edit-icon::after {
             background-color: var(--light-color);
         }
 
@@ -2818,6 +2821,7 @@ div.calendar-context-menu {
 @import "foundation/buttons/expand";
 @import "foundation/buttons/hourglass";
 @import "foundation/buttons/bar-graph";
+@import "foundation/buttons/edit";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";
@@ -2833,6 +2837,7 @@ div.calendar-context-menu {
 @import "foundation/menus/rhombus-hollow-icon";
 @import "foundation/menus/arrow-down-full-line-icon";
 @import "foundation/menus/arrow-up-full-line-share-icon";
+@import "foundation/menus/edit-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
 @import "foundation/small/arrow-down-full-medium";

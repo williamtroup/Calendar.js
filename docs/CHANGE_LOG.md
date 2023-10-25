@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.9.5:
+- The "Edit Event" tooltip button and context menu icon now use a brand new "Edit" icon instead of the original "Plus" icon.
 - 
 
 <br>

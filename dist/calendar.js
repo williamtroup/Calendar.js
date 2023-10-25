@@ -3549,7 +3549,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _elements_InDocumentBody.push(_element_ContextMenu_Event);
     _parameter_Document.body.appendChild(_element_ContextMenu_Event);
     if (_options.manualEditingEnabled) {
-      _element_ContextMenu_Event_EditEvent = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
+      _element_ContextMenu_Event_EditEvent = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-edit-icon", _options.editEventTitle + "...", function() {
         showEventEditingDialog(_element_ContextMenu_Event_EventDetails, null, null, _element_ContextMenu_Event_DateSelected);
       }, true);
       _element_ContextMenu_Event_CutSeparator = buildContextMenuSeparator(_element_ContextMenu_Event);
@@ -5201,7 +5201,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _elements_InDocumentBody.push(_element_Tooltip);
       _parameter_Document.body.appendChild(_element_Tooltip);
       _element_Tooltip_TitleButtons_CloseButton = createElement("div", "ib-close");
-      _element_Tooltip_TitleButtons_EditButton = createElement("div", "ib-plus");
+      _element_Tooltip_TitleButtons_EditButton = createElement("div", "ib-edit");
       _element_Tooltip_TitleButtons = createElement("div", "title-buttons");
       _element_Tooltip_TitleButtons.appendChild(_element_Tooltip_TitleButtons_CloseButton);
       _element_Tooltip_TitleButtons.appendChild(_element_Tooltip_TitleButtons_EditButton);
