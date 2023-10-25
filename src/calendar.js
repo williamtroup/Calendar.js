@@ -3467,7 +3467,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( !wasAddedAlready ) {
-            _element_View_FullMonth_TitleBar = createElement( "div", "header-date" );
+            _element_View_FullMonth_TitleBar = createElement( "div", "title-bar" );
             _element_View_FullMonth.appendChild( _element_View_FullMonth_TitleBar );
         }
 

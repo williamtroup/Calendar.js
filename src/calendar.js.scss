@@ -272,12 +272,6 @@ div.calendar-date-picker {
         box-shadow: var(--spacing-shadow-size) calc(0px - var(--spacing-shadow-size)) var(--spacing-shadow-size) var(--dark-color);
     }
 
-    div.header-date {
-        div.title-container {
-            font-size: var(--large-font-size) !important;
-        }
-    }
-
     div.calendar {
         font-size: var(--small-font-size) !important;
         position: absolute;
@@ -286,35 +280,41 @@ div.calendar-date-picker {
         z-index: 1000;
         margin-top: var(--spacing-border-size);
         margin-left: -var(--spacing-border-size);
+        
+        div.full-month-view {
+            div.title-bar {
+                font-size: var(--large-font-size) !important;
+            }
 
-        div.cell {
-            padding: calc( var(--spacing) / 2 ) !important;
+            div.cell {
+                padding: calc( var(--spacing) / 2 ) !important;
+            }
+    
+            div.days {
+                div.cell-today {
+                    background-color: var(--dark-color) !important;
+                    color: var(--light-color) !important;
+                }
+    
+                div.cell-selected {
+                    background-color: var(--day-date-picker-hover-color) !important;
+                }
+    
+                div.cell:not( .cell-no-click ):hover {
+                    cursor: pointer;
+                    background-color: var(--day-date-picker-hover-color);
+                    transition: var(--transition);
+                }
+    
+                div.cell:not( .cell-no-click ):active {
+                    @include opacity-active-effect;
+                }
+            }
+
+            div.ib-arrow-expand-left-right-icon {
+                display: none !important;
+            }
         }
-
-        div.days {
-            div.cell-today {
-                background-color: var(--dark-color) !important;
-                color: var(--light-color) !important;
-            }
-
-            div.cell-selected {
-                background-color: var(--day-date-picker-hover-color) !important;
-            }
-
-            div.cell:not( .cell-no-click ):hover {
-                cursor: pointer;
-                background-color: var(--day-date-picker-hover-color);
-                transition: var(--transition);
-            }
-
-            div.cell:not( .cell-no-click ):active {
-                @include opacity-active-effect;
-            }
-        }
-    }
-
-    div.ib-arrow-expand-left-right-icon {
-        display: none !important;
     }
 }
 
@@ -1096,7 +1096,7 @@ div.calendar {
 
 div.calendar {  
     div.full-month-view {
-        div.header-date {
+        div.title-bar {
             font-weight: var(--title-bar-font-weight);
             background-color: var(--dark-color);
             color: var(--title-bar-text-color);

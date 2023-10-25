@@ -323,9 +323,6 @@ div.calendar-date-picker div.calendar-shadow-bottom {
 div.calendar-date-picker div.calendar-shadow-top {
   box-shadow: var(--spacing-shadow-size) calc(0px - var(--spacing-shadow-size)) var(--spacing-shadow-size) var(--dark-color);
 }
-div.calendar-date-picker div.header-date div.title-container {
-  font-size: var(--large-font-size) !important;
-}
 div.calendar-date-picker div.calendar {
   font-size: var(--small-font-size) !important;
   position: absolute;
@@ -335,27 +332,30 @@ div.calendar-date-picker div.calendar {
   margin-top: var(--spacing-border-size);
   margin-left: -var(--spacing-border-size);
 }
-div.calendar-date-picker div.calendar div.cell {
+div.calendar-date-picker div.calendar div.full-month-view div.title-bar {
+  font-size: var(--large-font-size) !important;
+}
+div.calendar-date-picker div.calendar div.full-month-view div.cell {
   padding: calc(var(--spacing) / 2) !important;
 }
-div.calendar-date-picker div.calendar div.days div.cell-today {
+div.calendar-date-picker div.calendar div.full-month-view div.days div.cell-today {
   background-color: var(--dark-color) !important;
   color: var(--light-color) !important;
 }
-div.calendar-date-picker div.calendar div.days div.cell-selected {
+div.calendar-date-picker div.calendar div.full-month-view div.days div.cell-selected {
   background-color: var(--day-date-picker-hover-color) !important;
 }
-div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):hover {
+div.calendar-date-picker div.calendar div.full-month-view div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
   background-color: var(--day-date-picker-hover-color);
   transition: var(--transition);
 }
-div.calendar-date-picker div.calendar div.days div.cell:not(.cell-no-click):active {
+div.calendar-date-picker div.calendar div.full-month-view div.days div.cell:not(.cell-no-click):active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.calendar-date-picker div.ib-arrow-expand-left-right-icon {
+div.calendar-date-picker div.calendar div.full-month-view div.ib-arrow-expand-left-right-icon {
   display: none !important;
 }
 
@@ -1574,7 +1574,7 @@ div.calendar div.full-week-view div.contents div.days div.cell div.resizable {
     Calendar.js - Full Month View - Date Header
     -------------------------------------------------------------------------
 */
-div.calendar div.full-month-view div.header-date {
+div.calendar div.full-month-view div.title-bar {
   font-weight: var(--title-bar-font-weight);
   background-color: var(--dark-color);
   color: var(--title-bar-text-color);
@@ -1585,28 +1585,28 @@ div.calendar div.full-month-view div.header-date {
   padding-right: calc(var(--spacing) / 2);
   position: relative;
 }
-div.calendar div.full-month-view div.header-date div[class^=ib-],
-div.calendar div.full-month-view div.header-date div.left-divider-line,
-div.calendar div.full-month-view div.header-date div.right-divider-line,
-div.calendar div.full-month-view div.header-date div.right-divider-line-full-screen-mode,
-div.calendar div.full-month-view div.header-date div.right-divider-line-views {
+div.calendar div.full-month-view div.title-bar div[class^=ib-],
+div.calendar div.full-month-view div.title-bar div.left-divider-line,
+div.calendar div.full-month-view div.title-bar div.right-divider-line,
+div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
   margin-left: calc(var(--spacing) / 2);
   margin-right: calc(var(--spacing) / 2);
 }
-div.calendar div.full-month-view div.header-date div.left-divider-line,
-div.calendar div.full-month-view div.header-date div.right-divider-line,
-div.calendar div.full-month-view div.header-date div.right-divider-line-full-screen-mode,
-div.calendar div.full-month-view div.header-date div.right-divider-line-views {
+div.calendar div.full-month-view div.title-bar div.left-divider-line,
+div.calendar div.full-month-view div.title-bar div.right-divider-line,
+div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
   width: 1px;
   background-color: var(--title-bar-button-color);
   height: 16px;
 }
-div.calendar div.full-month-view div.header-date div.title-container {
+div.calendar div.full-month-view div.title-bar div.title-container {
   display: inline-block;
   position: relative;
   font-size: var(--large-font-size) !important;
 }
-div.calendar div.full-month-view div.header-date div.title-container span.year-dropdown-button {
+div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button {
   white-space: nowrap;
   overflow: hidden;
   padding: 3px;
@@ -1617,29 +1617,29 @@ div.calendar div.full-month-view div.header-date div.title-container span.year-d
   border: var(--spacing-border-size) solid var(--dark-lighter-color);
   font-weight: 500;
 }
-div.calendar div.full-month-view div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
-div.calendar div.full-month-view div.header-date div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
+div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
+div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
   margin-left: calc(var(--spacing) / 2);
   pointer-events: none;
 }
-div.calendar div.full-month-view div.header-date div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium {
+div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium {
   border-top-color: var(--title-bar-text-color);
 }
-div.calendar div.full-month-view div.header-date div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
+div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
   border-bottom-color: var(--title-bar-text-color);
 }
-div.calendar div.full-month-view div.header-date div.title-container span.year-dropdown-button:hover {
+div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button:hover {
   transition: var(--transition);
   cursor: pointer;
   opacity: 0.6;
 }
-div.calendar div.full-month-view div.header-date div.title-container span.year-dropdown-button:active {
+div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button:active {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months {
   animation: fade-in-effect ease 0.5s;
   -webkit-animation: fade-in-effect ease 0.5s;
   -moz-animation: fade-in-effect ease 0.5s;
@@ -1658,32 +1658,32 @@ div.calendar div.full-month-view div.header-date div.title-container div.years-d
   font-weight: 500;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down,
-  div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months {
+  div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down,
+  div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months {
     top: calc(var(--spacing) + var(--large-font-size));
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down,
-  div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months {
+  div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down,
+  div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months {
     top: calc(var(--spacing) + var(--small-font-size));
   }
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months {
   margin-left: 1px;
   margin-right: 1px;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months:first-child,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months:first-child {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months:first-child,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months:first-child {
   margin-top: 1px;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name-selected,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-selected,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-current-month,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-selected,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
   width: calc(33.33% - ((var(--spacing)) + 2px));
   padding: calc(var(--spacing) / 2);
   margin: 1px;
@@ -1691,42 +1691,42 @@ div.calendar div.full-month-view div.header-date div.title-container div.years-d
   border-radius: var(--border-radius);
   font-size: 0.7rem;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-current-month,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
   background-color: var(--day-names-color);
   color: var(--dark-color);
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name:hover,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month:hover,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:hover,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:hover {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name:hover,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-current-month:hover,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name:hover,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:hover {
   background-color: var(--dark-color);
   color: var(--light-color);
   cursor: pointer;
   transition: var(--transition);
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected),
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month:active:not(.year-selected),
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name:active:not(.year-selected),
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:active:not(.year-selected) {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected),
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-current-month:active:not(.year-selected),
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name:active:not(.year-selected),
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:active:not(.year-selected) {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name-selected,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-selected {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-selected,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-selected {
   background-color: var(--dark-color);
   color: var(--light-color);
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.months div.month-name-current-month,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-current-month,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
   background-color: #BCBCBC;
   color: var(--dark-color);
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.contents,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.contents {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents {
   border-radius: var(--border-radius);
   height: 100px;
   white-space: pre-line;
@@ -1743,8 +1743,8 @@ div.calendar div.full-month-view div.header-date div.title-container div.years-d
   padding-bottom: calc(var(--spacing) / 2);
   background-color: var(--light-color) !important;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.contents div.year,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.contents div.year {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents div.year,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents div.year {
   display: inline-block;
   color: var(--dark-color);
   font-size: 0.75rem;
@@ -1756,95 +1756,95 @@ div.calendar div.full-month-view div.header-date div.title-container div.years-d
   border-radius: var(--border-radius);
   padding: 3px;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.contents div.year:hover,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.contents div.year:hover {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents div.year:hover,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents div.year:hover {
   background-color: var(--dark-color);
   color: var(--light-color);
   cursor: pointer;
   transition: var(--transition);
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.contents div.year:active:not(.year-selected),
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.contents div.year:active:not(.year-selected) {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents div.year:active:not(.year-selected),
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents div.year:active:not(.year-selected) {
   transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.contents div.year-selected,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.contents div.year-selected {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents div.year-selected,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents div.year-selected {
   background-color: var(--dark-color);
   color: var(--light-color);
   cursor: default !important;
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down div.contents div.year-has-events,
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.contents div.year-has-events {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents div.year-has-events,
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents div.year-has-events {
   background-color: var(--drop-down-menu-background-color);
   color: var(--dark-color);
 }
-div.calendar div.full-month-view div.header-date div.title-container div.years-drop-down-no-months div.contents {
+div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents {
   margin-top: 0;
   height: 180px;
 }
-div.calendar div.full-month-view div.header-date div.ib-arrow-left-full,
-div.calendar div.full-month-view div.header-date div.ib-pin,
-div.calendar div.full-month-view div.header-date div.ib-refresh,
-div.calendar div.full-month-view div.header-date div.ib-search,
-div.calendar div.full-month-view div.header-date div.ib-octagon-hollow,
-div.calendar div.full-month-view div.header-date div.ib-hamburger,
-div.calendar div.full-month-view div.header-date div.ib-rewind,
-div.calendar div.full-month-view div.header-date div.left-divider-line {
+div.calendar div.full-month-view div.title-bar div.ib-arrow-left-full,
+div.calendar div.full-month-view div.title-bar div.ib-pin,
+div.calendar div.full-month-view div.title-bar div.ib-refresh,
+div.calendar div.full-month-view div.title-bar div.ib-search,
+div.calendar div.full-month-view div.title-bar div.ib-octagon-hollow,
+div.calendar div.full-month-view div.title-bar div.ib-hamburger,
+div.calendar div.full-month-view div.title-bar div.ib-rewind,
+div.calendar div.full-month-view div.title-bar div.left-divider-line {
   float: left;
 }
-div.calendar div.full-month-view div.header-date div.ib-close,
-div.calendar div.full-month-view div.header-date div.ib-hamburger-side,
-div.calendar div.full-month-view div.header-date div.ib-eye,
-div.calendar div.full-month-view div.header-date div.ib-arrow-down-full-line,
-div.calendar div.full-month-view div.header-date div.ib-plus,
-div.calendar div.full-month-view div.header-date div.ib-arrow-right-full,
-div.calendar div.full-month-view div.header-date div.ib-arrow-expand-left-right,
-div.calendar div.full-month-view div.header-date div.ib-arrow-contract-left-right,
-div.calendar div.full-month-view div.header-date div.ib-forward,
-div.calendar div.full-month-view div.header-date div.ib-expand,
-div.calendar div.full-month-view div.header-date div.ib-hourglass,
-div.calendar div.full-month-view div.header-date div.ib-bar-graph,
-div.calendar div.full-month-view div.header-date div.right-divider-line,
-div.calendar div.full-month-view div.header-date div.right-divider-line-full-screen-mode,
-div.calendar div.full-month-view div.header-date div.right-divider-line-views {
+div.calendar div.full-month-view div.title-bar div.ib-close,
+div.calendar div.full-month-view div.title-bar div.ib-hamburger-side,
+div.calendar div.full-month-view div.title-bar div.ib-eye,
+div.calendar div.full-month-view div.title-bar div.ib-arrow-down-full-line,
+div.calendar div.full-month-view div.title-bar div.ib-plus,
+div.calendar div.full-month-view div.title-bar div.ib-arrow-right-full,
+div.calendar div.full-month-view div.title-bar div.ib-arrow-expand-left-right,
+div.calendar div.full-month-view div.title-bar div.ib-arrow-contract-left-right,
+div.calendar div.full-month-view div.title-bar div.ib-forward,
+div.calendar div.full-month-view div.title-bar div.ib-expand,
+div.calendar div.full-month-view div.title-bar div.ib-hourglass,
+div.calendar div.full-month-view div.title-bar div.ib-bar-graph,
+div.calendar div.full-month-view div.title-bar div.right-divider-line,
+div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
+div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
   float: right;
 }
 @media screen and (min-width: 451px) {
-  div.calendar div.full-month-view div.header-date div.ib-refresh,
-  div.calendar div.full-month-view div.header-date div.ib-search,
-  div.calendar div.full-month-view div.header-date div.ib-hamburger,
-  div.calendar div.full-month-view div.header-date div.ib-hamburger-side,
-  div.calendar div.full-month-view div.header-date div.ib-eye,
-  div.calendar div.full-month-view div.header-date div.ib-arrow-down-full-line,
-  div.calendar div.full-month-view div.header-date div.ib-octagon-hollow,
-  div.calendar div.full-month-view div.header-date div.ib-expand,
-  div.calendar div.full-month-view div.header-date div.ib-hourglass,
-  div.calendar div.full-month-view div.header-date div.ib-rewind,
-  div.calendar div.full-month-view div.header-date div.ib-forward,
-  div.calendar div.full-month-view div.header-date div.ib-arrow-expand-left-right,
-  div.calendar div.full-month-view div.header-date div.ib-bar-graph,
-  div.calendar div.full-month-view div.header-date div.right-divider-line-full-screen-mode,
-  div.calendar div.full-month-view div.header-date div.right-divider-line-views {
+  div.calendar div.full-month-view div.title-bar div.ib-refresh,
+  div.calendar div.full-month-view div.title-bar div.ib-search,
+  div.calendar div.full-month-view div.title-bar div.ib-hamburger,
+  div.calendar div.full-month-view div.title-bar div.ib-hamburger-side,
+  div.calendar div.full-month-view div.title-bar div.ib-eye,
+  div.calendar div.full-month-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-month-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-month-view div.title-bar div.ib-expand,
+  div.calendar div.full-month-view div.title-bar div.ib-hourglass,
+  div.calendar div.full-month-view div.title-bar div.ib-rewind,
+  div.calendar div.full-month-view div.title-bar div.ib-forward,
+  div.calendar div.full-month-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-month-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
     display: inline-block;
   }
 }
 @media screen and (max-width: 450px) {
-  div.calendar div.full-month-view div.header-date div.ib-refresh,
-  div.calendar div.full-month-view div.header-date div.ib-search,
-  div.calendar div.full-month-view div.header-date div.ib-hamburger-side,
-  div.calendar div.full-month-view div.header-date div.ib-eye,
-  div.calendar div.full-month-view div.header-date div.ib-arrow-down-full-line,
-  div.calendar div.full-month-view div.header-date div.ib-octagon-hollow,
-  div.calendar div.full-month-view div.header-date div.ib-expand,
-  div.calendar div.full-month-view div.header-date div.ib-hourglass,
-  div.calendar div.full-month-view div.header-date div.ib-rewind,
-  div.calendar div.full-month-view div.header-date div.ib-forward,
-  div.calendar div.full-month-view div.header-date div.ib-arrow-expand-left-right,
-  div.calendar div.full-month-view div.header-date div.ib-bar-graph,
-  div.calendar div.full-month-view div.header-date div.right-divider-line-full-screen-mode,
-  div.calendar div.full-month-view div.header-date div.right-divider-line-views {
+  div.calendar div.full-month-view div.title-bar div.ib-refresh,
+  div.calendar div.full-month-view div.title-bar div.ib-search,
+  div.calendar div.full-month-view div.title-bar div.ib-hamburger-side,
+  div.calendar div.full-month-view div.title-bar div.ib-eye,
+  div.calendar div.full-month-view div.title-bar div.ib-arrow-down-full-line,
+  div.calendar div.full-month-view div.title-bar div.ib-octagon-hollow,
+  div.calendar div.full-month-view div.title-bar div.ib-expand,
+  div.calendar div.full-month-view div.title-bar div.ib-hourglass,
+  div.calendar div.full-month-view div.title-bar div.ib-rewind,
+  div.calendar div.full-month-view div.title-bar div.ib-forward,
+  div.calendar div.full-month-view div.title-bar div.ib-arrow-expand-left-right,
+  div.calendar div.full-month-view div.title-bar div.ib-bar-graph,
+  div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
+  div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
     display: none !important;
   }
 }
