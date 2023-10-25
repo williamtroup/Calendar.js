@@ -1897,6 +1897,10 @@ function calendarJs(elementOrId, options, searchOptions) {
     showFullWeekView(_element_View_FullWeek_DateSelected, true);
   }
   function buildFullMonthView() {
+    if (_element_View_FullMonth === null) {
+      _element_View_FullMonth = createElement("div", "full-month-view");
+      _element_Calendar.appendChild(_element_View_FullMonth);
+    }
     buildFullMonthViewTitleBar();
     buildFullMonthViewPinUp();
     buildFullMonthViewDayNamesHeader();
@@ -1911,7 +1915,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (!wasAddedAlready) {
       _element_View_FullMonth_TitleBar = createElement("div", "header-date");
-      _element_Calendar.appendChild(_element_View_FullMonth_TitleBar);
+      _element_View_FullMonth.appendChild(_element_View_FullMonth_TitleBar);
     }
     if (_options.fullScreenModeEnabled) {
       _element_View_FullMonth_TitleBar.ondblclick = fullScreenModeHeaderDoubleClick;
@@ -1991,7 +1995,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_options.isPinUpViewEnabled) {
         if (!wasAddedAlready) {
           _element_View_FullMonth_PinUp = createElement("div", "pin-up");
-          _element_Calendar.appendChild(_element_View_FullMonth_PinUp);
+          _element_View_FullMonth.appendChild(_element_View_FullMonth_PinUp);
         }
         buildFullMonthViewPinUpImageCache();
         if (!_initialized_FirstTime) {
@@ -1999,7 +2003,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       } else {
         if (wasAddedAlready) {
-          _element_Calendar.removeChild(_element_View_FullMonth_PinUp);
+          _element_View_FullMonth.removeChild(_element_View_FullMonth_PinUp);
           _element_View_FullMonth_PinUp = null;
         }
       }
@@ -2067,7 +2071,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (!wasAddedAlready) {
         _element_View_FullMonth_DayNamesHeader = createElement("div", "row-cells header-days");
-        _element_Calendar.appendChild(_element_View_FullMonth_DayNamesHeader);
+        _element_View_FullMonth.appendChild(_element_View_FullMonth_DayNamesHeader);
       }
       if (_element_Mode_DatePicker_Enabled) {
         _element_View_FullMonth_DayNamesHeader.onclick = cancelBubble;
@@ -2082,13 +2086,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullMonthViewDayRows(container, dayStartID) {
     var isForCustomContainer = isDefined(container);
-    container = !isForCustomContainer ? _element_Calendar : container;
+    container = !isForCustomContainer ? _element_View_FullMonth : container;
     dayStartID = isDefined(dayStartID) ? dayStartID : _element_ID_DayElement;
     if (!isForCustomContainer && _element_View_FullMonth_Rows.length > 0) {
       var rowsLength = _element_View_FullMonth_Rows.length;
       var rowsIndex = 0;
       for (; rowsIndex < rowsLength; rowsIndex++) {
-        _element_Calendar.removeChild(_element_View_FullMonth_Rows[rowsIndex]);
+        container.removeChild(_element_View_FullMonth_Rows[rowsIndex]);
       }
       _element_View_FullMonth_Rows = [];
     }
@@ -8718,6 +8722,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_FullWeek_TimeArrow_Position = null;
   var _element_View_FullWeek_Contents_SmallestEventTop = 0;
   var _element_View_FullWeek_Events_Dragged_Sizes = [];
+  var _element_View_FullMonth = null;
   var _element_View_FullMonth_Rows = [];
   var _element_View_FullMonth_TitleBar = null;
   var _element_View_FullMonth_TitleBar_YearSelector_DropDown = null;
