@@ -4,6 +4,7 @@
 - The "Edit Event" tooltip button and context menu icon now use a brand new "Edit" icon instead of the original "Plus" icon.
 - The Full Month view (default view) now has its own container and CSS class "full-month-view".
 - Re-organized the CSS classes into the right areas.
+- 
 
 <br>
 
