@@ -135,65 +135,6 @@ div.calendar-widget {
     }
 }
 
-div.calendar-notification {
-    @include fade-in-effect-animation( 0.5s );
-    @include no-selection-allowed;
-    position: fixed;
-    bottom: var(--spacing);
-    right: var(--spacing);
-    width: auto;
-    height: auto;
-    display: none;
-    z-index: 2500;
-
-    div.ib-close-icon {
-        margin-left: calc( var(--spacing) * 2 );
-
-        &::before,
-        &::after {
-            background-color: #9A9;
-        }
-    }
-
-    div.success,
-    div.error {
-        padding: var(--spacing);
-        border-radius: var(--border-radius);
-
-        div.ib-close-icon {
-            margin-left: calc( var(--spacing) * 2 );
-        }
-    }
-
-    div.success {
-        background-color: #EFE;
-        border: var(--spacing-border-size) solid #DED;
-        color: #9A9;
-        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
-
-        div.ib-close-icon {
-            &::before,
-            &::after {
-                background-color: #9A9;
-            }
-        }
-    }
-
-    div.error {
-        background-color: #FEE;
-        border: var(--spacing-border-size) solid #EDD;
-        color: #A66;
-        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
-        
-        div.ib-close-icon {
-            &::before,
-            &::after {
-                background-color: #A66;
-            }
-        }
-    }
-}
-
 div.disabled-background {
     @include disabled-area( fixed );
 }
@@ -380,6 +321,72 @@ div.calendar-widget {
     }
 }
 
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Notifications
+    -------------------------------------------------------------------------
+*/
+
+div.calendar-notification {
+    @include fade-in-effect-animation( 0.5s );
+    @include no-selection-allowed;
+    position: fixed;
+    bottom: var(--spacing);
+    right: var(--spacing);
+    width: auto;
+    height: auto;
+    display: none;
+    z-index: 2500;
+
+    div.ib-close-icon {
+        margin-left: calc( var(--spacing) * 2 );
+
+        &::before,
+        &::after {
+            background-color: #9A9;
+        }
+    }
+
+    div.success,
+    div.error {
+        padding: var(--spacing);
+        border-radius: var(--border-radius);
+
+        div.ib-close-icon {
+            margin-left: calc( var(--spacing) * 2 );
+        }
+    }
+
+    div.success {
+        background-color: #EFE;
+        border: var(--spacing-border-size) solid #DED;
+        color: #9A9;
+        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+
+        div.ib-close-icon {
+            &::before,
+            &::after {
+                background-color: #9A9;
+            }
+        }
+    }
+
+    div.error {
+        background-color: #FEE;
+        border: var(--spacing-border-size) solid #EDD;
+        color: #A66;
+        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+        
+        div.ib-close-icon {
+            &::before,
+            &::after {
+                background-color: #A66;
+            }
+        }
+    }
+}
+
  
 /*
     -------------------------------------------------------------------------
@@ -443,11 +450,18 @@ div.calendar {
     div.drag-not-allowed {
         background: repeating-linear-gradient( 
             135deg,
+            transparent,
+            transparent var(--spacing),
+            var(--area-disabled-stripped) var(--spacing),
+            var(--area-disabled-stripped) calc( var(--spacing) * 2 )
+        ),
+        repeating-linear-gradient( 
+            45deg,
             var(--light-color),
             var(--light-color) var(--spacing),
             var(--area-disabled-stripped) var(--spacing),
             var(--area-disabled-stripped) calc( var(--spacing) * 2 )
-         );
+        );
 
         div.ib-arrow-expand-left-right-icon {
             display: none !important;
@@ -457,11 +471,18 @@ div.calendar {
     div.drag-not-allowed-weekend-day {
         background: repeating-linear-gradient( 
             135deg,
+            transparent,
+            transparent var(--spacing),
+            var(--area-disabled-stripped-weekend-day) var(--spacing),
+            var(--area-disabled-stripped-weekend-day) calc( var(--spacing) * 2 )
+        ),
+        repeating-linear-gradient( 
+            45deg,
             var(--day-names-color),
             var(--day-names-color) var(--spacing),
             var(--area-disabled-stripped-weekend-day) var(--spacing),
             var(--area-disabled-stripped-weekend-day) calc( var(--spacing) * 2 )
-         );
+        );
 
         div.ib-arrow-expand-left-right-icon {
             display: none !important;

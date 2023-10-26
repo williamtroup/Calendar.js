@@ -5,6 +5,7 @@
 - The Full Month view (default view) now has its own container and CSS class "full-month-view".
 - Re-organized the CSS classes into the right areas.
 - Renamed the CSS class "header-date" to "title-bar" (for the Full Month view).
+- Added multiple "repeating-linear-gradient" CSS styles for the disabled days (when an event is dragged).
 - 
 
 <br>

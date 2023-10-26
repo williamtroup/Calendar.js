@@ -162,60 +162,6 @@ div.calendar-widget *::after {
   line-height: normal;
 }
 
-div.calendar-notification {
-  animation: fade-in-effect ease 0.5s;
-  -webkit-animation: fade-in-effect ease 0.5s;
-  -moz-animation: fade-in-effect ease 0.5s;
-  -o-animation: fade-in-effect ease 0.5s;
-  -ms-animation: fade-in-effect ease 0.5s;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  cursor: default;
-  position: fixed;
-  bottom: var(--spacing);
-  right: var(--spacing);
-  width: auto;
-  height: auto;
-  display: none;
-  z-index: 2500;
-}
-div.calendar-notification div.ib-close-icon {
-  margin-left: calc(var(--spacing) * 2);
-}
-div.calendar-notification div.ib-close-icon::before, div.calendar-notification div.ib-close-icon::after {
-  background-color: #9A9;
-}
-div.calendar-notification div.success,
-div.calendar-notification div.error {
-  padding: var(--spacing);
-  border-radius: var(--border-radius);
-}
-div.calendar-notification div.success div.ib-close-icon,
-div.calendar-notification div.error div.ib-close-icon {
-  margin-left: calc(var(--spacing) * 2);
-}
-div.calendar-notification div.success {
-  background-color: #EFE;
-  border: var(--spacing-border-size) solid #DED;
-  color: #9A9;
-  box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
-}
-div.calendar-notification div.success div.ib-close-icon::before, div.calendar-notification div.success div.ib-close-icon::after {
-  background-color: #9A9;
-}
-div.calendar-notification div.error {
-  background-color: #FEE;
-  border: var(--spacing-border-size) solid #EDD;
-  color: #A66;
-  box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
-}
-div.calendar-notification div.error div.ib-close-icon::before, div.calendar-notification div.error div.ib-close-icon::after {
-  background-color: #A66;
-}
-
 div.disabled-background {
   top: 0;
   left: 0;
@@ -463,6 +409,65 @@ div.calendar-widget div.events div.event:last-of-type {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Notifications
+    -------------------------------------------------------------------------
+*/
+div.calendar-notification {
+  animation: fade-in-effect ease 0.5s;
+  -webkit-animation: fade-in-effect ease 0.5s;
+  -moz-animation: fade-in-effect ease 0.5s;
+  -o-animation: fade-in-effect ease 0.5s;
+  -ms-animation: fade-in-effect ease 0.5s;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+  position: fixed;
+  bottom: var(--spacing);
+  right: var(--spacing);
+  width: auto;
+  height: auto;
+  display: none;
+  z-index: 2500;
+}
+div.calendar-notification div.ib-close-icon {
+  margin-left: calc(var(--spacing) * 2);
+}
+div.calendar-notification div.ib-close-icon::before, div.calendar-notification div.ib-close-icon::after {
+  background-color: #9A9;
+}
+div.calendar-notification div.success,
+div.calendar-notification div.error {
+  padding: var(--spacing);
+  border-radius: var(--border-radius);
+}
+div.calendar-notification div.success div.ib-close-icon,
+div.calendar-notification div.error div.ib-close-icon {
+  margin-left: calc(var(--spacing) * 2);
+}
+div.calendar-notification div.success {
+  background-color: #EFE;
+  border: var(--spacing-border-size) solid #DED;
+  color: #9A9;
+  box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+}
+div.calendar-notification div.success div.ib-close-icon::before, div.calendar-notification div.success div.ib-close-icon::after {
+  background-color: #9A9;
+}
+div.calendar-notification div.error {
+  background-color: #FEE;
+  border: var(--spacing-border-size) solid #EDD;
+  color: #A66;
+  box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+}
+div.calendar-notification div.error div.ib-close-icon::before, div.calendar-notification div.error div.ib-close-icon::after {
+  background-color: #A66;
+}
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Layout
     -------------------------------------------------------------------------
 */
@@ -515,13 +520,13 @@ div.calendar div.drag-over {
   transition: var(--transition-faster);
 }
 div.calendar div.drag-not-allowed {
-  background: repeating-linear-gradient(135deg, var(--light-color), var(--light-color) var(--spacing), var(--area-disabled-stripped) var(--spacing), var(--area-disabled-stripped) calc(var(--spacing) * 2));
+  background: repeating-linear-gradient(135deg, transparent, transparent var(--spacing), var(--area-disabled-stripped) var(--spacing), var(--area-disabled-stripped) calc(var(--spacing) * 2)), repeating-linear-gradient(45deg, var(--light-color), var(--light-color) var(--spacing), var(--area-disabled-stripped) var(--spacing), var(--area-disabled-stripped) calc(var(--spacing) * 2));
 }
 div.calendar div.drag-not-allowed div.ib-arrow-expand-left-right-icon {
   display: none !important;
 }
 div.calendar div.drag-not-allowed-weekend-day {
-  background: repeating-linear-gradient(135deg, var(--day-names-color), var(--day-names-color) var(--spacing), var(--area-disabled-stripped-weekend-day) var(--spacing), var(--area-disabled-stripped-weekend-day) calc(var(--spacing) * 2));
+  background: repeating-linear-gradient(135deg, transparent, transparent var(--spacing), var(--area-disabled-stripped-weekend-day) var(--spacing), var(--area-disabled-stripped-weekend-day) calc(var(--spacing) * 2)), repeating-linear-gradient(45deg, var(--day-names-color), var(--day-names-color) var(--spacing), var(--area-disabled-stripped-weekend-day) var(--spacing), var(--area-disabled-stripped-weekend-day) calc(var(--spacing) * 2));
 }
 div.calendar div.drag-not-allowed-weekend-day div.ib-arrow-expand-left-right-icon {
   display: none !important;
