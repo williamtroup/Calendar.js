@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.4 | (c) Bunoon | GNU AGPLv3 License */
+/*! Calendar.js v2.9.5 | (c) Bunoon | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -1897,6 +1897,11 @@ function calendarJs(elementOrId, options, searchOptions) {
     showFullWeekView(_element_View_FullWeek_DateSelected, true);
   }
   function buildFullMonthView() {
+    if (_element_View_FullMonth === null) {
+      _element_View_FullMonth = createElement("div", "full-month-view");
+      _element_View_FullMonth.id = newGuid();
+      _element_Calendar.appendChild(_element_View_FullMonth);
+    }
     buildFullMonthViewTitleBar();
     buildFullMonthViewPinUp();
     buildFullMonthViewDayNamesHeader();
@@ -1910,8 +1915,8 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_View_FullMonth_TitleBar.innerHTML = _string.empty;
     }
     if (!wasAddedAlready) {
-      _element_View_FullMonth_TitleBar = createElement("div", "header-date");
-      _element_Calendar.appendChild(_element_View_FullMonth_TitleBar);
+      _element_View_FullMonth_TitleBar = createElement("div", "title-bar");
+      _element_View_FullMonth.appendChild(_element_View_FullMonth_TitleBar);
     }
     if (_options.fullScreenModeEnabled) {
       _element_View_FullMonth_TitleBar.ondblclick = fullScreenModeHeaderDoubleClick;
@@ -1991,7 +1996,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_options.isPinUpViewEnabled) {
         if (!wasAddedAlready) {
           _element_View_FullMonth_PinUp = createElement("div", "pin-up");
-          _element_Calendar.appendChild(_element_View_FullMonth_PinUp);
+          _element_View_FullMonth.appendChild(_element_View_FullMonth_PinUp);
         }
         buildFullMonthViewPinUpImageCache();
         if (!_initialized_FirstTime) {
@@ -1999,7 +2004,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
       } else {
         if (wasAddedAlready) {
-          _element_Calendar.removeChild(_element_View_FullMonth_PinUp);
+          _element_View_FullMonth.removeChild(_element_View_FullMonth_PinUp);
           _element_View_FullMonth_PinUp = null;
         }
       }
@@ -2067,7 +2072,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       if (!wasAddedAlready) {
         _element_View_FullMonth_DayNamesHeader = createElement("div", "row-cells header-days");
-        _element_Calendar.appendChild(_element_View_FullMonth_DayNamesHeader);
+        _element_View_FullMonth.appendChild(_element_View_FullMonth_DayNamesHeader);
       }
       if (_element_Mode_DatePicker_Enabled) {
         _element_View_FullMonth_DayNamesHeader.onclick = cancelBubble;
@@ -2082,13 +2087,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullMonthViewDayRows(container, dayStartID) {
     var isForCustomContainer = isDefined(container);
-    container = !isForCustomContainer ? _element_Calendar : container;
+    container = !isForCustomContainer ? _element_View_FullMonth : container;
     dayStartID = isDefined(dayStartID) ? dayStartID : _element_ID_DayElement;
     if (!isForCustomContainer && _element_View_FullMonth_Rows.length > 0) {
       var rowsLength = _element_View_FullMonth_Rows.length;
       var rowsIndex = 0;
       for (; rowsIndex < rowsLength; rowsIndex++) {
-        _element_Calendar.removeChild(_element_View_FullMonth_Rows[rowsIndex]);
+        container.removeChild(_element_View_FullMonth_Rows[rowsIndex]);
       }
       _element_View_FullMonth_Rows = [];
     }
@@ -3549,7 +3554,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _elements_InDocumentBody.push(_element_ContextMenu_Event);
     _parameter_Document.body.appendChild(_element_ContextMenu_Event);
     if (_options.manualEditingEnabled) {
-      _element_ContextMenu_Event_EditEvent = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-plus-icon", _options.editEventTitle + "...", function() {
+      _element_ContextMenu_Event_EditEvent = buildContextMenuItemWithIcon(_element_ContextMenu_Event, "ib-edit-icon", _options.editEventTitle + "...", function() {
         showEventEditingDialog(_element_ContextMenu_Event_EventDetails, null, null, _element_ContextMenu_Event_DateSelected);
       }, true);
       _element_ContextMenu_Event_CutSeparator = buildContextMenuSeparator(_element_ContextMenu_Event);
@@ -5201,7 +5206,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _elements_InDocumentBody.push(_element_Tooltip);
       _parameter_Document.body.appendChild(_element_Tooltip);
       _element_Tooltip_TitleButtons_CloseButton = createElement("div", "ib-close");
-      _element_Tooltip_TitleButtons_EditButton = createElement("div", "ib-plus");
+      _element_Tooltip_TitleButtons_EditButton = createElement("div", "ib-edit");
       _element_Tooltip_TitleButtons = createElement("div", "title-buttons");
       _element_Tooltip_TitleButtons.appendChild(_element_Tooltip_TitleButtons_CloseButton);
       _element_Tooltip_TitleButtons.appendChild(_element_Tooltip_TitleButtons_EditButton);
@@ -8718,6 +8723,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_FullWeek_TimeArrow_Position = null;
   var _element_View_FullWeek_Contents_SmallestEventTop = 0;
   var _element_View_FullWeek_Events_Dragged_Sizes = [];
+  var _element_View_FullMonth = null;
   var _element_View_FullMonth_Rows = [];
   var _element_View_FullMonth_TitleBar = null;
   var _element_View_FullMonth_TitleBar_YearSelector_DropDown = null;
@@ -9465,7 +9471,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.9.4";
+    return "2.9.5";
   };
   this.getId = function() {
     return _parameter_ElementID;

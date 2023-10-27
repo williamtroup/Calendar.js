@@ -1,0 +1,26 @@
+@import "button";
+
+.ib-edit {
+    @include button;
+    position: relative;
+
+    &::before {
+        width: $border-width;
+        height: $size - calc( $border-width );
+        background-color: $button-color;
+        border-radius: $border-radius;
+        left: calc( $size / 2 ) - calc( $border-width / 2 );
+        top: -( calc( $border-width / 4 ) );
+        @include transform-rotate( 41deg );
+    }
+
+    &::after {
+        position: absolute;
+        width: $border-width;
+        height: $border-width;
+        background-color: $button-color;
+        border-radius: var(--border-radius);
+        bottom: calc( $border-width / 2 );
+        left: 0;
+    }
+}

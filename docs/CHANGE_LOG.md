@@ -1,5 +1,16 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.5:
+- The "Edit Event" tooltip button and context menu icon now use a brand new "Edit" icon instead of the original "Plus" icon.
+- The Full Month view (default view) now has its own container and CSS class "full-month-view".
+- Reorganized the CSS classes into the right areas.
+- Renamed the CSS class "header-date" to "title-bar" (for the Full Month view).
+- Added multiple "repeating-linear-gradient" CSS styles for the disabled days (when an event is dragged).
+- Change the project license to the MIT License.
+
+<br>
+
+
 ## Version 2.9.4:
 - Added a new event context menu item called "Share", which will allow events selected to be shared using any supported apps (shares a text file containing JSON).
 - Fixed a fault that caused the Side Menu title bar buttons to remain visible when settings are disabled via the "setOptions()" public function.

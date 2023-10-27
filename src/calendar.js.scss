@@ -1,8 +1,8 @@
 /*
- * Calendar.js Library v2.9.4
+ * Calendar.js Library v2.9.5
  *
  * Copyright 2023 Bunoon
- * Released under the GNU AGPLv3 license
+ * Released under the MIT License
  */
 
 
@@ -135,6 +135,199 @@ div.calendar-widget {
     }
 }
 
+div.disabled-background {
+    @include disabled-area( fixed );
+}
+
+div.disabled-area {
+    @include disabled-area( absolute );
+    display: none;
+}
+
+div.prevent-pointer-events,
+span.prevent-pointer-events {
+    pointer-events: none;
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Mode - Full-Screen
+    -------------------------------------------------------------------------
+*/
+
+div.full-screen-view {
+    @include full-size-view;
+    z-index: 500;
+    position: fixed !important;
+    border-radius: 0 !important;
+    border: none !important;
+
+    div.header-days {
+        flex: none !important;
+    }
+
+    div.row-cells {
+        flex: 1 1 auto;
+    }
+
+    div.plus-x-events {
+        display: none !important;
+    }
+
+    div.full-month-view {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Mode - Date-Picker
+    -------------------------------------------------------------------------
+*/
+
+div.calendar-date-picker {
+    position: relative;
+
+    input.calendar-date-picker-input {
+        @include input-fields( $width: auto, $margin-bottom: 0 !important );
+    }
+
+    div.calendar-hidden {
+        display: none;
+    }
+    
+    div.calendar-shown {
+        @include fade-in-effect-animation( 0.5s );
+        display: block;
+    }
+
+    div.calendar-shadow-bottom {
+        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+    }
+
+    div.calendar-shadow-top {
+        box-shadow: var(--spacing-shadow-size) calc(0px - var(--spacing-shadow-size)) var(--spacing-shadow-size) var(--dark-color);
+    }
+
+    div.calendar {
+        font-size: var(--small-font-size) !important;
+        position: absolute;
+        width: 100%;
+        max-width: 330px;
+        z-index: 1000;
+        margin-top: var(--spacing-border-size);
+        margin-left: -var(--spacing-border-size);
+        
+        div.full-month-view {
+            div.title-bar {
+                font-size: var(--large-font-size) !important;
+            }
+
+            div.cell {
+                padding: calc( var(--spacing) / 2 ) !important;
+            }
+    
+            div.days {
+                div.cell-today {
+                    background-color: var(--dark-color) !important;
+                    color: var(--light-color) !important;
+                }
+    
+                div.cell-selected {
+                    background-color: var(--day-date-picker-hover-color) !important;
+                }
+    
+                div.cell:not( .cell-no-click ):hover {
+                    cursor: pointer;
+                    background-color: var(--day-date-picker-hover-color);
+                    transition: var(--transition);
+                }
+    
+                div.cell:not( .cell-no-click ):active {
+                    @include opacity-active-effect;
+                }
+            }
+
+            div.ib-arrow-expand-left-right-icon {
+                display: none !important;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Mode - Widget
+    -------------------------------------------------------------------------
+*/
+
+div.calendar-widget {
+    @include no-selection-allowed;
+    border-radius: var(--border-radius);
+    padding: var(--spacing);
+    background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
+    color: var(--light-color);
+    max-width: 400px !important;
+    width: 100%;
+
+    div.day-name {
+        font-weight: 900;
+        margin-bottom: var(--spacing);
+
+        div.right-divider-line {
+            @include title-bar-divider-line;
+        }
+        
+        div.ib-arrow-left-full,
+        div.ib-arrow-right-full,
+        div.ib-plus,
+        div.ib-pin,
+        div.right-divider-line {
+            float: right;
+            margin-left: var(--spacing);
+        }
+    }
+
+    div.day-date {
+        font-weight: 300;
+        font-size: x-large;
+        margin-bottom: calc( var(--spacing) * 2 );
+    }
+
+    div.scroll-margin {
+        padding-right: var(--spacing);
+    }
+
+    div.events {
+        margin-top: var(--spacing);
+        font-weight: 300;
+        max-height: 400px;
+        overflow-y: auto;
+
+        @import "foundation/view-event";
+
+        div.event {
+            margin-bottom: calc( var(--spacing) / 2 );
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Notifications
+    -------------------------------------------------------------------------
+*/
+
 div.calendar-notification {
     @include fade-in-effect-animation( 0.5s );
     @include no-selection-allowed;
@@ -194,178 +387,10 @@ div.calendar-notification {
     }
 }
 
-div.disabled-background {
-    @include disabled-area( fixed );
-}
-
-div.disabled-area {
-    @include disabled-area( absolute );
-    display: none;
-}
-
-div.prevent-pointer-events,
-span.prevent-pointer-events {
-    pointer-events: none;
-}
-
-div.full-screen-view {
-    @include full-size-view;
-    z-index: 500;
-    position: fixed !important;
-    border-radius: 0 !important;
-    border: none !important;
-    display: flex;
-    flex-flow: column;
-
-    div.header-days {
-        flex: none !important;
-    }
-
-    div.row-cells {
-        flex: 1 1 auto;
-    }    
-
-    div.plus-x-events {
-        display: none !important;
-    }
-}
-
-div.calendar-date-picker {
-    position: relative;
-
-    input.calendar-date-picker-input {
-        @include input-fields( $width: auto, $margin-bottom: 0 !important );
-    }
-
-    div.calendar-hidden {
-        display: none;
-    }
-    
-    div.calendar-shown {
-        @include fade-in-effect-animation( 0.5s );
-        display: block;
-    }
-
-    div.calendar-shadow-bottom {
-        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
-    }
-
-    div.calendar-shadow-top {
-        box-shadow: var(--spacing-shadow-size) calc(0px - var(--spacing-shadow-size)) var(--spacing-shadow-size) var(--dark-color);
-    }
-
-    div.header-date {
-        div.title-container {
-            font-size: var(--large-font-size) !important;
-        }
-    }
-
-    div.calendar {
-        font-size: var(--small-font-size) !important;
-        position: absolute;
-        width: 100%;
-        max-width: 330px;
-        z-index: 1000;
-        margin-top: var(--spacing-border-size);
-        margin-left: -var(--spacing-border-size);
-
-        div.cell {
-            padding: calc( var(--spacing) / 2 ) !important;
-        }
-
-        div.days {
-            div.cell-today {
-                background-color: var(--dark-color) !important;
-                color: var(--light-color) !important;
-            }
-
-            div.cell-selected {
-                background-color: var(--day-date-picker-hover-color) !important;
-            }
-
-            div.cell:not( .cell-no-click ):hover {
-                cursor: pointer;
-                background-color: var(--day-date-picker-hover-color);
-                transition: var(--transition);
-            }
-
-            div.cell:not( .cell-no-click ):active {
-                @include opacity-active-effect;
-            }
-        }
-    }
-
-    div.ib-arrow-expand-left-right-icon {
-        display: none !important;
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Layout - Widget
-    -------------------------------------------------------------------------
-*/
-
-div.calendar-widget {
-    @include no-selection-allowed;
-    border-radius: var(--border-radius);
-    padding: var(--spacing);
-    background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
-    color: var(--light-color);
-    max-width: 400px !important;
-    width: 100%;
-
-    div.day-name {
-        font-weight: 900;
-        margin-bottom: var(--spacing);
-
-        div.right-divider-line {
-            @include title-bar-divider-line;
-        }
-        
-        div.ib-arrow-left-full,
-        div.ib-arrow-right-full,
-        div.ib-plus,
-        div.ib-pin,
-        div.right-divider-line {
-            float: right;
-            margin-left: var(--spacing);
-        }
-    }
-
-    div.day-date {
-        font-weight: 300;
-        font-size: x-large;
-        margin-bottom: calc( var(--spacing) * 2 );
-    }
-
-    div.scroll-margin {
-        padding-right: var(--spacing);
-    }
-
-    div.events {
-        margin-top: var(--spacing);
-        font-weight: 300;
-        max-height: 400px;
-        overflow-y: auto;
-
-        @import "foundation/view-event";
-
-        div.event {
-            margin-bottom: calc( var(--spacing) / 2 );
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-        }
-    }
-}
-
  
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Layout - Full
+    Calendar.js - Layout
     -------------------------------------------------------------------------
 */
 
@@ -425,11 +450,18 @@ div.calendar {
     div.drag-not-allowed {
         background: repeating-linear-gradient( 
             135deg,
+            transparent,
+            transparent var(--spacing),
+            var(--area-disabled-stripped) var(--spacing),
+            var(--area-disabled-stripped) calc( var(--spacing) * 2 )
+        ),
+        repeating-linear-gradient( 
+            45deg,
             var(--light-color),
             var(--light-color) var(--spacing),
             var(--area-disabled-stripped) var(--spacing),
             var(--area-disabled-stripped) calc( var(--spacing) * 2 )
-         );
+        );
 
         div.ib-arrow-expand-left-right-icon {
             display: none !important;
@@ -439,11 +471,18 @@ div.calendar {
     div.drag-not-allowed-weekend-day {
         background: repeating-linear-gradient( 
             135deg,
+            transparent,
+            transparent var(--spacing),
+            var(--area-disabled-stripped-weekend-day) var(--spacing),
+            var(--area-disabled-stripped-weekend-day) calc( var(--spacing) * 2 )
+        ),
+        repeating-linear-gradient( 
+            45deg,
             var(--day-names-color),
             var(--day-names-color) var(--spacing),
             var(--area-disabled-stripped-weekend-day) var(--spacing),
             var(--area-disabled-stripped-weekend-day) calc( var(--spacing) * 2 )
-         );
+        );
 
         div.ib-arrow-expand-left-right-icon {
             display: none !important;
@@ -643,6 +682,7 @@ div.calendar {
         display: none;
     }
 }
+
 
 /*
     -------------------------------------------------------------------------
@@ -875,371 +915,6 @@ div.calendar {
 
 /*
     -------------------------------------------------------------------------
-    Calendar.js - Layout - Date Header
-    -------------------------------------------------------------------------
-*/
-
-div.calendar {  
-    div.header-date {
-        font-weight: var(--title-bar-font-weight);
-        background-color: var(--dark-color);
-        color: var(--title-bar-text-color);
-        text-align: center;
-        padding-top: var(--spacing);
-        padding-bottom: var(--spacing);
-        padding-left: calc( var(--spacing) / 2 );
-        padding-right: calc( var(--spacing) / 2 );
-        position: relative;
-
-        div[class^='ib-'],
-        div.left-divider-line,
-        div.right-divider-line,
-        div.right-divider-line-full-screen-mode,
-        div.right-divider-line-views {
-            margin-left: calc( var(--spacing) / 2 );
-            margin-right: calc( var(--spacing) / 2 );
-        }
-
-        div.left-divider-line,
-        div.right-divider-line,
-        div.right-divider-line-full-screen-mode,
-        div.right-divider-line-views {
-            @include title-bar-divider-line;
-        }
-
-        div.title-container {
-            display: inline-block;
-            position: relative;
-            font-size: var(--large-font-size) !important;
-
-            span.year-dropdown-button {
-                white-space: nowrap;
-                overflow: hidden;
-                padding: 3px;
-                padding-left: 6px;
-                padding-right: 6px;
-                border-radius: var(--border-radius);
-                background-color: #474545;
-                border: var(--spacing-border-size) solid var(--dark-lighter-color);
-                font-weight: 500;
-
-                span.ib-arrow-down-full-medium,
-                span.ib-arrow-up-full-medium {
-                    margin-left: calc( var(--spacing) / 2 );
-                    pointer-events: none;
-                }
-
-                span.ib-arrow-down-full-medium {
-                    border-top-color: var(--title-bar-text-color);
-                }
-
-                span.ib-arrow-up-full-medium {
-                    border-bottom-color: var(--title-bar-text-color);
-                }
-
-                &:hover {
-                    @include opacity-hover-effect;
-                }
-    
-                &:active {
-                    @include opacity-active-effect;
-                }
-            }
-
-            div.years-drop-down,
-            div.years-drop-down-no-months {
-                @include fade-in-effect-animation( 0.5s );
-                position: absolute;
-                width: 240px;
-                border: var(--spacing-border-size) solid var(--dark-color);
-                left: 50%;
-                transform: translate( -50% );
-                background-color: var(--light-color);
-                border-radius: var(--border-radius);
-                z-index: 1500;
-                display: none;
-                overflow: hidden;
-                font-weight: 500;
-
-                @media screen and ( min-width: $minimum-width ) {
-                    top: calc( var(--spacing) + var(--large-font-size) );
-                }
-                
-                @media screen and ( max-width: $maximum-width ) {
-                    top: calc( var(--spacing) + var(--small-font-size) );
-                }
-
-                div.months {
-                    $button-spacing: 1px;
-
-                    margin-left: $button-spacing;
-                    margin-right: $button-spacing;
-
-                    &:first-child {
-                        margin-top: $button-spacing;
-                    }
-
-                    div.month-name,
-                    div.month-name-selected,
-                    div.month-name-current-month {
-                        width: calc( 33.33% - ( ( var(--spacing) ) + ( $button-spacing * 2 ) ) );
-                        padding: calc( var(--spacing) / 2 );
-                        margin: $button-spacing;
-                        display: inline-block;
-                        border-radius: var(--border-radius);
-                        font-size: 0.7rem;
-                    }
-
-                    div.month-name,
-                    div.month-name-current-month {
-                        background-color: var(--day-names-color);
-                        color: var(--dark-color);
-                        
-                        &:hover {
-                            background-color: var(--dark-color);
-                            color: var(--light-color);
-                            cursor: pointer;
-                            transition: var(--transition);
-                        }
-    
-                        &:active:not( .year-selected ) {
-                            @include opacity-active-effect;
-                        }
-                    }
-
-                    div.month-name-selected {
-                        background-color: var(--dark-color);
-                        color: var(--light-color);
-                    }
-
-                    div.month-name-current-month {
-                        background-color: #BCBCBC;
-                        color: var(--dark-color);
-                    }
-                }
-    
-                div.contents {
-                    border-radius: var(--border-radius);
-                    height: 100px;
-                    white-space: pre-line;
-                    -ms-word-break: break-all;
-                    word-break: break-all;
-                    overflow-x: hidden;
-                    overflow-y: auto;
-                    width: 100%;
-                    margin-left: 0 !important;
-                    margin-right: 0 !important;
-                    margin-top: calc( var(--spacing) / 3 );
-                    padding: 0;
-                    padding-top: calc( var(--spacing) / 2 );
-                    padding-bottom: calc( var(--spacing) / 2 );
-                    background-color: var(--light-color) !important;
-    
-                    div.year {
-                        display: inline-block;
-                        color: var(--dark-color);
-                        font-size: 0.75rem;
-                        margin-right: 5px;
-                        width: calc( 25% - 17px );
-                        text-align: center;
-                        margin-top: 5px;
-                        margin-bottom: 5px;
-                        border-radius: var(--border-radius);
-                        padding: 3px;
-        
-                        &:hover {
-                            background-color: var(--dark-color);
-                            color: var(--light-color);
-                            cursor: pointer;
-                            transition: var(--transition);
-                        }
-    
-                        &:active:not( .year-selected ) {
-                            @include opacity-active-effect;
-                        }
-                    }
-
-                    div.year-selected {
-                        background-color: var(--dark-color);
-                        color: var(--light-color);
-                        cursor: default !important;
-                    }
-
-                    div.year-has-events {
-                        background-color: var(--drop-down-menu-background-color);
-                        color: var(--dark-color);
-                    }
-                }
-            }
-
-            div.years-drop-down-no-months {
-                div.contents {
-                    margin-top: 0;
-                    height: 180px;
-                }
-            }
-        }
-
-        div.ib-arrow-left-full,
-        div.ib-pin,
-        div.ib-refresh,
-        div.ib-search,
-        div.ib-octagon-hollow,
-        div.ib-hamburger,
-        div.ib-rewind,
-        div.left-divider-line {
-            float: left;
-        }
-
-        div.ib-close,
-        div.ib-hamburger-side,
-        div.ib-eye,
-        div.ib-arrow-down-full-line,
-        div.ib-plus,
-        div.ib-arrow-right-full,
-        div.ib-arrow-expand-left-right,
-        div.ib-arrow-contract-left-right,
-        div.ib-forward,
-        div.ib-expand,
-        div.ib-hourglass,
-        div.ib-bar-graph,
-        div.right-divider-line,
-        div.right-divider-line-full-screen-mode,
-        div.right-divider-line-views {
-            float: right;
-        }
-
-        @media screen and ( min-width: $minimum-width ) {
-            div.ib-refresh,
-            div.ib-search,
-            div.ib-hamburger,
-            div.ib-hamburger-side,
-            div.ib-eye,
-            div.ib-arrow-down-full-line,
-            div.ib-octagon-hollow,
-            div.ib-expand,
-            div.ib-hourglass,
-            div.ib-rewind,
-            div.ib-forward,
-            div.ib-arrow-expand-left-right,
-            div.ib-bar-graph,
-            div.right-divider-line-full-screen-mode,
-            div.right-divider-line-views {
-                display: inline-block;
-            }
-        }
-        
-        @media screen and ( max-width: $maximum-width ) {
-            div.ib-refresh,
-            div.ib-search,
-            div.ib-hamburger-side,
-            div.ib-eye,
-            div.ib-arrow-down-full-line,
-            div.ib-octagon-hollow,
-            div.ib-expand,
-            div.ib-hourglass,
-            div.ib-rewind,
-            div.ib-forward,
-            div.ib-arrow-expand-left-right,
-            div.ib-bar-graph,
-            div.right-divider-line-full-screen-mode,
-            div.right-divider-line-views {
-                display: none !important;
-            }
-        }
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
-    Calendar.js - Day Events
-    -------------------------------------------------------------------------
-*/
-
-div.calendar {
-    div.row-cells {
-        div.cell {
-            div.event {
-                border-radius: var(--border-radius);
-                background-color: var(--event-color);
-                padding: 3px;
-                color: var(--event-text-color);
-                margin-top: 5px;
-                margin-bottom: 5px;
-                border-left: var(--event-left-border);
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-
-                @media screen and ( min-width: $minimum-width ) {
-                    font-size: 0.7rem !important;
-                }
-                
-                @media screen and ( max-width: $maximum-width ) {
-                    font-size: 0.5rem !important;
-                }
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-
-                div.ib-refresh-small {
-                    margin-right: calc( var(--spacing) / 2 );
-                }
-            }
-
-            div.event-circle {
-                display: inline-block;
-                border-radius: 50% !important;
-                border-left: none !important;
-                height: 5px;
-                width: 5px;
-                margin-left: 2.5px;
-                margin-right: 2.5px;
-
-                &:last-child {
-                    margin-bottom: 5px;
-                }
-            }
-            
-            div.expired {
-                opacity: var(--event-expired-opacity);
-            }
-
-            div.not-in-current-month {
-                opacity: 0.1;
-            }
-
-            div.all-day {
-                background-color: var(--event-color-all-day) !important;
-                color: var(--event-text-color-all-day);
-            }
-
-            div.plus-x-events {
-                display: inline-block;
-                font-size: smaller;
-                text-align: center;
-                margin-top: calc( var(--spacing) / 2 );
-                margin-left: auto;
-                margin-right: auto;
-
-                &:hover {
-                    @include opacity-hover-effect;
-                    text-decoration: underline;
-                }
-                
-                &:active {
-                    @include opacity-active-effect;
-                }
-            }
-        }
-    }
-}
-
-
-/*
-    -------------------------------------------------------------------------
     Calendar.js - Full Day View
     -------------------------------------------------------------------------
 */
@@ -1426,6 +1101,375 @@ div.calendar {
 
                     div.resizable {
                         resize: vertical;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Full Month View - Date Header
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {  
+    div.full-month-view {
+        div.title-bar {
+            font-weight: var(--title-bar-font-weight);
+            background-color: var(--dark-color);
+            color: var(--title-bar-text-color);
+            text-align: center;
+            padding-top: var(--spacing);
+            padding-bottom: var(--spacing);
+            padding-left: calc( var(--spacing) / 2 );
+            padding-right: calc( var(--spacing) / 2 );
+            position: relative;
+    
+            div[class^='ib-'],
+            div.left-divider-line,
+            div.right-divider-line,
+            div.right-divider-line-full-screen-mode,
+            div.right-divider-line-views {
+                margin-left: calc( var(--spacing) / 2 );
+                margin-right: calc( var(--spacing) / 2 );
+            }
+    
+            div.left-divider-line,
+            div.right-divider-line,
+            div.right-divider-line-full-screen-mode,
+            div.right-divider-line-views {
+                @include title-bar-divider-line;
+            }
+    
+            div.title-container {
+                display: inline-block;
+                position: relative;
+                font-size: var(--large-font-size) !important;
+    
+                span.year-dropdown-button {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    padding: 3px;
+                    padding-left: 6px;
+                    padding-right: 6px;
+                    border-radius: var(--border-radius);
+                    background-color: #474545;
+                    border: var(--spacing-border-size) solid var(--dark-lighter-color);
+                    font-weight: 500;
+    
+                    span.ib-arrow-down-full-medium,
+                    span.ib-arrow-up-full-medium {
+                        margin-left: calc( var(--spacing) / 2 );
+                        pointer-events: none;
+                    }
+    
+                    span.ib-arrow-down-full-medium {
+                        border-top-color: var(--title-bar-text-color);
+                    }
+    
+                    span.ib-arrow-up-full-medium {
+                        border-bottom-color: var(--title-bar-text-color);
+                    }
+    
+                    &:hover {
+                        @include opacity-hover-effect;
+                    }
+        
+                    &:active {
+                        @include opacity-active-effect;
+                    }
+                }
+    
+                div.years-drop-down,
+                div.years-drop-down-no-months {
+                    @include fade-in-effect-animation( 0.5s );
+                    position: absolute;
+                    width: 240px;
+                    border: var(--spacing-border-size) solid var(--dark-color);
+                    left: 50%;
+                    transform: translate( -50% );
+                    background-color: var(--light-color);
+                    border-radius: var(--border-radius);
+                    z-index: 1500;
+                    display: none;
+                    overflow: hidden;
+                    font-weight: 500;
+    
+                    @media screen and ( min-width: $minimum-width ) {
+                        top: calc( var(--spacing) + var(--large-font-size) );
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        top: calc( var(--spacing) + var(--small-font-size) );
+                    }
+    
+                    div.months {
+                        $button-spacing: 1px;
+    
+                        margin-left: $button-spacing;
+                        margin-right: $button-spacing;
+    
+                        &:first-child {
+                            margin-top: $button-spacing;
+                        }
+    
+                        div.month-name,
+                        div.month-name-selected,
+                        div.month-name-current-month {
+                            width: calc( 33.33% - ( ( var(--spacing) ) + ( $button-spacing * 2 ) ) );
+                            padding: calc( var(--spacing) / 2 );
+                            margin: $button-spacing;
+                            display: inline-block;
+                            border-radius: var(--border-radius);
+                            font-size: 0.7rem;
+                        }
+    
+                        div.month-name,
+                        div.month-name-current-month {
+                            background-color: var(--day-names-color);
+                            color: var(--dark-color);
+                            
+                            &:hover {
+                                background-color: var(--dark-color);
+                                color: var(--light-color);
+                                cursor: pointer;
+                                transition: var(--transition);
+                            }
+        
+                            &:active:not( .year-selected ) {
+                                @include opacity-active-effect;
+                            }
+                        }
+    
+                        div.month-name-selected {
+                            background-color: var(--dark-color);
+                            color: var(--light-color);
+                        }
+    
+                        div.month-name-current-month {
+                            background-color: #BCBCBC;
+                            color: var(--dark-color);
+                        }
+                    }
+        
+                    div.contents {
+                        border-radius: var(--border-radius);
+                        height: 100px;
+                        white-space: pre-line;
+                        -ms-word-break: break-all;
+                        word-break: break-all;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        width: 100%;
+                        margin-left: 0 !important;
+                        margin-right: 0 !important;
+                        margin-top: calc( var(--spacing) / 3 );
+                        padding: 0;
+                        padding-top: calc( var(--spacing) / 2 );
+                        padding-bottom: calc( var(--spacing) / 2 );
+                        background-color: var(--light-color) !important;
+        
+                        div.year {
+                            display: inline-block;
+                            color: var(--dark-color);
+                            font-size: 0.75rem;
+                            margin-right: 5px;
+                            width: calc( 25% - 17px );
+                            text-align: center;
+                            margin-top: 5px;
+                            margin-bottom: 5px;
+                            border-radius: var(--border-radius);
+                            padding: 3px;
+            
+                            &:hover {
+                                background-color: var(--dark-color);
+                                color: var(--light-color);
+                                cursor: pointer;
+                                transition: var(--transition);
+                            }
+        
+                            &:active:not( .year-selected ) {
+                                @include opacity-active-effect;
+                            }
+                        }
+    
+                        div.year-selected {
+                            background-color: var(--dark-color);
+                            color: var(--light-color);
+                            cursor: default !important;
+                        }
+    
+                        div.year-has-events {
+                            background-color: var(--drop-down-menu-background-color);
+                            color: var(--dark-color);
+                        }
+                    }
+                }
+    
+                div.years-drop-down-no-months {
+                    div.contents {
+                        margin-top: 0;
+                        height: 180px;
+                    }
+                }
+            }
+    
+            div.ib-arrow-left-full,
+            div.ib-pin,
+            div.ib-refresh,
+            div.ib-search,
+            div.ib-octagon-hollow,
+            div.ib-hamburger,
+            div.ib-rewind,
+            div.left-divider-line {
+                float: left;
+            }
+    
+            div.ib-close,
+            div.ib-hamburger-side,
+            div.ib-eye,
+            div.ib-arrow-down-full-line,
+            div.ib-plus,
+            div.ib-arrow-right-full,
+            div.ib-arrow-expand-left-right,
+            div.ib-arrow-contract-left-right,
+            div.ib-forward,
+            div.ib-expand,
+            div.ib-hourglass,
+            div.ib-bar-graph,
+            div.right-divider-line,
+            div.right-divider-line-full-screen-mode,
+            div.right-divider-line-views {
+                float: right;
+            }
+    
+            @media screen and ( min-width: $minimum-width ) {
+                div.ib-refresh,
+                div.ib-search,
+                div.ib-hamburger,
+                div.ib-hamburger-side,
+                div.ib-eye,
+                div.ib-arrow-down-full-line,
+                div.ib-octagon-hollow,
+                div.ib-expand,
+                div.ib-hourglass,
+                div.ib-rewind,
+                div.ib-forward,
+                div.ib-arrow-expand-left-right,
+                div.ib-bar-graph,
+                div.right-divider-line-full-screen-mode,
+                div.right-divider-line-views {
+                    display: inline-block;
+                }
+            }
+            
+            @media screen and ( max-width: $maximum-width ) {
+                div.ib-refresh,
+                div.ib-search,
+                div.ib-hamburger-side,
+                div.ib-eye,
+                div.ib-arrow-down-full-line,
+                div.ib-octagon-hollow,
+                div.ib-expand,
+                div.ib-hourglass,
+                div.ib-rewind,
+                div.ib-forward,
+                div.ib-arrow-expand-left-right,
+                div.ib-bar-graph,
+                div.right-divider-line-full-screen-mode,
+                div.right-divider-line-views {
+                    display: none !important;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
+    Calendar.js - Full Month View - Day Events
+    -------------------------------------------------------------------------
+*/
+
+div.calendar {
+    div.full-month-view {
+        div.row-cells {
+            div.cell {
+                div.event {
+                    border-radius: var(--border-radius);
+                    background-color: var(--event-color);
+                    padding: 3px;
+                    color: var(--event-text-color);
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    border-left: var(--event-left-border);
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+    
+                    @media screen and ( min-width: $minimum-width ) {
+                        font-size: 0.7rem !important;
+                    }
+                    
+                    @media screen and ( max-width: $maximum-width ) {
+                        font-size: 0.5rem !important;
+                    }
+    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+    
+                    div.ib-refresh-small {
+                        margin-right: calc( var(--spacing) / 2 );
+                    }
+                }
+    
+                div.event-circle {
+                    display: inline-block;
+                    border-radius: 50% !important;
+                    border-left: none !important;
+                    height: 5px;
+                    width: 5px;
+                    margin-left: 2.5px;
+                    margin-right: 2.5px;
+    
+                    &:last-child {
+                        margin-bottom: 5px;
+                    }
+                }
+                
+                div.expired {
+                    opacity: var(--event-expired-opacity);
+                }
+    
+                div.not-in-current-month {
+                    opacity: 0.1;
+                }
+    
+                div.all-day {
+                    background-color: var(--event-color-all-day) !important;
+                    color: var(--event-text-color-all-day);
+                }
+    
+                div.plus-x-events {
+                    display: inline-block;
+                    font-size: smaller;
+                    text-align: center;
+                    margin-top: calc( var(--spacing) / 2 );
+                    margin-left: auto;
+                    margin-right: auto;
+    
+                    &:hover {
+                        @include opacity-hover-effect;
+                        text-decoration: underline;
+                    }
+                    
+                    &:active {
+                        @include opacity-active-effect;
                     }
                 }
             }
@@ -2600,7 +2644,7 @@ div.calendar-tooltip-event {
         top: var(--spacing);
 
         div.ib-close,
-        div.ib-plus {
+        div.ib-edit {
             margin-left: calc( var(--spacing) / 2 );
             float: right;
 
@@ -2656,7 +2700,8 @@ div.calendar-context-menu {
     div.ib-equals-icon,
     div.ib-rhombus-hollow-icon,
     div.ib-arrow-down-full-line-icon,
-    div.ib-arrow-up-full-line-share-icon {
+    div.ib-arrow-up-full-line-share-icon,
+    div.ib-edit-icon {
         margin-right: var(--spacing);
     }
 
@@ -2681,7 +2726,9 @@ div.calendar-context-menu {
         &:hover div.ib-equals-icon::before,
         &:hover div.ib-equals-icon::after,
         &:hover div.ib-arrow-down-full-line-icon::after,
-        &:hover div.ib-arrow-up-full-line-share-icon::after {
+        &:hover div.ib-arrow-up-full-line-share-icon::after,
+        &:hover div.ib-edit-icon::before,
+        &:hover div.ib-edit-icon::after {
             background-color: var(--light-color);
         }
 
@@ -2818,6 +2865,7 @@ div.calendar-context-menu {
 @import "foundation/buttons/expand";
 @import "foundation/buttons/hourglass";
 @import "foundation/buttons/bar-graph";
+@import "foundation/buttons/edit";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";
@@ -2833,6 +2881,7 @@ div.calendar-context-menu {
 @import "foundation/menus/rhombus-hollow-icon";
 @import "foundation/menus/arrow-down-full-line-icon";
 @import "foundation/menus/arrow-up-full-line-share-icon";
+@import "foundation/menus/edit-icon";
 @import "foundation/small/refresh-medium";
 @import "foundation/small/refresh-small";
 @import "foundation/small/arrow-down-full-medium";
