@@ -6,7 +6,7 @@
  * @file        calendar.js
  * @version     v2.9.5
  * @author      Bunoon
- * @license     GNU AGPLv3
+ * @license     MIT License
  * @copyright   Bunoon 2023
  */
 
