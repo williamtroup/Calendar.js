@@ -3447,6 +3447,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullMonthView() {
         if ( _element_View_FullMonth === null ) {
             _element_View_FullMonth = createElement( "div", "full-month-view" );
+            _element_View_FullMonth.id = newGuid();
             _element_Calendar.appendChild( _element_View_FullMonth );
         }
 
