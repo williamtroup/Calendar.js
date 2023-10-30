@@ -8,8 +8,8 @@ Calendar.js
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
 </h1>
 
-<p align="center">One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-<p align="center">v2.9.6</p>
+> <p align="center">📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
+> <p align="center">v2.9.6</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
