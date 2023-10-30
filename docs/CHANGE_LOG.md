@@ -1,5 +1,10 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.6:
+- Very minor code documentation improvements.
+
+<br>
+
 ## Version 2.9.5:
 - The "Edit Event" tooltip button and context menu icon now use a brand new "Edit" icon instead of the original "Plus" icon.
 - The Full Month view (default view) now has its own container and CSS class "full-month-view".
