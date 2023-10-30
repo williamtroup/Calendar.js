@@ -2,7 +2,12 @@
 Calendar.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
+[![npm](https://img.shields.io/badge/npmjs-v2.9.6-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
+[![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
+[![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
 </h1>
+
 <p align="center">One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
 <p align="center">v2.9.6</p>
 <br />
