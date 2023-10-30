@@ -2,7 +2,6 @@
 
 ## Version 2.9.6:
 - Very minor code documentation improvements.
-- 
 
 <br>
 
