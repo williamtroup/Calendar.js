@@ -4,7 +4,7 @@
     "description": "A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.",
     "version": "2.9.7",
     "main": "dist/calendar.js",
-    "homepage": "https://calendar-js.com/",
+    "homepage": "https://calendar-js.com",
     "author": {
       "name": "Bunoon"
     },
