@@ -3206,6 +3206,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var groupHeader = createElement("div", "timeline-header-item");
     groupHeader.innerHTML = getTimelineViewAxisSelectedText();
     _element_View_Timeline_Contents_Header.appendChild(groupHeader);
+    buildToolbarButton(groupHeader, "ib-arrow-left-full", _options.previousPropertyTooltipText, onPreviousAxisTimelineView);
     buildToolbarButton(groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView);
     var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
     var loopDateToday = new Date();
@@ -3403,6 +3404,15 @@ function calendarJs(elementOrId, options, searchOptions) {
   function onCurrentTimelineDay() {
     _element_View_Timeline_DateSelected = new Date();
     showTimelineView(_element_View_Timeline_DateSelected, true);
+  }
+  function onPreviousAxisTimelineView() {
+    var indexOf = _element_View_Timeline_Selected_Axis_Supported.indexOf(_element_View_Timeline_Selected_Axis);
+    indexOf--;
+    if (indexOf < 0) {
+      indexOf = _element_View_Timeline_Selected_Axis_Supported.length - 1;
+    }
+    _element_View_Timeline_Selected_Axis = _element_View_Timeline_Selected_Axis_Supported[indexOf];
+    showTimelineView(_element_View_Timeline_DateSelected);
   }
   function onNextAxisTimelineView() {
     var indexOf = _element_View_Timeline_Selected_Axis_Supported.indexOf(_element_View_Timeline_Selected_Axis);
@@ -8583,6 +8593,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.noneText = getDefaultString(_options.noneText, "(none)");
     _options.shareText = getDefaultString(_options.shareText, "Share");
     _options.shareStartFilename = getDefaultString(_options.shareStartFilename, "shared_events_");
+    _options.previousPropertyTooltipText = getDefaultString(_options.previousPropertyTooltipText, "Previous Property");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);

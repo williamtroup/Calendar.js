@@ -63,7 +63,7 @@
     --time-view-hours-width: 70px;
     --time-view-hours-height: 25px;
     --time-view-arrow-line-height: 12px;
-    --time-view-timeline-section-width: 150px;
+    --time-view-timeline-section-width: 180px;
     --time-view-timeline-section-width-small: 100px;
 
     // Inputs
@@ -1750,7 +1750,7 @@ div.calendar {
                     }
 
                     &:first-child {
-                        text-align: left;
+                        text-align: center;
                     }
 
                     &:last-child {
@@ -1760,6 +1760,11 @@ div.calendar {
                     div.ib-arrow-right-full {
                         float: right;
                         border-left-color: var(--dark-color);
+                    }
+
+                    div.ib-arrow-left-full {
+                        float: left;
+                        border-right-color: var(--dark-color);
                     }
                 }
             }

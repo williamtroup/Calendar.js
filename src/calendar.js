@@ -316,6 +316,7 @@
  * @property    {string}    noneText                                    The text that should be displayed for the "(none)" label.
  * @property    {string}    shareText                                   The text that should be displayed for the "Share" label.
  * @property    {string}    shareStartFilename                          The starting filename that should be used when sharing calendar events (defaults to "share_events_").
+ * @property    {string}    previousPropertyTooltipText                 The tooltip text that should be used for the "Previous Property" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -5189,6 +5190,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         groupHeader.innerHTML = getTimelineViewAxisSelectedText();
         _element_View_Timeline_Contents_Header.appendChild( groupHeader );
 
+        buildToolbarButton( groupHeader, "ib-arrow-left-full", _options.previousPropertyTooltipText, onPreviousAxisTimelineView );
         buildToolbarButton( groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView );
 
         var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
@@ -5448,6 +5450,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_DateSelected = new Date();
             
         showTimelineView( _element_View_Timeline_DateSelected, true );
+    }
+
+    function onPreviousAxisTimelineView() {
+        var indexOf = _element_View_Timeline_Selected_Axis_Supported.indexOf( _element_View_Timeline_Selected_Axis );
+        indexOf--;
+
+        if ( indexOf < 0 ) {
+            indexOf = _element_View_Timeline_Selected_Axis_Supported.length - 1;
+        }
+
+        _element_View_Timeline_Selected_Axis = _element_View_Timeline_Selected_Axis_Supported[ indexOf ];
+
+        showTimelineView( _element_View_Timeline_DateSelected );
     }
 
     function onNextAxisTimelineView() {
@@ -13954,6 +13969,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.noneText = getDefaultString( _options.noneText, "(none)" );
         _options.shareText = getDefaultString( _options.shareText, "Share" );
         _options.shareStartFilename = getDefaultString( _options.shareStartFilename, "shared_events_" );
+        _options.previousPropertyTooltipText = getDefaultString( _options.previousPropertyTooltipText, "Previous Property" );
     }
 
     function setEventTypeTranslationStringOptions() {

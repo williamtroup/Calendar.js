@@ -46,7 +46,7 @@
   --time-view-hours-width: 70px;
   --time-view-hours-height: 25px;
   --time-view-arrow-line-height: 12px;
-  --time-view-timeline-section-width: 150px;
+  --time-view-timeline-section-width: 180px;
   --time-view-timeline-section-width-small: 100px;
   --input-box-shadow-size: 2px;
   --input-checkbox-size-with-spacing: 25px;
@@ -2537,7 +2537,7 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
   }
 }
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:first-child {
-  text-align: left;
+  text-align: center;
 }
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:last-child {
   border-right: none;
@@ -2545,6 +2545,10 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item div.ib-arrow-right-full {
   float: right;
   border-left-color: var(--dark-color);
+}
+div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item div.ib-arrow-left-full {
+  float: left;
+  border-right-color: var(--dark-color);
 }
 div.calendar div.timeline-view div.contents div.timeline-row {
   float: left;
