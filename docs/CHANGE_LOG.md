@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.9.7:
+- Added "organizerEmailAddress", "url", and "title" timeline axis support.  These can also be used for the default axis setting.
 - 
 
 <br>

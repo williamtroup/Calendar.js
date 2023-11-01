@@ -3435,6 +3435,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       result = _options.organizerNameText;
     } else if (_element_View_Timeline_Selected_Axis === "location") {
       result = _options.locationText;
+    } else if (_element_View_Timeline_Selected_Axis === "organizerEmailAddress") {
+      result = _options.organizerEmailAddressText;
+    } else if (_element_View_Timeline_Selected_Axis === "url") {
+      result = _options.urlText;
+    } else if (_element_View_Timeline_Selected_Axis === "title") {
+      result = _options.titleText;
     }
     return result;
   }
@@ -8767,7 +8773,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_Timeline_DateSelected = null;
   var _element_View_Timeline_TitleBar = null;
   var _element_View_Timeline_Selected_Axis = null;
-  var _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group"];
+  var _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group", "organizerEmailAddress", "url", "title"];
   var _element_Dialog_AllOpened = [];
   var _element_Dialog_Move = null;
   var _element_Dialog_Move_Original_X = 0;

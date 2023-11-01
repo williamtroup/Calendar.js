@@ -727,7 +727,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_Timeline_Selected_Axis_Supported = [
             "location",
             "organizerName",
-            "group"
+            "group",
+            "organizerEmailAddress",
+            "url",
+            "title"
         ],
 
         // Variables: Dialogs
@@ -5489,6 +5492,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             result = _options.organizerNameText;
         } else if ( _element_View_Timeline_Selected_Axis === "location" ) {
             result = _options.locationText;
+        } else if ( _element_View_Timeline_Selected_Axis === "organizerEmailAddress" ) {
+            result = _options.organizerEmailAddressText;
+        } else if ( _element_View_Timeline_Selected_Axis === "url" ) {
+            result = _options.urlText;
+        } else if ( _element_View_Timeline_Selected_Axis === "title" ) {
+            result = _options.titleText;
         }
 
         return result;
