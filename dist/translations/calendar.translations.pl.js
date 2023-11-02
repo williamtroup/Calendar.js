@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.6 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.7 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Pn",
@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
   "nextPropertyTooltipText": "Następna nieruchomość",
   "noneText": "(nic)",
   "shareText": "Udział",
-  "shareStartFilename": "wspólne_wydarzenia_"
+  "shareStartFilename": "wspólne_wydarzenia_",
+  "previousPropertyTooltipText": "Poprzednia nieruchomość"
 };

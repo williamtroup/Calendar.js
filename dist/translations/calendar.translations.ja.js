@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.6 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.7 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "月",
@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
     "nextPropertyTooltipText": "次の物件",
     "noneText": "（なし）",
     "shareText": "共有",
-    "shareStartFilename": "共有イベント_"
+    "shareStartFilename": "共有イベント_",
+    "previousPropertyTooltipText": "前のプロパティ"
 };

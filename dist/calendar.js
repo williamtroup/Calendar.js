@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.6 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.7 | (c) Bunoon | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -3206,6 +3206,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var groupHeader = createElement("div", "timeline-header-item");
     groupHeader.innerHTML = getTimelineViewAxisSelectedText();
     _element_View_Timeline_Contents_Header.appendChild(groupHeader);
+    buildToolbarButton(groupHeader, "ib-arrow-left-full", _options.previousPropertyTooltipText, onPreviousAxisTimelineView);
     buildToolbarButton(groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView);
     var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews;
     var loopDateToday = new Date();
@@ -3404,6 +3405,15 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_Timeline_DateSelected = new Date();
     showTimelineView(_element_View_Timeline_DateSelected, true);
   }
+  function onPreviousAxisTimelineView() {
+    var indexOf = _element_View_Timeline_Selected_Axis_Supported.indexOf(_element_View_Timeline_Selected_Axis);
+    indexOf--;
+    if (indexOf < 0) {
+      indexOf = _element_View_Timeline_Selected_Axis_Supported.length - 1;
+    }
+    _element_View_Timeline_Selected_Axis = _element_View_Timeline_Selected_Axis_Supported[indexOf];
+    showTimelineView(_element_View_Timeline_DateSelected);
+  }
   function onNextAxisTimelineView() {
     var indexOf = _element_View_Timeline_Selected_Axis_Supported.indexOf(_element_View_Timeline_Selected_Axis);
     indexOf++;
@@ -3435,6 +3445,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       result = _options.organizerNameText;
     } else if (_element_View_Timeline_Selected_Axis === "location") {
       result = _options.locationText;
+    } else if (_element_View_Timeline_Selected_Axis === "organizerEmailAddress") {
+      result = _options.organizerEmailAddressText;
+    } else if (_element_View_Timeline_Selected_Axis === "url") {
+      result = _options.urlText;
+    } else if (_element_View_Timeline_Selected_Axis === "title") {
+      result = _options.titleText;
     }
     return result;
   }
@@ -8577,6 +8593,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.noneText = getDefaultString(_options.noneText, "(none)");
     _options.shareText = getDefaultString(_options.shareText, "Share");
     _options.shareStartFilename = getDefaultString(_options.shareStartFilename, "shared_events_");
+    _options.previousPropertyTooltipText = getDefaultString(_options.previousPropertyTooltipText, "Previous Property");
   }
   function setEventTypeTranslationStringOptions() {
     setEventTypeOption(_options.eventTypeNormalText, "Normal", 0);
@@ -8767,7 +8784,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _element_View_Timeline_DateSelected = null;
   var _element_View_Timeline_TitleBar = null;
   var _element_View_Timeline_Selected_Axis = null;
-  var _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group"];
+  var _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group", "organizerEmailAddress", "url", "title"];
   var _element_Dialog_AllOpened = [];
   var _element_Dialog_Move = null;
   var _element_Dialog_Move_Original_X = 0;
@@ -9471,7 +9488,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.9.6";
+    return "2.9.7";
   };
   this.getId = function() {
     return _parameter_ElementID;

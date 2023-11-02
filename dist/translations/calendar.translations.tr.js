@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.6 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.7 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Pzt",
@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
     "nextPropertyTooltipText": "Sonraki Emlak",
     "noneText": "(hiçbiri)",
     "shareText": "Paylaşmak",
-    "shareStartFilename": "paylaşılan_events_"
+    "shareStartFilename": "paylaşılan_events_",
+    "previousPropertyTooltipText": "Önceki Mülk"
 };

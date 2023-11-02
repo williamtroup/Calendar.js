@@ -1,9 +1,18 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.7:
+- Added "organizerEmailAddress", "url", and "title" timeline axis support.  These can also be used for the default axis setting.
+- Added a "Previous Property" button to the timeline axis header (the axis text is now also centred).
+- The tabs/content areas now use a slightly lighter background color to make them stand out a little more.
+
+<br>
+
+
 ## Version 2.9.6:
 - Very minor code documentation improvements.
 
 <br>
+
 
 ## Version 2.9.5:
 - The "Edit Event" tooltip button and context menu icon now use a brand new "Edit" icon instead of the original "Plus" icon.

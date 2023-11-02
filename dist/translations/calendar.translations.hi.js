@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.6 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.7 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "सोमवार",
@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
   "nextPropertyTooltipText": "अगली संपत्ति",
   "noneText": "(कोई नहीं)",
   "shareText": "शेयर करना",
-  "shareStartFilename": "साझा_घटनाएँ_"
+  "shareStartFilename": "साझा_घटनाएँ_",
+  "previousPropertyTooltipText": "पिछली संपत्ति"
 };
