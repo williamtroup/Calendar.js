@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
     "nextPropertyTooltipText": "下一个房产",
     "noneText": "（没有任何）",
     "shareText": "分享",
-    "shareStartFilename": "共享事件_"
+    "shareStartFilename": "共享事件_",
+    "previousPropertyTooltipText": "以前的财产"
   };

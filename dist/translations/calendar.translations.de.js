@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
   "nextPropertyTooltipText": "Nächste Eigenschaft",
   "noneText": "(keiner)",
   "shareText": "Aktie",
-  "shareStartFilename": "shared_events_"
+  "shareStartFilename": "shared_events_",
+  "previousPropertyTooltipText": "Vorheriges Eigentum"
 };

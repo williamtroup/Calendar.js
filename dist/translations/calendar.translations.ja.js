@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
     "nextPropertyTooltipText": "次の物件",
     "noneText": "（なし）",
     "shareText": "共有",
-    "shareStartFilename": "共有イベント_"
+    "shareStartFilename": "共有イベント_",
+    "previousPropertyTooltipText": "前のプロパティ"
 };

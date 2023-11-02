@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
   "nextPropertyTooltipText": "Siguiente propiedad",
   "noneText": "(ninguno)",
   "shareText": "Compartir",
-  "shareStartFilename": "eventos_compartidos_"
+  "shareStartFilename": "eventos_compartidos_",
+  "previousPropertyTooltipText": "Propiedad anterior"
 };

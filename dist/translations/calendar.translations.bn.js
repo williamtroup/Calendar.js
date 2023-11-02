@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
     "nextPropertyTooltipText": "পরবর্তী সম্পত্তি",
     "noneText": "(কোনটিই নয়)",
     "shareText": "শেয়ার করুন",
-    "shareStartFilename": "ভাগ করা_ঘটনা_"
+    "shareStartFilename": "ভাগ করা_ঘটনা_",
+    "previousPropertyTooltipText": "পূর্ববর্তী সম্পত্তি"
   };

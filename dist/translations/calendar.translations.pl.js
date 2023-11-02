@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
   "nextPropertyTooltipText": "Następna nieruchomość",
   "noneText": "(nic)",
   "shareText": "Udział",
-  "shareStartFilename": "wspólne_wydarzenia_"
+  "shareStartFilename": "wspólne_wydarzenia_",
+  "previousPropertyTooltipText": "Poprzednia nieruchomość"
 };

@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
     "nextPropertyTooltipText": "Sonraki Emlak",
     "noneText": "(hiçbiri)",
     "shareText": "Paylaşmak",
-    "shareStartFilename": "paylaşılan_events_"
+    "shareStartFilename": "paylaşılan_events_",
+    "previousPropertyTooltipText": "Önceki Mülk"
 };

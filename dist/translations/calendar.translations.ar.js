@@ -232,5 +232,6 @@ var __TRANSLATION_OPTIONS = {
     "nextPropertyTooltipText": "العقار التالي",
     "noneText": "(لا أحد)",
     "shareText": "يشارك",
-    "shareStartFilename": "shared_events_"
+    "shareStartFilename": "shared_events_",
+    "previousPropertyTooltipText": "الملكية السابقة"
   };
