@@ -4228,7 +4228,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var repeatEnded = !( !isDefined( orderedEvent.repeatEnds ) || isDateSmallerOrEqualToDate( newFromDate, orderedEvent.repeatEnds ) );
 
             if ( excludeDays.indexOf( newFromDate.getDay() ) === -1 && !repeatEnded ) {
-                updateDateTotalEventsTracked( toStorageFormattedDate( newFromDate ) );
+                updateDateTotalEventsTracked( toStorageFormattedDate( newFromDate ), orderedEvent.id );
 
                 if ( newFromDate < _element_View_FullMonth_LargestDateAvailable ) {
                     var repeatDayElement = getFullMonthViewDayElement( newFromDate );
@@ -4251,7 +4251,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var nextDayDate = new Date( orderedEvent.from );
                 for ( var dayIndex = 0; dayIndex < totalDays; dayIndex++ ) {
                     moveDateForwardDay( nextDayDate );
-                    updateDateTotalEventsTracked( toStorageFormattedDate( nextDayDate ) );
+                    updateDateTotalEventsTracked( toStorageFormattedDate( nextDayDate ), orderedEvent.id );
     
                     var elementNextDay = getFullMonthViewDayElement( nextDayDate );
                     if ( elementNextDay !== null ) {
@@ -4269,7 +4269,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             editEventDate = new Date( dayDate );
 
         if ( isEventVisible( eventDetails ) && seriesIgnoreDates.indexOf( formattedDayDate ) === -1  ) {
-            updateDateTotalEventsTracked( formattedDayDate );
+            updateDateTotalEventsTracked( formattedDayDate, eventDetails.id );
 
             if ( elementDay !== null ) {
                 checkEventForBrowserNotifications( dayDate, eventDetails );
@@ -4436,12 +4436,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function updateDateTotalEventsTracked( formattedNewFromDate ) {
+    function updateDateTotalEventsTracked( formattedNewFromDate, eventId ) {
         if ( !_events_DatesAvailable.hasOwnProperty( formattedNewFromDate ) ) {
-            _events_DatesAvailable[ formattedNewFromDate ] = 0;
+            _events_DatesAvailable[ formattedNewFromDate ] = [];
         }
 
-        _events_DatesAvailable[ formattedNewFromDate ]++;
+        if ( _events_DatesAvailable[ formattedNewFromDate ].indexOf( eventId ) === -1 ) {
+            _events_DatesAvailable[ formattedNewFromDate ].push( eventId );
+        }
     }
 
 
@@ -4719,7 +4721,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _events_DatesAvailable.hasOwnProperty( formattedDate ) ) {
             element.className += " has-events";
 
-            var eventsCount = _events_DatesAvailable[ formattedDate ],
+            var eventsCount = _events_DatesAvailable[ formattedDate ].length,
                 eventsCountElement = createElement( "div", "events-count" );
 
             eventsCountElement.innerText = eventsCount.toString();
