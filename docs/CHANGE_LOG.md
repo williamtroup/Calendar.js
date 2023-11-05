@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.8:
+- Fixed a fault that caused the Full Year view to show the wrong numbers that represent the total events for each day, of each month.
+
+<br>
+
+
 ## Version 2.9.7:
 - Added "organizerEmailAddress", "url", and "title" timeline axis support.  These can also be used for the default axis setting.
 - Added a "Previous Property" button to the timeline axis header (the axis text is now also centred).

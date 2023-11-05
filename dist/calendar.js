@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.7 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.8 | (c) Bunoon | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -2487,7 +2487,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       dateFunc(newFromDate, dateFuncForwardValue);
       var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
       if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
-        updateDateTotalEventsTracked(toStorageFormattedDate(newFromDate));
+        updateDateTotalEventsTracked(toStorageFormattedDate(newFromDate), orderedEvent.id);
         if (newFromDate < _element_View_FullMonth_LargestDateAvailable) {
           var repeatDayElement = getFullMonthViewDayElement(newFromDate);
           if (repeatDayElement !== null) {
@@ -2506,7 +2506,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         var dayIndex = 0;
         for (; dayIndex < totalDays; dayIndex++) {
           moveDateForwardDay(nextDayDate);
-          updateDateTotalEventsTracked(toStorageFormattedDate(nextDayDate));
+          updateDateTotalEventsTracked(toStorageFormattedDate(nextDayDate), orderedEvent.id);
           var elementNextDay = getFullMonthViewDayElement(nextDayDate);
           if (elementNextDay !== null) {
             buildFullMonthViewDayEvent(nextDayDate, orderedEvent);
@@ -2521,7 +2521,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var formattedDayDate = toStorageFormattedDate(dayDate);
     var editEventDate = new Date(dayDate);
     if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDayDate) === -1) {
-      updateDateTotalEventsTracked(formattedDayDate);
+      updateDateTotalEventsTracked(formattedDayDate, eventDetails.id);
       if (elementDay !== null) {
         checkEventForBrowserNotifications(dayDate, eventDetails);
         if (!_element_Mode_DatePicker_Enabled) {
@@ -2652,11 +2652,13 @@ function calendarJs(elementOrId, options, searchOptions) {
       fireCustomTrigger("onBusyStateChange", _calendar_IsBusy);
     }
   }
-  function updateDateTotalEventsTracked(formattedNewFromDate) {
+  function updateDateTotalEventsTracked(formattedNewFromDate, eventId) {
     if (!_events_DatesAvailable.hasOwnProperty(formattedNewFromDate)) {
-      _events_DatesAvailable[formattedNewFromDate] = 0;
+      _events_DatesAvailable[formattedNewFromDate] = [];
     }
-    _events_DatesAvailable[formattedNewFromDate]++;
+    if (_events_DatesAvailable[formattedNewFromDate].indexOf(eventId) === -1) {
+      _events_DatesAvailable[formattedNewFromDate].push(eventId);
+    }
   }
   function buildFullYearView() {
     if (!_element_Mode_DatePicker_Enabled) {
@@ -2860,7 +2862,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (_events_DatesAvailable.hasOwnProperty(formattedDate)) {
       element.className += " has-events";
-      var eventsCount = _events_DatesAvailable[formattedDate];
+      var eventsCount = _events_DatesAvailable[formattedDate].length;
       var eventsCountElement = createElement("div", "events-count");
       eventsCountElement.innerText = eventsCount.toString();
       element.appendChild(eventsCountElement);
@@ -9488,7 +9490,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.9.7";
+    return "2.9.8";
   };
   this.getId = function() {
     return _parameter_ElementID;
