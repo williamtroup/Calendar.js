@@ -15,11 +15,11 @@ div.time-arrow {
         height: 0; 
         border-top: calc( var(--time-view-arrow-line-height) / 2 ) solid transparent;
         border-bottom: calc( var(--time-view-arrow-line-height) / 2 ) solid transparent;
-        border-right: var(--time-view-arrow-line-height) solid var(--link-color);
+        border-right: var(--time-view-arrow-line-height) solid var(--view-time-arrow-color);
     }
 
     div.line {
-        background-color: var(--link-color);
+        background-color: var(--view-time-arrow-color);
         position: absolute;
         left: var(--time-view-arrow-line-height);
         top: calc( var(--time-view-arrow-line-height) / 4 );
