@@ -2,7 +2,6 @@
 
 ## Version 2.9.9:
 - Added "calendar.js.nuspec" NuGet support!
-- 
 
 <br>
 
