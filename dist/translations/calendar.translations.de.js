@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.8 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.9 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Mo",
