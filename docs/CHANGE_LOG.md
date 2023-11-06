@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.9:
+- Added "calendar.js.nuspec" NuGet support!
+- 
+
+<br>
+
+
 ## Version 2.9.8:
 - Fixed a fault that caused the Full Year view to show the wrong numbers that represent the total events for each day, of each month.
 
