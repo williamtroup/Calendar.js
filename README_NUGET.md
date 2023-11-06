@@ -27,7 +27,7 @@
 - Search support (with search history).
 - Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support), with editing forward, and series support.
 - Customizable holidays.
-- Shortcut keys (click [here](docs/SHORTCUT_KEYS.md) to see the full list).
+- Shortcut keys (click [here](https://calendar-js.com/documentation/shortcut-keys.html) to see the full list).
 - Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events, with offset support (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
@@ -50,7 +50,7 @@ Limited support is still available for Internet Explorer. However, use within th
 
 ## What are the most recent changes?
 
-To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
+To see a list of all the most recent changes, click [here](https://calendar-js.com/documentation/recent-changes.html).
 
 
 ## How do I get started?
@@ -100,7 +100,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 </script>
 ```
 
-To see the options available for the class constructor, click [here](docs/CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
+You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
 
 
 ### 5. Finishing Up:
@@ -127,9 +127,9 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 </script>
 ```
 
-To see a list of all the available options you can use, click [here](docs/OPTIONS.md).
+To see a list of all the available options you can use, click [here](https://calendar-js.com/documentation/options.html).
 
-To see a list of all the available custom triggers you can use, click [here](docs/CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use, click [here](https://calendar-js.com/documentation/custom-triggers.html).
 
 
 ### 2. Event Object Format:
@@ -155,7 +155,7 @@ You can add a new event by using one of the add public functions, as follows:
 </script>
 ```
 
-To see a list of all the available event properties and how they should be formatted, click [here](docs/EVENT.md).>
+To see a list of all the available event properties and how they should be formatted, click [here](https://calendar-js.com/documentation/event.html).
 
 
 ### 3. Holiday Object Format:
@@ -175,12 +175,12 @@ A holiday is a piece of text that is shown under the day number in the month it 
 </script>
 ```
 
-To see a list of all the available holiday properties and how they should be formatted, click [here](docs/HOLIDAY.md).
+To see a list of all the available holiday properties and how they should be formatted, click [here](https://calendar-js.com/documentation/holiday.html).
 
 
 ### 4. Public Functions:
 
-To see a list of all the public functions available, click [here](docs/FUNCTIONS.md).
+To see a list of all the public functions available, click [here](https://calendar-js.com/documentation/public-functions.html).
 
 
 ### 5. Search Options:
@@ -195,4 +195,4 @@ Search Options allow you to customize how Calendar.js Search dialog will functio
 </script>
 ```
 
-To see a list of all the available search options you can use, click [here](docs/SEARCH_OPTIONS.md).
+To see a list of all the available search options you can use, click [here](https://calendar-js.com/documentation/search-options.html).
