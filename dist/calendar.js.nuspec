@@ -7,6 +7,6 @@
         <authors>William Troup</authors>
     </metadata>
     <files>
-        <file src="**" target="/" exclude="local.settings.json;.git\**;.vscode\**" />
+        <file src="**" target="/" exclude=".git\**;.vscode\**" />
     </files>
 </package>
