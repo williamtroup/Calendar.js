@@ -1,4 +1,4 @@
 ﻿/.vs
 /.vscode
-.DS_Store
-dist/*.nupkg
+*.DS_Store
+*.nupkg
