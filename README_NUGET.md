@@ -5,7 +5,7 @@
 [![nuget](https://img.shields.io/badge/nuget-v2.9.10-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
-[![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-yellow)](https://github.com/williamtroup)
+[![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://github.com/williamtroup)
 
 > 📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!
 
