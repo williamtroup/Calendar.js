@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>jCalendar.js</id>
-        <version>2.9.9</version>
+        <version>2.9.10</version>
         <description>A javascript drag and drop event calendar, that is fully responsive and compatible with all modern browsers.</description>
         <authors>William Troup</authors>
         <projectUrl>https://calendar-js.com/</projectUrl>
         <repository type="git" url="https://github.com/williamtroup/Calendar.js" branch="main" />
-        <readme>README.md</readme>
+        <readme>README_NUGET.md</readme>
         <license type="expression">MIT</license>
         <tags>calendar javascript daily weekly monthly yearly timeline event task</tags>
         <icon>docs\images\icon.png</icon>

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.9 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.9.10 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "Pzt",
