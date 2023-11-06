@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Calendar.js</id>
+        <version>2.9.0</version>
+        <description>A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.</description>
+        <authors>William Troup</authors>
+    </metadata>
+    <files>
+        <file src="**" target="/" exclude="local.settings.json;.git\**;.vscode\**" />
+    </files>
+</package>
