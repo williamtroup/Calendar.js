@@ -1,5 +1,13 @@
 # Calendar.js - Change Log:
 
+## Version 2.9.10:
+- Added a dedicated README_NUGET.md files for NuGet.org publishing.
+- Added badge link to the new NuGet.org package location in the README files and updated the badge colors.
+- Added new :root variable "--view-time-arrow-color", which states what color the time display arrow should be (changed to a clearer color).
+
+<br>
+
+
 ## Version 2.9.9:
 - Added "calendar.js.nuspec" NuGet support!
 

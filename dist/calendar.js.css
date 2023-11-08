@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.9.9
+ * Calendar.js Library v2.9.10
  *
  * Copyright 2023 Bunoon
  * Released under the MIT License
@@ -29,6 +29,7 @@
   --title-bar-button-color: var(--light-color);
   --menu-item-icon-color: var(--dark-color);
   --title-bar-text-color: var(--light-color);
+  --view-time-arrow-color: rgb(234, 67, 53);
   --transition: all .3s;
   --transition-faster: all .2s;
   --border-radius: 0.25rem;
@@ -1144,10 +1145,10 @@ div.calendar div.full-day-view div.contents div.contents-events div.time-arrow d
   height: 0;
   border-top: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
   border-bottom: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
-  border-right: var(--time-view-arrow-line-height) solid var(--link-color);
+  border-right: var(--time-view-arrow-line-height) solid var(--view-time-arrow-color);
 }
 div.calendar div.full-day-view div.contents div.contents-events div.time-arrow div.line {
-  background-color: var(--link-color);
+  background-color: var(--view-time-arrow-color);
   position: absolute;
   left: var(--time-view-arrow-line-height);
   top: calc(var(--time-view-arrow-line-height) / 4);
@@ -1478,10 +1479,10 @@ div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow di
   height: 0;
   border-top: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
   border-bottom: calc(var(--time-view-arrow-line-height) / 2) solid transparent;
-  border-right: var(--time-view-arrow-line-height) solid var(--link-color);
+  border-right: var(--time-view-arrow-line-height) solid var(--view-time-arrow-color);
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.time-arrow div.line {
-  background-color: var(--link-color);
+  background-color: var(--view-time-arrow-color);
   position: absolute;
   left: var(--time-view-arrow-line-height);
   top: calc(var(--time-view-arrow-line-height) / 4);

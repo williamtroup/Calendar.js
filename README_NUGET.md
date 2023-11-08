@@ -1,5 +1,4 @@
-<h1 align="center">
-Calendar.js
+# Calendar.js v2.9.10
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
 [![npm](https://img.shields.io/badge/npmjs-v2.9.10-blue)](https://www.npmjs.com/package/jcalendar.js)
@@ -7,53 +6,10 @@ Calendar.js
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://github.com/williamtroup)
-</h1>
 
-> <p align="center">📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-> <p align="center">v2.9.10</p>
-<br />
+> 📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!
 
-<h1>What views does Calendar.js support?</h1>
-
-Calendar.js supports 8 different views (two are modes), which can be accessed from the context menus, and title bar buttons.  They are as follows:
-
-<h3>1. Full Month (default view)</h3>
-
-![CalendarJs](docs/images/main.png)
-![CalendarJs - Menu](docs/images/main-menu.png)
-![CalendarJs - Pin-Up](docs/images/main-pin-up.png)
-
-<h3>2. Full Day</h3>
-
-![CalendarJs - Full Day](docs/images/full-day.png)
-
-<h3>3. Full Week</h3>
-
-![CalendarJs - Full Week](docs/images/full-week.png)
-
-<h3>4. Full Year</h3>
-
-![CalendarJs - Full Year](docs/images/full-year.png)
-
-<h3>5. All Events</h3>
-
-![CalendarJs - All Events](docs/images/all-events.png)
-
-<h3>6. Timeline</h3>
-
-![CalendarJs - All Events](docs/images/timeline.png)
-
-<h3>7. Date Picker Mode</h3>
-
-<img src="docs/images/date-picker.png" alt="CalendarJs - Date-Picker" width="350" />
-
-<h3>8. Widget Mode</h3>
-
-<img src="docs/images/widget.png" alt="CalendarJs - Widget" width="350" />
-<br>
-<br>
-
-<h1>What features does Calendar.js have?</h1>
+## What features does Calendar.js have?
 
 - Zero-dependencies!
 - Adding, updating, and removing events, with full custom colors support.
@@ -72,7 +28,7 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 - Search support (with search history).
 - Repeat every Day, Week, Month, Year, or a custom period (with exclusion days support), with editing forward, and series support.
 - Customizable holidays.
-- Shortcut keys (click [here](docs/SHORTCUT_KEYS.md) to see the full list).
+- Shortcut keys (click [here](https://calendar-js.com/documentation/shortcut-keys.html) to see the full list).
 - Custom event groups (with configurable toggles via the side menu).
 - Browser notifications for events, with offset support (modern browsers only).
 - Drop file support (allowing a file containing JSON, or an array of events, to be added).
@@ -84,28 +40,24 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 - Start of week support (Monday, Saturday, or Sunday).
 - Local storage support for events!
 - Widget mode (small widget that shows the current/specific day).
-<br />
-<br />
 
-<h1>What browsers are supported?</h1>
+
+## What browsers are supported?
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 
 Limited support is still available for Internet Explorer. However, use within this browser is not recommended.
-<br>
-<br>
 
-<h1>What are the most recent changes?</h1>
 
-To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
-<br>
-<br>
+## What are the most recent changes?
 
-<h1>How do I get started?</h1>
+To see a list of all the most recent changes, click [here](https://calendar-js.com/documentation/recent-changes.html).
+
+
+## How do I get started?
 
 To get started using Calendar.js, do the following steps:
-<br>
-<br>
+
 
 ### 1. Prerequisites:
 
@@ -114,7 +66,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 ```markdown
 <!DOCTYPE html>
 ```
-<br>
+
 
 ### 2. Include Files:
 
@@ -122,14 +74,14 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 <link rel="stylesheet" href="dist/calendar.js.css" />
 <script src="dist/calendar.js"></script>
 ```
-<br>
+
 
 ### 3. Create DOM Container:
 
 ```markdown
 <div id="calendar"></div>
 ```
-<br>
+
 
 ### 4. Initialize Calendar.Js:
 
@@ -149,23 +101,18 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 </script>
 ```
 
-<br>
+You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
 
-To see the options available for the class constructor, click [here](docs/CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
-<br>
-<br>
 
 ### 5. Finishing Up:
 
 That's it! Nice and simple. Please refer to the code if you need more help (fully documented).
-<br>
-<br>
 
-<h1>How do I go about customizing Calendar.js and add events?</h1>
+
+## How do I go about customizing Calendar.js and add events?
 
 To customize, and get more out of Calendar.js, please read through the following documentation.
-<br>
-<br>
+
 
 ### 1. Options:
 
@@ -181,11 +128,10 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 </script>
 ```
 
-To see a list of all the available options you can use, click [here](docs/OPTIONS.md).
+To see a list of all the available options you can use, click [here](https://calendar-js.com/documentation/options.html).
 
-To see a list of all the available custom triggers you can use, click [here](docs/CUSTOM_TRIGGERS.md).
-<br>
-<br>
+To see a list of all the available custom triggers you can use, click [here](https://calendar-js.com/documentation/custom-triggers.html).
+
 
 ### 2. Event Object Format:
 
@@ -210,10 +156,8 @@ You can add a new event by using one of the add public functions, as follows:
 </script>
 ```
 
+To see a list of all the available event properties and how they should be formatted, click [here](https://calendar-js.com/documentation/event.html).
 
-To see a list of all the available event properties and how they should be formatted, click [here](docs/EVENT.md).
-<br>
-<br>
 
 ### 3. Holiday Object Format:
 
@@ -232,15 +176,13 @@ A holiday is a piece of text that is shown under the day number in the month it 
 </script>
 ```
 
-To see a list of all the available holiday properties and how they should be formatted, click [here](docs/HOLIDAY.md).
-<br>
-<br>
+To see a list of all the available holiday properties and how they should be formatted, click [here](https://calendar-js.com/documentation/holiday.html).
+
 
 ### 4. Public Functions:
 
-To see a list of all the public functions available, click [here](docs/FUNCTIONS.md).
-<br>
-<br>
+To see a list of all the public functions available, click [here](https://calendar-js.com/documentation/public-functions.html).
+
 
 ### 5. Search Options:
 
@@ -254,6 +196,4 @@ Search Options allow you to customize how Calendar.js Search dialog will functio
 </script>
 ```
 
-To see a list of all the available search options you can use, click [here](docs/SEARCH_OPTIONS.md).
-<br>
-<br>
+To see a list of all the available search options you can use, click [here](https://calendar-js.com/documentation/search-options.html).
