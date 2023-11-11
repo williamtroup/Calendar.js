@@ -5,6 +5,9 @@
 #### **New Features:**
 - Added a new dialog called "Jump To Date", which will allow you to jump to a selected date in any view that is currently active.
 
+#### **General Improvements:**
+- All events rendered in the UI now add a new attribute call "event-is-all-day", which states if the event is an all-day event.
+
 #### **Code Improvements:**
 - Remove dead variables that are stored, but are not used for anything.
 

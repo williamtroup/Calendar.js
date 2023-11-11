@@ -576,6 +576,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     event.id = _element_ID_Event_Widget_Day + eventDetails.id;
     event.setAttribute("event-type", getNumber(eventDetails.type));
     event.setAttribute("event-id", eventDetails.id);
+    event.setAttribute("event-is-all-day", eventDetails.isAllDay);
     if (!fireCustomTrigger("onWidgetEventRender", event, eventDetails)) {
       var title = createElement("div", "title");
       var repeatEvery = getNumber(eventDetails.repeatEvery);
@@ -1174,6 +1175,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       event.ondblclick = cancelBubble;
       event.setAttribute("event-type", getNumber(eventDetails.type));
       event.setAttribute("event-id", eventDetails.id);
+      event.setAttribute("event-is-all-day", eventDetails.isAllDay);
       event.onclick = function(e) {
         increaseEventZIndex(e, event);
       };
@@ -1642,6 +1644,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var weekdayNumber = getWeekdayNumber(actualDisplayDate);
       event.setAttribute("event-type", getNumber(eventDetails.type));
       event.setAttribute("event-id", eventDetails.id);
+      event.setAttribute("event-is-all-day", eventDetails.isAllDay);
       column.appendChild(event);
       event.onclick = function(e) {
         increaseEventZIndex(e, event);
@@ -2544,6 +2547,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             var eventRendered = false;
             event.setAttribute("event-type", getNumber(eventDetails.type));
             event.setAttribute("event-id", eventDetails.id);
+            event.setAttribute("event-is-all-day", eventDetails.isAllDay);
             if (!_options.useOnlyDotEventsForMainDisplay) {
               if (!fireCustomTrigger("onFullMonthEventRender", event, eventDetails)) {
                 var eventTitle = eventDetails.title;
@@ -2985,6 +2989,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       event.id = _element_ID_Event_Month + eventDetails.id;
       event.setAttribute("event-type", getNumber(eventDetails.type));
       event.setAttribute("event-id", eventDetails.id);
+      event.setAttribute("event-is-all-day", eventDetails.isAllDay);
       if (!fireCustomTrigger("onAllEventsEventRender", event, eventDetails)) {
         var title = createElement("div", "title");
         var repeatEvery = getNumber(eventDetails.repeatEvery);
@@ -3329,6 +3334,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     event.id = _element_ID_Event_Timeline_Day + eventDetails.id;
     event.setAttribute("event-type", getNumber(eventDetails.type));
     event.setAttribute("event-id", eventDetails.id);
+    event.setAttribute("event-is-all-day", eventDetails.isAllDay);
     timelineRowItems.appendChild(event);
     if (!fireCustomTrigger("onTimelineEventRender", event, eventDetails)) {
       var repeatEvery = getNumber(eventDetails.repeatEvery);
