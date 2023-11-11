@@ -887,7 +887,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_ContextMenu_Event_Remove = null,
         _element_ContextMenu_Event_ExportEventsSeparator = null,
         _element_ContextMenu_Event_ExportEvents = null,
-        _element_ContextMenu_Event_ShareEvents = null,
 
         // Variables: Context Menu - Full Day
         _element_ContextMenu_FullDay = null,
@@ -5683,7 +5682,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_ContextMenu_Event_Remove = null;
             _element_ContextMenu_Event_ExportEventsSeparator = null;
             _element_ContextMenu_Event_ExportEvents = null;
-            _element_ContextMenu_Event_ShareEvents = null;
         }
 
         _element_ContextMenu_Event = createElement( "div", "calendar-context-menu" );
@@ -5781,7 +5779,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _options.exportEventsEnabled && _parameter_Navigator.share ) {
             buildContextMenuSeparator( _element_ContextMenu_Event );
         
-            _element_ContextMenu_Event_ShareEvents = buildContextMenuItemWithIcon( _element_ContextMenu_Event, "ib-arrow-up-full-line-share-icon", _options.shareText + "...", function() {
+            buildContextMenuItemWithIcon( _element_ContextMenu_Event, "ib-arrow-up-full-line-share-icon", _options.shareText + "...", function() {
                 exportEventsForSharing( _events_Selected.length > 0 ? _events_Selected : [ _element_ContextMenu_Event_EventDetails ] );
             } );
         }
