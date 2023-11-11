@@ -1,7 +1,12 @@
 # Calendar.js - Change Log:
 
 ## Version 3.0.0:
-- 
+
+#### **New Features:**
+- Added a new dialog called "Jump To Date", which will allow you to jump to a selected date in any view that is currently active.
+
+#### **Code Improvements:**
+- Remove dead variables that are stored, but are not used for anything.
 
 <br>
 

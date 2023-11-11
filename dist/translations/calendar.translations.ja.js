@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "（なし）",
     "shareText": "共有",
     "shareStartFilename": "共有イベント_",
-    "previousPropertyTooltipText": "前のプロパティ"
+    "previousPropertyTooltipText": "前のプロパティ",
+    "jumpToDateTitle": "現在までにジャンプ",
+    "goText": "行く"
 };

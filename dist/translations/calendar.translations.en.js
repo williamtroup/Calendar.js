@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "(none)",
     "shareText": "Share",
     "shareStartFilename": "shared_events_",
-    "previousPropertyTooltipText": "Previous Property"
+    "previousPropertyTooltipText": "Previous Property",
+    "jumpToDateTitle": "Jump To Date",
+    "goText": "Go"
 };

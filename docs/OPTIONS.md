@@ -276,3 +276,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | shareText | The text that should be displayed for the "Share" label. |
 | *string* | shareStartFilename | The starting filename that should be used when sharing calendar events (defaults to "share_events_"). |
 | *string* | previousPropertyTooltipText | The tooltip text that should be used for the "Previous Property" button. |
+| *string* | jumpToDateTitle | The text that should be displayed for the "Jump To Date" label. |
+| *string* | goText | The tooltip text that should be used for the "Go" button. |

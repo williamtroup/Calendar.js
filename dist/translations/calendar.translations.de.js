@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
   "noneText": "(keiner)",
   "shareText": "Aktie",
   "shareStartFilename": "shared_events_",
-  "previousPropertyTooltipText": "Vorheriges Eigentum"
+  "previousPropertyTooltipText": "Vorheriges Eigentum",
+  "jumpToDateTitle": "Zum Datum springen",
+  "goText": "Gehen"
 };

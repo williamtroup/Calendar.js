@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "(hiçbiri)",
     "shareText": "Paylaşmak",
     "shareStartFilename": "paylaşılan_events_",
-    "previousPropertyTooltipText": "Önceki Mülk"
+    "previousPropertyTooltipText": "Önceki Mülk",
+    "jumpToDateTitle": "Tarihe Atla",
+    "goText": "Gitmek"
 };

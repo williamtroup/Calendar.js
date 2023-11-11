@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
   "noneText": "(कोई नहीं)",
   "shareText": "शेयर करना",
   "shareStartFilename": "साझा_घटनाएँ_",
-  "previousPropertyTooltipText": "पिछली संपत्ति"
+  "previousPropertyTooltipText": "पिछली संपत्ति",
+  "jumpToDateTitle": "तिथि पर जाएँ",
+  "goText": "जाना"
 };

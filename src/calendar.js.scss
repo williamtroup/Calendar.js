@@ -1325,7 +1325,8 @@ div.calendar {
             div.ib-octagon-hollow,
             div.ib-hamburger,
             div.ib-rewind,
-            div.left-divider-line {
+            div.left-divider-line,
+            div.ib-arrow-right-full-line {
                 float: left;
             }
     
@@ -1362,7 +1363,8 @@ div.calendar {
                 div.ib-arrow-expand-left-right,
                 div.ib-bar-graph,
                 div.right-divider-line-full-screen-mode,
-                div.right-divider-line-views {
+                div.right-divider-line-views,
+                div.ib-arrow-right-full-line {
                     display: inline-block;
                 }
             }
@@ -1381,7 +1383,8 @@ div.calendar {
                 div.ib-arrow-expand-left-right,
                 div.ib-bar-graph,
                 div.right-divider-line-full-screen-mode,
-                div.right-divider-line-views {
+                div.right-divider-line-views,
+                div.ib-arrow-right-full-line {
                     display: none !important;
                 }
             }
@@ -2351,6 +2354,53 @@ div.configuration {
 
 /*
     -------------------------------------------------------------------------
+    Calendar.js - Dialog - Jump To Date
+    -------------------------------------------------------------------------
+*/
+
+div.jump-to-date {
+    @include dialog-styles( 300px );
+    @include dialog-title-bar;
+
+    div.contents {
+        padding: var(--spacing);
+
+        input[type="date"] {
+            @include input-fields( 40px );
+        }
+
+        input:disabled {
+            @include no-selection-allowed;
+            background-color: var(--light-color);
+            color: var(--input-border-color);
+        }
+    }
+    
+    @import "foundation/split-container";
+
+    div.buttons-container {
+        text-align: right;
+        margin-top: calc( var(--spacing) * 2 );
+    }
+
+    input[type="button"] {
+        @include dialog-button-styles;
+        @include button( go, var(--light-color), var(--primary-button-color) );
+        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+
+        &.go,
+        &.cancel {
+            width: 100%;
+            max-width: 110px;
+            display: inline-block;
+            margin-left: var(--spacing);
+        }
+    }
+}
+
+
+/*
+    -------------------------------------------------------------------------
     Calendar.js - Tabs
     -------------------------------------------------------------------------
 */
@@ -2872,6 +2922,7 @@ div.calendar-context-menu {
 @import "foundation/buttons/hourglass";
 @import "foundation/buttons/bar-graph";
 @import "foundation/buttons/edit";
+@import "foundation/buttons/arrow-right-full-line";
 @import "foundation/menus/plus-icon";
 @import "foundation/menus/hamburger-icon";
 @import "foundation/menus/hamburger-side-icon";

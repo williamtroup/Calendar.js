@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "(কোনটিই নয়)",
     "shareText": "শেয়ার করুন",
     "shareStartFilename": "ভাগ করা_ঘটনা_",
-    "previousPropertyTooltipText": "পূর্ববর্তী সম্পত্তি"
+    "previousPropertyTooltipText": "পূর্ববর্তী সম্পত্তি",
+    "jumpToDateTitle": "জাম্প টু ডেট",
+    "goText": "যাওয়া"
   };

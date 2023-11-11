@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "(لا أحد)",
     "shareText": "يشارك",
     "shareStartFilename": "shared_events_",
-    "previousPropertyTooltipText": "الملكية السابقة"
+    "previousPropertyTooltipText": "الملكية السابقة",
+    "jumpToDateTitle": "الانتقال إلى التاريخ",
+    "goText": "يذهب"
   };

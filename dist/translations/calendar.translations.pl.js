@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
   "noneText": "(nic)",
   "shareText": "Udział",
   "shareStartFilename": "wspólne_wydarzenia_",
-  "previousPropertyTooltipText": "Poprzednia nieruchomość"
+  "previousPropertyTooltipText": "Poprzednia nieruchomość",
+  "jumpToDateTitle": "Przejdź do daty",
+  "goText": "Iść"
 };

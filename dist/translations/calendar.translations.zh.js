@@ -233,5 +233,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "（没有任何）",
     "shareText": "分享",
     "shareStartFilename": "共享事件_",
-    "previousPropertyTooltipText": "以前的财产"
+    "previousPropertyTooltipText": "以前的财产",
+    "jumpToDateTitle": "跳转至日期",
+    "goText": "去"
   };

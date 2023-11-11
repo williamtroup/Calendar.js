@@ -317,6 +317,8 @@
  * @property    {string}    shareText                                   The text that should be displayed for the "Share" label.
  * @property    {string}    shareStartFilename                          The starting filename that should be used when sharing calendar events (defaults to "share_events_").
  * @property    {string}    previousPropertyTooltipText                 The tooltip text that should be used for the "Previous Property" button.
+ * @property    {string}    jumpToDateTitle                             The text that should be displayed for the "Jump To Date" label.
+ * @property    {string}    goText                                      The tooltip text that should be used for the "Go" button.
  * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
@@ -491,6 +493,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             e: 69,
             f: 70,
             g: 71,
+            j: 74,
             m: 77,
             o: 79,
             v: 86,
@@ -863,6 +866,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_Configuration_Organizer_Name = null,
         _element_Dialog_Configuration_Organizer_Email = null,
 
+        // Variables: Dialog - Jump To Date Dialog
+        _element_Dialog_JumpToDate = null,
+        _element_Dialog_JumpToDate_Date = null,
+
         // Variables: Context Menu - Month Day
         _element_ContextMenu_Day = null,
         _element_ContextMenu_Day_Paste_Separator = null,
@@ -996,6 +1003,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildExportEventsDialog();
             buildSearchDialog();
             buildConfigurationDialog();
+            buildJumpTpDateDialog();
             buildTooltip();
             buildContextMenus();
             buildNotificationPopUp();
@@ -2127,6 +2135,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( _options.configurationDialogEnabled ) {
                         showConfigurationDialog();
                     }
+
+                } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _enum_KeyCodes.j ) {
+                    e.preventDefault();
+                    showJumpToDateDialog();
                 
                 } else if ( isControlKey( e ) && isShiftKey( e ) && e.keyCode === _enum_KeyCodes.f ) {
                     onFKey( e );
@@ -2404,6 +2416,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( _options.showExtraToolbarButtons ) {
                 _element_View_FullDay_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onCurrentFullDay );
+
+                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                    showJumpToDateDialog();
+                } );
     
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -2884,6 +2900,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( _options.showExtraToolbarButtons ) {
                 buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onCurrentFullWeek );
+
+                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                    showJumpToDateDialog();
+                } );
+
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
                 } );
@@ -3503,6 +3524,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _options.showExtraToolbarButtons ) {
+            buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                showJumpToDateDialog();
+            } );
+
             buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-refresh", _options.refreshTooltipText, function() {
                 refreshViews( true, true );
             } );
@@ -4487,6 +4512,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.showExtraToolbarButtons ) {
                 buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentFullYear );
 
+                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                    showJumpToDateDialog();
+                } );
+
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
                 } );
@@ -5167,6 +5196,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( _options.showExtraToolbarButtons ) {
                 _element_View_Timeline_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentTimelineDay );
+
+                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                    showJumpToDateDialog();
+                } );
 
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -7913,6 +7946,111 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         return visible;
+    }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Jump To Date Dialog
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    function buildJumpTpDateDialog() {
+        if ( !_element_Mode_DatePicker_Enabled && _element_Dialog_JumpToDate === null ) {
+            _element_Dialog_JumpToDate = createElement( "div", "calendar-dialog jump-to-date" );
+            _elements_InDocumentBody.push( _element_Dialog_JumpToDate );
+            _parameter_Document.body.appendChild( _element_Dialog_JumpToDate );
+    
+            var titleBar = createElement( "div", "title-bar" );
+            setNodeText( titleBar, _options.jumpToDateTitle );
+            _element_Dialog_JumpToDate.appendChild( titleBar );
+
+            makeDialogMovable( titleBar, _element_Dialog_JumpToDate, null );
+            buildToolbarButton( titleBar, "ib-close", _options.closeTooltipText, hideJumpToDateDialog, true );
+    
+            var contents = createElement( "div", "contents" );
+            _element_Dialog_JumpToDate.appendChild( contents );
+
+            _element_Dialog_JumpToDate_Date = createElement( "input", null, "date" );
+            contents.appendChild( _element_Dialog_JumpToDate_Date );
+    
+            var buttonsContainer = createElement( "div", "buttons-container" );
+            contents.appendChild( buttonsContainer );
+    
+            var goButton = createButtonElement( buttonsContainer, _options.goText, "go", jumpToSelectedDate );
+            createButtonElement( buttonsContainer, _options.cancelText, "cancel", hideJumpToDateDialog );
+
+            goButton.onkeydown = function( e ) {
+                if ( e.keyCode === _enum_KeyCodes.enter ) {
+                    jumpToSelectedDate();
+                }
+            };
+        }
+    }
+
+    function showJumpToDateDialog() {
+        var viewOpen = getActiveView();
+
+        if ( viewOpen !== _element_View_AllEvents ) {
+            addNode( _parameter_Document.body, _element_Calendar_DisabledBackground );
+            hideSideMenu();
+            setDefaultJumpToDate();
+    
+            _element_Dialog_AllOpened.push( hideJumpToDateDialog );
+            _element_Dialog_JumpToDate.style.display = "block";
+            _element_Dialog_JumpToDate_Date.focus();
+        }
+    }
+
+    function hideJumpToDateDialog( popCloseWindowEvent ) {
+        removeLastCloseWindowEvent( popCloseWindowEvent );
+        removeNode( _parameter_Document.body, _element_Calendar_DisabledBackground );
+
+        _element_Dialog_JumpToDate.style.display = "none";
+    }
+
+    function setDefaultJumpToDate() {
+        var viewOpen = getActiveView();
+
+        if ( viewOpen === null ) {
+            setSelectedDate( _calendar_CurrentDate, _element_Dialog_JumpToDate_Date );
+        } else {
+
+            if ( viewOpen === _element_View_FullDay ) {
+                setSelectedDate( _element_View_FullDay_DateSelected, _element_Dialog_JumpToDate_Date );
+            } else if ( viewOpen === _element_View_FullWeek ) {
+                setSelectedDate( _element_View_FullWeek_DateSelected, _element_Dialog_JumpToDate_Date );
+            } else if ( viewOpen === _element_View_FullYear ) {
+                setSelectedDate( new Date( _element_View_FullYear_CurrentYear, 0, 1 ), _element_Dialog_JumpToDate_Date );
+            } else if ( viewOpen === _element_View_Timeline ) {
+                setSelectedDate( _element_View_Timeline_DateSelected, _element_Dialog_JumpToDate_Date );
+            }
+        }
+    }
+
+    function jumpToSelectedDate() {
+        var viewOpen = getActiveView(),
+            selectedDate = getSelectedDate( _element_Dialog_JumpToDate_Date );
+
+        if ( selectedDate.getFullYear() >= _options.minimumYear && selectedDate.getFullYear() <= _options.maximumYear ) {
+            if ( viewOpen === null ) {
+                build( selectedDate );
+                buildFullMonthViewPinUpImage();
+            } else {
+    
+                if ( viewOpen === _element_View_FullDay ) {
+                    showFullDayView( selectedDate );
+                } else if ( viewOpen === _element_View_FullWeek ) {
+                    showFullWeekView( selectedDate );
+                } else if ( viewOpen === _element_View_FullYear ) {
+                    showFullYearView( selectedDate.getFullYear() );
+                } else if ( viewOpen === _element_View_Timeline ) {
+                    showTimelineView( selectedDate );
+                }
+            }
+
+            hideJumpToDateDialog();
+        }
     }
 
 
@@ -13970,6 +14108,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.shareText = getDefaultString( _options.shareText, "Share" );
         _options.shareStartFilename = getDefaultString( _options.shareStartFilename, "shared_events_" );
         _options.previousPropertyTooltipText = getDefaultString( _options.previousPropertyTooltipText, "Previous Property" );
+        _options.jumpToDateTitle = getDefaultString( _options.jumpToDateTitle, "Jump To Date" );
+        _options.goText = getDefaultString( _options.goText, "Go" );
     }
 
     function setEventTypeTranslationStringOptions() {
