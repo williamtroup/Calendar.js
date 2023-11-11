@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 3.0.0:
+- 
+
+<br>
+
+
 ## Version 2.9.10:
 - Added a dedicated README_NUGET.md files for NuGet.org publishing.
 - Added badge link to the new NuGet.org package location in the README files and updated the badge colors.
