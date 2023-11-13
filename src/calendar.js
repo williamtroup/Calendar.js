@@ -395,6 +395,10 @@
  * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
  * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
  * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
+ * 
+ * 
+ * 
+ * 
  * @property    {string}    timelineViewDefaultAxis                     States the default axis the timeline view should use (defaults to "group").
  */
 
@@ -5142,7 +5146,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( _element_View_Timeline_Selected_Axis === null ) {
-                _element_View_Timeline_Selected_Axis = _options.timelineViewDefaultAxis;
+                _element_View_Timeline_Selected_Axis = _options.views.timeline.timelineViewDefaultAxis;
             }
 
             if ( !wasAddedAlready ) {
@@ -13755,6 +13759,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDefaultOptions( newOptions ) {
         _options = getOptions( newOptions );
+        _options.views = getOptions( _options.views );
         _options.showDayNumberOrdinals = getDefaultBoolean( _options.showDayNumberOrdinals, true );
         _options.dragAndDropForEventsEnabled = getDefaultBoolean( _options.dragAndDropForEventsEnabled, true );
         _options.maximumEventsPerDayDisplay = getDefaultNumber( _options.maximumEventsPerDayDisplay, 3 );
@@ -13824,7 +13829,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
         _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
         _options.minutesBetweenSectionsInViews = getDefaultNumber( _options.minutesBetweenSectionsInViews, 30 );
-        _options.timelineViewDefaultAxis = getDefaultString( _options.timelineViewDefaultAxis, "group" );
+        
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -13839,9 +13844,40 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        setTranslationStringOptions();
+        buildDefaultViewOptionsForFullDay();
+        buildDefaultViewOptionsForFullWeek();
+        buildDefaultViewOptionsForFullMonth();
+        buildDefaultViewOptionsForFullYear();
+        buildDefaultViewOptionsForAllEvents();
+        buildDefaultViewOptionsForTimeline();
+        buildDefaulStringOptions();
         setEventTypeTranslationStringOptions();
         checkForBrowserNotificationsPermission();
+    }
+
+    function buildDefaultViewOptionsForFullDay() {
+        _options.views.fullDay = getOptions( _options.views.fullDay );
+    }
+
+    function buildDefaultViewOptionsForFullWeek() {
+        _options.views.fullWeek = getOptions( _options.views.fullWeek );
+    }
+
+    function buildDefaultViewOptionsForFullMonth() {
+        _options.views.fullMonth = getOptions( _options.views.fullMonth );
+    }
+
+    function buildDefaultViewOptionsForFullYear() {
+        _options.views.fullYear = getOptions( _options.views.fullYear );
+    }
+
+    function buildDefaultViewOptionsForAllEvents() {
+        _options.views.allEvents = getOptions( _options.views.allEvents );
+    }
+
+    function buildDefaultViewOptionsForTimeline() {
+        _options.views.timeline = getOptions( _options.views.timeline );
+        _options.views.timeline.timelineViewDefaultAxis = getDefaultString( _options.views.timeline.timelineViewDefaultAxis, "group" );
     }
 
     function buildDefaultSearchOptions( newSearchOptions ) {
@@ -13864,7 +13900,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options_Search.history = getDefaultArray( _options_Search.history, [] );
     }
 
-    function setTranslationStringOptions() {
+    function buildDefaulStringOptions() {
         if ( isInvalidOptionArray( _options.dayHeaderNames, 7 ) ) {
             _options.dayHeaderNames = [
                 "Mon",
