@@ -366,7 +366,6 @@
  * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
  * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
  * @property    {number}    defaultEventDuration                        States the default duration used when a new event is added (defaults to 30 minutes).
- * @property    {string}    monthTitleBarDateFormat                     States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
  * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
  * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) are enabled (defaults to true).
  * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
@@ -413,6 +412,7 @@
  * @property    {boolean}   useOnlyDotEvents                            States if only dot event icons should be used (to save space, defaults to false).
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (defaults to true).
  * @property    {boolean}   addYearButtons                              States if the year-jumping buttons should be added (defaults to false).
+ * @property    {string}    titleBarDateFormat                          States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
  * 
  * These are the view options for:  Timeline:
  * 
@@ -3910,7 +3910,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function setFullMonthViewYearDropDownButtonText() {
-        _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text.innerText = getCustomFormattedDateText( _options.monthTitleBarDateFormat, _calendar_CurrentDate );
+        _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text.innerText = getCustomFormattedDateText( _options.views.fullMonth.titleBarDateFormat, _calendar_CurrentDate );
     }
 
     function updateFullMonthViewYearMonthSelected() {
@@ -13820,7 +13820,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
         _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );
         _options.defaultEventDuration = getDefaultNumber( _options.defaultEventDuration, 30 );
-        _options.monthTitleBarDateFormat = getDefaultString( _options.monthTitleBarDateFormat, "{mmmm} {yyyy}" );
         _options.configurationDialogEnabled = getDefaultBoolean( _options.configurationDialogEnabled, true );
         _options.popUpNotificationsEnabled = getDefaultBoolean( _options.popUpNotificationsEnabled, true );
         _options.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.showMonthButtonsInYearDropDownMenu, true );
@@ -13883,6 +13882,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.useOnlyDotEvents = getDefaultBoolean( _options.views.fullMonth.useOnlyDotEvents, false );
         _options.views.fullMonth.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.views.fullMonth.applyCssToEventsNotInCurrentMonth, true );
         _options.views.fullMonth.addYearButtons = getDefaultBoolean( _options.views.fullMonth.addYearButtons, false );
+        _options.views.fullMonth.titleBarDateFormat = getDefaultString( _options.views.fullMonth.titleBarDateFormat, "{mmmm} {yyyy}" );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;

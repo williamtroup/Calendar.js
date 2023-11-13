@@ -50,7 +50,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | minimumYear | The minimum year that can be shown in the Calendar (defaults to 1900). |
 | *number* | maximumYear | The maximum year that can be shown in the Calendar (defaults to 2099). |
 | *number* | defaultEventDuration | States the default duration used when a new event is added (defaults to 30 minutes). |
-| *string* | monthTitleBarDateFormat | States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *boolean* | configurationDialogEnabled | States if the configuration dialog is enabled (defaults to true). |
 | *boolean* | popUpNotificationsEnabled | States if the popup notifications (when actions are performed) are enabled (defaults to true). |
 | *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
@@ -113,6 +112,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | useOnlyDotEvents | States if only dot event icons should be used (to save space, defaults to false). |
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (defaults to true). |
 | *boolean* | addYearButtons | States if the year-jumping buttons should be added (defaults to false). |
+| *string* | titleBarDateFormat | States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 <br/>
 
 
