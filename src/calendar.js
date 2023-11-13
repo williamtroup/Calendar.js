@@ -320,23 +320,20 @@
  * @property    {string}    jumpToDateTitle                             The text that should be displayed for the "Jump To Date" label.
  * @property    {string}    goText                                      The tooltip text that should be used for the "Go" button.
  * 
+ * 
  * These are the options that are used to control how Calendar.js works and renders.
  *
  * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
  * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
- * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be displayed per day in the main calendar display (defaults to 3, 0 disables it).
  * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
- * @property    {boolean}   showTimesInMainCalendarEvents               States if the time should be shown on the main calendar view events (defaults to false).
  * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
  * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full-screen mode (defaults to true).
  * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
- * @property    {number}    minimumDayHeight                            States the height the main calendar days should use (defaults to 0 - auto).
  * @property    {Holiday[]} holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
  * @property    {string}    organizerName                               The default name of the organizer (defaults to an empty string).
  * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to an empty string).
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins (defaults to 10).
- * @property    {boolean}   showAllDayEventDetailsInFullDayView         States if the extra details for an All Day event should be shown in the Full Day view (defaults to false).
  * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {boolean}   showTimelineArrowsOnViews                   States if the timeline arrows should be shown in the views (defaults to true).
  * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
@@ -344,12 +341,9 @@
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
  * @property    {number}    maximumEventGroupLength                     States the maximum length allowed for an event group (defaults to 0 to allow any size).
  * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
- * @property    {boolean}   showPreviousNextMonthNamesInMainDisplay     States if the previous/next month names should be shown in the main display days (defaults to true).
  * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
  * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
- * @property    {boolean}   useOnlyDotEventsForMainDisplay              States if only dot event icons should be used in the main display (to save space, defaults to false).
  * @property    {number[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
- * @property    {boolean}   allowEventScrollingOnMainDisplay            States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
  * @property    {string}    urlWindowTarget                             States the target that an event URL should be opened in (defaults to _blank for a new window).
  * @property    {string}    defaultEventBackgroundColor                 States the default background color that should be used for events (defaults to "#484848").
  * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
@@ -368,8 +362,6 @@
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
  * @property    {Search}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
  * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
- * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true).
- * @property    {boolean}   addYearButtonsOnMainDisplay                 States if the year-jumping buttons should be added in the main display (defaults to false).
  * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
  * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
@@ -397,9 +389,30 @@
  * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
  * 
  * 
+ * These are the view options for: Full Day.
+ * 
+ * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * 
  * 
- * @property    {string}    timelineViewDefaultAxis                     States the default axis the timeline view should use (defaults to "group").
+ * These are the view options for: Full Week.
+ * 
+ * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
+ * 
+ * 
+ * These are the view options for: Full Month.
+ * 
+ * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be displayed per day (defaults to 3, 0 disables it).
+ * @property    {boolean}   allowEventScrolling                         States if the days in the display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
+ * @property    {boolean}   showTimesInEvents                           States if the time should be shown on the events (defaults to false).
+ * @property    {number}    minimumDayHeight                            States the height the days should use (defaults to 0 - auto).
+ * @property    {boolean}   showPreviousNextMonthNames                  States if the previous/next month names should be shown in the days (defaults to true).
+ * @property    {boolean}   useOnlyDotEvents                            States if only dot event icons should be used (to save space, defaults to false).
+ * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (defaults to true).
+ * @property    {boolean}   addYearButtons                              States if the year-jumping buttons should be added (defaults to false).
+ * 
+ * These are the view options for: Timeline.
+ * 
+ * @property    {string}    timelineViewDefaultAxis                     States the default axis the view should use (defaults to "group").
  */
 
 
@@ -1842,8 +1855,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.manualEditingEnabled = false;
             _options.fullScreenModeEnabled = false;
             _options.eventNotificationsEnabled = false;
-            _options.showPreviousNextMonthNamesInMainDisplay = false;
-            _options.showPreviousNextMonthNamesInMainDisplay = false;
+            _options.views.fullMonth.showPreviousNextMonthNames = false;
             _options.showExtraToolbarButtons = false;
             _options.holidays = [];
         }
@@ -2569,7 +2581,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
                 event.appendChild( title );
         
-                if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
+                if ( !eventDetails.isAllDay || _options.views.fullDay.showAllDayEventDetails ) {
                     var startTime = createElement( "div", "date" );
                     event.appendChild( startTime );
 
@@ -3187,7 +3199,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 title.innerHTML += stripHTMLTagsFromText( eventDetails.title );
                 event.appendChild( title );
 
-                if ( !eventDetails.isAllDay || _options.showAllDayEventDetailsInFullDayView ) {
+                if ( !eventDetails.isAllDay || _options.views.fullWeek.showAllDayEventDetails ) {
                     var startTime = createElement( "div", "date" );
                     event.appendChild( startTime );
 
@@ -3522,7 +3534,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-arrow-left-full", _options.previousMonthTooltipText, onPreviousMonth );
 
-        if ( _options.addYearButtonsOnMainDisplay ) {
+        if ( _options.views.fullMonth.addYearButtons ) {
             buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear );
         }
 
@@ -3558,7 +3570,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-arrow-right-full", _options.nextMonthTooltipText, onNextMonth );
 
-        if ( _options.addYearButtonsOnMainDisplay ) {
+        if ( _options.views.fullMonth.addYearButtons ) {
             buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear );
         }
 
@@ -3760,17 +3772,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                 if ( _options.visibleDays.indexOf( dayNumber ) > -1 ) {
                     var columnDataNumber = ( rowIndex * 7 ) + ( columnDataIndex + 1 ),
-                        columnData = createElement( "div", getCellName( _options.allowEventScrollingOnMainDisplay ) );
+                        columnData = createElement( "div", getCellName( _options.views.fullMonth.allowEventScrolling ) );
 
                     columnData.id = dayStartID + columnDataNumber;
                     rowData.appendChild( columnData );
 
-                    if ( _options.allowEventScrollingOnMainDisplay ) {
+                    if ( _options.views.fullMonth.allowEventScrolling ) {
                         columnData.className += " scrollY";
                     }
 
-                    if ( _options.minimumDayHeight > 0 ) {
-                        columnData.style.height = _options.minimumDayHeight + "px";
+                    if ( _options.views.fullMonth.minimumDayHeight > 0 ) {
+                        columnData.style.height = _options.views.fullMonth.minimumDayHeight + "px";
                     }
                 }
             }
@@ -4141,7 +4153,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showFullDayView( dayDate, true );
             };
 
-            if ( includeMonthName && _options.showPreviousNextMonthNamesInMainDisplay ) {
+            if ( includeMonthName && _options.views.fullMonth.showPreviousNextMonthNames ) {
                 createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + dayMutedClass, function() {
                     if ( actualDay === 1 ) {
                         onNextMonth();
@@ -4178,7 +4190,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
 
-            if ( _options.useOnlyDotEventsForMainDisplay ) {
+            if ( _options.views.fullMonth.useOnlyDotEvents ) {
                 dayElement.appendChild( createElement( "div", "dots-separator" ) );
             }
         }
@@ -4308,7 +4320,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( !_element_Mode_DatePicker_Enabled ) {
                     var events = elementDay.getElementsByClassName( "event" );
     
-                    if ( events.length < _options.maximumEventsPerDayDisplay || _options.maximumEventsPerDayDisplay <= 0 || _options.useOnlyDotEventsForMainDisplay ) {
+                    if ( events.length < _options.views.fullMonth.maximumEventsPerDayDisplay || _options.views.fullMonth.maximumEventsPerDayDisplay <= 0 || _options.views.fullMonth.useOnlyDotEvents ) {
                         var event = createElement( "div", "event" ),
                             eventRendered = false;
     
@@ -4316,12 +4328,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         event.setAttribute( "event-id", eventDetails.id );
                         event.setAttribute( "event-is-all-day", eventDetails.isAllDay );
 
-                        if ( !_options.useOnlyDotEventsForMainDisplay ) {
+                        if ( !_options.views.fullMonth.useOnlyDotEvents ) {
                             if ( !fireCustomTrigger( "onFullMonthEventRender", event, eventDetails ) ) {
                                 var eventTitle = eventDetails.title,
                                     repeatEvery = getNumber( eventDetails.repeatEvery );
             
-                                if ( _options.showTimesInMainCalendarEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
+                                if ( _options.views.fullMonth.showTimesInEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate() ) {
                                     eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
                                 }
 
@@ -4344,7 +4356,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         
                         makeEventDraggable( event, eventDetails, dayDate, elementDay );
                         setEventClassesForActions( event, eventDetails );
-                        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.applyCssToEventsNotInCurrentMonth );
+                        setEventClassesAndColors( event, eventDetails, getToTimeWithPassedDate( eventDetails, dayDate ), _options.views.fullMonth.applyCssToEventsNotInCurrentMonth );
                         setEventCustomTriggers( event, eventDetails, editEventDate );
 
                         if ( doDatesMatch( eventDetails.from, dayDate ) ) {
@@ -4387,7 +4399,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             plusXEventsText.ondblclick = cancelBubble;
             elementDay.appendChild( plusXEventsText );
 
-            if ( _options.applyCssToEventsNotInCurrentMonth && dayDate.getMonth() !== _calendar_CurrentDate.getMonth() || dayDate.getFullYear() !== _calendar_CurrentDate.getFullYear() ) {
+            if ( _options.views.fullMonth.applyCssToEventsNotInCurrentMonth && dayDate.getMonth() !== _calendar_CurrentDate.getMonth() || dayDate.getFullYear() !== _calendar_CurrentDate.getFullYear() ) {
                 plusXEventsText.className += " day-muted";
             }
 
@@ -13762,19 +13774,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views = getOptions( _options.views );
         _options.showDayNumberOrdinals = getDefaultBoolean( _options.showDayNumberOrdinals, true );
         _options.dragAndDropForEventsEnabled = getDefaultBoolean( _options.dragAndDropForEventsEnabled, true );
-        _options.maximumEventsPerDayDisplay = getDefaultNumber( _options.maximumEventsPerDayDisplay, 3 );
         _options.exportEventsEnabled = getDefaultBoolean( _options.exportEventsEnabled, true );
         _options.manualEditingEnabled = getDefaultBoolean( _options.manualEditingEnabled, true );
-        _options.showTimesInMainCalendarEvents = getDefaultBoolean( _options.showTimesInMainCalendarEvents, false );
         _options.autoRefreshTimerDelay = getDefaultNumber(_options.autoRefreshTimerDelay, 30000 );
         _options.fullScreenModeEnabled = getDefaultBoolean( _options.fullScreenModeEnabled, true );
         _options.eventTooltipDelay = getDefaultNumber( _options.eventTooltipDelay, 1000 );
-        _options.minimumDayHeight = getDefaultNumber( _options.minimumDayHeight, 0 );
         _options.holidays = getDefaultArray( _options.holidays, getStandardHolidays() );
         _options.organizerName = getDefaultString( _options.organizerName, _string.empty );
         _options.organizerEmailAddress = getDefaultString( _options.organizerEmailAddress, _string.empty );
         _options.spacing = getDefaultNumber( _options.spacing, 10 );
-        _options.showAllDayEventDetailsInFullDayView = getDefaultBoolean( _options.showAllDayEventDetailsInFullDayView, false );
         _options.showWeekNumbersInTitles = getDefaultBoolean( _options.showWeekNumbersInTitles, false );
         _options.showTimelineArrowsOnViews = getDefaultBoolean( _options.showTimelineArrowsOnViews, true );
         _options.maximumEventTitleLength = getDefaultNumber( _options.maximumEventTitleLength, 0 );
@@ -13782,10 +13790,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.maximumEventLocationLength = getDefaultNumber( _options.maximumEventLocationLength, 0 );
         _options.maximumEventGroupLength = getDefaultNumber( _options.maximumEventGroupLength, 0 );
         _options.eventNotificationsEnabled = getDefaultBoolean( _options.eventNotificationsEnabled, false );
-        _options.showPreviousNextMonthNamesInMainDisplay = getDefaultBoolean( _options.showPreviousNextMonthNamesInMainDisplay, true );
         _options.showDayNamesHeaders = getDefaultBoolean( _options.showDayNamesHeaders, true );
         _options.tooltipsEnabled = getDefaultBoolean( _options.tooltipsEnabled, true );
-        _options.useOnlyDotEventsForMainDisplay = getDefaultBoolean( _options.useOnlyDotEventsForMainDisplay, false );
         _options.urlWindowTarget = getDefaultString( _options.urlWindowTarget, "_blank" );
         _options.defaultEventBackgroundColor = getDefaultString( _options.defaultEventBackgroundColor, "#484848" );
         _options.defaultEventTextColor = getDefaultString( _options.defaultEventTextColor, "#F5F5F5" );
@@ -13801,9 +13807,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.datePickerSelectedDateFormat = getDefaultString( _options.datePickerSelectedDateFormat, "{d}{o} {mmmm} {yyyy}" );
         _options.initialDateTime = getDefaultDate( _options.initialDateTime, null );
         _options.events = getDefaultArray( _options.events, null );
-        _options.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.applyCssToEventsNotInCurrentMonth, true );
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
-        _options.addYearButtonsOnMainDisplay = getDefaultBoolean( _options.addYearButtonsOnMainDisplay, false );
         _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
         _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
         _options.maximumYear = getDefaultNumber( _options.maximumYear, 2099 );
@@ -13829,19 +13833,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
         _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
         _options.minutesBetweenSectionsInViews = getDefaultNumber( _options.minutesBetweenSectionsInViews, 30 );
-        
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
             _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
-        }
-
-        if ( !isDefinedBoolean( _options.allowEventScrollingOnMainDisplay ) ) {
-            _options.allowEventScrollingOnMainDisplay = false;
-
-            if ( _options.allowEventScrollingOnMainDisplay ) {
-                _options.maximumEventsPerDayDisplay = 0;
-            }
         }
 
         buildDefaultViewOptionsForFullDay();
@@ -13857,14 +13852,31 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildDefaultViewOptionsForFullDay() {
         _options.views.fullDay = getOptions( _options.views.fullDay );
+        _options.views.fullDay.showAllDayEventDetails = getDefaultBoolean( _options.views.fullDay.showAllDayEventDetails, false );
     }
 
     function buildDefaultViewOptionsForFullWeek() {
         _options.views.fullWeek = getOptions( _options.views.fullWeek );
+        _options.views.fullWeek.showAllDayEventDetails = getDefaultBoolean( _options.views.fullWeek.showAllDayEventDetails, false );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
         _options.views.fullMonth = getOptions( _options.views.fullMonth );
+        _options.views.fullMonth.maximumEventsPerDayDisplay = getDefaultNumber( _options.views.fullMonth.maximumEventsPerDayDisplay, 3 );
+        _options.views.fullMonth.showTimesInEvents = getDefaultBoolean( _options.views.fullMonth.showTimesInEvents, false );
+        _options.views.fullMonth.minimumDayHeight = getDefaultNumber( _options.views.fullMonth.minimumDayHeight, 0 );
+        _options.views.fullMonth.showPreviousNextMonthNames = getDefaultBoolean( _options.views.fullMonth.showPreviousNextMonthNames, true );
+        _options.views.fullMonth.useOnlyDotEvents = getDefaultBoolean( _options.views.fullMonth.useOnlyDotEvents, false );
+        _options.views.fullMonth.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.views.fullMonth.applyCssToEventsNotInCurrentMonth, true );
+        _options.views.fullMonth.addYearButtons = getDefaultBoolean( _options.views.fullMonth.addYearButtons, false );
+
+        if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
+            _options.views.fullMonth.allowEventScrolling = false;
+
+            if ( _options.views.fullMonth.allowEventScrolling ) {
+                _options.views.fullMonth.maximumEventsPerDayDisplay = 0;
+            }
+        }
     }
 
     function buildDefaultViewOptionsForFullYear() {
