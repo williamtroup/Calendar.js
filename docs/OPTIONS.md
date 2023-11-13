@@ -55,11 +55,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | configurationDialogEnabled | States if the configuration dialog is enabled (defaults to true). |
 | *boolean* | popUpNotificationsEnabled | States if the popup notifications (when actions are performed) are enabled (defaults to true). |
 | *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
-| *boolean* | showSideMenuDays | States if the "Days" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuGroups | States if the "Groups" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuEventTypes | States if the "Event Types" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
 | *number* | startOfWeekDay | States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6). |
 | *boolean* | useLocalStorageForEvents | States if the events added should be stored in local storage (remembered between browser usages, defaults to false). |
 | *boolean* | shortcutKeysEnabled | States if the shortcut keys are enabled (defaults to true). |
@@ -75,7 +70,20 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 <br/>
 
 
-### View Options:  Full Day
+### Side Menu Options:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showDays | States if the "Days" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showGroups | States if the "Groups" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showEventTypes | States if the "Event Types" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
+<br/>
+
+
+### View Options:  Full Day:
 <br/>
 
 | Type: | Name: | Description: |
@@ -84,7 +92,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 <br/>
 
 
-### View Options:  Full Week
+### View Options:  Full Week:
 <br/>
 
 | Type: | Name: | Description: |
@@ -93,7 +101,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 <br/>
 
 
-### View Options:  Full Month
+### View Options:  Full Month:
 <br/>
 
 | Type: | Name: | Description: |
@@ -109,7 +117,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 <br/>
 
 
-### View Options:  Timeline
+### View Options:  Timeline:
 <br/>
 
 | Type: | Name: | Description: |

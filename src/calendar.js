@@ -72,7 +72,7 @@
  * 
  * @typedef     {Object}    Options
  * 
- * These are the properties that store the events that should be fired when various actions are triggered.
+ * These are the properties that store the events that should be fired when various actions are triggered:
  *
  * @property    {Object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed (passes the new date to the function).
  * @property    {Object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed (passes the new date to the function).
@@ -127,7 +127,8 @@
  * @property    {Object}    onTimelineTitleRender                       Specifies an event that will be triggered when the Timeline title is rendered (passes the date/time to the function).
  * @property    {Object}    onFullMonthPinUpRender                      Specifies an event that will be triggered when the Full Month views pin-up is rendered (passes the pin-up DOM element and the date/time to the function).
  * 
- * These are the translatable strings that are used in Calendar.js.
+ * 
+ * These are the translatable strings that are used in Calendar.js:
  * 
  * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for the "Previous Month" button.
  * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for the "Next Month" button.
@@ -321,7 +322,7 @@
  * @property    {string}    goText                                      The tooltip text that should be used for the "Go" button.
  * 
  * 
- * These are the options that are used to control how Calendar.js works and renders.
+ * These are the options that are used to control how Calendar.js works and renders:
  *
  * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
  * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
@@ -370,11 +371,6 @@
  * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
  * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) are enabled (defaults to true).
  * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
- * @property    {boolean}   showSideMenuDays                            States if the "Days" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showSideMenuGroups                          States if the "Groups" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showSideMenuEventTypes                      States if the "Event Types" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showSideMenuWorkingDays                     States if the "Working Days" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showSideMenuWeekendDays                     States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
  * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
  * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
  * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
@@ -389,17 +385,26 @@
  * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
  * 
  * 
- * These are the view options for: Full Day.
+ * These are the options for: Side Menu:
+ * 
+ * @property    {boolean}   showDays                                    States if the "Days" section on the Side Menu is visible (defaults to true).
+ * @property    {boolean}   showGroups                                  States if the "Groups" section on the Side Menu is visible (defaults to true).
+ * @property    {boolean}   showEventTypes                              States if the "Event Types" section on the Side Menu is visible (defaults to true).
+ * @property    {boolean}   showWorkingDays                             States if the "Working Days" section on the Side Menu is visible (defaults to true).
+ * @property    {boolean}   showWeekendDays                             States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
+ * 
+ * 
+ * These are the view options for: Full Day:
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * 
  * 
- * These are the view options for: Full Week.
+ * These are the view options for: Full Week:
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * 
  * 
- * These are the view options for: Full Month.
+ * These are the view options for: Full Month:
  * 
  * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be displayed per day (defaults to 3, 0 disables it).
  * @property    {boolean}   allowEventScrolling                         States if the days in the display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
@@ -410,7 +415,7 @@
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (defaults to true).
  * @property    {boolean}   addYearButtons                              States if the year-jumping buttons should be added (defaults to false).
  * 
- * These are the view options for: Timeline.
+ * These are the view options for: Timeline:
  * 
  * @property    {string}    timelineViewDefaultAxis                     States the default axis the view should use (defaults to "group").
  */
@@ -1207,23 +1212,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
         hideSearchDialog();
         updateSideMenuExportButtonVisibleState();
 
-        if ( _options.showSideMenuDays ) {
+        if ( _options.sideMenu.showDays ) {
             buildSideMenuDays( isDaysOpen );
         }
 
-        if ( _options.showSideMenuEventTypes ) {
+        if ( _options.sideMenu.showEventTypes ) {
             buildSideMenuEventTypes( isEventTypesOpen );
         }
 
-        if ( _options.showSideMenuGroups ) {
+        if ( _options.sideMenu.showGroups ) {
             buildSideMenuGroups( isGroupsOpen );
         }
         
-        if ( _options.showSideMenuWorkingDays ) {
+        if ( _options.sideMenu.showWorkingDays ) {
             buildSideMenuWorkingDays( isWorkingDaysOpen );
         }
 
-        if ( _options.showSideMenuWeekendDays ) {
+        if ( _options.sideMenu.showWeekendDays ) {
             buildSideMenuWeekendDays( isWeekendDaysOpen );
         }
     }
@@ -1250,7 +1255,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function isSideMenuAvailable() {
-        return _options.showSideMenuDays || _options.showSideMenuEventTypes || _options.showSideMenuGroups || _options.showSideMenuWorkingDays || _options.showSideMenuWeekendDays;
+        return _options.sideMenu.showDays || _options.sideMenu.showEventTypes || _options.sideMenu.showGroups || _options.sideMenu.showWorkingDays || _options.sideMenu.showWeekendDays;
     }
 
     function updateSideMenu() {
@@ -6066,7 +6071,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             hideAllDropDowns();
 
-            if ( _options.showSideMenuDays ) {
+            if ( _options.sideMenu.showDays ) {
                 _element_ContextMenu_HeaderDay_SelectedDay = selectedDay;
 
                 var hideDayDisplay = _options.visibleDays.length > 1 ? "block": "none",
@@ -13816,11 +13821,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.configurationDialogEnabled = getDefaultBoolean( _options.configurationDialogEnabled, true );
         _options.popUpNotificationsEnabled = getDefaultBoolean( _options.popUpNotificationsEnabled, true );
         _options.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.showMonthButtonsInYearDropDownMenu, true );
-        _options.showSideMenuDays = getDefaultBoolean( _options.showSideMenuDays, true );
-        _options.showSideMenuGroups = getDefaultBoolean( _options.showSideMenuGroups, true );
-        _options.showSideMenuEventTypes = getDefaultBoolean( _options.showSideMenuEventTypes, true );
-        _options.showSideMenuWorkingDays = getDefaultBoolean( _options.showSideMenuWorkingDays, true );
-        _options.showSideMenuWeekendDays = getDefaultBoolean( _options.showSideMenuWeekendDays, true );
         _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _enum_Day.monday );
         _options.useLocalStorageForEvents = getDefaultBoolean( _options.useLocalStorageForEvents, false );
         _options.shortcutKeysEnabled = getDefaultBoolean( _options.shortcutKeysEnabled, true );
@@ -13839,6 +13839,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
         }
 
+        buildDefaultSideMenuOptions();
         buildDefaultViewOptionsForFullDay();
         buildDefaultViewOptionsForFullWeek();
         buildDefaultViewOptionsForFullMonth();
@@ -13848,6 +13849,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDefaulStringOptions();
         setEventTypeTranslationStringOptions();
         checkForBrowserNotificationsPermission();
+    }
+
+    function buildDefaultSideMenuOptions() {
+        _options.sideMenu = getOptions( _options.views.sideMenu );
+        _options.sideMenu.showDays = getDefaultBoolean( _options.sideMenu.showDays, true );
+        _options.sideMenu.showGroups = getDefaultBoolean( _options.sideMenu.showGroups, true );
+        _options.sideMenu.showEventTypes = getDefaultBoolean( _options.sideMenu.showEventTypes, true );
+        _options.sideMenu.showWorkingDays = getDefaultBoolean( _options.sideMenu.showWorkingDays, true );
+        _options.sideMenu.showWeekendDays = getDefaultBoolean( _options.sideMenu.showWeekendDays, true );
     }
 
     function buildDefaultViewOptionsForFullDay() {
