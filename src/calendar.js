@@ -13906,11 +13906,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.timeline.timelineViewDefaultAxis = getDefaultString( _options.views.timeline.timelineViewDefaultAxis, "group" );
     }
 
-    function buildDefaultViewOptionsForTimeline() {
-        _options.views.timeline = getOptions( _options.views.timeline );
-        _options.views.timeline.timelineViewDefaultAxis = getDefaultString( _options.views.timeline.timelineViewDefaultAxis, "group" );
-    }
-
     function buildDefaultViewOptionsForDatePicker() {
         _options.views.datePicker = getOptions( _options.views.datePicker );
         _options.views.datePicker.selectedDateFormat = getDefaultString( _options.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}" );
