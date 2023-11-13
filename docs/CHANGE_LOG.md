@@ -11,6 +11,9 @@
 #### **Code Improvements:**
 - Remove dead variables that are stored, but are not used for anything.
 
+#### **Fixes:**
+- Fixed a script error that occurred when setting the option "showDayNamesHeaders" via the "setOptions()" public function.
+
 <br>
 
 

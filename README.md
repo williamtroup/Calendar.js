@@ -175,7 +175,11 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 <script> 
   calendarInstance.setOptions( {
       manualEditingEnabled: false,
-      maximumEventsPerDayDisplay: 0,
+      views: {
+          fullMonth: {
+              maximumEventsPerDayDisplay: 0
+          }
+      },
       visibleDays: [ 0, 1, 2, 3, 4 ]
   } );
 </script>

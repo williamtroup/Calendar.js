@@ -358,7 +358,6 @@
  * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
- * @property    {string}    datePickerSelectedDateFormat                States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see DatePicker display formats for options).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
  * @property    {Search}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
@@ -385,7 +384,7 @@
  * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
  * 
  * 
- * These are the options for: Side Menu:
+ * These are the options for:  Side Menu:
  * 
  * @property    {boolean}   showDays                                    States if the "Days" section on the Side Menu is visible (defaults to true).
  * @property    {boolean}   showGroups                                  States if the "Groups" section on the Side Menu is visible (defaults to true).
@@ -394,17 +393,17 @@
  * @property    {boolean}   showWeekendDays                             States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
  * 
  * 
- * These are the view options for: Full Day:
+ * These are the view options for:  Full Day:
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * 
  * 
- * These are the view options for: Full Week:
+ * These are the view options for:  Full Week:
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * 
  * 
- * These are the view options for: Full Month:
+ * These are the view options for:  Full Month:
  * 
  * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be displayed per day (defaults to 3, 0 disables it).
  * @property    {boolean}   allowEventScrolling                         States if the days in the display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
@@ -415,9 +414,14 @@
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (defaults to true).
  * @property    {boolean}   addYearButtons                              States if the year-jumping buttons should be added (defaults to false).
  * 
- * These are the view options for: Timeline:
+ * These are the view options for:  Timeline:
  * 
  * @property    {string}    timelineViewDefaultAxis                     States the default axis the view should use (defaults to "group").
+ * 
+ * 
+ * These are the view options for:  DatePicker:
+ * 
+ * @property    {string}    selectedDateFormat                          States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see DatePicker display formats for options).
  */
 
 
@@ -1944,7 +1948,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function updateDatePickerInputValueDisplay( date ) {
-        _element_Mode_DatePicker_Input.value = getCustomFormattedDateText( _options.datePickerSelectedDateFormat, date );
+        _element_Mode_DatePicker_Input.value = getCustomFormattedDateText( _options.views.datePicker.selectedDateFormat, date );
         _element_Mode_DatePicker_HiddenInput.value = padNumber( date.getDate() ) + "/" + padNumber( date.getMonth() ) + "/" + date.getFullYear();
     }
 
@@ -3734,7 +3738,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         } else {
 
             if ( wasAddedAlready ) {
-                _element_Calendar.removeChild( _element_View_FullMonth_DayNamesHeader );
+                _element_View_FullMonth.removeChild( _element_View_FullMonth_DayNamesHeader );
                 _element_View_FullMonth_DayNamesHeader = null;
             }
         }
@@ -13809,7 +13813,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.minimumDatePickerDate = getDefaultDate( _options.minimumDatePickerDate, null );
         _options.maximumDatePickerDate = getDefaultDate( _options.maximumDatePickerDate, null );
         _options.allowHtmlInDisplay = getDefaultBoolean( _options.allowHtmlInDisplay, false );
-        _options.datePickerSelectedDateFormat = getDefaultString( _options.datePickerSelectedDateFormat, "{d}{o} {mmmm} {yyyy}" );
         _options.initialDateTime = getDefaultDate( _options.initialDateTime, null );
         _options.events = getDefaultArray( _options.events, null );
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
@@ -13846,6 +13849,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDefaultViewOptionsForFullYear();
         buildDefaultViewOptionsForAllEvents();
         buildDefaultViewOptionsForTimeline();
+        buildDefaultViewOptionsForDatePicker();
         buildDefaulStringOptions();
         setEventTypeTranslationStringOptions();
         checkForBrowserNotificationsPermission();
@@ -13900,6 +13904,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDefaultViewOptionsForTimeline() {
         _options.views.timeline = getOptions( _options.views.timeline );
         _options.views.timeline.timelineViewDefaultAxis = getDefaultString( _options.views.timeline.timelineViewDefaultAxis, "group" );
+    }
+
+    function buildDefaultViewOptionsForTimeline() {
+        _options.views.timeline = getOptions( _options.views.timeline );
+        _options.views.timeline.timelineViewDefaultAxis = getDefaultString( _options.views.timeline.timelineViewDefaultAxis, "group" );
+    }
+
+    function buildDefaultViewOptionsForDatePicker() {
+        _options.views.datePicker = getOptions( _options.views.datePicker );
+        _options.views.datePicker.selectedDateFormat = getDefaultString( _options.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}" );
     }
 
     function buildDefaultSearchOptions( newSearchOptions ) {

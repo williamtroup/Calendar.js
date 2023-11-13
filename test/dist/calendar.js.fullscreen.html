@@ -27,8 +27,13 @@
         var calendarInstance = new calendarJs( "myCalendar", { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
-            showTimesInMainCalendarEvents: false,
-            minimumDayHeight: 0,
+            views: {
+                fullMonth: {
+                    showTimesInEvents: false,
+                    minimumDayHeight: 0
+                }
+            },
+            
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],

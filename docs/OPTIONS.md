@@ -42,7 +42,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *Object* | minimumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *Object* | maximumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *boolean* | allowHtmlInDisplay | States if HTML can be used in the display (defaults to false). |
-| *string* | datePickerSelectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *number[]* | weekendDays | States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *Object* | initialDateTime | States the date that the calendar should start from when first loaded (defaults to today). |
 | *Search* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
@@ -108,7 +107,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | --- | --- | --- |
 | *number* | maximumEventsPerDayDisplay | The maximum number of events that should be displayed per day (defaults to 3, 0 disables it). |
 | *boolean* | allowEventScrolling | States if the days in the display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true). |
-| *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the events (defaults to false). |
+| *boolean* | showTimesInEvents | States if the time should be shown on the events (defaults to false). |
 | *number* | minimumDayHeight | States the height the days should use (defaults to 0 - auto). |
 | *boolean* | showPreviousNextMonthNames | States if the previous/next month names should be shown in the days (defaults to true). |
 | *boolean* | useOnlyDotEvents | States if only dot event icons should be used (to save space, defaults to false). |
@@ -123,6 +122,15 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *string* | timelineViewDefaultAxis | States the default axis the view should use (defaults to "group"). |
+<br/>
+
+
+### View Options:  DatePicker:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *string* | selectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 <br/>
 
 

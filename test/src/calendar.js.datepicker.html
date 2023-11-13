@@ -69,22 +69,34 @@
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 events: getEvents(),
-                addYearButtonsOnMainDisplay: true,
                 startOfWeekDay: 6,
                 monthTitleBarDateFormat: "{mmm} {yyyy}",
-                isPinUpViewEnabled: true
+                isPinUpViewEnabled: true,
+                views: {
+                    fullMonth: {
+                        addYearButtons: true
+                    }
+                }
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
                 maximumDatePickerDate: new Date(),
-                datePickerSelectedDateFormat: "{dd}/{mm}/{yyyy}",
+                views: {
+                    datePicker: {
+                        selectedDateFormat: "{dd}/{mm}/{yyyy}"
+                    }
+                },
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 monthTitleBarDateFormat: "{mmm} {yyyy}"
             } ),
             calendarInstance3 = new calendarJs( "myCalendar3", {
                 openInFullScreenMode: true,
-                datePickerSelectedDateFormat: "{d}-{m}-{yy}",
+                views: {
+                    datePicker: {
+                        selectedDateFormat: "{d}-{m}-{yy}"
+                    }
+                },
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 monthTitleBarDateFormat: "{mmm} {yyyy}"
@@ -97,7 +109,11 @@
             } ),
             calendarInstance5 = new calendarJs( "myCalendar5", {
                 openInFullScreenMode: true,
-                datePickerSelectedDateFormat: "{dddd} {d}{o} {mmmm}",
+                views: {
+                    datePicker: {
+                        selectedDateFormat: "{dddd} {d}{o} {mmmm}"
+                    }
+                },
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 monthTitleBarDateFormat: "{mmm} {yyyy}"

@@ -92,9 +92,14 @@
         var calendarInstance = new calendarJs( "myCalendar", { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
-            showTimesInMainCalendarEvents: false,
+            views: {
+                fullMonth: {
+                    showTimesInEvents: false,
+                    minimumDayHeight: 0,
+                    allowEventScrolling: false
+                }
+            },
             fullScreenModeEnabled: true,
-            minimumDayHeight: 0,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
@@ -119,7 +124,6 @@
             workingHoursStart: "09:00",
             workingHoursEnd: "17:00",
             reverseOrderDaysOfWeek: false,
-            addYearButtonsOnMainDisplay: false,
             useAmPmForTimeDisplays: false,
             showWeekNumbersInTitles: false,
             onRender: function( elementId ) {
@@ -189,12 +193,10 @@
 
         function setOptions() {
             calendarInstance.setOptions( {
-                minimumDayHeight: 70,
                 manualEditingEnabled: false,
                 exportEventsEnabled: false,
                 showDayNumberOrdinals: false,
                 fullScreenModeEnabled: false,
-                maximumEventsPerDayDisplay: 0,
                 showTimelineArrowsOnViews: false,
                 maximumEventTitleLength: 10,
                 maximumEventDescriptionLength: 10,
@@ -203,13 +205,19 @@
                 showDayNamesHeaders: false,
                 tooltipsEnabled: true,
                 visibleDays: [ 0, 1, 2, 3, 4 ],
-                allowEventScrollingOnMainDisplay: true,
                 showExtraToolbarButtons: false,
                 hideEventsWithoutGroupAssigned: true,
                 showHolidays: false,
                 allowHtmlInDisplay: true,
                 workingDays: [],
-                startOfWeekDay: 6
+                startOfWeekDay: 6,
+                views: {
+                    fullMonth: {
+                        minimumDayHeight: 70,
+                        maximumEventsPerDayDisplay: 0,
+                        allowEventScrolling: true
+                    }
+                }
             } );
         }
 
@@ -222,7 +230,11 @@
 
         function onlyDotsDisplay() {
             calendarInstance.setOptions( {
-                useOnlyDotEventsForMainDisplay: true
+                views: {
+                    fullMonth: {
+                        useOnlyDotEvents: true
+                    }
+                }
             } );
         }
 
