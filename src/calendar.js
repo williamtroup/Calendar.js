@@ -329,7 +329,7 @@
  * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
  * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
  * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full-screen mode (defaults to true).
- * @property    {number}    eventTooltipDelay                           The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds).
+ * @property    {number}    tooltipDelay                                The amount of time to wait until a tooltip is shown (defaults to 1000 milliseconds).
  * @property    {Holiday[]} holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
  * @property    {string}    organizerName                               The default name of the organizer (defaults to an empty string).
  * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to an empty string).
@@ -8223,7 +8223,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     showElementAtMousePosition( e, _element_Tooltip );
                 }
 
-            }, _options.eventTooltipDelay, false );
+            }, _options.tooltipDelay, false );
         }
     }
 
@@ -13785,7 +13785,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.manualEditingEnabled = getDefaultBoolean( _options.manualEditingEnabled, true );
         _options.autoRefreshTimerDelay = getDefaultNumber(_options.autoRefreshTimerDelay, 30000 );
         _options.fullScreenModeEnabled = getDefaultBoolean( _options.fullScreenModeEnabled, true );
-        _options.eventTooltipDelay = getDefaultNumber( _options.eventTooltipDelay, 1000 );
+        _options.tooltipDelay = getDefaultNumber( _options.tooltipDelay, 1000 );
         _options.holidays = getDefaultArray( _options.holidays, getStandardHolidays() );
         _options.organizerName = getDefaultString( _options.organizerName, _string.empty );
         _options.organizerEmailAddress = getDefaultString( _options.organizerEmailAddress, _string.empty );

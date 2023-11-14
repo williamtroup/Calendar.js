@@ -14,7 +14,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
 | *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
 | *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full-screen mode (defaults to true). |
-| *number* | eventTooltipDelay | The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds). |
+| *number* | tooltipDelay | The amount of time to wait until a tooltip is shown (defaults to 1000 milliseconds). |
 | *Holiday[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | organizerName | The default name of the organizer (defaults to an empty string). |
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to an empty string). |
