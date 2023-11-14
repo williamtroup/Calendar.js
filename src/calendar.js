@@ -13624,14 +13624,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setOptions = function( newOptions, triggerEvent ) {
-        newOptions = getOptions( newOptions );
-
-        for ( var propertyName in newOptions ) {
-            if ( newOptions.hasOwnProperty( propertyName ) ) {
-                _options[ propertyName ] = newOptions[ propertyName ];
-            }
-        }
-
+        buildDefaultOptions( newOptions );
         resetOptionsForDatePickerMode();
         checkForBrowserNotificationsPermission();
 
