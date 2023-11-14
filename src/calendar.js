@@ -353,8 +353,6 @@
  * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
  * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
  * @property    {boolean}   useEscapeKeyToExitFullScreenMode            States if the escape key should exit full-screen mode (if enabled, defaults to true).
- * @property    {Object}    minimumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
- * @property    {Object}    maximumDatePickerDate                       States the minimum date that can be selected in DatePicker mode (defaults to null).
  * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
  * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
@@ -423,6 +421,8 @@
  * These are the view options for:  DatePicker:
  * 
  * @property    {string}    selectedDateFormat                          States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see DatePicker display formats for options).
+ * @property    {Object}    minimumDate                                 States the minimum date that can be selected in DatePicker mode (defaults to null).
+ * @property    {Object}    maximumDate                                 States the minimum date that can be selected in DatePicker mode (defaults to null).
  */
 
 
@@ -1978,12 +1978,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function isDateValidForDatePicker( newDate ) {
         var newDateAllowed = true;
 
-        if ( _options.minimumDatePickerDate !== null ) {
-            newDateAllowed = isDateSmallerOrEqualToDate( _options.minimumDatePickerDate, newDate );
+        if ( _options.views.datePicker.minimumDate !== null ) {
+            newDateAllowed = isDateSmallerOrEqualToDate( _options.views.datePicker.minimumDate, newDate );
         }
 
-        if ( newDateAllowed && _options.maximumDatePickerDate !== null ) {
-            newDateAllowed = isDateSmallerOrEqualToDate( newDate, _options.maximumDatePickerDate );
+        if ( newDateAllowed && _options.views.datePicker.maximumDate !== null ) {
+            newDateAllowed = isDateSmallerOrEqualToDate( newDate, _options.views.datePicker.maximumDate );
         }
 
         return newDateAllowed;
@@ -13806,8 +13806,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.showHolidays = getDefaultBoolean( _options.showHolidays, true );
         _options.useTemplateWhenAddingNewEvent = getDefaultBoolean( _options.useTemplateWhenAddingNewEvent, true );
         _options.useEscapeKeyToExitFullScreenMode = getDefaultBoolean( _options.useEscapeKeyToExitFullScreenMode, true );
-        _options.minimumDatePickerDate = getDefaultDate( _options.minimumDatePickerDate, null );
-        _options.maximumDatePickerDate = getDefaultDate( _options.maximumDatePickerDate, null );
         _options.allowHtmlInDisplay = getDefaultBoolean( _options.allowHtmlInDisplay, false );
         _options.initialDateTime = getDefaultDate( _options.initialDateTime, null );
         _options.events = getDefaultArray( _options.events, null );
@@ -13907,6 +13905,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDefaultViewOptionsForDatePicker() {
         _options.views.datePicker = getOptions( _options.views.datePicker );
         _options.views.datePicker.selectedDateFormat = getDefaultString( _options.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}" );
+        _options.views.datePicker.minimumDate = getDefaultDate( _options.views.datePicker.minimumDate, null );
+        _options.views.datePicker.maximumDate = getDefaultDate( _options.views.datePicker.maximumDate, null );
     }
 
     function buildDefaultSearchOptions( newSearchOptions ) {
