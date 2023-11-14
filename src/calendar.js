@@ -376,7 +376,6 @@
  * @property    {boolean}   isWidget                                    States if the new calendar instance is only a widget (defaults to false).
  * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
  * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
- * @property    {number}    minutesBetweenSectionsInViews               States the number of minutes that should be used between headers/rows in all views (defaults to 30).
  * 
  * 
  * These are the options for:  Side Menu:
@@ -391,12 +390,14 @@
  * These are the view options for:  Full Day:
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
+ * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between rows in all views (defaults to 30).
  * 
  * 
  * These are the view options for:  Full Week:
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
+ * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between rows in all views (defaults to 30).
  * 
  * 
  * These are the view options for:  Full Month:
@@ -416,6 +417,7 @@
  * These are the view options for:  Timeline:
  * 
  * @property    {string}    timelineViewDefaultAxis                     States the default axis the view should use (defaults to "group").
+ * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between headers in all views (defaults to 30).
  * 
  * 
  * These are the view options for:  DatePicker:
@@ -2491,7 +2493,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 };
             }
 
-            buildHoursForTimeBasedView( _element_View_FullDay_Contents_Hours );
+            buildHoursForTimeBasedView( _element_View_FullDay_Contents_Hours, _options.views.fullDay.minutesBetweenSections );
             buildFullDayViewTimeArrow();
         }
     }
@@ -2970,7 +2972,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Contents_Hours = createElement( "div", "hours" );
         _element_View_FullWeek_Contents.appendChild( _element_View_FullWeek_Contents_Hours );
 
-        buildHoursForTimeBasedView( _element_View_FullWeek_Contents_Hours );
+        buildHoursForTimeBasedView( _element_View_FullWeek_Contents_Hours, _options.views.fullWeek.minutesBetweenSections );
 
         _element_View_FullWeek_Contents_Days = createElement( "div", "row-cells days" );
         _element_View_FullWeek_Contents_Hours.appendChild( _element_View_FullWeek_Contents_Days );
@@ -5257,7 +5259,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildToolbarButton( groupHeader, "ib-arrow-left-full", _options.previousPropertyTooltipText, onPreviousAxisTimelineView );
         buildToolbarButton( groupHeader, "ib-arrow-right-full", _options.nextPropertyTooltipText, onNextAxisTimelineView );
 
-        var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
+        var loopDateMinutesIncrease = _options.views.timeline.minutesBetweenSections,
             loopDateToday = new Date(),
             loopDate = new Date(),
             offsetLeft = 0,
@@ -5332,7 +5334,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     timelineRowItems = createElement( "div", "timeline-row-items" );
                     timelineRow.appendChild( timelineRowItems );
 
-                    var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
+                    var loopDateMinutesIncrease = _options.views.timeline.minutesBetweenSections,
                         loopDateToday = new Date(),
                         loopDate = new Date();
                         
@@ -8464,9 +8466,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function buildHoursForTimeBasedView( container ) {
-        var loopDateMinutesIncrease = _options.minutesBetweenSectionsInViews,
-            loopDateToday = new Date(),
+    function buildHoursForTimeBasedView( container, loopDateMinutesIncrease ) {
+        var loopDateToday = new Date(),
             loopDate = new Date();
 
         loopDate.setHours( 0, 0, 0, 0 );
@@ -13828,7 +13829,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.isWidget = getDefaultBoolean( _options.isWidget, false );
         _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
         _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
-        _options.minutesBetweenSectionsInViews = getDefaultNumber( _options.minutesBetweenSectionsInViews, 30 );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -13860,12 +13860,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDefaultViewOptionsForFullDay() {
         _options.views.fullDay = getOptions( _options.views.fullDay );
         _options.views.fullDay.showAllDayEventDetails = getDefaultBoolean( _options.views.fullDay.showAllDayEventDetails, false );
+        _options.views.fullDay.minutesBetweenSections = getDefaultNumber( _options.views.fullDay.minutesBetweenSections, 30 );
     }
 
     function buildDefaultViewOptionsForFullWeek() {
         _options.views.fullWeek = getOptions( _options.views.fullWeek );
         _options.views.fullWeek.showAllDayEventDetails = getDefaultBoolean( _options.views.fullWeek.showAllDayEventDetails, false );
         _options.views.fullWeek.showDayNamesHeaders = getDefaultBoolean( _options.views.fullWeek.showDayNamesHeaders, true );
+        _options.views.fullWeek.minutesBetweenSections = getDefaultNumber( _options.views.fullWeek.minutesBetweenSections, 30 );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
@@ -13900,6 +13902,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDefaultViewOptionsForTimeline() {
         _options.views.timeline = getOptions( _options.views.timeline );
         _options.views.timeline.timelineViewDefaultAxis = getDefaultString( _options.views.timeline.timelineViewDefaultAxis, "group" );
+        _options.views.timeline.minutesBetweenSections = getDefaultNumber( _options.views.timeline.minutesBetweenSections, 30 );
     }
 
     function buildDefaultViewOptionsForDatePicker() {

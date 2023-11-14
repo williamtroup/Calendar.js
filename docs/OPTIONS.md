@@ -61,7 +61,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
 | *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
-| *number* | minutesBetweenSectionsInViews | States the number of minutes that should be used between headers/rows in all views (defaults to 30). |
 <br/>
 
 
@@ -84,6 +83,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
+| *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
 <br/>
 
 
@@ -94,6 +94,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | --- | --- | --- |
 | *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
 | *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
+| *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
 <br/>
 
 
@@ -121,6 +122,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *string* | timelineViewDefaultAxis | States the default axis the view should use (defaults to "group"). |
+| *number* | minutesBetweenSections | States the number of minutes that should be used between headers in all views (defaults to 30). |
 <br/>
 
 
