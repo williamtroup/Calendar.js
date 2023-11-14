@@ -59,8 +59,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | importEventsEnabled | States if importing events is enabled (defaults to true). |
 | *boolean* | useAmPmForTimeDisplays | States if the AM/PM time format should be used for all time displays (defaults to false). |
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
-| *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
-| *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 <br/>
 
 
@@ -113,6 +111,8 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | addYearButtons | States if the year-jumping buttons should be added (defaults to false). |
 | *string* | titleBarDateFormat | States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
+| *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
+| *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 <br/>
 
 

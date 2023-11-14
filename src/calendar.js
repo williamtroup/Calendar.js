@@ -374,8 +374,6 @@
  * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
  * @property    {boolean}   useAmPmForTimeDisplays                      States if the AM/PM time format should be used for all time displays (defaults to false).
  * @property    {boolean}   isWidget                                    States if the new calendar instance is only a widget (defaults to false).
- * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
- * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
  * 
  * 
  * These are the options for:  Side Menu:
@@ -412,6 +410,8 @@
  * @property    {boolean}   addYearButtons                              States if the year-jumping buttons should be added (defaults to false).
  * @property    {string}    titleBarDateFormat                          States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
  * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
+ * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
+ * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
  * 
  * 
  * These are the view options for:  Timeline:
@@ -3630,7 +3630,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             var wasAddedAlready = _element_View_FullMonth_PinUp !== null;
 
-            if ( _options.isPinUpViewEnabled ) {
+            if ( _options.views.fullMonth.isPinUpViewEnabled ) {
                 if ( !wasAddedAlready ) {
                     _element_View_FullMonth_PinUp = createElement( "div", "pin-up" );
                     _element_View_FullMonth.appendChild( _element_View_FullMonth_PinUp );
@@ -3652,23 +3652,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullMonthViewPinUpImageCache() {
-        var imagesLength = _options.pinUpViewImageUrls.length;
+        var imagesLength = _options.views.fullMonth.pinUpViewImageUrls.length;
 
         if ( imagesLength > 0 ) {
             for ( var imageIndex = 0; imageIndex < imagesLength; imageIndex++ ) {
                 var image = new Image();
-                image.src = _options.pinUpViewImageUrls[ imageIndex ];
+                image.src = _options.views.fullMonth.pinUpViewImageUrls[ imageIndex ];
             }
         }
     }
 
     function buildFullMonthViewPinUpImage() {
         if ( !_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null ) {
-            if ( _options.pinUpViewImageUrls.length > 0 ) {
-                _element_View_FullMonth_PinUp.style.backgroundImage = "url('" + _options.pinUpViewImageUrls[ _element_View_FullMonth_PinUp_ImageIndex ] + "')";
+            if ( _options.views.fullMonth.pinUpViewImageUrls.length > 0 ) {
+                _element_View_FullMonth_PinUp.style.backgroundImage = "url('" + _options.views.fullMonth.pinUpViewImageUrls[ _element_View_FullMonth_PinUp_ImageIndex ] + "')";
 
                 _element_View_FullMonth_PinUp_ImageIndex++;
-                if ( _element_View_FullMonth_PinUp_ImageIndex === _options.pinUpViewImageUrls.length ) {
+                if ( _element_View_FullMonth_PinUp_ImageIndex === _options.views.fullMonth.pinUpViewImageUrls.length ) {
                     _element_View_FullMonth_PinUp_ImageIndex = 0;
                 }
             }
@@ -13827,8 +13827,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.importEventsEnabled = getDefaultBoolean( _options.importEventsEnabled, true );
         _options.useAmPmForTimeDisplays = getDefaultBoolean( _options.useAmPmForTimeDisplays, false );
         _options.isWidget = getDefaultBoolean( _options.isWidget, false );
-        _options.isPinUpViewEnabled = getDefaultBoolean( _options.isPinUpViewEnabled, false );
-        _options.pinUpViewImageUrls = getDefaultArray( _options.pinUpViewImageUrls, [] );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
@@ -13879,6 +13877,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.addYearButtons = getDefaultBoolean( _options.views.fullMonth.addYearButtons, false );
         _options.views.fullMonth.titleBarDateFormat = getDefaultString( _options.views.fullMonth.titleBarDateFormat, "{mmmm} {yyyy}" );
         _options.views.fullMonth.showDayNamesHeaders = getDefaultBoolean( _options.views.fullMonth.showDayNamesHeaders, true );
+        _options.views.fullMonth.isPinUpViewEnabled = getDefaultBoolean( _options.views.fullMonth.isPinUpViewEnabled, false );
+        _options.views.fullMonth.pinUpViewImageUrls = getDefaultArray( _options.views.fullMonth.pinUpViewImageUrls, [] );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;

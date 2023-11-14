@@ -22,11 +22,15 @@
 
     <script>
         var calendarInstance = new calendarJs( "calendar", {
-            isPinUpViewEnabled: true,
-            pinUpViewImageUrls: [
-                "https://calendar-js.com/images/top.jpg",
-                "https://sleeplessocean.com/images/background_main.jpg"
-            ],
+            views: {
+                fullMonth: {
+                    isPinUpViewEnabled: true,
+                    pinUpViewImageUrls: [
+                        "https://calendar-js.com/images/top.jpg",
+                        "https://sleeplessocean.com/images/background_main.jpg"
+                    ]
+                }
+            }
         } );
 
         document.title += " v" + calendarInstance.getVersion();
