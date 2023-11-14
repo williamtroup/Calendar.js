@@ -20,7 +20,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to an empty string). |
 | *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
-| *boolean* | showTimelineArrowsOnViews | States if the timeline arrows should be shown in the views (defaults to true). |
 | *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
 | *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
 | *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
@@ -82,6 +81,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | --- | --- | --- |
 | *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
 | *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
+| *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
 <br/>
 
 
@@ -93,6 +93,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
 | *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 | *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
+| *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
 <br/>
 
 

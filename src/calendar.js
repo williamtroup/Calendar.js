@@ -335,7 +335,6 @@
  * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to an empty string).
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins (defaults to 10).
  * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
- * @property    {boolean}   showTimelineArrowsOnViews                   States if the timeline arrows should be shown in the views (defaults to true).
  * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
  * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
@@ -389,6 +388,7 @@
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between rows in all views (defaults to 30).
+ * @property    {boolean}   showTimelineArrow                           States if the timeline arrow should be shown (defaults to true).
  * 
  * 
  * These are the view options for:  Full Week:
@@ -396,6 +396,7 @@
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
  * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
  * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between rows in all views (defaults to 30).
+ * @property    {boolean}   showTimelineArrow                           States if the timeline arrow should be shown (defaults to true).
  * 
  * 
  * These are the view options for:  Full Month:
@@ -2714,7 +2715,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         var orderedEventsLength = orderedEvents.length,
             orderedEventsFirstTopPosition = null,
-            timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow, _element_View_FullDay_Contents_Hours );
+            timeArrowPosition = updateViewTimeArrowPosition( _element_View_FullDay_DateSelected, _element_View_FullDay, _element_View_FullDay_TimeArrow, _element_View_FullDay_Contents_Hours, _options.views.fullDay.showTimelineArrow );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
             var newTopPosition = buildFullDayViewEvent( orderedEvents[ orderedEventIndex ], date );
@@ -2724,7 +2725,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( fromOpen ) {
-            if ( isTimeArrowVisible( _element_View_FullDay_DateSelected, _element_View_FullDay ) ) {
+            if ( isTimeArrowVisible( _element_View_FullDay_DateSelected, _element_View_FullDay, _options.views.fullDay.showTimelineArrow  ) ) {
                 var allDayEventsHeight = _element_View_FullDay_Contents_AllDayEvents.offsetHeight;
                 allDayEventsHeight = allDayEventsHeight <= 1 ? _options.spacing * 4 : allDayEventsHeight;
 
@@ -3059,7 +3060,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "arrow-left" ) );
         _element_View_FullWeek_TimeArrow.appendChild( createElement( "div", "line" ) );
 
-        _element_View_FullWeek_TimeArrow_Position = updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow, column );
+        _element_View_FullWeek_TimeArrow_Position = updateViewTimeArrowPosition( columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow, column, _options.views.fullWeek.showTimelineArrow  );
     }
 
     function buildFullWeekViewDayColumnWorkingHours( column, headerNameIndex ) {
@@ -8618,11 +8619,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function updateViewTimeArrowPosition( date, elementView, elementTimeArrow, container ) {
+    function updateViewTimeArrowPosition( date, elementView, elementTimeArrow, container, setting ) {
         var topPosition = 0;
 
         if ( elementTimeArrow !== null ) {
-            if ( isTimeArrowVisible( date, elementView ) ) {
+            if ( isTimeArrowVisible( date, elementView, setting ) ) {
                 var pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
                     top = pixelsPerMinute * getMinutesIntoDay( new Date() );
     
@@ -8638,8 +8639,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return topPosition;
     }
 
-    function isTimeArrowVisible( date, elementView ) {
-        return isDateToday( date ) && isViewVisible( elementView ) && _options.showTimelineArrowsOnViews ;
+    function isTimeArrowVisible( date, elementView, setting ) {
+        return isDateToday( date ) && isViewVisible( elementView ) && setting ;
     }
 
 
@@ -13791,7 +13792,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.organizerEmailAddress = getDefaultString( _options.organizerEmailAddress, _string.empty );
         _options.spacing = getDefaultNumber( _options.spacing, 10 );
         _options.showWeekNumbersInTitles = getDefaultBoolean( _options.showWeekNumbersInTitles, false );
-        _options.showTimelineArrowsOnViews = getDefaultBoolean( _options.showTimelineArrowsOnViews, true );
         _options.maximumEventTitleLength = getDefaultNumber( _options.maximumEventTitleLength, 0 );
         _options.maximumEventDescriptionLength = getDefaultNumber( _options.maximumEventDescriptionLength, 0 );
         _options.maximumEventLocationLength = getDefaultNumber( _options.maximumEventLocationLength, 0 );
@@ -13857,6 +13857,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullDay = getOptions( _options.views.fullDay );
         _options.views.fullDay.showAllDayEventDetails = getDefaultBoolean( _options.views.fullDay.showAllDayEventDetails, false );
         _options.views.fullDay.minutesBetweenSections = getDefaultNumber( _options.views.fullDay.minutesBetweenSections, 30 );
+        _options.views.fullDay.showTimelineArrow = getDefaultBoolean( _options.views.fullDay.showTimelineArrow, true );
     }
 
     function buildDefaultViewOptionsForFullWeek() {
@@ -13864,6 +13865,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullWeek.showAllDayEventDetails = getDefaultBoolean( _options.views.fullWeek.showAllDayEventDetails, false );
         _options.views.fullWeek.showDayNamesHeaders = getDefaultBoolean( _options.views.fullWeek.showDayNamesHeaders, true );
         _options.views.fullWeek.minutesBetweenSections = getDefaultNumber( _options.views.fullWeek.minutesBetweenSections, 30 );
+        _options.views.fullWeek.showTimelineArrow = getDefaultBoolean( _options.views.fullWeek.showTimelineArrow, true );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
