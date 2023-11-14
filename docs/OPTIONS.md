@@ -121,7 +121,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
-| *string* | timelineViewDefaultAxis | States the default axis the view should use (defaults to "group"). |
+| *string* | defaultAxis | States the default axis the view should use (defaults to "group"). |
 | *number* | minutesBetweenSections | States the number of minutes that should be used between headers in all views (defaults to 30). |
 <br/>
 

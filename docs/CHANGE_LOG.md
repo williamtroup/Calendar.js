@@ -3,6 +3,7 @@
 ## Version 3.0.0:
 
 #### **New Features:**
+- BREAKING: All settings that affect views and how they look are now split up into their own category under a new "views" area.
 - Added a new dialog called "Jump To Date", which will allow you to jump to a selected date in any view that is currently active.
 
 #### **General Improvements:**

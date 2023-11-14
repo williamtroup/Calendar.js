@@ -416,7 +416,7 @@
  * 
  * These are the view options for:  Timeline:
  * 
- * @property    {string}    timelineViewDefaultAxis                     States the default axis the view should use (defaults to "group").
+ * @property    {string}    defaultAxis                                 States the default axis the view should use (defaults to "group").
  * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between headers in all views (defaults to 30).
  * 
  * 
@@ -5169,7 +5169,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( _element_View_Timeline_Selected_Axis === null ) {
-                _element_View_Timeline_Selected_Axis = _options.views.timeline.timelineViewDefaultAxis;
+                _element_View_Timeline_Selected_Axis = _options.views.timeline.defaultAxis;
             }
 
             if ( !wasAddedAlready ) {
@@ -13839,8 +13839,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDefaultViewOptionsForFullDay();
         buildDefaultViewOptionsForFullWeek();
         buildDefaultViewOptionsForFullMonth();
-        buildDefaultViewOptionsForFullYear();
-        buildDefaultViewOptionsForAllEvents();
         buildDefaultViewOptionsForTimeline();
         buildDefaultViewOptionsForDatePicker();
         buildDefaulStringOptions();
@@ -13891,17 +13889,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildDefaultViewOptionsForFullYear() {
-        _options.views.fullYear = getOptions( _options.views.fullYear );
-    }
-
-    function buildDefaultViewOptionsForAllEvents() {
-        _options.views.allEvents = getOptions( _options.views.allEvents );
-    }
-
     function buildDefaultViewOptionsForTimeline() {
         _options.views.timeline = getOptions( _options.views.timeline );
-        _options.views.timeline.timelineViewDefaultAxis = getDefaultString( _options.views.timeline.timelineViewDefaultAxis, "group" );
+        _options.views.timeline.defaultAxis = getDefaultString( _options.views.timeline.defaultAxis, "group" );
         _options.views.timeline.minutesBetweenSections = getDefaultNumber( _options.views.timeline.minutesBetweenSections, 30 );
     }
 
