@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "Facultatif",
     "urlText": "URL :",
     "openUrlText": "Ouvrir le lien",
-    "enableDayNameHeadersText": "Activer les en-têtes de nom de jour",
     "thisWeekTooltipText": "Cette semaine",
     "dailyText": "Tous les jours",
     "weeklyText": "Hebdomadaire",

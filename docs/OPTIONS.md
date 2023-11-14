@@ -26,7 +26,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
 | *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
 | *boolean* | eventNotificationsEnabled | States if notifications should be shown for events (defaults to false). |
-| *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
 | *number[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *string* | urlWindowTarget | States the target that an event URL should be opened in (defaults to _blank for a new window). |
@@ -96,6 +95,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
+| *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 <br/>
 
 
@@ -113,6 +113,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (defaults to true). |
 | *boolean* | addYearButtons | States if the year-jumping buttons should be added (defaults to false). |
 | *string* | titleBarDateFormat | States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
+| *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 <br/>
 
 
@@ -258,7 +259,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | optionalText | The text that should be displayed for the "Optional" label. |
 | *string* | urlText | The text that should be displayed for the "Url:" label. |
 | *string* | openUrlText | The text that should be displayed for the "Open Url" label. |
-| *string* | enableDayNameHeadersText | The text that should be displayed for the "Enable day name headers" label. |
 | *string* | thisWeekTooltipText | The tooltip text that should be used for the "This Week" button. |
 | *string* | dailyText | The text that should be displayed for the "Daily" label. |
 | *string* | weeklyText | The text that should be displayed for the "Weekly" label. |

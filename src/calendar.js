@@ -249,7 +249,6 @@
  * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
  * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
  * @property    {string}    openUrlText                                 The text that should be displayed for the "Open Url" label.
- * @property    {string}    enableDayNameHeadersText                    The text that should be displayed for the "Enable day name headers" label.
  * @property    {string}    thisWeekTooltipText                         The tooltip text that should be used for the "This Week" button.
  * @property    {string}    dailyText                                   The text that should be displayed for the "Daily" label.
  * @property    {string}    weeklyText                                  The text that should be displayed for the "Weekly" label.
@@ -342,7 +341,6 @@
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
  * @property    {number}    maximumEventGroupLength                     States the maximum length allowed for an event group (defaults to 0 to allow any size).
  * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
- * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
  * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
  * @property    {number[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
  * @property    {string}    urlWindowTarget                             States the target that an event URL should be opened in (defaults to _blank for a new window).
@@ -400,6 +398,7 @@
  * These are the view options for:  Full Week:
  * 
  * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
+ * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
  * 
  * 
  * These are the view options for:  Full Month:
@@ -413,6 +412,8 @@
  * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (defaults to true).
  * @property    {boolean}   addYearButtons                              States if the year-jumping buttons should be added (defaults to false).
  * @property    {string}    titleBarDateFormat                          States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
+ * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
+ * 
  * 
  * These are the view options for:  Timeline:
  * 
@@ -887,7 +888,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_Configuration_Display_EnableBrowserNotifications = null,
         _element_Dialog_Configuration_Display_EnableTooltips = null,
         _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = null,
-        _element_Dialog_Configuration_Display_EnableDayNamesHeaders = null,
         _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = null,
         _element_Dialog_Configuration_Organizer_Name = null,
         _element_Dialog_Configuration_Organizer_Email = null,
@@ -2952,7 +2952,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var dayNamesHeaderContainer = createElement( "div", "header-days-container" );
         _element_View_FullWeek_Contents.appendChild( dayNamesHeaderContainer );
 
-        if ( _options.showDayNamesHeaders ) {
+        if ( _options.views.fullWeek.showDayNamesHeaders ) {
             _element_View_FullWeek_Contents_DayNamesHeader = createElement( "div", "row-cells header-days" );
             dayNamesHeaderContainer.appendChild( _element_View_FullWeek_Contents_DayNamesHeader );
         }
@@ -3720,7 +3720,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullMonthViewDayNamesHeader() {
         var wasAddedAlready = _element_View_FullMonth_DayNamesHeader !== null;
         
-        if ( _options.showDayNamesHeaders ) {
+        if ( _options.views.fullMonth.showDayNamesHeaders ) {
             if ( wasAddedAlready ) {
                 _element_View_FullMonth_DayNamesHeader.innerHTML = _string.empty;
             }
@@ -7886,7 +7886,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Dialog_Configuration_Display_EnableBrowserNotifications = buildCheckBox( _element_Dialog_Configuration_Display, _options.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in" )[ 0 ];
             _element_Dialog_Configuration_Display_EnableTooltips = buildCheckBox( _element_Dialog_Configuration_Display, _options.enableTooltipsText, null, null, null, "checkbox-tabbed-down" )[ 0 ];
             _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = buildCheckBox( _element_Dialog_Configuration_Display, _options.enableDragAndDropForEventText )[ 0 ];
-            _element_Dialog_Configuration_Display_EnableDayNamesHeaders = buildCheckBox( _element_Dialog_Configuration_Display, _options.enableDayNameHeadersText )[ 0 ];
             _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = buildCheckBox( _element_Dialog_Configuration_Display, _options.showHolidaysInTheDisplaysText )[ 0 ];
     
             createTextHeaderElement( _element_Dialog_Configuration_Organizer, _options.organizerNameText );
@@ -7917,7 +7916,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.eventNotificationsEnabled = _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked;
         _options.tooltipsEnabled = _element_Dialog_Configuration_Display_EnableTooltips.checked;
         _options.dragAndDropForEventsEnabled = _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked;
-        _options.showDayNamesHeaders = _element_Dialog_Configuration_Display_EnableDayNamesHeaders.checked;
         _options.showHolidays = _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked;
         _options.organizerName = _element_Dialog_Configuration_Organizer_Name.value;
         _options.organizerEmailAddress = _element_Dialog_Configuration_Organizer_Email.value;
@@ -7942,7 +7940,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked = _options.eventNotificationsEnabled;
         _element_Dialog_Configuration_Display_EnableTooltips.checked = _options.tooltipsEnabled;
         _element_Dialog_Configuration_Display_EnableDragAndDropForEvents.checked = _options.dragAndDropForEventsEnabled;
-        _element_Dialog_Configuration_Display_EnableDayNamesHeaders.checked = _options.showDayNamesHeaders;
         _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays.checked = _options.showHolidays;
         _element_Dialog_Configuration_Organizer_Name.value = _options.organizerName;
         _element_Dialog_Configuration_Organizer_Email.value = _options.organizerEmailAddress;
@@ -13799,7 +13796,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.maximumEventLocationLength = getDefaultNumber( _options.maximumEventLocationLength, 0 );
         _options.maximumEventGroupLength = getDefaultNumber( _options.maximumEventGroupLength, 0 );
         _options.eventNotificationsEnabled = getDefaultBoolean( _options.eventNotificationsEnabled, false );
-        _options.showDayNamesHeaders = getDefaultBoolean( _options.showDayNamesHeaders, true );
         _options.tooltipsEnabled = getDefaultBoolean( _options.tooltipsEnabled, true );
         _options.urlWindowTarget = getDefaultString( _options.urlWindowTarget, "_blank" );
         _options.defaultEventBackgroundColor = getDefaultString( _options.defaultEventBackgroundColor, "#484848" );
@@ -13871,6 +13867,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildDefaultViewOptionsForFullWeek() {
         _options.views.fullWeek = getOptions( _options.views.fullWeek );
         _options.views.fullWeek.showAllDayEventDetails = getDefaultBoolean( _options.views.fullWeek.showAllDayEventDetails, false );
+        _options.views.fullWeek.showDayNamesHeaders = getDefaultBoolean( _options.views.fullWeek.showDayNamesHeaders, true );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
@@ -13883,6 +13880,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.applyCssToEventsNotInCurrentMonth = getDefaultBoolean( _options.views.fullMonth.applyCssToEventsNotInCurrentMonth, true );
         _options.views.fullMonth.addYearButtons = getDefaultBoolean( _options.views.fullMonth.addYearButtons, false );
         _options.views.fullMonth.titleBarDateFormat = getDefaultString( _options.views.fullMonth.titleBarDateFormat, "{mmmm} {yyyy}" );
+        _options.views.fullMonth.showDayNamesHeaders = getDefaultBoolean( _options.views.fullMonth.showDayNamesHeaders, true );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;
@@ -14116,7 +14114,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.optionalText = getDefaultString( _options.optionalText, "Optional" );
         _options.urlText = getDefaultString( _options.urlText, "Url:" );
         _options.openUrlText = getDefaultString( _options.openUrlText, "Open Url" );
-        _options.enableDayNameHeadersText = getDefaultString( _options.enableDayNameHeadersText, "Enable day name headers" );
         _options.thisWeekTooltipText = getDefaultString( _options.thisWeekTooltipText, "This Week" );
         _options.dailyText = getDefaultString( _options.dailyText, "Daily" );
         _options.weeklyText = getDefaultString( _options.weeklyText, "Weekly" );

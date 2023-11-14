@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "オプション",
     "urlText": "URL:",
     "openUrlText": "URLを開く",
-    "enableDayNameHeadersText": "曜日名のヘッダーを有効にする",
     "thisWeekTooltipText": "今週",
     "dailyText": "毎日",
     "weeklyText": "毎週",

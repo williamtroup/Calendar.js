@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "选修的",
     "urlText": "网址：",
     "openUrlText": "打开网址",
-    "enableDayNameHeadersText": "启用日期名称标题",
     "thisWeekTooltipText": "本星期",
     "dailyText": "日常的",
     "weeklyText": "每周",

@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "İsteğe bağlı",
     "urlText": "URL:",
     "openUrlText": "Link aç",
-    "enableDayNameHeadersText": "Gün adı başlıklarını etkinleştir",
     "thisWeekTooltipText": "Bu hafta",
     "dailyText": "Günlük",
     "weeklyText": "Haftalık",

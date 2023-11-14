@@ -153,7 +153,6 @@
                 maximumEventDescriptionLength: 10,
                 maximumEventLocationLength: 10,
                 maximumEventGroupLength: 10,
-                showDayNamesHeaders: false,
                 tooltipsEnabled: true,
                 visibleDays: [ 0, 1, 2, 3, 4 ],
                 showExtraToolbarButtons: false,
@@ -165,7 +164,11 @@
                     fullMonth: {
                         minimumDayHeight: 70,
                         maximumEventsPerDayDisplay: 0,
-                        allowEventScrolling: true
+                        allowEventScrolling: true,
+                        showDayNamesHeaders: false
+                    },
+                    fullWeek: {
+                        showDayNamesHeaders: false
                     }
                 }
             } );
