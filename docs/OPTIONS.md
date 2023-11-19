@@ -19,7 +19,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | organizerName | The default name of the organizer (defaults to an empty string). |
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to an empty string). |
 | *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |
-| *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 | *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
 | *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
 | *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
@@ -48,7 +47,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | defaultEventDuration | States the default duration used when a new event is added (defaults to 30 minutes). |
 | *boolean* | configurationDialogEnabled | States if the configuration dialog is enabled (defaults to true). |
 | *boolean* | popUpNotificationsEnabled | States if the popup notifications (when actions are performed) are enabled (defaults to true). |
-| *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
 | *number* | startOfWeekDay | States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6). |
 | *boolean* | useLocalStorageForEvents | States if the events added should be stored in local storage (remembered between browser usages, defaults to false). |
 | *boolean* | shortcutKeysEnabled | States if the shortcut keys are enabled (defaults to true). |
@@ -94,6 +92,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 | *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
 | *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
+| *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 <br/>
 
 
@@ -114,6 +113,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 | *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
+| *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
 <br/>
 
 

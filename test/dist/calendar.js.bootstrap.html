@@ -93,6 +93,9 @@
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
             views: {
+                fullWeek: {
+                    showWeekNumbersInTitles: false
+                },
                 fullMonth: {
                     showTimesInEvents: false,
                     minimumDayHeight: 0,
@@ -125,7 +128,6 @@
             workingHoursEnd: "17:00",
             reverseOrderDaysOfWeek: false,
             useAmPmForTimeDisplays: false,
-            showWeekNumbersInTitles: false,
             onRender: function( elementId ) {
                 console.log( "Calendar instance ID " + elementId + " rendered." );
             },

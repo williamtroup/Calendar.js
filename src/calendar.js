@@ -334,7 +334,6 @@
  * @property    {string}    organizerName                               The default name of the organizer (defaults to an empty string).
  * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to an empty string).
  * @property    {number}    spacing                                     States the default spacing that should be used for additional margins (defaults to 10).
- * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
  * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
  * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
@@ -363,7 +362,6 @@
  * @property    {number}    defaultEventDuration                        States the default duration used when a new event is added (defaults to 30 minutes).
  * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
  * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) are enabled (defaults to true).
- * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
  * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
  * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
  * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
@@ -397,6 +395,7 @@
  * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
  * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between rows in all views (defaults to 30).
  * @property    {boolean}   showTimelineArrow                           States if the timeline arrow should be shown (defaults to true).
+ * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
  * 
  * 
  * These are the view options for:  Full Month:
@@ -413,6 +412,7 @@
  * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
  * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
  * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
+ * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
  * 
  * 
  * These are the view options for:  Timeline:
@@ -3084,7 +3084,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_TitleBar.innerHTML = _string.empty;
 
         if ( !fireCustomTrigger( "onFullWeekTitleRender", weekStartDate, weekEndDate ) ) {
-            if ( _options.showWeekNumbersInTitles ) {
+            if ( _options.views.fullWeek.showWeekNumbersInTitles ) {
                 createSpanElement( _element_View_FullWeek_TitleBar, _options.weekText + _string.space + getWeekNumber( weekStartDate ) + ": " );
             }
     
@@ -3840,10 +3840,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var yearDate = new Date( _options.minimumYear, 1, 1 ),
             monthContainer = null;
 
-        _element_View_FullMonth_TitleBar_YearSelector = createElement( "div", _options.showMonthButtonsInYearDropDownMenu ? "years-drop-down" : "years-drop-down-no-months" );
+        _element_View_FullMonth_TitleBar_YearSelector = createElement( "div", _options.views.fullMonth.showMonthButtonsInYearDropDownMenu ? "years-drop-down" : "years-drop-down-no-months" );
         container.appendChild( _element_View_FullMonth_TitleBar_YearSelector );
 
-        if ( _options.showMonthButtonsInYearDropDownMenu ) {
+        if ( _options.views.fullMonth.showMonthButtonsInYearDropDownMenu ) {
             for ( var monthIndex = 0; monthIndex < 12; monthIndex++ ) {
                 if ( monthIndex % 3 === 0 ) {
                     monthContainer = createElement( "div", "months" );
@@ -13784,7 +13784,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.organizerName = getDefaultString( _options.organizerName, _string.empty );
         _options.organizerEmailAddress = getDefaultString( _options.organizerEmailAddress, _string.empty );
         _options.spacing = getDefaultNumber( _options.spacing, 10 );
-        _options.showWeekNumbersInTitles = getDefaultBoolean( _options.showWeekNumbersInTitles, false );
         _options.maximumEventTitleLength = getDefaultNumber( _options.maximumEventTitleLength, 0 );
         _options.maximumEventDescriptionLength = getDefaultNumber( _options.maximumEventDescriptionLength, 0 );
         _options.maximumEventLocationLength = getDefaultNumber( _options.maximumEventLocationLength, 0 );
@@ -13810,7 +13809,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.defaultEventDuration = getDefaultNumber( _options.defaultEventDuration, 30 );
         _options.configurationDialogEnabled = getDefaultBoolean( _options.configurationDialogEnabled, true );
         _options.popUpNotificationsEnabled = getDefaultBoolean( _options.popUpNotificationsEnabled, true );
-        _options.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.showMonthButtonsInYearDropDownMenu, true );
         _options.startOfWeekDay = getDefaultNumber( _options.startOfWeekDay, _enum_Day.monday );
         _options.useLocalStorageForEvents = getDefaultBoolean( _options.useLocalStorageForEvents, false );
         _options.shortcutKeysEnabled = getDefaultBoolean( _options.shortcutKeysEnabled, true );
@@ -13859,6 +13857,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullWeek.showDayNamesHeaders = getDefaultBoolean( _options.views.fullWeek.showDayNamesHeaders, true );
         _options.views.fullWeek.minutesBetweenSections = getDefaultNumber( _options.views.fullWeek.minutesBetweenSections, 30 );
         _options.views.fullWeek.showTimelineArrow = getDefaultBoolean( _options.views.fullWeek.showTimelineArrow, true );
+        _options.views.fullWeek.showWeekNumbersInTitles = getDefaultBoolean( _options.views.fullWeek.showWeekNumbersInTitles, false );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
@@ -13874,6 +13873,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.showDayNamesHeaders = getDefaultBoolean( _options.views.fullMonth.showDayNamesHeaders, true );
         _options.views.fullMonth.isPinUpViewEnabled = getDefaultBoolean( _options.views.fullMonth.isPinUpViewEnabled, false );
         _options.views.fullMonth.pinUpViewImageUrls = getDefaultArray( _options.views.fullMonth.pinUpViewImageUrls, [] );
+        _options.views.fullMonth.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.views.fullMonth.showMonthButtonsInYearDropDownMenu, true );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;
