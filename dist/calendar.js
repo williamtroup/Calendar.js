@@ -15,6 +15,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _calendar_CurrentDate_IsToday = isDateTodaysMonthAndYear(_calendar_CurrentDate);
       var firstDay = new Date(_calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth(), 1);
       var startDay = getStartOfWeekDayNumber(firstDay.getDay() === 0 ? 7 : firstDay.getDay());
+      var firstRender = !_initialized_FirstTime;
       if (isSideMenuOpen()) {
         hideSideMenu();
       }
@@ -34,10 +35,10 @@ function calendarJs(elementOrId, options, searchOptions) {
           buildLayoutTriggerRenderComplete();
         }
       }
-      buildLayoutModalsAndMainView(startDay, fullRebuild, forceRefreshViews);
+      buildLayoutModalsAndMainView(startDay, fullRebuild, forceRefreshViews, firstRender);
     }
   }
-  function buildLayoutModalsAndMainView(startDay, fullRebuild, forceRefreshViews) {
+  function buildLayoutModalsAndMainView(startDay, fullRebuild, forceRefreshViews, firstRender) {
     buildFullMonthViewDays(startDay);
     if (fullRebuild) {
       buildDisabledBackground();
@@ -58,6 +59,19 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     if (_element_Calendar !== null) {
       setFullMonthViewYearDropDownButtonText();
+      if (firstRender && isDefinedString(_options.viewToOpenOnFirstLoad)) {
+        if (_options.viewToOpenOnFirstLoad.toLowerCase() === "full-day") {
+          showFullDayView();
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "full-week") {
+          showFullWeekView();
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "full-year") {
+          showFullYearView();
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "timeline") {
+          showTimelineView();
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "all-events") {
+          showAllEventsView();
+        }
+      }
     }
   }
   function buildLayoutWidget() {
@@ -1761,7 +1775,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function showFullWeekView(weekDate, fromOpen) {
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
-    var actualWeekDate = weekDate === null ? new Date() : new Date(weekDate);
+    var actualWeekDate = !isDefined(weekDate) ? new Date() : new Date(weekDate);
     var weekStartEndDates = getWeekStartEndDates(actualWeekDate);
     var weekStartDate = weekStartEndDates[0];
     var weekEndDate = weekStartEndDates[1];
@@ -8441,6 +8455,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.importEventsEnabled = getDefaultBoolean(_options.importEventsEnabled, true);
     _options.useAmPmForTimeDisplays = getDefaultBoolean(_options.useAmPmForTimeDisplays, false);
     _options.isWidget = getDefaultBoolean(_options.isWidget, false);
+    _options.viewToOpenOnFirstLoad = getDefaultString(_options.viewToOpenOnFirstLoad, null);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];

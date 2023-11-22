@@ -371,6 +371,7 @@
  * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
  * @property    {boolean}   useAmPmForTimeDisplays                      States if the AM/PM time format should be used for all time displays (defaults to false).
  * @property    {boolean}   isWidget                                    States if the new calendar instance is only a widget (defaults to false).
+ * @property    {string}    viewToOpenOnFirstLoad                       States which view should be opened when the Calendar is first initialized (defaults to null, accepts "full-day", "full-week", "full-year", "timeline", and "all-events").
  * 
  * 
  * These are the options for:  Side Menu:
@@ -991,7 +992,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _calendar_CurrentDate_IsToday = isDateTodaysMonthAndYear( _calendar_CurrentDate );
     
             var firstDay = new Date( _calendar_CurrentDate.getFullYear(), _calendar_CurrentDate.getMonth(), 1 ),
-                startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() );
+                startDay = getStartOfWeekDayNumber( firstDay.getDay() === 0 ? 7 : firstDay.getDay() ),
+                firstRender = !_initialized_FirstTime;
 
             if ( isSideMenuOpen() ) {
                 hideSideMenu();
@@ -1016,11 +1018,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
             }
     
-            buildLayoutModalsAndMainView( startDay, fullRebuild, forceRefreshViews );
+            buildLayoutModalsAndMainView( startDay, fullRebuild, forceRefreshViews, firstRender );
         }
     }
 
-    function buildLayoutModalsAndMainView( startDay, fullRebuild, forceRefreshViews ) {
+    function buildLayoutModalsAndMainView( startDay, fullRebuild, forceRefreshViews, firstRender ) {
         buildFullMonthViewDays( startDay );
 
         if ( fullRebuild ) {
@@ -1044,6 +1046,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         if ( _element_Calendar !== null ) {
             setFullMonthViewYearDropDownButtonText();
+
+            if ( firstRender && isDefinedString( _options.viewToOpenOnFirstLoad ) ) {
+                if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "full-day" ) {
+                    showFullDayView();
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "full-week" ) {
+                    showFullWeekView();
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "full-year" ) {
+                    showFullYearView();
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "timeline" ) {
+                    showTimelineView();
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "all-events" ) {
+                    showAllEventsView();
+                }
+            }
         }
     }
 
@@ -3314,7 +3330,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showFullWeekView( weekDate, fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        var actualWeekDate = weekDate === null ? new Date() : new Date( weekDate ),
+        var actualWeekDate = !isDefined( weekDate ) ? new Date() : new Date( weekDate ),
             weekStartEndDates = getWeekStartEndDates( actualWeekDate ),
             weekStartDate = weekStartEndDates[ 0 ],
             weekEndDate = weekStartEndDates[ 1 ];
@@ -13818,6 +13834,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.importEventsEnabled = getDefaultBoolean( _options.importEventsEnabled, true );
         _options.useAmPmForTimeDisplays = getDefaultBoolean( _options.useAmPmForTimeDisplays, false );
         _options.isWidget = getDefaultBoolean( _options.isWidget, false );
+        _options.viewToOpenOnFirstLoad = getDefaultString( _options.viewToOpenOnFirstLoad, null );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];

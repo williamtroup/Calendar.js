@@ -6,6 +6,9 @@
 - BREAKING: All settings that affect views and how they look are now split up into their own category under a new "views" area (mass renames have been included).
 - Added a new dialog called "Jump To Date", which will allow you to jump to a selected date in any view that is currently active.
 
+#### **Settings:**
+- Added a new setting "viewToOpenOnFirstLoad" (defaults to null), which states the view that should be opened when the calendar is first initialized (see options for values).
+
 #### **General Improvements:**
 - All events rendered in the UI now add a new attribute call "event-is-all-day", which states if the event is an all-day event.
 
