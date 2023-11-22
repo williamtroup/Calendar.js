@@ -82,32 +82,28 @@
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
-                views: {
-                    datePicker: {
-                        selectedDateFormat: "{dd}/{mm}/{yyyy}",
-                        maximumDate: new Date(),
-                    }
-                },
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 views: {
                     fullMonth: {
                         titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        selectedDateFormat: "{dd}/{mm}/{yyyy}",
+                        maximumDate: new Date(),
                     }
                 }
             } ),
             calendarInstance3 = new calendarJs( "myCalendar3", {
                 openInFullScreenMode: true,
-                views: {
-                    datePicker: {
-                        selectedDateFormat: "{d}-{m}-{yy}"
-                    }
-                },
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 views: {
                     fullMonth: {
                         titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        selectedDateFormat: "{d}-{m}-{yy}"
                     }
                 }
             } ),
@@ -123,16 +119,14 @@
             } ),
             calendarInstance5 = new calendarJs( "myCalendar5", {
                 openInFullScreenMode: true,
-                views: {
-                    datePicker: {
-                        selectedDateFormat: "{dddd} {d}{o} {mmmm}"
-                    }
-                },
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 views: {
                     fullMonth: {
                         titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        selectedDateFormat: "{dddd} {d}{o} {mmmm}"
                     }
                 }
             } );
