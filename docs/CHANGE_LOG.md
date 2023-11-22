@@ -3,7 +3,7 @@
 ## Version 2.10.0:
 
 #### **New Features:**
-- BREAKING: All settings that affect views and how they look are now split up into their own category under a new "views" area (mass renames have been included).
+- BREAKING: All settings that affect views and how they look are now split up into categories under a new "views" area (mass renames have been included).
 - Added a new dialog called "Jump To Date", which will allow you to jump to a selected date in any view that is currently active.
 
 #### **Settings:**
@@ -13,7 +13,7 @@
 - Pressing the Ctrl/Cmd + Shift + J will now open the new "Jump To Date" dialog.
 
 #### **General Improvements:**
-- All events rendered in the UI now add a new attribute call "event-is-all-day", which states if the event is an all-day event.
+- All events rendered in the UI now add a new attribute called "event-is-all-day", which states if the event is an all-day event.
 
 #### **Code Improvements:**
 - Remove dead variables that are stored, but are not used for anything.
