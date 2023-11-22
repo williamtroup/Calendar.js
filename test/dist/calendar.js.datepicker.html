@@ -65,7 +65,6 @@
         var calendarElement4 = document.getElementsByClassName( "myCalendar4" )[ 0 ],
             calendarInstance1 = new calendarJs( "myCalendar1", {
                 openInFullScreenMode: true,
-                minimumDatePickerDate: new Date(),
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 events: getEvents(),
@@ -75,15 +74,18 @@
                     fullMonth: {
                         addYearButtons: true,
                         titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        minimumDate: new Date(),
                     }
                 }
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
-                maximumDatePickerDate: new Date(),
                 views: {
                     datePicker: {
-                        selectedDateFormat: "{dd}/{mm}/{yyyy}"
+                        selectedDateFormat: "{dd}/{mm}/{yyyy}",
+                        maximumDate: new Date(),
                     }
                 },
                 onDatePickerOpened: datePickerOpened,
