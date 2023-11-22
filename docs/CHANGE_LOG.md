@@ -9,6 +9,9 @@
 #### **Settings:**
 - Added a new setting "viewToOpenOnFirstLoad" (defaults to null), which states the view that should be opened when the calendar is first initialized (see options for values).
 
+#### **Shortcut Keys:**
+- Pressing the Ctrl/Cmd + Shift + J will now open the new "Jump To Date" dialog.
+
 #### **General Improvements:**
 - All events rendered in the UI now add a new attribute call "event-is-all-day", which states if the event is an all-day event.
 

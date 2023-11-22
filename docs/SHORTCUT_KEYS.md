@@ -27,6 +27,7 @@ Below is a list of all the shortcut keys supported in Calendar.js.
 | *Ctrl/Command + Shift + C* | Copies all the selected events. |
 | *Ctrl/Command + Shift + E* | Opens the Export Events dialog. |
 | *Ctrl/Command + Shift + G* | Opens the Configuration dialog. |
+| *Ctrl/Command + Shift + J* | Opens the Jump To Date dialog. |
 | *Ctrl/Command + Shift + F* | Opens the Search dialog. |
 | *Ctrl/Command + Shift + M* | Toggles all the minimize/restore views for All/Week view (if visible). |
 | *Ctrl/Command + Shift + O* | Opens the side menu. |
