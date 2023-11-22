@@ -30,7 +30,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | defaultEventBackgroundColor | States the default background color that should be used for events (defaults to "#484848"). |
 | *string* | defaultEventTextColor | States the default text color that should be used for events (defaults to "#F5F5F5"). |
 | *string* | defaultEventBorderColor | States the default border color that should be used for events (defaults to "#282828"). |
-| *boolean* | showExtraToolbarButtons | States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true). |
 | *boolean* | openInFullScreenMode | States if full-screen mode should be turned on when the calendar is rendered (defaults to false). |
 | *boolean* | hideEventsWithoutGroupAssigned | States if events without a group should be hidden (defaults to false). |
 | *boolean* | showHolidays | States if the holidays should be shown (defaults to true). |
@@ -81,6 +80,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
 | *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
 | *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
 <br/>
 
 
@@ -94,6 +94,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
 | *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
 <br/>
 
 
@@ -115,6 +116,16 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 | *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+<br/>
+
+
+### View Options:  Full Year:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
 <br/>
 
 
@@ -125,6 +136,16 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | --- | --- | --- |
 | *string* | defaultAxis | States the default axis the view should use (defaults to "group"). |
 | *number* | minutesBetweenSections | States the number of minutes that should be used between headers in all views (defaults to 30). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+<br/>
+
+
+### View Options:  All Events:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
 <br/>
 
 

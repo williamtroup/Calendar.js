@@ -687,7 +687,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _options.fullScreenModeEnabled = false;
       _options.eventNotificationsEnabled = false;
       _options.views.fullMonth.showPreviousNextMonthNames = false;
-      _options.showExtraToolbarButtons = false;
+      _options.views.fullMonth.showExtraTitleBarButtons = false;
       _options.holidays = [];
     }
   }
@@ -1086,12 +1086,12 @@ function calendarJs(elementOrId, options, searchOptions) {
       titleBar.appendChild(_element_View_FullDay_TitleBar);
       buildToolbarButton(titleBar, "ib-close", _options.closeTooltipText, hideFullDayView);
       titleBar.appendChild(createElement("div", "right-divider-line"));
-      if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
+      if (_options.views.fullDay.showExtraTitleBarButtons && _options.fullScreenModeEnabled) {
         _element_View_FullDay_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
         titleBar.appendChild(createElement("div", "right-divider-line-full-screen-mode"));
       }
       buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextDayTooltipText, onNextFullDay);
-      if (_options.manualEditingEnabled && _options.showExtraToolbarButtons) {
+      if (_options.manualEditingEnabled && _options.views.fullDay.showExtraTitleBarButtons) {
         buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, function() {
           if (_options.useTemplateWhenAddingNewEvent) {
             var newBlankTemplateEvent = buildBlankTemplateEvent(_element_View_FullDay_DateSelected, _element_View_FullDay_DateSelected);
@@ -1111,7 +1111,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         titleBar.appendChild(createElement("div", "left-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousDayTooltipText, onPreviousFullDay);
-      if (_options.showExtraToolbarButtons) {
+      if (_options.views.fullDay.showExtraTitleBarButtons) {
         _element_View_FullDay_TodayButton = buildToolbarButton(titleBar, "ib-pin", _options.todayTooltipText, onCurrentFullDay);
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
@@ -1463,12 +1463,12 @@ function calendarJs(elementOrId, options, searchOptions) {
         hideView(_element_View_FullWeek);
       });
       titleBar.appendChild(createElement("div", "right-divider-line"));
-      if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
+      if (_options.views.fullWeek.showExtraTitleBarButtons && _options.fullScreenModeEnabled) {
         _element_View_FullWeek_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
         titleBar.appendChild(createElement("div", "right-divider-line-full-screen-mode"));
       }
       buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextWeekTooltipText, onNextFullWeek);
-      if (_options.manualEditingEnabled && _options.showExtraToolbarButtons) {
+      if (_options.manualEditingEnabled && _options.views.fullWeek.showExtraTitleBarButtons) {
         buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, function() {
           showEventEditingDialog(null, new Date(_element_View_FullWeek_DateSelected_StartOfWeek));
         });
@@ -1478,7 +1478,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         titleBar.appendChild(createElement("div", "left-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousWeekTooltipText, onPreviousFullWeek);
-      if (_options.showExtraToolbarButtons) {
+      if (_options.views.fullWeek.showExtraTitleBarButtons) {
         buildToolbarButton(titleBar, "ib-pin", _options.thisWeekTooltipText, onCurrentFullWeek);
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
@@ -1961,10 +1961,10 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_options.views.fullMonth.addYearButtons) {
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-rewind", _options.previousYearTooltipText, moveBackYear);
     }
-    if (_element_Mode_DatePicker_Enabled || _options.showExtraToolbarButtons) {
+    if (_element_Mode_DatePicker_Enabled || _options.views.fullMonth.showExtraTitleBarButtons) {
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-pin", _options.currentMonthTooltipText, onCurrentMonth);
     }
-    if (_options.showExtraToolbarButtons) {
+    if (_options.views.fullMonth.showExtraTitleBarButtons) {
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
         showJumpToDateDialog();
       });
@@ -1979,7 +1979,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-close", _options.closeTooltipText, hideDatePickerMode);
       _element_View_FullMonth_TitleBar.appendChild(createElement("div", "right-divider-line"));
     }
-    if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
+    if (_options.views.fullMonth.showExtraTitleBarButtons && _options.fullScreenModeEnabled) {
       _element_View_FullMonth_TitleBar_FullScreenButton = buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
       _element_View_FullMonth_TitleBar.appendChild(createElement("div", "right-divider-line-full-screen-mode"));
     }
@@ -1987,7 +1987,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_options.views.fullMonth.addYearButtons) {
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-forward", _options.nextYearTooltipText, moveForwardYear);
     }
-    if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
+    if (_options.views.fullMonth.showExtraTitleBarButtons && _options.manualEditingEnabled) {
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-plus", _options.addEventTooltipText, function() {
         if (doDatesMatchMonthAndYear(_calendar_CurrentDate, new Date())) {
           showEventEditingDialog(null);
@@ -2713,7 +2713,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         titleBar.appendChild(createElement("div", "left-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onPreviousFullYear);
-      if (_options.showExtraToolbarButtons) {
+      if (_options.views.fullYear.showExtraTitleBarButtons) {
         buildToolbarButton(titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentFullYear);
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
@@ -2726,12 +2726,12 @@ function calendarJs(elementOrId, options, searchOptions) {
         hideView(_element_View_FullYear);
       });
       titleBar.appendChild(createElement("div", "right-divider-line"));
-      if (_options.showExtraToolbarButtons && _options.fullScreenModeEnabled) {
+      if (_options.views.fullYear.showExtraTitleBarButtons && _options.fullScreenModeEnabled) {
         _element_View_FullYear_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
         titleBar.appendChild(createElement("div", "right-divider-line-full-screen-mode"));
       }
       buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onNextFullYear);
-      if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
+      if (_options.views.fullYear.showExtraTitleBarButtons && _options.manualEditingEnabled) {
         buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, function() {
           showEventEditingDialog(null, new Date(_element_View_FullYear_CurrentYear, 0, 1));
         });
@@ -2959,7 +2959,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         _element_View_AllEvents_EventsShown = [];
         hideView(_element_View_AllEvents);
       });
-      if (_options.showExtraToolbarButtons) {
+      if (_options.views.allEvents.showExtraTitleBarButtons) {
         titleBar.appendChild(createElement("div", "right-divider-line"));
         if (_options.fullScreenModeEnabled) {
           _element_View_AllEvents_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
@@ -2974,7 +2974,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (!_element_Mode_DatePicker_Enabled && isSideMenuAvailable()) {
         buildToolbarButton(titleBar, "ib-hamburger", _options.showMenuTooltipText, showSideMenu);
       }
-      if (_options.showExtraToolbarButtons) {
+      if (_options.views.allEvents.showExtraTitleBarButtons) {
         titleBar.appendChild(createElement("div", "left-divider-line"));
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
@@ -3201,14 +3201,14 @@ function calendarJs(elementOrId, options, searchOptions) {
         hideView(_element_View_Timeline);
       });
       titleBar.appendChild(createElement("div", "right-divider-line"));
-      if (_options.showExtraToolbarButtons) {
+      if (_options.views.timeline.showExtraTitleBarButtons) {
         if (_options.fullScreenModeEnabled) {
           _element_View_Timeline_FullScreenButton = buildToolbarButton(titleBar, "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText, fullScreenModeHeaderDoubleClick);
           titleBar.appendChild(createElement("div", "right-divider-line-full-screen-mode"));
         }
       }
       buildToolbarButton(titleBar, "ib-arrow-right-full", _options.nextYearTooltipText, onNextTimelineDay);
-      if (_options.showExtraToolbarButtons && _options.manualEditingEnabled) {
+      if (_options.views.timeline.showExtraTitleBarButtons && _options.manualEditingEnabled) {
         buildToolbarButton(titleBar, "ib-plus", _options.addEventTooltipText, function() {
           showEventEditingDialog(null, new Date(_element_View_Timeline_DateSelected));
         });
@@ -3222,7 +3222,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         titleBar.appendChild(createElement("div", "left-divider-line"));
       }
       buildToolbarButton(titleBar, "ib-arrow-left-full", _options.previousYearTooltipText, onPreviousTimelineDay);
-      if (_options.showExtraToolbarButtons) {
+      if (_options.views.timeline.showExtraTitleBarButtons) {
         _element_View_Timeline_TodayButton = buildToolbarButton(titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentTimelineDay);
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
@@ -8431,7 +8431,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.defaultEventBackgroundColor = getDefaultString(_options.defaultEventBackgroundColor, "#484848");
     _options.defaultEventTextColor = getDefaultString(_options.defaultEventTextColor, "#F5F5F5");
     _options.defaultEventBorderColor = getDefaultString(_options.defaultEventBorderColor, "#282828");
-    _options.showExtraToolbarButtons = getDefaultBoolean(_options.showExtraToolbarButtons, true);
     _options.hideEventsWithoutGroupAssigned = getDefaultBoolean(_options.hideEventsWithoutGroupAssigned, false);
     _options.showHolidays = getDefaultBoolean(_options.showHolidays, true);
     _options.useTemplateWhenAddingNewEvent = getDefaultBoolean(_options.useTemplateWhenAddingNewEvent, true);
@@ -8464,7 +8463,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     buildDefaultViewOptionsForFullDay();
     buildDefaultViewOptionsForFullWeek();
     buildDefaultViewOptionsForFullMonth();
+    buildDefaultViewOptionsForFullYear();
     buildDefaultViewOptionsForTimeline();
+    buildDefaultViewOptionsForAllEvents();
     buildDefaultViewOptionsForDatePicker();
     buildDefaulStringOptions();
     setEventTypeTranslationStringOptions();
@@ -8483,6 +8484,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.views.fullDay.showAllDayEventDetails = getDefaultBoolean(_options.views.fullDay.showAllDayEventDetails, false);
     _options.views.fullDay.minutesBetweenSections = getDefaultNumber(_options.views.fullDay.minutesBetweenSections, 30);
     _options.views.fullDay.showTimelineArrow = getDefaultBoolean(_options.views.fullDay.showTimelineArrow, true);
+    _options.views.fullDay.showExtraTitleBarButtons = getDefaultBoolean(_options.views.fullDay.showExtraTitleBarButtons, true);
   }
   function buildDefaultViewOptionsForFullWeek() {
     _options.views.fullWeek = getOptions(_options.views.fullWeek);
@@ -8491,6 +8493,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.views.fullWeek.minutesBetweenSections = getDefaultNumber(_options.views.fullWeek.minutesBetweenSections, 30);
     _options.views.fullWeek.showTimelineArrow = getDefaultBoolean(_options.views.fullWeek.showTimelineArrow, true);
     _options.views.fullWeek.showWeekNumbersInTitles = getDefaultBoolean(_options.views.fullWeek.showWeekNumbersInTitles, false);
+    _options.views.fullWeek.showExtraTitleBarButtons = getDefaultBoolean(_options.views.fullWeek.showExtraTitleBarButtons, true);
   }
   function buildDefaultViewOptionsForFullMonth() {
     _options.views.fullMonth = getOptions(_options.views.fullMonth);
@@ -8506,6 +8509,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.views.fullMonth.isPinUpViewEnabled = getDefaultBoolean(_options.views.fullMonth.isPinUpViewEnabled, false);
     _options.views.fullMonth.pinUpViewImageUrls = getDefaultArray(_options.views.fullMonth.pinUpViewImageUrls, []);
     _options.views.fullMonth.showMonthButtonsInYearDropDownMenu = getDefaultBoolean(_options.views.fullMonth.showMonthButtonsInYearDropDownMenu, true);
+    _options.views.fullMonth.showExtraTitleBarButtons = getDefaultBoolean(_options.views.fullMonth.showExtraTitleBarButtons, true);
     if (!isDefinedBoolean(_options.views.fullMonth.allowEventScrolling)) {
       _options.views.fullMonth.allowEventScrolling = false;
       if (_options.views.fullMonth.allowEventScrolling) {
@@ -8513,10 +8517,19 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
+  function buildDefaultViewOptionsForFullYear() {
+    _options.views.fullYear = getOptions(_options.views.fullYear);
+    _options.views.fullYear.showExtraTitleBarButtons = getDefaultBoolean(_options.views.fullYear.showExtraTitleBarButtons, true);
+  }
   function buildDefaultViewOptionsForTimeline() {
     _options.views.timeline = getOptions(_options.views.timeline);
     _options.views.timeline.defaultAxis = getDefaultString(_options.views.timeline.defaultAxis, "group");
     _options.views.timeline.minutesBetweenSections = getDefaultNumber(_options.views.timeline.minutesBetweenSections, 30);
+    _options.views.timeline.showExtraTitleBarButtons = getDefaultBoolean(_options.views.timeline.showExtraTitleBarButtons, true);
+  }
+  function buildDefaultViewOptionsForAllEvents() {
+    _options.views.allEvents = getOptions(_options.views.allEvents);
+    _options.views.allEvents.showExtraTitleBarButtons = getDefaultBoolean(_options.views.allEvents.showExtraTitleBarButtons, true);
   }
   function buildDefaultViewOptionsForDatePicker() {
     _options.views.datePicker = getOptions(_options.views.datePicker);
