@@ -1,6 +1,6 @@
 # Calendar.js - Change Log:
 
-## Version 3.0.0:
+## Version 2.10.0:
 
 #### **New Features:**
 - BREAKING: All settings that affect views and how they look are now split up into their own category under a new "views" area (mass renames have been included).

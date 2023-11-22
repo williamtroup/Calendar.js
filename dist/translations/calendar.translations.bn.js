@@ -1,4 +1,4 @@
-/*! Calendar.js v3.0.0 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.0 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "সোম",
