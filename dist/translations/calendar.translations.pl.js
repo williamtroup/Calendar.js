@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.10 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.0 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Pn",
@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
   "optionalText": "Opcjonalny",
   "urlText": "Adres URL:",
   "openUrlText": "Otwórz URL",
-  "enableDayNameHeadersText": "Włącz nagłówki nazw dni",
   "thisWeekTooltipText": "W tym tygodniu",
   "dailyText": "Codziennie",
   "weeklyText": "Co tydzień",
@@ -233,5 +232,7 @@ var __TRANSLATION_OPTIONS = {
   "noneText": "(nic)",
   "shareText": "Udział",
   "shareStartFilename": "wspólne_wydarzenia_",
-  "previousPropertyTooltipText": "Poprzednia nieruchomość"
+  "previousPropertyTooltipText": "Poprzednia nieruchomość",
+  "jumpToDateTitle": "Przejdź do daty",
+  "goText": "Iść"
 };

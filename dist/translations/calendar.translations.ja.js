@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.10 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.0 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "月",
@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "オプション",
     "urlText": "URL:",
     "openUrlText": "URLを開く",
-    "enableDayNameHeadersText": "曜日名のヘッダーを有効にする",
     "thisWeekTooltipText": "今週",
     "dailyText": "毎日",
     "weeklyText": "毎週",
@@ -233,5 +232,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "（なし）",
     "shareText": "共有",
     "shareStartFilename": "共有イベント_",
-    "previousPropertyTooltipText": "前のプロパティ"
+    "previousPropertyTooltipText": "前のプロパティ",
+    "jumpToDateTitle": "現在までにジャンプ",
+    "goText": "行く"
 };

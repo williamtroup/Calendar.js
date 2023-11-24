@@ -10,65 +10,42 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | --- | --- | --- |
 | *boolean* | showDayNumberOrdinals | States if the day ordinal values should be shown (defaults to true). |
 | *boolean* | dragAndDropForEventsEnabled | States if dragging and dropping events around the days of the month is enabled (defaults to true). |
-| *number* | maximumEventsPerDayDisplay | The maximum number of events that should be displayed per day in the main calendar display (defaults to 3, 0 disables it). |
 | *boolean* | exportEventsEnabled | States if exporting events is enabled (defaults to true). |
 | *boolean* | manualEditingEnabled | States if adding, editing, dragging and removing events is enabled (defaults to true). |
-| *boolean* | showTimesInMainCalendarEvents | States if the time should be shown on the main calendar view events (defaults to false). |
 | *number* | autoRefreshTimerDelay | The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it). |
 | *boolean* | fullScreenModeEnabled | States if double click on the main title bar activates full-screen mode (defaults to true). |
-| *number* | eventTooltipDelay | The amount of time to wait until an event tooltip is shown (defaults to 1000 milliseconds). |
-| *number* | minimumDayHeight | States the height the main calendar days should use (defaults to 0 - auto). |
+| *number* | tooltipDelay | The amount of time to wait until a tooltip is shown (defaults to 1000 milliseconds). |
 | *Holiday[]* | holidays | The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties). |
 | *string* | organizerName | The default name of the organizer (defaults to an empty string). |
 | *string* | organizerEmailAddress | The default email address of the organizer (defaults to an empty string). |
 | *number* | spacing | States the default spacing that should be used for additional margins (defaults to 10). |
-| *boolean* | showAllDayEventDetailsInFullDayView | States if the extra details for an All Day event should be shown in the Full Day view (defaults to false). |
-| *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
-| *boolean* | showTimelineArrowsOnViews | States if the timeline arrows should be shown in the views (defaults to true). |
 | *number* | maximumEventTitleLength | States the maximum length allowed for an event title (defaults to 0 to allow any size). |
 | *number* | maximumEventDescriptionLength | States the maximum length allowed for an event description (defaults to 0 to allow any size). |
 | *number* | maximumEventLocationLength | States the maximum length allowed for an event location (defaults to 0 to allow any size). |
 | *number* | maximumEventGroupLength | States the maximum length allowed for an event group (defaults to 0 to allow any size). |
 | *boolean* | eventNotificationsEnabled | States if notifications should be shown for events (defaults to false). |
-| *boolean* | showPreviousNextMonthNamesInMainDisplay | States if the previous/next month names should be shown in the main display days (defaults to true). |
-| *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 | *boolean* | tooltipsEnabled | States if the tooltips are enabled throughout all the displays (defaults to true). |
-| *boolean* | useOnlyDotEventsForMainDisplay | States if only dot event icons should be used in the main display (to save space, defaults to false). |
 | *number[]* | visibleDays | States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
-| *boolean* | allowEventScrollingOnMainDisplay | States if the days in the main display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true). |
 | *string* | urlWindowTarget | States the target that an event URL should be opened in (defaults to _blank for a new window). |
 | *string* | defaultEventBackgroundColor | States the default background color that should be used for events (defaults to "#484848"). |
 | *string* | defaultEventTextColor | States the default text color that should be used for events (defaults to "#F5F5F5"). |
 | *string* | defaultEventBorderColor | States the default border color that should be used for events (defaults to "#282828"). |
-| *boolean* | showExtraToolbarButtons | States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true). |
 | *boolean* | openInFullScreenMode | States if full-screen mode should be turned on when the calendar is rendered (defaults to false). |
 | *boolean* | hideEventsWithoutGroupAssigned | States if events without a group should be hidden (defaults to false). |
 | *boolean* | showHolidays | States if the holidays should be shown (defaults to true). |
 | *boolean* | useTemplateWhenAddingNewEvent | States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true). |
 | *boolean* | useEscapeKeyToExitFullScreenMode | States if the escape key should exit full-screen mode (if enabled, defaults to true). |
-| *Object* | minimumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
-| *Object* | maximumDatePickerDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *boolean* | allowHtmlInDisplay | States if HTML can be used in the display (defaults to false). |
-| *string* | datePickerSelectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *number[]* | weekendDays | States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *Object* | initialDateTime | States the date that the calendar should start from when first loaded (defaults to today). |
 | *Search* | searchOptions | States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance. |
 | *Event[]* | events | States the events that will be shown when the calendar first renders (defaults to null). |
-| *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (on the main display, defaults to true). |
-| *boolean* | addYearButtonsOnMainDisplay | States if the year-jumping buttons should be added in the main display (defaults to false). |
 | *number[]* | workingDays | States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6). |
 | *number* | minimumYear | The minimum year that can be shown in the Calendar (defaults to 1900). |
 | *number* | maximumYear | The maximum year that can be shown in the Calendar (defaults to 2099). |
 | *number* | defaultEventDuration | States the default duration used when a new event is added (defaults to 30 minutes). |
-| *string* | monthTitleBarDateFormat | States the display format that should be used for the month title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *boolean* | configurationDialogEnabled | States if the configuration dialog is enabled (defaults to true). |
 | *boolean* | popUpNotificationsEnabled | States if the popup notifications (when actions are performed) are enabled (defaults to true). |
-| *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
-| *boolean* | showSideMenuDays | States if the "Days" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuGroups | States if the "Groups" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuEventTypes | States if the "Event Types" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
-| *boolean* | showSideMenuWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
 | *number* | startOfWeekDay | States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6). |
 | *boolean* | useLocalStorageForEvents | States if the events added should be stored in local storage (remembered between browser usages, defaults to false). |
 | *boolean* | shortcutKeysEnabled | States if the shortcut keys are enabled (defaults to true). |
@@ -78,11 +55,110 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | importEventsEnabled | States if importing events is enabled (defaults to true). |
 | *boolean* | useAmPmForTimeDisplays | States if the AM/PM time format should be used for all time displays (defaults to false). |
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
+| *string* | viewToOpenOnFirstLoad | States which view should be opened when the Calendar is first initialized (defaults to null, accepts "full-day", "full-week", "full-year", "timeline", and "all-events"). |
+<br/>
+
+
+### Side Menu Options:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showDays | States if the "Days" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showGroups | States if the "Groups" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showEventTypes | States if the "Event Types" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
+| *boolean* | showWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
+<br/>
+
+
+### View Options:  Full Day:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
+| *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
+| *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+<br/>
+
+
+### View Options:  Full Week:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showAllDayEventDetails | States if the extra details for an All Day event should be shown (defaults to false). |
+| *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
+| *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
+| *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
+| *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+<br/>
+
+
+### View Options:  Full Month:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *number* | maximumEventsPerDayDisplay | The maximum number of events that should be displayed per day (defaults to 3, 0 disables it). |
+| *boolean* | allowEventScrolling | States if the days in the display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true). |
+| *boolean* | showTimesInEvents | States if the time should be shown on the events (defaults to false). |
+| *number* | minimumDayHeight | States the height the days should use (defaults to 0 - auto). |
+| *boolean* | showPreviousNextMonthNames | States if the previous/next month names should be shown in the days (defaults to true). |
+| *boolean* | useOnlyDotEvents | States if only dot event icons should be used (to save space, defaults to false). |
+| *boolean* | applyCssToEventsNotInCurrentMonth | States if extra CSS should be applied to events that are not in the current (defaults to true). |
+| *boolean* | addYearButtons | States if the year-jumping buttons should be added (defaults to false). |
+| *string* | titleBarDateFormat | States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
+| *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
 | *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
-| *number* | minutesBetweenSectionsInViews | States the number of minutes that should be used between headers/rows in all views (defaults to 30). |
-| *string* | timelineViewDefaultAxis | States the default axis the timeline view should use (defaults to "group"). |
+| *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
 <br/>
+
+
+### View Options:  Full Year:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+<br/>
+
+
+### View Options:  Timeline:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *string* | defaultAxis | States the default axis the view should use (defaults to "group"). |
+| *number* | minutesBetweenSections | States the number of minutes that should be used between headers in all views (defaults to 30). |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+<br/>
+
+
+### View Options:  All Events:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+<br/>
+
+
+### View Options:  DatePicker:
+<br/>
+
+| Type: | Name: | Description: |
+| --- | --- | --- |
+| *string* | selectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
+| *Object* | minimumDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
+| *Object* | maximumDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
+<br/>
+
 
 ### Translatable String Options:
 <br/>
@@ -208,7 +284,6 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | optionalText | The text that should be displayed for the "Optional" label. |
 | *string* | urlText | The text that should be displayed for the "Url:" label. |
 | *string* | openUrlText | The text that should be displayed for the "Open Url" label. |
-| *string* | enableDayNameHeadersText | The text that should be displayed for the "Enable day name headers" label. |
 | *string* | thisWeekTooltipText | The tooltip text that should be used for the "This Week" button. |
 | *string* | dailyText | The text that should be displayed for the "Daily" label. |
 | *string* | weeklyText | The text that should be displayed for the "Weekly" label. |
@@ -276,3 +351,5 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | shareText | The text that should be displayed for the "Share" label. |
 | *string* | shareStartFilename | The starting filename that should be used when sharing calendar events (defaults to "share_events_"). |
 | *string* | previousPropertyTooltipText | The tooltip text that should be used for the "Previous Property" button. |
+| *string* | jumpToDateTitle | The text that should be displayed for the "Jump To Date" label. |
+| *string* | goText | The tooltip text that should be used for the "Go" button. |

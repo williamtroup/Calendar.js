@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.10 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.0 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Mo",
@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
   "optionalText": "Optional",
   "urlText": "URL:",
   "openUrlText": "Öffne URL",
-  "enableDayNameHeadersText": "Tagesnamen-Header aktivieren",
   "thisWeekTooltipText": "Diese Woche",
   "dailyText": "Täglich",
   "weeklyText": "Wöchentlich",
@@ -233,5 +232,7 @@ var __TRANSLATION_OPTIONS = {
   "noneText": "(keiner)",
   "shareText": "Aktie",
   "shareStartFilename": "shared_events_",
-  "previousPropertyTooltipText": "Vorheriges Eigentum"
+  "previousPropertyTooltipText": "Vorheriges Eigentum",
+  "jumpToDateTitle": "Zum Datum springen",
+  "goText": "Gehen"
 };

@@ -92,13 +92,20 @@
         var calendarInstance = new calendarJs( "myCalendar", { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
-            showTimesInMainCalendarEvents: false,
+            views: {
+                fullWeek: {
+                    showWeekNumbersInTitles: false
+                },
+                fullMonth: {
+                    showTimesInEvents: false,
+                    minimumDayHeight: 0,
+                    addYearButtons: false
+                }
+            },
             fullScreenModeEnabled: true,
-            minimumDayHeight: 0,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
-            showExtraToolbarButtons: true,
             searchOptions: {
                 history: [
                     "Regular Event",
@@ -119,9 +126,7 @@
             workingHoursStart: "09:00",
             workingHoursEnd: "17:00",
             reverseOrderDaysOfWeek: false,
-            addYearButtonsOnMainDisplay: false,
             useAmPmForTimeDisplays: false,
-            showWeekNumbersInTitles: false,
             onRender: function( elementId ) {
                 console.log( "Calendar instance ID " + elementId + " rendered." );
             },
@@ -131,7 +136,8 @@
             onAllEventsEventRender: onRenderCustom,
             onTimelineEventRender: onRenderCustom,
             onWidgetEventRender: onRenderCustom,
-            onToolTipEventRender: onToolTipRenderCustom
+            onToolTipEventRender: onToolTipRenderCustom,
+            viewToOpenOnFirstLoad: null
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
@@ -189,26 +195,32 @@
 
         function setOptions() {
             calendarInstance.setOptions( {
-                minimumDayHeight: 70,
                 manualEditingEnabled: false,
                 exportEventsEnabled: false,
                 showDayNumberOrdinals: false,
                 fullScreenModeEnabled: false,
-                maximumEventsPerDayDisplay: 0,
                 showTimelineArrowsOnViews: false,
                 maximumEventTitleLength: 10,
                 maximumEventDescriptionLength: 10,
                 maximumEventLocationLength: 10,
                 maximumEventGroupLength: 10,
-                showDayNamesHeaders: false,
                 tooltipsEnabled: true,
                 visibleDays: [ 0, 1, 2, 3, 4 ],
-                allowEventScrollingOnMainDisplay: true,
-                showExtraToolbarButtons: false,
                 hideEventsWithoutGroupAssigned: true,
                 showHolidays: false,
                 allowHtmlInDisplay: true,
-                workingDays: []
+                workingDays: [],
+                views: {
+                    fullMonth: {
+                        minimumDayHeight: 70,
+                        maximumEventsPerDayDisplay: 0,
+                        allowEventScrolling: true,
+                        showDayNamesHeaders: false
+                    },
+                    fullWeek: {
+                        showDayNamesHeaders: false
+                    }
+                }
             } );
         }
 
@@ -221,7 +233,11 @@
 
         function onlyDotsDisplay() {
             calendarInstance.setOptions( {
-                useOnlyDotEventsForMainDisplay: true
+                views: {
+                    fullMonth: {
+                        useOnlyDotEvents: true
+                    }
+                }
             } );
         }
 

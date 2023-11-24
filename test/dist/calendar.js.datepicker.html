@@ -65,42 +65,70 @@
         var calendarElement4 = document.getElementsByClassName( "myCalendar4" )[ 0 ],
             calendarInstance1 = new calendarJs( "myCalendar1", {
                 openInFullScreenMode: true,
-                minimumDatePickerDate: new Date(),
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
                 events: getEvents(),
-                addYearButtonsOnMainDisplay: true,
                 startOfWeekDay: 6,
-                monthTitleBarDateFormat: "{mmm} {yyyy}",
-                isPinUpViewEnabled: true
+                isPinUpViewEnabled: true,
+                views: {
+                    fullMonth: {
+                        addYearButtons: true,
+                        titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        minimumDate: new Date(),
+                    }
+                }
             } ),
             calendarInstance2 = new calendarJs( "myCalendar2", {
                 openInFullScreenMode: true,
-                maximumDatePickerDate: new Date(),
-                datePickerSelectedDateFormat: "{dd}/{mm}/{yyyy}",
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
-                monthTitleBarDateFormat: "{mmm} {yyyy}"
+                views: {
+                    fullMonth: {
+                        titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        selectedDateFormat: "{dd}/{mm}/{yyyy}",
+                        maximumDate: new Date(),
+                    }
+                }
             } ),
             calendarInstance3 = new calendarJs( "myCalendar3", {
                 openInFullScreenMode: true,
-                datePickerSelectedDateFormat: "{d}-{m}-{yy}",
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
-                monthTitleBarDateFormat: "{mmm} {yyyy}"
+                views: {
+                    fullMonth: {
+                        titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        selectedDateFormat: "{d}-{m}-{yy}"
+                    }
+                }
             } ),
             calendarInstance4 = new calendarJs( calendarElement4, {
                 openInFullScreenMode: true,
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
-                monthTitleBarDateFormat: "{mmm} {yyyy}"
+                views: {
+                    fullMonth: {
+                        titleBarDateFormat: "{mmm} {yyyy}"
+                    }
+                }
             } ),
             calendarInstance5 = new calendarJs( "myCalendar5", {
                 openInFullScreenMode: true,
-                datePickerSelectedDateFormat: "{dddd} {d}{o} {mmmm}",
                 onDatePickerOpened: datePickerOpened,
                 onDatePickerClosed: datePickerClosed,
-                monthTitleBarDateFormat: "{mmm} {yyyy}"
+                views: {
+                    fullMonth: {
+                        titleBarDateFormat: "{mmm} {yyyy}"
+                    },
+                    datePicker: {
+                        selectedDateFormat: "{dddd} {d}{o} {mmmm}"
+                    }
+                }
             } );
 
         document.title += " - v" + calendarInstance1.getVersion();

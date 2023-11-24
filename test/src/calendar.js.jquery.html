@@ -40,8 +40,12 @@
         var calendarInstance = $( "#myCalendar" ).calendarJs( { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
-            showTimesInMainCalendarEvents: false,
-            minimumDayHeight: 0,
+            views: {
+                fullMonth: {
+                    showTimesInEvents: false,
+                    minimumDayHeight: 0
+                }
+            },
             manualEditingEnabled: true,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
@@ -54,8 +58,12 @@
         var calendarInstances = $( ".myCalendar" ).calendarJs( { 
             exportEventsEnabled: true, 
             manualEditingEnabled: true, 
-            showTimesInMainCalendarEvents: false,
-            minimumDayHeight: 0,
+            views: {
+                fullMonth: {
+                    showTimesInEvents: false,
+                    minimumDayHeight: 0
+                }
+            },
             manualEditingEnabled: true,
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",

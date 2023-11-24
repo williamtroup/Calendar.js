@@ -17,18 +17,18 @@
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar1" value="01/05/2022" data-binding-calendar='{ "maximumDatePickerDate": new Date() }' />
+            <input type="text" id="myCalendar1" value="01/05/2022" data-binding-calendar='{ "views": { "datePicker": { "maximumDate": new Date() } } }' />
         </div>
         <br>
 
         <div class="contents">
-            <div style="max-width: 800px;" data-binding-calendar='{ "showExtraToolbarButtons": true }'>
+            <div style="max-width: 800px;" data-binding-calendar='{ "views": { "fullMonth": { "showExtraTitleBarButtons": true } } }'>
                 <p>Some data that should be cleared.</p>
             </div>
         </div>
 
         <div class="contents">
-            <div style="max-width: 800px;" data-binding-calendar='{ "showExtraToolbarButtons": false }'>
+            <div style="max-width: 800px;" data-binding-calendar='{ "views": { "fullMonth": { "showExtraTitleBarButtons": false } } }'>
                 <p>Some data that should be cleared.</p>
             </div>
         </div>

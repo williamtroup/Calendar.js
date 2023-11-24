@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.10 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.0 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Seg",
@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
   "optionalText": "Opcional",
   "urlText": "URL:",
   "openUrlText": "Abrir URL",
-  "enableDayNameHeadersText": "Ativar cabeçalhos de nomes de dias",
   "thisWeekTooltipText": "Essa semana",
   "dailyText": "Diário",
   "weeklyText": "Semanalmente",
@@ -233,5 +232,7 @@ var __TRANSLATION_OPTIONS = {
   "noneText": "(nenhum)",
   "shareText": "Compartilhar",
   "shareStartFilename": "eventos_compartilhados_",
-  "previousPropertyTooltipText": "Propriedade Anterior"
+  "previousPropertyTooltipText": "Propriedade Anterior",
+  "jumpToDateTitle": "Ir para a data",
+  "goText": "Ir"
 };

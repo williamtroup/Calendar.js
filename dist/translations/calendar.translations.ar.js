@@ -1,4 +1,4 @@
-/*! Calendar.js v2.9.10 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.0 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "الاثنين",
@@ -169,7 +169,6 @@ var __TRANSLATION_OPTIONS = {
     "optionalText": "خياري",
     "urlText": "عنوان URL:",
     "openUrlText": "رابط مفتوح",
-    "enableDayNameHeadersText": "تمكين رؤوس اسم اليوم",
     "thisWeekTooltipText": "هذا الاسبوع",
     "dailyText": "يوميًا",
     "weeklyText": "أسبوعي",
@@ -233,5 +232,7 @@ var __TRANSLATION_OPTIONS = {
     "noneText": "(لا أحد)",
     "shareText": "يشارك",
     "shareStartFilename": "shared_events_",
-    "previousPropertyTooltipText": "الملكية السابقة"
+    "previousPropertyTooltipText": "الملكية السابقة",
+    "jumpToDateTitle": "الانتقال إلى التاريخ",
+    "goText": "يذهب"
   };

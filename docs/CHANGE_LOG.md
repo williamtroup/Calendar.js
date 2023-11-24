@@ -1,5 +1,29 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.0:
+
+#### **New Features:**
+- BREAKING: All settings that affect views and how they look are now split up into categories under a new "views" area (mass renames have been included).
+- Added a new dialog called "Jump To Date", which will allow you to jump to a selected date in any view that is currently active.
+
+#### **Settings:**
+- Added a new setting "viewToOpenOnFirstLoad" (defaults to null), which states the view that should be opened when the calendar is first initialized (see options for values).
+
+#### **Shortcut Keys:**
+- Pressing the Ctrl/Cmd + Shift + J will now open the new "Jump To Date" dialog.
+
+#### **General Improvements:**
+- All events rendered in the UI now add a new attribute called "event-is-all-day", which states if the event is an all-day event.
+
+#### **Code Improvements:**
+- Remove dead variables that are stored, but are not used for anything.
+
+#### **Fixes:**
+- Fixed a script error that occurred when setting the option "showDayNamesHeaders" via the "setOptions()" public function.
+
+<br>
+
+
 ## Version 2.9.10:
 - Added a dedicated README_NUGET.md files for NuGet.org publishing.
 - Added badge link to the new NuGet.org package location in the README files and updated the badge colors.

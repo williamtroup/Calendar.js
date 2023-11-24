@@ -51,7 +51,8 @@ div.title-bar {
     div.ib-refresh,
     div.ib-search,
     div.ib-octagon-hollow,
-    div.ib-hamburger {
+    div.ib-hamburger,
+    div.ib-arrow-right-full-line {
         float: left;
     }
 
@@ -76,7 +77,8 @@ div.title-bar {
         div.ib-bar-graph,
         div.ib-hourglass,
         div.right-divider-line-full-screen-mode,
-        div.right-divider-line-views {
+        div.right-divider-line-views,
+        div.ib-arrow-right-full-line {
             display: inline-block;
         }
     }
@@ -91,7 +93,8 @@ div.title-bar {
         div.ib-bar-graph,
         div.ib-hourglass,
         div.right-divider-line-full-screen-mode,
-        div.right-divider-line-views {
+        div.right-divider-line-views,
+        div.ib-arrow-right-full-line {
             display: none !important;
         }
     }
