@@ -4,6 +4,7 @@
 - Added a new separator line between the Jump To Date and Refresh buttons on all title bars.
 - Added a new separator line between the Configuration and Import/Export buttons on the side menu.
 - Increased the width of the side menu by 20 pixels in all views.
+- The settings "workingHoursStart" and "workingHoursEnd" now support setting the hours for specific days differently (see documentation).
 - 
 
 <br>

@@ -108,7 +108,10 @@
             onEventDragDrop: onDragEventDrop,
             onBeforeEventAddEdit: null,
             startOfWeekDay: 0,
-            useAmPmForTimeDisplays: false
+            useAmPmForTimeDisplays: false,
+            workingDays: [ 2 ],
+            workingHoursStart: "09:00",
+            workingHoursEnd: "17:00"
         } );
 
         document.title += " v" + calendarInstance.getVersion();

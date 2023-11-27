@@ -123,8 +123,12 @@
             workingDays: [ 2 ],
             onBeforeEventAddEdit: null,
             startOfWeekDay: 6,
-            workingHoursStart: "09:00",
-            workingHoursEnd: "17:00",
+            workingHoursStart: {
+                2: "09:00"
+            },
+            workingHoursEnd: {
+                2: "17:00"
+            },
             reverseOrderDaysOfWeek: false,
             useAmPmForTimeDisplays: false,
             onRender: function( elementId ) {

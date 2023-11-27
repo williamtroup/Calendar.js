@@ -1157,15 +1157,35 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildFullDayViewWorkingHours() {
-    if (_options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd) {
-      var pixelsPerMinute = getPixelsPerMinuteForHeight(_element_View_FullDay_Contents_Hours);
-      var workingHoursStartParts = _options.workingHoursStart.split(":");
-      var workingHoursEndParts = _options.workingHoursEnd.split(":");
-      var top = (parseInt(workingHoursStartParts[0]) * 60 + parseInt(workingHoursStartParts[1])) * pixelsPerMinute;
-      var height = (parseInt(workingHoursEndParts[0]) * 60 + parseInt(workingHoursEndParts[1])) * pixelsPerMinute - top;
-      _element_View_FullDay_Contents_WorkingHours.style.display = "block";
-      _element_View_FullDay_Contents_WorkingHours.style.top = top + "px";
-      _element_View_FullDay_Contents_WorkingHours.style.height = height + "px";
+    if (_options.workingHoursStart !== null && _options.workingHoursEnd !== null) {
+      var workingHoursStart = null;
+      var workingHoursEnd = null;
+      if (isDefinedObject(_options.workingHoursStart)) {
+        var startWeekdayNumber = getWeekdayNumber(_element_View_FullDay_DateSelected);
+        if (_options.workingHoursStart.hasOwnProperty(startWeekdayNumber.toString())) {
+          workingHoursStart = _options.workingHoursStart[startWeekdayNumber.toString()];
+        }
+      } else {
+        workingHoursStart = _options.workingHoursStart;
+      }
+      if (isDefinedObject(_options.workingHoursEnd)) {
+        var endWeekdayNumber = getWeekdayNumber(_element_View_FullDay_DateSelected);
+        if (_options.workingHoursEnd.hasOwnProperty(endWeekdayNumber.toString())) {
+          workingHoursEnd = _options.workingHoursEnd[endWeekdayNumber.toString()];
+        }
+      } else {
+        workingHoursEnd = _options.workingHoursEnd;
+      }
+      if (workingHoursStart !== null && workingHoursEnd !== null && workingHoursStart !== workingHoursEnd) {
+        var pixelsPerMinute = getPixelsPerMinuteForHeight(_element_View_FullDay_Contents_Hours);
+        var workingHoursStartParts = workingHoursStart.split(":");
+        var workingHoursEndParts = workingHoursEnd.split(":");
+        var top = (parseInt(workingHoursStartParts[0]) * 60 + parseInt(workingHoursStartParts[1])) * pixelsPerMinute;
+        var height = (parseInt(workingHoursEndParts[0]) * 60 + parseInt(workingHoursEndParts[1])) * pixelsPerMinute - top;
+        _element_View_FullDay_Contents_WorkingHours.style.display = "block";
+        _element_View_FullDay_Contents_WorkingHours.style.top = top + "px";
+        _element_View_FullDay_Contents_WorkingHours.style.height = height + "px";
+      }
     }
   }
   function buildFullDayViewRepeatedDayEvents(eventDetails, orderedEvents, date, dateFunc, dateFuncForwardValue) {
@@ -1586,17 +1606,31 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_FullWeek_TimeArrow_Position = updateViewTimeArrowPosition(columnDate, _element_View_FullWeek, _element_View_FullWeek_TimeArrow, column, _options.views.fullWeek.showTimelineArrow);
   }
   function buildFullWeekViewDayColumnWorkingHours(column, headerNameIndex) {
-    if (_options.workingHoursStart !== null && _options.workingHoursEnd !== null && _options.workingHoursStart !== _options.workingHoursEnd && isIndexWorkingDay(headerNameIndex)) {
-      var pixelsPerMinute = getPixelsPerMinuteForHeight(column);
-      var workingHoursStartParts = _options.workingHoursStart.split(":");
-      var workingHoursEndParts = _options.workingHoursEnd.split(":");
-      var top = (parseInt(workingHoursStartParts[0]) * 60 + parseInt(workingHoursStartParts[1])) * pixelsPerMinute;
-      var height = (parseInt(workingHoursEndParts[0]) * 60 + parseInt(workingHoursEndParts[1])) * pixelsPerMinute - top;
-      var workingHours = createElement("div", "working-hours");
-      column.appendChild(workingHours);
-      workingHours.style.display = "block";
-      workingHours.style.top = top + "px";
-      workingHours.style.height = height + "px";
+    if (_options.workingHoursStart !== null && _options.workingHoursEnd !== null && isIndexWorkingDay(headerNameIndex)) {
+      var workingHoursStart = null;
+      var workingHoursEnd = null;
+      if (isDefinedObject(_options.workingHoursStart) && _options.workingHoursStart.hasOwnProperty(headerNameIndex.toString())) {
+        workingHoursStart = _options.workingHoursStart[headerNameIndex.toString()];
+      } else {
+        workingHoursStart = _options.workingHoursStart;
+      }
+      if (isDefinedObject(_options.workingHoursEnd) && _options.workingHoursEnd.hasOwnProperty(headerNameIndex.toString())) {
+        workingHoursEnd = _options.workingHoursEnd[headerNameIndex.toString()];
+      } else {
+        workingHoursEnd = _options.workingHoursEnd;
+      }
+      if (workingHoursStart !== null && workingHoursEnd !== null && workingHoursStart !== workingHoursEnd) {
+        var pixelsPerMinute = getPixelsPerMinuteForHeight(column);
+        var workingHoursStartParts = workingHoursStart.split(":");
+        var workingHoursEndParts = workingHoursEnd.split(":");
+        var top = (parseInt(workingHoursStartParts[0]) * 60 + parseInt(workingHoursStartParts[1])) * pixelsPerMinute;
+        var height = (parseInt(workingHoursEndParts[0]) * 60 + parseInt(workingHoursEndParts[1])) * pixelsPerMinute - top;
+        var workingHours = createElement("div", "working-hours");
+        column.appendChild(workingHours);
+        workingHours.style.display = "block";
+        workingHours.style.top = top + "px";
+        workingHours.style.height = height + "px";
+      }
     }
   }
   function buildFullWeekViewTitle(weekStartDate, weekEndDate) {
@@ -7451,6 +7485,9 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getDefaultDate(value, defaultValue) {
     return isDefinedDate(value) ? value : defaultValue;
   }
+  function getDefaultObject(value, defaultValue) {
+    return isDefinedObject(value) ? value : defaultValue;
+  }
   function storeEventsInLocalStorage() {
     if (_options.useLocalStorageForEvents && _parameter_Window.localStorage) {
       _parameter_Window.localStorage.clear();
@@ -8456,8 +8493,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.startOfWeekDay = getDefaultNumber(_options.startOfWeekDay, _enum_Day.monday);
     _options.useLocalStorageForEvents = getDefaultBoolean(_options.useLocalStorageForEvents, false);
     _options.shortcutKeysEnabled = getDefaultBoolean(_options.shortcutKeysEnabled, true);
-    _options.workingHoursStart = getDefaultString(_options.workingHoursStart, null);
-    _options.workingHoursEnd = getDefaultString(_options.workingHoursEnd, null);
     _options.reverseOrderDaysOfWeek = getDefaultBoolean(_options.reverseOrderDaysOfWeek, false);
     _options.importEventsEnabled = getDefaultBoolean(_options.importEventsEnabled, true);
     _options.useAmPmForTimeDisplays = getDefaultBoolean(_options.useAmPmForTimeDisplays, false);
@@ -8467,6 +8502,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
     }
+    buildDefaultWorkingHourOptions();
     buildDefaultSideMenuOptions();
     buildDefaultViewOptionsForFullDay();
     buildDefaultViewOptionsForFullWeek();
@@ -8478,6 +8514,18 @@ function calendarJs(elementOrId, options, searchOptions) {
     buildDefaulStringOptions();
     setEventTypeTranslationStringOptions();
     checkForBrowserNotificationsPermission();
+  }
+  function buildDefaultWorkingHourOptions() {
+    var workingHoursStart = getDefaultString(_options.workingHoursStart, null);
+    var workingHoursEnd = getDefaultString(_options.workingHoursEnd, null);
+    if (!isDefined(workingHoursStart)) {
+      workingHoursStart = getDefaultObject(_options.workingHoursStart, null);
+    }
+    if (!isDefined(workingHoursEnd)) {
+      workingHoursEnd = getDefaultObject(_options.workingHoursEnd, null);
+    }
+    _options.workingHoursStart = workingHoursStart;
+    _options.workingHoursEnd = workingHoursEnd;
   }
   function buildDefaultSideMenuOptions() {
     _options.sideMenu = getOptions(_options.views.sideMenu);
