@@ -1,8 +1,8 @@
-# Calendar.js v2.10.0
+# Calendar.js v2.10.1
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.0-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.0-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.1-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.1-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://github.com/williamtroup)
