@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.1:
+- Added a new separator link between the Jump To Date and Refresh buttons on all title bars.
 - 
 
 <br>

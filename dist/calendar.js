@@ -1116,6 +1116,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
         });
+        titleBar.appendChild(createElement("div", "left-divider-line"));
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
@@ -1483,6 +1484,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
         });
+        titleBar.appendChild(createElement("div", "left-divider-line"));
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
@@ -1968,6 +1970,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
         showJumpToDateDialog();
       });
+      _element_View_FullMonth_TitleBar.appendChild(createElement("div", "left-divider-line"));
       buildToolbarButton(_element_View_FullMonth_TitleBar, "ib-refresh", _options.refreshTooltipText, function() {
         refreshViews(true, true);
       });
@@ -2718,6 +2721,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
         });
+        titleBar.appendChild(createElement("div", "left-divider-line"));
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
@@ -3227,6 +3231,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         buildToolbarButton(titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
           showJumpToDateDialog();
         });
+        titleBar.appendChild(createElement("div", "left-divider-line"));
         buildToolbarButton(titleBar, "ib-refresh", _options.refreshTooltipText, function() {
           refreshViews(true, true);
         });
