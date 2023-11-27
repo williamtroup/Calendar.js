@@ -1,7 +1,9 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.1:
-- Added a new separator link between the Jump To Date and Refresh buttons on all title bars.
+- Added a new separator line between the Jump To Date and Refresh buttons on all title bars.
+- Added a new separator line between the Configuration and Import/Export buttons on the side menu.
+- Increased the width of the side menu by 20 pixels in all views.
 - 
 
 <br>

@@ -41,8 +41,8 @@
   --title-bar-font-weight: 900;
   --large-font-size: 0.9rem;
   --small-font-size: 0.7rem;
-  --side-menu-width: 300px;
-  --side-menu-width-small: 250px;
+  --side-menu-width: 320px;
+  --side-menu-width-small: 270px;
   --side-menu-right-border-width: calc( var(--spacing-border-size) * 12 );
   --time-view-hours-width: 70px;
   --time-view-hours-height: 25px;

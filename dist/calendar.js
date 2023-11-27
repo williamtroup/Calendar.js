@@ -163,6 +163,9 @@ function calendarJs(elementOrId, options, searchOptions) {
         showConfigurationDialog();
       });
     }
+    if (_options.configurationDialogEnabled && _options.exportEventsEnabled || _options.importEventsEnabled && _options.manualEditingEnabled) {
+      _element_SideMenu_Header.appendChild(createElement("div", "right-divider-line"));
+    }
     if (_options.exportEventsEnabled) {
       _element_SideMenu_TitleBar_ExportEventsButton = buildToolbarButton(_element_SideMenu_Header, "ib-arrow-down-full-line", _options.exportEventsTooltipText, function() {
         var viewOpen = getActiveView();
