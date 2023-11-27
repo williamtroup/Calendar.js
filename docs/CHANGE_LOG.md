@@ -5,9 +5,8 @@
 - Added a new separator line between the Configuration and Import/Export buttons on the side menu.
 - Increased the width of the side menu by 20 pixels in all views.
 - The settings "workingHoursStart" and "workingHoursEnd" now support setting the hours for specific days differently (see documentation).
-- Added new setting "eventColorsEditingEnabled" (defaults to true), which states if event colors can be changed in the Event Editor dialog.
+- Added a new setting "eventColorsEditingEnabled" (defaults to true), which states if event colors can be changed in the Event Editor dialog.
 - Fixed the "Event Editor" dialog not updating when "setOptions()" is called with specific setting changes.
-- 
 
 <br>
 
