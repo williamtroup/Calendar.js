@@ -56,6 +56,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | useAmPmForTimeDisplays | States if the AM/PM time format should be used for all time displays (defaults to false). |
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
 | *string* | viewToOpenOnFirstLoad | States which view should be opened when the Calendar is first initialized (defaults to null, accepts "full-day", "full-week", "full-year", "timeline", and "all-events"). |
+| *boolean* | eventColorsEditingEnabled | States if changing the colors for events in the "Edit Event" dialog is enabled (defaults to true). |
 <br/>
 
 

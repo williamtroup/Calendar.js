@@ -141,7 +141,8 @@
             onTimelineEventRender: onRenderCustom,
             onWidgetEventRender: onRenderCustom,
             onToolTipEventRender: onToolTipRenderCustom,
-            viewToOpenOnFirstLoad: null
+            viewToOpenOnFirstLoad: null,
+            eventColorsEditingEnabled: true
         } );
 
         document.title += " - v" + calendarInstance.getVersion();
@@ -225,7 +226,8 @@
                     fullWeek: {
                         showDayNamesHeaders: false
                     }
-                }
+                },
+                eventColorsEditingEnabled: false
             } );
         }
 

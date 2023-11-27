@@ -3911,10 +3911,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     return _parameter_Document.body.contains(_element_Calendar_DisabledBackground);
   }
   function buildEventEditingDialog() {
-    if (!_element_Mode_DatePicker_Enabled && _element_Dialog_EventEditor === null) {
-      _element_Dialog_EventEditor = createElement("div", "calendar-dialog event-editor");
-      _elements_InDocumentBody.push(_element_Dialog_EventEditor);
-      _parameter_Document.body.appendChild(_element_Dialog_EventEditor);
+    if (!_element_Mode_DatePicker_Enabled) {
+      if (_element_Dialog_EventEditor === null) {
+        _element_Dialog_EventEditor = createElement("div", "calendar-dialog event-editor");
+        _elements_InDocumentBody.push(_element_Dialog_EventEditor);
+        _parameter_Document.body.appendChild(_element_Dialog_EventEditor);
+      }
+      _element_Dialog_EventEditor.innerHTML = _string.empty;
       var view = createElement("div", "view");
       _element_Dialog_EventEditor.appendChild(view);
       _element_Dialog_EventEditor_DisabledArea = createElement("div", "disabled-area");
@@ -3968,7 +3971,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     var isAllDayChangedEvent = function() {
       isAllDayChanged(null);
     };
-    _element_Dialog_EventEditor_SelectColors = createButtonElement(inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText);
+    if (_options.eventColorsEditingEnabled) {
+      _element_Dialog_EventEditor_SelectColors = createButtonElement(inputTitleContainer, "...", "select-colors", showEventEditorColorsDialog, _options.selectColorsText);
+    }
     createTextHeaderElement(_element_Dialog_EventEditor_Tab_Event, _options.fromText.replace(":", _string.empty) + "/" + _options.toText);
     var fromSplitContainer = createElement("div", "split");
     _element_Dialog_EventEditor_Tab_Event.appendChild(fromSplitContainer);
@@ -4259,7 +4264,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Dialog_EventEditor_ShowAlerts.disabled = locked;
     _element_Dialog_EventEditor_ShowAsBusy.disabled = locked;
     _element_Dialog_EventEditor_Title.disabled = locked;
-    _element_Dialog_EventEditor_SelectColors.disabled = locked;
     _element_Dialog_EventEditor_Description.disabled = locked;
     _element_Dialog_EventEditor_Location.disabled = locked;
     _element_Dialog_EventEditor_Group.disabled = locked;
@@ -4273,6 +4277,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Dialog_EventEditor_RepeatEvery_Custom.disabled = locked;
     _element_Dialog_EventEditor_RepeatEvery_RepeatOptionsButton.disabled = locked;
     _element_Dialog_EventEditor_AlertOffset.disabled = locked;
+    if (_element_Dialog_EventEditor_SelectColors !== null) {
+      _element_Dialog_EventEditor_SelectColors.disabled = locked;
+    }
   }
   function setEventEditingDialogInDuplicateMode() {
     setNodeText(_element_Dialog_EventEditor_TitleBar, _options.addEventTitle);
@@ -8498,6 +8505,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.useAmPmForTimeDisplays = getDefaultBoolean(_options.useAmPmForTimeDisplays, false);
     _options.isWidget = getDefaultBoolean(_options.isWidget, false);
     _options.viewToOpenOnFirstLoad = getDefaultString(_options.viewToOpenOnFirstLoad, null);
+    _options.eventColorsEditingEnabled = getDefaultBoolean(_options.eventColorsEditingEnabled, true);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
