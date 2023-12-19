@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.2:
+- Added PACK.sh and PUBLISH.sh shortcut command files.
 - 
 
 <br>
