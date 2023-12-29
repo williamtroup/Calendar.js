@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.1 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.2 | (c) Bunoon | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
       "周一",

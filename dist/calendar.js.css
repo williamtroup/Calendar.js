@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.10.1
+ * Calendar.js Library v2.10.2
  *
  * Copyright 2023 Bunoon
  * Released under the MIT License
@@ -2535,7 +2535,6 @@ div.calendar div.timeline-view div.contents div.timeline-header {
   position: sticky;
   border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
   top: 0;
-  background-color: var(--day-names-color);
   vertical-align: top;
   z-index: 10;
 }
@@ -2544,6 +2543,7 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
   padding: var(--spacing);
   text-align: center;
   border-right: var(--spacing-border-size) solid var(--grid-border-color);
+  background-color: var(--day-names-color);
 }
 @media screen and (min-width: 451px) {
   div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item {
@@ -2557,6 +2557,9 @@ div.calendar div.timeline-view div.contents div.timeline-header div.timeline-hea
 }
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:first-child {
   text-align: center;
+  position: sticky;
+  left: 0;
+  z-index: 2000;
 }
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item:last-child {
   border-right: none;
@@ -2586,6 +2589,9 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: top;
+  position: sticky;
+  left: 0;
+  z-index: 2000;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item,
