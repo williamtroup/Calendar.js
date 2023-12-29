@@ -1735,7 +1735,6 @@ div.calendar {
                 position: sticky;
                 border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
                 top: 0;
-                background-color: var(--day-names-color);
                 vertical-align: top;
                 z-index: 10;
                 
@@ -1744,6 +1743,7 @@ div.calendar {
                     padding: var(--spacing);
                     text-align: center;
                     border-right: var(--spacing-border-size) solid var(--grid-border-color);
+                    background-color: var(--day-names-color);
 
                     @media screen and ( min-width: $minimum-width ) {
                         width: var(--time-view-timeline-section-width);
@@ -1755,6 +1755,9 @@ div.calendar {
 
                     &:first-child {
                         text-align: center;
+                        position: sticky;
+                        left: 0;
+                        z-index: 2000;
                     }
 
                     &:last-child {
@@ -1790,6 +1793,9 @@ div.calendar {
                     text-overflow: ellipsis;
                     overflow: hidden;
                     vertical-align: top;
+                    position: sticky;
+                    left: 0;
+                    z-index: 2000;
 
                     @media screen and ( min-width: $minimum-width ) {
                         width: var(--time-view-timeline-section-width);
