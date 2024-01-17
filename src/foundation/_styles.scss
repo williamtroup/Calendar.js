@@ -19,7 +19,7 @@ $minimum-width: $maximum-width + 1;
 }
 
 @mixin opacity-hover-effect( $opacity-default: 0.6 ) {
-    transition: var(--transition);
+    transition: var(--calendar-js-transition);
     cursor: pointer;
     opacity: $opacity-default;
 }
@@ -43,8 +43,8 @@ $minimum-width: $maximum-width + 1;
     height: 100%;
     width: 100%;
     position: absolute;
-    background-color: var(--light-color);
-    transition: var(--transition);
+    background-color: var(--calendar-js-light-color);
+    transition: var(--calendar-js-transition);
     visibility: hidden;
 }
 
@@ -61,42 +61,42 @@ $minimum-width: $maximum-width + 1;
     overflow-y: auto;
 
     @if $half-spacing {
-        width: calc( 100% - var(--spacing) );
-        padding: calc( var(--spacing) / 2 );
+        width: calc( 100% - var(--calendar-js-spacing) );
+        padding: calc( var(--calendar-js-spacing) / 2 );
     }
     @else {
-        width: calc( 100% - ( var(--spacing) * 2 ) );
-        padding: var(--spacing);
+        width: calc( 100% - ( var(--calendar-js-spacing) * 2 ) );
+        padding: var(--calendar-js-spacing);
     }
 
     @media screen and ( min-width: $minimum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--large-font-size) ) - var(--spacing-border-size) );
+            height: calc( 100% - ( ( var(--calendar-js-spacing) * 3 ) + var(--calendar-js-large-font-size) ) - var(--calendar-js-spacing-border-size) );
         }
         @else {
-            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--large-font-size) ) - var(--spacing-border-size) );
+            height: calc( 100% - ( ( var(--calendar-js-spacing) * 4 ) + var(--calendar-js-large-font-size) ) - var(--calendar-js-spacing-border-size) );
         }
     }
     
     @media screen and ( max-width: $maximum-width ) {
         @if $half-spacing {
-            height: calc( 100% - ( ( var(--spacing) * 3 ) + var(--small-font-size) ) - var(--spacing-border-size) );
+            height: calc( 100% - ( ( var(--calendar-js-spacing) * 3 ) + var(--calendar-js-small-font-size) ) - var(--calendar-js-spacing-border-size) );
         }
         @else {
-            height: calc( 100% - ( ( var(--spacing) * 4 ) + var(--small-font-size) ) - var(--spacing-border-size) );
+            height: calc( 100% - ( ( var(--calendar-js-spacing) * 4 ) + var(--calendar-js-small-font-size) ) - var(--calendar-js-spacing-border-size) );
         }
     }
 }
 
 @mixin dialog-styles( $width, $includeTransform: true, $z-index: 1500 ) {
-    width: calc( 100% - ( var(--spacing) * 2 ) );
+    width: calc( 100% - ( var(--calendar-js-spacing) * 2 ) );
     max-width: $width;
-    border-radius: var(--border-radius);
-    background-color: var(--light-color);
-    border: var(--spacing-border-size) solid var(--dark-color);
+    border-radius: var(--calendar-js-border-radius);
+    background-color: var(--calendar-js-light-color);
+    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
     position: fixed;
     display: none;
-    box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+    box-shadow: var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-dark-color);
     z-index: $z-index;
 
     @if $includeTransform {
@@ -118,15 +118,15 @@ $minimum-width: $maximum-width + 1;
     border: none;
     padding: .255rem .55rem;
     line-height: 1.8;
-    border-radius: var(--border-radius);
+    border-radius: var(--calendar-js-border-radius);
     outline: 0;
     cursor: pointer;
 
     &:disabled {
-        background-color: var(--input-border-color) !important;
-        border-color: var(--input-border-color) !important;
+        background-color: var(--calendar-js-input-border-color) !important;
+        border-color: var(--calendar-js-input-border-color) !important;
         cursor: default !important;
-        color: var(--light-color) !important;
+        color: var(--calendar-js-light-color) !important;
     }
 }
 
@@ -134,7 +134,7 @@ $minimum-width: $maximum-width + 1;
     &.#{$name} {
         color: $color;
         background-color: $background-color;
-        border: var(--spacing-border-size-button) solid $border-color;
+        border: var(--calendar-js-spacing-border-size-button) solid $border-color;
         box-sizing: border-box;
 
         &:not( :disabled ):hover {
@@ -157,7 +157,7 @@ $minimum-width: $maximum-width + 1;
 
 @mixin div-label-spacing {
     div {
-        margin-bottom: calc( var(--spacing) / 2 );
+        margin-bottom: calc( var(--calendar-js-spacing) / 2 );
 
         &:last-child {
             margin-bottom: 0;
@@ -166,20 +166,20 @@ $minimum-width: $maximum-width + 1;
 }
 
 @mixin input-style {
-    border: var(--spacing-border-size) solid var(--input-border-color);
-    border-radius: var(--border-radius);
+    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
+    border-radius: var(--calendar-js-border-radius);
     outline: none;
 }
 
-@mixin input-fields( $height: 0px, $width: 100%, $margin-bottom: var(--spacing) ) {
+@mixin input-fields( $height: 0px, $width: 100%, $margin-bottom: var(--calendar-js-spacing) ) {
     @include input-style;
     width: $width;
     padding: .375rem .75rem;
     line-height: 21px;
-    color: var(--dark-color);
+    color: var(--calendar-js-dark-color);
     margin-bottom: $margin-bottom;
-    background-color: var(--input-background-color);
-    transition: var(--transition);
+    background-color: var(--calendar-js-input-background-color);
+    transition: var(--calendar-js-transition);
     box-sizing: border-box;
     max-height: 35px;
 
@@ -192,38 +192,38 @@ $minimum-width: $maximum-width + 1;
     }
 
     &:focus {
-        border: var(--spacing-border-size) solid var(--dark-color) !important;
-        box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
+        border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color) !important;
+        box-shadow: 0 0 var(--calendar-js-input-box-shadow-size) var(--calendar-js-input-box-shadow-size) var(--calendar-js-dark-color);
     }
 
     &:not( :disabled ):hover {
-        border: var(--spacing-border-size) solid var(--input-hover-color);
+        border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-hover-color);
     }
 }
 
 @mixin dialog-title-bar {
     div.title-bar {
         @include no-selection-allowed;
-        background-color: var(--dark-color);
-        color: var(--title-bar-text-color);
-        padding: var(--spacing);
+        background-color: var(--calendar-js-dark-color);
+        color: var(--calendar-js-title-bar-text-color);
+        padding: var(--calendar-js-spacing);
         text-align: center;
-        font-weight: var(--title-bar-font-weight);
+        font-weight: var(--calendar-js-title-bar-font-weight);
     }
 }
 
 @mixin advanced-options-container( $margin-top: 10px ) {
     @include fade-in-effect-animation( 0.5s );
-    background-color: var(--day-names-color);
-    padding: var(--spacing);
+    background-color: var(--calendar-js-day-names-color);
+    padding: var(--calendar-js-spacing);
     margin-top: $margin-top !important;
-    margin-left: var(--input-checkbox-size-with-spacing);
-    border-radius: var(--border-radius);
-    border: var(--spacing-border-size) solid #D0D0D0;
+    margin-left: var(--calendar-js-input-checkbox-size-with-spacing);
+    border-radius: var(--calendar-js-border-radius);
+    border: var(--calendar-js-spacing-border-size) solid #D0D0D0;
 }
 
 @mixin title-bar-divider-line {
     width: 1px;
-    background-color: var(--title-bar-button-color);
+    background-color: var(--calendar-js-title-bar-button-color);
     height: 16px;
 }

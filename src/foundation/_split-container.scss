@@ -3,9 +3,9 @@ div.split {
     select,
     div.split-contents,
     p {
-        width: calc( 50% - ( var(--spacing) / 2 ) );
-        margin-right: calc( var(--spacing) / 2 );
-        margin-left: calc( var(--spacing) / 2 );
+        width: calc( 50% - ( var(--calendar-js-spacing) / 2 ) );
+        margin-right: calc( var(--calendar-js-spacing) / 2 );
+        margin-left: calc( var(--calendar-js-spacing) / 2 );
         display: inline-block;
         vertical-align: top;
 

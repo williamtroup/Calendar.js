@@ -7,7 +7,7 @@
 
     &:before {
         @include top-center-minus( calc( $border-width / 2 ));
-        background-color: var(--light-color);
+        background-color: var(--calendar-js-light-color);
         height: $border-width;
         width: calc( $size / 3 );
         bottom: 0;
@@ -15,7 +15,7 @@
     }
 
     &:after {
-        background-color: var(--light-color);
+        background-color: var(--calendar-js-light-color);
         height: $border-width;
         width: calc( $size / 2 );
         bottom: 0;

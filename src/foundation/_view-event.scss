@@ -1,24 +1,24 @@
 @import "styles";
 
 div.expired {
-    opacity: var(--event-expired-opacity);
+    opacity: var(--calendar-js-event-expired-opacity);
 }
 
 div.all-day {
-    background-color: var(--event-color-all-day) !important;
-    color: var(--event-text-color-all-day) !important;
+    background-color: var(--calendar-js-event-color-all-day) !important;
+    color: var(--calendar-js-event-text-color-all-day) !important;
 }
 
 div.event {
     white-space: pre-line;
     -ms-word-break: normal;
     word-break: normal;
-    border-radius: var(--border-radius);
-    background-color: var(--event-color);
-    padding: var(--spacing);
-    color: var(--event-text-color);
-    margin-bottom: var(--spacing);
-    border-left: var(--event-left-border);
+    border-radius: var(--calendar-js-border-radius);
+    background-color: var(--calendar-js-event-color);
+    padding: var(--calendar-js-spacing);
+    color: var(--calendar-js-event-text-color);
+    margin-bottom: var(--calendar-js-spacing);
+    border-left: var(--calendar-js-event-left-border);
     text-align: left;
 
     @include div-label-spacing;
@@ -37,7 +37,7 @@ div.event {
     }
 
     div.ib-refresh-medium {
-        margin-right: calc( var(--spacing) / 2 );
+        margin-right: calc( var(--calendar-js-spacing) / 2 );
     }
 
     &:last-child {

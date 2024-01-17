@@ -1,14 +1,14 @@
 @import "styles";
 
 div.title-bar {
-    width: calc( 100% - var(--spacing) );
+    width: calc( 100% - var(--calendar-js-spacing) );
     display: inline-block;
-    padding-top: var(--spacing);
-    padding-bottom: var(--spacing);
-    padding-left: calc( var(--spacing) / 2 );
-    padding-right: calc( var(--spacing) / 2 );
-    background-color: var(--dark-color);
-    color: var(--title-bar-text-color);
+    padding-top: var(--calendar-js-spacing);
+    padding-bottom: var(--calendar-js-spacing);
+    padding-left: calc( var(--calendar-js-spacing) / 2 );
+    padding-right: calc( var(--calendar-js-spacing) / 2 );
+    background-color: var(--calendar-js-dark-color);
+    color: var(--calendar-js-title-bar-text-color);
     text-align: center;
 
     div.left-divider-line,
@@ -42,8 +42,8 @@ div.title-bar {
     }
 
     div {
-        margin-left: calc( var(--spacing) / 2 ) !important;
-        margin-right: calc( var(--spacing) / 2 ) !important;
+        margin-left: calc( var(--calendar-js-spacing) / 2 ) !important;
+        margin-right: calc( var(--calendar-js-spacing) / 2 ) !important;
     }
 
     div.ib-arrow-left-full,
