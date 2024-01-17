@@ -1,39 +1,39 @@
 @import "styles";
 
 div.hour {
-    background-color: var(--light-color);
-    border-bottom: var(--spacing-border-size) solid var(--dark-color);
+    background-color: var(--calendar-js-light-color);
+    border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
     position: relative;
 
     &::before {
-        border-bottom: var(--spacing-border-size) dashed var(--input-border-color);
-        width: calc( 100% - ( var(--time-view-hours-width) + var(--spacing) * 2 ) );
-        height: calc( ( var(--time-view-hours-height) + var(--spacing) * 2 ) - var(--spacing-border-size) );
+        border-bottom: var(--calendar-js-spacing-border-size) dashed var(--calendar-js-input-border-color);
+        width: calc( 100% - ( var(--calendar-js-time-view-hours-width) + var(--calendar-js-spacing) * 2 ) );
+        height: calc( ( var(--calendar-js-time-view-hours-height) + var(--calendar-js-spacing) * 2 ) - var(--calendar-js-spacing-border-size) );
         content: '';
         display: block;
         position: absolute;
         top: 0;
-        left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) );
+        left: calc( var(--calendar-js-time-view-hours-width) + ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) );
     }
 
     div.hour-text {
         display: flex;
         align-items: center;
-        width: var(--time-view-hours-width);
-        height: var(--time-view-hours-height);
-        padding: var(--spacing);
-        background-color: var(--light-color);
-        color: var(--dark-color);
-        border-right: var(--spacing-border-size) solid var(--dark-color);
+        width: var(--calendar-js-time-view-hours-width);
+        height: var(--calendar-js-time-view-hours-height);
+        padding: var(--calendar-js-spacing);
+        background-color: var(--calendar-js-light-color);
+        color: var(--calendar-js-dark-color);
+        border-right: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
         
         &:nth-child( odd ) {
-            background-color: var(--dark-color);
-            color: var(--light-color);
+            background-color: var(--calendar-js-dark-color);
+            color: var(--calendar-js-light-color);
         }
     }
 
     &:nth-child( odd ) {
-        background-color: var(--day-names-color);
+        background-color: var(--calendar-js-day-names-color);
     }
 
     &:last-child {

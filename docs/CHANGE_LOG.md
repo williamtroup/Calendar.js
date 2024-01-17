@@ -2,7 +2,7 @@
 
 ## Version 2.10.3:
 - Updated all documentation headers to include the correct year, and added the year to all smaller files.
-- 
+- BREAKING: All ":root" variables now start with "--calendar-js-", which will prevent collisions with other libraries.
 
 <br>
 

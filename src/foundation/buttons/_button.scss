@@ -1,7 +1,7 @@
 $size: 16px;
 $border-width: calc( $size / 4 );
 $border-radius: $border-width;
-$button-color: var(--title-bar-button-color);
+$button-color: var(--calendar-js-title-bar-button-color);
 $border: $border-width solid $button-color;
 
 @mixin button-size {

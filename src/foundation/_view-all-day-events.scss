@@ -2,15 +2,15 @@
 
 div.content-events-all-day {
     position: relative;
-    border-bottom: var(--spacing-border-size) solid var(--dark-color);
+    border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
     overflow: hidden;
 
     div.all-day-text {
-        width: var(--time-view-hours-width);
-        padding: var(--spacing);
-        background-color: var(--light-color);
-        color: var(--dark-color);
-        border-right: var(--spacing-border-size) solid var(--dark-color);
+        width: var(--calendar-js-time-view-hours-width);
+        padding: var(--calendar-js-spacing);
+        background-color: var(--calendar-js-light-color);
+        color: var(--calendar-js-dark-color);
+        border-right: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
         position: absolute;
         left: 0;
         top: 0;
@@ -19,8 +19,8 @@ div.content-events-all-day {
     
     div.event {
         position: static !important;
-        margin-left: calc( var(--time-view-hours-width) + ( var(--spacing) * 3 ) ) !important;
-        margin-top: var(--spacing);
-        margin-bottom: var(--spacing);
+        margin-left: calc( var(--calendar-js-time-view-hours-width) + ( var(--calendar-js-spacing) * 3 ) ) !important;
+        margin-top: var(--calendar-js-spacing);
+        margin-bottom: var(--calendar-js-spacing);
     }
 }

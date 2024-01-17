@@ -19,7 +19,7 @@
         width: $border-width;
         height: $border-width;
         background-color: $button-color;
-        border-radius: var(--border-radius);
+        border-radius: var(--calendar-js-border-radius);
         bottom: calc( $border-width / 2 );
         left: 0;
     }

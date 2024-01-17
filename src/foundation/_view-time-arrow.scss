@@ -2,28 +2,28 @@
 
 div.time-arrow {
     position: absolute;
-    width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) - var(--spacing-border-size) );
-    left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) );
+    width: calc( 100% - var(--calendar-js-time-view-hours-width) - ( var(--calendar-js-spacing) * 2 ) - var(--calendar-js-spacing-border-size) );
+    left: calc( var(--calendar-js-time-view-hours-width) + ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) );
     top: 0;                    
     z-index: 10;
-    height: var(--time-view-arrow-line-height);
+    height: var(--calendar-js-time-view-arrow-line-height);
     display: none;
     pointer-events: none;
 
     div.arrow-left {
         width: 0; 
         height: 0; 
-        border-top: calc( var(--time-view-arrow-line-height) / 2 ) solid transparent;
-        border-bottom: calc( var(--time-view-arrow-line-height) / 2 ) solid transparent;
-        border-right: var(--time-view-arrow-line-height) solid var(--view-time-arrow-color);
+        border-top: calc( var(--calendar-js-time-view-arrow-line-height) / 2 ) solid transparent;
+        border-bottom: calc( var(--calendar-js-time-view-arrow-line-height) / 2 ) solid transparent;
+        border-right: var(--calendar-js-time-view-arrow-line-height) solid var(--calendar-js-view-time-arrow-color);
     }
 
     div.line {
-        background-color: var(--view-time-arrow-color);
+        background-color: var(--calendar-js-view-time-arrow-color);
         position: absolute;
-        left: var(--time-view-arrow-line-height);
-        top: calc( var(--time-view-arrow-line-height) / 4 );
-        height: calc( var(--time-view-arrow-line-height) / 2 );
+        left: var(--calendar-js-time-view-arrow-line-height);
+        top: calc( var(--calendar-js-time-view-arrow-line-height) / 4 );
+        height: calc( var(--calendar-js-time-view-arrow-line-height) / 2 );
         width: 100%;
     }
 }

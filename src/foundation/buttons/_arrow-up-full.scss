@@ -6,5 +6,5 @@
     height: 0;
     border-left: calc( $size / 2 ) solid transparent;
     border-right: calc( $size / 2 ) solid transparent;
-    border-bottom: $size solid var(--dark-color);
+    border-bottom: $size solid var(--calendar-js-dark-color);
 }

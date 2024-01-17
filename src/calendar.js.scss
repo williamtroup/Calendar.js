@@ -10,82 +10,82 @@
 
 :root {
     // Colors
-    --dark-color: #3b3a3a;
-    --dark-lighter-color: #575555;
-    --light-color: #F5F5F5;
-    --day-date-picker-hover-color: #a7a7a7;
-    --grid-border-color: #B0B0B0;
-    --alert-color: #C60000;
-    --event-color: #484848;
-    --event-text-color: var(--light-color);
-    --event-color-all-day: #1b3752;
-    --event-text-color-all-day: var(--light-color);
-    --day-names-color: #E0E0E0;
-    --input-border-color: #A8A8A8;
-    --input-background-color: #FFFFFF;
-    --area-disabled-stripped: rgba(  40, 40, 40, 0.1  );
-    --area-disabled-stripped-weekend-day: rgba(  40, 40, 40, 0.2  );
-    --link-color: #2471A3;
-    --input-hover-color: var(--dark-color);
-    --primary-button-color: var(--dark-color);
-    --secondary-button-color: var(--dark-color);
-    --tertiary-button-color: #6c757d;
-    --drop-down-menu-background-color: #DCDCDC;
-    --title-bar-button-color: var(--light-color);
-    --menu-item-icon-color: var(--dark-color);
-    --title-bar-text-color: var(--light-color);
-    --view-time-arrow-color: rgb(234, 67, 53);
+    --calendar-js-dark-color: #3b3a3a;
+    --calendar-js-dark-lighter-color: #575555;
+    --calendar-js-light-color: #F5F5F5;
+    --calendar-js-day-date-picker-hover-color: #a7a7a7;
+    --calendar-js-grid-border-color: #B0B0B0;
+    --calendar-js-alert-color: #C60000;
+    --calendar-js-event-color: #484848;
+    --calendar-js-event-text-color: var(--calendar-js-light-color);
+    --calendar-js-event-color-all-day: #1b3752;
+    --calendar-js-event-text-color-all-day: var(--calendar-js-light-color);
+    --calendar-js-day-names-color: #E0E0E0;
+    --calendar-js-input-border-color: #A8A8A8;
+    --calendar-js-input-background-color: #FFFFFF;
+    --calendar-js-area-disabled-stripped: rgba(  40, 40, 40, 0.1  );
+    --calendar-js-area-disabled-stripped-weekend-day: rgba(  40, 40, 40, 0.2  );
+    --calendar-js-link-color: #2471A3;
+    --calendar-js-input-hover-color: var(--calendar-js-dark-color);
+    --calendar-js-primary-button-color: var(--calendar-js-dark-color);
+    --calendar-js-secondary-button-color: var(--calendar-js-dark-color);
+    --calendar-js-tertiary-button-color: #6c757d;
+    --calendar-js-drop-down-menu-background-color: #DCDCDC;
+    --calendar-js-title-bar-button-color: var(--calendar-js-light-color);
+    --calendar-js-menu-item-icon-color: var(--calendar-js-dark-color);
+    --calendar-js-title-bar-text-color: var(--calendar-js-light-color);
+    --calendar-js-view-time-arrow-color: rgb(234, 67, 53);
 
     // Transitions
-    --transition: all .3s;
-    --transition-faster: all .2s;
+    --calendar-js-transition: all .3s;
+    --calendar-js-transition-faster: all .2s;
 
     // Radius
-    --border-radius: 0.25rem;
+    --calendar-js-border-radius: 0.25rem;
 
     // Spacing
-    --spacing: 10px;
-    --spacing-border-size: 0.5px;
-    --spacing-border-left-size: calc( var(--spacing-border-size) * 12 );
-    --spacing-border-size-button: var(--spacing-border-size);
-    --spacing-shadow-size: 4px;
+    --calendar-js-spacing: 10px;
+    --calendar-js-spacing-border-size: 0.5px;
+    --calendar-js-spacing-border-left-size: calc( var(--calendar-js-spacing-border-size) * 12 );
+    --calendar-js-spacing-border-size-button: var(--calendar-js-spacing-border-size);
+    --calendar-js-spacing-shadow-size: 4px;
 
     // Fonts
-    --title-bar-font-weight: 900;
-    --large-font-size: 0.9rem;
-    --small-font-size: 0.7rem;
+    --calendar-js-title-bar-font-weight: 900;
+    --calendar-js-large-font-size: 0.9rem;
+    --calendar-js-small-font-size: 0.7rem;
 
     // Side Menu
-    --side-menu-width: 320px;
-    --side-menu-width-small: 270px;
-    --side-menu-right-border-width: calc( var(--spacing-border-size) * 12 );
+    --calendar-js-side-menu-width: 320px;
+    --calendar-js-side-menu-width-small: 270px;
+    --calendar-js-side-menu-right-border-width: calc( var(--calendar-js-spacing-border-size) * 12 );
 
     // Time Views
-    --time-view-hours-width: 70px;
-    --time-view-hours-height: 25px;
-    --time-view-arrow-line-height: 12px;
-    --time-view-timeline-section-width: 180px;
-    --time-view-timeline-section-width-small: 130px;
+    --calendar-js-time-view-hours-width: 70px;
+    --calendar-js-time-view-hours-height: 25px;
+    --calendar-js-time-view-arrow-line-height: 12px;
+    --calendar-js-time-view-timeline-section-width: 180px;
+    --calendar-js-time-view-timeline-section-width-small: 130px;
 
     // Inputs
-    --input-box-shadow-size: 2px;
-    --input-checkbox-size-with-spacing: 25px;
+    --calendar-js-input-box-shadow-size: 2px;
+    --calendar-js-input-checkbox-size-with-spacing: 25px;
 
     // Events
-    --event-left-border: 7px solid var(--dark-color);
-    --event-expired-opacity: 0.7;
+    --calendar-js-event-left-border: 7px solid var(--calendar-js-dark-color);
+    --calendar-js-event-expired-opacity: 0.7;
 
     // Scroll Bars
-    --scroll-bar-border-style: inset 0 0 6px gray;
+    --calendar-js-scroll-bar-border-style: inset 0 0 6px gray;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --dark-color: #282828;
-        --input-hover-color: var(--dark-color);
-        --primary-button-color: var(--dark-color);
-        --secondary-button-color: var(--dark-color);
-        --menu-item-icon-color: var(--dark-color);
+        --calendar-js-dark-color: #282828;
+        --calendar-js-input-hover-color: var(--calendar-js-dark-color);
+        --calendar-js-primary-button-color: var(--calendar-js-dark-color);
+        --calendar-js-secondary-button-color: var(--calendar-js-dark-color);
+        --calendar-js-menu-item-icon-color: var(--calendar-js-dark-color);
     }
 }
 
@@ -108,11 +108,11 @@ div.calendar-widget {
     font-family: 'Montserrat', sans-serif;
 
     @media screen and ( min-width: $minimum-width ) {
-        font-size: var(--large-font-size);
+        font-size: var(--calendar-js-large-font-size);
     }
     
     @media screen and ( max-width: $maximum-width ) {
-        font-size: var(--small-font-size);
+        font-size: var(--calendar-js-small-font-size);
     }
 
     div.view-shown {
@@ -207,45 +207,45 @@ div.calendar-date-picker {
     }
 
     div.calendar-shadow-bottom {
-        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+        box-shadow: var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-dark-color);
     }
 
     div.calendar-shadow-top {
-        box-shadow: var(--spacing-shadow-size) calc(0px - var(--spacing-shadow-size)) var(--spacing-shadow-size) var(--dark-color);
+        box-shadow: var(--calendar-js-spacing-shadow-size) calc(0px - var(--calendar-js-spacing-shadow-size)) var(--calendar-js-spacing-shadow-size) var(--calendar-js-dark-color);
     }
 
     div.calendar {
-        font-size: var(--small-font-size) !important;
+        font-size: var(--calendar-js-small-font-size) !important;
         position: absolute;
         width: 100%;
         max-width: 330px;
         z-index: 1000;
-        margin-top: var(--spacing-border-size);
-        margin-left: -var(--spacing-border-size);
+        margin-top: var(--calendar-js-spacing-border-size);
+        margin-left: -var(--calendar-js-spacing-border-size);
         
         div.full-month-view {
             div.title-bar {
-                font-size: var(--large-font-size) !important;
+                font-size: var(--calendar-js-large-font-size) !important;
             }
 
             div.cell {
-                padding: calc( var(--spacing) / 2 ) !important;
+                padding: calc( var(--calendar-js-spacing) / 2 ) !important;
             }
     
             div.days {
                 div.cell-today {
-                    background-color: var(--dark-color) !important;
-                    color: var(--light-color) !important;
+                    background-color: var(--calendar-js-dark-color) !important;
+                    color: var(--calendar-js-light-color) !important;
                 }
     
                 div.cell-selected {
-                    background-color: var(--day-date-picker-hover-color) !important;
+                    background-color: var(--calendar-js-day-date-picker-hover-color) !important;
                 }
     
                 div.cell:not( .cell-no-click ):hover {
                     cursor: pointer;
-                    background-color: var(--day-date-picker-hover-color);
-                    transition: var(--transition);
+                    background-color: var(--calendar-js-day-date-picker-hover-color);
+                    transition: var(--calendar-js-transition);
                 }
     
                 div.cell:not( .cell-no-click ):active {
@@ -269,16 +269,16 @@ div.calendar-date-picker {
 
 div.calendar-widget {
     @include no-selection-allowed;
-    border-radius: var(--border-radius);
-    padding: var(--spacing);
-    background-image: linear-gradient(var(--dark-color), var(--dark-lighter-color));
-    color: var(--light-color);
+    border-radius: var(--calendar-js-border-radius);
+    padding: var(--calendar-js-spacing);
+    background-image: linear-gradient(var(--calendar-js-dark-color), var(--calendar-js-dark-lighter-color));
+    color: var(--calendar-js-light-color);
     max-width: 400px !important;
     width: 100%;
 
     div.day-name {
         font-weight: 900;
-        margin-bottom: var(--spacing);
+        margin-bottom: var(--calendar-js-spacing);
 
         div.right-divider-line {
             @include title-bar-divider-line;
@@ -290,22 +290,22 @@ div.calendar-widget {
         div.ib-pin,
         div.right-divider-line {
             float: right;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 
     div.day-date {
         font-weight: 300;
         font-size: x-large;
-        margin-bottom: calc( var(--spacing) * 2 );
+        margin-bottom: calc( var(--calendar-js-spacing) * 2 );
     }
 
     div.scroll-margin {
-        padding-right: var(--spacing);
+        padding-right: var(--calendar-js-spacing);
     }
 
     div.events {
-        margin-top: var(--spacing);
+        margin-top: var(--calendar-js-spacing);
         font-weight: 300;
         max-height: 400px;
         overflow-y: auto;
@@ -313,7 +313,7 @@ div.calendar-widget {
         @import "foundation/view-event";
 
         div.event {
-            margin-bottom: calc( var(--spacing) / 2 );
+            margin-bottom: calc( var(--calendar-js-spacing) / 2 );
 
             &:last-of-type {
                 margin-bottom: 0;
@@ -333,15 +333,15 @@ div.calendar-notification {
     @include fade-in-effect-animation( 0.5s );
     @include no-selection-allowed;
     position: fixed;
-    bottom: var(--spacing);
-    right: var(--spacing);
+    bottom: var(--calendar-js-spacing);
+    right: var(--calendar-js-spacing);
     width: auto;
     height: auto;
     display: none;
     z-index: 2500;
 
     div.ib-close-icon {
-        margin-left: calc( var(--spacing) * 2 );
+        margin-left: calc( var(--calendar-js-spacing) * 2 );
 
         &::before,
         &::after {
@@ -351,19 +351,19 @@ div.calendar-notification {
 
     div.success,
     div.error {
-        padding: var(--spacing);
-        border-radius: var(--border-radius);
+        padding: var(--calendar-js-spacing);
+        border-radius: var(--calendar-js-border-radius);
 
         div.ib-close-icon {
-            margin-left: calc( var(--spacing) * 2 );
+            margin-left: calc( var(--calendar-js-spacing) * 2 );
         }
     }
 
     div.success {
         background-color: #EFE;
-        border: var(--spacing-border-size) solid #DED;
+        border: var(--calendar-js-spacing-border-size) solid #DED;
         color: #9A9;
-        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+        box-shadow: var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-dark-color);
 
         div.ib-close-icon {
             &::before,
@@ -375,9 +375,9 @@ div.calendar-notification {
 
     div.error {
         background-color: #FEE;
-        border: var(--spacing-border-size) solid #EDD;
+        border: var(--calendar-js-spacing-border-size) solid #EDD;
         color: #A66;
-        box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
+        box-shadow: var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-dark-color);
         
         div.ib-close-icon {
             &::before,
@@ -397,11 +397,11 @@ div.calendar-notification {
 
 div.calendar {
     @include no-selection-allowed;
-    border-radius: var(--border-radius);
+    border-radius: var(--calendar-js-border-radius);
     overflow: hidden;
     width: 100%;
     min-width: 260px;
-    border: var(--spacing-border-size) solid var(--dark-color);
+    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
     position: relative;
 
     sup {
@@ -417,7 +417,7 @@ div.calendar {
     }
 
     div.selected-event {
-        box-shadow: 0 0 1.5px 1.5px var(--alert-color);
+        box-shadow: 0 0 1.5px 1.5px var(--calendar-js-alert-color);
     }
 
     div.cut-event {
@@ -430,13 +430,13 @@ div.calendar {
     
     div.header-days {
         font-weight: 900 !important;
-        background-color: var(--day-names-color) !important;
-        color: var(--dark-color) !important;
+        background-color: var(--calendar-js-day-names-color) !important;
+        color: var(--calendar-js-dark-color) !important;
         text-transform: uppercase;
     }
 
     div.weekend-day {
-        background-color: var(--day-names-color);
+        background-color: var(--calendar-js-day-names-color);
     }
 
     div.working-day {
@@ -445,23 +445,23 @@ div.calendar {
 
     div.drag-over {
         background-color: rgba( 135, 206, 250, 0.4 ) !important;
-        transition: var(--transition-faster);
+        transition: var(--calendar-js-transition-faster);
     }
 
     div.drag-not-allowed {
         background: repeating-linear-gradient( 
             135deg,
             transparent,
-            transparent var(--spacing),
-            var(--area-disabled-stripped) var(--spacing),
-            var(--area-disabled-stripped) calc( var(--spacing) * 2 )
+            transparent var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped) var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped) calc( var(--calendar-js-spacing) * 2 )
         ),
         repeating-linear-gradient( 
             45deg,
-            var(--light-color),
-            var(--light-color) var(--spacing),
-            var(--area-disabled-stripped) var(--spacing),
-            var(--area-disabled-stripped) calc( var(--spacing) * 2 )
+            var(--calendar-js-light-color),
+            var(--calendar-js-light-color) var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped) var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped) calc( var(--calendar-js-spacing) * 2 )
         );
 
         div.ib-arrow-expand-left-right-icon {
@@ -473,16 +473,16 @@ div.calendar {
         background: repeating-linear-gradient( 
             135deg,
             transparent,
-            transparent var(--spacing),
-            var(--area-disabled-stripped-weekend-day) var(--spacing),
-            var(--area-disabled-stripped-weekend-day) calc( var(--spacing) * 2 )
+            transparent var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped-weekend-day) var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped-weekend-day) calc( var(--calendar-js-spacing) * 2 )
         ),
         repeating-linear-gradient( 
             45deg,
-            var(--day-names-color),
-            var(--day-names-color) var(--spacing),
-            var(--area-disabled-stripped-weekend-day) var(--spacing),
-            var(--area-disabled-stripped-weekend-day) calc( var(--spacing) * 2 )
+            var(--calendar-js-day-names-color),
+            var(--calendar-js-day-names-color) var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped-weekend-day) var(--calendar-js-spacing),
+            var(--calendar-js-area-disabled-stripped-weekend-day) calc( var(--calendar-js-spacing) * 2 )
         );
 
         div.ib-arrow-expand-left-right-icon {
@@ -501,13 +501,13 @@ div.calendar {
 
         p {
             margin-top: 0;
-            margin-bottom: var(--spacing);
+            margin-bottom: var(--calendar-js-spacing);
         }
     }
 
     span.link {
         text-decoration: underline !important;
-        color: var(--link-color) !important;
+        color: var(--calendar-js-link-color) !important;
 
         &:hover {
             @include opacity-hover-effect;
@@ -519,14 +519,14 @@ div.calendar {
     }
     
     div.row-cells {
-        border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+        border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
         font-weight: 300;
-        background-color: var(--light-color);
-        color: var(--dark-color);
+        background-color: var(--calendar-js-light-color);
+        color: var(--calendar-js-dark-color);
         width: 100%;
 
         div.cell-1 {
@@ -534,27 +534,27 @@ div.calendar {
         }
 
         div.cell-2 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 2 );
+            width: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) ) / 2 );
         }
 
         div.cell-3 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 3 );
+            width: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) ) / 3 );
         }
         
         div.cell-4 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 4 );
+            width: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) ) / 4 );
         }
 
         div.cell-5 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 5 );
+            width: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) ) / 5 );
         }
 
         div.cell-6 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 6 );
+            width: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) ) / 6 );
         }
 
         div.cell-7 {
-            width: calc( 100% - ( ( var(--spacing) * 2 ) + var(--spacing-border-size) ) / 7 );
+            width: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) ) / 7 );
         }
 
         div.scrollY {
@@ -564,17 +564,17 @@ div.calendar {
         div.cell {
             display: inline-block;
             text-align: center;
-            border-right: var(--spacing-border-size) solid var(--grid-border-color);
+            border-right: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
             position: relative;
             overflow: hidden;
-            color: var(--dark-color);
+            color: var(--calendar-js-dark-color);
 
             @media screen and ( min-width: $minimum-width ) {
-                padding: var(--spacing);
+                padding: var(--calendar-js-spacing);
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                padding: calc( var(--spacing) / 2 );
+                padding: calc( var(--calendar-js-spacing) / 2 );
             }
 
             div.separator,
@@ -599,7 +599,7 @@ div.calendar {
                 padding: 4px;
                 padding-left: 0;
                 padding-right: 0;
-                border-radius: var(--border-radius);
+                border-radius: var(--calendar-js-border-radius);
         
                 &.today,
                 &.first-day {
@@ -608,13 +608,13 @@ div.calendar {
                 }
 
                 &.today {
-                    background-color: var(--dark-color) !important;
-                    color: var(--light-color) !important;
+                    background-color: var(--calendar-js-dark-color) !important;
+                    color: var(--calendar-js-light-color) !important;
                 }
 
                 &.first-day {
                     background-color: #C8C8C8;
-                    color: var(--dark-color);
+                    color: var(--calendar-js-dark-color);
                 }
 
                 &.holiday,
@@ -649,13 +649,13 @@ div.calendar {
 
             div.ib-arrow-expand-left-right-icon {
                 &::before {
-                    border-left-color: var(--dark-color);
-                    border-bottom-color: var(--dark-color);
+                    border-left-color: var(--calendar-js-dark-color);
+                    border-bottom-color: var(--calendar-js-dark-color);
                 }
             
                 &::after {
-                    border-right-color: var(--dark-color);
-                    border-top-color: var(--dark-color);
+                    border-right-color: var(--calendar-js-dark-color);
+                    border-top-color: var(--calendar-js-dark-color);
                 }
             }
 
@@ -696,19 +696,19 @@ div.calendar {
         position: relative;
         background-size: cover;
         height: 250px;
-        background-color: var(--day-names-color);
-        border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+        background-color: var(--calendar-js-day-names-color);
+        border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
 
         div.pin-up-text {
             position: absolute;
-            color: var(--light-color);
-            bottom: calc( var(--spacing) * 2 );
-            right: calc( var(--spacing) * 2 );
+            color: var(--calendar-js-light-color);
+            bottom: calc( var(--calendar-js-spacing) * 2 );
+            right: calc( var(--calendar-js-spacing) * 2 );
             font-weight: 900;
             text-align: center;
-            border-radius: var(--border-radius);
+            border-radius: var(--calendar-js-border-radius);
             background-color: rgba(59, 58, 59, 0.6);
-            padding: calc( var(--spacing) * 2 );
+            padding: calc( var(--calendar-js-spacing) * 2 );
 
             &:hover {
                 background-color: rgba(59, 58, 59, 0.8);
@@ -756,23 +756,23 @@ div.calendar {
         position: absolute;
         height: 100%;
         top: 0;
-        color: var(--light-color) !important;
+        color: var(--calendar-js-light-color) !important;
         z-index: 1500;
-        transition: var(--transition); 
-        background-color: var(--dark-color);
-        border-right: var(--side-menu-right-border-width) solid var(--light-color);
-        border-radius: var(--border-radius);
+        transition: var(--calendar-js-transition); 
+        background-color: var(--calendar-js-dark-color);
+        border-right: var(--calendar-js-side-menu-right-border-width) solid var(--calendar-js-light-color);
+        border-radius: var(--calendar-js-border-radius);
         overflow-x: hidden;
         overflow-y: auto;
 
         @media screen and ( min-width: $minimum-width ) {
-            width: var(--side-menu-width);
-            left: calc( 0px - ( var(--side-menu-width) + var(--side-menu-right-border-width) ) );
+            width: var(--calendar-js-side-menu-width);
+            left: calc( 0px - ( var(--calendar-js-side-menu-width) + var(--calendar-js-side-menu-right-border-width) ) );
         }
         
         @media screen and ( max-width: $maximum-width ) {
-            width: var(--side-menu-width-small);
-            left: calc( 0px - ( var(--side-menu-width-small) + var(--side-menu-right-border-width) ) );
+            width: var(--calendar-js-side-menu-width-small);
+            left: calc( 0px - ( var(--calendar-js-side-menu-width-small) + var(--calendar-js-side-menu-right-border-width) ) );
         }
 
         div.main-header {
@@ -781,10 +781,10 @@ div.calendar {
             overflow: auto;
             position: sticky;
             top: 0;
-            background-color: var(--dark-color);
-            padding: var(--spacing);
+            background-color: var(--calendar-js-dark-color);
+            padding: var(--calendar-js-spacing);
             z-index: 1;
-            color: var(--title-bar-text-color);
+            color: var(--calendar-js-title-bar-text-color);
             
             @media screen and ( min-width: $minimum-width ) {
                 font-size: 1.2rem;
@@ -807,24 +807,24 @@ div.calendar {
             div.right-divider-line {
                 margin-top: 3px;
                 float: right;
-                margin-left: var(--spacing);
+                margin-left: var(--calendar-js-spacing);
             }
         }
 
         div.content {
-            padding: var(--spacing);
+            padding: var(--calendar-js-spacing);
             padding-top: 0;
 
             div.content-section-opened {
-                border-left: var(--spacing-border-left-size) solid #656363 !important;
+                border-left: var(--calendar-js-spacing-border-left-size) solid #656363 !important;
             }
 
             div.content-section {
-                margin-top: var(--spacing);
-                border-radius: var(--border-radius);
+                margin-top: var(--calendar-js-spacing);
+                border-radius: var(--calendar-js-border-radius);
                 background-color: #474545;
-                border: var(--spacing-border-size) solid var(--dark-lighter-color);
-                transition: var(--transition);
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-lighter-color);
+                transition: var(--calendar-js-transition);
 
                 &:first-of-type {
                     margin-top: 0;
@@ -833,7 +833,7 @@ div.calendar {
                 div.text-header,
                 div.text-header-closed {
                     position: relative;
-                    padding: var(--spacing);
+                    padding: var(--calendar-js-spacing);
                     margin-top: 0 !important;
                     margin-bottom: 0;
                     cursor: pointer;
@@ -845,7 +845,7 @@ div.calendar {
                     div.ib-square-hollow {
                         float: right;
                         margin-top: 1px;
-                        margin-right: var(--spacing);
+                        margin-right: var(--calendar-js-spacing);
 
                         &:first-of-type {
                             margin-right: 0;
@@ -862,19 +862,19 @@ div.calendar {
                     }
 
                     div.ib-arrow-down-full {
-                        border-top-color: var(--light-color);
+                        border-top-color: var(--calendar-js-light-color);
                     }
 
                     div.ib-arrow-up-full {
-                        border-bottom-color: var(--light-color);
+                        border-bottom-color: var(--calendar-js-light-color);
                     }
 
                     div.ib-square-hollow {
-                        border-color: var(--light-color);
+                        border-color: var(--calendar-js-light-color);
                     }
 
                     div.ib-square {
-                        background-color: var(--light-color);
+                        background-color: var(--calendar-js-light-color);
                     }
                 }
 
@@ -884,20 +884,20 @@ div.calendar {
 
                 div.checkbox-container {
                     @include fade-in-effect-animation( 0.5s );
-                    padding-left: var(--spacing);
-                    padding-right: var(--spacing);
-                    padding-bottom: var(--spacing);
+                    padding-left: var(--calendar-js-spacing);
+                    padding-right: var(--calendar-js-spacing);
+                    padding-bottom: var(--calendar-js-spacing);
 
                     label.checkbox {
-                        margin-bottom: calc( var(--spacing) / 2 );
-                        margin-left: var(--spacing);
-                        color: var(--light-color) !important;
+                        margin-bottom: calc( var(--calendar-js-spacing) / 2 );
+                        margin-left: var(--calendar-js-spacing);
+                        color: var(--calendar-js-light-color) !important;
         
                         span.check-mark {
-                            background-color: var(--light-color) !important;
+                            background-color: var(--calendar-js-light-color) !important;
         
                             &::before {
-                                border-color: var(--dark-color) !important;
+                                border-color: var(--calendar-js-dark-color) !important;
                             }
                         }
                     }
@@ -908,8 +908,8 @@ div.calendar {
 
     div.side-menu-open {
         left: 0 !important;
-        transition: var(--transition);
-        box-shadow: 0 0 10px 10px var(--dark-color);
+        transition: var(--calendar-js-transition);
+        box-shadow: 0 0 10px 10px var(--calendar-js-dark-color);
     }
 }
 
@@ -939,11 +939,11 @@ div.calendar {
             padding: 0 !important;
 
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+                height: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-large-font-size) ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+                height: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-small-font-size) ) );
             }
 
             @import "foundation/view-all-day-events";
@@ -964,16 +964,16 @@ div.calendar {
                 position: absolute;
                 margin-left: 0;
                 margin-right: 0;
-                width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 6 ) - ( var(--spacing) / 2 ) );
-                left: calc( var(--time-view-hours-width) + ( var(--spacing) * 3 ) );
+                width: calc( 100% - var(--calendar-js-time-view-hours-width) - ( var(--calendar-js-spacing) * 6 ) - ( var(--calendar-js-spacing) / 2 ) );
+                left: calc( var(--calendar-js-time-view-hours-width) + ( var(--calendar-js-spacing) * 3 ) );
                 overflow: hidden;
                 z-index: 1;
             }
 
             div.working-hours {
                 position: absolute;
-                width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
-                left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) );
+                width: calc( 100% - var(--calendar-js-time-view-hours-width) - ( var(--calendar-js-spacing) * 2 ) );
+                left: calc( var(--calendar-js-time-view-hours-width) + ( var(--calendar-js-spacing) * 2 ) );
                 background-color: rgba(  40, 40, 40, 0.4  );
                 display: none;
                 pointer-events: none;
@@ -1005,11 +1005,11 @@ div.calendar {
             padding: 0 !important;
 
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+                height: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-large-font-size) ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+                height: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-small-font-size) ) );
             }
 
             @import "foundation/view-all-day-events";
@@ -1017,14 +1017,14 @@ div.calendar {
             div.header-days-container {
                 position: sticky;
                 top: 0;
-                background-color: var(--dark-color);
+                background-color: var(--calendar-js-dark-color);
                 z-index: 100;
     
                 div.header-days {
-                    width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
+                    width: calc( 100% - var(--calendar-js-time-view-hours-width) - ( var(--calendar-js-spacing) * 2 ) );
                     background-color: blue;
-                    margin-left: calc( var(--time-view-hours-width) + ( var(--spacing) * 2 ) + var(--spacing-border-size) );
-                    border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+                    margin-left: calc( var(--calendar-js-time-view-hours-width) + ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-spacing-border-size) );
+                    border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
                 }
             }
 
@@ -1042,7 +1042,7 @@ div.calendar {
                         @import "foundation/view-event";
 
                         div.event {
-                            width: calc( 100% - ( ( var(--spacing) * 2 ) + ( var(--spacing-border-size) * 5 ) ) ) !important;
+                            width: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + ( var(--calendar-js-spacing-border-size) * 5 ) ) ) !important;
                             margin-left: 0 !important;
                         }
                     }
@@ -1051,10 +1051,10 @@ div.calendar {
 
             div.days {
                 position: absolute;
-                width: calc( 100% - var(--time-view-hours-width) - ( var(--spacing) * 2 ) );
+                width: calc( 100% - var(--calendar-js-time-view-hours-width) - ( var(--calendar-js-spacing) * 2 ) );
                 height: 100%;
                 top: 0;
-                left: calc( ( var(--time-view-hours-width) + ( var(--spacing) * 2 ) ) + var(--spacing-border-size) );
+                left: calc( ( var(--calendar-js-time-view-hours-width) + ( var(--calendar-js-spacing) * 2 ) ) + var(--calendar-js-spacing-border-size) );
                 background-color: transparent;
 
                 div.cell {
@@ -1071,8 +1071,8 @@ div.calendar {
                         margin: 0;
                         overflow: hidden;
                         z-index: 1;
-                        left: var(--spacing);
-                        width: calc( 100% - ( ( var(--spacing) * 5 ) - ( var(--spacing-border-size) * 2 ) ) );
+                        left: var(--calendar-js-spacing);
+                        width: calc( 100% - ( ( var(--calendar-js-spacing) * 5 ) - ( var(--calendar-js-spacing-border-size) * 2 ) ) );
                         overflow: hidden;
                         text-overflow: ellipsis;
 
@@ -1081,11 +1081,11 @@ div.calendar {
                         }
 
                         @media screen and ( min-width: $minimum-width ) {
-                            font-size: var(--large-font-size) !important;
+                            font-size: var(--calendar-js-large-font-size) !important;
                         }
                         
                         @media screen and ( max-width: $maximum-width ) {
-                            font-size: var(--small-font-size) !important;
+                            font-size: var(--calendar-js-small-font-size) !important;
                         }
                     }
                     
@@ -1097,7 +1097,7 @@ div.calendar {
                         pointer-events: none;
                         z-index: 0;
                         left: 0;
-                        margin-top: var(--spacing-border-size);
+                        margin-top: var(--calendar-js-spacing-border-size);
                     }
 
                     div.resizable {
@@ -1119,14 +1119,14 @@ div.calendar {
 div.calendar {  
     div.full-month-view {
         div.title-bar {
-            font-weight: var(--title-bar-font-weight);
-            background-color: var(--dark-color);
-            color: var(--title-bar-text-color);
+            font-weight: var(--calendar-js-title-bar-font-weight);
+            background-color: var(--calendar-js-dark-color);
+            color: var(--calendar-js-title-bar-text-color);
             text-align: center;
-            padding-top: var(--spacing);
-            padding-bottom: var(--spacing);
-            padding-left: calc( var(--spacing) / 2 );
-            padding-right: calc( var(--spacing) / 2 );
+            padding-top: var(--calendar-js-spacing);
+            padding-bottom: var(--calendar-js-spacing);
+            padding-left: calc( var(--calendar-js-spacing) / 2 );
+            padding-right: calc( var(--calendar-js-spacing) / 2 );
             position: relative;
     
             div[class^='ib-'],
@@ -1134,8 +1134,8 @@ div.calendar {
             div.right-divider-line,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
-                margin-left: calc( var(--spacing) / 2 );
-                margin-right: calc( var(--spacing) / 2 );
+                margin-left: calc( var(--calendar-js-spacing) / 2 );
+                margin-right: calc( var(--calendar-js-spacing) / 2 );
             }
     
             div.left-divider-line,
@@ -1148,7 +1148,7 @@ div.calendar {
             div.title-container {
                 display: inline-block;
                 position: relative;
-                font-size: var(--large-font-size) !important;
+                font-size: var(--calendar-js-large-font-size) !important;
     
                 span.year-dropdown-button {
                     white-space: nowrap;
@@ -1156,23 +1156,23 @@ div.calendar {
                     padding: 3px;
                     padding-left: 6px;
                     padding-right: 6px;
-                    border-radius: var(--border-radius);
+                    border-radius: var(--calendar-js-border-radius);
                     background-color: #474545;
-                    border: var(--spacing-border-size) solid var(--dark-lighter-color);
+                    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-lighter-color);
                     font-weight: 500;
     
                     span.ib-arrow-down-full-medium,
                     span.ib-arrow-up-full-medium {
-                        margin-left: calc( var(--spacing) / 2 );
+                        margin-left: calc( var(--calendar-js-spacing) / 2 );
                         pointer-events: none;
                     }
     
                     span.ib-arrow-down-full-medium {
-                        border-top-color: var(--title-bar-text-color);
+                        border-top-color: var(--calendar-js-title-bar-text-color);
                     }
     
                     span.ib-arrow-up-full-medium {
-                        border-bottom-color: var(--title-bar-text-color);
+                        border-bottom-color: var(--calendar-js-title-bar-text-color);
                     }
     
                     &:hover {
@@ -1189,22 +1189,22 @@ div.calendar {
                     @include fade-in-effect-animation( 0.5s );
                     position: absolute;
                     width: 240px;
-                    border: var(--spacing-border-size) solid var(--dark-color);
+                    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
                     left: 50%;
                     transform: translate( -50% );
-                    background-color: var(--light-color);
-                    border-radius: var(--border-radius);
+                    background-color: var(--calendar-js-light-color);
+                    border-radius: var(--calendar-js-border-radius);
                     z-index: 1500;
                     display: none;
                     overflow: hidden;
                     font-weight: 500;
     
                     @media screen and ( min-width: $minimum-width ) {
-                        top: calc( var(--spacing) + var(--large-font-size) );
+                        top: calc( var(--calendar-js-spacing) + var(--calendar-js-large-font-size) );
                     }
                     
                     @media screen and ( max-width: $maximum-width ) {
-                        top: calc( var(--spacing) + var(--small-font-size) );
+                        top: calc( var(--calendar-js-spacing) + var(--calendar-js-small-font-size) );
                     }
     
                     div.months {
@@ -1220,24 +1220,24 @@ div.calendar {
                         div.month-name,
                         div.month-name-selected,
                         div.month-name-current-month {
-                            width: calc( 33.33% - ( ( var(--spacing) ) + ( $button-spacing * 2 ) ) );
-                            padding: calc( var(--spacing) / 2 );
+                            width: calc( 33.33% - ( ( var(--calendar-js-spacing) ) + ( $button-spacing * 2 ) ) );
+                            padding: calc( var(--calendar-js-spacing) / 2 );
                             margin: $button-spacing;
                             display: inline-block;
-                            border-radius: var(--border-radius);
+                            border-radius: var(--calendar-js-border-radius);
                             font-size: 0.7rem;
                         }
     
                         div.month-name,
                         div.month-name-current-month {
-                            background-color: var(--day-names-color);
-                            color: var(--dark-color);
+                            background-color: var(--calendar-js-day-names-color);
+                            color: var(--calendar-js-dark-color);
                             
                             &:hover {
-                                background-color: var(--dark-color);
-                                color: var(--light-color);
+                                background-color: var(--calendar-js-dark-color);
+                                color: var(--calendar-js-light-color);
                                 cursor: pointer;
-                                transition: var(--transition);
+                                transition: var(--calendar-js-transition);
                             }
         
                             &:active:not( .year-selected ) {
@@ -1246,18 +1246,18 @@ div.calendar {
                         }
     
                         div.month-name-selected {
-                            background-color: var(--dark-color);
-                            color: var(--light-color);
+                            background-color: var(--calendar-js-dark-color);
+                            color: var(--calendar-js-light-color);
                         }
     
                         div.month-name-current-month {
                             background-color: #BCBCBC;
-                            color: var(--dark-color);
+                            color: var(--calendar-js-dark-color);
                         }
                     }
         
                     div.contents {
-                        border-radius: var(--border-radius);
+                        border-radius: var(--calendar-js-border-radius);
                         height: 100px;
                         white-space: pre-line;
                         -ms-word-break: break-all;
@@ -1267,29 +1267,29 @@ div.calendar {
                         width: 100%;
                         margin-left: 0 !important;
                         margin-right: 0 !important;
-                        margin-top: calc( var(--spacing) / 3 );
+                        margin-top: calc( var(--calendar-js-spacing) / 3 );
                         padding: 0;
-                        padding-top: calc( var(--spacing) / 2 );
-                        padding-bottom: calc( var(--spacing) / 2 );
-                        background-color: var(--light-color) !important;
+                        padding-top: calc( var(--calendar-js-spacing) / 2 );
+                        padding-bottom: calc( var(--calendar-js-spacing) / 2 );
+                        background-color: var(--calendar-js-light-color) !important;
         
                         div.year {
                             display: inline-block;
-                            color: var(--dark-color);
+                            color: var(--calendar-js-dark-color);
                             font-size: 0.75rem;
                             margin-right: 5px;
                             width: calc( 25% - 17px );
                             text-align: center;
                             margin-top: 5px;
                             margin-bottom: 5px;
-                            border-radius: var(--border-radius);
+                            border-radius: var(--calendar-js-border-radius);
                             padding: 3px;
             
                             &:hover {
-                                background-color: var(--dark-color);
-                                color: var(--light-color);
+                                background-color: var(--calendar-js-dark-color);
+                                color: var(--calendar-js-light-color);
                                 cursor: pointer;
-                                transition: var(--transition);
+                                transition: var(--calendar-js-transition);
                             }
         
                             &:active:not( .year-selected ) {
@@ -1298,14 +1298,14 @@ div.calendar {
                         }
     
                         div.year-selected {
-                            background-color: var(--dark-color);
-                            color: var(--light-color);
+                            background-color: var(--calendar-js-dark-color);
+                            color: var(--calendar-js-light-color);
                             cursor: default !important;
                         }
     
                         div.year-has-events {
-                            background-color: var(--drop-down-menu-background-color);
-                            color: var(--dark-color);
+                            background-color: var(--calendar-js-drop-down-menu-background-color);
+                            color: var(--calendar-js-dark-color);
                         }
                     }
                 }
@@ -1404,13 +1404,13 @@ div.calendar {
         div.row-cells {
             div.cell {
                 div.event {
-                    border-radius: var(--border-radius);
-                    background-color: var(--event-color);
+                    border-radius: var(--calendar-js-border-radius);
+                    background-color: var(--calendar-js-event-color);
                     padding: 3px;
-                    color: var(--event-text-color);
+                    color: var(--calendar-js-event-text-color);
                     margin-top: 5px;
                     margin-bottom: 5px;
-                    border-left: var(--event-left-border);
+                    border-left: var(--calendar-js-event-left-border);
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -1428,7 +1428,7 @@ div.calendar {
                     }
     
                     div.ib-refresh-small {
-                        margin-right: calc( var(--spacing) / 2 );
+                        margin-right: calc( var(--calendar-js-spacing) / 2 );
                     }
                 }
     
@@ -1447,7 +1447,7 @@ div.calendar {
                 }
                 
                 div.expired {
-                    opacity: var(--event-expired-opacity);
+                    opacity: var(--calendar-js-event-expired-opacity);
                 }
     
                 div.not-in-current-month {
@@ -1455,15 +1455,15 @@ div.calendar {
                 }
     
                 div.all-day {
-                    background-color: var(--event-color-all-day) !important;
-                    color: var(--event-text-color-all-day);
+                    background-color: var(--calendar-js-event-color-all-day) !important;
+                    color: var(--calendar-js-event-text-color-all-day);
                 }
     
                 div.plus-x-events {
                     display: inline-block;
                     font-size: smaller;
                     text-align: center;
-                    margin-top: calc( var(--spacing) / 2 );
+                    margin-top: calc( var(--calendar-js-spacing) / 2 );
                     margin-left: auto;
                     margin-right: auto;
     
@@ -1498,31 +1498,31 @@ div.calendar {
             @include view-contents( true );
 
             div.year-month {
-                border-radius: var(--border-radius);
+                border-radius: var(--calendar-js-border-radius);
                 border-bottom-left-radius: 0.15rem;
                 border-bottom-right-radius: 0.15rem;
-                border: var(--spacing-border-size) solid var(--dark-color);
-                background-color: var(--day-names-color);
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
+                background-color: var(--calendar-js-day-names-color);
                 display: inline-block;
-                margin: calc( var(--spacing) / 2 );
+                margin: calc( var(--calendar-js-spacing) / 2 );
 
                 @media screen and ( min-width: $minimum-width ) {
-                    width: calc( 50% - ( var(--spacing) + ( var(--spacing) / 4 ) ) );
+                    width: calc( 50% - ( var(--calendar-js-spacing) + ( var(--calendar-js-spacing) / 4 ) ) );
                 }
                 
                 @media screen and ( max-width: $maximum-width ) {
-                    width: calc( 100% - ( var(--spacing) + ( var(--spacing) / 4 ) ) );
+                    width: calc( 100% - ( var(--calendar-js-spacing) + ( var(--calendar-js-spacing) / 4 ) ) );
                 }
 
                 div.title-bar-container {
                     overflow: hidden;
 
                     div.title-bar {
-                        background-color: var(--dark-color);
-                        color: var(--light-color);
+                        background-color: var(--calendar-js-dark-color);
+                        color: var(--calendar-js-light-color);
                         font-weight: 900;
                         text-align: left;
-                        padding: var(--spacing);
+                        padding: var(--calendar-js-spacing);
     
                         div.right-divider-line {
                             @include title-bar-divider-line;
@@ -1532,7 +1532,7 @@ div.calendar {
                         div.ib-plus,
                         div.right-divider-line {
                             float: right;
-                            margin-right: var(--spacing) !important;
+                            margin-right: var(--calendar-js-spacing) !important;
                             margin-left: 0 !important;
                         }
                     }
@@ -1540,22 +1540,22 @@ div.calendar {
 
                 div.days {
                     div.cell {
-                        padding-top: var(--spacing) !important;
-                        padding-bottom: var(--spacing) !important;
-                        padding-left: calc( var(--spacing) / 2 ) !important;
-                        padding-right: calc( var(--spacing) / 2 ) !important;
+                        padding-top: var(--calendar-js-spacing) !important;
+                        padding-bottom: var(--calendar-js-spacing) !important;
+                        padding-left: calc( var(--calendar-js-spacing) / 2 ) !important;
+                        padding-right: calc( var(--calendar-js-spacing) / 2 ) !important;
                         position: relative;
                         overflow: visible !important;
     
                         div.events-count {
                             position: absolute;
-                            font-size: var(--small-font-size) !important;
-                            padding-top: calc( var(--spacing) / 4 );
-                            padding-bottom: calc( var(--spacing) / 4 );
-                            padding-right: calc( var(--spacing) / 2 );
-                            padding-left: calc( var(--spacing) / 2 );
-                            color: var(--light-color);
-                            background-color: var(--dark-lighter-color);
+                            font-size: var(--calendar-js-small-font-size) !important;
+                            padding-top: calc( var(--calendar-js-spacing) / 4 );
+                            padding-bottom: calc( var(--calendar-js-spacing) / 4 );
+                            padding-right: calc( var(--calendar-js-spacing) / 2 );
+                            padding-left: calc( var(--calendar-js-spacing) / 2 );
+                            color: var(--calendar-js-light-color);
+                            background-color: var(--calendar-js-dark-lighter-color);
                             bottom: -4px;
                             right: -4px;
                             border-radius: 50%;
@@ -1564,8 +1564,8 @@ div.calendar {
                     }
 
                     div.cell-today {
-                        background-color: var(--dark-color) !important;
-                        color: var(--light-color) !important;
+                        background-color: var(--calendar-js-dark-color) !important;
+                        color: var(--calendar-js-light-color) !important;
                     }
 
                     div.has-events {
@@ -1574,8 +1574,8 @@ div.calendar {
         
                     div.cell:not( .cell-no-click ):hover {
                         cursor: pointer;
-                        background-color: var(--day-date-picker-hover-color);
-                        transition: var(--transition);
+                        background-color: var(--calendar-js-day-date-picker-hover-color);
+                        transition: var(--calendar-js-transition);
                     }
         
                     div.cell:not( .cell-no-click ):active {
@@ -1609,7 +1609,7 @@ div.calendar {
             @include view-contents;
 
             div.year-header {
-                margin-top: calc( var(--spacing) * 2 );
+                margin-top: calc( var(--calendar-js-spacing) * 2 );
 
                 span.header-text {
                     font-weight: 900;
@@ -1625,9 +1625,9 @@ div.calendar {
                 }
 
                 div.line {
-                    margin-top: calc( var(--spacing) / 2 );
-                    border-bottom: var(--spacing-border-size) solid var(--dark-color);
-                    margin-bottom: var(--spacing);
+                    margin-top: calc( var(--calendar-js-spacing) / 2 );
+                    border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
+                    margin-bottom: var(--calendar-js-spacing);
                 }
 
                 &:first-of-type {
@@ -1636,16 +1636,16 @@ div.calendar {
             }
 
             div.month {
-                border-radius: var(--border-radius);
-                border: var(--spacing-border-size) solid var(--dark-color);
+                border-radius: var(--calendar-js-border-radius);
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
                 overflow: hidden;
-                margin-bottom: var(--spacing);
+                margin-bottom: var(--calendar-js-spacing);
 
                 div.header {
-                    background-color: var(--dark-color) !important;
-                    color: var(--light-color) !important;
-                    padding: var(--spacing);
-                    font-weight: var(--title-bar-font-weight);
+                    background-color: var(--calendar-js-dark-color) !important;
+                    color: var(--calendar-js-light-color) !important;
+                    padding: var(--calendar-js-spacing);
+                    font-weight: var(--calendar-js-title-bar-font-weight);
 
                     div.right-divider-line {
                         @include title-bar-divider-line;
@@ -1658,18 +1658,18 @@ div.calendar {
                     div.ib-square-hollow,
                     div.right-divider-line {
                         float: right;
-                        margin-left: var(--spacing);
+                        margin-left: var(--calendar-js-spacing);
                     }
                 }
 
                 div.events {
-                    padding: var(--spacing);
+                    padding: var(--calendar-js-spacing);
 
                     @import "foundation/view-event";
                 }
 
                 &:last-child {
-                    margin-bottom: var(--spacing-border-size) !important;
+                    margin-bottom: var(--calendar-js-spacing-border-size) !important;
                 }
             }
         }
@@ -1700,57 +1700,57 @@ div.calendar {
             vertical-align: top;
 
             @media screen and ( min-width: $minimum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--large-font-size) ) );
+                height: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-large-font-size) ) );
             }
             
             @media screen and ( max-width: $maximum-width ) {
-                height: calc( 100% - ( ( var(--spacing) * 2 ) + var(--small-font-size) ) );
+                height: calc( 100% - ( ( var(--calendar-js-spacing) * 2 ) + var(--calendar-js-small-font-size) ) );
             }
 
             div.timeline-column {
                 display: inline-block;
                 position: absolute;
                 top: 0;
-                padding-left: var(--spacing);
-                padding-right: var(--spacing);
+                padding-left: var(--calendar-js-spacing);
+                padding-right: var(--calendar-js-spacing);
                 height: 100%;
-                background-color: var(--light-color);
-                border-right: var(--spacing-border-size) solid var(--grid-border-color);
+                background-color: var(--calendar-js-light-color);
+                border-right: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
 
                 @media screen and ( min-width: $minimum-width ) {
-                    width: var(--time-view-timeline-section-width);
+                    width: var(--calendar-js-time-view-timeline-section-width);
                 }
                 
                 @media screen and ( max-width: $maximum-width ) {
-                    width: var(--time-view-timeline-section-width-small);
+                    width: var(--calendar-js-time-view-timeline-section-width-small);
                 }
                 
                 &:nth-child( odd ) {
-                    background-color: var(--day-names-color);
+                    background-color: var(--calendar-js-day-names-color);
                 }
             }
 
             div.timeline-header {
                 display: inline-block;
                 position: sticky;
-                border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+                border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
                 top: 0;
                 vertical-align: top;
                 z-index: 10;
                 
                 div.timeline-header-item {
                     display: inline-block;
-                    padding: var(--spacing);
+                    padding: var(--calendar-js-spacing);
                     text-align: center;
-                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
-                    background-color: var(--day-names-color);
+                    border-right: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
+                    background-color: var(--calendar-js-day-names-color);
 
                     @media screen and ( min-width: $minimum-width ) {
-                        width: var(--time-view-timeline-section-width);
+                        width: var(--calendar-js-time-view-timeline-section-width);
                     }
                     
                     @media screen and ( max-width: $maximum-width ) {
-                        width: var(--time-view-timeline-section-width-small);
+                        width: var(--calendar-js-time-view-timeline-section-width-small);
                     }
 
                     &:first-child {
@@ -1766,12 +1766,12 @@ div.calendar {
 
                     div.ib-arrow-right-full {
                         float: right;
-                        border-left-color: var(--dark-color);
+                        border-left-color: var(--calendar-js-dark-color);
                     }
 
                     div.ib-arrow-left-full {
                         float: left;
-                        border-right-color: var(--dark-color);
+                        border-right-color: var(--calendar-js-dark-color);
                     }
                 }
             }
@@ -1780,16 +1780,16 @@ div.calendar {
                 float: left;
                 clear: both;
                 position: relative;
-                border-bottom: var(--spacing-border-size) solid var(--grid-border-color);
+                border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
 
                 div.timeline-row-item,
                 div.timeline-row-item-spacing {
                     display: inline-block;
-                    padding: var(--spacing);
-                    padding-top: calc( ( var(--spacing) * 2 ) );
-                    padding-bottom: calc( ( var(--spacing) * 2 ) );
+                    padding: var(--calendar-js-spacing);
+                    padding-top: calc( ( var(--calendar-js-spacing) * 2 ) );
+                    padding-bottom: calc( ( var(--calendar-js-spacing) * 2 ) );
                     text-align: left;
-                    color: var(--light-color);
+                    color: var(--calendar-js-light-color);
                     text-overflow: ellipsis;
                     overflow: hidden;
                     vertical-align: top;
@@ -1798,11 +1798,11 @@ div.calendar {
                     z-index: 2000;
 
                     @media screen and ( min-width: $minimum-width ) {
-                        width: var(--time-view-timeline-section-width);
+                        width: var(--calendar-js-time-view-timeline-section-width);
                     }
                     
                     @media screen and ( max-width: $maximum-width ) {
-                        width: var(--time-view-timeline-section-width-small);
+                        width: var(--calendar-js-time-view-timeline-section-width-small);
                     }
 
                     &:last-child {
@@ -1811,13 +1811,13 @@ div.calendar {
                 }
 
                 div.timeline-row-item {
-                    border-right: var(--spacing-border-size) solid var(--grid-border-color);
-                    background-color: var(--dark-color);
+                    border-right: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
+                    background-color: var(--calendar-js-dark-color);
                 }
 
                 div.timeline-row-item-odd {
-                    background-color: var(--light-color);
-                    color: var(--dark-color);
+                    background-color: var(--calendar-js-light-color);
+                    color: var(--calendar-js-dark-color);
                 }
 
                 div.timeline-row-items {
@@ -1827,7 +1827,7 @@ div.calendar {
 
                     div.timeline-row-item-spacing {
                         background-color: transparent !important;
-                        border-right: var(--spacing-border-size) solid transparent !important;
+                        border-right: var(--calendar-js-spacing-border-size) solid transparent !important;
                     }
 
                     @import "foundation/view-event";
@@ -1836,7 +1836,7 @@ div.calendar {
                         position: absolute;
                         margin-left: 0;
                         margin-right: 0;
-                        top: calc( var(--spacing) );
+                        top: calc( var(--calendar-js-spacing) );
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -1860,7 +1860,7 @@ div.event-editor {
 
     div.tab-content {
         height: 258px;
-        margin-bottom: calc( var(--spacing) * 2 );
+        margin-bottom: calc( var(--calendar-js-spacing) * 2 );
 
         div.split:last-of-type input {
             margin-bottom: 0 !important;
@@ -1874,7 +1874,7 @@ div.event-editor {
 
         div.input-title-container {
             display: flex;
-            margin-bottom: var(--spacing);
+            margin-bottom: var(--calendar-js-spacing);
 
             input[type="text"] {
                 flex-grow: 1;
@@ -1883,13 +1883,13 @@ div.event-editor {
 
             input[type="button"] {
                 padding: .375rem .75rem;
-                margin-left: var(--spacing);
+                margin-left: var(--calendar-js-spacing);
                 line-height: 0;
             }
         }
         
         div.contents {
-            padding: var(--spacing);
+            padding: var(--calendar-js-spacing);
         }
         
         input:not( [type="button"] ),
@@ -1900,8 +1900,8 @@ div.event-editor {
         input:disabled,
         textarea:disabled {
             @include no-selection-allowed;
-            background-color: var(--light-color);
-            color: var(--input-border-color);
+            background-color: var(--calendar-js-light-color);
+            color: var(--calendar-js-input-border-color);
         }
     
         textarea {
@@ -1924,11 +1924,11 @@ div.event-editor {
         
         input[type="button"] {
             @include dialog-button-styles;
-            @include button( add-update, var(--light-color), var(--primary-button-color) );
-            @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
-            @include button( remove, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
-            @include button( select-colors, var(--light-color), var(--tertiary-button-color) );
-            @include button( repeat-options, var(--light-color), var(--tertiary-button-color) );
+            @include button( add-update, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+            @include button( cancel, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
+            @include button( remove, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
+            @include button( select-colors, var(--calendar-js-light-color), var(--calendar-js-tertiary-button-color) );
+            @include button( repeat-options, var(--calendar-js-light-color), var(--calendar-js-tertiary-button-color) );
 
             &.add-update,
             &.cancel,
@@ -1936,7 +1936,7 @@ div.event-editor {
                 width: 100%;
                 max-width: 110px;
                 display: inline-block;
-                margin-left: var(--spacing);
+                margin-left: var(--calendar-js-spacing);
             }
 
             &.remove {
@@ -1971,12 +1971,12 @@ div.event-editor-colors {
     @include dialog-title-bar;
     
     div.contents {
-        padding: var(--spacing);
+        padding: var(--calendar-js-spacing);
 
         div.section {
             @include advanced-options-container( 0 );
             margin-left: 0;
-            margin-bottom: var(--spacing);
+            margin-bottom: var(--calendar-js-spacing);
 
             p {
                 @include no-selection-allowed;
@@ -1992,21 +1992,21 @@ div.event-editor-colors {
     }
 
     div.buttons-container {
-        margin-top: calc( var(--spacing) * 2 );
+        margin-top: calc( var(--calendar-js-spacing) * 2 );
         text-align: right;
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( update, var(--light-color), var(--primary-button-color) );
-        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+        @include button( update, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+        @include button( cancel, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
 
         &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 }
@@ -2023,12 +2023,12 @@ div.event-editor-repeat-options {
     @include dialog-title-bar;
     
     div.contents {
-        padding: var(--spacing);
+        padding: var(--calendar-js-spacing);
 
         div.section {
             @include advanced-options-container( 0 );
             margin-left: 0;
-            margin-bottom: var(--spacing);
+            margin-bottom: var(--calendar-js-spacing);
 
             p {
                 @include no-selection-allowed;
@@ -2053,25 +2053,25 @@ div.event-editor-repeat-options {
     }
 
     label.checkbox {
-        margin-bottom: calc( var(--spacing) / 2 ) !important;
+        margin-bottom: calc( var(--calendar-js-spacing) / 2 ) !important;
     }
 
     div.buttons-container {
         text-align: right;
-        margin-top: calc( var(--spacing) * 2 );
+        margin-top: calc( var(--calendar-js-spacing) * 2 );
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( update, var(--light-color), var(--primary-button-color) );
-        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+        @include button( update, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+        @include button( cancel, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
 
         &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 }
@@ -2088,11 +2088,11 @@ div.message {
     @include dialog-title-bar;
 
     div.contents {
-        padding: var(--spacing);
+        padding: var(--calendar-js-spacing);
 
         div.text {
             @include no-selection-allowed;
-            margin-bottom: var(--spacing);
+            margin-bottom: var(--calendar-js-spacing);
         }
     }
 
@@ -2102,19 +2102,19 @@ div.message {
 
     div.buttons-container {
         text-align: right;
-        margin-top: calc( var(--spacing) * 2 );
+        margin-top: calc( var(--calendar-js-spacing) * 2 );
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( yes-ok, var(--light-color), var(--primary-button-color) );
-        @include button( no, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+        @include button( yes-ok, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+        @include button( no, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
 
         &.yes-ok,
         &.no {
             min-width: 110px;
             display: inline-block;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 }
@@ -2131,7 +2131,7 @@ div.export-events {
     @include dialog-title-bar;
 
     div.contents {
-        padding: var(--spacing);
+        padding: var(--calendar-js-spacing);
 
         input[type="text"] {
             @include input-fields( 40px );
@@ -2139,8 +2139,8 @@ div.export-events {
 
         input:disabled {
             @include no-selection-allowed;
-            background-color: var(--light-color);
-            color: var(--input-border-color);
+            background-color: var(--calendar-js-light-color);
+            color: var(--calendar-js-input-border-color);
         }
 
         div.options {
@@ -2156,20 +2156,20 @@ div.export-events {
 
     div.buttons-container {
         text-align: right;
-        margin-top: calc( var(--spacing) * 2 );
+        margin-top: calc( var(--calendar-js-spacing) * 2 );
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( export, var(--light-color), var(--primary-button-color) );
-        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+        @include button( export, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+        @include button( cancel, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
 
         &.export,
         &.cancel {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 }
@@ -2186,42 +2186,42 @@ div.search {
     @include dialog-title-bar;
 
     div.contents {
-        padding: var(--spacing);
+        padding: var(--calendar-js-spacing);
 
         div.history-container {
             position: relative;
-            margin-bottom: var(--spacing);
+            margin-bottom: var(--calendar-js-spacing);
             overflow-y: visible;
 
             div.ib-arrow-down-full,
             div.ib-arrow-up-full {
                 position: absolute;
-                right: var(--spacing);
-                top: var(--spacing);
+                right: var(--calendar-js-spacing);
+                top: var(--calendar-js-spacing);
             }
 
             input {
                 margin-bottom: 0 !important;
-                padding-right: calc( 16px + ( var(--spacing) * 2 ) );
+                padding-right: calc( 16px + ( var(--calendar-js-spacing) * 2 ) );
             }
 
             div.history-dropdown {
                 @include input-style;
-                background-color: var(--input-background-color);
+                background-color: var(--calendar-js-input-background-color);
                 position: absolute;
                 width: calc( 100% - 2px );
                 max-height: 200px;
                 z-index: 2000;
-                border: var(--spacing-border-size) solid var(--dark-color) !important;
-                box-shadow: 0 0 var(--input-box-shadow-size) var(--input-box-shadow-size) var(--dark-color);
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color) !important;
+                box-shadow: 0 0 var(--calendar-js-input-box-shadow-size) var(--calendar-js-input-box-shadow-size) var(--calendar-js-dark-color);
                 display: none;
                 overflow-x: hidden;
                 overflow-y: auto;
-                margin-top: calc( var(--input-box-shadow-size) * 2 );
+                margin-top: calc( var(--calendar-js-input-box-shadow-size) * 2 );
 
                 div.history-dropdown-item {
-                    padding: var(--spacing);
-                    border-bottom: 1px dotted var(--input-border-color);
+                    padding: var(--calendar-js-spacing);
+                    border-bottom: 1px dotted var(--calendar-js-input-border-color);
 
                     span.search-search {
                         font-weight: 900 !important;
@@ -2232,8 +2232,8 @@ div.search {
                     }
 
                     &:hover {
-                        background-color: var(--day-names-color);
-                        transition: var(--transition);
+                        background-color: var(--calendar-js-day-names-color);
+                        transition: var(--calendar-js-transition);
                         cursor: pointer;
                     }
             
@@ -2258,13 +2258,13 @@ div.search {
 
                 div.checkbox-container {
                     label.checkbox {
-                        margin-left: var(--spacing);
+                        margin-left: var(--calendar-js-spacing);
                     }
                 }
 
                 div.radio-buttons-container {
                     label.radio-button {
-                        margin-left: var(--spacing);
+                        margin-left: var(--calendar-js-spacing);
                     }
                 }
             }
@@ -2279,20 +2279,20 @@ div.search {
 
     div.buttons-container {
         text-align: right;
-        margin-top: calc( var(--spacing) * 2 );
+        margin-top: calc( var(--calendar-js-spacing) * 2 );
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( next, var(--light-color), var(--primary-button-color) );
-        @include button( previous, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+        @include button( next, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+        @include button( previous, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
         
         &.next,
         &.previous {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 
@@ -2303,7 +2303,7 @@ div.search {
 
     div.ib-minus,
     div.ib-square-hollow {
-        margin-right: var(--spacing);
+        margin-right: var(--calendar-js-spacing);
     }
 }
 
@@ -2319,7 +2319,7 @@ div.configuration {
     @include dialog-title-bar;
 
     div.contents {
-        padding: var(--spacing);
+        padding: var(--calendar-js-spacing);
         
         p {
             @include no-selection-allowed;
@@ -2339,20 +2339,20 @@ div.configuration {
 
     div.buttons-container {
         text-align: right;
-        margin-top: calc( var(--spacing) * 2 );
+        margin-top: calc( var(--calendar-js-spacing) * 2 );
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( update, var(--light-color), var(--primary-button-color) );
-        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color));
+        @include button( update, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+        @include button( cancel, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color));
 
         &.update,
         &.cancel {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 }
@@ -2369,7 +2369,7 @@ div.jump-to-date {
     @include dialog-title-bar;
 
     div.contents {
-        padding: var(--spacing);
+        padding: var(--calendar-js-spacing);
 
         input[type="date"] {
             @include input-fields( 40px );
@@ -2377,8 +2377,8 @@ div.jump-to-date {
 
         input:disabled {
             @include no-selection-allowed;
-            background-color: var(--light-color);
-            color: var(--input-border-color);
+            background-color: var(--calendar-js-light-color);
+            color: var(--calendar-js-input-border-color);
         }
     }
     
@@ -2386,20 +2386,20 @@ div.jump-to-date {
 
     div.buttons-container {
         text-align: right;
-        margin-top: calc( var(--spacing) * 2 );
+        margin-top: calc( var(--calendar-js-spacing) * 2 );
     }
 
     input[type="button"] {
         @include dialog-button-styles;
-        @include button( go, var(--light-color), var(--primary-button-color) );
-        @include button( cancel, var(--secondary-button-color), var(--light-color), var(--secondary-button-color) );
+        @include button( go, var(--calendar-js-light-color), var(--calendar-js-primary-button-color) );
+        @include button( cancel, var(--calendar-js-secondary-button-color), var(--calendar-js-light-color), var(--calendar-js-secondary-button-color) );
 
         &.go,
         &.cancel {
             width: 100%;
             max-width: 110px;
             display: inline-block;
-            margin-left: var(--spacing);
+            margin-left: var(--calendar-js-spacing);
         }
     }
 }
@@ -2414,32 +2414,32 @@ div.jump-to-date {
 div.calendar-dialog {
     div.tab {
         @include no-selection-allowed;
-        padding: var(--spacing);
-        border-top-left-radius: var(--border-radius);
-        border-top-right-radius: var(--border-radius);
+        padding: var(--calendar-js-spacing);
+        border-top-left-radius: var(--calendar-js-border-radius);
+        border-top-right-radius: var(--calendar-js-border-radius);
         border-bottom: none !important;
         text-align: center;
         display: inline-block;
-        margin-left: calc( var(--spacing) / 2 );
+        margin-left: calc( var(--calendar-js-spacing) / 2 );
         vertical-align: bottom;
     }
 
     div.tab-control-selected {
-        border: var(--spacing-border-size) solid var(--dark-color);
-        background-color: var(--dark-color);
-        color: var(--light-color);
-        padding: calc( var(--spacing) + ( var(--spacing) / 4 ) );
+        border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
+        background-color: var(--calendar-js-dark-color);
+        color: var(--calendar-js-light-color);
+        padding: calc( var(--calendar-js-spacing) + ( var(--calendar-js-spacing) / 4 ) );
     }
 
     div.tab-control {
-        border: var(--spacing-border-size) solid var(--input-border-color);
+        border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
 
         &:hover {
             cursor: pointer;
-            border: var(--spacing-border-size) solid var(--dark-color);
-            background-color: var(--dark-color);
-            color: var(--light-color);
-            transition: var(--transition);
+            border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
+            background-color: var(--calendar-js-dark-color);
+            color: var(--calendar-js-light-color);
+            transition: var(--calendar-js-transition);
         }
 
         &:active {
@@ -2450,14 +2450,14 @@ div.calendar-dialog {
     div.tab-control,
     div.tab-content {
         background-color: #FAFAFA;
-        color: var(--dark-color);
+        color: var(--calendar-js-dark-color);
     }
 
     div.tab-content {
         @include fade-in-effect-animation( 0.5s );
-        border: var(--spacing-border-size) solid var(--input-border-color);
-        border-radius: var(--border-radius);
-        padding: var(--spacing);
+        border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
+        border-radius: var(--calendar-js-border-radius);
+        padding: var(--calendar-js-spacing);
         overflow-x: hidden;
         overflow-y: auto;
     }
@@ -2475,7 +2475,7 @@ div.calendar-dialog,
 div.calendar div.side-menu {
     div.checkbox-container {
         label.checkbox {
-            margin-bottom: calc( var(--spacing) / 2 ) !important;
+            margin-bottom: calc( var(--calendar-js-spacing) / 2 ) !important;
         }
 
         div:last-child label.checkbox {
@@ -2484,7 +2484,7 @@ div.calendar div.side-menu {
     }
 
     label.checkbox-tabbed-in {
-        margin-left: var(--input-checkbox-size-with-spacing);
+        margin-left: var(--calendar-js-input-checkbox-size-with-spacing);
     }
 
     label.checkbox-tabbed-down {
@@ -2495,17 +2495,17 @@ div.calendar div.side-menu {
         @include no-selection-allowed;
         display: inline-block;
         position: relative;
-        padding-left: var(--input-checkbox-size-with-spacing);
+        padding-left: var(--calendar-js-input-checkbox-size-with-spacing);
         padding-top: 1px;
-        margin-bottom: var(--spacing);
-        color: var(--dark-color);
+        margin-bottom: var(--calendar-js-spacing);
+        color: var(--calendar-js-dark-color);
 
         input {
             display: none !important;
 
             &:checked ~ span.check-mark {
-                background-color: var(--dark-color);
-                border: var(--spacing-border-size) solid var(--dark-color);
+                background-color: var(--calendar-js-dark-color);
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
             }
 
             &:checked ~ span.check-mark::before {
@@ -2518,7 +2518,7 @@ div.calendar div.side-menu {
             }
             
             &:disabled ~ span.check-mark {
-                border: var(--spacing-border-size) solid var(--dark-color) !important;
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color) !important;
             }
         }
 
@@ -2528,10 +2528,10 @@ div.calendar div.side-menu {
             left: 0;
             height: 15px;
             width: 15px;
-            background-color: var(--input-background-color);
-            border-radius: var(--border-radius);
-            border: var(--spacing-border-size) solid var(--input-border-color);
-            transition: var(--transition);
+            background-color: var(--calendar-js-input-background-color);
+            border-radius: var(--calendar-js-border-radius);
+            border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
+            transition: var(--calendar-js-transition);
 
             &::before {
                 @include transform( rotate( 45deg ) );
@@ -2542,13 +2542,13 @@ div.calendar div.side-menu {
                 top: 1px;
                 width: 4px;
                 height: 7px;
-                border: solid var(--light-color);
+                border: solid var(--calendar-js-light-color);
                 border-width: 0 3px 3px 0;
             }
         }
 
         &:hover span.check-mark {
-            border: var(--spacing-border-size) solid var(--input-hover-color);
+            border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-hover-color);
         }
     }
 }
@@ -2571,7 +2571,7 @@ div.calendar-dialog {
     }
 
     div.radio-button-container {
-        margin-bottom: calc( var(--spacing) / 2 );
+        margin-bottom: calc( var(--calendar-js-spacing) / 2 );
 
         label.radio-button {
             @include no-selection-allowed;
@@ -2579,14 +2579,14 @@ div.calendar-dialog {
             position: relative;
             padding-left: 25px;
             padding-top: 1px;
-            color: var(--dark-color);
+            color: var(--calendar-js-dark-color);
     
             input {
                 display: none !important;
     
                 &:checked ~ span.check-mark {
-                    background-color: var(--dark-color) !important;
-                    border: var(--spacing-border-size) solid var(--dark-color) !important;
+                    background-color: var(--calendar-js-dark-color) !important;
+                    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color) !important;
                 }
     
                 &:checked ~ span.check-mark::before {
@@ -2599,7 +2599,7 @@ div.calendar-dialog {
                 }
                 
                 &:disabled ~ span.check-mark {
-                    border: var(--spacing-border-size) solid var(--dark-color) !important;
+                    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color) !important;
                 }
             }
     
@@ -2609,10 +2609,10 @@ div.calendar-dialog {
                 left: 0;
                 height: 15px;
                 width: 15px;
-                background-color: var(--input-background-color);
+                background-color: var(--calendar-js-input-background-color);
                 border-radius: 50%;
-                border: var(--spacing-border-size) solid var(--input-border-color);
-                transition: var(--transition);
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
+                transition: var(--calendar-js-transition);
     
                 &::before {
                     @include transform( rotate( 45deg ) );
@@ -2623,13 +2623,13 @@ div.calendar-dialog {
                     top: 4px;
                     width: 7px;
                     height: 7px;
-                    background-color: var(--light-color);
+                    background-color: var(--calendar-js-light-color);
                     border-radius: 50%;
                 }
             }
 
             &:hover span.check-mark {
-                border: var(--spacing-border-size) solid var(--input-hover-color);
+                border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-hover-color);
             }
         }
 
@@ -2651,11 +2651,11 @@ div.calendar-tooltip-event {
     @include fade-in-effect-animation( 1s );
     @include no-selection-allowed;
     position: absolute;
-    border: var(--spacing-border-size) solid var(--dark-color);
-    border-radius: var(--border-radius);
+    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
+    border-radius: var(--calendar-js-border-radius);
     background-color: rgb( 240, 237, 199 );
-    color: var(--dark-color);
-    padding: var(--spacing);
+    color: var(--calendar-js-dark-color);
+    padding: var(--calendar-js-spacing);
     display: none;
     z-index: 2000;
 }
@@ -2674,7 +2674,7 @@ div.calendar-tooltip-event {
 
     div.title {
         font-weight: 900;
-        width: calc( 100% - 24px - var(--spacing) );
+        width: calc( 100% - 24px - var(--calendar-js-spacing) );
     }
 
     div.date,
@@ -2697,22 +2697,22 @@ div.calendar-tooltip-event {
     }
 
     div.ib-refresh-medium {
-        margin-right: calc( var(--spacing) / 2 );
+        margin-right: calc( var(--calendar-js-spacing) / 2 );
     }
 
     div.title-buttons {
         position: absolute !important;
-        right: var(--spacing);
-        top: var(--spacing);
+        right: var(--calendar-js-spacing);
+        top: var(--calendar-js-spacing);
 
         div.ib-close,
         div.ib-edit {
-            margin-left: calc( var(--spacing) / 2 );
+            margin-left: calc( var(--calendar-js-spacing) / 2 );
             float: right;
 
             &::before,
             &::after {
-                background-color: var(--dark-color);
+                background-color: var(--calendar-js-dark-color);
             }
         }
     }
@@ -2728,12 +2728,12 @@ div.calendar-tooltip-event {
 div.calendar-context-menu {
     @include no-selection-allowed;
     @include fade-in-effect-animation( 0.5s );
-    background-color: var(--drop-down-menu-background-color);
-    border: var(--spacing-border-size) solid var(--dark-color);
-    border-left: var(--spacing-border-left-size) solid var(--dark-color);
-    color: var(--dark-color);
-    box-shadow: var(--spacing-shadow-size) var(--spacing-shadow-size) var(--spacing-shadow-size) var(--dark-color);
-    border-radius: var(--border-radius);
+    background-color: var(--calendar-js-drop-down-menu-background-color);
+    border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
+    border-left: var(--calendar-js-spacing-border-left-size) solid var(--calendar-js-dark-color);
+    color: var(--calendar-js-dark-color);
+    box-shadow: var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-spacing-shadow-size) var(--calendar-js-dark-color);
+    border-radius: var(--calendar-js-border-radius);
     white-space: nowrap;
     overflow: hidden;
     position: absolute;
@@ -2764,17 +2764,17 @@ div.calendar-context-menu {
     div.ib-arrow-down-full-line-icon,
     div.ib-arrow-up-full-line-share-icon,
     div.ib-edit-icon {
-        margin-right: var(--spacing);
+        margin-right: var(--calendar-js-spacing);
     }
 
     div.item {
-        padding: calc( var(--spacing) - calc( var(--spacing) / 5 ) );
-        padding-right: calc( var(--spacing) * 3 );
+        padding: calc( var(--calendar-js-spacing) - calc( var(--calendar-js-spacing) / 5 ) );
+        padding-right: calc( var(--calendar-js-spacing) * 3 );
 
         &:hover {
-            background-color: var(--dark-color);
-            color: var(--light-color);
-            transition: var(--transition);
+            background-color: var(--calendar-js-dark-color);
+            color: var(--calendar-js-light-color);
+            transition: var(--calendar-js-transition);
         }
 
         &:hover div.ib-plus-icon::before,
@@ -2791,7 +2791,7 @@ div.calendar-context-menu {
         &:hover div.ib-arrow-up-full-line-share-icon::after,
         &:hover div.ib-edit-icon::before,
         &:hover div.ib-edit-icon::after {
-            background-color: var(--light-color);
+            background-color: var(--calendar-js-light-color);
         }
 
         &:hover div.ib-hamburger-side-icon,
@@ -2803,15 +2803,15 @@ div.calendar-context-menu {
         &:hover div.ib-octagon-hollow-icon::after,
         &:hover div.ib-rhombus-hollow-icon::before,
         &:hover div.ib-arrow-up-full-line-share-icon {
-            border-color: var(--light-color);
+            border-color: var(--calendar-js-light-color);
         }
 
         &:hover div.ib-arrow-down-full-line-icon::before {
-            border-top-color: var(--light-color);
+            border-top-color: var(--calendar-js-light-color);
         }
 
         &:hover div.ib-arrow-up-full-line-share-icon::before {
-            border-bottom-color: var(--light-color);
+            border-bottom-color: var(--calendar-js-light-color);
         }
 
         &:active {
@@ -2820,7 +2820,7 @@ div.calendar-context-menu {
     }
 
     div.separator {
-        border-bottom: var(--spacing-border-size) solid var(--dark-color);
+        border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
     }
 }
 
@@ -2837,17 +2837,17 @@ div.calendar-context-menu {
     }
     
     &::-webkit-scrollbar-track {
-        -webkit-box-shadow: var(--scroll-bar-border-style);
-        box-shadow: var(--scroll-bar-border-style);
+        -webkit-box-shadow: var(--calendar-js-scroll-bar-border-style);
+        box-shadow: var(--calendar-js-scroll-bar-border-style);
     }
     
     &::-webkit-scrollbar-thumb {
-        -webkit-box-shadow: var(--scroll-bar-border-style);
-        box-shadow: var(--scroll-bar-border-style);
-        background: var(--light-color);
+        -webkit-box-shadow: var(--calendar-js-scroll-bar-border-style);
+        box-shadow: var(--calendar-js-scroll-bar-border-style);
+        background: var(--calendar-js-light-color);
 
         &:hover {
-            background-color: var(--drop-down-menu-background-color);
+            background-color: var(--calendar-js-drop-down-menu-background-color);
         }
 
         &:active {
@@ -2858,7 +2858,7 @@ div.calendar-context-menu {
 
 .dark-thumb-scroll {
     &::-webkit-scrollbar-thumb {
-        background: var(--dark-lighter-color);
+        background: var(--calendar-js-dark-lighter-color);
     }
 }
 
@@ -2880,17 +2880,17 @@ div.calendar-context-menu {
 
 @keyframes focused-event-effect {
     0% {
-        box-shadow: 0 0 0 0 var(--alert-color);
+        box-shadow: 0 0 0 0 var(--calendar-js-alert-color);
         box-shadow: 0 0 0 0 rgba( 198, 0, 0, 0.5 );
     }
 
     70% {
-        box-shadow: 0 0 0 10px var(--alert-color);
+        box-shadow: 0 0 0 10px var(--calendar-js-alert-color);
         box-shadow: 0 0 0 10px rgba( 198, 0, 0, 0 );
     }
 
     100% {
-        box-shadow: 0 0 0 0 var(--alert-color);
+        box-shadow: 0 0 0 0 var(--calendar-js-alert-color);
         box-shadow: 0 0 0 0 rgba( 198, 0, 0, 0 );
     }
 }
