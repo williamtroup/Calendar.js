@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.3 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.3 | (c) Bunoon 2024 | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
