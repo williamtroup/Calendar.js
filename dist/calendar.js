@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.2 | (c) Bunoon | MIT License */
+/*! Calendar.js v2.10.3 | (c) Bunoon | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -9710,7 +9710,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.10.2";
+    return "2.10.3";
   };
   this.getId = function() {
     return _parameter_ElementID;

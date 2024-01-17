@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.3:
+- 
+
+<br>
+
+
 ## Version 2.10.2:
 - Added PACK.sh and PUBLISH.sh shortcut command files.
 - The Timeline view axis column is now fixed in place, ensuring that it is always visible when scrolling.
