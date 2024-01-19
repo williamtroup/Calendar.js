@@ -4,7 +4,8 @@ Below is a list of all the public functions that can be called from a Calendar.j
 <br>
 <br>
 
-<h1>Main controls:</h1>
+
+## Main controls:
 
 ### **turnOnFullScreen()**:
 Turn on the full-screen mode (if enabled).
@@ -41,7 +42,7 @@ Removes the calendar from the DOM.
 <br>
 
 
-<h1>Navigation, Exporting and Refreshing:</h1>
+## Navigation, Exporting and Refreshing:
 
 ### **moveToPreviousMonth()**:
 Moves to the previous month.
@@ -125,7 +126,7 @@ Refreshes all of the views.
 <br>
 
 
-<h1>Add/Remove Events:</h1>
+## Add/Remove Events:
 
 ### **setEvents( *events*, *[updateEvents]*, *[triggerEvent]* )**:
 Sets the events and clears any existing ones.
@@ -291,7 +292,7 @@ Removes all events (non-repeating) that have expired.
 <br>
 
 
-<h1>Add/Remove Event Types:</h1>
+## Add/Remove Event Types:
 
 ### **addEventType( *id*, *text* )**:
 Adds a new event type.
@@ -323,7 +324,7 @@ Set which event types are visible.
 <br>
 
 
-<h1>Add/Remove Groups:</h1>
+## Add/Remove Groups:
 
 ### **getAllGroups()**:
 Returns an array of group names being used.
@@ -368,7 +369,7 @@ Set which groups are visible.
 <br>
 
 
-<h1>Internal Clipboard:</h1>
+## Internal Clipboard:
 
 ### **setClipboardEvent( *event* )**:
 Set the clipboard event.
@@ -397,7 +398,7 @@ Clears the internal clipboard.
 <br>
 
 
-<h1>Get/Set Additional Data:</h1>
+## Get/Set Additional Data:
 
 ### **getVersion()**:
 Returns the version of Calendar.js.
@@ -417,7 +418,7 @@ Returns a flag that states if the calendar is busy.
 <br>
 
 
-<h1>Setting Options:</h1>
+## Setting Options:
 
 ### **setOptions( *newOptions*, *[triggerEvent]* )**:
 Sets the specific options that should be used.

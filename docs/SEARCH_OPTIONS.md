@@ -4,6 +4,7 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 <br>
 <br>
 
+
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | enabled | States if search is enabled (defaults to true). |

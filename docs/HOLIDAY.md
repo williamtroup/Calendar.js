@@ -1,6 +1,9 @@
 # Calendar.js - Holiday:
 
 Below is the format that is expected for a holiday object when set using "setOptions()", or "addHolidays()".
+<br>
+<br>
+
 
 | Type: | Name: | Description |
 | --- | --- | --- |
