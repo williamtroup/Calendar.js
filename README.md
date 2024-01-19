@@ -202,9 +202,9 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 </script>
 ```
 
-To see a list of all the available options you can use, click [here](docs/OPTIONS.md).
+To see a list of all the available options you can use, click [here](docs/configuration/OPTIONS.md).
 
-To see a list of all the available custom triggers you can use, click [here](docs/CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use, click [here](docs/configuration/CUSTOM_TRIGGERS.md).
 <br>
 <br>
 
@@ -253,7 +253,7 @@ A holiday is a piece of text that is shown under the day number in the month it 
 </script>
 ```
 
-To see a list of all the available holiday properties and how they should be formatted, click [here](docs/HOLIDAY.md).
+To see a list of all the available holiday properties and how they should be formatted, click [here](docs/configuration/HOLIDAY.md).
 <br>
 <br>
 
@@ -275,6 +275,6 @@ Search Options allow you to customize how Calendar.js Search dialog will functio
 </script>
 ```
 
-To see a list of all the available search options you can use, click [here](docs/SEARCH_OPTIONS.md).
+To see a list of all the available search options you can use, click [here](docs/configuration/SEARCH_OPTIONS.md).
 <br>
 <br>
