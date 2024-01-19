@@ -5023,9 +5023,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _element_Dialog_Search_FocusedEventID = eventDetails.id;
       if (isFullDayViewVisible || isAllEventsViewVisible || isFullWeekViewVisible || isTimelineViewVisible) {
         var parent = event.parentNode;
-        var parentScrollHeight = 0;
         for (; true || !isDefined(parent);) {
-          parentScrollHeight = parent.scrollHeight;
           if (parent.scrollHeight > 0 && parent.scrollHeight > parent.offsetHeight) {
             parent.scrollTop = event.offsetTop;
             break;
@@ -8295,7 +8293,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     contents.push("<!DOCTYPE html>");
     contents.push("<html>");
     contents.push("<head>");
-    contents.push('<meta charset="utf-8">');
+    contents.push('<meta charset="utf-8" />');
     contents.push('<meta http-equiv="Last-Modified" content="' + getExportDateTime() + ' GMT" />');
     if (isDefined(filename)) {
       contents.push("<title>" + filename + "</title>");

@@ -7711,12 +7711,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Dialog_Search_FocusedEventID = eventDetails.id;
 
             if ( isFullDayViewVisible || isAllEventsViewVisible || isFullWeekViewVisible || isTimelineViewVisible ) {
-                var parent = event.parentNode,
-                    parentScrollHeight = 0;
+                var parent = event.parentNode;
 
                 while ( true || !isDefined( parent ) ) {
-                    parentScrollHeight = parent.scrollHeight;
-
                     if ( parent.scrollHeight > 0 && parent.scrollHeight > parent.offsetHeight ) {
                         parent.scrollTop = event.offsetTop;
                         break;
