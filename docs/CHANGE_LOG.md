@@ -8,6 +8,8 @@
 - Improved documentation in the main README files.
 - Removed some dead code causing confusion in the core code.
 - Added examples to all documentation files, and fixes some layout issues.
+- Organized/renamed some of the documentation.
+- 
 
 <br>
 
