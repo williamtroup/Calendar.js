@@ -669,10 +669,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_Mode_DatePicker_Input.readOnly = true;
     _element_Mode_DatePicker_Input.placeholder = _options.selectDatePlaceholderText;
     _element_Mode_DatePicker_Enabled = true;
-    var parent = element.parentNode;
-    parent.removeChild(element);
     var container = createElement("div", "calendar-date-picker");
-    parent.appendChild(container);
+    element.insertAdjacentElement("afterend", container);
+    element.remove(element);
     container.appendChild(_element_Mode_DatePicker_HiddenInput);
     container.appendChild(_element_Mode_DatePicker_Input);
     _element_Calendar = createElement("div", "calendar calendar-hidden");
@@ -9710,7 +9709,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.10.4";
+    return "2.10.3";
   };
   this.getId = function() {
     return _parameter_ElementID;
@@ -9806,4 +9805,5 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   })(document, window, navigator);
-};
+}
+;
