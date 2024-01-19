@@ -46,7 +46,21 @@
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 
-Limited support is still available for Internet Explorer. However, use within this browser is not recommended.
+
+## What languages are supported?
+
+- Arabic
+- Bengali
+- Chinese (simplified)
+- English
+- French
+- German
+- Hindi
+- Japanese
+- Polish
+- Portuguese
+- Spanish
+- Turkish
 
 
 ## What are the most recent changes?

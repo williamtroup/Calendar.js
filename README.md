@@ -90,10 +90,27 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 <h1>What browsers are supported?</h1>
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
+<br>
+<br>
 
-Limited support is still available for Internet Explorer. However, use within this browser is not recommended.
+
+<h1>What languages are supported?</h1>
+
+- Arabic
+- Bengali
+- Chinese (simplified)
+- English
+- French
+- German
+- Hindi
+- Japanese
+- Polish
+- Portuguese
+- Spanish
+- Turkish
 <br>
 <br>
+
 
 <h1>What are the most recent changes?</h1>
 

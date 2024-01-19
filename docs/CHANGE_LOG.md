@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.4:
+- Updated the README files to include the languages that are supported by default.
 - 
 
 <br>
