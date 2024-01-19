@@ -259,7 +259,7 @@ To see a list of all the available holiday properties and how they should be for
 
 ### 4. Public Functions:
 
-To see a list of all the public functions available, click [here](docs/FUNCTIONS.md).
+To see a list of all the public functions available, click [here](docs/PUBLIC_FUNCTIONS.md).
 <br>
 <br>
 
