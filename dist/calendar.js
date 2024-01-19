@@ -8295,7 +8295,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     contents.push("<!DOCTYPE html>");
     contents.push("<html>");
     contents.push("<head>");
-    contents.push('<meta charset="utf-8" />');
+    contents.push('<meta charset="utf-8">');
     contents.push('<meta http-equiv="Last-Modified" content="' + getExportDateTime() + ' GMT" />');
     if (isDefined(filename)) {
       contents.push("<title>" + filename + "</title>");
