@@ -2,14 +2,13 @@
 
 ## Version 2.10.4:
 - Updated the README files to include the languages that are supported by default.
-- Fixed a fault that caused the DatePickers to be added to the bottom of a parent DOM element (its now rendered where the original was placed).
+- Fixed a fault that caused the DatePickers to be added to the bottom of a parent DOM element (it's now rendered where the original was placed).
 - Fixed a bad reference when getting a style value.
 - Fixed HTML files using the wrong formatting for meta, and imports being missing.
 - Improved documentation in the main README files.
-- Removed some dead code causing confusion in the core code.
-- Added examples to all documentation files, and fixes some layout issues.
+- Removed some dead code confusing the core code.
+- Added examples to all documentation files, and fixed some layout issues.
 - Organized/renamed some of the documentation.
-- 
 
 <br>
 
