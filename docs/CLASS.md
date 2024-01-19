@@ -14,3 +14,16 @@ The main Calendar.js class.
 ***Parameter: searchOptions***: '*Object*' - All the configurable search options that should be used (refer to ["Search Options"](SEARCH_OPTIONS.md) documentation for properties).
 <br>
 ***Returns***: '*Object*' - The Calendar.js instance.
+
+<br>
+
+
+## Example:
+
+```markdown
+<script> 
+  var calendarInstance = new calendarJs( "calendar", {
+    manualEditingEnabled: true
+  } );
+</script>
+```

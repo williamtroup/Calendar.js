@@ -1876,11 +1876,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Mode_DatePicker_Input.placeholder = _options.selectDatePlaceholderText;
         _element_Mode_DatePicker_Enabled = true;
 
-        var parent = element.parentNode;
-        parent.removeChild( element );
-
         var container = createElement( "div", "calendar-date-picker" );
-        parent.appendChild( container );
+        element.insertAdjacentElement( "afterend", container );
+        element.remove( element );
+
         container.appendChild( _element_Mode_DatePicker_HiddenInput );
         container.appendChild( _element_Mode_DatePicker_Input );
 
@@ -7712,12 +7711,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Dialog_Search_FocusedEventID = eventDetails.id;
 
             if ( isFullDayViewVisible || isAllEventsViewVisible || isFullWeekViewVisible || isTimelineViewVisible ) {
-                var parent = event.parentNode,
-                    parentScrollHeight = 0;
+                var parent = event.parentNode;
 
                 while ( true || !isDefined( parent ) ) {
-                    parentScrollHeight = parent.scrollHeight;
-
                     if ( parent.scrollHeight > 0 && parent.scrollHeight > parent.offsetHeight ) {
                         parent.scrollTop = event.offsetTop;
                         break;
@@ -10755,7 +10751,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var value = null;
 
         if ( _parameter_Window.getComputedStyle ) {
-            value = document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
+            value = _parameter_Document.defaultView.getComputedStyle( element, null ).getPropertyValue( stylePropertyName ); 
         }  
         else if ( element.currentStyle ) {
             value = element.currentStyle[ stylePropertyName ];

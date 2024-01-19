@@ -4,7 +4,8 @@ Below is a list of all the public functions that can be called from a Calendar.j
 <br>
 <br>
 
-<h1>Main controls:</h1>
+
+## Main controls:
 
 ### **turnOnFullScreen()**:
 Turn on the full-screen mode (if enabled).
@@ -37,10 +38,11 @@ Removes the calendar from the DOM.
 ***Fires***:  onDestroy
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
-<h1>Navigation, Exporting and Refreshing:</h1>
+<br>
+
+
+## Navigation, Exporting and Refreshing:
 
 ### **moveToPreviousMonth()**:
 Moves to the previous month.
@@ -120,10 +122,11 @@ Refreshes all of the views.
 ***Fires***:  onRefresh
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
-<h1>Add/Remove Events:</h1>
+<br>
+
+
+## Add/Remove Events:
 
 ### **setEvents( *events*, *[updateEvents]*, *[triggerEvent]* )**:
 Sets the events and clears any existing ones.
@@ -285,10 +288,11 @@ Removes all events (non-repeating) that have expired.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventRemoved" event should be triggered (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
-<h1>Add/Remove Event Types:</h1>
+<br>
+
+
+## Add/Remove Event Types:
 
 ### **addEventType( *id*, *text* )**:
 Adds a new event type.
@@ -316,10 +320,11 @@ Set which event types are visible.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleEventTypesChanged" event should be triggered (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
-<h1>Add/Remove Groups:</h1>
+<br>
+
+
+## Add/Remove Groups:
 
 ### **getAllGroups()**:
 Returns an array of group names being used.
@@ -360,10 +365,11 @@ Set which groups are visible.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleGroupsChanged" event should be triggered (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
-<h1>Internal Clipboard:</h1>
+<br>
+
+
+## Internal Clipboard:
 
 ### **setClipboardEvent( *event* )**:
 Set the clipboard event.
@@ -388,10 +394,11 @@ Returns the events copied in the clipboard.
 Clears the internal clipboard.
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
-<h1>Get/Set Additional Data:</h1>
+<br>
+
+
+## Get/Set Additional Data:
 
 ### **getVersion()**:
 Returns the version of Calendar.js.
@@ -407,10 +414,11 @@ Returns the ID of this Calendar.js instance.
 Returns a flag that states if the calendar is busy.
 <br>
 ***Returns***: '*boolean*' - States if the calendar is busy.
-
-
 <br>
-<h1>Setting Options:</h1>
+<br>
+
+
+## Setting Options:
 
 ### **setOptions( *newOptions*, *[triggerEvent]* )**:
 Sets the specific options that should be used.

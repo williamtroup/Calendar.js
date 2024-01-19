@@ -4,7 +4,8 @@ Below is a list of all the shortcut keys supported in Calendar.js.
 <br>
 <br>
 
-<h1>In full-screen mode only:</h1>
+
+## In full-screen mode only:
 
 | Key: | Description: |
 | --- | --- |
@@ -16,9 +17,10 @@ Below is a list of all the shortcut keys supported in Calendar.js.
 | *Ctrl/Command + Left* | Moves to the previous year. |
 | *Ctrl/Command + Right* | Moves to the next year. |
 
-
 <br>
-<h1>For global browser use:</h1>
+
+
+## For global browser use:
 
 | Key: | Description: |
 | --- | --- |

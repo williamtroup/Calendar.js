@@ -4,7 +4,8 @@ Below is a list of all the custom triggers supported in Calendar.js, which are f
 <br>
 <br>
 
-<h1>For Events:</h1>
+
+## For Events:
 
 ### options.onBeforeEventAddEdit( *event* ):
 Fires when an event is about to be added/edited via the Event Editor dialog (stops the Event Editor dialog opening).
@@ -103,7 +104,8 @@ Fires when events are imported.
 
 
 <br>
-<h1>For Rendering:</h1>
+
+## For Rendering:
 
 ### options.onRender( *id* ):
 Fires when the Calendar is rendered.
@@ -207,7 +209,8 @@ Fires when the Full Month pin-up is rendered after a month/year change.
 
 
 <br>
-<h1>For The Display Date:</h1>
+
+## For The Display Date:
 
 ### options.onPreviousMonth( *date* ):
 Fires when the calendar moves to the previous month.
@@ -239,7 +242,8 @@ Fires when the calendar date is set manually.
 
 
 <br>
-<h1>For Groups:</h1>
+
+## For Groups:
 
 ### options.onGroupsCleared():
 Fires when all the groups are cleared from the events.
@@ -251,7 +255,8 @@ Fires when a specific group is removed.
 
 
 <br>
-<h1>For Options:</h1>
+
+## For Options:
 
 ### options.onOptionsUpdated( *options* ):
 Fires when the configurable options are updated.
@@ -265,7 +270,8 @@ Fires when the configurable search options are updated.
 
 
 <br>
-<h1>For DatePicker Mode:</h1>
+
+## For DatePicker Mode:
 
 ### options.onDatePickerDateChanged( *date* ):
 Fires when the DatePicker moves to a specific date.
@@ -284,7 +290,8 @@ Fires when the DatePicker is closed.
 
 
 <br>
-<h1>For Actions:</h1>
+
+## For Actions:
 
 ### options.onFullScreenModeChanged( *flag* ):
 Fires when the full-screen mode is changed.
@@ -306,7 +313,8 @@ Fires when the busy state changes.
 
 
 <br>
-<h1>For Browser Notifications:</h1>
+
+## For Browser Notifications:
 
 ### options.onNotificationClicked( *event* ):
 Fires when a browser notification is clicked for an event.
@@ -320,7 +328,8 @@ Fires when a browser notification is shown for an event.
 
 
 <br>
-<h1>For Visibility Changes:</h1>
+
+## For Visibility Changes:
 
 ### options.onVisibleGroupsChanged( *groupNames* ):
 Fires when the visible groups are changed.
@@ -331,3 +340,16 @@ Fires when the visible groups are changed.
 Fires when the visible groups are changed.
 <br>
 ***Parameter:*** eventTypeIds: '*number[]*' - The visible event type IDs.
+
+<br>
+
+
+## Example:
+
+```markdown
+<script> 
+  calendarInstance.setOptions( {
+      onEventAdded: yourJsFunction
+  } );
+</script>
+```

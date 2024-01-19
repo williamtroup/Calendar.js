@@ -1,8 +1,8 @@
-# Calendar.js v2.10.3
+# Calendar.js v2.10.4
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.3-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.3-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.4-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.4-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://github.com/williamtroup)
@@ -46,7 +46,21 @@
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
 
-Limited support is still available for Internet Explorer. However, use within this browser is not recommended.
+
+## What languages are supported?
+
+- Arabic
+- Bengali
+- Chinese (simplified)
+- English
+- French
+- German
+- Hindi
+- Japanese
+- Polish
+- Portuguese
+- Spanish
+- Turkish
 
 
 ## What are the most recent changes?
@@ -71,7 +85,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 ### 2. Include Files:
 
 ```markdown
-<link rel="stylesheet" href="dist/calendar.js.css" />
+<link rel="stylesheet" href="dist/calendar.js.css">
 <script src="dist/calendar.js"></script>
 ```
 
@@ -169,14 +183,14 @@ A holiday is a piece of text that is shown under the day number in the month it 
 
 ```markdown
 <script> 
-  var holiday1 = {
+  var holiday = {
       day: today.getDate(),
       month: today.getMonth() + 1,
       title: "A New Holiday",
   };
   
   // This is a public function that you can call
-  calendarInstance.addHolidays( [ holiday1 ] );
+  calendarInstance.addHolidays( [ holiday ] );
 </script>
 ```
 

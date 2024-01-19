@@ -1,6 +1,9 @@
 # Calendar.js - Holiday:
 
 Below is the format that is expected for a holiday object when set using "setOptions()", or "addHolidays()".
+<br>
+<br>
+
 
 | Type: | Name: | Description |
 | --- | --- | --- |
@@ -12,3 +15,20 @@ Below is the format that is expected for a holiday object when set using "setOpt
 | *string* | onClickUrl | Specifies a URL that will be opened when the holiday is clicked (overrides "onClick"). |
 | *string* | backgroundColor | The background color the day should use (defaults to null). |
 | *string* | textColor | The text color the day should use (defaults to null). |
+
+<br>
+
+
+## Example:
+
+```markdown
+<script> 
+  var holiday = {
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      title: "A New Holiday",
+  };
+  
+  calendarInstance.addHolidays( [ holiday ] );
+</script>
+```

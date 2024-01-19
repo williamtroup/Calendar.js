@@ -2,15 +2,15 @@
 Calendar.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.3-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.3-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.4-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.4-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://github.com/williamtroup)
 </h1>
 
 > <p align="center">📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-> <p align="center">v2.10.3</p>
+> <p align="center">v2.10.4</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
@@ -90,10 +90,27 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 <h1>What browsers are supported?</h1>
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
+<br>
+<br>
 
-Limited support is still available for Internet Explorer. However, use within this browser is not recommended.
+
+<h1>What languages are supported?</h1>
+
+- Arabic
+- Bengali
+- Chinese (simplified)
+- English
+- French
+- German
+- Hindi
+- Japanese
+- Polish
+- Portuguese
+- Spanish
+- Turkish
 <br>
 <br>
+
 
 <h1>What are the most recent changes?</h1>
 
@@ -119,7 +136,7 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 ### 2. Include Files:
 
 ```markdown
-<link rel="stylesheet" href="dist/calendar.js.css" />
+<link rel="stylesheet" href="dist/calendar.js.css">
 <script src="dist/calendar.js"></script>
 ```
 <br>
@@ -185,9 +202,9 @@ Options (which can be set when initializing, or afterwards) allow you to customi
 </script>
 ```
 
-To see a list of all the available options you can use, click [here](docs/OPTIONS.md).
+To see a list of all the available options you can use, click [here](docs/configuration/OPTIONS.md).
 
-To see a list of all the available custom triggers you can use, click [here](docs/CUSTOM_TRIGGERS.md).
+To see a list of all the available custom triggers you can use, click [here](docs/configuration/CUSTOM_TRIGGERS.md).
 <br>
 <br>
 
@@ -225,24 +242,24 @@ A holiday is a piece of text that is shown under the day number in the month it 
 
 ```markdown
 <script> 
-  var holiday1 = {
+  var holiday = {
       day: today.getDate(),
       month: today.getMonth() + 1,
       title: "A New Holiday",
   };
   
   // This is a public function that you can call
-  calendarInstance.addHolidays( [ holiday1 ] );
+  calendarInstance.addHolidays( [ holiday ] );
 </script>
 ```
 
-To see a list of all the available holiday properties and how they should be formatted, click [here](docs/HOLIDAY.md).
+To see a list of all the available holiday properties and how they should be formatted, click [here](docs/configuration/HOLIDAY.md).
 <br>
 <br>
 
 ### 4. Public Functions:
 
-To see a list of all the public functions available, click [here](docs/FUNCTIONS.md).
+To see a list of all the public functions available, click [here](docs/PUBLIC_FUNCTIONS.md).
 <br>
 <br>
 
@@ -258,6 +275,6 @@ Search Options allow you to customize how Calendar.js Search dialog will functio
 </script>
 ```
 
-To see a list of all the available search options you can use, click [here](docs/SEARCH_OPTIONS.md).
+To see a list of all the available search options you can use, click [here](docs/configuration/SEARCH_OPTIONS.md).
 <br>
 <br>

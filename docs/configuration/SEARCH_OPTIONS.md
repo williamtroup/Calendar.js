@@ -4,6 +4,7 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 <br>
 <br>
 
+
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | enabled | States if search is enabled (defaults to true). |
@@ -22,3 +23,16 @@ Below are all the options that can be passed to the Calendar.js function "setSea
 | *number* | left | States the left position of the dialog (defaults to null). |
 | *number* | top | States the top position of the dialog (defaults to null). |
 | *string[]* | history | States the dropdown search history that should be displayed (used previously, defaults to []). |
+
+<br>
+
+
+## Example:
+
+```markdown
+<script> 
+  calendarInstance.setSearchOptions( {
+      matchCase: false
+  } );
+</script>
+```

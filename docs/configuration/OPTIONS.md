@@ -1,10 +1,11 @@
 # Calendar.js - Options:
 
 Below are all the options that can be passed to the Calendar.js constructor, or "setOptions()".
+<br>
+<br>
 
 
-### Standard Options:
-<br/>
+## Standard Options:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
@@ -57,11 +58,11 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
 | *string* | viewToOpenOnFirstLoad | States which view should be opened when the Calendar is first initialized (defaults to null, accepts "full-day", "full-week", "full-year", "timeline", and "all-events"). |
 | *boolean* | eventColorsEditingEnabled | States if changing the colors for events in the "Edit Event" dialog is enabled (defaults to true). |
+
 <br/>
 
 
-### Side Menu Options:
-<br/>
+## Side Menu Options:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
@@ -70,11 +71,11 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showEventTypes | States if the "Event Types" section on the Side Menu is visible (defaults to true). |
 | *boolean* | showWorkingDays | States if the "Working Days" section on the Side Menu is visible (defaults to true). |
 | *boolean* | showWeekendDays | States if the "Weekend Days" section on the Side Menu is visible (defaults to true). |
+
 <br/>
 
 
-### View Options:  Full Day:
-<br/>
+## View Options:  Full Day:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
@@ -82,11 +83,11 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *number* | minutesBetweenSections | States the number of minutes that should be used between rows in all views (defaults to 30). |
 | *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+
 <br/>
 
 
-### View Options:  Full Week:
-<br/>
+## View Options:  Full Week:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
@@ -96,11 +97,11 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | showTimelineArrow | States if the timeline arrow should be shown (defaults to true). |
 | *boolean* | showWeekNumbersInTitles | States if week numbers should be shown in the title bars (defaults to false). |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+
 <br/>
 
 
-### View Options:  Full Month:
-<br/>
+## View Options:  Full Month:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
@@ -118,51 +119,51 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 | *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+
 <br/>
 
 
-### View Options:  Full Year:
-<br/>
+## View Options:  Full Year:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+
 <br/>
 
 
-### View Options:  Timeline:
-<br/>
+## View Options:  Timeline:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *string* | defaultAxis | States the default axis the view should use (defaults to "group"). |
 | *number* | minutesBetweenSections | States the number of minutes that should be used between headers in all views (defaults to 30). |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+
 <br/>
 
 
-### View Options:  All Events:
-<br/>
+## View Options:  All Events:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
+
 <br/>
 
 
-### View Options:  DatePicker:
-<br/>
+## View Options:  DatePicker:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
 | *string* | selectedDateFormat | States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *Object* | minimumDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
 | *Object* | maximumDate | States the minimum date that can be selected in DatePicker mode (defaults to null). |
+
 <br/>
 
 
-### Translatable String Options:
-<br/>
+## Translatable String Options:
 
 | Type: | Name: | Description: |
 | --- | --- | --- |
@@ -354,3 +355,16 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *string* | previousPropertyTooltipText | The tooltip text that should be used for the "Previous Property" button. |
 | *string* | jumpToDateTitle | The text that should be displayed for the "Jump To Date" label. |
 | *string* | goText | The tooltip text that should be used for the "Go" button. |
+
+<br>
+
+
+## Example:
+
+```markdown
+<script> 
+  calendarInstance.setOptions( {
+      manualEditingEnabled: false
+  } );
+</script>
+```
