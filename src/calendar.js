@@ -1937,6 +1937,20 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _element_Calendar.style.top = actualTop + "px";
 
+     
+    
+       const formParent = _element_Mode_DatePicker_Input.closest('form');
+       
+       if(formParent) {
+           const calendarLeft = _element_Calendar.offsetLeft;
+           const formLeft = formParent.offsetLeft;
+           if (calendarLeft < formLeft) {
+               _element_Calendar.style.right = "0";
+           } else {
+               _element_Calendar.style.removeProperty("right");
+           }
+       }
+
         var offset = getOffset( _element_Calendar ),
             scrollPosition = getScrollPosition(),
             top = ( offset.top - scrollPosition.top );
