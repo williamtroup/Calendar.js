@@ -7,7 +7,7 @@
 - Fixed HTML files using the wrong formatting for meta, and imports being missing.
 - Improved documentation in the main README files.
 - Removed some dead code causing confusion in the core code.
-- 
+- Added examples to all documentation files.
 
 <br>
 

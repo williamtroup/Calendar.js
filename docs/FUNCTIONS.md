@@ -37,9 +37,10 @@ Removes the calendar from the DOM.
 ***Fires***:  onDestroy
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
+<br>
+
+
 <h1>Navigation, Exporting and Refreshing:</h1>
 
 ### **moveToPreviousMonth()**:
@@ -120,9 +121,10 @@ Refreshes all of the views.
 ***Fires***:  onRefresh
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
+<br>
+
+
 <h1>Add/Remove Events:</h1>
 
 ### **setEvents( *events*, *[updateEvents]*, *[triggerEvent]* )**:
@@ -285,9 +287,10 @@ Removes all events (non-repeating) that have expired.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onEventRemoved" event should be triggered (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
+<br>
+
+
 <h1>Add/Remove Event Types:</h1>
 
 ### **addEventType( *id*, *text* )**:
@@ -316,9 +319,10 @@ Set which event types are visible.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleEventTypesChanged" event should be triggered (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
+<br>
+
+
 <h1>Add/Remove Groups:</h1>
 
 ### **getAllGroups()**:
@@ -360,9 +364,10 @@ Set which groups are visible.
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onVisibleGroupsChanged" event should be triggered (defaults to true).
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
+<br>
+
+
 <h1>Internal Clipboard:</h1>
 
 ### **setClipboardEvent( *event* )**:
@@ -388,9 +393,10 @@ Returns the events copied in the clipboard.
 Clears the internal clipboard.
 <br>
 ***Returns***: '*Object*' - The Calendar.js class instance.
-
-
 <br>
+<br>
+
+
 <h1>Get/Set Additional Data:</h1>
 
 ### **getVersion()**:
@@ -407,9 +413,10 @@ Returns the ID of this Calendar.js instance.
 Returns a flag that states if the calendar is busy.
 <br>
 ***Returns***: '*boolean*' - States if the calendar is busy.
-
-
 <br>
+<br>
+
+
 <h1>Setting Options:</h1>
 
 ### **setOptions( *newOptions*, *[triggerEvent]* )**:

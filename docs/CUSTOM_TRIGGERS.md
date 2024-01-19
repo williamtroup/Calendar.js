@@ -331,3 +331,16 @@ Fires when the visible groups are changed.
 Fires when the visible groups are changed.
 <br>
 ***Parameter:*** eventTypeIds: '*number[]*' - The visible event type IDs.
+
+<br>
+
+
+## Example:
+
+```markdown
+<script> 
+  calendarInstance.setOptions( {
+      onEventAdded: yourJsFunction
+  } );
+</script>
+```

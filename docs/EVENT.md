@@ -32,3 +32,21 @@ Below is the format that is expected for an event object when calling "addEvents
 | *Object* | customTags | Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar). |
 | *boolean* | showAsBusy | States if the calendar should show the events time period as busy (defaults to true). |
 | *number* | alertOffset | States the number of minutes before the "from" date/time to show a browser notification (defaults to zero). |
+
+<br>
+
+
+## Example:
+
+```markdown
+<script> 
+  var event = {
+      from: new Date(),
+      to: new Date(),
+      title: "A New Event",
+      description: "A description of the event"
+  };
+
+  calendarInstance.addEvent( event );
+</script>
+```

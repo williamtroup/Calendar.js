@@ -242,14 +242,14 @@ A holiday is a piece of text that is shown under the day number in the month it 
 
 ```markdown
 <script> 
-  var holiday1 = {
+  var holiday = {
       day: today.getDate(),
       month: today.getMonth() + 1,
       title: "A New Holiday",
   };
   
   // This is a public function that you can call
-  calendarInstance.addHolidays( [ holiday1 ] );
+  calendarInstance.addHolidays( [ holiday ] );
 </script>
 ```
 
