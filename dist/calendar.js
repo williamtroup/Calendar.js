@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.4 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.5 | (c) Bunoon 2024 | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -751,7 +751,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function updateDatePickerInputValueDisplay(date) {
     _element_Mode_DatePicker_Input.value = getCustomFormattedDateText(_options.views.datePicker.selectedDateFormat, date);
-    _element_Mode_DatePicker_HiddenInput.value = padNumber(date.getDate()) + "/" + padNumber(date.getMonth()) + "/" + date.getFullYear();
+    _element_Mode_DatePicker_HiddenInput.value = padNumber(date.getDate()) + "/" + padNumber(date.getMonth() + 1) + "/" + date.getFullYear();
   }
   function getDataPickerInputValueDate() {
     var values = _element_Mode_DatePicker_HiddenInput.value.split("/");
@@ -9707,7 +9707,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.10.3";
+    return "2.10.5";
   };
   this.getId = function() {
     return _parameter_ElementID;
