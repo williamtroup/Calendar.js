@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.5:
+- 
+
+<br>
+
+
 ## Version 2.10.4:
 - Updated the README files to include the languages that are supported by default.
 - Fixed a fault that caused the DatePickers to be added to the bottom of a parent DOM element (it's now rendered where the original was placed).
