@@ -1999,7 +1999,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function updateDatePickerInputValueDisplay( date ) {
         _element_Mode_DatePicker_Input.value = getCustomFormattedDateText( _options.views.datePicker.selectedDateFormat, date );
-        _element_Mode_DatePicker_HiddenInput.value = padNumber( date.getDate() ) + "/" + padNumber( date.getMonth() ) + "/" + date.getFullYear();
+        _element_Mode_DatePicker_HiddenInput.value = padNumber( date.getDate() ) + "/" + padNumber( date.getMonth() - 1 ) + "/" + date.getFullYear();
     }
 
     function getDataPickerInputValueDate() {
