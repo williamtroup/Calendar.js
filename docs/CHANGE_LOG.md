@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.5:
-- 
+- Fixed a version fault in the main code.
 
 <br>
 
