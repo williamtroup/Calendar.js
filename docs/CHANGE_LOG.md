@@ -3,7 +3,7 @@
 ## Version 2.10.5:
 - Fixed a version fault in the main code.
 - Fixed a fault that caused the wrong month to be added to the hidden input field for a date selected in DatePicker mode.
-- 
+- Update some of the documentation.
 
 <br>
 
