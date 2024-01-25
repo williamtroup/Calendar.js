@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.5 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.6 | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "Pn",
