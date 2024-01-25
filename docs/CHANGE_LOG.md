@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.6:
+- Updates to the chinese translations (thanks ZhangChengLin).
+- Updates to the german translations (thanks magistratus-de).
+
+<br>
+
+
 ## Version 2.10.5:
 - Fixed a version fault in the main code.
 - Fixed a fault that caused the wrong month to be added to the hidden input field for a date selected in DatePicker mode.
