@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.7:
+- 
+
+<br>
+
+
 ## Version 2.10.6:
 - Updates to the chinese translations (thanks ZhangChengLin).
 - Updates to the german translations (thanks magistratus-de).

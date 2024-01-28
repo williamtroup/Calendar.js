@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.binding.js
- * @version     v2.10.6
+ * @version     v2.10.7
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
