@@ -106,6 +106,7 @@ div.calendar-dialog textarea,
 div.calendar-notification,
 div.calendar-widget {
     font-family: 'Montserrat', sans-serif;
+    color: var(--calendar-js-dark-color);
 
     @media screen and ( min-width: $minimum-width ) {
         font-size: var(--calendar-js-large-font-size);
