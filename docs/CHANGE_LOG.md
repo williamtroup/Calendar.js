@@ -1,5 +1,26 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.7:
+- Fixed some dialog titles not showing the right text color (they were inhiriting from the body).
+- Added translation support for Danish (da).
+- Added translation support for Ukrainian (uk).
+- Added translation support for Dutch (nl).
+- Added translation support for Finnish (fi).
+- Added translation support for Greek (el).
+- Added translation support for Georgian (ka).
+- Added translation support for Korean (ko).
+- Added translation support for Hungarian (hu).
+- Added translation support for Italian (it).
+- Added translation support for Latvian (lv).
+- Added translation support for Lithuanian (lt).
+- Added translation support for Norwegian (no).
+- Added translation support for Romanian (ro).
+- Added translation support for Swedish (sv).
+- Added translation support for Bulgarian (bg).
+
+<br>
+
+
 ## Version 2.10.6:
 - Updates to the chinese translations (thanks ZhangChengLin).
 - Updates to the german translations (thanks magistratus-de).

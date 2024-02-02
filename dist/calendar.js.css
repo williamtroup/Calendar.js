@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.10.6
+ * Calendar.js Library v2.10.7
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -80,6 +80,7 @@ div.calendar-dialog textarea,
 div.calendar-notification,
 div.calendar-widget {
   font-family: "Montserrat", sans-serif;
+  color: var(--calendar-js-dark-color);
 }
 @media screen and (min-width: 451px) {
   div.calendar,

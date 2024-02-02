@@ -2,15 +2,15 @@
 Calendar.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.6-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.6-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.7-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.7-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://www.william-troup.com/)
 </h1>
 
 > <p align="center">📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-> <p align="center">v2.10.6</p>
+> <p align="center">v2.10.7</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
@@ -96,18 +96,33 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What languages are supported?</h1>
 
-- Arabic
-- Bengali
-- Chinese (simplified)
-- English
-- French
-- German
-- Hindi
-- Japanese
-- Polish
-- Portuguese
-- Spanish
-- Turkish
+- `ar` Arabic
+- `bn` Bengali
+- `bg` Bulgarian
+- `zh` Chinese (simplified)
+- `da` Danish
+- `nl` Dutch
+- `en` English (default)
+- `fi` Finnish
+- `fr` French
+- `ka` Georgian
+- `de` German
+- `el` Greek
+- `hi` Hindi
+- `hu` Hungarian
+- `ir` Italian
+- `ja` Japanese
+- `ko` Korean
+- `lv` Latvian
+- `lt` Lithuanian
+- `no` Norwegian
+- `pl` Polish
+- `pt` Portuguese
+- `ro` Romanian
+- `es` Spanish
+- `sv` Swedish
+- `tr` Turkish
+- `uk` Ukrainian
 <br>
 <br>
 
