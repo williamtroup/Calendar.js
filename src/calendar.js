@@ -11112,7 +11112,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function storeEventsInLocalStorage() {
         if ( _options.useLocalStorageForEvents && _parameter_Window.localStorage ) {
-            _parameter_Window.localStorage.clear();
+            clearLocalStorageObjects();
 
             var orderedEvents = getOrderedEvents( getAllEvents() ),
                 orderedEventsLength = orderedEvents.length;
@@ -11137,6 +11137,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( isDefined( event ) ) {
                     _this.addEvent( event, false, false, false );
                 }
+            }
+        }
+    }
+
+    function clearLocalStorageObjects() {
+        if ( _options.useLocalStorageForEvents && _parameter_Window.localStorage ) {
+            var keysLength = _parameter_Window.localStorage.length,
+                keysToRemove = [];
+
+            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
+                if ( startsWith( _parameter_Window.localStorage.key( keyIndex ), "CJS_" ) ) {
+                    keysToRemove.push( _parameter_Window.localStorage.key( keyIndex ) );
+                }
+            }
+
+            var keysToRemoveLength = keysToRemove.length;
+
+            for ( var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
+                _parameter_Window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
             }
         }
     }

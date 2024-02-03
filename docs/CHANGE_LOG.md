@@ -2,6 +2,7 @@
 
 ## Version 2.10.8:
 - Fixed a fault that allowed negative values to be entered into the "Alarm Offset (minutes)" fiekd in the Event Editor dialog.
+- Fixed a fault that caused all local storage objects to be cleared when the Calendar uses the setting "useLocalStorageForEvents".
 - 
 
 <br>
