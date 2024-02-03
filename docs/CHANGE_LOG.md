@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.8:
+- Fixed a fault that allowed negative values to be entered into the "Alarm Offset (minutes)" fiekd in the Event Editor dialog.
 - 
 
 <br>

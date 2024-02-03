@@ -4038,6 +4038,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var splitContainer2 = createElement("div", "split");
     _element_Dialog_EventEditor_Tab_Extra.appendChild(splitContainer2);
     _element_Dialog_EventEditor_AlertOffset = createElement("input", null, "number");
+    _element_Dialog_EventEditor_AlertOffset.setAttribute("min", "0");
     splitContainer2.appendChild(_element_Dialog_EventEditor_AlertOffset);
     _element_Dialog_EventEditor_Group = createElement("input", null, "text");
     splitContainer2.appendChild(_element_Dialog_EventEditor_Group);
