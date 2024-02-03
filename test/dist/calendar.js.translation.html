@@ -22,7 +22,7 @@
     </body>
 
     <script>
-        var calendarInstance = new calendarJs( "calendar", __TRANSLATION_OPTIONS );
+        var calendarInstance = new calendarJs( "calendar", { ...__TRANSLATION_OPTIONS } );
 
         document.title += " v" + calendarInstance.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
