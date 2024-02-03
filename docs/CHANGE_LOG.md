@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.8:
+- 
+
+<br>
+
+
 ## Version 2.10.7:
 - Fixed some dialog titles not showing the right text color (they were inhiriting from the body).
 - Added translation support for Danish (da).
