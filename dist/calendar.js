@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.7 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.8 | (c) Bunoon 2024 | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
@@ -4038,6 +4038,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var splitContainer2 = createElement("div", "split");
     _element_Dialog_EventEditor_Tab_Extra.appendChild(splitContainer2);
     _element_Dialog_EventEditor_AlertOffset = createElement("input", null, "number");
+    _element_Dialog_EventEditor_AlertOffset.setAttribute("min", "0");
     splitContainer2.appendChild(_element_Dialog_EventEditor_AlertOffset);
     _element_Dialog_EventEditor_Group = createElement("input", null, "text");
     splitContainer2.appendChild(_element_Dialog_EventEditor_Group);
@@ -7494,7 +7495,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function storeEventsInLocalStorage() {
     if (_options.useLocalStorageForEvents && _parameter_Window.localStorage) {
-      _parameter_Window.localStorage.clear();
+      clearLocalStorageObjects();
       var orderedEvents = getOrderedEvents(getAllEvents());
       var orderedEventsLength = orderedEvents.length;
       var orderedEventIndex = 0;
@@ -7515,6 +7516,23 @@ function calendarJs(elementOrId, options, searchOptions) {
         if (isDefined(event)) {
           _this.addEvent(event, false, false, false);
         }
+      }
+    }
+  }
+  function clearLocalStorageObjects() {
+    if (_options.useLocalStorageForEvents && _parameter_Window.localStorage) {
+      var keysLength = _parameter_Window.localStorage.length;
+      var keysToRemove = [];
+      var keyIndex = 0;
+      for (; keyIndex < keysLength; keyIndex++) {
+        if (startsWith(_parameter_Window.localStorage.key(keyIndex), "CJS_")) {
+          keysToRemove.push(_parameter_Window.localStorage.key(keyIndex));
+        }
+      }
+      var keysToRemoveLength = keysToRemove.length;
+      var keyToRemoveIndex = 0;
+      for (; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++) {
+        _parameter_Window.localStorage.removeItem(keysToRemove[keyToRemoveIndex]);
       }
     }
   }
@@ -9707,7 +9725,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.10.7";
+    return "2.10.8";
   };
   this.getId = function() {
     return _parameter_ElementID;

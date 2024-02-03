@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.10.7
+ * @version     v2.10.8
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -6382,6 +6382,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Dialog_EventEditor_Tab_Extra.appendChild( splitContainer2 );
 
         _element_Dialog_EventEditor_AlertOffset = createElement( "input", null, "number" );
+        _element_Dialog_EventEditor_AlertOffset.setAttribute( "min", "0" );
         splitContainer2.appendChild( _element_Dialog_EventEditor_AlertOffset );
 
         _element_Dialog_EventEditor_Group = createElement( "input", null, "text" );
@@ -11111,7 +11112,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function storeEventsInLocalStorage() {
         if ( _options.useLocalStorageForEvents && _parameter_Window.localStorage ) {
-            _parameter_Window.localStorage.clear();
+            clearLocalStorageObjects();
 
             var orderedEvents = getOrderedEvents( getAllEvents() ),
                 orderedEventsLength = orderedEvents.length;
@@ -11136,6 +11137,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( isDefined( event ) ) {
                     _this.addEvent( event, false, false, false );
                 }
+            }
+        }
+    }
+
+    function clearLocalStorageObjects() {
+        if ( _options.useLocalStorageForEvents && _parameter_Window.localStorage ) {
+            var keysLength = _parameter_Window.localStorage.length,
+                keysToRemove = [];
+
+            for ( var keyIndex = 0; keyIndex < keysLength; keyIndex++ ) {
+                if ( startsWith( _parameter_Window.localStorage.key( keyIndex ), "CJS_" ) ) {
+                    keysToRemove.push( _parameter_Window.localStorage.key( keyIndex ) );
+                }
+            }
+
+            var keysToRemoveLength = keysToRemove.length;
+
+            for ( var keyToRemoveIndex = 0; keyToRemoveIndex < keysToRemoveLength; keyToRemoveIndex++ ) {
+                _parameter_Window.localStorage.removeItem( keysToRemove[ keyToRemoveIndex ] );
             }
         }
     }
@@ -13671,7 +13691,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.10.7";
+        return "2.10.8";
     };
 
     /**
