@@ -243,11 +243,14 @@ div.calendar-date-picker {
                 div.cell-selected {
                     background-color: var(--calendar-js-day-date-picker-hover-color) !important;
                 }
+
+                div.cell {
+                    transition: var(--calendar-js-transition);
+                }
     
                 div.cell:not( .cell-no-click ):hover {
                     cursor: pointer;
                     background-color: var(--calendar-js-day-date-picker-hover-color);
-                    transition: var(--calendar-js-transition);
                 }
     
                 div.cell:not( .cell-no-click ):active {
@@ -510,6 +513,7 @@ div.calendar {
     span.link {
         text-decoration: underline !important;
         color: var(--calendar-js-link-color) !important;
+        transition: var(--calendar-js-transition);
 
         &:hover {
             @include opacity-hover-effect;
@@ -711,6 +715,7 @@ div.calendar {
             border-radius: var(--calendar-js-border-radius);
             background-color: rgba(59, 58, 59, 0.6);
             padding: calc( var(--calendar-js-spacing) * 2 );
+            transition: var(--calendar-js-transition);
 
             &:hover {
                 background-color: rgba(59, 58, 59, 0.8);
@@ -1162,6 +1167,7 @@ div.calendar {
                     background-color: #474545;
                     border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-lighter-color);
                     font-weight: 500;
+                    transition: var(--calendar-js-transition);
     
                     span.ib-arrow-down-full-medium,
                     span.ib-arrow-up-full-medium {
@@ -1234,12 +1240,12 @@ div.calendar {
                         div.month-name-current-month {
                             background-color: var(--calendar-js-day-names-color);
                             color: var(--calendar-js-dark-color);
-                            
+                            transition: var(--calendar-js-transition);
+
                             &:hover {
                                 background-color: var(--calendar-js-dark-color);
                                 color: var(--calendar-js-light-color);
                                 cursor: pointer;
-                                transition: var(--calendar-js-transition);
                             }
         
                             &:active:not( .year-selected ) {
@@ -1286,12 +1292,12 @@ div.calendar {
                             margin-bottom: 5px;
                             border-radius: var(--calendar-js-border-radius);
                             padding: 3px;
-            
+                            transition: var(--calendar-js-transition);
+
                             &:hover {
                                 background-color: var(--calendar-js-dark-color);
                                 color: var(--calendar-js-light-color);
                                 cursor: pointer;
-                                transition: var(--calendar-js-transition);
                             }
         
                             &:active:not( .year-selected ) {
@@ -1468,6 +1474,7 @@ div.calendar {
                     margin-top: calc( var(--calendar-js-spacing) / 2 );
                     margin-left: auto;
                     margin-right: auto;
+                    transition: var(--calendar-js-transition);
     
                     &:hover {
                         @include opacity-hover-effect;
@@ -1548,6 +1555,7 @@ div.calendar {
                         padding-right: calc( var(--calendar-js-spacing) / 2 ) !important;
                         position: relative;
                         overflow: visible !important;
+                        transition: var(--calendar-js-transition);
     
                         div.events-count {
                             position: absolute;
@@ -1577,7 +1585,6 @@ div.calendar {
                     div.cell:not( .cell-no-click ):hover {
                         cursor: pointer;
                         background-color: var(--calendar-js-day-date-picker-hover-color);
-                        transition: var(--calendar-js-transition);
                     }
         
                     div.cell:not( .cell-no-click ):active {
@@ -1616,6 +1623,7 @@ div.calendar {
                 span.header-text {
                     font-weight: 900;
                     font-size: 22px;
+                    transition: var(--calendar-js-transition);
 
                     &:hover {
                         @include opacity-hover-effect;
@@ -2224,6 +2232,7 @@ div.search {
                 div.history-dropdown-item {
                     padding: var(--calendar-js-spacing);
                     border-bottom: 1px dotted var(--calendar-js-input-border-color);
+                    transition: var(--calendar-js-transition);
 
                     span.search-search {
                         font-weight: 900 !important;
@@ -2235,7 +2244,6 @@ div.search {
 
                     &:hover {
                         background-color: var(--calendar-js-day-names-color);
-                        transition: var(--calendar-js-transition);
                         cursor: pointer;
                     }
             
@@ -2435,13 +2443,13 @@ div.calendar-dialog {
 
     div.tab-control {
         border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
+        transition: var(--calendar-js-transition);
 
         &:hover {
             cursor: pointer;
             border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
             background-color: var(--calendar-js-dark-color);
             color: var(--calendar-js-light-color);
-            transition: var(--calendar-js-transition);
         }
 
         &:active {
@@ -2772,11 +2780,11 @@ div.calendar-context-menu {
     div.item {
         padding: calc( var(--calendar-js-spacing) - calc( var(--calendar-js-spacing) / 5 ) );
         padding-right: calc( var(--calendar-js-spacing) * 3 );
+        transition: var(--calendar-js-transition);
 
         &:hover {
             background-color: var(--calendar-js-dark-color);
             color: var(--calendar-js-light-color);
-            transition: var(--calendar-js-transition);
         }
 
         &:hover div.ib-plus-icon::before,

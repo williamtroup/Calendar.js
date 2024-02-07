@@ -294,13 +294,14 @@ div.calendar-date-picker div.calendar div.full-month-view div.days div.cell-toda
 div.calendar-date-picker div.calendar div.full-month-view div.days div.cell-selected {
   background-color: var(--calendar-js-day-date-picker-hover-color) !important;
 }
+div.calendar-date-picker div.calendar div.full-month-view div.days div.cell {
+  transition: var(--calendar-js-transition);
+}
 div.calendar-date-picker div.calendar div.full-month-view div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
   background-color: var(--calendar-js-day-date-picker-hover-color);
-  transition: var(--calendar-js-transition);
 }
 div.calendar-date-picker div.calendar div.full-month-view div.days div.cell:not(.cell-no-click):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -550,14 +551,13 @@ div.calendar div.no-events-available-text p {
 div.calendar span.link {
   text-decoration: underline !important;
   color: var(--calendar-js-link-color) !important;
+  transition: var(--calendar-js-transition);
 }
 div.calendar span.link:hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.calendar span.link:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -721,15 +721,14 @@ div.calendar div.pin-up div.pin-up-text {
   border-radius: var(--calendar-js-border-radius);
   background-color: rgba(59, 58, 59, 0.6);
   padding: calc(var(--calendar-js-spacing) * 2);
+  transition: var(--calendar-js-transition);
 }
 div.calendar div.pin-up div.pin-up-text:hover {
   background-color: rgba(59, 58, 59, 0.8);
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 1;
 }
 div.calendar div.pin-up div.pin-up-text:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.7;
 }
@@ -1630,6 +1629,7 @@ div.calendar div.full-month-view div.title-bar div.title-container span.year-dro
   background-color: #474545;
   border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-lighter-color);
   font-weight: 500;
+  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
 div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
@@ -1643,12 +1643,10 @@ div.calendar div.full-month-view div.title-bar div.title-container span.year-dro
   border-bottom-color: var(--calendar-js-title-bar-text-color);
 }
 div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button:hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -1711,6 +1709,7 @@ div.calendar div.full-month-view div.title-bar div.title-container div.years-dro
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-current-month {
   background-color: var(--calendar-js-day-names-color);
   color: var(--calendar-js-dark-color);
+  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name:hover,
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-current-month:hover,
@@ -1719,13 +1718,11 @@ div.calendar div.full-month-view div.title-bar div.title-container div.years-dro
   background-color: var(--calendar-js-dark-color);
   color: var(--calendar-js-light-color);
   cursor: pointer;
-  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name:active:not(.year-selected),
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.months div.month-name-current-month:active:not(.year-selected),
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name:active:not(.year-selected),
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.months div.month-name-current-month:active:not(.year-selected) {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -1769,17 +1766,16 @@ div.calendar div.full-month-view div.title-bar div.title-container div.years-dro
   margin-bottom: 5px;
   border-radius: var(--calendar-js-border-radius);
   padding: 3px;
+  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents div.year:hover,
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents div.year:hover {
   background-color: var(--calendar-js-dark-color);
   color: var(--calendar-js-light-color);
   cursor: pointer;
-  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down div.contents div.year:active:not(.year-selected),
 div.calendar div.full-month-view div.title-bar div.title-container div.years-drop-down-no-months div.contents div.year:active:not(.year-selected) {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -1928,15 +1924,14 @@ div.calendar div.full-month-view div.row-cells div.cell div.plus-x-events {
   margin-top: calc(var(--calendar-js-spacing) / 2);
   margin-left: auto;
   margin-right: auto;
+  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-month-view div.row-cells div.cell div.plus-x-events:hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
   text-decoration: underline;
 }
 div.calendar div.full-month-view div.row-cells div.cell div.plus-x-events:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -2115,6 +2110,7 @@ div.calendar div.full-year-view div.contents div.year-month div.days div.cell {
   padding-right: calc(var(--calendar-js-spacing) / 2) !important;
   position: relative;
   overflow: visible !important;
+  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell div.events-count {
   position: absolute;
@@ -2140,10 +2136,8 @@ div.calendar div.full-year-view div.contents div.year-month div.days div.has-eve
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell:not(.cell-no-click):hover {
   cursor: pointer;
   background-color: var(--calendar-js-day-date-picker-hover-color);
-  transition: var(--calendar-js-transition);
 }
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell:not(.cell-no-click):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -2284,14 +2278,13 @@ div.calendar div.all-events-view div.contents div.year-header {
 div.calendar div.all-events-view div.contents div.year-header span.header-text {
   font-weight: 900;
   font-size: 22px;
+  transition: var(--calendar-js-transition);
 }
 div.calendar div.all-events-view div.contents div.year-header span.header-text:hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.calendar div.all-events-view div.contents div.year-header span.header-text:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -2855,14 +2848,13 @@ div.event-editor div.view input[type=button].add-update {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor div.view input[type=button].add-update:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor div.view input[type=button].add-update:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -2871,14 +2863,13 @@ div.event-editor div.view input[type=button].cancel {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor div.view input[type=button].cancel:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -2887,14 +2878,13 @@ div.event-editor div.view input[type=button].remove {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor div.view input[type=button].remove:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor div.view input[type=button].remove:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -2903,14 +2893,13 @@ div.event-editor div.view input[type=button].select-colors {
   background-color: var(--calendar-js-tertiary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-tertiary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor div.view input[type=button].select-colors:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor div.view input[type=button].select-colors:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -2919,14 +2908,13 @@ div.event-editor div.view input[type=button].repeat-options {
   background-color: var(--calendar-js-tertiary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-tertiary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor div.view input[type=button].repeat-options:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor div.view input[type=button].repeat-options:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3074,14 +3062,13 @@ div.event-editor-colors input[type=button].update {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor-colors input[type=button].update:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor-colors input[type=button].update:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3090,14 +3077,13 @@ div.event-editor-colors input[type=button].cancel {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor-colors input[type=button].cancel:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3241,14 +3227,13 @@ div.event-editor-repeat-options input[type=button].update {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor-repeat-options input[type=button].update:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor-repeat-options input[type=button].update:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3257,14 +3242,13 @@ div.event-editor-repeat-options input[type=button].cancel {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.event-editor-repeat-options input[type=button].cancel:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3357,14 +3341,13 @@ div.message input[type=button].yes-ok {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.message input[type=button].yes-ok:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.message input[type=button].yes-ok:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3373,14 +3356,13 @@ div.message input[type=button].no {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.message input[type=button].no:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.message input[type=button].no:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3536,14 +3518,13 @@ div.export-events input[type=button].export {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.export-events input[type=button].export:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.export-events input[type=button].export:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3552,14 +3533,13 @@ div.export-events input[type=button].cancel {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.export-events input[type=button].cancel:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.export-events input[type=button].cancel:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3639,6 +3619,7 @@ div.search div.contents div.history-container div.history-dropdown {
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item {
   padding: var(--calendar-js-spacing);
   border-bottom: 1px dotted var(--calendar-js-input-border-color);
+  transition: var(--calendar-js-transition);
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item span.search-search {
   font-weight: 900 !important;
@@ -3648,11 +3629,9 @@ div.search div.contents div.history-container div.history-dropdown div.history-d
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item:hover {
   background-color: var(--calendar-js-day-names-color);
-  transition: var(--calendar-js-transition);
   cursor: pointer;
 }
 div.search div.contents div.history-container div.history-dropdown div.history-dropdown-item:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3769,14 +3748,13 @@ div.search input[type=button].next {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.search input[type=button].next:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.search input[type=button].next:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3785,14 +3763,13 @@ div.search input[type=button].previous {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.search input[type=button].previous:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.search input[type=button].previous:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3922,14 +3899,13 @@ div.configuration input[type=button].update {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.configuration input[type=button].update:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.configuration input[type=button].update:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -3938,14 +3914,13 @@ div.configuration input[type=button].cancel {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.configuration input[type=button].cancel:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.configuration input[type=button].cancel:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -4086,14 +4061,13 @@ div.jump-to-date input[type=button].go {
   background-color: var(--calendar-js-primary-button-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-primary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.jump-to-date input[type=button].go:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.jump-to-date input[type=button].go:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -4102,14 +4076,13 @@ div.jump-to-date input[type=button].cancel {
   background-color: var(--calendar-js-light-color);
   border: var(--calendar-js-spacing-border-size-button) solid var(--calendar-js-secondary-button-color);
   box-sizing: border-box;
+  transition: var(--calendar-js-transition);
 }
 div.jump-to-date input[type=button].cancel:not(:disabled):hover {
-  transition: var(--calendar-js-transition);
   cursor: pointer;
   opacity: 0.6;
 }
 div.jump-to-date input[type=button].cancel:not(:disabled):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -4149,16 +4122,15 @@ div.calendar-dialog div.tab-control-selected {
 }
 div.calendar-dialog div.tab-control {
   border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
+  transition: var(--calendar-js-transition);
 }
 div.calendar-dialog div.tab-control:hover {
   cursor: pointer;
   border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-color);
   background-color: var(--calendar-js-dark-color);
   color: var(--calendar-js-light-color);
-  transition: var(--calendar-js-transition);
 }
 div.calendar-dialog div.tab-control:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.7;
 }
@@ -4512,11 +4484,11 @@ div.calendar-context-menu div.ib-edit-icon {
 div.calendar-context-menu div.item {
   padding: calc(var(--calendar-js-spacing) - var(--calendar-js-spacing) / 5);
   padding-right: calc(var(--calendar-js-spacing) * 3);
+  transition: var(--calendar-js-transition);
 }
 div.calendar-context-menu div.item:hover {
   background-color: var(--calendar-js-dark-color);
   color: var(--calendar-js-light-color);
-  transition: var(--calendar-js-transition);
 }
 div.calendar-context-menu div.item:hover div.ib-plus-icon::before, div.calendar-context-menu div.item:hover div.ib-plus-icon::after, div.calendar-context-menu div.item:hover div.ib-hamburger-side-icon::before, div.calendar-context-menu div.item:hover div.ib-close-icon::before, div.calendar-context-menu div.item:hover div.ib-close-icon::after, div.calendar-context-menu div.item:hover div.ib-circle-icon, div.calendar-context-menu div.item:hover div.ib-minus-icon::before, div.calendar-context-menu div.item:hover div.ib-pipe-icon::before, div.calendar-context-menu div.item:hover div.ib-equals-icon::before, div.calendar-context-menu div.item:hover div.ib-equals-icon::after, div.calendar-context-menu div.item:hover div.ib-arrow-down-full-line-icon::after, div.calendar-context-menu div.item:hover div.ib-arrow-up-full-line-share-icon::after, div.calendar-context-menu div.item:hover div.ib-edit-icon::before, div.calendar-context-menu div.item:hover div.ib-edit-icon::after {
   background-color: var(--calendar-js-light-color);
@@ -4531,7 +4503,6 @@ div.calendar-context-menu div.item:hover div.ib-arrow-up-full-line-share-icon::b
   border-bottom-color: var(--calendar-js-light-color);
 }
 div.calendar-context-menu div.item:active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.4;
 }
@@ -4604,6 +4575,7 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 0;
   height: 0;
   border-top: 8px solid transparent;
@@ -4611,12 +4583,10 @@ div.calendar-context-menu div.separator {
   border-right: 16px solid var(--calendar-js-title-bar-button-color);
 }
 .ib-arrow-left-full:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-left-full:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4626,17 +4596,16 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   height: 12px;
   border-top: 4px solid var(--calendar-js-title-bar-button-color);
   border-radius: 50%;
 }
 .ib-pin:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-pin:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4669,14 +4638,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-refresh:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-refresh:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4708,14 +4676,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-search:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-search:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4747,18 +4714,17 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-top: 4px solid var(--calendar-js-title-bar-button-color);
   border-bottom: 4px solid var(--calendar-js-title-bar-button-color);
   border-radius: 4px;
   height: 8px;
 }
 .ib-hamburger:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-hamburger:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4779,18 +4745,17 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-left: 4px solid var(--calendar-js-title-bar-button-color);
   border-right: 4px solid var(--calendar-js-title-bar-button-color);
   border-radius: 4px;
   width: 8px;
 }
 .ib-hamburger-side:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-hamburger-side:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4811,18 +4776,17 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-top: 4px solid var(--calendar-js-title-bar-button-color);
   border-bottom: 4px solid var(--calendar-js-title-bar-button-color);
   border-radius: 50%;
   height: 8px;
 }
 .ib-eye:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-eye:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4844,14 +4808,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-arrow-down-full-line:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-down-full-line:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4882,14 +4845,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-plus:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-plus:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4921,6 +4883,7 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 0;
   height: 0;
   border-top: 8px solid transparent;
@@ -4928,12 +4891,10 @@ div.calendar-context-menu div.separator {
   border-left: 16px solid var(--calendar-js-title-bar-button-color);
 }
 .ib-arrow-right-full:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-right-full:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4943,14 +4904,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-minus:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-minus:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4971,18 +4931,17 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border: 4px solid var(--calendar-js-title-bar-button-color);
   border-radius: 4px;
   width: 8px;
   height: 8px;
 }
 .ib-square-hollow:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-square-hollow:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -4992,14 +4951,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-close:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-close:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5031,14 +4989,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-arrow-expand-left-right:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-expand-left-right:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5068,14 +5025,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-arrow-contract-left-right:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-contract-left-right:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5105,14 +5061,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-octagon-hollow:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-octagon-hollow:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5146,14 +5101,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-rewind:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-rewind:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5185,14 +5139,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-forward:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-forward:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5224,6 +5177,7 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 0;
   height: 0;
   border-top: 16px solid var(--calendar-js-dark-color);
@@ -5231,12 +5185,10 @@ div.calendar-context-menu div.separator {
   border-right: 8px solid transparent;
 }
 .ib-arrow-down-full:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-down-full:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5246,6 +5198,7 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 0;
   height: 0;
   border-left: 8px solid transparent;
@@ -5253,12 +5206,10 @@ div.calendar-context-menu div.separator {
   border-bottom: 16px solid var(--calendar-js-dark-color);
 }
 .ib-arrow-up-full:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-up-full:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5268,16 +5219,15 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   background-color: var(--calendar-js-title-bar-button-color);
   border-radius: 4px;
 }
 .ib-square:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-square:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5287,14 +5237,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-arrow-up-full-line:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-up-full-line:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5325,14 +5274,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-expand:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-expand:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5364,14 +5312,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-hourglass:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-hourglass:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5403,16 +5350,15 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-top: 4px solid var(--calendar-js-title-bar-button-color);
   height: 12px;
 }
 .ib-bar-graph:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-bar-graph:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5442,15 +5388,14 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   position: relative;
 }
 .ib-edit:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-edit:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5484,14 +5429,13 @@ div.calendar-context-menu div.separator {
   height: 16px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-arrow-right-full-line:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-right-full-line:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5551,18 +5495,17 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-top: 3px solid var(--calendar-js-menu-item-icon-color);
   border-bottom: 3px solid var(--calendar-js-menu-item-icon-color);
   border-radius: 3px;
   height: 6px;
 }
 .ib-hamburger-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-hamburger-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5583,18 +5526,17 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-right: 3px solid var(--calendar-js-menu-item-icon-color);
   border-left: 3px solid var(--calendar-js-menu-item-icon-color);
   border-radius: 3px;
   width: 6px;
 }
 .ib-hamburger-side-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-hamburger-side-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5615,14 +5557,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-arrow-expand-left-right-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-expand-left-right-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5652,14 +5593,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-close-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-close-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5691,6 +5631,7 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 9px;
   height: 9px;
   border-right: 3px solid var(--calendar-js-menu-item-icon-color);
@@ -5698,12 +5639,10 @@ div.calendar-context-menu div.separator {
   border-radius: 3px;
 }
 .ib-arrow-top-right-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-top-right-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5713,16 +5652,15 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   background-color: var(--calendar-js-menu-item-icon-color);
   border-radius: 50%;
 }
 .ib-circle-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-circle-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5732,18 +5670,17 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border: 3px solid var(--calendar-js-menu-item-icon-color);
   width: 6px;
   height: 6px;
   border-radius: 50%;
 }
 .ib-circle-hollow-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-circle-hollow-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5753,14 +5690,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-minus-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-minus-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5781,14 +5717,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-octagon-hollow-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-octagon-hollow-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5822,14 +5757,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-pipe-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-pipe-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5850,14 +5784,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-equals-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-equals-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5889,14 +5822,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-rhombus-hollow-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-rhombus-hollow-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5919,14 +5851,13 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
 }
 .ib-arrow-down-full-line-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-down-full-line-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5957,6 +5888,7 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 8px;
   height: 10px;
   border-bottom: 2px solid var(--calendar-js-menu-item-icon-color);
@@ -5965,12 +5897,10 @@ div.calendar-context-menu div.separator {
   border-radius: 3px;
 }
 .ib-arrow-up-full-line-share-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-up-full-line-share-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -6001,15 +5931,14 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   position: relative;
 }
 .ib-edit-icon:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-edit-icon:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -6043,15 +5972,14 @@ div.calendar-context-menu div.separator {
   height: 12px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-color: var(--calendar-js-light-color);
 }
 .ib-refresh-medium:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-refresh-medium:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -6083,15 +6011,14 @@ div.calendar-context-menu div.separator {
   height: 8px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   border-color: var(--calendar-js-light-color);
 }
 .ib-refresh-small:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-refresh-small:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -6123,6 +6050,7 @@ div.calendar-context-menu div.separator {
   height: 10px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 0;
   height: 0;
   border-top: 10px solid var(--calendar-js-dark-color);
@@ -6130,12 +6058,10 @@ div.calendar-context-menu div.separator {
   border-right: 5px solid transparent;
 }
 .ib-arrow-down-full-medium:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-down-full-medium:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -6145,6 +6071,7 @@ div.calendar-context-menu div.separator {
   height: 10px;
   display: inline-block;
   position: relative;
+  transition: all 0.3s;
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
@@ -6152,12 +6079,10 @@ div.calendar-context-menu div.separator {
   border-bottom: 10px solid var(--calendar-js-light-color);
 }
 .ib-arrow-up-full-medium:not(.ib-no-hover):hover {
-  transition: all 0.3s;
   cursor: pointer;
   opacity: 0.7;
 }
 .ib-arrow-up-full-medium:not(.ib-no-active):active {
-  transition: all 0.2s;
   cursor: pointer;
   opacity: 0.5;
 }/*# sourceMappingURL=calendar.js.css.map */
