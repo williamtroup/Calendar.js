@@ -5,7 +5,7 @@
 - Fixed the "calendar.js.nuspec" file including the ".github" folder when NuGet PACK is called.
 - Added Math injection directly into the main instance.
 - Added JSON injection directly into the main instance.
-- Added a new ":root" variable called "--calendar-js-default-font" (the default font is now different and more inline with Bootstrap).
+- Added a new ":root" variable called "--calendar-js-default-font" (the default font is now different and more in line with Bootstrap).
 - Updated the package files to contain better keywords.
 - All hover transition effects now work in all states (when entering/leaving an element), which results in a smoother display.
 - Added translation support for Hebrew (he).
