@@ -1,8 +1,8 @@
-# Calendar.js v2.10.8
+# Calendar.js v2.10.9
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.8-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.8-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.9-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.9-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://www.william-troup.com/)
@@ -12,6 +12,7 @@
 ## What features does Calendar.js have?
 
 - Zero-dependencies!
+- 40 language translations available!
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
@@ -56,24 +57,37 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `et` Estonian
+- `fa` Farsi
 - `fi` Finnish
 - `fr` French
+- `gl` Galician
 - `ka` Georgian
 - `de` German
 - `el` Greek
+- `he` Hebrew
 - `hi` Hindi
 - `hu` Hungarian
-- `ir` Italian
+- `is` Icelandic
+- `id` Indonesian
+- `ga` Irish
+- `it` Italian
 - `ja` Japanese
 - `ko` Korean
 - `lv` Latvian
 - `lt` Lithuanian
+- `lb` Luxembourgish
+- `ms` Malay
+- `ne` Nepali
 - `no` Norwegian
 - `pl` Polish
 - `pt` Portuguese
 - `ro` Romanian
+- `sk` Slovak
+- `sl` Slovenian
 - `es` Spanish
 - `sv` Swedish
+- `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian
 
@@ -81,6 +95,17 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 ## What are the most recent changes?
 
 To see a list of all the most recent changes, click [here](https://calendar-js.com/documentation/recent-changes.html).
+
+
+## How do I install Calendar.js?
+
+You can install the library with npm into your local modules directory using the following command:
+
+```markdown
+npm install jcalendar.js
+```
+
+Or, you can download the latest zipped up version [here](https://calendar-js.com/download.html).
 
 
 ## How do I get started?

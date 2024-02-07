@@ -19,13 +19,11 @@ $minimum-width: $maximum-width + 1;
 }
 
 @mixin opacity-hover-effect( $opacity-default: 0.6 ) {
-    transition: var(--calendar-js-transition);
     cursor: pointer;
     opacity: $opacity-default;
 }
 
 @mixin opacity-active-effect( $opacity-default: 0.4 ) {
-    transition: all .2s;
     cursor: pointer;
     opacity: $opacity-default;
 }
@@ -136,7 +134,8 @@ $minimum-width: $maximum-width + 1;
         background-color: $background-color;
         border: var(--calendar-js-spacing-border-size-button) solid $border-color;
         box-sizing: border-box;
-
+        transition: var(--calendar-js-transition);
+        
         &:not( :disabled ):hover {
             @include opacity-hover-effect;
         }

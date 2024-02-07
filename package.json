@@ -2,7 +2,7 @@
     "name": "jcalendar.js",
     "title": "Calendar.js",
     "description": "A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.",
-    "version": "2.10.8",
+    "version": "2.10.9",
     "main": "dist/calendar.js",
     "homepage": "https://calendar-js.com",
     "author": {
@@ -24,7 +24,15 @@
       "javascript-calendar",
       "calendar-events",
       "browser-notifications",
-      "calendar.js"
+      "calendar.js",
+      "html",
+      "css",
+      "timeline",
+      "notifications",
+      "week",
+      "weekly",
+      "task",
+      "event"
     ],
     "bugs": {
       "url": "https://github.com/williamtroup/Calendar.js/issues"

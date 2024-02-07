@@ -1,5 +1,30 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.9:
+- Added install instructions into the main README files.
+- Fixed the "calendar.js.nuspec" file including the ".github" folder when NuGet PACK is called.
+- Added Math injection directly into the main instance.
+- Added JSON injection directly into the main instance.
+- Added a new ":root" variable called "--calendar-js-default-font" (the default font is now different and more in line with Bootstrap).
+- Updated the package files to contain better keywords.
+- All hover transition effects now work in all states (when entering/leaving an element), which results in a smoother display.
+- Added translation support for Hebrew (he).
+- Added translation support for Indonesian (id).
+- Added translation support for Estonian (et).
+- Added translation support for Icelandic (is).
+- Added translation support for Nepali (ne).
+- Added translation support for Thai (th).
+- Added translation support for Slovenian (sl).
+- Added translation support for Farsi (fa).
+- Added translation support for Slovak (sk).
+- Added translation support for Luxembourgish (lb).
+- Added translation support for Irish (ga).
+- Added translation support for Galician (gl).
+- Added translation support for Malay (ms).
+
+<br>
+
+
 ## Version 2.10.8:
 - Fixed a fault that allowed negative values to be entered into the "Alarm Offset (minutes)" field in the Event Editor dialog.
 - Fixed a fault that caused all local storage objects to be cleared when the Calendar uses the setting "useLocalStorageForEvents".
@@ -9,7 +34,7 @@
 
 
 ## Version 2.10.7:
-- Fixed some dialog titles not showing the right text color (they were inhiriting from the body).
+- Fixed some dialog titles not showing the right text color (they were inheriting from the body).
 - Added translation support for Danish (da).
 - Added translation support for Ukrainian (uk).
 - Added translation support for Dutch (nl).
