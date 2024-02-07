@@ -2,6 +2,7 @@
 
 ## Version 2.10.9:
 - Added install instructions into the main README files.
+- Fixed the "heat.js.nuspec" file including the ".github" folder when NuGet PACK is called.
 - 
 
 <br>
