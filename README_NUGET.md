@@ -104,7 +104,7 @@ You can install the library with npm into your local modules directory using the
 npm install jcalendar.js
 ```
 
-Or, you can download the latest zipped up version [here](https://www.calendar-js.com/download.html).
+Or, you can download the latest zipped up version [here](https://calendar-js.com/download.html).
 
 
 ## How do I get started?
