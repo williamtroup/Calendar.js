@@ -9,6 +9,12 @@
 @import "foundation/styles";
 
 :root {
+    // Fonts
+    --calendar-js-default-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --calendar-js-title-bar-font-weight: 900;
+    --calendar-js-large-font-size: 0.9rem;
+    --calendar-js-small-font-size: 0.7rem;
+
     // Colors
     --calendar-js-dark-color: #3b3a3a;
     --calendar-js-dark-lighter-color: #575555;
@@ -49,11 +55,6 @@
     --calendar-js-spacing-border-left-size: calc( var(--calendar-js-spacing-border-size) * 12 );
     --calendar-js-spacing-border-size-button: var(--calendar-js-spacing-border-size);
     --calendar-js-spacing-shadow-size: 4px;
-
-    // Fonts
-    --calendar-js-title-bar-font-weight: 900;
-    --calendar-js-large-font-size: 0.9rem;
-    --calendar-js-small-font-size: 0.7rem;
 
     // Side Menu
     --calendar-js-side-menu-width: 320px;
@@ -105,7 +106,7 @@ div.calendar-dialog input,
 div.calendar-dialog textarea,
 div.calendar-notification,
 div.calendar-widget {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--calendar-js-default-font);
     color: var(--calendar-js-dark-color);
 
     @media screen and ( min-width: $minimum-width ) {
