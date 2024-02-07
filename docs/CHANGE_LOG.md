@@ -8,7 +8,19 @@
 - Added a new ":root" variable called "--calendar-js-default-font" (the default font is now different and more inline with Bootstrap).
 - Updated the package files to contain better keywords.
 - All hover transition effects now work in all states (when entering/leaving an element), which results in a smoother display.
-- 
+- Added translation support for Hebrew (he).
+- Added translation support for Indonesian (id).
+- Added translation support for Estonian (et).
+- Added translation support for Icelandic (is).
+- Added translation support for Nepali (ne).
+- Added translation support for Thai (th).
+- Added translation support for Slovenian (sl).
+- Added translation support for Farsi (fa).
+- Added translation support for Slovak (sk).
+- Added translation support for Luxembourgish (lb).
+- Added translation support for Irish (ga).
+- Added translation support for Galician (gl).
+- Added translation support for Malay (ms).
 
 <br>
 
