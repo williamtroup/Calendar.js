@@ -1786,7 +1786,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (_element_View_FullWeek_Contents_SmallestEventTop === 0) {
         _element_View_FullWeek_Contents_SmallestEventTop = event.offsetTop;
       } else {
-        _element_View_FullWeek_Contents_SmallestEventTop = Math.min(_element_View_FullWeek_Contents_SmallestEventTop, event.offsetTop);
+        _element_View_FullWeek_Contents_SmallestEventTop = _parameter_Math.min(_element_View_FullWeek_Contents_SmallestEventTop, event.offsetTop);
       }
       _element_View_FullWeek_EventsShown_PerDay[weekdayNumber].push(eventDetails);
       added = true;
@@ -1929,7 +1929,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         for (; eventIndex < eventsLength; eventIndex++) {
           newHeight = newHeight + (events[eventIndex].offsetHeight + _options.spacing);
         }
-        height = Math.max(height, newHeight);
+        height = _parameter_Math.max(height, newHeight);
       }
       _element_View_FullWeek_Contents_AllDayEvents.style.height = height + _options.spacing + "px";
     }
@@ -2399,7 +2399,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         actualDay++;
       }
       var nextDay = getTotalDaysInMonth(nextMonth.getFullYear(), nextMonth.getMonth());
-      nextDay = Math.round(nextDay / 2);
+      nextDay = _parameter_Math.round(nextDay / 2);
       _element_View_FullMonth_LargestDateAvailable = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), nextDay);
     } else {
       _element_View_FullMonth_LargestDateAvailable = null;
@@ -3419,12 +3419,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (_element_View_Timeline_Contents_SmallestEventLeft === null) {
       _element_View_Timeline_Contents_SmallestEventLeft = scrollLeft;
     } else {
-      _element_View_Timeline_Contents_SmallestEventLeft = Math.min(_element_View_Timeline_Contents_SmallestEventLeft, scrollLeft);
+      _element_View_Timeline_Contents_SmallestEventLeft = _parameter_Math.min(_element_View_Timeline_Contents_SmallestEventLeft, scrollLeft);
     }
     if (_element_View_Timeline_Contents_SmallestEventTop === null) {
       _element_View_Timeline_Contents_SmallestEventTop = timelineRowItems.offsetTop;
     } else {
-      _element_View_Timeline_Contents_SmallestEventTop = Math.min(_element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop);
+      _element_View_Timeline_Contents_SmallestEventTop = _parameter_Math.min(_element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop);
     }
   }
   function buildTimelineViewTitle() {
@@ -5671,7 +5671,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getHourMinutesFromMousePositionClick(e, container) {
     var contentHoursOffset = getOffset(container);
     var pixelsPerMinute = getPixelsPerMinuteForHeight(container);
-    var minutesFromTop = Math.floor((e.pageY - contentHoursOffset.top) / pixelsPerMinute);
+    var minutesFromTop = _parameter_Math.floor((e.pageY - contentHoursOffset.top) / pixelsPerMinute);
     var hoursMinutes = getHoursAndMinutesFromMinutes(minutesFromTop);
     return hoursMinutes;
   }
@@ -5880,7 +5880,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
       var pixelsPerMinute = getPixelsPerMinuteForHeight(container);
       var offset = getOffset(container);
-      var top = Math.abs(e.pageY) - offset.top + _element_View_Event_Dragged_ClickOffset;
+      var top = _parameter_Math.abs(e.pageY) - offset.top + _element_View_Event_Dragged_ClickOffset;
       var difference = top - _element_View_Event_Dragged_OffsetTop;
       var differenceMinutes = difference / pixelsPerMinute;
       _element_View_Event_Dragged_EventDetails.from = addMinutesToDate(_element_View_Event_Dragged_EventDetails.from, differenceMinutes);
@@ -6213,13 +6213,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getTotalDaysBetweenDates(from, to) {
     var fromDate = new Date(from.getFullYear(), from.getMonth(), from.getDate());
     var toDate = new Date(to.getFullYear(), to.getMonth(), to.getDate());
-    var differenceTime = Math.abs(toDate - fromDate);
-    var differenceDays = Math.ceil(differenceTime / (1000 * 60 * 60 * 24));
+    var differenceTime = _parameter_Math.abs(toDate - fromDate);
+    var differenceDays = _parameter_Math.ceil(differenceTime / (1000 * 60 * 60 * 24));
     return differenceDays;
   }
   function getWeekNumber(date) {
     var firstDay = new Date(date.getFullYear(), 0, 1);
-    var weekNumber = Math.ceil(((date - firstDay) / 86400000 + firstDay.getDay() + 1) / 7);
+    var weekNumber = _parameter_Math.ceil(((date - firstDay) / 86400000 + firstDay.getDay() + 1) / 7);
     if (firstDay.getDay() > 4) {
       weekNumber--;
     }
@@ -6258,18 +6258,18 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function getFriendlyTimeBetweenTwoDate(date1, date2) {
     var text = [];
-    var delta = Math.abs(date2 - date1) / 1000;
-    var days = Math.floor(delta / 86400);
+    var delta = _parameter_Math.abs(date2 - date1) / 1000;
+    var days = _parameter_Math.floor(delta / 86400);
     delta = delta - days * 86400;
     if (days > 0) {
       text.push(days.toString() + _string.space + (days === 1 ? _options.dayText : _options.daysText));
     }
-    var hours = Math.floor(delta / 3600) % 24;
+    var hours = _parameter_Math.floor(delta / 3600) % 24;
     delta = delta - hours * 3600;
     if (hours > 0) {
       text.push(hours.toString() + _string.space + (hours === 1 ? _options.hourText : _options.hoursText));
     }
-    var minutes = Math.floor(delta / 60) % 60;
+    var minutes = _parameter_Math.floor(delta / 60) % 60;
     if (minutes > 0) {
       text.push(minutes.toString() + _string.space + (minutes === 1 ? _options.minuteText : _options.minutesText));
     }
@@ -6302,7 +6302,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
     if (isDefined(result)) {
-      result = new Date(result.getTime() + Math.abs(result.getTimezoneOffset() * 60000));
+      result = new Date(result.getTime() + _parameter_Math.abs(result.getTimezoneOffset() * 60000));
     }
     return result;
   }
@@ -6332,8 +6332,8 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function getHoursAndMinutesFromMinutes(totalMinutes) {
     var hours = totalMinutes / 60;
-    var remainingHours = Math.floor(hours);
-    var remainingMinutes = Math.round((hours - remainingHours) * 60);
+    var remainingHours = _parameter_Math.floor(hours);
+    var remainingMinutes = _parameter_Math.round((hours - remainingHours) * 60);
     return [remainingHours, remainingMinutes];
   }
   function addMinutesToDate(date, minutes) {
@@ -6448,7 +6448,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       event.setAttribute("draggable", true);
       event.ondragstart = function(e) {
         fireCustomTrigger("onEventDragStart", eventDetails);
-        e.dataTransfer.setData("event_details", JSON.stringify(eventDetails));
+        e.dataTransfer.setData("event_details", _parameter_Json.stringify(eventDetails));
         _events_Dragged_DateFrom = draggedFromDate;
         _events_Dragged = eventDetails;
         if (isDefined(container)) {
@@ -6581,7 +6581,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function getObjectFromString(objectString) {
     var result;
     try {
-      result = JSON.parse(objectString);
+      result = _parameter_Json.parse(objectString);
     } catch (e1) {
       try {
         result = eval("(" + objectString + ")");
@@ -7219,7 +7219,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function cloneEventDetails(value, deleteId) {
     deleteId = isDefined(deleteId) ? deleteId : true;
-    var object = JSON.parse(JSON.stringify(value));
+    var object = _parameter_Json.parse(_parameter_Json.stringify(value));
     object.from = new Date(object.from);
     object.to = new Date(object.to);
     if (isDefined(object.repeatEnds)) {
@@ -7403,7 +7403,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (charIndex === 8 || charIndex === 12 || charIndex === 16 || charIndex === 20) {
         result.push("-");
       }
-      var character = Math.floor(Math.random() * 16).toString(16);
+      var character = _parameter_Math.floor(_parameter_Math.random() * 16).toString(16);
       result.push(character);
     }
     return result.join(_string.empty);
@@ -7471,7 +7471,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (result) {
       array1.sort();
       array2.sort();
-      result = JSON.stringify(array1) === JSON.stringify(array2);
+      result = _parameter_Json.stringify(array1) === _parameter_Json.stringify(array2);
     }
     return result;
   }
@@ -7501,7 +7501,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var orderedEventIndex = 0;
       for (; orderedEventIndex < orderedEventsLength; orderedEventIndex++) {
         var orderedEvent = orderedEvents[orderedEventIndex];
-        var orderedEventsJson = JSON.stringify(orderedEvent);
+        var orderedEventsJson = _parameter_Json.stringify(orderedEvent);
         _parameter_Window.localStorage.setItem("CJS_" + orderedEventIndex.toString(), orderedEventsJson);
       }
     }
@@ -7601,7 +7601,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           if (contentLine.indexOf("BEGIN:VEVENT") > -1) {
             readingEvent = true;
           } else if (contentLine.indexOf("END:VEVENT") > -1) {
-            var eventDetails = JSON.parse(JSON.stringify(readingEventDetails));
+            var eventDetails = _parameter_Json.parse(_parameter_Json.stringify(readingEventDetails));
             readingEvent = false;
             readingEventDetails = {};
             _this.removeEvent(eventDetails.id, false, false);
@@ -8871,6 +8871,8 @@ function calendarJs(elementOrId, options, searchOptions) {
   var _parameter_Window = null;
   var _parameter_Navigator = null;
   var _parameter_ElementID = null;
+  var _parameter_Math = null;
+  var _parameter_Json = null;
   var _string = {empty:"", space:" ", newLine:"\n", newLineCharacterReturn:"\r\n"};
   var _enum_Day = {monday:0, saturday:5, sunday:6};
   var _enum_KeyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, j:74, m:77, o:79, v:86, x:88, f5:116, f11:122};
@@ -9807,11 +9809,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   this.getHolidays = function() {
     return _options.holidays;
   };
-  (function(documentObject, windowObject, navigatorObject) {
+  (function(documentObject, windowObject, navigatorObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;
     _parameter_Window = windowObject;
     _parameter_Navigator = navigatorObject;
     _parameter_ElementID = elementOrId;
+    _parameter_Math = mathObject;
+    _parameter_Json = jsonObject;
     if (isDefinedString(_parameter_ElementID) || isDefinedDOMElement(_parameter_ElementID)) {
       buildDefaultOptions(options);
       buildDefaultSearchOptions(searchOptions);
@@ -9820,5 +9824,5 @@ function calendarJs(elementOrId, options, searchOptions) {
         forceTurnOnFullScreenMode();
       }
     }
-  })(document, window, navigator);
+  })(document, window, navigator, Math, JSON);
 };

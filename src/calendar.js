@@ -512,6 +512,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _parameter_Window = null,
         _parameter_Navigator = null,
         _parameter_ElementID = null,
+        _parameter_Math = null,
+        _parameter_Json = null,
 
         // Variables: Strings
         _string = {
@@ -3359,7 +3361,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _element_View_FullWeek_Contents_SmallestEventTop === 0 ) {
                 _element_View_FullWeek_Contents_SmallestEventTop = event.offsetTop;
             } else {
-                _element_View_FullWeek_Contents_SmallestEventTop = Math.min( _element_View_FullWeek_Contents_SmallestEventTop, event.offsetTop );
+                _element_View_FullWeek_Contents_SmallestEventTop = _parameter_Math.min( _element_View_FullWeek_Contents_SmallestEventTop, event.offsetTop );
             }
             
             _element_View_FullWeek_EventsShown_PerDay[ weekdayNumber ].push( eventDetails );
@@ -3532,7 +3534,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     newHeight += ( events[ eventIndex ].offsetHeight + _options.spacing );
                 }
 
-                height = Math.max( height, newHeight );
+                height = _parameter_Math.max( height, newHeight );
             }
 
             _element_View_FullWeek_Contents_AllDayEvents.style.height = ( height + _options.spacing ) + "px";
@@ -4161,7 +4163,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             var nextDay = getTotalDaysInMonth( nextMonth.getFullYear(), nextMonth.getMonth() );
-            nextDay = Math.round( nextDay / 2 );
+            nextDay = _parameter_Math.round( nextDay / 2 );
 
             _element_View_FullMonth_LargestDateAvailable = new Date( nextMonth.getFullYear(), nextMonth.getMonth(), nextDay );
 
@@ -5521,13 +5523,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _element_View_Timeline_Contents_SmallestEventLeft === null ) {
             _element_View_Timeline_Contents_SmallestEventLeft = scrollLeft;
         } else {
-            _element_View_Timeline_Contents_SmallestEventLeft = Math.min( _element_View_Timeline_Contents_SmallestEventLeft, scrollLeft );
+            _element_View_Timeline_Contents_SmallestEventLeft = _parameter_Math.min( _element_View_Timeline_Contents_SmallestEventLeft, scrollLeft );
         }
 
         if ( _element_View_Timeline_Contents_SmallestEventTop === null ) {
             _element_View_Timeline_Contents_SmallestEventTop = timelineRowItems.offsetTop;
         } else {
-            _element_View_Timeline_Contents_SmallestEventTop = Math.min( _element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop );
+            _element_View_Timeline_Contents_SmallestEventTop = _parameter_Math.min( _element_View_Timeline_Contents_SmallestEventTop, timelineRowItems.offsetTop );
         }
     }
 
@@ -8592,7 +8594,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function getHourMinutesFromMousePositionClick( e, container ) {
         var contentHoursOffset = getOffset( container ),
             pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
-            minutesFromTop = Math.floor( ( e.pageY - ( contentHoursOffset.top ) ) / pixelsPerMinute ),
+            minutesFromTop = _parameter_Math.floor( ( e.pageY - ( contentHoursOffset.top ) ) / pixelsPerMinute ),
             hoursMinutes = getHoursAndMinutesFromMinutes( minutesFromTop );
 
         return hoursMinutes;
@@ -8884,7 +8886,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             var pixelsPerMinute = getPixelsPerMinuteForHeight( container ),
                 offset = getOffset( container ),
-                top = ( Math.abs( e.pageY ) - offset.top ) + _element_View_Event_Dragged_ClickOffset,
+                top = ( _parameter_Math.abs( e.pageY ) - offset.top ) + _element_View_Event_Dragged_ClickOffset,
                 difference = top - _element_View_Event_Dragged_OffsetTop,
                 differenceMinutes = difference / pixelsPerMinute;
 
@@ -9334,15 +9336,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function getTotalDaysBetweenDates( from, to ) {
         var fromDate = new Date( from.getFullYear(), from.getMonth(), from.getDate() ),
             toDate = new Date( to.getFullYear(), to.getMonth(), to.getDate() ),
-            differenceTime = Math.abs( toDate - fromDate ),
-            differenceDays = Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
+            differenceTime = _parameter_Math.abs( toDate - fromDate ),
+            differenceDays = _parameter_Math.ceil( differenceTime / ( 1000 * 60 * 60 * 24 ) ); 
         
         return differenceDays;
     }
 
     function getWeekNumber( date ) {
         var firstDay = new Date( date.getFullYear(), 0, 1 ),
-            weekNumber = Math.ceil( ( ( ( date - firstDay ) / 86400000 ) + firstDay.getDay() + 1 ) / 7 );
+            weekNumber = _parameter_Math.ceil( ( ( ( date - firstDay ) / 86400000 ) + firstDay.getDay() + 1 ) / 7 );
         
         if ( firstDay.getDay() > 4 ) {
             weekNumber--;
@@ -9397,23 +9399,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function getFriendlyTimeBetweenTwoDate( date1, date2 ) {
         var text = [],
-            delta = Math.abs( date2 - date1 ) / 1000;
+            delta = _parameter_Math.abs( date2 - date1 ) / 1000;
 
-        var days = Math.floor( delta / 86400 );
+        var days = _parameter_Math.floor( delta / 86400 );
         delta -= days * 86400;
 
         if ( days > 0 ) {
             text.push( days.toString() + _string.space + ( days === 1 ? _options.dayText : _options.daysText ) );
         }
 
-        var hours = Math.floor( delta / 3600 ) % 24;
+        var hours = _parameter_Math.floor( delta / 3600 ) % 24;
         delta -= hours * 3600;
 
         if ( hours > 0 ) {
             text.push( hours.toString() + _string.space + ( hours === 1 ? _options.hourText : _options.hoursText ) );
         }
 
-        var minutes = Math.floor( delta / 60 ) % 60;
+        var minutes = _parameter_Math.floor( delta / 60 ) % 60;
 
         if ( minutes > 0 ) {
             text.push( minutes.toString() + _string.space + ( minutes === 1 ? _options.minuteText : _options.minutesText ) );
@@ -9455,7 +9457,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( isDefined( result ) ) {
-            result = new Date( result.getTime() + Math.abs( result.getTimezoneOffset() * 60000 ) );
+            result = new Date( result.getTime() + _parameter_Math.abs( result.getTimezoneOffset() * 60000 ) );
         }
 
         return result;
@@ -9494,8 +9496,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function getHoursAndMinutesFromMinutes( totalMinutes ) {
         var hours = ( totalMinutes / 60 ),
-            remainingHours = Math.floor( hours ),
-            remainingMinutes = Math.round( ( hours - remainingHours ) * 60 );
+            remainingHours = _parameter_Math.floor( hours ),
+            remainingMinutes = _parameter_Math.round( ( hours - remainingHours ) * 60 );
 
         return [ remainingHours, remainingMinutes ];
     }
@@ -9664,7 +9666,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.ondragstart = function( e ) {
                 fireCustomTrigger( "onEventDragStart", eventDetails );
 
-                e.dataTransfer.setData( "event_details", JSON.stringify( eventDetails ) );
+                e.dataTransfer.setData( "event_details", _parameter_Json.stringify( eventDetails ) );
 
                 _events_Dragged_DateFrom = draggedFromDate;
                 _events_Dragged = eventDetails;
@@ -9838,7 +9840,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var result;
 
         try {
-            result = JSON.parse( objectString );
+            result = _parameter_Json.parse( objectString );
         } catch ( e1 ) {
 
             try {
@@ -10711,7 +10713,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function cloneEventDetails( value, deleteId ) {
         deleteId = isDefined( deleteId ) ? deleteId : true;
 
-        var object = JSON.parse( JSON.stringify( value ) );
+        var object = _parameter_Json.parse( _parameter_Json.stringify( value ) );
         object.from = new Date( object.from );
         object.to = new Date( object.to );
 
@@ -10966,7 +10968,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 result.push( "-" );
             }
 
-            var character = Math.floor( Math.random() * 16 ).toString( 16 );
+            var character = _parameter_Math.floor( _parameter_Math.random() * 16 ).toString( 16 );
             result.push( character );
         }
 
@@ -11066,7 +11068,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             array1.sort();
             array2.sort();
 
-            result = JSON.stringify( array1 ) === JSON.stringify( array2 );
+            result = _parameter_Json.stringify( array1 ) === _parameter_Json.stringify( array2 );
         }
 
         return result;
@@ -11119,7 +11121,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventsLength; orderedEventIndex++ ) {
                 var orderedEvent = orderedEvents[ orderedEventIndex ],
-                    orderedEventsJson = JSON.stringify( orderedEvent );
+                    orderedEventsJson = _parameter_Json.stringify( orderedEvent );
 
                 _parameter_Window.localStorage.setItem( "CJS_" + orderedEventIndex.toString(), orderedEventsJson );
             }
@@ -11249,7 +11251,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( contentLine.indexOf( "BEGIN:VEVENT" ) > -1 ) {
                         readingEvent = true;
                     } else if ( contentLine.indexOf( "END:VEVENT" ) > -1 ) {
-                        var eventDetails = JSON.parse( JSON.stringify( readingEventDetails ) );
+                        var eventDetails = _parameter_Json.parse( _parameter_Json.stringify( readingEventDetails ) );
 
                         readingEvent = false;
                         readingEventDetails = {};
@@ -14428,11 +14430,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    ( function ( documentObject, windowObject, navigatorObject ) {
+    ( function ( documentObject, windowObject, navigatorObject, mathObject, jsonObject ) {
         _parameter_Document = documentObject;
         _parameter_Window = windowObject;
         _parameter_Navigator = navigatorObject;
         _parameter_ElementID = elementOrId;
+        _parameter_Math = mathObject;
+        _parameter_Json = jsonObject;
 
         if ( isDefinedString( _parameter_ElementID ) || isDefinedDOMElement( _parameter_ElementID ) ) {
             buildDefaultOptions( options );
@@ -14444,5 +14448,5 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-    } ) ( document, window, navigator );
+    } ) ( document, window, navigator, Math, JSON );
 }
