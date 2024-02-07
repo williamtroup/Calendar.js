@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>jCalendar.js</id>
-        <version>2.10.8</version>
+        <version>2.10.9</version>
         <description>A javascript drag and drop event calendar, that is fully responsive and compatible with all modern browsers.</description>
         <authors>William Troup</authors>
         <projectUrl>https://calendar-js.com/</projectUrl>

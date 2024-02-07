@@ -1,5 +1,11 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.9:
+- 
+
+<br>
+
+
 ## Version 2.10.8:
 - Fixed a fault that allowed negative values to be entered into the "Alarm Offset (minutes)" field in the Event Editor dialog.
 - Fixed a fault that caused all local storage objects to be cleared when the Calendar uses the setting "useLocalStorageForEvents".
