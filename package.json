@@ -24,7 +24,15 @@
       "javascript-calendar",
       "calendar-events",
       "browser-notifications",
-      "calendar.js"
+      "calendar.js",
+      "html",
+      "css",
+      "timeline",
+      "notifications",
+      "week",
+      "weekly",
+      "task",
+      "event"
     ],
     "bugs": {
       "url": "https://github.com/williamtroup/Calendar.js/issues"

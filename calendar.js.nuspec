@@ -9,7 +9,7 @@
         <repository type="git" url="https://github.com/williamtroup/Calendar.js" branch="main" />
         <readme>README_NUGET.md</readme>
         <license type="expression">MIT</license>
-        <tags>calendar javascript daily weekly monthly yearly timeline event task</tags>
+        <tags>javascript frontend calendar datepicker fullcalendar daily monthly yearly javascript-calendar calendar-events browser-notifications calendar.js html css timeline notifications week weekly task event</tags>
         <icon>docs\images\icon.png</icon>
     </metadata>
     <files>
