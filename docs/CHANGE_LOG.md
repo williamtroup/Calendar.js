@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.9:
+- Added install instructions into the main README files.
 - 
 
 <br>

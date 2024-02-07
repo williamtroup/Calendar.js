@@ -53,6 +53,7 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 <br>
 <br>
 
+
 <h1>What features does Calendar.js have?</h1>
 
 - Zero-dependencies!
@@ -86,6 +87,7 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 - Widget mode (small widget that shows the current/specific day).
 <br />
 <br />
+
 
 <h1>What browsers are supported?</h1>
 
@@ -132,6 +134,20 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 To see a list of all the most recent changes, click [here](docs/CHANGE_LOG.md).
 <br>
 <br>
+
+
+<h1>How do I install Calendar.js?</h1>
+
+You can install the library with npm into your local modules directory using the following command:
+
+```markdown
+npm install jcalendar.js
+```
+
+Or, you can download the latest zipped up version [here](https://www.calendar-js.com/download.html).
+<br>
+<br>
+
 
 <h1>How do I get started?</h1>
 
