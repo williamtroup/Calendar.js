@@ -2,6 +2,7 @@
 
 ## Version 2.10.10:
 - Fixed the CLASS.md documentation links (thank you @cdoublev).
+- Fixed a spelling mistake in the configuration/OPTIONS.md documentation (thank you @mrussojr).
 
 <br>
 

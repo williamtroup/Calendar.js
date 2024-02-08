@@ -115,7 +115,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | addYearButtons | States if the year-jumping buttons should be added (defaults to false). |
 | *string* | titleBarDateFormat | States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
-| *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
+| *boolean* | isPinUpViewEnabled | States if the pin-up view is enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 | *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |
