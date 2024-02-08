@@ -1,7 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.10:
-- 
+- Fixed the CLASS.md documentation links (thank you @cdoublev).
 
 <br>
 
