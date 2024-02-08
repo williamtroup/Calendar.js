@@ -1,6 +1,6 @@
 # Calendar.js - Event:
 
-Below is the format that is expected for an event object when calling "addEvents()", "addEvent()", "updateEvents()", "updateEvent()", and "setEvents()".  Events can also be added on startup via the "Options" ([see](OPTIONS.md)).
+Below is the format that is expected for an event object when calling "addEvents()", "addEvent()", "updateEvents()", "updateEvent()", and "setEvents()".  Events can also be added on startup via the "Options" ([see](configuration/OPTIONS.md)).
 <br>
 <br>
 

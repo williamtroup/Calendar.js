@@ -425,7 +425,7 @@ Sets the specific options that should be used.
 <br>
 ***Fires***:  onOptionsUpdated
 <br>
-***Parameter: newOptions***: '*Options*' - All the options that should be set (refer to ["Options"](OPTIONS.md) documentation for properties).
+***Parameter: newOptions***: '*Options*' - All the options that should be set (refer to ["Options"](configuration/OPTIONS.md) documentation for properties).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onOptionsUpdated" event should be triggered (defaults to true).
 <br>
@@ -436,7 +436,7 @@ Sets the specific search options that should be used.
 <br>
 ***Fires***:  onSearchOptionsUpdated
 <br>
-***Parameter: newSearchOptions***: '*Search*' - All the search options that should be set (refer to ["Search Options"](SEARCH_OPTIONS.md) documentation for properties).
+***Parameter: newSearchOptions***: '*Search*' - All the search options that should be set (refer to ["Search Options"](configuration/SEARCH_OPTIONS.md) documentation for properties).
 <br>
 ***Parameter: [triggerEvent]***: '*boolean*' - States if the "onSearchOptionsUpdated" event should be triggered (defaults to true).
 <br>
