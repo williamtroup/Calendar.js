@@ -52,7 +52,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | shortcutKeysEnabled | States if the shortcut keys are enabled (defaults to true). |
 | *Object* | workingHoursStart | States when the time the working hours start (for example, "09:00", or { 2: "09:00" } for specific days, and defaults to null). |
 | *Object* | workingHoursEnd | States when the time the working hours end (for example, "17:00", or { 2: "17:00" } for specific days, and defaults to null). |
-| *boolean* | reverseOrderDaysOfWeek | States if the days of the week should be reversed (for Hebrew calendars, for example. Defaults to true). |
+| *boolean* | reverseOrderDaysOfWeek | States if the days of the week should be reversed (for Hebrew calendars, for example. Defaults to false). |
 | *boolean* | importEventsEnabled | States if importing events is enabled (defaults to true). |
 | *boolean* | useAmPmForTimeDisplays | States if the AM/PM time format should be used for all time displays (defaults to false). |
 | *boolean* | isWidget | States if the new calendar instance is only a widget (defaults to false). |
@@ -115,7 +115,7 @@ Below are all the options that can be passed to the Calendar.js constructor, or 
 | *boolean* | addYearButtons | States if the year-jumping buttons should be added (defaults to false). |
 | *string* | titleBarDateFormat | States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see date display formats [here](DATE_FORMATS.md) for options). |
 | *boolean* | showDayNamesHeaders | States if the day names headers should be shown (defaults to true). |
-| *boolean* | isPinUpViewEnabled | States if the pin-up view ie enabled (defaults to false). |
+| *boolean* | isPinUpViewEnabled | States if the pin-up view is enabled (defaults to false). |
 | *string[]* | pinUpViewImageUrls | States the the pin-up view images that should be used (defaults to []). |
 | *boolean* | showMonthButtonsInYearDropDownMenu | States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true). |
 | *boolean* | showExtraTitleBarButtons | States if the extra toolbar buttons on the main title bars are visible (defaults to true). |

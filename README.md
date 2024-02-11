@@ -2,15 +2,15 @@
 Calendar.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.9-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.9-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.10-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.10-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://www.william-troup.com/)
 </h1>
 
 > <p align="center">📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-> <p align="center">v2.10.9</p>
+> <p align="center">v2.10.10</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
@@ -57,7 +57,7 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 <h1>What features does Calendar.js have?</h1>
 
 - Zero-dependencies!
-- 40 language translations available!
+- 45 language translations available!
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
@@ -99,13 +99,18 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 <h1>What languages are supported?</h1>
 
+- `af` Afrikaans
 - `ar` Arabic
+- `hy` Armenian
+- `be` Belarusian
 - `bn` Bengali
 - `bg` Bulgarian
+- `ca` Catalan
 - `zh` Chinese (simplified)
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `eo` Esperanto
 - `et` Estonian
 - `fa` Farsi
 - `fi` Finnish

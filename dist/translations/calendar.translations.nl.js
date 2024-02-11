@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.9 - Dutch | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.10 - Dutch | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "ma",
