@@ -4,7 +4,11 @@
 - Fixed the CLASS.md documentation links (thank you @cdoublev).
 - Fixed a spelling mistake in the configuration/OPTIONS.md documentation (thank you @mrussojr).
 - Fixed a fault that specified an invalid default value for the "reverseOrderDaysOfWeek" setting.
-- 
+- Added translation support for Afrikaans (af).
+- Added translation support for Armenian (hy).
+- Added translation support for Belarusian (be).
+- Added translation support for Catalan (ca).
+- Added translation support for Esperanto (eo).
 
 <br>
 

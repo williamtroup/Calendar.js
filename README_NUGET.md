@@ -12,7 +12,7 @@
 ## What features does Calendar.js have?
 
 - Zero-dependencies!
-- 40 language translations available!
+- 45 language translations available!
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
@@ -50,13 +50,18 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 
 ## What languages are supported?
 
+- `af` Afrikaans
 - `ar` Arabic
+- `hy` Armenian
+- `be` Belarusian
 - `bn` Bengali
 - `bg` Bulgarian
+- `ca` Catalan
 - `zh` Chinese (simplified)
 - `da` Danish
 - `nl` Dutch
 - `en` English (default)
+- `eo` Esperanto
 - `et` Estonian
 - `fa` Farsi
 - `fi` Finnish
