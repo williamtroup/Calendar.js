@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.11:
+- Fixed a fault that prevented the custom trigger "onSetDate" from firing when the "Jump To Date" dialog is used.
 - 
 
 <br>

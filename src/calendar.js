@@ -8152,6 +8152,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } else if ( viewOpen === _element_View_Timeline ) {
                 setSelectedDate( _element_View_Timeline_DateSelected, _element_Dialog_JumpToDate_Date );
             }
+
+            fireCustomTrigger( "onSetDate", _element_Dialog_JumpToDate_Date );
         }
     }
 
