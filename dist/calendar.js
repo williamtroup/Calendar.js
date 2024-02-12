@@ -5343,6 +5343,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function setDefaultJumpToDate() {
     var viewOpen = getActiveView();
     if (viewOpen === null) {
+      fireCustomTrigger("onSetDate", _element_Dialog_JumpToDate_Date);
       setSelectedDate(_calendar_CurrentDate, _element_Dialog_JumpToDate_Date);
     } else {
       if (viewOpen === _element_View_FullDay) {
@@ -5354,7 +5355,6 @@ function calendarJs(elementOrId, options, searchOptions) {
       } else if (viewOpen === _element_View_Timeline) {
         setSelectedDate(_element_View_Timeline_DateSelected, _element_Dialog_JumpToDate_Date);
       }
-      fireCustomTrigger("onSetDate", _element_Dialog_JumpToDate_Date);
     }
   }
   function jumpToSelectedDate() {
