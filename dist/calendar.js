@@ -9737,7 +9737,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     return _calendar_IsBusy;
   };
   this.setOptions = function(newOptions, triggerEvent) {
-    buildDefaultOptions(newOptions);
+    var propertyName;
+    for (propertyName in newOptions) {
+      if (newOptions.hasOwnProperty(propertyName)) {
+        _options[propertyName] = newOptions[propertyName];
+      }
+    }
+    buildDefaultOptions(_options);
     resetOptionsForDatePickerMode();
     checkForBrowserNotificationsPermission();
     if (_initialized) {
