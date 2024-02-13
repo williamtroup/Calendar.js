@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.10.10
+ * @version     v2.10.11
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -8140,6 +8140,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var viewOpen = getActiveView();
 
         if ( viewOpen === null ) {
+            fireCustomTrigger( "onSetDate", _element_Dialog_JumpToDate_Date );
             setSelectedDate( _calendar_CurrentDate, _element_Dialog_JumpToDate_Date );
         } else {
 
@@ -13693,7 +13694,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.10.10";
+        return "2.10.11";
     };
 
     /**
@@ -13743,7 +13744,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {Object}                                                The Calendar.js class instance.
      */
     this.setOptions = function( newOptions, triggerEvent ) {
-        buildDefaultOptions( newOptions );
+        for ( var propertyName in newOptions ) {
+            if ( newOptions.hasOwnProperty( propertyName ) ) {
+                _options[ propertyName ] = newOptions[ propertyName ];
+            }
+        }
+
+        buildDefaultOptions( _options );
         resetOptionsForDatePickerMode();
         checkForBrowserNotificationsPermission();
 
