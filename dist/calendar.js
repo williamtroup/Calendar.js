@@ -751,7 +751,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function updateDatePickerInputValueDisplay(date) {
     _element_Mode_DatePicker_Input.value = getCustomFormattedDateText(_options.views.datePicker.selectedDateFormat, date);
-    _element_Mode_DatePicker_HiddenInput.value = padNumber(date.getDate()) + "/" + padNumber(date.getMonth() + 1) + "/" + date.getFullYear();
+    _element_Mode_DatePicker_HiddenInput.value = date.getFullYear() + "-" + padNumber(date.getMonth() + 1) + "-" + padNumber(date.getDate());
   }
   function getDataPickerInputValueDate() {
     var values = _element_Mode_DatePicker_HiddenInput.value.split("/");
