@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.10.11
+ * @version     v2.10.12
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
@@ -1987,7 +1987,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function updateDatePickerInputValueDisplay( date ) {
         _element_Mode_DatePicker_Input.value = getCustomFormattedDateText( _options.views.datePicker.selectedDateFormat, date );
-        _element_Mode_DatePicker_HiddenInput.value = padNumber( date.getDate() ) + "/" + padNumber( date.getMonth() + 1 ) + "/" + date.getFullYear();
+        _element_Mode_DatePicker_HiddenInput.value = date.getFullYear() + '-' + padNumber( date.getMonth() + 1 ) + "-" + padNumber( date.getDate() );
     }
 
     function getDataPickerInputValueDate() {
@@ -13694,7 +13694,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.10.11";
+        return "2.10.12";
     };
 
     /**

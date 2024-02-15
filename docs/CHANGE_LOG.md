@@ -1,5 +1,12 @@
 # Calendar.js - Change Log:
 
+## Version 2.10.12:
+- Updated the main icon image.
+- Fixed a fault that prevented the "hidden" date picker input using an ISO standard for the selected date.
+
+<br>
+
+
 ## Version 2.10.11:
 - Fixed a fault that prevented the custom trigger "onSetDate" from firing when the "Jump To Date" dialog is used.
 - Fixed a fault that caused all pre-configured settings to be wiped out when calling "setOptions()".
