@@ -1,6 +1,7 @@
 # Calendar.js - Change Log:
 
 ## Version 2.10.12:
+- Updated the main icon image.
 - 
 
 <br>
