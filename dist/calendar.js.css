@@ -2674,7 +2674,7 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  z-index: 1;
+  z-index: 2001;
 }
 
 /*
