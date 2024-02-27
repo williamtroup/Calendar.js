@@ -43,6 +43,11 @@
 - Widget mode (small widget that shows the current/specific day).
 
 
+## Where can I find the documentation?
+
+All the documentation can be found [here](https://calendar-js.com/documentation/index.html).
+
+
 ## What browsers are supported?
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.

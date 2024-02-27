@@ -90,6 +90,13 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 <br />
 
 
+<h1>Where can I find the documentation?</h1>
+
+All the documentation can be found [here](https://calendar-js.com/documentation/index.html).
+<br>
+<br>
+
+
 <h1>What browsers are supported?</h1>
 
 All modern browsers (such as Google Chrome, FireFox, and Opera) are fully supported.
