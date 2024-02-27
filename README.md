@@ -2,15 +2,15 @@
 Calendar.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.12-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.12-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.13-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.13-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://www.william-troup.com/)
 </h1>
 
 > <p align="center">📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-> <p align="center">v2.10.12</p>
+> <p align="center">v2.10.13</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
@@ -88,6 +88,13 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 - Widget mode (small widget that shows the current/specific day).
 <br />
 <br />
+
+
+<h1>Where can I find the documentation?</h1>
+
+All the documentation can be found [here](https://calendar-js.com/documentation/index.html).
+<br>
+<br>
 
 
 <h1>What browsers are supported?</h1>
@@ -216,9 +223,6 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 </script>
 ```
 
-<br>
-
-To see the options available for the class constructor, click [here](docs/CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
 <br>
 <br>
 
