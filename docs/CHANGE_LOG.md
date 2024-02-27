@@ -1,6 +1,6 @@
 # Calendar.js - Change Log:
 
-## Version 2.10.12:
+## Version 2.10.13:
 - Updated the main icon image.
 - Fixed a fault that prevented the "hidden" date picker input using an ISO standard for the selected date.
 

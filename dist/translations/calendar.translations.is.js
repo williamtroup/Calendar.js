@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.12 - Icelandic | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.13 - Icelandic | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "mán",
