@@ -224,9 +224,6 @@ Make sure you include the "DOCTYPE html" tag at the top of your email, as follow
 ```
 
 <br>
-
-To see the options available for the class constructor, click [here](docs/CLASS.md).  You can also create new Calendars using the jQuery Plugin, or by using Data Bindings.  See the test HTML files for examples.
-<br>
 <br>
 
 ### 5. Finishing Up:
