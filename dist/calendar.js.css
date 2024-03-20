@@ -4127,6 +4127,7 @@ div.calendar-dialog div.tab-control-selected {
 div.calendar-dialog div.tab-control {
   border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
   transition: var(--calendar-js-transition);
+  transition-property: opacity;
 }
 div.calendar-dialog div.tab-control:hover {
   cursor: pointer;
