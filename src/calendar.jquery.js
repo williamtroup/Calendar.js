@@ -11,8 +11,6 @@
  */
 
 ( function ( $ ) {
-    "use strict";
-    
     /**
      * calendarJs().
      * 

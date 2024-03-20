@@ -26,8 +26,6 @@
  * @returns     {Object}                                                The Calendar.js instance.
  */
 function calendarJs( elementOrId, options, searchOptions ) {
-    "use strict";
-    
     var _this = this,
 
         // Variables: Constructor Parameters
@@ -12205,7 +12203,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
-            type = !isDefinedString( type ) ? "csv" : type;
+            type = getDefaultString( type, "csv" );
 
             exportEvents( null, type );
         }
@@ -12326,7 +12324,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
             _events = {};
     
             this.addEvents( events, updateEvents, false );
@@ -12355,7 +12353,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var dataObject = getObjectFromString( json );
     
@@ -12389,8 +12387,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             var eventsLength = events.length;
             for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -12431,7 +12429,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var dataObject = getObjectFromString( json );
     
@@ -12468,7 +12466,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var added = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
-            setLastUpdated = !isDefinedBoolean( setLastUpdated ) ? true : setLastUpdated;
+            setLastUpdated = getDefaultBoolean( setLastUpdated, true );
 
             if ( isDefinedString( event.from ) ) {
                 event.from = new Date( event.from );
@@ -12511,8 +12509,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
     
                 if ( !_events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+                    updateEvents = getDefaultBoolean( updateEvents, true );
+                    triggerEvent = getDefaultBoolean( triggerEvent, true );
 
                     var title = getString( event.title ),
                         description = getString( event.description ),
@@ -12598,8 +12596,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             var eventsLength = events.length;
             for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -12645,8 +12643,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             updated = this.removeEvent( id, false, false );
 
             if ( updated ) {
-                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+                updateEvents = getDefaultBoolean( updateEvents, true );
+                triggerEvent = getDefaultBoolean( triggerEvent, true );
     
                 updated = this.addEvent( event, updateEvents, false );
 
@@ -12682,8 +12680,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var updated = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             getAllEventsFunc( function( eventDetails ) {
                 if ( eventDetails.id === id ) {
@@ -12729,8 +12727,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var removed = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
             
             getAllEventsFunc( function( event, storageDate, storageGuid ) {
                 if ( storageGuid === id ) {
@@ -12771,8 +12769,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             _events = {};
     
@@ -12851,8 +12849,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.removeExpiredEvents = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             getAllEventsFunc( function( eventDetails ) {
                 var repeatEvery = getNumber( eventDetails.repeatEvery );
@@ -12955,7 +12953,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setVisibleEventTypes = function( ids, triggerEvent ) {
         if ( isDefinedArray( ids ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             _options_Configuration.visibleEventTypes = [];
 
@@ -13012,8 +13010,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             getAllEventsFunc( function( eventDetails ) {
                 eventDetails.group = null;
@@ -13049,8 +13047,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
         if ( isDefinedString( groupName ) && !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var checkGroupName = groupName.toLowerCase();
 
@@ -13089,7 +13087,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setVisibleGroups = function( groupNames, triggerEvent ) {
         if ( isDefinedArray( groupNames ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             _options_Configuration.visibleGroups = [];
 
@@ -13278,7 +13276,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         checkForBrowserNotificationsPermission();
 
         if ( _initialized ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             if ( triggerEvent ) {
                 fireCustomTrigger( "onOptionsUpdated", _options );
@@ -13310,7 +13308,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             newSearchOptions = getOptions( newSearchOptions );
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             hideSearchDialog();
     
@@ -13344,8 +13342,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidays ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
+            updateEvents = getDefaultBoolean( updateEvents, true );
     
             _options.holidays = _options.holidays.concat( holidays );
     
@@ -13377,8 +13375,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidayNames ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
+            updateEvents = getDefaultBoolean( updateEvents, true );
 
             var holidaysLength = _options.holidays.length,
                 holidaysRemaining = [];
