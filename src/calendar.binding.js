@@ -19,6 +19,8 @@
  * @public
  */
 ( function ( documentObject ) {
+    "use strict";
+    
     var _attribute_Name = "data-binding-calendar";
 
     documentObject.addEventListener( "DOMContentLoaded", function() {
