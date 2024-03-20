@@ -1,8 +1,8 @@
-# Calendar.js v2.10.13
+# Calendar.js v2.10.14
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.10.13-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.10.13-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.10.14-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.10.14-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://www.william-troup.com/)
@@ -12,7 +12,7 @@
 ## What features does Calendar.js have?
 
 - Zero-dependencies!
-- 45 language translations available!
+- 51 language translations available!
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
@@ -71,6 +71,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `fa` Farsi
 - `fi` Finnish
 - `fr` French
+- `fy` Frisian
 - `gl` Galician
 - `ka` Georgian
 - `de` German
@@ -93,10 +94,15 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `pl` Polish
 - `pt` Portuguese
 - `ro` Romanian
+- `si` Sinhalese
 - `sk` Slovak
 - `sl` Slovenian
 - `es` Spanish
 - `sv` Swedish
+- `tl` Tagalog
+- `ta` Tamil
+- `zh-tw` Taiwanese
+- `te` Telugu
 - `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian

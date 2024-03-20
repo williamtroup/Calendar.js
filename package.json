@@ -1,41 +1,41 @@
 {
-    "name": "jcalendar.js",
-    "title": "Calendar.js",
-    "description": "A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.",
-    "version": "2.10.13",
-    "main": "dist/calendar.js",
-    "homepage": "https://calendar-js.com",
-    "author": {
-      "name": "Bunoon"
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/williamtroup/Calendar.js"
-    },
-    "keywords": [
-      "javascript",
-      "frontend",
-      "calendar",
-      "datepicker",
-      "fullcalendar",
-      "daily",
-      "monthly",
-      "yearly",
-      "javascript-calendar",
-      "calendar-events",
-      "browser-notifications",
-      "calendar.js",
-      "html",
-      "css",
-      "timeline",
-      "notifications",
-      "week",
-      "weekly",
-      "task",
-      "event"
-    ],
-    "bugs": {
-      "url": "https://github.com/williamtroup/Calendar.js/issues"
-    },
-    "license": "MIT"
-  }
+  "name": "jcalendar.js",
+  "title": "Calendar.js",
+  "description": "A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.",
+  "version": "2.10.14",
+  "main": "dist/calendar.js",
+  "homepage": "https://calendar-js.com",
+  "author": {
+    "name": "Bunoon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/williamtroup/Calendar.js"
+  },
+  "keywords": [
+    "javascript",
+    "frontend",
+    "calendar",
+    "datepicker",
+    "fullcalendar",
+    "daily",
+    "monthly",
+    "yearly",
+    "javascript-calendar",
+    "calendar-events",
+    "browser-notifications",
+    "calendar.js",
+    "html",
+    "css",
+    "timeline",
+    "notifications",
+    "week",
+    "weekly",
+    "task",
+    "event"
+  ],
+  "bugs": {
+    "url": "https://github.com/williamtroup/Calendar.js/issues"
+  },
+  "license": "MIT"
+}

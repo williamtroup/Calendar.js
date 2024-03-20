@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.10.13
+ * Calendar.js Library v2.10.14
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -885,6 +885,7 @@ div.calendar div.side-menu div.content div.content-section div.text-header div.i
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-up-full {
   pointer-events: none;
+  transition-property: opacity;
 }
 div.calendar div.side-menu div.content div.content-section div.text-header div.ib-arrow-down-full,
 div.calendar div.side-menu div.content div.content-section div.text-header-closed div.ib-arrow-down-full {
@@ -1630,9 +1631,11 @@ div.calendar div.full-month-view div.title-bar div.title-container span.year-dro
   border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-lighter-color);
   font-weight: 500;
   transition: var(--calendar-js-transition);
+  transition-property: opacity;
 }
 div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-down-full-medium,
 div.calendar div.full-month-view div.title-bar div.title-container span.year-dropdown-button span.ib-arrow-up-full-medium {
+  transition-property: opacity;
   margin-left: calc(var(--calendar-js-spacing) / 2);
   pointer-events: none;
 }
@@ -2586,7 +2589,7 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
   vertical-align: top;
   position: sticky;
   left: 0;
-  z-index: 2000;
+  z-index: 2002;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item,
@@ -3781,6 +3784,7 @@ div.search input[type=button].next, div.search input[type=button].previous {
 }
 div.search div.ib-minus,
 div.search div.ib-square-hollow {
+  transition-property: opacity;
   float: right;
 }
 div.search div.ib-minus,
@@ -4123,6 +4127,7 @@ div.calendar-dialog div.tab-control-selected {
 div.calendar-dialog div.tab-control {
   border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
   transition: var(--calendar-js-transition);
+  transition-property: opacity;
 }
 div.calendar-dialog div.tab-control:hover {
   cursor: pointer;

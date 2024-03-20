@@ -4,489 +4,10 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.10.13
+ * @version     v2.10.14
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2024
- */
-
- 
-/**
- * Day Event.
- * 
- * This is the object format that is used to store the details about a day event.
- * 
- * @typedef     {Object}    Event
- *
- * @property    {string}    id                                          The ID for the event (set automatically if not available).
- * @property    {string}    title                                       The title of the event.
- * @property    {Object}    from                                        The date that the event occurs from.
- * @property    {Object}    to                                          The date that the event runs until.
- * @property    {string}    description                                 The in-depth description of the event.
- * @property    {string}    location                                    The location of the event.
- * @property    {string}    color                                       The color that should be used for the event (overrides all others).
- * @property    {string}    colorText                                   The color that should be used for the event text (overrides all others).
- * @property    {string}    colorBorder                                 The color that should be used for the event border (overrides all others).
- * @property    {boolean}   isAllDay                                    States if this event is for all-day.
- * @property    {number}    repeatEvery                                 States how often the event should repeat (0 = Never, 1 = Every Day, 2 = Every Week, 3 = Every 2 Weeks, 4 = Every Month, 5 = Every Year, 6 = Custom).
- * @property    {number[]}  repeatEveryExcludeDays                      States the days that should be excluded when an event is repeated.
- * @property    {Object[]}  seriesIgnoreDates                           States the dates (string format) that should be ignored when an event is repeated.
- * @property    {Object}    created                                     The date that the event was created.
- * @property    {string}    organizerName                               The name of the organizer.
- * @property    {string}    organizerEmailAddress                       The email address of the organizer.
- * @property    {Object}    repeatEnds                                  The date when a repeating series should end.
- * @property    {string}    group                                       The name of the group the event belongs to.
- * @property    {string}    url                                         The URL that is associated with the event.
- * @property    {number}    repeatEveryCustomType                       States the custom repeating period (0: Daily, 1: Weekly, 2: Monthly, 3: Yearly).
- * @property    {number}    repeatEveryCustomValue                      States the custom repeating period value (for example, 1 day, week, month, or year).
- * @property    {Object}    lastUpdated                                 The date that the event was last updated.
- * @property    {boolean}   showAlerts                                  States if browser notifications should be shown for this event (defaults to true).
- * @property    {boolean}   locked                                      States if this event is locked and cannot be edited (it can still be removed, defaults to false).
- * @property    {number}    type                                        States what event type this is (0: Normal, 1: Meeting, 2: Birthday, 3: Holiday, 4: Task).
- * @property    {Object}    customTags                                  Stores custom tags (any object format) that can be assigned to the event (they are not used in the calendar).
- * @property    {boolean}   showAsBusy                                  States if the calendar should show the events time period as busy (defaults to true).
- * @property    {number}    alertOffset                                 States the number of minutes before the "from" date/time to show a browser notification (defaults to zero).
- */
-
-
-/**
- * Holiday.
- * 
- * This is the object format that is used to display a holiday.
- * 
- * @typedef     {Object}    Holiday
- *
- * @property    {number}    day                                         The day that the holiday occurs.
- * @property    {number}    month                                       The month that the holiday occurs.
- * @property    {number}    year                                        The year that the holiday occurs (if the holiday only occurs once. Defaults to null).
- * @property    {string}    title                                       The title for the holiday (i.e. Christmas Day).
- * @property    {Object}    onClick                                     Specifies an event that will be triggered when the holiday is clicked.
- * @property    {string}    onClickUrl                                  Specifies a URL that will be opened when the holiday is clicked (overrides "onClick").
- * @property    {string}    backgroundColor                             The background color the day should use (defaults to null).
- * @property    {string}    textColor                                   The text color the day should use (defaults to null).
- */
-
-
-/**
- * Options.
- * 
- * @typedef     {Object}    Options
- * 
- * These are the properties that store the events that should be fired when various actions are triggered:
- *
- * @property    {Object}    onPreviousMonth                             Specifies an event that will be triggered when the "Previous Month" button is pressed (passes the new date to the function).
- * @property    {Object}    onNextMonth                                 Specifies an event that will be triggered when the "Next Month" button is pressed (passes the new date to the function).
- * @property    {Object}    onPreviousYear                              Specifies an event that will be triggered when moving to the previous year (passes the new date to the function).
- * @property    {Object}    onNextYear                                  Specifies an event that will be triggered when moving to the next year (passes the new date to the function).
- * @property    {Object}    onToday                                     Specifies an event that will be triggered when the "Today" button is pressed.
- * @property    {Object}    onEventAdded                                Specifies an event that will be triggered when an event is added (passes the event to the function).
- * @property    {Object}    onEventUpdated                              Specifies an event that will be triggered when an event is updated (passes the event to the function).
- * @property    {Object}    onEventRemoved                              Specifies an event that will be triggered when an event is removed (passes the event to the function).
- * @property    {Object}    onEventsAdded                               Specifies an event that will be triggered when events are added (passes the events to the function).
- * @property    {Object}    onEventsCleared                             Specifies an event that will be triggered when the events are cleared.
- * @property    {Object}    onEventsExported                            Specifies an event that will be triggered when the "Export Events" button is pressed (passes the events to the function).
- * @property    {Object}    onSetDate                                   Specifies an event that will be triggered when the date on the main display is set externally (passes the new date to the function).
- * @property    {Object}    onEventsSet                                 Specifies an event that will be triggered when events are set and the originals are cleared (passes the events to the function).
- * @property    {Object}    onGroupsCleared                             Specifies an event that will be triggered when the event groups are cleared.
- * @property    {Object}    onEventsUpdated                             Specifies an event that will be triggered when events are updated (passes the events to the function).
- * @property    {Object}    onOptionsUpdated                            Specifies an event that will be triggered when the options are updated (passes the options to the function).
- * @property    {Object}    onNotificationClicked                       Specifies an event that will be triggered when a notification is clicked (passes the event to the function).
- * @property    {Object}    onSearchOptionsUpdated                      Specifies an event that will be triggered when the search options are updated (passes the search options to the function).
- * @property    {Object}    onFullScreenModeChanged                     Specifies an event that will be triggered when the full-screen mode is changed (passes a flag to state if its on/off).
- * @property    {Object}    onEventsSetFromJSON                         Specifies an event that will be triggered when events are set from JSON and the originals are cleared (passes the JSON to the function).
- * @property    {Object}    onEventsAddedFromJSON                       Specifies an event that will be triggered when events are added from JSON (passes the JSON to the function).
- * @property    {Object}    onDatePickerDateChanged                     Specifies an event that will be triggered when a date is selected in date-picker mode (passes the new date to the function).
- * @property    {Object}    onGroupRemoved                              Specifies an event that will be triggered when a group is removed (passes the group removed to the function).
- * @property    {Object}    onEventUrlClicked                           Specifies an event that will be triggered when an events Url is clicked (passes the Url to the function).
- * @property    {Object}    onDestroy                                   Specifies an event that will be triggered when the calendar instance is destroyed (passes the Calendar ID to the function).
- * @property    {Object}    onRefresh                                   Specifies an event that will be triggered when the "Refresh" button is pressed (or public function is called).
- * @property    {Object}    onDatePickerOpened                          Specifies an event that will be triggered when calendar is opened in date-picker mode (passes the Calendar ID to the function).
- * @property    {Object}    onDatePickerClosed                          Specifies an event that will be triggered when calendar is closed in date-picker mode (passes the Calendar ID to the function).
- * @property    {Object}    onRender                                    Specifies an event that will be triggered when calendar is rendered for the first time (passes the Calendar ID to the function).
- * @property    {Object}    onEventDragStart                            Specifies an event that will be triggered when dragging an event is started (passes the event to the function).
- * @property    {Object}    onEventDragStop                             Specifies an event that will be triggered when dragging an event is stopped (passes the event to the function).
- * @property    {Object}    onEventDragDrop                             Specifies an event that will be triggered when the dragged event is dropped (passes the event and target drop date to the function).
- * @property    {Object}    onEventClick                                Specifies an event that will be triggered when an event is clicked (passes the event to the function).
- * @property    {Object}    onEventDoubleClick                          Specifies an event that will be triggered when an event is double clicked (when editing mode is disabled, passes the event to the function).
- * @property    {Object}    onVisibleGroupsChanged                      Specifies an event that will be triggered when the visible groups are changed (passes the visible group names to the function).
- * @property    {Object}    onVisibleEventTypesChanged                  Specifies an event that will be triggered when the visible event types are changed (passes the visible event type IDs to the function).
- * @property    {Object}    onNotification                              Specifies an event that will be triggered when a notification is shown (passes the event to the function).
- * @property    {Object}    onBeforeEventAddEdit                        Specifies an event that will be triggered before an event is added/edit (passes the event to the function and stops tje event editor dialog from showing).
- * @property    {Object}    onBusyStateChange                           Specifies an event that will be triggered when the calendars busy state is changed (passes the state to the function).
- * @property    {Object}    onEventsFetch                               Specifies an event that will be triggered when the calendar refreshes (it will pull a array of events to add, or update).
- * @property    {Object}    onEventsImported                            Specifies an event that will be triggered when events are imported (passes the events to the function).
- * @property    {Object}    onFullDayEventRender                        Specifies an event that will be triggered when an event is rendered in the Full Day view (passes the DOM element and event to the function).
- * @property    {Object}    onFullWeekEventRender                       Specifies an event that will be triggered when an event is rendered in the Full Week view (passes the DOM element and event to the function).
- * @property    {Object}    onFullMonthEventRender                      Specifies an event that will be triggered when an event is rendered in the Full Month view (passes the DOM element and event to the function).
- * @property    {Object}    onAllEventsEventRender                      Specifies an event that will be triggered when an event is rendered in the All Events view (passes the DOM element and event to the function).
- * @property    {Object}    onTimelineEventRender                       Specifies an event that will be triggered when an event is rendered in the Timeline view (passes the DOM element and event to the function).
- * @property    {Object}    onWidgetEventRender                         Specifies an event that will be triggered when an event is rendered in the Widget mode (passes the DOM element and event to the function).
- * @property    {Object}    onToolTipEventRender                        Specifies an event that will be triggered when an tooltip is rendered for an event (passes the tooltip DOM element and event to the function).
- * @property    {Object}    onFullDayTitleRender                        Specifies an event that will be triggered when the Full Day title is rendered (passes the date/time to the function).
- * @property    {Object}    onFullWeekTitleRender                       Specifies an event that will be triggered when the Full Week title is rendered (passes the dates/times to the function).
- * @property    {Object}    onTimelineTitleRender                       Specifies an event that will be triggered when the Timeline title is rendered (passes the date/time to the function).
- * @property    {Object}    onFullMonthPinUpRender                      Specifies an event that will be triggered when the Full Month views pin-up is rendered (passes the pin-up DOM element and the date/time to the function).
- * 
- * 
- * These are the translatable strings that are used in Calendar.js:
- * 
- * @property    {string}    previousMonthTooltipText                    The tooltip text that should be used for the "Previous Month" button.
- * @property    {string}    nextMonthTooltipText                        The tooltip text that should be used for the "Next Month" button.
- * @property    {string}    previousDayTooltipText                      The tooltip text that should be used for the "Previous Day" button.
- * @property    {string}    nextDayTooltipText                          The tooltip text that should be used for the "Next Day" button.
- * @property    {string}    previousWeekTooltipText                     The tooltip text that should be used for the "Previous Week" button.
- * @property    {string}    nextWeekTooltipText                         The tooltip text that should be used for the "Next Week" button.
- * @property    {string}    addEventTooltipText                         The tooltip text that should be used for the "Add Event" button.
- * @property    {string}    closeTooltipText                            The tooltip text that should be used for the "Close" button.
- * @property    {string}    exportEventsTooltipText                     The tooltip text that should be used for the "Export Events" button.
- * @property    {string}    viewAllEventsTooltipText                    The tooltip text that should be used for the "View All Events" button.
- * @property    {string}    viewFullWeekTooltipText                     The tooltip text that should be used for the "View Full Week" button.
- * @property    {string}    todayTooltipText                            The tooltip text that should be used for the "Today" button.
- * @property    {string}    refreshTooltipText                          The tooltip text that should be used for the "Refresh" button.
- * @property    {string}    searchTooltipText                           The tooltip text that should be used for the "Search" button.
- * @property    {string}    expandDayTooltipText                        The tooltip text that should be used for the "Expand Day" button.
- * @property    {string[]}  dayHeaderNames                              The names to use for the day headers (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
- * @property    {string[]}  dayNames                                    The full day names (defaults to '[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]').
- * @property    {string[]}  dayNamesAbbreviated                         The abbreviated day names (defaults to '[ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]').
- * @property    {string[]}  monthNames                                  The full month names (defaults to '[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]').
- * @property    {string[]}  monthNamesAbbreviated                       The abbreviated month names (defaults to '[ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]').
- * @property    {string}    fromText                                    The text that should be displayed for the "From:" label.
- * @property    {string}    toText                                      The text that should be displayed for the "To:" label.
- * @property    {string}    isAllDayText                                The text that should be displayed for the "Is All-Day" label.
- * @property    {string}    titleText                                   The text that should be displayed for the "Title:" label.
- * @property    {string}    descriptionText                             The text that should be displayed for the "Description:" label.
- * @property    {string}    locationText                                The text that should be displayed for the "Location:" label.
- * @property    {string}    addText                                     The text that should be displayed for the "Add" button.
- * @property    {string}    updatedText                                 The text that should be displayed for the "Update" button.
- * @property    {string}    cancelText                                  The text that should be displayed for the "Cancel" button.
- * @property    {string}    removeEventText                             The text that should be displayed for the "Remove Event" button.
- * @property    {string}    addEventTitle                               The title bar text that is shown for the "Add Event" label.
- * @property    {string}    editEventTitle                              The title bar text that is shown for the "Edit Event" label.
- * @property    {string}    exportStartFilename                         The starting filename that should be used when exporting calendar events (defaults to "exported_events_").
- * @property    {string}    fromTimeErrorMessage                        The error message shown for the "Please select a valid 'From' time." label.
- * @property    {string}    toTimeErrorMessage                          The error message shown for the "Please select a valid 'To' time." label.
- * @property    {string}    toSmallerThanFromErrorMessage               The error message shown for the "Please select a 'To' date that is larger than the 'From' date." label.
- * @property    {string}    titleErrorMessage                           The error message shown for the "Please enter a value in the 'Title' field (no empty space)." label.
- * @property    {string}    stText                                      The day ordinal text for "st".
- * @property    {string}    ndText                                      The day ordinal text for "nd".
- * @property    {string}    rdText                                      The day ordinal text for "rd".
- * @property    {string}    thText                                      The day ordinal text for "th".
- * @property    {string}    yesText                                     The text that should be displayed for the "Yes" label.
- * @property    {string}    noText                                      The text that should be displayed for the "No" label.
- * @property    {string}    allDayText                                  The text that should be displayed for the "All-Day" label.
- * @property    {string}    allEventsText                               The text that should be displayed for the "All Events" label.
- * @property    {string}    toTimeText                                  The text that should be displayed for the "to" label.
- * @property    {string}    confirmEventRemoveTitle                     The title of the confirmation message that is shown when removing an event (defaults to "Confirm Event Removal").
- * @property    {string}    confirmEventRemoveMessage                   The text for the confirmation message that is shown when removing an event (defaults to "Removing this event cannot be undone.  Do you want to continue?").
- * @property    {string}    okText                                      The text that should be displayed for the "OK" button.
- * @property    {string}    exportEventsTitle                           The text that should be displayed for the "Export Events" label.
- * @property    {string}    selectColorsText                            The text that should be displayed for the "Select Colors" label.
- * @property    {string}    backgroundColorText                         The text that should be displayed for the "Background Color:" label.
- * @property    {string}    textColorText                               The text that should be displayed for the "Text Color:" label.
- * @property    {string}    borderColorText                             The text that should be displayed for the "Border Color:" label.
- * @property    {string}    searchEventsTitle                           The text that should be displayed for the "Search Events" label.
- * @property    {string}    previousText                                The text that should be displayed for the "Previous" button.
- * @property    {string}    nextText                                    The text that should be displayed for the "Next" button.
- * @property    {string}    matchCaseText                               The text that should be displayed for the "Match Case" label.
- * @property    {string}    repeatsText                                 The text that should be displayed for the "Repeats:" label.
- * @property    {string}    repeatDaysToExcludeText                     The text that should be displayed for the "Repeat Days To Exclude:" label.
- * @property    {string}    daysToExcludeText                           The text that should be displayed for the "Days To Exclude:" label.
- * @property    {string}    seriesIgnoreDatesText                       The text that should be displayed for the "Series Ignore Dates:" label.
- * @property    {string}    repeatsNever                                The text that should be displayed for the "Never" label.
- * @property    {string}    repeatsEveryDayText                         The text that should be displayed for the "Every Day" label.
- * @property    {string}    repeatsEveryWeekText                        The text that should be displayed for the "Every Week" label.
- * @property    {string}    repeatsEvery2WeeksText                      The text that should be displayed for the "Every 2 Weeks" label.
- * @property    {string}    repeatsEveryMonthText                       The text that should be displayed for the "Every Month" label.
- * @property    {string}    repeatsEveryYearText                        The text that should be displayed for the "Every Year" label.
- * @property    {string}    repeatsCustomText                           The text that should be displayed for the "Custom:" label.
- * @property    {string}    repeatOptionsTitle                          The text that should be displayed for the "Repeat Options" label.
- * @property    {string}    moreText                                    The text that should be displayed for the "More" label.
- * @property    {string}    includeText                                 The text that should be displayed for the "Include:" label.
- * @property    {string}    minimizedTooltipText                        The tooltip text that should be used for the "Minimize" button.
- * @property    {string}    restoreTooltipText                          The tooltip text that should be used for the "Restore" button.
- * @property    {string}    removeAllEventsInSeriesText                 The text that should be displayed for the "Remove All Events In Series" label.
- * @property    {string}    createdText                                 The text that should be displayed for the "Created:" label.
- * @property    {string}    organizerNameText                           The text that should be displayed for the "Organizer:" label.
- * @property    {string}    organizerEmailAddressText                   The text that should be displayed for the "Organizer Email:" label.
- * @property    {string}    enableFullScreenTooltipText                 The tooltip text that should be used for the "Turn On Full-Screen Mode" button.
- * @property    {string}    disableFullScreenTooltipText                The tooltip text that should be used for the "Turn Off Full-Screen Mode" button.
- * @property    {string}    idText                                      The text that should be displayed for the "ID:" label.
- * @property    {string}    expandMonthTooltipText                      The tooltip text that should be used for the "Expand Month" button.
- * @property    {string}    repeatEndsText                              The text that should be displayed for the "Repeat Ends:" label.
- * @property    {string}    noEventsAvailableText                       The text that should be displayed for the "No events available" label.
- * @property    {string}    viewFullWeekText                            The text that should be displayed for the "View Full Week" label.
- * @property    {string}    noEventsAvailableFullText                   The text that should be displayed for the "There are no events available to view." label.
- * @property    {string}    clickText                                   The text that should be displayed for the "Click" label.
- * @property    {string}    hereText                                    The text that should be displayed for the "here" label.
- * @property    {string}    toAddANewEventText                          The text that should be displayed for the "to add a new event." label.
- * @property    {string}    weekText                                    The text that should be displayed for the "Week" label.
- * @property    {string}    groupText                                   The text that should be displayed for the "Group:" label.
- * @property    {string}    configurationTooltipText                    The tooltip text that should be used for the "Configuration" button.
- * @property    {string}    configurationTitleText                      The text that should be displayed for the "Configuration" label.
- * @property    {string}    groupsText                                  The text that should be displayed for the "Groups" label.
- * @property    {string}    eventNotificationTitle                      The text that should be displayed for the notification title (defaults to "Calendar.js").
- * @property    {string}    eventNotificationBody                       The text that should be displayed for the notification body (defaults to "The event '{0}' has started.").
- * @property    {string}    optionsText                                 The text that should be displayed for the "Options:" label.
- * @property    {string}    startsWithText                              The text that should be displayed for the "Starts With" label.
- * @property    {string}    endsWithText                                The text that should be displayed for the "Ends With" label.
- * @property    {string}    containsText                                The text that should be displayed for the "Contains" label.
- * @property    {string}    displayTabText                              The text that should be displayed for the "Display" tab.
- * @property    {string}    enableAutoRefreshForEventsText              The text that should be displayed for the "Enable auto-refresh for events" label.
- * @property    {string}    enableBrowserNotificationsText              The text that should be displayed for the "Enable browser notifications" label.
- * @property    {string}    enableTooltipsText                          The text that should be displayed for the "Enable tooltips" label.
- * @property    {string}    dayText                                     The text that should be displayed for the "day" label.
- * @property    {string}    daysText                                    The text that should be displayed for the "days" label.
- * @property    {string}    hourText                                    The text that should be displayed for the "hour" label.
- * @property    {string}    hoursText                                   The text that should be displayed for the "hours" label.
- * @property    {string}    minuteText                                  The text that should be displayed for the "minute" label.
- * @property    {string}    minutesText                                 The text that should be displayed for the "minutes" label.
- * @property    {string}    enableDragAndDropForEventText               The text that should be displayed for the "Enable drag & drop for events" label.
- * @property    {string}    organizerTabText                            The text that should be displayed for the "Organizer" tab.
- * @property    {string}    removeEventsTooltipText                     The tooltip text that should be used for the "Remove Events" button.
- * @property    {string}    confirmEventsRemoveTitle                    The title of the confirmation message that is shown when removing events (defaults to "Confirm Events Removal").
- * @property    {string}    confirmEventsRemoveMessage                  The text for the confirmation message that is shown when removing events (defaults to "Removing these non-repeating events cannot be undone.  Do you want to continue?").
- * @property    {string}    eventText                                   The text that should be displayed for the "Event" label.
- * @property    {string}    optionalText                                The text that should be displayed for the "Optional" label.
- * @property    {string}    urlText                                     The text that should be displayed for the "Url:" label.
- * @property    {string}    openUrlText                                 The text that should be displayed for the "Open Url" label.
- * @property    {string}    thisWeekTooltipText                         The tooltip text that should be used for the "This Week" button.
- * @property    {string}    dailyText                                   The text that should be displayed for the "Daily" label.
- * @property    {string}    weeklyText                                  The text that should be displayed for the "Weekly" label.
- * @property    {string}    monthlyText                                 The text that should be displayed for the "Monthly" label.
- * @property    {string}    yearlyText                                  The text that should be displayed for the "Yearly" label.
- * @property    {string}    repeatsByCustomSettingsText                 The text that should be displayed for the "By Custom Settings" label.
- * @property    {string}    lastUpdatedText                             The text that should be displayed for the "Last Updated:" label.
- * @property    {string}    advancedText                                The text that should be displayed for the "Advanced" label.
- * @property    {string}    copyText                                    The text that should be displayed for the "Copy" label.
- * @property    {string}    pasteText                                   The text that should be displayed for the "Paste" label.
- * @property    {string}    duplicateText                               The text that should be displayed for the "Duplicate" label.
- * @property    {string}    showAlertsText                              The text that should be displayed for the "Show Alerts" label.
- * @property    {string}    selectDatePlaceholderText                   The text that should be displayed for the "Select date..." date-picker placeholder text.
- * @property    {string}    hideDayText                                 The text that should be displayed for the "Hide Day" label.
- * @property    {string}    notSearchText                               The text that should be displayed for the "Not (opposite)" label.
- * @property    {string}    showHolidaysInTheDisplaysText               The text that should be displayed for the "Show holidays in the main display and title bars" label.
- * @property    {string}    newEventDefaultTitle                        The default title that should be used for new events (defaults to "* New Event").
- * @property    {string}    urlErrorMessage                             The error message shown for the "Please enter a valid Url in the 'Url' field (or leave blank)." label.
- * @property    {string}    searchTextBoxPlaceholder                    The text that should be displayed for the "Search" dialogs text fields placeholder (defaults to "Search title, description, etc...").
- * @property    {string}    currentMonthTooltipText                     The text that should be displayed for the "Current Month" label.
- * @property    {string}    cutText                                     The text that should be displayed for the "Cut" label.
- * @property    {string}    showMenuTooltipText                         The tooltip text that should be used for the "Show Menu" button.
- * @property    {string}    eventTypesText                              The text that should be displayed for the "Event Types" label.
- * @property    {string}    eventTypeNormalText                         The text that should be displayed for the "Normal" event label.
- * @property    {string}    eventTypeMeetingText                        The text that should be displayed for the "Meeting" event label.
- * @property    {string}    eventTypeBirthdayText                       The text that should be displayed for the "Birthday" event label.
- * @property    {string}    eventTypeHolidayText                        The text that should be displayed for the "Holiday" event label.
- * @property    {string}    eventTypeTaskText                           The text that should be displayed for the "Task" event label.
- * @property    {string}    lockedText                                  The text that should be displayed for the "Locked:" label.
- * @property    {string}    typeText                                    The text that should be displayed for the "Type:" label.
- * @property    {string}    sideMenuHeaderText                          The text that should be displayed for the "Calendar.js" side menu header label.
- * @property    {string}    sideMenuDaysText                            The text that should be displayed for the "Days" side menu label.
- * @property    {string}    visibleDaysText                             The text that should be displayed for the "Visible Days" label.
- * @property    {string}    previousYearTooltipText                     The tooltip text that should be used for the "Previous Year" button.
- * @property    {string}    nextYearTooltipText                         The tooltip text that should be used for the "Next Year" button.
- * @property    {string}    showOnlyWorkingDaysText                     The text that should be displayed for the "Show Only Working Days" label.
- * @property    {string}    exportFilenamePlaceholderText               The text that should be displayed for the "Export" dialogs name placeholder (defaults to "Name (optional)").
- * @property    {string}    exportText                                  The text that should be displayed for the "Export" button.
- * @property    {string}    configurationUpdatedText                    The text that should be displayed for the "Configuration updated." notification.
- * @property    {string}    eventAddedText                              The text that should be displayed for the "{0} event added." notification.
- * @property    {string}    eventUpdatedText                            The text that should be displayed for the "{0} event updated." notification.
- * @property    {string}    eventRemovedText                            The text that should be displayed for the "{0} event removed." notification.
- * @property    {string}    eventsRemovedText                           The text that should be displayed for the "{0} events removed." notification.
- * @property    {string}    eventsExportedToText                        The text that should be displayed for the "Events exported to {0}." notification.
- * @property    {string}    eventsPastedText                            The text that should be displayed for the "{0} events pasted." notification.
- * @property    {string}    eventsExportedText                          The text that should be displayed for the "Events exported." notification.
- * @property    {string}    copyToClipboardOnlyText                     The text that should be displayed for the "Copy to clipboard only" label.
- * @property    {string}    workingDaysText                             The text that should be displayed for the "Working Days" label.
- * @property    {string}    weekendDaysText                             The text that should be displayed for the "Weekend Days" label.
- * @property    {string}    showAsBusyText                              The text that should be displayed for the "Show As Busy" label.
- * @property    {string}    selectAllText                               The tooltip text that should be displayed for the "Select All" label.
- * @property    {string}    selectNoneText                              The tooltip text that should be displayed for the "Select None" label.
- * @property    {string}    importEventsTooltipText                     The tooltip text that should be used for the "Import Events" button.
- * @property    {string}    eventsImportedText                          The text that should be displayed for the "{0} events imported." notification.
- * @property    {string}    viewFullYearTooltipText                     The tooltip text that should be used for the "View Full Year" button.
- * @property    {string}    currentYearTooltipText                      The tooltip text that should be used for the "Current Year" button.
- * @property    {string}    alertOffsetText                             The text that should be displayed for the "Alert Offset:" label.
- * @property    {string}    viewFullDayTooltipText                      The tooltip text that should be used for the "View Full Day" button.
- * @property    {string}    confirmEventUpdateTitle                     The title of the confirmation message that is shown when updating a repeating event (defaults to "Confirm Event Update").
- * @property    {string}    confirmEventUpdateMessage                   The text for the confirmation message that is shown when updating a repeating event (defaults to "Would you like to update the event from this point forward, or the entire series?").
- * @property    {string}    forwardText                                 The text that should be displayed for the "Forward" button.
- * @property    {string}    seriesText                                  The text that should be displayed for the "Series" button.
- * @property    {string}    viewTimelineTooltipText                     The tooltip text that should be used for the "View Timeline" button.
- * @property    {string}    nextPropertyTooltipText                     The tooltip text that should be used for the "Next Property" button.
- * @property    {string}    noneText                                    The text that should be displayed for the "(none)" label.
- * @property    {string}    shareText                                   The text that should be displayed for the "Share" label.
- * @property    {string}    shareStartFilename                          The starting filename that should be used when sharing calendar events (defaults to "share_events_").
- * @property    {string}    previousPropertyTooltipText                 The tooltip text that should be used for the "Previous Property" button.
- * @property    {string}    jumpToDateTitle                             The text that should be displayed for the "Jump To Date" label.
- * @property    {string}    goText                                      The tooltip text that should be used for the "Go" button.
- * 
- * 
- * These are the options that are used to control how Calendar.js works and renders:
- *
- * @property    {boolean}   showDayNumberOrdinals                       States if the day ordinal values should be shown (defaults to true).  
- * @property    {boolean}   dragAndDropForEventsEnabled                 States if dragging and dropping events around the days of the month is enabled (defaults to true).
- * @property    {boolean}   exportEventsEnabled                         States if exporting events is enabled (defaults to true).
- * @property    {boolean}   manualEditingEnabled                        States if adding, editing, dragging and removing events is enabled (defaults to true).
- * @property    {number}    autoRefreshTimerDelay                       The amount of time to wait before each full refresh (defaults to 30000 milliseconds, 0 disables it).
- * @property    {boolean}   fullScreenModeEnabled                       States if double click on the main title bar activates full-screen mode (defaults to true).
- * @property    {number}    tooltipDelay                                The amount of time to wait until a tooltip is shown (defaults to 1000 milliseconds).
- * @property    {Holiday[]} holidays                                    The holidays that should be shown for specific days/months (refer to "Holiday" documentation for properties).
- * @property    {string}    organizerName                               The default name of the organizer (defaults to an empty string).
- * @property    {string}    organizerEmailAddress                       The default email address of the organizer (defaults to an empty string).
- * @property    {number}    spacing                                     States the default spacing that should be used for additional margins (defaults to 10).
- * @property    {number}    maximumEventTitleLength                     States the maximum length allowed for an event title (defaults to 0 to allow any size).
- * @property    {number}    maximumEventDescriptionLength               States the maximum length allowed for an event description (defaults to 0 to allow any size).
- * @property    {number}    maximumEventLocationLength                  States the maximum length allowed for an event location (defaults to 0 to allow any size).
- * @property    {number}    maximumEventGroupLength                     States the maximum length allowed for an event group (defaults to 0 to allow any size).
- * @property    {boolean}   eventNotificationsEnabled                   States if notifications should be shown for events (defaults to false).
- * @property    {boolean}   tooltipsEnabled                             States if the tooltips are enabled throughout all the displays (defaults to true).
- * @property    {number[]}  visibleDays                                 States the day numbers that should be visible (Outside listing all events.  Defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
- * @property    {string}    urlWindowTarget                             States the target that an event URL should be opened in (defaults to _blank for a new window).
- * @property    {string}    defaultEventBackgroundColor                 States the default background color that should be used for events (defaults to "#484848").
- * @property    {string}    defaultEventTextColor                       States the default text color that should be used for events (defaults to "#F5F5F5").
- * @property    {string}    defaultEventBorderColor                     States the default border color that should be used for events (defaults to "#282828").
- * @property    {boolean}   openInFullScreenMode                        States if full-screen mode should be turned on when the calendar is rendered (defaults to false).
- * @property    {boolean}   hideEventsWithoutGroupAssigned              States if events without a group should be hidden (defaults to false).
- * @property    {boolean}   showHolidays                                States if the holidays should be shown (defaults to true).
- * @property    {boolean}   useTemplateWhenAddingNewEvent               States if a blank template event should be added when adding a new event (causing the dialog to be in edit mode, defaults to true).
- * @property    {boolean}   useEscapeKeyToExitFullScreenMode            States if the escape key should exit full-screen mode (if enabled, defaults to true).
- * @property    {boolean}   allowHtmlInDisplay                          States if HTML can be used in the display (defaults to false).
- * @property    {number[]}  weekendDays                                 States the day numbers that that are considered weekend days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
- * @property    {Object}    initialDateTime                             States the date that the calendar should start from when first loaded (defaults to today).
- * @property    {Search}    searchOptions                               States all the configurable search options that should be used (refer to "Search Options" documentation for properties).  This is an alternate way of getting the options into the instance.
- * @property    {Event[]}   events                                      States the events that will be shown when the calendar first renders (defaults to null).
- * @property    {number[]}  workingDays                                 States the day numbers that that are considered working days (defaults to [ 0, 1, 2, 3, 4, 5, 6 ], Mon=0, Sun=6).
- * @property    {number}    minimumYear                                 The minimum year that can be shown in the Calendar (defaults to 1900).
- * @property    {number}    maximumYear                                 The maximum year that can be shown in the Calendar (defaults to 2099).
- * @property    {number}    defaultEventDuration                        States the default duration used when a new event is added (defaults to 30 minutes).
- * @property    {boolean}   configurationDialogEnabled                  States if the configuration dialog is enabled (defaults to true).
- * @property    {boolean}   popUpNotificationsEnabled                   States if the popup notifications (when actions are performed) are enabled (defaults to true).
- * @property    {number}    startOfWeekDay                              States what day the week starts on (defaults to 0, with options: Mon = 0, Sat = 5, Sun = 6).
- * @property    {boolean}   useLocalStorageForEvents                    States if the events added should be stored in local storage (remembered between browser usages, defaults to false).
- * @property    {boolean}   shortcutKeysEnabled                         States if the shortcut keys are enabled (defaults to true).
- * @property    {Object}    workingHoursStart                           States when the time the working hours start (for example, "09:00", or { 2: "09:00" } for specific days, and defaults to null).
- * @property    {Object}    workingHoursEnd                             States when the time the working hours end (for example, "17:00", or { 2: "17:00" } for specific days, and defaults to null).
- * @property    {boolean}   reverseOrderDaysOfWeek                      States if the days of the week should be reversed (for hebrew calendars, for example. Defaults to true).
- * @property    {boolean}   importEventsEnabled                         States if importing events is enabled (defaults to true).
- * @property    {boolean}   useAmPmForTimeDisplays                      States if the AM/PM time format should be used for all time displays (defaults to false).
- * @property    {boolean}   isWidget                                    States if the new calendar instance is only a widget (defaults to false).
- * @property    {string}    viewToOpenOnFirstLoad                       States which view should be opened when the Calendar is first initialized (defaults to null, accepts "full-day", "full-week", "full-year", "timeline", and "all-events").
- * @property    {boolean}   eventColorsEditingEnabled                   States if changing the colors for events in the "Edit Event" dialog is enabled (defaults to true).
- * 
- * 
- * These are the options for:  Side Menu:
- * 
- * @property    {boolean}   showDays                                    States if the "Days" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showGroups                                  States if the "Groups" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showEventTypes                              States if the "Event Types" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showWorkingDays                             States if the "Working Days" section on the Side Menu is visible (defaults to true).
- * @property    {boolean}   showWeekendDays                             States if the "Weekend Days" section on the Side Menu is visible (defaults to true).
- * 
- * 
- * These are the view options for:  Full Day:
- * 
- * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
- * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between rows in all views (defaults to 30).
- * @property    {boolean}   showTimelineArrow                           States if the timeline arrow should be shown (defaults to true).
- * @property    {boolean}   showExtraTitleBarButtons                    States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
- * 
- * 
- * These are the view options for:  Full Week:
- * 
- * @property    {boolean}   showAllDayEventDetails                      States if the extra details for an All Day event should be shown (defaults to false).
- * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
- * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between rows in all views (defaults to 30).
- * @property    {boolean}   showTimelineArrow                           States if the timeline arrow should be shown (defaults to true).
- * @property    {boolean}   showWeekNumbersInTitles                     States if week numbers should be shown in the title bars (defaults to false).
- * @property    {boolean}   showExtraTitleBarButtons                    States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
- * 
- * 
- * These are the view options for:  Full Month:
- * 
- * @property    {number}    maximumEventsPerDayDisplay                  The maximum number of events that should be displayed per day (defaults to 3, 0 disables it).
- * @property    {boolean}   allowEventScrolling                         States if the days in the display can be scrolled (defaults to false, overrides maximumEventsPerDayDisplay if true).
- * @property    {boolean}   showTimesInEvents                           States if the time should be shown on the events (defaults to false).
- * @property    {number}    minimumDayHeight                            States the height the days should use (defaults to 0 - auto).
- * @property    {boolean}   showPreviousNextMonthNames                  States if the previous/next month names should be shown in the days (defaults to true).
- * @property    {boolean}   useOnlyDotEvents                            States if only dot event icons should be used (to save space, defaults to false).
- * @property    {boolean}   applyCssToEventsNotInCurrentMonth           States if extra CSS should be applied to events that are not in the current (defaults to true).
- * @property    {boolean}   addYearButtons                              States if the year-jumping buttons should be added (defaults to false).
- * @property    {string}    titleBarDateFormat                          States the display format that should be used for the title bar (defaults to "{mmmm} {yyyy}", see display date formats for options).
- * @property    {boolean}   showDayNamesHeaders                         States if the day names headers should be shown (defaults to true).
- * @property    {boolean}   isPinUpViewEnabled                          States if the pin-up view ie enabled (defaults to false).
- * @property    {string[]}  pinUpViewImageUrls                          States the the pin-up view images that should be used (defaults to []).
- * @property    {boolean}   showMonthButtonsInYearDropDownMenu          States if the month name selector buttons are shown in the Year Drop-Down menu (defaults to true).
- * @property    {boolean}   showExtraTitleBarButtons                    States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
- * 
- * 
- * These are the view options for:  Full Year:
- * 
- * @property    {boolean}   showExtraTitleBarButtons                    States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
- * 
- * 
- * These are the view options for:  Timeline:
- * 
- * @property    {string}    defaultAxis                                 States the default axis the view should use (defaults to "group").
- * @property    {number}    minutesBetweenSections                      States the number of minutes that should be used between headers in all views (defaults to 30).
- * @property    {boolean}   showExtraTitleBarButtons                    States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
- * 
- * 
- * These are the view options for:  All Events:
- * 
- * @property    {boolean}   showExtraTitleBarButtons                    States if the extra toolbar buttons on the main title bars (except Previous/Next Month) are visible (defaults to true).
- * 
- * 
- * These are the view options for:  DatePicker:
- * 
- * @property    {string}    selectedDateFormat                          States the display format that should be used for the DatePicker input field (defaults to "{d}{o} {mmmm} {yyyy}", see DatePicker display formats for options).
- * @property    {Object}    minimumDate                                 States the minimum date that can be selected in DatePicker mode (defaults to null).
- * @property    {Object}    maximumDate                                 States the minimum date that can be selected in DatePicker mode (defaults to null).
- */
-
-
-/**
- * Search Options.
- * 
- * These are the search options that are used to control how Calendar.js search works.
- * 
- * @typedef     {Object}    Search
- *
- * @property    {string}    lastSearchText                              States the last search text that was used (defaults to "").
- * @property    {boolean}   not                                         States if the search should be a not search (defaults to false).
- * @property    {boolean}   matchCase                                   States character case searching is strict (defaults to false).
- * @property    {boolean}   showAdvanced                                States if the advanced options should be shown (defaults to false).
- * @property    {boolean}   searchTitle                                 States if the "title" property for the event should be searched (false to true).
- * @property    {boolean}   searchLocation                              States if the "location" property for the event should be searched (false to false).
- * @property    {boolean}   searchDescription                           States if the "description" property for the event should be searched (false to false).
- * @property    {boolean}   searchGroup                                 States if the "group" property for the event should be searched (false to false).
- * @property    {boolean}   searchUrl                                   States if the "url" property for the event should be searched (false to false).
- * @property    {boolean}   startsWith                                  States if the search should run a "starts with" check (defaults to false).
- * @property    {boolean}   endsWith                                    States if the search should run a "ends with" check (defaults to false).
- * @property    {boolean}   contains                                    States if the search should run a "contains with" check (defaults to true).
- * @property    {number}    left                                        States the left position of the dialog (defaults to null).
- * @property    {number}    top                                         States the top position of the dialog (defaults to null).
- * @property    {string[]}  history                                     States the dropdown search history that should be displayed (used previously, defaults to []).
- */
-
-
-/**
- * Date Display Formats.
- * 
- * These are the formatter options are used to state how dates are displayed (where supported).
- *
- * {dddd}                                                               The full name of the day of the week.
- * {ddd}                                                                The abbreviated name of the day of the week.
- * {dd}                                                                 The day of the month, from 01 through 31.
- * {d}                                                                  The day of the month, from 1 through 31.
- * {o}                                                                  The day ordinal.
- * {mmmm}                                                               The full name of the month.
- * {mmm}                                                                The abbreviated name of the month.
- * {mm}                                                                 The month, from 01 through 12.
- * {m}                                                                  The month, from 1 through 12.
- * {yyyy}                                                               The year as a four-digit number.
- * {yyy}                                                                The year, from 000 to 999.
- * {yy}                                                                 The year, from 00 to 99.
- * {y}                                                                  The year, from 0 to 99.
  */
 
 
@@ -12682,7 +12203,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.exportAllEvents = function( type ) {
         if ( _options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
-            type = !isDefinedString( type ) ? "csv" : type;
+            type = getDefaultString( type, "csv" );
 
             exportEvents( null, type );
         }
@@ -12803,7 +12324,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
             _events = {};
     
             this.addEvents( events, updateEvents, false );
@@ -12832,7 +12353,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var dataObject = getObjectFromString( json );
     
@@ -12866,8 +12387,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.addEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             var eventsLength = events.length;
             for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -12908,7 +12429,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var dataObject = getObjectFromString( json );
     
@@ -12945,7 +12466,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var added = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
-            setLastUpdated = !isDefinedBoolean( setLastUpdated ) ? true : setLastUpdated;
+            setLastUpdated = getDefaultBoolean( setLastUpdated, true );
 
             if ( isDefinedString( event.from ) ) {
                 event.from = new Date( event.from );
@@ -12988,8 +12509,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
     
                 if ( !_events[ storageDate ].hasOwnProperty( storageGuid ) ) {
-                    updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                    triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+                    updateEvents = getDefaultBoolean( updateEvents, true );
+                    triggerEvent = getDefaultBoolean( triggerEvent, true );
 
                     var title = getString( event.title ),
                         description = getString( event.description ),
@@ -13075,8 +12596,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.updateEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             var eventsLength = events.length;
             for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
@@ -13122,8 +12643,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             updated = this.removeEvent( id, false, false );
 
             if ( updated ) {
-                updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-                triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+                updateEvents = getDefaultBoolean( updateEvents, true );
+                triggerEvent = getDefaultBoolean( triggerEvent, true );
     
                 updated = this.addEvent( event, updateEvents, false );
 
@@ -13159,8 +12680,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var updated = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             getAllEventsFunc( function( eventDetails ) {
                 if ( eventDetails.id === id ) {
@@ -13206,8 +12727,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var removed = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
             
             getAllEventsFunc( function( event, storageDate, storageGuid ) {
                 if ( storageGuid === id ) {
@@ -13248,8 +12769,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.clearEvents = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             _events = {};
     
@@ -13328,8 +12849,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.removeExpiredEvents = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             getAllEventsFunc( function( eventDetails ) {
                 var repeatEvery = getNumber( eventDetails.repeatEvery );
@@ -13432,7 +12953,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setVisibleEventTypes = function( ids, triggerEvent ) {
         if ( isDefinedArray( ids ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             _options_Configuration.visibleEventTypes = [];
 
@@ -13489,8 +13010,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.clearAllGroups = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             getAllEventsFunc( function( eventDetails ) {
                 eventDetails.group = null;
@@ -13526,8 +13047,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
         if ( isDefinedString( groupName ) && !_element_Mode_DatePicker_Enabled ) {
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            updateEvents = getDefaultBoolean( updateEvents, true );
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var checkGroupName = groupName.toLowerCase();
 
@@ -13566,7 +13087,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.setVisibleGroups = function( groupNames, triggerEvent ) {
         if ( isDefinedArray( groupNames ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             _options_Configuration.visibleGroups = [];
 
@@ -13694,7 +13215,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     this.getVersion = function() {
-        return "2.10.13";
+        return "2.10.14";
     };
 
     /**
@@ -13755,7 +13276,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         checkForBrowserNotificationsPermission();
 
         if ( _initialized ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             if ( triggerEvent ) {
                 fireCustomTrigger( "onOptionsUpdated", _options );
@@ -13787,7 +13308,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             newSearchOptions = getOptions( newSearchOptions );
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
     
             hideSearchDialog();
     
@@ -13821,8 +13342,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidays ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
+            updateEvents = getDefaultBoolean( updateEvents, true );
     
             _options.holidays = _options.holidays.concat( holidays );
     
@@ -13854,8 +13375,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidayNames ) && !_element_Mode_DatePicker_Enabled ) {
-            triggerEvent = !isDefinedBoolean( triggerEvent ) ? true : triggerEvent;
-            updateEvents = !isDefinedBoolean( updateEvents ) ? true : updateEvents;
+            triggerEvent = getDefaultBoolean( triggerEvent, true );
+            updateEvents = getDefaultBoolean( updateEvents, true );
 
             var holidaysLength = _options.holidays.length,
                 holidaysRemaining = [];

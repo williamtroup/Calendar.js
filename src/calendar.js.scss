@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.10.13
+ * Calendar.js Library v2.10.14
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -866,6 +866,7 @@ div.calendar {
                     div.ib-arrow-down-full,
                     div.ib-arrow-up-full {
                         pointer-events: none;
+                        transition-property: opacity;
                     }
 
                     div.ib-arrow-down-full {
@@ -1168,9 +1169,11 @@ div.calendar {
                     border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-dark-lighter-color);
                     font-weight: 500;
                     transition: var(--calendar-js-transition);
+                    transition-property: opacity;
     
                     span.ib-arrow-down-full-medium,
                     span.ib-arrow-up-full-medium {
+                        transition-property: opacity;
                         margin-left: calc( var(--calendar-js-spacing) / 2 );
                         pointer-events: none;
                     }
@@ -1805,7 +1808,7 @@ div.calendar {
                     vertical-align: top;
                     position: sticky;
                     left: 0;
-                    z-index: 2000;
+                    z-index: 2002;
 
                     @media screen and ( min-width: $minimum-width ) {
                         width: var(--calendar-js-time-view-timeline-section-width);
@@ -2308,6 +2311,7 @@ div.search {
 
     div.ib-minus,
     div.ib-square-hollow {
+        transition-property: opacity;
         float: right;
     }
 
@@ -2444,6 +2448,7 @@ div.calendar-dialog {
     div.tab-control {
         border: var(--calendar-js-spacing-border-size) solid var(--calendar-js-input-border-color);
         transition: var(--calendar-js-transition);
+        transition-property: opacity;
 
         &:hover {
             cursor: pointer;

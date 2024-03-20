@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.13 - Farsi | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.14 - Farsi | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "دوشنبه",
