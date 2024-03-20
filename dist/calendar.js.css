@@ -2589,7 +2589,7 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
   vertical-align: top;
   position: sticky;
   left: 0;
-  z-index: 2000;
+  z-index: 2002;
 }
 @media screen and (min-width: 451px) {
   div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-item,

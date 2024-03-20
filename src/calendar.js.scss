@@ -1808,7 +1808,7 @@ div.calendar {
                     vertical-align: top;
                     position: sticky;
                     left: 0;
-                    z-index: 2000;
+                    z-index: 2002;
 
                     @media screen and ( min-width: $minimum-width ) {
                         width: var(--calendar-js-time-view-timeline-section-width);
