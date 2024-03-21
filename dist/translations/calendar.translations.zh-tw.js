@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.14 - Taiwanese | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.11.0 - Taiwanese | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "週一",
