@@ -8056,13 +8056,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     return this;
   };
-  this.exportAllEvents = function(type) {
-    if (_options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled) {
-      type = getDefaultString(type, "csv");
-      exportEvents(null, type);
-    }
-    return this;
-  };
   this.refresh = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       refreshViews(true, true);
@@ -8129,6 +8122,19 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
+  this.export = function(type) {
+    if (_options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled) {
+      type = getDefaultString(type, "csv");
+      exportEvents(null, type);
+    }
+    return this;
+  };
+  this.import = function(files) {
+    if (_options.importEventsEnabled && !_element_Mode_DatePicker_Enabled) {
+      importEventsFromFiles(files);
+    }
+    return this;
+  };
   this.setEvents = function(events, updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);

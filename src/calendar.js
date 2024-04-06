@@ -12019,7 +12019,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     * Public Functions:  Navigation, Exporting and Refreshing
+     * Public Functions:  Navigation and Refreshing
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
@@ -12190,28 +12190,6 @@ function calendarJs( elementOrId, options, searchOptions ) {
     };
 
     /**
-     * exportAllEvents().
-     * 
-     * Exports all the events into a downloadable file.
-     * 
-     * @public
-     * @fires       onEventsExported
-     * 
-     * @param       {string}    [type]                                      The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
-     * 
-     * @returns     {Object}                                                The Calendar.js class instance.
-     */
-    this.exportAllEvents = function( type ) {
-        if ( _options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
-            type = getDefaultString( type, "csv" );
-
-            exportEvents( null, type );
-        }
-
-        return this;
-    };
-
-    /**
      * refresh().
      * 
      * Refreshes all of the views.
@@ -12300,6 +12278,55 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
     }
+
+
+    /*
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * Public Functions:  Export/Import Events
+     * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * export().
+     * 
+     * Exports all the events into a downloadable file.
+     * 
+     * @public
+     * @fires       onEventsExported
+     * 
+     * @param       {string}    [type]                                      The data type to export to (defaults to "csv", accepts "csv", "xml", "json", "txt", "ical", "md", "html", and "tsv").
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    this.export = function( type ) {
+        if ( _options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
+            type = getDefaultString( type, "csv" );
+
+            exportEvents( null, type );
+        }
+
+        return this;
+    };
+
+    /**
+     * import().
+     * 
+     * Imports the events from an array of file objects ("json" and "ical" files).
+     * 
+     * @public
+     * @fires       onEventsImported
+     * 
+     * @param       {Object[]}    files                                     The file objects that the events should be imported from.
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    this.import = function( files ) {
+        if ( _options.importEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
+            importEventsFromFiles( files );
+        }
+
+        return this;
+    };
 
 
     /*
