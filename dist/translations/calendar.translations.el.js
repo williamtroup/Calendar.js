@@ -1,4 +1,4 @@
-/*! Calendar.js v2.11.0 - Greek | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.15 - Greek | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "Δευτ",
