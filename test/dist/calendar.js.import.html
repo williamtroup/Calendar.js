@@ -24,15 +24,18 @@
             <h2>Events:</h2>
             <button onclick="calendarInstance.clearEvents();">Clear Events</button>
 
+            <h2>Import Events:</h2>
+            <button onclick="importEvents();">Import</button>
+
             <h2>Export Events:</h2>
-            <button onclick="calendarInstance.exportAllEvents( 'csv' );">Export All Events (csv)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'xml' );">Export All Events (xml)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'json' );">Export All Events (json)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'text' );">Export All Events (text)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'ical' );">Export All Events (ical)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'md' );">Export All Events (md)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'html' );">Export All Events (html)</button>
-            <button onclick="calendarInstance.exportAllEvents( 'tsv' );">Export All Events (tsv)</button>
+            <button onclick="calendarInstance.export( 'csv' );">Export (csv)</button>
+            <button onclick="calendarInstance.export( 'xml' );">Export (xml)</button>
+            <button onclick="calendarInstance.export( 'json' );">Export (json)</button>
+            <button onclick="calendarInstance.export( 'text' );">Export (text)</button>
+            <button onclick="calendarInstance.export( 'ical' );">Export (ical)</button>
+            <button onclick="calendarInstance.export( 'md' );">Export (md)</button>
+            <button onclick="calendarInstance.export( 'html' );">Export (html)</button>
+            <button onclick="calendarInstance.export( 'tsv' );">Export (tsv)</button>
         </div>
     </body>
 
@@ -57,5 +60,18 @@
 
         document.title += " v" + calendarInstance.getVersion();
         document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+
+        function importEvents() {
+            var input = document.createElement( "input" );
+            input.type = "file";
+            input.accept = ".ical, .ics, .json";
+            input.multiple = "multiple";
+
+            input.onchange = function() {
+                calendarInstance.import( input.files );
+            };
+
+            input.click();
+        }
     </script>
 </html>

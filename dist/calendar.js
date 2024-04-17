@@ -1,11 +1,11 @@
-/*! Calendar.js v2.10.14 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.15 | (c) Bunoon 2024 | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
-  var _this = this, _parameter_Document = null, _parameter_Window = null, _parameter_Navigator = null, _parameter_ElementID = null, _parameter_Math = null, _parameter_Json = null, _string = {empty:"", space:" ", newLine:"\n", newLineCharacterReturn:"\r\n",}, _enum_Day = {monday:0, saturday:5, sunday:6}, _enum_KeyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, j:74, m:77, o:79, v:86, x:88, f5:116, f11:122}, _enum_RepeatType = {never:0, everyDay:1, everyWeek:2, 
-  every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _enum_RepeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _options = {}, _options_Search = {}, _options_EventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _options_Configuration = {visibleGroups:null, visibleEventTypes:null, visibleAllEventsMonths:{}}, 
-  _initialized = false, _initialized_FirstTime = false, _initialized_DocumentEvents = false, _events = {}, _events_DatesAvailable = {}, _events_Selected = [], _events_Copied = [], _events_Copied_Cut = false, _events_Dragged_DateFrom = null, _events_Dragged = null, _events_NotificationsTriggered = {}, _calendar_CurrentDate = null, _calendar_CurrentDate_IsToday = false, _calendar_CurrentDate_ForDatePicker = null, _calendar_IsBusy = false, _calendar_IsBusy_LastState = false, _elements = {}, _elements_InDocumentBody = 
-  [], _elements_Type = {}, _element_ID_Event_Day = "day-", _element_ID_Event_Month = "month-", _element_ID_Event_WeekDay = "week-day-", _element_ID_Event_FullDay = "full-day-", _element_ID_Event_Widget_Day = "widget-day-", _element_ID_Event_Timeline_Day = "timeline-day-", _element_ID_DayElement = "calendar-day-", _element_ID_WeekDayElement = "calendar-week-day-", _element_ID_WeekAllDayElement = "calendar-week-all-day-", _element_ID_YearSelected = "year-selected-", _timer = {}, _timer_AutoRefresh_Enabled = 
-  true, _timer_Name = {windowResize:"WindowResize", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"}, _element_SideMenu = null, _element_SideMenu_Header = null, _element_SideMenu_Changed = false, _element_SideMenu_TitleBar_ExportEventsButton = null, _element_SideMenu_Content = null, _element_SideMenu_Content_Section_Groups = 
-  null, _element_SideMenu_Content_Section_Groups_Content = null, _element_SideMenu_Content_Section_EventTypes = null, _element_SideMenu_Content_Section_EventTypes_Content = null, _element_SideMenu_Content_Section_Days = null, _element_SideMenu_Content_Section_Days_Content = null, _element_SideMenu_Content_Section_WorkingDays = null, _element_SideMenu_Content_Section_WorkingDays_Content = null, _element_SideMenu_Content_Section_WeekendDays = null, _element_SideMenu_Content_Section_WeekendDays_Content = 
+  var _this = this, _parameter_Document = null, _parameter_Window = null, _parameter_Navigator = null, _parameter_ElementID = null, _parameter_Math = null, _parameter_Json = null, _string = {empty:"", space:" ", newLine:"\n", newLineCharacterReturn:"\r\n",}, _value = {notFound:-1}, _enum_Day = {monday:0, saturday:5, sunday:6}, _enum_KeyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, j:74, m:77, o:79, v:86, x:88, f5:116, f11:122}, _enum_RepeatType = {never:0, 
+  everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _enum_RepeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _options = {}, _options_Search = {}, _options_EventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _options_Configuration = {visibleGroups:null, visibleEventTypes:null, 
+  visibleAllEventsMonths:{}}, _initialized = false, _initialized_FirstTime = false, _initialized_DocumentEvents = false, _events = {}, _events_DatesAvailable = {}, _events_Selected = [], _events_Copied = [], _events_Copied_Cut = false, _events_Dragged_DateFrom = null, _events_Dragged = null, _events_NotificationsTriggered = {}, _calendar_CurrentDate = null, _calendar_CurrentDate_IsToday = false, _calendar_CurrentDate_ForDatePicker = null, _calendar_IsBusy = false, _calendar_IsBusy_LastState = false, 
+  _elements = {}, _elements_InDocumentBody = [], _elements_Type = {}, _element_ID_Event_Day = "day-", _element_ID_Event_Month = "month-", _element_ID_Event_WeekDay = "week-day-", _element_ID_Event_FullDay = "full-day-", _element_ID_Event_Widget_Day = "widget-day-", _element_ID_Event_Timeline_Day = "timeline-day-", _element_ID_DayElement = "calendar-day-", _element_ID_WeekDayElement = "calendar-week-day-", _element_ID_WeekAllDayElement = "calendar-week-all-day-", _element_ID_YearSelected = "year-selected-", 
+  _timer = {}, _timer_AutoRefresh_Enabled = true, _timer_Name = {windowResize:"WindowResize", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"}, _element_SideMenu = null, _element_SideMenu_Header = null, _element_SideMenu_Changed = false, _element_SideMenu_TitleBar_ExportEventsButton = null, _element_SideMenu_Content = null, 
+  _element_SideMenu_Content_Section_Groups = null, _element_SideMenu_Content_Section_Groups_Content = null, _element_SideMenu_Content_Section_EventTypes = null, _element_SideMenu_Content_Section_EventTypes_Content = null, _element_SideMenu_Content_Section_Days = null, _element_SideMenu_Content_Section_Days_Content = null, _element_SideMenu_Content_Section_WorkingDays = null, _element_SideMenu_Content_Section_WorkingDays_Content = null, _element_SideMenu_Content_Section_WeekendDays = null, _element_SideMenu_Content_Section_WeekendDays_Content = 
   null, _element_SideMenu_DisabledBackground = null, _element_Mode_DatePicker_Input = null, _element_Mode_DatePicker_HiddenInput = null, _element_Mode_DatePicker_Enabled = false, _element_Mode_DatePicker_Visible = false, _element_Mode_DatePicker_OriginalTop = null, _element_View_Opened = [], _element_View_LastZIndex = 0, _element_View_Event_Dragged = null, _element_View_Event_Dragged_OffsetTop = null, _element_View_Event_Dragged_EventDetails = null, _element_View_Event_Dragged_ClickOffset = null, 
   _element_View_Event_Dragged_FromDate = null, _element_Calendar = null, _element_Calendar_DisabledBackground = null, _element_Calendar_FullScreenModeOn = false, _element_Calendar_FullScreenModeCachedStyled = null, _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [], _element_View_FullDay = null, _element_View_FullDay_TitleBar = null, _element_View_FullDay_Contents = null, _element_View_FullDay_Contents_AllDayEvents = null, _element_View_FullDay_Contents_Hours = null, _element_View_FullDay_Contents_WorkingHours = 
   null, _element_View_FullDay_DateSelected = null, _element_View_FullDay_EventsShown = [], _element_View_FullDay_FullScreenButton = null, _element_View_FullDay_TodayButton = null, _element_View_FullDay_TimeArrow = null, _element_View_FullDay_SearchButton = null, _element_View_FullDay_Events_Dragged_Sizes = [], _element_View_FullWeek = null, _element_View_FullWeek_TitleBar = null, _element_View_FullWeek_FullScreenButton = null, _element_View_FullWeek_SearchButton = null, _element_View_FullWeek_Contents = 
@@ -297,7 +297,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function isSideMenuOpen() {
-    return _element_SideMenu !== null && _element_SideMenu.className.indexOf("side-menu-open") > -1;
+    return _element_SideMenu !== null && _element_SideMenu.className.indexOf("side-menu-open") > _value.notFound;
   }
   function saveSideMenuSelections() {
     if (_element_SideMenu_Changed) {
@@ -382,14 +382,14 @@ function calendarJs(elementOrId, options, searchOptions) {
       processOtherDays = true;
     }
     for (; dayIndex < dayEndIndex; dayIndex++) {
-      var actualDayIndex1 = dayIndex > 6 ? 0 : dayIndex, visible1 = _options.weekendDays.indexOf(actualDayIndex1) > -1;
+      var actualDayIndex1 = dayIndex > 6 ? 0 : dayIndex, visible1 = _options.weekendDays.indexOf(actualDayIndex1) > _value.notFound;
       checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex1.toString(), visible1, null, cancelBubbleOnly)[0]);
     }
     if (processOtherDays) {
       dayEndIndex = _options.startOfWeekDay + 1;
       dayIndex = 1;
       for (; dayIndex < dayEndIndex; dayIndex++) {
-        var actualDayIndex2 = dayIndex > 6 ? 0 : dayIndex, visible2 = _options.weekendDays.indexOf(actualDayIndex2) > -1;
+        var actualDayIndex2 = dayIndex > 6 ? 0 : dayIndex, visible2 = _options.weekendDays.indexOf(actualDayIndex2) > _value.notFound;
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WeekendDays_Content, _options.dayNames[dayIndex - 1], sideMenuSelectionsChanged, actualDayIndex2.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
     }
@@ -410,14 +410,14 @@ function calendarJs(elementOrId, options, searchOptions) {
       processOtherDays = true;
     }
     for (; dayIndex < dayEndIndex; dayIndex++) {
-      var visible1 = _options.workingDays.indexOf(dayIndex) > -1;
+      var visible1 = _options.workingDays.indexOf(dayIndex) > _value.notFound;
       checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly)[0]);
     }
     if (processOtherDays) {
       dayEndIndex = _options.startOfWeekDay;
       dayIndex = 0;
       for (; dayIndex < dayEndIndex; dayIndex++) {
-        var visible2 = _options.workingDays.indexOf(dayIndex) > -1;
+        var visible2 = _options.workingDays.indexOf(dayIndex) > _value.notFound;
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_WorkingDays_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
     }
@@ -440,7 +440,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       for (var groupIndex = 0; groupIndex < groupsLength; groupIndex++) {
         var groupName = groups[groupIndex], configGroupName = getGroupName(groupName), visible = true;
         if (isDefined(_options_Configuration.visibleGroups)) {
-          visible = _options_Configuration.visibleGroups.indexOf(configGroupName) > -1;
+          visible = _options_Configuration.visibleGroups.indexOf(configGroupName) > _value.notFound;
         }
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_Groups_Content, groupName, sideMenuSelectionsChanged, configGroupName, visible, null, cancelBubbleOnly)[0]);
       }
@@ -463,7 +463,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         }
         var visible = true;
         if (isDefined(_options_Configuration.visibleEventTypes)) {
-          visible = _options_Configuration.visibleEventTypes.indexOf(parseInt(eventType)) > -1;
+          visible = _options_Configuration.visibleEventTypes.indexOf(parseInt(eventType)) > _value.notFound;
         }
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_EventTypes_Content, _options_EventType[eventType].text, sideMenuSelectionsChanged, eventType, visible, null, cancelBubbleOnly)[0]);
       }
@@ -482,14 +482,14 @@ function calendarJs(elementOrId, options, searchOptions) {
       processOtherDays = true;
     }
     for (; dayIndex < dayEndIndex; dayIndex++) {
-      var visible1 = _options.visibleDays.indexOf(dayIndex) > -1;
+      var visible1 = _options.visibleDays.indexOf(dayIndex) > _value.notFound;
       checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible1, null, cancelBubbleOnly)[0]);
     }
     if (processOtherDays) {
       dayEndIndex = _options.startOfWeekDay;
       dayIndex = 0;
       for (; dayIndex < dayEndIndex; dayIndex++) {
-        var visible2 = _options.visibleDays.indexOf(dayIndex) > -1;
+        var visible2 = _options.visibleDays.indexOf(dayIndex) > _value.notFound;
         checkBoxes.push(buildCheckBox(_element_SideMenu_Content_Section_Days_Content, _options.dayNames[dayIndex], sideMenuSelectionsChanged, dayIndex.toString(), visible2, null, cancelBubbleOnly)[0]);
       }
     }
@@ -637,7 +637,7 @@ function calendarJs(elementOrId, options, searchOptions) {
         event.appendChild(description);
       }
     }
-    if (events.scrollHeight > events.clientHeight && events.className.indexOf(" scroll-margin") === -1) {
+    if (events.scrollHeight > events.clientHeight && events.className.indexOf(" scroll-margin") === _value.notFound) {
       events.className += " scroll-margin";
     }
   }
@@ -1179,7 +1179,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     while (newFromDate < date) {
       dateFunc(newFromDate, dateFuncForwardValue);
       var repeatEnded = !(!isDefined(eventDetails.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, eventDetails.repeatEnds));
-      if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
+      if (excludeDays.indexOf(newFromDate.getDay()) === _value.notFound && !repeatEnded) {
         if (doDatesMatch(newFromDate, date)) {
           orderedEvents.push(eventDetails);
           break;
@@ -1189,7 +1189,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullDayViewEvent(eventDetails, displayDate) {
     var scrollTop = 0, seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates), formattedDate = toStorageFormattedDate(displayDate), editEventDate = new Date(displayDate);
-    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDate) === -1) {
+    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDate) === _value.notFound) {
       var event = createElement("div", "event");
       event.ondblclick = cancelBubble;
       event.setAttribute("event-type", getNumber(eventDetails.type));
@@ -1294,7 +1294,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function showFullDayView(date, fromOpen) {
     date = isDefined(date) ? new Date(date) : new Date();
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
-    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > -1;
+    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > _value.notFound;
     _element_View_FullDay_TitleBar.innerHTML = _string.empty;
     _element_View_FullDay_DateSelected = new Date(date);
     _element_View_FullDay_EventsShown = [];
@@ -1406,7 +1406,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     moveDateBackOneDay(_element_View_FullDay_DateSelected);
     if (_options.visibleDays.length < 7) {
       var weekDayNumber = getWeekdayNumber(_element_View_FullDay_DateSelected);
-      while (_options.visibleDays.indexOf(weekDayNumber) === -1) {
+      while (_options.visibleDays.indexOf(weekDayNumber) === _value.notFound) {
         moveDateBackOneDay(_element_View_FullDay_DateSelected);
         weekDayNumber = getWeekdayNumber(_element_View_FullDay_DateSelected);
       }
@@ -1425,7 +1425,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     moveDateForwardDay(_element_View_FullDay_DateSelected);
     if (_options.visibleDays.length < 7) {
       var weekDayNumber = getWeekdayNumber(_element_View_FullDay_DateSelected);
-      while (_options.visibleDays.indexOf(weekDayNumber) === -1) {
+      while (_options.visibleDays.indexOf(weekDayNumber) === _value.notFound) {
         moveDateForwardDay(_element_View_FullDay_DateSelected);
         weekDayNumber = getWeekdayNumber(_element_View_FullDay_DateSelected);
       }
@@ -1531,7 +1531,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullWeekViewDayColumn(startIndex, endIndex, droppableDates) {
     for (var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++) {
-      if (_options.visibleDays.indexOf(headerNameIndex) > -1) {
+      if (_options.visibleDays.indexOf(headerNameIndex) > _value.notFound) {
         buildFullWeekDayViewColumnWithEvents(droppableDates, headerNameIndex);
       }
     }
@@ -1631,7 +1631,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     while (newFromDate < weekEndDate) {
       dateFunc(newFromDate, dateFuncForwardValue);
       var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
-      if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
+      if (excludeDays.indexOf(newFromDate.getDay()) === _value.notFound && !repeatEnded) {
         if (newFromDate >= weekStartDate && newFromDate <= weekEndDate) {
           var column = getElementByID(_element_ID_WeekDayElement + getWeekdayNumber(newFromDate)), columnAllDay = getElementByID(_element_ID_WeekAllDayElement + getWeekdayNumber(newFromDate));
           if (column !== null) {
@@ -1645,7 +1645,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullWeekViewEvent(column, columnAllDay, eventDetails, displayDate) {
     var added = false, seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates), actualDisplayDate = new Date(displayDate), formattedDate = toStorageFormattedDate(actualDisplayDate), editEventDate = new Date(displayDate);
-    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDate) === -1) {
+    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDate) === _value.notFound) {
       var event = createElement("div", "event"), weekdayNumber = getWeekdayNumber(actualDisplayDate);
       event.setAttribute("event-type", getNumber(eventDetails.type));
       event.setAttribute("event-id", eventDetails.id);
@@ -1751,7 +1751,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var fromDate = new Date(weekStartDate), childrenIndex = 0, children = _element_View_FullWeek_Contents_DayNamesHeader.children;
       while (fromDate < weekEndDate) {
         var weekDayNumber = getWeekdayNumber(fromDate);
-        if (_options.visibleDays.indexOf(weekDayNumber) > -1) {
+        if (_options.visibleDays.indexOf(weekDayNumber) > _value.notFound) {
           children[childrenIndex].innerHTML += _string.space + fromDate.getDate() + "/" + (fromDate.getMonth() + 1);
           childrenIndex++;
         }
@@ -2107,7 +2107,7 @@ function calendarJs(elementOrId, options, searchOptions) {
             dayNumber = dayNumber - 7;
           }
         }
-        if (_options.visibleDays.indexOf(dayNumber) > -1) {
+        if (_options.visibleDays.indexOf(dayNumber) > _value.notFound) {
           var columnDataNumber = rowIndex * 7 + (columnDataIndex + 1), columnData = createElement("div", getCellName(_options.views.fullMonth.allowEventScrolling));
           columnData.id = dayStartID + columnDataNumber;
           rowData.appendChild(columnData);
@@ -2234,9 +2234,9 @@ function calendarJs(elementOrId, options, searchOptions) {
       var yearsHandledForEvents = [];
       getAllEventsFunc(function(eventDetails) {
         var fromYear = eventDetails.from.getFullYear();
-        if (yearsHandledForEvents.indexOf(fromYear) === -1) {
+        if (yearsHandledForEvents.indexOf(fromYear) === _value.notFound) {
           var yearEvents = getElementByID(_element_ID_YearSelected + fromYear);
-          if (yearEvents !== null && yearEvents.className.indexOf(" year-selected") === -1) {
+          if (yearEvents !== null && yearEvents.className.indexOf(" year-selected") === _value.notFound) {
             yearEvents.className += " year-has-events";
           }
           yearsHandledForEvents.push(fromYear);
@@ -2344,10 +2344,10 @@ function calendarJs(elementOrId, options, searchOptions) {
       if (actualDay === 1 && !_element_Mode_DatePicker_Enabled) {
         dayText.className += " first-day";
       }
-      if (isWeekendDay(dayDate) && dayElement.className.indexOf("weekend-day") === -1) {
+      if (isWeekendDay(dayDate) && dayElement.className.indexOf("weekend-day") === _value.notFound) {
         dayElement.className += " weekend-day";
       }
-      if (isWorkingDay(dayDate) && dayElement.className.indexOf("working-day") === -1) {
+      if (isWorkingDay(dayDate) && dayElement.className.indexOf("working-day") === _value.notFound) {
         dayElement.className += " working-day";
       }
       dayElement.oncontextmenu = function(e) {
@@ -2455,7 +2455,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     while (newFromDate < largestDate) {
       dateFunc(newFromDate, dateFuncForwardValue);
       var repeatEnded = !(!isDefined(orderedEvent.repeatEnds) || isDateSmallerOrEqualToDate(newFromDate, orderedEvent.repeatEnds));
-      if (excludeDays.indexOf(newFromDate.getDay()) === -1 && !repeatEnded) {
+      if (excludeDays.indexOf(newFromDate.getDay()) === _value.notFound && !repeatEnded) {
         updateDateTotalEventsTracked(toStorageFormattedDate(newFromDate), orderedEvent.id);
         if (newFromDate < _element_View_FullMonth_LargestDateAvailable) {
           var repeatDayElement = getFullMonthViewDayElement(newFromDate);
@@ -2485,7 +2485,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullMonthViewDayEvent(dayDate, eventDetails) {
     var elementDay = getFullMonthViewDayElement(dayDate), seriesIgnoreDates = getArray(eventDetails.seriesIgnoreDates), formattedDayDate = toStorageFormattedDate(dayDate), editEventDate = new Date(dayDate);
-    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDayDate) === -1) {
+    if (isEventVisible(eventDetails) && seriesIgnoreDates.indexOf(formattedDayDate) === _value.notFound) {
       updateDateTotalEventsTracked(formattedDayDate, eventDetails.id);
       if (elementDay !== null) {
         checkEventForBrowserNotifications(dayDate, eventDetails);
@@ -2610,7 +2610,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (!_events_DatesAvailable.hasOwnProperty(formattedNewFromDate)) {
       _events_DatesAvailable[formattedNewFromDate] = [];
     }
-    if (_events_DatesAvailable[formattedNewFromDate].indexOf(eventId) === -1) {
+    if (_events_DatesAvailable[formattedNewFromDate].indexOf(eventId) === _value.notFound) {
       _events_DatesAvailable[formattedNewFromDate].push(eventId);
     }
   }
@@ -3017,7 +3017,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildAllEventsViewMonthHeader(date) {
     var yearHeader = null;
-    if (_element_View_AllEvents_YearHeadersAdded.indexOf(date.getFullYear()) === -1) {
+    if (_element_View_AllEvents_YearHeadersAdded.indexOf(date.getFullYear()) === _value.notFound) {
       _element_View_AllEvents_YearHeadersAdded.push(date.getFullYear());
       yearHeader = createElement("div", "year-header");
       var text = createElement("span", "header-text");
@@ -3282,7 +3282,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function showTimelineView(date, fromOpen) {
     date = isDefined(date) ? new Date(date) : new Date();
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
-    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > -1, orderedEvents = [];
+    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > _value.notFound, orderedEvents = [];
     _element_View_Timeline_TitleBar.innerHTML = _string.empty;
     _element_View_Timeline_Contents.innerHTML = _string.empty;
     _element_View_Timeline_EventsShown = [];
@@ -3316,7 +3316,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     moveDateBackOneDay(_element_View_Timeline_DateSelected);
     if (_options.visibleDays.length < 7) {
       var weekDayNumber = getWeekdayNumber(_element_View_Timeline_DateSelected);
-      while (_options.visibleDays.indexOf(weekDayNumber) === -1) {
+      while (_options.visibleDays.indexOf(weekDayNumber) === _value.notFound) {
         moveDateBackOneDay(_element_View_Timeline_DateSelected);
         weekDayNumber = getWeekdayNumber(_element_View_Timeline_DateSelected);
       }
@@ -3353,7 +3353,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     moveDateForwardDay(_element_View_Timeline_DateSelected);
     if (_options.visibleDays.length < 7) {
       var weekDayNumber = getWeekdayNumber(_element_View_Timeline_DateSelected);
-      while (_options.visibleDays.indexOf(weekDayNumber) === -1) {
+      while (_options.visibleDays.indexOf(weekDayNumber) === _value.notFound) {
         moveDateForwardDay(_element_View_Timeline_DateSelected);
         weekDayNumber = getWeekdayNumber(_element_View_Timeline_DateSelected);
       }
@@ -4017,13 +4017,13 @@ function calendarJs(elementOrId, options, searchOptions) {
           _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Yearly.checked = true;
         }
         var excludeDays = getArray(eventDetails.repeatEveryExcludeDays);
-        _element_Dialog_EventEditor_RepeatOptions_Mon.checked = excludeDays.indexOf(1) > -1;
-        _element_Dialog_EventEditor_RepeatOptions_Tue.checked = excludeDays.indexOf(2) > -1;
-        _element_Dialog_EventEditor_RepeatOptions_Wed.checked = excludeDays.indexOf(3) > -1;
-        _element_Dialog_EventEditor_RepeatOptions_Thu.checked = excludeDays.indexOf(4) > -1;
-        _element_Dialog_EventEditor_RepeatOptions_Fri.checked = excludeDays.indexOf(5) > -1;
-        _element_Dialog_EventEditor_RepeatOptions_Sat.checked = excludeDays.indexOf(6) > -1;
-        _element_Dialog_EventEditor_RepeatOptions_Sun.checked = excludeDays.indexOf(0) > -1;
+        _element_Dialog_EventEditor_RepeatOptions_Mon.checked = excludeDays.indexOf(1) > _value.notFound;
+        _element_Dialog_EventEditor_RepeatOptions_Tue.checked = excludeDays.indexOf(2) > _value.notFound;
+        _element_Dialog_EventEditor_RepeatOptions_Wed.checked = excludeDays.indexOf(3) > _value.notFound;
+        _element_Dialog_EventEditor_RepeatOptions_Thu.checked = excludeDays.indexOf(4) > _value.notFound;
+        _element_Dialog_EventEditor_RepeatOptions_Fri.checked = excludeDays.indexOf(5) > _value.notFound;
+        _element_Dialog_EventEditor_RepeatOptions_Sat.checked = excludeDays.indexOf(6) > _value.notFound;
+        _element_Dialog_EventEditor_RepeatOptions_Sun.checked = excludeDays.indexOf(0) > _value.notFound;
         setSelectedDate(eventDetails.repeatEnds, _element_Dialog_EventEditor_RepeatOptions_RepeatEnds);
         _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarning = repeatEvery > _enum_RepeatType.never && isDefined(originDayDate) && !doDatesMatch(eventDetails.from, originDayDate);
         _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate = originDayDate;
@@ -4844,7 +4844,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     } else if (_element_Dialog_Search_Option_EndsWith.checked) {
       found = endsWith(data, searchText);
     } else {
-      found = data.indexOf(searchText) > -1;
+      found = data.indexOf(searchText) > _value.notFound;
     }
     return found;
   }
@@ -5078,13 +5078,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     var group = getString(eventDetails.group), configGroup = getGroupName(group), type = getNumber(eventDetails.type), visible = true;
     if (group !== _string.empty) {
       if (isDefined(_options_Configuration.visibleGroups)) {
-        visible = _options_Configuration.visibleGroups.indexOf(configGroup) > -1;
+        visible = _options_Configuration.visibleGroups.indexOf(configGroup) > _value.notFound;
       }
     } else {
       visible = !_options.hideEventsWithoutGroupAssigned;
     }
     if (visible && isDefined(_options_Configuration.visibleEventTypes) && _options_EventType.hasOwnProperty(type)) {
-      visible = _options_Configuration.visibleEventTypes.indexOf(type) > -1;
+      visible = _options_Configuration.visibleEventTypes.indexOf(type) > _value.notFound;
     }
     return visible;
   }
@@ -5337,7 +5337,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildViewDayNamesHeaderSection(container, startIndex, endIndex) {
     for (var headerNameIndex = startIndex; headerNameIndex < endIndex; headerNameIndex++) {
-      if (_options.visibleDays.indexOf(headerNameIndex) > -1) {
+      if (_options.visibleDays.indexOf(headerNameIndex) > _value.notFound) {
         buildViewDayNamesHeaderDay(container, headerNameIndex);
       }
     }
@@ -5414,7 +5414,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _element_View_Opened = [].slice.call(viewsOpened);
   }
   function isViewVisible(element) {
-    return isDefined(element) && element.className && element.className.indexOf("view-shown") > -1;
+    return isDefined(element) && element.className && element.className.indexOf("view-shown") > _value.notFound;
   }
   function closeLastViewOpened() {
     var viewElement = getActiveView();
@@ -6213,13 +6213,13 @@ function calendarJs(elementOrId, options, searchOptions) {
   }
   function showDraggingEffect(e, dayElement, areaDate) {
     cancelBubble(e);
-    if (_events_Dragged !== null && dayElement.className.indexOf(" drag-over") === -1 && !doDatesMatch(_events_Dragged_DateFrom, areaDate)) {
+    if (_events_Dragged !== null && dayElement.className.indexOf(" drag-over") === _value.notFound && !doDatesMatch(_events_Dragged_DateFrom, areaDate)) {
       dayElement.className += " drag-over";
     }
   }
   function hideDraggingEffect(e, dayElement, areaDate) {
     cancelBubble(e);
-    if (_events_Dragged !== null && dayElement.className.indexOf(" drag-over") > -1 && !doDatesMatch(_events_Dragged_DateFrom, areaDate)) {
+    if (_events_Dragged !== null && dayElement.className.indexOf(" drag-over") > _value.notFound && !doDatesMatch(_events_Dragged_DateFrom, areaDate)) {
       dayElement.className = dayElement.className.replace(" drag-over", _string.empty);
     }
   }
@@ -6712,7 +6712,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     var groups = [], groupsAnyCase = [];
     getAllEventsFunc(function(eventDetails) {
       var group = getString(eventDetails.group);
-      if (group !== _string.empty && groupsAnyCase.indexOf(group.toLowerCase()) === -1) {
+      if (group !== _string.empty && groupsAnyCase.indexOf(group.toLowerCase()) === _value.notFound) {
         groups.push(group);
         groupsAnyCase.push(group.toLowerCase());
       }
@@ -7221,13 +7221,13 @@ function calendarJs(elementOrId, options, searchOptions) {
     };
     reader.onload = function(event) {
       var content = event.target.result, contentLines = content.split(_string.newLineCharacterReturn), contentLinesLength = contentLines.length;
-      if (contentLines[0].indexOf("BEGIN:VCALENDAR") > -1 && contentLines[contentLinesLength - 1].indexOf("END:VCALENDAR") > -1) {
+      if (contentLines[0].indexOf("BEGIN:VCALENDAR") > _value.notFound && contentLines[contentLinesLength - 1].indexOf("END:VCALENDAR") > _value.notFound) {
         var readingEvent = false, readingEventDetails = {};
         for (var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++) {
           var contentLine = contentLines[contentLineIndex];
-          if (contentLine.indexOf("BEGIN:VEVENT") > -1) {
+          if (contentLine.indexOf("BEGIN:VEVENT") > _value.notFound) {
             readingEvent = true;
-          } else if (contentLine.indexOf("END:VEVENT") > -1) {
+          } else if (contentLine.indexOf("END:VEVENT") > _value.notFound) {
             var eventDetails = _parameter_Json.parse(_parameter_Json.stringify(readingEventDetails));
             readingEvent = false;
             readingEventDetails = {};
@@ -8056,13 +8056,6 @@ function calendarJs(elementOrId, options, searchOptions) {
     }
     return this;
   };
-  this.exportAllEvents = function(type) {
-    if (_options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled) {
-      type = getDefaultString(type, "csv");
-      exportEvents(null, type);
-    }
-    return this;
-  };
   this.refresh = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       refreshViews(true, true);
@@ -8129,6 +8122,19 @@ function calendarJs(elementOrId, options, searchOptions) {
       }
     }
   }
+  this.export = function(type) {
+    if (_options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled) {
+      type = getDefaultString(type, "csv");
+      exportEvents(null, type);
+    }
+    return this;
+  };
+  this.import = function(files) {
+    if (_options.importEventsEnabled && !_element_Mode_DatePicker_Enabled) {
+      importEventsFromFiles(files);
+    }
+    return this;
+  };
   this.setEvents = function(events, updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
@@ -8230,7 +8236,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           var title = getString(event.title), description = getString(event.description), location = getString(event.location), group = getString(event.group), url = getString(event.url);
           if (isDefined(_options_Configuration.visibleGroups) && !isCustomTriggerSet("onEventsFetch")) {
             var groupName = getGroupName(group);
-            if (_options_Configuration.visibleGroups.indexOf(groupName) === -1) {
+            if (_options_Configuration.visibleGroups.indexOf(groupName) === _value.notFound) {
               _options_Configuration.visibleGroups.push(groupName);
             }
           }
@@ -8450,7 +8456,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       _options_Configuration.visibleEventTypes = [];
       var idsLength = ids.length;
       for (var idIndex = 0; idIndex < idsLength; idIndex++) {
-        if (_options_Configuration.visibleEventTypes.indexOf(ids[idIndex]) === -1) {
+        if (_options_Configuration.visibleEventTypes.indexOf(ids[idIndex]) === _value.notFound) {
           _options_Configuration.visibleEventTypes.push(ids[idIndex]);
         }
       }
@@ -8510,7 +8516,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var groupNamesLength = groupNames.length;
       for (var groupNameIndex = 0; groupNameIndex < groupNamesLength; groupNameIndex++) {
         var groupName = getGroupName(groupNames[groupNameIndex]);
-        if (_options_Configuration.visibleGroups.indexOf(groupName) === -1) {
+        if (_options_Configuration.visibleGroups.indexOf(groupName) === _value.notFound) {
           _options_Configuration.visibleGroups.push(groupName);
         }
       }
@@ -8551,7 +8557,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.10.14";
+    return "2.10.15";
   };
   this.getId = function() {
     return _parameter_ElementID;
@@ -8617,7 +8623,7 @@ function calendarJs(elementOrId, options, searchOptions) {
       var holidaysLength = _options.holidays.length, holidaysRemaining = [];
       for (var holidayIndex = 0; holidayIndex < holidaysLength; holidayIndex++) {
         var holiday = _options.holidays[holidayIndex], holidayText = getString(holiday.title, _string.empty);
-        if (holidayNames.indexOf(holidayText) === -1) {
+        if (holidayNames.indexOf(holidayText) === _value.notFound) {
           holidaysRemaining.push(holiday);
         }
       }
