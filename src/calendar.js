@@ -3489,6 +3489,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _calendar_CurrentDate.getMonth() !== monthNumber ) {
                 _calendar_CurrentDate.setMonth( monthNumber );
 
+                fireCustomTrigger( "onSetDate", _calendar_CurrentDate );
                 build( _calendar_CurrentDate );
                 hideFullMonthViewYearDropDown();
                 buildFullMonthViewPinUpImage();
@@ -3516,6 +3517,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _calendar_CurrentDate.getFullYear() !== actualYear ) {
                 _calendar_CurrentDate.setFullYear( actualYear );
 
+                fireCustomTrigger( "onSetDate", _calendar_CurrentDate );
                 build( _calendar_CurrentDate );
                 hideFullMonthViewYearDropDown();
                 buildFullMonthViewPinUpImage();
