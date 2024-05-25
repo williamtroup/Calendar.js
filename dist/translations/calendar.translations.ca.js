@@ -5,9 +5,9 @@ var __TRANSLATION_OPTIONS = {
         "Dt",
         "Dc",
         "Dj",
-        "dv",
-        "ds",
-        "Sol"
+        "Dv",
+        "Ds",
+        "Dg"
     ],
     "dayNames": [
         "dilluns",
@@ -19,41 +19,41 @@ var __TRANSLATION_OPTIONS = {
         "diumenge"
     ],
     "dayNamesAbbreviated": [
-        "Dl",
-        "Dt",
-        "Dc",
-        "Dj",
+        "dl",
+        "dt",
+        "dc",
+        "dj",
         "dv",
         "ds",
-        "Sol"
+        "dg"
     ],
     "monthNames": [
         "gener",
         "febrer",
         "març",
-        "Abril",
+        "abril",
         "maig",
         "juny",
         "juliol",
-        "Agost",
+        "agost",
         "setembre",
-        "Octubre",
-        "de novembre",
+        "octubre",
+        "novembre",
         "desembre"
     ],
     "monthNamesAbbreviated": [
-        "Jan",
-        "Febrer",
-        "desfigurar",
+        "gen",
+        "febr",
+        "març",
         "abr",
         "maig",
-        "Juny",
-        "Jul",
-        "agost",
-        "Set",
-        "Oct",
+        "juny",
+        "jul",
+        "ag",
+        "set",
+        "oct",
         "nov",
-        "desembre"
+        "des"
     ],
     "previousMonthTooltipText": "Mes anterior",
     "nextMonthTooltipText": "El mes que ve",
