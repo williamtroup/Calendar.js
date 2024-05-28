@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.15 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.16 - Chinese (simplified) | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
       "一",
