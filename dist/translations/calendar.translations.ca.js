@@ -1,13 +1,13 @@
-/*! Calendar.js v2.11.0 - Catalan | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.15 - Catalan | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "Dl",
         "Dt",
         "Dc",
         "Dj",
-        "dv",
-        "ds",
-        "Sol"
+        "Dv",
+        "Ds",
+        "Dg"
     ],
     "dayNames": [
         "dilluns",
@@ -19,41 +19,41 @@ var __TRANSLATION_OPTIONS = {
         "diumenge"
     ],
     "dayNamesAbbreviated": [
-        "Dl",
-        "Dt",
-        "Dc",
-        "Dj",
+        "dl",
+        "dt",
+        "dc",
+        "dj",
         "dv",
         "ds",
-        "Sol"
+        "dg"
     ],
     "monthNames": [
         "gener",
         "febrer",
         "març",
-        "Abril",
+        "abril",
         "maig",
         "juny",
         "juliol",
-        "Agost",
+        "agost",
         "setembre",
-        "Octubre",
-        "de novembre",
+        "octubre",
+        "novembre",
         "desembre"
     ],
     "monthNamesAbbreviated": [
-        "Jan",
-        "Febrer",
-        "desfigurar",
+        "gen",
+        "febr",
+        "març",
         "abr",
         "maig",
-        "Juny",
-        "Jul",
-        "agost",
-        "Set",
-        "Oct",
+        "juny",
+        "jul",
+        "ag",
+        "set",
+        "oct",
         "nov",
-        "desembre"
+        "des"
     ],
     "previousMonthTooltipText": "Mes anterior",
     "nextMonthTooltipText": "El mes que ve",
