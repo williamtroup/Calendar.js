@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.16 - Hebrew | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.17 - Hebrew | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "יום שני",
