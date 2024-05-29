@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.16 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.17 | (c) Bunoon 2024 | MIT License */
 (function(documentObject) {
   var _attribute_Name = "data-binding-calendar";
   documentObject.addEventListener("DOMContentLoaded", function() {
