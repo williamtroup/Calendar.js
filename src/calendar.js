@@ -26,6 +26,8 @@
  * @returns     {Object}                                                The Calendar.js instance.
  */
 function calendarJs( elementOrId, options, searchOptions ) {
+    "use strict";
+
     var _this = this,
 
         // Variables: Constructor Parameters
