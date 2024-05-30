@@ -78,7 +78,7 @@ var __TRANSLATION_OPTIONS = {
     "locationText": "Ubicació:",
     "addText": "Afegeix",
     "updateText": "Actualització",
-    "cancelText": "Cancel · lar",
+    "cancelText": "Cancel·lar",
     "removeEventText": "Eliminar",
     "addEventTitle": "Afegeix un esdeveniment",
     "editEventTitle": "Edita l'esdeveniment",
