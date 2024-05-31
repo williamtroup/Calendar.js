@@ -202,6 +202,40 @@
      */
 
     /**
+     * render().
+     * 
+     * Renders an element using the options specified.
+     * 
+     * @public
+     * 
+     * @param       {Object}    element                                     The element to render.
+     * 
+     * @returns     {Object}                                                The Calendar.js binding class instance.
+     */
+    _public.render = function( element ) {
+        if ( isDefinedObject( element ) ) {
+            renderElement( element );
+        }
+
+        return _public;
+    };
+
+    /**
+     * renderAll().
+     * 
+     * Finds all new elements and renders them.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js binding class instance.
+     */
+    _public.renderAll = function() {
+        render();
+
+        return _public;
+    };
+
+    /**
      * instance().
      * 
      * Returns the Calendar.js instance for a specific element ID.

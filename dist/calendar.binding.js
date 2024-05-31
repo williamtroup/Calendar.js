@@ -98,6 +98,16 @@
     }
     return {parsed:parsed, result:result};
   }
+  _public.render = function(element) {
+    if (isDefinedObject(element)) {
+      renderElement(element);
+    }
+    return _public;
+  };
+  _public.renderAll = function() {
+    render();
+    return _public;
+  };
   _public.instance = function(elementId) {
     var instance = null;
     if (isDefinedString(elementId) && _instances.hasOwnProperty(elementId)) {
