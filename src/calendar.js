@@ -13995,7 +13995,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 day: 14,
                 month: 2,
                 title: "Valentine's Day",
-                onClickUrl: "https://en.wikipedia.org/wiki/Valentine%27s_Days"
+                onClickUrl: "https://en.wikipedia.org/wiki/Valentine%27s_Day"
             },
             {
                 day: 1,
