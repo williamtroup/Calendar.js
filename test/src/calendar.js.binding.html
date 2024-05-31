@@ -17,20 +17,27 @@
         </div>
 
         <div class="contents date-picker">
-            <input type="text" id="myCalendar1" value="01/05/2022" data-binding-calendar='{ "views": { "datePicker": { "maximumDate": new Date() } } }' />
+            <input type="text" id="calendar1" value="01/05/2022" data-binding-calendar='{ "views": { "datePicker": { "maximumDate": new Date() } } }' />
         </div>
         <br>
 
         <div class="contents">
-            <div style="max-width: 800px;" data-binding-calendar='{ "views": { "fullMonth": { "showExtraTitleBarButtons": true } } }'>
+            <div id="calendar2" style="max-width: 800px;" data-binding-calendar='{ "views": { "fullMonth": { "showExtraTitleBarButtons": true } } }'>
                 <p>Some data that should be cleared.</p>
             </div>
         </div>
 
         <div class="contents">
-            <div style="max-width: 800px;" data-binding-calendar='{ "views": { "fullMonth": { "showExtraTitleBarButtons": false } } }'>
+            <div id="calendar3" style="max-width: 800px;" data-binding-calendar='{ "views": { "fullMonth": { "showExtraTitleBarButtons": false } } }'>
                 <p>Some data that should be cleared.</p>
             </div>
+        </div>
+
+        <div class="contents">
+            <h2>Additional Data:</h2>
+            <button onclick="console.log( $calendar.instance( 'calendar1' ).getVersion() );">Get Version (1)</button>
+            <button onclick="console.log( $calendar.instance( 'calendar2' ).getVersion() );">Get Version (2)</button>
+            <button onclick="console.log( $calendar.instance( 'calendar3' ).getVersion() );">Get Version (3)</button>
         </div>
 
         <script>
