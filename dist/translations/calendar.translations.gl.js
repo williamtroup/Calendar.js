@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.18 - Galician | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.19 - Galician | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "lun",

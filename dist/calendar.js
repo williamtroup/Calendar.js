@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.18 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.10.19 | (c) Bunoon 2024 | MIT License */
 function calendarJs(elementOrId, options, searchOptions) {
   var _this = this, _parameter_Document = null, _parameter_Window = null, _parameter_Navigator = null, _parameter_ElementID = null, _parameter_Math = null, _parameter_Json = null, _string = {empty:"", space:" ", newLine:"\n", newLineCharacterReturn:"\r\n",}, _value = {notFound:-1}, _enum_Day = {monday:0, saturday:5, sunday:6}, _enum_KeyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, j:74, m:77, o:79, v:86, x:88, f5:116, f11:122}, _enum_RepeatType = {never:0, 
   everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _enum_RepeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _options = {}, _options_Search = {}, _options_EventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _options_Configuration = {visibleGroups:null, visibleEventTypes:null, 
@@ -8562,7 +8562,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     return this;
   };
   this.getVersion = function() {
-    return "2.10.18";
+    return "2.10.19";
   };
   this.getId = function() {
     return _parameter_ElementID;
