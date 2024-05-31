@@ -117,11 +117,7 @@
                     "Title That Is Longer"
                 ]
             },
-            onEventDragStart: onDragEventStart,
-            onEventDragStop: onDragEventStop,
-            onEventDragDrop: onDragEventDrop,
             workingDays: [ 2 ],
-            onBeforeEventAddEdit: null,
             startOfWeekDay: 6,
             workingHoursStart: {
                 2: "09:00"
@@ -131,18 +127,24 @@
             },
             reverseOrderDaysOfWeek: false,
             useAmPmForTimeDisplays: false,
-            onRender: function( elementId ) {
-                console.log( "Calendar instance ID " + elementId + " rendered." );
-            },
-            onFullDayEventRender: onRenderCustom,
-            onFullWeekEventRender: onRenderCustom,
-            onFullMonthEventRender: onRenderCustom,
-            onAllEventsEventRender: onRenderCustom,
-            onTimelineEventRender: onRenderCustom,
-            onWidgetEventRender: onRenderCustom,
-            onToolTipEventRender: onToolTipRenderCustom,
             viewToOpenOnFirstLoad: null,
-            eventColorsEditingEnabled: true
+            eventColorsEditingEnabled: true,
+            events: {
+                onEventDragStart: onDragEventStart,
+                onEventDragStop: onDragEventStop,
+                onEventDragDrop: onDragEventDrop,
+                onBeforeEventAddEdit: null,
+                onRender: function( elementId ) {
+                    console.log( "Calendar instance ID " + elementId + " rendered." );
+                },
+                onFullDayEventRender: onRenderCustom,
+                onFullWeekEventRender: onRenderCustom,
+                onFullMonthEventRender: onRenderCustom,
+                onAllEventsEventRender: onRenderCustom,
+                onTimelineEventRender: onRenderCustom,
+                onWidgetEventRender: onRenderCustom,
+                onToolTipEventRender: onToolTipRenderCustom,
+            }
         } );
 
         document.title += " - v" + calendarInstance.getVersion();

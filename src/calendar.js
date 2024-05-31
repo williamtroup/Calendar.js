@@ -28,7 +28,7 @@
 function calendarJs( elementOrId, options, searchOptions ) {
     "use strict";
 
-    var _this = this,
+    var _that = this,
 
         // Variables: Constructor Parameters
         _parameter_Document = null,
@@ -630,8 +630,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildLayoutEventsFromSources() {
-        if ( isDefinedArray( _options.events ) ) {
-            _this.addEvents( _options.events, false, false, false );
+        if ( isDefinedArray( _options.data ) ) {
+            _that.addEvents( _options.data, false, false, false );
         }
 
         loadEventsFromLocalStorage();
@@ -642,7 +642,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _initialized = true;
     
         if ( !_initialized_FirstTime ) {
-            fireCustomTrigger( "onRender", _parameter_ElementID );
+            fireCustomTrigger( _options.events.onRender, _parameter_ElementID );
             _initialized_FirstTime = true;
         }
     }
@@ -875,7 +875,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options_Configuration.visibleGroups = [].slice.call( visibleGroups );
                     itemWasChanged = true;
 
-                    fireCustomTrigger( "onVisibleGroupsChanged", _options_Configuration.visibleGroups );
+                    fireCustomTrigger( _options.events.onVisibleGroupsChanged, _options_Configuration.visibleGroups );
                 }
             }
             
@@ -886,7 +886,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options_Configuration.visibleEventTypes = [].slice.call( visibleEventTypes );
                     itemWasChanged = true;
 
-                    fireCustomTrigger( "onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes );
+                    fireCustomTrigger( _options.events.onVisibleEventTypesChanged, _options_Configuration.visibleEventTypes );
                 }
             }
     
@@ -926,7 +926,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( itemWasChanged ) {
                 if ( fireOptionsCustomTrigger ) {
-                    fireCustomTrigger( "onOptionsUpdated", _options );
+                    fireCustomTrigger( _options.events.onOptionsUpdated, _options );
                 }
         
                 _initialized = false;
@@ -1302,7 +1302,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.setAttribute( "event-id", eventDetails.id );
         event.setAttribute( "event-is-all-day", eventDetails.isAllDay );
 
-        if ( !fireCustomTrigger( "onWidgetEventRender", event, eventDetails ) ) {
+        if ( !fireCustomTrigger( _options.events.onWidgetEventRender, event, eventDetails ) ) {
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -1444,14 +1444,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Calendar.className = "calendar calendar-shown";
 
             build( new Date( _calendar_CurrentDate_ForDatePicker ), !_initialized );
-            fireCustomTrigger( "onDatePickerOpened", _parameter_ElementID );
+            fireCustomTrigger( _options.events.onDatePickerOpened, _parameter_ElementID );
             updateDatePickerPosition();
         } else {
 
             _element_Calendar.className = "calendar calendar-hidden";
             
             hideAllDropDowns();
-            fireCustomTrigger( "onDatePickerClosed", _parameter_ElementID );
+            fireCustomTrigger( _options.events.onDatePickerClosed, _parameter_ElementID );
         }
 
         _element_Mode_DatePicker_Visible = !_element_Mode_DatePicker_Visible;
@@ -1491,7 +1491,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_Mode_DatePicker_Visible = false;
 
             hideAllDropDowns();
-            fireCustomTrigger( "onDatePickerClosed", _parameter_ElementID );
+            fireCustomTrigger( _options.events.onDatePickerClosed, _parameter_ElementID );
         }
     }
 
@@ -1504,7 +1504,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             hideDatePickerMode();
             updateDatePickerInputValueDisplay( date );
-            fireCustomTrigger( "onDatePickerDateChanged", newDate );
+            fireCustomTrigger( _options.events.onDatePickerDateChanged, newDate );
 
             _calendar_CurrentDate_ForDatePicker = newDate;
             
@@ -2172,7 +2172,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.id = _element_ID_Event_FullDay + eventDetails.id;
             }
 
-            if ( !fireCustomTrigger( "onFullDayEventRender", event, eventDetails ) ) {
+            if ( !fireCustomTrigger( _options.events.onFullDayEventRender, event, eventDetails ) ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -2260,7 +2260,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullDayViewTitle() {
-        if ( !fireCustomTrigger( "onFullDayTitleRender", _element_View_FullDay_DateSelected ) ) {
+        if ( !fireCustomTrigger( _options.events.onFullDayTitleRender, _element_View_FullDay_DateSelected ) ) {
             buildDateTimeDisplay( _element_View_FullDay_TitleBar, _element_View_FullDay_DateSelected, false, true, true );
         }
     }
@@ -2694,7 +2694,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function buildFullWeekViewTitle( weekStartDate, weekEndDate ) {
         _element_View_FullWeek_TitleBar.innerHTML = _string.empty;
 
-        if ( !fireCustomTrigger( "onFullWeekTitleRender", weekStartDate, weekEndDate ) ) {
+        if ( !fireCustomTrigger( _options.events.onFullWeekTitleRender, weekStartDate, weekEndDate ) ) {
             if ( _options.views.fullWeek.showWeekNumbersInTitles ) {
                 createSpanElement( _element_View_FullWeek_TitleBar, _options.weekText + _string.space + getWeekNumber( weekStartDate ) + ": " );
             }
@@ -2809,7 +2809,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 event.id = _element_ID_Event_WeekDay + eventDetails.id;
             }
 
-            if ( !fireCustomTrigger( "onFullWeekEventRender", event, eventDetails ) ) {
+            if ( !fireCustomTrigger( _options.events.onFullWeekEventRender, event, eventDetails ) ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
 
@@ -3292,7 +3292,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildFullMonthViewPinUpImageText() {
-        if ( !_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null && !fireCustomTrigger( "onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate ) ) {
+        if ( !_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null && !fireCustomTrigger( _options.events.onFullMonthPinUpRender, _element_View_FullMonth_PinUp, _calendar_CurrentDate ) ) {
             var currentDate = new Date();
 
             if ( _element_View_FullMonth_PinUp_CurrentDate === null || !doDatesMatch( _element_View_FullMonth_PinUp_CurrentDate, currentDate ) ) {
@@ -3491,7 +3491,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _calendar_CurrentDate.getMonth() !== monthNumber ) {
                 _calendar_CurrentDate.setMonth( monthNumber );
 
-                fireCustomTrigger( "onSetDate", _calendar_CurrentDate );
+                fireCustomTrigger( _options.events.onSetDate, _calendar_CurrentDate );
                 build( _calendar_CurrentDate );
                 hideFullMonthViewYearDropDown();
                 buildFullMonthViewPinUpImage();
@@ -3519,7 +3519,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _calendar_CurrentDate.getFullYear() !== actualYear ) {
                 _calendar_CurrentDate.setFullYear( actualYear );
 
-                fireCustomTrigger( "onSetDate", _calendar_CurrentDate );
+                fireCustomTrigger( _options.events.onSetDate, _calendar_CurrentDate );
                 build( _calendar_CurrentDate );
                 hideFullMonthViewYearDropDown();
                 buildFullMonthViewPinUpImage();
@@ -3956,7 +3956,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         event.setAttribute( "event-is-all-day", eventDetails.isAllDay );
 
                         if ( !_options.views.fullMonth.useOnlyDotEvents ) {
-                            if ( !fireCustomTrigger( "onFullMonthEventRender", event, eventDetails ) ) {
+                            if ( !fireCustomTrigger( _options.events.onFullMonthEventRender, event, eventDetails ) ) {
                                 var eventTitle = eventDetails.title,
                                     repeatEvery = getNumber( eventDetails.repeatEvery );
             
@@ -4103,7 +4103,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( _calendar_IsBusy_LastState !== _calendar_IsBusy ) {
             _calendar_IsBusy_LastState = _calendar_IsBusy;
 
-            fireCustomTrigger( "onBusyStateChange", _calendar_IsBusy );
+            fireCustomTrigger( _options.events.onBusyStateChange, _calendar_IsBusy );
         }
     }
 
@@ -4549,7 +4549,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.setAttribute( "event-id", eventDetails.id );
             event.setAttribute( "event-is-all-day", eventDetails.isAllDay );
 
-            if ( !fireCustomTrigger( "onAllEventsEventRender", event, eventDetails ) ) {
+            if ( !fireCustomTrigger( _options.events.onAllEventsEventRender, event, eventDetails ) ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
     
@@ -5016,7 +5016,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         event.setAttribute( "event-is-all-day", eventDetails.isAllDay );
         timelineRowItems.appendChild( event );
 
-        if ( !fireCustomTrigger( "onTimelineEventRender", event, eventDetails ) ) {
+        if ( !fireCustomTrigger( _options.events.onTimelineEventRender, event, eventDetails ) ) {
             var repeatEvery = getNumber( eventDetails.repeatEvery );
 
             if ( repeatEvery > _enum_RepeatType.never ) {
@@ -5064,7 +5064,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildTimelineViewTitle() {
-        if ( !fireCustomTrigger( "onTimelineTitleRender", _element_View_FullDay_DateSelected ) ) {
+        if ( !fireCustomTrigger( _options.events.onTimelineTitleRender, _element_View_FullDay_DateSelected ) ) {
             buildDateTimeDisplay( _element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true );
         }
     }
@@ -5432,7 +5432,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                             buildFullMonthViewDayEvents();
 
                         } else {
-                            _this.removeEvent( _element_ContextMenu_Event_EventDetails.id, true );
+                            _that.removeEvent( _element_ContextMenu_Event_EventDetails.id, true );
 
                             showNotificationPopUp( _options.eventRemovedText.replace( "{0}", _element_ContextMenu_Event_EventDetails.title ) );
                         }
@@ -5665,7 +5665,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 _options.visibleDays.splice( _options.visibleDays.indexOf( _element_ContextMenu_HeaderDay_SelectedDay ), 1 );
                 _initialized = false;
     
-                fireCustomTrigger( "onOptionsUpdated", _options );
+                fireCustomTrigger( _options.events.onOptionsUpdated, _options );
                 build( _calendar_CurrentDate, true, true );
             }, true );
     
@@ -5676,7 +5676,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options.visibleDays = [].slice.call( _options.workingDays );
                     _initialized = false;
         
-                    fireCustomTrigger( "onOptionsUpdated", _options );
+                    fireCustomTrigger( _options.events.onOptionsUpdated, _options );
                     build( _calendar_CurrentDate, true, true );
                 }
             } );
@@ -6024,7 +6024,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues, originDayDate ) {
         if ( isFunction( _options.onBeforeEventAddEdit ) ) {
-            fireCustomTrigger( "onBeforeEventAddEdit", eventDetails );
+            fireCustomTrigger( _options.events.onBeforeEventAddEdit, eventDetails );
         } else {
             
             addNode( _parameter_Document.body, _element_Calendar_DisabledBackground );
@@ -6323,11 +6323,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         }
             
                         if ( isExistingEvent ) {
-                            _this.updateEvent( newId, newEvent, false );
+                            _that.updateEvent( newId, newEvent, false );
         
                             showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _element_Dialog_EventEditor_EventDetails.title ) );
                         } else {
-                            _this.addEvent( newEvent, false );
+                            _that.addEvent( newEvent, false );
         
                             showNotificationPopUp( _options.eventAddedText.replace( "{0}", newEvent.title ) );
                         }
@@ -6396,7 +6396,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             eventDialogEvent_Cancel();
 
             if ( isDefined( _element_Dialog_EventEditor_EventDetails.id ) ) {
-                _this.removeEvent( _element_Dialog_EventEditor_EventDetails.id, true );
+                _that.removeEvent( _element_Dialog_EventEditor_EventDetails.id, true );
 
                 if ( _options.isWidget ) {
                     build( _calendar_CurrentDate );
@@ -6455,7 +6455,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             alertOffset: 0
         };
 
-        _this.addEvent( newEvent, false );
+        _that.addEvent( newEvent, false );
 
         showNotificationPopUp( _options.eventAddedText.replace( "{0}", newEvent.title ) );
         buildFullMonthViewDayEvents();
@@ -7328,7 +7328,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _options_Search.top = _element_Dialog_Search.offsetTop;
                 }
     
-                fireCustomTrigger( "onSearchOptionsUpdated", _options_Search );
+                fireCustomTrigger( _options.events.onSearchOptionsUpdated, _options_Search );
             }
         }, 2000, false );
     }
@@ -7537,9 +7537,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function configurationDialogEvent_OK() {
         if ( _element_Dialog_Configuration_Display_EnableAutoRefresh.checked ) {
-            _this.startTheAutoRefreshTimer();
+            _that.startTheAutoRefreshTimer();
         } else {
-            _this.stopTheAutoRefreshTimer();
+            _that.stopTheAutoRefreshTimer();
         }
 
         _options.eventNotificationsEnabled = _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked;
@@ -7551,7 +7551,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         _initialized = false;
 
-        fireCustomTrigger( "onOptionsUpdated", _options );
+        fireCustomTrigger( _options.events.onOptionsUpdated, _options );
         checkForBrowserNotificationsPermission();
         hideConfigurationDialog();
         build( _calendar_CurrentDate, true, true );
@@ -7670,7 +7670,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var viewOpen = getActiveView();
 
         if ( viewOpen === null ) {
-            fireCustomTrigger( "onSetDate", _element_Dialog_JumpToDate_Date );
+            fireCustomTrigger( _options.events.onSetDate, _element_Dialog_JumpToDate_Date );
             setSelectedDate( _calendar_CurrentDate, _element_Dialog_JumpToDate_Date );
         } else {
 
@@ -7771,7 +7771,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         _element_Tooltip_Title.innerHTML = _string.empty;
                         _element_Tooltip_TotalTime.innerHTML = _string.empty;
 
-                        if ( !fireCustomTrigger( "onToolTipEventRender", _element_Tooltip, eventDetails ) ) {
+                        if ( !fireCustomTrigger( _options.events.onToolTipEventRender, _element_Tooltip, eventDetails ) ) {
                             _element_Tooltip.onmousemove = cancelBubble;
                             _element_Tooltip.appendChild( _element_Tooltip_TitleButtons );
                             _element_Tooltip.appendChild( _element_Tooltip_Title );
@@ -8006,7 +8006,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( updateDisplay ) {
                 _initialized = false;
     
-                fireCustomTrigger( "onOptionsUpdated", _options );
+                fireCustomTrigger( _options.events.onOptionsUpdated, _options );
                 build( _calendar_CurrentDate, true, true );
             }
         }
@@ -8425,7 +8425,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _element_View_Event_Dragged_EventDetails.to = addMinutesToDate( _element_View_Event_Dragged_EventDetails.to, differenceMinutes );
             
             storeEventsInLocalStorage();
-            fireCustomTrigger( "onEventUpdated", _element_View_Event_Dragged_EventDetails );
+            fireCustomTrigger( _options.events.onEventUpdated, _element_View_Event_Dragged_EventDetails );
             showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _element_View_Event_Dragged_EventDetails.title ) );
             refreshOpenedViews();
 
@@ -8469,7 +8469,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         eventSizeDetails.eventDetails.to = addMinutesToDate( eventSizeDetails.eventDetails.to, differenceMinutes );
                         eventsResized = true;
 
-                        fireCustomTrigger( "onEventUpdated", eventSizeDetails.eventDetails );
+                        fireCustomTrigger( _options.events.onEventUpdated, eventSizeDetails.eventDetails );
                         showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", eventSizeDetails.eventDetails.title ) );
                     }
                 }
@@ -8500,7 +8500,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function turnOnFullScreenMode() {
         if ( !_element_Calendar_FullScreenModeOn && _options.fullScreenModeEnabled ) {
             forceTurnOnFullScreenMode();
-            fireCustomTrigger( "onFullScreenModeChanged", true );
+            fireCustomTrigger( _options.events.onFullScreenModeChanged, true );
         }
     }
 
@@ -8512,7 +8512,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             updateFullScreenModeExpandButtons( "ib-arrow-expand-left-right", _options.enableFullScreenTooltipText );
             refreshOpenedViews();
-            fireCustomTrigger( "onFullScreenModeChanged", false );
+            fireCustomTrigger( _options.events.onFullScreenModeChanged, false );
         }
     }
 
@@ -8696,7 +8696,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             getAllEventsFunc( function( eventDetails ) {
                 var repeatEvery = getNumber( eventDetails.repeatEvery );
                 if ( repeatEvery === _enum_RepeatType.never && compareFunc( eventDetails.from, date ) ) {
-                    _this.removeEvent( eventDetails.id, false );
+                    _that.removeEvent( eventDetails.id, false );
                     eventsRemoved++;
                 }
             } );
@@ -9195,7 +9195,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             event.setAttribute( "draggable", true );
             
             event.ondragstart = function( e ) {
-                fireCustomTrigger( "onEventDragStart", eventDetails );
+                fireCustomTrigger( _options.events.onEventDragStart, eventDetails );
 
                 e.dataTransfer.setData( "event_details", _parameter_Json.stringify( eventDetails ) );
 
@@ -9218,7 +9218,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
 
             event.ondragend = function() {
-                fireCustomTrigger( "onEventDragStop", _events_Dragged );
+                fireCustomTrigger( _options.events.onEventDragStop, _events_Dragged );
 
                 _events_Dragged_DateFrom = null;
                 _events_Dragged = null;
@@ -9298,7 +9298,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var dropDate = new Date( year, month, day );
 
         if ( _events_Dragged !== null && !doDatesMatch( _events_Dragged_DateFrom, dropDate ) ) {
-            fireCustomTrigger( "onEventDragDrop", _events_Dragged, dropDate );
+            fireCustomTrigger( _options.events.onEventDragDrop, _events_Dragged, dropDate );
 
             if ( !isDefined( day ) ) {
                 var totalDaysInMonth = getTotalDaysInMonth( year, month );
@@ -9334,7 +9334,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 toDate.setDate( toDate.getDate() + daysBetweenFromAndTo );
             }
 
-            _this.updateEventDateTimes( _events_Dragged.id, fromDate, toDate, repeatEndsDate );
+            _that.updateEventDateTimes( _events_Dragged.id, fromDate, toDate, repeatEndsDate );
             
             showNotificationPopUp( _options.eventUpdatedText.replace( "{0}", _events_Dragged.title ) );           
             refreshViews();
@@ -9355,7 +9355,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             eventDetails.from = new Date( year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0 );
             eventDetails.to = new Date( year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0 );
 
-            _this.addEvent( eventDetails );
+            _that.addEvent( eventDetails );
 
             showNotificationPopUp( _options.eventAddedText.replace( "{0}", eventDetails.title ) );
         }
@@ -9660,7 +9660,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 openEventUrl( url );
             }
 
-            fireCustomTrigger( "onNotificationClicked", eventDetails );
+            fireCustomTrigger( _options.events.onNotificationClicked, eventDetails );
         };
     }
 
@@ -9685,7 +9685,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( isDefined( eventDetails ) ) {
-                fireCustomTrigger( "onNotification", eventDetails );
+                fireCustomTrigger( _options.events.onNotification, eventDetails );
             }
         }
     }
@@ -9693,7 +9693,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function openEventUrl( url ) {
         _parameter_Window.open( url, _options.urlWindowTarget );
 
-        fireCustomTrigger( "onEventUrlClicked", url );
+        fireCustomTrigger( _options.events.onEventUrlClicked, url );
     }
 
 
@@ -9781,10 +9781,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( !cut ) {
                 newEvent.id = null;
     
-                _this.addEvent( newEvent, false, true );
+                _that.addEvent( newEvent, false, true );
 
             } else {
-                fireCustomTrigger( "onEventUpdated", newEvent );
+                fireCustomTrigger( _options.events.onEventUpdated, newEvent );
             }
         }
 
@@ -9892,15 +9892,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function loadEventsToAddOrUpdateFromFetchTrigger() {
-        var events = fireCustomTrigger( "onEventsFetch" );
+        var events = fireCustomTrigger( _options.events.onEventsFetch );
         if ( isDefinedArray( events ) ) {
             var eventsLength = events.length;
 
             for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
                 var event = events[ eventIndex ];
 
-                _this.removeEvent( event.id, false, false );
-                _this.addEvent( event, false, false );
+                _that.removeEvent( event.id, false, false );
+                _that.addEvent( event, false, false );
             }
         }
     }
@@ -9934,7 +9934,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 }
     
                 if ( triggerEvent ) {
-                    fireCustomTrigger( "onRefresh" );
+                    fireCustomTrigger( _options.events.onRefresh );
                 }
             }
         }
@@ -10640,6 +10640,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         return isDefinedObject( value ) ? value : defaultValue;
     }
 
+    function getDefaultFunction( value, defaultValue ) {
+        return isDefinedFunction( value ) ? value : defaultValue;
+    }
+
 
     /*
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -10672,7 +10676,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event = getObjectFromString( eventJson );
 
                 if ( isDefined( event ) ) {
-                    _this.addEvent( event, false, false, false );
+                    _that.addEvent( event, false, false, false );
                 }
             }
         }
@@ -10752,9 +10756,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var readingEventsIndex = 0; readingEventsIndex < readingEventsLength; readingEventsIndex++ ) {
                 var eventDetails = readingEvents[ readingEventsIndex ];
 
-                _this.removeEvent( eventDetails.id, false, false );
+                _that.removeEvent( eventDetails.id, false, false );
 
-                if ( _this.addEvent( eventDetails, false, false ) ) {
+                if ( _that.addEvent( eventDetails, false, false ) ) {
                     readingEventsAdded.push( eventDetails);
                 }
             }
@@ -10791,9 +10795,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         readingEvent = false;
                         readingEventDetails = {};
 
-                        _this.removeEvent( eventDetails.id, false, false );
+                        _that.removeEvent( eventDetails.id, false, false );
 
-                        if ( _this.addEvent( eventDetails, false, false ) ) {
+                        if ( _that.addEvent( eventDetails, false, false ) ) {
                             readingEventsAdded.push( eventDetails );
                         }
                     }
@@ -10963,7 +10967,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             buildFullMonthViewDayEvents();
             refreshOpenedViews();
             showNotificationPopUp( _options.eventsImportedText.replace( "{0}", eventsAddedOrUpdated.length ) );
-            fireCustomTrigger( "onEventsImported", eventsAddedOrUpdated );
+            fireCustomTrigger( _options.events.onEventsImported, eventsAddedOrUpdated );
         }
     }
 
@@ -11026,7 +11030,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 showNotificationPopUp( _options.eventsExportedToText.replace( "{0}", filename ) );
             }
 
-            fireCustomTrigger( "onEventsExported", contentsEvents );
+            fireCustomTrigger( _options.events.onEventsExported, contentsEvents );
         }
     }
 
@@ -11549,7 +11553,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
         contents.push( "BEGIN:VCALENDAR" );
         contents.push( "VERSION:2.0" );
-        contents.push( "PRODID:-//Bunoon//Calendar.js v" + _this.getVersion() + "//EN" );
+        contents.push( "PRODID:-//Bunoon//Calendar.js v" + _that.getVersion() + "//EN" );
         contents.push( "CALSCALE:GREGORIAN" );
 
         for ( var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++ ) {
@@ -11858,29 +11862,25 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function isCustomTriggerSet( name ) {
-        return isDefinedFunction( _options[ name ] );
-    }
-
-    function fireCustomTrigger( name ) {
+    function fireCustomTrigger( triggerFunction ) {
         var result = null,
             newArguments = [].slice.call( arguments, 1 );
 
         if ( newArguments.length > 0 ) {
             result = false;
         }
-        
-        if ( _options !== null && isCustomTriggerSet( name ) ) {
-            result = _options[ name ].apply( null, newArguments );
+
+        if ( isDefinedFunction( triggerFunction ) ) {
+            result = triggerFunction.apply( null, newArguments );
         }
 
         return result;
     }
 
     function setEventCustomTriggers( event, eventDetails, editEventDate ) {
-        if ( isCustomTriggerSet( "onEventClick" ) ) {
+        if ( isDefinedFunction( _options.events.onEventClick ) ) {
             event.addEventListener( "click", function() {
-                fireCustomTrigger( "onEventClick", eventDetails );
+                fireCustomTrigger( _options.events.onEventClick, eventDetails );
             } );
         }
 
@@ -11896,9 +11896,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
         } else {
 
-            if ( isCustomTriggerSet( "onEventDoubleClick" ) ) {
+            if ( isDefinedFunction( _options.events.onEventDoubleClick ) ) {
                 event.ondblclick = function() {
-                    fireCustomTrigger( "onEventDoubleClick", eventDetails );
+                    fireCustomTrigger( _options.events.onEventDoubleClick, eventDetails );
                 };
             }
         }
@@ -11920,12 +11920,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.turnOnFullScreen = function() {
+    _that.turnOnFullScreen = function() {
         if ( !_element_Mode_DatePicker_Enabled ) {
             turnOnFullScreenMode();
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -11937,12 +11937,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.turnOffFullScreen = function() {
+    _that.turnOffFullScreen = function() {
         if ( !_element_Mode_DatePicker_Enabled ) {
             turnOffFullScreenMode();
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -11954,7 +11954,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the full-screen mode is activated.
      */
-    this.isFullScreenActivated = function() {
+    _that.isFullScreenActivated = function() {
         return _element_Calendar_FullScreenModeOn;
     };
 
@@ -11967,14 +11967,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.startTheAutoRefreshTimer = function() {
+    _that.startTheAutoRefreshTimer = function() {
         if ( !_element_Mode_DatePicker_Enabled ) {
             _timer_AutoRefresh_Enabled = true;
 
             startAutoRefreshTimer();
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -11986,14 +11986,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.stopTheAutoRefreshTimer = function() {
+    _that.stopTheAutoRefreshTimer = function() {
         if ( !_element_Mode_DatePicker_Enabled ) {
             clearAutoRefreshTimer();
         
             _timer_AutoRefresh_Enabled = false;
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12006,27 +12006,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.destroy = function() {
-        removeDocumentEvents();
-        stopAndResetAllTimers();
-        removeTrackedElementsFromDocument();
-
-        if ( _element_Mode_DatePicker_Enabled ) {
-            _parameter_Document.removeEventListener( "click", hideDatePickerMode );
+    _that.destroy = function() {
+        if ( _initialized ) {
+            removeDocumentEvents();
+            stopAndResetAllTimers();
+            removeTrackedElementsFromDocument();
+    
+            if ( _element_Mode_DatePicker_Enabled ) {
+                _parameter_Document.removeEventListener( "click", hideDatePickerMode );
+            }
+    
+            if ( _options.tooltipsEnabled ) {
+                document.body.removeEventListener( "mousemove", hideTooltip );
+            }
+    
+            if ( isDefined( _element_Calendar ) ) {
+                _element_Calendar.className = _string.empty;
+                _element_Calendar.innerHTML = _string.empty;
+            }
+    
+            fireCustomTrigger( _options.events.onDestroy, _parameter_ElementID );
         }
 
-        if ( _options.tooltipsEnabled ) {
-            document.body.removeEventListener( "mousemove", hideTooltip );
-        }
-
-        if ( isDefined( _element_Calendar ) ) {
-            _element_Calendar.className = _string.empty;
-            _element_Calendar.innerHTML = _string.empty;
-        }
-
-        fireCustomTrigger( "onDestroy", _parameter_ElementID );
-
-        return this;
+        return _that;
     };
 
 
@@ -12046,10 +12048,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.moveToPreviousMonth = function() {
+    _that.moveToPreviousMonth = function() {
         onPreviousMonth();
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12062,10 +12064,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.moveToNextMonth = function() {
+    _that.moveToNextMonth = function() {
         onNextMonth();
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12078,10 +12080,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.moveToPreviousYear = function() {
+    _that.moveToPreviousYear = function() {
         moveBackYear();
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12094,10 +12096,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.moveToNextYear = function() {
+    _that.moveToNextYear = function() {
         moveForwardYear();
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12110,10 +12112,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.moveToToday = function() {
+    _that.moveToToday = function() {
         onCurrentMonth();
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12125,7 +12127,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                A Date() object (day is always set to the 1st).
      */
-    this.getCurrentDisplayDate = function() {
+    _that.getCurrentDisplayDate = function() {
         return new Date( _calendar_CurrentDate );
     };
 
@@ -12141,19 +12143,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-     this.setCurrentDisplayDate = function( date ) {
+     _that.setCurrentDisplayDate = function( date ) {
         if ( isDefinedDate( date ) && ( !_element_Mode_DatePicker_Enabled || _element_Mode_DatePicker_Visible ) ) {
             var newDate = new Date( date );
 
             if ( !doDatesMatch( _calendar_CurrentDate, newDate ) ) {
                 if ( newDate.getFullYear() >= _options.minimumYear && newDate.getFullYear() <= _options.maximumYear ) {
                     build( newDate );
-                    fireCustomTrigger( "onSetDate", newDate );
+                    fireCustomTrigger( _options.events.onSetDate, newDate );
                 }
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12165,7 +12167,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                A Date() object.
      */
-    this.getSelectedDatePickerDate = function() {
+    _that.getSelectedDatePickerDate = function() {
         return _element_Mode_DatePicker_Enabled ? new Date( _calendar_CurrentDate_ForDatePicker ) : null;
     };
 
@@ -12181,7 +12183,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setSelectedDatePickerDate = function( date ) {
+    _that.setSelectedDatePickerDate = function( date ) {
         if ( isDefinedDate( date ) && _element_Mode_DatePicker_Enabled ) {
             var newDate = new Date( date ),
                 newDateAllowed = isDateValidForDatePicker( newDate );
@@ -12192,14 +12194,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     hideDatePickerMode();
                     updateDatePickerInputValueDisplay( newDate );
-                    fireCustomTrigger( "onDatePickerDateChanged", newDate );
+                    fireCustomTrigger( _options.events.onDatePickerDateChanged, newDate );
     
                     _calendar_CurrentDate_ForDatePicker = newDate;
                 }
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12212,12 +12214,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.refresh = function() {
+    _that.refresh = function() {
         if ( !_element_Mode_DatePicker_Enabled ) {
             refreshViews( true, true );
         }
 
-        return this;
+        return _that;
     };
 
     function onPreviousMonth( e ) {
@@ -12231,7 +12233,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( previousMonth.getFullYear() >= _options.minimumYear ) {
                 build( previousMonth );
-                fireCustomTrigger( "onPreviousMonth", previousMonth );
+                fireCustomTrigger( _options.events.onPreviousMonth, previousMonth );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12248,7 +12250,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( nextMonth.getFullYear() <= _options.maximumYear ) {
                 build( nextMonth );
-                fireCustomTrigger( "onNextMonth", nextMonth );
+                fireCustomTrigger( _options.events.onNextMonth, nextMonth );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12261,7 +12263,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
             if ( previousYear.getFullYear() >= _options.minimumYear ) {
                 build( previousYear );
-                fireCustomTrigger( "onPreviousYear", previousYear );
+                fireCustomTrigger( _options.events.onPreviousYear, previousYear );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12274,7 +12276,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( nextYear.getFullYear() <= _options.maximumYear ) {
                 build( nextYear );
-                fireCustomTrigger( "onNextYear", nextYear );
+                fireCustomTrigger( _options.events.onNextYear, nextYear );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12286,7 +12288,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( _calendar_CurrentDate.getMonth() !== today.getMonth() || _calendar_CurrentDate.getFullYear() !== today.getFullYear() ) {
                 build();
-                fireCustomTrigger( "onToday" );
+                fireCustomTrigger( _options.events.onToday );
                 buildFullMonthViewPinUpImage();
             }
         }
@@ -12311,14 +12313,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.export = function( type ) {
+    _that.export = function( type ) {
         if ( _options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
             type = getDefaultString( type, "csv" );
 
             exportEvents( null, type );
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12333,12 +12335,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.import = function( files ) {
+    _that.import = function( files ) {
         if ( _options.importEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
             importEventsFromFiles( files );
         }
 
-        return this;
+        return _that;
     };
 
 
@@ -12362,19 +12364,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setEvents = function( events, updateEvents, triggerEvent ) {
+    _that.setEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
             _events = {};
     
-            this.addEvents( events, updateEvents, false );
+            _that.addEvents( events, updateEvents, false );
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onEventsSet", events );
+                fireCustomTrigger( _options.events.onEventsSet, events );
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12391,24 +12393,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
+    _that.setEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var dataObject = getObjectFromString( json );
     
             if ( isDefinedArray( dataObject ) ) { 
-                this.setEvents( dataObject, updateEvents, false );
+                _that.setEvents( dataObject, updateEvents, false );
             } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
-                this.setEvents( dataObject.events, updateEvents, false );
+                _that.setEvents( dataObject.events, updateEvents, false );
             }
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onEventsSetFromJSON", json );
+                fireCustomTrigger( _options.events.onEventsSetFromJSON, json );
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12425,7 +12427,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.addEvents = function( events, updateEvents, triggerEvent ) {
+    _that.addEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             updateEvents = getDefaultBoolean( updateEvents, true );
             triggerEvent = getDefaultBoolean( triggerEvent, true );
@@ -12434,13 +12436,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
                 var event = events[ eventIndex ];
     
-                this.addEvent( event, false, false, false );
+                _that.addEvent( event, false, false, false );
             }
 
             storeEventsInLocalStorage();
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onEventsAdded", events );
+                fireCustomTrigger( _options.events.onEventsAdded, events );
             }
     
             if ( updateEvents ) {
@@ -12450,7 +12452,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12467,24 +12469,24 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
+    _that.addEventsFromJson = function( json, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             var dataObject = getObjectFromString( json );
     
             if ( isDefinedArray( dataObject ) ) { 
-                this.addEvents( dataObject, updateEvents, false );
+                _that.addEvents( dataObject, updateEvents, false );
             } else if ( isDefinedObject( dataObject ) && dataObject.hasOwnProperty( "events" ) ) {
-                this.addEvents( dataObject.events, updateEvents, false );
+                _that.addEvents( dataObject.events, updateEvents, false );
             }
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onEventsAddedFromJSON", json );
+                fireCustomTrigger( _options.events.onEventsAddedFromJSON, json );
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12502,7 +12504,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the event was added.
      */
-    this.addEvent = function( event, updateEvents, triggerEvent, setLastUpdated ) {
+    _that.addEvent = function( event, updateEvents, triggerEvent, setLastUpdated ) {
         var added = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
@@ -12558,7 +12560,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         group = getString( event.group ),
                         url = getString( event.url );
 
-                    if ( isDefined( _options_Configuration.visibleGroups ) && !isCustomTriggerSet( "onEventsFetch" ) ) {
+                    if ( isDefined( _options_Configuration.visibleGroups ) && !isDefinedFunction( _options.events.onEventsFetch ) ) {
                         var groupName = getGroupName( group );
 
                         if ( _options_Configuration.visibleGroups.indexOf( groupName ) === _value.notFound ) {
@@ -12604,7 +12606,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     added = true;
     
                     if ( triggerEvent ) {
-                        fireCustomTrigger( "onEventAdded", event );
+                        fireCustomTrigger( _options.events.onEventAdded, event );
                     }
             
                     if ( updateEvents ) {
@@ -12634,7 +12636,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.updateEvents = function( events, updateEvents, triggerEvent ) {
+    _that.updateEvents = function( events, updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             updateEvents = getDefaultBoolean( updateEvents, true );
             triggerEvent = getDefaultBoolean( triggerEvent, true );
@@ -12643,11 +12645,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var eventIndex = 0; eventIndex < eventsLength; eventIndex++ ) {
                 var event = events[ eventIndex ];
     
-                this.updateEvent( event.id, event, false, false );
+                _that.updateEvent( event.id, event, false, false );
             }
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onEventsUpdated", events );
+                fireCustomTrigger( _options.events.onEventsUpdated, events );
             }
     
             if ( updateEvents ) {
@@ -12658,7 +12660,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12676,22 +12678,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
-    this.updateEvent = function( id, event, updateEvents, triggerEvent ) {
+    _that.updateEvent = function( id, event, updateEvents, triggerEvent ) {
         var updated = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
-            updated = this.removeEvent( id, false, false );
+            updated = _that.removeEvent( id, false, false );
 
             if ( updated ) {
                 updateEvents = getDefaultBoolean( updateEvents, true );
                 triggerEvent = getDefaultBoolean( triggerEvent, true );
     
-                updated = this.addEvent( event, updateEvents, false );
+                updated = _that.addEvent( event, updateEvents, false );
 
                 storeEventsInLocalStorage();
     
                 if ( updated && triggerEvent ) {
-                    fireCustomTrigger( "onEventUpdated", event );
+                    fireCustomTrigger( _options.events.onEventUpdated, event );
                 }
             }
         }
@@ -12716,7 +12718,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the event was updated.
      */
-    this.updateEventDateTimes = function( id, from, to, repeatEnds, updateEvents, triggerEvent ) {
+    _that.updateEventDateTimes = function( id, from, to, repeatEnds, updateEvents, triggerEvent ) {
         var updated = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
@@ -12731,7 +12733,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     updated = true;
     
                     if ( triggerEvent ) {
-                        fireCustomTrigger( "onEventUpdated", eventDetails );
+                        fireCustomTrigger( _options.events.onEventUpdated, eventDetails );
                     }
     
                     if ( updateEvents ) {
@@ -12763,7 +12765,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the event was removed.
      */
-    this.removeEvent = function( id, updateEvents, triggerEvent ) {
+    _that.removeEvent = function( id, updateEvents, triggerEvent ) {
         var removed = false;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
@@ -12776,7 +12778,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     removed = true;
     
                     if ( triggerEvent ) {
-                        fireCustomTrigger( "onEventRemoved", event );
+                        fireCustomTrigger( _options.events.onEventRemoved, event );
                     }
     
                     if ( updateEvents ) {
@@ -12807,7 +12809,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.clearEvents = function( updateEvents, triggerEvent ) {
+    _that.clearEvents = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             updateEvents = getDefaultBoolean( updateEvents, true );
             triggerEvent = getDefaultBoolean( triggerEvent, true );
@@ -12815,7 +12817,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _events = {};
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onEventsCleared" );
+                fireCustomTrigger( _options.events.onEventsCleared );
             }
     
             if ( updateEvents ) {
@@ -12826,7 +12828,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -12838,7 +12840,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Event[]}                                               An array of events.
      */
-    this.getEvents = function() {
+    _that.getEvents = function() {
         var events = [];
 
         if ( !_element_Mode_DatePicker_Enabled ) {
@@ -12859,7 +12861,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Event}                                                 The event details (or null if the ID cannot be found).
      */
-    this.getEvent = function( id ) {
+    _that.getEvent = function( id ) {
         var returnEvent = null;
 
         if ( isDefinedString( id ) && !_element_Mode_DatePicker_Enabled ) {
@@ -12887,7 +12889,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.removeExpiredEvents = function( updateEvents, triggerEvent ) {
+    _that.removeExpiredEvents = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             updateEvents = getDefaultBoolean( updateEvents, true );
             triggerEvent = getDefaultBoolean( triggerEvent, true );
@@ -12895,7 +12897,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             getAllEventsFunc( function( eventDetails ) {
                 var repeatEvery = getNumber( eventDetails.repeatEvery );
                 if ( repeatEvery === _enum_RepeatType.never && eventDetails.to < new Date() ) {
-                    _this.removeEvent( eventDetails.id, false, triggerEvent );
+                    _that.removeEvent( eventDetails.id, false, triggerEvent );
                 }
             } );
     
@@ -12907,7 +12909,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     function toStorageDate( date ) {
@@ -12933,7 +12935,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the event type was added.
      */
-    this.addEventType = function( id, text ) {
+    _that.addEventType = function( id, text ) {
         var result = false;
 
         if ( isDefinedNumber( id ) && isDefinedString( text ) && !_element_Mode_DatePicker_Enabled ) {
@@ -12965,7 +12967,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the event type was removed.
      */
-    this.removeEventType = function( id ) {
+    _that.removeEventType = function( id ) {
         var result = false;
 
         if ( isDefinedNumber( id ) && !_element_Mode_DatePicker_Enabled ) {
@@ -12991,7 +12993,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setVisibleEventTypes = function( ids, triggerEvent ) {
+    _that.setVisibleEventTypes = function( ids, triggerEvent ) {
         if ( isDefinedArray( ids ) && !_element_Mode_DatePicker_Enabled ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
 
@@ -13008,11 +13010,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             refreshViews( true, false );
 
             if ( triggerEvent ) {
-                fireCustomTrigger( "onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes );
+                fireCustomTrigger( _options.events.onVisibleEventTypesChanged, _options_Configuration.visibleEventTypes );
             }
         }
 
-        return this;
+        return _that;
     };
 
 
@@ -13031,7 +13033,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {string[]}                                              An array of the group names.
      */
-    this.getAllGroups = function() {
+    _that.getAllGroups = function() {
         return getGroups();
     };
 
@@ -13048,7 +13050,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.clearAllGroups = function( updateEvents, triggerEvent ) {
+    _that.clearAllGroups = function( updateEvents, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             updateEvents = getDefaultBoolean( updateEvents, true );
             triggerEvent = getDefaultBoolean( triggerEvent, true );
@@ -13058,7 +13060,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
 
             if ( triggerEvent ) {
-                fireCustomTrigger( "onGroupsCleared" );
+                fireCustomTrigger( _options.events.onGroupsCleared );
             }
 
             if ( updateEvents ) {
@@ -13068,7 +13070,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13085,7 +13087,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.removeGroup = function( groupName, updateEvents, triggerEvent ) {
+    _that.removeGroup = function( groupName, updateEvents, triggerEvent ) {
         if ( isDefinedString( groupName ) && !_element_Mode_DatePicker_Enabled ) {
             updateEvents = getDefaultBoolean( updateEvents, true );
             triggerEvent = getDefaultBoolean( triggerEvent, true );
@@ -13099,7 +13101,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
 
             if ( triggerEvent ) {
-                fireCustomTrigger( "onGroupRemoved", groupName );
+                fireCustomTrigger( _options.events.onGroupRemoved, groupName );
             }
 
             if ( updateEvents ) {
@@ -13109,7 +13111,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13125,7 +13127,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setVisibleGroups = function( groupNames, triggerEvent ) {
+    _that.setVisibleGroups = function( groupNames, triggerEvent ) {
         if ( isDefinedArray( groupNames ) && !_element_Mode_DatePicker_Enabled ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
 
@@ -13144,11 +13146,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             refreshViews( true, false );
 
             if ( triggerEvent ) {
-                fireCustomTrigger( "onVisibleGroupsChanged", _options_Configuration.visibleGroups );
+                fireCustomTrigger( _options.events.onVisibleGroupsChanged, _options_Configuration.visibleGroups );
             }
         }
 
-        return this;
+        return _that;
     };
 
 
@@ -13169,12 +13171,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setClipboardEvent = function( event ) {
+    _that.setClipboardEvent = function( event ) {
         if ( isDefinedObject( event ) && !_element_Mode_DatePicker_Enabled ) {
             _events_Copied = [ cloneEventDetails( event ) ];
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13188,7 +13190,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setClipboardEvents = function( events ) {
+    _that.setClipboardEvents = function( events ) {
         if ( isDefinedArray( events ) && !_element_Mode_DatePicker_Enabled ) {
             _events_Copied = [];
 
@@ -13199,7 +13201,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13211,7 +13213,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Event[]}                                               The copied events details.
      */
-    this.getClipboardEvents = function() {
+    _that.getClipboardEvents = function() {
         var result = null;
 
         if ( !_element_Mode_DatePicker_Enabled ) {
@@ -13230,12 +13232,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.clearClipboard = function() {
+    _that.clearClipboard = function() {
         if ( !_element_Mode_DatePicker_Enabled ) {
             _events_Copied = [];
         }
 
-        return this;
+        return _that;
     };
 
 
@@ -13254,7 +13256,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {string}                                                The version number.
      */
-    this.getVersion = function() {
+    _that.getVersion = function() {
         return "2.11.0";
     };
 
@@ -13267,7 +13269,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {string}                                                The Calendar ID.
      */
-    this.getId = function() {
+    _that.getId = function() {
         return _parameter_ElementID;
     };
 
@@ -13280,7 +13282,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {boolean}                                               States if the calendar is busy.
      */
-    this.isBusy = function() {
+    _that.isBusy = function() {
         return _calendar_IsBusy;
     };
 
@@ -13304,7 +13306,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setOptions = function( newOptions, triggerEvent ) {
+    _that.setOptions = function( newOptions, triggerEvent ) {
         for ( var propertyName in newOptions ) {
             if ( newOptions.hasOwnProperty( propertyName ) ) {
                 _options[ propertyName ] = newOptions[ propertyName ];
@@ -13319,7 +13321,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
 
             if ( triggerEvent ) {
-                fireCustomTrigger( "onOptionsUpdated", _options );
+                fireCustomTrigger( _options.events.onOptionsUpdated, _options );
             }
 
             _initialized = false;
@@ -13329,7 +13331,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13345,7 +13347,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.setSearchOptions = function( newSearchOptions, triggerEvent ) {
+    _that.setSearchOptions = function( newSearchOptions, triggerEvent ) {
         if ( !_element_Mode_DatePicker_Enabled ) {
             newSearchOptions = getOptions( newSearchOptions );
             triggerEvent = getDefaultBoolean( triggerEvent, true );
@@ -13359,11 +13361,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onSearchOptionsUpdated", _options_Search );
+                fireCustomTrigger( _options.events.onSearchOptionsUpdated, _options_Search );
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13380,7 +13382,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.addHolidays = function( holidays, triggerEvent, updateEvents ) {
+    _that.addHolidays = function( holidays, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidays ) && !_element_Mode_DatePicker_Enabled ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
             updateEvents = getDefaultBoolean( updateEvents, true );
@@ -13388,7 +13390,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.holidays = _options.holidays.concat( holidays );
     
             if ( triggerEvent ) {
-                fireCustomTrigger( "onOptionsUpdated", _options );
+                fireCustomTrigger( _options.events.onOptionsUpdated, _options );
             }
     
             if ( updateEvents ) {
@@ -13396,7 +13398,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }   
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13413,7 +13415,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Object}                                                The Calendar.js class instance.
      */
-    this.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
+    _that.removeHolidays = function( holidayNames, triggerEvent, updateEvents ) {
         if ( isDefinedArray( holidayNames ) && !_element_Mode_DatePicker_Enabled ) {
             triggerEvent = getDefaultBoolean( triggerEvent, true );
             updateEvents = getDefaultBoolean( updateEvents, true );
@@ -13433,7 +13435,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.holidays = holidaysRemaining;
 
             if ( triggerEvent ) {
-                fireCustomTrigger( "onOptionsUpdated", _options );
+                fireCustomTrigger( _options.events.onOptionsUpdated, _options );
             }
 
             if ( updateEvents ) {
@@ -13441,7 +13443,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
         }
 
-        return this;
+        return _that;
     };
 
     /**
@@ -13453,7 +13455,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @returns     {Holiday[]}                                             All the holidays.
      */
-    this.getHolidays = function() {
+    _that.getHolidays = function() {
         return _options.holidays;
     };
 
@@ -13487,7 +13489,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.useEscapeKeyToExitFullScreenMode = getDefaultBoolean( _options.useEscapeKeyToExitFullScreenMode, true );
         _options.allowHtmlInDisplay = getDefaultBoolean( _options.allowHtmlInDisplay, false );
         _options.initialDateTime = getDefaultDate( _options.initialDateTime, null );
-        _options.events = getDefaultArray( _options.events, null );
+        _options.data = getDefaultArray( _options.data, null );
         _options.weekendDays = isInvalidOptionArray( _options.weekendDays, 0 ) ? [ 0, 6 ] : _options.weekendDays;
         _options.workingDays = isInvalidOptionArray( _options.workingDays, 0 ) ? [] : _options.workingDays;
         _options.minimumYear = getDefaultNumber( _options.minimumYear, 1900 );
@@ -13519,6 +13521,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         buildDefaultViewOptionsForTimeline();
         buildDefaultViewOptionsForAllEvents();
         buildDefaultViewOptionsForDatePicker();
+        buildDefaultEventOptions();
         buildDefaulStringOptions();
         setEventTypeTranslationStringOptions();
         checkForBrowserNotificationsPermission();
@@ -13614,6 +13617,62 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.datePicker.selectedDateFormat = getDefaultString( _options.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}" );
         _options.views.datePicker.minimumDate = getDefaultDate( _options.views.datePicker.minimumDate, null );
         _options.views.datePicker.maximumDate = getDefaultDate( _options.views.datePicker.maximumDate, null );
+    }
+
+    function buildDefaultEventOptions() {
+        _options.events = getOptions( _options.events );
+        _options.events.onPreviousMonth = getDefaultFunction( _options.events.onPreviousMonth, null );
+        _options.events.onNextMonth = getDefaultFunction( _options.events.onNextMonth, null );
+        _options.events.onPreviousYear = getDefaultFunction( _options.events.onPreviousYear, null );
+        _options.events.onNextYear = getDefaultFunction( _options.events.onNextYear, null );
+        _options.events.onToday = getDefaultFunction( _options.events.onToday, null );
+        _options.events.onEventAdded = getDefaultFunction( _options.events.onEventAdded, null );
+        _options.events.onEventUpdated = getDefaultFunction( _options.events.onEventUpdated, null );
+        _options.events.onEventRemoved = getDefaultFunction( _options.events.onEventRemoved, null );
+        _options.events.onEventsAdded = getDefaultFunction( _options.events.onEventsAdded, null );
+        _options.events.onEventsCleared = getDefaultFunction( _options.events.onEventsCleared, null );
+        _options.events.onEventsExported = getDefaultFunction( _options.events.onEventsExported, null );
+        _options.events.onSetDate = getDefaultFunction( _options.events.onSetDate, null );
+        _options.events.onEventsSet = getDefaultFunction( _options.events.onEventsSet, null );
+        _options.events.onGroupsCleared = getDefaultFunction( _options.events.onGroupsCleared, null );
+        _options.events.onEventsUpdated = getDefaultFunction( _options.events.onEventsUpdated, null );
+        _options.events.onOptionsUpdated = getDefaultFunction( _options.events.onOptionsUpdated, null );
+        _options.events.onNotificationClicked = getDefaultFunction( _options.events.onNotificationClicked, null );
+        _options.events.onSearchOptionsUpdated = getDefaultFunction( _options.events.onSearchOptionsUpdated, null );
+        _options.events.onFullScreenModeChanged = getDefaultFunction( _options.events.onFullScreenModeChanged, null );
+        _options.events.onEventsSetFromJSON = getDefaultFunction( _options.events.onEventsSetFromJSON, null );
+        _options.events.onEventsAddedFromJSON = getDefaultFunction( _options.events.onEventsAddedFromJSON, null );
+        _options.events.onDatePickerDateChanged = getDefaultFunction( _options.events.onDatePickerDateChanged, null );
+        _options.events.onGroupRemoved = getDefaultFunction( _options.events.onGroupRemoved, null );
+        _options.events.onEventUrlClicked = getDefaultFunction( _options.events.onEventUrlClicked, null );
+        _options.events.onDestroy = getDefaultFunction( _options.events.onDestroy, null );
+        _options.events.onRefresh = getDefaultFunction( _options.events.onRefresh, null );
+        _options.events.onDatePickerOpened = getDefaultFunction( _options.events.onDatePickerOpened, null );
+        _options.events.onDatePickerClosed = getDefaultFunction( _options.events.onDatePickerClosed, null );
+        _options.events.onRender = getDefaultFunction( _options.events.onRender, null );
+        _options.events.onEventDragStart = getDefaultFunction( _options.events.onEventDragStart, null );
+        _options.events.onEventDragStop = getDefaultFunction( _options.events.onEventDragStop, null );
+        _options.events.onEventDragDrop = getDefaultFunction( _options.events.onEventDragDrop, null );
+        _options.events.onEventClick = getDefaultFunction( _options.events.onEventClick, null );
+        _options.events.onEventDoubleClick = getDefaultFunction( _options.events.onEventDoubleClick, null );
+        _options.events.onVisibleGroupsChanged = getDefaultFunction( _options.events.onVisibleGroupsChanged, null );
+        _options.events.onVisibleEventTypesChanged = getDefaultFunction( _options.events.onVisibleEventTypesChanged, null );
+        _options.events.onNotification = getDefaultFunction( _options.events.onNotification, null );
+        _options.events.onBeforeEventAddEdit = getDefaultFunction( _options.events.onBeforeEventAddEdit, null );
+        _options.events.onBusyStateChange = getDefaultFunction( _options.events.onBusyStateChange, null );
+        _options.events.onEventsFetch = getDefaultFunction( _options.events.onEventsFetch, null );
+        _options.events.onEventsImported = getDefaultFunction( _options.events.onEventsImported, null );
+        _options.events.onFullDayEventRender = getDefaultFunction( _options.events.onFullDayEventRender, null );
+        _options.events.onFullWeekEventRender = getDefaultFunction( _options.events.onFullWeekEventRender, null );
+        _options.events.onFullMonthEventRender = getDefaultFunction( _options.events.onFullMonthEventRender, null );
+        _options.events.onAllEventsEventRender = getDefaultFunction( _options.events.onAllEventsEventRender, null );
+        _options.events.onTimelineEventRender = getDefaultFunction( _options.events.onTimelineEventRender, null );
+        _options.events.onWidgetEventRender = getDefaultFunction( _options.events.onWidgetEventRender, null );
+        _options.events.onToolTipEventRender = getDefaultFunction( _options.events.onToolTipEventRender, null );
+        _options.events.onFullDayTitleRender = getDefaultFunction( _options.events.onFullDayTitleRender, null );
+        _options.events.onFullWeekTitleRender = getDefaultFunction( _options.events.onFullWeekTitleRender, null );
+        _options.events.onTimelineTitleRender = getDefaultFunction( _options.events.onTimelineTitleRender, null );
+        _options.events.onFullMonthPinUpRender = getDefaultFunction( _options.events.onFullMonthPinUpRender, null );
     }
 
     function buildDefaultSearchOptions( newSearchOptions ) {
