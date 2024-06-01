@@ -317,7 +317,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             "group",
             "organizerEmailAddress",
             "url",
-            "title"
+            "title",
+            "description"
         ],
 
         // Variables: Dialogs
@@ -5208,6 +5209,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
             result = _options.urlText;
         } else if ( _element_View_Timeline_Selected_Axis === "title" ) {
             result = _options.titleText;
+        } else if ( _element_View_Timeline_Selected_Axis === "description" ) {
+            result = _options.descriptionText;
         }
 
         return result;
