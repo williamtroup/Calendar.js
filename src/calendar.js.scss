@@ -2512,7 +2512,6 @@ div.calendar div.side-menu {
         display: inline-block;
         position: relative;
         padding-left: var(--calendar-js-input-checkbox-size-with-spacing);
-        padding-top: 1px;
         margin-bottom: var(--calendar-js-spacing);
         color: var(--calendar-js-dark-color);
 
@@ -2594,7 +2593,6 @@ div.calendar-dialog {
             display: inline-block;
             position: relative;
             padding-left: 25px;
-            padding-top: 1px;
             color: var(--calendar-js-dark-color);
     
             input {

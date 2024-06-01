@@ -4195,7 +4195,6 @@ div.calendar div.side-menu label.checkbox {
   display: inline-block;
   position: relative;
   padding-left: var(--calendar-js-input-checkbox-size-with-spacing);
-  padding-top: 1px;
   margin-bottom: var(--calendar-js-spacing);
   color: var(--calendar-js-dark-color);
 }
@@ -4290,7 +4289,6 @@ div.calendar-dialog div.radio-button-container label.radio-button {
   display: inline-block;
   position: relative;
   padding-left: 25px;
-  padding-top: 1px;
   color: var(--calendar-js-dark-color);
 }
 div.calendar div.radio-button-container label.radio-button input,
