@@ -5198,11 +5198,12 @@ function calendarJs(elementOrId, options, searchOptions) {
     hideTooltip();
     overrideShow = isDefined(overrideShow) ? overrideShow : false;
     if (_element_Tooltip.style.display !== "block" && _options.tooltipsEnabled) {
+      var toolTipDelay = isDefinedString(text) ? _options.tooltipDelay : _options.eventTooltipDelay;
       startTimer(_timer_Name.showToolTip, function() {
         if (overrideShow || !isDisabledBackgroundDisplayed() && !isFullMonthViewYearDropDownVisible() && !areContextMenusVisible() && _events_Dragged === null) {
           text = isDefined(text) ? text : _string.empty;
           _element_Tooltip.className = text === _string.empty ? "calendar-tooltip-event" : "calendar-tooltip";
-          if (text !== _string.empty) {
+          if (isDefinedString(text)) {
             setNodeText(_element_Tooltip, text);
           } else {
             _element_Tooltip_EventDetails = eventDetails;
@@ -5275,7 +5276,7 @@ function calendarJs(elementOrId, options, searchOptions) {
           }
           showElementAtMousePosition(e, _element_Tooltip);
         }
-      }, _options.tooltipDelay, false);
+      }, toolTipDelay, false);
     }
   }
   function hideTooltip() {
@@ -8694,6 +8695,7 @@ function calendarJs(elementOrId, options, searchOptions) {
     _options.isWidget = getDefaultBoolean(_options.isWidget, false);
     _options.viewToOpenOnFirstLoad = getDefaultString(_options.viewToOpenOnFirstLoad, null);
     _options.eventColorsEditingEnabled = getDefaultBoolean(_options.eventColorsEditingEnabled, true);
+    _options.eventTooltipDelay = getDefaultNumber(_options.eventTooltipDelay, 1000);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
@@ -9098,9 +9100,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     _parameter_Document = documentObject;
     _parameter_Window = windowObject;
     _parameter_Navigator = navigatorObject;
-    _parameter_ElementID = elementOrId;
     _parameter_Math = mathObject;
     _parameter_Json = jsonObject;
+    _parameter_ElementID = elementOrId;
     if (isDefinedString(_parameter_ElementID) || isDefinedDOMElement(_parameter_ElementID)) {
       buildDefaultOptions(options);
       buildDefaultSearchOptions(searchOptions);
