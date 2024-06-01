@@ -148,5 +148,5 @@
     if (!isDefined(windowObject.$calendar)) {
       windowObject.$calendar = _public;
     }
-  })(document, window, navigator, Math, JSON);
+  })(document, window, JSON);
 })();

@@ -342,5 +342,5 @@
             windowObject.$calendar = _public;
         }
 
-    } ) ( document, window, navigator, Math, JSON );
+    } ) ( document, window, JSON );
 } )();
