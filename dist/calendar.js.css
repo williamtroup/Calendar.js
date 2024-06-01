@@ -3598,6 +3598,7 @@ div.search div.contents div.history-container div.ib-arrow-up-full {
   position: absolute;
   right: var(--calendar-js-spacing);
   top: var(--calendar-js-spacing);
+  transition: none !important;
 }
 div.search div.contents div.history-container input {
   margin-bottom: 0 !important;

@@ -2211,6 +2211,7 @@ div.search {
                 position: absolute;
                 right: var(--calendar-js-spacing);
                 top: var(--calendar-js-spacing);
+                transition: none !important;
             }
 
             input {
