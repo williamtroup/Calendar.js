@@ -144,7 +144,10 @@
                 onAllEventsEventRender: onRenderCustom,
                 onTimelineEventRender: onRenderCustom,
                 onWidgetEventRender: onRenderCustom,
-                onToolTipEventRender: onToolTipRenderCustom
+                onToolTipEventRender: onToolTipRenderCustom,
+                onViewChange: function( view ) {
+                    console.log( "View Open: " + view );
+                }
             }
         } );
 

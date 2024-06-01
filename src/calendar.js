@@ -198,6 +198,16 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_Mode_DatePicker_Visible = false,
         _element_Mode_DatePicker_OriginalTop = null,
 
+        // Variables: View Name
+        _element_View_Name = {
+            fullMonth: "full-month",
+            fullDay: "full-day",
+            fullWeek: "full-week",
+            fullYear: "full-year",
+            timeline: "timeline",
+            allEvents: "all-events"
+        },
+
         // Variables: View
         _element_View_Opened = [],
         _element_View_LastZIndex = 0,
@@ -590,15 +600,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             setFullMonthViewYearDropDownButtonText();
 
             if ( firstRender && isDefinedString( _options.viewToOpenOnFirstLoad ) ) {
-                if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "full-day" ) {
+                if ( _options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.fullDay ) {
                     showFullDayView();
-                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "full-week" ) {
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.fullWeek ) {
                     showFullWeekView();
-                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "full-year" ) {
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.fullYear ) {
                     showFullYearView();
-                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "timeline" ) {
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.timeline ) {
                     showTimelineView();
-                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === "all-events" ) {
+                } else if ( _options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.allEvents ) {
                     showAllEventsView();
                 }
             }
@@ -8021,7 +8031,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function showView( element ) {
         if ( getActiveView() !== element ) {
-            removeViewOpened( element );
+            removeViewOpened( element, false );
 
             _element_View_Opened.push( element );
             _element_View_LastZIndex++;
@@ -8033,14 +8043,15 @@ function calendarJs( elementOrId, options, searchOptions ) {
             element.style.zIndex = _element_View_LastZIndex;
             
             hideSearchDialog();
+            fireViewChangeCustomTrigger();
         }
     }
 
-    function hideView( element ) {
+    function hideView( element, triggerCustomTrigger ) {
         if ( isViewVisible( element ) ) {
             element.className = element.className.replace( " view-shown", _string.empty );
 
-            removeViewOpened( element );
+            removeViewOpened( element, triggerCustomTrigger );
 
             if ( _element_View_Opened.length === 0 ) {
                 _element_View_LastZIndex = 0;
@@ -8048,7 +8059,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function removeViewOpened( element ) {
+    function removeViewOpened( element, triggerCustomTrigger ) {
+        triggerCustomTrigger = isDefined( triggerCustomTrigger ) ? triggerCustomTrigger : true;
+
         var viewsOpened = [],
             viewsOpenedLength = _element_View_Opened.length;
 
@@ -8061,19 +8074,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         _element_View_Opened = [].slice.call( viewsOpened );
+
+        if ( triggerCustomTrigger ) {
+            fireViewChangeCustomTrigger();
+        }
     }
 
     function isViewVisible( element ) {
         return isDefined( element ) && element.className && element.className.indexOf( "view-shown" ) > _value.notFound;
     }
 
-    function closeLastViewOpened() {
+    function closeLastViewOpened( triggerCustomTrigger ) {
+        triggerCustomTrigger = isDefined( triggerCustomTrigger ) ? triggerCustomTrigger : true;
+
         var viewElement = getActiveView();
 
-        hideView( viewElement );
+        hideView( viewElement, !triggerCustomTrigger );
 
         if ( _element_View_Opened.length === 0 ) {
             _element_View_LastZIndex = 0;
+        }
+
+        if ( triggerCustomTrigger ) {
+            fireViewChangeCustomTrigger();
         }
     }
 
@@ -8083,7 +8106,27 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function closeAllViews() {
         while ( _element_View_Opened.length > 0 ) {
-            closeLastViewOpened();
+            closeLastViewOpened( false );
+        }
+
+        fireViewChangeCustomTrigger();
+    }
+
+    function fireViewChangeCustomTrigger() {
+        var viewOpen = getActiveView();
+
+        if ( viewOpen === null ) {
+            fireCustomTrigger( _options.events.onViewChange, _element_View_Name.fullMonth );
+        } else if ( viewOpen === _element_View_FullDay ) {
+            fireCustomTrigger( _options.events.onViewChange, _element_View_Name.fullDay );
+        } else if ( viewOpen === _element_View_FullWeek ) {
+            fireCustomTrigger( _options.events.onViewChange, _element_View_Name.fullWeek );
+        } else if ( viewOpen === _element_View_FullYear ) {
+            fireCustomTrigger( _options.events.onViewChange, _element_View_Name.fullYear );
+        } else if ( viewOpen === _element_View_Timeline ) {
+            fireCustomTrigger( _options.events.onViewChange, _element_View_Name.timeline );
+        } else if ( viewOpen === _element_View_AllEvents ) {
+            fireCustomTrigger( _options.events.onViewChange, _element_View_Name.allEvents );
         }
     }
 
@@ -13674,6 +13717,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.events.onFullWeekTitleRender = getDefaultFunction( _options.events.onFullWeekTitleRender, null );
         _options.events.onTimelineTitleRender = getDefaultFunction( _options.events.onTimelineTitleRender, null );
         _options.events.onFullMonthPinUpRender = getDefaultFunction( _options.events.onFullMonthPinUpRender, null );
+        _options.events.onViewChange = getDefaultFunction( _options.events.onViewChange, null );
     }
 
     function buildDefaultSearchOptions( newSearchOptions ) {
