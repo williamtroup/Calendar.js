@@ -4900,7 +4900,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             loopDateMinutesIncrease = 30;
         }
         
-        while( doDatesMatch( loopDate, loopDateToday ) ) {
+        while ( doDatesMatch( loopDate, loopDateToday ) ) {
             var headerItem1 = createElement( "div", "timeline-header-item" );
             headerItem1.innerText = getTimeForDisplay( new Date( loopDate ) );
             _element_View_Timeline_Contents_Header.appendChild( headerItem1 );
@@ -4973,7 +4973,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         loopDateMinutesIncrease = 30;
                     }
                     
-                    while( doDatesMatch( loopDate, loopDateToday ) ) {
+                    while ( doDatesMatch( loopDate, loopDateToday ) ) {
                         var spacing1 = createElement( "div", "timeline-row-item-spacing" );
                         timelineRowItems.appendChild( spacing1 );
                         
@@ -8150,7 +8150,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             loopDateMinutesIncrease = 30;
         }
 
-        while( doDatesMatch( loopDate, loopDateToday ) ) {
+        while ( doDatesMatch( loopDate, loopDateToday ) ) {
             var row = createElement( "div", "hour" );
             container.appendChild( row );
             
