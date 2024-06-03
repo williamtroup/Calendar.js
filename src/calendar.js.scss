@@ -2701,11 +2701,13 @@ div.calendar-tooltip-event {
     }
 
     div.url {
-        color: blue;
+        span.url-text {
+            color: blue;
 
-        &:hover {
-            cursor: pointer;
-            text-decoration: underline;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
     }
 

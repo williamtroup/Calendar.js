@@ -7788,6 +7788,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         _element_Tooltip.innerHTML = _string.empty;
                         _element_Tooltip_Title.innerHTML = _string.empty;
                         _element_Tooltip_TotalTime.innerHTML = _string.empty;
+                        _element_Tooltip_Url.innerHTML = _string.empty;
 
                         if ( !fireCustomTrigger( _options.events.onToolTipEventRender, _element_Tooltip, eventDetails ) ) {
                             _element_Tooltip.onmousemove = cancelBubble;
@@ -7799,10 +7800,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                             updateToolbarButtonVisibleState( _element_Tooltip_TitleButtons_EditButton, _options.manualEditingEnabled );
     
                             if ( isDefinedStringAndSet( eventDetails.url ) ) {
-                                setNodeText( _element_Tooltip_Url, getShortUrlString( eventDetails.url ) );
+                                var urlText = createSpanElement( _element_Tooltip_Url, getShortUrlString( eventDetails.url ), "url-text" );
                                 addNode( _element_Tooltip, _element_Tooltip_Url );
     
-                                _element_Tooltip_Url.onclick = function( e ) {
+                                urlText.onclick = function( e ) {
                                     cancelBubble( e );
                                     openEventUrl( eventDetails.url );
                                     hideTooltip();
@@ -10148,6 +10149,8 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( cancelDblClick && isEventDefined ) {
             element.ondblclick = cancelBubble;
         }
+
+        return element;
     }
 
     function createButtonElement( container, text, className, event, tooltipText ) {

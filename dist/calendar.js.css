@@ -4405,10 +4405,10 @@ div.calendar-tooltip-event div.repeats,
 div.calendar-tooltip-event div.url {
   font-size: smaller;
 }
-div.calendar-tooltip-event div.url {
+div.calendar-tooltip-event div.url span.url-text {
   color: blue;
 }
-div.calendar-tooltip-event div.url:hover {
+div.calendar-tooltip-event div.url span.url-text:hover {
   cursor: pointer;
   text-decoration: underline;
 }
