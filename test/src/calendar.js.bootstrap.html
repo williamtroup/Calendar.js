@@ -53,12 +53,6 @@
             <button class="btn btn-primary" onclick="console.log( calendarInstance.getClipboardEvents() );">Get Clipboard Events</button>
             <button class="btn btn-primary" onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <br>
-
-            <h2>Additional Data:</h2>
-            <button class="btn btn-primary" onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
-            <button class="btn btn-primary" onclick="console.log( calendarInstance.getId() );">Get ID</button>
-            <button class="btn btn-primary" onclick="console.log( calendarInstance.isBusy() );">Is Busy</button>
-            <br>
             
             <h2>Options:</h2>
             <button class="btn btn-primary" onclick="setOptions();">Set Options</button>
@@ -85,6 +79,13 @@
             <button class="btn btn-primary" onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
             <button class="btn btn-primary" onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
             <button class="btn btn-primary" onclick="calendarInstance.destroy();">Destroy</button>
+            <br />
+
+            <h2>Additional Data:</h2>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getId() );">Get ID</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.isBusy() );">Is Busy</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getView() );">Get View</button>
         </div>
     </body>
 

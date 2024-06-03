@@ -5446,21 +5446,26 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     fireViewChangeCustomTrigger();
   }
-  function fireViewChangeCustomTrigger() {
-    var viewOpen = getActiveView();
+  function fireViewChangeCustomTrigger(triggerCustomTrigger) {
+    triggerCustomTrigger = isDefined(triggerCustomTrigger) ? triggerCustomTrigger : true;
+    var viewOpen = getActiveView(), viewName = null;
     if (viewOpen === null) {
-      fireCustomTrigger(_options.events.onViewChange, _element_View_Name.fullMonth);
+      viewName = _element_View_Name.fullMonth;
     } else if (viewOpen === _element_View_FullDay) {
-      fireCustomTrigger(_options.events.onViewChange, _element_View_Name.fullDay);
+      viewName = _element_View_Name.fullDay;
     } else if (viewOpen === _element_View_FullWeek) {
-      fireCustomTrigger(_options.events.onViewChange, _element_View_Name.fullWeek);
+      viewName = _element_View_Name.fullWeek;
     } else if (viewOpen === _element_View_FullYear) {
-      fireCustomTrigger(_options.events.onViewChange, _element_View_Name.fullYear);
+      viewName = _element_View_Name.fullYear;
     } else if (viewOpen === _element_View_Timeline) {
-      fireCustomTrigger(_options.events.onViewChange, _element_View_Name.timeline);
+      viewName = _element_View_Name.timeline;
     } else if (viewOpen === _element_View_AllEvents) {
-      fireCustomTrigger(_options.events.onViewChange, _element_View_Name.allEvents);
+      viewName = _element_View_Name.allEvents;
     }
+    if (triggerCustomTrigger && isDefinedString(viewName)) {
+      fireCustomTrigger(_options.events.onViewChange, viewName);
+    }
+    return viewName;
   }
   function buildHoursForTimeBasedView(container, loopDateMinutesIncrease) {
     var loopDateToday = new Date(), loopDate = new Date();
@@ -8600,6 +8605,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
   };
   _that.isBusy = function() {
     return _calendar_IsBusy;
+  };
+  _that.getView = function() {
+    return fireViewChangeCustomTrigger(false);
   };
   _that.setOptions = function(newOptions, triggerEvent) {
     for (var propertyName in newOptions) {
