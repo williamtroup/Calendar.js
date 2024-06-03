@@ -8606,7 +8606,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   _that.isBusy = function() {
     return _calendar_IsBusy;
   };
-  _that.getView = function() {
+  _that.getCurrentView = function() {
     return fireViewChangeCustomTrigger(false);
   };
   _that.setOptions = function(newOptions, triggerEvent) {
