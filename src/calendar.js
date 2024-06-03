@@ -13370,7 +13370,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * 
      * @public
      * 
-     * @returns     {string}                                                The current view.
+     * @returns     {string}                                                The current view name ID.
      */
     _that.getCurrentView = function() {
         return fireViewChangeCustomTrigger( false );
