@@ -1,35 +1,35 @@
-/*! Calendar.js v2.10.19 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.11.0 | (c) Bunoon 2024 | MIT License */
 export function calendarJs(elementOrId, options, searchOptions) {
-  var _this = this, _parameter_Document = null, _parameter_Window = null, _parameter_Navigator = null, _parameter_ElementID = null, _parameter_Math = null, _parameter_Json = null, _string = {empty:"", space:" ", newLine:"\n", newLineCharacterReturn:"\r\n",}, _value = {notFound:-1}, _enum_Day = {monday:0, saturday:5, sunday:6}, _enum_KeyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, j:74, m:77, o:79, v:86, x:88, f5:116, f11:122}, _enum_RepeatType = {never:0, 
+  var _that = this, _parameter_Document = null, _parameter_Window = null, _parameter_Navigator = null, _parameter_ElementID = null, _parameter_Math = null, _parameter_Json = null, _string = {empty:"", space:" ", newLine:"\n", newLineCharacterReturn:"\r\n",}, _value = {notFound:-1}, _enum_Day = {monday:0, saturday:5, sunday:6}, _enum_KeyCodes = {enter:13, escape:27, left:37, right:39, down:40, a:65, c:67, e:69, f:70, g:71, j:74, m:77, o:79, v:86, x:88, f5:116, f11:122}, _enum_RepeatType = {never:0, 
   everyDay:1, everyWeek:2, every2Weeks:3, everyMonth:4, everyYear:5, custom:6}, _enum_RepeatCustomType = {daily:0, weekly:1, monthly:2, yearly:3}, _options = {}, _options_Search = {}, _options_EventType = {0:{text:"Normal Label", eventEditorInput:null}, 1:{text:"Meeting Label", eventEditorInput:null}, 2:{text:"Birthday Label", eventEditorInput:null}, 3:{text:"Holiday Label", eventEditorInput:null}, 4:{text:"Task Label", eventEditorInput:null}}, _options_Configuration = {visibleGroups:null, visibleEventTypes:null, 
   visibleAllEventsMonths:{}}, _initialized = false, _initialized_FirstTime = false, _initialized_DocumentEvents = false, _events = {}, _events_DatesAvailable = {}, _events_Selected = [], _events_Copied = [], _events_Copied_Cut = false, _events_Dragged_DateFrom = null, _events_Dragged = null, _events_NotificationsTriggered = {}, _calendar_CurrentDate = null, _calendar_CurrentDate_IsToday = false, _calendar_CurrentDate_ForDatePicker = null, _calendar_IsBusy = false, _calendar_IsBusy_LastState = false, 
   _elements = {}, _elements_InDocumentBody = [], _elements_Type = {}, _element_ID_Event_Day = "day-", _element_ID_Event_Month = "month-", _element_ID_Event_WeekDay = "week-day-", _element_ID_Event_FullDay = "full-day-", _element_ID_Event_Widget_Day = "widget-day-", _element_ID_Event_Timeline_Day = "timeline-day-", _element_ID_DayElement = "calendar-day-", _element_ID_WeekDayElement = "calendar-week-day-", _element_ID_WeekAllDayElement = "calendar-week-all-day-", _element_ID_YearSelected = "year-selected-", 
   _timer = {}, _timer_AutoRefresh_Enabled = true, _timer_Name = {windowResize:"WindowResize", searchOptionsChanged:"SearchOptionsChanged", searchEventsHistoryDropDown:"SearchEventsHistoryDropDown", showToolTip:"ShowToolTip", autoRefresh:"AutoRefresh", hideNotification:"HideNotification", sideMenuEvents:"SideMenuEvents"}, _element_SideMenu = null, _element_SideMenu_Header = null, _element_SideMenu_Changed = false, _element_SideMenu_TitleBar_ExportEventsButton = null, _element_SideMenu_Content = null, 
   _element_SideMenu_Content_Section_Groups = null, _element_SideMenu_Content_Section_Groups_Content = null, _element_SideMenu_Content_Section_EventTypes = null, _element_SideMenu_Content_Section_EventTypes_Content = null, _element_SideMenu_Content_Section_Days = null, _element_SideMenu_Content_Section_Days_Content = null, _element_SideMenu_Content_Section_WorkingDays = null, _element_SideMenu_Content_Section_WorkingDays_Content = null, _element_SideMenu_Content_Section_WeekendDays = null, _element_SideMenu_Content_Section_WeekendDays_Content = 
-  null, _element_SideMenu_DisabledBackground = null, _element_Mode_DatePicker_Input = null, _element_Mode_DatePicker_HiddenInput = null, _element_Mode_DatePicker_Enabled = false, _element_Mode_DatePicker_Visible = false, _element_Mode_DatePicker_OriginalTop = null, _element_View_Opened = [], _element_View_LastZIndex = 0, _element_View_Event_Dragged = null, _element_View_Event_Dragged_OffsetTop = null, _element_View_Event_Dragged_EventDetails = null, _element_View_Event_Dragged_ClickOffset = null, 
-  _element_View_Event_Dragged_FromDate = null, _element_Calendar = null, _element_Calendar_DisabledBackground = null, _element_Calendar_FullScreenModeOn = false, _element_Calendar_FullScreenModeCachedStyled = null, _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [], _element_View_FullDay = null, _element_View_FullDay_TitleBar = null, _element_View_FullDay_Contents = null, _element_View_FullDay_Contents_AllDayEvents = null, _element_View_FullDay_Contents_Hours = null, _element_View_FullDay_Contents_WorkingHours = 
-  null, _element_View_FullDay_DateSelected = null, _element_View_FullDay_EventsShown = [], _element_View_FullDay_FullScreenButton = null, _element_View_FullDay_TodayButton = null, _element_View_FullDay_TimeArrow = null, _element_View_FullDay_SearchButton = null, _element_View_FullDay_Events_Dragged_Sizes = [], _element_View_FullWeek = null, _element_View_FullWeek_TitleBar = null, _element_View_FullWeek_FullScreenButton = null, _element_View_FullWeek_SearchButton = null, _element_View_FullWeek_Contents = 
-  null, _element_View_FullWeek_Contents_DayNamesHeader = null, _element_View_FullWeek_Contents_AllDayEvents = null, _element_View_FullWeek_Contents_Hours = null, _element_View_FullWeek_Contents_Days_AllDay = null, _element_View_FullWeek_Contents_Days = null, _element_View_FullWeek_EventsShown = [], _element_View_FullWeek_EventsShown_PerDay = {}, _element_View_FullWeek_DateSelected = null, _element_View_FullWeek_DateSelected_StartOfWeek = null, _element_View_FullWeek_TimeArrow = null, _element_View_FullWeek_AllDayEventsAdded = 
-  false, _element_View_FullWeek_TimeArrow_Position = null, _element_View_FullWeek_Contents_SmallestEventTop = 0, _element_View_FullWeek_Events_Dragged_Sizes = [], _element_View_FullMonth = null, _element_View_FullMonth_Rows = [], _element_View_FullMonth_TitleBar = null, _element_View_FullMonth_TitleBar_YearSelector_DropDown = null, _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text = null, _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow = null, _element_View_FullMonth_TitleBar_YearSelector = 
-  null, _element_View_FullMonth_TitleBar_YearSelector_Contents = null, _element_View_FullMonth_TitleBar_YearSelector_Contents_Months = {}, _element_View_FullMonth_TitleBar_FullScreenButton = null, _element_View_FullMonth_TitleBar_SearchButton = null, _element_View_FullMonth_PinUp = null, _element_View_FullMonth_PinUp_ImageIndex = 0, _element_View_FullMonth_PinUp_CurrentDate = null, _element_View_FullMonth_DayNamesHeader = null, _element_View_FullMonth_EventsShown = [], _element_View_FullMonth_LargestDateAvailable = 
-  null, _element_View_FullYear = null, _element_View_FullYear_FullScreenButton = null, _element_View_FullYear_TitleBar = null, _element_View_FullYear_Contents = null, _element_View_FullYear_CurrentYear = null, _element_View_FullYear_Contents_CurrentMonthTop = 0, _element_View_AllEvents = null, _element_View_AllEvents_FullScreenButton = null, _element_View_AllEvents_SearchButton = null, _element_View_AllEvents_Contents = null, _element_View_AllEvents_EventsShown = [], _element_View_AllEvents_MinimizeRestoreFunctions = 
-  [], _element_View_AllEvents_YearHeadersAdded = [], _element_View_Timeline = null, _element_View_Timeline_FullScreenButton = null, _element_View_Timeline_SearchButton = null, _element_View_Timeline_TodayButton = null, _element_View_Timeline_Contents = null, _element_View_Timeline_Contents_Header = null, _element_View_Timeline_Contents_SmallestEventLeft = null, _element_View_Timeline_Contents_SmallestEventTop = null, _element_View_Timeline_Contents_Groups_Rows_Cache = {}, _element_View_Timeline_Contents_Columns = 
-  [], _element_View_Timeline_EventsShown = [], _element_View_Timeline_DateSelected = null, _element_View_Timeline_TitleBar = null, _element_View_Timeline_Selected_Axis = null, _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group", "organizerEmailAddress", "url", "title"], _element_Dialog_AllOpened = [], _element_Dialog_Move = null, _element_Dialog_Move_Original_X = 0, _element_Dialog_Move_Original_Y = 0, _element_Dialog_Move_IsMoving = false, _element_Dialog_Move_X = 
-  0, _element_Dialog_Move_Y = 0, _element_Dialog_EventEditor = null, _element_Dialog_EventEditor_Tab_Event = null, _element_Dialog_EventEditor_Tab_Type = null, _element_Dialog_EventEditor_Tab_Repeats = null, _element_Dialog_EventEditor_Tab_Extra = null, _element_Dialog_EventEditor_DisabledArea = null, _element_Dialog_EventEditor_TitleBar = null, _element_Dialog_EventEditor_DateFrom = null, _element_Dialog_EventEditor_TimeFrom = null, _element_Dialog_EventEditor_DateTo = null, _element_Dialog_EventEditor_TimeTo = 
-  null, _element_Dialog_EventEditor_IsAllDay = null, _element_Dialog_EventEditor_ShowAlerts = null, _element_Dialog_EventEditor_ShowAsBusy = null, _element_Dialog_EventEditor_Title = null, _element_Dialog_EventEditor_SelectColors = null, _element_Dialog_EventEditor_Description = null, _element_Dialog_EventEditor_Location = null, _element_Dialog_EventEditor_Group = null, _element_Dialog_EventEditor_Url = null, _element_Dialog_EventEditor_RepeatEvery_Never = null, _element_Dialog_EventEditor_RepeatEvery_EveryDay = 
-  null, _element_Dialog_EventEditor_RepeatEvery_EveryWeek = null, _element_Dialog_EventEditor_RepeatEvery_Every2Weeks = null, _element_Dialog_EventEditor_RepeatEvery_EveryMonth = null, _element_Dialog_EventEditor_RepeatEvery_EveryYear = null, _element_Dialog_EventEditor_RepeatEvery_Custom = null, _element_Dialog_EventEditor_RepeatEvery_RepeatOptionsButton = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Weekly = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Monthly = 
-  null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Yearly = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Value = null, _element_Dialog_EventEditor_EventDetails = {}, _element_Dialog_EventEditor_AddUpdateButton = null, _element_Dialog_EventEditor_RemoveButton = null, _element_Dialog_EventEditor_AlertOffset = null, _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarning = null, _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate = null, _element_Dialog_EventEditor_Colors = 
-  null, _element_Dialog_EventEditor_Colors_Color = null, _element_Dialog_EventEditor_Colors_ColorText = null, _element_Dialog_EventEditor_Colors_ColorBorder = null, _element_Dialog_EventEditor_RepeatOptions = null, _element_Dialog_EventEditor_RepeatOptions_Mon = null, _element_Dialog_EventEditor_RepeatOptions_Tue = null, _element_Dialog_EventEditor_RepeatOptions_Wed = null, _element_Dialog_EventEditor_RepeatOptions_Thu = null, _element_Dialog_EventEditor_RepeatOptions_Fri = null, _element_Dialog_EventEditor_RepeatOptions_Sat = 
-  null, _element_Dialog_EventEditor_RepeatOptions_Sun = null, _element_Dialog_EventEditor_RepeatOptions_RepeatEnds = null, _element_Dialog_Message = null, _element_Dialog_Message_TitleBar = null, _element_Dialog_Message_Message = null, _element_Dialog_Message_RemoveAllEvents = null, _element_Dialog_Message_RemoveAllEvents_Label = null, _element_Dialog_Message_ButtonContainer = null, _element_Dialog_ExportEvents = null, _element_Dialog_ExportEvents_Filename = null, _element_Dialog_ExportEvents_Option_CSV = 
-  null, _element_Dialog_ExportEvents_Option_XML = null, _element_Dialog_ExportEvents_Option_JSON = null, _element_Dialog_ExportEvents_Option_TEXT = null, _element_Dialog_ExportEvents_Option_iCAL = null, _element_Dialog_ExportEvents_Option_MD = null, _element_Dialog_ExportEvents_Option_HTML = null, _element_Dialog_ExportEvents_Option_TSV = null, _element_Dialog_ExportEvents_ExportEvents = null, _element_Dialog_ExportEvents_Option_ExportEventsToClipboard = null, _element_Dialog_ExportEvents_Options = 
-  null, _element_Dialog_Search = null, _element_Dialog_Search_MinimizedRestoreButton = null, _element_Dialog_Search_Contents = null, _element_Dialog_Search_For = null, _element_Dialog_Search_MatchCase = null, _element_Dialog_Search_Not = null, _element_Dialog_Search_Advanced = null, _element_Dialog_Search_Advanced_Container = null, _element_Dialog_Search_Include_Title = null, _element_Dialog_Search_Include_Location = null, _element_Dialog_Search_Include_Description = null, _element_Dialog_Search_Include_Group = 
-  null, _element_Dialog_Search_Include_Url = null, _element_Dialog_Search_Option_StartsWith = null, _element_Dialog_Search_Option_EndsWith = null, _element_Dialog_Search_Option_Contains = null, _element_Dialog_Search_Previous = null, _element_Dialog_Search_Next = null, _element_Dialog_Search_Moved = false, _element_Dialog_Search_SearchResults = [], _element_Dialog_Search_SearchIndex = 0, _element_Dialog_Search_FocusedEventID = null, _element_Dialog_Search_History_DropDown = null, _element_Dialog_Search_History_DropDown_Button = 
-  null, _element_Dialog_Configuration = null, _element_Dialog_Configuration_Display = null, _element_Dialog_Configuration_Organizer = null, _element_Dialog_Configuration_Display_EnableAutoRefresh = null, _element_Dialog_Configuration_Display_EnableBrowserNotifications = null, _element_Dialog_Configuration_Display_EnableTooltips = null, _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = null, _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = null, _element_Dialog_Configuration_Organizer_Name = 
-  null, _element_Dialog_Configuration_Organizer_Email = null, _element_Dialog_JumpToDate = null, _element_Dialog_JumpToDate_Date = null, _element_ContextMenu_Day = null, _element_ContextMenu_Day_Paste_Separator = null, _element_ContextMenu_Day_Paste = null, _element_ContextMenu_Day_DateSelected = null, _element_ContextMenu_Event = null, _element_ContextMenu_Event_EventDetails = null, _element_ContextMenu_Event_DateSelected = null, _element_ContextMenu_Event_FormattedDateSelected = null, _element_ContextMenu_Event_OpenUrlSeparator = 
-  null, _element_ContextMenu_Event_OpenUrl = null, _element_ContextMenu_Event_DuplicateSeparator = null, _element_ContextMenu_Event_Duplicate = null, _element_ContextMenu_Event_EditEvent = null, _element_ContextMenu_Event_CutSeparator = null, _element_ContextMenu_Event_Cut = null, _element_ContextMenu_Event_CopySeparator = null, _element_ContextMenu_Event_Copy = null, _element_ContextMenu_Event_RemoveSeparator = null, _element_ContextMenu_Event_Remove = null, _element_ContextMenu_Event_ExportEventsSeparator = 
-  null, _element_ContextMenu_Event_ExportEvents = null, _element_ContextMenu_FullDay = null, _element_ContextMenu_FullDay_RemoveEvents_Separator = null, _element_ContextMenu_FullDay_RemoveEvents = null, _element_ContextMenu_FullDay_Paste_Separator = null, _element_ContextMenu_FullDay_Paste = null, _element_ContextMenu_FullDay_ClickPositionHourMinutes = null, _element_ContextMenu_FullDay_DateSelected = null, _element_ContextMenu_HeaderDay = null, _element_ContextMenu_HeaderDay_HideDay = null, _element_ContextMenu_HeaderDay_HideDay_Separator = 
-  null, _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays = null, _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays_Separator = null, _element_ContextMenu_HeaderDay_SelectedDay = null, _element_Tooltip = null, _element_Tooltip_TitleButtons = null, _element_Tooltip_TitleButtons_CloseButton = null, _element_Tooltip_TitleButtons_EditButton = null, _element_Tooltip_Title = null, _element_Tooltip_Date = null, _element_Tooltip_TotalTime = null, _element_Tooltip_Repeats = null, _element_Tooltip_Description = 
-  null, _element_Tooltip_Location = null, _element_Tooltip_Url = null, _element_Tooltip_EventDetails = null, _element_Notification = null;
+  null, _element_SideMenu_DisabledBackground = null, _element_Mode_DatePicker_Input = null, _element_Mode_DatePicker_HiddenInput = null, _element_Mode_DatePicker_Enabled = false, _element_Mode_DatePicker_Visible = false, _element_Mode_DatePicker_OriginalTop = null, _element_View_Name = {fullMonth:"full-month", fullDay:"full-day", fullWeek:"full-week", fullYear:"full-year", timeline:"timeline", allEvents:"all-events"}, _element_View_Opened = [], _element_View_LastZIndex = 0, _element_View_Event_Dragged = 
+  null, _element_View_Event_Dragged_OffsetTop = null, _element_View_Event_Dragged_EventDetails = null, _element_View_Event_Dragged_ClickOffset = null, _element_View_Event_Dragged_FromDate = null, _element_Calendar = null, _element_Calendar_DisabledBackground = null, _element_Calendar_FullScreenModeOn = false, _element_Calendar_FullScreenModeCachedStyled = null, _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [], _element_View_FullDay = null, _element_View_FullDay_TitleBar = null, _element_View_FullDay_Contents = 
+  null, _element_View_FullDay_Contents_AllDayEvents = null, _element_View_FullDay_Contents_Hours = null, _element_View_FullDay_Contents_WorkingHours = null, _element_View_FullDay_DateSelected = null, _element_View_FullDay_EventsShown = [], _element_View_FullDay_FullScreenButton = null, _element_View_FullDay_TodayButton = null, _element_View_FullDay_TimeArrow = null, _element_View_FullDay_SearchButton = null, _element_View_FullDay_Events_Dragged_Sizes = [], _element_View_FullWeek = null, _element_View_FullWeek_TitleBar = 
+  null, _element_View_FullWeek_FullScreenButton = null, _element_View_FullWeek_SearchButton = null, _element_View_FullWeek_Contents = null, _element_View_FullWeek_Contents_DayNamesHeader = null, _element_View_FullWeek_Contents_AllDayEvents = null, _element_View_FullWeek_Contents_Hours = null, _element_View_FullWeek_Contents_Days_AllDay = null, _element_View_FullWeek_Contents_Days = null, _element_View_FullWeek_EventsShown = [], _element_View_FullWeek_EventsShown_PerDay = {}, _element_View_FullWeek_DateSelected = 
+  null, _element_View_FullWeek_DateSelected_StartOfWeek = null, _element_View_FullWeek_TimeArrow = null, _element_View_FullWeek_AllDayEventsAdded = false, _element_View_FullWeek_TimeArrow_Position = null, _element_View_FullWeek_Contents_SmallestEventTop = 0, _element_View_FullWeek_Events_Dragged_Sizes = [], _element_View_FullMonth = null, _element_View_FullMonth_Rows = [], _element_View_FullMonth_TitleBar = null, _element_View_FullMonth_TitleBar_YearSelector_DropDown = null, _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text = 
+  null, _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow = null, _element_View_FullMonth_TitleBar_YearSelector = null, _element_View_FullMonth_TitleBar_YearSelector_Contents = null, _element_View_FullMonth_TitleBar_YearSelector_Contents_Months = {}, _element_View_FullMonth_TitleBar_FullScreenButton = null, _element_View_FullMonth_TitleBar_SearchButton = null, _element_View_FullMonth_PinUp = null, _element_View_FullMonth_PinUp_ImageIndex = 0, _element_View_FullMonth_PinUp_CurrentDate = 
+  null, _element_View_FullMonth_DayNamesHeader = null, _element_View_FullMonth_EventsShown = [], _element_View_FullMonth_LargestDateAvailable = null, _element_View_FullYear = null, _element_View_FullYear_FullScreenButton = null, _element_View_FullYear_TitleBar = null, _element_View_FullYear_Contents = null, _element_View_FullYear_CurrentYear = null, _element_View_FullYear_Contents_CurrentMonthTop = 0, _element_View_AllEvents = null, _element_View_AllEvents_FullScreenButton = null, _element_View_AllEvents_SearchButton = 
+  null, _element_View_AllEvents_Contents = null, _element_View_AllEvents_EventsShown = [], _element_View_AllEvents_MinimizeRestoreFunctions = [], _element_View_AllEvents_YearHeadersAdded = [], _element_View_Timeline = null, _element_View_Timeline_FullScreenButton = null, _element_View_Timeline_SearchButton = null, _element_View_Timeline_TodayButton = null, _element_View_Timeline_Contents = null, _element_View_Timeline_Contents_Header = null, _element_View_Timeline_Contents_SmallestEventLeft = null, 
+  _element_View_Timeline_Contents_SmallestEventTop = null, _element_View_Timeline_Contents_Groups_Rows_Cache = {}, _element_View_Timeline_Contents_Columns = [], _element_View_Timeline_EventsShown = [], _element_View_Timeline_DateSelected = null, _element_View_Timeline_TitleBar = null, _element_View_Timeline_Selected_Axis = null, _element_View_Timeline_Selected_Axis_Supported = ["location", "organizerName", "group", "organizerEmailAddress", "url", "title", "description"], _element_Dialog_AllOpened = 
+  [], _element_Dialog_Move = null, _element_Dialog_Move_Original_X = 0, _element_Dialog_Move_Original_Y = 0, _element_Dialog_Move_IsMoving = false, _element_Dialog_Move_X = 0, _element_Dialog_Move_Y = 0, _element_Dialog_EventEditor = null, _element_Dialog_EventEditor_Tab_Event = null, _element_Dialog_EventEditor_Tab_Type = null, _element_Dialog_EventEditor_Tab_Repeats = null, _element_Dialog_EventEditor_Tab_Extra = null, _element_Dialog_EventEditor_DisabledArea = null, _element_Dialog_EventEditor_TitleBar = 
+  null, _element_Dialog_EventEditor_DateFrom = null, _element_Dialog_EventEditor_TimeFrom = null, _element_Dialog_EventEditor_DateTo = null, _element_Dialog_EventEditor_TimeTo = null, _element_Dialog_EventEditor_IsAllDay = null, _element_Dialog_EventEditor_ShowAlerts = null, _element_Dialog_EventEditor_ShowAsBusy = null, _element_Dialog_EventEditor_Title = null, _element_Dialog_EventEditor_SelectColors = null, _element_Dialog_EventEditor_Description = null, _element_Dialog_EventEditor_Location = 
+  null, _element_Dialog_EventEditor_Group = null, _element_Dialog_EventEditor_Url = null, _element_Dialog_EventEditor_RepeatEvery_Never = null, _element_Dialog_EventEditor_RepeatEvery_EveryDay = null, _element_Dialog_EventEditor_RepeatEvery_EveryWeek = null, _element_Dialog_EventEditor_RepeatEvery_Every2Weeks = null, _element_Dialog_EventEditor_RepeatEvery_EveryMonth = null, _element_Dialog_EventEditor_RepeatEvery_EveryYear = null, _element_Dialog_EventEditor_RepeatEvery_Custom = null, _element_Dialog_EventEditor_RepeatEvery_RepeatOptionsButton = 
+  null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Daily = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Weekly = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Monthly = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Type_Yearly = null, _element_Dialog_EventEditor_RepeatEvery_Custom_Value = null, _element_Dialog_EventEditor_EventDetails = {}, _element_Dialog_EventEditor_AddUpdateButton = null, _element_Dialog_EventEditor_RemoveButton = null, _element_Dialog_EventEditor_AlertOffset = 
+  null, _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarning = null, _element_Dialog_EventEditor_ShowEditingRepeatSeriesWarningDate = null, _element_Dialog_EventEditor_Colors = null, _element_Dialog_EventEditor_Colors_Color = null, _element_Dialog_EventEditor_Colors_ColorText = null, _element_Dialog_EventEditor_Colors_ColorBorder = null, _element_Dialog_EventEditor_RepeatOptions = null, _element_Dialog_EventEditor_RepeatOptions_Mon = null, _element_Dialog_EventEditor_RepeatOptions_Tue = null, 
+  _element_Dialog_EventEditor_RepeatOptions_Wed = null, _element_Dialog_EventEditor_RepeatOptions_Thu = null, _element_Dialog_EventEditor_RepeatOptions_Fri = null, _element_Dialog_EventEditor_RepeatOptions_Sat = null, _element_Dialog_EventEditor_RepeatOptions_Sun = null, _element_Dialog_EventEditor_RepeatOptions_RepeatEnds = null, _element_Dialog_Message = null, _element_Dialog_Message_TitleBar = null, _element_Dialog_Message_Message = null, _element_Dialog_Message_RemoveAllEvents = null, _element_Dialog_Message_RemoveAllEvents_Label = 
+  null, _element_Dialog_Message_ButtonContainer = null, _element_Dialog_ExportEvents = null, _element_Dialog_ExportEvents_Filename = null, _element_Dialog_ExportEvents_Option_CSV = null, _element_Dialog_ExportEvents_Option_XML = null, _element_Dialog_ExportEvents_Option_JSON = null, _element_Dialog_ExportEvents_Option_TEXT = null, _element_Dialog_ExportEvents_Option_iCAL = null, _element_Dialog_ExportEvents_Option_MD = null, _element_Dialog_ExportEvents_Option_HTML = null, _element_Dialog_ExportEvents_Option_TSV = 
+  null, _element_Dialog_ExportEvents_ExportEvents = null, _element_Dialog_ExportEvents_Option_ExportEventsToClipboard = null, _element_Dialog_ExportEvents_Options = null, _element_Dialog_Search = null, _element_Dialog_Search_MinimizedRestoreButton = null, _element_Dialog_Search_Contents = null, _element_Dialog_Search_For = null, _element_Dialog_Search_MatchCase = null, _element_Dialog_Search_Not = null, _element_Dialog_Search_Advanced = null, _element_Dialog_Search_Advanced_Container = null, _element_Dialog_Search_Include_Title = 
+  null, _element_Dialog_Search_Include_Location = null, _element_Dialog_Search_Include_Description = null, _element_Dialog_Search_Include_Group = null, _element_Dialog_Search_Include_Url = null, _element_Dialog_Search_Option_StartsWith = null, _element_Dialog_Search_Option_EndsWith = null, _element_Dialog_Search_Option_Contains = null, _element_Dialog_Search_Previous = null, _element_Dialog_Search_Next = null, _element_Dialog_Search_Moved = false, _element_Dialog_Search_SearchResults = [], _element_Dialog_Search_SearchIndex = 
+  0, _element_Dialog_Search_FocusedEventID = null, _element_Dialog_Search_History_DropDown = null, _element_Dialog_Search_History_DropDown_Button = null, _element_Dialog_Configuration = null, _element_Dialog_Configuration_Display = null, _element_Dialog_Configuration_Organizer = null, _element_Dialog_Configuration_Display_EnableAutoRefresh = null, _element_Dialog_Configuration_Display_EnableBrowserNotifications = null, _element_Dialog_Configuration_Display_EnableTooltips = null, _element_Dialog_Configuration_Display_EnableDragAndDropForEvents = 
+  null, _element_Dialog_Configuration_Display_ShowHolidaysInTheDisplays = null, _element_Dialog_Configuration_Organizer_Name = null, _element_Dialog_Configuration_Organizer_Email = null, _element_Dialog_JumpToDate = null, _element_Dialog_JumpToDate_Date = null, _element_ContextMenu_Day = null, _element_ContextMenu_Day_Paste_Separator = null, _element_ContextMenu_Day_Paste = null, _element_ContextMenu_Day_DateSelected = null, _element_ContextMenu_Event = null, _element_ContextMenu_Event_EventDetails = 
+  null, _element_ContextMenu_Event_DateSelected = null, _element_ContextMenu_Event_FormattedDateSelected = null, _element_ContextMenu_Event_OpenUrlSeparator = null, _element_ContextMenu_Event_OpenUrl = null, _element_ContextMenu_Event_DuplicateSeparator = null, _element_ContextMenu_Event_Duplicate = null, _element_ContextMenu_Event_EditEvent = null, _element_ContextMenu_Event_CutSeparator = null, _element_ContextMenu_Event_Cut = null, _element_ContextMenu_Event_CopySeparator = null, _element_ContextMenu_Event_Copy = 
+  null, _element_ContextMenu_Event_RemoveSeparator = null, _element_ContextMenu_Event_Remove = null, _element_ContextMenu_Event_ExportEventsSeparator = null, _element_ContextMenu_Event_ExportEvents = null, _element_ContextMenu_FullDay = null, _element_ContextMenu_FullDay_RemoveEvents_Separator = null, _element_ContextMenu_FullDay_RemoveEvents = null, _element_ContextMenu_FullDay_Paste_Separator = null, _element_ContextMenu_FullDay_Paste = null, _element_ContextMenu_FullDay_ClickPositionHourMinutes = 
+  null, _element_ContextMenu_FullDay_DateSelected = null, _element_ContextMenu_HeaderDay = null, _element_ContextMenu_HeaderDay_HideDay = null, _element_ContextMenu_HeaderDay_HideDay_Separator = null, _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays = null, _element_ContextMenu_HeaderDay_ShowOnlyWorkingDays_Separator = null, _element_ContextMenu_HeaderDay_SelectedDay = null, _element_Tooltip = null, _element_Tooltip_TitleButtons = null, _element_Tooltip_TitleButtons_CloseButton = null, _element_Tooltip_TitleButtons_EditButton = 
+  null, _element_Tooltip_Title = null, _element_Tooltip_Date = null, _element_Tooltip_TotalTime = null, _element_Tooltip_Repeats = null, _element_Tooltip_Description = null, _element_Tooltip_Location = null, _element_Tooltip_Url = null, _element_Tooltip_EventDetails = null, _element_Notification = null;
   function build(newStartDateTime, fullRebuild, forceRefreshViews) {
     _calendar_CurrentDate = isDefinedDate(newStartDateTime) ? newStartDateTime : new Date();
     fullRebuild = isDefined(fullRebuild) ? fullRebuild : false;
@@ -88,15 +88,15 @@ export function calendarJs(elementOrId, options, searchOptions) {
     if (_element_Calendar !== null) {
       setFullMonthViewYearDropDownButtonText();
       if (firstRender && isDefinedString(_options.viewToOpenOnFirstLoad)) {
-        if (_options.viewToOpenOnFirstLoad.toLowerCase() === "full-day") {
+        if (_options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.fullDay) {
           showFullDayView();
-        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "full-week") {
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.fullWeek) {
           showFullWeekView();
-        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "full-year") {
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.fullYear) {
           showFullYearView();
-        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "timeline") {
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.timeline) {
           showTimelineView();
-        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === "all-events") {
+        } else if (_options.viewToOpenOnFirstLoad.toLowerCase() === _element_View_Name.allEvents) {
           showAllEventsView();
         }
       }
@@ -121,8 +121,8 @@ export function calendarJs(elementOrId, options, searchOptions) {
     buildWidgetMode();
   }
   function buildLayoutEventsFromSources() {
-    if (isDefinedArray(_options.events)) {
-      _this.addEvents(_options.events, false, false, false);
+    if (isDefinedArray(_options.data)) {
+      _that.addEvents(_options.data, false, false, false);
     }
     loadEventsFromLocalStorage();
     loadEventsToAddOrUpdateFromFetchTrigger();
@@ -130,7 +130,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   function buildLayoutTriggerRenderComplete() {
     _initialized = true;
     if (!_initialized_FirstTime) {
-      fireCustomTrigger("onRender", _parameter_ElementID);
+      fireCustomTrigger(_options.events.onRender, _parameter_ElementID);
       _initialized_FirstTime = true;
     }
   }
@@ -154,6 +154,12 @@ export function calendarJs(elementOrId, options, searchOptions) {
           _element_Calendar = element;
           _element_Calendar.className = !isWidget ? "calendar" : "calendar-widget";
           _element_Calendar.innerHTML = _string.empty;
+          var height = getStyleValueByName(_element_Calendar, "height");
+          if (height >= 100) {
+            _element_Calendar.className += _string.space + "fixed-height";
+          } else {
+            _element_Calendar.style.removeProperty("height");
+          }
         }
       }
     }
@@ -307,7 +313,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
         if (!areArraysTheSame(_options_Configuration.visibleGroups, visibleGroups)) {
           _options_Configuration.visibleGroups = [].slice.call(visibleGroups);
           itemWasChanged = true;
-          fireCustomTrigger("onVisibleGroupsChanged", _options_Configuration.visibleGroups);
+          fireCustomTrigger(_options.events.onVisibleGroupsChanged, _options_Configuration.visibleGroups);
         }
       }
       if (_element_SideMenu_Content_Section_EventTypes !== null) {
@@ -315,7 +321,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
         if (!areArraysTheSame(_options_Configuration.visibleEventTypes, visibleEventTypes)) {
           _options_Configuration.visibleEventTypes = [].slice.call(visibleEventTypes);
           itemWasChanged = true;
-          fireCustomTrigger("onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes);
+          fireCustomTrigger(_options.events.onVisibleEventTypesChanged, _options_Configuration.visibleEventTypes);
         }
       }
       if (_element_SideMenu_Content_Section_Days !== null) {
@@ -345,7 +351,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       }
       if (itemWasChanged) {
         if (fireOptionsCustomTrigger) {
-          fireCustomTrigger("onOptionsUpdated", _options);
+          fireCustomTrigger(_options.events.onOptionsUpdated, _options);
         }
         _initialized = false;
         build(_calendar_CurrentDate, true, true);
@@ -594,7 +600,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     event.setAttribute("event-type", getNumber(eventDetails.type));
     event.setAttribute("event-id", eventDetails.id);
     event.setAttribute("event-is-all-day", eventDetails.isAllDay);
-    if (!fireCustomTrigger("onWidgetEventRender", event, eventDetails)) {
+    if (!fireCustomTrigger(_options.events.onWidgetEventRender, event, eventDetails)) {
       var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
       if (repeatEvery > _enum_RepeatType.never) {
         var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
@@ -698,12 +704,12 @@ export function calendarJs(elementOrId, options, searchOptions) {
     if (!_element_Mode_DatePicker_Visible) {
       _element_Calendar.className = "calendar calendar-shown";
       build(new Date(_calendar_CurrentDate_ForDatePicker), !_initialized);
-      fireCustomTrigger("onDatePickerOpened", _parameter_ElementID);
+      fireCustomTrigger(_options.events.onDatePickerOpened, _parameter_ElementID);
       updateDatePickerPosition();
     } else {
       _element_Calendar.className = "calendar calendar-hidden";
       hideAllDropDowns();
-      fireCustomTrigger("onDatePickerClosed", _parameter_ElementID);
+      fireCustomTrigger(_options.events.onDatePickerClosed, _parameter_ElementID);
     }
     _element_Mode_DatePicker_Visible = !_element_Mode_DatePicker_Visible;
   }
@@ -716,7 +722,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _element_Calendar.style.top = actualTop + "px";
     var offset = getOffset(_element_Calendar), scrollPosition = getScrollPosition(), top = offset.top - scrollPosition.top;
     if (top + _element_Calendar.offsetHeight > _parameter_Window.innerHeight) {
-      var calendarBorderWidth = parseFloat(getStyleValueByName(_element_Calendar, "border-width"), 10), inputBorderWidth = parseFloat(getStyleValueByName(_element_Mode_DatePicker_Input, "border-width"), 10);
+      var calendarBorderWidth = getStyleValueByName(_element_Calendar, "border-width"), inputBorderWidth = getStyleValueByName(_element_Mode_DatePicker_Input, "border-width");
       actualTop -= _element_Calendar.offsetHeight + _element_Mode_DatePicker_Input.clientHeight + calendarBorderWidth * 4 + inputBorderWidth * 2;
       _element_Calendar.className += " calendar-shadow-top";
       _element_Calendar.style.top = actualTop + "px";
@@ -729,7 +735,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       _element_Calendar.className = "calendar calendar-hidden";
       _element_Mode_DatePicker_Visible = false;
       hideAllDropDowns();
-      fireCustomTrigger("onDatePickerClosed", _parameter_ElementID);
+      fireCustomTrigger(_options.events.onDatePickerClosed, _parameter_ElementID);
     }
   }
   function setDatePickerDate(e, date) {
@@ -739,7 +745,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       newDate.setHours(0, 0, 0, 0);
       hideDatePickerMode();
       updateDatePickerInputValueDisplay(date);
-      fireCustomTrigger("onDatePickerDateChanged", newDate);
+      fireCustomTrigger(_options.events.onDatePickerDateChanged, newDate);
       _calendar_CurrentDate_ForDatePicker = newDate;
     } else {
       hideAllDropDowns();
@@ -1222,7 +1228,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       if (doDatesMatch(eventDetails.from, displayDate)) {
         event.id = _element_ID_Event_FullDay + eventDetails.id;
       }
-      if (!fireCustomTrigger("onFullDayEventRender", event, eventDetails)) {
+      if (!fireCustomTrigger(_options.events.onFullDayEventRender, event, eventDetails)) {
         var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
         if (repeatEvery > _enum_RepeatType.never) {
           var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
@@ -1287,7 +1293,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _element_View_FullDay_TimeArrow.appendChild(createElement("div", "line"));
   }
   function buildFullDayViewTitle() {
-    if (!fireCustomTrigger("onFullDayTitleRender", _element_View_FullDay_DateSelected)) {
+    if (!fireCustomTrigger(_options.events.onFullDayTitleRender, _element_View_FullDay_DateSelected)) {
       buildDateTimeDisplay(_element_View_FullDay_TitleBar, _element_View_FullDay_DateSelected, false, true, true);
     }
   }
@@ -1596,7 +1602,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   }
   function buildFullWeekViewTitle(weekStartDate, weekEndDate) {
     _element_View_FullWeek_TitleBar.innerHTML = _string.empty;
-    if (!fireCustomTrigger("onFullWeekTitleRender", weekStartDate, weekEndDate)) {
+    if (!fireCustomTrigger(_options.events.onFullWeekTitleRender, weekStartDate, weekEndDate)) {
       if (_options.views.fullWeek.showWeekNumbersInTitles) {
         createSpanElement(_element_View_FullWeek_TitleBar, _options.weekText + _string.space + getWeekNumber(weekStartDate) + ": ");
       }
@@ -1679,7 +1685,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       if (doDatesMatch(eventDetails.from, actualDisplayDate)) {
         event.id = _element_ID_Event_WeekDay + eventDetails.id;
       }
-      if (!fireCustomTrigger("onFullWeekEventRender", event, eventDetails)) {
+      if (!fireCustomTrigger(_options.events.onFullWeekEventRender, event, eventDetails)) {
         var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
         if (repeatEvery > _enum_RepeatType.never) {
           var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
@@ -2033,7 +2039,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildFullMonthViewPinUpImageText() {
-    if (!_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null && !fireCustomTrigger("onFullMonthPinUpRender", _element_View_FullMonth_PinUp, _calendar_CurrentDate)) {
+    if (!_element_Mode_DatePicker_Enabled && _element_View_FullMonth_PinUp !== null && !fireCustomTrigger(_options.events.onFullMonthPinUpRender, _element_View_FullMonth_PinUp, _calendar_CurrentDate)) {
       var currentDate = new Date();
       if (_element_View_FullMonth_PinUp_CurrentDate === null || !doDatesMatch(_element_View_FullMonth_PinUp_CurrentDate, currentDate)) {
         _element_View_FullMonth_PinUp.innerHTML = _string.empty;
@@ -2171,7 +2177,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       cancelBubble(e);
       if (_calendar_CurrentDate.getMonth() !== monthNumber) {
         _calendar_CurrentDate.setMonth(monthNumber);
-        fireCustomTrigger("onSetDate", _calendar_CurrentDate);
+        fireCustomTrigger(_options.events.onSetDate, _calendar_CurrentDate);
         build(_calendar_CurrentDate);
         hideFullMonthViewYearDropDown();
         buildFullMonthViewPinUpImage();
@@ -2192,7 +2198,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       cancelBubble(e);
       if (_calendar_CurrentDate.getFullYear() !== actualYear) {
         _calendar_CurrentDate.setFullYear(actualYear);
-        fireCustomTrigger("onSetDate", _calendar_CurrentDate);
+        fireCustomTrigger(_options.events.onSetDate, _calendar_CurrentDate);
         build(_calendar_CurrentDate);
         hideFullMonthViewYearDropDown();
         buildFullMonthViewPinUpImage();
@@ -2499,7 +2505,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
             event.setAttribute("event-id", eventDetails.id);
             event.setAttribute("event-is-all-day", eventDetails.isAllDay);
             if (!_options.views.fullMonth.useOnlyDotEvents) {
-              if (!fireCustomTrigger("onFullMonthEventRender", event, eventDetails)) {
+              if (!fireCustomTrigger(_options.events.onFullMonthEventRender, event, eventDetails)) {
                 var eventTitle = eventDetails.title, repeatEvery = getNumber(eventDetails.repeatEvery);
                 if (_options.views.fullMonth.showTimesInEvents && !eventDetails.isAllDay && eventDetails.from.getDate() === eventDetails.to.getDate()) {
                   eventTitle = getTimeToTimeDisplay(eventDetails.from, eventDetails.to) + ": " + eventTitle;
@@ -2605,7 +2611,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   function updateCalendarsLastBusyState() {
     if (_calendar_IsBusy_LastState !== _calendar_IsBusy) {
       _calendar_IsBusy_LastState = _calendar_IsBusy;
-      fireCustomTrigger("onBusyStateChange", _calendar_IsBusy);
+      fireCustomTrigger(_options.events.onBusyStateChange, _calendar_IsBusy);
     }
   }
   function updateDateTotalEventsTracked(formattedNewFromDate, eventId) {
@@ -2913,7 +2919,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       event.setAttribute("event-type", getNumber(eventDetails.type));
       event.setAttribute("event-id", eventDetails.id);
       event.setAttribute("event-is-all-day", eventDetails.isAllDay);
-      if (!fireCustomTrigger("onAllEventsEventRender", event, eventDetails)) {
+      if (!fireCustomTrigger(_options.events.onAllEventsEventRender, event, eventDetails)) {
         var title = createElement("div", "title"), repeatEvery = getNumber(eventDetails.repeatEvery);
         if (repeatEvery > _enum_RepeatType.never) {
           var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
@@ -3171,7 +3177,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       _element_View_Timeline_Contents.appendChild(newColumn1);
       if (actualWidth === 0) {
         var borderWidth = getStyleValueByName(newColumn1, "border-right-width");
-        actualWidth = newColumn1.clientWidth + parseFloat(borderWidth, 10);
+        actualWidth = newColumn1.clientWidth + borderWidth;
       }
       offsetLeft += actualWidth;
       var newColumn2 = createElement("div", "timeline-column");
@@ -3239,7 +3245,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     event.setAttribute("event-id", eventDetails.id);
     event.setAttribute("event-is-all-day", eventDetails.isAllDay);
     timelineRowItems.appendChild(event);
-    if (!fireCustomTrigger("onTimelineEventRender", event, eventDetails)) {
+    if (!fireCustomTrigger(_options.events.onTimelineEventRender, event, eventDetails)) {
       var repeatEvery = getNumber(eventDetails.repeatEvery);
       if (repeatEvery > _enum_RepeatType.never) {
         var icon = createElement("div", "ib-refresh-medium ib-no-hover ib-no-active");
@@ -3277,14 +3283,14 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function buildTimelineViewTitle() {
-    if (!fireCustomTrigger("onTimelineTitleRender", _element_View_FullDay_DateSelected)) {
+    if (!fireCustomTrigger(_options.events.onTimelineTitleRender, _element_View_FullDay_DateSelected)) {
       buildDateTimeDisplay(_element_View_Timeline_TitleBar, _element_View_Timeline_DateSelected, false, true, true);
     }
   }
   function showTimelineView(date, fromOpen) {
     date = isDefined(date) ? new Date(date) : new Date();
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
-    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > _value.notFound, orderedEvents = [];
+    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > _value.notFound, orderedEvents = [], scrollLeft = _element_View_Timeline_Contents.scrollLeft, scrollTop = _element_View_Timeline_Contents.scrollTop;
     _element_View_Timeline_TitleBar.innerHTML = _string.empty;
     _element_View_Timeline_Contents.innerHTML = _string.empty;
     _element_View_Timeline_EventsShown = [];
@@ -3306,6 +3312,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
     if (fromOpen) {
       _element_View_Timeline_Contents.scrollLeft = _element_View_Timeline_Contents_SmallestEventLeft;
       _element_View_Timeline_Contents.scrollTop = _element_View_Timeline_Contents_SmallestEventTop;
+    } else {
+      _element_View_Timeline_Contents.scrollLeft = scrollLeft;
+      _element_View_Timeline_Contents.scrollTop = scrollTop;
     }
     updateToolbarButtonVisibleState(_element_View_Timeline_SearchButton, _element_View_Timeline_EventsShown.length > 0);
   }
@@ -3378,6 +3387,8 @@ export function calendarJs(elementOrId, options, searchOptions) {
       result = _options.urlText;
     } else if (_element_View_Timeline_Selected_Axis === "title") {
       result = _options.titleText;
+    } else if (_element_View_Timeline_Selected_Axis === "description") {
+      result = _options.descriptionText;
     }
     return result;
   }
@@ -3535,7 +3546,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
               }
               buildFullMonthViewDayEvents();
             } else {
-              _this.removeEvent(_element_ContextMenu_Event_EventDetails.id, true);
+              _that.removeEvent(_element_ContextMenu_Event_EventDetails.id, true);
               showNotificationPopUp(_options.eventRemovedText.replace("{0}", _element_ContextMenu_Event_EventDetails.title));
             }
             refreshOpenedViews();
@@ -3708,7 +3719,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       _element_ContextMenu_HeaderDay_HideDay = buildContextMenuItemWithIcon(_element_ContextMenu_HeaderDay, "ib-close-icon", _options.hideDayText, function() {
         _options.visibleDays.splice(_options.visibleDays.indexOf(_element_ContextMenu_HeaderDay_SelectedDay), 1);
         _initialized = false;
-        fireCustomTrigger("onOptionsUpdated", _options);
+        fireCustomTrigger(_options.events.onOptionsUpdated, _options);
         build(_calendar_CurrentDate, true, true);
       }, true);
       _element_ContextMenu_HeaderDay_HideDay_Separator = buildContextMenuSeparator(_element_ContextMenu_HeaderDay);
@@ -3716,7 +3727,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
         if (_options.workingDays.length >= 1) {
           _options.visibleDays = [].slice.call(_options.workingDays);
           _initialized = false;
-          fireCustomTrigger("onOptionsUpdated", _options);
+          fireCustomTrigger(_options.events.onOptionsUpdated, _options);
           build(_calendar_CurrentDate, true, true);
         }
       });
@@ -3964,7 +3975,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   }
   function showEventEditingDialog(eventDetails, overrideTodayDate, overrideTimeValues, originDayDate) {
     if (isFunction(_options.onBeforeEventAddEdit)) {
-      fireCustomTrigger("onBeforeEventAddEdit", eventDetails);
+      fireCustomTrigger(_options.events.onBeforeEventAddEdit, eventDetails);
     } else {
       addNode(_parameter_Document.body, _element_Calendar_DisabledBackground);
       selectTab(_element_Dialog_EventEditor);
@@ -4188,10 +4199,10 @@ export function calendarJs(elementOrId, options, searchOptions) {
               newEvent.id = newId;
             }
             if (isExistingEvent) {
-              _this.updateEvent(newId, newEvent, false);
+              _that.updateEvent(newId, newEvent, false);
               showNotificationPopUp(_options.eventUpdatedText.replace("{0}", _element_Dialog_EventEditor_EventDetails.title));
             } else {
-              _this.addEvent(newEvent, false);
+              _that.addEvent(newEvent, false);
               showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
             }
             if (_options.isWidget) {
@@ -4243,7 +4254,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       onNoEvent();
       eventDialogEvent_Cancel();
       if (isDefined(_element_Dialog_EventEditor_EventDetails.id)) {
-        _this.removeEvent(_element_Dialog_EventEditor_EventDetails.id, true);
+        _that.removeEvent(_element_Dialog_EventEditor_EventDetails.id, true);
         if (_options.isWidget) {
           build(_calendar_CurrentDate);
         } else {
@@ -4269,7 +4280,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     toDate = addMinutesToDate(toDate, _options.defaultEventDuration);
     var newEvent = {from:fromDate, to:toDate, title:_options.newEventDefaultTitle, description:_string.empty, location:_string.empty, group:_string.empty, isAllDay:false, showAlerts:true, showAsBusy:true, color:_options.defaultEventBackgroundColor, colorText:_options.defaultEventTextColor, colorBorder:_options.defaultEventBorderColor, repeatEveryExcludeDays:[], repeatEnds:null, url:_string.empty, repeatEveryCustomValue:_string.empty, repeatEvery:_enum_RepeatType.never, repeatEveryCustomType:_enum_RepeatCustomType.daily, 
     organizerName:_string.empty, organizerEmailAddress:_string.empty, type:0, locked:false, customTags:null, alertOffset:0};
-    _this.addEvent(newEvent, false);
+    _that.addEvent(newEvent, false);
     showNotificationPopUp(_options.eventAddedText.replace("{0}", newEvent.title));
     buildFullMonthViewDayEvents();
     refreshOpenedViews();
@@ -4889,7 +4900,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
           _options_Search.left = _element_Dialog_Search.offsetLeft;
           _options_Search.top = _element_Dialog_Search.offsetTop;
         }
-        fireCustomTrigger("onSearchOptionsUpdated", _options_Search);
+        fireCustomTrigger(_options.events.onSearchOptionsUpdated, _options_Search);
       }
     }, 2000, false);
   }
@@ -5039,9 +5050,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
   }
   function configurationDialogEvent_OK() {
     if (_element_Dialog_Configuration_Display_EnableAutoRefresh.checked) {
-      _this.startTheAutoRefreshTimer();
+      _that.startTheAutoRefreshTimer();
     } else {
-      _this.stopTheAutoRefreshTimer();
+      _that.stopTheAutoRefreshTimer();
     }
     _options.eventNotificationsEnabled = _element_Dialog_Configuration_Display_EnableBrowserNotifications.checked;
     _options.tooltipsEnabled = _element_Dialog_Configuration_Display_EnableTooltips.checked;
@@ -5050,7 +5061,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _options.organizerName = _element_Dialog_Configuration_Organizer_Name.value;
     _options.organizerEmailAddress = _element_Dialog_Configuration_Organizer_Email.value;
     _initialized = false;
-    fireCustomTrigger("onOptionsUpdated", _options);
+    fireCustomTrigger(_options.events.onOptionsUpdated, _options);
     checkForBrowserNotificationsPermission();
     hideConfigurationDialog();
     build(_calendar_CurrentDate, true, true);
@@ -5134,7 +5145,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   function setDefaultJumpToDate() {
     var viewOpen = getActiveView();
     if (viewOpen === null) {
-      fireCustomTrigger("onSetDate", _element_Dialog_JumpToDate_Date);
+      fireCustomTrigger(_options.events.onSetDate, _element_Dialog_JumpToDate_Date);
       setSelectedDate(_calendar_CurrentDate, _element_Dialog_JumpToDate_Date);
     } else {
       if (viewOpen === _element_View_FullDay) {
@@ -5198,18 +5209,20 @@ export function calendarJs(elementOrId, options, searchOptions) {
     hideTooltip();
     overrideShow = isDefined(overrideShow) ? overrideShow : false;
     if (_element_Tooltip.style.display !== "block" && _options.tooltipsEnabled) {
+      var toolTipDelay = isDefinedString(text) ? _options.tooltipDelay : _options.eventTooltipDelay;
       startTimer(_timer_Name.showToolTip, function() {
         if (overrideShow || !isDisabledBackgroundDisplayed() && !isFullMonthViewYearDropDownVisible() && !areContextMenusVisible() && _events_Dragged === null) {
           text = isDefined(text) ? text : _string.empty;
           _element_Tooltip.className = text === _string.empty ? "calendar-tooltip-event" : "calendar-tooltip";
-          if (text !== _string.empty) {
+          if (isDefinedString(text)) {
             setNodeText(_element_Tooltip, text);
           } else {
             _element_Tooltip_EventDetails = eventDetails;
             _element_Tooltip.innerHTML = _string.empty;
             _element_Tooltip_Title.innerHTML = _string.empty;
             _element_Tooltip_TotalTime.innerHTML = _string.empty;
-            if (!fireCustomTrigger("onToolTipEventRender", _element_Tooltip, eventDetails)) {
+            _element_Tooltip_Url.innerHTML = _string.empty;
+            if (!fireCustomTrigger(_options.events.onToolTipEventRender, _element_Tooltip, eventDetails)) {
               _element_Tooltip.onmousemove = cancelBubble;
               _element_Tooltip.appendChild(_element_Tooltip_TitleButtons);
               _element_Tooltip.appendChild(_element_Tooltip_Title);
@@ -5217,9 +5230,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
               _element_Tooltip.appendChild(_element_Tooltip_TotalTime);
               updateToolbarButtonVisibleState(_element_Tooltip_TitleButtons_EditButton, _options.manualEditingEnabled);
               if (isDefinedStringAndSet(eventDetails.url)) {
-                setNodeText(_element_Tooltip_Url, getShortUrlString(eventDetails.url));
+                var urlText = createSpanElement(_element_Tooltip_Url, getShortUrlString(eventDetails.url), "url-text");
                 addNode(_element_Tooltip, _element_Tooltip_Url);
-                _element_Tooltip_Url.onclick = function(e) {
+                urlText.onclick = function(e) {
                   cancelBubble(e);
                   openEventUrl(eventDetails.url);
                   hideTooltip();
@@ -5275,7 +5288,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
           }
           showElementAtMousePosition(e, _element_Tooltip);
         }
-      }, _options.tooltipDelay, false);
+      }, toolTipDelay, false);
     }
   }
   function hideTooltip() {
@@ -5379,14 +5392,14 @@ export function calendarJs(elementOrId, options, searchOptions) {
       }
       if (updateDisplay) {
         _initialized = false;
-        fireCustomTrigger("onOptionsUpdated", _options);
+        fireCustomTrigger(_options.events.onOptionsUpdated, _options);
         build(_calendar_CurrentDate, true, true);
       }
     }
   }
   function showView(element) {
     if (getActiveView() !== element) {
-      removeViewOpened(element);
+      removeViewOpened(element, false);
       _element_View_Opened.push(element);
       _element_View_LastZIndex++;
       if (!isViewVisible(element)) {
@@ -5394,18 +5407,20 @@ export function calendarJs(elementOrId, options, searchOptions) {
       }
       element.style.zIndex = _element_View_LastZIndex;
       hideSearchDialog();
+      fireViewChangeCustomTrigger();
     }
   }
-  function hideView(element) {
+  function hideView(element, triggerCustomTrigger) {
     if (isViewVisible(element)) {
       element.className = element.className.replace(" view-shown", _string.empty);
-      removeViewOpened(element);
+      removeViewOpened(element, triggerCustomTrigger);
       if (_element_View_Opened.length === 0) {
         _element_View_LastZIndex = 0;
       }
     }
   }
-  function removeViewOpened(element) {
+  function removeViewOpened(element, triggerCustomTrigger) {
+    triggerCustomTrigger = isDefined(triggerCustomTrigger) ? triggerCustomTrigger : true;
     var viewsOpened = [], viewsOpenedLength = _element_View_Opened.length;
     for (var viewOpenedIndex = 0; viewOpenedIndex < viewsOpenedLength; viewOpenedIndex++) {
       var view = _element_View_Opened[viewOpenedIndex];
@@ -5414,15 +5429,22 @@ export function calendarJs(elementOrId, options, searchOptions) {
       }
     }
     _element_View_Opened = [].slice.call(viewsOpened);
+    if (triggerCustomTrigger) {
+      fireViewChangeCustomTrigger();
+    }
   }
   function isViewVisible(element) {
     return isDefined(element) && element.className && element.className.indexOf("view-shown") > _value.notFound;
   }
-  function closeLastViewOpened() {
+  function closeLastViewOpened(triggerCustomTrigger) {
+    triggerCustomTrigger = isDefined(triggerCustomTrigger) ? triggerCustomTrigger : true;
     var viewElement = getActiveView();
-    hideView(viewElement);
+    hideView(viewElement, !triggerCustomTrigger);
     if (_element_View_Opened.length === 0) {
       _element_View_LastZIndex = 0;
+    }
+    if (triggerCustomTrigger) {
+      fireViewChangeCustomTrigger();
     }
   }
   function getActiveView() {
@@ -5430,8 +5452,30 @@ export function calendarJs(elementOrId, options, searchOptions) {
   }
   function closeAllViews() {
     while (_element_View_Opened.length > 0) {
-      closeLastViewOpened();
+      closeLastViewOpened(false);
     }
+    fireViewChangeCustomTrigger();
+  }
+  function fireViewChangeCustomTrigger(triggerCustomTrigger) {
+    triggerCustomTrigger = isDefined(triggerCustomTrigger) ? triggerCustomTrigger : true;
+    var viewOpen = getActiveView(), viewName = null;
+    if (viewOpen === null) {
+      viewName = _element_View_Name.fullMonth;
+    } else if (viewOpen === _element_View_FullDay) {
+      viewName = _element_View_Name.fullDay;
+    } else if (viewOpen === _element_View_FullWeek) {
+      viewName = _element_View_Name.fullWeek;
+    } else if (viewOpen === _element_View_FullYear) {
+      viewName = _element_View_Name.fullYear;
+    } else if (viewOpen === _element_View_Timeline) {
+      viewName = _element_View_Name.timeline;
+    } else if (viewOpen === _element_View_AllEvents) {
+      viewName = _element_View_Name.allEvents;
+    }
+    if (triggerCustomTrigger && isDefinedString(viewName)) {
+      fireCustomTrigger(_options.events.onViewChange, viewName);
+    }
+    return viewName;
   }
   function buildHoursForTimeBasedView(container, loopDateMinutesIncrease) {
     var loopDateToday = new Date(), loopDate = new Date();
@@ -5546,7 +5590,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   }
   function increaseEventZIndex(e, event) {
     cancelBubble(e);
-    var zIndex = getStyleValueByName(event, "z-index");
+    var zIndex = getStyleValueByName(event, "z-index", false);
     if (zIndex === null || zIndex === "auto") {
       zIndex = 1;
     } else {
@@ -5635,7 +5679,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       _element_View_Event_Dragged_EventDetails.from = addMinutesToDate(_element_View_Event_Dragged_EventDetails.from, differenceMinutes);
       _element_View_Event_Dragged_EventDetails.to = addMinutesToDate(_element_View_Event_Dragged_EventDetails.to, differenceMinutes);
       storeEventsInLocalStorage();
-      fireCustomTrigger("onEventUpdated", _element_View_Event_Dragged_EventDetails);
+      fireCustomTrigger(_options.events.onEventUpdated, _element_View_Event_Dragged_EventDetails);
       showNotificationPopUp(_options.eventUpdatedText.replace("{0}", _element_View_Event_Dragged_EventDetails.title));
       refreshOpenedViews();
       _element_View_Event_Dragged = null;
@@ -5666,7 +5710,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
             eventSizeDetails.height = eventSizeDetails.eventElement.offsetHeight;
             eventSizeDetails.eventDetails.to = addMinutesToDate(eventSizeDetails.eventDetails.to, differenceMinutes);
             eventsResized = true;
-            fireCustomTrigger("onEventUpdated", eventSizeDetails.eventDetails);
+            fireCustomTrigger(_options.events.onEventUpdated, eventSizeDetails.eventDetails);
             showNotificationPopUp(_options.eventUpdatedText.replace("{0}", eventSizeDetails.eventDetails.title));
           }
         }
@@ -5687,7 +5731,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   function turnOnFullScreenMode() {
     if (!_element_Calendar_FullScreenModeOn && _options.fullScreenModeEnabled) {
       forceTurnOnFullScreenMode();
-      fireCustomTrigger("onFullScreenModeChanged", true);
+      fireCustomTrigger(_options.events.onFullScreenModeChanged, true);
     }
   }
   function turnOffFullScreenMode() {
@@ -5697,7 +5741,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       _element_Calendar.style.cssText = _element_Calendar_FullScreenModeCachedStyled;
       updateFullScreenModeExpandButtons("ib-arrow-expand-left-right", _options.enableFullScreenTooltipText);
       refreshOpenedViews();
-      fireCustomTrigger("onFullScreenModeChanged", false);
+      fireCustomTrigger(_options.events.onFullScreenModeChanged, false);
     }
   }
   function forceTurnOnFullScreenMode() {
@@ -5819,7 +5863,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       getAllEventsFunc(function(eventDetails) {
         var repeatEvery = getNumber(eventDetails.repeatEvery);
         if (repeatEvery === _enum_RepeatType.never && compareFunc(eventDetails.from, date)) {
-          _this.removeEvent(eventDetails.id, false);
+          _that.removeEvent(eventDetails.id, false);
           eventsRemoved++;
         }
       });
@@ -6150,7 +6194,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       var draggedFromDate = new Date(dragFromDate), isDateWeekendDay = isWeekendDay(draggedFromDate), dragDisabledClass = !isDateWeekendDay ? " drag-not-allowed" : " drag-not-allowed-weekend-day";
       event.setAttribute("draggable", true);
       event.ondragstart = function(e) {
-        fireCustomTrigger("onEventDragStart", eventDetails);
+        fireCustomTrigger(_options.events.onEventDragStart, eventDetails);
         e.dataTransfer.setData("event_details", _parameter_Json.stringify(eventDetails));
         _events_Dragged_DateFrom = draggedFromDate;
         _events_Dragged = eventDetails;
@@ -6166,7 +6210,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
         }, event);
       };
       event.ondragend = function() {
-        fireCustomTrigger("onEventDragStop", _events_Dragged);
+        fireCustomTrigger(_options.events.onEventDragStop, _events_Dragged);
         _events_Dragged_DateFrom = null;
         _events_Dragged = null;
         if (isDefined(container)) {
@@ -6228,7 +6272,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   function dropEventOnDay(e, year, month, day) {
     var dropDate = new Date(year, month, day);
     if (_events_Dragged !== null && !doDatesMatch(_events_Dragged_DateFrom, dropDate)) {
-      fireCustomTrigger("onEventDragDrop", _events_Dragged, dropDate);
+      fireCustomTrigger(_options.events.onEventDragDrop, _events_Dragged, dropDate);
       if (!isDefined(day)) {
         var totalDaysInMonth = getTotalDaysInMonth(year, month);
         day = _events_Dragged.from.getDate();
@@ -6252,7 +6296,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       if (daysBetweenFromAndTo > 0) {
         toDate.setDate(toDate.getDate() + daysBetweenFromAndTo);
       }
-      _this.updateEventDateTimes(_events_Dragged.id, fromDate, toDate, repeatEndsDate);
+      _that.updateEventDateTimes(_events_Dragged.id, fromDate, toDate, repeatEndsDate);
       showNotificationPopUp(_options.eventUpdatedText.replace("{0}", _events_Dragged.title));
       refreshViews();
     } else {
@@ -6267,7 +6311,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       var sourceFromDate = new Date(eventDetails.from), sourceToDate = new Date(eventDetails.to);
       eventDetails.from = new Date(year, month, day, sourceFromDate.getHours(), sourceFromDate.getMinutes(), 0, 0);
       eventDetails.to = new Date(year, month, day, sourceToDate.getHours(), sourceToDate.getMinutes(), 0, 0);
-      _this.addEvent(eventDetails);
+      _that.addEvent(eventDetails);
       showNotificationPopUp(_options.eventAddedText.replace("{0}", eventDetails.title));
     }
   }
@@ -6471,7 +6515,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       } else {
         openEventUrl(url);
       }
-      fireCustomTrigger("onNotificationClicked", eventDetails);
+      fireCustomTrigger(_options.events.onNotificationClicked, eventDetails);
     };
   }
   function checkForBrowserNotificationsPermission() {
@@ -6492,13 +6536,13 @@ export function calendarJs(elementOrId, options, searchOptions) {
         action();
       }
       if (isDefined(eventDetails)) {
-        fireCustomTrigger("onNotification", eventDetails);
+        fireCustomTrigger(_options.events.onNotification, eventDetails);
       }
     }
   }
   function openEventUrl(url) {
     _parameter_Window.open(url, _options.urlWindowTarget);
-    fireCustomTrigger("onEventUrlClicked", url);
+    fireCustomTrigger(_options.events.onEventUrlClicked, url);
   }
   function setCopiedEventsClasses(clear) {
     clear = isDefined(clear) ? clear : true;
@@ -6557,9 +6601,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
       newEvent.to.setDate(newEvent.to.getDate() + totalDays);
       if (!cut) {
         newEvent.id = null;
-        _this.addEvent(newEvent, false, true);
+        _that.addEvent(newEvent, false, true);
       } else {
-        fireCustomTrigger("onEventUpdated", newEvent);
+        fireCustomTrigger(_options.events.onEventUpdated, newEvent);
       }
     }
     showNotificationPopUp(_options.eventsPastedText.replace("{0}", copiedEventDetailsLength));
@@ -6635,13 +6679,13 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
   }
   function loadEventsToAddOrUpdateFromFetchTrigger() {
-    var events = fireCustomTrigger("onEventsFetch");
+    var events = fireCustomTrigger(_options.events.onEventsFetch);
     if (isDefinedArray(events)) {
       var eventsLength = events.length;
       for (var eventIndex = 0; eventIndex < eventsLength; eventIndex++) {
         var event = events[eventIndex];
-        _this.removeEvent(event.id, false, false);
-        _this.addEvent(event, false, false);
+        _that.removeEvent(event.id, false, false);
+        _that.addEvent(event, false, false);
       }
     }
   }
@@ -6669,7 +6713,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
           buildFullMonthViewDayEvents();
         }
         if (triggerEvent) {
-          fireCustomTrigger("onRefresh");
+          fireCustomTrigger(_options.events.onRefresh);
         }
       }
     }
@@ -6767,6 +6811,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     if (cancelDblClick && isEventDefined) {
       element.ondblclick = cancelBubble;
     }
+    return element;
   }
   function createButtonElement(container, text, className, event, tooltipText) {
     var button = createElement("input", className, "button");
@@ -6905,12 +6950,16 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return result;
   }
-  function getStyleValueByName(element, stylePropertyName) {
+  function getStyleValueByName(element, stylePropertyName, toFloat) {
+    toFloat = isDefined(toFloat) ? toFloat : true;
     var value = null;
     if (_parameter_Window.getComputedStyle) {
       value = _parameter_Document.defaultView.getComputedStyle(element, null).getPropertyValue(stylePropertyName);
     } else if (element.currentStyle) {
       value = element.currentStyle[stylePropertyName];
+    }
+    if (toFloat) {
+      value = parseFloat(value, 10);
     }
     return value;
   }
@@ -7144,6 +7193,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
   function getDefaultObject(value, defaultValue) {
     return isDefinedObject(value) ? value : defaultValue;
   }
+  function getDefaultFunction(value, defaultValue) {
+    return isDefinedFunction(value) ? value : defaultValue;
+  }
   function storeEventsInLocalStorage() {
     if (_options.useLocalStorageForEvents && _parameter_Window.localStorage) {
       clearLocalStorageObjects();
@@ -7160,7 +7212,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       for (var keyIndex = 0; keyIndex < keysLength; keyIndex++) {
         var eventJson = _parameter_Window.localStorage.getItem(_parameter_Window.localStorage.key(keyIndex)), event = getObjectFromString(eventJson);
         if (isDefined(event)) {
-          _this.addEvent(event, false, false, false);
+          _that.addEvent(event, false, false, false);
         }
       }
     }
@@ -7211,8 +7263,8 @@ export function calendarJs(elementOrId, options, searchOptions) {
       var readingEventsLength = readingEvents.length;
       for (var readingEventsIndex = 0; readingEventsIndex < readingEventsLength; readingEventsIndex++) {
         var eventDetails = readingEvents[readingEventsIndex];
-        _this.removeEvent(eventDetails.id, false, false);
-        if (_this.addEvent(eventDetails, false, false)) {
+        _that.removeEvent(eventDetails.id, false, false);
+        if (_that.addEvent(eventDetails, false, false)) {
           readingEventsAdded.push(eventDetails);
         }
       }
@@ -7236,8 +7288,8 @@ export function calendarJs(elementOrId, options, searchOptions) {
             var eventDetails = _parameter_Json.parse(_parameter_Json.stringify(readingEventDetails));
             readingEvent = false;
             readingEventDetails = {};
-            _this.removeEvent(eventDetails.id, false, false);
-            if (_this.addEvent(eventDetails, false, false)) {
+            _that.removeEvent(eventDetails.id, false, false);
+            if (_that.addEvent(eventDetails, false, false)) {
               readingEventsAdded.push(eventDetails);
             }
           }
@@ -7370,7 +7422,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       buildFullMonthViewDayEvents();
       refreshOpenedViews();
       showNotificationPopUp(_options.eventsImportedText.replace("{0}", eventsAddedOrUpdated.length));
-      fireCustomTrigger("onEventsImported", eventsAddedOrUpdated);
+      fireCustomTrigger(_options.events.onEventsImported, eventsAddedOrUpdated);
     }
   }
   function exportEvents(events, type, filename, copyToClipboard) {
@@ -7410,7 +7462,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
         _parameter_Document.body.removeChild(tempLink);
         showNotificationPopUp(_options.eventsExportedToText.replace("{0}", filename));
       }
-      fireCustomTrigger("onEventsExported", contentsEvents);
+      fireCustomTrigger(_options.events.onEventsExported, contentsEvents);
     }
   }
   function getExportFileAttributes(exportType) {
@@ -7728,7 +7780,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     var contents = [], orderedEventLength = orderedEvents.length;
     contents.push("BEGIN:VCALENDAR");
     contents.push("VERSION:2.0");
-    contents.push("PRODID:-//Bunoon//Calendar.js v" + _this.getVersion() + "//EN");
+    contents.push("PRODID:-//Bunoon//Calendar.js v" + _that.getVersion() + "//EN");
     contents.push("CALSCALE:GREGORIAN");
     for (var orderedEventIndex = 0; orderedEventIndex < orderedEventLength; orderedEventIndex++) {
       var orderedEvent = orderedEvents[orderedEventIndex], organizerName = getString(orderedEvent.organizerName), organizerEmailAddress = getString(orderedEvent.organizerEmailAddress), repeatEvery = getNumber(orderedEvent.repeatEvery);
@@ -7926,23 +7978,20 @@ export function calendarJs(elementOrId, options, searchOptions) {
   function getTsvValueLine(csvValues) {
     return csvValues.join("\t");
   }
-  function isCustomTriggerSet(name) {
-    return isDefinedFunction(_options[name]);
-  }
-  function fireCustomTrigger(name) {
+  function fireCustomTrigger(triggerFunction) {
     var result = null, newArguments = [].slice.call(arguments, 1);
     if (newArguments.length > 0) {
       result = false;
     }
-    if (_options !== null && isCustomTriggerSet(name)) {
-      result = _options[name].apply(null, newArguments);
+    if (isDefinedFunction(triggerFunction)) {
+      result = triggerFunction.apply(null, newArguments);
     }
     return result;
   }
   function setEventCustomTriggers(event, eventDetails, editEventDate) {
-    if (isCustomTriggerSet("onEventClick")) {
+    if (isDefinedFunction(_options.events.onEventClick)) {
       event.addEventListener("click", function() {
-        fireCustomTrigger("onEventClick", eventDetails);
+        fireCustomTrigger(_options.events.onEventClick, eventDetails);
       });
     }
     if (_options.manualEditingEnabled) {
@@ -7955,98 +8004,100 @@ export function calendarJs(elementOrId, options, searchOptions) {
         }
       };
     } else {
-      if (isCustomTriggerSet("onEventDoubleClick")) {
+      if (isDefinedFunction(_options.events.onEventDoubleClick)) {
         event.ondblclick = function() {
-          fireCustomTrigger("onEventDoubleClick", eventDetails);
+          fireCustomTrigger(_options.events.onEventDoubleClick, eventDetails);
         };
       }
     }
   }
-  this.turnOnFullScreen = function() {
+  _that.turnOnFullScreen = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       turnOnFullScreenMode();
     }
-    return this;
+    return _that;
   };
-  this.turnOffFullScreen = function() {
+  _that.turnOffFullScreen = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       turnOffFullScreenMode();
     }
-    return this;
+    return _that;
   };
-  this.isFullScreenActivated = function() {
+  _that.isFullScreenActivated = function() {
     return _element_Calendar_FullScreenModeOn;
   };
-  this.startTheAutoRefreshTimer = function() {
+  _that.startTheAutoRefreshTimer = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       _timer_AutoRefresh_Enabled = true;
       startAutoRefreshTimer();
     }
-    return this;
+    return _that;
   };
-  this.stopTheAutoRefreshTimer = function() {
+  _that.stopTheAutoRefreshTimer = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       clearAutoRefreshTimer();
       _timer_AutoRefresh_Enabled = false;
     }
-    return this;
+    return _that;
   };
-  this.destroy = function() {
-    removeDocumentEvents();
-    stopAndResetAllTimers();
-    removeTrackedElementsFromDocument();
-    if (_element_Mode_DatePicker_Enabled) {
-      _parameter_Document.removeEventListener("click", hideDatePickerMode);
+  _that.destroy = function() {
+    if (_initialized) {
+      removeDocumentEvents();
+      stopAndResetAllTimers();
+      removeTrackedElementsFromDocument();
+      if (_element_Mode_DatePicker_Enabled) {
+        _parameter_Document.removeEventListener("click", hideDatePickerMode);
+      }
+      if (_options.tooltipsEnabled) {
+        document.body.removeEventListener("mousemove", hideTooltip);
+      }
+      if (isDefined(_element_Calendar)) {
+        _element_Calendar.className = _string.empty;
+        _element_Calendar.innerHTML = _string.empty;
+      }
+      fireCustomTrigger(_options.events.onDestroy, _parameter_ElementID);
     }
-    if (_options.tooltipsEnabled) {
-      document.body.removeEventListener("mousemove", hideTooltip);
-    }
-    if (isDefined(_element_Calendar)) {
-      _element_Calendar.className = _string.empty;
-      _element_Calendar.innerHTML = _string.empty;
-    }
-    fireCustomTrigger("onDestroy", _parameter_ElementID);
-    return this;
+    return _that;
   };
-  this.moveToPreviousMonth = function() {
+  _that.moveToPreviousMonth = function() {
     onPreviousMonth();
-    return this;
+    return _that;
   };
-  this.moveToNextMonth = function() {
+  _that.moveToNextMonth = function() {
     onNextMonth();
-    return this;
+    return _that;
   };
-  this.moveToPreviousYear = function() {
+  _that.moveToPreviousYear = function() {
     moveBackYear();
-    return this;
+    return _that;
   };
-  this.moveToNextYear = function() {
+  _that.moveToNextYear = function() {
     moveForwardYear();
-    return this;
+    return _that;
   };
-  this.moveToToday = function() {
+  _that.moveToToday = function() {
     onCurrentMonth();
-    return this;
+    return _that;
   };
-  this.getCurrentDisplayDate = function() {
+  _that.getCurrentDisplayDate = function() {
     return new Date(_calendar_CurrentDate);
   };
-  this.setCurrentDisplayDate = function(date) {
+  _that.setCurrentDisplayDate = function(date) {
     if (isDefinedDate(date) && (!_element_Mode_DatePicker_Enabled || _element_Mode_DatePicker_Visible)) {
       var newDate = new Date(date);
       if (!doDatesMatch(_calendar_CurrentDate, newDate)) {
         if (newDate.getFullYear() >= _options.minimumYear && newDate.getFullYear() <= _options.maximumYear) {
           build(newDate);
-          fireCustomTrigger("onSetDate", newDate);
+          fireCustomTrigger(_options.events.onSetDate, newDate);
         }
       }
     }
-    return this;
+    return _that;
   };
-  this.getSelectedDatePickerDate = function() {
+  _that.getSelectedDatePickerDate = function() {
     return _element_Mode_DatePicker_Enabled ? new Date(_calendar_CurrentDate_ForDatePicker) : null;
   };
-  this.setSelectedDatePickerDate = function(date) {
+  _that.setSelectedDatePickerDate = function(date) {
     if (isDefinedDate(date) && _element_Mode_DatePicker_Enabled) {
       var newDate = new Date(date), newDateAllowed = isDateValidForDatePicker(newDate);
       if (newDateAllowed && !doDatesMatch(newDate, _calendar_CurrentDate_ForDatePicker)) {
@@ -8054,18 +8105,18 @@ export function calendarJs(elementOrId, options, searchOptions) {
           newDate.setHours(0, 0, 0, 0);
           hideDatePickerMode();
           updateDatePickerInputValueDisplay(newDate);
-          fireCustomTrigger("onDatePickerDateChanged", newDate);
+          fireCustomTrigger(_options.events.onDatePickerDateChanged, newDate);
           _calendar_CurrentDate_ForDatePicker = newDate;
         }
       }
     }
-    return this;
+    return _that;
   };
-  this.refresh = function() {
+  _that.refresh = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       refreshViews(true, true);
     }
-    return this;
+    return _that;
   };
   function onPreviousMonth(e) {
     if (isDefined(e)) {
@@ -8076,7 +8127,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       previousMonth.setMonth(previousMonth.getMonth() - 1);
       if (previousMonth.getFullYear() >= _options.minimumYear) {
         build(previousMonth);
-        fireCustomTrigger("onPreviousMonth", previousMonth);
+        fireCustomTrigger(_options.events.onPreviousMonth, previousMonth);
         buildFullMonthViewPinUpImage();
       }
     }
@@ -8090,7 +8141,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       if (nextMonth.getFullYear() <= _options.maximumYear) {
         build(nextMonth);
-        fireCustomTrigger("onNextMonth", nextMonth);
+        fireCustomTrigger(_options.events.onNextMonth, nextMonth);
         buildFullMonthViewPinUpImage();
       }
     }
@@ -8101,7 +8152,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       previousYear.setFullYear(previousYear.getFullYear() - 1);
       if (previousYear.getFullYear() >= _options.minimumYear) {
         build(previousYear);
-        fireCustomTrigger("onPreviousYear", previousYear);
+        fireCustomTrigger(_options.events.onPreviousYear, previousYear);
         buildFullMonthViewPinUpImage();
       }
     }
@@ -8112,7 +8163,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       nextYear.setFullYear(nextYear.getFullYear() + 1);
       if (nextYear.getFullYear() <= _options.maximumYear) {
         build(nextYear);
-        fireCustomTrigger("onNextYear", nextYear);
+        fireCustomTrigger(_options.events.onNextYear, nextYear);
         buildFullMonthViewPinUpImage();
       }
     }
@@ -8122,62 +8173,62 @@ export function calendarJs(elementOrId, options, searchOptions) {
       var today = new Date();
       if (_calendar_CurrentDate.getMonth() !== today.getMonth() || _calendar_CurrentDate.getFullYear() !== today.getFullYear()) {
         build();
-        fireCustomTrigger("onToday");
+        fireCustomTrigger(_options.events.onToday);
         buildFullMonthViewPinUpImage();
       }
     }
   }
-  this.export = function(type) {
+  _that.export = function(type) {
     if (_options.exportEventsEnabled && !_element_Mode_DatePicker_Enabled) {
       type = getDefaultString(type, "csv");
       exportEvents(null, type);
     }
-    return this;
+    return _that;
   };
-  this.import = function(files) {
+  _that.import = function(files) {
     if (_options.importEventsEnabled && !_element_Mode_DatePicker_Enabled) {
       importEventsFromFiles(files);
     }
-    return this;
+    return _that;
   };
-  this.setEvents = function(events, updateEvents, triggerEvent) {
+  _that.setEvents = function(events, updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       _events = {};
-      this.addEvents(events, updateEvents, false);
+      _that.addEvents(events, updateEvents, false);
       if (triggerEvent) {
-        fireCustomTrigger("onEventsSet", events);
+        fireCustomTrigger(_options.events.onEventsSet, events);
       }
     }
-    return this;
+    return _that;
   };
-  this.setEventsFromJson = function(json, updateEvents, triggerEvent) {
+  _that.setEventsFromJson = function(json, updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       var dataObject = getObjectFromString(json);
       if (isDefinedArray(dataObject)) {
-        this.setEvents(dataObject, updateEvents, false);
+        _that.setEvents(dataObject, updateEvents, false);
       } else if (isDefinedObject(dataObject) && dataObject.hasOwnProperty("events")) {
-        this.setEvents(dataObject.events, updateEvents, false);
+        _that.setEvents(dataObject.events, updateEvents, false);
       }
       if (triggerEvent) {
-        fireCustomTrigger("onEventsSetFromJSON", json);
+        fireCustomTrigger(_options.events.onEventsSetFromJSON, json);
       }
     }
-    return this;
+    return _that;
   };
-  this.addEvents = function(events, updateEvents, triggerEvent) {
+  _that.addEvents = function(events, updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       var eventsLength = events.length;
       for (var eventIndex = 0; eventIndex < eventsLength; eventIndex++) {
         var event = events[eventIndex];
-        this.addEvent(event, false, false, false);
+        _that.addEvent(event, false, false, false);
       }
       storeEventsInLocalStorage();
       if (triggerEvent) {
-        fireCustomTrigger("onEventsAdded", events);
+        fireCustomTrigger(_options.events.onEventsAdded, events);
       }
       if (updateEvents) {
         updateSideMenu();
@@ -8185,24 +8236,24 @@ export function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
-    return this;
+    return _that;
   };
-  this.addEventsFromJson = function(json, updateEvents, triggerEvent) {
+  _that.addEventsFromJson = function(json, updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       var dataObject = getObjectFromString(json);
       if (isDefinedArray(dataObject)) {
-        this.addEvents(dataObject, updateEvents, false);
+        _that.addEvents(dataObject, updateEvents, false);
       } else if (isDefinedObject(dataObject) && dataObject.hasOwnProperty("events")) {
-        this.addEvents(dataObject.events, updateEvents, false);
+        _that.addEvents(dataObject.events, updateEvents, false);
       }
       if (triggerEvent) {
-        fireCustomTrigger("onEventsAddedFromJSON", json);
+        fireCustomTrigger(_options.events.onEventsAddedFromJSON, json);
       }
     }
-    return this;
+    return _that;
   };
-  this.addEvent = function(event, updateEvents, triggerEvent, setLastUpdated) {
+  _that.addEvent = function(event, updateEvents, triggerEvent, setLastUpdated) {
     var added = false;
     if (!_element_Mode_DatePicker_Enabled) {
       setLastUpdated = getDefaultBoolean(setLastUpdated, true);
@@ -8239,7 +8290,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
           updateEvents = getDefaultBoolean(updateEvents, true);
           triggerEvent = getDefaultBoolean(triggerEvent, true);
           var title = getString(event.title), description = getString(event.description), location = getString(event.location), group = getString(event.group), url = getString(event.url);
-          if (isDefined(_options_Configuration.visibleGroups) && !isCustomTriggerSet("onEventsFetch")) {
+          if (isDefined(_options_Configuration.visibleGroups) && !isDefinedFunction(_options.events.onEventsFetch)) {
             var groupName = getGroupName(group);
             if (_options_Configuration.visibleGroups.indexOf(groupName) === _value.notFound) {
               _options_Configuration.visibleGroups.push(groupName);
@@ -8274,7 +8325,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
           _events[storageDate][storageGuid] = getAdjustedAllDayEvent(event);
           added = true;
           if (triggerEvent) {
-            fireCustomTrigger("onEventAdded", event);
+            fireCustomTrigger(_options.events.onEventAdded, event);
           }
           if (updateEvents) {
             storeEventsInLocalStorage();
@@ -8287,17 +8338,17 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return added;
   };
-  this.updateEvents = function(events, updateEvents, triggerEvent) {
+  _that.updateEvents = function(events, updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       var eventsLength = events.length;
       for (var eventIndex = 0; eventIndex < eventsLength; eventIndex++) {
         var event = events[eventIndex];
-        this.updateEvent(event.id, event, false, false);
+        _that.updateEvent(event.id, event, false, false);
       }
       if (triggerEvent) {
-        fireCustomTrigger("onEventsUpdated", events);
+        fireCustomTrigger(_options.events.onEventsUpdated, events);
       }
       if (updateEvents) {
         storeEventsInLocalStorage();
@@ -8306,25 +8357,25 @@ export function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
-    return this;
+    return _that;
   };
-  this.updateEvent = function(id, event, updateEvents, triggerEvent) {
+  _that.updateEvent = function(id, event, updateEvents, triggerEvent) {
     var updated = false;
     if (!_element_Mode_DatePicker_Enabled) {
-      updated = this.removeEvent(id, false, false);
+      updated = _that.removeEvent(id, false, false);
       if (updated) {
         updateEvents = getDefaultBoolean(updateEvents, true);
         triggerEvent = getDefaultBoolean(triggerEvent, true);
-        updated = this.addEvent(event, updateEvents, false);
+        updated = _that.addEvent(event, updateEvents, false);
         storeEventsInLocalStorage();
         if (updated && triggerEvent) {
-          fireCustomTrigger("onEventUpdated", event);
+          fireCustomTrigger(_options.events.onEventUpdated, event);
         }
       }
     }
     return updated;
   };
-  this.updateEventDateTimes = function(id, from, to, repeatEnds, updateEvents, triggerEvent) {
+  _that.updateEventDateTimes = function(id, from, to, repeatEnds, updateEvents, triggerEvent) {
     var updated = false;
     if (!_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
@@ -8336,7 +8387,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
           eventDetails.repeatEnds = repeatEnds;
           updated = true;
           if (triggerEvent) {
-            fireCustomTrigger("onEventUpdated", eventDetails);
+            fireCustomTrigger(_options.events.onEventUpdated, eventDetails);
           }
           if (updateEvents) {
             storeEventsInLocalStorage();
@@ -8350,7 +8401,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return updated;
   };
-  this.removeEvent = function(id, updateEvents, triggerEvent) {
+  _that.removeEvent = function(id, updateEvents, triggerEvent) {
     var removed = false;
     if (!_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
@@ -8360,7 +8411,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
           delete _events[storageDate][storageGuid];
           removed = true;
           if (triggerEvent) {
-            fireCustomTrigger("onEventRemoved", event);
+            fireCustomTrigger(_options.events.onEventRemoved, event);
           }
           if (updateEvents) {
             storeEventsInLocalStorage();
@@ -8374,13 +8425,13 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return removed;
   };
-  this.clearEvents = function(updateEvents, triggerEvent) {
+  _that.clearEvents = function(updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       _events = {};
       if (triggerEvent) {
-        fireCustomTrigger("onEventsCleared");
+        fireCustomTrigger(_options.events.onEventsCleared);
       }
       if (updateEvents) {
         storeEventsInLocalStorage();
@@ -8389,16 +8440,16 @@ export function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
-    return this;
+    return _that;
   };
-  this.getEvents = function() {
+  _that.getEvents = function() {
     var events = [];
     if (!_element_Mode_DatePicker_Enabled) {
       events = getOrderedEvents(getAllEvents());
     }
     return events;
   };
-  this.getEvent = function(id) {
+  _that.getEvent = function(id) {
     var returnEvent = null;
     if (isDefinedString(id) && !_element_Mode_DatePicker_Enabled) {
       getAllEventsFunc(function(eventDetails) {
@@ -8410,14 +8461,14 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return returnEvent;
   };
-  this.removeExpiredEvents = function(updateEvents, triggerEvent) {
+  _that.removeExpiredEvents = function(updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       getAllEventsFunc(function(eventDetails) {
         var repeatEvery = getNumber(eventDetails.repeatEvery);
         if (repeatEvery === _enum_RepeatType.never && eventDetails.to < new Date()) {
-          _this.removeEvent(eventDetails.id, false, triggerEvent);
+          _that.removeEvent(eventDetails.id, false, triggerEvent);
         }
       });
       if (updateEvents) {
@@ -8427,12 +8478,12 @@ export function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
-    return this;
+    return _that;
   };
   function toStorageDate(date) {
     return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
   }
-  this.addEventType = function(id, text) {
+  _that.addEventType = function(id, text) {
     var result = false;
     if (isDefinedNumber(id) && isDefinedString(text) && !_element_Mode_DatePicker_Enabled) {
       if (!_options_EventType.hasOwnProperty(id)) {
@@ -8445,7 +8496,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return result;
   };
-  this.removeEventType = function(id) {
+  _that.removeEventType = function(id) {
     var result = false;
     if (isDefinedNumber(id) && !_element_Mode_DatePicker_Enabled) {
       if (_options_EventType.hasOwnProperty(id)) {
@@ -8455,7 +8506,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return result;
   };
-  this.setVisibleEventTypes = function(ids, triggerEvent) {
+  _that.setVisibleEventTypes = function(ids, triggerEvent) {
     if (isDefinedArray(ids) && !_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       _options_Configuration.visibleEventTypes = [];
@@ -8467,15 +8518,15 @@ export function calendarJs(elementOrId, options, searchOptions) {
       }
       refreshViews(true, false);
       if (triggerEvent) {
-        fireCustomTrigger("onVisibleEventTypesChanged", _options_Configuration.visibleEventTypes);
+        fireCustomTrigger(_options.events.onVisibleEventTypesChanged, _options_Configuration.visibleEventTypes);
       }
     }
-    return this;
+    return _that;
   };
-  this.getAllGroups = function() {
+  _that.getAllGroups = function() {
     return getGroups();
   };
-  this.clearAllGroups = function(updateEvents, triggerEvent) {
+  _that.clearAllGroups = function(updateEvents, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
       triggerEvent = getDefaultBoolean(triggerEvent, true);
@@ -8483,7 +8534,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
         eventDetails.group = null;
       });
       if (triggerEvent) {
-        fireCustomTrigger("onGroupsCleared");
+        fireCustomTrigger(_options.events.onGroupsCleared);
       }
       if (updateEvents) {
         updateSideMenu();
@@ -8491,9 +8542,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
-    return this;
+    return _that;
   };
-  this.removeGroup = function(groupName, updateEvents, triggerEvent) {
+  _that.removeGroup = function(groupName, updateEvents, triggerEvent) {
     if (isDefinedString(groupName) && !_element_Mode_DatePicker_Enabled) {
       updateEvents = getDefaultBoolean(updateEvents, true);
       triggerEvent = getDefaultBoolean(triggerEvent, true);
@@ -8504,7 +8555,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
         }
       });
       if (triggerEvent) {
-        fireCustomTrigger("onGroupRemoved", groupName);
+        fireCustomTrigger(_options.events.onGroupRemoved, groupName);
       }
       if (updateEvents) {
         updateSideMenu();
@@ -8512,9 +8563,9 @@ export function calendarJs(elementOrId, options, searchOptions) {
         refreshOpenedViews();
       }
     }
-    return this;
+    return _that;
   };
-  this.setVisibleGroups = function(groupNames, triggerEvent) {
+  _that.setVisibleGroups = function(groupNames, triggerEvent) {
     if (isDefinedArray(groupNames) && !_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       _options_Configuration.visibleGroups = [];
@@ -8527,18 +8578,18 @@ export function calendarJs(elementOrId, options, searchOptions) {
       }
       refreshViews(true, false);
       if (triggerEvent) {
-        fireCustomTrigger("onVisibleGroupsChanged", _options_Configuration.visibleGroups);
+        fireCustomTrigger(_options.events.onVisibleGroupsChanged, _options_Configuration.visibleGroups);
       }
     }
-    return this;
+    return _that;
   };
-  this.setClipboardEvent = function(event) {
+  _that.setClipboardEvent = function(event) {
     if (isDefinedObject(event) && !_element_Mode_DatePicker_Enabled) {
       _events_Copied = [cloneEventDetails(event)];
     }
-    return this;
+    return _that;
   };
-  this.setClipboardEvents = function(events) {
+  _that.setClipboardEvents = function(events) {
     if (isDefinedArray(events) && !_element_Mode_DatePicker_Enabled) {
       _events_Copied = [];
       var eventsLength = events.length;
@@ -8546,31 +8597,34 @@ export function calendarJs(elementOrId, options, searchOptions) {
         _events_Copied.push(cloneEventDetails(events[eventIndex]));
       }
     }
-    return this;
+    return _that;
   };
-  this.getClipboardEvents = function() {
+  _that.getClipboardEvents = function() {
     var result = null;
     if (!_element_Mode_DatePicker_Enabled) {
       result = _events_Copied;
     }
     return result;
   };
-  this.clearClipboard = function() {
+  _that.clearClipboard = function() {
     if (!_element_Mode_DatePicker_Enabled) {
       _events_Copied = [];
     }
-    return this;
+    return _that;
   };
-  this.getVersion = function() {
-    return "2.10.19";
+  _that.getVersion = function() {
+    return "2.11.0";
   };
-  this.getId = function() {
+  _that.getId = function() {
     return _parameter_ElementID;
   };
-  this.isBusy = function() {
+  _that.isBusy = function() {
     return _calendar_IsBusy;
   };
-  this.setOptions = function(newOptions, triggerEvent) {
+  _that.getCurrentView = function() {
+    return fireViewChangeCustomTrigger(false);
+  };
+  _that.setOptions = function(newOptions, triggerEvent) {
     for (var propertyName in newOptions) {
       if (newOptions.hasOwnProperty(propertyName)) {
         _options[propertyName] = newOptions[propertyName];
@@ -8582,16 +8636,16 @@ export function calendarJs(elementOrId, options, searchOptions) {
     if (_initialized) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       if (triggerEvent) {
-        fireCustomTrigger("onOptionsUpdated", _options);
+        fireCustomTrigger(_options.events.onOptionsUpdated, _options);
       }
       _initialized = false;
       if (!_element_Mode_DatePicker_Enabled || _element_Mode_DatePicker_Visible) {
         build(_calendar_CurrentDate, true, true);
       }
     }
-    return this;
+    return _that;
   };
-  this.setSearchOptions = function(newSearchOptions, triggerEvent) {
+  _that.setSearchOptions = function(newSearchOptions, triggerEvent) {
     if (!_element_Mode_DatePicker_Enabled) {
       newSearchOptions = getOptions(newSearchOptions);
       triggerEvent = getDefaultBoolean(triggerEvent, true);
@@ -8602,26 +8656,26 @@ export function calendarJs(elementOrId, options, searchOptions) {
         }
       }
       if (triggerEvent) {
-        fireCustomTrigger("onSearchOptionsUpdated", _options_Search);
+        fireCustomTrigger(_options.events.onSearchOptionsUpdated, _options_Search);
       }
     }
-    return this;
+    return _that;
   };
-  this.addHolidays = function(holidays, triggerEvent, updateEvents) {
+  _that.addHolidays = function(holidays, triggerEvent, updateEvents) {
     if (isDefinedArray(holidays) && !_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       updateEvents = getDefaultBoolean(updateEvents, true);
       _options.holidays = _options.holidays.concat(holidays);
       if (triggerEvent) {
-        fireCustomTrigger("onOptionsUpdated", _options);
+        fireCustomTrigger(_options.events.onOptionsUpdated, _options);
       }
       if (updateEvents) {
         build(_calendar_CurrentDate, true, true);
       }
     }
-    return this;
+    return _that;
   };
-  this.removeHolidays = function(holidayNames, triggerEvent, updateEvents) {
+  _that.removeHolidays = function(holidayNames, triggerEvent, updateEvents) {
     if (isDefinedArray(holidayNames) && !_element_Mode_DatePicker_Enabled) {
       triggerEvent = getDefaultBoolean(triggerEvent, true);
       updateEvents = getDefaultBoolean(updateEvents, true);
@@ -8634,15 +8688,15 @@ export function calendarJs(elementOrId, options, searchOptions) {
       }
       _options.holidays = holidaysRemaining;
       if (triggerEvent) {
-        fireCustomTrigger("onOptionsUpdated", _options);
+        fireCustomTrigger(_options.events.onOptionsUpdated, _options);
       }
       if (updateEvents) {
         build(_calendar_CurrentDate, true, true);
       }
     }
-    return this;
+    return _that;
   };
-  this.getHolidays = function() {
+  _that.getHolidays = function() {
     return _options.holidays;
   };
   function buildDefaultOptions(newOptions) {
@@ -8675,7 +8729,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _options.useEscapeKeyToExitFullScreenMode = getDefaultBoolean(_options.useEscapeKeyToExitFullScreenMode, true);
     _options.allowHtmlInDisplay = getDefaultBoolean(_options.allowHtmlInDisplay, false);
     _options.initialDateTime = getDefaultDate(_options.initialDateTime, null);
-    _options.events = getDefaultArray(_options.events, null);
+    _options.data = getDefaultArray(_options.data, null);
     _options.weekendDays = isInvalidOptionArray(_options.weekendDays, 0) ? [0, 6] : _options.weekendDays;
     _options.workingDays = isInvalidOptionArray(_options.workingDays, 0) ? [] : _options.workingDays;
     _options.minimumYear = getDefaultNumber(_options.minimumYear, 1900);
@@ -8692,6 +8746,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _options.isWidget = getDefaultBoolean(_options.isWidget, false);
     _options.viewToOpenOnFirstLoad = getDefaultString(_options.viewToOpenOnFirstLoad, null);
     _options.eventColorsEditingEnabled = getDefaultBoolean(_options.eventColorsEditingEnabled, true);
+    _options.eventTooltipDelay = getDefaultNumber(_options.eventTooltipDelay, 1000);
     if (isInvalidOptionArray(_options.visibleDays)) {
       _options.visibleDays = [0, 1, 2, 3, 4, 5, 6];
       _element_Calendar_PreviousDaysVisibleBeforeSingleDayView = [];
@@ -8705,6 +8760,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     buildDefaultViewOptionsForTimeline();
     buildDefaultViewOptionsForAllEvents();
     buildDefaultViewOptionsForDatePicker();
+    buildDefaultEventOptions();
     buildDefaulStringOptions();
     setEventTypeTranslationStringOptions();
     checkForBrowserNotificationsPermission();
@@ -8785,6 +8841,62 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _options.views.datePicker.selectedDateFormat = getDefaultString(_options.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}");
     _options.views.datePicker.minimumDate = getDefaultDate(_options.views.datePicker.minimumDate, null);
     _options.views.datePicker.maximumDate = getDefaultDate(_options.views.datePicker.maximumDate, null);
+  }
+  function buildDefaultEventOptions() {
+    _options.events = getOptions(_options.events);
+    _options.events.onPreviousMonth = getDefaultFunction(_options.events.onPreviousMonth, null);
+    _options.events.onNextMonth = getDefaultFunction(_options.events.onNextMonth, null);
+    _options.events.onPreviousYear = getDefaultFunction(_options.events.onPreviousYear, null);
+    _options.events.onNextYear = getDefaultFunction(_options.events.onNextYear, null);
+    _options.events.onToday = getDefaultFunction(_options.events.onToday, null);
+    _options.events.onEventAdded = getDefaultFunction(_options.events.onEventAdded, null);
+    _options.events.onEventUpdated = getDefaultFunction(_options.events.onEventUpdated, null);
+    _options.events.onEventRemoved = getDefaultFunction(_options.events.onEventRemoved, null);
+    _options.events.onEventsAdded = getDefaultFunction(_options.events.onEventsAdded, null);
+    _options.events.onEventsCleared = getDefaultFunction(_options.events.onEventsCleared, null);
+    _options.events.onEventsExported = getDefaultFunction(_options.events.onEventsExported, null);
+    _options.events.onSetDate = getDefaultFunction(_options.events.onSetDate, null);
+    _options.events.onEventsSet = getDefaultFunction(_options.events.onEventsSet, null);
+    _options.events.onGroupsCleared = getDefaultFunction(_options.events.onGroupsCleared, null);
+    _options.events.onEventsUpdated = getDefaultFunction(_options.events.onEventsUpdated, null);
+    _options.events.onOptionsUpdated = getDefaultFunction(_options.events.onOptionsUpdated, null);
+    _options.events.onNotificationClicked = getDefaultFunction(_options.events.onNotificationClicked, null);
+    _options.events.onSearchOptionsUpdated = getDefaultFunction(_options.events.onSearchOptionsUpdated, null);
+    _options.events.onFullScreenModeChanged = getDefaultFunction(_options.events.onFullScreenModeChanged, null);
+    _options.events.onEventsSetFromJSON = getDefaultFunction(_options.events.onEventsSetFromJSON, null);
+    _options.events.onEventsAddedFromJSON = getDefaultFunction(_options.events.onEventsAddedFromJSON, null);
+    _options.events.onDatePickerDateChanged = getDefaultFunction(_options.events.onDatePickerDateChanged, null);
+    _options.events.onGroupRemoved = getDefaultFunction(_options.events.onGroupRemoved, null);
+    _options.events.onEventUrlClicked = getDefaultFunction(_options.events.onEventUrlClicked, null);
+    _options.events.onDestroy = getDefaultFunction(_options.events.onDestroy, null);
+    _options.events.onRefresh = getDefaultFunction(_options.events.onRefresh, null);
+    _options.events.onDatePickerOpened = getDefaultFunction(_options.events.onDatePickerOpened, null);
+    _options.events.onDatePickerClosed = getDefaultFunction(_options.events.onDatePickerClosed, null);
+    _options.events.onRender = getDefaultFunction(_options.events.onRender, null);
+    _options.events.onEventDragStart = getDefaultFunction(_options.events.onEventDragStart, null);
+    _options.events.onEventDragStop = getDefaultFunction(_options.events.onEventDragStop, null);
+    _options.events.onEventDragDrop = getDefaultFunction(_options.events.onEventDragDrop, null);
+    _options.events.onEventClick = getDefaultFunction(_options.events.onEventClick, null);
+    _options.events.onEventDoubleClick = getDefaultFunction(_options.events.onEventDoubleClick, null);
+    _options.events.onVisibleGroupsChanged = getDefaultFunction(_options.events.onVisibleGroupsChanged, null);
+    _options.events.onVisibleEventTypesChanged = getDefaultFunction(_options.events.onVisibleEventTypesChanged, null);
+    _options.events.onNotification = getDefaultFunction(_options.events.onNotification, null);
+    _options.events.onBeforeEventAddEdit = getDefaultFunction(_options.events.onBeforeEventAddEdit, null);
+    _options.events.onBusyStateChange = getDefaultFunction(_options.events.onBusyStateChange, null);
+    _options.events.onEventsFetch = getDefaultFunction(_options.events.onEventsFetch, null);
+    _options.events.onEventsImported = getDefaultFunction(_options.events.onEventsImported, null);
+    _options.events.onFullDayEventRender = getDefaultFunction(_options.events.onFullDayEventRender, null);
+    _options.events.onFullWeekEventRender = getDefaultFunction(_options.events.onFullWeekEventRender, null);
+    _options.events.onFullMonthEventRender = getDefaultFunction(_options.events.onFullMonthEventRender, null);
+    _options.events.onAllEventsEventRender = getDefaultFunction(_options.events.onAllEventsEventRender, null);
+    _options.events.onTimelineEventRender = getDefaultFunction(_options.events.onTimelineEventRender, null);
+    _options.events.onWidgetEventRender = getDefaultFunction(_options.events.onWidgetEventRender, null);
+    _options.events.onToolTipEventRender = getDefaultFunction(_options.events.onToolTipEventRender, null);
+    _options.events.onFullDayTitleRender = getDefaultFunction(_options.events.onFullDayTitleRender, null);
+    _options.events.onFullWeekTitleRender = getDefaultFunction(_options.events.onFullWeekTitleRender, null);
+    _options.events.onTimelineTitleRender = getDefaultFunction(_options.events.onTimelineTitleRender, null);
+    _options.events.onFullMonthPinUpRender = getDefaultFunction(_options.events.onFullMonthPinUpRender, null);
+    _options.events.onViewChange = getDefaultFunction(_options.events.onViewChange, null);
   }
   function buildDefaultSearchOptions(newSearchOptions) {
     _options_Search = getOptions(newSearchOptions, _options.searchOptions);
@@ -9033,16 +9145,16 @@ export function calendarJs(elementOrId, options, searchOptions) {
     return newOptions;
   }
   function getStandardHolidays() {
-    return [{day:1, month:1, title:"New Year's Day", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Day"}, {day:14, month:2, title:"Valentine's Day", onClickUrl:"https://en.wikipedia.org/wiki/Valentine%27s_Days"}, {day:1, month:4, title:"April Fools' Day", onClickUrl:"https://en.wikipedia.org/wiki/April_Fools%27_Day"}, {day:22, month:4, title:"Earth Day", onClickUrl:"https://en.wikipedia.org/wiki/Earth_Day"}, {day:31, month:10, title:"Halloween", onClickUrl:"https://en.wikipedia.org/wiki/Halloween"}, 
+    return [{day:1, month:1, title:"New Year's Day", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Day"}, {day:14, month:2, title:"Valentine's Day", onClickUrl:"https://en.wikipedia.org/wiki/Valentine%27s_Day"}, {day:1, month:4, title:"April Fools' Day", onClickUrl:"https://en.wikipedia.org/wiki/April_Fools%27_Day"}, {day:22, month:4, title:"Earth Day", onClickUrl:"https://en.wikipedia.org/wiki/Earth_Day"}, {day:31, month:10, title:"Halloween", onClickUrl:"https://en.wikipedia.org/wiki/Halloween"}, 
     {day:11, month:11, title:"Remembrance Day", onClickUrl:"https://en.wikipedia.org/wiki/Remembrance_Day"}, {day:24, month:12, title:"Christmas Eve", onClickUrl:"https://en.wikipedia.org/wiki/Christmas_Eve"}, {day:25, month:12, title:"Christmas Day", onClickUrl:"https://en.wikipedia.org/wiki/Christmas"}, {day:26, month:12, title:"Boxing Day", onClickUrl:"https://en.wikipedia.org/wiki/Boxing_Day"}, {day:31, month:12, title:"New Year's Eve", onClickUrl:"https://en.wikipedia.org/wiki/New_Year%27s_Eve"}];
   }
   (function(documentObject, windowObject, navigatorObject, mathObject, jsonObject) {
     _parameter_Document = documentObject;
     _parameter_Window = windowObject;
     _parameter_Navigator = navigatorObject;
-    _parameter_ElementID = elementOrId;
     _parameter_Math = mathObject;
     _parameter_Json = jsonObject;
+    _parameter_ElementID = elementOrId;
     if (isDefinedString(_parameter_ElementID) || isDefinedDOMElement(_parameter_ElementID)) {
       buildDefaultOptions(options);
       buildDefaultSearchOptions(searchOptions);

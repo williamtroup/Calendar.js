@@ -53,12 +53,6 @@
             <button onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <br>
 
-            <h2>Additional Data:</h2>
-            <button onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
-            <button onclick="console.log( calendarInstance.getId() );">Get ID</button>
-            <button onclick="console.log( calendarInstance.isBusy() );">Is Busy</button>
-            <br>
-
             <h2>Options:</h2>
             <button onclick="setOptions();">Set Options</button>
             <button onclick="setSearchOptions();">Set Search Options</button>
@@ -84,6 +78,13 @@
             <button onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
             <button onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
             <button onclick="calendarInstance.destroy();">Destroy</button>
+            <br>
+
+            <h2>Additional Data:</h2>
+            <button onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
+            <button onclick="console.log( calendarInstance.getId() );">Get ID</button>
+            <button onclick="console.log( calendarInstance.isBusy() );">Is Busy</button>
+            <button onclick="console.log( calendarInstance.getCurrentView() );">Get Current View</button>
         </div>
     </body>
 
@@ -102,15 +103,17 @@
             organizerName: "Your Name",
             organizerEmailAddress: "your@email.address",
             visibleDays: [ 0, 1, 2, 3, 4, 5, 6 ],
-            events: getEvents(),
-            onEventDragStart: onDragEventStart,
-            onEventDragStop: onDragEventStop,
-            onEventDragDrop: onDragEventDrop,
-            onBeforeEventAddEdit: null,
+            data: getEvents(),
             useAmPmForTimeDisplays: false,
             workingDays: [ 2 ],
             workingHoursStart: "09:00",
-            workingHoursEnd: "17:00"
+            workingHoursEnd: "17:00",
+            events: {
+                onEventDragStart: onDragEventStart,
+                onEventDragStop: onDragEventStop,
+                onEventDragDrop: onDragEventDrop,
+                onBeforeEventAddEdit: null,
+            }
         } );
 
         document.title += " v" + calendarInstance.getVersion();

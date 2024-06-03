@@ -22,7 +22,9 @@
 
     <script>
         var calendarInstance = new calendarJs( "calendar", {
-            onEventsFetch: getEvents
+            events: {
+                onEventsFetch: getEvents
+            }
         } );
 
         document.title += " v" + calendarInstance.getVersion();

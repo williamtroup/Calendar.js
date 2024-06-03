@@ -1,4 +1,4 @@
-/*! Calendar.js v2.10.19 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.11.0 | (c) Bunoon 2024 | MIT License */
 (function() {
   var _parameter_Document = null, _parameter_JSON = null, _public = {}, _configuration = {}, _instances = {}, _string = {empty:"", space:" "}, _attribute_Name_Options = "data-binding-calendar";
   function render() {
@@ -148,5 +148,5 @@
     if (!isDefined(windowObject.$calendar)) {
       windowObject.$calendar = _public;
     }
-  })(document, window, navigator, Math, JSON);
+  })(document, window, JSON);
 })();

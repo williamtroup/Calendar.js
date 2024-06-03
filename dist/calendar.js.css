@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.10.19
+ * Calendar.js Library v2.11.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -198,6 +198,18 @@ span.prevent-pointer-events {
     Calendar.js - Mode - Full-Screen
     -------------------------------------------------------------------------
 */
+div.fixed-height div.header-days {
+  flex: none !important;
+}
+div.fixed-height div.row-cells {
+  flex: 1 1 auto;
+}
+div.fixed-height div.full-month-view {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
 div.full-screen-view {
   top: 0;
   left: 0;
@@ -214,13 +226,13 @@ div.full-screen-view div.header-days {
 div.full-screen-view div.row-cells {
   flex: 1 1 auto;
 }
-div.full-screen-view div.plus-x-events {
-  display: none !important;
-}
 div.full-screen-view div.full-month-view {
   display: flex;
   flex-flow: column;
   height: 100%;
+}
+div.full-screen-view div.plus-x-events {
+  display: none !important;
 }
 
 /*
@@ -2534,7 +2546,7 @@ div.calendar div.timeline-view div.contents div.timeline-header {
   border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
   top: 0;
   vertical-align: top;
-  z-index: 10;
+  z-index: 2010;
 }
 div.calendar div.timeline-view div.contents div.timeline-header div.timeline-header-item {
   display: inline-block;
@@ -3598,6 +3610,7 @@ div.search div.contents div.history-container div.ib-arrow-up-full {
   position: absolute;
   right: var(--calendar-js-spacing);
   top: var(--calendar-js-spacing);
+  transition: none !important;
 }
 div.search div.contents div.history-container input {
   margin-bottom: 0 !important;
@@ -4194,7 +4207,6 @@ div.calendar div.side-menu label.checkbox {
   display: inline-block;
   position: relative;
   padding-left: var(--calendar-js-input-checkbox-size-with-spacing);
-  padding-top: 1px;
   margin-bottom: var(--calendar-js-spacing);
   color: var(--calendar-js-dark-color);
 }
@@ -4289,7 +4301,6 @@ div.calendar-dialog div.radio-button-container label.radio-button {
   display: inline-block;
   position: relative;
   padding-left: 25px;
-  padding-top: 1px;
   color: var(--calendar-js-dark-color);
 }
 div.calendar div.radio-button-container label.radio-button input,
@@ -4406,11 +4417,10 @@ div.calendar-tooltip-event div.repeats,
 div.calendar-tooltip-event div.url {
   font-size: smaller;
 }
-div.calendar-tooltip-event div.url {
+div.calendar-tooltip-event div.url span.url-text {
   color: blue;
-  display: inline-block;
 }
-div.calendar-tooltip-event div.url:hover {
+div.calendar-tooltip-event div.url span.url-text:hover {
   cursor: pointer;
   text-decoration: underline;
 }

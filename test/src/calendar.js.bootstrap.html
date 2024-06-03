@@ -17,7 +17,7 @@
         </div>
 
         <div class="contents">
-            <div id="myCalendar" style="max-width: 800px;">
+            <div id="myCalendar" style="max-width: 800px; height: 0px;">
                 <p>Some data that should be cleared.</p>
             </div>
             <br>
@@ -53,12 +53,6 @@
             <button class="btn btn-primary" onclick="console.log( calendarInstance.getClipboardEvents() );">Get Clipboard Events</button>
             <button class="btn btn-primary" onclick="calendarInstance.clearClipboard();">Clear Clipboard</button>
             <br>
-
-            <h2>Additional Data:</h2>
-            <button class="btn btn-primary" onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
-            <button class="btn btn-primary" onclick="console.log( calendarInstance.getId() );">Get ID</button>
-            <button class="btn btn-primary" onclick="console.log( calendarInstance.isBusy() );">Is Busy</button>
-            <br>
             
             <h2>Options:</h2>
             <button class="btn btn-primary" onclick="setOptions();">Set Options</button>
@@ -85,6 +79,13 @@
             <button class="btn btn-primary" onclick="calendarInstance.startTheAutoRefreshTimer();">Start Auto-Refresh Timer</button>
             <button class="btn btn-primary" onclick="calendarInstance.stopTheAutoRefreshTimer();">Stop Auto-Refresh Timer</button>
             <button class="btn btn-primary" onclick="calendarInstance.destroy();">Destroy</button>
+            <br />
+
+            <h2>Additional Data:</h2>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getVersion() );">Get Version</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getId() );">Get ID</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.isBusy() );">Is Busy</button>
+            <button class="btn btn-primary" onclick="console.log( calendarInstance.getCurrentView() );">Get Current View</button>
         </div>
     </body>
 
@@ -117,11 +118,8 @@
                     "Title That Is Longer"
                 ]
             },
-            onEventDragStart: onDragEventStart,
-            onEventDragStop: onDragEventStop,
-            onEventDragDrop: onDragEventDrop,
             workingDays: [ 2 ],
-            onBeforeEventAddEdit: null,
+            
             startOfWeekDay: 6,
             workingHoursStart: {
                 2: "09:00"
@@ -131,18 +129,27 @@
             },
             reverseOrderDaysOfWeek: false,
             useAmPmForTimeDisplays: false,
-            onRender: function( elementId ) {
-                console.log( "Calendar instance ID " + elementId + " rendered." );
-            },
-            onFullDayEventRender: onRenderCustom,
-            onFullWeekEventRender: onRenderCustom,
-            onFullMonthEventRender: onRenderCustom,
-            onAllEventsEventRender: onRenderCustom,
-            onTimelineEventRender: onRenderCustom,
-            onWidgetEventRender: onRenderCustom,
-            onToolTipEventRender: onToolTipRenderCustom,
             viewToOpenOnFirstLoad: null,
-            eventColorsEditingEnabled: true
+            eventColorsEditingEnabled: true,
+            events: {
+                onRender: function( elementId ) {
+                    console.log( "Calendar instance ID " + elementId + " rendered." );
+                },
+                onEventDragStart: onDragEventStart,
+                onEventDragStop: onDragEventStop,
+                onEventDragDrop: onDragEventDrop,
+                onBeforeEventAddEdit: null,
+                onFullDayEventRender: onRenderCustom,
+                onFullWeekEventRender: onRenderCustom,
+                onFullMonthEventRender: onRenderCustom,
+                onAllEventsEventRender: onRenderCustom,
+                onTimelineEventRender: onRenderCustom,
+                onWidgetEventRender: onRenderCustom,
+                onToolTipEventRender: onToolTipRenderCustom,
+                onViewChange: function( view ) {
+                    console.log( "View Open: " + view );
+                }
+            }
         } );
 
         document.title += " - v" + calendarInstance.getVersion();

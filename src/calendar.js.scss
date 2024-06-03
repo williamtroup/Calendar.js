@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.10.19
+ * Calendar.js Library v2.11.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -159,13 +159,7 @@ span.prevent-pointer-events {
     -------------------------------------------------------------------------
 */
 
-div.full-screen-view {
-    @include full-size-view;
-    z-index: 500;
-    position: fixed !important;
-    border-radius: 0 !important;
-    border: none !important;
-
+@mixin fixed-height {
     div.header-days {
         flex: none !important;
     }
@@ -174,14 +168,28 @@ div.full-screen-view {
         flex: 1 1 auto;
     }
 
-    div.plus-x-events {
-        display: none !important;
-    }
-
     div.full-month-view {
         display: flex;
         flex-flow: column;
         height: 100%;
+    }
+}
+
+div.fixed-height {
+    @include fixed-height;
+}
+
+div.full-screen-view {
+    @include full-size-view;
+    z-index: 500;
+    position: fixed !important;
+    border-radius: 0 !important;
+    border: none !important;
+
+    @include fixed-height;
+
+    div.plus-x-events {
+        display: none !important;
     }
 }
 
@@ -1749,7 +1757,7 @@ div.calendar {
                 border-bottom: var(--calendar-js-spacing-border-size) solid var(--calendar-js-grid-border-color);
                 top: 0;
                 vertical-align: top;
-                z-index: 10;
+                z-index: 2010;
                 
                 div.timeline-header-item {
                     display: inline-block;
@@ -2211,6 +2219,7 @@ div.search {
                 position: absolute;
                 right: var(--calendar-js-spacing);
                 top: var(--calendar-js-spacing);
+                transition: none !important;
             }
 
             input {
@@ -2511,7 +2520,6 @@ div.calendar div.side-menu {
         display: inline-block;
         position: relative;
         padding-left: var(--calendar-js-input-checkbox-size-with-spacing);
-        padding-top: 1px;
         margin-bottom: var(--calendar-js-spacing);
         color: var(--calendar-js-dark-color);
 
@@ -2593,7 +2601,6 @@ div.calendar-dialog {
             display: inline-block;
             position: relative;
             padding-left: 25px;
-            padding-top: 1px;
             color: var(--calendar-js-dark-color);
     
             input {
@@ -2702,12 +2709,13 @@ div.calendar-tooltip-event {
     }
 
     div.url {
-        color: blue;
-        display: inline-block;
+        span.url-text {
+            color: blue;
 
-        &:hover {
-            cursor: pointer;
-            text-decoration: underline;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
     }
 
