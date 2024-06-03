@@ -4407,7 +4407,6 @@ div.calendar-tooltip-event div.url {
 }
 div.calendar-tooltip-event div.url {
   color: blue;
-  display: inline-block;
 }
 div.calendar-tooltip-event div.url:hover {
   cursor: pointer;
