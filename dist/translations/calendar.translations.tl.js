@@ -1,4 +1,4 @@
-/*! Calendar.js v2.11.0 - Tagalog | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.11.1 - Tagalog | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "Mon",
