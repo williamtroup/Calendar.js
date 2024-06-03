@@ -159,13 +159,7 @@ span.prevent-pointer-events {
     -------------------------------------------------------------------------
 */
 
-div.full-screen-view {
-    @include full-size-view;
-    z-index: 500;
-    position: fixed !important;
-    border-radius: 0 !important;
-    border: none !important;
-
+@mixin fixed-height {
     div.header-days {
         flex: none !important;
     }
@@ -174,14 +168,28 @@ div.full-screen-view {
         flex: 1 1 auto;
     }
 
-    div.plus-x-events {
-        display: none !important;
-    }
-
     div.full-month-view {
         display: flex;
         flex-flow: column;
         height: 100%;
+    }
+}
+
+div.fixed-height {
+    @include fixed-height;
+}
+
+div.full-screen-view {
+    @include full-size-view;
+    z-index: 500;
+    position: fixed !important;
+    border-radius: 0 !important;
+    border: none !important;
+
+    @include fixed-height;
+
+    div.plus-x-events {
+        display: none !important;
     }
 }
 

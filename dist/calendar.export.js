@@ -154,6 +154,12 @@ export function calendarJs(elementOrId, options, searchOptions) {
           _element_Calendar = element;
           _element_Calendar.className = !isWidget ? "calendar" : "calendar-widget";
           _element_Calendar.innerHTML = _string.empty;
+          var height = getStyleValueByName(_element_Calendar, "height");
+          if (height >= 100) {
+            _element_Calendar.className += _string.space + "fixed-height";
+          } else {
+            _element_Calendar.style.removeProperty("height");
+          }
         }
       }
     }
@@ -716,7 +722,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _element_Calendar.style.top = actualTop + "px";
     var offset = getOffset(_element_Calendar), scrollPosition = getScrollPosition(), top = offset.top - scrollPosition.top;
     if (top + _element_Calendar.offsetHeight > _parameter_Window.innerHeight) {
-      var calendarBorderWidth = parseFloat(getStyleValueByName(_element_Calendar, "border-width"), 10), inputBorderWidth = parseFloat(getStyleValueByName(_element_Mode_DatePicker_Input, "border-width"), 10);
+      var calendarBorderWidth = getStyleValueByName(_element_Calendar, "border-width"), inputBorderWidth = getStyleValueByName(_element_Mode_DatePicker_Input, "border-width");
       actualTop -= _element_Calendar.offsetHeight + _element_Mode_DatePicker_Input.clientHeight + calendarBorderWidth * 4 + inputBorderWidth * 2;
       _element_Calendar.className += " calendar-shadow-top";
       _element_Calendar.style.top = actualTop + "px";
@@ -3171,7 +3177,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
       _element_View_Timeline_Contents.appendChild(newColumn1);
       if (actualWidth === 0) {
         var borderWidth = getStyleValueByName(newColumn1, "border-right-width");
-        actualWidth = newColumn1.clientWidth + parseFloat(borderWidth, 10);
+        actualWidth = newColumn1.clientWidth + borderWidth;
       }
       offsetLeft += actualWidth;
       var newColumn2 = createElement("div", "timeline-column");
@@ -5584,7 +5590,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
   }
   function increaseEventZIndex(e, event) {
     cancelBubble(e);
-    var zIndex = getStyleValueByName(event, "z-index");
+    var zIndex = getStyleValueByName(event, "z-index", false);
     if (zIndex === null || zIndex === "auto") {
       zIndex = 1;
     } else {
@@ -6944,12 +6950,16 @@ export function calendarJs(elementOrId, options, searchOptions) {
     }
     return result;
   }
-  function getStyleValueByName(element, stylePropertyName) {
+  function getStyleValueByName(element, stylePropertyName, toFloat) {
+    toFloat = isDefined(toFloat) ? toFloat : true;
     var value = null;
     if (_parameter_Window.getComputedStyle) {
       value = _parameter_Document.defaultView.getComputedStyle(element, null).getPropertyValue(stylePropertyName);
     } else if (element.currentStyle) {
       value = element.currentStyle[stylePropertyName];
+    }
+    if (toFloat) {
+      value = parseFloat(value, 10);
     }
     return value;
   }

@@ -198,6 +198,18 @@ span.prevent-pointer-events {
     Calendar.js - Mode - Full-Screen
     -------------------------------------------------------------------------
 */
+div.fixed-height div.header-days {
+  flex: none !important;
+}
+div.fixed-height div.row-cells {
+  flex: 1 1 auto;
+}
+div.fixed-height div.full-month-view {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
 div.full-screen-view {
   top: 0;
   left: 0;
@@ -214,13 +226,13 @@ div.full-screen-view div.header-days {
 div.full-screen-view div.row-cells {
   flex: 1 1 auto;
 }
-div.full-screen-view div.plus-x-events {
-  display: none !important;
-}
 div.full-screen-view div.full-month-view {
   display: flex;
   flex-flow: column;
   height: 100%;
+}
+div.full-screen-view div.plus-x-events {
+  display: none !important;
 }
 
 /*
