@@ -3284,7 +3284,7 @@ function calendarJs(elementOrId, options, searchOptions) {
   function showTimelineView(date, fromOpen) {
     date = isDefined(date) ? new Date(date) : new Date();
     fromOpen = isDefined(fromOpen) ? fromOpen : false;
-    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > _value.notFound, orderedEvents = [];
+    var currentDate = new Date(), weekDayNumber = getWeekdayNumber(currentDate), isCurrentDateVisible = _options.visibleDays.indexOf(weekDayNumber) > _value.notFound, orderedEvents = [], scrollLeft = _element_View_Timeline_Contents.scrollLeft, scrollTop = _element_View_Timeline_Contents.scrollTop;
     _element_View_Timeline_TitleBar.innerHTML = _string.empty;
     _element_View_Timeline_Contents.innerHTML = _string.empty;
     _element_View_Timeline_EventsShown = [];
@@ -3306,6 +3306,9 @@ function calendarJs(elementOrId, options, searchOptions) {
     if (fromOpen) {
       _element_View_Timeline_Contents.scrollLeft = _element_View_Timeline_Contents_SmallestEventLeft;
       _element_View_Timeline_Contents.scrollTop = _element_View_Timeline_Contents_SmallestEventTop;
+    } else {
+      _element_View_Timeline_Contents.scrollLeft = scrollLeft;
+      _element_View_Timeline_Contents.scrollTop = scrollTop;
     }
     updateToolbarButtonVisibleState(_element_View_Timeline_SearchButton, _element_View_Timeline_EventsShown.length > 0);
   }
