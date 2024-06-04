@@ -2028,9 +2028,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.views.fullDay.showExtraTitleBarButtons ) {
                 _element_View_FullDay_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.todayTooltipText, onCurrentFullDay );
 
-                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
-                    showJumpToDateDialog();
-                } );
+                if ( _options.jumpToDateEnabled ) {
+                    buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                        showJumpToDateDialog();
+                    } );
+                }
 
                 titleBar.appendChild( createElement( "div", "left-divider-line" ) );
     
@@ -2542,9 +2544,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.views.fullWeek.showExtraTitleBarButtons ) {
                 buildToolbarButton( titleBar, "ib-pin", _options.thisWeekTooltipText, onCurrentFullWeek );
 
-                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
-                    showJumpToDateDialog();
-                } );
+                if ( _options.jumpToDateEnabled ) {
+                    buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                        showJumpToDateDialog();
+                    } );
+                }
 
                 titleBar.appendChild( createElement( "div", "left-divider-line" ) );
 
@@ -3185,11 +3189,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
 
         if ( _options.views.fullMonth.showExtraTitleBarButtons ) {
-            buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
-                showJumpToDateDialog();
-            } );
-
-            _element_View_FullMonth_TitleBar.appendChild( createElement( "div", "left-divider-line" ) );
+            if ( _options.jumpToDateEnabled ) {
+                buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                    showJumpToDateDialog();
+                } );
+    
+                _element_View_FullMonth_TitleBar.appendChild( createElement( "div", "left-divider-line" ) );
+            }
 
             buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-refresh", _options.refreshTooltipText, function() {
                 refreshViews( true, true );
@@ -4198,9 +4204,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.views.fullYear.showExtraTitleBarButtons ) {
                 buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentFullYear );
 
-                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
-                    showJumpToDateDialog();
-                } );
+                if ( _options.jumpToDateEnabled ) {
+                    buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                        showJumpToDateDialog();
+                    } );
+                }
 
                 titleBar.appendChild( createElement( "div", "left-divider-line" ) );
 
@@ -4901,9 +4909,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( _options.views.timeline.showExtraTitleBarButtons ) {
                 _element_View_Timeline_TodayButton = buildToolbarButton( titleBar, "ib-pin", _options.currentYearTooltipText, onCurrentTimelineDay );
 
-                buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
-                    showJumpToDateDialog();
-                } );
+                if ( _options.jumpToDateEnabled ) {
+                    buildToolbarButton( titleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
+                        showJumpToDateDialog();
+                    } );
+                }
 
                 titleBar.appendChild( createElement( "div", "left-divider-line" ) );
 
@@ -7678,7 +7688,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function buildJumpTpDateDialog() {
-        if ( !_element_Mode_DatePicker_Enabled && _element_Dialog_JumpToDate === null ) {
+        if ( !_element_Mode_DatePicker_Enabled && _element_Dialog_JumpToDate === null && _options.jumpToDateEnabled ) {
             _element_Dialog_JumpToDate = createElement( "div", "calendar-dialog jump-to-date" );
             _elements_InDocumentBody.push( _element_Dialog_JumpToDate );
             _parameter_Document.body.appendChild( _element_Dialog_JumpToDate );
@@ -7713,7 +7723,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showJumpToDateDialog() {
         var viewOpen = getActiveView();
 
-        if ( viewOpen !== _element_View_AllEvents ) {
+        if ( viewOpen !== _element_View_AllEvents && _options.jumpToDateEnabled ) {
             addNode( _parameter_Document.body, _element_Calendar_DisabledBackground );
             hideSideMenu();
             setDefaultJumpToDate();
@@ -13638,6 +13648,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.viewToOpenOnFirstLoad = getDefaultString( _options.viewToOpenOnFirstLoad, null );
         _options.eventColorsEditingEnabled = getDefaultBoolean( _options.eventColorsEditingEnabled, true );
         _options.eventTooltipDelay = getDefaultNumber( _options.eventTooltipDelay, 1000 );
+        _options.jumpToDateEnabled = getDefaultBoolean( _options.jumpToDateEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
