@@ -2034,7 +2034,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     } );
                 }
 
-                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "left-divider-line-events" ) );
     
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -2550,7 +2550,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     } );
                 }
 
-                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "left-divider-line-events" ) );
 
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -3193,9 +3193,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-arrow-right-full-line", _options.jumpToDateTitle, function() {
                     showJumpToDateDialog();
                 } );
-    
-                _element_View_FullMonth_TitleBar.appendChild( createElement( "div", "left-divider-line" ) );
             }
+
+            _element_View_FullMonth_TitleBar.appendChild( createElement( "div", "left-divider-line-events" ) );
 
             buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-refresh", _options.refreshTooltipText, function() {
                 refreshViews( true, true );
@@ -4210,7 +4210,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     } );
                 }
 
-                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "left-divider-line-events" ) );
 
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -4567,7 +4567,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( _options.views.allEvents.showExtraTitleBarButtons ) {
-                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "left-divider-line-events" ) );
                 
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );
@@ -4915,7 +4915,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     } );
                 }
 
-                titleBar.appendChild( createElement( "div", "left-divider-line" ) );
+                titleBar.appendChild( createElement( "div", "left-divider-line-events" ) );
 
                 buildToolbarButton( titleBar, "ib-refresh", _options.refreshTooltipText, function() {
                     refreshViews( true, true );

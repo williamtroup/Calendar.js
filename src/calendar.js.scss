@@ -1147,6 +1147,7 @@ div.calendar {
     
             div[class^='ib-'],
             div.left-divider-line,
+            div.left-divider-line-events,
             div.right-divider-line,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
@@ -1155,6 +1156,7 @@ div.calendar {
             }
     
             div.left-divider-line,
+            div.left-divider-line-events,
             div.right-divider-line,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
@@ -1345,6 +1347,7 @@ div.calendar {
             div.ib-hamburger,
             div.ib-rewind,
             div.left-divider-line,
+            div.left-divider-line-events,
             div.ib-arrow-right-full-line {
                 float: left;
             }
@@ -1383,7 +1386,8 @@ div.calendar {
                 div.ib-bar-graph,
                 div.right-divider-line-full-screen-mode,
                 div.right-divider-line-views,
-                div.ib-arrow-right-full-line {
+                div.ib-arrow-right-full-line,
+                div.left-divider-line-events {
                     display: inline-block;
                 }
             }
@@ -1403,7 +1407,8 @@ div.calendar {
                 div.ib-bar-graph,
                 div.right-divider-line-full-screen-mode,
                 div.right-divider-line-views,
-                div.ib-arrow-right-full-line {
+                div.ib-arrow-right-full-line,
+                div.left-divider-line-events {
                     display: none !important;
                 }
             }

@@ -12,13 +12,15 @@ div.title-bar {
     text-align: center;
 
     div.left-divider-line,
+    div.left-divider-line-events,
     div.right-divider-line,
     div.right-divider-line-full-screen-mode,
     div.right-divider-line-views {
         @include title-bar-divider-line;
     }
 
-    div.left-divider-line {
+    div.left-divider-line,
+    div.left-divider-line-events {
         float: left;
     }
 
@@ -78,7 +80,8 @@ div.title-bar {
         div.ib-hourglass,
         div.right-divider-line-full-screen-mode,
         div.right-divider-line-views,
-        div.ib-arrow-right-full-line {
+        div.ib-arrow-right-full-line,
+        div.left-divider-line-events {
             display: inline-block;
         }
     }
@@ -94,7 +97,8 @@ div.title-bar {
         div.ib-hourglass,
         div.right-divider-line-full-screen-mode,
         div.right-divider-line-views,
-        div.ib-arrow-right-full-line {
+        div.ib-arrow-right-full-line,
+        div.left-divider-line-events {
             display: none !important;
         }
     }
