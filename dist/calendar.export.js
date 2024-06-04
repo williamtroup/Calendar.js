@@ -1753,7 +1753,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     return added;
   }
   function buildFullWeekViewDayNameHeaderDates(weekStartDate, weekEndDate) {
-    if (_element_View_FullWeek_Contents_DayNamesHeader !== null) {
+    if (_element_View_FullWeek_Contents_DayNamesHeader !== null && _options.views.fullWeek.showDatesInDayHeaders) {
       var fromDate = new Date(weekStartDate), childrenIndex = 0, children = _element_View_FullWeek_Contents_DayNamesHeader.children;
       while (fromDate < weekEndDate) {
         var weekDayNumber = getWeekdayNumber(fromDate);
@@ -8799,6 +8799,7 @@ export function calendarJs(elementOrId, options, searchOptions) {
     _options.views.fullWeek.showTimelineArrow = getDefaultBoolean(_options.views.fullWeek.showTimelineArrow, true);
     _options.views.fullWeek.showWeekNumbersInTitles = getDefaultBoolean(_options.views.fullWeek.showWeekNumbersInTitles, false);
     _options.views.fullWeek.showExtraTitleBarButtons = getDefaultBoolean(_options.views.fullWeek.showExtraTitleBarButtons, true);
+    _options.views.fullWeek.showDatesInDayHeaders = getDefaultBoolean(_options.views.fullWeek.showDatesInDayHeaders, true);
   }
   function buildDefaultViewOptionsForFullMonth() {
     _options.views.fullMonth = getOptions(_options.views.fullMonth);
