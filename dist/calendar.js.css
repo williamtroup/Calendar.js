@@ -4495,6 +4495,7 @@ div.calendar-context-menu div.ib-arrow-down-full-line-icon,
 div.calendar-context-menu div.ib-arrow-up-full-line-share-icon,
 div.calendar-context-menu div.ib-edit-icon {
   margin-right: var(--calendar-js-spacing);
+  transition: none !important;
 }
 div.calendar-context-menu div.item {
   padding: calc(var(--calendar-js-spacing) - var(--calendar-js-spacing) / 5);
