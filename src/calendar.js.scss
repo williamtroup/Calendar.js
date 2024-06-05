@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.11.0
+ * Calendar.js Library v2.12.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -723,6 +723,8 @@ div.calendar {
             border-radius: var(--calendar-js-border-radius);
             background-color: rgba(59, 58, 59, 0.6);
             padding: calc( var(--calendar-js-spacing) * 2 );
+            padding-left: calc( var(--calendar-js-spacing) * 4 );
+            padding-right: calc( var(--calendar-js-spacing) * 4 );
             transition: var(--calendar-js-transition);
 
             &:hover {
@@ -1147,6 +1149,7 @@ div.calendar {
     
             div[class^='ib-'],
             div.left-divider-line,
+            div.left-divider-line-events,
             div.right-divider-line,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
@@ -1155,6 +1158,7 @@ div.calendar {
             }
     
             div.left-divider-line,
+            div.left-divider-line-events,
             div.right-divider-line,
             div.right-divider-line-full-screen-mode,
             div.right-divider-line-views {
@@ -1345,6 +1349,7 @@ div.calendar {
             div.ib-hamburger,
             div.ib-rewind,
             div.left-divider-line,
+            div.left-divider-line-events,
             div.ib-arrow-right-full-line {
                 float: left;
             }
@@ -1383,7 +1388,8 @@ div.calendar {
                 div.ib-bar-graph,
                 div.right-divider-line-full-screen-mode,
                 div.right-divider-line-views,
-                div.ib-arrow-right-full-line {
+                div.ib-arrow-right-full-line,
+                div.left-divider-line-events {
                     display: inline-block;
                 }
             }
@@ -1403,7 +1409,8 @@ div.calendar {
                 div.ib-bar-graph,
                 div.right-divider-line-full-screen-mode,
                 div.right-divider-line-views,
-                div.ib-arrow-right-full-line {
+                div.ib-arrow-right-full-line,
+                div.left-divider-line-events {
                     display: none !important;
                 }
             }
@@ -2788,6 +2795,7 @@ div.calendar-context-menu {
     div.ib-arrow-up-full-line-share-icon,
     div.ib-edit-icon {
         margin-right: var(--calendar-js-spacing);
+        transition: none !important;
     }
 
     div.item {

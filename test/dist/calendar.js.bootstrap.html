@@ -92,15 +92,30 @@
     <script>
         var calendarInstance = new calendarJs( "myCalendar", { 
             exportEventsEnabled: true, 
-            manualEditingEnabled: true, 
+            manualEditingEnabled: true,
+            jumpToDateEnabled: true,
             views: {
+                fullDay: {
+                    enabled: true
+                },
                 fullWeek: {
+                    enabled: true,
                     showWeekNumbersInTitles: false
                 },
                 fullMonth: {
                     showTimesInEvents: false,
                     minimumDayHeight: 0,
-                    allowEventScrolling: false
+                    addYearButtons: false
+                },
+                fullYear: {
+                    enabled: true,
+                    showWeekNumbersInTitles: false
+                },
+                timeline: {
+                    enabled: true
+                },
+                allEvents: {
+                    enabled: true
                 }
             },
             fullScreenModeEnabled: true,

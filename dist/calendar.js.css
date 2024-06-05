@@ -1,5 +1,5 @@
 /*
- * Calendar.js Library v2.11.0
+ * Calendar.js Library v2.12.0
  *
  * Copyright 2024 Bunoon
  * Released under the MIT License
@@ -733,6 +733,8 @@ div.calendar div.pin-up div.pin-up-text {
   border-radius: var(--calendar-js-border-radius);
   background-color: rgba(59, 58, 59, 0.6);
   padding: calc(var(--calendar-js-spacing) * 2);
+  padding-left: calc(var(--calendar-js-spacing) * 4);
+  padding-right: calc(var(--calendar-js-spacing) * 4);
   transition: var(--calendar-js-transition);
 }
 div.calendar div.pin-up div.pin-up-text:hover {
@@ -975,6 +977,7 @@ div.calendar div.full-day-view div.title-bar {
   text-align: center;
 }
 div.calendar div.full-day-view div.title-bar div.left-divider-line,
+div.calendar div.full-day-view div.title-bar div.left-divider-line-events,
 div.calendar div.full-day-view div.title-bar div.right-divider-line,
 div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
 div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
@@ -982,7 +985,8 @@ div.calendar div.full-day-view div.title-bar div.right-divider-line-views {
   background-color: var(--calendar-js-title-bar-button-color);
   height: 16px;
 }
-div.calendar div.full-day-view div.title-bar div.left-divider-line {
+div.calendar div.full-day-view div.title-bar div.left-divider-line,
+div.calendar div.full-day-view div.title-bar div.left-divider-line-events {
   float: left;
 }
 div.calendar div.full-day-view div.title-bar div.right-divider-line,
@@ -1037,7 +1041,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-hourglass,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-day-view div.title-bar div.left-divider-line-events {
     display: inline-block;
   }
 }
@@ -1052,7 +1057,8 @@ div.calendar div.full-day-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-day-view div.title-bar div.ib-hourglass,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-day-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-day-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-day-view div.title-bar div.left-divider-line-events {
     display: none !important;
   }
 }
@@ -1253,6 +1259,7 @@ div.calendar div.full-week-view div.title-bar {
   text-align: center;
 }
 div.calendar div.full-week-view div.title-bar div.left-divider-line,
+div.calendar div.full-week-view div.title-bar div.left-divider-line-events,
 div.calendar div.full-week-view div.title-bar div.right-divider-line,
 div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
 div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
@@ -1260,7 +1267,8 @@ div.calendar div.full-week-view div.title-bar div.right-divider-line-views {
   background-color: var(--calendar-js-title-bar-button-color);
   height: 16px;
 }
-div.calendar div.full-week-view div.title-bar div.left-divider-line {
+div.calendar div.full-week-view div.title-bar div.left-divider-line,
+div.calendar div.full-week-view div.title-bar div.left-divider-line-events {
   float: left;
 }
 div.calendar div.full-week-view div.title-bar div.right-divider-line,
@@ -1315,7 +1323,8 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-week-view div.title-bar div.ib-hourglass,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-week-view div.title-bar div.left-divider-line-events {
     display: inline-block;
   }
 }
@@ -1330,7 +1339,8 @@ div.calendar div.full-week-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-week-view div.title-bar div.ib-hourglass,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-week-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-week-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-week-view div.title-bar div.left-divider-line-events {
     display: none !important;
   }
 }
@@ -1613,6 +1623,7 @@ div.calendar div.full-month-view div.title-bar {
 }
 div.calendar div.full-month-view div.title-bar div[class^=ib-],
 div.calendar div.full-month-view div.title-bar div.left-divider-line,
+div.calendar div.full-month-view div.title-bar div.left-divider-line-events,
 div.calendar div.full-month-view div.title-bar div.right-divider-line,
 div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
 div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
@@ -1620,6 +1631,7 @@ div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
   margin-right: calc(var(--calendar-js-spacing) / 2);
 }
 div.calendar div.full-month-view div.title-bar div.left-divider-line,
+div.calendar div.full-month-view div.title-bar div.left-divider-line-events,
 div.calendar div.full-month-view div.title-bar div.right-divider-line,
 div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
 div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
@@ -1817,6 +1829,7 @@ div.calendar div.full-month-view div.title-bar div.ib-octagon-hollow,
 div.calendar div.full-month-view div.title-bar div.ib-hamburger,
 div.calendar div.full-month-view div.title-bar div.ib-rewind,
 div.calendar div.full-month-view div.title-bar div.left-divider-line,
+div.calendar div.full-month-view div.title-bar div.left-divider-line-events,
 div.calendar div.full-month-view div.title-bar div.ib-arrow-right-full-line {
   float: left;
 }
@@ -1853,7 +1866,8 @@ div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
   div.calendar div.full-month-view div.title-bar div.ib-bar-graph,
   div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-month-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-month-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-month-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-month-view div.title-bar div.left-divider-line-events {
     display: inline-block;
   }
 }
@@ -1872,7 +1886,8 @@ div.calendar div.full-month-view div.title-bar div.right-divider-line-views {
   div.calendar div.full-month-view div.title-bar div.ib-bar-graph,
   div.calendar div.full-month-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-month-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-month-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-month-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-month-view div.title-bar div.left-divider-line-events {
     display: none !important;
   }
 }
@@ -1978,6 +1993,7 @@ div.calendar div.full-year-view div.title-bar {
   text-align: center;
 }
 div.calendar div.full-year-view div.title-bar div.left-divider-line,
+div.calendar div.full-year-view div.title-bar div.left-divider-line-events,
 div.calendar div.full-year-view div.title-bar div.right-divider-line,
 div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
 div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
@@ -1985,7 +2001,8 @@ div.calendar div.full-year-view div.title-bar div.right-divider-line-views {
   background-color: var(--calendar-js-title-bar-button-color);
   height: 16px;
 }
-div.calendar div.full-year-view div.title-bar div.left-divider-line {
+div.calendar div.full-year-view div.title-bar div.left-divider-line,
+div.calendar div.full-year-view div.title-bar div.left-divider-line-events {
   float: left;
 }
 div.calendar div.full-year-view div.title-bar div.right-divider-line,
@@ -2040,7 +2057,8 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-hourglass,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-year-view div.title-bar div.left-divider-line-events {
     display: inline-block;
   }
 }
@@ -2055,7 +2073,8 @@ div.calendar div.full-year-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.full-year-view div.title-bar div.ib-hourglass,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.full-year-view div.title-bar div.right-divider-line-views,
-  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.full-year-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.full-year-view div.title-bar div.left-divider-line-events {
     display: none !important;
   }
 }
@@ -2188,6 +2207,7 @@ div.calendar div.all-events-view div.title-bar {
   text-align: center;
 }
 div.calendar div.all-events-view div.title-bar div.left-divider-line,
+div.calendar div.all-events-view div.title-bar div.left-divider-line-events,
 div.calendar div.all-events-view div.title-bar div.right-divider-line,
 div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
 div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
@@ -2195,7 +2215,8 @@ div.calendar div.all-events-view div.title-bar div.right-divider-line-views {
   background-color: var(--calendar-js-title-bar-button-color);
   height: 16px;
 }
-div.calendar div.all-events-view div.title-bar div.left-divider-line {
+div.calendar div.all-events-view div.title-bar div.left-divider-line,
+div.calendar div.all-events-view div.title-bar div.left-divider-line-events {
   float: left;
 }
 div.calendar div.all-events-view div.title-bar div.right-divider-line,
@@ -2250,7 +2271,8 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-hourglass,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-views,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.all-events-view div.title-bar div.left-divider-line-events {
     display: inline-block;
   }
 }
@@ -2265,7 +2287,8 @@ div.calendar div.all-events-view div.title-bar div.ib-arrow-contract-left-right 
   div.calendar div.all-events-view div.title-bar div.ib-hourglass,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.all-events-view div.title-bar div.right-divider-line-views,
-  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.all-events-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.all-events-view div.title-bar div.left-divider-line-events {
     display: none !important;
   }
 }
@@ -2416,6 +2439,7 @@ div.calendar div.timeline-view div.title-bar {
   text-align: center;
 }
 div.calendar div.timeline-view div.title-bar div.left-divider-line,
+div.calendar div.timeline-view div.title-bar div.left-divider-line-events,
 div.calendar div.timeline-view div.title-bar div.right-divider-line,
 div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
 div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
@@ -2423,7 +2447,8 @@ div.calendar div.timeline-view div.title-bar div.right-divider-line-views {
   background-color: var(--calendar-js-title-bar-button-color);
   height: 16px;
 }
-div.calendar div.timeline-view div.title-bar div.left-divider-line {
+div.calendar div.timeline-view div.title-bar div.left-divider-line,
+div.calendar div.timeline-view div.title-bar div.left-divider-line-events {
   float: left;
 }
 div.calendar div.timeline-view div.title-bar div.right-divider-line,
@@ -2478,7 +2503,8 @@ div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.timeline-view div.title-bar div.ib-hourglass,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-views,
-  div.calendar div.timeline-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.timeline-view div.title-bar div.left-divider-line-events {
     display: inline-block;
   }
 }
@@ -2493,7 +2519,8 @@ div.calendar div.timeline-view div.title-bar div.ib-arrow-contract-left-right {
   div.calendar div.timeline-view div.title-bar div.ib-hourglass,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-full-screen-mode,
   div.calendar div.timeline-view div.title-bar div.right-divider-line-views,
-  div.calendar div.timeline-view div.title-bar div.ib-arrow-right-full-line {
+  div.calendar div.timeline-view div.title-bar div.ib-arrow-right-full-line,
+  div.calendar div.timeline-view div.title-bar div.left-divider-line-events {
     display: none !important;
   }
 }
@@ -4495,6 +4522,7 @@ div.calendar-context-menu div.ib-arrow-down-full-line-icon,
 div.calendar-context-menu div.ib-arrow-up-full-line-share-icon,
 div.calendar-context-menu div.ib-edit-icon {
   margin-right: var(--calendar-js-spacing);
+  transition: none !important;
 }
 div.calendar-context-menu div.item {
   padding: calc(var(--calendar-js-spacing) - var(--calendar-js-spacing) / 5);
