@@ -3322,6 +3322,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 if ( _element_View_FullMonth_PinUp_ImageIndex === _options.views.fullMonth.pinUpViewImageUrls.length ) {
                     _element_View_FullMonth_PinUp_ImageIndex = 0;
                 }
+
+            } else if ( _options.views.fullMonth.pinUpViewImageCssClasses.length > 0 ) {
+                _element_View_FullMonth_PinUp.className = "pin-up" + _string.space + _options.views.fullMonth.pinUpViewImageCssClasses[ _element_View_FullMonth_PinUp_ImageIndex ];
+
+                _element_View_FullMonth_PinUp_ImageIndex++;
+                if ( _element_View_FullMonth_PinUp_ImageIndex === _options.views.fullMonth.pinUpViewImageCssClasses.length ) {
+                    _element_View_FullMonth_PinUp_ImageIndex = 0;
+                }
             }
 
             buildFullMonthViewPinUpImageText();
@@ -13731,6 +13739,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.pinUpViewImageUrls = getDefaultArray( _options.views.fullMonth.pinUpViewImageUrls, [] );
         _options.views.fullMonth.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.views.fullMonth.showMonthButtonsInYearDropDownMenu, true );
         _options.views.fullMonth.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullMonth.showExtraTitleBarButtons, true );
+        _options.views.fullMonth.pinUpViewImageCssClasses = getDefaultArray( _options.views.fullMonth.pinUpViewImageCssClasses, [] );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;
