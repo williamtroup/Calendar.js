@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.0 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.12.1 | (c) Bunoon 2024 | MIT License */
 (function($) {
   $.fn.calendarJs = function(options) {
     var instances = [];
