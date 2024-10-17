@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.0 - Hungarian | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.12.1 - Hungarian | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "Hétfő",

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.0 - Georgian | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.12.1 - Georgian | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "ორშაბათი",
