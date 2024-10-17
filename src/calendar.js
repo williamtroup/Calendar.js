@@ -6106,7 +6106,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function showEventEditingDialog( eventDetails, overrideTodayDate, overrideTimeValues, originDayDate ) {
-        if ( isFunction( _options.onBeforeEventAddEdit ) ) {
+        if ( isFunction( _options.events.onBeforeEventAddEdit ) ) {
             fireCustomTrigger( _options.events.onBeforeEventAddEdit, eventDetails );
         } else {
             
