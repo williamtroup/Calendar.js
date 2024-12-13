@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.1 - Hindi | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.12.2 - Hindi | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
   "dayHeaderNames": [
     "सोमवार",
