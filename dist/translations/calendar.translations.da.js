@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.1 - Danish | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.12.2 - Danish | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "man",
