@@ -8726,6 +8726,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     }
 
                     holidayTextItemsAnyCase.push( holidayText.toLowerCase() );
+
+                } else {
+                    dayElement.style.removeProperty( "background-color" );
+                    dayElement.style.removeProperty( "color" );
                 }
             }
         }
