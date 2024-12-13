@@ -58,7 +58,7 @@ Calendar.js supports 8 different views (two are modes), which can be accessed fr
 
 - Zero-dependencies!
 - Exportable for use in other frameworks!
-- 51 language translations available!
+- 52 language translations available!
 - Adding, updating, and removing events, with full custom colors support.
 - Full API available via public functions.
 - Drag and Drop for events, even across multiple Calendars!
@@ -158,6 +158,7 @@ All modern browsers (such as Google Chrome, FireFox, and Opera) are fully suppor
 - `th` Thai
 - `tr` Turkish
 - `uk` Ukrainian
+- `vi` Vietnamese
 <br>
 <br>
 
