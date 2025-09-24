@@ -191,7 +191,7 @@ To get started using Calendar.js, do the following steps:
 
 ### 1. Prerequisites:
 
-Make sure you include the "DOCTYPE html" tag at the top of your email, as follows:
+Make sure you include the "DOCTYPE html" tag at the top of your HTML, as follows:
 
 ```markdown
 <!DOCTYPE html>
