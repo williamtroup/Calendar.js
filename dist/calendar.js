@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.3 | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.12.3 | (c) Bunoon 2025 | MIT License */
 function calendarJs(ol, pl, ql) {
   function R(a, c, d) {
     B = Dc(a) ? a : new Date();
