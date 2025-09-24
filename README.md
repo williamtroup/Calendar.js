@@ -179,6 +179,13 @@ npm install jcalendar.js
 ```
 
 Or, you can download the latest zipped up version [here](https://calendar-js.com/download.html).
+
+Or, you can also use the following CDN links:
+
+```markdown
+https://cdn.jsdelivr.net/gh/williamtroup/Calendar.js@2.12.3/dist/calendar.min.js
+https://cdn.jsdelivr.net/gh/williamtroup/Calendar.js@2.12.3/dist/calendar.js.min.css
+```
 <br>
 <br>
 
