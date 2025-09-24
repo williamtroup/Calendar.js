@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.2 - Latvian | (c) Bunoon 2024 | MIT License */
+/*! Calendar.js v2.12.3 - Latvian | (c) Bunoon 2024 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "Pirmd",
