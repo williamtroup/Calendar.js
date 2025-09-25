@@ -5545,7 +5545,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             } );
         }
 
-        if ( _options.exportEventsEnabled && _parameter_Navigator.share ) {
+        if ( _options.shareEventsEnabled && _parameter_Navigator.share ) {
             buildContextMenuSeparator( _element_ContextMenu_Event );
         
             buildContextMenuItemWithIcon( _element_ContextMenu_Event, "ib-arrow-up-full-line-share-icon", _options.shareText + "...", function() {
@@ -13661,6 +13661,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.eventColorsEditingEnabled = getDefaultBoolean( _options.eventColorsEditingEnabled, true );
         _options.eventTooltipDelay = getDefaultNumber( _options.eventTooltipDelay, 1000 );
         _options.jumpToDateEnabled = getDefaultBoolean( _options.jumpToDateEnabled, true );
+        _options.shareEventsEnabled = getDefaultBoolean( _options.shareEventsEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
