@@ -3995,8 +3995,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     var events = elementDay.getElementsByClassName( "event" );
     
                     if ( events.length < _options.views.fullMonth.maximumEventsPerDayDisplay || _options.views.fullMonth.maximumEventsPerDayDisplay <= 0 || _options.views.fullMonth.useOnlyDotEvents ) {
-                        var event = createElement( "div", "event" ),
-                            eventRendered = false;
+                        var event = createElement( "div", "event" );
     
                         event.setAttribute( "event-type", getNumber( eventDetails.type ) );
                         event.setAttribute( "event-id", eventDetails.id );
@@ -4018,12 +4017,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                                 }
             
                                 event.innerHTML += stripHTMLTagsFromText( eventTitle );
-                                eventRendered = true;
                             }
         
                         } else {
                             event.className += " event-circle";
-                            eventRendered = true;
                         }
                         
                         elementDay.appendChild( event );
