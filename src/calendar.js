@@ -2932,7 +2932,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var weekDayNumber = getWeekdayNumber( fromDate );
 
                 if ( _options.visibleDays.indexOf( weekDayNumber ) > _value.notFound ) {
-                    children[ childrenIndex ].innerHTML += _string.space + fromDate.getDate() + "/" + ( fromDate.getMonth() + 1 );
+                    if ( _options.views.fullWeek.padDayMonthNumbers ) {
+                        children[ childrenIndex ].innerHTML += _string.space + padNumber( fromDate.getDate() ) + "/" + ( padNumber( fromDate.getMonth() + 1 ) );
+                    } else {
+                        children[ childrenIndex ].innerHTML += _string.space + fromDate.getDate() + "/" + ( fromDate.getMonth() + 1 );
+                    }
+                    
                     childrenIndex++;
                 }
 
@@ -13738,6 +13743,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullWeek.showWeekNumbersInTitles = getDefaultBoolean( _options.views.fullWeek.showWeekNumbersInTitles, false );
         _options.views.fullWeek.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullWeek.showExtraTitleBarButtons, true );
         _options.views.fullWeek.showDatesInDayHeaders = getDefaultBoolean( _options.views.fullWeek.showDatesInDayHeaders, true );
+        _options.views.fullWeek.padDayMonthNumbers = getDefaultBoolean( _options.views.fullWeek.padDayMonthNumbers, false );
     }
 
     function buildDefaultViewOptionsForFullMonth() {

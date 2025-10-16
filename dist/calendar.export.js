@@ -232,11 +232,11 @@ export function calendarJs(J, va, X) {
             if (b.startOfWeekDay === xa.saturday || b.startOfWeekDay === xa.sunday) (c = b.startOfWeekDay), (E = !0);
             for (; c < k; c++)
                 (l = b.visibleDays.indexOf(c) > A.notFound),
-                    K.push(L(Gc, b.dayNames[c], Lc, c.toString(), l, null, Mc)[0]);
+                    K.push(M(Gc, b.dayNames[c], Lc, c.toString(), l, null, Mc)[0]);
             if (E)
                 for (k = b.startOfWeekDay, c = 0; c < k; c++)
                     (E = b.visibleDays.indexOf(c) > A.notFound),
-                        K.push(L(Gc, b.dayNames[c], Lc, c.toString(), E, null, Mc)[0]);
+                        K.push(M(Gc, b.dayNames[c], Lc, c.toString(), E, null, Mc)[0]);
             b.reverseOrderDaysOfWeek && md(Gc);
         }
         if (b.sideMenu.showEventTypes) {
@@ -255,7 +255,7 @@ export function calendarJs(J, va, X) {
                         (c = !0)),
                     (K = !0),
                     p(Q.visibleEventTypes) && (K = Q.visibleEventTypes.indexOf(parseInt(h)) > A.notFound),
-                    k.push(L(gd, P[h].text, Lc, h, K, null, Mc)[0]));
+                    k.push(M(gd, P[h].text, Lc, h, K, null, Mc)[0]));
         }
         if (
             b.sideMenu.showGroups &&
@@ -276,7 +276,7 @@ export function calendarJs(J, va, X) {
                     (K = k.toLowerCase()),
                     (E = !0),
                     p(Q.visibleGroups) && (E = Q.visibleGroups.indexOf(K) > A.notFound),
-                    d.push(L(hd, k, Lc, K, E, null, Mc)[0]);
+                    d.push(M(hd, k, Lc, K, E, null, Mc)[0]);
         if (b.sideMenu.showWorkingDays) {
             c = f;
             c = p(c) ? c : !0;
@@ -292,11 +292,11 @@ export function calendarJs(J, va, X) {
             if (b.startOfWeekDay === xa.saturday || b.startOfWeekDay === xa.sunday) (f = b.startOfWeekDay), (d = !0);
             for (; f < h; f++)
                 (c = b.workingDays.indexOf(f) > A.notFound),
-                    e.push(L(Hc, b.dayNames[f], Lc, f.toString(), c, null, Mc)[0]);
+                    e.push(M(Hc, b.dayNames[f], Lc, f.toString(), c, null, Mc)[0]);
             if (d)
                 for (h = b.startOfWeekDay, f = 0; f < h; f++)
                     (d = b.workingDays.indexOf(f) > A.notFound),
-                        e.push(L(Hc, b.dayNames[f], Lc, f.toString(), d, null, Mc)[0]);
+                        e.push(M(Hc, b.dayNames[f], Lc, f.toString(), d, null, Mc)[0]);
             b.reverseOrderDaysOfWeek && md(Hc);
         }
         if (b.sideMenu.showWeekendDays) {
@@ -316,12 +316,12 @@ export function calendarJs(J, va, X) {
             for (; a < f; a++)
                 (d = 6 < a ? 0 : a),
                     (c = b.weekendDays.indexOf(d) > A.notFound),
-                    h.push(L(Ic, b.dayNames[a - 1], Lc, d.toString(), c, null, Mc)[0]);
+                    h.push(M(Ic, b.dayNames[a - 1], Lc, d.toString(), c, null, Mc)[0]);
             if (e)
                 for (f = b.startOfWeekDay + 1, a = 1; a < f; a++)
                     (e = 6 < a ? 0 : a),
                         (d = b.weekendDays.indexOf(e) > A.notFound),
-                        h.push(L(Ic, b.dayNames[a - 1], Lc, e.toString(), d, null, Mc)[0]);
+                        h.push(M(Ic, b.dayNames[a - 1], Lc, e.toString(), d, null, Mc)[0]);
             b.reverseOrderDaysOfWeek && md(Ic);
         }
     }
@@ -573,7 +573,7 @@ export function calendarJs(J, va, X) {
     }
     function Nh(a) {
         Cc.value = Lh(b.views.datePicker.selectedDateFormat, a);
-        Qe.value = a.getFullYear() + "-" + M(a.getMonth() + 1) + "-" + M(a.getDate());
+        Qe.value = a.getFullYear() + "-" + L(a.getMonth() + 1) + "-" + L(a.getDate());
     }
     function jj(a) {
         var c = !0;
@@ -790,7 +790,7 @@ export function calendarJs(J, va, X) {
             Y.appendChild(xb);
             xb.oncontextmenu = function (a) {
                 var b = tg(a, ya);
-                bf = M(b[0]) + ":" + M(b[1]);
+                bf = L(b[0]) + ":" + L(b[1]);
                 Cj(a, N, ic);
             };
             Oc = g("div", "content-events-all-day");
@@ -1015,7 +1015,7 @@ export function calendarJs(J, va, X) {
         b.manualEditingEnabled &&
             ((a = tg(a, ya)),
             b.useTemplateWhenAddingNewEvent
-                ? ((a = M(a[0]) + ":" + M(a[1])), (a = td(N, N, a, a)), R(a), ud())
+                ? ((a = L(a[0]) + ":" + L(a[1])), (a = td(N, N, a, a)), R(a), ud())
                 : R(null, N, a));
     }
     function mj() {
@@ -1113,7 +1113,7 @@ export function calendarJs(J, va, X) {
             b.manualEditingEnabled &&
                 ((a = tg(a, d)),
                 b.useTemplateWhenAddingNewEvent
-                    ? ((a = M(a[0]) + ":" + M(a[1])), (a = td(f, f, a, a)), R(a), ud())
+                    ? ((a = L(a[0]) + ":" + L(a[1])), (a = td(f, f, a, a)), R(a), ud())
                     : R(null, f, a));
         };
         Bg(e, f.getFullYear(), f.getMonth(), f.getDate());
@@ -1129,7 +1129,7 @@ export function calendarJs(J, va, X) {
             }));
         d.oncontextmenu = function (a) {
             var b = tg(a, d);
-            bf = M(b[0]) + ":" + M(b[1]);
+            bf = L(b[0]) + ":" + L(b[1]);
             Cj(a, f, jf[c]);
         };
     }
@@ -1322,7 +1322,10 @@ export function calendarJs(J, va, X) {
             for (k = yd.children; d < e; )
                 (l = Z(d)),
                     b.visibleDays.indexOf(l) > A.notFound &&
-                        ((k[f].innerHTML += n.space + d.getDate() + "/" + (d.getMonth() + 1)), f++),
+                        ((k[f].innerHTML = b.views.fullWeek.padDayMonthNumbers
+                            ? k[f].innerHTML + (n.space + L(d.getDate()) + "/" + L(d.getMonth() + 1))
+                            : k[f].innerHTML + (n.space + d.getDate() + "/" + (d.getMonth() + 1))),
+                        f++),
                     d.setDate(d.getDate() + 1);
             b.reverseOrderDaysOfWeek && md(yd);
         }
@@ -1656,7 +1659,7 @@ export function calendarJs(J, va, X) {
                 : (l.className = n.empty);
             l.className += f;
             l.className += h && !q ? " today" : n.empty;
-            l.innerText = b.views.fullMonth.padDayNumbers ? M(a) : a;
+            l.innerText = b.views.fullMonth.padDayNumbers ? L(a) : a;
             1 !== a || q || (l.className += " first-day");
             0 <= b.weekendDays.indexOf(K.getDay()) &&
                 c.className.indexOf("weekend-day") === A.notFound &&
@@ -2822,9 +2825,9 @@ export function calendarJs(J, va, X) {
         Zb = g("input");
         a.appendChild(Zb);
         hc(Zb, "time");
-        we = L(Wb, b.isAllDayText, c)[0];
-        If = L(Wb, b.showAlertsText)[0];
-        Jf = L(Wb, b.showAsBusyText)[0];
+        we = M(Wb, b.isAllDayText, c)[0];
+        If = M(Wb, b.showAlertsText)[0];
+        Jf = M(Wb, b.showAsBusyText)[0];
     }
     function pm() {
         var a = g("div", "radio-buttons-container");
@@ -3323,13 +3326,13 @@ export function calendarJs(J, va, X) {
             var c = g("div", "section");
             a.appendChild(c);
             ra(c, b.daysToExcludeText, "text-header");
-            Wg = L(c, b.dayNames[0])[0];
-            Xg = L(c, b.dayNames[1])[0];
-            Yg = L(c, b.dayNames[2])[0];
-            Zg = L(c, b.dayNames[3])[0];
-            $g = L(c, b.dayNames[4])[0];
-            ah = L(c, b.dayNames[5])[0];
-            bh = L(c, b.dayNames[6])[0];
+            Wg = M(c, b.dayNames[0])[0];
+            Xg = M(c, b.dayNames[1])[0];
+            Yg = M(c, b.dayNames[2])[0];
+            Zg = M(c, b.dayNames[3])[0];
+            $g = M(c, b.dayNames[4])[0];
+            ah = M(c, b.dayNames[5])[0];
+            bh = M(c, b.dayNames[6])[0];
             c = g("div", "section");
             a.appendChild(c);
             ra(c, b.repeatEndsText, "text-header");
@@ -3375,7 +3378,7 @@ export function calendarJs(J, va, X) {
             Yc.appendChild(a);
             xi = g("div", "text");
             a.appendChild(xi);
-            var c = L(a, b.removeAllEventsInSeriesText);
+            var c = M(a, b.removeAllEventsInSeriesText);
             Qg = c[0];
             yi = c[1];
             Vf = g("div", "buttons-container");
@@ -3431,7 +3434,7 @@ export function calendarJs(J, va, X) {
             Ua.onkeydown = function (a) {
                 a.keyCode === S.enter && ok();
             };
-            Db = L(a, b.copyToClipboardOnlyText, pk)[0];
+            Db = M(a, b.copyToClipboardOnlyText, pk)[0];
             gh = g("div", "split options");
             a.appendChild(gh);
             var c = g("div", "radio-buttons-container split-contents");
@@ -3527,9 +3530,9 @@ export function calendarJs(J, va, X) {
             a.appendChild(Ab);
             a = g("div", "checkbox-container");
             ac.appendChild(a);
-            hh = L(a, b.notSearchText, bc)[0];
-            ih = L(a, b.matchCaseText, bc)[0];
-            Ee = L(a, b.advancedText + ":", zm)[0];
+            hh = M(a, b.notSearchText, bc)[0];
+            ih = M(a, b.matchCaseText, bc)[0];
+            Ee = M(a, b.advancedText + ":", zm)[0];
             Ee.checked = !0;
             Xf = g("div", "advanced");
             ac.appendChild(Xf);
@@ -3542,11 +3545,11 @@ export function calendarJs(J, va, X) {
             ra(c, b.includeText, "text-header");
             d = g("div", "checkbox-container");
             c.appendChild(d);
-            Yf = L(d, b.titleText.replace(":", n.empty), bc)[0];
-            jh = L(d, b.locationText.replace(":", n.empty), bc)[0];
-            kh = L(d, b.descriptionText.replace(":", n.empty), bc)[0];
-            lh = L(d, b.groupText.replace(":", n.empty), bc)[0];
-            mh = L(d, b.urlText.replace(":", n.empty), bc)[0];
+            Yf = M(d, b.titleText.replace(":", n.empty), bc)[0];
+            jh = M(d, b.locationText.replace(":", n.empty), bc)[0];
+            kh = M(d, b.descriptionText.replace(":", n.empty), bc)[0];
+            lh = M(d, b.groupText.replace(":", n.empty), bc)[0];
+            mh = M(d, b.urlText.replace(":", n.empty), bc)[0];
             Yf.checked = !0;
             ra(a, b.optionsText, "text-header");
             c = g("div", "radio-buttons-container");
@@ -3864,11 +3867,11 @@ export function calendarJs(J, va, X) {
             });
             Qd = ve(a, !0, !1);
             Fe = ve(a, !1, !1);
-            Di = L(Qd, b.enableAutoRefreshForEventsText)[0];
-            Ei = L(Qd, b.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in")[0];
-            Fi = L(Qd, b.enableTooltipsText, null, null, null, "checkbox-tabbed-down")[0];
-            Gi = L(Qd, b.enableDragAndDropForEventText)[0];
-            Hi = L(Qd, b.showHolidaysInTheDisplaysText)[0];
+            Di = M(Qd, b.enableAutoRefreshForEventsText)[0];
+            Ei = M(Qd, b.enableBrowserNotificationsText, null, null, null, "checkbox-tabbed-in")[0];
+            Fi = M(Qd, b.enableTooltipsText, null, null, null, "checkbox-tabbed-down")[0];
+            Gi = M(Qd, b.enableDragAndDropForEventText)[0];
+            Hi = M(Qd, b.showHolidaysInTheDisplaysText)[0];
             ra(Fe, b.organizerNameText);
             sh = g("input", null, "text");
             Fe.appendChild(sh);
@@ -4649,12 +4652,12 @@ export function calendarJs(J, va, X) {
         var d = Z(c);
         a = a.replace("{dddd}", b.dayNames[d]);
         a = a.replace("{ddd}", b.dayNamesAbbreviated[d]);
-        a = a.replace("{dd}", M(c.getDate()));
+        a = a.replace("{dd}", L(c.getDate()));
         a = a.replace("{d}", c.getDate());
         a = a.replace("{o}", Fg(c.getDate()));
         a = a.replace("{mmmm}", b.monthNames[c.getMonth()]);
         a = a.replace("{mmm}", b.monthNamesAbbreviated[c.getMonth()]);
-        a = a.replace("{mm}", M(c.getMonth() + 1));
+        a = a.replace("{mm}", L(c.getMonth() + 1));
         a = a.replace("{m}", c.getMonth() + 1);
         a = a.replace("{yyyy}", c.getFullYear());
         a = a.replace("{yyy}", c.getFullYear().toString().substring(1));
@@ -4681,9 +4684,9 @@ export function calendarJs(J, va, X) {
             c = a.getMinutes();
             var e = "am";
             12 < d ? ((d -= 12), (e = "pm")) : 12 === d ? (e = "pm") : 0 === d && (d = 12);
-            0 < c && (d += ":" + M(a.getMinutes()));
+            0 < c && (d += ":" + L(a.getMinutes()));
             d += e;
-        } else d = M(a.getHours()) + ":" + M(a.getMinutes());
+        } else d = L(a.getHours()) + ":" + L(a.getMinutes());
         return d;
     }
     function Ve(a, c, d) {
@@ -5291,7 +5294,7 @@ export function calendarJs(J, va, X) {
         fa(a, b, "text");
         return c;
     }
-    function L(a, b, d, e, f, k, h) {
+    function M(a, b, d, e, f, k, h) {
         k = p(k) ? n.space + k : n.empty;
         var c = g("div");
         a.appendChild(c);
@@ -5326,7 +5329,7 @@ export function calendarJs(J, va, X) {
             fa(d, b.hereText, "link", c),
             fa(d, n.space + b.toAddANewEventText));
     }
-    function M(a) {
+    function L(a) {
         a = a.toString();
         return 1 === a.length ? "0" + a : a;
     }
@@ -5787,8 +5790,8 @@ export function calendarJs(J, va, X) {
     function bk(a, c) {
         c = p(c) ? c : b.exportStartFilename;
         var d = new Date(),
-            e = M(d.getDate()) + "-" + M(d.getMonth() + 1) + "-" + d.getFullYear();
-        d = M(d.getHours()) + "-" + M(d.getMinutes());
+            e = L(d.getDate()) + "-" + L(d.getMonth() + 1) + "-" + d.getFullYear();
+        d = L(d.getHours()) + "-" + L(d.getMinutes());
         return c + e + "_" + d + "." + a;
     }
     function ig(a) {
@@ -5797,8 +5800,8 @@ export function calendarJs(J, va, X) {
     function Je(a) {
         var c = b.repeatsNever;
         p(a) &&
-            ((c = M(a.getDate()) + "/" + M(a.getMonth() + 1) + "/" + a.getFullYear()),
-            (a = M(a.getHours()) + ":" + M(a.getMinutes())),
+            ((c = L(a.getDate()) + "/" + L(a.getMonth() + 1) + "/" + a.getFullYear()),
+            (a = L(a.getHours()) + ":" + L(a.getMinutes())),
             (c = c + n.space + a));
         return c;
     }
@@ -5949,7 +5952,7 @@ export function calendarJs(J, va, X) {
     function Si() {
         var a = new Date(),
             b = Lh("{ddd}, {dd} {mmm} {yyyy}", a);
-        return (b += " " + M(a.getHours()) + ":" + M(a.getMinutes()) + ":" + M(a.getSeconds()));
+        return (b += " " + L(a.getHours()) + ":" + L(a.getMinutes()) + ":" + L(a.getSeconds()));
     }
     function dl(a) {
         a = a
@@ -5992,17 +5995,17 @@ export function calendarJs(J, va, X) {
         var b = [];
         p(a) &&
             (b.push(a.getFullYear()),
-            b.push(M(a.getMonth() + 1)),
-            b.push(M(a.getDate())),
+            b.push(L(a.getMonth() + 1)),
+            b.push(L(a.getDate())),
             b.push("T"),
-            b.push(M(a.getHours())),
-            b.push(M(a.getMinutes())),
+            b.push(L(a.getHours())),
+            b.push(L(a.getMinutes())),
             b.push("00Z"));
         return b.join(n.empty);
     }
     function el(a) {
         var b = [];
-        p(a) && (b.push(a.getFullYear()), b.push(M(a.getMonth() + 1)), b.push(M(a.getDate())));
+        p(a) && (b.push(a.getFullYear()), b.push(L(a.getMonth() + 1)), b.push(L(a.getDate())));
         return b.join(n.empty);
     }
     function Jm(a, b) {
@@ -6199,6 +6202,7 @@ export function calendarJs(J, va, X) {
         b.views.fullWeek.showWeekNumbersInTitles = m(b.views.fullWeek.showWeekNumbersInTitles, !1);
         b.views.fullWeek.showExtraTitleBarButtons = m(b.views.fullWeek.showExtraTitleBarButtons, !0);
         b.views.fullWeek.showDatesInDayHeaders = m(b.views.fullWeek.showDatesInDayHeaders, !0);
+        b.views.fullWeek.padDayMonthNumbers = m(b.views.fullWeek.padDayMonthNumbers, !1);
         b.views.fullMonth = mb(b.views.fullMonth);
         b.views.fullMonth.maximumEventsPerDayDisplay = ua(b.views.fullMonth.maximumEventsPerDayDisplay, 3);
         b.views.fullMonth.showTimesInEvents = m(b.views.fullMonth.showTimesInEvents, !1);
