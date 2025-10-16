@@ -1323,7 +1323,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var title = createElement( "div", "title" ),
                 repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( repeatEvery > _enum_RepeatType.never ) {
+            if ( repeatEvery > _enum_RepeatType.never && _options.showReoccurringEventIcons ) {
                 var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                 icon.style.borderColor = event.style.color;
                 title.appendChild( icon );
@@ -2197,7 +2197,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
 
-                if ( repeatEvery > _enum_RepeatType.never ) {
+                if ( repeatEvery > _enum_RepeatType.never && _options.showReoccurringEventIcons ) {
                     var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                     icon.style.borderColor = event.style.color;
                     title.appendChild( icon );
@@ -2836,7 +2836,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
 
-                if ( repeatEvery > _enum_RepeatType.never ) {
+                if ( repeatEvery > _enum_RepeatType.never && _options.showReoccurringEventIcons ) {
                     var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                     icon.style.borderColor = event.style.color;
                     title.appendChild( icon );
@@ -4011,7 +4011,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                                     eventTitle = getTimeToTimeDisplay( eventDetails.from, eventDetails.to ) + ": " + eventTitle;
                                 }
 
-                                if ( repeatEvery > _enum_RepeatType.never ) {
+                                if ( repeatEvery > _enum_RepeatType.never && _options.showReoccurringEventIcons ) {
                                     var icon = createElement( "div", "ib-refresh-small ib-no-hover ib-no-active" );
                                     icon.style.borderColor = event.style.color;
                                     event.appendChild( icon );
@@ -4616,7 +4616,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                 var title = createElement( "div", "title" ),
                     repeatEvery = getNumber( eventDetails.repeatEvery );
     
-                if ( repeatEvery > _enum_RepeatType.never ) {
+                if ( repeatEvery > _enum_RepeatType.never && _options.showReoccurringEventIcons ) {
                     var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                     icon.style.borderColor = event.style.color;
                     title.appendChild( icon );
@@ -5091,7 +5091,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         if ( !fireCustomTrigger( _options.events.onTimelineEventRender, event, eventDetails ) ) {
             var repeatEvery = getNumber( eventDetails.repeatEvery );
 
-            if ( repeatEvery > _enum_RepeatType.never ) {
+            if ( repeatEvery > _enum_RepeatType.never && _options.showReoccurringEventIcons ) {
                 var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                 icon.style.borderColor = event.style.color;
                 event.appendChild( icon );
@@ -7883,7 +7883,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                             }
     
                             var repeatEvery = getNumber( eventDetails.repeatEvery );
-                            if ( repeatEvery > _enum_RepeatType.never ) {
+                            if ( repeatEvery > _enum_RepeatType.never && _options.showReoccurringEventIcons ) {
                                 var icon = createElement( "div", "ib-refresh-medium ib-no-hover ib-no-active" );
                                 icon.style.borderColor = _element_Tooltip_Title.style.color;
                                 _element_Tooltip_Title.appendChild( icon );
@@ -13662,6 +13662,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.eventTooltipDelay = getDefaultNumber( _options.eventTooltipDelay, 1000 );
         _options.jumpToDateEnabled = getDefaultBoolean( _options.jumpToDateEnabled, true );
         _options.shareEventsEnabled = getDefaultBoolean( _options.shareEventsEnabled, true );
+        _options.showReoccurringEventIcons = getDefaultBoolean( _options.showReoccurringEventIcons, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
