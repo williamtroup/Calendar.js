@@ -4378,7 +4378,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
 
             buildFullYearViewMonthDayClasses( previousMonthDayFullDayElement, previousMonthDate );
-            buildDayDisplay( previousMonthDayFullDayElement, previousMonthDate );
+            buildDayDisplay( previousMonthDayFullDayElement, previousMonthDate, null, null, _options.views.fullYear.padDayNumbers );
         }
     }
 
@@ -4417,7 +4417,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
 
             isCurrentMonth = buildFullYearViewMonthDayClasses( currentMonthDayFullDayElement, currentMonthDayDate, true );
-            buildDayDisplay( currentMonthDayFullDayElement, currentMonthDayDate );
+            buildDayDisplay( currentMonthDayFullDayElement, currentMonthDayDate, null, null, _options.views.fullYear.padDayNumbers );
         }
 
         return isCurrentMonth;
@@ -4455,7 +4455,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             };
 
             buildFullYearViewMonthDayClasses( nextMonthDayFullDayElement, nextMonthDayDate );
-            buildDayDisplay( nextMonthDayFullDayElement, nextMonthDayDate );
+            buildDayDisplay( nextMonthDayFullDayElement, nextMonthDayDate, null, null, _options.views.fullYear.padDayNumbers );
         }
     }
 
@@ -9304,12 +9304,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildDayDisplay( container, date, beforeText, afterText ) {
+    function buildDayDisplay( container, date, beforeText, afterText, padDayNumber ) {
+        padDayNumber = !isDefined( padDayNumber ) ? false : padDayNumber;
+
         if ( isDefined( beforeText ) ) {
             createSpanElement( container, beforeText );
         }
 
-        createSpanElement( container, date.getDate() );
+        if ( padDayNumber ) {
+            createSpanElement( container, padNumber( date.getDate() ) );
+        } else {
+            createSpanElement( container, date.getDate() );
+        }
 
         if ( _options.showDayNumberOrdinals ) {
             var ordinal = getDayOrdinal( date.getDate() );
@@ -13778,6 +13784,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullYear = getOptions( _options.views.fullYear );
         _options.views.fullYear.enabled = getDefaultBoolean( _options.views.fullYear.enabled, true );
         _options.views.fullYear.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullYear.showExtraTitleBarButtons, true );
+        _options.views.fullYear.padDayNumbers = getDefaultBoolean( _options.views.fullYear.padDayNumbers, false );
     }
 
     function buildDefaultViewOptionsForTimeline() {
