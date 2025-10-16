@@ -3490,8 +3490,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text = createElement( "span" );
         _element_View_FullMonth_TitleBar_YearSelector_DropDown.appendChild( _element_View_FullMonth_TitleBar_YearSelector_DropDown_Text );
 
-        _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow = createElement( "span", "ib-arrow-down-full-medium" );
-        _element_View_FullMonth_TitleBar_YearSelector_DropDown.appendChild( _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow );
+        if ( _options.views.fullMonth.showYearDropDownButtonIcon ) {
+            _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow = createElement( "span", "ib-arrow-down-full-medium" );
+            _element_View_FullMonth_TitleBar_YearSelector_DropDown.appendChild( _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow );
+        }
     }
 
     function buildFullMonthViewYearDropDown( container ) {
@@ -3644,7 +3646,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             hideAllDropDowns();
 
             _element_View_FullMonth_TitleBar_YearSelector.style.display = "block";
-            _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-up-full-medium";
+
+            if ( _options.views.fullMonth.showYearDropDownButtonIcon ) {
+                _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-up-full-medium";
+            }
 
             updateFullMonthViewYearMonthSelected();
 
@@ -3664,7 +3669,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var closed = false;
 
         if ( isFullMonthViewYearDropDownVisible() ) {
-            _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-down-full-medium";
+            if ( _options.views.fullMonth.showYearDropDownButtonIcon ) {
+                _element_View_FullMonth_TitleBar_YearSelector_DropDown_Arrow.className = "ib-arrow-down-full-medium";
+            }
+
             _element_View_FullMonth_TitleBar_YearSelector.style.display = "none";
             closed = true;
         }
@@ -13743,6 +13751,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.showMonthButtonsInYearDropDownMenu = getDefaultBoolean( _options.views.fullMonth.showMonthButtonsInYearDropDownMenu, true );
         _options.views.fullMonth.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullMonth.showExtraTitleBarButtons, true );
         _options.views.fullMonth.pinUpViewImageCssClasses = getDefaultArray( _options.views.fullMonth.pinUpViewImageCssClasses, [] );
+        _options.views.fullMonth.showYearDropDownButtonIcon = getDefaultBoolean( _options.views.fullMonth.showYearDropDownButtonIcon, true );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;

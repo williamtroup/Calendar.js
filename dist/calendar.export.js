@@ -1547,8 +1547,8 @@ export function calendarJs(J, va, X) {
         a.appendChild(me);
         Kh = g("span");
         me.appendChild(Kh);
-        Gg = g("span", "ib-arrow-down-full-medium");
-        me.appendChild(Gg);
+        b.views.fullMonth.showYearDropDownButtonIcon &&
+            ((Gg = g("span", "ib-arrow-down-full-medium")), me.appendChild(Gg));
     }
     function Sl(a) {
         var c = new Date(b.minimumYear, 1, 1),
@@ -1612,7 +1612,7 @@ export function calendarJs(J, va, X) {
         if ("block" !== Ub.style.display) {
             Ha();
             Ub.style.display = "block";
-            Gg.className = "ib-arrow-up-full-medium";
+            b.views.fullMonth.showYearDropDownButtonIcon && (Gg.className = "ib-arrow-up-full-medium");
             for (var c in Sc) Sc.hasOwnProperty(c.toString()) && (Sc[c.toString()].className = "month-name");
             a = v.getMonth().toString();
             c = new Date();
@@ -1625,7 +1625,10 @@ export function calendarJs(J, va, X) {
     }
     function og() {
         var a = !1;
-        Hg() && ((Gg.className = "ib-arrow-down-full-medium"), (Ub.style.display = "none"), (a = !0));
+        Hg() &&
+            (b.views.fullMonth.showYearDropDownButtonIcon && (Gg.className = "ib-arrow-down-full-medium"),
+            (Ub.style.display = "none"),
+            (a = !0));
         return a;
     }
     function Hg() {
@@ -6217,6 +6220,7 @@ export function calendarJs(J, va, X) {
         );
         b.views.fullMonth.showExtraTitleBarButtons = q(b.views.fullMonth.showExtraTitleBarButtons, !0);
         b.views.fullMonth.pinUpViewImageCssClasses = gg(b.views.fullMonth.pinUpViewImageCssClasses, []);
+        b.views.fullMonth.showYearDropDownButtonIcon = q(b.views.fullMonth.showYearDropDownButtonIcon, !0);
         kb(b.views.fullMonth.allowEventScrolling) ||
             ((b.views.fullMonth.allowEventScrolling = !1),
             b.views.fullMonth.allowEventScrolling && (b.views.fullMonth.maximumEventsPerDayDisplay = 0));
