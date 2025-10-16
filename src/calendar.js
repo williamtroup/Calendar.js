@@ -3793,7 +3793,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             dayText.className += dayMutedClass;
             dayText.className += dayIsToday && !_element_Mode_DatePicker_Enabled ? " today" : _string.empty;
-            dayText.innerText = actualDay;
+
+            if ( _options.views.fullMonth.padDayNumbers ) {
+                dayText.innerText = padNumber( actualDay );
+            } else {
+                dayText.innerText = actualDay;
+            }
 
             if ( actualDay === 1 && !_element_Mode_DatePicker_Enabled ) {
                 dayText.className += " first-day";
@@ -13752,6 +13757,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullMonth.showExtraTitleBarButtons, true );
         _options.views.fullMonth.pinUpViewImageCssClasses = getDefaultArray( _options.views.fullMonth.pinUpViewImageCssClasses, [] );
         _options.views.fullMonth.showYearDropDownButtonIcon = getDefaultBoolean( _options.views.fullMonth.showYearDropDownButtonIcon, true );
+        _options.views.fullMonth.padDayNumbers = getDefaultBoolean( _options.views.fullMonth.padDayNumbers, false );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;
