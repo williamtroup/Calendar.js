@@ -406,33 +406,34 @@ function calendarJs(J, va, X) {
         y(k, d + ":");
         var l = g("div", "ib-arrow-up-full");
         k.appendChild(l);
-        var E = g("div", "right-divider-line");
-        k.appendChild(E);
-        var K = t(k, "ib-square", b.selectAllText, function (a) {
-                gj(a, f, !0);
-            }),
-            h = t(k, "ib-square-hollow", b.selectNoneText, function (a) {
-                gj(a, f, !1);
-            });
+        if (b.sideMenu.showSelectAllNoneButtons) {
+            var E = g("div", "right-divider-line");
+            k.appendChild(E);
+            var K = t(k, "ib-square", b.selectAllText, function (a) {
+                    gj(a, f, !0);
+                }),
+                h = t(k, "ib-square-hollow", b.selectNoneText, function (a) {
+                    gj(a, f, !1);
+                });
+        }
         k.onclick = function () {
-            var b = "none" === c.style.display;
-            k.className = b ? "text-header" : "text-header-closed";
-            c.style.display = b ? "block" : "none";
-            l.className = b ? "ib-arrow-up-full" : "ib-arrow-down-full";
-            a.className = b ? "content-section content-section-opened" : "content-section";
-            E.style.display = b ? "block" : "none";
-            K.style.display = b ? "block" : "none";
-            h.style.display = b ? "block" : "none";
+            var d = "none" === c.style.display;
+            k.className = d ? "text-header" : "text-header-closed";
+            c.style.display = d ? "block" : "none";
+            l.className = d ? "ib-arrow-up-full" : "ib-arrow-down-full";
+            a.className = d ? "content-section content-section-opened" : "content-section";
+            b.sideMenu.showSelectAllNoneButtons &&
+                ((E.style.display = d ? "block" : "none"),
+                (K.style.display = d ? "block" : "none"),
+                (h.style.display = d ? "block" : "none"));
         };
         e ||
             ((c.style.display = "none"),
             (k.className = "text-header-closed"),
             (l.className = "ib-arrow-down-full"),
             (a.className = "content-section"),
-            (E.style.display = "none"),
-            (K.style.display = "none"),
-            (h.style.display = "none"));
-        return [K, h];
+            b.sideMenu.showSelectAllNoneButtons &&
+                ((E.style.display = "none"), (K.style.display = "none"), (h.style.display = "none")));
     }
     function gj(a, b, d) {
         D(a);
@@ -6184,12 +6185,13 @@ function calendarJs(J, va, X) {
         p(c) || ((c = b.workingHoursEnd), (c = Pa(c) ? c : null));
         b.workingHoursStart = a;
         b.workingHoursEnd = c;
-        b.sideMenu = mb(b.views.sideMenu);
+        b.sideMenu = mb(b.sideMenu);
         b.sideMenu.showDays = m(b.sideMenu.showDays, !0);
         b.sideMenu.showGroups = m(b.sideMenu.showGroups, !0);
         b.sideMenu.showEventTypes = m(b.sideMenu.showEventTypes, !0);
         b.sideMenu.showWorkingDays = m(b.sideMenu.showWorkingDays, !0);
         b.sideMenu.showWeekendDays = m(b.sideMenu.showWeekendDays, !0);
+        b.sideMenu.showSelectAllNoneButtons = m(b.sideMenu.showSelectAllNoneButtons, !0);
         b.views.fullDay = mb(b.views.fullDay);
         b.views.fullDay.enabled = m(b.views.fullDay.enabled, !0);
         b.views.fullDay.showAllDayEventDetails = m(b.views.fullDay.showAllDayEventDetails, !1);

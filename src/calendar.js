@@ -1187,16 +1187,18 @@ function calendarJs( elementOrId, options, searchOptions ) {
         var arrow = createElement( "div", "ib-arrow-up-full" );
         header.appendChild( arrow );
 
-        var buttonDividerLine = createElement( "div", "right-divider-line" );
-        header.appendChild( buttonDividerLine );
+        if ( _options.sideMenu.showSelectAllNoneButtons ) {
+            var buttonDividerLine = createElement( "div", "right-divider-line" );
+            header.appendChild( buttonDividerLine );
 
-        var selectAll = buildToolbarButton( header, "ib-square", _options.selectAllText, function( e ) {
-            changeCheckboxesCheckedState( e, checkBoxes, true );
-        } );
+            var selectAll = buildToolbarButton( header, "ib-square", _options.selectAllText, function( e ) {
+                changeCheckboxesCheckedState( e, checkBoxes, true );
+            } );
 
-        var selectNone = buildToolbarButton( header, "ib-square-hollow", _options.selectNoneText, function( e ) {
-            changeCheckboxesCheckedState( e, checkBoxes, false );
-        } );
+            var selectNone = buildToolbarButton( header, "ib-square-hollow", _options.selectNoneText, function( e ) {
+                changeCheckboxesCheckedState( e, checkBoxes, false );
+            } );
+        }
 
         header.onclick = function() {
             var isClosed = mainContent.style.display === "none";
@@ -1205,9 +1207,12 @@ function calendarJs( elementOrId, options, searchOptions ) {
             mainContent.style.display = isClosed ? "block" : "none";
             arrow.className = isClosed ? "ib-arrow-up-full" : "ib-arrow-down-full";
             mainContainer.className = isClosed ? "content-section content-section-opened" : "content-section";
-            buttonDividerLine.style.display = isClosed ? "block" : "none";
-            selectAll.style.display = isClosed ? "block" : "none";
-            selectNone.style.display = isClosed ? "block" : "none";
+
+            if ( _options.sideMenu.showSelectAllNoneButtons ) {
+                buttonDividerLine.style.display = isClosed ? "block" : "none";
+                selectAll.style.display = isClosed ? "block" : "none";
+                selectNone.style.display = isClosed ? "block" : "none";
+            }
         };
 
         if ( !opened ) {
@@ -1215,12 +1220,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             header.className = "text-header-closed";
             arrow.className = "ib-arrow-down-full";
             mainContainer.className = "content-section";
-            buttonDividerLine.style.display = "none";
-            selectAll.style.display = "none";
-            selectNone.style.display = "none";
-        }
 
-        return [ selectAll, selectNone ];
+            if ( _options.sideMenu.showSelectAllNoneButtons ) {
+                buttonDividerLine.style.display = "none";
+                selectAll.style.display = "none";
+                selectNone.style.display = "none";
+            }
+        }
     }
 
     function changeCheckboxesCheckedState( e, checkBoxes, state ) {
@@ -13725,12 +13731,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function buildDefaultSideMenuOptions() {
-        _options.sideMenu = getOptions( _options.views.sideMenu );
+        _options.sideMenu = getOptions( _options.sideMenu );
         _options.sideMenu.showDays = getDefaultBoolean( _options.sideMenu.showDays, true );
         _options.sideMenu.showGroups = getDefaultBoolean( _options.sideMenu.showGroups, true );
         _options.sideMenu.showEventTypes = getDefaultBoolean( _options.sideMenu.showEventTypes, true );
         _options.sideMenu.showWorkingDays = getDefaultBoolean( _options.sideMenu.showWorkingDays, true );
         _options.sideMenu.showWeekendDays = getDefaultBoolean( _options.sideMenu.showWeekendDays, true );
+        _options.sideMenu.showSelectAllNoneButtons = getDefaultBoolean( _options.sideMenu.showSelectAllNoneButtons, true );
     }
 
     function buildDefaultViewOptionsForFullDay() {
