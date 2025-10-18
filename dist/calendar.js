@@ -4841,23 +4841,24 @@ function calendarJs(J, va, X) {
         }
         return b;
     }
-    function Gd(a, b, d) {
-        a.onmousedown = function (a) {
-            Vd ||
-                (Ha(),
-                (Gb = b),
-                (Vd = !0),
-                (Xk = a.pageX - Gb.offsetLeft),
-                (Yk = a.pageY - Gb.offsetTop),
-                (Ah = Gb.offsetLeft),
-                (Bh = Gb.offsetTop));
-        };
-        a.onmouseup = function () {
-            Zk(d);
-        };
-        a.oncontextmenu = function () {
-            Zk(null);
-        };
+    function Gd(a, c, d) {
+        b.dialogMovingEnabled &&
+            ((a.onmousedown = function (a) {
+                Vd ||
+                    (Ha(),
+                    (Gb = c),
+                    (Vd = !0),
+                    (Xk = a.pageX - Gb.offsetLeft),
+                    (Yk = a.pageY - Gb.offsetTop),
+                    (Ah = Gb.offsetLeft),
+                    (Bh = Gb.offsetTop));
+            }),
+            (a.onmouseup = function () {
+                Zk(d);
+            }),
+            (a.oncontextmenu = function () {
+                Zk(null);
+            }));
     }
     function Zk(a) {
         Vd && ((Vd = !1), (Gb = null), (Bh = Ah = 0), null !== a && a());
@@ -6175,6 +6176,7 @@ function calendarJs(J, va, X) {
         b.jumpToDateEnabled = m(b.jumpToDateEnabled, !0);
         b.shareEventsEnabled = m(b.shareEventsEnabled, !0);
         b.showReoccurringEventIcons = m(b.showReoccurringEventIcons, !0);
+        b.dialogMovingEnabled = m(b.dialogMovingEnabled, !0);
         ad(b.visibleDays) && ((b.visibleDays = [0, 1, 2, 3, 4, 5, 6]), (pd = []));
         a = db(b.workingHoursStart, null);
         var c = db(b.workingHoursEnd, null);

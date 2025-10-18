@@ -9546,17 +9546,19 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
 
     function makeDialogMovable( titleBar, dialog, mouseUpFunc ) {
-        titleBar.onmousedown = function( e ) {
-            onMoveTitleBarMouseDown( e, dialog );
-        };
+        if ( _options.dialogMovingEnabled ) {
+            titleBar.onmousedown = function( e ) {
+                onMoveTitleBarMouseDown( e, dialog );
+            };
 
-        titleBar.onmouseup = function() {
-            onMoveTitleBarMouseUp( mouseUpFunc );
-        };
+            titleBar.onmouseup = function() {
+                onMoveTitleBarMouseUp( mouseUpFunc );
+            };
 
-        titleBar.oncontextmenu = function() {
-            onMoveTitleBarMouseUp( null );
-        };
+            titleBar.oncontextmenu = function() {
+                onMoveTitleBarMouseUp( null );
+            };
+        }
     }
 
     function onMoveTitleBarMouseDown( e, dialog ) {
@@ -13684,6 +13686,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.jumpToDateEnabled = getDefaultBoolean( _options.jumpToDateEnabled, true );
         _options.shareEventsEnabled = getDefaultBoolean( _options.shareEventsEnabled, true );
         _options.showReoccurringEventIcons = getDefaultBoolean( _options.showReoccurringEventIcons, true );
+        _options.dialogMovingEnabled = getDefaultBoolean( _options.dialogMovingEnabled, true );
 
         if ( isInvalidOptionArray( _options.visibleDays ) ) {
             _options.visibleDays = [ 0, 1, 2, 3, 4, 5, 6 ];
