@@ -164,6 +164,39 @@ div.calendar-widget *::after {
   box-sizing: content-box;
   line-height: normal;
 }
+div.calendar input[type=number],
+div.calendar-tooltip input[type=number],
+div.calendar-tooltip-event input[type=number],
+div.calendar-context-menu input[type=number],
+div.calendar-dialog input[type=number],
+div.calendar-dialog input input[type=number],
+div.calendar-dialog textarea input[type=number],
+div.calendar-notification input[type=number],
+div.calendar-widget input[type=number] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+}
+div.calendar input[type=number]::-webkit-inner-spin-button,
+div.calendar input[type=number]::-webkit-outer-spin-button,
+div.calendar-tooltip input[type=number]::-webkit-inner-spin-button,
+div.calendar-tooltip input[type=number]::-webkit-outer-spin-button,
+div.calendar-tooltip-event input[type=number]::-webkit-inner-spin-button,
+div.calendar-tooltip-event input[type=number]::-webkit-outer-spin-button,
+div.calendar-context-menu input[type=number]::-webkit-inner-spin-button,
+div.calendar-context-menu input[type=number]::-webkit-outer-spin-button,
+div.calendar-dialog input[type=number]::-webkit-inner-spin-button,
+div.calendar-dialog input[type=number]::-webkit-outer-spin-button,
+div.calendar-dialog input input[type=number]::-webkit-inner-spin-button,
+div.calendar-dialog input input[type=number]::-webkit-outer-spin-button,
+div.calendar-dialog textarea input[type=number]::-webkit-inner-spin-button,
+div.calendar-dialog textarea input[type=number]::-webkit-outer-spin-button,
+div.calendar-notification input[type=number]::-webkit-inner-spin-button,
+div.calendar-notification input[type=number]::-webkit-outer-spin-button,
+div.calendar-widget input[type=number]::-webkit-inner-spin-button,
+div.calendar-widget input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
 
 div.disabled-background {
   top: 0;
