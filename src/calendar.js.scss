@@ -1,7 +1,7 @@
 /*
- * Calendar.js Library v2.12.2
+ * Calendar.js v2.12.3
  *
- * Copyright 2024 Bunoon
+ * Copyright 2025 Bunoon
  * Released under the MIT License
  */
 
@@ -135,6 +135,17 @@ div.calendar-widget {
             box-sizing: content-box;
             line-height: normal;
         }
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
     }
 }
 

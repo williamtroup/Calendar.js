@@ -100,16 +100,20 @@
                 },
                 fullWeek: {
                     enabled: true,
-                    showWeekNumbersInTitles: false
+                    showWeekNumbersInTitles: false,
+                    padDayMonthNumbers: false
                 },
                 fullMonth: {
                     showTimesInEvents: false,
                     minimumDayHeight: 0,
-                    addYearButtons: false
+                    addYearButtons: false,
+                    showYearDropDownButtonIcon: true,
+                    padDayNumbers: false
                 },
                 fullYear: {
                     enabled: true,
-                    showWeekNumbersInTitles: false
+                    showWeekNumbersInTitles: false,
+                    padDayNumbers: false
                 },
                 timeline: {
                     enabled: true
@@ -117,6 +121,9 @@
                 allEvents: {
                     enabled: true
                 }
+            },
+            sideMenu: {
+                showSelectAllNoneButtons: true
             },
             fullScreenModeEnabled: true,
             organizerName: "Your Name",
@@ -134,7 +141,6 @@
                 ]
             },
             workingDays: [ 2 ],
-            
             startOfWeekDay: 6,
             workingHoursStart: {
                 2: "09:00"
@@ -164,7 +170,10 @@
                 onViewChange: function( view ) {
                     console.log( "View Open: " + view );
                 }
-            }
+            },
+            shareEventsEnabled: true,
+            showReoccurringEventIcons: true,
+            dialogMovingEnabled: true
         } );
 
         document.title += " - v" + calendarInstance.getVersion();

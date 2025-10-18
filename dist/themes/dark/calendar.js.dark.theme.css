@@ -1,0 +1,8 @@
+/*! Calendar.js v2.12.3 | (c) Bunoon 2025 | MIT License */
+:root {
+    --calendar-js-dark-color: #282828;
+    --calendar-js-input-hover-color: var(--calendar-js-dark-color);
+    --calendar-js-primary-button-color: var(--calendar-js-dark-color);
+    --calendar-js-secondary-button-color: var(--calendar-js-dark-color);
+    --calendar-js-menu-item-icon-color: var(--calendar-js-dark-color);
+}
