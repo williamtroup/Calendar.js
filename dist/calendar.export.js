@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.3 | (c) Bunoon 2025 | MIT License */
+/*! Calendar.js v2.12.4 | (c) Bunoon 2025 | MIT License */
 export function calendarJs(J, va, X) {
     function F(a, c, d) {
         v = yc(a) ? a : new Date();
@@ -7232,7 +7232,7 @@ export function calendarJs(J, va, X) {
         return r;
     };
     r.getVersion = function () {
-        return "2.12.3";
+        return "2.12.4";
     };
     r.getId = function () {
         return Ba;
