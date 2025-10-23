@@ -886,7 +886,7 @@ export function calendarJs(I, ua, V) {
                         : (y(e, be(a.from, a.to)), y(k, Ob(a.from, a.to)))
                     : (Ve(e, a.from, a.to), y(k, Ob(a.from, a.to))),
                 k.innerHTML === n.empty && m.removeChild(k),
-                b.views.fullDay.showEventLinks &&
+                b.views.fullDay.showEventUrls &&
                     Ca(a.url) &&
                     ((e = h("div", "url-text")),
                     y(e, yg(a.url)),
@@ -1254,7 +1254,7 @@ export function calendarJs(I, ua, V) {
                         : (y(c, be(d.from, d.to)), y(k, Ob(d.from, d.to)))
                     : (Ve(c, d.from, d.to), y(k, Ob(d.from, d.to))),
                 k.innerHTML === n.empty && g.removeChild(k),
-                b.views.fullWeek.showEventLinks &&
+                b.views.fullWeek.showEventUrls &&
                     Ca(d.url) &&
                     ((c = h("div", "url-text")),
                     y(c, yg(d.url)),
@@ -2149,7 +2149,7 @@ export function calendarJs(I, ua, V) {
                         : (Nb(c, a.from, null, " - " + be(a.from, a.to)), y(e, Ob(a.from, a.to)))
                     : (Ve(c, a.from, a.to), y(e, Ob(a.from, a.to)));
                 e.innerHTML === n.empty && d.removeChild(e);
-                b.views.allEvents.showEventLinks &&
+                b.views.allEvents.showEventUrls &&
                     Ca(a.url) &&
                     ((c = h("div", "url-text")),
                     y(c, yg(a.url)),
@@ -6228,7 +6228,7 @@ export function calendarJs(I, ua, V) {
         b.views.fullDay.minutesBetweenSections = ta(b.views.fullDay.minutesBetweenSections, 30);
         b.views.fullDay.showTimelineArrow = l(b.views.fullDay.showTimelineArrow, !0);
         b.views.fullDay.showExtraTitleBarButtons = l(b.views.fullDay.showExtraTitleBarButtons, !0);
-        b.views.fullDay.showEventLinks = l(b.views.fullDay.showEventLinks, !1);
+        b.views.fullDay.showEventUrls = l(b.views.fullDay.showEventUrls, !1);
         b.views.fullWeek = kb(b.views.fullWeek);
         b.views.fullWeek.enabled = l(b.views.fullWeek.enabled, !0);
         b.views.fullWeek.showAllDayEventDetails = l(b.views.fullWeek.showAllDayEventDetails, !1);
@@ -6239,7 +6239,7 @@ export function calendarJs(I, ua, V) {
         b.views.fullWeek.showExtraTitleBarButtons = l(b.views.fullWeek.showExtraTitleBarButtons, !0);
         b.views.fullWeek.showDatesInDayHeaders = l(b.views.fullWeek.showDatesInDayHeaders, !0);
         b.views.fullWeek.padDayMonthNumbers = l(b.views.fullWeek.padDayMonthNumbers, !1);
-        b.views.fullWeek.showEventLinks = l(b.views.fullWeek.showEventLinks, !1);
+        b.views.fullWeek.showEventUrls = l(b.views.fullWeek.showEventUrls, !1);
         b.views.fullMonth = kb(b.views.fullMonth);
         b.views.fullMonth.maximumEventsPerDayDisplay = ta(b.views.fullMonth.maximumEventsPerDayDisplay, 3);
         b.views.fullMonth.showTimesInEvents = l(b.views.fullMonth.showTimesInEvents, !1);
@@ -6278,7 +6278,7 @@ export function calendarJs(I, ua, V) {
         b.views.allEvents = kb(b.views.allEvents);
         b.views.allEvents.enabled = l(b.views.allEvents.enabled, !0);
         b.views.allEvents.showExtraTitleBarButtons = l(b.views.allEvents.showExtraTitleBarButtons, !0);
-        b.views.allEvents.showEventLinks = l(b.views.allEvents.showEventLinks, !1);
+        b.views.allEvents.showEventUrls = l(b.views.allEvents.showEventUrls, !1);
         b.views.datePicker = kb(b.views.datePicker);
         b.views.datePicker.selectedDateFormat = bb(b.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}");
         b.views.datePicker.minimumDate = Pi(b.views.datePicker.minimumDate, null);

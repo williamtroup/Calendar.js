@@ -2236,7 +2236,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         event.removeChild( duration );
                     }
 
-                    if ( _options.views.fullDay.showEventLinks && isDefinedStringAndSet( eventDetails.url ) ) {
+                    if ( _options.views.fullDay.showEventUrls && isDefinedStringAndSet( eventDetails.url ) ) {
                         var urlText = createElement( "div", "url-text" );
                         setNodeText( urlText, getShortUrlString( eventDetails.url ) );
                         event.appendChild( urlText );
@@ -2886,7 +2886,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                         event.removeChild( duration );
                     }
 
-                    if ( _options.views.fullWeek.showEventLinks && isDefinedStringAndSet( eventDetails.url ) ) {
+                    if ( _options.views.fullWeek.showEventUrls && isDefinedStringAndSet( eventDetails.url ) ) {
                         var urlText = createElement( "div", "url-text" );
                         setNodeText( urlText, getShortUrlString( eventDetails.url ) );
                         event.appendChild( urlText );
@@ -4691,7 +4691,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     event.removeChild( duration );
                 }
 
-                if ( _options.views.allEvents.showEventLinks && isDefinedStringAndSet( eventDetails.url ) ) {
+                if ( _options.views.allEvents.showEventUrls && isDefinedStringAndSet( eventDetails.url ) ) {
                     var urlText = createElement( "div", "url-text" );
                     setNodeText( urlText, getShortUrlString( eventDetails.url ) );
                     event.appendChild( urlText );
@@ -13809,7 +13809,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullDay.minutesBetweenSections = getDefaultNumber( _options.views.fullDay.minutesBetweenSections, 30 );
         _options.views.fullDay.showTimelineArrow = getDefaultBoolean( _options.views.fullDay.showTimelineArrow, true );
         _options.views.fullDay.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullDay.showExtraTitleBarButtons, true );
-        _options.views.fullDay.showEventLinks = getDefaultBoolean( _options.views.fullDay.showEventLinks, false );
+        _options.views.fullDay.showEventUrls = getDefaultBoolean( _options.views.fullDay.showEventUrls, false );
     }
 
     function buildDefaultViewOptionsForFullWeek() {
@@ -13823,7 +13823,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullWeek.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullWeek.showExtraTitleBarButtons, true );
         _options.views.fullWeek.showDatesInDayHeaders = getDefaultBoolean( _options.views.fullWeek.showDatesInDayHeaders, true );
         _options.views.fullWeek.padDayMonthNumbers = getDefaultBoolean( _options.views.fullWeek.padDayMonthNumbers, false );
-        _options.views.fullWeek.showEventLinks = getDefaultBoolean( _options.views.fullWeek.showEventLinks, false );
+        _options.views.fullWeek.showEventUrls = getDefaultBoolean( _options.views.fullWeek.showEventUrls, false );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
@@ -13873,7 +13873,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.allEvents = getOptions( _options.views.allEvents );
         _options.views.allEvents.enabled = getDefaultBoolean( _options.views.allEvents.enabled, true );
         _options.views.allEvents.showExtraTitleBarButtons = getDefaultBoolean( _options.views.allEvents.showExtraTitleBarButtons, true );
-        _options.views.allEvents.showEventLinks = getDefaultBoolean( _options.views.allEvents.showEventLinks, false );
+        _options.views.allEvents.showEventUrls = getDefaultBoolean( _options.views.allEvents.showEventUrls, false );
     }
 
     function buildDefaultViewOptionsForDatePicker() {
