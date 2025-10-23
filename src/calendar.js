@@ -10978,65 +10978,71 @@ function calendarJs( elementOrId, options, searchOptions ) {
         };
     
         reader.onload = function( event ) {
-            var content = event.target.result,
-                contentLines = content.split( _string.newLineCharacterReturn ),
-                contentLinesLength = contentLines.length;
+            importEventsFromICalFileData( event.target.result, readingEventsAdded );
+        };
+    }
 
-            if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > _value.notFound && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > _value.notFound ) {
-                var readingEvent = false,
+    function importEventsFromICalFileData( fileData, readingEventsAdded ) {
+        var content = fileData,
+            contentLines = content.split( _string.newLineCharacterReturn ),
+            contentLinesLength = contentLines.length;
+
+        if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > _value.notFound && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > _value.notFound ) {
+            var readingEvent = false,
+                readingEventDetails = {};
+            
+            for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
+                var contentLine = contentLines[ contentLineIndex ];
+
+                if ( contentLine.indexOf( "BEGIN:VEVENT" ) > _value.notFound ) {
+                    readingEvent = true;
+                } else if ( contentLine.indexOf( "END:VEVENT" ) > _value.notFound ) {
+                    var eventDetails = _parameter_Json.parse( _parameter_Json.stringify( readingEventDetails ) );
+
+                    readingEvent = false;
                     readingEventDetails = {};
-                
-                for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
-                    var contentLine = contentLines[ contentLineIndex ];
 
-                    if ( contentLine.indexOf( "BEGIN:VEVENT" ) > _value.notFound ) {
-                        readingEvent = true;
-                    } else if ( contentLine.indexOf( "END:VEVENT" ) > _value.notFound ) {
-                        var eventDetails = _parameter_Json.parse( _parameter_Json.stringify( readingEventDetails ) );
+                    _that.removeEvent( eventDetails.id, false, false );
 
-                        readingEvent = false;
-                        readingEventDetails = {};
-
-                        _that.removeEvent( eventDetails.id, false, false );
-
-                        if ( _that.addEvent( eventDetails, false, false ) ) {
+                    if ( _that.addEvent( eventDetails, false, false ) ) {
+                        if ( isDefinedArray( readingEventsAdded ) ) {
                             readingEventsAdded.push( eventDetails );
                         }
                     }
+                }
 
-                    if ( readingEvent ) {
-                        if ( startsWith( contentLine, "UID:" ) ) {
-                            readingEventDetails.id = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
-                            readingEventDetails.title = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
-                            readingEventDetails.description = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "DTSTART:" ) || startsWith( contentLine, "DTSTART;" ) ) {
-                            readingEventDetails.from = importICalDateTime( contentLine.split( ":" ).pop() );
-                            readingEventDetails.isAllDay = contentLine.split( ":" ).pop().length === 8;
-                        } else if ( startsWith( contentLine, "DTEND:" ) || startsWith( contentLine, "DTEND;" ) ) {
-                            readingEventDetails.to = importICalDateTime( contentLine.split( ":" ).pop(), true );
-                        } else if ( startsWith( contentLine, "CREATED:" ) ) {
-                            readingEventDetails.created = importICalDateTime( contentLine.split( ":" ).pop() );
-                        } else if ( startsWith( contentLine, "LOCATION:" ) ) {
-                            readingEventDetails.location = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "URL:" ) ) {
-                            readingEventDetails.url = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "TRANSP:" ) ) {
-                            readingEventDetails.showAsBusy = contentLine.split( ":" ).pop() === "OPAQUE";
-                        } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
-                            readingEventDetails.showAlerts = true;
-                        } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
-                            readingEventDetails.group = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
-                            importICalOrganizer( readingEventDetails, contentLine );
-                        } else if ( startsWith( contentLine, "RRULE:" ) ) {
-                            importICalRRule( readingEventDetails, contentLine );
-                        }
+                if ( readingEvent ) {
+                    if ( startsWith( contentLine, "UID:" ) ) {
+                        readingEventDetails.id = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
+                        readingEventDetails.title = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
+                        readingEventDetails.description = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "DTSTART:" ) || startsWith( contentLine, "DTSTART;" ) ) {
+                        readingEventDetails.from = importICalDateTime( contentLine.split( ":" ).pop() );
+                        readingEventDetails.isAllDay = contentLine.split( ":" ).pop().length === 8;
+                    } else if ( startsWith( contentLine, "DTEND:" ) || startsWith( contentLine, "DTEND;" ) ) {
+                        readingEventDetails.to = importICalDateTime( contentLine.split( ":" ).pop(), true );
+                    } else if ( startsWith( contentLine, "CREATED:" ) ) {
+                        readingEventDetails.created = importICalDateTime( contentLine.split( ":" ).pop() );
+                    } else if ( startsWith( contentLine, "LOCATION:" ) ) {
+                        readingEventDetails.location = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "URL:" ) ) {
+                        readingEventDetails.url = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "TRANSP:" ) ) {
+                        readingEventDetails.showAsBusy = contentLine.split( ":" ).pop() === "OPAQUE";
+                    } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
+                        readingEventDetails.showAlerts = true;
+                    } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
+                        readingEventDetails.group = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
+                        importICalOrganizer( readingEventDetails, contentLine );
+                    } else if ( startsWith( contentLine, "RRULE:" ) ) {
+                        importICalRRule( readingEventDetails, contentLine );
                     }
                 }
             }
-        };
+        }
     }
 
     function importICalDateTime( dateTime, isEndDate ) {
@@ -12540,6 +12546,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
     _that.import = function( files ) {
         if ( _options.importEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
             importEventsFromFiles( files );
+        }
+
+        return _that;
+    };
+
+    /**
+     * importICalData().
+     * 
+     * Imports calendar events from an iCAL formatted string.
+     * 
+     * @public
+     * @fires       onEventsImported
+     * 
+     * @param       {string}    data                                        The string that contains the iCAL calendar events.
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.importICalData = function( data ) {
+        if ( _options.importEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
+            var eventsAddedOrUpdated = [];
+
+            importEventsFromICalFileData( data, eventsAddedOrUpdated );
+            importFromFilesCompleted( eventsAddedOrUpdated )
         }
 
         return _that;
