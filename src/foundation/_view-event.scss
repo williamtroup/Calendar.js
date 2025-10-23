@@ -31,9 +31,19 @@ div.event {
     div.duration,
     div.description,
     div.location,
-    div.repeats {
+    div.repeats,
+    div.url-text {
         font-size: smaller;
         font-weight: 300;
+    }
+
+    div.url-text {
+        color: rgb(255, 46, 46);
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
     }
 
     div.ib-refresh-medium {

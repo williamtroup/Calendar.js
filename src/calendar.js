@@ -2235,6 +2235,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     if ( duration.innerHTML === _string.empty ) {
                         event.removeChild( duration );
                     }
+
+                    if ( _options.views.fullDay.showEventLinks && isDefinedStringAndSet( eventDetails.url ) ) {
+                        var urlText = createElement( "div", "url-text" );
+                        setNodeText( urlText, getShortUrlString( eventDetails.url ) );
+                        event.appendChild( urlText );
+
+                        urlText.onclick = function( e ) {
+                            cancelBubble( e );
+                            openEventUrl( eventDetails.url );
+                        };
+                    }
             
                     if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _enum_RepeatType.never ) {
                         var repeats = createElement( "div", "repeats" );
@@ -2873,6 +2884,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     if ( duration.innerHTML === _string.empty ) {
                         event.removeChild( duration );
+                    }
+
+                    if ( _options.views.fullWeek.showEventLinks && isDefinedStringAndSet( eventDetails.url ) ) {
+                        var urlText = createElement( "div", "url-text" );
+                        setNodeText( urlText, getShortUrlString( eventDetails.url ) );
+                        event.appendChild( urlText );
+
+                        urlText.onclick = function( e ) {
+                            cancelBubble( e );
+                            openEventUrl( eventDetails.url );
+                        };
                     }
             
                     if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _enum_RepeatType.never ) {
@@ -4667,6 +4689,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 if ( duration.innerHTML === _string.empty ) {
                     event.removeChild( duration );
+                }
+
+                if ( _options.views.allEvents.showEventLinks && isDefinedStringAndSet( eventDetails.url ) ) {
+                    var urlText = createElement( "div", "url-text" );
+                    setNodeText( urlText, getShortUrlString( eventDetails.url ) );
+                    event.appendChild( urlText );
+
+                    urlText.onclick = function( e ) {
+                        cancelBubble( e );
+                        openEventUrl( eventDetails.url );
+                    };
                 }
         
                 if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _enum_RepeatType.never ) {
@@ -13747,6 +13780,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullDay.minutesBetweenSections = getDefaultNumber( _options.views.fullDay.minutesBetweenSections, 30 );
         _options.views.fullDay.showTimelineArrow = getDefaultBoolean( _options.views.fullDay.showTimelineArrow, true );
         _options.views.fullDay.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullDay.showExtraTitleBarButtons, true );
+        _options.views.fullDay.showEventLinks = getDefaultBoolean( _options.views.fullDay.showEventLinks, false );
     }
 
     function buildDefaultViewOptionsForFullWeek() {
@@ -13760,6 +13794,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullWeek.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullWeek.showExtraTitleBarButtons, true );
         _options.views.fullWeek.showDatesInDayHeaders = getDefaultBoolean( _options.views.fullWeek.showDatesInDayHeaders, true );
         _options.views.fullWeek.padDayMonthNumbers = getDefaultBoolean( _options.views.fullWeek.padDayMonthNumbers, false );
+        _options.views.fullWeek.showEventLinks = getDefaultBoolean( _options.views.fullWeek.showEventLinks, false );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
@@ -13809,6 +13844,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.allEvents = getOptions( _options.views.allEvents );
         _options.views.allEvents.enabled = getDefaultBoolean( _options.views.allEvents.enabled, true );
         _options.views.allEvents.showExtraTitleBarButtons = getDefaultBoolean( _options.views.allEvents.showExtraTitleBarButtons, true );
+        _options.views.allEvents.showEventLinks = getDefaultBoolean( _options.views.allEvents.showEventLinks, false );
     }
 
     function buildDefaultViewOptionsForDatePicker() {

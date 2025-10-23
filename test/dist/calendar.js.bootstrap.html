@@ -96,12 +96,14 @@
             jumpToDateEnabled: true,
             views: {
                 fullDay: {
-                    enabled: true
+                    enabled: true,
+                    showEventLinks: false
                 },
                 fullWeek: {
                     enabled: true,
                     showWeekNumbersInTitles: false,
-                    padDayMonthNumbers: false
+                    padDayMonthNumbers: false,
+                    showEventLinks: false
                 },
                 fullMonth: {
                     showTimesInEvents: false,
@@ -119,7 +121,8 @@
                     enabled: true
                 },
                 allEvents: {
-                    enabled: true
+                    enabled: true,
+                    showEventLinks: false
                 }
             },
             sideMenu: {
@@ -455,7 +458,8 @@
                     description: "This is a another <b>description</b> of the event that has been added, so it can be shown in the pop-up dialog.",
                     location: "Teams Meeting",
                     isAllDay: false,
-                    group: "group 1"
+                    group: "group 1",
+                    url: "https://www.calendar-js.com/"
                 },
                 {
                     from: tomorrow,

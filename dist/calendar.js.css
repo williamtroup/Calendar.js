@@ -436,9 +436,17 @@ div.calendar-widget div.events div.event div.date,
 div.calendar-widget div.events div.event div.duration,
 div.calendar-widget div.events div.event div.description,
 div.calendar-widget div.events div.event div.location,
-div.calendar-widget div.events div.event div.repeats {
+div.calendar-widget div.events div.event div.repeats,
+div.calendar-widget div.events div.event div.url-text {
   font-size: smaller;
   font-weight: 300;
+}
+div.calendar-widget div.events div.event div.url-text {
+  color: rgb(255, 46, 46);
+}
+div.calendar-widget div.events div.event div.url-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 div.calendar-widget div.events div.event div.ib-refresh-medium {
   margin-right: calc(var(--calendar-js-spacing) / 2);
@@ -1167,9 +1175,17 @@ div.calendar div.full-day-view div.contents div.event div.date,
 div.calendar div.full-day-view div.contents div.event div.duration,
 div.calendar div.full-day-view div.contents div.event div.description,
 div.calendar div.full-day-view div.contents div.event div.location,
-div.calendar div.full-day-view div.contents div.event div.repeats {
+div.calendar div.full-day-view div.contents div.event div.repeats,
+div.calendar div.full-day-view div.contents div.event div.url-text {
   font-size: smaller;
   font-weight: 300;
+}
+div.calendar div.full-day-view div.contents div.event div.url-text {
+  color: rgb(255, 46, 46);
+}
+div.calendar div.full-day-view div.contents div.event div.url-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 div.calendar div.full-day-view div.contents div.event div.ib-refresh-medium {
   margin-right: calc(var(--calendar-js-spacing) / 2);
@@ -1502,9 +1518,17 @@ div.calendar div.full-week-view div.contents div.content-events-all-day div.days
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.duration,
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.description,
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.location,
-div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.repeats {
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.repeats,
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.url-text {
   font-size: smaller;
   font-weight: 300;
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.url-text {
+  color: rgb(255, 46, 46);
+}
+div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.url-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 div.calendar div.full-week-view div.contents div.content-events-all-day div.days div.cell div.event div.ib-refresh-medium {
   margin-right: calc(var(--calendar-js-spacing) / 2);
@@ -1584,9 +1608,17 @@ div.calendar div.full-week-view div.contents div.days div.cell div.event div.dat
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.duration,
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.description,
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.location,
-div.calendar div.full-week-view div.contents div.days div.cell div.event div.repeats {
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.repeats,
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.url-text {
   font-size: smaller;
   font-weight: 300;
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.url-text {
+  color: rgb(255, 46, 46);
+}
+div.calendar div.full-week-view div.contents div.days div.cell div.event div.url-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 div.calendar div.full-week-view div.contents div.days div.cell div.event div.ib-refresh-medium {
   margin-right: calc(var(--calendar-js-spacing) / 2);
@@ -2428,9 +2460,17 @@ div.calendar div.all-events-view div.contents div.month div.events div.event div
 div.calendar div.all-events-view div.contents div.month div.events div.event div.duration,
 div.calendar div.all-events-view div.contents div.month div.events div.event div.description,
 div.calendar div.all-events-view div.contents div.month div.events div.event div.location,
-div.calendar div.all-events-view div.contents div.month div.events div.event div.repeats {
+div.calendar div.all-events-view div.contents div.month div.events div.event div.repeats,
+div.calendar div.all-events-view div.contents div.month div.events div.event div.url-text {
   font-size: smaller;
   font-weight: 300;
+}
+div.calendar div.all-events-view div.contents div.month div.events div.event div.url-text {
+  color: rgb(255, 46, 46);
+}
+div.calendar div.all-events-view div.contents div.month div.events div.event div.url-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 div.calendar div.all-events-view div.contents div.month div.events div.event div.ib-refresh-medium {
   margin-right: calc(var(--calendar-js-spacing) / 2);
@@ -2728,9 +2768,17 @@ div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-it
 div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.duration,
 div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.description,
 div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.location,
-div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.repeats {
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.repeats,
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.url-text {
   font-size: smaller;
   font-weight: 300;
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.url-text {
+  color: rgb(255, 46, 46);
+}
+div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.url-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 div.calendar div.timeline-view div.contents div.timeline-row div.timeline-row-items div.event div.ib-refresh-medium {
   margin-right: calc(var(--calendar-js-spacing) / 2);
