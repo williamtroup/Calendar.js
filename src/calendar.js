@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.12.4
+ * @version     v2.12.5
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -13540,7 +13540,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     _that.getVersion = function() {
-        return "2.12.4";
+        return "2.12.5";
     };
 
     /**
