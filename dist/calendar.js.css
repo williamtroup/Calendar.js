@@ -2222,7 +2222,7 @@ div.calendar div.full-year-view div.contents div.year-month div.days div.cell di
   background-color: var(--calendar-js-dark-lighter-color);
   bottom: -4px;
   right: -4px;
-  border-radius: 50%;
+  border-radius: var(--calendar-js-border-radius);
   z-index: 10;
 }
 div.calendar div.full-year-view div.contents div.year-month div.days div.cell-today {

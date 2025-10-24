@@ -1597,7 +1597,7 @@ div.calendar {
                             background-color: var(--calendar-js-dark-lighter-color);
                             bottom: -4px;
                             right: -4px;
-                            border-radius: 50%;
+                            border-radius: var(--calendar-js-border-radius);
                             z-index: 10;
                         }
                     }
