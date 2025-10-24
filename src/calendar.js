@@ -1820,7 +1820,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onLeftKey( e ) {
-        e.preventDefault();
+        if ( isDefined( e ) ) {
+            e.preventDefault();
+        }
 
         var viewOpen = getActiveView();
 
@@ -1841,7 +1843,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onRightKey( e ) {
-        e.preventDefault();
+        if ( isDefined( e ) ) {
+            e.preventDefault();
+        }
 
         var viewOpen = getActiveView();
         
@@ -1862,7 +1866,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onDownKey( e ) {
-        e.preventDefault();
+        if ( isDefined( e ) ) {
+            e.preventDefault();
+        }
 
         var viewOpen = getActiveView();
         
@@ -12263,6 +12269,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
     };
 
     /**
+     * moveCurrentViewToPreviousDate().
+     * 
+     * Moves the current view to the previous date.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.moveCurrentViewToPreviousDate = function() {
+        onLeftKey();
+
+        return _that;
+    };
+
+    /**
      * moveToNextMonth().
      * 
      * Moves to the next month.
@@ -12274,6 +12295,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     _that.moveToNextMonth = function() {
         onNextMonth();
+
+        return _that;
+    };
+
+    /**
+     * moveCurrentViewToNextDate().
+     * 
+     * Moves the current view to the next date.
+     * 
+     * @public
+     * @fires       onNextMonth
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.moveCurrentViewToNextDate = function() {
+        onRightKey();
 
         return _that;
     };
@@ -12322,6 +12359,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     _that.moveToToday = function() {
         onCurrentMonth();
+
+        return _that;
+    };
+
+    /**
+     * moveCurrentViewToToday().
+     * 
+     * Moves to the current month.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.moveCurrentViewToToday = function() {
+        onDownKey();
 
         return _that;
     };
