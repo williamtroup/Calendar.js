@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.12.3
+ * @version     v2.12.4
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -1820,7 +1820,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onLeftKey( e ) {
-        e.preventDefault();
+        if ( isDefined( e ) ) {
+            e.preventDefault();
+        }
 
         var viewOpen = getActiveView();
 
@@ -1841,7 +1843,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onRightKey( e ) {
-        e.preventDefault();
+        if ( isDefined( e ) ) {
+            e.preventDefault();
+        }
 
         var viewOpen = getActiveView();
         
@@ -1862,7 +1866,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
     }
 
     function onDownKey( e ) {
-        e.preventDefault();
+        if ( isDefined( e ) ) {
+            e.preventDefault();
+        }
 
         var viewOpen = getActiveView();
         
@@ -2234,6 +2240,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     if ( duration.innerHTML === _string.empty ) {
                         event.removeChild( duration );
+                    }
+
+                    if ( _options.views.fullDay.showEventUrls && isDefinedStringAndSet( eventDetails.url ) ) {
+                        var urlText = createElement( "div", "url-text" );
+                        setNodeText( urlText, getShortUrlString( eventDetails.url ) );
+                        event.appendChild( urlText );
+
+                        urlText.onclick = function( e ) {
+                            cancelBubble( e );
+                            openEventUrl( eventDetails.url );
+                        };
                     }
             
                     if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _enum_RepeatType.never ) {
@@ -2873,6 +2890,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
                     if ( duration.innerHTML === _string.empty ) {
                         event.removeChild( duration );
+                    }
+
+                    if ( _options.views.fullWeek.showEventUrls && isDefinedStringAndSet( eventDetails.url ) ) {
+                        var urlText = createElement( "div", "url-text" );
+                        setNodeText( urlText, getShortUrlString( eventDetails.url ) );
+                        event.appendChild( urlText );
+
+                        urlText.onclick = function( e ) {
+                            cancelBubble( e );
+                            openEventUrl( eventDetails.url );
+                        };
                     }
             
                     if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _enum_RepeatType.never ) {
@@ -4667,6 +4695,17 @@ function calendarJs( elementOrId, options, searchOptions ) {
     
                 if ( duration.innerHTML === _string.empty ) {
                     event.removeChild( duration );
+                }
+
+                if ( _options.views.allEvents.showEventUrls && isDefinedStringAndSet( eventDetails.url ) ) {
+                    var urlText = createElement( "div", "url-text" );
+                    setNodeText( urlText, getShortUrlString( eventDetails.url ) );
+                    event.appendChild( urlText );
+
+                    urlText.onclick = function( e ) {
+                        cancelBubble( e );
+                        openEventUrl( eventDetails.url );
+                    };
                 }
         
                 if ( isDefinedNumber( eventDetails.repeatEvery ) && eventDetails.repeatEvery > _enum_RepeatType.never ) {
@@ -10945,65 +10984,71 @@ function calendarJs( elementOrId, options, searchOptions ) {
         };
     
         reader.onload = function( event ) {
-            var content = event.target.result,
-                contentLines = content.split( _string.newLineCharacterReturn ),
-                contentLinesLength = contentLines.length;
+            importEventsFromICalFileData( event.target.result, readingEventsAdded );
+        };
+    }
 
-            if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > _value.notFound && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > _value.notFound ) {
-                var readingEvent = false,
+    function importEventsFromICalFileData( fileData, readingEventsAdded ) {
+        var content = fileData,
+            contentLines = content.split( _string.newLineCharacterReturn ),
+            contentLinesLength = contentLines.length;
+
+        if ( contentLines[ 0 ].indexOf( "BEGIN:VCALENDAR" ) > _value.notFound && contentLines[ contentLinesLength - 1 ].indexOf( "END:VCALENDAR" ) > _value.notFound ) {
+            var readingEvent = false,
+                readingEventDetails = {};
+            
+            for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
+                var contentLine = contentLines[ contentLineIndex ];
+
+                if ( contentLine.indexOf( "BEGIN:VEVENT" ) > _value.notFound ) {
+                    readingEvent = true;
+                } else if ( contentLine.indexOf( "END:VEVENT" ) > _value.notFound ) {
+                    var eventDetails = _parameter_Json.parse( _parameter_Json.stringify( readingEventDetails ) );
+
+                    readingEvent = false;
                     readingEventDetails = {};
-                
-                for ( var contentLineIndex = 0; contentLineIndex < contentLinesLength; contentLineIndex++ ) {
-                    var contentLine = contentLines[ contentLineIndex ];
 
-                    if ( contentLine.indexOf( "BEGIN:VEVENT" ) > _value.notFound ) {
-                        readingEvent = true;
-                    } else if ( contentLine.indexOf( "END:VEVENT" ) > _value.notFound ) {
-                        var eventDetails = _parameter_Json.parse( _parameter_Json.stringify( readingEventDetails ) );
+                    _that.removeEvent( eventDetails.id, false, false );
 
-                        readingEvent = false;
-                        readingEventDetails = {};
-
-                        _that.removeEvent( eventDetails.id, false, false );
-
-                        if ( _that.addEvent( eventDetails, false, false ) ) {
+                    if ( _that.addEvent( eventDetails, false, false ) ) {
+                        if ( isDefinedArray( readingEventsAdded ) ) {
                             readingEventsAdded.push( eventDetails );
                         }
                     }
+                }
 
-                    if ( readingEvent ) {
-                        if ( startsWith( contentLine, "UID:" ) ) {
-                            readingEventDetails.id = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
-                            readingEventDetails.title = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
-                            readingEventDetails.description = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "DTSTART:" ) || startsWith( contentLine, "DTSTART;" ) ) {
-                            readingEventDetails.from = importICalDateTime( contentLine.split( ":" ).pop() );
-                            readingEventDetails.isAllDay = contentLine.split( ":" ).pop().length === 8;
-                        } else if ( startsWith( contentLine, "DTEND:" ) || startsWith( contentLine, "DTEND;" ) ) {
-                            readingEventDetails.to = importICalDateTime( contentLine.split( ":" ).pop(), true );
-                        } else if ( startsWith( contentLine, "CREATED:" ) ) {
-                            readingEventDetails.created = importICalDateTime( contentLine.split( ":" ).pop() );
-                        } else if ( startsWith( contentLine, "LOCATION:" ) ) {
-                            readingEventDetails.location = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "URL:" ) ) {
-                            readingEventDetails.url = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "TRANSP:" ) ) {
-                            readingEventDetails.showAsBusy = contentLine.split( ":" ).pop() === "OPAQUE";
-                        } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
-                            readingEventDetails.showAlerts = true;
-                        } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
-                            readingEventDetails.group = contentLine.split( ":" ).pop();
-                        } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
-                            importICalOrganizer( readingEventDetails, contentLine );
-                        } else if ( startsWith( contentLine, "RRULE:" ) ) {
-                            importICalRRule( readingEventDetails, contentLine );
-                        }
+                if ( readingEvent ) {
+                    if ( startsWith( contentLine, "UID:" ) ) {
+                        readingEventDetails.id = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "SUMMARY:" ) ) {
+                        readingEventDetails.title = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "DESCRIPTION:" ) ) {
+                        readingEventDetails.description = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "DTSTART:" ) || startsWith( contentLine, "DTSTART;" ) ) {
+                        readingEventDetails.from = importICalDateTime( contentLine.split( ":" ).pop() );
+                        readingEventDetails.isAllDay = contentLine.split( ":" ).pop().length === 8;
+                    } else if ( startsWith( contentLine, "DTEND:" ) || startsWith( contentLine, "DTEND;" ) ) {
+                        readingEventDetails.to = importICalDateTime( contentLine.split( ":" ).pop(), true );
+                    } else if ( startsWith( contentLine, "CREATED:" ) ) {
+                        readingEventDetails.created = importICalDateTime( contentLine.split( ":" ).pop() );
+                    } else if ( startsWith( contentLine, "LOCATION:" ) ) {
+                        readingEventDetails.location = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "URL:" ) ) {
+                        readingEventDetails.url = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "TRANSP:" ) ) {
+                        readingEventDetails.showAsBusy = contentLine.split( ":" ).pop() === "OPAQUE";
+                    } else if ( startsWith( contentLine, "BEGIN:VALARM" ) ) {
+                        readingEventDetails.showAlerts = true;
+                    } else if ( startsWith( contentLine, "CATEGORIES:" ) ) {
+                        readingEventDetails.group = contentLine.split( ":" ).pop();
+                    } else if ( startsWith( contentLine, "ORGANIZER;" ) ) {
+                        importICalOrganizer( readingEventDetails, contentLine );
+                    } else if ( startsWith( contentLine, "RRULE:" ) ) {
+                        importICalRRule( readingEventDetails, contentLine );
                     }
                 }
             }
-        };
+        }
     }
 
     function importICalDateTime( dateTime, isEndDate ) {
@@ -12224,6 +12269,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
     };
 
     /**
+     * moveCurrentViewToPreviousDate().
+     * 
+     * Moves the current view to the previous date.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.moveCurrentViewToPreviousDate = function() {
+        onLeftKey();
+
+        return _that;
+    };
+
+    /**
      * moveToNextMonth().
      * 
      * Moves to the next month.
@@ -12235,6 +12295,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     _that.moveToNextMonth = function() {
         onNextMonth();
+
+        return _that;
+    };
+
+    /**
+     * moveCurrentViewToNextDate().
+     * 
+     * Moves the current view to the next date.
+     * 
+     * @public
+     * @fires       onNextMonth
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.moveCurrentViewToNextDate = function() {
+        onRightKey();
 
         return _that;
     };
@@ -12283,6 +12359,21 @@ function calendarJs( elementOrId, options, searchOptions ) {
      */
     _that.moveToToday = function() {
         onCurrentMonth();
+
+        return _that;
+    };
+
+    /**
+     * moveCurrentViewToToday().
+     * 
+     * Moves to the current month.
+     * 
+     * @public
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.moveCurrentViewToToday = function() {
+        onDownKey();
 
         return _that;
     };
@@ -12507,6 +12598,29 @@ function calendarJs( elementOrId, options, searchOptions ) {
     _that.import = function( files ) {
         if ( _options.importEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
             importEventsFromFiles( files );
+        }
+
+        return _that;
+    };
+
+    /**
+     * importICalData().
+     * 
+     * Imports calendar events from an iCAL formatted string.
+     * 
+     * @public
+     * @fires       onEventsImported
+     * 
+     * @param       {string}    data                                        The string that contains the iCAL calendar events.
+     * 
+     * @returns     {Object}                                                The Calendar.js class instance.
+     */
+    _that.importICalData = function( data ) {
+        if ( _options.importEventsEnabled && !_element_Mode_DatePicker_Enabled ) {
+            var eventsAddedOrUpdated = [];
+
+            importEventsFromICalFileData( data, eventsAddedOrUpdated );
+            importFromFilesCompleted( eventsAddedOrUpdated )
         }
 
         return _that;
@@ -13426,7 +13540,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     _that.getVersion = function() {
-        return "2.12.3";
+        return "2.12.4";
     };
 
     /**
@@ -13747,6 +13861,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullDay.minutesBetweenSections = getDefaultNumber( _options.views.fullDay.minutesBetweenSections, 30 );
         _options.views.fullDay.showTimelineArrow = getDefaultBoolean( _options.views.fullDay.showTimelineArrow, true );
         _options.views.fullDay.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullDay.showExtraTitleBarButtons, true );
+        _options.views.fullDay.showEventUrls = getDefaultBoolean( _options.views.fullDay.showEventUrls, false );
     }
 
     function buildDefaultViewOptionsForFullWeek() {
@@ -13760,6 +13875,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullWeek.showExtraTitleBarButtons = getDefaultBoolean( _options.views.fullWeek.showExtraTitleBarButtons, true );
         _options.views.fullWeek.showDatesInDayHeaders = getDefaultBoolean( _options.views.fullWeek.showDatesInDayHeaders, true );
         _options.views.fullWeek.padDayMonthNumbers = getDefaultBoolean( _options.views.fullWeek.padDayMonthNumbers, false );
+        _options.views.fullWeek.showEventUrls = getDefaultBoolean( _options.views.fullWeek.showEventUrls, false );
     }
 
     function buildDefaultViewOptionsForFullMonth() {
@@ -13809,6 +13925,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.allEvents = getOptions( _options.views.allEvents );
         _options.views.allEvents.enabled = getDefaultBoolean( _options.views.allEvents.enabled, true );
         _options.views.allEvents.showExtraTitleBarButtons = getDefaultBoolean( _options.views.allEvents.showExtraTitleBarButtons, true );
+        _options.views.allEvents.showEventUrls = getDefaultBoolean( _options.views.allEvents.showEventUrls, false );
     }
 
     function buildDefaultViewOptionsForDatePicker() {

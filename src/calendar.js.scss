@@ -1,5 +1,5 @@
 /*
- * Calendar.js v2.12.3
+ * Calendar.js v2.12.4
  *
  * Copyright 2025 Bunoon
  * Released under the MIT License
@@ -1597,7 +1597,7 @@ div.calendar {
                             background-color: var(--calendar-js-dark-lighter-color);
                             bottom: -4px;
                             right: -4px;
-                            border-radius: 50%;
+                            border-radius: var(--calendar-js-border-radius);
                             z-index: 10;
                         }
                     }

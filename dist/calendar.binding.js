@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.3 | (c) Bunoon 2025 | MIT License */
+/*! Calendar.js v2.12.4 | (c) Bunoon 2025 | MIT License */
 (function() {
   var _parameter_Document = null, _parameter_JSON = null, _public = {}, _configuration = {}, _instances = {}, _string = {empty:"", space:" "}, _attribute_Name_Options = "data-binding-calendar";
   function render() {

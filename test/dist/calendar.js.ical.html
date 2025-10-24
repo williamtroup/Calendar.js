@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Calendar.js - Import iCal Data</title>
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../../dist/calendar.js.css">
+        <script src="../../dist/calendar.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 id="header">Calendar.js - Fetch From Trigger</h1>
+            <p>A test that shows Calendar.js being populated from events found in an iCal formatted string.</p>
+        </div>
+
+        <div class="contents">
+            <div id="calendar" style="max-width: 800px;"></div>
+        </div>
+        <br>
+
+        <h2>Import Events:</h2>
+        <button onclick="importEvents();">Import</button>
+    </body>
+
+    <script>
+        var calendarInstance = new calendarJs( "calendar" );
+
+        document.title += " v" + calendarInstance.getVersion();
+        document.getElementById( "header" ).innerText += " - v" + calendarInstance.getVersion();
+
+        function importEvents() {
+            var input = document.createElement( "input" );
+            input.type = "file";
+            input.accept = ".ical, .ics";
+            input.multiple = "multiple";
+
+            input.onchange = function() {
+                importFiles( input.files );
+            };
+
+            input.click();
+        }
+
+        function importFiles( files ) {
+            var filesLength = files.length;
+
+            for ( var fileIndex = 0; fileIndex < filesLength; fileIndex++ ) {
+                importFile( files[ fileIndex ] );
+            }
+        }
+
+        function importFile( file ) {
+            var reader = new FileReader();
+
+            reader.readAsText( file );
+        
+            reader.onload = function( event ) {
+                var fileData = event.target.result;
+
+                calendarInstance.importICalData( fileData );
+            };
+        }
+    </script>
+</html>
