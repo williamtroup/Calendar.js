@@ -12366,7 +12366,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * moveCurrentViewToToday().
      * 
-     * Moves to the current month.
+     * Moves the current view to the current date.
      * 
      * @public
      * 
