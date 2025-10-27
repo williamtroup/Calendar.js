@@ -1458,6 +1458,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.fullScreenModeEnabled = false;
             _options.eventNotificationsEnabled = false;
             _options.views.fullMonth.showPreviousNextMonthNames = false;
+            _options.views.fullMonth.showPreviousNextYears = false;
             _options.views.fullMonth.showExtraTitleBarButtons = false;
             _options.holidays = [];
         }
@@ -3890,7 +3891,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( includeMonthName && _options.views.fullMonth.showPreviousNextMonthNames ) {
-                createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + dayMutedClass, function() {
+                var monthName = _options.monthNames[ month ];
+
+                if ( _options.views.fullMonth.showPreviousNextYears && ( month === 0 || month === 11 ) ) {
+                    monthName += _string.space + year.toString();
+                }
+
+                createSpanElement( dayElement, monthName, "month-name" + dayMutedClass, function() {
                     if ( actualDay === 1 ) {
                         onNextMonth();
                     } else {
@@ -13922,6 +13929,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.pinUpViewImageCssClasses = getDefaultArray( _options.views.fullMonth.pinUpViewImageCssClasses, [] );
         _options.views.fullMonth.showYearDropDownButtonIcon = getDefaultBoolean( _options.views.fullMonth.showYearDropDownButtonIcon, true );
         _options.views.fullMonth.padDayNumbers = getDefaultBoolean( _options.views.fullMonth.padDayNumbers, false );
+        _options.views.fullMonth.showPreviousNextYears = getDefaultBoolean( _options.views.fullMonth.showPreviousNextYears, true );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;
