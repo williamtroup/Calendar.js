@@ -5130,7 +5130,14 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildTimelineViewColumnHeights() {
         var columnsLength = _element_View_Timeline_Contents_Columns.length,
+            timelineRows = _element_View_Timeline_Contents.getElementsByClassName( "timeline-row" ),
+            timelineRowsLength = timelineRows.length,
             columnHeight = 0;
+
+        if ( timelineRowsLength > 0 ) {
+            timelineRowBorderWidth = getStyleValueByName( timelineRows[ 0 ], "border-bottom-width" );
+            columnHeight = ( timelineRowsLength * ( timelineRows[ 0 ].offsetHeight - timelineRowBorderWidth ) ) + _element_View_Timeline_Contents_Header.offsetHeight;
+        }
             
         for ( var columnIndex = 0; columnIndex < columnsLength; columnIndex++ ) {
             var column = _element_View_Timeline_Contents_Columns[ columnIndex ];
