@@ -5145,7 +5145,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             var column = _element_View_Timeline_Contents_Columns[ columnIndex ];
 
             if ( columnHeight === 0 ) {
-                columnHeight = _element_View_Timeline_Contents.scrollHeight  - column.offsetTop;
+                columnHeight = _element_View_Timeline_Contents.scrollHeight - column.offsetTop;
             }
 
             column.style.height = columnHeight + "px";
