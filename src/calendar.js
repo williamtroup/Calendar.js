@@ -5135,8 +5135,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
             columnHeight = 0;
 
         if ( timelineRowsLength > 0 ) {
-            timelineRowBorderWidth = getStyleValueByName( timelineRows[ 0 ], "border-bottom-width" );
-            columnHeight = ( timelineRowsLength * ( timelineRows[ 0 ].offsetHeight - timelineRowBorderWidth ) ) + _element_View_Timeline_Contents_Header.offsetHeight;
+            var timelineRowBorderWidth = getStyleValueByName( timelineRows[ 0 ], "border-bottom-width" ),
+                headerBorderWidth = getStyleValueByName( _element_View_Timeline_Contents_Header, "border-bottom-width" );
+
+            columnHeight = ( timelineRowsLength * ( timelineRows[ 0 ].offsetHeight - timelineRowBorderWidth ) ) + ( _element_View_Timeline_Contents_Header.offsetHeight - headerBorderWidth );
         }
             
         for ( var columnIndex = 0; columnIndex < columnsLength; columnIndex++ ) {
