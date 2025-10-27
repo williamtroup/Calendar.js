@@ -683,6 +683,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _element_Calendar.className = !isWidget ? "calendar" : "calendar-widget";
                     _element_Calendar.innerHTML = _string.empty;
 
+                    _element_Calendar.oncontextmenu = function( e ) {
+                        e.preventDefault();
+                    };
+
                     var height = getStyleValueByName( _element_Calendar, "height" );
 
                     if ( height >= 100 ) {
