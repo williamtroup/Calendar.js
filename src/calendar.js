@@ -3280,7 +3280,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             if ( _options.views.timeline.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
-                    showTimelineView( null, true );
+                    var viewDate = isDateTodaysMonthAndYear( _calendar_CurrentDate ) ? null : _calendar_CurrentDate;
+
+                    showTimelineView( viewDate, true );
                 } );
             }
 
@@ -3292,19 +3294,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( _options.views.fullYear.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-expand", _options.viewFullYearTooltipText, function() {
-                    showFullYearView( null, true );
+                    showFullYearView( _calendar_CurrentDate.getFullYear(), true );
                 } );
             }
 
             if ( _options.views.fullWeek.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-hamburger-side", _options.viewFullWeekTooltipText, function() {
-                    showFullWeekView( null, true );
+                    var viewDate = isDateTodaysMonthAndYear( _calendar_CurrentDate ) ? null : _calendar_CurrentDate;
+
+                    showFullWeekView( viewDate, true );
                 } );
             }
 
             if ( _options.views.fullDay.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
-                    showFullDayView( null, true );
+                    var viewDate = isDateTodaysMonthAndYear( _calendar_CurrentDate ) ? null : _calendar_CurrentDate;
+
+                    showFullDayView( viewDate, true );
                 } );
             }
         }
