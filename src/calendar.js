@@ -2336,7 +2336,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         clearElementsByClassName( _element_View_FullDay_Contents, "event" );
         hideSearchDialog();
         buildFullDayViewTitle();
-        showView( _element_View_FullDay );
+        showView( _element_View_FullDay, fromOpen );
 
         if ( isWorkingDay( date ) ) {
             buildFullDayViewWorkingHours();
@@ -3007,7 +3007,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Events_Dragged_Sizes = [];
         _element_View_FullWeek_DateSelected_StartOfWeek = weekStartDate;
 
-        showView( _element_View_FullWeek );
+        showView( _element_View_FullWeek, fromOpen );
         hideSearchDialog();
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader, false );
@@ -4543,7 +4543,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullYear_TitleBar.innerText = _element_View_FullYear_CurrentYear;
 
         buildFullYearMonths( fromOpen );
-        showView( _element_View_FullYear );
+        showView( _element_View_FullYear, fromOpen );
     }
 
     function updateFullYearView() {
@@ -4851,7 +4851,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showAllEventsView( fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        showView( _element_View_AllEvents );
+        showView( _element_View_AllEvents, fromOpen );
 
         _element_View_AllEvents_Contents.innerHTML = _string.empty;
         _element_View_AllEvents_EventsShown = [];
@@ -5247,7 +5247,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         getFullDayViewOrderedEvents( _element_View_Timeline_DateSelected, orderedEvents );
         updateToolbarButtonVisibleState( _element_View_Timeline_TodayButton, isCurrentDateVisible );
         buildTimelineViewContentLayout();
-        showView( _element_View_Timeline );
+        showView( _element_View_Timeline, fromOpen );
         buildTimelineViewEvents( getOrderedEvents( orderedEvents ) );
         buildTimelineViewColumnHeights();
         buildTimelineViewTitle();
@@ -8184,21 +8184,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function showView( element ) {
-        if ( getActiveView() !== element ) {
+    function showView( element, fromOpen ) {
+        if ( isViewVisible( element ) && fromOpen ) {
             removeViewOpened( element, false );
 
             _element_View_Opened.push( element );
             _element_View_LastZIndex++;
-    
-            if ( !isViewVisible( element ) ) {
-                element.className += " view-shown";
-            }
             
             element.style.zIndex = _element_View_LastZIndex;
-            
-            hideSearchDialog();
-            fireViewChangeCustomTrigger();
+
+        } else {
+            if ( getActiveView() !== element && !isViewVisible( element ) ) {
+                removeViewOpened( element, false );
+
+                _element_View_Opened.push( element );
+                _element_View_LastZIndex++;
+                
+                element.className += " view-shown";
+                element.style.zIndex = _element_View_LastZIndex;
+                
+                hideSearchDialog();
+                fireViewChangeCustomTrigger();
+            }
         }
     }
 

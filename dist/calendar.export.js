@@ -6,17 +6,17 @@ export function calendarJs(I, ua, V) {
         d = p(d) ? d : !1;
         a = c;
         if (b.isWidget)
-            (kg = dc(v)),
-                lb || (Yd(!0), null !== z && (Vi(), Wi(), Xi(), Yi(), Zi(), Ne || (Ih(), (Ne = !0)), $i(), Xd(), Me())),
+            (lg = dc(v)),
+                lb || (Yd(!0), null !== z && (Wi(), Xi(), Yi(), Zi(), $i(), Oe || (Ih(), (Oe = !0)), aj(), Xd(), Ne())),
                 ol();
         else {
             v.setDate(1);
             v.setHours(0, 0, 0, 0);
-            kg = lg(v);
+            lg = mg(v);
             c = new Date(v.getFullYear(), v.getMonth(), 1);
-            var e = Oe(0 === c.getDay() ? 7 : c.getDay());
+            var e = Pe(0 === c.getDay() ? 7 : c.getDay());
             c = !Zd;
-            Pe() && Hb();
+            Qe() && Hb();
             Ga();
             if (!lb && (Yd(), null !== z)) {
                 r ||
@@ -34,7 +34,7 @@ export function calendarJs(I, ua, V) {
                         f = b.views.fullMonth.pinUpViewImageUrls.length;
                         if (0 < f)
                             for (var k = 0; k < f; k++) new Image().src = b.views.fullMonth.pinUpViewImageUrls[k];
-                        Zd || qb();
+                        Zd || rb();
                     } else f && (Ib.removeChild(mb), (mb = null));
                 }
                 f = null !== yc;
@@ -44,21 +44,21 @@ export function calendarJs(I, ua, V) {
                       r && (yc.onclick = C),
                       Jh(yc))
                     : f && (Ib.removeChild(yc), (yc = null));
-                aj();
+                bj();
                 tl();
                 ul();
                 vl();
-                Ne || (Ih(), (Ne = !0));
+                Oe || (Ih(), (Oe = !0));
                 Xd();
-                Me();
+                Ne();
             }
             if (1 < e) {
                 f = new Date(v);
                 f.setMonth(f.getMonth() - 1);
                 k = ad(f.getFullYear(), f.getMonth());
                 for (var m = 1, A = k - e + 1; A < k; A++) {
-                    var rb = A === k - 1;
-                    Kh(A + 1, m, f.getMonth(), f.getFullYear(), !0, rb);
+                    var sb = A === k - 1;
+                    Kh(A + 1, m, f.getMonth(), f.getFullYear(), !0, sb);
                     m++;
                 }
             }
@@ -77,16 +77,16 @@ export function calendarJs(I, ua, V) {
             } else Lh = null;
             Ha();
             a &&
-                (Vi(),
-                Wi(),
+                (Wi(),
                 Xi(),
                 Yi(),
                 Zi(),
+                $i(),
                 wl(),
                 xl(),
                 yl(),
                 zl(),
-                $i(),
+                aj(),
                 r || (Al(), Bl(), Cl(), Dl()),
                 null !== fc || r || ((fc = h("div", "calendar-notification")), ya.push(fc), E.body.appendChild(fc)));
             d && La(!0, !1);
@@ -94,15 +94,15 @@ export function calendarJs(I, ua, V) {
                 ((Mh.innerText = Nh(b.views.fullMonth.titleBarDateFormat, v)),
                 c &&
                     R(b.viewToOpenOnFirstLoad) &&
-                    (b.viewToOpenOnFirstLoad.toLowerCase() === sb.fullDay && b.views.fullDay.enabled
+                    (b.viewToOpenOnFirstLoad.toLowerCase() === tb.fullDay && b.views.fullDay.enabled
                         ? Ua()
-                        : b.viewToOpenOnFirstLoad.toLowerCase() === sb.fullWeek && b.views.fullWeek.enabled
+                        : b.viewToOpenOnFirstLoad.toLowerCase() === tb.fullWeek && b.views.fullWeek.enabled
                           ? zc()
-                          : b.viewToOpenOnFirstLoad.toLowerCase() === sb.fullYear && b.views.fullYear.enabled
+                          : b.viewToOpenOnFirstLoad.toLowerCase() === tb.fullYear && b.views.fullYear.enabled
                             ? Ac()
-                            : b.viewToOpenOnFirstLoad.toLowerCase() === sb.timeline && b.views.timeline.enabled
+                            : b.viewToOpenOnFirstLoad.toLowerCase() === tb.timeline && b.views.timeline.enabled
                               ? Jb()
-                              : b.viewToOpenOnFirstLoad.toLowerCase() === sb.allEvents &&
+                              : b.viewToOpenOnFirstLoad.toLowerCase() === tb.allEvents &&
                                 b.views.allEvents.enabled &&
                                 Oh()));
         }
@@ -112,19 +112,19 @@ export function calendarJs(I, ua, V) {
         if (b.useLocalStorageForEvents && Z.localStorage)
             for (var a = Z.localStorage.length, c = 0; c < a; c++) {
                 var d = Z.localStorage.getItem(Z.localStorage.key(c));
-                d = Qe(d);
+                d = Re(d);
                 p(d) && q.addEvent(d, !1, !1, !1);
             }
-        bj();
+        cj();
     }
-    function Me() {
+    function Ne() {
         lb = !0;
         Zd || (w(b.events.onRender, za), (Zd = !0));
     }
     function Yd(a) {
         a = p(a) ? a : !1;
         if (null === z) {
-            if (cj(za)) {
+            if (dj(za)) {
                 var b = za;
                 za = b.id;
                 R(za) || (za = ec());
@@ -145,11 +145,11 @@ export function calendarJs(I, ua, V) {
     }
     function pl() {
         Zd ||
-            ((tb = h("div", "side-menu custom-scroll-bars dark-thumb-scroll")),
-            (tb.onclick = C),
-            z.appendChild(tb),
+            ((ub = h("div", "side-menu custom-scroll-bars dark-thumb-scroll")),
+            (ub.onclick = C),
+            z.appendChild(ub),
             (Kb = h("div", "main-header")),
-            tb.appendChild(Kb));
+            ub.appendChild(Kb));
         Kb.innerHTML = n.empty;
         qa(Kb, b.sideMenuHeaderText);
         t(Kb, "ib-close", b.closeTooltipText, Hb);
@@ -158,7 +158,7 @@ export function calendarJs(I, ua, V) {
         b.configurationDialogEnabled &&
             t(Kb, "ib-octagon-hollow", b.configurationTooltipText, function () {
                 Hb();
-                dj();
+                ej();
             });
         ((b.configurationDialogEnabled && b.exportEventsEnabled) ||
             (b.importEventsEnabled && b.manualEditingEnabled)) &&
@@ -171,14 +171,14 @@ export function calendarJs(I, ua, V) {
         b.importEventsEnabled &&
             b.manualEditingEnabled &&
             t(Kb, "ib-arrow-up-full-line", b.importEventsTooltipText, Fl);
-        Zd || ((Cc = h("div", "content")), tb.appendChild(Cc));
+        Zd || ((Cc = h("div", "content")), ub.appendChild(Cc));
     }
-    function ej(a) {
-        var c = Re(Dc) || !0 === a,
-            d = Re(fd, !0),
-            e = Re(gd, !0),
-            f = Re(Ec, !0);
-        a = Re(Fc, !0);
+    function fj(a) {
+        var c = Se(Dc) || !0 === a,
+            d = Se(fd, !0),
+            e = Se(gd, !0),
+            f = Se(Ec, !0);
+        a = Se(Fc, !0);
         Cc.innerHTML = n.empty;
         Fc = hd = Ec = id = gd = Gc = fd = Hc = Dc = jd = null;
         kd();
@@ -203,17 +203,17 @@ export function calendarJs(I, ua, V) {
             c = 0;
             k = 7;
             var A = !1,
-                rb = [];
-            Se(jd, Dc, b.sideMenuDaysText, m, rb);
+                sb = [];
+            Te(jd, Dc, b.sideMenuDaysText, m, sb);
             jd.appendChild(Dc);
             if (b.startOfWeekDay === va.saturday || b.startOfWeekDay === va.sunday) (c = b.startOfWeekDay), (A = !0);
             for (; c < k; c++)
                 (m = b.visibleDays.indexOf(c) > B.notFound),
-                    rb.push(K(Dc, b.dayNames[c], Ic, c.toString(), m, null, Jc)[0]);
+                    sb.push(K(Dc, b.dayNames[c], Ic, c.toString(), m, null, Jc)[0]);
             if (A)
                 for (k = b.startOfWeekDay, c = 0; c < k; c++)
                     (A = b.visibleDays.indexOf(c) > B.notFound),
-                        rb.push(K(Dc, b.dayNames[c], Ic, c.toString(), A, null, Jc)[0]);
+                        sb.push(K(Dc, b.dayNames[c], Ic, c.toString(), A, null, Jc)[0]);
             b.reverseOrderDaysOfWeek && ld(Dc);
         }
         if (b.sideMenu.showEventTypes) {
@@ -227,33 +227,33 @@ export function calendarJs(I, ua, V) {
                         ((Hc = h("div", "content-section content-section-opened")),
                         Cc.appendChild(Hc),
                         (fd = h("div", "checkbox-container")),
-                        Se(Hc, fd, b.eventTypesText, d, k),
+                        Te(Hc, fd, b.eventTypesText, d, k),
                         Hc.appendChild(fd),
                         (c = !0)),
-                    (rb = !0),
-                    p(O.visibleEventTypes) && (rb = O.visibleEventTypes.indexOf(parseInt(g)) > B.notFound),
-                    k.push(K(fd, N[g].text, Ic, g, rb, null, Jc)[0]));
+                    (sb = !0),
+                    p(O.visibleEventTypes) && (sb = O.visibleEventTypes.indexOf(parseInt(g)) > B.notFound),
+                    k.push(K(fd, N[g].text, Ic, g, sb, null, Jc)[0]));
         }
         if (
             b.sideMenu.showGroups &&
-            ((c = e), (c = p(c) ? c : !0), (gd = Gc = null), (g = fj()), (e = g.length), 0 < e)
+            ((c = e), (c = p(c) ? c : !0), (gd = Gc = null), (g = gj()), (e = g.length), 0 < e)
         )
             for (
                 d = [],
                     Gc = h("div", "content-section content-section-opened"),
                     gd = h("div", "checkbox-container"),
                     Cc.appendChild(Gc),
-                    Se(Gc, gd, b.groupsText, c, d),
+                    Te(Gc, gd, b.groupsText, c, d),
                     Gc.appendChild(gd),
                     c = 0;
                 c < e;
                 c++
             )
                 (k = g[c]),
-                    (rb = k.toLowerCase()),
+                    (sb = k.toLowerCase()),
                     (A = !0),
-                    p(O.visibleGroups) && (A = O.visibleGroups.indexOf(rb) > B.notFound),
-                    d.push(K(gd, k, Ic, rb, A, null, Jc)[0]);
+                    p(O.visibleGroups) && (A = O.visibleGroups.indexOf(sb) > B.notFound),
+                    d.push(K(gd, k, Ic, sb, A, null, Jc)[0]);
         if (b.sideMenu.showWorkingDays) {
             c = f;
             c = p(c) ? c : !0;
@@ -264,7 +264,7 @@ export function calendarJs(I, ua, V) {
             g = 7;
             d = !1;
             e = [];
-            Se(id, Ec, b.workingDaysText, c, e);
+            Te(id, Ec, b.workingDaysText, c, e);
             id.appendChild(Ec);
             if (b.startOfWeekDay === va.saturday || b.startOfWeekDay === va.sunday) (f = b.startOfWeekDay), (d = !0);
             for (; f < g; f++)
@@ -286,7 +286,7 @@ export function calendarJs(I, ua, V) {
             f = 8;
             e = !1;
             g = [];
-            Se(hd, Fc, b.weekendDaysText, d, g);
+            Te(hd, Fc, b.weekendDaysText, d, g);
             hd.appendChild(Fc);
             if (b.startOfWeekDay === va.saturday || b.startOfWeekDay === va.sunday)
                 (a = b.startOfWeekDay + 1), (e = !0);
@@ -312,12 +312,12 @@ export function calendarJs(I, ua, V) {
         );
     }
     function Mb() {
-        Pe() && ej();
+        Qe() && fj();
     }
     function Kc(a) {
-        ej(p(a) ? a : !1);
-        mg = !1;
-        tb.className += " side-menu-open";
+        fj(p(a) ? a : !1);
+        ng = !1;
+        ub.className += " side-menu-open";
         $d.style.display = "block";
         nd(
             Na.sideMenuEvents,
@@ -329,43 +329,43 @@ export function calendarJs(I, ua, V) {
         );
     }
     function Hb() {
-        if (null !== tb) {
-            tb.className = "side-menu custom-scroll-bars";
+        if (null !== ub) {
+            ub.className = "side-menu custom-scroll-bars";
             $d.style.display = "none";
-            if (mg) {
+            if (ng) {
                 var a = !1,
                     c = !1;
                 if (null !== Gc) {
-                    var d = Te(Gc);
+                    var d = Ue(Gc);
                     ae(O.visibleGroups, d) ||
                         ((O.visibleGroups = [].slice.call(d)),
                         (c = !0),
                         w(b.events.onVisibleGroupsChanged, O.visibleGroups));
                 }
                 null !== Hc &&
-                    ((d = Te(Hc, !0)),
+                    ((d = Ue(Hc, !0)),
                     ae(O.visibleEventTypes, d) ||
                         ((O.visibleEventTypes = [].slice.call(d)),
                         (c = !0),
                         w(b.events.onVisibleEventTypesChanged, O.visibleEventTypes)));
                 null !== jd &&
-                    ((d = Te(jd, !0)),
+                    ((d = Ue(jd, !0)),
                     1 <= d.length &&
                         !ae(b.visibleDays, d) &&
                         ((b.visibleDays = [].slice.call(d)), (od = []), (c = a = !0)));
                 null !== id &&
-                    ((d = Te(id, !0)), ae(b.workingDays, d) || ((b.workingDays = [].slice.call(d)), (c = a = !0)));
-                null !== hd && ((d = Te(hd, !0)), ae(b.weekendDays, d) || ((b.weekendDays = d), (c = a = !0)));
+                    ((d = Ue(id, !0)), ae(b.workingDays, d) || ((b.workingDays = [].slice.call(d)), (c = a = !0)));
+                null !== hd && ((d = Ue(hd, !0)), ae(b.weekendDays, d) || ((b.weekendDays = d), (c = a = !0)));
                 c && (a && w(b.events.onOptionsUpdated, b), (lb = !1), F(v, !0, !0));
             }
             ic();
             E.body.removeEventListener("click", Hb);
         }
     }
-    function Pe() {
-        return null !== tb && tb.className.indexOf("side-menu-open") > B.notFound;
+    function Qe() {
+        return null !== ub && ub.className.indexOf("side-menu-open") > B.notFound;
     }
-    function Te(a, b) {
+    function Ue(a, b) {
         b = p(b) ? b : !1;
         a = a.getElementsByTagName("input");
         var c = a.length,
@@ -377,7 +377,7 @@ export function calendarJs(I, ua, V) {
             }
         return e;
     }
-    function Se(a, c, d, e, f) {
+    function Te(a, c, d, e, f) {
         var k = h("div", "text-header");
         a.appendChild(k);
         y(k, d + ":");
@@ -387,10 +387,10 @@ export function calendarJs(I, ua, V) {
             var A = h("div", "right-divider-line");
             k.appendChild(A);
             var g = t(k, "ib-square", b.selectAllText, function (a) {
-                    gj(a, f, !0);
+                    hj(a, f, !0);
                 }),
                 n = t(k, "ib-square-hollow", b.selectNoneText, function (a) {
-                    gj(a, f, !1);
+                    hj(a, f, !1);
                 });
         }
         k.onclick = function () {
@@ -412,17 +412,17 @@ export function calendarJs(I, ua, V) {
             b.sideMenu.showSelectAllNoneButtons &&
                 ((A.style.display = "none"), (g.style.display = "none"), (n.style.display = "none")));
     }
-    function gj(a, b, d) {
+    function hj(a, b, d) {
         C(a);
         a = b.length;
         for (var c = !1, f = 0; f < a; f++) b[f].checked !== d && ((b[f].checked = d), (c = !0));
-        mg = c;
+        ng = c;
     }
-    function Re(a, b) {
+    function Se(a, b) {
         return b && null === a ? !1 : null === a || "none" !== a.style.display;
     }
     function Ic() {
-        mg = !0;
+        ng = !0;
     }
     function ol() {
         Ph();
@@ -450,7 +450,7 @@ export function calendarJs(I, ua, V) {
             c = [];
         z.appendChild(a);
         Rh(v, c);
-        c = ub(c);
+        c = vb(c);
         var d = c.length;
         if (0 < d)
             for (var e = 0; e < d; e++) {
@@ -458,7 +458,7 @@ export function calendarJs(I, ua, V) {
                     k = c[e],
                     m = h("div", "event");
                 f.appendChild(m);
-                be(m, k, Ue(k, v));
+                be(m, k, Ve(k, v));
                 ce(m, k);
                 m.id = "widget-day-" + k.id;
                 m.setAttribute("event-type", H(k.type));
@@ -481,7 +481,7 @@ export function calendarJs(I, ua, V) {
                         ? k.isAllDay
                             ? Nb(A, k.from, null, " - " + b.allDayText)
                             : (Nb(A, k.from, null, " - " + de(k.from, k.to)), y(g, Ob(k.from, k.to)))
-                        : (Ve(A, k.from, k.to), y(g, Ob(k.from, k.to)));
+                        : (We(A, k.from, k.to), y(g, Ob(k.from, k.to)));
                     g.innerHTML === n.empty && m.removeChild(g);
                     Ba(k.repeatEvery) &&
                         k.repeatEvery > x.never &&
@@ -514,8 +514,8 @@ export function calendarJs(I, ua, V) {
         a.getFullYear() >= b.minimumYear && F(a);
     }
     function El(a) {
-        We = a;
-        lc(We, "hidden");
+        Xe = a;
+        lc(Xe, "hidden");
         Lc = h("input", "calendar-date-picker-input");
         Lc.readOnly = !0;
         Lc.placeholder = b.selectDatePlaceholderText;
@@ -523,15 +523,15 @@ export function calendarJs(I, ua, V) {
         var c = h("div", "calendar-date-picker");
         a.insertAdjacentElement("afterend", c);
         a.remove(a);
-        c.appendChild(We);
+        c.appendChild(Xe);
         c.appendChild(Lc);
         z = h("div", "calendar calendar-hidden");
         z.id = za;
         c.appendChild(z);
         Lc.onclick = Kl;
         E.addEventListener("click", qd);
-        hj();
-        c = We.value.split("/");
+        ij();
+        c = Xe.value.split("/");
         a = null;
         3 === c.length &&
             ((c = new Date(parseInt(c[2]), parseInt(c[1]) - 1, parseInt(c[0]))),
@@ -540,7 +540,7 @@ export function calendarJs(I, ua, V) {
         a.setHours(0, 0, 0, 0);
         Mc = a;
     }
-    function hj() {
+    function ij() {
         r &&
             ((b.exportEventsEnabled = !1),
             (b.manualEditingEnabled = !1),
@@ -552,17 +552,17 @@ export function calendarJs(I, ua, V) {
     }
     function Kl(a) {
         C(a);
-        ng("calendar calendar-shown", "calendar calendar-hidden");
-        if (cb) (z.className = "calendar calendar-hidden"), Ga(), w(b.events.onDatePickerClosed, za);
+        og("calendar calendar-shown", "calendar calendar-hidden");
+        if (db) (z.className = "calendar calendar-hidden"), Ga(), w(b.events.onDatePickerClosed, za);
         else {
             z.className = "calendar calendar-shown";
             F(new Date(Mc), !lb);
             w(b.events.onDatePickerOpened, za);
-            a = ij;
-            null === a && (a = ij = z.offsetTop);
+            a = jj;
+            null === a && (a = jj = z.offsetTop);
             z.style.top = a + "px";
-            var c = Xe(z),
-                d = jj();
+            var c = Ye(z),
+                d = kj();
             c.top - d.top + z.offsetHeight > Z.innerHeight
                 ? ((c = bd(z, "border-width")),
                   (d = bd(Lc, "border-width")),
@@ -571,19 +571,19 @@ export function calendarJs(I, ua, V) {
                   (z.style.top = a + "px"))
                 : (z.className += " calendar-shadow-bottom");
         }
-        cb = !cb;
+        db = !db;
     }
     function qd() {
-        cb && ((z.className = "calendar calendar-hidden"), (cb = !1), Ga(), w(b.events.onDatePickerClosed, za));
+        db && ((z.className = "calendar calendar-hidden"), (db = !1), Ga(), w(b.events.onDatePickerClosed, za));
     }
     function Sh(a) {
         Lc.value = Nh(b.views.datePicker.selectedDateFormat, a);
-        We.value = a.getFullYear() + "-" + J(a.getMonth() + 1) + "-" + J(a.getDate());
+        Xe.value = a.getFullYear() + "-" + J(a.getMonth() + 1) + "-" + J(a.getDate());
     }
-    function kj(a) {
+    function lj(a) {
         var c = !0;
-        null !== b.views.datePicker.minimumDate && (c = Ye(b.views.datePicker.minimumDate, a));
-        c && null !== b.views.datePicker.maximumDate && (c = Ye(a, b.views.datePicker.maximumDate));
+        null !== b.views.datePicker.minimumDate && (c = Ze(b.views.datePicker.minimumDate, a));
+        c && null !== b.views.datePicker.maximumDate && (c = Ze(a, b.views.datePicker.maximumDate));
         return c;
     }
     function Ih(a) {
@@ -628,53 +628,53 @@ export function calendarJs(I, ua, V) {
     function Ga(a) {
         var b = !1;
         a = p(a) ? a : !0;
-        og(Ia) && (b = !0);
-        og(Y) && (b = !0);
-        og(Oa) && (b = !0);
-        og(nb) && (b = !0);
-        pg() && (b = !0);
+        pg(Ia) && (b = !0);
+        pg(Y) && (b = !0);
+        pg(Oa) && (b = !0);
+        pg(nb) && (b = !0);
+        qg() && (b = !0);
         ic();
-        ng("calendar-context-menu");
-        ng("years-drop-down");
-        ng("years-drop-down-no-months");
-        a && Ze();
+        og("calendar-context-menu");
+        og("years-drop-down");
+        og("years-drop-down-no-months");
+        a && $e();
         return b;
     }
     function Ql(a) {
         if (r)
-            cb &&
+            db &&
                 (a.keyCode === Q.escape
                     ? (a.preventDefault(), qd())
                     : fa(a) && a.keyCode === Q.left
-                      ? (a.preventDefault(), qg())
+                      ? (a.preventDefault(), rg())
                       : fa(a) && a.keyCode === Q.right
-                        ? (a.preventDefault(), rg())
+                        ? (a.preventDefault(), sg())
                         : a.keyCode === Q.left
-                          ? (a.preventDefault(), $e())
+                          ? (a.preventDefault(), af())
                           : a.keyCode === Q.right
-                            ? (a.preventDefault(), af())
-                            : a.keyCode === Q.down && (a.preventDefault(), tg()));
-        else if (Pe()) a.keyCode === Q.escape && Pe() && (a.preventDefault(), Hb());
+                            ? (a.preventDefault(), bf())
+                            : a.keyCode === Q.down && (a.preventDefault(), ug()));
+        else if (Qe()) a.keyCode === Q.escape && Qe() && (a.preventDefault(), Hb());
         else {
             if (sd) {
-                var c = lj();
+                var c = mj();
                 fa(a) && a.keyCode === Q.left && c
-                    ? (a.preventDefault(), qg())
+                    ? (a.preventDefault(), rg())
                     : fa(a) && a.keyCode === Q.right && c
-                      ? (a.preventDefault(), rg())
+                      ? (a.preventDefault(), sg())
                       : a.keyCode === Q.escape
-                        ? !mj() && c && b.useEscapeKeyToExitFullScreenMode && Wa()
+                        ? !nj() && c && b.useEscapeKeyToExitFullScreenMode && Wa()
                         : a.keyCode === Q.left && c
-                          ? nj(a)
+                          ? oj(a)
                           : a.keyCode === Q.right && c
-                            ? oj(a)
+                            ? pj(a)
                             : a.keyCode === Q.down && c
-                              ? pj(a)
+                              ? qj(a)
                               : a.keyCode === Q.f5 && c && La(!1, !0);
-            } else a.keyCode === Q.escape && mj();
+            } else a.keyCode === Q.escape && nj();
             if (fa(a) && a.shiftKey && a.keyCode === Q.a)
                 a.preventDefault(), b.manualEditingEnabled && P(null, new Date());
-            else if (fa(a) && a.shiftKey && a.keyCode === Q.c) a.preventDefault(), qj();
+            else if (fa(a) && a.shiftKey && a.keyCode === Q.c) a.preventDefault(), rj();
             else if (fa(a) && a.shiftKey && a.keyCode === Q.e)
                 a.preventDefault(),
                     b.exportEventsEnabled &&
@@ -690,7 +690,7 @@ export function calendarJs(I, ua, V) {
                                   ? (a = Bc)
                                   : c === ra && (a = Lb),
                         0 < a.length && dd(a));
-            else if (fa(a) && a.shiftKey && a.keyCode === Q.g) a.preventDefault(), b.configurationDialogEnabled && dj();
+            else if (fa(a) && a.shiftKey && a.keyCode === Q.g) a.preventDefault(), b.configurationDialogEnabled && ej();
             else if (fa(a) && a.shiftKey && a.keyCode === Q.j) a.preventDefault(), ee();
             else if (fa(a) && a.shiftKey && a.keyCode === Q.f)
                 a.preventDefault(),
@@ -707,43 +707,43 @@ export function calendarJs(I, ua, V) {
                               : c === ia && (a = 0 < Bc.length),
                     a && fe();
             else if (fa(a) && a.shiftKey && a.keyCode === Q.m) {
-                if ((a.preventDefault(), db(ra))) for (a = sg.length, c = 0; c < a; c++) sg[c]();
+                if ((a.preventDefault(), Xa(ra))) for (a = tg.length, c = 0; c < a; c++) tg[c]();
             } else
                 fa(a) && a.shiftKey && a.keyCode === Q.o
                     ? (a.preventDefault(), md() && Kc())
                     : fa(a) && a.shiftKey && a.keyCode === Q.v
-                      ? (a.preventDefault(), (a = ja.length), db(W) && 0 < a && Wh(L, Pb))
+                      ? (a.preventDefault(), (a = ja.length), Xa(W) && 0 < a && Wh(L, Pb))
                       : fa(a) && a.shiftKey && a.keyCode === Q.x
-                        ? (a.preventDefault(), qj(!0))
+                        ? (a.preventDefault(), rj(!0))
                         : fa(a) && a.shiftKey && a.keyCode === Q.f11 && (a.preventDefault(), Wa());
         }
-    }
-    function nj(a) {
-        p(a) && a.preventDefault();
-        a = Ma();
-        null === a ? $e() : a === W ? rj() : a === da ? sj() : a === Da ? tj() : a === ia && uj();
     }
     function oj(a) {
         p(a) && a.preventDefault();
         a = Ma();
-        null === a ? af() : a === W ? vj() : a === da ? wj() : a === Da ? xj() : a === ia && yj();
+        null === a ? af() : a === W ? sj() : a === da ? tj() : a === Da ? uj() : a === ia && vj();
     }
     function pj(a) {
         p(a) && a.preventDefault();
         a = Ma();
-        null === a ? tg() : a === W ? zj() : a === da ? Aj() : a === Da ? Bj() : a === ia && Cj();
+        null === a ? bf() : a === W ? wj() : a === da ? xj() : a === Da ? yj() : a === ia && zj();
+    }
+    function qj(a) {
+        p(a) && a.preventDefault();
+        a = Ma();
+        null === a ? ug() : a === W ? Aj() : a === da ? Bj() : a === Da ? Cj() : a === ia && Dj();
     }
     function fa(a) {
         return a.ctrlKey || a.metaKey;
     }
-    function mj() {
+    function nj() {
         var a = Ga(!1);
-        a || (a = Ze());
+        a || (a = $e());
         !a && 0 < eb.length && ((a = eb[eb.length - 1]), Xh(a) && (eb.pop(), a(!1)), (a = !0));
         a || (a = kd());
         a || (a = mc());
         !a && 0 < ja.length && (ge(), (ja = []), (Pb = !1), (a = !0));
-        !a && 0 < vb.length && (Dj(), (a = !0));
+        !a && 0 < ob.length && (Ej(), (a = !0));
         return a;
     }
     function ql() {
@@ -754,15 +754,15 @@ export function calendarJs(I, ua, V) {
             a = h("div", "title-bar");
             W.appendChild(a);
             b.fullScreenModeEnabled && (a.ondblclick = Wa);
-            bf = h("div", "title");
-            a.appendChild(bf);
+            cf = h("div", "title");
+            a.appendChild(cf);
             t(a, "ib-close", b.closeTooltipText, Rl);
             a.appendChild(h("div", "right-divider-line"));
             b.views.fullDay.showExtraTitleBarButtons &&
                 b.fullScreenModeEnabled &&
                 ((Yh = t(a, "ib-arrow-expand-left-right", b.enableFullScreenTooltipText, Wa)),
                 a.appendChild(h("div", "right-divider-line-full-screen-mode")));
-            t(a, "ib-arrow-right-full", b.nextDayTooltipText, vj);
+            t(a, "ib-arrow-right-full", b.nextDayTooltipText, wj);
             b.manualEditingEnabled &&
                 b.views.fullDay.showExtraTitleBarButtons &&
                 t(a, "ib-plus", b.addEventTooltipText, function () {
@@ -780,9 +780,9 @@ export function calendarJs(I, ua, V) {
             !r &&
                 md() &&
                 (t(a, "ib-hamburger", b.showMenuTooltipText, Kc), a.appendChild(h("div", "left-divider-line")));
-            t(a, "ib-arrow-left-full", b.previousDayTooltipText, rj);
+            t(a, "ib-arrow-left-full", b.previousDayTooltipText, sj);
             b.views.fullDay.showExtraTitleBarButtons &&
-                ((Ej = t(a, "ib-pin", b.todayTooltipText, zj)),
+                ((Fj = t(a, "ib-pin", b.todayTooltipText, Aj)),
                 b.jumpToDateEnabled &&
                     t(a, "ib-arrow-right-full-line", b.jumpToDateTitle, function () {
                         ee();
@@ -791,13 +791,13 @@ export function calendarJs(I, ua, V) {
                 t(a, "ib-refresh", b.refreshTooltipText, function () {
                     La(!0, !0);
                 }),
-                u.enabled && (Fj = t(a, "ib-search", b.searchTooltipText, fe)));
+                u.enabled && (Gj = t(a, "ib-search", b.searchTooltipText, fe)));
             wb = h("div", "contents custom-scroll-bars");
             W.appendChild(wb);
             wb.oncontextmenu = function (a) {
-                var b = ug(a, wa);
-                cf = J(b[0]) + ":" + J(b[1]);
-                Gj(a, L, gc);
+                var b = vg(a, wa);
+                df = J(b[0]) + ":" + J(b[1]);
+                Hj(a, L, gc);
             };
             Nc = h("div", "content-events-all-day");
             wb.appendChild(Nc);
@@ -815,19 +815,19 @@ export function calendarJs(I, ua, V) {
                 (wa.ondragenter = C),
                 (wa.ondragleave = C),
                 (wa.ondrop = function (a) {
-                    Hj(a, L, wa);
+                    Ij(a, L, wa);
                 }));
-            Ij(wa, b.views.fullDay.minutesBetweenSections);
-            df = h("div", "time-arrow");
-            wa.appendChild(df);
-            df.appendChild(h("div", "arrow-left"));
-            df.appendChild(h("div", "line"));
+            Jj(wa, b.views.fullDay.minutesBetweenSections);
+            ef = h("div", "time-arrow");
+            wa.appendChild(ef);
+            ef.appendChild(h("div", "arrow-left"));
+            ef.appendChild(h("div", "line"));
         }
     }
     function nc(a, b, d, e, f) {
         for (var c = new Date(a.from), m = Oc(a.repeatEveryExcludeDays); c < d; ) {
             e(c, f);
-            var h = !(!p(a.repeatEnds) || Ye(c, a.repeatEnds));
+            var h = !(!p(a.repeatEnds) || Ze(c, a.repeatEnds));
             if (m.indexOf(c.getDay()) === B.notFound && !h && U(c, d)) {
                 b.push(a);
                 break;
@@ -846,7 +846,7 @@ export function calendarJs(I, ua, V) {
             m.setAttribute("event-id", a.id);
             m.setAttribute("event-is-all-day", a.isAllDay);
             m.onclick = function (a) {
-                Jj(a, m);
+                Kj(a, m);
             };
             a.isAllDay
                 ? Nc.appendChild(m)
@@ -854,21 +854,21 @@ export function calendarJs(I, ua, V) {
                       b.dragAndDropForEventsEnabled &&
                       (U(a.from, a.to) && (m.className += " resizable"),
                       (m.ondragstart = function (b) {
-                          var d = Xe(m);
-                          vg = m;
-                          wg = m.offsetTop;
+                          var d = Ye(m);
+                          wg = m;
+                          xg = m.offsetTop;
                           Qb = a;
-                          xg = d.top - b.pageY;
-                          yg = c;
+                          yg = d.top - b.pageY;
+                          zg = c;
                       }),
                       (m.ondragEnd = Uh),
                       m.setAttribute("draggable", !0)),
                   wa.appendChild(m));
             m.oncontextmenu = function (b) {
-                ef(b, a, f);
+                ff(b, a, f);
             };
-            ff(m, a);
-            be(m, a, Ue(a, c));
+            gf(m, a);
+            be(m, a, Ve(a, c));
             ce(m, a, k);
             U(a.from, c) && (m.id = "full-day-" + a.id);
             w(b.events.onFullDayEventRender, m, a) ||
@@ -889,12 +889,12 @@ export function calendarJs(I, ua, V) {
                     ? a.isAllDay
                         ? y(e, b.allDayText)
                         : (y(e, de(a.from, a.to)), y(k, Ob(a.from, a.to)))
-                    : (Ve(e, a.from, a.to), y(k, Ob(a.from, a.to))),
+                    : (We(e, a.from, a.to), y(k, Ob(a.from, a.to))),
                 k.innerHTML === n.empty && m.removeChild(k),
                 b.views.fullDay.showEventUrls &&
                     Ca(a.url) &&
                     ((e = h("div", "url-text")),
-                    y(e, zg(a.url)),
+                    y(e, Ag(a.url)),
                     m.appendChild(e),
                     (e.onclick = function (b) {
                         C(b);
@@ -908,11 +908,11 @@ export function calendarJs(I, ua, V) {
                 Ca(a.location) && ((e = h("div", "location")), y(e, a.location), m.appendChild(e)),
                 Ca(a.description) && ((e = h("div", "description")), y(e, a.description), m.appendChild(e)));
             m.addEventListener("click", function (b) {
-                gf(b, a);
+                hf(b, a);
             });
-            a.isAllDay || (d = Kj(wb, wa, c, m, a));
+            a.isAllDay || (d = Lj(wb, wa, c, m, a));
             gc.push(a);
-            a.isAllDay || Ag.push({ eventDetails: a, eventElement: m, height: m.offsetHeight });
+            a.isAllDay || Bg.push({ eventDetails: a, eventElement: m, height: m.offsetHeight });
         }
         return d;
     }
@@ -922,18 +922,18 @@ export function calendarJs(I, ua, V) {
         var d = new Date(),
             e = X(d);
         e = b.visibleDays.indexOf(e) > B.notFound;
-        bf.innerHTML = n.empty;
+        cf.innerHTML = n.empty;
         L = new Date(a);
         gc = [];
-        Ag = [];
+        Bg = [];
         Nc.style.display = "block";
         he.style.display = "none";
-        U(a, d) && !e && Lj();
-        Va(Ej, e);
+        U(a, d) && !e && Mj();
+        Va(Fj, e);
         Zh(wb, "event");
         kd();
-        w(b.events.onFullDayTitleRender, L) || jc(bf, L, !1, !0, !0);
-        hf(W);
+        w(b.events.onFullDayTitleRender, L) || jc(cf, L, !1, !0, !0);
+        jf(W, c);
         if (0 <= b.workingDays.indexOf(X(a)) && null !== b.workingHoursStart && null !== b.workingHoursEnd) {
             var f = null;
             d = null;
@@ -963,28 +963,28 @@ export function calendarJs(I, ua, V) {
             for (var k = [], m = b.holidays.length, h = 0; h < m; h++) {
                 var g = b.holidays[h],
                     q = G(g.title, n.empty);
-                Mj(g, d) && q !== n.empty && k.indexOf(q.toLowerCase()) && (f.push(q), k.push(q.toLowerCase()));
+                Nj(g, d) && q !== n.empty && k.indexOf(q.toLowerCase()) && (f.push(q), k.push(q.toLowerCase()));
             }
             0 < f.length && (e = f.join(", "));
         }
         d = e;
         f = [];
-        null !== d && aa(bf, " (" + d + ")", "light-title-bar-text");
+        null !== d && aa(cf, " (" + d + ")", "light-title-bar-text");
         Rh(a, f);
-        f = ub(f);
+        f = vb(f);
         k = f.length;
         e = null;
-        d = Nj(L, W, df, wa, b.views.fullDay.showTimelineArrow);
+        d = Oj(L, W, ef, wa, b.views.fullDay.showTimelineArrow);
         for (m = 0; m < k; m++) (h = Tl(f[m], a)), null === e && (e = h);
         c &&
             ((a = W),
             (c = b.views.fullDay.showTimelineArrow),
-            dc(L) && db(a) && c
+            dc(L) && Xa(a) && c
                 ? ((a = Nc.offsetHeight), (a = 1 >= a ? 4 * b.spacing : a), (wb.scrollTop = d - a))
                 : (wb.scrollTop = e - wb.offsetHeight / 2));
         1 >= Nc.offsetHeight && (Nc.style.display = "none");
-        Va(Fj, 0 < gc.length);
-        Oj(wa);
+        Va(Gj, 0 < gc.length);
+        Pj(wa);
     }
     function Rh(a, b) {
         xb(function (c) {
@@ -993,12 +993,12 @@ export function calendarJs(I, ua, V) {
                     b.push(c);
                     break;
                 }
-                Xa(f);
+                Ya(f);
             }
             d = H(c.repeatEvery);
             d > x.never &&
                 (d === x.everyDay
-                    ? nc(c, b, a, Xa, 1)
+                    ? nc(c, b, a, Ya, 1)
                     : d === x.everyWeek
                       ? nc(c, b, a, Rb, 1)
                       : d === x.every2Weeks
@@ -1012,7 +1012,7 @@ export function calendarJs(I, ua, V) {
                               (f = H(c.repeatEveryCustomValue)),
                               0 < f &&
                                   (d === M.daily
-                                      ? nc(c, b, a, Xa, f)
+                                      ? nc(c, b, a, Ya, f)
                                       : d === M.weekly
                                         ? nc(c, b, a, Rb, f)
                                         : d === M.monthly
@@ -1024,31 +1024,31 @@ export function calendarJs(I, ua, V) {
         xd(W);
         L = null;
         gc = [];
-        Ag = [];
+        Bg = [];
     }
     function Sl(a) {
         b.manualEditingEnabled &&
-            ((a = ug(a, wa)),
+            ((a = vg(a, wa)),
             b.useTemplateWhenAddingNewEvent
                 ? ((a = J(a[0]) + ":" + J(a[1])), (a = td(L, L, a, a)), P(a), ud())
                 : P(null, L, a));
     }
-    function rj() {
-        Bg(L);
-        if (7 > b.visibleDays.length) for (var a = X(L); b.visibleDays.indexOf(a) === B.notFound; ) Bg(L), (a = X(L));
+    function sj() {
+        Cg(L);
+        if (7 > b.visibleDays.length) for (var a = X(L); b.visibleDays.indexOf(a) === B.notFound; ) Cg(L), (a = X(L));
         Ua(L, !0);
     }
-    function vj() {
-        Lj(!0);
+    function wj() {
+        Mj(!0);
     }
-    function zj() {
+    function Aj() {
         L = new Date();
         Ua(L, !0);
     }
-    function Lj(a) {
+    function Mj(a) {
         a = p(a) ? a : !1;
-        Xa(L);
-        if (7 > b.visibleDays.length) for (var c = X(L); b.visibleDays.indexOf(c) === B.notFound; ) Xa(L), (c = X(L));
+        Ya(L);
+        if (7 > b.visibleDays.length) for (var c = X(L); b.visibleDays.indexOf(c) === B.notFound; ) Ya(L), (c = X(L));
         a && Ua(L, !0);
     }
     function rl() {
@@ -1070,18 +1070,18 @@ export function calendarJs(I, ua, V) {
                 b.fullScreenModeEnabled &&
                 (($h = t(a, "ib-arrow-expand-left-right", b.enableFullScreenTooltipText, Wa)),
                 a.appendChild(h("div", "right-divider-line-full-screen-mode")));
-            t(a, "ib-arrow-right-full", b.nextWeekTooltipText, wj);
+            t(a, "ib-arrow-right-full", b.nextWeekTooltipText, xj);
             b.manualEditingEnabled &&
                 b.views.fullWeek.showExtraTitleBarButtons &&
                 t(a, "ib-plus", b.addEventTooltipText, function () {
-                    P(null, new Date(Pj));
+                    P(null, new Date(Qj));
                 });
             !r &&
                 md() &&
                 (t(a, "ib-hamburger", b.showMenuTooltipText, Kc), a.appendChild(h("div", "left-divider-line")));
-            t(a, "ib-arrow-left-full", b.previousWeekTooltipText, sj);
+            t(a, "ib-arrow-left-full", b.previousWeekTooltipText, tj);
             b.views.fullWeek.showExtraTitleBarButtons &&
-                (t(a, "ib-pin", b.thisWeekTooltipText, Aj),
+                (t(a, "ib-pin", b.thisWeekTooltipText, Bj),
                 b.jumpToDateEnabled &&
                     t(a, "ib-arrow-right-full-line", b.jumpToDateTitle, function () {
                         ee();
@@ -1090,7 +1090,7 @@ export function calendarJs(I, ua, V) {
                 t(a, "ib-refresh", b.refreshTooltipText, function () {
                     La(!0, !0);
                 }),
-                u.enabled && (Qj = t(a, "ib-search", b.searchTooltipText, fe)));
+                u.enabled && (Rj = t(a, "ib-search", b.searchTooltipText, fe)));
             zd = h("div", "contents custom-scroll-bars");
             da.appendChild(zd);
             Ul();
@@ -1109,29 +1109,29 @@ export function calendarJs(I, ua, V) {
         Ad.appendChild(a);
         me = h("div", "hours");
         zd.appendChild(me);
-        Ij(me, b.views.fullWeek.minutesBetweenSections);
-        jf = h("div", "row-cells days");
-        me.appendChild(jf);
+        Jj(me, b.views.fullWeek.minutesBetweenSections);
+        kf = h("div", "row-cells days");
+        me.appendChild(kf);
     }
     function ai(a, c, d) {
         for (; a < c; a++) b.visibleDays.indexOf(a) > B.notFound && Vl(d, a);
     }
     function Vl(a, c) {
-        var d = h("div", Cg()),
-            e = h("div", Cg()),
+        var d = h("div", Dg()),
+            e = h("div", Dg()),
             f = new Date(a[c]);
         d.id = "calendar-week-day-" + c;
         e.id = "calendar-week-all-day-" + c;
-        jf.appendChild(d);
+        kf.appendChild(d);
         le.appendChild(e);
         d.ondblclick = function (a) {
             b.manualEditingEnabled &&
-                ((a = ug(a, d)),
+                ((a = vg(a, d)),
                 b.useTemplateWhenAddingNewEvent
                     ? ((a = J(a[0]) + ":" + J(a[1])), (a = td(f, f, a, a)), P(a), ud())
                     : P(null, f, a));
         };
-        Dg(e, f.getFullYear(), f.getMonth(), f.getDate());
+        Eg(e, f.getFullYear(), f.getMonth(), f.getDate());
         Wl(d, c);
         dc(f) && Xl(d, f);
         b.manualEditingEnabled &&
@@ -1140,12 +1140,12 @@ export function calendarJs(I, ua, V) {
             (d.ondragenter = C),
             (d.ondragleave = C),
             (d.ondrop = function (a) {
-                Hj(a, f, me);
+                Ij(a, f, me);
             }));
         d.oncontextmenu = function (a) {
-            var b = ug(a, d);
-            cf = J(b[0]) + ":" + J(b[1]);
-            Gj(a, f, kf[c]);
+            var b = vg(a, d);
+            df = J(b[0]) + ":" + J(b[1]);
+            Hj(a, f, lf[c]);
         };
     }
     function Xl(a, c) {
@@ -1153,7 +1153,7 @@ export function calendarJs(I, ua, V) {
         a.appendChild(ne);
         ne.appendChild(h("div", "arrow-left"));
         ne.appendChild(h("div", "line"));
-        Eg = Nj(c, da, ne, a, b.views.fullWeek.showTimelineArrow);
+        Fg = Oj(c, da, ne, a, b.views.fullWeek.showTimelineArrow);
     }
     function Wl(a, c) {
         if (null !== b.workingHoursStart && null !== b.workingHoursEnd && 0 <= b.workingDays.indexOf(c)) {
@@ -1180,7 +1180,7 @@ export function calendarJs(I, ua, V) {
                 (e.style.height = c + "px"));
         }
     }
-    function Rj(a, c) {
+    function Sj(a, c) {
         a.getFullYear() === c.getFullYear()
             ? (a.getMonth() === c.getMonth()
                   ? (Nb(Qa, a), aa(Qa, " - "), Nb(Qa, c, null, n.space), aa(Qa, b.monthNames[a.getMonth()]))
@@ -1191,16 +1191,16 @@ export function calendarJs(I, ua, V) {
     function oc(a, b, d, e, f) {
         for (var c = new Date(a.from), m = Oc(a.repeatEveryExcludeDays), h = !1; c < d; ) {
             e(c, f);
-            var g = !(!p(a.repeatEnds) || Ye(c, a.repeatEnds));
+            var g = !(!p(a.repeatEnds) || Ze(c, a.repeatEnds));
             if (m.indexOf(c.getDay()) === B.notFound && !g && c >= b && c <= d) {
                 g = Aa("calendar-week-day-" + X(c));
                 var n = Aa("calendar-week-all-day-" + X(c));
-                null !== g && (Sj(g, n, a, c), (h = !0));
+                null !== g && (Tj(g, n, a, c), (h = !0));
             }
         }
         return h;
     }
-    function Sj(a, c, d, e) {
+    function Tj(a, c, d, e) {
         var f = !1,
             k = Oc(d.seriesIgnoreDates),
             m = new Date(e),
@@ -1214,29 +1214,29 @@ export function calendarJs(I, ua, V) {
             g.setAttribute("event-is-all-day", d.isAllDay);
             a.appendChild(g);
             g.onclick = function (a) {
-                Jj(a, g);
+                Kj(a, g);
             };
             g.oncontextmenu = function (a) {
-                ef(a, d, A);
+                ff(a, d, A);
             };
             d.isAllDay
                 ? (c.appendChild(g), bi(g, d, m, c), (ci = !0))
                 : b.manualEditingEnabled &&
                   b.dragAndDropForEventsEnabled &&
-                  !lf(d) &&
+                  !mf(d) &&
                   (U(d.from, d.to) && !d.isAllDay && (g.className += " resizable"),
                   (g.ondragstart = function (a) {
-                      var b = Xe(g);
-                      vg = g;
-                      wg = g.offsetTop;
+                      var b = Ye(g);
+                      wg = g;
+                      xg = g.offsetTop;
                       Qb = d;
-                      xg = b.top - a.pageY;
-                      yg = m;
+                      yg = b.top - a.pageY;
+                      zg = m;
                   }),
                   (g.ondragEnd = Uh),
                   g.setAttribute("draggable", !0));
-            ff(g, d);
-            be(g, d, Ue(d, m));
+            gf(g, d);
+            be(g, d, Ve(d, m));
             ce(g, d, e);
             U(d.from, m) && (g.id = "week-day-" + d.id);
             w(b.events.onFullWeekEventRender, g, d) ||
@@ -1257,12 +1257,12 @@ export function calendarJs(I, ua, V) {
                     ? d.isAllDay
                         ? y(c, b.allDayText)
                         : (y(c, de(d.from, d.to)), y(k, Ob(d.from, d.to)))
-                    : (Ve(c, d.from, d.to), y(k, Ob(d.from, d.to))),
+                    : (We(c, d.from, d.to), y(k, Ob(d.from, d.to))),
                 k.innerHTML === n.empty && g.removeChild(k),
                 b.views.fullWeek.showEventUrls &&
                     Ca(d.url) &&
                     ((c = h("div", "url-text")),
-                    y(c, zg(d.url)),
+                    y(c, Ag(d.url)),
                     g.appendChild(c),
                     (c.onclick = function (a) {
                         C(a);
@@ -1276,13 +1276,13 @@ export function calendarJs(I, ua, V) {
                 Ca(d.location) && ((c = h("div", "location")), y(c, d.location), g.appendChild(c)),
                 Ca(d.description) && ((c = h("div", "description")), y(c, d.description), g.appendChild(c)));
             g.addEventListener("click", function (a) {
-                gf(a, d);
+                hf(a, d);
             });
-            d.isAllDay || Kj(a, a, m, g, d, !0);
+            d.isAllDay || Lj(a, a, m, g, d, !0);
             d.isAllDay || di.push({ eventDetails: d, eventElement: g, height: g.offsetHeight });
-            kf.hasOwnProperty(f) || (kf[f] = []);
-            mf = 0 === mf ? g.offsetTop : la.min(mf, g.offsetTop);
-            kf[f].push(d);
+            lf.hasOwnProperty(f) || (lf[f] = []);
+            nf = 0 === nf ? g.offsetTop : la.min(nf, g.offsetTop);
+            lf[f].push(d);
             f = !0;
         }
         return f;
@@ -1309,14 +1309,14 @@ export function calendarJs(I, ua, V) {
         Sb = d;
         ne = null;
         hc = [];
-        kf = {};
+        lf = {};
         ci = !1;
-        Eg = null;
-        mf = 0;
+        Fg = null;
+        nf = 0;
         Ad.style.display = "none";
         di = [];
-        Pj = a;
-        hf(da);
+        Qj = a;
+        jf(da, c);
         kd();
         Qa.innerHTML = n.empty;
         if (!w(b.events.onFullWeekTitleRender, a, e)) {
@@ -1328,18 +1328,18 @@ export function calendarJs(I, ua, V) {
                 4 < k.getDay() && m--;
                 aa(d, f + m + ": ");
             }
-            b.reverseOrderDaysOfWeek ? Rj(e, a) : Rj(a, e);
+            b.reverseOrderDaysOfWeek ? Sj(e, a) : Sj(a, e);
         }
         Jh(yd, !1);
         d = b.dayHeaderNames.length;
         f = {};
         for (k = new Date(a); k < e; ) (f[X(k)] = new Date(k)), k.setDate(k.getDate() + 1);
-        jf.innerHTML = n.empty;
+        kf.innerHTML = n.empty;
         le.innerHTML = n.empty;
         b.startOfWeekDay === va.saturday || b.startOfWeekDay === va.sunday
             ? (ai(b.startOfWeekDay, d, f), ai(0, b.startOfWeekDay, f))
             : ai(0, d, f);
-        b.reverseOrderDaysOfWeek && ld(jf);
+        b.reverseOrderDaysOfWeek && ld(kf);
         if (null !== yd && b.views.fullWeek.showDatesInDayHeaders) {
             d = new Date(a);
             f = 0;
@@ -1353,7 +1353,7 @@ export function calendarJs(I, ua, V) {
                     d.setDate(d.getDate() + 1);
             b.reverseOrderDaysOfWeek && ld(yd);
         }
-        d = ub(Bd());
+        d = vb(Bd());
         f = d.length;
         for (k = 0; k < f; k++) {
             m = d[k];
@@ -1361,16 +1361,16 @@ export function calendarJs(I, ua, V) {
                 if (g >= a && g <= e) {
                     var r = Aa("calendar-week-day-" + X(g)),
                         t = Aa("calendar-week-all-day-" + X(g));
-                    null !== r && Sj(r, t, m, g) && (q = !0);
+                    null !== r && Tj(r, t, m, g) && (q = !0);
                 }
-                Xa(g);
+                Ya(g);
             }
             q && hc.push(m);
             g = H(m.repeatEvery);
             h = !1;
             g > x.never &&
                 (g === x.everyDay
-                    ? (h = oc(m, a, e, Xa, 1))
+                    ? (h = oc(m, a, e, Ya, 1))
                     : g === x.everyWeek
                       ? (h = oc(m, a, e, Rb, 1))
                       : g === x.every2Weeks
@@ -1384,7 +1384,7 @@ export function calendarJs(I, ua, V) {
                               (l = H(m.repeatEveryCustomValue)),
                               0 < l &&
                                   (g === M.daily
-                                      ? (h = oc(m, a, e, Xa, l))
+                                      ? (h = oc(m, a, e, Ya, l))
                                       : g === M.weekly
                                         ? (h = oc(m, a, e, Rb, l))
                                         : g === M.monthly
@@ -1393,7 +1393,7 @@ export function calendarJs(I, ua, V) {
             h && !q && hc.push(m);
         }
         a = b.dayHeaderNames.length;
-        for (e = 0; e < a; e++) (d = Aa("calendar-week-day-" + e)), null !== d && Oj(d);
+        for (e = 0; e < a; e++) (d = Aa("calendar-week-day-" + e)), null !== d && Pj(d);
         a = 0;
         if (ci) {
             Ad.style.display = "block";
@@ -1406,23 +1406,23 @@ export function calendarJs(I, ua, V) {
             }
             Ad.style.height = a + b.spacing + "px";
         }
-        c && (null !== Eg ? ((a = 0 >= a ? 4 * b.spacing : a), (zd.scrollTop = Eg - a)) : (zd.scrollTop = mf));
-        Va(Qj, 0 < hc.length);
+        c && (null !== Fg ? ((a = 0 >= a ? 4 * b.spacing : a), (zd.scrollTop = Fg - a)) : (zd.scrollTop = nf));
+        Va(Rj, 0 < hc.length);
     }
-    function sj() {
+    function tj() {
         Sb.setDate(Sb.getDate() - 7);
         zc(Sb, !0);
     }
-    function wj() {
+    function xj() {
         Rb(Sb);
         zc(Sb, !0);
     }
-    function Aj() {
+    function Bj() {
         Sb = new Date();
         zc(Sb, !0);
     }
     function sl() {
-        Fg = Gg = null;
+        Gg = Hg = null;
         var a = null !== S;
         a && (S.innerHTML = n.empty);
         a || ((S = h("div", "title-bar")), Ib.appendChild(S));
@@ -1433,9 +1433,9 @@ export function calendarJs(I, ua, V) {
                 Ga();
             });
         !r && md() && (t(S, "ib-hamburger", b.showMenuTooltipText, Kc), S.appendChild(h("div", "left-divider-line")));
-        t(S, "ib-arrow-left-full", b.previousMonthTooltipText, $e);
-        b.views.fullMonth.addYearButtons && t(S, "ib-rewind", b.previousYearTooltipText, qg);
-        (r || b.views.fullMonth.showExtraTitleBarButtons) && t(S, "ib-pin", b.currentMonthTooltipText, tg);
+        t(S, "ib-arrow-left-full", b.previousMonthTooltipText, af);
+        b.views.fullMonth.addYearButtons && t(S, "ib-rewind", b.previousYearTooltipText, rg);
+        (r || b.views.fullMonth.showExtraTitleBarButtons) && t(S, "ib-pin", b.currentMonthTooltipText, ug);
         b.views.fullMonth.showExtraTitleBarButtons &&
             (b.jumpToDateEnabled &&
                 t(S, "ib-arrow-right-full-line", b.jumpToDateTitle, function () {
@@ -1445,18 +1445,18 @@ export function calendarJs(I, ua, V) {
             t(S, "ib-refresh", b.refreshTooltipText, function () {
                 La(!0, !0);
             }),
-            u.enabled && (Fg = t(S, "ib-search", b.searchTooltipText, fe)));
+            u.enabled && (Gg = t(S, "ib-search", b.searchTooltipText, fe)));
         r && (t(S, "ib-close", b.closeTooltipText, qd), S.appendChild(h("div", "right-divider-line")));
         b.views.fullMonth.showExtraTitleBarButtons &&
             b.fullScreenModeEnabled &&
-            ((Gg = t(S, "ib-arrow-expand-left-right", b.enableFullScreenTooltipText, Wa)),
+            ((Hg = t(S, "ib-arrow-expand-left-right", b.enableFullScreenTooltipText, Wa)),
             S.appendChild(h("div", "right-divider-line-full-screen-mode")));
-        t(S, "ib-arrow-right-full", b.nextMonthTooltipText, af);
-        b.views.fullMonth.addYearButtons && t(S, "ib-forward", b.nextYearTooltipText, rg);
+        t(S, "ib-arrow-right-full", b.nextMonthTooltipText, bf);
+        b.views.fullMonth.addYearButtons && t(S, "ib-forward", b.nextYearTooltipText, sg);
         b.views.fullMonth.showExtraTitleBarButtons &&
             b.manualEditingEnabled &&
             t(S, "ib-plus", b.addEventTooltipText, function () {
-                Tj(v, new Date()) ? P(null) : P(null, new Date(v.getFullYear(), v.getMonth(), 1));
+                Uj(v, new Date()) ? P(null) : P(null, new Date(v.getFullYear(), v.getMonth(), 1));
             });
         r ||
             ((b.views.timeline.enabled ||
@@ -1467,7 +1467,7 @@ export function calendarJs(I, ua, V) {
                 S.appendChild(h("div", "right-divider-line-views")),
             b.views.timeline.enabled &&
                 t(S, "ib-bar-graph", b.viewTimelineTooltipText, function () {
-                    var a = lg(v) ? null : v;
+                    var a = mg(v) ? null : v;
                     Jb(a, !0);
                 }),
             b.views.allEvents.enabled &&
@@ -1480,12 +1480,12 @@ export function calendarJs(I, ua, V) {
                 }),
             b.views.fullWeek.enabled &&
                 t(S, "ib-hamburger-side", b.viewFullWeekTooltipText, function () {
-                    var a = lg(v) ? null : v;
+                    var a = mg(v) ? null : v;
                     zc(a, !0);
                 }),
             b.views.fullDay.enabled &&
                 t(S, "ib-hourglass", b.viewFullDayTooltipText, function () {
-                    var a = lg(v) ? null : v;
+                    var a = mg(v) ? null : v;
                     Ua(a, !0);
                 }));
         a = h("div", "title-container");
@@ -1493,7 +1493,7 @@ export function calendarJs(I, ua, V) {
         Yl(a);
         Zl(a);
     }
-    function qb() {
+    function rb() {
         r ||
             null === mb ||
             (0 < b.views.fullMonth.pinUpViewImageUrls.length
@@ -1504,9 +1504,9 @@ export function calendarJs(I, ua, V) {
                   ((mb.className = "pin-up" + n.space + b.views.fullMonth.pinUpViewImageCssClasses[Qc]),
                   Qc++,
                   Qc === b.views.fullMonth.pinUpViewImageCssClasses.length && (Qc = 0)),
-            Uj());
+            Vj());
     }
-    function Uj() {
+    function Vj() {
         if (!r && null !== mb && !w(b.events.onFullMonthPinUpRender, mb, v)) {
             var a = new Date();
             if (null === ei || !U(ei, a)) {
@@ -1525,7 +1525,7 @@ export function calendarJs(I, ua, V) {
                 c.appendChild(e);
                 c.appendChild(f);
                 aa(d, a.getDate());
-                if (b.showDayNumberOrdinals && ((c = Hg(a.getDate())), p(c))) {
+                if (b.showDayNumberOrdinals && ((c = Ig(a.getDate())), p(c))) {
                     var k = h("sup");
                     k.innerText = c;
                     d.appendChild(k);
@@ -1535,25 +1535,25 @@ export function calendarJs(I, ua, V) {
             }
         }
     }
-    function aj(a, c) {
+    function bj(a, c) {
         var d = p(a);
         a = d ? a : Ib;
         c = p(c) ? c : "calendar-day-";
-        if (!d && 0 < nf.length) {
-            for (var e = nf.length, f = 0; f < e; f++) a.removeChild(nf[f]);
-            nf = [];
+        if (!d && 0 < of.length) {
+            for (var e = of.length, f = 0; f < e; f++) a.removeChild(of[f]);
+            of = [];
         }
         for (e = 0; 6 > e; e++) {
             f = h("div", "row-cells days");
             a.appendChild(f);
-            d || nf.push(f);
+            d || of.push(f);
             for (var k = 0; 7 > k; k++) {
                 var m = k;
                 if (b.startOfWeekDay === va.saturday || b.startOfWeekDay === va.sunday)
                     (m = b.startOfWeekDay + k), 7 <= m && (m -= 7);
                 if (b.visibleDays.indexOf(m) > B.notFound) {
                     m = 7 * e + (k + 1);
-                    var g = h("div", Cg(b.views.fullMonth.allowEventScrolling));
+                    var g = h("div", Dg(b.views.fullMonth.allowEventScrolling));
                     g.id = c + m;
                     f.appendChild(g);
                     b.views.fullMonth.allowEventScrolling && (g.className += " scrollY");
@@ -1564,7 +1564,7 @@ export function calendarJs(I, ua, V) {
             b.reverseOrderDaysOfWeek && ld(f);
         }
     }
-    function Cg(a) {
+    function Dg(a) {
         a = p(a) ? a : !1;
         var c = "cell cell-" + b.visibleDays.length;
         a && (c += " custom-scroll-bars");
@@ -1578,7 +1578,7 @@ export function calendarJs(I, ua, V) {
         Mh = h("span");
         oe.appendChild(Mh);
         b.views.fullMonth.showYearDropDownButtonIcon &&
-            ((Ig = h("span", "ib-arrow-down-full-medium")), oe.appendChild(Ig));
+            ((Jg = h("span", "ib-arrow-down-full-medium")), oe.appendChild(Jg));
     }
     function Zl(a) {
         var c = new Date(b.minimumYear, 1, 1),
@@ -1590,15 +1590,15 @@ export function calendarJs(I, ua, V) {
         a.appendChild(Tb);
         if (b.views.fullMonth.showMonthButtonsInYearDropDownMenu)
             for (a = 0; 12 > a; a++) 0 === a % 3 && ((d = h("div", "months")), Tb.appendChild(d)), am(d, a);
-        of = h("div", "contents custom-scroll-bars");
-        for (Tb.appendChild(of); !(bm(c.getFullYear()), wd(c), c.getFullYear() > b.maximumYear); );
+        pf = h("div", "contents custom-scroll-bars");
+        for (Tb.appendChild(pf); !(bm(c.getFullYear()), wd(c), c.getFullYear() > b.maximumYear); );
     }
     function am(a, c) {
         var d = h("div", "month-name"),
             e = b.monthNamesAbbreviated[c];
         d.onclick = function (a) {
             C(a);
-            v.getMonth() !== c && (v.setMonth(c), w(b.events.onSetDate, v), F(v), pg(), qb());
+            v.getMonth() !== c && (v.setMonth(c), w(b.events.onSetDate, v), F(v), qg(), rb());
         };
         y(d, e);
         a.appendChild(d);
@@ -1609,11 +1609,11 @@ export function calendarJs(I, ua, V) {
         c.className = "year";
         c.innerText = a.toString();
         c.id = "year-selected-" + a.toString();
-        of.appendChild(c);
+        pf.appendChild(c);
         c.ondblclick = C;
         c.onclick = function (c) {
             C(c);
-            v.getFullYear() !== a && (v.setFullYear(a), w(b.events.onSetDate, v), F(v), pg(), qb());
+            v.getFullYear() !== a && (v.setFullYear(a), w(b.events.onSetDate, v), F(v), qg(), rb());
         };
     }
     function cm() {
@@ -1642,7 +1642,7 @@ export function calendarJs(I, ua, V) {
         if ("block" !== Tb.style.display) {
             Ga();
             Tb.style.display = "block";
-            b.views.fullMonth.showYearDropDownButtonIcon && (Ig.className = "ib-arrow-up-full-medium");
+            b.views.fullMonth.showYearDropDownButtonIcon && (Jg.className = "ib-arrow-up-full-medium");
             for (var c in Rc) Rc.hasOwnProperty(c.toString()) && (Rc[c.toString()].className = "month-name");
             a = v.getMonth().toString();
             c = new Date();
@@ -1650,18 +1650,18 @@ export function calendarJs(I, ua, V) {
                 ((c = c.getMonth().toString()), Rc.hasOwnProperty(c) && (Rc[c].className = "month-name-current-month"));
             Rc.hasOwnProperty(a) && (Rc[a].className = "month-name-selected");
             a = cm();
-            of.scrollTop = null !== a ? a.offsetTop - of.offsetTop - b.spacing : 0;
-        } else pg();
+            pf.scrollTop = null !== a ? a.offsetTop - pf.offsetTop - b.spacing : 0;
+        } else qg();
     }
-    function pg() {
+    function qg() {
         var a = !1;
-        Jg() &&
-            (b.views.fullMonth.showYearDropDownButtonIcon && (Ig.className = "ib-arrow-down-full-medium"),
+        Kg() &&
+            (b.views.fullMonth.showYearDropDownButtonIcon && (Jg.className = "ib-arrow-down-full-medium"),
             (Tb.style.display = "none"),
             (a = !0));
         return a;
     }
-    function Jg() {
+    function Kg() {
         return null !== Tb && "block" === Tb.style.display;
     }
     function Kh(a, c, d, e, f, k) {
@@ -1682,7 +1682,7 @@ export function calendarJs(I, ua, V) {
             r && g && (c.className += " cell-today");
             r && !g && null !== Mc && U(q, Mc) && (c.className += " cell-selected");
             r
-                ? ((l = kj(q)), l || ((c.className += " cell-no-click"), (m.className = "no-click")))
+                ? ((l = lj(q)), l || ((c.className += " cell-no-click"), (m.className = "no-click")))
                 : (m.className = n.empty);
             m.className += f;
             m.className += g && !r ? " today" : n.empty;
@@ -1695,9 +1695,9 @@ export function calendarJs(I, ua, V) {
                 c.className.indexOf("working-day") === B.notFound &&
                 (c.className += " working-day");
             c.oncontextmenu = function (a) {
-                Kg(a, q);
+                Lg(a, q);
             };
-            if (b.showDayNumberOrdinals && ((g = Hg(a)), p(g))) {
+            if (b.showDayNumberOrdinals && ((g = Ig(a)), p(g))) {
                 var t = h("sup");
                 t.innerText = g;
                 m.appendChild(t);
@@ -1718,7 +1718,7 @@ export function calendarJs(I, ua, V) {
                     b.monthNames[d],
                     "month-name" + f,
                     function () {
-                        1 === a ? af() : $e();
+                        1 === a ? bf() : af();
                     },
                     !0,
                     !0
@@ -1732,12 +1732,12 @@ export function calendarJs(I, ua, V) {
                         ud();
                     } else P(null, q);
                 }),
-                Dg(c, e, d, a));
+                Eg(c, e, d, a));
             r &&
                 (c.onclick = l
                     ? function (a) {
                           C(a);
-                          Jg()
+                          Kg()
                               ? Ga()
                               : ((a = new Date(q)),
                                 a.setHours(0, 0, 0, 0),
@@ -1760,7 +1760,7 @@ export function calendarJs(I, ua, V) {
         pe = !1;
         ed = [];
         Cd = {};
-        a = ub(Bd());
+        a = vb(Bd());
         c = a.length;
         for (d = 0; d < c; d++) {
             var e = a[d],
@@ -1774,13 +1774,13 @@ export function calendarJs(I, ua, V) {
                 var k = Pc(f.from, f.to);
                 if (0 < k)
                     for (var m = new Date(f.from), h = 0; h < k; h++)
-                        Xa(m), gi(vd(m), f.id), null !== hi(m) && fi(m, f);
+                        Ya(m), gi(vd(m), f.id), null !== hi(m) && fi(m, f);
             }
             ie(e) && ed.push(e);
             f = H(e.repeatEvery);
             f > x.never &&
                 (f === x.everyDay
-                    ? pc(e, Xa, 1)
+                    ? pc(e, Ya, 1)
                     : f === x.everyWeek
                       ? pc(e, Rb, 1)
                       : f === x.every2Weeks
@@ -1794,21 +1794,21 @@ export function calendarJs(I, ua, V) {
                               (k = H(e.repeatEveryCustomValue)),
                               0 < k &&
                                   (f === M.daily
-                                      ? pc(e, Xa, k)
+                                      ? pc(e, Ya, k)
                                       : f === M.weekly
                                         ? pc(e, Rb, k)
                                         : f === M.monthly
                                           ? pc(e, ke, k)
                                           : f === M.yearly && pc(e, wd, k))));
         }
-        Vj !== pe && ((Vj = pe), w(b.events.onBusyStateChange, pe));
-        null !== Fg && Va(Fg, 0 < ed.length);
+        Wj !== pe && ((Wj = pe), w(b.events.onBusyStateChange, pe));
+        null !== Gg && Va(Gg, 0 < ed.length);
         Qh();
     }
     function pc(a, c, d) {
         for (var e = new Date(a.from), f = Oc(a.repeatEveryExcludeDays), k = new Date(b.maximumYear, 11, 31); e < k; ) {
             c(e, d);
-            var m = !(!p(a.repeatEnds) || Ye(e, a.repeatEnds));
+            var m = !(!p(a.repeatEnds) || Ze(e, a.repeatEnds));
             f.indexOf(e.getDay()) !== B.notFound || m || (gi(vd(e), a.id), e < Lh && null !== hi(e) && fi(e, a));
         }
     }
@@ -1844,18 +1844,18 @@ export function calendarJs(I, ua, V) {
                 }
                 d.appendChild(e);
                 bi(e, c, a, d);
-                ff(e, c);
-                be(e, c, Ue(c, a), b.views.fullMonth.applyCssToEventsNotInCurrentMonth);
+                gf(e, c);
+                be(e, c, Ve(c, a), b.views.fullMonth.applyCssToEventsNotInCurrentMonth);
                 ce(e, c, k);
                 U(c.from, a) && (e.id = "day-" + c.id);
                 e.onmousemove = function (a) {
                     null !== Dd && Dd.id === c.id ? C(a) : ii(a, c);
                 };
                 e.oncontextmenu = function (a) {
-                    ef(a, c, f);
+                    ff(a, c, f);
                 };
                 e.addEventListener("click", function (a) {
-                    gf(a, c);
+                    hf(a, c);
                 });
             } else fm(d, a);
     }
@@ -1894,12 +1894,12 @@ export function calendarJs(I, ua, V) {
         d.setMonth(d.getMonth() + 1);
         e.setMonth(e.getMonth() - 1);
         a.getMonth() === d.getMonth() && a.getFullYear() === d.getFullYear()
-            ? ((d = b + ad(v.getFullYear(), v.getMonth())), (k = Oe(a.getDate() + d)))
+            ? ((d = b + ad(v.getFullYear(), v.getMonth())), (k = Pe(a.getDate() + d)))
             : a.getMonth() === e.getMonth() && a.getFullYear() === e.getFullYear()
-              ? (k = Oe(b - Pc(a, v) + 1))
+              ? (k = Pe(b - Pc(a, v) + 1))
               : a.getMonth() === v.getMonth() &&
                 a.getFullYear() === v.getFullYear() &&
-                ((d = b), (k = Oe(a.getDate() + d)));
+                ((d = b), (k = Pe(a.getDate() + d)));
         0 < k && (f = Aa("calendar-day-" + k));
         return f;
     }
@@ -1920,9 +1920,9 @@ export function calendarJs(I, ua, V) {
             !r &&
                 md() &&
                 (t(a, "ib-hamburger", b.showMenuTooltipText, Kc), a.appendChild(h("div", "left-divider-line")));
-            t(a, "ib-arrow-left-full", b.previousYearTooltipText, tj);
+            t(a, "ib-arrow-left-full", b.previousYearTooltipText, uj);
             b.views.fullYear.showExtraTitleBarButtons &&
-                (t(a, "ib-pin", b.currentYearTooltipText, Bj),
+                (t(a, "ib-pin", b.currentYearTooltipText, Cj),
                 b.jumpToDateEnabled &&
                     t(a, "ib-arrow-right-full-line", b.jumpToDateTitle, function () {
                         ee();
@@ -1939,7 +1939,7 @@ export function calendarJs(I, ua, V) {
                 b.fullScreenModeEnabled &&
                 ((ki = t(a, "ib-arrow-expand-left-right", b.enableFullScreenTooltipText, Wa)),
                 a.appendChild(h("div", "right-divider-line-full-screen-mode")));
-            t(a, "ib-arrow-right-full", b.nextYearTooltipText, xj);
+            t(a, "ib-arrow-right-full", b.nextYearTooltipText, yj);
             b.views.fullYear.showExtraTitleBarButtons &&
                 b.manualEditingEnabled &&
                 t(a, "ib-plus", b.addEventTooltipText, function () {
@@ -1952,9 +1952,9 @@ export function calendarJs(I, ua, V) {
     function gm(a) {
         var c = new Date(sa, a, 1),
             d = function () {
-                U(v, c) || (F(c), qb());
-                for (; 0 < vb.length; ) Dj(!1);
-                pf();
+                U(v, c) || (F(c), rb());
+                for (; 0 < ob.length; ) Ej(!1);
+                qf();
             },
             e = h("div", "year-month");
         qe.appendChild(e);
@@ -1975,13 +1975,13 @@ export function calendarJs(I, ua, V) {
         Jh(d);
         d = a + 1 + "-month-";
         f = new Date(sa, a, 1);
-        f = Oe(0 === f.getDay() ? 7 : f.getDay());
-        aj(e, d);
+        f = Pe(0 === f.getDay() ? 7 : f.getDay());
+        bj(e, d);
         1 < f && hm(f, d, a);
         f = im(f, d, a);
         k = f[0];
         jm(f[1], d, a);
-        k && (Lg = e.offsetTop);
+        k && (Mg = e.offsetTop);
     }
     function hm(a, b, d) {
         d = new Date(sa, d, 1);
@@ -1999,7 +1999,7 @@ export function calendarJs(I, ua, V) {
                     Ua(f, !0);
                 });
             a.oncontextmenu = function (a) {
-                Kg(a, f);
+                Lg(a, f);
             };
             li(a, f);
             Nb(a, f, null, null, b.views.fullYear.padDayNumbers);
@@ -2019,7 +2019,7 @@ export function calendarJs(I, ua, V) {
                     Ua(f, !0);
                 });
             a.oncontextmenu = function (a) {
-                Kg(a, f);
+                Lg(a, f);
             };
             e = li(a, f, !0);
             Nb(a, f, null, null, b.views.fullYear.padDayNumbers);
@@ -2044,7 +2044,7 @@ export function calendarJs(I, ua, V) {
                     Ua(f, !0);
                 });
             a.oncontextmenu = function (a) {
-                Kg(a, f);
+                Lg(a, f);
             };
             li(a, f);
             Nb(a, f, null, null, b.views.fullYear.padDayNumbers);
@@ -2069,21 +2069,21 @@ export function calendarJs(I, ua, V) {
     function Ac(a, c) {
         c = p(c) ? c : !1;
         sa = p(a) ? a : v.getFullYear();
-        Lg = 0;
+        Mg = 0;
         ji.innerText = sa;
-        c = (a = c) ? 0 : qe.scrollTop;
+        var d = (a = c) ? 0 : qe.scrollTop;
         qe.innerHTML = n.empty;
-        for (var d = 0; 12 > d; d++) gm(d);
-        qe.scrollTop = a ? (0 < Lg ? Lg - 4 * b.spacing : 0) : c;
-        hf(Da);
+        for (var e = 0; 12 > e; e++) gm(e);
+        qe.scrollTop = a ? (0 < Mg ? Mg - 4 * b.spacing : 0) : d;
+        jf(Da, c);
     }
-    function tj() {
+    function uj() {
         sa > b.minimumYear && (--sa, Ac(sa, !0));
     }
-    function xj() {
+    function yj() {
         sa < b.maximumYear && ((sa += 1), Ac(sa, !0));
     }
-    function Bj() {
+    function Cj() {
         sa = new Date().getFullYear();
         Ac(sa, !0);
     }
@@ -2117,7 +2117,7 @@ export function calendarJs(I, ua, V) {
                 t(a, "ib-refresh", b.refreshTooltipText, function () {
                     La(!0, !0);
                 }),
-                u.enabled && (Wj = t(a, "ib-search", b.searchTooltipText, fe)));
+                u.enabled && (Xj = t(a, "ib-search", b.searchTooltipText, fe)));
             Ed = h("div", "contents custom-scroll-bars");
             ra.appendChild(Ed);
         }
@@ -2128,10 +2128,10 @@ export function calendarJs(I, ua, V) {
                 d = h("div", "event");
             c.appendChild(d);
             d.oncontextmenu = function (b) {
-                ef(b, a);
+                ff(b, a);
             };
             bi(d, a, a.from, c);
-            ff(d, a);
+            gf(d, a);
             be(d, a);
             ce(d, a);
             d.id = "month-" + a.id;
@@ -2155,12 +2155,12 @@ export function calendarJs(I, ua, V) {
                     ? a.isAllDay
                         ? Nb(c, a.from, null, " - " + b.allDayText)
                         : (Nb(c, a.from, null, " - " + de(a.from, a.to)), y(e, Ob(a.from, a.to)))
-                    : (Ve(c, a.from, a.to), y(e, Ob(a.from, a.to)));
+                    : (We(c, a.from, a.to), y(e, Ob(a.from, a.to)));
                 e.innerHTML === n.empty && d.removeChild(e);
                 b.views.allEvents.showEventUrls &&
                     Ca(a.url) &&
                     ((c = h("div", "url-text")),
-                    y(c, zg(a.url)),
+                    y(c, Ag(a.url)),
                     d.appendChild(c),
                     (c.onclick = function (b) {
                         C(b);
@@ -2175,7 +2175,7 @@ export function calendarJs(I, ua, V) {
                 Ca(a.description) && ((c = h("div", "description")), y(c, a.description), d.appendChild(c));
             }
             d.addEventListener("click", function (b) {
-                gf(b, a);
+                hf(b, a);
             });
             Lb.push(a);
         }
@@ -2189,7 +2189,7 @@ export function calendarJs(I, ua, V) {
                     Lb = [];
                     xd(ra);
                     F(e);
-                    qb();
+                    rb();
                 },
                 k = pm(a);
             null !== k && Ed.appendChild(k);
@@ -2213,7 +2213,7 @@ export function calendarJs(I, ua, V) {
             }
             b.manualEditingEnabled &&
                 t(m, "ib-close", b.removeEventsTooltipText, function () {
-                    Xj(e, Tj);
+                    Yj(e, Uj);
                 });
             f = function () {
                 var a = p,
@@ -2229,14 +2229,14 @@ export function calendarJs(I, ua, V) {
                       Ra(a, b.minimizedTooltipText));
             };
             var p = t(m, "ib-minus", b.minimizedTooltipText, f);
-            sg.push(f);
+            tg.push(f);
             d = h("div", "events");
             d.id = c;
             k.appendChild(d);
             O.visibleAllEventsMonths.hasOwnProperty(c) &&
                 !O.visibleAllEventsMonths[c] &&
                 ((d.style.display = "none"), (p.className = "ib-square-hollow"), Ra(p, b.restoreTooltipText));
-            Dg(d, a.getFullYear(), a.getMonth(), a.getDate());
+            Eg(d, a.getFullYear(), a.getMonth(), a.getDate());
         }
         return d;
     }
@@ -2259,15 +2259,15 @@ export function calendarJs(I, ua, V) {
     }
     function Oh(a) {
         a = p(a) ? a : !1;
-        hf(ra);
+        jf(ra, a);
         Ed.innerHTML = n.empty;
         Lb = [];
-        sg = [];
+        tg = [];
         ni = [];
         a && (Ed.scrollTop = 0);
-        a = ub(Bd());
+        a = vb(Bd());
         for (var b = a.length, d = 0; d < b; d++) nm(a[d]);
-        Va(Wj, 0 < Lb.length);
+        Va(Xj, 0 < Lb.length);
         0 === Lb.length &&
             qm(Ed, function () {
                 P(null);
@@ -2277,13 +2277,13 @@ export function calendarJs(I, ua, V) {
         if (!r && b.views.timeline.enabled) {
             var a = null !== ia;
             a && (ia.innerHTML = n.empty);
-            null === Ya && (Ya = b.views.timeline.defaultAxis);
+            null === Za && (Za = b.views.timeline.defaultAxis);
             a || ((ia = h("div", "timeline-view")), (ia.id = ec()), z.appendChild(ia));
             a = h("div", "title-bar");
             ia.appendChild(a);
             b.fullScreenModeEnabled && (a.ondblclick = Wa);
-            Mg = h("div", "title");
-            a.appendChild(Mg);
+            Ng = h("div", "title");
+            a.appendChild(Ng);
             t(a, "ib-close", b.closeTooltipText, function () {
                 Bc = [];
                 xd(ia);
@@ -2293,7 +2293,7 @@ export function calendarJs(I, ua, V) {
                 b.fullScreenModeEnabled &&
                 ((oi = t(a, "ib-arrow-expand-left-right", b.enableFullScreenTooltipText, Wa)),
                 a.appendChild(h("div", "right-divider-line-full-screen-mode")));
-            t(a, "ib-arrow-right-full", b.nextYearTooltipText, yj);
+            t(a, "ib-arrow-right-full", b.nextYearTooltipText, zj);
             b.views.timeline.showExtraTitleBarButtons &&
                 b.manualEditingEnabled &&
                 t(a, "ib-plus", b.addEventTooltipText, function () {
@@ -2307,9 +2307,9 @@ export function calendarJs(I, ua, V) {
             !r &&
                 md() &&
                 (t(a, "ib-hamburger", b.showMenuTooltipText, Kc), a.appendChild(h("div", "left-divider-line")));
-            t(a, "ib-arrow-left-full", b.previousYearTooltipText, uj);
+            t(a, "ib-arrow-left-full", b.previousYearTooltipText, vj);
             b.views.timeline.showExtraTitleBarButtons &&
-                ((Yj = t(a, "ib-pin", b.currentYearTooltipText, Cj)),
+                ((Zj = t(a, "ib-pin", b.currentYearTooltipText, Dj)),
                 b.jumpToDateEnabled &&
                     t(a, "ib-arrow-right-full-line", b.jumpToDateTitle, function () {
                         ee();
@@ -2318,7 +2318,7 @@ export function calendarJs(I, ua, V) {
                 t(a, "ib-refresh", b.refreshTooltipText, function () {
                     La(!0, !0);
                 }),
-                u.enabled && (Zj = t(a, "ib-search", b.searchTooltipText, fe)));
+                u.enabled && (ak = t(a, "ib-search", b.searchTooltipText, fe)));
             Ja = h("div", "contents custom-scroll-bars");
             Ja.addEventListener("scroll", ic);
             ia.appendChild(Ja);
@@ -2342,20 +2342,20 @@ export function calendarJs(I, ua, V) {
             d.innerHTML += kc(c.title);
         }
         d.oncontextmenu = function (a) {
-            ef(a, c, e);
+            ff(a, c, e);
         };
         d.addEventListener("click", function (a) {
-            gf(a, c);
+            hf(a, c);
         });
         d.onmousemove = function (a) {
             null !== Dd && Dd.id === c.id ? C(a) : ii(a, c);
         };
         ce(d, c, f);
-        ff(d, c);
-        be(d, c, Ue(c, ba));
+        gf(d, c);
+        be(d, c, Ve(c, ba));
         d = sm(a, ba, d, c);
-        qf = null === qf ? d : la.min(qf, d);
-        rf = null === rf ? a.offsetTop : la.min(rf, a.offsetTop);
+        rf = null === rf ? d : la.min(rf, d);
+        sf = null === sf ? a.offsetTop : la.min(sf, a.offsetTop);
     }
     function Jb(a, c) {
         a = p(a) ? new Date(a) : new Date();
@@ -2366,33 +2366,33 @@ export function calendarJs(I, ua, V) {
             k = [];
         e = Ja.scrollLeft;
         var m = Ja.scrollTop;
-        Mg.innerHTML = n.empty;
+        Ng.innerHTML = n.empty;
         Ja.innerHTML = n.empty;
         Bc = [];
         ba = a;
-        Ng = {};
-        rf = qf = null;
-        sf = [];
-        U(a, d) && !f && ak();
+        Og = {};
+        sf = rf = null;
+        tf = [];
+        U(a, d) && !f && bk();
         Rh(ba, k);
-        Va(Yj, f);
+        Va(Zj, f);
         Fd = h("div", "timeline-header");
         Ja.appendChild(Fd);
         a = h("div", "timeline-header-item");
         d = n.empty;
-        "group" === Ya
+        "group" === Za
             ? (d = b.groupText)
-            : "organizerName" === Ya
+            : "organizerName" === Za
               ? (d = b.organizerNameText)
-              : "location" === Ya
+              : "location" === Za
                 ? (d = b.locationText)
-                : "organizerEmailAddress" === Ya
+                : "organizerEmailAddress" === Za
                   ? (d = b.organizerEmailAddressText)
-                  : "url" === Ya
+                  : "url" === Za
                     ? (d = b.urlText)
-                    : "title" === Ya
+                    : "title" === Za
                       ? (d = b.titleText)
-                      : "description" === Ya && (d = b.descriptionText);
+                      : "description" === Za && (d = b.descriptionText);
         a.innerHTML = d;
         Fd.appendChild(a);
         t(a, "ib-arrow-left-full", b.previousPropertyTooltipText, tm);
@@ -2421,20 +2421,20 @@ export function calendarJs(I, ua, V) {
             r.style.left = g + "px";
             Ja.appendChild(r);
             g += q;
-            sf.push(l);
-            sf.push(r);
+            tf.push(l);
+            tf.push(r);
         }
-        hf(ia);
-        k = ub(k);
+        jf(ia, c);
+        k = vb(k);
         a = k.length;
         d = 0;
         if (0 < a)
             for (f = 0; f < a; f++) {
                 g = k[f];
-                l = G(g[Ya], b.noneText);
+                l = G(g[Za], b.noneText);
                 q = l.toLowerCase();
                 g.isAllDay && ((l = b.allDayText + ": " + l), (q = q + "-" + g.id));
-                if (Ng.hasOwnProperty(q)) l = Ng[q];
+                if (Og.hasOwnProperty(q)) l = Og[q];
                 else {
                     r = h("div", "timeline-row");
                     Ja.appendChild(r);
@@ -2455,13 +2455,13 @@ export function calendarJs(I, ua, V) {
                         l.appendChild(x);
                         v = fb(v, r);
                     }
-                    Ng[q] = l;
+                    Og[q] = l;
                     d++;
                 }
                 rm(l, g);
                 Bc.push(g);
             }
-        k = sf.length;
+        k = tf.length;
         a = Ja.getElementsByClassName("timeline-row");
         d = a.length;
         f = 0;
@@ -2470,43 +2470,43 @@ export function calendarJs(I, ua, V) {
             (g = bd(Fd, "border-bottom-width")),
             (f = d * (a[0].offsetHeight - f) + (Fd.offsetHeight - g)));
         for (a = 0; a < k; a++)
-            (d = sf[a]), 0 === f && (f = Ja.scrollHeight - d.offsetTop), (d.style.height = f + "px");
-        w(b.events.onTimelineTitleRender, L) || jc(Mg, ba, !1, !0, !0);
-        c ? ((Ja.scrollLeft = qf), (Ja.scrollTop = rf)) : ((Ja.scrollLeft = e), (Ja.scrollTop = m));
-        Va(Zj, 0 < Bc.length);
+            (d = tf[a]), 0 === f && (f = Ja.scrollHeight - d.offsetTop), (d.style.height = f + "px");
+        w(b.events.onTimelineTitleRender, L) || jc(Ng, ba, !1, !0, !0);
+        c ? ((Ja.scrollLeft = rf), (Ja.scrollTop = sf)) : ((Ja.scrollLeft = e), (Ja.scrollTop = m));
+        Va(ak, 0 < Bc.length);
     }
-    function uj() {
-        Bg(ba);
+    function vj() {
+        Cg(ba);
         if (7 > b.visibleDays.length)
-            for (var a = X(ba); b.visibleDays.indexOf(a) === B.notFound; ) Bg(ba), (a = X(ba));
+            for (var a = X(ba); b.visibleDays.indexOf(a) === B.notFound; ) Cg(ba), (a = X(ba));
         Jb(ba, !0);
     }
-    function yj() {
-        ak(!0);
+    function zj() {
+        bk(!0);
     }
-    function Cj() {
+    function Dj() {
         ba = new Date();
         Jb(ba, !0);
     }
     function tm() {
-        var a = re.indexOf(Ya);
+        var a = re.indexOf(Za);
         a--;
         0 > a && (a = re.length - 1);
-        Ya = re[a];
+        Za = re[a];
         Jb(ba);
     }
     function um() {
-        var a = re.indexOf(Ya);
+        var a = re.indexOf(Za);
         a++;
         a > re.length - 1 && (a = 0);
-        Ya = re[a];
+        Za = re[a];
         Jb(ba);
     }
-    function ak(a) {
+    function bk(a) {
         a = p(a) ? a : !1;
-        Xa(ba);
+        Ya(ba);
         if (7 > b.visibleDays.length)
-            for (var c = X(ba); b.visibleDays.indexOf(c) === B.notFound; ) Xa(ba), (c = X(ba));
+            for (var c = X(ba); b.visibleDays.indexOf(c) === B.notFound; ) Ya(ba), (c = X(ba));
         a && Jb(ba, !0);
     }
     function xa(a, b, d, e, f) {
@@ -2523,12 +2523,12 @@ export function calendarJs(I, ua, V) {
         };
         return c;
     }
-    function Za(a) {
+    function $a(a) {
         var b = h("div", "separator");
         a.appendChild(b);
         return b;
     }
-    function og(a) {
+    function pg(a) {
         var b = !1;
         se(a) && ((a.style.display = "none"), (b = !0));
         return b;
@@ -2536,11 +2536,11 @@ export function calendarJs(I, ua, V) {
     function se(a) {
         return null !== a && "block" === a.style.display;
     }
-    function bk() {
+    function ck() {
         return se(Ia) || se(Y) || se(Oa) || se(nb) || se(zb);
     }
     function Al() {
-        null !== Ia && (gb(E.body, Ia), (Og = pi = null));
+        null !== Ia && (gb(E.body, Ia), (Pg = pi = null));
         Ia = h("div", "calendar-context-menu");
         ya.push(Ia);
         E.body.appendChild(Ia);
@@ -2559,87 +2559,87 @@ export function calendarJs(I, ua, V) {
                 !0
             );
         b.views.fullDay.enabled &&
-            (Za(Ia),
+            ($a(Ia),
             xa(Ia, "ib-arrow-expand-left-right-icon", b.expandDayTooltipText, function () {
                 Ua(Gd, !0);
             }));
         b.views.fullWeek.enabled &&
-            (Za(Ia),
+            ($a(Ia),
             xa(Ia, "ib-hamburger-side-icon", b.viewFullWeekText, function () {
                 zc(Gd, !0);
             }));
         b.manualEditingEnabled &&
-            ((pi = Za(Ia)),
-            (Og = xa(Ia, "ib-circle-icon", b.pasteText, function () {
+            ((pi = $a(Ia)),
+            (Pg = xa(Ia, "ib-circle-icon", b.pasteText, function () {
                 Wh(Gd, Pb);
             })));
     }
-    function Kg(a, b) {
+    function Lg(a, b) {
         r ||
             null === Ia ||
             (fa(a) || mc(),
             (Gd = new Date(b)),
-            null !== Og && ((b = 0 < ja.length ? "block" : "none"), (pi.style.display = b), (Og.style.display = b)),
+            null !== Pg && ((b = 0 < ja.length ? "block" : "none"), (pi.style.display = b), (Pg.style.display = b)),
             Ga(),
             C(a),
-            tf(a, Ia));
+            uf(a, Ia));
     }
     function Bl() {
-        null !== Y && (gb(E.body, Y), (Pg = Qg = uf = vf = wf = xf = yf = zf = Af = Bf = Cf = Df = Y = null));
+        null !== Y && (gb(E.body, Y), (Qg = Rg = vf = wf = xf = yf = zf = Af = Bf = Cf = Df = Ef = Y = null));
         Y = h("div", "calendar-context-menu");
         ya.push(Y);
         E.body.appendChild(Y);
         b.manualEditingEnabled &&
-            ((wf = xa(
+            ((xf = xa(
                 Y,
                 "ib-edit-icon",
                 b.editEventTitle + "...",
                 function () {
-                    P($a, null, null, ck);
+                    P(ab, null, null, dk);
                 },
                 !0
             )),
-            (Af = Za(Y)),
-            (zf = xa(Y, "ib-pipe-icon", b.cutText, function () {
+            (Bf = $a(Y)),
+            (Af = xa(Y, "ib-pipe-icon", b.cutText, function () {
                 ge();
                 Pb = !0;
-                dk($a);
+                ek(ab);
                 ge(!1);
             })),
-            (yf = Za(Y)),
-            (xf = xa(Y, "ib-circle-hollow-icon", b.copyText, function () {
+            (zf = $a(Y)),
+            (yf = xa(Y, "ib-circle-hollow-icon", b.copyText, function () {
                 ge();
                 Pb = !1;
-                dk($a);
+                ek(ab);
                 ge(!1);
             })),
-            (Cf = Za(Y)),
-            (Bf = xa(Y, "ib-equals-icon", b.duplicateText + "...", function () {
-                P($a);
+            (Df = $a(Y)),
+            (Cf = xa(Y, "ib-equals-icon", b.duplicateText + "...", function () {
+                P(ab);
                 y(Sc, b.addEventTitle);
-                Ef.value = b.addText;
-                Rg.style.display = "none";
+                Ff.value = b.addText;
+                Sg.style.display = "none";
                 ea = te(ea);
                 t(Sc, "ib-close", b.closeTooltipText, Tc, !0);
             })),
-            (vf = Za(Y)),
-            (uf = xa(Y, "ib-close-icon", b.removeEventText, function () {
+            (wf = $a(Y)),
+            (vf = xa(Y, "ib-close-icon", b.removeEventText, function () {
                 Ub(E.body, Ka);
                 var a = function () {
                         gb(E.body, Ka);
                     },
-                    c = H($a.repeatEvery) > x.never && null !== Ff;
-                Gf(
+                    c = H(ab.repeatEvery) > x.never && null !== Gf;
+                Hf(
                     b.confirmEventRemoveTitle,
                     b.confirmEventRemoveMessage,
                     function () {
                         a();
-                        p($a.id) &&
-                            (Sg.checked || null === Ff
-                                ? (q.removeEvent($a.id, !0), Sa(b.eventRemovedText.replace("{0}", $a.title)))
-                                : (pa($a.seriesIgnoreDates)
-                                      ? $a.seriesIgnoreDates.push(Ff)
-                                      : ($a.seriesIgnoreDates = [Ff]),
+                        p(ab.id) &&
+                            (Tg.checked || null === Gf
+                                ? (q.removeEvent(ab.id, !0), Sa(b.eventRemovedText.replace("{0}", ab.title)))
+                                : (pa(ab.seriesIgnoreDates)
+                                      ? ab.seriesIgnoreDates.push(Gf)
+                                      : (ab.seriesIgnoreDates = [Gf]),
                                   Ha()),
                             ma());
                     },
@@ -2647,78 +2647,78 @@ export function calendarJs(I, ua, V) {
                     c
                 );
             })),
-            (Df = Za(Y)));
+            (Ef = $a(Y)));
         qi = xa(Y, "ib-arrow-top-right-icon", b.openUrlText, function () {
-            je($a.url);
+            je(ab.url);
         });
         b.exportEventsEnabled &&
-            ((Qg = Za(Y)),
-            (Pg = xa(Y, "ib-arrow-down-full-line-icon", b.exportEventsTooltipText + "...", function () {
+            ((Rg = $a(Y)),
+            (Qg = xa(Y, "ib-arrow-down-full-line-icon", b.exportEventsTooltipText + "...", function () {
                 dd(Ea);
             })));
         b.shareEventsEnabled &&
-            Hf.share &&
-            (Za(Y),
+            If.share &&
+            ($a(Y),
             xa(Y, "ib-arrow-up-full-line-share-icon", b.shareText + "...", function () {
-                var a = ek(0 < Ea.length ? Ea : [$a]),
+                var a = fk(0 < Ea.length ? Ea : [ab]),
                     c = { type: "text/plain" };
                 a = new Blob([a], c);
-                c = { files: [new File([a], fk("txt", b.shareStartFilename), c)] };
-                Hf.canShare(c) && Hf.share(c);
+                c = { files: [new File([a], gk("txt", b.shareStartFilename), c)] };
+                If.canShare(c) && If.share(c);
             }));
     }
-    function ef(a, c, d) {
+    function ff(a, c, d) {
         if (null !== Y) {
             var e = G(c.url),
-                f = lf(c);
+                f = mf(c);
             fa(a) || mc();
-            $a = c;
-            ck = new Date(d);
-            Ff = p(d) ? d : null;
+            ab = c;
+            dk = new Date(d);
+            Gf = p(d) ? d : null;
             1 < Ea.length
                 ? (b.manualEditingEnabled &&
-                      ((wf.style.display = "none"),
-                      (Af.style.display = "none"),
+                      ((xf.style.display = "none"),
+                      (Bf.style.display = "none"),
+                      (Af.style.display = "block"),
                       (zf.style.display = "block"),
                       (yf.style.display = "block"),
-                      (xf.style.display = "block"),
+                      (Df.style.display = "none"),
                       (Cf.style.display = "none"),
-                      (Bf.style.display = "none"),
-                      (vf.style.display = "none"),
-                      (uf.style.display = "none")),
-                  (Df.style.display = "none"),
+                      (wf.style.display = "none"),
+                      (vf.style.display = "none")),
+                  (Ef.style.display = "none"),
                   (qi.style.display = "none"),
-                  b.exportEventsEnabled && ((Qg.style.display = "block"), (Pg.style.display = "block")))
+                  b.exportEventsEnabled && ((Rg.style.display = "block"), (Qg.style.display = "block")))
                 : (f
                       ? b.manualEditingEnabled &&
-                        ((wf.style.display = "block"),
+                        ((xf.style.display = "block"),
+                        (Bf.style.display = "none"),
                         (Af.style.display = "none"),
                         (zf.style.display = "none"),
                         (yf.style.display = "none"),
-                        (xf.style.display = "none"),
+                        (Df.style.display = "none"),
                         (Cf.style.display = "none"),
-                        (Bf.style.display = "none"),
+                        (wf.style.display = "block"),
                         (vf.style.display = "block"),
-                        (uf.style.display = "block"),
-                        (Df.style.display = e !== n.empty ? "block" : "none"))
+                        (Ef.style.display = e !== n.empty ? "block" : "none"))
                       : b.manualEditingEnabled &&
-                        ((wf.style.display = "block"),
+                        ((xf.style.display = "block"),
+                        (Bf.style.display = "block"),
                         (Af.style.display = "block"),
                         (zf.style.display = "block"),
                         (yf.style.display = "block"),
-                        (xf.style.display = "block"),
+                        (Df.style.display = "block"),
                         (Cf.style.display = "block"),
-                        (Bf.style.display = "block"),
+                        (wf.style.display = "block"),
                         (vf.style.display = "block"),
-                        (uf.style.display = "block"),
-                        (Df.style.display = e !== n.empty ? "block" : "none")),
+                        (Ef.style.display = e !== n.empty ? "block" : "none")),
                   (qi.style.display = e !== n.empty ? "block" : "none"),
-                  b.exportEventsEnabled && ((Qg.style.display = "none"), (Pg.style.display = "none")));
-            if (e !== n.empty || 1 < Y.childElementCount) Ga(), C(a), tf(a, Y);
+                  b.exportEventsEnabled && ((Rg.style.display = "none"), (Qg.style.display = "none")));
+            if (e !== n.empty || 1 < Y.childElementCount) Ga(), C(a), uf(a, Y);
         }
     }
     function Cl() {
-        null !== Oa && (gb(E.body, Oa), (Tg = ri = si = ti = Oa = null));
+        null !== Oa && (gb(E.body, Oa), (Ug = ri = si = ti = Oa = null));
         b.manualEditingEnabled &&
             ((Oa = h("div", "calendar-context-menu")),
             ya.push(Oa),
@@ -2729,109 +2729,109 @@ export function calendarJs(I, ua, V) {
                 b.addEventTitle + "...",
                 function () {
                     if (b.useTemplateWhenAddingNewEvent) {
-                        var a = td(ue, ue, cf, cf);
+                        var a = td(ue, ue, df, df);
                         P(a);
                         ud();
-                    } else P(null, ue, cf);
+                    } else P(null, ue, df);
                 },
                 !0
             ),
-            (ti = Za(Oa)),
+            (ti = $a(Oa)),
             (si = xa(Oa, "ib-close-icon", b.removeEventsTooltipText, function () {
-                Xj(ue, U);
+                Yj(ue, U);
             })),
-            (ri = Za(Oa)),
-            (Tg = xa(Oa, "ib-circle-icon", b.pasteText, function () {
+            (ri = $a(Oa)),
+            (Ug = xa(Oa, "ib-circle-icon", b.pasteText, function () {
                 Wh(ue, Pb);
             })));
     }
-    function Gj(a, b, d) {
+    function Hj(a, b, d) {
         null !== Oa &&
             (fa(a) || mc(),
             (ue = b),
-            null !== Tg && ((b = 0 < ja.length ? "block" : "none"), (ri.style.display = b), (Tg.style.display = b)),
+            null !== Ug && ((b = 0 < ja.length ? "block" : "none"), (ri.style.display = b), (Ug.style.display = b)),
             (d = pa(d) && 0 < d.length ? "block" : "none"),
             (ti.style.display = d),
             (si.style.display = d),
             Ga(),
             C(a),
-            tf(a, Oa));
+            uf(a, Oa));
     }
     function Dl() {
         null === nb &&
             ((nb = h("div", "calendar-context-menu")),
             ya.push(nb),
             E.body.appendChild(nb),
-            (gk = xa(
+            (hk = xa(
                 nb,
                 "ib-close-icon",
                 b.hideDayText,
                 function () {
-                    b.visibleDays.splice(b.visibleDays.indexOf(hk), 1);
+                    b.visibleDays.splice(b.visibleDays.indexOf(ik), 1);
                     lb = !1;
                     w(b.events.onOptionsUpdated, b);
                     F(v, !0, !0);
                 },
                 !0
             )),
-            (ik = Za(nb)),
-            (jk = xa(nb, "ib-rhombus-hollow-icon", b.showOnlyWorkingDaysText, function () {
+            (jk = $a(nb)),
+            (kk = xa(nb, "ib-rhombus-hollow-icon", b.showOnlyWorkingDaysText, function () {
                 1 <= b.workingDays.length &&
                     ((b.visibleDays = [].slice.call(b.workingDays)),
                     (lb = !1),
                     w(b.events.onOptionsUpdated, b),
                     F(v, !0, !0));
             })),
-            (kk = Za(nb)),
+            (lk = $a(nb)),
             xa(nb, "ib-octagon-hollow-icon", b.visibleDaysText + "...", function () {
                 Kc(!0);
             }));
     }
-    function Vi() {
+    function Wi() {
         null !== Ka || r || (Ka = h("div", "disabled-background"));
     }
-    function Wi() {
+    function Xi() {
         if (!r) {
-            null === ab && ((ab = h("div", "calendar-dialog event-editor")), ya.push(ab), E.body.appendChild(ab));
-            ab.innerHTML = n.empty;
+            null === bb && ((bb = h("div", "calendar-dialog event-editor")), ya.push(bb), E.body.appendChild(bb));
+            bb.innerHTML = n.empty;
             var a = h("div", "view");
-            ab.appendChild(a);
-            Ug = h("div", "disabled-area");
-            a.appendChild(Ug);
+            bb.appendChild(a);
+            Vg = h("div", "disabled-area");
+            a.appendChild(Vg);
             Sc = h("div", "title-bar");
             a.appendChild(Sc);
-            Hd(Sc, ab, null);
+            Hd(Sc, bb, null);
             var c = h("div", "contents");
             a.appendChild(c);
-            a = lk(c);
+            a = mk(c);
             ve(
                 a,
                 b.eventText,
                 function (a) {
-                    we(a, Vb, ab);
+                    we(a, Vb, bb);
                 },
                 !0
             );
             ve(a, b.typeText.replace(":", n.empty), function (a) {
-                we(a, Vg, ab);
+                we(a, Wg, bb);
             });
             ve(a, b.repeatsText.replace(":", n.empty), function (a) {
-                we(a, Wg, ab);
+                we(a, Xg, bb);
             });
             ve(a, b.optionalText, function (a) {
-                we(a, Uc, ab);
+                we(a, Uc, bb);
             });
             Vb = xe(c, !0, !1);
-            Vg = xe(c, !1, !1);
             Wg = xe(c, !1, !1);
+            Xg = xe(c, !1, !1);
             Uc = xe(c, !1, !1);
             vm();
             wm();
             xm();
             a = h("div", "buttons-container");
             c.appendChild(a);
-            Rg = Fa(a, b.removeEventText, "remove", ym);
-            Ef = Fa(a, b.addText, "add-update", mk);
+            Sg = Fa(a, b.removeEventText, "remove", ym);
+            Ff = Fa(a, b.addText, "add-update", nk);
             Fa(a, b.cancelText, "cancel", Tc);
         }
     }
@@ -2842,11 +2842,11 @@ export function calendarJs(I, ua, V) {
         Ab = h("input", null, "text");
         a.appendChild(Ab);
         Ab.onkeydown = function (a) {
-            a.keyCode === Q.enter && mk();
+            a.keyCode === Q.enter && nk();
         };
         0 < b.maximumEventTitleLength && (Ab.maxLength = b.maximumEventTitleLength);
         var c = function () {
-            nk(null);
+            ok(null);
         };
         b.eventColorsEditingEnabled && (ui = Fa(a, "...", "select-colors", zm, b.selectColorsText));
         qa(Vb, b.fromText.replace(":", n.empty) + "/" + b.toText);
@@ -2869,31 +2869,31 @@ export function calendarJs(I, ua, V) {
         a.appendChild(Yb);
         lc(Yb, "time");
         ye = K(Vb, b.isAllDayText, c)[0];
-        If = K(Vb, b.showAlertsText)[0];
-        Jf = K(Vb, b.showAsBusyText)[0];
+        Jf = K(Vb, b.showAlertsText)[0];
+        Kf = K(Vb, b.showAsBusyText)[0];
     }
     function wm() {
         var a = h("div", "radio-buttons-container");
-        Wg.appendChild(a);
+        Xg.appendChild(a);
         qc = ha(a, b.repeatsNever, "RepeatType", Vc);
-        Kf = ha(a, b.repeatsEveryDayText, "RepeatType", Vc);
-        Lf = ha(a, b.repeatsEveryWeekText, "RepeatType", Vc);
-        Mf = ha(a, b.repeatsEvery2WeeksText, "RepeatType", Vc);
-        Nf = ha(a, b.repeatsEveryMonthText, "RepeatType", Vc);
-        Of = ha(a, b.repeatsEveryYearText, "RepeatType", Vc);
+        Lf = ha(a, b.repeatsEveryDayText, "RepeatType", Vc);
+        Mf = ha(a, b.repeatsEveryWeekText, "RepeatType", Vc);
+        Nf = ha(a, b.repeatsEvery2WeeksText, "RepeatType", Vc);
+        Of = ha(a, b.repeatsEveryMonthText, "RepeatType", Vc);
+        Pf = ha(a, b.repeatsEveryYearText, "RepeatType", Vc);
         Zb = ha(a, b.repeatsCustomText, "RepeatType", Vc);
-        Xg = Fa(a, "...", "repeat-options", Am, b.repeatOptionsTitle);
+        Yg = Fa(a, "...", "repeat-options", Am, b.repeatOptionsTitle);
         a = h("div", "split split-margin");
-        Wg.appendChild(a);
+        Xg.appendChild(a);
         Wc = h("input", null, "number");
         Wc.setAttribute("min", "1");
         a.appendChild(Wc);
         var c = h("div", "radio-buttons-container split-contents");
         a.appendChild(c);
         Id = ha(c, b.dailyText, "RepeatCustomType");
-        Pf = ha(c, b.weeklyText, "RepeatCustomType");
-        Qf = ha(c, b.monthlyText, "RepeatCustomType");
-        Rf = ha(c, b.yearlyText, "RepeatCustomType");
+        Qf = ha(c, b.weeklyText, "RepeatCustomType");
+        Rf = ha(c, b.monthlyText, "RepeatCustomType");
+        Sf = ha(c, b.yearlyText, "RepeatCustomType");
     }
     function xm() {
         var a = h("div", "split");
@@ -2925,14 +2925,14 @@ export function calendarJs(I, ua, V) {
         0 < b.maximumEventLocationLength && (Md.maxLength = b.maximumEventLocationLength);
     }
     function Vc() {
-        Xg.disabled = qc.checked;
-        Rf.disabled = !Zb.checked;
+        Yg.disabled = qc.checked;
+        Sf.disabled = !Zb.checked;
         Id.disabled = !Zb.checked;
-        Pf.disabled = !Zb.checked;
         Qf.disabled = !Zb.checked;
+        Rf.disabled = !Zb.checked;
         Wc.disabled = !Zb.checked;
     }
-    function nk(a) {
+    function ok(a) {
         a = p(a) ? a : ea;
         var b = !1;
         (a = p(a) && ib(a.locked) ? a.locked : !1)
@@ -2943,49 +2943,49 @@ export function calendarJs(I, ua, V) {
         Yb.disabled = b;
         var d = Ae(Wb),
             e = Ae(hb);
-        ok(hb, d);
-        ok(Nd, e);
+        pk(hb, d);
+        pk(Nd, e);
         d > e && Bb(d, hb);
         a || (e > d || e < d ? ((b = !0), (qc.checked = !0)) : (b = !1));
         qc.disabled = b;
-        Kf.disabled = b;
         Lf.disabled = b;
         Mf.disabled = b;
         Nf.disabled = b;
         Of.disabled = b;
+        Pf.disabled = b;
         Zb.disabled = b;
-        Xg.disabled = b;
+        Yg.disabled = b;
         Wc.disabled = b;
         Id.disabled = b;
-        Pf.disabled = b;
         Qf.disabled = b;
         Rf.disabled = b;
+        Sf.disabled = b;
         a || Vc();
     }
     function P(a, c, d, e) {
         if (Xh(b.events.onBeforeEventAddEdit)) w(b.events.onBeforeEventAddEdit, a);
         else {
             Ub(E.body, Ka);
-            var f = ab,
+            var f = bb,
                 k = void 0;
             k = p(k) ? k : 0;
             f = f.getElementsByClassName("tab");
             0 < f.length && f[k].click();
-            Vg.innerHTML = n.empty;
+            Wg.innerHTML = n.empty;
             k = h("div", "radio-buttons-container");
-            Vg.appendChild(k);
+            Wg.appendChild(k);
             for (var m in N) N.hasOwnProperty(m) && (N[m].eventEditorInput = ha(k, N[m].text, "Type"));
             p(a)
                 ? (y(Sc, b.editEventTitle),
-                  pk(a.type),
-                  (Ef.value = b.updateText),
-                  (Rg.style.display = "inline-block"),
+                  qk(a.type),
+                  (Ff.value = b.updateText),
+                  (Sg.style.display = "inline-block"),
                   (ea = a),
                   (Xb.value = yb(a.from, !1)),
                   (Yb.value = yb(a.to, !1)),
                   (ye.checked = vi(a.isAllDay)),
-                  (If.checked = vi(a.showAlerts, !0)),
-                  (Jf.checked = vi(a.showAsBusy, !0)),
+                  (Jf.checked = vi(a.showAlerts, !0)),
+                  (Kf.checked = vi(a.showAsBusy, !0)),
                   (Ab.value = G(a.title)),
                   (Ld.value = G(a.description)),
                   (Md.value = G(a.location)),
@@ -3002,47 +3002,47 @@ export function calendarJs(I, ua, V) {
                   d === x.never
                       ? (qc.checked = !0)
                       : d === x.everyDay
-                        ? (Kf.checked = !0)
+                        ? (Lf.checked = !0)
                         : d === x.everyWeek
-                          ? (Lf.checked = !0)
+                          ? (Mf.checked = !0)
                           : d === x.every2Weeks
-                            ? (Mf.checked = !0)
+                            ? (Nf.checked = !0)
                             : d === x.everyMonth
-                              ? (Nf.checked = !0)
+                              ? (Of.checked = !0)
                               : d === x.everyYear
-                                ? (Of.checked = !0)
+                                ? (Pf.checked = !0)
                                 : d === x.custom && (Zb.checked = !0),
                   (c = H(a.repeatEveryCustomType)),
                   c === M.daily
                       ? (Id.checked = !0)
                       : c === M.weekly
-                        ? (Pf.checked = !0)
+                        ? (Qf.checked = !0)
                         : c === M.monthly
-                          ? (Qf.checked = !0)
-                          : c === M.yearly && (Rf.checked = !0),
+                          ? (Rf.checked = !0)
+                          : c === M.yearly && (Sf.checked = !0),
                   (c = Oc(a.repeatEveryExcludeDays)),
-                  (Yg.checked = c.indexOf(1) > B.notFound),
-                  (Zg.checked = c.indexOf(2) > B.notFound),
-                  ($g.checked = c.indexOf(3) > B.notFound),
-                  (ah.checked = c.indexOf(4) > B.notFound),
-                  (bh.checked = c.indexOf(5) > B.notFound),
-                  (ch.checked = c.indexOf(6) > B.notFound),
-                  (dh.checked = c.indexOf(0) > B.notFound),
+                  (Zg.checked = c.indexOf(1) > B.notFound),
+                  ($g.checked = c.indexOf(2) > B.notFound),
+                  (ah.checked = c.indexOf(3) > B.notFound),
+                  (bh.checked = c.indexOf(4) > B.notFound),
+                  (ch.checked = c.indexOf(5) > B.notFound),
+                  (dh.checked = c.indexOf(6) > B.notFound),
+                  (eh.checked = c.indexOf(0) > B.notFound),
                   Bb(a.repeatEnds, Nd),
                   (wi = d > x.never && p(e) && !U(a.from, e)),
-                  (Sf = e))
+                  (Tf = e))
                 : ((e = new Date()),
                   (c = p(c) ? c : e),
                   dc(c) && (c.setHours(e.getHours()), c.setMinutes(e.getMinutes())),
                   (e = fb(c, b.defaultEventDuration)),
                   y(Sc, b.addEventTitle),
-                  pk(),
-                  (Ef.value = b.addText),
-                  (Rg.style.display = "none"),
+                  qk(),
+                  (Ff.value = b.addText),
+                  (Sg.style.display = "none"),
                   (ea = {}),
                   (ye.checked = !1),
-                  (If.checked = !0),
                   (Jf.checked = !0),
+                  (Kf.checked = !0),
                   (Ab.value = n.empty),
                   (Ld.value = n.empty),
                   (Md.value = n.empty),
@@ -3052,13 +3052,13 @@ export function calendarJs(I, ua, V) {
                   (Ce.value = b.defaultEventTextColor),
                   (De.value = b.defaultEventBorderColor),
                   (qc.checked = !0),
-                  (Yg.checked = !1),
                   (Zg.checked = !1),
                   ($g.checked = !1),
                   (ah.checked = !1),
                   (bh.checked = !1),
                   (ch.checked = !1),
                   (dh.checked = !1),
+                  (eh.checked = !1),
                   (Nd.value = null),
                   (Wc.value = "1"),
                   (Id.checked = !0),
@@ -3074,36 +3074,36 @@ export function calendarJs(I, ua, V) {
                   Bb(c, Wb),
                   Bb(e, hb),
                   (wi = !1),
-                  (Sf = null));
+                  (Tf = null));
             t(Sc, "ib-close", b.closeTooltipText, Tc, !0);
-            a = lf(a);
+            a = mf(a);
             for (var g in N) N.hasOwnProperty(g) && p(N[g].eventEditorInput) && (N[g].eventEditorInput.disabled = a);
-            Ef.disabled = a;
+            Ff.disabled = a;
             Wb.disabled = a;
             hb.disabled = a;
             Xb.disabled = a;
             Yb.disabled = a;
             ye.disabled = a;
-            If.disabled = a;
             Jf.disabled = a;
+            Kf.disabled = a;
             Ab.disabled = a;
             Ld.disabled = a;
             Md.disabled = a;
             Kd.disabled = a;
             ze.disabled = a;
             qc.disabled = a;
-            Kf.disabled = a;
             Lf.disabled = a;
             Mf.disabled = a;
             Nf.disabled = a;
             Of.disabled = a;
+            Pf.disabled = a;
             Zb.disabled = a;
-            Xg.disabled = a;
+            Yg.disabled = a;
             Jd.disabled = a;
             null !== ui && (ui.disabled = a);
-            nk();
+            ok();
             eb.push(Tc);
-            ab.style.display = "block";
+            bb.style.display = "block";
             Ab.focus();
         }
     }
@@ -3111,15 +3111,15 @@ export function calendarJs(I, ua, V) {
         Ab.focus();
         Ab.select();
     }
-    function mk() {
+    function nk() {
         var a = Xb.value.split(":"),
             c = Yb.value.split(":"),
             d = Od(Ab.value),
             e = Od(ze.value);
-        if (2 > a.length) Tf(b.fromTimeErrorMessage);
-        else if (2 > c.length) Tf(b.toTimeErrorMessage);
-        else if (d === n.empty) Tf(b.titleErrorMessage);
-        else if (0 < e.length && !qk(e)) Tf(b.urlErrorMessage);
+        if (2 > a.length) Uf(b.fromTimeErrorMessage);
+        else if (2 > c.length) Uf(b.toTimeErrorMessage);
+        else if (d === n.empty) Uf(b.titleErrorMessage);
+        else if (0 < e.length && !rk(e)) Uf(b.urlErrorMessage);
         else {
             var f = Ae(Wb),
                 k = Ae(hb),
@@ -3132,12 +3132,12 @@ export function calendarJs(I, ua, V) {
                 u = parseInt(Jd.value);
             isNaN(r) && ((r = 0), (qc.checked = !0), (Id.checked = !0));
             isNaN(u) && (u = 0);
-            if (k < f) Tf(b.toSmallerThanFromErrorMessage);
+            if (k < f) Uf(b.toSmallerThanFromErrorMessage);
             else {
                 var w = function (a, c, f, k, A) {
                     A = p(A) ? A : !1;
-                    eh(c, Xb.value);
-                    eh(f, Yb.value);
+                    fh(c, Xb.value);
+                    fh(f, Yb.value);
                     A
                         ? ((ea.from = c), (ea.to = f), (ea.repeatEnds = k))
                         : ((A = p(a)),
@@ -3149,8 +3149,8 @@ export function calendarJs(I, ua, V) {
                               location: h,
                               group: g,
                               isAllDay: ye.checked,
-                              showAlerts: If.checked,
-                              showAsBusy: Jf.checked,
+                              showAlerts: Jf.checked,
+                              showAsBusy: Kf.checked,
                               color: ea.color,
                               colorText: ea.colorText,
                               colorBorder: ea.colorBorder,
@@ -3164,24 +3164,24 @@ export function calendarJs(I, ua, V) {
                           }),
                           qc.checked
                               ? (c.repeatEvery = x.never)
-                              : Kf.checked
+                              : Lf.checked
                                 ? (c.repeatEvery = x.everyDay)
-                                : Lf.checked
+                                : Mf.checked
                                   ? (c.repeatEvery = x.everyWeek)
-                                  : Mf.checked
+                                  : Nf.checked
                                     ? (c.repeatEvery = x.every2Weeks)
-                                    : Nf.checked
+                                    : Of.checked
                                       ? (c.repeatEvery = x.everyMonth)
-                                      : Of.checked
+                                      : Pf.checked
                                         ? (c.repeatEvery = x.everyYear)
                                         : Zb.checked && (c.repeatEvery = x.custom),
                           Id.checked
                               ? (c.repeatEveryCustomType = M.daily)
-                              : Pf.checked
+                              : Qf.checked
                                 ? (c.repeatEveryCustomType = M.weekly)
-                                : Qf.checked
+                                : Rf.checked
                                   ? (c.repeatEveryCustomType = M.monthly)
-                                  : Rf.checked && (c.repeatEveryCustomType = M.yearly),
+                                  : Sf.checked && (c.repeatEveryCustomType = M.yearly),
                           A
                               ? (c.id = a)
                               : ((c.organizerName = b.organizerName),
@@ -3192,16 +3192,16 @@ export function calendarJs(I, ua, V) {
                           b.isWidget ? F(v) : (Ha(), ma()));
                 };
                 wi
-                    ? (Uf(),
-                      Gf(
+                    ? (Vf(),
+                      Hf(
                           b.confirmEventUpdateTitle,
                           b.confirmEventUpdateMessage,
                           function () {
-                              var a = new Date(Sf),
-                                  b = new Date(Sf),
-                                  c = new Date(Sf);
+                              var a = new Date(Tf),
+                                  b = new Date(Tf),
+                                  c = new Date(Tf);
                               Pd();
-                              Xa(c, -1);
+                              Ya(c, -1);
                               w(ea.id, f, k, c, !0);
                               w(null, a, b, l);
                               Tc();
@@ -3223,11 +3223,11 @@ export function calendarJs(I, ua, V) {
     function Tc(a) {
         Ee(a);
         gb(E.body, Ka);
-        ab.style.display = "none";
+        bb.style.display = "none";
     }
     function ym() {
-        Uf();
-        Gf(
+        Vf();
+        Hf(
             b.confirmEventRemoveTitle,
             b.confirmEventRemoveMessage,
             function () {
@@ -3244,17 +3244,17 @@ export function calendarJs(I, ua, V) {
         );
     }
     function ma() {
-        db(W) && Ua(L);
-        db(da) && zc(Sb);
-        db(Da) && Ac(sa);
-        db(ra) && Oh();
-        db(ia) && Jb(ba);
+        Xa(W) && Ua(L);
+        Xa(da) && zc(Sb);
+        Xa(Da) && Ac(sa);
+        Xa(ra) && Oh();
+        Xa(ia) && Jb(ba);
     }
     function td(a, c, d, e) {
         d = p(d) ? d : "09:00";
         e = p(e) ? d : "09:00";
-        eh(a, d);
-        eh(c, e);
+        fh(a, d);
+        fh(c, e);
         c = fb(c, b.defaultEventDuration);
         a = {
             from: a,
@@ -3289,20 +3289,20 @@ export function calendarJs(I, ua, V) {
         jb();
         return a;
     }
-    function lf(a) {
+    function mf(a) {
         return p(a) && ib(a.locked) ? a.locked : !1;
     }
-    function Tf(a) {
-        Gf(b.errorText, a, Pd, null, !1, !1);
-        Uf();
+    function Uf(a) {
+        Hf(b.errorText, a, Pd, null, !1, !1);
+        Vf();
     }
-    function Uf() {
-        Ug.style.display = "block";
+    function Vf() {
+        Vg.style.display = "block";
     }
     function Pd() {
-        Ug.style.display = "none";
+        Vg.style.display = "none";
     }
-    function Xi() {
+    function Yi() {
         if (!r && null === rc) {
             rc = h("div", "calendar-dialog event-editor-colors");
             ya.push(rc);
@@ -3311,7 +3311,7 @@ export function calendarJs(I, ua, V) {
             y(a, b.selectColorsText);
             rc.appendChild(a);
             Hd(a, rc, null);
-            t(a, "ib-close", b.closeTooltipText, fh, !0);
+            t(a, "ib-close", b.closeTooltipText, gh, !0);
             a = h("div", "contents");
             rc.appendChild(a);
             var c = h("div", "section");
@@ -3335,26 +3335,26 @@ export function calendarJs(I, ua, V) {
             c = h("div", "buttons-container");
             a.appendChild(c);
             Fa(c, b.updateText, "update", Cm);
-            Fa(c, b.cancelText, "cancel", fh);
+            Fa(c, b.cancelText, "cancel", gh);
         }
     }
     function Cm() {
-        fh();
+        gh();
         ea.color = Be.value;
         ea.colorText = Ce.value;
         ea.colorBorder = De.value;
     }
-    function fh(a) {
+    function gh(a) {
         Ee(a);
         Pd();
         rc.style.display = "none";
     }
     function zm() {
-        eb.push(fh);
+        eb.push(gh);
         rc.style.display = "block";
-        Uf();
+        Vf();
     }
-    function Yi() {
+    function Zi() {
         if (!r && null === sc) {
             sc = h("div", "calendar-dialog event-editor-repeat-options");
             ya.push(sc);
@@ -3363,19 +3363,19 @@ export function calendarJs(I, ua, V) {
             y(a, b.repeatOptionsTitle);
             sc.appendChild(a);
             Hd(a, sc, null);
-            t(a, "ib-close", b.closeTooltipText, gh, !0);
+            t(a, "ib-close", b.closeTooltipText, hh, !0);
             a = h("div", "contents");
             sc.appendChild(a);
             var c = h("div", "section");
             a.appendChild(c);
             qa(c, b.daysToExcludeText, "text-header");
-            Yg = K(c, b.dayNames[0])[0];
-            Zg = K(c, b.dayNames[1])[0];
-            $g = K(c, b.dayNames[2])[0];
-            ah = K(c, b.dayNames[3])[0];
-            bh = K(c, b.dayNames[4])[0];
-            ch = K(c, b.dayNames[5])[0];
-            dh = K(c, b.dayNames[6])[0];
+            Zg = K(c, b.dayNames[0])[0];
+            $g = K(c, b.dayNames[1])[0];
+            ah = K(c, b.dayNames[2])[0];
+            bh = K(c, b.dayNames[3])[0];
+            ch = K(c, b.dayNames[4])[0];
+            dh = K(c, b.dayNames[5])[0];
+            eh = K(c, b.dayNames[6])[0];
             c = h("div", "section");
             a.appendChild(c);
             qa(c, b.repeatEndsText, "text-header");
@@ -3385,32 +3385,32 @@ export function calendarJs(I, ua, V) {
             c = h("div", "buttons-container");
             a.appendChild(c);
             Fa(c, b.updateText, "update", Dm);
-            Fa(c, b.cancelText, "cancel", gh);
+            Fa(c, b.cancelText, "cancel", hh);
         }
     }
     function Dm() {
-        gh();
+        hh();
         var a = [];
-        Yg.checked && a.push(1);
-        Zg.checked && a.push(2);
-        $g.checked && a.push(3);
-        ah.checked && a.push(4);
-        bh.checked && a.push(5);
-        ch.checked && a.push(6);
-        dh.checked && a.push(0);
+        Zg.checked && a.push(1);
+        $g.checked && a.push(2);
+        ah.checked && a.push(3);
+        bh.checked && a.push(4);
+        ch.checked && a.push(5);
+        dh.checked && a.push(6);
+        eh.checked && a.push(0);
         ea.repeatEveryExcludeDays = a;
     }
-    function gh(a) {
+    function hh(a) {
         Ee(a);
         Pd();
         sc.style.display = "none";
     }
     function Am() {
-        eb.push(gh);
+        eb.push(hh);
         sc.style.display = "block";
-        Uf();
+        Vf();
     }
-    function Zi() {
+    function $i() {
         if (!r && null === Xc) {
             Xc = h("div", "calendar-dialog message");
             ya.push(Xc);
@@ -3422,40 +3422,40 @@ export function calendarJs(I, ua, V) {
             yi = h("div", "text");
             a.appendChild(yi);
             var c = K(a, b.removeAllEventsInSeriesText);
-            Sg = c[0];
+            Tg = c[0];
             zi = c[1];
-            Vf = h("div", "buttons-container");
-            a.appendChild(Vf);
+            Wf = h("div", "buttons-container");
+            a.appendChild(Wf);
         }
     }
-    function Gf(a, c, d, e, f, k, m, g) {
+    function Hf(a, c, d, e, f, k, m, g) {
         f = p(f) ? f : !1;
         k = p(k) ? k : !0;
         var A = p(m) ? m : b.yesText,
             q = p(g) ? g : b.noText;
-        Vf.innerHTML = n.empty;
+        Wf.innerHTML = n.empty;
         var l = h("input", "yes-ok", "button");
         l.value = A;
-        Vf.appendChild(l);
+        Wf.appendChild(l);
         A = h("input", "no", "button");
         A.value = q;
-        Vf.appendChild(A);
+        Wf.appendChild(A);
         eb.push(!1);
         Xc.style.display = "block";
         y(xi, a);
         y(yi, c);
-        l.onclick = rk;
+        l.onclick = sk;
         l.addEventListener("click", d);
-        A.onclick = rk;
+        A.onclick = sk;
         Yc(e) && A.addEventListener("click", e);
         p(m) ||
             p(g) ||
             (k
                 ? ((A.style.display = "inline-block"), (l.value = b.yesText))
                 : ((A.style.display = "none"), (l.value = b.okText)));
-        f ? ((zi.style.display = "block"), (Sg.checked = !1)) : ((zi.style.display = "none"), (Sg.checked = !0));
+        f ? ((zi.style.display = "block"), (Tg.checked = !1)) : ((zi.style.display = "none"), (Tg.checked = !0));
     }
-    function rk() {
+    function sk() {
         eb.pop();
         Xc.style.display = "none";
     }
@@ -3468,73 +3468,73 @@ export function calendarJs(I, ua, V) {
             y(a, b.exportEventsTitle);
             tc.appendChild(a);
             Hd(a, tc, null);
-            t(a, "ib-close", b.closeTooltipText, hh, !0);
+            t(a, "ib-close", b.closeTooltipText, ih, !0);
             a = h("div", "contents");
             tc.appendChild(a);
             Ta = h("input", null, "text");
             Ta.placeholder = b.exportFilenamePlaceholderText;
             a.appendChild(Ta);
             Ta.onkeydown = function (a) {
-                a.keyCode === Q.enter && sk();
+                a.keyCode === Q.enter && tk();
             };
-            Cb = K(a, b.copyToClipboardOnlyText, tk)[0];
-            ih = h("div", "split options");
-            a.appendChild(ih);
+            Cb = K(a, b.copyToClipboardOnlyText, uk)[0];
+            jh = h("div", "split options");
+            a.appendChild(jh);
             var c = h("div", "radio-buttons-container split-contents");
-            ih.appendChild(c);
+            jh.appendChild(c);
             var d = h("div", "radio-buttons-container split-contents");
-            ih.appendChild(d);
+            jh.appendChild(d);
             Ai = ha(c, "CSV", "ExportType");
-            uk = ha(c, "XML", "ExportType");
-            vk = ha(c, "JSON", "ExportType");
-            wk = ha(c, "TXT", "ExportType");
-            xk = ha(d, "iCAL", "ExportType");
-            yk = ha(d, "MD", "ExportType");
-            zk = ha(d, "HTML", "ExportType");
-            Ak = ha(d, "TSV", "ExportType");
+            vk = ha(c, "XML", "ExportType");
+            wk = ha(c, "JSON", "ExportType");
+            xk = ha(c, "TXT", "ExportType");
+            yk = ha(d, "iCAL", "ExportType");
+            zk = ha(d, "MD", "ExportType");
+            Ak = ha(d, "HTML", "ExportType");
+            Bk = ha(d, "TSV", "ExportType");
             c = h("div", "buttons-container");
             a.appendChild(c);
-            Fa(c, b.exportText, "export", sk);
-            Fa(c, b.cancelText, "cancel", hh);
+            Fa(c, b.exportText, "export", tk);
+            Fa(c, b.cancelText, "cancel", ih);
         }
     }
-    function tk() {
+    function uk() {
         Ta.disabled = Cb.checked;
     }
     function dd(a) {
         Ub(E.body, Ka);
         Hb();
-        eb.push(hh);
+        eb.push(ih);
         tc.style.display = "block";
         uc = a;
         Ai.checked = !0;
         Ta.value = n.empty;
         Cb.checked = !1;
-        tk();
+        uk();
         Ta.focus();
     }
-    function hh(a) {
+    function ih(a) {
         Ee(a);
         gb(E.body, Ka);
         tc.style.display = "none";
     }
-    function sk() {
-        hh();
+    function tk() {
+        ih();
         Ai.checked
             ? vc(uc, "csv", Ta.value, Cb.checked)
-            : uk.checked
+            : vk.checked
               ? vc(uc, "xml", Ta.value, Cb.checked)
-              : vk.checked
+              : wk.checked
                 ? vc(uc, "json", Ta.value, Cb.checked)
-                : wk.checked
+                : xk.checked
                   ? vc(uc, "text", Ta.value, Cb.checked)
-                  : xk.checked
+                  : yk.checked
                     ? vc(uc, "ical", Ta.value, Cb.checked)
-                    : yk.checked
+                    : zk.checked
                       ? vc(uc, "md", Ta.value, Cb.checked)
-                      : zk.checked
+                      : Ak.checked
                         ? vc(uc, "html", Ta.value, Cb.checked)
-                        : Ak.checked && vc(uc, "tsv", Ta.value, Cb.checked);
+                        : Bk.checked && vc(uc, "tsv", Ta.value, Cb.checked);
     }
     function xl() {
         if (!r && null === ka) {
@@ -3546,7 +3546,7 @@ export function calendarJs(I, ua, V) {
             ka.appendChild(a);
             Hd(a, ka, function () {
                 Bi = !0;
-                Wf();
+                Xf();
             });
             a.ondblclick = Ci;
             var c = t(a, "ib-close", b.closeTooltipText, kd);
@@ -3565,22 +3565,22 @@ export function calendarJs(I, ua, V) {
             na.onpropertychange = Fe;
             na.onkeypress = Em;
             a.appendChild(na);
-            ob = h("div", "ib-arrow-down-full");
-            ob.style.display = "none";
-            ob.onclick = Fm;
-            a.appendChild(ob);
+            pb = h("div", "ib-arrow-down-full");
+            pb.style.display = "none";
+            pb.onclick = Fm;
+            a.appendChild(pb);
             zb = h("div", "history-dropdown custom-scroll-bars");
             a.appendChild(zb);
             a = h("div", "checkbox-container");
             $b.appendChild(a);
-            jh = K(a, b.notSearchText, ac)[0];
-            kh = K(a, b.matchCaseText, ac)[0];
+            kh = K(a, b.notSearchText, ac)[0];
+            lh = K(a, b.matchCaseText, ac)[0];
             Ge = K(a, b.advancedText + ":", Gm)[0];
             Ge.checked = !0;
-            Xf = h("div", "advanced");
-            $b.appendChild(Xf);
+            Yf = h("div", "advanced");
+            $b.appendChild(Yf);
             var d = h("div", "split");
-            Xf.appendChild(d);
+            Yf.appendChild(d);
             c = h("div", "split-contents");
             d.appendChild(c);
             a = h("div", "split-contents");
@@ -3588,44 +3588,44 @@ export function calendarJs(I, ua, V) {
             qa(c, b.includeText, "text-header");
             d = h("div", "checkbox-container");
             c.appendChild(d);
-            Yf = K(d, b.titleText.replace(":", n.empty), ac)[0];
-            lh = K(d, b.locationText.replace(":", n.empty), ac)[0];
-            mh = K(d, b.descriptionText.replace(":", n.empty), ac)[0];
-            nh = K(d, b.groupText.replace(":", n.empty), ac)[0];
-            oh = K(d, b.urlText.replace(":", n.empty), ac)[0];
-            Yf.checked = !0;
+            Zf = K(d, b.titleText.replace(":", n.empty), ac)[0];
+            mh = K(d, b.locationText.replace(":", n.empty), ac)[0];
+            nh = K(d, b.descriptionText.replace(":", n.empty), ac)[0];
+            oh = K(d, b.groupText.replace(":", n.empty), ac)[0];
+            ph = K(d, b.urlText.replace(":", n.empty), ac)[0];
+            Zf.checked = !0;
             qa(a, b.optionsText, "text-header");
             c = h("div", "radio-buttons-container");
             a.appendChild(c);
-            ph = ha(c, b.startsWithText, "SearchOptionType", ac);
-            qh = ha(c, b.endsWithText, "SearchOptionType", ac);
-            rh = ha(c, b.containsText, "SearchOptionType", ac);
-            rh.checked = !0;
+            qh = ha(c, b.startsWithText, "SearchOptionType", ac);
+            rh = ha(c, b.endsWithText, "SearchOptionType", ac);
+            sh = ha(c, b.containsText, "SearchOptionType", ac);
+            sh.checked = !0;
             a = h("div", "buttons-container");
             $b.appendChild(a);
-            sh = Fa(a, b.previousText, "previous", Bk);
-            th = Fa(a, b.nextText, "next", Ck);
+            th = Fa(a, b.previousText, "previous", Ck);
+            uh = Fa(a, b.nextText, "next", Dk);
         }
     }
     function Gm() {
-        Xf.style.display = Ge.checked ? "block" : "none";
+        Yf.style.display = Ge.checked ? "block" : "none";
         Vh();
-        Wf();
+        Xf();
     }
     function ac() {
-        Wf();
+        Xf();
         Fe(!1);
     }
     function Fe(a) {
         a = p(a) ? a : !0;
-        0 < Db.length && Dk(z, " focused-event");
-        sh.disabled = !0;
-        th.disabled = na.value === n.empty;
+        0 < Db.length && Ek(z, " focused-event");
+        th.disabled = !0;
+        uh.disabled = na.value === n.empty;
         Db = [];
         Zc = 0;
         Di = null;
-        a && Ek();
-        Wf();
+        a && Fk();
+        Xf();
     }
     function fe() {
         "block" !== ka.style.display &&
@@ -3633,23 +3633,23 @@ export function calendarJs(I, ua, V) {
             (ka.style.display = "block"),
             Fe(!1),
             (na.value = u.lastSearchText),
-            (jh.checked = u.not),
-            (kh.checked = u.matchCase),
+            (kh.checked = u.not),
+            (lh.checked = u.matchCase),
             (Ge.checked = u.showAdvanced),
-            (Yf.checked = u.searchTitle),
-            (lh.checked = u.searchLocation),
-            (mh.checked = u.searchDescription),
-            (nh.checked = u.searchGroup),
-            (oh.checked = u.searchUrl),
-            (ph.checked = u.startsWith),
-            (qh.checked = u.endsWith),
-            (rh.checked = u.contains),
-            (Xf.style.display = Ge.checked ? "block" : "none"),
+            (Zf.checked = u.searchTitle),
+            (mh.checked = u.searchLocation),
+            (nh.checked = u.searchDescription),
+            (oh.checked = u.searchGroup),
+            (ph.checked = u.searchUrl),
+            (qh.checked = u.startsWith),
+            (rh.checked = u.endsWith),
+            (sh.checked = u.contains),
+            (Yf.style.display = Ge.checked ? "block" : "none"),
             Vh());
         "block" !== $b.style.display && Ci();
         na.focus();
         na.select();
-        0 < u.history.length && (ob.style.display = "block");
+        0 < u.history.length && (pb.style.display = "block");
     }
     function Vh() {
         null === ka ||
@@ -3672,26 +3672,26 @@ export function calendarJs(I, ua, V) {
             ? (($b.style.display = "none"), (Qd.className = "ib-square-hollow"), Ra(Qd, b.restoreTooltipText))
             : (($b.style.display = "block"), (Qd.className = "ib-minus"), Ra(Qd, b.minimizedTooltipText));
     }
-    function Bk() {
+    function Ck() {
         if (0 < Zc) {
             Zc--;
             var a = Db[Zc];
-            Fk();
+            Gk();
             F(a.from);
-            Gk(a);
+            Hk(a);
         }
     }
     function Em(a) {
-        a.keyCode === Q.enter && fa(a) && !sh.disabled ? Bk() : a.keyCode !== Q.enter || th.disabled ? Ek() : Ck();
+        a.keyCode === Q.enter && fa(a) && !th.disabled ? Ck() : a.keyCode !== Q.enter || uh.disabled ? Fk() : Dk();
     }
-    function Ck() {
+    function Dk() {
         if (0 === Db.length) {
             var a = "day-",
-                b = jh.checked,
-                d = kh.checked,
+                b = kh.checked,
+                d = lh.checked,
                 e = d ? na.value : na.value.toLowerCase(),
                 f = {},
-                k = ub(Bd()),
+                k = vb(Bd()),
                 m = k.length,
                 h = Ma(),
                 g = h === W,
@@ -3699,7 +3699,7 @@ export function calendarJs(I, ua, V) {
                 p = h === da;
             h = h === ia;
             g ? (a = "full-day-") : n ? (a = "month-") : p ? (a = "week-day-") : h && (a = "timeline-day-");
-            Wf(!0);
+            Xf(!0);
             for (var q = 0; q < m; q++) {
                 var l = k[q];
                 if (ie(l)) {
@@ -3715,15 +3715,15 @@ export function calendarJs(I, ua, V) {
                         (t = t.toLowerCase()),
                         (v = v.toLowerCase()),
                         (x = x.toLowerCase()));
-                    Yf.checked && Zf(r, e)
+                    Zf.checked && $f(r, e)
                         ? (w = !0)
-                        : lh.checked && Zf(t, e)
+                        : mh.checked && $f(t, e)
                           ? (w = !0)
-                          : mh.checked && Zf(u, e)
+                          : nh.checked && $f(u, e)
                             ? (w = !0)
-                            : nh.checked && Zf(v, e)
+                            : oh.checked && $f(v, e)
                               ? (w = !0)
-                              : oh.checked && Zf(x, e) && (w = !0);
+                              : ph.checked && $f(x, e) && (w = !0);
                     b && (w = !w);
                     !w ||
                         (null === Aa(a + l.id) && (g || n || p || h)) ||
@@ -3734,17 +3734,17 @@ export function calendarJs(I, ua, V) {
                 }
             }
         } else Zc++;
-        Fk();
-        0 < Db.length && ((a = Db[Zc]), F(new Date(a.from)), Gk(a));
+        Gk();
+        0 < Db.length && ((a = Db[Zc]), F(new Date(a.from)), Hk(a));
     }
-    function Gk(a) {
+    function Hk(a) {
         var b = "day-",
             d = Ma(),
             e = d === W,
             f = d === ra,
             k = d === da;
         d = d === ia;
-        Dk(z, " focused-event");
+        Ek(z, " focused-event");
         e ? (b = "full-day-") : f ? (b = "month-") : k ? (b = "week-day-") : d && (b = "timeline-day-");
         b = Aa(b + a.id);
         if (null !== b && ((b.className += " focused-event"), (Di = a.id), e || f || k || d))
@@ -3756,22 +3756,22 @@ export function calendarJs(I, ua, V) {
                 a = a.parentNode;
             }
     }
-    function Fk() {
-        sh.disabled = 0 === Zc;
-        th.disabled = Zc === Db.length - 1 || 0 === Db.length;
+    function Gk() {
+        th.disabled = 0 === Zc;
+        uh.disabled = Zc === Db.length - 1 || 0 === Db.length;
     }
-    function Zf(a, b) {
-        return ph.checked
+    function $f(a, b) {
+        return qh.checked
             ? oa(a, b)
-            : qh.checked
+            : rh.checked
               ? a.substring(a.length - b.length, a.length) === b
               : a.indexOf(b) > B.notFound;
     }
-    function Wf(a) {
+    function Xf(a) {
         a = p(a) ? a : !1;
         rd(Na.searchOptionsChanged);
         var c = Od(na.value);
-        a && (ob.style.display = "block");
+        a && (pb.style.display = "block");
         nd(
             Na.searchOptionsChanged,
             function () {
@@ -3788,17 +3788,17 @@ export function calendarJs(I, ua, V) {
                 }
                 if (!a || d)
                     (u.lastSearchText = c),
-                        (u.not = jh.checked),
-                        (u.matchCase = kh.checked),
+                        (u.not = kh.checked),
+                        (u.matchCase = lh.checked),
                         (u.showAdvanced = Ge.checked),
-                        (u.searchTitle = Yf.checked),
-                        (u.searchLocation = lh.checked),
-                        (u.searchDescription = mh.checked),
-                        (u.searchGroup = nh.checked),
-                        (u.searchUrl = oh.checked),
-                        (u.startsWith = ph.checked),
-                        (u.endsWith = qh.checked),
-                        (u.contains = rh.checked),
+                        (u.searchTitle = Zf.checked),
+                        (u.searchLocation = mh.checked),
+                        (u.searchDescription = nh.checked),
+                        (u.searchGroup = oh.checked),
+                        (u.searchUrl = ph.checked),
+                        (u.startsWith = qh.checked),
+                        (u.endsWith = rh.checked),
+                        (u.contains = sh.checked),
                         Bi && ((u.left = ka.offsetLeft), (u.top = ka.offsetTop)),
                         w(b.events.onSearchOptionsUpdated, u);
             },
@@ -3806,10 +3806,10 @@ export function calendarJs(I, ua, V) {
             !1
         );
     }
-    function Ek() {
+    function Fk() {
         var a = u.history.length;
         0 < a
-            ? ((ob.style.display = "block"),
+            ? ((pb.style.display = "block"),
               rd(Na.searchEventsHistoryDropDown),
               nd(
                   Na.searchEventsHistoryDropDown,
@@ -3817,24 +3817,24 @@ export function calendarJs(I, ua, V) {
                       var b = na.value,
                           d = !1;
                       if (Od(b) !== n.empty) {
-                          Hk();
+                          Ik();
                           zb.innerHTML = n.empty;
                           for (var e = 0; e < a; e++) {
                               var f = u.history[e],
                                   k = b;
                               f.substring(0, k.length).toLowerCase() === k.toLowerCase() &&
                                   f.toLowerCase() !== b.toLowerCase() &&
-                                  (Ik(u.history[e], b.length), (d = !0));
+                                  (Jk(u.history[e], b.length), (d = !0));
                           }
                       }
-                      d ? Jk() : Ze();
+                      d ? Kk() : $e();
                   },
                   150,
                   !1
               ))
-            : (ob.style.display = "none");
+            : (pb.style.display = "none");
     }
-    function Hk() {
+    function Ik() {
         u.history.sort(function (a, b) {
             var c = 0;
             a = a.toLowerCase();
@@ -3846,15 +3846,15 @@ export function calendarJs(I, ua, V) {
     function Fm(a) {
         C(a);
         if ("block" !== zb.style.display) {
-            Hk();
+            Ik();
             a = u.history.length;
             zb.innerHTML = n.empty;
             na.focus();
-            for (var b = 0; b < a; b++) Ik(u.history[b], 0);
-            Jk();
-        } else Ze();
+            for (var b = 0; b < a; b++) Jk(u.history[b], 0);
+            Kk();
+        } else $e();
     }
-    function Ik(a, b) {
+    function Jk(a, b) {
         var c = h("div", "history-dropdown-item");
         zb.appendChild(c);
         var e = h("span", "search-search");
@@ -3865,24 +3865,24 @@ export function calendarJs(I, ua, V) {
         c.appendChild(e);
         c.onclick = function (b) {
             C(b);
-            Ze();
+            $e();
             na.value = a;
             na.selectionStart = na.selectionEnd = na.value.length;
             na.focus();
             Fe(!1);
         };
     }
-    function Ze() {
+    function $e() {
         var a = !1;
         null !== zb &&
-            "ib-arrow-up-full" === ob.className &&
-            ((zb.style.display = "none"), (ob.className = "ib-arrow-down-full"), (a = !0));
+            "ib-arrow-up-full" === pb.className &&
+            ((zb.style.display = "none"), (pb.className = "ib-arrow-down-full"), (a = !0));
         return a;
     }
-    function Jk() {
+    function Kk() {
         null !== zb &&
-            "ib-arrow-down-full" === ob.className &&
-            ((zb.style.display = "block"), (ob.className = "ib-arrow-up-full"));
+            "ib-arrow-down-full" === pb.className &&
+            ((zb.style.display = "block"), (pb.className = "ib-arrow-up-full"));
     }
     function yl() {
         if (!r && null === Eb) {
@@ -3893,10 +3893,10 @@ export function calendarJs(I, ua, V) {
             y(a, b.configurationTitleText);
             Eb.appendChild(a);
             Hd(a, Eb, null);
-            t(a, "ib-close", b.closeTooltipText, Kk, !0);
+            t(a, "ib-close", b.closeTooltipText, Lk, !0);
             a = h("div", "contents");
             Eb.appendChild(a);
-            var c = lk(a);
+            var c = mk(a);
             ve(
                 c,
                 b.displayTabText,
@@ -3916,15 +3916,15 @@ export function calendarJs(I, ua, V) {
             Hi = K(Rd, b.enableDragAndDropForEventText)[0];
             Ii = K(Rd, b.showHolidaysInTheDisplaysText)[0];
             qa(He, b.organizerNameText);
-            uh = h("input", null, "text");
-            He.appendChild(uh);
-            qa(He, b.organizerEmailAddressText);
-            vh = h("input", null, "email");
+            vh = h("input", null, "text");
             He.appendChild(vh);
+            qa(He, b.organizerEmailAddressText);
+            wh = h("input", null, "email");
+            He.appendChild(wh);
             c = h("div", "buttons-container");
             a.appendChild(c);
             Fa(c, b.updateText, "update", Hm);
-            Fa(c, b.cancelText, "cancel", Kk);
+            Fa(c, b.cancelText, "cancel", Lk);
         }
     }
     function Hm() {
@@ -3933,8 +3933,8 @@ export function calendarJs(I, ua, V) {
         b.tooltipsEnabled = Gi.checked;
         b.dragAndDropForEventsEnabled = Hi.checked;
         b.showHolidays = Ii.checked;
-        b.organizerName = uh.value;
-        b.organizerEmailAddress = vh.value;
+        b.organizerName = vh.value;
+        b.organizerEmailAddress = wh.value;
         lb = !1;
         w(b.events.onOptionsUpdated, b);
         Ji();
@@ -3942,18 +3942,18 @@ export function calendarJs(I, ua, V) {
         F(v, !0, !0);
         Sa(b.configurationUpdatedText);
     }
-    function Kk() {
+    function Lk() {
         Ki();
     }
-    function dj() {
+    function ej() {
         Ub(E.body, Ka);
-        Ei.checked = $f;
+        Ei.checked = ag;
         Fi.checked = b.eventNotificationsEnabled;
         Gi.checked = b.tooltipsEnabled;
         Hi.checked = b.dragAndDropForEventsEnabled;
         Ii.checked = b.showHolidays;
-        uh.value = b.organizerName;
-        vh.value = b.organizerEmailAddress;
+        vh.value = b.organizerName;
+        wh.value = b.organizerEmailAddress;
         eb.push(Ki);
         Eb.style.display = "block";
     }
@@ -3982,17 +3982,17 @@ export function calendarJs(I, ua, V) {
             y(a, b.jumpToDateTitle);
             wc.appendChild(a);
             Hd(a, wc, null);
-            t(a, "ib-close", b.closeTooltipText, wh, !0);
+            t(a, "ib-close", b.closeTooltipText, xh, !0);
             var c = h("div", "contents");
             wc.appendChild(c);
             bc = h("input", null, "date");
             c.appendChild(bc);
             a = h("div", "buttons-container");
             c.appendChild(a);
-            c = Fa(a, b.goText, "go", Lk);
-            Fa(a, b.cancelText, "cancel", wh);
+            c = Fa(a, b.goText, "go", Mk);
+            Fa(a, b.cancelText, "cancel", xh);
             c.onkeydown = function (a) {
-                a.keyCode === Q.enter && Lk();
+                a.keyCode === Q.enter && Mk();
             };
         }
     }
@@ -4010,23 +4010,23 @@ export function calendarJs(I, ua, V) {
                     : a === Da
                       ? Bb(new Date(sa, 0, 1), bc)
                       : a === ia && Bb(ba, bc);
-            eb.push(wh);
+            eb.push(xh);
             wc.style.display = "block";
             bc.focus();
         }
     }
-    function wh(a) {
+    function xh(a) {
         Ee(a);
         gb(E.body, Ka);
         wc.style.display = "none";
     }
-    function Lk() {
+    function Mk() {
         var a = Ma(),
             c = Ae(bc);
         c.getFullYear() >= b.minimumYear &&
             c.getFullYear() <= b.maximumYear &&
             (null === a
-                ? (F(c), qb())
+                ? (F(c), rb())
                 : a === W
                   ? Ua(c)
                   : a === da
@@ -4034,27 +4034,27 @@ export function calendarJs(I, ua, V) {
                     : a === Da
                       ? Ac(c.getFullYear())
                       : a === ia && Jb(c),
-            wh());
+            xh());
     }
-    function $i() {
+    function aj() {
         null === T &&
             ((T = h("div", "calendar-tooltip")),
             ya.push(T),
             E.body.appendChild(T),
             (Li = h("div", "ib-close")),
-            (xh = h("div", "ib-edit")),
-            (yh = h("div", "title-buttons")),
-            yh.appendChild(Li),
-            yh.appendChild(xh),
+            (yh = h("div", "ib-edit")),
+            (zh = h("div", "title-buttons")),
+            zh.appendChild(Li),
+            zh.appendChild(yh),
             (Sd = h("div", "title")),
-            (ag = h("div", "date")),
+            (bg = h("div", "date")),
             (Td = h("div", "duration")),
-            (bg = h("div", "repeats")),
-            (cg = h("div", "description")),
-            (dg = h("div", "location")),
+            (cg = h("div", "repeats")),
+            (dg = h("div", "description")),
+            (eg = h("div", "location")),
             (Ud = h("div", "url")),
             (Li.onclick = ic),
-            (xh.onclick = function () {
+            (yh.onclick = function () {
                 P(Dd);
             }),
             document.body.addEventListener("mousemove", ic));
@@ -4069,7 +4069,7 @@ export function calendarJs(I, ua, V) {
             nd(
                 Na.showToolTip,
                 function () {
-                    if (e || (!E.body.contains(Ka) && !Jg() && !bk() && null === ca)) {
+                    if (e || (!E.body.contains(Ka) && !Kg() && !ck() && null === ca)) {
                         d = p(d) ? d : n.empty;
                         T.className = d === n.empty ? "calendar-tooltip-event" : "calendar-tooltip";
                         if (R(d)) y(T, d);
@@ -4082,13 +4082,13 @@ export function calendarJs(I, ua, V) {
                             !w(b.events.onToolTipEventRender, T, c))
                         ) {
                             T.onmousemove = C;
-                            T.appendChild(yh);
+                            T.appendChild(zh);
                             T.appendChild(Sd);
-                            T.appendChild(ag);
+                            T.appendChild(bg);
                             T.appendChild(Td);
-                            Va(xh, b.manualEditingEnabled);
+                            Va(yh, b.manualEditingEnabled);
                             if (Ca(c.url)) {
-                                var f = aa(Ud, zg(c.url), "url-text");
+                                var f = aa(Ud, Ag(c.url), "url-text");
                                 Ub(T, Ud);
                                 f.onclick = function (a) {
                                     C(a);
@@ -4103,20 +4103,20 @@ export function calendarJs(I, ua, V) {
                                 Sd.appendChild(f));
                             Sd.innerHTML += kc(c.title);
                             Ba(c.repeatEvery) && c.repeatEvery > x.never
-                                ? (y(bg, b.repeatsText.replace(":", n.empty) + n.space + pd(c.repeatEvery)), Ub(T, bg))
-                                : ((bg.innerHTML = n.empty), gb(T, bg));
-                            Ca(c.location) ? (y(dg, c.location), Ub(T, dg)) : ((dg.innerHTML = n.empty), gb(T, dg));
-                            Ca(c.description)
-                                ? (y(cg, c.description), Ub(T, cg))
+                                ? (y(cg, b.repeatsText.replace(":", n.empty) + n.space + pd(c.repeatEvery)), Ub(T, cg))
                                 : ((cg.innerHTML = n.empty), gb(T, cg));
+                            Ca(c.location) ? (y(eg, c.location), Ub(T, eg)) : ((eg.innerHTML = n.empty), gb(T, eg));
+                            Ca(c.description)
+                                ? (y(dg, c.description), Ub(T, dg))
+                                : ((dg.innerHTML = n.empty), gb(T, dg));
                             c.from.getDate() === c.to.getDate()
                                 ? c.isAllDay
-                                    ? y(ag, b.allDayText)
-                                    : (y(ag, de(c.from, c.to)), y(Td, Ob(c.from, c.to)))
-                                : (Ve(ag, c.from, c.to), y(Td, Ob(c.from, c.to)));
+                                    ? y(bg, b.allDayText)
+                                    : (y(bg, de(c.from, c.to)), y(Td, Ob(c.from, c.to)))
+                                : (We(bg, c.from, c.to), y(Td, Ob(c.from, c.to)));
                             Td.innerHTML === n.empty && T.removeChild(Td);
                         }
-                        tf(a, T);
+                        uf(a, T);
                     }
                 },
                 f,
@@ -4126,9 +4126,9 @@ export function calendarJs(I, ua, V) {
     }
     function ic() {
         rd(Na.showToolTip);
-        Mk() && ((T.style.display = "none"), (Dd = null), (T.onmousemove = null));
+        Nk() && ((T.style.display = "none"), (Dd = null), (T.onmousemove = null));
     }
-    function Mk() {
+    function Nk() {
         return Mi(Na.showToolTip) || (null !== T && "block" === T.style.display);
     }
     function Ra(a, b, d) {
@@ -4147,17 +4147,17 @@ export function calendarJs(I, ua, V) {
             fc.appendChild(c),
             (fc.style.display = "block"),
             y(c, a),
-            t(c, "ib-close-icon", b.closeTooltipText, Nk),
+            t(c, "ib-close-icon", b.closeTooltipText, Ok),
             nd(
                 Na.hideNotification,
                 function () {
-                    Nk();
+                    Ok();
                 },
                 5e3,
                 !1
             ));
     }
-    function Nk() {
+    function Ok() {
         fc.style.display = "none";
     }
     function Jh(a, c) {
@@ -4176,20 +4176,20 @@ export function calendarJs(I, ua, V) {
     }
     function Im(a, c) {
         var d = b.dayHeaderNames[c],
-            e = h("div", Cg());
+            e = h("div", Dg());
         y(e, d);
         a.appendChild(e);
         e.oncontextmenu = function (a) {
             if (!r && (fa(a) || mc(), Ga(), b.sideMenu.showDays)) {
-                hk = c;
+                ik = c;
                 var d = 1 < b.visibleDays.length ? "block" : "none",
                     e = 1 <= b.workingDays.length && !ae(b.workingDays, b.visibleDays) ? "block" : "none";
-                gk.style.display = d;
-                ik.style.display = d;
-                jk.style.display = e;
+                hk.style.display = d;
+                jk.style.display = d;
                 kk.style.display = e;
+                lk.style.display = e;
                 C(a);
-                tf(a, nb);
+                uf(a, nb);
             }
         };
         e.ondblclick = function (a) {
@@ -4213,54 +4213,57 @@ export function calendarJs(I, ua, V) {
             }
         };
     }
-    function hf(a) {
-        Ma() !== a &&
-            (Ok(a, !1), vb.push(a), zh++, db(a) || (a.className += " view-shown"), (a.style.zIndex = zh), kd(), pf());
+    function jf(a, b) {
+        Xa(a) && b
+            ? (Oi(a, !1), ob.push(a), Ie++, (a.style.zIndex = Ie))
+            : Ma() === a ||
+              Xa(a) ||
+              (Oi(a, !1), ob.push(a), Ie++, (a.className += " view-shown"), (a.style.zIndex = Ie), kd(), qf());
     }
     function xd(a, b) {
-        db(a) && ((a.className = a.className.replace(" view-shown", n.empty)), Ok(a, b), 0 === vb.length && (zh = 0));
+        Xa(a) && ((a.className = a.className.replace(" view-shown", n.empty)), Oi(a, b), 0 === ob.length && (Ie = 0));
     }
-    function Ok(a, b) {
+    function Oi(a, b) {
         b = p(b) ? b : !0;
-        for (var c = [], e = vb.length, f = 0; f < e; f++) {
-            var k = vb[f];
+        for (var c = [], e = ob.length, f = 0; f < e; f++) {
+            var k = ob[f];
             p(k) && k.id !== a.id && c.push(k);
         }
-        vb = [].slice.call(c);
-        b && pf();
+        ob = [].slice.call(c);
+        b && qf();
     }
-    function db(a) {
+    function Xa(a) {
         return p(a) && a.className && a.className.indexOf("view-shown") > B.notFound;
     }
-    function Dj(a) {
+    function Ej(a) {
         a = p(a) ? a : !0;
         var b = Ma();
         xd(b, !a);
-        0 === vb.length && (zh = 0);
-        a && pf();
+        0 === ob.length && (Ie = 0);
+        a && qf();
     }
     function Ma() {
-        return 0 < vb.length ? vb[vb.length - 1] : null;
+        return 0 < ob.length ? ob[ob.length - 1] : null;
     }
-    function pf(a) {
+    function qf(a) {
         a = p(a) ? a : !0;
         var c = Ma(),
             d = null;
         null === c
-            ? (d = sb.fullMonth)
+            ? (d = tb.fullMonth)
             : c === W
-              ? (d = sb.fullDay)
+              ? (d = tb.fullDay)
               : c === da
-                ? (d = sb.fullWeek)
+                ? (d = tb.fullWeek)
                 : c === Da
-                  ? (d = sb.fullYear)
+                  ? (d = tb.fullYear)
                   : c === ia
-                    ? (d = sb.timeline)
-                    : c === ra && (d = sb.allEvents);
+                    ? (d = tb.timeline)
+                    : c === ra && (d = tb.allEvents);
         a && R(d) && w(b.events.onViewChange, d);
         return d;
     }
-    function Ij(a, b) {
+    function Jj(a, b) {
         var c = new Date(),
             e = new Date();
         e.setHours(0, 0, 0, 0);
@@ -4277,22 +4280,22 @@ export function calendarJs(I, ua, V) {
             e = fb(e, b);
         }
     }
-    function ug(a, b) {
-        var c = Xe(b);
+    function vg(a, b) {
+        var c = Ye(b);
         b = la.floor((a.pageY - c.top) / (b.offsetHeight / 1440)) / 60;
         a = la.floor(b);
         b = la.round(60 * (b - a));
         return [a, b];
     }
-    function Kj(a, c, d, e, f) {
+    function Lj(a, c, d, e, f) {
         var k = c.offsetHeight,
             m = c.offsetHeight / 1440;
         c = 0;
         var h = null;
         if (!f.isAllDay) {
             h = H(f.repeatEvery);
-            if (U(f.from, d) || h > x.never) c = m * eg(f.from);
-            h = U(f.to, d) || h > x.never ? m * eg(f.to) - c : k;
+            if (U(f.from, d) || h > x.never) c = m * fg(f.from);
+            h = U(f.to, d) || h > x.never ? m * fg(f.to) - c : k;
             h -= 2 * b.spacing;
         }
         c <= b.spacing && ((c += b.spacing), (h -= b.spacing));
@@ -4310,8 +4313,8 @@ export function calendarJs(I, ua, V) {
         var k = a.offsetWidth / 1440;
         a = 0;
         var h = H(e.repeatEvery);
-        if (U(e.from, c) || h > x.never) a = k * eg(e.from);
-        c = U(e.to, c) || h > x.never ? k * eg(e.to) - a : f;
+        if (U(e.from, c) || h > x.never) a = k * fg(e.from);
+        c = U(e.to, c) || h > x.never ? k * fg(e.to) - a : f;
         c -= 2 * b.spacing;
         a <= b.spacing && ((a += b.spacing), (c -= b.spacing));
         d.style.left = a + "px";
@@ -4321,24 +4324,24 @@ export function calendarJs(I, ua, V) {
             : (d.style.maxWidth = f - (d.offsetLeft + 2 * b.spacing) - k + "px");
         return a - b.spacing;
     }
-    function Nj(a, b, d, e, f) {
+    function Oj(a, b, d, e, f) {
         var c = 0;
         null !== d &&
-            (dc(a) && db(b) && f
-                ? ((a = (e.offsetHeight / 1440) * eg(new Date())),
+            (dc(a) && Xa(b) && f
+                ? ((a = (e.offsetHeight / 1440) * fg(new Date())),
                   (d.style.display = "block"),
                   (d.style.top = a - d.offsetHeight / 2 + "px"),
                   (c = a))
                 : (d.style.display = "none"));
         return c;
     }
-    function Jj(a, b) {
+    function Kj(a, b) {
         C(a);
         a = bd(b, "z-index", !1);
         a = null === a || "auto" === a ? 1 : parseInt(a) + 1;
         b.style.zIndex = a.toString();
     }
-    function Oj(a) {
+    function Pj(a) {
         a = a.getElementsByClassName("event");
         a = [].slice.call(a);
         var c = a.length;
@@ -4387,24 +4390,24 @@ export function calendarJs(I, ua, V) {
         a.offsetTop < b.offsetTop ? (c = -1) : a.offsetTop > b.offsetTop && (c = 1);
         return c;
     }
-    function Hj(a, c, d) {
+    function Ij(a, c, d) {
         C(a);
-        null === vg
+        null === wg
             ? 0 === a.dataTransfer.files.length
                 ? Pk(a, c.getFullYear(), c.getMonth(), c.getDate())
                 : Qk(a)
-            : (U(yg, c) || ((ca = Qb), (Vd = yg), Rk(a, c.getFullYear(), c.getMonth(), c.getDate())),
+            : (U(zg, c) || ((ca = Qb), (Vd = zg), Rk(a, c.getFullYear(), c.getMonth(), c.getDate())),
               (c = d.offsetHeight / 1440),
-              (d = Xe(d)),
-              (a = (la.abs(a.pageY) - d.top + xg - wg) / c),
+              (d = Ye(d)),
+              (a = (la.abs(a.pageY) - d.top + yg - xg) / c),
               (Qb.from = fb(Qb.from, a)),
               (Qb.to = fb(Qb.to, a)),
               jb(),
               w(b.events.onEventUpdated, Qb),
               Sa(b.eventUpdatedText.replace("{0}", Qb.title)),
               ma(),
-              (Qb = vg = null),
-              (wg = xg = 0));
+              (Qb = wg = null),
+              (xg = yg = 0));
     }
     function Uh(a) {
         C(a);
@@ -4412,7 +4415,7 @@ export function calendarJs(I, ua, V) {
             var c = null;
             a = null;
             var d = 0;
-            db(W) ? ((c = wa), (a = Ag), (d = a.length)) : db(da) && ((c = me), (a = di), (d = a.length));
+            Xa(W) ? ((c = wa), (a = Bg), (d = a.length)) : Xa(da) && ((c = me), (a = di), (d = a.length));
             if (null !== c && 0 < d) {
                 c = c.offsetHeight / 1440;
                 for (var e = !1, f = 0; f < d; f++) {
@@ -4454,13 +4457,13 @@ export function calendarJs(I, ua, V) {
         ma();
     }
     function Wk(a, b) {
-        Ie(Gg, a);
-        Ie(Yh, a);
-        Ie(mi, a);
-        Ie($h, a);
-        Ie(ki, a);
-        Ie(oi, a);
-        Ra(Gg, b);
+        Je(Hg, a);
+        Je(Yh, a);
+        Je(mi, a);
+        Je($h, a);
+        Je(ki, a);
+        Je(oi, a);
+        Ra(Hg, b);
         Ra(Yh, b);
         Ra(mi, b);
         Ra($h, b);
@@ -4474,7 +4477,7 @@ export function calendarJs(I, ua, V) {
                     g = G(h.title, n.empty),
                     p = G(h.backgroundColor, n.empty),
                     q = G(h.textColor, n.empty);
-                Mj(h, a) && g !== n.empty && e.indexOf(g.toLowerCase())
+                Nj(h, a) && g !== n.empty && e.indexOf(g.toLowerCase())
                     ? (Km(h, d, g, c),
                       p !== n.empty && d.style.setProperty("background-color", p, "important"),
                       q !== n.empty && d.style.setProperty("color", q, "important"),
@@ -4491,7 +4494,7 @@ export function calendarJs(I, ua, V) {
             });
         aa(c, d, f + e, k, !0, !0);
     }
-    function Mj(a, b) {
+    function Nj(a, b) {
         var c = H(a.day),
             e = H(a.month);
         a = H(a.year);
@@ -4509,15 +4512,15 @@ export function calendarJs(I, ua, V) {
         return a;
     }
     function xb(a) {
-        for (var b in pb)
-            if (pb.hasOwnProperty(b))
-                for (var d in pb[b])
-                    if (pb[b].hasOwnProperty(d)) {
-                        var e = Xk(pb[b][d]);
+        for (var b in qb)
+            if (qb.hasOwnProperty(b))
+                for (var d in qb[b])
+                    if (qb[b].hasOwnProperty(d)) {
+                        var e = Xk(qb[b][d]);
                         if (a(e, b, d)) return;
                     }
     }
-    function ub(a, b) {
+    function vb(a, b) {
         b = p(b) ? b : !0;
         a = a.sort(function (a, b) {
             return a.from - b.from;
@@ -4528,12 +4531,12 @@ export function calendarJs(I, ua, V) {
             }));
         return a;
     }
-    function Xj(a, c) {
+    function Yj(a, c) {
         Ub(E.body, Ka);
         var d = function () {
             gb(E.body, Ka);
         };
-        Gf(
+        Hf(
             b.confirmEventsRemoveTitle,
             b.confirmEventsRemoveMessage,
             function () {
@@ -4555,7 +4558,7 @@ export function calendarJs(I, ua, V) {
             (a.to = new Date(a.from.getFullYear(), a.from.getMonth(), a.from.getDate(), 23, 59)));
         return a;
     }
-    function pk(a) {
+    function qk(a) {
         a = p(a) && N.hasOwnProperty(a) ? a : 0;
         for (var b in N) N.hasOwnProperty(b) && p(N[b].eventEditorInput) && (N[b].eventEditorInput.checked = !1);
         p(N[a].eventEditorInput) && (N[a].eventEditorInput.checked = !0);
@@ -4573,10 +4576,10 @@ export function calendarJs(I, ua, V) {
     function U(a, b) {
         return a.getDate() === b.getDate() && a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear();
     }
-    function Tj(a, b) {
+    function Uj(a, b) {
         return a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear();
     }
-    function Ye(a, b) {
+    function Ze(a, b) {
         a = new Date(a.getFullYear(), a.getMonth(), a.getDate());
         a.setHours(0, 0, 0, 0);
         b = new Date(b.getFullYear(), b.getMonth(), b.getDate());
@@ -4592,7 +4595,7 @@ export function calendarJs(I, ua, V) {
             a.getMonth() === b.getMonth()
         );
     }
-    function lg(a) {
+    function mg(a) {
         var b = new Date();
         return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
     }
@@ -4607,14 +4610,14 @@ export function calendarJs(I, ua, V) {
     function ad(a, b) {
         return new Date(a, b + 1, 0).getDate();
     }
-    function Hg(a) {
+    function Ig(a) {
         var c = b.thText;
         if (31 === a || 21 === a || 1 === a) c = b.stText;
         else if (22 === a || 2 === a) c = b.ndText;
         else if (23 === a || 3 === a) c = b.rdText;
         return c;
     }
-    function eg(a) {
+    function fg(a) {
         var b = a.getHours();
         a = a.getMinutes();
         return 60 * b + a;
@@ -4625,10 +4628,10 @@ export function calendarJs(I, ua, V) {
         b = la.abs(b - a);
         return la.ceil(b / 864e5);
     }
-    function Bg(a) {
+    function Cg(a) {
         a.setDate(a.getDate() - 1);
     }
-    function Xa(a, b) {
+    function Ya(a, b) {
         b = Ba(b) ? b : 1;
         a.setDate(a.getDate() + b);
     }
@@ -4673,14 +4676,14 @@ export function calendarJs(I, ua, V) {
         p(b) && (b = new Date(b.getTime() + la.abs(6e4 * b.getTimezoneOffset())));
         return b;
     }
-    function ok(a, b) {
+    function pk(a, b) {
         if ("date" === a.type) {
             var c = ("0" + b.getDate()).slice(-2),
                 e = ("0" + (b.getMonth() + 1)).slice(-2);
             a.setAttribute("min", b.getFullYear() + "-" + e + "-" + c);
         }
     }
-    function eh(a, b) {
+    function fh(a, b) {
         var c = 0,
             e = 0,
             f = b.split(":");
@@ -4701,7 +4704,7 @@ export function calendarJs(I, ua, V) {
         a = a.replace("{ddd}", b.dayNamesAbbreviated[d]);
         a = a.replace("{dd}", J(c.getDate()));
         a = a.replace("{d}", c.getDate());
-        a = a.replace("{o}", Hg(c.getDate()));
+        a = a.replace("{o}", Ig(c.getDate()));
         a = a.replace("{mmmm}", b.monthNames[c.getMonth()]);
         a = a.replace("{mmm}", b.monthNamesAbbreviated[c.getMonth()]);
         a = a.replace("{mm}", J(c.getMonth() + 1));
@@ -4711,11 +4714,11 @@ export function calendarJs(I, ua, V) {
         a = a.replace("{yy}", c.getFullYear().toString().substring(2));
         return (a = a.replace("{y}", parseInt(c.getFullYear().toString().substring(2)).toString()));
     }
-    function Oe(a) {
+    function Pe(a) {
         if (b.startOfWeekDay === va.saturday || b.startOfWeekDay === va.sunday) a += 7 - b.startOfWeekDay;
         return a;
     }
-    function Ue(a, b) {
+    function Ve(a, b) {
         var c = H(a.repeatEvery);
         a = new Date(a.to);
         c > x.never && ((b = new Date(b)), b.setHours(a.getHours(), a.getMinutes()), (a = b));
@@ -4736,7 +4739,7 @@ export function calendarJs(I, ua, V) {
         } else d = J(a.getHours()) + ":" + J(a.getMinutes());
         return d;
     }
-    function Ve(a, c, d) {
+    function We(a, c, d) {
         a.innerHTML = n.empty;
         jc(a, c);
         aa(a, n.space + b.toTimeText + n.space);
@@ -4756,11 +4759,11 @@ export function calendarJs(I, ua, V) {
         p(d) && aa(a, d);
         f ? aa(a, J(c.getDate())) : aa(a, c.getDate());
         b.showDayNumberOrdinals &&
-            ((c = Hg(c.getDate())), p(c) && ((d = h("sup")), (d.innerText = c), a.appendChild(d)));
+            ((c = Ig(c.getDate())), p(c) && ((d = h("sup")), (d.innerText = c), a.appendChild(d)));
         p(e) && aa(a, e);
     }
     function bi(a, c, d, e) {
-        if (!lf(c) && b.dragAndDropForEventsEnabled && b.manualEditingEnabled) {
+        if (!mf(c) && b.dragAndDropForEventsEnabled && b.manualEditingEnabled) {
             var f = new Date(d),
                 k = 0 <= b.weekendDays.indexOf(f.getDay()) ? " drag-not-allowed-weekend-day" : " drag-not-allowed";
             a.setAttribute("draggable", !0);
@@ -4790,7 +4793,7 @@ export function calendarJs(I, ua, V) {
                 ca = Vd = null;
                 p(e) &&
                     ((e.className = e.className.replace(k, n.empty)),
-                    Dg(e, f.getFullYear(), f.getMonth(), f.getDate()));
+                    Eg(e, f.getFullYear(), f.getMonth(), f.getDate()));
                 Bh(
                     "cell",
                     function (a) {
@@ -4808,7 +4811,7 @@ export function calendarJs(I, ua, V) {
             };
         }
     }
-    function Dg(a, c, d, e) {
+    function Eg(a, c, d, e) {
         if (b.dragAndDropForEventsEnabled && b.manualEditingEnabled) {
             var f = new Date(c, d, e);
             a.ondragover = function (b) {
@@ -4863,7 +4866,7 @@ export function calendarJs(I, ua, V) {
         }
     }
     function Pk(a, c, d, e) {
-        a = Qe(a.dataTransfer.getData("event_details"));
+        a = Re(a.dataTransfer.getData("event_details"));
         if (p(a) && null === ca) {
             var f = new Date(a.from),
                 h = new Date(a.to);
@@ -4874,9 +4877,9 @@ export function calendarJs(I, ua, V) {
         }
     }
     function Qk(a) {
-        p(Z.FileReader) && b.importEventsEnabled && Oi(a.dataTransfer.files);
+        p(Z.FileReader) && b.importEventsEnabled && Pi(a.dataTransfer.files);
     }
-    function Qe(a) {
+    function Re(a) {
         try {
             var b = cc.parse(a);
         } catch (d) {
@@ -4916,7 +4919,7 @@ export function calendarJs(I, ua, V) {
     function Nl() {
         Wd && ((Fb.style.left = Ch + "px"), (Fb.style.top = Dh + "px"), (Wd = !1), (Fb = null), (Dh = Ch = 0));
     }
-    function lk(a) {
+    function mk(a) {
         var b = h("div");
         a.appendChild(b);
         return b;
@@ -4962,7 +4965,7 @@ export function calendarJs(I, ua, V) {
               Ca(b.colorBorder) && (a.style.borderColor = b.colorBorder))
             : b.isAllDay && (a.className += " all-day");
     }
-    function ff(a, b) {
+    function gf(a, b) {
         Di === b.id && (a.className += " focused-event");
         dl(b.id) && (a.className += " selected-event");
         for (var c = !1, e = ja.length, f = 0; f < e; f++)
@@ -4972,7 +4975,7 @@ export function calendarJs(I, ua, V) {
             }
         c && (a.className = Pb ? a.className + " cut-event" : a.className + " copy-event");
     }
-    function fg(a, b, d) {
+    function gg(a, b, d) {
         d = p(d) ? d : !1;
         var c = E.getElementsByClassName("event");
         c = [].slice.call(c);
@@ -5037,10 +5040,10 @@ export function calendarJs(I, ua, V) {
         a = p(a) ? a : !0;
         for (var b = ja.length, d = 0; d < b; d++) {
             var e = ja[d];
-            Pb ? fg(e.id, "cut-event", a) : fg(e.id, "copy-event", a);
+            Pb ? gg(e.id, "cut-event", a) : gg(e.id, "copy-event", a);
         }
     }
-    function dk(a) {
+    function ek(a) {
         ja = [];
         var b = Ea.length;
         if (0 < b) for (a = 0; a < b; a++) ja.push(Ea[a]);
@@ -5073,10 +5076,10 @@ export function calendarJs(I, ua, V) {
         Ha();
         ma();
     }
-    function gf(a, b) {
+    function hf(a, b) {
         C(a);
         Ga();
-        if (lf(b)) fa(a) || mc();
+        if (mf(b)) fa(a) || mc();
         else if (fa(a))
             if (dl(b.id)) {
                 a = Ea.length;
@@ -5085,21 +5088,21 @@ export function calendarJs(I, ua, V) {
                         Ea.splice(c, 1);
                         break;
                     }
-                fg(b.id, "selected-event", !0);
-            } else Ea.push(b), fg(b.id, "selected-event", !1);
+                gg(b.id, "selected-event", !0);
+            } else Ea.push(b), gg(b.id, "selected-event", !1);
         else mc();
     }
     function mc() {
         var a = !1,
             b = Ea.length;
         if (0 < b) {
-            for (a = 0; a < b; a++) fg(Ea[a].id, "selected-event", !0);
+            for (a = 0; a < b; a++) gg(Ea[a].id, "selected-event", !0);
             a = !0;
             Ea = [];
         }
         return a;
     }
-    function qj(a) {
+    function rj(a) {
         ja = [];
         Pb = p(a) ? a : !1;
         a = Ea.length;
@@ -5111,17 +5114,17 @@ export function calendarJs(I, ua, V) {
     function Qh() {
         0 < b.autoRefreshTimerDelay &&
             !r &&
-            $f &&
+            ag &&
             nd(
                 Na.autoRefresh,
                 function () {
-                    bj();
+                    cj();
                     La();
                 },
                 b.autoRefreshTimerDelay
             );
     }
-    function bj() {
+    function cj() {
         var a = w(b.events.onEventsFetch);
         if (pa(a))
             for (var c = a.length, d = 0; d < c; d++) {
@@ -5131,15 +5134,15 @@ export function calendarJs(I, ua, V) {
             }
     }
     function Ph() {
-        0 < b.autoRefreshTimerDelay && !r && $f && rd(Na.autoRefresh);
+        0 < b.autoRefreshTimerDelay && !r && ag && rd(Na.autoRefresh);
     }
     function La(a, c) {
-        if (b.isWidget) kg ? F() : F(v);
-        else if (((a = p(a) ? a : !1), (c = p(c) ? c : !1), lj() || a))
-            ma(), kg ? (F(), Uj()) : Ha(), c && w(b.events.onRefresh);
+        if (b.isWidget) lg ? F() : F(v);
+        else if (((a = p(a) ? a : !1), (c = p(c) ? c : !1), mj() || a))
+            ma(), lg ? (F(), Vj()) : Ha(), c && w(b.events.onRefresh);
     }
-    function lj() {
-        return !Mk() && !E.body.contains(Ka) && !Jg() && !bk() && !Pe() && null === ca;
+    function mj() {
+        return !Nk() && !E.body.contains(Ka) && !Kg() && !ck() && !Qe() && null === ca;
     }
     function nd(a, b, d, e) {
         e = p(e) ? e : !0;
@@ -5157,7 +5160,7 @@ export function calendarJs(I, ua, V) {
     function Mi(a) {
         return Gb.hasOwnProperty(a) && null !== Gb[a];
     }
-    function fj() {
+    function gj() {
         var a = [],
             b = [];
         xb(function (c) {
@@ -5170,8 +5173,8 @@ export function calendarJs(I, ua, V) {
     function h(a, b, d, e) {
         var c = a.toLowerCase();
         var h = "text" === c;
-        Pi.hasOwnProperty(c) || (Pi[c] = h ? E.createTextNode(n.empty) : E.createElement(c));
-        c = Pi[c].cloneNode(!1);
+        Qi.hasOwnProperty(c) || (Qi[c] = h ? E.createTextNode(n.empty) : E.createElement(c));
+        c = Qi[c].cloneNode(!1);
         if (("input" === a && "button" !== d) || "textarea" === a) p(e) ? (c.id = e) : (c.id = ec());
         p(b) && (c.className = b);
         p(d) && (c.type = d);
@@ -5204,9 +5207,9 @@ export function calendarJs(I, ua, V) {
         return d;
     }
     function Aa(a) {
-        (Je.hasOwnProperty(a) && null !== Je[a]) || (Je[a] = gl(a));
-        E.body.contains(Je[a]) || (Je[a] = gl(a));
-        return Je[a];
+        (Ke.hasOwnProperty(a) && null !== Ke[a]) || (Ke[a] = gl(a));
+        E.body.contains(Ke[a]) || (Ke[a] = gl(a));
+        return Ke[a];
     }
     function gl(a) {
         var b = null;
@@ -5240,10 +5243,10 @@ export function calendarJs(I, ua, V) {
     function Jc(a) {
         a.cancelBubble = !0;
     }
-    function tf(a, b) {
+    function uf(a, b) {
         var c = a.pageX,
             e = a.pageY,
-            f = jj();
+            f = kj();
         b.style.display = "block";
         c + b.offsetWidth > Z.innerWidth ? (c -= b.offsetWidth) : c++;
         e + b.offsetHeight > Z.innerHeight ? (e -= b.offsetHeight) : e++;
@@ -5259,12 +5262,12 @@ export function calendarJs(I, ua, V) {
             console.error(d.message), (a.type = "text");
         }
     }
-    function Xe(a) {
+    function Ye(a) {
         for (var b = 0, d = 0; a && !isNaN(a.offsetLeft) && !isNaN(a.offsetTop); )
             (b += a.offsetLeft - a.scrollLeft), (d += a.offsetTop - a.scrollTop), (a = a.offsetParent);
         return { left: b, top: d };
     }
-    function jj() {
+    function kj() {
         var a = E.documentElement;
         return {
             left: (Z.pageXOffset || a.scrollLeft) - (a.clientLeft || 0),
@@ -5285,7 +5288,7 @@ export function calendarJs(I, ua, V) {
         b && delete a.id;
         return a;
     }
-    function Ie(a, b) {
+    function Je(a, b) {
         null !== a && (a.className = b);
     }
     function kc(a) {
@@ -5316,7 +5319,7 @@ export function calendarJs(I, ua, V) {
     function ld(a) {
         for (var b = a.children, d = b.length - 1; d--; ) a.appendChild(b[d]);
     }
-    function ng(a, b) {
+    function og(a, b) {
         a = E.getElementsByClassName(a);
         a = [].slice.call(a);
         for (var c = a.length, e = 0; e < c; e++) {
@@ -5327,7 +5330,7 @@ export function calendarJs(I, ua, V) {
     function Zh(a, b) {
         for (a = a.getElementsByClassName(b); a[0]; ) a[0].parentNode.removeChild(a[0]);
     }
-    function Dk(a, b) {
+    function Ek(a, b) {
         for (a = a.getElementsByClassName(b); a[0]; ) a[0].className = a[0].className.replace(b, n.empty);
     }
     function ha(a, b, d, e) {
@@ -5396,7 +5399,7 @@ export function calendarJs(I, ua, V) {
     function oa(a, b) {
         return a.substring(0, b.length) === b;
     }
-    function zg(a, b) {
+    function Ag(a, b) {
         var c = a;
         b = p(b) ? b : 30;
         a.length > b &&
@@ -5433,10 +5436,10 @@ export function calendarJs(I, ua, V) {
     function xc(a) {
         return Pa(a) && a instanceof Date;
     }
-    function cj(a) {
+    function dj(a) {
         return Pa(a) && void 0 !== a.tagName;
     }
-    function qk(a) {
+    function rk(a) {
         return /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
             a
         );
@@ -5449,7 +5452,7 @@ export function calendarJs(I, ua, V) {
     function g(a, b) {
         return "string" === typeof a ? a : b;
     }
-    function bb(a, b) {
+    function cb(a, b) {
         return R(a) ? a : b;
     }
     function l(a, b) {
@@ -5458,10 +5461,10 @@ export function calendarJs(I, ua, V) {
     function ta(a, b) {
         return Ba(a) ? a : b;
     }
-    function gg(a, b) {
+    function hg(a, b) {
         return pa(a) ? a : b;
     }
-    function Qi(a, b) {
+    function Ri(a, b) {
         return xc(a) ? a : b;
     }
     function D(a, b) {
@@ -5475,7 +5478,7 @@ export function calendarJs(I, ua, V) {
                 a = c.length;
                 for (d = 0; d < a; d++) Z.localStorage.removeItem(c[d]);
             }
-            c = ub(Bd());
+            c = vb(Bd());
             a = c.length;
             for (d = 0; d < a; d++) {
                 var e = cc.stringify(c[d]);
@@ -5483,7 +5486,7 @@ export function calendarJs(I, ua, V) {
             }
         }
     }
-    function Oi(a) {
+    function Pi(a) {
         for (
             var b = a.length,
                 d = [],
@@ -5510,7 +5513,7 @@ export function calendarJs(I, ua, V) {
             b(a.name, e);
         };
         c.onload = function (a) {
-            a = Qe(a.target.result);
+            a = Re(a.target.result);
             Pa(a) && a.hasOwnProperty("events") && (a = a.events);
             for (var b = a.length, c = 0; c < b; c++) {
                 var d = a[c];
@@ -5622,7 +5625,7 @@ export function calendarJs(I, ua, V) {
         a.accept = ".ical, .ics, .json";
         a.multiple = "multiple";
         a.onchange = function () {
-            Oi(a.files);
+            Pi(a.files);
         };
         Hb();
         a.click();
@@ -5640,14 +5643,14 @@ export function calendarJs(I, ua, V) {
         c = p(c) ? c.toLowerCase() : "csv";
         e = p(e) ? e : !1;
         var f = n.empty,
-            g = ub,
+            g = vb,
             m = [];
         m = p(a) ? m.concat(a) : Bd();
-        m = ub(m);
+        m = vb(m);
         a = g(m, !1);
         if ("csv" === c) {
             f = a.length;
-            g = Ri();
+            g = Si();
             m = g[0];
             var l = g[1],
                 r = [];
@@ -5656,7 +5659,7 @@ export function calendarJs(I, ua, V) {
             g.push(r.join(","));
             for (m = 0; m < f; m++) {
                 l = g;
-                r = Si(a[m]);
+                r = Ti(a[m]);
                 t = r.length;
                 for (var u = 0; u < t; u++) r[u] = jl(r[u]);
                 l.push(r.join(","));
@@ -5669,7 +5672,7 @@ export function calendarJs(I, ua, V) {
             f.push('<?xml version="1.0" ?>');
             f.push("<Calendar>");
             p(m) && f.push("<Filename>" + m + "</Filename>");
-            f.push("<LastModified>" + Ti() + "</LastModified>");
+            f.push("<LastModified>" + Ui() + "</LastModified>");
             f.push("</Calendar>");
             f.push("<Events>");
             for (m = 0; m < g; m++) {
@@ -5680,7 +5683,7 @@ export function calendarJs(I, ua, V) {
                 for (u = 0; u < t; u++) {
                     var v = r[u];
                     if ("customTags" !== v && l.hasOwnProperty(v) && null !== l[v]) {
-                        var y = Ui(v);
+                        var y = Vi(v);
                         f.push("<" + y + ">" + Gh(v, l[v]) + "</" + y + ">");
                     }
                 }
@@ -5688,13 +5691,13 @@ export function calendarJs(I, ua, V) {
             }
             f.push("</Events>");
             f = f.join(n.newLine);
-        } else if ("json" === c) f = ek(a);
+        } else if ("json" === c) f = fk(a);
         else if ("text" === c) {
             m = d;
             f = [];
             g = a.length;
             p(m) && f.push("Filename: " + m);
-            f.push("Last Modified: " + Ti());
+            f.push("Last Modified: " + Ui());
             f.push(n.empty);
             for (m = 0; m < g; m++) {
                 l = a[m];
@@ -5705,7 +5708,7 @@ export function calendarJs(I, ua, V) {
                         "customTags" !== v &&
                             l.hasOwnProperty(v) &&
                             null !== l[v] &&
-                            f.push(Ui(v) + ": " + Gh(v, l[v]));
+                            f.push(Vi(v) + ": " + Gh(v, l[v]));
                 f.push(n.empty);
             }
             f.pop();
@@ -5731,19 +5734,19 @@ export function calendarJs(I, ua, V) {
                 !ib(l.showAsBusy) || l.showAsBusy ? f.push("TRANSP:OPAQUE") : f.push("TRANSP:TRANSPARENT");
                 l.isAllDay
                     ? (f.push("DTSTART:" + kl(l.from)), f.push("DTEND:" + kl(l.to)))
-                    : (f.push("DTSTART:" + Ke(l.from)), f.push("DTEND:" + Ke(l.to)));
-                xc(l.created) && ((v = Ke(l.created)), f.push("DTSTAMP:" + v), f.push("CREATED:" + v));
-                xc(l.lastUpdated) && f.push("LAST-MODIFIED:" + Ke(l.lastUpdated));
+                    : (f.push("DTSTART:" + Le(l.from)), f.push("DTEND:" + Le(l.to)));
+                xc(l.created) && ((v = Le(l.created)), f.push("DTSTAMP:" + v), f.push("CREATED:" + v));
+                xc(l.lastUpdated) && f.push("LAST-MODIFIED:" + Le(l.lastUpdated));
                 R(r) && R(t) && f.push("ORGANIZER;CN=" + r + ":MAILTO:" + t);
                 u !== x.never && f.push("RRULE:" + Pm(l, u));
-                R(l.title) && f.push("SUMMARY:" + hg(l.title));
-                R(l.description) && f.push("DESCRIPTION:" + hg(l.description));
-                R(l.location) && f.push("LOCATION:" + hg(l.location));
-                R(l.url) && f.push("URL:" + hg(l.url));
-                R(l.group) && f.push("CATEGORIES:" + hg(l.group));
+                R(l.title) && f.push("SUMMARY:" + ig(l.title));
+                R(l.description) && f.push("DESCRIPTION:" + ig(l.description));
+                R(l.location) && f.push("LOCATION:" + ig(l.location));
+                R(l.url) && f.push("URL:" + ig(l.url));
+                R(l.group) && f.push("CATEGORIES:" + ig(l.group));
                 if (!ib(l.showAlerts) || l.showAlerts)
                     f.push("BEGIN:VALARM"),
-                        f.push("TRIGGER;VALUE=DATE-TIME:" + Ke(l.from)),
+                        f.push("TRIGGER;VALUE=DATE-TIME:" + Le(l.from)),
                         f.push("ACTION:DISPLAY"),
                         f.push("END:VALARM");
                 f.push("END:VEVENT");
@@ -5752,13 +5755,13 @@ export function calendarJs(I, ua, V) {
             f = f.join(n.newLineCharacterReturn);
         } else if ("md" === c) {
             f = a.length;
-            g = Ri();
+            g = Si();
             m = g[1];
             g = ["| " + g[0].join(" | ") + " |"];
             l = [];
             for (r = 0; r < m; r++) l.push("---");
             g.push("| " + l.join(" | ") + " |");
-            for (m = 0; m < f; m++) (l = Si(a[m])), g.push("| " + l.join(" | ") + " |");
+            for (m = 0; m < f; m++) (l = Ti(a[m])), g.push("| " + l.join(" | ") + " |");
             f = g.join(n.newLine);
         } else if ("html" === c) {
             m = d;
@@ -5768,7 +5771,7 @@ export function calendarJs(I, ua, V) {
             f.push("<html>");
             f.push("<head>");
             f.push('<meta charset="utf-8" />');
-            f.push('<meta http-equiv="Last-Modified" content="' + Ti() + ' GMT" />');
+            f.push('<meta http-equiv="Last-Modified" content="' + Ui() + ' GMT" />');
             p(m) && f.push("<title>" + m + "</title>");
             f.push("</head>");
             f.push("<body>");
@@ -5783,7 +5786,7 @@ export function calendarJs(I, ua, V) {
                         "customTags" !== v &&
                             l.hasOwnProperty(v) &&
                             null !== l[v] &&
-                            f.push("<li><b>" + Ui(v) + "</b>: " + Gh(v, l[v]) + "</li>");
+                            f.push("<li><b>" + Vi(v) + "</b>: " + Gh(v, l[v]) + "</li>");
                 f.push("</ul>");
             }
             f.push("</body>");
@@ -5791,7 +5794,7 @@ export function calendarJs(I, ua, V) {
             f = f.join(n.newLine);
         } else if ("tsv" === c) {
             f = a.length;
-            g = Ri();
+            g = Si();
             m = g[0];
             l = g[1];
             r = [];
@@ -5800,7 +5803,7 @@ export function calendarJs(I, ua, V) {
             g.push(r.join("\t"));
             for (m = 0; m < f; m++) {
                 l = g;
-                r = Si(a[m]);
+                r = Ti(a[m]);
                 t = r.length;
                 for (u = 0; u < t; u++) r[u] = ll(r[u]);
                 l.push(r.join("\t"));
@@ -5809,7 +5812,7 @@ export function calendarJs(I, ua, V) {
         }
         f !== n.empty &&
             (e
-                ? (Hf.clipboard.writeText(f), Sa(b.eventsExportedText))
+                ? (If.clipboard.writeText(f), Sa(b.eventsExportedText))
                 : ((e = h("a")),
                   (g = "text"),
                   (l = m = c),
@@ -5828,7 +5831,7 @@ export function calendarJs(I, ua, V) {
                   (c = m[0]),
                   (g = m[1]),
                   (m = m[2]),
-                  (d = p(d) ? d : fk(m)),
+                  (d = p(d) ? d : gk(m)),
                   (e.style.display = "none"),
                   e.setAttribute("target", "_blank"),
                   e.setAttribute("href", "data:" + c + "/" + g + ";charset=utf-8," + encodeURIComponent(f)),
@@ -5839,17 +5842,17 @@ export function calendarJs(I, ua, V) {
                   Sa(b.eventsExportedToText.replace("{0}", d))),
             w(b.events.onEventsExported, a));
     }
-    function fk(a, c) {
+    function gk(a, c) {
         c = p(c) ? c : b.exportStartFilename;
         var d = new Date(),
             e = J(d.getDate()) + "-" + J(d.getMonth() + 1) + "-" + d.getFullYear();
         d = J(d.getHours()) + "-" + J(d.getMinutes());
         return c + e + "_" + d + "." + a;
     }
-    function ig(a) {
+    function jg(a) {
         return a ? b.yesText : b.noText;
     }
-    function Le(a) {
+    function Me(a) {
         var c = b.repeatsNever;
         p(a) &&
             ((c = J(a.getDate()) + "/" + J(a.getMonth() + 1) + "/" + a.getFullYear()),
@@ -5899,15 +5902,15 @@ export function calendarJs(I, ua, V) {
         for (var c = a.length, e = 0; e < c; e++) a[e] = b ? '"' + a[e] + '"' : a[e];
         return a.join(",");
     }
-    function Ui(a) {
+    function Vi(a) {
         return a.charAt(0).toUpperCase() + a.slice(1);
     }
     function Gh(a, c, d) {
         var e = (d = p(d) ? d : !1) ? '"' + G(c) + '"' : G(c);
         "boolean" === typeof c
-            ? (e = d ? c.toString() : ig(c))
+            ? (e = d ? c.toString() : jg(c))
             : "object" === typeof c && c instanceof Date
-              ? (e = d ? '"' + c.toISOString() + '"' : Le(c))
+              ? (e = d ? '"' + c.toISOString() + '"' : Me(c))
               : "object" === typeof c && c instanceof Array
                 ? (e = "repeatEveryExcludeDays" !== a || d ? (d ? "[" + Hh(c) + "]" : Hh(c)) : ml(c))
                 : "number" === typeof c &&
@@ -5937,7 +5940,7 @@ export function calendarJs(I, ua, V) {
             }
         return Hh(c);
     }
-    function Ri() {
+    function Si() {
         var a = [
             b.idText,
             b.typeText,
@@ -5966,13 +5969,13 @@ export function calendarJs(I, ua, V) {
         ];
         return [a, a.length];
     }
-    function Si(a) {
+    function Ti(a) {
         var b = [];
         b.push(G(a.id));
         b.push(N[H(a.type)].text);
-        b.push(Le(a.from));
-        b.push(Le(a.to));
-        b.push(ig(a.isAllDay));
+        b.push(Me(a.from));
+        b.push(Me(a.to));
+        b.push(jg(a.isAllDay));
         b.push(G(a.title));
         b.push(G(a.description));
         b.push(G(a.location));
@@ -5980,17 +5983,17 @@ export function calendarJs(I, ua, V) {
         b.push(G(a.colorText));
         b.push(G(a.colorBorder));
         b.push(pd(a.repeatEvery));
-        b.push(Le(a.repeatEnds));
+        b.push(Me(a.repeatEnds));
         b.push(ml(a.repeatEveryExcludeDays));
         b.push(Hh(a.seriesIgnoreDates));
-        b.push(Le(a.created));
-        b.push(Le(a.lastUpdated));
+        b.push(Me(a.created));
+        b.push(Me(a.lastUpdated));
         b.push(G(a.organizerName));
         b.push(G(a.organizerEmailAddress));
         b.push(G(a.url));
-        b.push(ig(a.locked));
-        b.push(ig(!ib(a.showAlerts) || a.showAlerts));
-        b.push(ig(!ib(a.showAsBusy) || a.showAsBusy));
+        b.push(jg(a.locked));
+        b.push(jg(!ib(a.showAlerts) || a.showAlerts));
+        b.push(jg(!ib(a.showAsBusy) || a.showAsBusy));
         b.push(H(a.alertOffset));
         return b;
     }
@@ -6001,7 +6004,7 @@ export function calendarJs(I, ua, V) {
         b.sort();
         return b;
     }
-    function Ti() {
+    function Ui() {
         var a = new Date(),
             b = Nh("{ddd}, {dd} {mmm} {yyyy}", a);
         return (b += " " + J(a.getHours()) + ":" + J(a.getMinutes()) + ":" + J(a.getSeconds()));
@@ -6014,7 +6017,7 @@ export function calendarJs(I, ua, V) {
         a = a.replace(/"/g, '""');
         return '"' + a + '"';
     }
-    function ek(a) {
+    function fk(a) {
         var b = [],
             d = a.length;
         b.push("{");
@@ -6040,10 +6043,10 @@ export function calendarJs(I, ua, V) {
         b.push("}");
         return b.join(n.newLine);
     }
-    function hg(a) {
+    function ig(a) {
         return kc(G(a)).replace(/\n|\r/g, n.empty);
     }
-    function Ke(a) {
+    function Le(a) {
         var b = [];
         p(a) &&
             (b.push(a.getFullYear()),
@@ -6082,7 +6085,7 @@ export function calendarJs(I, ua, V) {
                     ? c.push("FREQ=MONTHLY")
                     : b === x.everyYear && c.push("FREQ=YEARLY"),
                 b === x.every2Weeks ? c.push("INTERVAL=2") : c.push("INTERVAL=1");
-        xc(a.repeatEnds) && ((a = new Date(a.repeatEnds)), a.setDate(a.getDate() + 1), c.push("UNTIL=" + Ke(a)));
+        xc(a.repeatEnds) && ((a = new Date(a.repeatEnds)), a.setDate(a.getDate() + 1), c.push("UNTIL=" + Le(a)));
         return c.join(";");
     }
     function ll(a) {
@@ -6110,38 +6113,38 @@ export function calendarJs(I, ua, V) {
                   w(b.events.onEventDoubleClick, c);
               });
     }
-    function $e(a) {
-        p(a) && C(a);
-        if (!r || cb)
-            (a = new Date(v)),
-                a.setMonth(a.getMonth() - 1),
-                a.getFullYear() >= b.minimumYear && (F(a), w(b.events.onPreviousMonth, a), qb());
-    }
     function af(a) {
         p(a) && C(a);
-        if (!r || cb)
+        if (!r || db)
+            (a = new Date(v)),
+                a.setMonth(a.getMonth() - 1),
+                a.getFullYear() >= b.minimumYear && (F(a), w(b.events.onPreviousMonth, a), rb());
+    }
+    function bf(a) {
+        p(a) && C(a);
+        if (!r || db)
             (a = new Date(v)),
                 a.setMonth(a.getMonth() + 1),
-                a.getFullYear() <= b.maximumYear && (F(a), w(b.events.onNextMonth, a), qb());
-    }
-    function qg() {
-        if (!r || cb) {
-            var a = new Date(v);
-            a.setFullYear(a.getFullYear() - 1);
-            a.getFullYear() >= b.minimumYear && (F(a), w(b.events.onPreviousYear, a), qb());
-        }
+                a.getFullYear() <= b.maximumYear && (F(a), w(b.events.onNextMonth, a), rb());
     }
     function rg() {
-        if (!r || cb) {
+        if (!r || db) {
             var a = new Date(v);
-            a.setFullYear(a.getFullYear() + 1);
-            a.getFullYear() <= b.maximumYear && (F(a), w(b.events.onNextYear, a), qb());
+            a.setFullYear(a.getFullYear() - 1);
+            a.getFullYear() >= b.minimumYear && (F(a), w(b.events.onPreviousYear, a), rb());
         }
     }
-    function tg() {
-        if (!r || cb) {
+    function sg() {
+        if (!r || db) {
+            var a = new Date(v);
+            a.setFullYear(a.getFullYear() + 1);
+            a.getFullYear() <= b.maximumYear && (F(a), w(b.events.onNextYear, a), rb());
+        }
+    }
+    function ug() {
+        if (!r || db) {
             var a = new Date();
-            if (v.getMonth() !== a.getMonth() || v.getFullYear() !== a.getFullYear()) F(), w(b.events.onToday), qb();
+            if (v.getMonth() !== a.getMonth() || v.getFullYear() !== a.getFullYear()) F(), w(b.events.onToday), rb();
         }
     }
     function nl(a) {
@@ -6154,7 +6157,7 @@ export function calendarJs(I, ua, V) {
         b.autoRefreshTimerDelay = ta(b.autoRefreshTimerDelay, 3e4);
         b.fullScreenModeEnabled = l(b.fullScreenModeEnabled, !0);
         b.tooltipDelay = ta(b.tooltipDelay, 1e3);
-        b.holidays = gg(b.holidays, [
+        b.holidays = hg(b.holidays, [
             { day: 1, month: 1, title: "New Year's Day", onClickUrl: "https://en.wikipedia.org/wiki/New_Year%27s_Day" },
             {
                 day: 14,
@@ -6186,8 +6189,8 @@ export function calendarJs(I, ua, V) {
                 onClickUrl: "https://en.wikipedia.org/wiki/New_Year%27s_Eve",
             },
         ]);
-        b.organizerName = bb(b.organizerName, n.empty);
-        b.organizerEmailAddress = bb(b.organizerEmailAddress, n.empty);
+        b.organizerName = cb(b.organizerName, n.empty);
+        b.organizerEmailAddress = cb(b.organizerEmailAddress, n.empty);
         b.spacing = ta(b.spacing, 10);
         b.maximumEventTitleLength = ta(b.maximumEventTitleLength, 0);
         b.maximumEventDescriptionLength = ta(b.maximumEventDescriptionLength, 0);
@@ -6195,17 +6198,17 @@ export function calendarJs(I, ua, V) {
         b.maximumEventGroupLength = ta(b.maximumEventGroupLength, 0);
         b.eventNotificationsEnabled = l(b.eventNotificationsEnabled, !1);
         b.tooltipsEnabled = l(b.tooltipsEnabled, !0);
-        b.urlWindowTarget = bb(b.urlWindowTarget, "_blank");
-        b.defaultEventBackgroundColor = bb(b.defaultEventBackgroundColor, "#484848");
-        b.defaultEventTextColor = bb(b.defaultEventTextColor, "#F5F5F5");
-        b.defaultEventBorderColor = bb(b.defaultEventBorderColor, "#282828");
+        b.urlWindowTarget = cb(b.urlWindowTarget, "_blank");
+        b.defaultEventBackgroundColor = cb(b.defaultEventBackgroundColor, "#484848");
+        b.defaultEventTextColor = cb(b.defaultEventTextColor, "#F5F5F5");
+        b.defaultEventBorderColor = cb(b.defaultEventBorderColor, "#282828");
         b.hideEventsWithoutGroupAssigned = l(b.hideEventsWithoutGroupAssigned, !1);
         b.showHolidays = l(b.showHolidays, !0);
         b.useTemplateWhenAddingNewEvent = l(b.useTemplateWhenAddingNewEvent, !0);
         b.useEscapeKeyToExitFullScreenMode = l(b.useEscapeKeyToExitFullScreenMode, !0);
         b.allowHtmlInDisplay = l(b.allowHtmlInDisplay, !1);
-        b.initialDateTime = Qi(b.initialDateTime, null);
-        b.data = gg(b.data, null);
+        b.initialDateTime = Ri(b.initialDateTime, null);
+        b.data = hg(b.data, null);
         b.weekendDays = $c(b.weekendDays, 0) ? [0, 6] : b.weekendDays;
         b.workingDays = $c(b.workingDays, 0) ? [] : b.workingDays;
         b.minimumYear = ta(b.minimumYear, 1900);
@@ -6220,7 +6223,7 @@ export function calendarJs(I, ua, V) {
         b.importEventsEnabled = l(b.importEventsEnabled, !0);
         b.useAmPmForTimeDisplays = l(b.useAmPmForTimeDisplays, !1);
         b.isWidget = l(b.isWidget, !1);
-        b.viewToOpenOnFirstLoad = bb(b.viewToOpenOnFirstLoad, null);
+        b.viewToOpenOnFirstLoad = cb(b.viewToOpenOnFirstLoad, null);
         b.eventColorsEditingEnabled = l(b.eventColorsEditingEnabled, !0);
         b.eventTooltipDelay = ta(b.eventTooltipDelay, 1e3);
         b.jumpToDateEnabled = l(b.jumpToDateEnabled, !0);
@@ -6228,8 +6231,8 @@ export function calendarJs(I, ua, V) {
         b.showReoccurringEventIcons = l(b.showReoccurringEventIcons, !0);
         b.dialogMovingEnabled = l(b.dialogMovingEnabled, !0);
         $c(b.visibleDays) && ((b.visibleDays = [0, 1, 2, 3, 4, 5, 6]), (od = []));
-        a = bb(b.workingHoursStart, null);
-        var c = bb(b.workingHoursEnd, null);
+        a = cb(b.workingHoursStart, null);
+        var c = cb(b.workingHoursEnd, null);
         p(a) || ((a = b.workingHoursStart), (a = Pa(a) ? a : null));
         p(c) || ((c = b.workingHoursEnd), (c = Pa(c) ? c : null));
         b.workingHoursStart = a;
@@ -6270,16 +6273,16 @@ export function calendarJs(I, ua, V) {
             !0
         );
         b.views.fullMonth.addYearButtons = l(b.views.fullMonth.addYearButtons, !1);
-        b.views.fullMonth.titleBarDateFormat = bb(b.views.fullMonth.titleBarDateFormat, "{mmmm} {yyyy}");
+        b.views.fullMonth.titleBarDateFormat = cb(b.views.fullMonth.titleBarDateFormat, "{mmmm} {yyyy}");
         b.views.fullMonth.showDayNamesHeaders = l(b.views.fullMonth.showDayNamesHeaders, !0);
         b.views.fullMonth.isPinUpViewEnabled = l(b.views.fullMonth.isPinUpViewEnabled, !1);
-        b.views.fullMonth.pinUpViewImageUrls = gg(b.views.fullMonth.pinUpViewImageUrls, []);
+        b.views.fullMonth.pinUpViewImageUrls = hg(b.views.fullMonth.pinUpViewImageUrls, []);
         b.views.fullMonth.showMonthButtonsInYearDropDownMenu = l(
             b.views.fullMonth.showMonthButtonsInYearDropDownMenu,
             !0
         );
         b.views.fullMonth.showExtraTitleBarButtons = l(b.views.fullMonth.showExtraTitleBarButtons, !0);
-        b.views.fullMonth.pinUpViewImageCssClasses = gg(b.views.fullMonth.pinUpViewImageCssClasses, []);
+        b.views.fullMonth.pinUpViewImageCssClasses = hg(b.views.fullMonth.pinUpViewImageCssClasses, []);
         b.views.fullMonth.showYearDropDownButtonIcon = l(b.views.fullMonth.showYearDropDownButtonIcon, !0);
         b.views.fullMonth.padDayNumbers = l(b.views.fullMonth.padDayNumbers, !1);
         ib(b.views.fullMonth.allowEventScrolling) ||
@@ -6291,7 +6294,7 @@ export function calendarJs(I, ua, V) {
         b.views.fullYear.padDayNumbers = l(b.views.fullYear.padDayNumbers, !1);
         b.views.timeline = kb(b.views.timeline);
         b.views.timeline.enabled = l(b.views.timeline.enabled, !0);
-        b.views.timeline.defaultAxis = bb(b.views.timeline.defaultAxis, "group");
+        b.views.timeline.defaultAxis = cb(b.views.timeline.defaultAxis, "group");
         b.views.timeline.minutesBetweenSections = ta(b.views.timeline.minutesBetweenSections, 30);
         b.views.timeline.showExtraTitleBarButtons = l(b.views.timeline.showExtraTitleBarButtons, !0);
         b.views.allEvents = kb(b.views.allEvents);
@@ -6299,9 +6302,9 @@ export function calendarJs(I, ua, V) {
         b.views.allEvents.showExtraTitleBarButtons = l(b.views.allEvents.showExtraTitleBarButtons, !0);
         b.views.allEvents.showEventUrls = l(b.views.allEvents.showEventUrls, !1);
         b.views.datePicker = kb(b.views.datePicker);
-        b.views.datePicker.selectedDateFormat = bb(b.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}");
-        b.views.datePicker.minimumDate = Qi(b.views.datePicker.minimumDate, null);
-        b.views.datePicker.maximumDate = Qi(b.views.datePicker.maximumDate, null);
+        b.views.datePicker.selectedDateFormat = cb(b.views.datePicker.selectedDateFormat, "{d}{o} {mmmm} {yyyy}");
+        b.views.datePicker.minimumDate = Ri(b.views.datePicker.minimumDate, null);
+        b.views.datePicker.maximumDate = Ri(b.views.datePicker.maximumDate, null);
         b.events = kb(b.events);
         b.events.onPreviousMonth = D(b.events.onPreviousMonth, null);
         b.events.onNextMonth = D(b.events.onNextMonth, null);
@@ -6559,14 +6562,14 @@ export function calendarJs(I, ua, V) {
         b.previousPropertyTooltipText = g(b.previousPropertyTooltipText, "Previous Property");
         b.jumpToDateTitle = g(b.jumpToDateTitle, "Jump To Date");
         b.goText = g(b.goText, "Go");
-        jg(b.eventTypeNormalText, "Normal", 0);
-        jg(b.eventTypeMeetingText, "Meeting", 1);
-        jg(b.eventTypeBirthdayText, "Birthday", 2);
-        jg(b.eventTypeHolidayText, "Holiday", 3);
-        jg(b.eventTypeTaskText, "Task", 4);
+        kg(b.eventTypeNormalText, "Normal", 0);
+        kg(b.eventTypeMeetingText, "Meeting", 1);
+        kg(b.eventTypeBirthdayText, "Birthday", 2);
+        kg(b.eventTypeHolidayText, "Holiday", 3);
+        kg(b.eventTypeTaskText, "Task", 4);
         Ji();
     }
-    function jg(a, b, d) {
+    function kg(a, b, d) {
         N.hasOwnProperty(d) && (R(a) ? (N[d].text = a) : (N[d].text = b));
     }
     function $c(a, b) {
@@ -6580,7 +6583,7 @@ export function calendarJs(I, ua, V) {
     var q = this,
         E = null,
         Z = null,
-        Hf = null,
+        If = null,
         za = null,
         la = null,
         cc = null,
@@ -6620,8 +6623,8 @@ export function calendarJs(I, ua, V) {
         O = { visibleGroups: null, visibleEventTypes: null, visibleAllEventsMonths: {} },
         lb = !1,
         Zd = !1,
-        Ne = !1,
-        pb = {},
+        Oe = !1,
+        qb = {},
         Cd = {},
         Ea = [],
         ja = [],
@@ -6630,15 +6633,15 @@ export function calendarJs(I, ua, V) {
         ca = null,
         el = {},
         v = null,
-        kg = !1,
+        lg = !1,
         Mc = null,
         pe = !1,
-        Vj = !1,
-        Je = {},
+        Wj = !1,
+        Ke = {},
         ya = [],
-        Pi = {},
+        Qi = {},
         Gb = {},
-        $f = !0,
+        ag = !0,
         Na = {
             windowResize: "WindowResize",
             searchOptionsChanged: "SearchOptionsChanged",
@@ -6648,9 +6651,9 @@ export function calendarJs(I, ua, V) {
             hideNotification: "HideNotification",
             sideMenuEvents: "SideMenuEvents",
         },
-        tb = null,
+        ub = null,
         Kb = null,
-        mg = !1,
+        ng = !1,
         cd = null,
         Cc = null,
         Gc = null,
@@ -6665,11 +6668,11 @@ export function calendarJs(I, ua, V) {
         Fc = null,
         $d = null,
         Lc = null,
-        We = null,
+        Xe = null,
         r = !1,
-        cb = !1,
-        ij = null,
-        sb = {
+        db = !1,
+        jj = null,
+        tb = {
             fullMonth: "full-month",
             fullDay: "full-day",
             fullWeek: "full-week",
@@ -6677,20 +6680,20 @@ export function calendarJs(I, ua, V) {
             timeline: "timeline",
             allEvents: "all-events",
         },
-        vb = [],
-        zh = 0,
-        vg = null,
+        ob = [],
+        Ie = 0,
         wg = null,
-        Qb = null,
         xg = null,
+        Qb = null,
         yg = null,
+        zg = null,
         z = null,
         Ka = null,
         sd = !1,
         Vk = null,
         od = [],
         W = null,
-        bf = null,
+        cf = null,
         wb = null,
         Nc = null,
         wa = null,
@@ -6698,40 +6701,40 @@ export function calendarJs(I, ua, V) {
         L = null,
         gc = [],
         Yh = null,
-        Ej = null,
-        df = null,
         Fj = null,
-        Ag = [],
+        ef = null,
+        Gj = null,
+        Bg = [],
         da = null,
         Qa = null,
         $h = null,
-        Qj = null,
+        Rj = null,
         zd = null,
         yd = null,
         Ad = null,
         me = null,
         le = null,
-        jf = null,
+        kf = null,
         hc = [],
-        kf = {},
+        lf = {},
         Sb = null,
-        Pj = null,
+        Qj = null,
         ne = null,
         ci = !1,
-        Eg = null,
-        mf = 0,
+        Fg = null,
+        nf = 0,
         di = [],
         Ib = null,
-        nf = [],
+        of = [],
         S = null,
         oe = null,
         Mh = null,
-        Ig = null,
+        Jg = null,
         Tb = null,
-        of = null,
+        pf = null,
         Rc = {},
+        Hg = null,
         Gg = null,
-        Fg = null,
         mb = null,
         Qc = 0,
         ei = null,
@@ -6743,28 +6746,28 @@ export function calendarJs(I, ua, V) {
         ji = null,
         qe = null,
         sa = null,
-        Lg = 0,
+        Mg = 0,
         ra = null,
         mi = null,
-        Wj = null,
+        Xj = null,
         Ed = null,
         Lb = [],
-        sg = [],
+        tg = [],
         ni = [],
         ia = null,
         oi = null,
+        ak = null,
         Zj = null,
-        Yj = null,
         Ja = null,
         Fd = null,
-        qf = null,
         rf = null,
-        Ng = {},
-        sf = [],
+        sf = null,
+        Og = {},
+        tf = [],
         Bc = [],
         ba = null,
-        Mg = null,
-        Ya = null,
+        Ng = null,
+        Za = null,
         re = "location organizerName group organizerEmailAddress url title description".split(" "),
         eb = [],
         Fb = null,
@@ -6773,20 +6776,20 @@ export function calendarJs(I, ua, V) {
         Wd = !1,
         al = 0,
         bl = 0,
-        ab = null,
+        bb = null,
         Vb = null,
-        Vg = null,
         Wg = null,
+        Xg = null,
         Uc = null,
-        Ug = null,
+        Vg = null,
         Sc = null,
         Wb = null,
         Xb = null,
         hb = null,
         Yb = null,
         ye = null,
-        If = null,
         Jf = null,
+        Kf = null,
         Ab = null,
         ui = null,
         Ld = null,
@@ -6794,66 +6797,65 @@ export function calendarJs(I, ua, V) {
         Kd = null,
         ze = null,
         qc = null,
-        Kf = null,
         Lf = null,
         Mf = null,
         Nf = null,
         Of = null,
-        Zb = null,
-        Xg = null,
-        Id = null,
         Pf = null,
+        Zb = null,
+        Yg = null,
+        Id = null,
         Qf = null,
         Rf = null,
+        Sf = null,
         Wc = null,
         ea = {},
-        Ef = null,
-        Rg = null,
+        Ff = null,
+        Sg = null,
         Jd = null,
         wi = null,
-        Sf = null,
+        Tf = null,
         rc = null,
         Be = null,
         Ce = null,
         De = null,
         sc = null,
-        Yg = null,
         Zg = null,
         $g = null,
         ah = null,
         bh = null,
         ch = null,
         dh = null,
+        eh = null,
         Nd = null,
         Xc = null,
         xi = null,
         yi = null,
-        Sg = null,
+        Tg = null,
         zi = null,
-        Vf = null,
+        Wf = null,
         tc = null,
         Ta = null,
         Ai = null,
-        uk = null,
         vk = null,
         wk = null,
         xk = null,
         yk = null,
         zk = null,
         Ak = null,
+        Bk = null,
         uc = null,
         Cb = null,
-        ih = null,
+        jh = null,
         ka = null,
         Qd = null,
         $b = null,
         na = null,
-        kh = null,
-        jh = null,
-        Ge = null,
-        Xf = null,
-        Yf = null,
         lh = null,
+        kh = null,
+        Ge = null,
+        Yf = null,
+        Zf = null,
         mh = null,
         nh = null,
         oh = null,
@@ -6862,12 +6864,13 @@ export function calendarJs(I, ua, V) {
         rh = null,
         sh = null,
         th = null,
+        uh = null,
         Bi = !1,
         Db = [],
         Zc = 0,
         Di = null,
         zb = null,
-        ob = null,
+        pb = null,
         Eb = null,
         Rd = null,
         He = null,
@@ -6876,54 +6879,54 @@ export function calendarJs(I, ua, V) {
         Gi = null,
         Hi = null,
         Ii = null,
-        uh = null,
         vh = null,
+        wh = null,
         wc = null,
         bc = null,
         Ia = null,
         pi = null,
-        Og = null,
+        Pg = null,
         Gd = null,
         Y = null,
-        $a = null,
-        ck = null,
-        Ff = null,
-        Df = null,
+        ab = null,
+        dk = null,
+        Gf = null,
+        Ef = null,
         qi = null,
+        Df = null,
         Cf = null,
+        xf = null,
         Bf = null,
-        wf = null,
         Af = null,
         zf = null,
         yf = null,
-        xf = null,
+        wf = null,
         vf = null,
-        uf = null,
+        Rg = null,
         Qg = null,
-        Pg = null,
         Oa = null,
         ti = null,
         si = null,
         ri = null,
-        Tg = null,
-        cf = null,
+        Ug = null,
+        df = null,
         ue = null,
         nb = null,
-        gk = null,
-        ik = null,
+        hk = null,
         jk = null,
         kk = null,
-        hk = null,
+        lk = null,
+        ik = null,
         T = null,
-        yh = null,
+        zh = null,
         Li = null,
-        xh = null,
+        yh = null,
         Sd = null,
-        ag = null,
-        Td = null,
         bg = null,
+        Td = null,
         cg = null,
         dg = null,
+        eg = null,
         Ud = null,
         Dd = null,
         fc = null;
@@ -6939,16 +6942,16 @@ export function calendarJs(I, ua, V) {
         return sd;
     };
     q.startTheAutoRefreshTimer = function () {
-        r || (($f = !0), Qh());
+        r || ((ag = !0), Qh());
         return q;
     };
     q.stopTheAutoRefreshTimer = function () {
-        r || (Ph(), ($f = !1));
+        r || (Ph(), (ag = !1));
         return q;
     };
     q.destroy = function () {
         if (lb) {
-            Ne && Ih(!1);
+            Oe && Ih(!1);
             for (var a in Gb) Gb.hasOwnProperty(a) && null !== Gb[a] && (clearTimeout(Gb[a]), delete Gb[a]);
             a = ya.length;
             for (var c = 0; c < a; c++) E.body.removeChild(ya[c]);
@@ -6961,35 +6964,35 @@ export function calendarJs(I, ua, V) {
         return q;
     };
     q.moveToPreviousMonth = function () {
-        $e();
-        return q;
-    };
-    q.moveCurrentViewToPreviousDate = function () {
-        nj();
-        return q;
-    };
-    q.moveToNextMonth = function () {
         af();
         return q;
     };
-    q.moveCurrentViewToNextDate = function () {
+    q.moveCurrentViewToPreviousDate = function () {
         oj();
         return q;
     };
-    q.moveToPreviousYear = function () {
-        qg();
+    q.moveToNextMonth = function () {
+        bf();
         return q;
     };
-    q.moveToNextYear = function () {
+    q.moveCurrentViewToNextDate = function () {
+        pj();
+        return q;
+    };
+    q.moveToPreviousYear = function () {
         rg();
         return q;
     };
+    q.moveToNextYear = function () {
+        sg();
+        return q;
+    };
     q.moveToToday = function () {
-        tg();
+        ug();
         return q;
     };
     q.moveCurrentViewToToday = function () {
-        pj();
+        qj();
         return q;
     };
     q.getCurrentDisplayDate = function () {
@@ -6997,7 +7000,7 @@ export function calendarJs(I, ua, V) {
     };
     q.setCurrentDisplayDate = function (a) {
         !xc(a) ||
-            (r && !cb) ||
+            (r && !db) ||
             ((a = new Date(a)),
             !U(v, a) &&
                 a.getFullYear() >= b.minimumYear &&
@@ -7012,7 +7015,7 @@ export function calendarJs(I, ua, V) {
         xc(a) &&
             r &&
             ((a = new Date(a)),
-            kj(a) &&
+            lj(a) &&
                 !U(a, Mc) &&
                 a.getFullYear() >= b.minimumYear &&
                 a.getFullYear() <= b.maximumYear &&
@@ -7024,11 +7027,11 @@ export function calendarJs(I, ua, V) {
         return q;
     };
     q.export = function (a) {
-        b.exportEventsEnabled && !r && ((a = bb(a, "csv")), vc(null, a));
+        b.exportEventsEnabled && !r && ((a = cb(a, "csv")), vc(null, a));
         return q;
     };
     q.import = function (a) {
-        b.importEventsEnabled && !r && Oi(a);
+        b.importEventsEnabled && !r && Pi(a);
         return q;
     };
     q.importICalData = function (a) {
@@ -7040,13 +7043,13 @@ export function calendarJs(I, ua, V) {
         return q;
     };
     q.setEvents = function (a, c, d) {
-        r || ((d = l(d, !0)), (pb = {}), q.addEvents(a, c, !1), d && w(b.events.onEventsSet, a));
+        r || ((d = l(d, !0)), (qb = {}), q.addEvents(a, c, !1), d && w(b.events.onEventsSet, a));
         return q;
     };
     q.setEventsFromJson = function (a, c, d) {
         if (!r) {
             d = l(d, !0);
-            var e = Qe(a);
+            var e = Re(a);
             pa(e) ? q.setEvents(e, c, !1) : Pa(e) && e.hasOwnProperty("events") && q.setEvents(e.events, c, !1);
             d && w(b.events.onEventsSetFromJSON, a);
         }
@@ -7066,7 +7069,7 @@ export function calendarJs(I, ua, V) {
     q.addEventsFromJson = function (a, c, d) {
         if (!r) {
             d = l(d, !0);
-            var e = Qe(a);
+            var e = Re(a);
             pa(e) ? q.addEvents(e, c, !1) : Pa(e) && e.hasOwnProperty("events") && q.addEvents(e.events, c, !1);
             d && w(b.events.onEventsAddedFromJSON, a);
         }
@@ -7090,8 +7093,8 @@ export function calendarJs(I, ua, V) {
             var g = a.from;
             g = g.getFullYear() + "-" + g.getMonth() + "-" + g.getDate();
             var h = ec();
-            pb.hasOwnProperty(g) || (pb[g] = {});
-            if (!pb[g].hasOwnProperty(h)) {
+            qb.hasOwnProperty(g) || (qb[g] = {});
+            if (!qb[g].hasOwnProperty(h)) {
                 c = l(c, !0);
                 d = l(d, !0);
                 f = G(a.title);
@@ -7120,10 +7123,10 @@ export function calendarJs(I, ua, V) {
                     u !== n.empty &&
                     u.length > b.maximumEventGroupLength &&
                     (a.group = a.group.substring(0, b.maximumEventGroupLength));
-                v === n.empty || qk(v) || (a.url = n.empty);
+                v === n.empty || rk(v) || (a.url = n.empty);
                 xc(a.created) || (a.created = new Date());
                 e && (a.lastUpdated = new Date());
-                pb[g][h] = Xk(a);
+                qb[g][h] = Xk(a);
                 f = !0;
                 d && w(b.events.onEventAdded, a);
                 c && (jb(), Mb(), Ha(), ma());
@@ -7178,7 +7181,7 @@ export function calendarJs(I, ua, V) {
             xb(function (f, g, h) {
                 if (h === a)
                     return (
-                        delete pb[g][h], (e = !0), d && w(b.events.onEventRemoved, f), c && (jb(), Mb(), Ha(), ma()), !0
+                        delete qb[g][h], (e = !0), d && w(b.events.onEventRemoved, f), c && (jb(), Mb(), Ha(), ma()), !0
                     );
             }));
         return e;
@@ -7187,14 +7190,14 @@ export function calendarJs(I, ua, V) {
         r ||
             ((a = l(a, !0)),
             (c = l(c, !0)),
-            (pb = {}),
+            (qb = {}),
             c && w(b.events.onEventsCleared),
             a && (jb(), Mb(), Ha(), ma()));
         return q;
     };
     q.getEvents = function () {
         var a = [];
-        r || (a = ub(Bd()));
+        r || (a = vb(Bd()));
         return a;
     };
     q.getEvent = function (a) {
@@ -7244,7 +7247,7 @@ export function calendarJs(I, ua, V) {
         return q;
     };
     q.getAllGroups = function () {
-        return fj();
+        return gj();
     };
     q.clearAllGroups = function (a, c) {
         r ||
@@ -7313,14 +7316,14 @@ export function calendarJs(I, ua, V) {
         return pe;
     };
     q.getCurrentView = function () {
-        return pf(!1);
+        return qf(!1);
     };
     q.setOptions = function (a, c) {
         for (var d in a) a.hasOwnProperty(d) && (b[d] = a[d]);
         nl(b);
-        hj();
+        ij();
         Ji();
-        lb && ((c = l(c, !0)) && w(b.events.onOptionsUpdated, b), (lb = !1), (r && !cb) || F(v, !0, !0));
+        lb && ((c = l(c, !0)) && w(b.events.onOptionsUpdated, b), (lb = !1), (r && !db) || F(v, !0, !0));
         return q;
     };
     q.setSearchOptions = function (a, c) {
@@ -7364,15 +7367,15 @@ export function calendarJs(I, ua, V) {
     (function (a, c, d, e, f) {
         E = a;
         Z = c;
-        Hf = d;
+        If = d;
         la = e;
         cc = f;
         za = I;
-        if (R(za) || cj(za))
+        if (R(za) || dj(za))
             nl(ua),
                 (u = kb(V, b.searchOptions)),
                 (u.enabled = l(u.enabled, !0)),
-                (u.lastSearchText = bb(u.lastSearchText, n.empty)),
+                (u.lastSearchText = cb(u.lastSearchText, n.empty)),
                 (u.not = l(u.not, !1)),
                 (u.matchCase = l(u.matchCase, !1)),
                 (u.showAdvanced = l(u.showAdvanced, !1)),
@@ -7386,7 +7389,7 @@ export function calendarJs(I, ua, V) {
                 (u.contains = l(u.contains, !0)),
                 (u.left = ta(u.left, null)),
                 (u.top = ta(u.top, null)),
-                (u.history = gg(u.history, [])),
+                (u.history = hg(u.history, [])),
                 F(b.initialDateTime, !0),
                 null !== z && ib(b.openInFullScreenMode) && b.openInFullScreenMode && !r && Uk();
     })(document, window, navigator, Math, JSON);
