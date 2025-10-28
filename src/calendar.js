@@ -4,7 +4,7 @@
  * A javascript drag & drop event calendar, that is fully responsive and compatible with all modern browsers.
  * 
  * @file        calendar.js
- * @version     v2.12.4
+ * @version     v2.12.5
  * @author      Bunoon
  * @license     MIT License
  * @copyright   Bunoon 2025
@@ -682,6 +682,10 @@ function calendarJs( elementOrId, options, searchOptions ) {
                     _element_Calendar = element;
                     _element_Calendar.className = !isWidget ? "calendar" : "calendar-widget";
                     _element_Calendar.innerHTML = _string.empty;
+
+                    _element_Calendar.oncontextmenu = function( e ) {
+                        e.preventDefault();
+                    };
 
                     var height = getStyleValueByName( _element_Calendar, "height" );
 
@@ -1454,6 +1458,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             _options.fullScreenModeEnabled = false;
             _options.eventNotificationsEnabled = false;
             _options.views.fullMonth.showPreviousNextMonthNames = false;
+            _options.views.fullMonth.showPreviousNextYears = false;
             _options.views.fullMonth.showExtraTitleBarButtons = false;
             _options.holidays = [];
         }
@@ -2332,7 +2337,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         clearElementsByClassName( _element_View_FullDay_Contents, "event" );
         hideSearchDialog();
         buildFullDayViewTitle();
-        showView( _element_View_FullDay );
+        showView( _element_View_FullDay, fromOpen );
 
         if ( isWorkingDay( date ) ) {
             buildFullDayViewWorkingHours();
@@ -3003,7 +3008,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullWeek_Events_Dragged_Sizes = [];
         _element_View_FullWeek_DateSelected_StartOfWeek = weekStartDate;
 
-        showView( _element_View_FullWeek );
+        showView( _element_View_FullWeek, fromOpen );
         hideSearchDialog();
         buildFullWeekViewTitle( weekStartDate, weekEndDate );
         buildViewDayNamesHeader( _element_View_FullWeek_Contents_DayNamesHeader, false );
@@ -3280,7 +3285,9 @@ function calendarJs( elementOrId, options, searchOptions ) {
             
             if ( _options.views.timeline.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-bar-graph", _options.viewTimelineTooltipText, function() {
-                    showTimelineView( null, true );
+                    var viewDate = isDateTodaysMonthAndYear( _calendar_CurrentDate ) ? null : _calendar_CurrentDate;
+
+                    showTimelineView( viewDate, true );
                 } );
             }
 
@@ -3292,19 +3299,23 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
             if ( _options.views.fullYear.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-expand", _options.viewFullYearTooltipText, function() {
-                    showFullYearView( null, true );
+                    showFullYearView( _calendar_CurrentDate.getFullYear(), true );
                 } );
             }
 
             if ( _options.views.fullWeek.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-hamburger-side", _options.viewFullWeekTooltipText, function() {
-                    showFullWeekView( null, true );
+                    var viewDate = isDateTodaysMonthAndYear( _calendar_CurrentDate ) ? null : _calendar_CurrentDate;
+
+                    showFullWeekView( viewDate, true );
                 } );
             }
 
             if ( _options.views.fullDay.enabled ) {
                 buildToolbarButton( _element_View_FullMonth_TitleBar, "ib-hourglass", _options.viewFullDayTooltipText, function() {
-                    showFullDayView( null, true );
+                    var viewDate = isDateTodaysMonthAndYear( _calendar_CurrentDate ) ? null : _calendar_CurrentDate;
+
+                    showFullDayView( viewDate, true );
                 } );
             }
         }
@@ -3880,7 +3891,13 @@ function calendarJs( elementOrId, options, searchOptions ) {
             }
 
             if ( includeMonthName && _options.views.fullMonth.showPreviousNextMonthNames ) {
-                createSpanElement( dayElement, _options.monthNames[ month ], "month-name" + dayMutedClass, function() {
+                var monthName = _options.monthNames[ month ];
+
+                if ( _options.views.fullMonth.showPreviousNextYears && ( month === 0 || month === 11 ) ) {
+                    monthName += _string.space + year.toString();
+                }
+
+                createSpanElement( dayElement, monthName, "month-name" + dayMutedClass, function() {
                     if ( actualDay === 1 ) {
                         onNextMonth();
                     } else {
@@ -4533,7 +4550,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _element_View_FullYear_TitleBar.innerText = _element_View_FullYear_CurrentYear;
 
         buildFullYearMonths( fromOpen );
-        showView( _element_View_FullYear );
+        showView( _element_View_FullYear, fromOpen );
     }
 
     function updateFullYearView() {
@@ -4841,7 +4858,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     function showAllEventsView( fromOpen ) {
         fromOpen = isDefined( fromOpen ) ? fromOpen : false;
 
-        showView( _element_View_AllEvents );
+        showView( _element_View_AllEvents, fromOpen );
 
         _element_View_AllEvents_Contents.innerHTML = _string.empty;
         _element_View_AllEvents_EventsShown = [];
@@ -5124,13 +5141,22 @@ function calendarJs( elementOrId, options, searchOptions ) {
 
     function buildTimelineViewColumnHeights() {
         var columnsLength = _element_View_Timeline_Contents_Columns.length,
+            timelineRows = _element_View_Timeline_Contents.getElementsByClassName( "timeline-row" ),
+            timelineRowsLength = timelineRows.length,
             columnHeight = 0;
+
+        if ( timelineRowsLength > 0 ) {
+            var timelineRowBorderWidth = getStyleValueByName( timelineRows[ 0 ], "border-bottom-width" ),
+                headerBorderWidth = getStyleValueByName( _element_View_Timeline_Contents_Header, "border-bottom-width" );
+
+            columnHeight = ( timelineRowsLength * ( timelineRows[ 0 ].offsetHeight - timelineRowBorderWidth ) ) + ( _element_View_Timeline_Contents_Header.offsetHeight - headerBorderWidth );
+        }
             
         for ( var columnIndex = 0; columnIndex < columnsLength; columnIndex++ ) {
             var column = _element_View_Timeline_Contents_Columns[ columnIndex ];
 
             if ( columnHeight === 0 ) {
-                columnHeight = _element_View_Timeline_Contents.scrollHeight  - column.offsetTop;
+                columnHeight = _element_View_Timeline_Contents.scrollHeight - column.offsetTop;
             }
 
             column.style.height = columnHeight + "px";
@@ -5228,7 +5254,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         getFullDayViewOrderedEvents( _element_View_Timeline_DateSelected, orderedEvents );
         updateToolbarButtonVisibleState( _element_View_Timeline_TodayButton, isCurrentDateVisible );
         buildTimelineViewContentLayout();
-        showView( _element_View_Timeline );
+        showView( _element_View_Timeline, fromOpen );
         buildTimelineViewEvents( getOrderedEvents( orderedEvents ) );
         buildTimelineViewColumnHeights();
         buildTimelineViewTitle();
@@ -8165,21 +8191,28 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
-    function showView( element ) {
-        if ( getActiveView() !== element ) {
+    function showView( element, fromOpen ) {
+        if ( isViewVisible( element ) && fromOpen ) {
             removeViewOpened( element, false );
 
             _element_View_Opened.push( element );
             _element_View_LastZIndex++;
-    
-            if ( !isViewVisible( element ) ) {
-                element.className += " view-shown";
-            }
             
             element.style.zIndex = _element_View_LastZIndex;
-            
-            hideSearchDialog();
-            fireViewChangeCustomTrigger();
+
+        } else {
+            if ( getActiveView() !== element && !isViewVisible( element ) ) {
+                removeViewOpened( element, false );
+
+                _element_View_Opened.push( element );
+                _element_View_LastZIndex++;
+                
+                element.className += " view-shown";
+                element.style.zIndex = _element_View_LastZIndex;
+                
+                hideSearchDialog();
+                fireViewChangeCustomTrigger();
+            }
         }
     }
 
@@ -12366,7 +12399,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
     /**
      * moveCurrentViewToToday().
      * 
-     * Moves to the current month.
+     * Moves the current view to the current date.
      * 
      * @public
      * 
@@ -13540,7 +13573,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
      * @returns     {string}                                                The version number.
      */
     _that.getVersion = function() {
-        return "2.12.4";
+        return "2.12.5";
     };
 
     /**
@@ -13896,6 +13929,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         _options.views.fullMonth.pinUpViewImageCssClasses = getDefaultArray( _options.views.fullMonth.pinUpViewImageCssClasses, [] );
         _options.views.fullMonth.showYearDropDownButtonIcon = getDefaultBoolean( _options.views.fullMonth.showYearDropDownButtonIcon, true );
         _options.views.fullMonth.padDayNumbers = getDefaultBoolean( _options.views.fullMonth.padDayNumbers, false );
+        _options.views.fullMonth.showPreviousNextYears = getDefaultBoolean( _options.views.fullMonth.showPreviousNextYears, true );
 
         if ( !isDefinedBoolean( _options.views.fullMonth.allowEventScrolling ) ) {
             _options.views.fullMonth.allowEventScrolling = false;

@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.4 - Thai | (c) Bunoon 2025 | MIT License */
+/*! Calendar.js v2.12.5 - Thai | (c) Bunoon 2025 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "จันทร์",

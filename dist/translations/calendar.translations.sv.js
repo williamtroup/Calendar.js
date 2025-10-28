@@ -1,4 +1,4 @@
-/*! Calendar.js v2.12.4 - Swedish | (c) Bunoon 2025 | MIT License */
+/*! Calendar.js v2.12.5 - Swedish | (c) Bunoon 2025 | MIT License */
 var __TRANSLATION_OPTIONS = {
     "dayHeaderNames": [
         "mån",

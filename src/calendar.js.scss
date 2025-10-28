@@ -1,5 +1,5 @@
 /*
- * Calendar.js v2.12.4
+ * Calendar.js v2.12.5
  *
  * Copyright 2025 Bunoon
  * Released under the MIT License
@@ -2414,6 +2414,7 @@ div.jump-to-date {
 
         input[type="date"] {
             @include input-fields( 40px );
+            margin-bottom: 0;
         }
 
         input:disabled {
