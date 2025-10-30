@@ -89,6 +89,11 @@ function calendarJs( elementOrId, options, searchOptions ) {
             monthly: 2,
             yearly: 3
         },
+        _enum_FullMonthDayType = {
+            day: 0,
+            previousMonthDay: 1,
+            nextMonthDay: 2
+        },
 
         // Variables: Options & Configuration
         _options = {},
@@ -3762,7 +3767,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var day = dayStart; day < totalDaysInMonth; day++ ) {
                 var addMonthName = day === ( totalDaysInMonth - 1 );
 
-                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName );
+                buildDay( day + 1 , elementDayNumber, previousMonth.getMonth(), previousMonth.getFullYear(), true, addMonthName, _enum_FullMonthDayType.previousMonthDay );
                 elementDayNumber++;
             }
         }
@@ -3775,7 +3780,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         for ( var day = 0; day < totalDaysInMonth; day++ ) {
             elementDayNumber = startDay + day;
 
-            buildDay( day + 1, elementDayNumber, _calendar_CurrentDate.getMonth(), _calendar_CurrentDate.getFullYear(), false );
+            buildDay( day + 1, elementDayNumber, _calendar_CurrentDate.getMonth(), _calendar_CurrentDate.getFullYear(), false, _enum_FullMonthDayType.day );
         }
 
         return elementDayNumber;
@@ -3791,7 +3796,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             for ( var elementDayNumber = lastDayFilled + 1; elementDayNumber < 43; elementDayNumber++ ) {
                 var addMonthName = actualDay === 1;
 
-                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName );
+                buildDay( actualDay, elementDayNumber, nextMonth.getMonth(), nextMonth.getFullYear(), true, addMonthName, _enum_FullMonthDayType.nextMonthDay );
                 actualDay++;
             }
 
@@ -3805,7 +3810,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
         }
     }
 
-    function buildDay( actualDay, elementDayNumber, month, year, isMuted, includeMonthName ) {
+    function buildDay( actualDay, elementDayNumber, month, year, isMuted, includeMonthName, dayType ) {
         var dayElement = getElementByID( _element_ID_DayElement + elementDayNumber );
         
         if ( dayElement !== null ) {
@@ -3893,7 +3898,7 @@ function calendarJs( elementOrId, options, searchOptions ) {
             if ( includeMonthName && _options.views.fullMonth.showPreviousNextMonthNames ) {
                 var monthName = _options.monthNames[ month ];
 
-                if ( _options.views.fullMonth.showPreviousNextYears && ( month === 0 || month === 11 ) ) {
+                if ( _options.views.fullMonth.showPreviousNextYears && ( ( dayType === _enum_FullMonthDayType.previousMonthDay && month === 11 ) || ( dayType === _enum_FullMonthDayType.nextMonthDay && month === 0 ) ) ) {
                     monthName += _string.space + year.toString();
                 }
 
