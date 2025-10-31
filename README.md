@@ -2,15 +2,15 @@
 Calendar.js
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Calendar.js%2C%20a%20free%20JavaScript%20library&url=https://github.com/williamtroup/Calendar.js&hashtags=calendar,javascript,responsive,events)
-[![npm](https://img.shields.io/badge/npmjs-v2.12.5-blue)](https://www.npmjs.com/package/jcalendar.js)
-[![nuget](https://img.shields.io/badge/nuget-v2.12.5-purple)](https://www.nuget.org/packages/jCalendar.js/)
+[![npm](https://img.shields.io/badge/npmjs-v2.12.6-blue)](https://www.npmjs.com/package/jcalendar.js)
+[![nuget](https://img.shields.io/badge/nuget-v2.12.6-purple)](https://www.nuget.org/packages/jCalendar.js/)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/williamtroup/Calendar.js/blob/main/LICENSE.txt)
 [![discussions Welcome](https://img.shields.io/badge/discussions-Welcome-red)](https://github.com/williamtroup/Calendar.js/discussions)
 [![coded by William Troup](https://img.shields.io/badge/coded_by-William_Troup-white)](https://www.william-troup.com/)
 </h1>
 
 > <p align="center">📅 One of the world's easiest, most powerful, and fully responsive JavaScript Calendars!</p>
-> <p align="center">v2.12.5</p>
+> <p align="center">v2.12.6</p>
 <br />
 
 <h1>What views does Calendar.js support?</h1>
@@ -183,8 +183,8 @@ Or, you can download the latest zipped up version [here](https://www.calendar-js
 Or, you can also use the following CDN links:
 
 ```markdown
-https://cdn.jsdelivr.net/gh/williamtroup/Calendar.js@2.12.5/dist/calendar.min.js
-https://cdn.jsdelivr.net/gh/williamtroup/Calendar.js@2.12.5/dist/calendar.js.min.css
+https://cdn.jsdelivr.net/gh/williamtroup/Calendar.js@2.12.6/dist/calendar.min.js
+https://cdn.jsdelivr.net/gh/williamtroup/Calendar.js@2.12.6/dist/calendar.js.min.css
 ```
 <br>
 <br>
