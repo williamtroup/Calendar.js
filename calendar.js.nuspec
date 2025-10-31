@@ -9,7 +9,7 @@
         <repository type="git" url="https://github.com/williamtroup/Calendar.js" branch="main" />
         <readme>README_NUGET.md</readme>
         <license type="expression">MIT</license>
-        <tags>javascript frontend calendar datepicker fullcalendar daily monthly yearly javascript-calendar calendar-events browser-notifications calendar.js html css timeline notifications week weekly task event</tags>
+        <tags>william troup, bunoon, calendar.js, javascript calendar, css calendar, scss calendar, html calendar, responsive calendar, calendar api, datepicker widget, event calendar, task calendar, day view, week view, month view, year view, timeline calendar, javascript scheduler, calendar widget, javascript datepicker, calendar component</tags>
         <icon>docs\images\icon.png</icon>
     </metadata>
     <files>
